@@ -288,6 +288,22 @@
         "type": "github"
       }
     },
+    "minimap-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1666947112,
+        "narHash": "sha256-xKQfCh3R4MdHolRocZS0IC/OADZd8aVRQLlC0ErWSkc=",
+        "owner": "wfxr",
+        "repo": "minimap.vim",
+        "rev": "2b0151d7302f87f90c4664d119518dda73cc4633",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wfxr",
+        "repo": "minimap.vim",
+        "type": "github"
+      }
+    },
     "naersk": {
       "inputs": {
         "nixpkgs": [
@@ -709,6 +725,7 @@
         "lspkind": "lspkind",
         "lspsaga": "lspsaga",
         "lualine": "lualine",
+        "minimap-vim": "minimap-vim",
         "nil": "nil",
         "nixpkgs": "nixpkgs",
         "nmd": "nmd",
