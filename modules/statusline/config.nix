@@ -39,7 +39,7 @@ with lib; {
               "diagnostics",
               sources = {'nvim_lsp'},
               separator = '',
-              symbols = {error = '', warn = '', info = '', hint = ''},
+              symbols = {error = '', warn = '', info = '', hint = ''},
             },
             {
               "filetype",
