@@ -1,6 +1,6 @@
 {lib}:
 with lib; let
-  # Plugin must be same as input name
+  # Plugin must be same as input name from flake.nix
   availablePlugins = [
     "nvim-treesitter-context"
     "gitsigns-nvim"
@@ -40,6 +40,7 @@ with lib; let
     "rust-tools"
     "onedark"
     "catppuccin"
+    "minimap-vim"
   ];
 
   pluginsType = with types; listOf (nullOr (either (enum availablePlugins) package));
