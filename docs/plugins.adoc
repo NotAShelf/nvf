@@ -1,0 +1,111 @@
+[[ch-plugins]]
+== Plugins
+
+The following are the neovim plugins used within neovim-flake. Some plugins are explicitly enabled by the user, while others are enabled implicitly.
+
+[[sec-plugins-server]]
+=== Language Server
+
+* https://github.com/neovim/nvim-lspconfig[nvim-lspconfig] common configurations for built-in language server
+* https://github.com/jose-elias-alvarez/null-ls.nvim[null-ls.nvim] neovim as a language server to inject LSP diagnostics, code actions, etc.
+* https://github.com/glepnir/lspsaga.nvim[lspsaga.nvim] useful UI and tools for lsp
+* https://github.com/folke/trouble.nvim[trouble.nvim] pretty list of lsp data
+* https://github.com/weilbith/nvim-code-action-menu[nvim-code-action-menu] a better code action menu with diff support
+* https://github.com/ray-x/lsp_signature.nvim[lsp-signature] show function signatures as you type
+* https://github.com/onsails/lspkind-nvim[lspkind-nvim] for pictograms in lsp (with support for nvim-cmp)
+
+[[sec-plugins-buffer]]
+=== Buffers
+
+* https://github.com/akinsho/bufferline.nvim[nvim-bufferline-lua] a buffer line with tab integration
+* https://github.com/famiu/bufdelete.nvim[bufdelete-nvim] delete buffers without losing window layout
+
+[[sec-plugins-statuslines]]
+=== Statuslines
+
+* https://github.com/hoob3rt/lualine.nvim[lualine.nvim] statusline written in lua.
+
+[[sec-plugins-filetrees]]
+=== Filetrees
+
+* https://github.com/kyazdani42/nvim-tree.lua[nvim-tree-lua] a file explorer tree written in lua. Using
+
+[[sec-plugins-git]]
+=== Git
+
+* https://github.com/lewis6991/gitsigns.nvim[gitsigns.nvim] a variety of git decorations
+
+[[sec-plugins-treesitter]]
+=== Treesitter
+
+* https://github.com/romgrk/nvim-treesitter-context[nvim-treesitter-context] a context bar using tree-sitter
+
+[[sec-plugins-visuals]]
+=== Visuals
+
+* https://github.com/lukas-reineke/indent-blankline.nvim[indent-blankline] for indentation guides
+* https://github.com/kyazdani42/nvim-web-devicons[nvim-web-devicons] Plugins and colors for icons. Requires patched font
+
+[[sec-plugins-utilities]]
+=== Utilities
+
+* https://github.com/nvim-telescope/telescope.nvim[telescope] an extendable fuzzy finder of lists. Working ripgrep and fd
+* https://github.com/folke/which-key.nvim[which-key] a popup that displays possible keybindings of command being typed
+
+[[sec-plugins-completions]]
+=== Completions
+
+* https://github.com/hrsh7th/nvim-cmp[nvim-cmp] a completion engine that utilizes sources
+** https://github.com/hrsh7th/cmp-buffer[cmp-buffer] a source for buffer words
+** https://github.com/hrsh7th/cmp-nvim-lsp[cmp-nvim-lsp] a source for builtin LSP client
+** https://github.com/hrsh7th/cmp-vsnip[cmp-vsnip] a source for vim-vsnip autocomplete
+** https://github.com/hrsh7th/cmp-path[cmp-path] a source for path autocomplete
+** https://github.com/ray-x/cmp-treesitter[cmp-treesitter] treesitter nodes autcomplete
+
+[[sec-plugins-snippets]]
+=== Snippets
+
+* https://github.com/hrsh7th/vim-vsnip[vim-vsnip] a snippet plugin that supports LSP/VSCode's snippet format
+
+[[sec-plugins-autopairs]]
+=== Autopairs
+
+* https://github.com/windwp/nvim-autopairs[nvim-autopairs] an autopair plugin for neovim
+
+[[sec-plugins-themes]]
+=== Themes
+
+* https://github.com/navarasu/onedark.nvim[onedark] a dark colorscheme with multiple options
+* https://github.com/folke/tokyonight.nvim[tokyonight-nvim] a neovim theme with multiple color options
+* https://github.com/catppuccin/nvim[catppuccin] a pastel theme with 4 color options
+
+[[sec-plugins-markdown]]
+=== Markdown
+
+* https://github.com/ellisonleao/glow.nvim[glow.nvim] a markdown preview directly in neovim using glow
+
+[[sec-plugins-rust]]
+=== Rust
+
+* https://github.com/simrat39/rust-tools.nvim[rust-tools] provides tools for rust
+* https://github.com/Saecki/crates.nvim[crates.nvim] provides tools for working with `cargo.toml`
+
+[[sec-plugins-tidalcycles]]
+=== Tidal Cycles
+
+* https://github.com/tidalcycles/vim-tidal[vim-tidal] for tidal cycles integration into vim
+
+[[sec-plugins-sql]]
+=== SQL
+
+* https://github.com/nanotee/sqls.nvim[sqls.nvim] for useful actions that leverage `sqls` LSP
+
+[[sec-plugins-html]]
+=== HTML
+
+* https://github.com/windwp/nvim-ts-autotag[nvim-ts-autotag] uses treesitter to autoclose/rename html tags
+
+[[sec-plugins-dependencies]]
+=== Dependencies
+
+* https://github.com/nvim-lua/plenary.nvim[plenary] which is a dependency of some plugins, installed automatically if needed

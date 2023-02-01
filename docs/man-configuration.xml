@@ -1,0 +1,42 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xi="http://www.w3.org/2001/XInclude">
+ <refmeta>
+  <refentrytitle>neovim-flake configuration</refentrytitle>
+  <manvolnum>5</manvolnum>
+  <refmiscinfo class="source">neovim-flake</refmiscinfo>
+<!-- <refmiscinfo class="version"><xi:include href="version.txt" parse="text"/></refmiscinfo> -->
+ </refmeta>
+ <refnamediv>
+  <refname>neovim configuration</refname>
+  <refpurpose>neovim-flake configuration specification</refpurpose>
+ </refnamediv>
+ <refsection>
+  <title>Description</title>
+  <para>
+    Custom configuration is done with the neovim-flake.lib.neovimConfiguration function. It takes in the configuration as a module.
+    <programlisting>
+      neovim-flake.lib.neovimConfiguration {
+        inherit pkgs;
+        modules = [{config = xxx;}];
+      };
+    </programlisting>
+    The output of the configuration function is an attrset.
+  </para>
+  <programlisting>
+    {
+      options = "The options that were available to configure";
+      config = "The outputted configuration";
+      pkgs = "The package set used to evaluate the module";
+      neovim = "The built neovim package";
+    }
+  </programlisting>
+ </refsection>
+ <refsection>
+  <title>Options</title>
+  <para>
+   You can use the following options in your neovim configuration.
+  </para>
+  <xi:include href="./nmd-result/neovim-flake-options.xml"/>
+ </refsection>
+</refentry>

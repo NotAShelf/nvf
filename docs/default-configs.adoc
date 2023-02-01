@@ -1,0 +1,36 @@
+[[ch-default-configs]]
+== Default Configs
+
+While you can configure neovim-flake yourself using the builder, here are a few default configurations you can use.
+
+[[sec-default-tidal]]
+=== Tidal Cycles
+
+[source,console]
+$ nix run github:jordanisaacs/neovim-flake#tidal file.tidal
+
+Utilizing https://github.com/tidalcycles/vim-tidal[vim-tidal] and mitchmindtree's fantastic https://github.com/mitchmindtree/tidalcycles.nix[tidalcycles.nix] start playing with tidal cycles in a single command.
+
+In your tidal file, type a cycle e.g. `d1 $ s "drum"` and then press _ctrl+enter_. Super collider with superdirt, and a modified GHCI with tidal will start up and begin playing. Note, you need jack enabled on your system. If you are using pipewire, its as easy as setting `services.pipewire.jack.enable = true`.
+
+
+[[sec-default-nix]]
+=== Nix
+
+[source,console]
+$ nix run github:jordanisaacs/neovim-flake#nix test.nix
+
+Enables all the of neovim plugins, with language support for specifically Nix. This lets you see what a fully configured neovim setup looks like without downloading a whole bunch of language servers and associated tools.
+
+[[sec-default-maximal]]
+=== Maximal
+
+[source,console]
+$ nix shell github:jordanisaacs/neovim-flake#maximal test.nix
+
+It is the same fully configured neovim as with the <<sec-default-nix,Nix>> config, but with every supported language enabled.
+
+[NOTE]
+====
+Running the maximal config will download *a lot* of packages as it is downloading language servers, formatters, and more.
+====

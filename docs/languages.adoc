@@ -1,0 +1,71 @@
+[[ch-languages]]
+== Language Support
+
+Language specific support combines some combination of language specific plugins, `treesitter` support, `nvim-lspconfig` langauge servers, and `null-ls` integration. This gets you capabilities ranging from autocompletion to formatting to diagnostics. The following languages have support beyond just `treesitter` highlighting.
+
+[[sec-languages-rust]]
+=== Rust
+
+*LSP Server*: https://github.com/rust-analyzer/rust-analyzer[rust-analyzer]
+
+*Formatting*: Built into LSP, uses https://github.com/rust-lang/rustfmt[rustfmt]
+
+*Plugins*: See <<sec-plugins-rust,here>>
+
+[[sec-languages-nix]]
+=== Nix
+
+*LSP Server*: Choice between https://github.com/oxalica/nil[nil] and https://github.com/nix-community/rnix-lsp[rnix-lsp]
+
+*Formatting*: Choice between https://github.com/kamadorueda/alejandra[alejandra] and https://github.com/nix-community/nixpkgs-fmt[nixpkgs-fmt]
+
+[[sec-languages-sql]]
+=== SQL
+
+*LSP Server*: https://github.com/lighttiger2505/sqls[sqls]
+
+*Formatting*: Disabled LSP formatting, instead using https://github.com/sqlfluff/sqlfluff[sqlfluff]
+
+*Linting*: https://github.com/sqlfluff/sqlfluff[sqlfluff]
+
+*Plugins*: See <<sec-plugins-sql,here>>
+
+[[sec-languages-clang]]
+=== C/C++
+
+*LSP Server*: https://github.com/MaskRay/ccls[ccls]
+
+*Formatting*: Built into language server
+
+[[sec-languages-typescript]]
+=== Typescript
+
+*LSP Server*: https://github.com/typescript-language-server/typescript-language-server[typescript-language-server]
+
+*Formatting*: Disabled LSP formatting, instead using https://github.com/prettier/prettier[prettier]
+
+*Linting*: https://github.com/prettier/prettier[eslint]
+
+[[sec-languages-python]]
+=== Python
+
+*LSP Server*: https://github.com/microsoft/pyright[pyright]
+
+*Formatting*: https://github.com/psf/black[black]
+
+[[sec-languages-zig]]
+=== Zig
+
+*LSP Server*: https://github.com/zigtools/zls[zls]
+
+*Formatting*: Built into LSP, uses `zig fmt`.
+
+[[sec-languages-markdown]]
+=== Markdown
+
+*Plugins*: See <<sec-plugins-markdown,here>>
+
+[[sec-languages-html]]
+=== HTML
+
+*Plugins*: See <<sec-plugins-html,here>>

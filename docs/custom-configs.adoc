@@ -1,0 +1,42 @@
+[[ch-custom-configuration]]
+== Custom Configuration
+
+Custom configuration is done with the `neovimConfiguration` function. It takes in the configuration as a module. The output of the configuration function is an attrset.
+
+[source,nix]
+----
+{
+  options = "The options that were available to configure";
+  config = "The outputted configuration";
+  pkgs = "The package set used to evaluate the module";
+  neovim = "The built neovim package";
+}
+----
+
+The following is an example of a barebones vim configuration with the default theme enabled.
+
+[source,nix]
+----
+{
+  inputs.neovim-flake.url = "github:jordanisaacs/neovim-flake";
+
+  outputs = {nixpkgs, neovim-flake, ...}: let
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
+    configModule = {
+      # Add any custom options (and feel free to upstream them!)
+      # options = ...
+
+      config.vim.theme.enable = true;
+    };
+
+    customNeovim = neovim-flake.lib.neovimConfiguration {
+      modules = [configModule];
+      inherit pkgs;
+    };
+  in {
+    packages.${system}.neovim = customNeovim.neovim;
+  };
+}
+----
+

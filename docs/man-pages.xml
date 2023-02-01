@@ -1,0 +1,13 @@
+<reference xmlns="http://docbook.org/ns/docbook"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xi="http://www.w3.org/2001/XInclude">
+ <title>neovim-flake Reference Pages</title>
+ <info>
+  <author><personname>neovim-flake contributors</personname></author>
+  <copyright>
+      <year>2021–2022</year>
+      <holder>neovim-flake contributors</holder>
+  </copyright>
+ </info>
+ <xi:include href="man-configuration.xml" />
+</reference>
