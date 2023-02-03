@@ -13,7 +13,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    vim.startPlugins = ["minimap-vim"];
-    # TODO: figure out a way to import the code-minimap package from nixpkgs
+    vim.startPlugins = [
+      "minimap-vim"
+    ];
   };
 }
