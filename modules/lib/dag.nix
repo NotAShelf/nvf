@@ -16,62 +16,64 @@ in {
   isDag = dag:
     builtins.isAttrs dag && all nvim.dag.isEntry (builtins.attrValues dag);
 
-  # Takes an attribute set containing entries built by entryAnywhere,
-  # entryAfter, and entryBefore to a topologically sorted list of
-  # entries.
-  #
-  # Internally this function uses the `toposort` function in
-  # `<nixpkgs/lib/lists.nix>` and its value is accordingly.
-  #
-  # Specifically, the result on success is
-  #
-  #    { result = [ { name = ?; data = ?; } … ] }
-  #
-  # For example
-  #
-  #    nix-repl> topoSort {
-  #                a = entryAnywhere "1";
-  #                b = entryAfter [ "a" "c" ] "2";
-  #                c = entryBefore [ "d" ] "3";
-  #                d = entryBefore [ "e" ] "4";
-  #                e = entryAnywhere "5";
-  #              } == {
-  #                result = [
-  #                  { data = "1"; name = "a"; }
-  #                  { data = "3"; name = "c"; }
-  #                  { data = "2"; name = "b"; }
-  #                  { data = "4"; name = "d"; }
-  #                  { data = "5"; name = "e"; }
-  #                ];
-  #              }
-  #    true
-  #
-  # And the result on error is
-  #
-  #    {
-  #      cycle = [ { after = ?; name = ?; data = ? } … ];
-  #      loops = [ { after = ?; name = ?; data = ? } … ];
-  #    }
-  #
-  # For example
-  #
-  #    nix-repl> topoSort {
-  #                a = entryAnywhere "1";
-  #                b = entryAfter [ "a" "c" ] "2";
-  #                c = entryAfter [ "d" ] "3";
-  #                d = entryAfter [ "b" ] "4";
-  #                e = entryAnywhere "5";
-  #              } == {
-  #                cycle = [
-  #                  { after = [ "a" "c" ]; data = "2"; name = "b"; }
-  #                  { after = [ "d" ]; data = "3"; name = "c"; }
-  #                  { after = [ "b" ]; data = "4"; name = "d"; }
-  #                ];
-  #                loops = [
-  #                  { after = [ "a" "c" ]; data = "2"; name = "b"; }
-  #                ];
-  #              }
-  #    true
+  /*
+  Takes an attribute set containing entries built by entryAnywhere,
+  entryAfter, and entryBefore to a topologically sorted list of
+  entries.
+
+  Internally this function uses the `toposort` function in
+  `<nixpkgs/lib/lists.nix>` and its value is accordingly.
+
+  Specifically, the result on success is
+
+     { result = [ { name = ?; data = ?; } … ] }
+
+  For example
+
+     nix-repl> topoSort {
+                 a = entryAnywhere "1";
+                 b = entryAfter [ "a" "c" ] "2";
+                 c = entryBefore [ "d" ] "3";
+                 d = entryBefore [ "e" ] "4";
+                 e = entryAnywhere "5";
+               } == {
+                 result = [
+                   { data = "1"; name = "a"; }
+                   { data = "3"; name = "c"; }
+                   { data = "2"; name = "b"; }
+                   { data = "4"; name = "d"; }
+                   { data = "5"; name = "e"; }
+                 ];
+               }
+     true
+
+  And the result on error is
+
+     {
+       cycle = [ { after = ?; name = ?; data = ? } … ];
+       loops = [ { after = ?; name = ?; data = ? } … ];
+     }
+
+  For example
+
+     nix-repl> topoSort {
+                 a = entryAnywhere "1";
+                 b = entryAfter [ "a" "c" ] "2";
+                 c = entryAfter [ "d" ] "3";
+                 d = entryAfter [ "b" ] "4";
+                 e = entryAnywhere "5";
+               } == {
+                 cycle = [
+                   { after = [ "a" "c" ]; data = "2"; name = "b"; }
+                   { after = [ "d" ]; data = "3"; name = "c"; }
+                   { after = [ "b" ]; data = "4"; name = "d"; }
+                 ];
+                 loops = [
+                   { after = [ "a" "c" ]; data = "2"; name = "b"; }
+                 ];
+               }
+     true
+  */
   topoSort = dag: let
     dagBefore = dag: name:
       builtins.attrNames

@@ -47,6 +47,8 @@ with lib; let
     "codewindow-nvim"
     "nvim-notify"
     "cinnamon-nvim"
+    "cheatsheet-nvim"
+    "colorizer"
   ];
 
   pluginsType = with types; listOf (nullOr (either (enum availablePlugins) package));
