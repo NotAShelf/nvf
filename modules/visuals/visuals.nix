@@ -24,6 +24,11 @@ in {
       description = "enable vscode-like pictograms for lsp [lspkind]";
     };
 
+    scrollBar.enable = mkOption {
+      type = types.bool;
+      description = "enable scrollbar [scrollbar.nvim]";
+    };
+
     cursorWordline = {
       enable = mkOption {
         type = types.bool;
@@ -88,6 +93,11 @@ in {
           then "indent-blankline"
           else null
         )
+        (
+          if cfg.scrollBar.enable
+          then "scrollbar-nvim"
+          else null
+        )
       ];
 
       vim.luaConfigRC.visuals = nvim.dag.entryAnywhere ''
@@ -128,6 +138,20 @@ in {
         ${
           if cfg.cursorWordline.enable
           then "vim.g.cursorline_timeout = ${toString cfg.cursorWordline.lineTimeout}"
+          else ""
+        }
+
+        ${
+          if cfg.scrollBar.enable
+          then "require('scrollbar').setup{
+            excluded_filetypes = {
+              'prompt',
+              'TelescopePrompt',
+              'noice',
+              'NvimTree',
+              'alpha'
+            },
+          }"
           else ""
         }
       '';
