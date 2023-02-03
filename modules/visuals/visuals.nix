@@ -166,7 +166,7 @@ in {
         }
         ${
           if cfg.smoothScroll.enable
-          then "require('cinnamon').setup()" 4
+          then "require('cinnamon').setup()"
           else ""
         }
       '';
