@@ -112,6 +112,9 @@
         vim.minimap = {
           minimap-vim.enable = true;
         };
+        vim.dashboard = {
+          dashboard-nvim.enable = false;
+        };
       };
     };
 
@@ -278,7 +281,7 @@
 
     # Filetrees
     nvim-tree-lua = {
-      url = "github:kyazdani42/nvim-tree.lua";
+      url = "github:nvim-tree/nvim-tree.lua";
       flake = false;
     };
 
@@ -353,6 +356,17 @@
     # Buffer tools
     bufdelete-nvim = {
       url = "github:famiu/bufdelete.nvim";
+      flake = false;
+    };
+
+    # Dashboard Utilities
+    dashboard-nvim = {
+      url = "github:glepnir/dashboard-nvim";
+      flake = false;
+    };
+
+    alpha-nvim = {
+      url = "github:goolord/alpha-nvim";
       flake = false;
     };
 

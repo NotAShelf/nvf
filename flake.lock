@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "alpha-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1669699262,
+        "narHash": "sha256-uKJRMbNyQtiFhkrsniK7SqxM+XS2l3qffeCqmYznPuk=",
+        "owner": "goolord",
+        "repo": "alpha-nvim",
+        "rev": "21a0f2520ad3a7c32c0822f943368dc063a569fb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "goolord",
+        "repo": "alpha-nvim",
+        "type": "github"
+      }
+    },
     "bufdelete-nvim": {
       "flake": false,
       "locked": {
@@ -125,6 +141,22 @@
       "original": {
         "owner": "Saecki",
         "repo": "crates.nvim",
+        "type": "github"
+      }
+    },
+    "dashboard-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1675318414,
+        "narHash": "sha256-cwD9Oh7VuF6rECQp1YwEu0ghuYzO8txwnxtWU8ewAgI=",
+        "owner": "glepnir",
+        "repo": "dashboard-nvim",
+        "rev": "f4eedba90f0a55111351fd45444db5a82081727f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "glepnir",
+        "repo": "dashboard-nvim",
         "type": "github"
       }
     },
@@ -577,15 +609,15 @@
     "nvim-tree-lua": {
       "flake": false,
       "locked": {
-        "lastModified": 1662860472,
-        "narHash": "sha256-3aB1xDU0cylHfZ5yzxMQKf07qrJ1pwHEl+QV42k0CpQ=",
-        "owner": "kyazdani42",
+        "lastModified": 1675128430,
+        "narHash": "sha256-gs50ubONKCxxXfR6wu6238s71R5Gmaot3unxpMFZOwM=",
+        "owner": "nvim-tree",
         "repo": "nvim-tree.lua",
-        "rev": "fb8735e96cecf004fbefb086ce85371d003c5129",
+        "rev": "215b29bfad74518442621b9d0483a621483b066b",
         "type": "github"
       },
       "original": {
-        "owner": "kyazdani42",
+        "owner": "nvim-tree",
         "repo": "nvim-tree.lua",
         "type": "github"
       }
@@ -708,6 +740,7 @@
     },
     "root": {
       "inputs": {
+        "alpha-nvim": "alpha-nvim",
         "bufdelete-nvim": "bufdelete-nvim",
         "catppuccin": "catppuccin",
         "cmp-buffer": "cmp-buffer",
@@ -716,6 +749,7 @@
         "cmp-treesitter": "cmp-treesitter",
         "cmp-vsnip": "cmp-vsnip",
         "crates-nvim": "crates-nvim",
+        "dashboard-nvim": "dashboard-nvim",
         "flake-utils": "flake-utils",
         "gitsigns-nvim": "gitsigns-nvim",
         "glow-nvim": "glow-nvim",
