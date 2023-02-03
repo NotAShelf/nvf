@@ -782,6 +782,7 @@
         "registers": "registers",
         "rnix-lsp": "rnix-lsp",
         "rust-tools": "rust-tools",
+        "scrollbar-nvim": "scrollbar-nvim",
         "sqls-nvim": "sqls-nvim",
         "telescope": "telescope",
         "tidalcycles": "tidalcycles",
@@ -830,6 +831,22 @@
       "original": {
         "owner": "simrat39",
         "repo": "rust-tools.nvim",
+        "type": "github"
+      }
+    },
+    "scrollbar-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673562030,
+        "narHash": "sha256-OnVOmYhWMWH7a382DAIPEzJmz/J0BHniey7twyl500Q=",
+        "owner": "petertriho",
+        "repo": "nvim-scrollbar",
+        "rev": "6a2065fbcd032075a06d2ab54508b69842bc4496",
+        "type": "github"
+      },
+      "original": {
+        "owner": "petertriho",
+        "repo": "nvim-scrollbar",
         "type": "github"
       }
     },

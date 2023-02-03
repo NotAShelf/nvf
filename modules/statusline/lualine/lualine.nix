@@ -175,7 +175,7 @@ in {
             theme = "${cfg.theme}",
             component_separators = {"${cfg.componentSeparator.left}","${cfg.componentSeparator.right}"},
             section_separators = {"${cfg.sectionSeparator.left}","${cfg.sectionSeparator.right}"},
-            disabled_filetypes = {},
+            disabled_filetypes = { 'packer', 'NvimTree', 'alpha' }
           },
           sections = {
             lualine_a = ${cfg.activeSection.a},

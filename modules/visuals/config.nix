@@ -12,6 +12,10 @@ with lib; {
       nvimWebDevicons.enable = mkDefault false;
       lspkind.enable = mkDefault false;
 
+      scrollBar = {
+        enable = mkDefault false;
+      };
+
       cursorWordline = {
         enable = mkDefault false;
         lineTimeout = mkDefault 500;

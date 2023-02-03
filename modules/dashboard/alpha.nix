@@ -139,6 +139,7 @@ in {
       local default_header = {
       	type = "text",
       	val = {
+
       		[[███    ██ ███████  ██████  ██    ██ ██ ███    ███]],
       		[[████   ██ ██      ██    ██ ██    ██ ██ ████  ████]],
       		[[██ ██  ██ █████   ██    ██ ██    ██ ██ ██ ████ ██]],
@@ -188,8 +189,8 @@ in {
       		{ type = "text", val = "Quick links", opts = { hl = "SpecialComment", position = "center" } },
       		{ type = "padding", val = 1 },
       		dashboard.button("e", "  New file", "<cmd>ene<CR>"),
-      		dashboard.button("SPC f", "  Find file"),
-      		dashboard.button("SPC F", "  Live grep"),
+      		dashboard.button("SPC F", "  Find file"),
+      		dashboard.button("SPC ff", "  Live grep"),
       		dashboard.button("SPC p", "  Projects"),
       		dashboard.button("q", "  Quit", "<cmd>qa<CR>"),
       	},

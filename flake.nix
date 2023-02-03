@@ -62,6 +62,7 @@
         vim.visuals = {
           enable = true;
           nvimWebDevicons.enable = true;
+          scrollBar.enable = true;
           lspkind.enable = true;
           indentBlankline = {
             enable = true;
@@ -406,6 +407,12 @@
       url = "github:yamatsum/nvim-cursorline";
       flake = false;
     };
+
+    scrollbar-nvim = {
+      url = "github:petertriho/nvim-scrollbar";
+      flake = false;
+    };
+
     indent-blankline = {
       url = "github:lukas-reineke/indent-blankline.nvim";
       flake = false;
