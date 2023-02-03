@@ -17,39 +17,68 @@ with lib; {
       };
 
       componentSeparator = {
-        left = mkDefault "⏽";
-        right = mkDefault "⏽";
+        left = mkDefault "";
+        right = mkDefault "";
       };
 
       activeSection = {
+        # left side of the statusline 4
         a = mkDefault "{'mode'}";
-        b = ''
+        b = mkDefault ''
+          {
+            {
+              "filename",
+              color = {bg='none'},
+              symbols = {modified = '', readonly = ''},
+            },
+          }
+        '';
+        c = mkDefault ''
           {
             {
               "branch",
-              separator = '',
+              icon = ' •',
+              separator = { left = '(', right = ')'},
             },
-            "diff",
           }
         '';
-        c = mkDefault "{'filename'}";
+        # right side of the statusline (x, y, z)
         x = mkDefault ''
           {
             {
               "diagnostics",
-              sources = {'nvim_lsp'},
-              separator = '',
-              symbols = {error = '', warn = '', info = '', hint = ''},
+              sources = {'nvim_lsp', 'nvim_diagnostic'},
+              symbols = {error = '', warn = '', info = '', hint = ''}
+            },
+          }
+        '';
+        y = mkDefault ''
+          {
+            {
+              "fileformat",
+              color = {bg='none'}
+            },
+          }
+        '';
+        z = mkDefault ''
+          {
+            {
+              "progress",
+              color = {
+                bg='none',
+                fg='lavender'
+              }
+            },
+            {
+              "location",
+              color = {bg='none', fg='lavender'},
             },
             {
               "filetype",
+              color = {bg='none', fg='lavender'},
             },
-            "fileformat",
-            "encoding",
           }
         '';
-        y = mkDefault "{'progress'}";
-        z = mkDefault "{'location'}";
       };
 
       inactiveSection = {
