@@ -41,6 +41,7 @@ with lib; let
     "onedark"
     "catppuccin"
     "minimap-vim"
+    "dashboard-nvim"
   ];
 
   pluginsType = with types; listOf (nullOr (either (enum availablePlugins) package));
