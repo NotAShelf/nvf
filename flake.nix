@@ -47,10 +47,6 @@
           nvimCodeActionMenu.enable = true;
           trouble.enable = true;
           lspSignature.enable = true;
-          nix = {
-            enable = true;
-            formatter = "alejandra";
-          };
           rust.enable = isMaximal;
           python = isMaximal;
           clang.enable = isMaximal;
@@ -58,6 +54,10 @@
           ts = isMaximal;
           go = isMaximal;
           zig.enable = isMaximal;
+          nix = {
+            enable = true;
+            formatter = "alejandra";
+          };
         };
         vim.visuals = {
           enable = true;
@@ -88,7 +88,14 @@
           enable = true;
           type = "nvim-cmp";
         };
-        vim.filetree.nvimTreeLua.enable = true;
+        vim.filetree = {
+          nvimTreeLua = {
+            enable = true;
+            view = {
+              width = 25;
+            };
+          };
+        };
         vim.tabline.nvimBufferline.enable = true;
         vim.treesitter = {
           enable = true;
@@ -110,7 +117,8 @@
           gitsigns.enable = true;
         };
         vim.minimap = {
-          minimap-vim.enable = true;
+          # FIXME: this plugin has a dependency that needs to be installed
+          minimap-vim.enable = false;
         };
         vim.dashboard = {
           dashboard-nvim.enable = false;
