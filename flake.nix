@@ -133,6 +133,7 @@
         };
         vim.utility = {
           colorizer.enable = true;
+          venn-nvim.enable = false; # FIXME: throws an error when the command is ran manually
         };
       };
     };
@@ -490,6 +491,11 @@
     # Utilities
     colorizer = {
       url = "github:uga-rosa/ccc.nvim";
+      flake = false;
+    };
+
+    venn-nvim = {
+      url = "github:jbyuki/venn.nvim";
       flake = false;
     };
   };

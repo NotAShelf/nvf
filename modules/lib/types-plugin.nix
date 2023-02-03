@@ -49,6 +49,7 @@ with lib; let
     "cinnamon-nvim"
     "cheatsheet-nvim"
     "colorizer"
+    "venn-nvim"
   ];
 
   pluginsType = with types; listOf (nullOr (either (enum availablePlugins) package));

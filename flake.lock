@@ -211,11 +211,11 @@
     "dashboard-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1675318414,
-        "narHash": "sha256-cwD9Oh7VuF6rECQp1YwEu0ghuYzO8txwnxtWU8ewAgI=",
+        "lastModified": 1675464953,
+        "narHash": "sha256-mYSSZnM2Z9uLc4ADiA/prv4JyLPaBEhwN/owwvsmkZY=",
         "owner": "glepnir",
         "repo": "dashboard-nvim",
-        "rev": "f4eedba90f0a55111351fd45444db5a82081727f",
+        "rev": "d8e5ee3651ce85a34cb1645ecf1ba1d0ce54a1c8",
         "type": "github"
       },
       "original": {
@@ -874,6 +874,7 @@
         "todo-comments": "todo-comments",
         "tokyonight": "tokyonight",
         "trouble": "trouble",
+        "venn-nvim": "venn-nvim",
         "vim-vsnip": "vim-vsnip",
         "which-key": "which-key"
       }
@@ -1100,6 +1101,22 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "venn-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1669127905,
+        "narHash": "sha256-Ks5qUaI0MrhVC2AhVsReVwC/2WArXqIQ36CcCSCyzAk=",
+        "owner": "jbyuki",
+        "repo": "venn.nvim",
+        "rev": "c114563960b8fb1197695d42798d1f3e7190b798",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jbyuki",
+        "repo": "venn.nvim",
         "type": "github"
       }
     },
