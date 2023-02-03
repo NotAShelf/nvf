@@ -5,7 +5,6 @@
   ...
 }: {
   imports = [
-    ./config.nix
     #./alpha-nvim.nix
     ./dashboard-nvim.nix
   ];
