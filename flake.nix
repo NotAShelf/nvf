@@ -105,9 +105,9 @@
           enable = true;
           context.enable = true;
         };
-        vim.keys = {
-          enable = true;
+        vim.binds = {
           whichKey.enable = true;
+          cheatsheet.enable = true;
         };
         vim.telescope = {
           enable = true;
@@ -130,6 +130,9 @@
         };
         vim.notify = {
           nvim-notify.enable = true;
+        };
+        vim.utility = {
+          colorizer.enable = true;
         };
       };
     };
@@ -216,6 +219,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+
     # For generating documentation website
     nmd = {
       url = "gitlab:rycee/nmd";
@@ -443,6 +447,11 @@
       flake = false;
     };
 
+    cheatsheet-nvim = {
+      url = "github:sudormrfbin/cheatsheet.nvim";
+      flake = false;
+    };
+
     # Markdown
     glow-nvim = {
       url = "github:ellisonleao/glow.nvim";
@@ -475,6 +484,12 @@
     # Notifications
     nvim-notify = {
       url = "github:rcarriga/nvim-notify";
+      flake = false;
+    };
+
+    # Utilities
+    colorizer = {
+      url = "github:uga-rosa/ccc.nvim";
       flake = false;
     };
   };

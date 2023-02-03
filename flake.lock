@@ -48,6 +48,22 @@
         "type": "github"
       }
     },
+    "cheatsheet-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1640255456,
+        "narHash": "sha256-TYkGB7cON2t4GwMaR9H1MDG2j3btBv2AR37ade8kqTY=",
+        "owner": "sudormrfbin",
+        "repo": "cheatsheet.nvim",
+        "rev": "9716f9aaa94dd1fd6ce59b5aae0e5f25e2a463ef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sudormrfbin",
+        "repo": "cheatsheet.nvim",
+        "type": "github"
+      }
+    },
     "cinnamon-nvim": {
       "flake": false,
       "locked": {
@@ -157,6 +173,22 @@
       "original": {
         "owner": "gorbit99",
         "repo": "codewindow.nvim",
+        "type": "github"
+      }
+    },
+    "colorizer": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1674354831,
+        "narHash": "sha256-JbAjfoPUfLQ7ijRh8kank4iSZLOcxPJKt/uOTJap8/A=",
+        "owner": "uga-rosa",
+        "repo": "ccc.nvim",
+        "rev": "be0a8122fd77efb7b6a0d672bab10417e68fab8b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "uga-rosa",
+        "repo": "ccc.nvim",
         "type": "github"
       }
     },
@@ -791,6 +823,7 @@
         "alpha-nvim": "alpha-nvim",
         "bufdelete-nvim": "bufdelete-nvim",
         "catppuccin": "catppuccin",
+        "cheatsheet-nvim": "cheatsheet-nvim",
         "cinnamon-nvim": "cinnamon-nvim",
         "cmp-buffer": "cmp-buffer",
         "cmp-nvim-lsp": "cmp-nvim-lsp",
@@ -798,6 +831,7 @@
         "cmp-treesitter": "cmp-treesitter",
         "cmp-vsnip": "cmp-vsnip",
         "codewindow-nvim": "codewindow-nvim",
+        "colorizer": "colorizer",
         "crates-nvim": "crates-nvim",
         "dashboard-nvim": "dashboard-nvim",
         "flake-utils": "flake-utils",
