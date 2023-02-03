@@ -22,6 +22,7 @@
     ./telescope
     ./git
     ./minimap
+    ./dashboard
   ];
 
   pkgsModule = {config, ...}: {
