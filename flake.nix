@@ -37,8 +37,10 @@
 
     mainConfig = isMaximal: {
       config = {
-        vim.viAlias = false;
-        vim.vimAlias = true;
+        vim = {
+          viAlias = false;
+          vimAlias = true;
+        };
         vim.lsp = {
           enable = true;
           formatOnSave = true;
@@ -119,8 +121,7 @@
           gitsigns.enable = true;
         };
         vim.minimap = {
-          # FIXME: this plugin has a dependency that needs to be installed
-          minimap-vim.enable = false;
+          minimap-vim.enable = false; # FIXME: this plugin has a dependency that needs to be installed
           codewindow.enable = true;
         };
         vim.dashboard = {
