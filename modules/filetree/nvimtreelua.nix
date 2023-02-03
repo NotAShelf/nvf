@@ -415,7 +415,7 @@ in {
           ignore = ${boolToString cfg.git.ignore},
         },
 
-        filesytem_watchers = {
+        filesystem_watchers = {
           enable = ${boolToString cfg.filesystemWatchers.enable},
         },
 
