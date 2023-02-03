@@ -9,10 +9,8 @@
  <preface>
   <title>Preface</title>
   <para>
-   If you encounter problems or want to discuss neovim-flake then join the Matrix room
-   <link xlink:href="https://matrix.to/#/%23neovim-flake:matrix.org">#neovim-flake:matrix.org</link>.
    If your problem is caused by a bug in neovim-flake then it should be reported on the
-   <link xlink:href="https://github.com/jordanisaacs/neovim-flake/issues">neovim-flake issue tracker</link>.
+   <link xlink:href="https://github.com/notashelf/neovim-flake/issues">neovim-flake issue tracker</link>.
   </para>
  </preface>
  <xi:include href="default-configs.xml"/>

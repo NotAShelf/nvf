@@ -45,12 +45,14 @@ The following are the neovim plugins used within neovim-flake. Some plugins are 
 
 * https://github.com/lukas-reineke/indent-blankline.nvim[indent-blankline] for indentation guides
 * https://github.com/kyazdani42/nvim-web-devicons[nvim-web-devicons] Plugins and colors for icons. Requires patched font
+* https://github.com/declancm/cinnamon.nvim[cinnamon.nvim] Smooth scrolling for ANY movement command
 
 [[sec-plugins-utilities]]
 === Utilities
 
 * https://github.com/nvim-telescope/telescope.nvim[telescope] an extendable fuzzy finder of lists. Working ripgrep and fd
 * https://github.com/folke/which-key.nvim[which-key] a popup that displays possible keybindings of command being typed
+* https://github.com/sudormrfbin/cheatsheet.nvim[cheatsheet.nvim] a searchable cheatsheet for neovim from within the editor using Telescope
 
 [[sec-plugins-completions]]
 === Completions
