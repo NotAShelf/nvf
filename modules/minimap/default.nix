@@ -6,5 +6,6 @@
 }: {
   imports = [
     ./minimap-vim.nix
+    ./codewindow.nix
   ];
 }
