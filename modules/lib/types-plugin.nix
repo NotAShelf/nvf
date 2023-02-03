@@ -44,6 +44,9 @@ with lib; let
     "dashboard-nvim"
     "alpha-nvim"
     "scrollbar-nvim"
+    "codewindow-nvim"
+    "nvim-notify"
+    "cinnamon-nvim"
   ];
 
   pluginsType = with types; listOf (nullOr (either (enum availablePlugins) package));
