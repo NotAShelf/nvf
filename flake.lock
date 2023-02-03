@@ -48,6 +48,22 @@
         "type": "github"
       }
     },
+    "cinnamon-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1670143364,
+        "narHash": "sha256-JglXQhoPgN9sQ3yuv0+VQxmKMvoQTu5lbGLSRaQkytI=",
+        "owner": "declancm",
+        "repo": "cinnamon.nvim",
+        "rev": "c406ffda3a0302f32c23b24ab756ea20467d6578",
+        "type": "github"
+      },
+      "original": {
+        "owner": "declancm",
+        "repo": "cinnamon.nvim",
+        "type": "github"
+      }
+    },
     "cmp-buffer": {
       "flake": false,
       "locked": {
@@ -125,6 +141,22 @@
       "original": {
         "owner": "hrsh7th",
         "repo": "cmp-vsnip",
+        "type": "github"
+      }
+    },
+    "codewindow-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1674040274,
+        "narHash": "sha256-TBoMpFD5MQHZwv/6TxbMNrVp2m2ATw8hbD1mDzU4Nf8=",
+        "owner": "gorbit99",
+        "repo": "codewindow.nvim",
+        "rev": "94d84e1a15b94248f205b854e70cb95f0b615b38",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gorbit99",
+        "repo": "codewindow.nvim",
         "type": "github"
       }
     },
@@ -497,11 +529,11 @@
     "nvim-cmp": {
       "flake": false,
       "locked": {
-        "lastModified": 1674731450,
-        "narHash": "sha256-53ubj39XyXep+AyWMU7Vxs9uTvIVZkctl6/M9LLpock=",
+        "lastModified": 1675440540,
+        "narHash": "sha256-BgI0dR7ss+pClGIu3EWXV7r5mMpo6Xt3QMVAxeWm++E=",
         "owner": "hrsh7th",
         "repo": "nvim-cmp",
-        "rev": "e7e2ef7031db8e0cfad7ad9916ec766ddd9dbb3b",
+        "rev": "cfafe0a1ca8933f7b7968a287d39904156f2c57d",
         "type": "github"
       },
       "original": {
@@ -603,6 +635,22 @@
       "original": {
         "owner": "AckslD",
         "repo": "nvim-neoclip.lua",
+        "type": "github"
+      }
+    },
+    "nvim-notify": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1674034105,
+        "narHash": "sha256-zPSlenKjuZ8Xygu/KuU9+bSf5uUjSDK9HOTWnpUk1jo=",
+        "owner": "rcarriga",
+        "repo": "nvim-notify",
+        "rev": "bdd647f61a05c9b8a57c83b78341a0690e9c29d7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rcarriga",
+        "repo": "nvim-notify",
         "type": "github"
       }
     },
@@ -743,11 +791,13 @@
         "alpha-nvim": "alpha-nvim",
         "bufdelete-nvim": "bufdelete-nvim",
         "catppuccin": "catppuccin",
+        "cinnamon-nvim": "cinnamon-nvim",
         "cmp-buffer": "cmp-buffer",
         "cmp-nvim-lsp": "cmp-nvim-lsp",
         "cmp-path": "cmp-path",
         "cmp-treesitter": "cmp-treesitter",
         "cmp-vsnip": "cmp-vsnip",
+        "codewindow-nvim": "codewindow-nvim",
         "crates-nvim": "crates-nvim",
         "dashboard-nvim": "dashboard-nvim",
         "flake-utils": "flake-utils",
@@ -773,6 +823,7 @@
         "nvim-lightbulb": "nvim-lightbulb",
         "nvim-lspconfig": "nvim-lspconfig",
         "nvim-neoclip": "nvim-neoclip",
+        "nvim-notify": "nvim-notify",
         "nvim-tree-lua": "nvim-tree-lua",
         "nvim-treesitter-context": "nvim-treesitter-context",
         "nvim-ts-autotag": "nvim-ts-autotag",

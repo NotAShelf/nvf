@@ -29,6 +29,11 @@ in {
       description = "enable scrollbar [scrollbar.nvim]";
     };
 
+    smoothScroll.enable = mkOption {
+      type = types.bool;
+      description = "enable smooth scrolling [cinnamon-nvim]";
+    };
+
     cursorWordline = {
       enable = mkOption {
         type = types.bool;
@@ -98,6 +103,11 @@ in {
           then "scrollbar-nvim"
           else null
         )
+        (
+          if cfg.smoothScroll.enable
+          then "cinnamon-nvim"
+          else null
+        )
       ];
 
       vim.luaConfigRC.visuals = nvim.dag.entryAnywhere ''
@@ -152,6 +162,11 @@ in {
               'alpha'
             },
           }"
+          else ""
+        }
+        ${
+          if cfg.smoothScroll.enable
+          then "require('cinnamon').setup()"
           else ""
         }
       '';

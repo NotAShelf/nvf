@@ -23,6 +23,7 @@
     ./git
     ./minimap
     ./dashboard
+    ./notifications
   ];
 
   pkgsModule = {config, ...}: {

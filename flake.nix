@@ -63,6 +63,7 @@
           enable = true;
           nvimWebDevicons.enable = true;
           scrollBar.enable = true;
+          smoothScroll.enable = true;
           lspkind.enable = true;
           indentBlankline = {
             enable = true;
@@ -120,10 +121,14 @@
         vim.minimap = {
           # FIXME: this plugin has a dependency that needs to be installed
           minimap-vim.enable = false;
+          codewindow.enable = true;
         };
         vim.dashboard = {
           dashboard-nvim.enable = false;
           alpha.enable = true;
+        };
+        vim.notify = {
+          nvim-notify.enable = true;
         };
       };
     };
@@ -413,6 +418,11 @@
       flake = false;
     };
 
+    cinnamon-nvim = {
+      url = "github:declancm/cinnamon.nvim";
+      flake = false;
+    };
+
     indent-blankline = {
       url = "github:lukas-reineke/indent-blankline.nvim";
       flake = false;
@@ -453,6 +463,17 @@
     # Minimap
     minimap-vim = {
       url = "github:wfxr/minimap.vim";
+      flake = false;
+    };
+
+    codewindow-nvim = {
+      url = "github:gorbit99/codewindow.nvim";
+      flake = false;
+    };
+
+    # Notifications
+    nvim-notify = {
+      url = "github:rcarriga/nvim-notify";
       flake = false;
     };
   };
