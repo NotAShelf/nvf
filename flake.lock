@@ -975,6 +975,7 @@
         "telescope": "telescope",
         "tidalcycles": "tidalcycles",
         "todo-comments": "todo-comments",
+        "toggleterm-nvim": "toggleterm-nvim",
         "tokyonight": "tokyonight",
         "trouble": "trouble",
         "venn-nvim": "venn-nvim",
@@ -1159,6 +1160,22 @@
       "original": {
         "owner": "folke",
         "repo": "todo-comments.nvim",
+        "type": "github"
+      }
+    },
+    "toggleterm-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1675358836,
+        "narHash": "sha256-9O7p/7tRStg51OFhMc88M5ewYquiYC9x9CV4s5veVP8=",
+        "owner": "akinsho",
+        "repo": "toggleterm.nvim",
+        "rev": "19aad0f41f47affbba1274f05e3c067e6d718e1e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "akinsho",
+        "repo": "toggleterm.nvim",
         "type": "github"
       }
     },

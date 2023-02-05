@@ -59,6 +59,7 @@ with lib; let
     "obsidian-nvim"
     "vim-markdown"
     "tabular"
+    "toggleterm-nvim"
   ];
   # You can either use the name of the plugin or a package.
   pluginsType = with types; listOf (nullOr (either (enum availablePlugins) package));

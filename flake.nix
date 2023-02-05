@@ -102,36 +102,45 @@
           };
         };
         vim.tabline.nvimBufferline.enable = true;
+
         vim.treesitter = {
           enable = true;
           context.enable = true;
         };
+
         vim.binds = {
           whichKey.enable = true;
           cheatsheet.enable = true;
         };
+
         vim.telescope = {
           enable = true;
         };
+
         vim.markdown = {
           enable = true;
           glow.enable = true;
         };
+
         vim.git = {
           enable = true;
           gitsigns.enable = true;
         };
+
         vim.minimap = {
           minimap-vim.enable = false;
           codewindow.enable = true; # lighter, faster, and uses lua for configuration
         };
+
         vim.dashboard = {
           dashboard-nvim.enable = false;
           alpha.enable = true;
         };
+
         vim.notify = {
           nvim-notify.enable = true;
         };
+
         vim.utility = {
           colorizer.enable = true;
           icon-picker.enable = true;
@@ -141,6 +150,10 @@
         vim.notes = {
           obsidian.enable = false; # FIXME neovim fails to build if obsidian is enabled
           orgmode.enable = true;
+        };
+
+        vim.terminal = {
+          toggleterm.enable = true;
         };
       };
     };
@@ -525,6 +538,12 @@
 
     orgmode-nvim = {
       url = "github:nvim-orgmode/orgmode";
+      flake = false;
+    };
+
+    # Terminal
+    toggleterm-nvim = {
+      url = "github:akinsho/toggleterm.nvim";
       flake = false;
     };
 
