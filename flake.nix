@@ -38,7 +38,7 @@
     mainConfig = isMaximal: {
       config = {
         vim = {
-          viAlias = false;
+          viAlias = true;
           vimAlias = true;
         };
         vim.lsp = {
