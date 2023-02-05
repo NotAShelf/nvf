@@ -1,0 +1,35 @@
+name: build-and-cache
+
+"on":
+  - push
+  - workflow_dispatch
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: easimon/maximize-build-space@v6
+        with:
+          overprovision-lvm: true
+          remove-android: true
+          remove-dotnet: true
+          remove-haskell: true
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v18
+        with:
+          extra_nix_config: access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v12
+        with:
+          authToken: ${{ secrets.CACHIX_TOKEN }}
+          extraPullNames: nix-community
+          name: neovim-flake
+      - name: Set default git branch (to reduce log spam)
+        run: git config --global init.defaultBranch main
+      - name: Validate Flakes
+        run: nix flake check
+      - name: Build declared flake packages
+        run: |-
+          nix build '.#tidal'
+          nix build '.#nix'
+          nix build '.#isMaximal'
