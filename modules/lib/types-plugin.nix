@@ -2,6 +2,7 @@
 with lib; let
   # Plugin must be same as input name from flake.nix
   availablePlugins = [
+    # TODO: sort by category
     "nvim-treesitter-context"
     "gitsigns-nvim"
     "plenary-nvim"
@@ -51,8 +52,11 @@ with lib; let
     "colorizer"
     "venn-nvim"
     "cellular-automaton"
+    "presence-nvim"
+    "icon-picker-nvim"
+    "dressing-nvim"
   ];
-
+  # You can either use the name of the plugin or a package.
   pluginsType = with types; listOf (nullOr (either (enum availablePlugins) package));
 in {
   pluginsOpt = {
