@@ -50,6 +50,7 @@ with lib; let
     "cheatsheet-nvim"
     "colorizer"
     "venn-nvim"
+    "cellular-automaton"
   ];
 
   pluginsType = with types; listOf (nullOr (either (enum availablePlugins) package));
