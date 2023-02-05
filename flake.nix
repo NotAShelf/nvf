@@ -122,8 +122,8 @@
           gitsigns.enable = true;
         };
         vim.minimap = {
-          minimap-vim.enable = false; # FIXME: this plugin has a dependency that needs to be installed
-          codewindow.enable = true;
+          minimap-vim.enable = true; # FIXME: this plugin has a dependency that needs to be installed
+          codewindow.enable = false;
         };
         vim.dashboard = {
           dashboard-nvim.enable = false;
@@ -134,6 +134,7 @@
         };
         vim.utility = {
           colorizer.enable = true;
+          icon-picker.enable = true;
           venn-nvim.enable = false; # FIXME: throws an error when the command is ran manually
         };
       };
@@ -355,6 +356,12 @@
       flake = false;
     };
 
+    # Presence
+    discord-nvim = {
+      url = "github:andweeb/presence.nvim";
+      flake = false;
+    };
+
     # Autopairs
     nvim-autopairs = {
       url = "github:windwp/nvim-autopairs";
@@ -471,12 +478,6 @@
       inputs.vim-tidal-src.url = "github:tidalcycles/vim-tidal";
     };
 
-    # Plenary (required by crates-nvim)
-    plenary-nvim = {
-      url = "github:nvim-lua/plenary.nvim";
-      flake = false;
-    };
-
     # Minimap
     minimap-vim = {
       url = "github:wfxr/minimap.vim";
@@ -502,6 +503,24 @@
 
     venn-nvim = {
       url = "github:jbyuki/venn.nvim";
+      flake = false;
+    };
+
+    icon-picker-nvim = {
+      url = "github:ziontee113/icon-picker.nvim";
+      flake = false;
+    };
+
+    # Dependencies
+    plenary-nvim = {
+      # (required by crates-nvim)
+      url = "github:nvim-lua/plenary.nvim";
+      flake = false;
+    };
+
+    dressing-nvim = {
+      # (required by icon-picker-nvim)
+      url = "github:stevearc/dressing.nvim";
       flake = false;
     };
   };

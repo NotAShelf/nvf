@@ -257,6 +257,38 @@
         "type": "github"
       }
     },
+    "discord-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1674984077,
+        "narHash": "sha256-ZpsunLsn//zYgUtmAm5FqKVueVd/Pa1r55ZDqxCimBk=",
+        "owner": "andweeb",
+        "repo": "presence.nvim",
+        "rev": "87c857a56b7703f976d3a5ef15967d80508df6e6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "andweeb",
+        "repo": "presence.nvim",
+        "type": "github"
+      }
+    },
+    "dressing-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1675626245,
+        "narHash": "sha256-tBO21/0rpil2lItFl9UzALXNJbvmSfQuW+LOGet9YgI=",
+        "owner": "stevearc",
+        "repo": "dressing.nvim",
+        "rev": "db716a0f1279f79a886c0e0b6ab3c3d5ffdb42fe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "stevearc",
+        "repo": "dressing.nvim",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1667395993,
@@ -301,6 +333,22 @@
       "original": {
         "owner": "ellisonleao",
         "repo": "glow.nvim",
+        "type": "github"
+      }
+    },
+    "icon-picker-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673847230,
+        "narHash": "sha256-vPFfpTrCO8AhBRm+1wEu3Uw28L39svfkAT9qgnJ9Zyg=",
+        "owner": "ziontee113",
+        "repo": "icon-picker.nvim",
+        "rev": "66d37ceae84099ca76235de44466829eb37118c2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ziontee113",
+        "repo": "icon-picker.nvim",
         "type": "github"
       }
     },
@@ -851,9 +899,12 @@
         "colorizer": "colorizer",
         "crates-nvim": "crates-nvim",
         "dashboard-nvim": "dashboard-nvim",
+        "discord-nvim": "discord-nvim",
+        "dressing-nvim": "dressing-nvim",
         "flake-utils": "flake-utils",
         "gitsigns-nvim": "gitsigns-nvim",
         "glow-nvim": "glow-nvim",
+        "icon-picker-nvim": "icon-picker-nvim",
         "indent-blankline": "indent-blankline",
         "kommentary": "kommentary",
         "lsp-signature": "lsp-signature",
