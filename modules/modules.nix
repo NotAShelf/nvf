@@ -25,6 +25,7 @@
     ./dashboard
     ./notifications
     ./utility
+    ./presence
   ];
 
   pkgsModule = {config, ...}: {
