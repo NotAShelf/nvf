@@ -1,8 +1,12 @@
 name: build-and-cache
 
 "on":
-  - push
-  - workflow_dispatch
+  push:
+    paths-ignore:
+      - 'README.md'
+      - '.gitignore'
+      - 'assets'
+  workflow_dispatch:
 
 jobs:
   build-linux:
