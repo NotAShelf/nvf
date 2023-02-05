@@ -26,6 +26,7 @@
     ./notifications
     ./utility
     ./presence
+    ./notes
   ];
 
   pkgsModule = {config, ...}: {

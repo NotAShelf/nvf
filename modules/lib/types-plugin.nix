@@ -55,6 +55,10 @@ with lib; let
     "presence-nvim"
     "icon-picker-nvim"
     "dressing-nvim"
+    "orgmode-nvim"
+    "obsidian-nvim"
+    "vim-markdown"
+    "tabular"
   ];
   # You can either use the name of the plugin or a package.
   pluginsType = with types; listOf (nullOr (either (enum availablePlugins) package));
