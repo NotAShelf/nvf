@@ -3,4 +3,8 @@
   lib,
   pkgs,
   ...
-}: {imports = [./tidal.nix];}
+}: {
+  imports = [
+    ./tidal.nix
+  ];
+}
