@@ -32,4 +32,4 @@ jobs:
         run: |-
           nix build '.#tidal'
           nix build '.#nix'
-          nix build '.#isMaximal'
+          nix build '.#maximal'
