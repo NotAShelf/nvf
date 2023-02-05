@@ -1,16 +1,23 @@
 name: build-and-cache
 
-"on":
+on:
+  workflow_dispatch:
   push:
     paths-ignore:
       - 'README.md'
       - '.gitignore'
       - 'assets'
-  workflow_dispatch:
 
 jobs:
-  build-linux:
+  nix:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package:
+        - default
+        - nix
+        - tidal
+        - maximal
     steps:
       - uses: easimon/maximize-build-space@v6
         with:
@@ -21,8 +28,11 @@ jobs:
       - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v18
         with:
-          extra_nix_config: access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: | 
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            auto-optimise-store = true
+            experimental-features = nix-command flakes
+            nix_path: nixpkgs=channel:nixos-unstable
       - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_TOKEN }}
@@ -32,8 +42,5 @@ jobs:
         run: git config --global init.defaultBranch main
       - name: Validate Flakes
         run: nix flake check
-      - name: Build declared flake packages
-        run: |-
-          nix build '.#tidal'
-          nix build '.#nix'
-          nix build '.#maximal'
+      - name: Build Hyprland with default settings
+        run: nix build .#${{ matrix.package }} --print-build-logs
