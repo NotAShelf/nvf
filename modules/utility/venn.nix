@@ -18,7 +18,7 @@ in {
     ];
 
     # TODO: https://github.com/jbyuki/venn.nvim#using-toggle-command
-    # add keybindings for drawing diagrams4
+    # add keybindings for drawing diagrams
     vim.luaConfigRC.venn-nvim = nvim.dag.entryAnywhere ''
       local venn = require('venn')
       -- venn.nvim: enable or disable keymappings
