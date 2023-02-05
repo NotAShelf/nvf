@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
   push:
     paths-ignore:
-      - 'README.md'
-      - '.gitignore'
-      - 'assets'
+      - '**/README.md'
+      - '**/.gitignore'
+      - '**/assets'
 
 jobs:
   nix:
@@ -32,7 +32,7 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             auto-optimise-store = true
             experimental-features = nix-command flakes
-            nix_path: nixpkgs=channel:nixos-unstable
+          nix_path: nixpkgs=channel:nixos-unstable
       - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_TOKEN }}
