@@ -20,7 +20,7 @@ in {
     vim.luaConfigRC.codewindow = nvim.dag.entryAnywhere ''
       local codewindow = require('codewindow')
       codewindow.setup({
-        exclude_filetypes = { 'NvimTree'},
+        exclude_filetypes = { 'NvimTree', 'orgagenda'},
       }
       )
       codewindow.apply_default_keybinds()
