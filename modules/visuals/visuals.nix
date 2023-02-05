@@ -34,6 +34,12 @@ in {
       description = "enable smooth scrolling [cinnamon-nvim]";
     };
 
+    cellularAutomaton.enable = mkOption {
+      type = types.bool;
+      description = "enable cellular automaton [cellular-automaton]";
+      default = false;
+    };
+
     cursorWordline = {
       enable = mkOption {
         type = types.bool;
@@ -108,6 +114,11 @@ in {
           then "cinnamon-nvim"
           else null
         )
+        (
+          if cfg.cellularAutomaton.enable
+          then "cellular-automaton"
+          else null
+        )
       ];
 
       vim.luaConfigRC.visuals = nvim.dag.entryAnywhere ''
@@ -167,6 +178,36 @@ in {
         ${
           if cfg.smoothScroll.enable
           then "require('cinnamon').setup()"
+          else ""
+        }
+        ${
+          if cfg.cellularAutomaton.enable
+          then ''
+            local config = {
+              fps = 50,
+              name = 'slide',
+            }
+
+            -- init function is invoked only once at the start
+            -- config.init = function (grid)
+            --
+            -- end
+
+            -- update function
+            config.update = function (grid)
+            for i = 1, #grid do
+              local prev = grid[i][#(grid[i])]
+                for j = 1, #(grid[i]) do
+                  grid[i][j], prev = prev, grid[i][j]
+                end
+              end
+              return true
+            end
+
+            require("cellular-automaton").register_animation(config)
+
+            vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
+          ''
           else ""
         }
       '';

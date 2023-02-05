@@ -66,6 +66,7 @@
           nvimWebDevicons.enable = true;
           scrollBar.enable = true;
           smoothScroll.enable = true;
+          cellularAutomaton.enable = true;
           lspkind.enable = true;
           indentBlankline = {
             enable = true;
@@ -426,6 +427,11 @@
 
     cinnamon-nvim = {
       url = "github:declancm/cinnamon.nvim";
+      flake = false;
+    };
+
+    cellular-automaton = {
+      url = "github:Eandrju/cellular-automaton.nvim";
       flake = false;
     };
 
