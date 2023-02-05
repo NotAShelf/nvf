@@ -814,6 +814,22 @@
         "type": "github"
       }
     },
+    "obsidian-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1675366609,
+        "narHash": "sha256-QUAic7yakCXNhYqeaxD+86dIAQzW/pJYN7Y69uDB3xk=",
+        "owner": "epwalsh",
+        "repo": "obsidian.nvim",
+        "rev": "30f45ae3ef78b67d9eae16adfbaaf86089bd8855",
+        "type": "github"
+      },
+      "original": {
+        "owner": "epwalsh",
+        "repo": "obsidian.nvim",
+        "type": "github"
+      }
+    },
     "onedark": {
       "flake": false,
       "locked": {
@@ -827,6 +843,22 @@
       "original": {
         "owner": "navarasu",
         "repo": "onedark.nvim",
+        "type": "github"
+      }
+    },
+    "orgmode-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1675278893,
+        "narHash": "sha256-augdRQCNMJe7Z4D8zjOYP/WjgLn2GHMc1QjVmuI17gY=",
+        "owner": "nvim-orgmode",
+        "repo": "orgmode",
+        "rev": "7ddbdc0741fdc90f73faa17fb332bc8700acadbf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-orgmode",
+        "repo": "orgmode",
         "type": "github"
       }
     },
@@ -930,19 +962,23 @@
         "nvim-treesitter-context": "nvim-treesitter-context",
         "nvim-ts-autotag": "nvim-ts-autotag",
         "nvim-web-devicons": "nvim-web-devicons",
+        "obsidian-nvim": "obsidian-nvim",
         "onedark": "onedark",
+        "orgmode-nvim": "orgmode-nvim",
         "plenary-nvim": "plenary-nvim",
         "registers": "registers",
         "rnix-lsp": "rnix-lsp",
         "rust-tools": "rust-tools",
         "scrollbar-nvim": "scrollbar-nvim",
         "sqls-nvim": "sqls-nvim",
+        "tabular": "tabular",
         "telescope": "telescope",
         "tidalcycles": "tidalcycles",
         "todo-comments": "todo-comments",
         "tokyonight": "tokyonight",
         "trouble": "trouble",
         "venn-nvim": "venn-nvim",
+        "vim-markdown": "vim-markdown",
         "vim-vsnip": "vim-vsnip",
         "which-key": "which-key"
       }
@@ -1034,6 +1070,22 @@
         "owner": "musikinformatik",
         "ref": "master",
         "repo": "superdirt",
+        "type": "github"
+      }
+    },
+    "tabular": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1550598128,
+        "narHash": "sha256-irolBA/m3YIaezl+90h5G+xUOpad+3u44uJqDs4JCUs=",
+        "owner": "godlygeek",
+        "repo": "tabular",
+        "rev": "339091ac4dd1f17e225fe7d57b48aff55f99b23a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "godlygeek",
+        "repo": "tabular",
         "type": "github"
       }
     },
@@ -1185,6 +1237,22 @@
       "original": {
         "owner": "jbyuki",
         "repo": "venn.nvim",
+        "type": "github"
+      }
+    },
+    "vim-markdown": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1669286150,
+        "narHash": "sha256-5q/s/ypZku4Iviq+eGip6hSWs0Ei3FrnX3IL3WV/FHw=",
+        "owner": "preservim",
+        "repo": "vim-markdown",
+        "rev": "df4be8626e2c5b2a42eb60e1f100fce469b81f7d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "preservim",
+        "repo": "vim-markdown",
         "type": "github"
       }
     },

@@ -122,8 +122,8 @@
           gitsigns.enable = true;
         };
         vim.minimap = {
-          minimap-vim.enable = true; # FIXME: this plugin has a dependency that needs to be installed
-          codewindow.enable = false;
+          minimap-vim.enable = false;
+          codewindow.enable = true; # lighter, faster, and uses lua for configuration
         };
         vim.dashboard = {
           dashboard-nvim.enable = false;
@@ -135,7 +135,12 @@
         vim.utility = {
           colorizer.enable = true;
           icon-picker.enable = true;
-          venn-nvim.enable = false; # FIXME: throws an error when the command is ran manually
+          venn-nvim.enable = false; # FIXME throws an error when its commands are ran manually
+        };
+
+        vim.notes = {
+          obsidian.enable = false; # FIXME neovim fails to build if obsidian is enabled
+          orgmode.enable = true;
         };
       };
     };
@@ -511,6 +516,18 @@
       flake = false;
     };
 
+    # Note-taking
+
+    obsidian-nvim = {
+      url = "github:epwalsh/obsidian.nvim";
+      flake = false;
+    };
+
+    orgmode-nvim = {
+      url = "github:nvim-orgmode/orgmode";
+      flake = false;
+    };
+
     # Dependencies
     plenary-nvim = {
       # (required by crates-nvim)
@@ -521,6 +538,18 @@
     dressing-nvim = {
       # (required by icon-picker-nvim)
       url = "github:stevearc/dressing.nvim";
+      flake = false;
+    };
+
+    vim-markdown = {
+      # (required by obsidian-nvim)
+      url = "github:preservim/vim-markdown";
+      flake = false;
+    };
+
+    tabular = {
+      # (required by vim-markdown)
+      url = "github:godlygeek/tabular";
       flake = false;
     };
   };
