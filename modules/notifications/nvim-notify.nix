@@ -18,7 +18,8 @@ in {
     vim.luaConfigRC.nvim-notify = nvim.dag.entryAnywhere ''
       require('notify').setup {
         stages = 'fade_in_slide_out',
-        timeout = 5000,
+        timeout = 1000,
+        background_colour = '#000000',
         position = 'top_right',
         icons = {
           ERROR = '',
