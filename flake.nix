@@ -41,6 +41,7 @@
           viAlias = true;
           vimAlias = true;
         };
+
         vim.lsp = {
           enable = true;
           formatOnSave = true;
@@ -61,6 +62,7 @@
             formatter = "alejandra";
           };
         };
+
         vim.visuals = {
           enable = true;
           nvimWebDevicons.enable = true;
@@ -79,20 +81,24 @@
             lineTimeout = 0;
           };
         };
+
         vim.statusline.lualine = {
           enable = true;
           theme = "catppuccin";
         };
+
         vim.theme = {
           enable = true;
           name = "catppuccin";
           style = "mocha";
         };
         vim.autopairs.enable = true;
+
         vim.autocomplete = {
           enable = true;
           type = "nvim-cmp";
         };
+
         vim.filetree = {
           nvimTreeLua = {
             enable = true;
@@ -101,7 +107,10 @@
             };
           };
         };
-        vim.tabline.nvimBufferline.enable = true;
+
+        vim.tabline = {
+          nvimBufferline.enable = true;
+        };
 
         vim.treesitter = {
           enable = true;
@@ -154,6 +163,10 @@
 
         vim.terminal = {
           toggleterm.enable = true;
+        };
+
+        vim.ui = {
+          noice.enable = true;
         };
       };
     };
@@ -547,6 +560,12 @@
       flake = false;
     };
 
+    # UI44444
+    noice-nvim = {
+      url = "github:folke/noice.nvim";
+      flake = false;
+    };
+
     # Dependencies
     plenary-nvim = {
       # (required by crates-nvim)
@@ -569,6 +588,12 @@
     tabular = {
       # (required by vim-markdown)
       url = "github:godlygeek/tabular";
+      flake = false;
+    };
+
+    nui-nvim = {
+      # (required by obsidian-nvim)
+      url = "github:MunifTanjim/nui.nvim";
       flake = false;
     };
   };

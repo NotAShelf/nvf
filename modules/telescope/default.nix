@@ -73,7 +73,18 @@ in {
           },
         }
       }
-      telescope.load_extension('notify')
+
+      ${
+        if config.vim.ui.noice.enable
+        then "telescope.load_extension('noice')"
+        else null
+      }
+
+      ${
+        if config.vim.notify.nvim-notify.enable
+        then "telescope.load_extension('notify')"
+        else null
+      }
     '';
   };
 }

@@ -28,6 +28,7 @@
     ./presence
     ./notes
     ./terminal
+    ./ui
   ];
 
   pkgsModule = {config, ...}: {
