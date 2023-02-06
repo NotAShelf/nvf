@@ -4,28 +4,43 @@
 Release notes for release 0.2
 
 
-[[sec-release-0.1-changelog]]
+[[sec-release-0.2-changelog]]
 === Changelog
 
 https://github.com/notashelf[notashelf]:
 
-* Added minimap options under `vim.minimap`. The default will be codewindow.nvim.
+* Added two minimap plugins under `vim.minimap`. `codewindow.nvim` is enabled by default, while `minimap.vim` is available with its code-minimap dependency.
 
-* Removed hare language support (lsp/tree-sitter/etc). `vim.lsp.hare` is no longer defined. If you use hare and would like it added back, please file an issue.
+* A complementary plugin, `obsidian.nvim` and the Neovim alternative for Emacs' orgmode  with `orgmode.nvim` have been added. Both will be disabled by default.
 
-* <<opt-vim.startPlugins>> & <<opt-vim.optPlugins>> are now an enum of `string` for options sourced from the flake inputs. Users can still provide vim plugin packages.
-+
-If you are contributing and adding a new plugin, add the plugin name to `availablePlugins` in https://github.com/jordanisaacs/neovim-flake/blob/20cec032bd74bc3d20ac17ce36cd84786a04fd3e/modules/lib/types-plugin.nix[types-plugin.nix].
+* Smooth scrolling for ANY movement command is now available with `cinnamon.nvim`
 
-* `neovimBuilder` has been removed for configuration. Using an overlay is no longer required. See the manual for the new way to configuration.
+* You will now notice a dashboard on startup. This is provided by the `alpha.nvim` plugin. You can use any of the three available dashboard plugins, or disable them entirely.
 
-* Treesitter grammars are now configurable with <<opt-vim.treesitter.grammars>>. Utilizes the nixpkgs `nvim-treesitter` plugin rather than a custom input in order to take advantage of build support of pinned versions. See https://discourse.nixos.org/t/psa-if-you-are-on-unstable-try-out-nvim-treesitter-withallgrammars/23321?u=snowytrees[discourse] for more information. Packages can be found under the `vimPlugins.nvim-treesitter.builtGrammars` namespace.
+* There is now a scrollbar on active buffers, which can highlight errors by hooking to your LSPs. This is on by default, but can be toggled off under `vim.visuals` if seen necessary.
 
-* <<opt-vim.configRC>> and <<opt-vim.luaConfigRC>> are now of type DAG lines. This allows for ordering of the config. Usage is the same is in home-manager's `home.activation` option.
-+
-[source,nix]
-----
-vim.luaConfigRC = lib.nvim.dag.entryAnywhere "config here"
-----
+* Discord Rich Presence has been added through `presence.nvim` for those who want to flex that they are using the *superior* text editor. 
 
+* An icon picker is now available with telescope integration. You can use `:IconPickerInsert` or `:IconPickerYank` to add icons to your code.
 
+* A general purpose cheatsheet has been added through `cheatsheet.nvim`. Forget no longer!
+
+* `ccc.nvim` has been added to the default plugins to allow picking colors with ease.
+
+* Most UI components of Neovim have been replaced through the help of `noice.nvim`. There are also notifications and custom UI elements available for Neovim messages and prompts.
+
+* A (floating by default) terminal has been added through `toggleterm.nvim`. 
+
+* Harness the power of ethical (`tabnine.nvim`) and not-so-ethical (`copilot.lua`) AI by those new assistant plugins. Both are off by default, TabNine needs to be wrapped before it's working.
+
+* Experimental mouse gestures have been addede through `gesture.nvim`. See plugin page and the relevant module for more details on how to use.
+
+* Re-open last visited buffers via `nvim-session-manager`. Disabled by default as deleting buffers seems to be problematic at the moment.
+
+* Most of NvimTree's configuration options have been changed with some options being toggled to off by default. 
+
+* Lualine had its configuration simplified and style toned down. Less color, more info.
+
+* Modules where multiple plugin configurations were in the same directory have been simplified. Each plugin inside a single module gets its own directory to be imported.
+
+* Separate config options with the same parent attribute have been merged into one for simplicity.

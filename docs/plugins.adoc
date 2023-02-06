@@ -3,6 +3,42 @@
 
 The following are the neovim plugins used within neovim-flake. Some plugins are explicitly enabled by the user, while others are enabled implicitly.
 
+
+[[sec-plugins-buffer]]
+=== Coding Assistants
+
+* https://github.com/zbirenbaum/copilot.lua[copilot.lua] a lua replacement for github.vim, the license nightmare AI assistant
+* https://github.com/codota/tabnine-nvim[tabnine-nvim] neovim plugin for the more ethically acceptable AI assistant TabNine
+
+[[sec-plugins-buffer]]
+=== Buffers
+
+* https://github.com/akinsho/bufferline.nvim[nvim-bufferline-lua] a buffer line with tab integration
+* https://github.com/famiu/bufdelete.nvim[bufdelete-nvim] delete buffers without losing window layout
+
+[[sec-plugins-commenting]]
+=== Commenting
+
+* https://github.com/b3nj5m1n/kommentary[kommentary] neovim plugin to comment text in and out, written in lua. Supports commenting out the current line, a visual selection and a motion
+* https://github.com/folke/todo-comments.nvim[todo-comments.nvim] plugin to highlight and search for todo comments like TODO, HACK, BUG in your codebase
+
+[[sec-plugins-completions]]
+=== Completions
+
+* https://github.com/hrsh7th/nvim-cmp[nvim-cmp] a completion engine that utilizes sources
+** https://github.com/hrsh7th/cmp-buffer[cmp-buffer] a source for buffer words
+** https://github.com/hrsh7th/cmp-nvim-lsp[cmp-nvim-lsp] a source for builtin LSP client
+** https://github.com/hrsh7th/cmp-vsnip[cmp-vsnip] a source for vim-vsnip autocomplete
+** https://github.com/hrsh7th/cmp-path[cmp-path] a source for path autocomplete
+** https://github.com/ray-x/cmp-treesitter[cmp-treesitter] treesitter nodes autcomplete
+
+[[sec-plugins-dashboard]]
+=== Dashboard
+
+* https://github.com/glepnir/dashboard-nvim[dashboard.nvim] fancy and blazing fast start screen plugin for Neovim
+* https://github.com/goolord/alpha-nvim[alpha.nvim] a fast and fully programmable greeter for neovim
+* https://github.com/mhinz/vim-startify[vim-startify] a fancy start screen for {neo,}vim
+
 [[sec-plugins-server]]
 === Language Server
 
@@ -13,12 +49,6 @@ The following are the neovim plugins used within neovim-flake. Some plugins are 
 * https://github.com/weilbith/nvim-code-action-menu[nvim-code-action-menu] a better code action menu with diff support
 * https://github.com/ray-x/lsp_signature.nvim[lsp-signature] show function signatures as you type
 * https://github.com/onsails/lspkind-nvim[lspkind-nvim] for pictograms in lsp (with support for nvim-cmp)
-
-[[sec-plugins-buffer]]
-=== Buffers
-
-* https://github.com/akinsho/bufferline.nvim[nvim-bufferline-lua] a buffer line with tab integration
-* https://github.com/famiu/bufdelete.nvim[bufdelete-nvim] delete buffers without losing window layout
 
 [[sec-plugins-statuslines]]
 === Statuslines
@@ -44,8 +74,43 @@ The following are the neovim plugins used within neovim-flake. Some plugins are 
 === Visuals
 
 * https://github.com/lukas-reineke/indent-blankline.nvim[indent-blankline] for indentation guides
-* https://github.com/kyazdani42/nvim-web-devicons[nvim-web-devicons] Plugins and colors for icons. Requires patched font
-* https://github.com/declancm/cinnamon.nvim[cinnamon.nvim] Smooth scrolling for ANY movement command
+* https://github.com/kyazdani42/nvim-web-devicons[nvim-web-devicons] plugins and colors for icons. Requires patched font
+* https://github.com/declancm/cinnamon.nvim[cinnamon.nvim] smooth scrolling for ANY movement command
+* https://github.com/nvim-cursorline[nvim-cursorline] a plugin for neovim that highlights cursor words and lines 
+* https://github.com/petertriho/nvim-scrollbar[nvim-scrollbar] a scrollbar plugin for neovim
+* https://github.com/Eandrju/cellular-automaton.nvim[cellular-automatan] a vanity to plugin to help you procrastinate more efficiently
+
+[[sec-plugins-minimap]]
+=== Minimap
+
+* https://github.com/wfxr/minimap.vim[minimap.vim] a blazing fast minimap plugin for neovim. Depends on code-minimap
+* https://github.com/gorbit99/codewindow.nvim[codewindow.nvim] a simple, configurable minimap plugin for neovim with no external dependencies
+
+[[sec-plugins-notifications]]
+=== Notifications
+
+* https://github.com/rcarriga/nvim-notify[nvim-notify] simple notification plugin that also integrates with noice.nvim
+
+[sec-plugins-notes]]
+=== Note-taking
+
+* https://github.com/obsidian.nvim[obsidian.nvim] a neovim plugin that deeply integrates with the obsidian markdown editor. Also works standalone
+* https://github.com/nvim-orgmode/orgmode[orgmode] a neovim replacement for emac orgmode
+
+[sec-plugins-session-management]]
+=== Session Management
+
+* https://github.com/Shatur/neovim-session-manager[neovim-session-manager] a simple wrapper around :mksession
+
+[sec-plugins-terminal]]
+=== Terminal
+
+* https://github.com/akinsho/toggleterm.nvim[toggleterm.nvim] a simple terminal plugin that opens a terminal buffer on demand
+
+[[sec-plugins-presence]]
+=== Rich Presence
+
+* https://github.com/andweeb/presence.nvim[presence.nvim] light and powerful discord rich presence plugin
 
 [[sec-plugins-utilities]]
 === Utilities
@@ -53,16 +118,14 @@ The following are the neovim plugins used within neovim-flake. Some plugins are 
 * https://github.com/nvim-telescope/telescope.nvim[telescope] an extendable fuzzy finder of lists. Working ripgrep and fd
 * https://github.com/folke/which-key.nvim[which-key] a popup that displays possible keybindings of command being typed
 * https://github.com/sudormrfbin/cheatsheet.nvim[cheatsheet.nvim] a searchable cheatsheet for neovim from within the editor using Telescope
+* https://github.com/ga-rosa/ccc.nvim[ccc.nvim] super powerful color picker / colorizer plugin. 
+* https://github.com/ziontee113/icon-picker.nvim[icon-picker.nvim] an icon picker plugin that provides access to thousands of icons
+* https://github.com/jbyuki/venn.nvim[venn.nvim] draw venn diagrams inside neovim
 
-[[sec-plugins-completions]]
-=== Completions
+[[sec-plugins-utilities]]
+=== Utilities
 
-* https://github.com/hrsh7th/nvim-cmp[nvim-cmp] a completion engine that utilizes sources
-** https://github.com/hrsh7th/cmp-buffer[cmp-buffer] a source for buffer words
-** https://github.com/hrsh7th/cmp-nvim-lsp[cmp-nvim-lsp] a source for builtin LSP client
-** https://github.com/hrsh7th/cmp-vsnip[cmp-vsnip] a source for vim-vsnip autocomplete
-** https://github.com/hrsh7th/cmp-path[cmp-path] a source for path autocomplete
-** https://github.com/ray-x/cmp-treesitter[cmp-treesitter] treesitter nodes autcomplete
+* https://github.com/folke/noice.nvim[noice.nvim] an experimental neovim plugin that replaces some UI components of neovim
 
 [[sec-plugins-snippets]]
 === Snippets
@@ -111,3 +174,7 @@ The following are the neovim plugins used within neovim-flake. Some plugins are 
 === Dependencies
 
 * https://github.com/nvim-lua/plenary.nvim[plenary] which is a dependency of some plugins, installed automatically if needed
+* https://github.comstevearc/dressing.nvim[dressing.nvim] which is a dependency for icon-picker.nvim
+* https://github.com/preservim/vim-markdown[vim-markdown] which is a dependency for obsidian.nvim
+* https://github.comgodlygeek/tabular[tabular] which is a dependency for vim-markdown
+* https://github.com/MunifTanjim/nui.nvim[nui.nvim] which is a dependency for nui-nvim

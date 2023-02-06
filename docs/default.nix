@@ -22,7 +22,7 @@
       }
       ++ [scrubbedPkgsModule];
     moduleRootPaths = [./..];
-    mkModuleUrl = path: "https://github.com/jordanisaacs/neovim-flake/blob/main/${path}#blob-path";
+    mkModuleUrl = path: "https://github.com/notashelf/neovim-flake/blob/main/${path}#blob-path";
     channelName = "neovim-flake";
     docBook.id = "neovim-flake-options";
   };
