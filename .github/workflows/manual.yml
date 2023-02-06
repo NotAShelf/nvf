@@ -1,5 +1,6 @@
 name: Github Pages docs
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -25,7 +26,7 @@ jobs:
         uses: cachix/install-nix-action@v18
       - name: Build
         run: |
-          nix build '.#docs-html'
+          nix build '.#docs'
           cp -r result/share/doc/neovim-flake public
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

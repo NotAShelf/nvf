@@ -3,10 +3,12 @@ name: build-and-cache
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
     paths-ignore:
-      - '**/README.md'
-      - '**/.gitignore'
-      - '**/assets'
+      - '.github/**'
+      - './assets/**'
+      - '.gitignore'
 
 jobs:
   nix:
