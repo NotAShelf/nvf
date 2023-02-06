@@ -168,6 +168,11 @@
         vim.ui = {
           noice.enable = true;
         };
+
+        vim.assistant = {
+          copilot.enable = false;
+          tabnine.enable = false; # FIXME: this is not working because the plugin depends on an internal script to be ran by the package manager
+        };
       };
     };
 
@@ -560,9 +565,20 @@
       flake = false;
     };
 
-    # UI44444
+    # UI
     noice-nvim = {
       url = "github:folke/noice.nvim";
+      flake = false;
+    };
+
+    # Assistant
+    copilot-lua = {
+      url = "github:zbirenbaum/copilot.lua";
+      flake = false;
+    };
+
+    tabnine-nvim = {
+      url = "github:codota/tabnine-nvim";
       flake = false;
     };
 

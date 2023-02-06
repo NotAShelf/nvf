@@ -29,6 +29,7 @@
     ./notes
     ./terminal
     ./ui
+    ./assistant
   ];
 
   pkgsModule = {config, ...}: {

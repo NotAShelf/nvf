@@ -208,6 +208,22 @@
         "type": "github"
       }
     },
+    "copilot-lua": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1675346663,
+        "narHash": "sha256-+a286iUK7UijcbRLb8gXwmDFZAf1gYupS5f9EHB+dxU=",
+        "owner": "zbirenbaum",
+        "repo": "copilot.lua",
+        "rev": "a54e7b11a2c6efc9ddd3f42e56cf7d9eed1a9683",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zbirenbaum",
+        "repo": "copilot.lua",
+        "type": "github"
+      }
+    },
     "crates-nvim": {
       "flake": false,
       "locked": {
@@ -961,6 +977,7 @@
         "cmp-vsnip": "cmp-vsnip",
         "codewindow-nvim": "codewindow-nvim",
         "colorizer": "colorizer",
+        "copilot-lua": "copilot-lua",
         "crates-nvim": "crates-nvim",
         "dashboard-nvim": "dashboard-nvim",
         "discord-nvim": "discord-nvim",
@@ -1005,6 +1022,7 @@
         "rust-tools": "rust-tools",
         "scrollbar-nvim": "scrollbar-nvim",
         "sqls-nvim": "sqls-nvim",
+        "tabnine-nvim": "tabnine-nvim",
         "tabular": "tabular",
         "telescope": "telescope",
         "tidalcycles": "tidalcycles",
@@ -1105,6 +1123,22 @@
         "owner": "musikinformatik",
         "ref": "master",
         "repo": "superdirt",
+        "type": "github"
+      }
+    },
+    "tabnine-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1675586775,
+        "narHash": "sha256-7vd+moqQ5bA58VXlHSWXcJbI6ovp7z2Nf6Cn7cq08Ps=",
+        "owner": "codota",
+        "repo": "tabnine-nvim",
+        "rev": "85b3ad6df16ad09f8c486ec4c21defa75cebe22c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "codota",
+        "repo": "tabnine-nvim",
         "type": "github"
       }
     },
