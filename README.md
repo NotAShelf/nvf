@@ -18,6 +18,7 @@
   <p align="center">
     <img src="https://stars.medv.io/NotAShelf/neovim-flake.svg", title="commits"/>
   </p>
+</p></div>
 
 An Nix wrapped IDE layer for the superior text editor, Neovim.
 
