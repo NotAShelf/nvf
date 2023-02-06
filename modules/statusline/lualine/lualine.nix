@@ -7,7 +7,7 @@
 with lib;
 with builtins; let
   cfg = config.vim.statusline.lualine;
-  supported_themes = import ./supported_lualine_themes.nix;
+  supported_themes = import ./supported_themes.nix;
 in {
   options.vim.statusline.lualine = {
     enable = mkOption {
@@ -175,7 +175,7 @@ in {
             theme = "${cfg.theme}",
             component_separators = {"${cfg.componentSeparator.left}","${cfg.componentSeparator.right}"},
             section_separators = {"${cfg.sectionSeparator.left}","${cfg.sectionSeparator.right}"},
-            disabled_filetypes = {},
+            disabled_filetypes = { 'packer', 'NvimTree', 'alpha' }
           },
           sections = {
             lualine_a = ${cfg.activeSection.a},

@@ -29,24 +29,26 @@ in {
 
     grammars = mkOption {
       type = with types; listOf package;
-      default = with (pkgs.vimPlugins.nvim-treesitter.builtGrammars); [
-        c
-        cpp
-        nix
-        python
-        rust
-        markdown
-        comment
-        toml
-        make
-        tsx
-        html
-        javascript
-        css
-        graphql
-        json
-        zig
-      ];
+      default = with (pkgs.vimPlugins.nvim-treesitter.builtGrammars);
+        [
+          c
+          cpp
+          nix
+          python
+          rust
+          markdown
+          comment
+          toml
+          make
+          tsx
+          html
+          javascript
+          css
+          graphql
+          json
+          zig
+        ]
+        ++ (optional config.vim.notes.orgmode.enable org); # add orgmode grammar if enabled
       description = ''
         List of treesitter grammars to install.
         When enabling a language, its treesitter grammar is added for you.

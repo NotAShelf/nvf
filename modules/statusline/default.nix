@@ -5,7 +5,6 @@
   ...
 }: {
   imports = [
-    ./lualine.nix
-    ./config.nix
+    ./lualine
   ];
 }

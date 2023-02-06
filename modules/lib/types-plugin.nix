@@ -1,7 +1,8 @@
 {lib}:
 with lib; let
-  # Plugin must be same as input name
+  # Plugin must be same as input name from flake.nix
   availablePlugins = [
+    # TODO: sort by category
     "nvim-treesitter-context"
     "gitsigns-nvim"
     "plenary-nvim"
@@ -40,8 +41,33 @@ with lib; let
     "rust-tools"
     "onedark"
     "catppuccin"
+    "minimap-vim"
+    "dashboard-nvim"
+    "alpha-nvim"
+    "scrollbar-nvim"
+    "codewindow-nvim"
+    "nvim-notify"
+    "cinnamon-nvim"
+    "cheatsheet-nvim"
+    "colorizer"
+    "venn-nvim"
+    "cellular-automaton"
+    "presence-nvim"
+    "icon-picker-nvim"
+    "dressing-nvim"
+    "orgmode-nvim"
+    "obsidian-nvim"
+    "vim-markdown"
+    "tabular"
+    "toggleterm-nvim"
+    "noice-nvim"
+    "nui-nvim"
+    "copilot-lua"
+    "tabnine-nvim"
+    "nvim-session-manager"
+    "gesture-nvim"
   ];
-
+  # You can either use the name of the plugin or a package.
   pluginsType = with types; listOf (nullOr (either (enum availablePlugins) package));
 in {
   pluginsOpt = {

@@ -17,10 +17,18 @@
     ./tidal
     ./autopairs
     ./snippets
-    ./keys
     ./markdown
-    ./telescope
     ./git
+    ./minimap
+    ./dashboard
+    ./notifications
+    ./utility
+    ./presence
+    ./notes
+    ./terminal
+    ./ui
+    ./assistant
+    ./session
   ];
 
   pkgsModule = {config, ...}: {

@@ -24,6 +24,22 @@ in {
       description = "enable vscode-like pictograms for lsp [lspkind]";
     };
 
+    scrollBar.enable = mkOption {
+      type = types.bool;
+      description = "enable scrollbar [scrollbar.nvim]";
+    };
+
+    smoothScroll.enable = mkOption {
+      type = types.bool;
+      description = "enable smooth scrolling [cinnamon-nvim]";
+    };
+
+    cellularAutomaton.enable = mkOption {
+      type = types.bool;
+      description = "enable cellular automaton [cellular-automaton]";
+      default = false;
+    };
+
     cursorWordline = {
       enable = mkOption {
         type = types.bool;
@@ -88,6 +104,21 @@ in {
           then "indent-blankline"
           else null
         )
+        (
+          if cfg.scrollBar.enable
+          then "scrollbar-nvim"
+          else null
+        )
+        (
+          if cfg.smoothScroll.enable
+          then "cinnamon-nvim"
+          else null
+        )
+        (
+          if cfg.cellularAutomaton.enable
+          then "cellular-automaton"
+          else null
+        )
       ];
 
       vim.luaConfigRC.visuals = nvim.dag.entryAnywhere ''
@@ -128,6 +159,55 @@ in {
         ${
           if cfg.cursorWordline.enable
           then "vim.g.cursorline_timeout = ${toString cfg.cursorWordline.lineTimeout}"
+          else ""
+        }
+
+        ${
+          if cfg.scrollBar.enable
+          then "require('scrollbar').setup{
+            excluded_filetypes = {
+              'prompt',
+              'TelescopePrompt',
+              'noice',
+              'NvimTree',
+              'alpha'
+            },
+          }"
+          else ""
+        }
+        ${
+          if cfg.smoothScroll.enable
+          then "require('cinnamon').setup()"
+          else ""
+        }
+        ${
+          if cfg.cellularAutomaton.enable
+          then ''
+            local config = {
+              fps = 50,
+              name = 'slide',
+            }
+
+            -- init function is invoked only once at the start
+            -- config.init = function (grid)
+            --
+            -- end
+
+            -- update function
+            config.update = function (grid)
+            for i = 1, #grid do
+              local prev = grid[i][#(grid[i])]
+                for j = 1, #(grid[i]) do
+                  grid[i][j], prev = prev, grid[i][j]
+                end
+              end
+              return true
+            end
+
+            require("cellular-automaton").register_animation(config)
+
+            vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
+          ''
           else ""
         }
       '';

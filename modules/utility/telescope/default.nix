@@ -54,7 +54,8 @@ in {
       );
 
     vim.luaConfigRC.telescope = nvim.dag.entryAnywhere ''
-      require("telescope").setup {
+      local telescope = require('telescope')
+      telescope.setup {
         defaults = {
           vimgrep_arguments = {
             "${pkgs.ripgrep}/bin/rg",
@@ -71,6 +72,18 @@ in {
             },
           },
         }
+      }
+
+      ${
+        if config.vim.ui.noice.enable
+        then "telescope.load_extension('noice')"
+        else null
+      }
+
+      ${
+        if config.vim.notify.nvim-notify.enable
+        then "telescope.load_extension('notify')"
+        else null
       }
     '';
   };

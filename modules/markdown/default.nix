@@ -5,7 +5,6 @@
   ...
 }: {
   imports = [
-    ./config.nix
-    ./glow.nix
+    ./glow
   ];
 }

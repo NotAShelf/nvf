@@ -1,7 +1,8 @@
-{ pkgs
-, config
-, lib
-, ...
+{
+  pkgs,
+  config,
+  lib,
+  ...
 }:
 with lib; {
   config = {
@@ -10,6 +11,10 @@ with lib; {
 
       nvimWebDevicons.enable = mkDefault false;
       lspkind.enable = mkDefault false;
+
+      scrollBar = {
+        enable = mkDefault false;
+      };
 
       cursorWordline = {
         enable = mkDefault false;
