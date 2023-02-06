@@ -1,0 +1,42 @@
+[[ch-hm-module]]
+== Home Manager
+
+The Home Manager module allows us to customize the different `vim` options. To use it, we first add the input flake.
+
+[source,nix]
+----
+{
+  neovim-flake = {
+    url = github:notashelf/neovim-flake;
+    # you can override input nixpkgs
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+}
+----
+
+Followed by importing the HM module.
+
+[source,nix]
+----
+{
+  imports = [ neovim-flake.nixosModules.hm-module ];
+}
+----
+
+Then we should be able to use the given module. E.g.
+
+[source,nix]
+----
+{
+  programs.neovim-flake = {
+    enable = true;
+    settings = {
+      vim.viAlias = false;
+      vim.vimAlias = true;
+      vim.lsp = {
+        enable = true;
+      };
+    };
+  };
+}
+----
