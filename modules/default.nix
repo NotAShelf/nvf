@@ -9,7 +9,7 @@
   inherit (builtins) map filter isString toString getAttr hasAttr attrNames;
   inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
 
-  extendedLib = import ./lib/stdlib-extended.nix lib;
+  extendedLib = import ../lib/stdlib-extended.nix lib;
 
   nvimModules = import ./modules.nix {
     inherit check pkgs;
