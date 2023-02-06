@@ -2,6 +2,9 @@
     <a href="https://github.com/NotAShelf/neovim-flake/releases/latest">
       <img alt="Latest release" src="https://img.shields.io/github/v/release/NotAShelf/neovim-flake?style=for-the-badge&logo=nixos&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41" />
     </a>
+    <a href="https://github.com/NotAShelf/neovim-flake/pulse">
+      <img alt="Last commit" src="https://img.shields.io/github/last-commit/NotAShelf/neovim-flake?style=for-the-badge&logo=starship&color=8bd5ca&logoColor=D9E0EE&labelColor=302D41"/>
+    </a>
     <a href="https://github.com/NotAShelf/neovim-flake/blob/main/LICENSE">
       <img alt="License" src="https://img.shields.io/github/license/NotAShelf/neovim-flake?style=for-the-badge&logo=nixos&color=ee999f&logoColor=D9E0EE&labelColor=302D41" />
     </a>
@@ -13,6 +16,9 @@
     </a>
     <a href="https://github.com/NotAShelf/neovim-flake">
       <img alt="Repo Size" src="https://img.shields.io/github/repo-size/NotAShelf/neovim-flake?color=%23DDB6F2&label=SIZE&logo=codesandbox&style=for-the-badge&logoColor=D9E0EE&labelColor=302D41" />
+    </a>
+    <a href="https://patreon.com/chrisatmachine" title="Donate to this project using Patreon">
+      <img alt="Patreon donate button" src="https://img.shields.io/badge/patreon-donate-yellow.svg?style=for-the-badge&logo=starship&color=f5a97f&logoColor=D9E0EE&labelColor=302D41" />
     </a>
 
   <p align="center">
