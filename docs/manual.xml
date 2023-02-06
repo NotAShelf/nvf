@@ -3,13 +3,23 @@
       xmlns:xi="http://www.w3.org/2001/XInclude"
       version="5.0"
       xml:id="book-neovim-flake-manual">
-  <info>
-    <title>Neovim Flake by Gabriel Volpe</title>
-  </info>
-  <xi:include href="try-it-out.xml" />
-  <xi:include href="hm-module.xml" />
-  <appendix xml:id="ch-options">
-    <title>Configuration options</title>
-    <xi:include href="./nmd-result/neovim-flake-options.xml" />
-  </appendix>
+ <info>
+  <title>neovim-flake Manual</title>
+ </info>
+ <preface>
+  <title>Preface</title>
+  <para>
+   If your problem is caused by a bug in neovim-flake then it should be reported on the
+   <link xlink:href="https://github.com/notashelf/neovim-flake/issues">neovim-flake issue tracker</link>.
+  </para>
+ </preface>
+ <xi:include href="default-configs.xml"/>
+ <xi:include href="custom-configs.xml"/>
+ <xi:include href="languages.xml"/>
+ <xi:include href="plugins.xml"/>
+ <appendix xml:id="ch-options">
+  <title>Configuration Options</title>
+  <xi:include href="./nmd-result/neovim-flake-options.xml" />
+ </appendix>
+ <xi:include href="./release-notes/release-notes.xml" />
 </book>
