@@ -24,11 +24,15 @@ An Nix wrapped IDE layer for the superior text editor, Neovim.
 
 ---
 
-**[<kbd> <br> Install <br> </kbd>][Install]** 
+<div align="center"><p>
+
+**[<kbd> <br> Install <br> </kbd>][Install]**
 **[<kbd> <br> Configure <br> </kbd>][Configure]** 
 **[<kbd> <br> Documentation <br> </kbd>][Documentation]** 
 **[<kbd> <br> Contribute <br> </kbd>][Contribute]** 
 **[<kbd> <br> FAQ <br> </kbd>][Faq]**
+
+</p></div>
 
 [Contribute]: #contributing
 [Install]: #install
