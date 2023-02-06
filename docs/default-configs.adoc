@@ -33,5 +33,5 @@ It is the same fully configured neovim as with the <<sec-default-nix,Nix>> confi
 [NOTE]
 ====
 Running the maximal config will download *a lot* of packages, as it will be downloading language servers, formatters, and more. You are recommended to use the binary cache if 
-using the default configs.4
+using the default configs.
 ====
