@@ -17,9 +17,7 @@
     ./tidal
     ./autopairs
     ./snippets
-    ./binds
     ./markdown
-    ./telescope
     ./git
     ./minimap
     ./dashboard
@@ -31,7 +29,6 @@
     ./ui
     ./assistant
     ./session
-    ./gestures
   ];
 
   pkgsModule = {config, ...}: {
