@@ -189,7 +189,7 @@
   in
     {
       lib = {
-        nvim = (import ./modules/lib/stdlib-extended.nix nixpkgs.lib).nvim;
+        nvim = (import ./lib/stdlib-extended.nix nixpkgs.lib).nvim;
         inherit neovimConfiguration;
       };
 
@@ -200,69 +200,85 @@
         neovim-tidal = buildPkg prev [tidalConfig];
       };
     }
-    // (flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = [
-          inputs.tidalcycles.overlays.default
-          (final: prev: {
-            rnix-lsp = inputs.rnix-lsp.defaultPackage.${system};
-            nil = inputs.nil.packages.${system}.default;
-          })
-        ];
-      };
+    // (flake-utils.lib.eachDefaultSystem (
+      system: let
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [
+            inputs.tidalcycles.overlays.default
+            (final: prev: {
+              rnix-lsp = inputs.rnix-lsp.defaultPackage.${system};
+              nil = inputs.nil.packages.${system}.default;
+            })
+          ];
+        };
 
-      docs = import ./docs {
-        inherit pkgs;
-        nmdSrc = inputs.nmd;
-      };
+        docs = import ./docs {
+          inherit pkgs;
+          nmdSrc = inputs.nmd;
+        };
 
-      tidalPkg = buildPkg pkgs [tidalConfig];
-      nixPkg = buildPkg pkgs [nixConfig];
-      maximalPkg = buildPkg pkgs [maximalConfig];
-    in {
-      apps =
-        rec {
-          nix = {
-            type = "app";
-            program = nvimBin nixPkg;
-          };
-          maximal = {
-            type = "app";
-            program = nvimBin maximalPkg;
-          };
-          default = nix;
-        }
-        // (
-          if !(builtins.elem system ["aarch64-darwin" "x86_64-darwin"])
-          then {
-            tidal = {
+        # Available Configurations
+        tidalPkg = buildPkg pkgs [tidalConfig];
+        nixPkg = buildPkg pkgs [nixConfig];
+        maximalPkg = buildPkg pkgs [maximalConfig];
+      in {
+        apps =
+          rec {
+            nix = {
               type = "app";
-              program = nvimBin tidalPkg;
+              program = nvimBin nixPkg;
             };
+            maximal = {
+              type = "app";
+              program = nvimBin maximalPkg;
+            };
+            default = nix;
           }
-          else {}
-        );
+          // (
+            if !(builtins.elem system ["aarch64-darwin" "x86_64-darwin"])
+            then {
+              tidal = {
+                type = "app";
+                program = nvimBin tidalPkg;
+              };
+            }
+            else {}
+          );
 
-      devShells.default = pkgs.mkShell {nativeBuildInputs = [nixPkg];};
+        devShells.default = pkgs.mkShell {nativeBuildInputs = [nixPkg];};
 
-      packages =
-        {
-          docs-html = docs.manual.html;
-          docs-manpages = docs.manPages;
-          docs-json = docs.options.json;
-          default = nixPkg;
-          nix = nixPkg;
-          maximal = maximalPkg;
-        }
-        // (
-          if !(builtins.elem system ["aarch64-darwin" "x86_64-darwin"])
-          then {
-            tidal = tidalPkg;
+        packages =
+          {
+            # Documentation
+            docs = docs.manual.html;
+            docs-html = docs.manual.html;
+            docs-manpages = docs.manPages;
+            docs-json = docs.options.json;
+
+            # Available Configurations
+            default = nixPkg;
+            nix = nixPkg;
+            maximal = maximalPkg;
           }
-          else {}
-        );
-    }));
+          // (
+            if !(builtins.elem system ["aarch64-darwin" "x86_64-darwin"])
+            then {
+              tidal = tidalPkg;
+            }
+            else {}
+          );
+
+        nixosModules.hm-module = {
+          imports = [
+            ./lib/hm.nix
+            # {nixpkgs.overlays = [inputs.self.overlays.default];} what?
+          ];
+        };
+      }
+    ));
+
+  # Flake inputs
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
