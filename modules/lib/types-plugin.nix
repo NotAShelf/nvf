@@ -64,6 +64,8 @@ with lib; let
     "nui-nvim"
     "copilot-lua"
     "tabnine-nvim"
+    "nvim-session-manager"
+    "gesture-nvim"
   ];
   # You can either use the name of the plugin or a package.
   pluginsType = with types; listOf (nullOr (either (enum availablePlugins) package));

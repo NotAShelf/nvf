@@ -320,6 +320,22 @@
         "type": "github"
       }
     },
+    "gesture-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1675384642,
+        "narHash": "sha256-HxVWZopV3wx6ANefuowrdbSQpQriYHV43r187t7UJXQ=",
+        "owner": "notomo",
+        "repo": "gesture.nvim",
+        "rev": "902a97219e126a08aea6016994c50eea485bcd79",
+        "type": "github"
+      },
+      "original": {
+        "owner": "notomo",
+        "repo": "gesture.nvim",
+        "type": "github"
+      }
+    },
     "gitsigns-nvim": {
       "flake": false,
       "locked": {
@@ -798,6 +814,22 @@
         "type": "github"
       }
     },
+    "nvim-session-manager": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1675414961,
+        "narHash": "sha256-dHFhZtBvU6sc6XR49oL3TW0sUwAOwLf4S5q+m8u76c8=",
+        "owner": "Shatur",
+        "repo": "neovim-session-manager",
+        "rev": "e7a2cbf56b5fd3a223f2774b535499fc62eca6ef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shatur",
+        "repo": "neovim-session-manager",
+        "type": "github"
+      }
+    },
     "nvim-tree-lua": {
       "flake": false,
       "locked": {
@@ -983,6 +1015,7 @@
         "discord-nvim": "discord-nvim",
         "dressing-nvim": "dressing-nvim",
         "flake-utils": "flake-utils",
+        "gesture-nvim": "gesture-nvim",
         "gitsigns-nvim": "gitsigns-nvim",
         "glow-nvim": "glow-nvim",
         "icon-picker-nvim": "icon-picker-nvim",
@@ -1009,6 +1042,7 @@
         "nvim-lspconfig": "nvim-lspconfig",
         "nvim-neoclip": "nvim-neoclip",
         "nvim-notify": "nvim-notify",
+        "nvim-session-manager": "nvim-session-manager",
         "nvim-tree-lua": "nvim-tree-lua",
         "nvim-treesitter-context": "nvim-treesitter-context",
         "nvim-ts-autotag": "nvim-ts-autotag",

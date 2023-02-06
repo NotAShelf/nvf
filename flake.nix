@@ -173,6 +173,14 @@
           copilot.enable = false;
           tabnine.enable = false; # FIXME: this is not working because the plugin depends on an internal script to be ran by the package manager
         };
+
+        vim.session = {
+          nvim-session-manager.enable = false;
+        };
+
+        vim.gestures = {
+          gesture-nvim.enable = false;
+        };
       };
     };
 
@@ -579,6 +587,19 @@
 
     tabnine-nvim = {
       url = "github:codota/tabnine-nvim";
+      flake = false;
+    };
+
+    # Session management
+
+    nvim-session-manager = {
+      url = "github:Shatur/neovim-session-manager";
+      flake = false;
+    };
+
+    # Mouse Gestures
+    gesture-nvim = {
+      url = "github:notomo/gesture.nvim";
       flake = false;
     };
 

@@ -30,6 +30,8 @@
     ./terminal
     ./ui
     ./assistant
+    ./session
+    ./gestures
   ];
 
   pkgsModule = {config, ...}: {
