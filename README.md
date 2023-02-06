@@ -15,7 +15,6 @@
       <img alt="Repo Size" src="https://img.shields.io/github/repo-size/NotAShelf/neovim-flake?color=%23DDB6F2&label=SIZE&logo=codesandbox&style=for-the-badge&logoColor=D9E0EE&labelColor=302D41" />
     </a>
 
-
   <p align="center">
     <img src="https://stars.medv.io/NotAShelf/neovim-flake.svg", title="commits"/>
   </p>
@@ -25,10 +24,16 @@ An Nix wrapped IDE layer for the superior text editor, Neovim.
 ---
 
 **[<kbd> <br> Install <br> </kbd>][Install]** 
-**[<kbd> <br> Configure <br> </kbd>][Configure]** 
-**[<kbd> <br> Documentation <br> </kbd>][Documentation]** 
+**[<kbd> <br> Configure <br> </kbd>][Configure]**
+**[<kbd> <br> Documentation <br> </kbd>][Documentation]**
 **[<kbd> <br> Contribute <br> </kbd>][Contribute]**
 **[<kbd> <br> FAQ <br> </kbd>][Faq]**
+
+[Contribute]: #contributing
+[Install]: #install
+[Configure]: #configure
+[Documentation]: #documentation
+[FAQ]: #faq
 
 ---
 
@@ -36,13 +41,14 @@ A highly configurable nix flake for Neovim, packing everything you might need to
 
 ## Install
 
-**Using `nix`**
+### Using `nix`
 
 The easiest way to install is to use the `nix profile` command. To install the default configuration, run:
 
 ```console
 nix run github:notashelf/neovim-flake
 ```
+
 The package exposes `.#nix` as the default output. You may use `.#nix`, `.#tidal` or `.#maximal` to get different configurations.
 
 It is as simply as changing the target output to get a different configuration. For example, to get a configuration with `tidal` support, run:
@@ -53,7 +59,7 @@ nix run github:notashelf/neovim-flake#tidal
 
 Similar instructions will apply for `nix profile install`.
 
-**On NixOS**
+### On NixOS
 
 NixOS users may add this repo to their flake inputs as such:
 
