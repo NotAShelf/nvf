@@ -18,7 +18,7 @@ The following is an example of a barebones vim configuration with the default th
 [source,nix]
 ----
 {
-  inputs.neovim-flake.url = "github:notashelf/neovim-flake";
+  inputs.neovim-flake.url = "github:jordanisaacs/neovim-flake";
 
   outputs = {nixpkgs, neovim-flake, ...}: let
     system = "x86_64-linux";

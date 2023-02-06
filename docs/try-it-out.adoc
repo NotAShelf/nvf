@@ -1,0 +1,32 @@
+[[ch-try-it-out]]
+== Try it out
+
+[source,console]
+----
+$ cachix use neovim-flake # Optional: it'll save you CPU resources and time
+$ nix run github:notashelf/neovim-flake
+----
+
+
+=== Nix
+
+By default LSP support for Nix is enabled alongside all complementary Neovim plugins. By running `nix run .`, which is the default package,
+you will build Neovim with this config.
+
+=== Tidal
+
+Tidal is an alternative config that adds vim-tidal on top of the plugins from the Nix configuration.
+
+=== Maximal
+
+Maximal is the ultimate configuration that will enable basically everything. Keep in mind, however, that this will pull a lot of dependencies.
+
+
+=== Using Prebuilt Configs
+
+[source,console]
+----
+$ nix run github:notashelf/neovim-flake#nix 
+$ nix run github:notashelf/neovim-flake#tidal
+$ nix run github:notashelf/neovim-flake#maximal
+----

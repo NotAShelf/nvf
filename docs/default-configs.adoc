@@ -26,12 +26,11 @@ Enables all the of neovim plugins, with language support for specifically Nix. T
 === Maximal
 
 [source,console]
-$ nix run github:notashelf/neovim-flake#maximal test.nix
+$ nix shell github:notashelf/neovim-flake#maximal test.nix
 
 It is the same fully configured neovim as with the <<sec-default-nix,Nix>> config, but with every supported language enabled.
 
 [NOTE]
 ====
-Running the maximal config will download *a lot* of packages, as it will be downloading language servers, formatters, and more. You are recommended to use the binary cache if 
-using the default configs.
+Running the maximal config will download *a lot* of packages as it is downloading language servers, formatters, and more.
 ====
