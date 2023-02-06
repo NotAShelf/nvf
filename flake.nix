@@ -443,6 +443,11 @@
       flake = false;
     };
 
+    vim-startify = {
+      url = "github:mhinz/vim-startify";
+      flake = false;
+    };
+
     # Themes
     tokyonight = {
       url = "github:folke/tokyonight.nvim";
@@ -499,17 +504,6 @@
       flake = false;
     };
 
-    # Key binding help
-    which-key = {
-      url = "github:folke/which-key.nvim";
-      flake = false;
-    };
-
-    cheatsheet-nvim = {
-      url = "github:sudormrfbin/cheatsheet.nvim";
-      flake = false;
-    };
-
     # Markdown
     glow-nvim = {
       url = "github:ellisonleao/glow.nvim";
@@ -555,6 +549,21 @@
       flake = false;
     };
 
+    which-key = {
+      url = "github:folke/which-key.nvim";
+      flake = false;
+    };
+
+    cheatsheet-nvim = {
+      url = "github:sudormrfbin/cheatsheet.nvim";
+      flake = false;
+    };
+
+    gesture-nvim = {
+      url = "github:notomo/gesture.nvim";
+      flake = false;
+    };
+
     # Note-taking
 
     obsidian-nvim = {
@@ -591,15 +600,8 @@
     };
 
     # Session management
-
     nvim-session-manager = {
       url = "github:Shatur/neovim-session-manager";
-      flake = false;
-    };
-
-    # Mouse Gestures
-    gesture-nvim = {
-      url = "github:notomo/gesture.nvim";
       flake = false;
     };
 
@@ -629,7 +631,7 @@
     };
 
     nui-nvim = {
-      # (required by obsidian-nvim)
+      # (required by noice.nvim)
       url = "github:MunifTanjim/nui.nvim";
       flake = false;
     };
