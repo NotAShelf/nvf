@@ -573,6 +573,38 @@
         "type": "gitlab"
       }
     },
+    "noice-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1675023568,
+        "narHash": "sha256-5C05en9c6tZW3/vNjgCfFQFRFq5U0NKg/LK5EeUHc1o=",
+        "owner": "folke",
+        "repo": "noice.nvim",
+        "rev": "34f7cf628666c6eb0c93fbe8a0490e977ac78b7b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "noice.nvim",
+        "type": "github"
+      }
+    },
+    "nui-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1675269986,
+        "narHash": "sha256-4vf+eqT7e638VeWfmh23K8EslJXyR6ZK6arvaeVgWlw=",
+        "owner": "MunifTanjim",
+        "repo": "nui.nvim",
+        "rev": "d147222a1300901656f3ebd5b95f91732785a329",
+        "type": "github"
+      },
+      "original": {
+        "owner": "MunifTanjim",
+        "repo": "nui.nvim",
+        "type": "github"
+      }
+    },
     "null-ls": {
       "flake": false,
       "locked": {
@@ -705,11 +737,11 @@
     "nvim-lspconfig": {
       "flake": false,
       "locked": {
-        "lastModified": 1675162896,
-        "narHash": "sha256-2XmfhBldseP9zxrQBFtapUpMBIkhKgyiM+xUbP+os8I=",
+        "lastModified": 1675639052,
+        "narHash": "sha256-B8IgpypxzCACZ5VcqM6KiWyClaN+KrmemtkwMznmj5Y=",
         "owner": "neovim",
         "repo": "nvim-lspconfig",
-        "rev": "902d6aa31450d26e11bedcbef8af5b6fe2e1ffe8",
+        "rev": "255e07ce2a05627d482d2de77308bba51b90470c",
         "type": "github"
       },
       "original": {
@@ -753,11 +785,11 @@
     "nvim-tree-lua": {
       "flake": false,
       "locked": {
-        "lastModified": 1675561154,
-        "narHash": "sha256-iUb7BjQbN/d+jBEGJZSZ6rv0fJl3Eu9l7narNnFEbaM=",
+        "lastModified": 1675639400,
+        "narHash": "sha256-d9c4T++6LnaqUsJAMmJGSLQYz+frjl7QhBJONJOvb2E=",
         "owner": "nvim-tree",
         "repo": "nvim-tree.lua",
-        "rev": "59e65d88db177ad1e6a8cffaafd4738420ad20b6",
+        "rev": "02fdc262eba188198a7deb2117b3b996e6763d65",
         "type": "github"
       },
       "original": {
@@ -947,6 +979,8 @@
         "nil": "nil",
         "nixpkgs": "nixpkgs",
         "nmd": "nmd",
+        "noice-nvim": "noice-nvim",
+        "nui-nvim": "nui-nvim",
         "null-ls": "null-ls",
         "nvim-autopairs": "nvim-autopairs",
         "nvim-bufferline-lua": "nvim-bufferline-lua",
