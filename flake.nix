@@ -23,10 +23,26 @@
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin"];
 
+      imports = [
+        # add lib to module args
+        {_module.args = {inherit (nixpkgs) lib;};}
+        ./flake/apps.nix
+        ./flake/legacyPackages.nix
+        ./flake/packages.nix
+      ];
+
       flake = {
         lib = {
           inherit (import ./lib/stdlib-extended.nix nixpkgs.lib) nvim;
           inherit neovimConfiguration;
+        };
+
+        nixosModules.default = {
+          imports = [./lib/hm-module.nix];
+          nixpkgs.overlays = [
+            inputs.tidalcycles.overlays.default
+            inputs.self.overlays.default
+          ];
         };
 
         overlays.default = final: prev: {
@@ -35,69 +51,14 @@
           neovim-maximal = buildPkg prev [maximalConfig];
           neovim-tidal = buildPkg prev [tidalConfig];
         };
-
-        nixosModules.hm-module = {
-          imports = [
-            ./lib/hm.nix
-            # {nixpkgs.overlays = [inputs.self.overlays.default];} what?
-          ];
-        };
       };
 
       perSystem = {
-        system,
-        self',
+        config,
+        pkgs,
         ...
       }: {
-        legacyPackages = import nixpkgs {
-          inherit system;
-          overlays = [
-            inputs.tidalcycles.overlays.default
-            (final: prev: {
-              rnix-lsp = inputs.rnix-lsp.defaultPackage.${system};
-              nil = inputs.nil.packages.${system}.default;
-            })
-          ];
-        };
-
-        apps =
-          {
-            nix.program = lib.getExe self'.packages.nix;
-            maximal.program = lib.getExe self'.packages.maximal;
-            default = self'.apps.nix;
-          }
-          // (
-            if !(builtins.elem system ["aarch64-darwin" "x86_64-darwin"])
-            then {
-              tidal.program = lib.getExe self'.packages.tidal;
-            }
-            else {}
-          );
-
-        devShells.default = self'.legacyPackages.mkShell {nativeBuildInputs = [self'.packages.nix];};
-
-        packages = let
-          docs = import ./docs {
-            pkgs = self'.legacyPackages;
-            nmdSrc = inputs.nmd;
-          };
-        in
-          {
-            # Documentation
-            docs = docs.manual.html;
-            docs-html = docs.manual.html;
-            docs-manpages = docs.manPages;
-            docs-json = docs.options.json;
-
-            # Available Configurations
-            nix = buildPkg self'.legacyPackages [nixConfig];
-            maximal = buildPkg self'.legacyPackages [maximalConfig];
-          }
-          // (
-            if !(builtins.elem system ["aarch64-darwin" "x86_64-darwin"])
-            then {tidal = buildPkg self'.legacyPackages [tidalConfig];}
-            else {}
-          );
+        devShells.default = pkgs.mkShell {nativeBuildInputs = [config.packages.nix];};
       };
     };
 
