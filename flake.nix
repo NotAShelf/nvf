@@ -4,22 +4,7 @@
     nixpkgs,
     flake-parts,
     ...
-  } @ inputs: let
-    inherit (import ./extra.nix inputs) neovimConfiguration mainConfig;
-
-    tidalConfig = {
-      config.vim.tidal.enable = true;
-    };
-
-    buildPkg = pkgs: modules:
-      (neovimConfiguration {
-        inherit pkgs modules;
-      })
-      .neovim;
-
-    nixConfig = mainConfig false;
-    maximalConfig = mainConfig true;
-  in
+  } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin"];
 
@@ -28,13 +13,14 @@
         {_module.args = {inherit (nixpkgs) lib;};}
         ./flake/apps.nix
         ./flake/legacyPackages.nix
+        ./flake/overlays.nix
         ./flake/packages.nix
       ];
 
       flake = {
         lib = {
           inherit (import ./lib/stdlib-extended.nix nixpkgs.lib) nvim;
-          inherit neovimConfiguration;
+          inherit (import ./extra.nix inputs) neovimConfiguration;
         };
 
         nixosModules.default = {
@@ -43,13 +29,6 @@
             inputs.tidalcycles.overlays.default
             inputs.self.overlays.default
           ];
-        };
-
-        overlays.default = final: prev: {
-          inherit neovimConfiguration;
-          neovim-nix = buildPkg prev [nixConfig];
-          neovim-maximal = buildPkg prev [maximalConfig];
-          neovim-tidal = buildPkg prev [tidalConfig];
         };
       };
 
