@@ -1,5 +1,5 @@
 inputs: let
-  modulesWithInputs = import ./modules {inherit inputs;};
+  modulesWithInputs = import ./modules inputs;
 
   neovimConfiguration = {
     modules ? [],
@@ -10,9 +10,7 @@ inputs: let
   }:
     modulesWithInputs {
       inherit pkgs lib check extraSpecialArgs;
-      configuration = {...}: {
-        imports = modules;
-      };
+      configuration.imports = modules;
     };
 
   mainConfig = isMaximal: {

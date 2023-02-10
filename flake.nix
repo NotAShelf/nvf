@@ -5,18 +5,17 @@
     flake-parts,
     ...
   } @ inputs: let
-    inherit (nixpkgs) lib;
     inherit (import ./extra.nix inputs) neovimConfiguration mainConfig;
+
+    tidalConfig = {
+      config.vim.tidal.enable = true;
+    };
 
     buildPkg = pkgs: modules:
       (neovimConfiguration {
         inherit pkgs modules;
       })
       .neovim;
-
-    tidalConfig = {
-      config.vim.tidal.enable = true;
-    };
 
     nixConfig = mainConfig false;
     maximalConfig = mainConfig true;
@@ -26,7 +25,7 @@
 
       flake = {
         lib = {
-          nvim = (import ./lib/stdlib-extended.nix nixpkgs.lib).nvim;
+          inherit (import ./lib/stdlib-extended.nix nixpkgs.lib) nvim;
           inherit neovimConfiguration;
         };
 
