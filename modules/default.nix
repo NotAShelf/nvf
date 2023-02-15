@@ -1,4 +1,4 @@
-{inputs}: {
+inputs: {
   configuration,
   pkgs,
   lib ? pkgs.lib,
@@ -6,10 +6,10 @@
   extraSpecialArgs ? {},
 }: let
   inherit (pkgs) neovim-unwrapped wrapNeovim vimPlugins;
-  inherit (builtins) map filter isString toString getAttr hasAttr attrNames;
+  inherit (builtins) map filter isString toString getAttr;
   inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
 
-  extendedLib = import ./lib/stdlib-extended.nix lib;
+  extendedLib = import ../lib/stdlib-extended.nix lib;
 
   nvimModules = import ./modules.nix {
     inherit check pkgs;

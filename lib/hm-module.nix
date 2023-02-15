@@ -5,14 +5,14 @@
   lib ? pkgs.lib,
   ...
 }: let
-  cfg = config.programs.neovim-ide;
-  set = pkgs.neovimBuilder {config = cfg.settings;};
+  cfg = config.programs.neovim-flake;
+  set = pkgs.neovim-maximal {mainConfig = cfg.settings;};
 in
   with lib; {
     meta.maintainers = [maintainers.notashelf];
 
-    options.programs.neovim-ide = {
-      enable = mkEnableOption "NeoVim with LSP enabled for Scala, Haskell, Rust and more.";
+    options.programs.neovim-flake = {
+      enable = mkEnableOption "A NeoVim IDE with a focus on configurability and extensibility.";
 
       settings = mkOption {
         type = types.attrsOf types.anything;
@@ -31,15 +31,6 @@ in
               lspSignature.enable = true;
               rust.enable = false;
               nix = true;
-              dhall = true;
-              elm = true;
-              haskell = true;
-              scala = true;
-              sql = true;
-              python = false;
-              clang = false;
-              ts = false;
-              go = false;
             };
           }
         '';
