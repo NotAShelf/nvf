@@ -1,3 +1,9 @@
+<div align="center">
+  <a>
+    A highly modular, configurable, extensible and easy to use Neovim configuration wrapper written in Nix. Designed for flexibility and ease of use, this flake allows you to easily configure your Neovim instance with a few lines of Nix code.
+  </a>
+</div>
+
 <div align="center"><p>
     <a href="https://github.com/NotAShelf/neovim-flake/releases/latest">
       <img alt="Latest release" src="https://img.shields.io/github/v/release/NotAShelf/neovim-flake?style=for-the-badge&logo=nixos&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41" />
@@ -24,35 +30,33 @@
   <!-- <p align="center">
     <img src="https://stars.medv.io/NotAShelf/neovim-flake.svg", title="commits"/>
   </p>
-</p></div> -->
+</p> -->
+
+</div>
 
 ---
 
 <div align="center"><p>
 
-**[<kbd> <br> Install <br> </kbd>][Install]**
-**[<kbd> <br> Configure <br> </kbd>][Configure]** 
+**[<kbd> <br> Get Started <br> </kbd>][Get Started]**
 **[<kbd> <br> Documentation <br> </kbd>][Documentation]** 
+**[<kbd> <br> Help <br> </kbd>][Help]** 
 **[<kbd> <br> Contribute <br> </kbd>][Contribute]** 
-**[<kbd> <br> FAQ <br> </kbd>][Faq]**
+**[<kbd> <br> FAQ <br> </kbd>][Faq]** 
+**[<kbd> <br> Credits <br> </kbd>][Credits]**
 
 </p></div>
 
-[Contribute]: #contributing
-[Install]: #install
-[Configure]: #configure
+[Get Started]: #try-it-out
 [Documentation]: #documentation
+[Help]: #help
+[Contribute]: #contributing
 [FAQ]: #faq
+[Credits]: #credits
 
 ---
 
-<div alighn="center">
-  <a>
-    A highly modular, configurable, extensible and easy to use Neovim configuration wrapper written in Nix. Designed for flexibility and ease of use, this flake allows you to easily configure your Neovim instance with a few lines of Nix code.
-  </a>
-</div>
-
-## Try it out
+## Get Started
 
 ### Using `nix`
 
@@ -90,6 +94,10 @@ Please create an issue on the [issue tracker](issues) if you find the documentat
 
 You can create an issue on the [issue tracker](issues) to ask questions or report bugs. I am not yet on spaces like matrix or IRC, so please use the issue tracker for now.
 
+## Contributing
+
+I am always looking for new ways to help improve this flake. If you would like to contribute, please read the [contributing guide](CONTRIBUTING.md) before submitting a pull request. You can also create an issue on the [issue tracker](issues) before submitting a pull request if you would like to discuss a feature or bug fix.
+
 ## Philosophy
 
 The philosophy behind this flake configuration is to create an easily configurable and reproducible Neovim environment. While it does sacrifice in size
@@ -100,23 +108,6 @@ quickly craft a config that suits every project's need. Think of it like a distr
 third party dependencies (such as tree-sitter grammars, language servers, and more).
 
 One should never get a broken config when setting options. If setting multiple options results in a broken Neovim, file an issue! Each plugin knows when another plugin which allows for smart configuration of keybindings and automatic setup of things like completion sources and languages.
-
-## Credits
-
-### Inspiration
-
-This configuration is based on a few other configurations, including:
-
-- [@sioodmy's](https://github.com/sioodmy) [dotfiles](https://github.com/sioodmy/dotfiles)
-- [@wiltaylor's](https://github.com/wiltaylor) [neovim-flake](https://github.com/wiltaylor/neovim-flake)
-- [@jordanisaacs's](https://github.com/jordanisaacs) [neovim-flake](https://github.com/jordanisaacs/neovim-flake)
-- [@gvolpe's](https://github.com/gvolpe) [neovim-flake](https://github.com/gvolpe/neovim-flake)
-
-I am grateful for their previous work and inspiration.
-
-### Contributors
-
-- [@fufexan](https://github.com/fufexan) - For the transition to flake-parts
 
 ## FAQ
 
@@ -138,6 +129,22 @@ instead of the `maximal` output. This will reduce size by a lot, but you will lo
 
 **A**: Maybe. Open an issue using the appropriate template and I will consider it. I do not intend to add every plugin that is in existence, but I will consider it, should it offer something useful to the flake.
 
+## Credits
+
+### Contributors
+
+- [@fufexan](https://github.com/fufexan) - For the transition to flake-parts
+
+### Inspiration
+
+This configuration is based on a few other configurations, including:
+
+- [@sioodmy's](https://github.com/sioodmy) [dotfiles](https://github.com/sioodmy/dotfiles)
+- [@wiltaylor's](https://github.com/wiltaylor) [neovim-flake](https://github.com/wiltaylor/neovim-flake)
+- [@jordanisaacs's](https://github.com/jordanisaacs) [neovim-flake](https://github.com/jordanisaacs/neovim-flake)
+- [@gvolpe's](https://github.com/gvolpe) [neovim-flake](https://github.com/gvolpe/neovim-flake)
+
+I am grateful for their previous work and inspiration.
 <br/>
 
 ---
