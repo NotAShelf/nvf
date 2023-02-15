@@ -138,4 +138,6 @@ instead of the `maximal` output. This will reduce size by a lot, but you will lo
 
 **A**: Maybe. Open an issue using the appropriate template and I will consider it. I do not intend to add every plugin that is in existence, but I will consider it, should it offer something useful to the flake.
 
+<br/>
+
 ---
