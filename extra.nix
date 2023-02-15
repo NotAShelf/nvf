@@ -148,8 +148,8 @@ inputs: let
       };
 
       vim.assistant = {
-        copilot.enable = false;
-        tabnine.enable = false; # FIXME: this is not working because the plugin depends on an internal script to be ran by the package manager
+        copilot.enable = isMaximal;
+        #tabnine.enable = false; # FIXME: this is not working because the plugin depends on an internal script to be ran by the package manager
       };
 
       vim.session = {
