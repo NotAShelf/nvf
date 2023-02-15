@@ -1,9 +1,3 @@
-<div align="center">
-  <a>
-    A highly modular, configurable, extensible and easy to use Neovim configuration wrapper written in Nix. Designed for flexibility and ease of use, this flake allows you to easily configure your Neovim instance with a few lines of Nix code.
-  </a>
-</div>
-
 <div align="center"><p>
     <a href="https://github.com/NotAShelf/neovim-flake/releases/latest">
       <img alt="Latest release" src="https://img.shields.io/github/v/release/NotAShelf/neovim-flake?style=for-the-badge&logo=nixos&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41" />
@@ -31,6 +25,12 @@
     <img src="https://stars.medv.io/NotAShelf/neovim-flake.svg", title="commits"/>
   </p>
 </p> -->
+
+<div align="center">
+  <a>
+    A highly modular, configurable, extensible and easy to use Neovim configuration wrapper written in Nix. Designed for flexibility and ease of use, this flake allows you to easily configure your Neovim instance with a few lines of Nix code.
+  </a>
+</div>
 
 </div>
 
