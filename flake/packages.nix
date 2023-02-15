@@ -22,6 +22,7 @@
         # nvim configs
         nix = config.legacyPackages.neovim-nix;
         maximal = config.legacyPackages.neovim-maximal;
+        default = config.legacyPackages.neovim-nix;
       }
       // (
         if !(builtins.elem system ["aarch64-darwin" "x86_64-darwin"])
