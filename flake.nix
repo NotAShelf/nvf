@@ -44,7 +44,6 @@
   # Flake inputs
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     # For generating documentation website
@@ -371,11 +370,6 @@
     # Assistant
     copilot-lua = {
       url = "github:zbirenbaum/copilot.lua";
-      flake = false;
-    };
-
-    tabnine-nvim = {
-      url = "github:codota/tabnine-nvim";
       flake = false;
     };
 
