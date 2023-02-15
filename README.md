@@ -17,16 +17,14 @@
     <a href="https://github.com/NotAShelf/neovim-flake">
       <img alt="Repo Size" src="https://img.shields.io/github/repo-size/NotAShelf/neovim-flake?color=%23DDB6F2&label=SIZE&logo=codesandbox&style=for-the-badge&logoColor=D9E0EE&labelColor=302D41" />
     </a>
-    <a href="https://patreon.com/chrisatmachine" title="Donate to this project using Patreon">
-      <img alt="Patreon donate button" src="https://img.shields.io/badge/patreon-donate-yellow.svg?style=for-the-badge&logo=starship&color=f5a97f&logoColor=D9E0EE&labelColor=302D41" />
+    <a href="https://liberapay.com/notashelf/" title="Donate to this project using Liberapay">
+      <img alt="Patreon donate button" src="https://img.shields.io/badge/liberapay-donate-yellow.svg?style=for-the-badge&logo=starship&color=f5a97f&logoColor=D9E0EE&labelColor=302D41" />
     </a>
 
-  <p align="center">
+  <!-- <p align="center">
     <img src="https://stars.medv.io/NotAShelf/neovim-flake.svg", title="commits"/>
   </p>
-</p></div>
-
-An Nix wrapped IDE layer for the superior text editor, Neovim.
+</p></div> -->
 
 ---
 
@@ -48,19 +46,23 @@ An Nix wrapped IDE layer for the superior text editor, Neovim.
 
 ---
 
-A highly configurable nix flake for Neovim, packing everything you might need to create your own neovim IDE.
+<div alighn="center">
+  <a>
+    A highly modular, configurable, extensible and easy to use Neovim configuration wrapper written in Nix. Designed for flexibility and ease of use, this flake allows you to easily configure your Neovim instance with a few lines of Nix code.
+  </a>
+</div>
 
-## Install
+## Try it out
 
 ### Using `nix`
 
-The easiest way to install is to use the `nix profile` command. To install the default configuration, run:
+If you would like to try out the configuration before even thinking about installing it, you can run:
 
 ```console
 nix run github:notashelf/neovim-flake
 ```
 
-The package exposes `.#nix` as the default output. You may use `.#nix`, `.#tidal` or `.#maximal` to get different configurations.
+to get a feel for the base configuration. The package exposes `.#nix` as the default package. You may use `.#nix`, `.#tidal` or `.#maximal` to get different configurations.
 
 It is as simply as changing the target output to get a different configuration. For example, to get a configuration with `tidal` support, run:
 
@@ -70,38 +72,19 @@ nix run github:notashelf/neovim-flake#tidal
 
 Similar instructions will apply for `nix profile install`.
 
-### On NixOS
-
-NixOS users may add this repo to their flake inputs as such:
-
-```nix
-{
-  inputs = {
-    # point at this repository, you may pin specific revisions or branches while using `github:`
-    neovim-flake.url = "github:notashelf/neovim-flake";
-    
-    # you may override our nixpkgs with your own, this will save you some cache hits and s recommended
-    nixpkgs.follows = "nixpkgs"; 
-  };
-}
-```
-
-Then, you can use the `neovim-flake` input in your `systemPackages` or `home.packages`.
-
-## Configure
-
-TODO (awaiting #1 to be merged, which implements a separate configuration file)
+P.S. The `maximal` configuration is *massive* and will take a while to build. To get a feel for the configuration, use the default `nix` or `tidal` configurations.
 
 ## Documentation
 
-See the [neovim-flake Manual](https://notashelf.github.io/neovim-flake/) for detailed documentation, available options, and release notes.
+See the [neovim-flake Manual](https://notashelf.github.io/neovim-flake/) for detailed installation guide(s), configuration, available options, and release notes.
+
 If you want to dive right into trying **neovim-flake** you can get a fully featured configuration with `nix` language support by running:
 
 ```console
 nix run github:notashelf/neovim-flake
 ```
 
-The documentation is scarce right now as a result of the ongoing rebase and refactor, but shall be available once more soon.
+Please create an issue on the [issue tracker](issues) if you find the documentation lacking or confusing. I also appreciate any contributions to the documentation.
 
 ## Help
 
@@ -120,6 +103,8 @@ One should never get a broken config when setting options. If setting multiple o
 
 ## Credits
 
+### Inspiration
+
 This configuration is based on a few other configurations, including:
 
 - [@sioodmy's](https://github.com/sioodmy) [dotfiles](https://github.com/sioodmy/dotfiles)
@@ -127,18 +112,30 @@ This configuration is based on a few other configurations, including:
 - [@jordanisaacs's](https://github.com/jordanisaacs) [neovim-flake](https://github.com/jordanisaacs/neovim-flake)
 - [@gvolpe's](https://github.com/gvolpe) [neovim-flake](https://github.com/gvolpe/neovim-flake)
 
-I am grateful for their work and inspiration.
+I am grateful for their previous work and inspiration.
+
+### Contributors
+
+- [@fufexan](https://github.com/fufexan) - For the transition to flake-parts
 
 ## FAQ
 
 **Q**: Why is this flake so big?
 
-**A**: I have sacrificed in size in order to provide a highly configurable and reproducible Neovim environment. A binary cache is provided to 
+**A**: I have sacrificed in size in order to provide a highly configurable and reproducible Neovim environment. A binary cache is provided to
 eleminate the need to build the flake from source, but it is still a large flake. If you do not need all the features, you can use the default `nix` output
 instead of the `maximal` output. This will reduce size by a lot, but you will lose some language specific features.
+
+**Q**: Will you try to make this flake smaller?
+
+**A**: Yes. As a matter of fact, I am actively working on making this flake smaller. Unfortunately the process of providing everything possible by itself makes the flake large. Best I can do is to optimize the flake as much as possible by selecting plugins that are small and fast. And the binary cache, so at least you don't have to build it from source.
 
 **Q**: Will you use a plugin manager?
 
 **A**: No. If you feel the need to ask that question, then you have missed the whole point of using nix and ultimately this flake. We load plugins with raw lua.
+
+**Q**: Can you add *X*?
+
+**A**: Maybe. Open an issue using the appropriate template and I will consider it. I do not intend to add every plugin that is in existence, but I will consider it, should it offer something useful to the flake.
 
 ---
