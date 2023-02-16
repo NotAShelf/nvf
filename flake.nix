@@ -361,6 +361,11 @@
       flake = false;
     };
 
+    mind-nvim = {
+      url = "github:phaazon/mind.nvim";
+      flake = false;
+    };
+
     # Terminal
     toggleterm-nvim = {
       url = "github:akinsho/toggleterm.nvim";

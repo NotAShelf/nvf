@@ -136,7 +136,8 @@ inputs: let
 
       vim.notes = {
         obsidian.enable = false; # FIXME neovim fails to build if obsidian is enabled
-        orgmode.enable = true;
+        orgmode.enable = false;
+        mind-nvim.enable = true;
       };
 
       vim.terminal = {
