@@ -68,6 +68,7 @@ with lib; let
     "gesture-nvim"
     "comment-nvim"
     "kommentary"
+    "mind-nvim"
   ];
   # You can either use the name of the plugin or a package.
   pluginsType = with types; listOf (nullOr (either (enum availablePlugins) package));

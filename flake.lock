@@ -514,6 +514,22 @@
         "type": "github"
       }
     },
+    "mind-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1674572816,
+        "narHash": "sha256-yLf/2NvPT0RtFh6+0W32Uaj3Tjs52oyZSb8Jq3INZI4=",
+        "owner": "phaazon",
+        "repo": "mind.nvim",
+        "rev": "e59c52758c399caceb549c698cfa2d65e6bbb9f9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "phaazon",
+        "repo": "mind.nvim",
+        "type": "github"
+      }
+    },
     "minimap-vim": {
       "flake": false,
       "locked": {
@@ -1079,6 +1095,7 @@
         "lspkind": "lspkind",
         "lspsaga": "lspsaga",
         "lualine": "lualine",
+        "mind-nvim": "mind-nvim",
         "minimap-vim": "minimap-vim",
         "nil": "nil",
         "nixpkgs": "nixpkgs",
