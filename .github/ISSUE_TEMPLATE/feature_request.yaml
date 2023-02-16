@@ -1,0 +1,58 @@
+name: 🚀 Feature Request
+description: "Propose a new feature"
+#title: "[Feature] "
+labels: [feature-request]
+body:
+  - type: checkboxes
+    id: no-duplicate-issues
+    attributes:
+      label: "⚠️ Please verify that this feature request has NOT been suggested before."
+      description: "Search in the issues sections by clicking [HERE](https://github.com/notashelf/neovim-flake/issues?q=)"
+      options:
+        - label: "I checked and didn't find a similar feature request"
+          required: true
+  - type: dropdown
+    id: feature-area
+    attributes:
+      label: "🏷️ Feature Type"
+      description: "What kind of a feature request is this?"
+      multiple: true
+      options:
+        - New Command
+        - New Addon
+        - API Additions
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: feature-description
+    validations:
+      required: true
+    attributes:
+      label: "🔖 Feature description"
+      description: "A clear and concise description of what your feature request is."
+      placeholder: "'You should add [...]' or '[...] has always frustrated me' "
+  - type: textarea
+    id: solution
+    validations:
+      required: true
+    attributes:
+      label: "✔️ Solution"
+      description: "A clear and concise description of what you want to happen."
+      placeholder: "In my use-case, I would like [...]"
+  - type: textarea
+    id: alternatives
+    validations:
+      required: false
+    attributes:
+      label: "❓ Alternatives"
+      description: "A clear and concise description of any alternative solutions or features you've considered."
+      placeholder: "I have considered [...]"
+  - type: textarea
+    id: additional-context
+    validations:
+      required: false
+    attributes:
+      label: "📝 Additional Context"
+      description: "Add any other context or screenshots about the feature request here."
+      placeholder: "..."

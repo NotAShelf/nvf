@@ -1,3 +1,4 @@
+<h1 align="center">neovim-flake</h1>
 <div align="center"><p>
     <a href="https://github.com/NotAShelf/neovim-flake/releases/latest">
       <img alt="Latest release" src="https://img.shields.io/github/v/release/NotAShelf/neovim-flake?style=for-the-badge&logo=nixos&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41" />

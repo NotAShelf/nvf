@@ -6,9 +6,9 @@ on:
     branches:
       - main
     paths-ignore:
-      - '.github/**'
-      - './assets/**'
-      - '.gitignore'
+      - .github/**
+      - assets/**
+      - .gitignore
 
 jobs:
   nix:
@@ -44,5 +44,5 @@ jobs:
         run: git config --global init.defaultBranch main
       - name: Validate Flakes
         run: nix flake check
-      - name: Build Hyprland with default settings
+      - name: Build Hneovim-flake with default settings
         run: nix build .#${{ matrix.package }} --print-build-logs
