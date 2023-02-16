@@ -29,6 +29,7 @@
     ./ui
     ./assistant
     ./session
+    ./comments
   ];
 
   pkgsModule = {config, ...}: {

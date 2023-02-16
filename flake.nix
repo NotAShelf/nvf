@@ -201,6 +201,11 @@
       url = "github:b3nj5m1n/kommentary";
       flake = false;
     };
+    comment-nvim = {
+      url = "github:numToStr/Comment.nvim";
+      flake = false;
+    };
+
     todo-comments = {
       url = "github:folke/todo-comments.nvim";
       flake = false;

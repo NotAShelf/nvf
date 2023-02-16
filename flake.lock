@@ -208,6 +208,22 @@
         "type": "github"
       }
     },
+    "comment-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1676528587,
+        "narHash": "sha256-SwN67ILsNJk0bNkcfQFiipAULaDxTfnCDHSC/+XKeLA=",
+        "owner": "numToStr",
+        "repo": "Comment.nvim",
+        "rev": "6821b3ae27a57f1f3cf8ed030e4a55d70d0c4e43",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numToStr",
+        "repo": "Comment.nvim",
+        "type": "github"
+      }
+    },
     "copilot-lua": {
       "flake": false,
       "locked": {
@@ -1045,6 +1061,7 @@
         "cmp-vsnip": "cmp-vsnip",
         "codewindow-nvim": "codewindow-nvim",
         "colorizer": "colorizer",
+        "comment-nvim": "comment-nvim",
         "copilot-lua": "copilot-lua",
         "crates-nvim": "crates-nvim",
         "dashboard-nvim": "dashboard-nvim",
