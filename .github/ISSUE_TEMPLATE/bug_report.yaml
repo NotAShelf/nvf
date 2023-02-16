@@ -1,0 +1,60 @@
+name: "🐛 Bug Report"
+description: "Submit a bug report to help us improve"
+#title: "[Bug] "
+labels: [bug]
+body:
+  - type: checkboxes
+    id: no-duplicate-issues
+    attributes:
+      label: "⚠️ Please verify that this bug has NOT been reported before."
+      description: "Search in the issues sections by clicking [HERE](https://github.com/notashelf/neovim-flake4/issues?q=)"
+      options:
+        - label: "I checked all existing issues and didn't find a similar issue"
+          required: true
+  - type: textarea
+    id: description
+    validations:
+      required: false
+    attributes:
+      label: "Description"
+      description: "You could also upload screenshots, if necessary"
+  - type: textarea
+    id: steps-to-reproduce
+    validations:
+      required: true
+    attributes:
+      label: "👟 Reproduction steps"
+      description: "How do you trigger this bug? Please walk us through the problem, step by step"
+      placeholder: "..."
+  - type: textarea
+    id: expected-behavior
+    validations:
+      required: true
+    attributes:
+      label: "👀 Expected behavior"
+      description: "What did you think would or should happen?"
+      placeholder: "..."
+  - type: textarea
+    id: actual-behavior
+    validations:
+      required: true
+    attributes:
+      label: "😓 Actual Behavior"
+      description: "What actually happen?"
+      placeholder: "..."
+  - type: input
+    id: nix-metadata
+    attributes:
+      label: "💻 Metadata"
+      description: 'Please run `nix-shell -p nix-info --run "nix-info -m"` and paste the result.'
+      placeholder: '[user@system:~]$ nix-shell -p nix-info --run "nix-info -m"'
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: "📝 Relevant log output"
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: bash
+    validations:
+      required: true
