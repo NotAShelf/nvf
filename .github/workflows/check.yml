@@ -5,6 +5,10 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - .github/**
+      - assets/**
+      - .gitignore
 jobs:
   nix-flake-check:
     runs-on: ubuntu-latest
