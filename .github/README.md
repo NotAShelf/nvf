@@ -1,5 +1,6 @@
 <h1 align="center">neovim-flake</h1>
-<div align="center"><p>
+<div align="center">
+<p>
     <a href="https://github.com/NotAShelf/neovim-flake/releases/latest">
       <img alt="Latest release" src="https://img.shields.io/github/v/release/NotAShelf/neovim-flake?style=for-the-badge&logo=nixos&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41" />
     </a>
@@ -21,12 +22,12 @@
     <a href="https://liberapay.com/notashelf/" title="Donate to this project using Liberapay">
       <img alt="Patreon donate button" src="https://img.shields.io/badge/liberapay-donate-yellow.svg?style=for-the-badge&logo=starship&color=f5a97f&logoColor=D9E0EE&labelColor=302D41" />
     </a>
-
-  <!-- <p align="center">
-    <img src="https://stars.medv.io/NotAShelf/neovim-flake.svg", title="commits"/>
-  </p>
-</p> -->
-
+</p>
+<!-- 
+    <p align="center">
+      <img src="https://stars.medv.io/NotAShelf/neovim-flake.svg", title="commits"/>
+    </p>
+-->
 <div align="center">
   <a>
     A highly modular, configurable, extensible and easy to use Neovim configuration wrapper written in Nix. Designed for flexibility and ease of use, this flake allows you to easily configure your Neovim instance with a few lines of Nix code.
@@ -89,15 +90,15 @@ If you want to dive right into trying **neovim-flake** you can get a fully featu
 nix run github:notashelf/neovim-flake
 ```
 
-Please create an issue on the [issue tracker](issues) if you find the documentation lacking or confusing. I also appreciate any contributions to the documentation.
+Please create an issue on the [issue tracker](/issues) if you find the documentation lacking or confusing. I also appreciate any contributions to the documentation.
 
 ## Help
 
-You can create an issue on the [issue tracker](issues) to ask questions or report bugs. I am not yet on spaces like matrix or IRC, so please use the issue tracker for now.
+You can create an issue on the [issue tracker](/issues) to ask questions or report bugs. I am not yet on spaces like matrix or IRC, so please use the issue tracker for now.
 
 ## Contributing
 
-I am always looking for new ways to help improve this flake. If you would like to contribute, please read the [contributing guide](CONTRIBUTING.md) before submitting a pull request. You can also create an issue on the [issue tracker](issues) before submitting a pull request if you would like to discuss a feature or bug fix.
+I am always looking for new ways to help improve this flake. If you would like to contribute, please read the [contributing guide](CONTRIBUTING.md) before submitting a pull request. You can also create an issue on the [issue tracker](/issues) before submitting a pull request if you would like to discuss a feature or bug fix.
 
 ## Philosophy
 
