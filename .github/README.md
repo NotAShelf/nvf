@@ -90,15 +90,15 @@ If you want to dive right into trying **neovim-flake** you can get a fully featu
 nix run github:notashelf/neovim-flake
 ```
 
-Please create an issue on the [issue tracker](../../issues) if you find the documentation lacking or confusing. I also appreciate any contributions to the documentation.
+Please create an issue on the [issue tracker](../../../issues) if you find the documentation lacking or confusing. I also appreciate any contributions to the documentation.
 
 ## Help
 
-You can create an issue on the [issue tracker](../../issues) to ask questions or report bugs. I am not yet on spaces like matrix or IRC, so please use the issue tracker for now.
+You can create an issue on the [issue tracker](../../../issues) to ask questions or report bugs. I am not yet on spaces like matrix or IRC, so please use the issue tracker for now.
 
 ## Contributing
 
-I am always looking for new ways to help improve this flake. If you would like to contribute, please read the [contributing guide](CONTRIBUTING.md) before submitting a pull request. You can also create an issue on the [issue tracker](../../issues) before submitting a pull request if you would like to discuss a feature or bug fix.
+I am always looking for new ways to help improve this flake. If you would like to contribute, please read the [contributing guide](CONTRIBUTING.md) before submitting a pull request. You can also create an issue on the [issue tracker](../../../issues) before submitting a pull request if you would like to discuss a feature or bug fix.
 
 ## Philosophy
 
