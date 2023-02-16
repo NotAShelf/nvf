@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths: 
+      # build the manuals only when docs directory is updated
+      - docs/**
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
