@@ -16,7 +16,7 @@ in {
     vim.startPlugins = ["presence-nvim"];
 
     vim.luaConfigRC.presence-nvim = nvim.dag.entryAnywhere ''
-      -- Description of each option can be found in https://github.com/andweeb/presence.nvim444
+      -- Description of each option can be found in https://github.com/andweeb/presence.nvim
       require("presence").setup({
           -- General options
           auto_update         = true,
