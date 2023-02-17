@@ -163,7 +163,7 @@ inputs: let
 
       vim.comments = {
         comment-nvim.enable = true;
-        kommentary = builtins.trace "WARNING: kommentary is deprecated and will be removed in the future, use comment-nvim instead" {enable = true;};
+        kommentary = builtins.trace "WARNING: kommentary is deprecated and will be removed in the future, use comment-nvim instead" {enable = false;};
       };
     };
   };
