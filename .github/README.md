@@ -70,7 +70,7 @@ nix run github:notashelf/neovim-flake
 
 to get a feel for the base configuration. The package exposes `.#nix` as the default package. You may use `.#nix`, `.#tidal` or `.#maximal` to get different configurations.
 
-It is as simply as changing the target output to get a different configuration. For example, to get a configuration with `tidal` support, run:
+It is as simple as changing the target output to get a different configuration. For example, to get a configuration with `tidal` support, run:
 
 ```console
 nix run github:notashelf/neovim-flake#tidal
@@ -104,9 +104,7 @@ I am always looking for new ways to help improve this flake. If you would like t
 
 The philosophy behind this flake configuration is to create an easily configurable and reproducible Neovim environment. While it does sacrifice in size
 (which I know some users will find *disagreeable*), it offers a lot of flexibility and customizability in exchange for the large size of the flake inputs.
-The KISS (Keep it simple, stupid) principle has been abandoned here, but you can ultimately declare a configuration that follows KISS.
-For it is very easy to bring your own plugins and configurations. Whether you are a developer, writer, or live coder (see tidal cycles below!),
-quickly craft a config that suits every project's need. Think of it like a distribution of Neovim that takes advantage of pinning vim plugins and
+The KISS (Keep it simple, stupid) principle has been abandoned here, however, you *can* ultimately leverage the flexibility of this flake to declare a configuration that follows KISS principles, it is very easy to bring your own plugins and configurations from non-nix. What this flake is meant to be does eventually fall into your hands. Whether you are a developer, writer, or live coder (see tidal cycles below!), you can quickly craft a config that suits every project's need. Think of it like a distribution of Neovim that takes advantage of pinning vim plugins and
 third party dependencies (such as tree-sitter grammars, language servers, and more).
 
 One should never get a broken config when setting options. If setting multiple options results in a broken Neovim, file an issue! Each plugin knows when another plugin which allows for smart configuration of keybindings and automatic setup of things like completion sources and languages.
@@ -114,21 +112,24 @@ One should never get a broken config when setting options. If setting multiple o
 ## FAQ
 
 **Q**: Why is this flake so big?
-
+<br/>
 **A**: I have sacrificed in size in order to provide a highly configurable and reproducible Neovim environment. A binary cache is provided to
 eleminate the need to build the flake from source, but it is still a large flake. If you do not need all the features, you can use the default `nix` output
 instead of the `maximal` output. This will reduce size by a lot, but you will lose some language specific features.
+<br/><br/>
 
 **Q**: Will you try to make this flake smaller?
-
+<br/>
 **A**: Yes. As a matter of fact, I am actively working on making this flake smaller. Unfortunately the process of providing everything possible by itself makes the flake large. Best I can do is to optimize the flake as much as possible by selecting plugins that are small and fast. And the binary cache, so at least you don't have to build it from source.
+<br/><br/>
 
 **Q**: Will you use a plugin manager?
-
+<br/>
 **A**: No. If you feel the need to ask that question, then you have missed the whole point of using nix and ultimately this flake. We load plugins with raw lua.
+<br/><br/>
 
 **Q**: Can you add *X*?
-
+<br/>
 **A**: Maybe. Open an issue using the appropriate template and I will consider it. I do not intend to add every plugin that is in existence, but I will consider it, should it offer something useful to the flake.
 
 ## Credits
@@ -139,7 +140,7 @@ instead of the `maximal` output. This will reduce size by a lot, but you will lo
 
 ### Inspiration
 
-This configuration is based on a few other configurations, including:
+This configuration borrows from and is based on a few other configurations, including:
 
 - [@sioodmy's](https://github.com/sioodmy) [dotfiles](https://github.com/sioodmy/dotfiles)
 - [@wiltaylor's](https://github.com/wiltaylor) [neovim-flake](https://github.com/wiltaylor/neovim-flake)
