@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    ./which-key.nix
-    ./cheatsheet.nix
+    ./which-key
+    ./cheatsheet
   ];
 }
