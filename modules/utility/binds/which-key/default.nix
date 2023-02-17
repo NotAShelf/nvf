@@ -27,6 +27,9 @@ in {
           -- Buffer
           ["<leader>b"] = { name = "+Buffer" },
           ["<leader>bm"] = { name = "BufferLineMove" },
+          ["<leader>bs"] = { name = "BufferLineSort" },
+          ["<leader>bsi"] = { name = "BufferLineSortById" },
+
         ''
         else ""
       }
