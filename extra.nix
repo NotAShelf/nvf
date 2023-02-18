@@ -163,7 +163,20 @@ inputs: let
 
       vim.comments = {
         comment-nvim.enable = true;
-        kommentary = builtins.trace "WARNING: kommentary is deprecated and will be removed in the future, use comment-nvim instead" {enable = false;};
+        kommentary. enable = false;
+      };
+
+      vim.presence = {
+        presence-nvim = {
+          enable = true;
+          auto_update = true;
+          image_text = "The One True Text Editor";
+          client_id = "793271441293967371";
+          main_image = "neovim";
+          rich_presence = {
+            editing_text = "Editing %s";
+          };
+        };
       };
     };
   };

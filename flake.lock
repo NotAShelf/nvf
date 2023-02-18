@@ -289,22 +289,6 @@
         "type": "github"
       }
     },
-    "discord-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1674984077,
-        "narHash": "sha256-ZpsunLsn//zYgUtmAm5FqKVueVd/Pa1r55ZDqxCimBk=",
-        "owner": "andweeb",
-        "repo": "presence.nvim",
-        "rev": "87c857a56b7703f976d3a5ef15967d80508df6e6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "andweeb",
-        "repo": "presence.nvim",
-        "type": "github"
-      }
-    },
     "dressing-nvim": {
       "flake": false,
       "locked": {
@@ -1026,6 +1010,22 @@
         "type": "github"
       }
     },
+    "presence-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1674984077,
+        "narHash": "sha256-ZpsunLsn//zYgUtmAm5FqKVueVd/Pa1r55ZDqxCimBk=",
+        "owner": "andweeb",
+        "repo": "presence.nvim",
+        "rev": "87c857a56b7703f976d3a5ef15967d80508df6e6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "andweeb",
+        "repo": "presence.nvim",
+        "type": "github"
+      }
+    },
     "registers": {
       "flake": false,
       "locked": {
@@ -1081,7 +1081,6 @@
         "copilot-lua": "copilot-lua",
         "crates-nvim": "crates-nvim",
         "dashboard-nvim": "dashboard-nvim",
-        "discord-nvim": "discord-nvim",
         "dressing-nvim": "dressing-nvim",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
@@ -1122,6 +1121,7 @@
         "onedark": "onedark",
         "orgmode-nvim": "orgmode-nvim",
         "plenary-nvim": "plenary-nvim",
+        "presence-nvim": "presence-nvim",
         "registers": "registers",
         "rnix-lsp": "rnix-lsp",
         "rust-tools": "rust-tools",

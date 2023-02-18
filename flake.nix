@@ -181,7 +181,7 @@
     };
 
     # Presence
-    discord-nvim = {
+    presence-nvim = {
       url = "github:andweeb/presence.nvim";
       flake = false;
     };

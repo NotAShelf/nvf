@@ -1,5 +1,5 @@
 _: {
   imports = [
-    ./discord-nvim.nix
+    ./presence-nvim.nix
   ];
 }
