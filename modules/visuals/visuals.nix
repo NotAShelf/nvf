@@ -52,6 +52,12 @@ in {
       };
     };
 
+    fidget-nvim.enable = {
+      type = types.bool;
+      description = "a UI for nvim-lsp's progress handler";
+      default = true;
+    };
+
     indentBlankline = {
       enable = mkOption {
         type = types.bool;
@@ -117,6 +123,11 @@ in {
         (
           if cfg.cellularAutomaton.enable
           then "cellular-automaton"
+          else null
+        )
+        (
+          if cfg.fidget-nvim.enable
+          then "fidget-nvim"
           else null
         )
       ];
@@ -207,6 +218,35 @@ in {
             require("cellular-automaton").register_animation(config)
 
             vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
+          ''
+          else ""
+        }
+        ${
+          if cfg.fidget-nvim.enable
+          then ''
+            -- TODO: make those configurable
+            require"fidget".setup{
+              text = {
+                spinner = "pipe",         -- animation shown when tasks are ongoing
+                done = "✔",               -- character shown when all tasks are complete
+                commenced = "Started",    -- message shown when task starts
+                completed = "Completed",  -- message shown when task completes
+              },
+              align = {
+                bottom = true,            -- align fidgets along bottom edge of buffer
+                right = true,             -- align fidgets along right edge of buffer
+              },
+              timer = {
+                spinner_rate = 125,       -- frame rate of spinner animation, in ms
+                fidget_decay = 2000,      -- how long to keep around empty fidget, in ms
+                task_decay = 1000,        -- how long to keep around completed task, in ms
+              },
+              window = {
+                relative = "win",         -- where to anchor, either "win" or "editor"
+                blend = 100,              -- &winblend for the window
+                zindex = nil,             -- the zindex value for the window
+                border = "none",          -- style of border for the fidget window
+              },
           ''
           else ""
         }

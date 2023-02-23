@@ -289,6 +289,11 @@
       flake = false;
     };
 
+    fidget-nvim = {
+      url = "github:j-hui/fidget.nvim";
+      flake = false;
+    };
+
     # Markdown
     glow-nvim = {
       url = "github:ellisonleao/glow.nvim";

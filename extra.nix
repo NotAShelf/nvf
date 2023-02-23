@@ -48,6 +48,7 @@ inputs: let
         smoothScroll.enable = true;
         cellularAutomaton.enable = true;
         lspkind.enable = true;
+        nvim-fidget.enable = true;
         indentBlankline = {
           enable = true;
           fillChar = "";

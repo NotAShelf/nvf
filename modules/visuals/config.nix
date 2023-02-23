@@ -28,6 +28,10 @@ with lib; {
         eolChar = mkDefault "↴";
         showCurrContext = mkDefault true;
       };
+
+      fidget-nvim = {
+        enable = mkDefault true;
+      };
     };
   };
 }

@@ -305,6 +305,22 @@
         "type": "github"
       }
     },
+    "fidget-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1676661245,
+        "narHash": "sha256-f49AwromG0rHZ5i1q4i6GJgLNtusa8QpciljL0dgSJo=",
+        "owner": "j-hui",
+        "repo": "fidget.nvim",
+        "rev": "688b4fec4517650e29c3e63cfbb6e498b3112ba1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "j-hui",
+        "repo": "fidget.nvim",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -1082,6 +1098,7 @@
         "crates-nvim": "crates-nvim",
         "dashboard-nvim": "dashboard-nvim",
         "dressing-nvim": "dressing-nvim",
+        "fidget-nvim": "fidget-nvim",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
         "gesture-nvim": "gesture-nvim",
