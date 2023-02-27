@@ -15,6 +15,12 @@ in {
       description = "Enable nvim-tree-lua";
     };
 
+    sortBy = mkOption {
+      default = "name";
+      description = "Sort by name or extension";
+      type = types.enum ["name" "extension" "modification_time" "case_sensitive"];
+    };
+
     treeSide = mkOption {
       default = "left";
       description = "Side the tree will appear on left or right";
@@ -132,7 +138,7 @@ in {
     };
 
     hijackCursor = mkOption {
-      default = true;
+      default = false;
       description = "Hijack the cursor in the tree to put it at the start of the filename";
       type = types.bool;
     };
@@ -211,6 +217,38 @@ in {
           description = "Quit the tree when opening a file";
           type = types.bool;
         };
+        windowPicker = {
+          enable = mkEnableOption "Window picker";
+
+          chars = mkOption {
+            default = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            description = "A string of chars used as identifiers by the window picker";
+            type = types.str;
+          };
+
+          /*
+          # FIXME: Can't get this to place the list items in a lua table
+          exclude = {
+            fileType = mkOption {
+              default = ["notify" "packer" "qf" "diff" "fugitive" "fugitiveblame"];
+              description = "File types to exclude from window picker";
+              type = with types; listOf str;
+            };
+            buftype = mkOption {
+              default = ["nofile" "terminal" "help"];
+              description = "Buffer types to exclude from window picker";
+              type = with types; listOf str;
+            };
+          };
+          */
+        };
+      };
+      expandAll = {
+        exclude = mkOption {
+          default = [];
+          description = "Exclude files from expand all";
+          type = with types; listOf str;
+        };
       };
     };
 
@@ -280,7 +318,6 @@ in {
             type = types.bool;
           };
         };
-
         glyphs = {
           default = mkOption {
             default = "";
@@ -376,80 +413,5 @@ in {
         };
       };
     };
-  };
-
-  config = mkIf cfg.enable {
-    vim.startPlugins = ["nvim-tree-lua"];
-
-    vim.nnoremap = {
-      "<C-n>" = ":NvimTreeToggle<CR>";
-      "<leader>tr" = ":NvimTreeRefresh<CR>";
-      "<leader>tg" = ":NvimTreeFindFile<CR>";
-      "<leader>tf" = ":NvimTreeFocus<CR>";
-    };
-
-    vim.luaConfigRC.nvimtreelua = nvim.dag.entryAnywhere ''
-      require'nvim-tree'.setup({
-        disable_netrw = ${boolToString cfg.disableNetRW},
-        hijack_netrw = ${boolToString cfg.hijackNetRW},
-        hijack_cursor = ${boolToString cfg.hijackCursor},
-        open_on_tab = ${boolToString cfg.openTreeOnNewTab},
-        -- FIXME: Open on startup has been deprecated
-        -- needs an alternative, see https://github.com/nvim-tree/nvim-tree.lua/wiki/Open-At-Startup3
-        -- open_on_setup = ${boolToString cfg.openOnSetup},
-        -- open_on_setup_file = ${boolToString cfg.openOnSetup},
-        sync_root_with_cwd = ${boolToString cfg.syncRootWithCwd},
-        update_focused_file = {
-          enable = ${boolToString cfg.updateFocusedFile.enable},
-          update_cwd = ${boolToString cfg.updateFocusedFile.update_cwd},
-        },
-
-        view  = {
-          width = ${toString cfg.view.width},
-          side = ${"'" + cfg.view.side + "'"},
-          adaptive_size = ${boolToString cfg.view.adaptiveSize},
-          hide_root_folder = ${boolToString cfg.view.hideRootFolder},
-        },
-        git = {
-          enable = ${boolToString cfg.git.enable},
-          ignore = ${boolToString cfg.git.ignore},
-        },
-
-        filesystem_watchers = {
-          enable = ${boolToString cfg.filesystemWatchers.enable},
-        },
-
-        actions = {
-          open_file = {
-            quit_on_open = ${boolToString cfg.actions.openFile.quitOnOpen},
-            resize_window = ${boolToString cfg.actions.openFile.resizeWindow},
-          },
-        },
-
-        renderer = {
-          highlight_git = ${boolToString cfg.renderer.higlightGit},
-          highlight_opened_files = ${"'" + cfg.renderer.highlightOpenedFiles + "'"},
-          indent_markers = {
-            enable = ${boolToString cfg.renderer.indentMarkers},
-          },
-          -- TODO: those two
-          add_trailing = ${boolToString cfg.renderer.trailingSlash},
-          group_empty = ${boolToString cfg.renderer.groupEmptyFolders},
-        },
-
-        system_open = {
-          cmd = ${"'" + cfg.systemOpenCmd + "'"},
-        },
-        diagnostics = {
-          enable = ${boolToString cfg.lspDiagnostics},
-        },
-        filters = {
-          dotfiles = ${boolToString cfg.hideDotFiles},
-          custom = {
-            ${builtins.concatStringsSep "\n" (builtins.map (s: "\"" + s + "\",") cfg.hideFiles)}
-          },
-        },
-      })
-    '';
   };
 }
