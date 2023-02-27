@@ -1,5 +1,5 @@
 _: {
   imports = [
-    ./vsnip
+    ./vsnip.nix
   ];
 }
