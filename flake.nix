@@ -138,6 +138,17 @@
       flake = false;
     };
 
+    # Winbar
+    nvim-navic = {
+      url = "github:SmiteshP/nvim-navic";
+      flake = false;
+    };
+
+    barbecue-nvim = {
+      url = "github:utilyre/barbecue.nvim";
+      flake = false;
+    };
+
     # Statuslines
     lualine = {
       url = "github:hoob3rt/lualine.nvim";

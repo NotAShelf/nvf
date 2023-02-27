@@ -65,6 +65,10 @@ inputs: let
         theme = "catppuccin";
       };
 
+      vim.winbar = {
+        barbecue.enable = true;
+      };
+
       vim.theme = {
         enable = true;
         name = "catppuccin";
