@@ -16,6 +16,22 @@
         "type": "github"
       }
     },
+    "barbecue-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1677143543,
+        "narHash": "sha256-+zg1Zx6L0ii/8LobalGWtVu0/FoazDKBRgJ3PwLol1M=",
+        "owner": "utilyre",
+        "repo": "barbecue.nvim",
+        "rev": "23348f3979912fb36a1442fb0d07e8d2e739aea2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "utilyre",
+        "repo": "barbecue.nvim",
+        "type": "github"
+      }
+    },
     "bufdelete-nvim": {
       "flake": false,
       "locked": {
@@ -834,6 +850,22 @@
         "type": "github"
       }
     },
+    "nvim-navic": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1675527008,
+        "narHash": "sha256-VUDlx2V9r5X5tidVXHpNiRWfvtVRsG/H38wmAVfRvwk=",
+        "owner": "SmiteshP",
+        "repo": "nvim-navic",
+        "rev": "7e9d2b2b601149fecdccd11b516acb721e571fe6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SmiteshP",
+        "repo": "nvim-navic",
+        "type": "github"
+      }
+    },
     "nvim-neoclip": {
       "flake": false,
       "locked": {
@@ -1065,6 +1097,7 @@
     "root": {
       "inputs": {
         "alpha-nvim": "alpha-nvim",
+        "barbecue-nvim": "barbecue-nvim",
         "bufdelete-nvim": "bufdelete-nvim",
         "catppuccin": "catppuccin",
         "cellular-automaton": "cellular-automaton",
@@ -1110,6 +1143,7 @@
         "nvim-cursorline": "nvim-cursorline",
         "nvim-lightbulb": "nvim-lightbulb",
         "nvim-lspconfig": "nvim-lspconfig",
+        "nvim-navic": "nvim-navic",
         "nvim-neoclip": "nvim-neoclip",
         "nvim-notify": "nvim-notify",
         "nvim-session-manager": "nvim-session-manager",
