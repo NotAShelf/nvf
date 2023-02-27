@@ -5,11 +5,15 @@
   ...
 }: {
   imports = [
-    ./lsp.nix
-    ./lspsaga.nix
-    ./nvim-code-action-menu.nix
-    ./trouble.nix
-    ./lsp-signature.nix
-    ./lightbulb.nix
+    # nvim lsp support
+    ./config.nix
+    ./module.nix
+
+    # lsp plugins
+    ./lspsaga
+    ./nvim-code-action-menu
+    ./trouble
+    ./lsp-signature
+    ./lightbulb
   ];
 }
