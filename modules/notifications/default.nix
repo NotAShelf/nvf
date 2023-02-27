@@ -1,5 +1,5 @@
 _: {
   imports = [
-    ./nvim-notify.nix
+    ./nvim-notify
   ];
 }
