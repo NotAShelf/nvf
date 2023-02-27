@@ -1,5 +1,5 @@
 _: {
   imports = [
-    ./toggleterm.nix
+    ./toggleterm
   ];
 }
