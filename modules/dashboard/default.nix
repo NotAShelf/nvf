@@ -5,8 +5,8 @@
   ...
 }: {
   imports = [
-    ./alpha.nix
-    ./dashboard-nvim.nix
-    ./startify.nix
+    ./alpha
+    ./dashboard-nvim
+    ./startify
   ];
 }

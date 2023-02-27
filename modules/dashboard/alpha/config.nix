@@ -8,17 +8,14 @@ with lib;
 with builtins; let
   cfg = config.vim.dashboard.alpha;
 in {
-  options.vim.dashboard.alpha = {
-    enable = mkEnableOption "alpha";
-  };
-
   config = mkIf cfg.enable {
     vim.startPlugins = [
       "alpha-nvim"
+      "nvim-web-devicons"
     ];
 
-    # the credit for this configuration goes to https://github.com/Rishabh672003
-    # good work, honestly
+    # the entire credit for this dashboard configuration to https://github.com/Rishabh672003
+    # honestly, excellent work
     vim.luaConfigRC.alpha = nvim.dag.entryAnywhere ''
       local alpha = require("alpha")
       local plenary_path = require("plenary.path")
