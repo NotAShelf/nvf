@@ -8,10 +8,6 @@ with lib;
 with builtins; let
   cfg = config.vim.ui.noice;
 in {
-  options.vim.ui.noice = {
-    enable = mkEnableOption "noice-nvim";
-  };
-
   config = mkIf cfg.enable {
     vim.startPlugins = [
       "noice-nvim"

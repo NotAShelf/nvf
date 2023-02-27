@@ -1,5 +1,5 @@
 _: {
   imports = [
-    ./noice.nix
+    ./noice
   ];
 }
