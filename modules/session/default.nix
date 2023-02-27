@@ -1,5 +1,5 @@
 _: {
   imports = [
-    ./nvim-session-manager.nix
+    ./nvim-session-manager
   ];
 }
