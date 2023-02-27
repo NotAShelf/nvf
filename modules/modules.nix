@@ -30,6 +30,7 @@
     ./assistant
     ./session
     ./comments
+    ./winbar
   ];
 
   pkgsModule = {config, ...}: {
