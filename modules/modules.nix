@@ -23,7 +23,7 @@
     ./dashboard
     ./notifications
     ./utility
-    ./presence
+    ./rich-presence
     ./notes
     ./terminal
     ./ui
