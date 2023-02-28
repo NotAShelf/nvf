@@ -7,7 +7,16 @@
     ...
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = ["x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin"];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        /*
+        FIXME: zig compiler - therefore the maximal version - is broken on darwin
+        see https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/compilers/zig/0.10.nix#L70
+        "x86_64-darwin"
+        "aarch64-darwin"
+        */
+      ];
 
       imports = [
         # add lib to module args
