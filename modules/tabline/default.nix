@@ -1,10 +1,5 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}: {
+_: {
   imports = [
-    ./nvim-bufferline.nix
+    ./nvim-bufferline
   ];
 }

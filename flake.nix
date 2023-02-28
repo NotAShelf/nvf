@@ -3,10 +3,20 @@
   outputs = {
     nixpkgs,
     flake-parts,
+    zig,
     ...
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = ["x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin"];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        /*
+        FIXME: zig compiler - therefore the maximal version - is broken on darwin
+        see https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/compilers/zig/0.10.nix#L70
+        "x86_64-darwin"
+        "aarch64-darwin"
+        */
+      ];
 
       imports = [
         # add lib to module args
@@ -47,11 +57,17 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
 
+    # TODO: neovim nightly
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
     # For generating documentation website
     nmd = {
       url = "gitlab:rycee/nmd";
       flake = false;
     };
+
+    # TODO: get zig from the zig overlay instead of nixpkgs
+    zig.url = "github:mitchellh/zig-overlay";
 
     # LSP plugins
     nvim-lspconfig = {
@@ -286,6 +302,11 @@
     };
     gitsigns-nvim = {
       url = "github:lewis6991/gitsigns.nvim";
+      flake = false;
+    };
+
+    fidget-nvim = {
+      url = "github:j-hui/fidget.nvim";
       flake = false;
     };
 

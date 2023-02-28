@@ -1,10 +1,5 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}: {
+_: {
   imports = [
-    ./nvimtreelua.nix
+    ./nvimtree-lua
   ];
 }

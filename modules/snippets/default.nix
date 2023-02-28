@@ -1,10 +1,5 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}: {
+_: {
   imports = [
-    ./vsnip.nix
+    ./vsnip
   ];
 }
