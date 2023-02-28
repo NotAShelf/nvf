@@ -47,6 +47,7 @@ inputs: let
         scrollBar.enable = true;
         smoothScroll.enable = true;
         cellularAutomaton.enable = true;
+        fidget-nvim.enable = true;
         lspkind.enable = true;
         indentBlankline = {
           enable = true;
