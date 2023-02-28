@@ -1,6 +1,6 @@
 _: {
   imports = [
-    ./which-key.nix
+    ./gesture-nvim.nix
     ./config.nix
   ];
 }

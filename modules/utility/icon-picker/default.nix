@@ -1,6 +1,6 @@
 _: {
   imports = [
-    ./which-key.nix
+    ./icon-picker.nix
     ./config.nix
   ];
 }

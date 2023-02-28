@@ -1,6 +1,6 @@
 _: {
   imports = [
-    ./which-key.nix
+    ./colorizer.nix
     ./config.nix
   ];
 }
