@@ -45,6 +45,27 @@ in {
       default = false;
     };
 
+    fidget-nvim = {
+      enable = mkOption {
+        type = types.bool;
+        description = "enable nvim LSP UI element [fidget-nvim]";
+        default = false;
+      };
+      align = {
+        bottom = mkOption {
+          type = types.bool;
+          description = "align to bottom";
+          default = true;
+        };
+
+        right = mkOption {
+          type = types.bool;
+          description = "align to right";
+          default = true;
+        };
+      };
+    };
+
     cursorWordline = {
       enable = mkOption {
         type = types.bool;

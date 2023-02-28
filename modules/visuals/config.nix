@@ -44,6 +44,11 @@ in {
         then "cellular-automaton"
         else null
       )
+      (
+        if cfg.fidget-nvim.enable
+        then "fidget-nvim"
+        else null
+      )
     ];
 
     vim.luaConfigRC.visuals = nvim.dag.entryAnywhere ''
@@ -132,6 +137,18 @@ in {
           require("cellular-automaton").register_animation(config)
 
           vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
+        ''
+        else ""
+      }
+      ${
+        if cfg.fidget-nvim.enable
+        then ''
+          require"fidget".setup{
+            align = {
+              bottom = ${boolToString cfg.fidget-nvim.align.bottom},
+              right = ${boolToString cfg.fidget-nvim.align.right},
+            }
+          }
         ''
         else ""
       }
