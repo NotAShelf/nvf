@@ -3,6 +3,7 @@
   outputs = {
     nixpkgs,
     flake-parts,
+    zig,
     ...
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {
@@ -47,11 +48,17 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
 
+    # TODO: neovim nightly
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
     # For generating documentation website
     nmd = {
       url = "gitlab:rycee/nmd";
       flake = false;
     };
+
+    # TODO: get zig from the zig overlay instead of nixpkgs
+    zig.url = "github:mitchellh/zig-overlay";
 
     # LSP plugins
     nvim-lspconfig = {
