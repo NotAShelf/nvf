@@ -47,19 +47,19 @@ in {
       vim.luaConfigRC.nvimBufferline = nvim.dag.entryAnywhere ''
         require("bufferline").setup{
            options = {
+              mode = "buffers",
               numbers = "both",
               close_command = ${mouse.close},
               right_mouse_command = ${mouse.right},
               indicator = {
-                indicator_icon = '▎',
-                style = 'icon',
+                style = 'underline',
+                -- indicator_icon = '▎',
               },
               buffer_close_icon = '',
               modified_icon = '●',
               close_icon = '',
               left_trunc_marker = '',
               right_trunc_marker = '',
-              separator_style = "thin",
               max_name_length = 18,
               max_prefix_length = 15,
               tab_size = 18,
@@ -68,11 +68,15 @@ in {
               show_close_icon = true,
               show_tab_indicators = true,
               persist_buffer_sort = true,
-              enforce_regular_tabs = false,
+              --separator_style = "thin",
+              separator_style = { " ", " " },
+              enforce_regular_tabs = true,
               always_show_bufferline = true,
-              offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "left"}},
+              offsets = {
+                {filetype = "NvimTree", text = "File Explorer", text_align = "center"}
+              },
               sort_by = 'extension',
-              diagnostics = "nvim_lsp",
+              diagnostics = "nvim_lsp", -- TODO: use coc if it's enabled
               diagnostics_update_in_insert = true,
               diagnostics_indicator = function(count, level, diagnostics_dict, context)
                  local s = ""
