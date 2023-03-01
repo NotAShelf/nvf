@@ -1,10 +1,6 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}: {
+_: {
   imports = [
     ./lualine
+    ./heirline
   ];
 }
