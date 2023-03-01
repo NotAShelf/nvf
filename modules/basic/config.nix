@@ -28,6 +28,12 @@ in {
     vim.nnoremap = mkIf cfg.mapLeaderSpace {"<space>" = "<nop>";};
 
     vim.configRC.basic = nvim.dag.entryAfter ["globalsScript"] ''
+      " Debug mode settings
+      ${optionalString cfg.debugMode.enable ''
+        set verbose=${toString cfg.debugMode.level}
+        set verbosefile=${cfg.debugMode.logFile}
+      ''}
+
       " Settings that are set for everything
       set encoding=utf-8
       set mouse=${cfg.mouseSupport}

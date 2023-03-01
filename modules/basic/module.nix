@@ -9,6 +9,20 @@ with builtins; let
   cfg = config.vim;
 in {
   options.vim = {
+    debugMode = {
+      enable = mkEnableOption "Enable debug mode";
+      level = mkOption {
+        type = types.int;
+        default = 20;
+        description = "Set the debug level";
+      };
+      logFile = mkOption {
+        type = types.path;
+        default = "/tmp/nvim.log";
+        description = "Set the log file";
+      };
+    };
+
     colourTerm = mkOption {
       type = types.bool;
       default = true;

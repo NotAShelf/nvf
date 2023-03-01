@@ -18,6 +18,11 @@ inputs: let
       vim = {
         viAlias = true;
         vimAlias = true;
+        debugMode = {
+          enable = true;
+          level = 20;
+          logFile = "/tmp/nvim.log";
+        };
       };
 
       vim.lsp = {
@@ -61,9 +66,14 @@ inputs: let
         };
       };
 
-      vim.statusline.lualine = {
-        enable = true;
-        theme = "catppuccin";
+      vim.statusline = {
+        lualine = {
+          enable = false;
+          theme = "catppuccin";
+        };
+        heirline = {
+          enable = true;
+        };
       };
 
       vim.theme = {
