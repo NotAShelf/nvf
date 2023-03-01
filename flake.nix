@@ -160,6 +160,11 @@
       flake = false;
     };
 
+    heirline = {
+      url = "github:rebelot/heirline.nvim";
+      flake = false;
+    };
+
     # Autocompletes
     nvim-compe = {
       url = "github:hrsh7th/nvim-compe";
