@@ -21,28 +21,10 @@ in {
       type = types.enum ["name" "extension" "modification_time" "case_sensitive"];
     };
 
-    treeSide = mkOption {
-      default = "left";
-      description = "Side the tree will appear on left or right";
-      type = types.enum ["left" "right"];
-    };
-
-    treeWidth = mkOption {
-      default = 25;
-      description = "Width of the tree in charecters";
-      type = types.int;
-    };
-
     hideFiles = mkOption {
-      default = [".git" "node_modules" ".cache"];
+      default = ["node_modules" ".cache"];
       description = "Files to hide in the file view by default.";
       type = with types; listOf str;
-    };
-
-    hideIgnoredGitFiles = mkOption {
-      default = false;
-      description = "Hide files ignored by git";
-      type = types.bool;
     };
 
     openOnSetup = mkOption {
@@ -82,7 +64,7 @@ in {
     };
 
     openTreeOnNewTab = mkOption {
-      default = false;
+      default = true;
       description = "Opens the tree view when opening a new tab";
       type = types.bool;
     };
@@ -182,7 +164,7 @@ in {
       };
 
       hideRootFolder = mkOption {
-        default = false;
+        default = true;
         description = "Hide the root folder";
         type = types.bool;
       };
@@ -191,7 +173,7 @@ in {
     git = {
       enable = mkEnableOption "Git integration";
       ignore = mkOption {
-        default = true;
+        default = false;
         description = "Ignore files in git";
         type = types.bool;
       };
@@ -206,6 +188,13 @@ in {
     };
 
     actions = {
+      changeDir = {
+        global = mkOption {
+          default = true;
+          description = "Change directory when changing nvim's directory (DirChanged event).";
+          type = types.bool;
+        };
+      };
       openFile = {
         resizeWindow = mkOption {
           default = true;

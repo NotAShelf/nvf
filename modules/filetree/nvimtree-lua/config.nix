@@ -11,14 +11,19 @@ in {
   config = mkIf cfg.enable {
     vim.startPlugins = ["nvim-tree-lua"];
 
-    vim.nnoremap = {
-      "<C-n>" = ":NvimTreeToggle<CR>";
-      "<leader>tr" = ":NvimTreeRefresh<CR>";
-      "<leader>tg" = ":NvimTreeFindFile<CR>";
-      "<leader>tf" = ":NvimTreeFocus<CR>";
-    };
+    # vim.nnoremap = {
+    #   "<C-n>" = ":NvimTreeToggle<CR>";
+    #   "<leader>tr" = ":NvimTreeRefresh<CR>";
+    #   "<leader>tg" = ":NvimTreeFindFile<CR>";
+    #   "<leader>tf" = ":NvimTreeFocus<CR>";
+    # };
 
     vim.luaConfigRC.nvimtreelua = nvim.dag.entryAnywhere ''
+        vim.api.nvim_set_keymap("n", "<C-n>", ":NvimTreeToggle<cr>" ,{silent = true, noremap = true, nowait = true})
+        vim.api.nvim_set_keymap("n", "<leader>tr", ":NvimTreeRefresh<cr>" ,{silent = true, noremap = true})
+        vim.api.nvim_set_keymap("n", "<leader>tg", ":NvimTreeFindFile<cr>" ,{silent = true, noremap = true})
+        vim.api.nvim_set_keymap("n", "<leader>tf", ":NvimTreeFocus<cr>" ,{silent = true, noremap = true})
+
         local function open_nvim_tree(data)
             local IGNORED_FT = {
                 "markdown",
@@ -46,7 +51,6 @@ in {
             -- open the tree but don't focus it
             require("nvim-tree.api").tree.toggle({ focus = false })
         end
-
         -- Open on startup has been deprecated
         -- see https://github.com/nvim-tree/nvim-tree.lua/wiki/Open-At-Startup
         -- use a nix eval to dynamically insert the open on startup function
@@ -87,6 +91,9 @@ in {
         },
 
         actions = {
+          change_dir = {
+            global = ${boolToString cfg.actions.changeDir.global},
+          },
           open_file = {
             quit_on_open = ${boolToString cfg.actions.openFile.quitOnOpen},
             resize_window = ${boolToString cfg.actions.openFile.resizeWindow},
