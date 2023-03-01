@@ -71,9 +71,6 @@ inputs: let
           enable = false;
           theme = "catppuccin";
         };
-        heirline = {
-          enable = true;
-        };
       };
 
       vim.theme = {
