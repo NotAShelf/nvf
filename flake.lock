@@ -272,6 +272,22 @@
         "type": "github"
       }
     },
+    "diffview-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1677593773,
+        "narHash": "sha256-CMURShXn0RjZW3dc96o1usaLwWC+gOPAkIn3D9YPyBg=",
+        "owner": "sindrets",
+        "repo": "diffview.nvim",
+        "rev": "009beb8054e510e7e2df122ee3ddb2b46bef542b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sindrets",
+        "repo": "diffview.nvim",
+        "type": "github"
+      }
+    },
     "dirt-samples-src": {
       "flake": false,
       "locked": {
@@ -1235,6 +1251,7 @@
         "copilot-lua": "copilot-lua",
         "crates-nvim": "crates-nvim",
         "dashboard-nvim": "dashboard-nvim",
+        "diffview-nvim": "diffview-nvim",
         "dressing-nvim": "dressing-nvim",
         "fidget-nvim": "fidget-nvim",
         "flake-parts": "flake-parts",

@@ -345,6 +345,11 @@
       flake = false;
     };
 
+    diffview-nvim = {
+      url = "github:sindrets/diffview.nvim";
+      flake = false;
+    };
+
     venn-nvim = {
       url = "github:jbyuki/venn.nvim";
       flake = false;
