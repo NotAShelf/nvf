@@ -143,6 +143,13 @@ in {
         default = ''
           {
             {
+              "filetype",
+              colored = true,
+              icon_only = true,
+              icon = { align = 'left' },
+              color = {bg='none', fg='lavender'},
+            },
+            {
               "filename",
               color = {bg='none'},
               symbols = {modified = '', readonly = ''},
@@ -157,12 +164,19 @@ in {
         default = ''
           {
             {
-              "branch",
-              icon = ' •',
-              separator = {
-                left = '(',
-                right = ')'
-              }
+              "diff",
+              colored = false,
+              diff_color = {
+                -- Same color values as the general color option can be used here.
+                added    = 'DiffAdd',    -- Changes the diff's added color
+                modified = 'DiffChange', -- Changes the diff's modified color
+                removed  = 'DiffDelete', -- Changes the diff's removed color you
+              },
+              symbols = {added = '+', modified = '~', removed = '-'}, -- Changes the diff symbols
+              color = {
+                bg='none',
+                fg='lavender'
+              },
             },
           }
         '';
@@ -176,7 +190,7 @@ in {
             {
               "diagnostics",
               sources = {'nvim_lsp', 'nvim_diagnostic', 'coc'},
-              symbols = {error = '', warn = '', info = '', hint = ''}
+              symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '}
             },
           }
         '';
@@ -214,10 +228,14 @@ in {
               color = {bg='none', fg='lavender'},
             },
             {
-              "filetype",
-              colored = true,
-              icon = { align = 'right' },
+              "branch",
+              icon = ' •',
+              separator = {
+                left = '(',
+                right = ')'
+              },
               color = {bg='none', fg='lavender'},
+
             },
           }
         '';
