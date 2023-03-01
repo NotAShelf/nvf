@@ -4,91 +4,56 @@
   lib,
   ...
 }:
-with lib; {
-  config = {
-    vim.statusline.lualine = {
-      enable = mkDefault false;
+with lib; let
+  cfg = config.vim.statusline.lualine;
+in {
+  config = (mkIf cfg.enable) {
+    vim.startPlugins = [
+      "lualine"
+    ];
 
-      icons = mkDefault true;
-      theme = mkDefault "auto";
-      sectionSeparator = {
-        left = mkDefault "";
-        right = mkDefault "";
-      };
-
-      componentSeparator = {
-        left = mkDefault "";
-        right = mkDefault "";
-      };
-
-      activeSection = {
-        # left side of the statusline 4
-        a = mkDefault "{'mode'}";
-        b = mkDefault ''
-          {
-            {
-              "filename",
-              color = {bg='none'},
-              symbols = {modified = '', readonly = ''},
-            },
-          }
-        '';
-        c = mkDefault ''
-          {
-            {
-              "branch",
-              icon = ' •',
-              separator = { left = '(', right = ')'},
-            },
-          }
-        '';
-        # right side of the statusline (x, y, z)
-        x = mkDefault ''
-          {
-            {
-              "diagnostics",
-              sources = {'nvim_lsp', 'nvim_diagnostic'},
-              symbols = {error = '', warn = '', info = '', hint = ''}
-            },
-          }
-        '';
-        y = mkDefault ''
-          {
-            {
-              "fileformat",
-              color = {bg='none'}
-            },
-          }
-        '';
-        z = mkDefault ''
-          {
-            {
-              "progress",
-              color = {
-                bg='none',
-                fg='lavender'
-              }
-            },
-            {
-              "location",
-              color = {bg='none', fg='lavender'},
-            },
-            {
-              "filetype",
-              color = {bg='none', fg='lavender'},
-            },
-          }
-        '';
-      };
-
-      inactiveSection = {
-        a = mkDefault "{}";
-        b = mkDefault "{}";
-        c = mkDefault "{'filename'}";
-        x = mkDefault "{'location'}";
-        y = mkDefault "{}";
-        z = mkDefault "{}";
-      };
-    };
+    vim.luaConfigRC.lualine = nvim.dag.entryAnywhere ''
+      require('lualine').setup {
+        options = {
+          icons_enabled = ${boolToString cfg.icons.enable},
+          theme = "${cfg.theme}",
+          component_separators = {"${cfg.componentSeparator.left}","${cfg.componentSeparator.right}"},
+          section_separators = {"${cfg.sectionSeparator.left}","${cfg.sectionSeparator.right}"},
+          disabled_filetypes = { 'alpha' }, -- 'NvimTree'
+          always_divide_middle = true,
+          globalstatus = ${boolToString cfg.globalStatus},
+          ignore_focus = {'NvimTree'},
+          refresh = {
+            statusline = ${toString cfg.refresh.statusline},
+            tabline = ${toString cfg.refresh.tabline},
+            winbar = ${toString cfg.refresh.winbar},
+          },
+        },
+        -- active sections
+        sections = {
+          lualine_a = ${cfg.activeSection.a},
+          lualine_b = ${cfg.activeSection.b},
+          lualine_c = ${cfg.activeSection.c},
+          lualine_x = ${cfg.activeSection.x},
+          lualine_y = ${cfg.activeSection.y},
+          lualine_z = ${cfg.activeSection.z},
+        },
+        --
+        inactive_sections = {
+          lualine_a = ${cfg.inactiveSection.a},
+          lualine_b = ${cfg.inactiveSection.b},
+          lualine_c = ${cfg.inactiveSection.c},
+          lualine_x = ${cfg.inactiveSection.x},
+          lualine_y = ${cfg.inactiveSection.y},
+          lualine_z = ${cfg.inactiveSection.z},
+        },
+        tabline = {},
+        extensions = {${
+        if (config.vim.filetree.nvimTreeLua.enable)
+        then "\"nvim-tree\""
+        else ""
+      }},
+      }
+    '';
   };
 }

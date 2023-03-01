@@ -13,14 +13,43 @@ in {
     enable = mkOption {
       type = types.bool;
       description = "Enable lualine";
+      default = true;
     };
 
-    icons = mkOption {
+    icons = {
+      enable = mkOption {
+        type = types.bool;
+        description = "Enable icons for lualine";
+        default = true;
+      };
+    };
+
+    refresh = {
+      statusline = mkOption {
+        type = types.int;
+        description = "Refresh rate for lualine";
+        default = 1000;
+      };
+      tabline = mkOption {
+        type = types.int;
+        description = "Refresh rate for tabline";
+        default = 1000;
+      };
+      winbar = mkOption {
+        type = types.int;
+        description = "Refresh rate for winbar";
+        default = 1000;
+      };
+    };
+
+    globalStatus = mkOption {
       type = types.bool;
-      description = "Enable icons for lualine";
+      description = "Enable global status for lualine";
+      default = true;
     };
 
     theme = mkOption {
+      default = "auto";
       type = types.enum (
         [
           "auto"
@@ -68,11 +97,13 @@ in {
       left = mkOption {
         type = types.str;
         description = "Section separator for left side";
+        default = "";
       };
 
       right = mkOption {
         type = types.str;
         description = "Section separator for right side";
+        default = "";
       };
     };
 
@@ -80,11 +111,13 @@ in {
       left = mkOption {
         type = types.str;
         description = "Component separator for left side";
+        default = "";
       };
 
       right = mkOption {
         type = types.str;
         description = "Component separator for right side";
+        default = "";
       };
     };
 
@@ -92,31 +125,102 @@ in {
       a = mkOption {
         type = types.str;
         description = "active config for: | (A) | B | C       X | Y | Z |";
+        default = ''
+          {
+            {
+              "mode",
+              separator = {
+                left = '▎',
+              },
+            },
+          }
+        '';
       };
 
       b = mkOption {
         type = types.str;
         description = "active config for: | A | (B) | C       X | Y | Z |";
+        default = ''
+          {
+            {
+              "filename",
+              color = {bg='none'},
+              symbols = {modified = '', readonly = ''},
+            },
+          }
+        '';
       };
 
       c = mkOption {
         type = types.str;
         description = "active config for: | A | B | (C)       X | Y | Z |";
+        default = ''
+          {
+            {
+              "branch",
+              icon = ' •',
+              separator = {
+                left = '(',
+                right = ')'
+              }
+            },
+          }
+        '';
       };
 
       x = mkOption {
         type = types.str;
         description = "active config for: | A | B | C       (X) | Y | Z |";
+        default = ''
+          {
+            {
+              "diagnostics",
+              sources = {'nvim_lsp', 'nvim_diagnostic', 'coc'},
+              symbols = {error = '', warn = '', info = '', hint = ''}
+            },
+          }
+        '';
       };
 
       y = mkOption {
         type = types.str;
         description = "active config for: | A | B | C       X | (Y) | Z |";
+        default = ''
+          {
+            {
+              "fileformat",
+              color = {bg='none', fg='lavender'},
+              symbols = {
+                unix = '', -- e712
+                dos = '',  -- e70f
+                mac = '',  -- e711
+              },
+            },
+          }
+        '';
       };
 
       z = mkOption {
         type = types.str;
         description = "active config for: | A | B | C       X | Y | (Z) |";
+        default = ''
+          {
+            {
+              "progress",
+              color = {bg='none', fg='lavender'},
+            },
+            {
+              "location",
+              color = {bg='none', fg='lavender'},
+            },
+            {
+              "filetype",
+              colored = true,
+              icon = { align = 'right' },
+              color = {bg='none', fg='lavender'},
+            },
+          }
+        '';
       };
     };
 
@@ -124,82 +228,38 @@ in {
       a = mkOption {
         type = types.str;
         description = "inactive config for: | (A) | B | C       X | Y | Z |";
+        default = "{}";
       };
 
       b = mkOption {
         type = types.str;
         description = "inactive config for: | A | (B) | C       X | Y | Z |";
+        default = "{}";
       };
 
       c = mkOption {
         type = types.str;
         description = "inactive config for: | A | B | (C)       X | Y | Z |";
+        default = "{'filename'}";
       };
 
       x = mkOption {
         type = types.str;
         description = "inactive config for: | A | B | C       (X) | Y | Z |";
+        default = "{'location'}";
       };
 
       y = mkOption {
         type = types.str;
         description = "inactive config for: | A | B | C       X | (Y) | Z |";
+        default = "{}";
       };
 
       z = mkOption {
         type = types.str;
         description = "inactive config for: | A | B | C       X | Y | (Z) |";
+        default = "{}";
       };
     };
   };
-
-  config =
-    mkIf cfg.enable
-    {
-      #assertions = [
-      #  ({
-      #    assertion = if cfg.icons then (config.vim.visuals.enable && config.vim.visuals.nvimWebDevicons.enable) else true;
-      #    message = "Must enable config.vim.visual.nvimWebDevicons if using config.vim.visuals.lualine.icons";
-      #  })
-      #];
-
-      vim.startPlugins = ["lualine"];
-      vim.luaConfigRC.lualine = nvim.dag.entryAnywhere ''
-        require'lualine'.setup {
-          options = {
-            icons_enabled = ${
-          if cfg.icons
-          then "true"
-          else "false"
-        },
-            theme = "${cfg.theme}",
-            component_separators = {"${cfg.componentSeparator.left}","${cfg.componentSeparator.right}"},
-            section_separators = {"${cfg.sectionSeparator.left}","${cfg.sectionSeparator.right}"},
-            disabled_filetypes = { 'packer', 'NvimTree', 'alpha' }
-          },
-          sections = {
-            lualine_a = ${cfg.activeSection.a},
-            lualine_b = ${cfg.activeSection.b},
-            lualine_c = ${cfg.activeSection.c},
-            lualine_x = ${cfg.activeSection.x},
-            lualine_y = ${cfg.activeSection.y},
-            lualine_z = ${cfg.activeSection.z},
-          },
-          inactive_sections = {
-            lualine_a = ${cfg.inactiveSection.a},
-            lualine_b = ${cfg.inactiveSection.b},
-            lualine_c = ${cfg.inactiveSection.c},
-            lualine_x = ${cfg.inactiveSection.x},
-            lualine_y = ${cfg.inactiveSection.y},
-            lualine_z = ${cfg.inactiveSection.z},
-          },
-          tabline = {},
-          extensions = {${
-          if config.vim.filetree.nvimTreeLua.enable
-          then "\"nvim-tree\""
-          else ""
-        }},
-        }
-      '';
-    };
 }
