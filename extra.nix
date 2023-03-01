@@ -147,6 +147,7 @@ inputs: let
         obsidian.enable = false; # FIXME neovim fails to build if obsidian is enabled
         orgmode.enable = false;
         mind-nvim.enable = true;
+        todo-comments.enable = true;
       };
 
       vim.terminal = {

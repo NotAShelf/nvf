@@ -3,5 +3,6 @@ _: {
     ./obsidian
     ./orgmode
     ./mind-nvim
+    ./todo-comments
   ];
 }
