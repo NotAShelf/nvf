@@ -107,9 +107,15 @@ in {
         ''
         else ""
       }
-
-       })
-
+      ${
+        if config.vim.markdown.glow.enable
+        then ''
+          -- Markdown
+          ["<leader>pm"] = { name = "+Preview Markdown" },
+        ''
+        else ""
+      }
+      })
     '';
   };
 }
