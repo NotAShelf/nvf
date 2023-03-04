@@ -58,7 +58,10 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     # TODO: neovim nightly
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # For generating documentation website
     nmd = {
