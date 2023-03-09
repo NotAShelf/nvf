@@ -141,6 +141,7 @@ inputs: let
         icon-picker.enable = true;
         venn-nvim.enable = false; # FIXME throws an error when its commands are ran manually
         diffview-nvim.enable = true;
+        hop.enable = true;
       };
 
       vim.notes = {
@@ -180,7 +181,7 @@ inputs: let
         presence-nvim = {
           enable = true;
           auto_update = true;
-          image_text = "The One True Text Editor";
+          image_text = "The Superior Text Editor";
           client_id = "793271441293967371";
           main_image = "neovim";
           rich_presence = {

@@ -8,5 +8,6 @@ _: {
     ./telescope
     ./venn
     ./diffview
+    ./hop
   ];
 }
