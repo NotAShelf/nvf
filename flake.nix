@@ -43,10 +43,6 @@
 
         homeManagerModules.default = {
           imports = [./lib/hm-module.nix];
-          nixpkgs.overlays = [
-            inputs.tidalcycles.overlays.default
-            inputs.self.overlays.default
-          ];
         };
       };
 
