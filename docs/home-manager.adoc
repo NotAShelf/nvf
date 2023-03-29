@@ -19,7 +19,7 @@ Followed by importing the HM module.
 [source,nix]
 ----
 {
-  imports = [ neovim-flake.nixosModules.hm-module ];
+  imports = [ neovim-flake.nixosModules.default ];
 }
 ----
 
