@@ -1,13 +1,10 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.assistant.tabnine;
-in {
+with builtins; {
   options.vim.assistant.tabnine = {
     enable = mkEnableOption "Enable TabNine assistant";
 

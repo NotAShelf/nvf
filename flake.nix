@@ -3,7 +3,6 @@
   outputs = {
     nixpkgs,
     flake-parts,
-    zig,
     ...
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {

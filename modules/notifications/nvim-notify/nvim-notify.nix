@@ -1,13 +1,10 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.notify.nvim-notify;
-in {
+with builtins; {
   options.vim.notify.nvim-notify = {
     enable = mkEnableOption "Enable nvim-notify plugin";
     stages = mkOption {

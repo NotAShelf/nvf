@@ -1,13 +1,10 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.visuals;
-in {
+with builtins; {
   options.vim.visuals = {
     enable = mkOption {
       type = types.bool;

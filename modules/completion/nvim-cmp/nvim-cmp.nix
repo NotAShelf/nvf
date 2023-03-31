@@ -1,13 +1,10 @@
 {
-  pkgs,
   lib,
   config,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.autocomplete;
-in {
+with builtins; {
   options.vim = {
     autocomplete = {
       enable = mkOption {

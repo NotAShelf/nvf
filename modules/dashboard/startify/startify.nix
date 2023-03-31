@@ -1,18 +1,10 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with builtins;
-with lib; let
-  cfg = config.vim.dashboard.startify;
-
-  mkVimBool = val:
-    if val
-    then "1"
-    else "0";
-in {
+with lib; {
   options.vim.dashboard.startify = {
     enable = mkEnableOption "Enable startify";
 

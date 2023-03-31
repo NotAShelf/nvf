@@ -1,13 +1,10 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.lsp;
-in {
+with builtins; {
   options.vim.lsp = {
     lspSignature = {
       enable = mkEnableOption "lsp signature viewer";

@@ -5,9 +5,7 @@
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.treesitter;
-in {
+with builtins; {
   options.vim.treesitter = {
     enable = mkOption {
       default = false;

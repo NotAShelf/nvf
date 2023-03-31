@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   lib,
   ...
@@ -23,12 +22,7 @@ in {
   config =
     mkIf cfg.enable
     (
-      let
-        mkVimBool = val:
-          if val
-          then "1"
-          else "0";
-      in {
+      {
         vim.startPlugins =
           if (cfg.gitsigns.enable)
           then ["gitsigns-nvim"]

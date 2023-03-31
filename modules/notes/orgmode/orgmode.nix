@@ -1,13 +1,10 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.notes.orgmode;
-in {
+with builtins; {
   options.vim.notes.orgmode = {
     enable = mkEnableOption "Neovim plugin for Emac Orgmode. Get the best of both worlds.";
     orgAgendaFiles = mkOption {
