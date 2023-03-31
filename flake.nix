@@ -33,7 +33,9 @@
         };
 
         nixosModules.default = {
-          home-manager.sharedModules = [./lib/hm-module.nix];
+          home-manager.sharedModules = [
+            ./lib/module
+          ];
           nixpkgs.overlays = [
             inputs.tidalcycles.overlays.default
             inputs.self.overlays.default
@@ -42,7 +44,7 @@
 
         homeManagerModules.default = {
           imports = [
-            ./lib/hm-module.nix
+            ./lib/module
           ];
         };
       };
