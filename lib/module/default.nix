@@ -1,13 +1,14 @@
 # Home Manager module
-{
+packages: {
   pkgs,
   config,
   lib ? pkgs.lib,
+  self,
   ...
 }:
 with lib; let
   cfg = config.programs.neovim-flake;
-  set = config.legacyPackages.neovim-maximal {mainConfig = cfg.settings;};
+  set = self.packages.maximal {mainConfig = cfg.settings;};
 in {
   meta.maintainers = [maintainers.notashelf];
 
