@@ -1,13 +1,10 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.presence.presence-nvim;
-in {
+with builtins; {
   options.vim.presence.presence-nvim = {
     enable = mkEnableOption "Enable presence.nvim plugin";
 

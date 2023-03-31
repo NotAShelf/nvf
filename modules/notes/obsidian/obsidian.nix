@@ -1,14 +1,10 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.notes.obsidian;
-  auto = config.vim.autocomplete;
-in {
+with builtins; {
   options.vim.notes = {
     obsidian = {
       enable = mkEnableOption "Complementary neovim plugins for Obsidian editor";

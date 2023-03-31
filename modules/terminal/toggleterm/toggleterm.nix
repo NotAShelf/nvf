@@ -1,13 +1,10 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.terminal.toggleterm;
-in {
+with builtins; {
   options.vim.terminal.toggleterm = {
     enable = mkEnableOption "Enable toggleterm as a replacement to built-in terminal command";
     direction = mkOption {

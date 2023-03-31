@@ -3,7 +3,6 @@
     system,
     config,
     pkgs,
-    lib,
     ...
   }: {
     packages = let

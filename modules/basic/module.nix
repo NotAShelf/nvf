@@ -1,13 +1,10 @@
 {
-  pkgs,
   lib,
   config,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim;
-in {
+with builtins; {
   options.vim = {
     debugMode = {
       enable = mkEnableOption "Enable debug mode";

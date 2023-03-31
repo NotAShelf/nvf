@@ -5,9 +5,7 @@
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.assistant.copilot;
-in {
+with builtins; {
   options.vim.assistant.copilot = {
     enable = mkEnableOption "Enable GitHub Copilot";
 

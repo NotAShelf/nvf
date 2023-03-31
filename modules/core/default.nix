@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 with lib;
@@ -135,7 +134,7 @@ in {
           else (toJSON val)
         );
 
-    filterNonNull = mappings: filterAttrs (name: value: value != null) mappings;
+    filterNonNull = mappings: filterAttrs (_name: value: value != null) mappings;
     globalsScript =
       mapAttrsFlatten (name: value: "let g:${name}=${valToVim value}")
       (filterNonNull cfg.globals);
