@@ -1,6 +1,4 @@
-{
-  ...
-}: {
+{...}: {
   imports = [
     # nvim lsp support
     ./config.nix
