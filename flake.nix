@@ -45,7 +45,7 @@
 
         homeManagerModules.default = {
           imports = [
-            (import ./lib/module self.packages)
+            (import ./lib/module self.config)
           ];
         };
       };
