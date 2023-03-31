@@ -1,7 +1,8 @@
 # Home Manager module
 {
+  self,
   config,
-  pkgs,
+  pkgs ? self.packages.default,
   lib ? pkgs.lib,
   ...
 }: let
