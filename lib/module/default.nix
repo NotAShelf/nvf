@@ -8,7 +8,7 @@ packages: {
 }:
 with lib; let
   cfg = config.programs.neovim-flake;
-  set = self.packages.${pkgs.system}.maximal {mainConfig = cfg.settings;};
+  set = packages.${pkgs.system}.maximal {mainConfig = cfg.settings;};
 in {
   meta.maintainers = [maintainers.notashelf];
 
