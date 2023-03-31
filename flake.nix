@@ -3,6 +3,7 @@
   outputs = {
     nixpkgs,
     flake-parts,
+    self,
     ...
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {
@@ -44,7 +45,7 @@
 
         homeManagerModules.default = {
           imports = [
-            ./lib/module
+            (import ./lib/module self.packages)
           ];
         };
       };
