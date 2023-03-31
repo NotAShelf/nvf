@@ -7,7 +7,7 @@
   ...
 }: let
   cfg = config.programs.neovim-flake;
-  set = self.packages.neovim-maximal {mainConfig = cfg.settings;};
+  set = self.packages.maximal {mainConfig = cfg.settings;};
 in
   with lib; {
     meta.maintainers = [maintainers.notashelf];
