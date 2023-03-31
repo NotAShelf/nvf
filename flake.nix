@@ -41,7 +41,9 @@
         };
 
         homeManagerModules.default = {
-          imports = [./lib/hm-module.nix];
+          imports = [
+            ./lib/hm-module.nix
+          ];
         };
       };
 
