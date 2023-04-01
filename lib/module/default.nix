@@ -1,5 +1,5 @@
 # Home Manager module
-packages: {
+packages: inputs: {
   pkgs,
   config,
   lib ? pkgs.lib,
@@ -8,7 +8,11 @@ packages: {
 }:
 with lib; let
   cfg = config.programs.neovim-flake;
-  set = packages.${pkgs.system}.maximal.override {mainConfig = cfg.settings;};
+  inherit (import ../../extra.nix inputs) neovimConfiguration;
+  set = neovimConfiguration {
+    inherit pkgs;
+    modules = [cfg.settings];
+  };
 in {
   meta.maintainers = [maintainers.notashelf];
 
