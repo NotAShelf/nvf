@@ -19,7 +19,7 @@ Followed by importing the HM module.
 [source,nix]
 ----
 {
-  imports = [ neovim-flake.nixosModules.default ];
+  imports = [ neovim-flake.homeManagerModules.default ];
 }
 ----
 
@@ -29,7 +29,9 @@ Then we should be able to use the given module. E.g.
 ----
 {
   programs.neovim-flake = {
+
     enable = true;
+    # your settings need to go into the settings attrset
     settings = {
       vim.viAlias = false;
       vim.vimAlias = true;
