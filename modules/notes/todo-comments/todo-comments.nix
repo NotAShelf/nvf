@@ -6,7 +6,7 @@
 with lib;
 with builtins; {
   options.vim.notes.todo-comments = {
-    enable = mkEnableOption "todo-comments";
+    enable = mkEnableOption "Enable todo-comments";
 
     patterns = {
       highlight = mkOption {

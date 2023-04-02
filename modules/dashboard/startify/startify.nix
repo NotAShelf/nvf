@@ -6,7 +6,7 @@
 with builtins;
 with lib; {
   options.vim.dashboard.startify = {
-    enable = mkEnableOption "Enable startify";
+    enable = mkEnableOption "Enable vim-startify";
 
     bookmarks = mkOption {
       default = [];

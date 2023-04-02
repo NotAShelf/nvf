@@ -9,7 +9,7 @@ with builtins; let
   cfg = config.vim.lsp;
 in {
   options.vim.lsp = {
-    enable = mkEnableOption "neovim lsp support";
+    enable = mkEnableOption "Enable neovim lsp support. Requires language specific LSPs to be anabled to take effect";
     formatOnSave = mkEnableOption "Format on save";
     nix = {
       enable = mkEnableOption "Nix LSP";
@@ -45,7 +45,7 @@ in {
             },
           },
         '';
-        description = "options to pass to rust analyzer";
+        description = "Options to pass to rust analyzer";
       };
     };
     python = mkEnableOption "Python LSP";

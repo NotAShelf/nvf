@@ -6,6 +6,6 @@
 with lib;
 with builtins; {
   options.vim.minimap.codewindow = {
-    enable = mkEnableOption "Enable minimap-vim plugin";
+    enable = mkEnableOption "Enable codewindow plugin for minimap view";
   };
 }

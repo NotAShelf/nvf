@@ -6,6 +6,6 @@
 with lib;
 with builtins; {
   options.vim.ui.noice = {
-    enable = mkEnableOption "noice-nvim";
+    enable = mkEnableOption "Enable noice-nvim UI modifications";
   };
 }

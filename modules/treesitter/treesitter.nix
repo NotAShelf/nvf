@@ -10,19 +10,19 @@ with builtins; {
     enable = mkOption {
       default = false;
       type = types.bool;
-      description = "enable tree-sitter [nvim-treesitter]";
+      description = "Enable tree-sitter [nvim-treesitter]";
     };
 
     fold = mkOption {
       default = false;
       type = types.bool;
-      description = "enable fold with tree-sitter";
+      description = "Enable fold with tree-sitter";
     };
 
     autotagHtml = mkOption {
       default = false;
       type = types.bool;
-      description = "enable autoclose and rename html tag [nvim-ts-autotag]";
+      description = "Enable autoclose and rename html tag [nvim-ts-autotag]";
     };
 
     grammars = mkOption {

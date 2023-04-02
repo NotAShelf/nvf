@@ -10,7 +10,7 @@ in {
   options.vim.statusline.lualine = {
     enable = mkOption {
       type = types.bool;
-      description = "Enable lualine";
+      description = "Enable lualine statusline";
       default = true;
     };
 
