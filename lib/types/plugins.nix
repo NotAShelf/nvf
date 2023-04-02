@@ -72,6 +72,7 @@ with lib; let
     "fidget-nvim"
     "diffview-nvim"
     "todo-comments"
+    "dart-tools"
   ];
   # You can either use the name of the plugin or a package.
   pluginsType = with types; listOf (nullOr (either (enum availablePlugins) package));

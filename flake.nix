@@ -135,6 +135,11 @@
       flake = false;
     };
 
+    dart-tools = {
+      url = "github:akinsho/flutter-tools.nvim";
+      flake = false;
+    };
+
     # Copying/Registers
     registers = {
       url = "github:tversteeg/registers.nvim";
