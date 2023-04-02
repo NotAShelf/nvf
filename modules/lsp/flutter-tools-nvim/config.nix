@@ -19,7 +19,7 @@ in {
             background = ${boolToString ftcfg.color.highlightBackground}, -- highlight the background
             foreground = ${boolToString ftcfg.color.highlightForeground}, -- highlight the foreground
             virtual_text = ${boolToString ftcfg.color.virtualText.enable}, -- show the highlight using virtual text
-            virtual_text_str = ${ctcfg.color.virtualText.character} -- the virtual text character to highlight
+            virtual_text_str = ${ftcfg.color.virtualText.character} -- the virtual text character to highlight
           },
 
           capabilities = capabilities,
