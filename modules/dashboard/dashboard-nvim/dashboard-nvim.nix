@@ -1,14 +1,11 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.dashboard.dashboard-nvim;
-in {
+with builtins; {
   options.vim.dashboard.dashboard-nvim = {
-    enable = mkEnableOption "dashboard-nvim";
+    enable = mkEnableOption "Enable dashboard.nvim";
   };
 }

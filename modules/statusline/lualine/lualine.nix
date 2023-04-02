@@ -1,18 +1,16 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
 with builtins; let
-  cfg = config.vim.statusline.lualine;
   supported_themes = import ./supported_themes.nix;
 in {
   options.vim.statusline.lualine = {
     enable = mkOption {
       type = types.bool;
-      description = "Enable lualine";
+      description = "Enable lualine statusline";
       default = true;
     };
 

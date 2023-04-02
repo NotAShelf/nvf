@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   lib,
   ...
@@ -14,8 +13,7 @@ in {
     ];
 
     vim.luaConfigRC.dashboard-nvim = nvim.dag.entryAnywhere ''
-      require("dashboard").setup{
-      }
+      require("dashboard").setup{}
     '';
   };
 }

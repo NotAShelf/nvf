@@ -1,14 +1,11 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.utility.colorizer;
-in {
+with builtins; {
   options.vim.utility.colorizer = {
-    enable = mkEnableOption "ccc color picker for neovim";
+    enable = mkEnableOption "Enable ccc color picker for neovim";
   };
 }

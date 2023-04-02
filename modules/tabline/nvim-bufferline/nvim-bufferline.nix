@@ -1,14 +1,11 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.tabline.nvimBufferline;
-in {
+with builtins; {
   options.vim.tabline.nvimBufferline = {
-    enable = mkEnableOption "nvim-bufferline-lua";
+    enable = mkEnableOption "Enable nvim-bufferline-lua as a bufferline";
   };
 }

@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   lib,
   ...
@@ -9,7 +8,7 @@ with builtins; let
   cfg = config.vim.comments.kommentary;
 in {
   options.vim.comments.kommentary = {
-    enable = mkEnableOption "kommentary";
+    enable = mkEnableOption "Enable kommentary";
   };
 
   config = mkIf cfg.enable {

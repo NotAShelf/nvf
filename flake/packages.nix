@@ -3,15 +3,14 @@
     system,
     config,
     pkgs,
-    lib,
     ...
-  }: {
-    packages = let
-      docs = import ../docs {
-        inherit pkgs;
-        nmdSrc = inputs.nmd;
-      };
-    in
+  }: let
+    docs = import ../docs {
+      inherit pkgs;
+      nmdSrc = inputs.nmd;
+    };
+  in {
+    packages =
       {
         # Documentation
         docs = docs.manual.html;

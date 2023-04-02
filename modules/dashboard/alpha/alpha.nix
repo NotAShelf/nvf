@@ -1,14 +1,11 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.dashboard.alpha;
-in {
+with builtins; {
   options.vim.dashboard.alpha = {
-    enable = mkEnableOption "alpha";
+    enable = mkEnableOption "Enable alpha.nvim";
   };
 }

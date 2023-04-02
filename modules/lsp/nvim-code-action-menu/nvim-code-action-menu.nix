@@ -1,16 +1,13 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.lsp;
-in {
+with builtins; {
   options.vim.lsp = {
     nvimCodeActionMenu = {
-      enable = mkEnableOption "nvim code action menu";
+      enable = mkEnableOption "Enable nvim code action menu";
     };
   };
 }

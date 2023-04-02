@@ -1,14 +1,11 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.comments.comment-nvim;
-in {
+with builtins; {
   options.vim.comments.comment-nvim = {
-    enable = mkEnableOption "comment-nvim";
+    enable = mkEnableOption "Enable comment-nvim";
   };
 }

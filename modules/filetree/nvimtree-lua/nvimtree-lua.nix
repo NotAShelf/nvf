@@ -5,9 +5,7 @@
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.filetree.nvimTreeLua;
-in {
+with builtins; {
   options.vim.filetree.nvimTreeLua = {
     enable = mkOption {
       type = types.bool;

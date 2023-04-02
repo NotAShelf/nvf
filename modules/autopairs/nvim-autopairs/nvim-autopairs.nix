@@ -1,19 +1,16 @@
 {
-  pkgs,
   lib,
   config,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.autopairs;
-in {
+with builtins; {
   options.vim = {
     autopairs = {
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = "enable autopairs";
+        description = "Enable autopairs";
       };
 
       type = mkOption {

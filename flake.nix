@@ -3,7 +3,7 @@
   outputs = {
     nixpkgs,
     flake-parts,
-    zig,
+    self,
     ...
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {
@@ -33,12 +33,26 @@
           inherit (import ./extra.nix inputs) neovimConfiguration;
         };
 
+        /*
         nixosModules.default = {
-          imports = [./lib/hm-module.nix];
+          home-manager.sharedModules = [
+            ./lib/module
+          ];
           nixpkgs.overlays = [
             inputs.tidalcycles.overlays.default
             inputs.self.overlays.default
           ];
+        };
+        */
+
+        homeManagerModules = {
+          neovim-flake = {
+            imports = [
+              (import ./lib/module self.packages inputs)
+            ];
+          };
+
+          default = self.homeManagerModules.neovim-flake;
         };
       };
 

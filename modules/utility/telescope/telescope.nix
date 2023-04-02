@@ -1,14 +1,11 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.telescope;
-in {
+with builtins; {
   options.vim.telescope = {
-    enable = mkEnableOption "enable telescope";
+    enable = mkEnableOption "Enable multi-purpose telescope utility";
   };
 }

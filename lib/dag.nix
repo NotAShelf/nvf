@@ -77,7 +77,7 @@ in {
   topoSort = dag: let
     dagBefore = dag: name:
       builtins.attrNames
-      (filterAttrs (n: v: builtins.elem name v.before) dag);
+      (filterAttrs (_n: v: builtins.elem name v.before) dag);
     normalizedDag =
       mapAttrs (n: v: {
         name = n;

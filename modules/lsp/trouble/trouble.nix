@@ -1,16 +1,13 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.lsp;
-in {
+with builtins; {
   options.vim.lsp = {
     trouble = {
-      enable = mkEnableOption "trouble diagnostics viewer";
+      enable = mkEnableOption "Enable trouble diagnostics viewer";
     };
   };
 }

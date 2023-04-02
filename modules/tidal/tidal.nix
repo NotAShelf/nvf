@@ -1,15 +1,12 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.tidal;
-in {
+with builtins; {
   options.vim.tidal = {
-    enable = mkEnableOption "tidal tools and plugins";
+    enable = mkEnableOption "Enable tidalcycles tools and plugins";
 
     flash = mkOption {
       description = ''When sending a paragraph or a single line, vim-tidal will "flash" the selection for some milliseconds'';

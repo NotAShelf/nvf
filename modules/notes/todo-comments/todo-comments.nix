@@ -1,15 +1,12 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.notes.todo-comments;
-in {
+with builtins; {
   options.vim.notes.todo-comments = {
-    enable = mkEnableOption "todo-comments";
+    enable = mkEnableOption "Enable todo-comments";
 
     patterns = {
       highlight = mkOption {

@@ -1,13 +1,10 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.markdown.glow;
-in {
+with builtins; {
   options.vim.markdown.glow = {
     enable = mkOption {
       type = types.bool;

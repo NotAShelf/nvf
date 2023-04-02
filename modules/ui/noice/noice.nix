@@ -1,14 +1,11 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.ui.noice;
-in {
+with builtins; {
   options.vim.ui.noice = {
-    enable = mkEnableOption "noice-nvim";
+    enable = mkEnableOption "Enable noice-nvim UI modifications";
   };
 }

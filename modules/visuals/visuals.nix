@@ -1,66 +1,63 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.visuals;
-in {
+with builtins; {
   options.vim.visuals = {
     enable = mkOption {
       type = types.bool;
-      description = "visual enhancements";
+      description = "Enable visual enhancements";
       default = false;
     };
 
     nvimWebDevicons.enable = mkOption {
       type = types.bool;
-      description = "enable dev icons. required for certain plugins [nvim-web-devicons]";
+      description = "Enable dev icons. required for certain plugins [nvim-web-devicons]";
       default = false;
     };
 
     lspkind.enable = mkOption {
       type = types.bool;
-      description = "enable vscode-like pictograms for lsp [lspkind]";
+      description = "Enable vscode-like pictograms for lsp [lspkind]";
       default = false;
     };
 
     scrollBar.enable = mkOption {
       type = types.bool;
-      description = "enable scrollbar [scrollbar.nvim]";
+      description = "Enable scrollbar [scrollbar.nvim]";
       default = false;
     };
 
     smoothScroll.enable = mkOption {
       type = types.bool;
-      description = "enable smooth scrolling [cinnamon-nvim]";
+      description = "Enable smooth scrolling [cinnamon-nvim]";
       default = false;
     };
 
     cellularAutomaton.enable = mkOption {
       type = types.bool;
-      description = "enable cellular automaton [cellular-automaton]";
+      description = "Enable cellular automaton [cellular-automaton]";
       default = false;
     };
 
     fidget-nvim = {
       enable = mkOption {
         type = types.bool;
-        description = "enable nvim LSP UI element [fidget-nvim]";
+        description = "Enable nvim LSP UI element [fidget-nvim]";
         default = false;
       };
       align = {
         bottom = mkOption {
           type = types.bool;
-          description = "align to bottom";
+          description = "Align to bottom";
           default = true;
         };
 
         right = mkOption {
           type = types.bool;
-          description = "align to right";
+          description = "Align to right";
           default = true;
         };
       };
@@ -69,20 +66,20 @@ in {
     cursorWordline = {
       enable = mkOption {
         type = types.bool;
-        description = "enable word and delayed line highlight [nvim-cursorline]";
+        description = "Enable word and delayed line highlight [nvim-cursorline]";
         default = false;
       };
 
       lineTimeout = mkOption {
         type = types.int;
-        description = "time in milliseconds for cursorline to appear";
+        description = "Time in milliseconds for cursorline to appear";
       };
     };
 
     indentBlankline = {
       enable = mkOption {
         type = types.bool;
-        description = "enable indentation guides [indent-blankline]";
+        description = "Enable indentation guides [indent-blankline]";
         default = false;
       };
 

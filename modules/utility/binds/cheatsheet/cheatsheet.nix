@@ -1,14 +1,11 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.binds.cheatsheet;
-in {
+with builtins; {
   options.vim.binds.cheatsheet = {
-    enable = mkEnableOption "Searchable cheatsheet for nvim using telescope";
+    enable = mkEnableOption "Enable cheatsheet-nvim: searchable cheatsheet for nvim using telescope";
   };
 }
