@@ -256,22 +256,6 @@
         "type": "github"
       }
     },
-    "dart-tools": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1680456818,
-        "narHash": "sha256-VNSrYJZKcQ92+2ko5ZkOOiAM/sXqbJtpkYvxFr1qtWk=",
-        "owner": "akinsho",
-        "repo": "flutter-tools.nvim",
-        "rev": "0a7e6b40aebd874e957ed630420a267e6cac0967",
-        "type": "github"
-      },
-      "original": {
-        "owner": "akinsho",
-        "repo": "flutter-tools.nvim",
-        "type": "github"
-      }
-    },
     "dashboard-nvim": {
       "flake": false,
       "locked": {
@@ -445,6 +429,22 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flutter-tools": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1680456818,
+        "narHash": "sha256-VNSrYJZKcQ92+2ko5ZkOOiAM/sXqbJtpkYvxFr1qtWk=",
+        "owner": "akinsho",
+        "repo": "flutter-tools.nvim",
+        "rev": "0a7e6b40aebd874e957ed630420a267e6cac0967",
+        "type": "github"
+      },
+      "original": {
+        "owner": "akinsho",
+        "repo": "flutter-tools.nvim",
         "type": "github"
       }
     },
@@ -1252,13 +1252,13 @@
         "comment-nvim": "comment-nvim",
         "copilot-lua": "copilot-lua",
         "crates-nvim": "crates-nvim",
-        "dart-tools": "dart-tools",
         "dashboard-nvim": "dashboard-nvim",
         "diffview-nvim": "diffview-nvim",
         "dressing-nvim": "dressing-nvim",
         "fidget-nvim": "fidget-nvim",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
+        "flutter-tools": "flutter-tools",
         "gesture-nvim": "gesture-nvim",
         "gitsigns-nvim": "gitsigns-nvim",
         "glow-nvim": "glow-nvim",
