@@ -45,8 +45,9 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [set.neovim];
+  };
 
-    assertions = mkMerge [
+  assertions = mkMerge [
       mkIf
       (config.programs.neovim-flake.enable)
       {
@@ -54,6 +55,4 @@ in {
         message = "You cannot use neovim-flake together with vanilla neovim.";
       }
     ];
-
-  };
 }
