@@ -57,6 +57,9 @@ in {
         default = "";
       };
     };
+    dart = {
+      flutter-tools.enable = mkEnableOption "";
+    };
     sql = mkEnableOption "SQL Language LSP";
     go = mkEnableOption "Go language LSP";
     ts = mkEnableOption "TS language LSP";
