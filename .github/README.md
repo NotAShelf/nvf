@@ -137,6 +137,7 @@ instead of the `maximal` output. This will reduce size by a lot, but you will lo
 ### Contributors
 
 - [@fufexan](https://github.com/fufexan) - For the transition to flake-parts
+- [@FlafyDev](https://github.com/FlafyDev) - For getting the home-manager to work 
 
 ### Inspiration
 
