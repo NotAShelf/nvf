@@ -33,6 +33,7 @@
           inherit (import ./extra.nix inputs) neovimConfiguration;
         };
 
+        /*
         nixosModules.default = {
           home-manager.sharedModules = [
             ./lib/module
@@ -42,11 +43,16 @@
             inputs.self.overlays.default
           ];
         };
+        */
 
-        homeManagerModules.default = {
-          imports = [
-            (import ./lib/module self.packages inputs)
-          ];
+        homeManagerModules = {
+          neovim-flake = {
+            imports = [
+              (import ./lib/module self.packages inputs)
+            ];
+          };
+
+          default = self.homeManagerModules.neovim-flake;
         };
       };
 
