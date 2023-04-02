@@ -54,5 +54,6 @@ in {
         message = "You cannot use neovim-flake together with vanilla neovim.";
       }
     ];
+
   };
 }
