@@ -135,7 +135,7 @@
       flake = false;
     };
 
-    dart-tools = {
+    flutter-tools = {
       url = "github:akinsho/flutter-tools.nvim";
       flake = false;
     };
