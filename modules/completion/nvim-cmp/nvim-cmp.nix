@@ -10,7 +10,7 @@ with builtins; {
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = "enable autocomplete";
+        description = "Enable autocomplete via nvim-cmp";
       };
 
       type = mkOption {

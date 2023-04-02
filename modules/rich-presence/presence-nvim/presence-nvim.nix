@@ -6,7 +6,7 @@
 with lib;
 with builtins; {
   options.vim.presence.presence-nvim = {
-    enable = mkEnableOption "Enable presence.nvim plugin";
+    enable = mkEnableOption "Enable presence.nvim plugin for discord rich presence";
 
     image_text = mkOption {
       type = types.str;

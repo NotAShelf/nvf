@@ -12,7 +12,7 @@ in {
   options.vim.theme = {
     enable = mkOption {
       type = types.bool;
-      description = "Enable Theme";
+      description = "Enable theming";
     };
 
     name = mkOption {

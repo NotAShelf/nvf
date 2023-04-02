@@ -18,7 +18,10 @@ The following is an example of a barebones vim configuration with the default th
 [source,nix]
 ----
 {
-  inputs.neovim-flake.url = "github:jordanisaacs/neovim-flake";
+  inputs.neovim-flake = {
+    url = "github:notashelf/neovim-flake";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
 
   outputs = {nixpkgs, neovim-flake, ...}: let
     system = "x86_64-linux";
@@ -27,7 +30,9 @@ The following is an example of a barebones vim configuration with the default th
       # Add any custom options (and feel free to upstream them!)
       # options = ...
 
-      config.vim.theme.enable = true;
+      config.vim = {
+        theme.enable = true;
+      };
     };
 
     customNeovim = neovim-flake.lib.neovimConfiguration {

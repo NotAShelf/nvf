@@ -7,7 +7,7 @@ with lib;
 with builtins; {
   options.vim.lsp = {
     lightbulb = {
-      enable = mkEnableOption "lightbulb for code actions. Requires emoji font";
+      enable = mkEnableOption "Lightbulb for code actions. Requires an emoji font";
     };
   };
 }

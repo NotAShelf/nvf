@@ -10,7 +10,7 @@ with builtins; {
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = "enable autopairs";
+        description = "Enable autopairs";
       };
 
       type = mkOption {

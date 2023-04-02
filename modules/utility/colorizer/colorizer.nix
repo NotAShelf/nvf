@@ -6,6 +6,6 @@
 with lib;
 with builtins; {
   options.vim.utility.colorizer = {
-    enable = mkEnableOption "ccc color picker for neovim";
+    enable = mkEnableOption "Enable ccc color picker for neovim";
   };
 }

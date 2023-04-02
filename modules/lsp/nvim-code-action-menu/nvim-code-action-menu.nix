@@ -7,7 +7,7 @@ with lib;
 with builtins; {
   options.vim.lsp = {
     nvimCodeActionMenu = {
-      enable = mkEnableOption "nvim code action menu";
+      enable = mkEnableOption "Enable nvim code action menu";
     };
   };
 }
