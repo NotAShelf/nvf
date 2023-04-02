@@ -48,11 +48,11 @@ in {
   };
 
   assertions = mkMerge [
-      mkIf
-      (config.programs.neovim-flake.enable)
-      {
-        assertion = !config.programs.neovim.enable;
-        message = "You cannot use neovim-flake together with vanilla neovim.";
-      }
-    ];
+    mkIf
+    (config.programs.neovim-flake.enable)
+    {
+      assertion = !config.programs.neovim.enable;
+      message = "You cannot use neovim-flake together with vanilla neovim.";
+    }
+  ];
 }
