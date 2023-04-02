@@ -11,19 +11,18 @@ in {
     vim.startPlugins = ["which-key"];
 
     vim.luaConfigRC.whichkey = nvim.dag.entryAnywhere ''
-       local wk = require("which-key")
-       wk.setup {}
+      local wk = require("which-key")
+      wk.setup ({
+        key_labels = {
+          ["<space>"] = "SPACE",
+          ["<leader>"] = "SPACE",
+          ["<cr>"] = "RETURN",
+          ["<tab>"] = "TAB",
+        }
+      })
 
-
-       wk.register({
-         key_labels = {
-       ["<space>"] = "SPACE",
-       ["<leader>"] = "SPACE",
-       ["<cr>"] = "RETURN",
-       ["<tab>"] = "TAB",
-      },
-
-         ${
+      wk.register({
+        ${
         if config.vim.tabline.nvimBufferline.enable
         then ''
           -- Buffer
@@ -31,12 +30,11 @@ in {
           ["<leader>bm"] = { name = "BufferLineMove" },
           ["<leader>bs"] = { name = "BufferLineSort" },
           ["<leader>bsi"] = { name = "BufferLineSortById" },
-
         ''
         else ""
       }
 
-         ${
+        ${
         if config.vim.telescope.enable
         then ''
           ["<leader>f"] = { name = "+Telescope" },
@@ -49,7 +47,7 @@ in {
         else ""
       }
 
-         ${
+        ${
         if config.vim.lsp.trouble.enable
         then ''
           -- Trouble
@@ -60,7 +58,7 @@ in {
         else ""
       }
 
-         ${
+        ${
         if config.vim.lsp.nvimCodeActionMenu.enable
         then ''
           -- Parent Groups
@@ -69,7 +67,7 @@ in {
         else ""
       }
 
-         ${
+        ${
         if config.vim.minimap.codewindow.enable || config.vim.minimap.minimap-vim.enable
         then ''
           -- Minimap
@@ -78,7 +76,7 @@ in {
         else ""
       }
 
-         ${
+        ${
         if config.vim.notes.mind-nvim.enable || config.vim.notes.obsidian.enable || config.vim.notes.orgmode.enable
         then ''
           -- Notes
@@ -89,7 +87,7 @@ in {
         else ""
       }
 
-         ${
+        ${
         if config.vim.filetree.nvimTreeLua.enable
         then ''
           -- NvimTree
@@ -98,7 +96,7 @@ in {
         else ""
       }
 
-         ${
+        ${
         if config.vim.git.gitsigns.enable
         then ''
           -- Git
@@ -106,7 +104,8 @@ in {
         ''
         else ""
       }
-      ${
+
+        ${
         if config.vim.markdown.glow.enable
         then ''
           -- Markdown
@@ -114,6 +113,7 @@ in {
         ''
         else ""
       }
+
       })
     '';
   };

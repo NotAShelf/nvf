@@ -10,5 +10,8 @@
     ./trouble
     ./lsp-signature
     ./lightbulb
+
+    # flutter-tools
+    ./flutter-tools-nvim
   ];
 }
