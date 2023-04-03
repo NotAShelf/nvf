@@ -429,6 +429,11 @@
       flake = false;
     };
 
+    modes-nvim = {
+      url = "github:mvllow/modes.nvim";
+      flake = false;
+    };
+
     # Assistant
     copilot-lua = {
       url = "github:zbirenbaum/copilot.lua";
