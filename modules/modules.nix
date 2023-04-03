@@ -21,7 +21,6 @@
     ./git
     ./minimap
     ./dashboard
-    ./notifications
     ./utility
     ./rich-presence
     ./notes
