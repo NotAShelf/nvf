@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   lib,
   ...
@@ -10,7 +9,7 @@ in {
   assertions = mkMerge [
     {
       assertion = cfg.kommentary.enable;
-      message = "Kommentary has been deprecated in favor";
+      message = "Kommentary has been deprecated in favor of comments-nvim";
     }
     mkIf
     (config.programs.neovim-flake.enable)
