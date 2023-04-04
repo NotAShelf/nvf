@@ -18,10 +18,12 @@ in {
     # };
 
     vim.luaConfigRC.nvimtreelua = nvim.dag.entryAnywhere ''
-        vim.api.nvim_set_keymap("n", "<C-n>", ":NvimTreeToggle<cr>" ,{silent = true, noremap = true, nowait = true})
-        vim.api.nvim_set_keymap("n", "<leader>tr", ":NvimTreeRefresh<cr>" ,{silent = true, noremap = true})
-        vim.api.nvim_set_keymap("n", "<leader>tg", ":NvimTreeFindFile<cr>" ,{silent = true, noremap = true})
-        vim.api.nvim_set_keymap("n", "<leader>tf", ":NvimTreeFocus<cr>" ,{silent = true, noremap = true})
+        local opts = { silent = true, noremap = true }
+
+        vim.api.nvim_set_keymap("n", "<C-n>", ":NvimTreeToggle<cr>", opts)
+        vim.api.nvim_set_keymap("n", "<leader>tr", ":NvimTreeRefresh<cr>", opts)
+        vim.api.nvim_set_keymap("n", "<leader>tg", ":NvimTreeFindFile<cr>", opts)
+        vim.api.nvim_set_keymap("n", "<leader>tf", ":NvimTreeFocus<cr>", opts)
 
         local function open_nvim_tree(data)
             local IGNORED_FT = {
