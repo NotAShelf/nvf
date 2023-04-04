@@ -1,11 +1,10 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 with lib; let
-  cfg = config.vim.utility.hop;
+  cfg = config.vim.utility.motion.hop;
 in {
   config = mkIf cfg.enable {
     vim.startPlugins = ["hop-nvim"];

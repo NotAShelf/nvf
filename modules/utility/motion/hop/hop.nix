@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.vim.utility.hop;
+  cfg = config.vim.utility.motion.hop;
 in {
-  options.vim.utility.hop = {
+  options.vim.utility.motion.hop = {
     enable = mkEnableOption "Enable Hop.nvim plugin (easy motion)";
   };
 }
