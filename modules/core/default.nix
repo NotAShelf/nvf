@@ -91,10 +91,13 @@ in {
       description = "Defines 'Operator pending mode' mappings";
     };
 
-    tnoremap =
-      mkMappingOption {description = "Defines 'Terminal mode' mappings";};
+    tnoremap = mkMappingOption {
+      description = "Defines 'Terminal mode' mappings";
+    };
 
-    nmap = mkMappingOption {description = "Defines 'Normal mode' mappings";};
+    nmap = mkMappingOption {
+      description = "Defines 'Normal mode' mappings";
+    };
 
     imap = mkMappingOption {
       description = "Defines 'Insert and Replace mode' mappings";
@@ -104,19 +107,25 @@ in {
       description = "Defines 'Visual and Select mode' mappings";
     };
 
-    xmap = mkMappingOption {description = "Defines 'Visual mode' mappings";};
+    xmap = mkMappingOption {
+      description = "Defines 'Visual mode' mappings";
+    };
 
-    smap = mkMappingOption {description = "Defines 'Select mode' mappings";};
+    smap = mkMappingOption {
+      description = "Defines 'Select mode' mappings";
+    };
 
-    cmap =
-      mkMappingOption {description = "Defines 'Command-line mode' mappings";};
+    cmap = mkMappingOption {
+      description = "Defines 'Command-line mode' mappings";
+    };
 
     omap = mkMappingOption {
       description = "Defines 'Operator pending mode' mappings";
     };
 
-    tmap =
-      mkMappingOption {description = "Defines 'Terminal mode' mappings";};
+    tmap = mkMappingOption {
+      description = "Defines 'Terminal mode' mappings";
+    };
   };
 
   config = let
