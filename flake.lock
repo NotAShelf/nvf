@@ -656,6 +656,22 @@
         "type": "github"
       }
     },
+    "modes-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673274565,
+        "narHash": "sha256-EvJh6BLRkf+GJaKsw6pz0DR59Tha0bIkYnvqpgHgHHw=",
+        "owner": "mvllow",
+        "repo": "modes.nvim",
+        "rev": "d65260b8b41fdaf6ceba8d569588ecd145e6a772",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mvllow",
+        "repo": "modes.nvim",
+        "type": "github"
+      }
+    },
     "naersk": {
       "inputs": {
         "nixpkgs": [
@@ -1288,6 +1304,7 @@
         "lualine": "lualine",
         "mind-nvim": "mind-nvim",
         "minimap-vim": "minimap-vim",
+        "modes-nvim": "modes-nvim",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nil": "nil",
         "nixpkgs": "nixpkgs",
