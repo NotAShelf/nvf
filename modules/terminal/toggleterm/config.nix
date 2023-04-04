@@ -14,7 +14,7 @@ in {
 
     vim.luaConfigRC.toggleterm = nvim.dag.entryAnywhere ''
       require("toggleterm").setup({
-        open_mapping = [[<c-t>]],
+        open_mapping = '${cfg.mappings.open}',
         direction = '${toString cfg.direction}',
         -- TODO: this should probably be turned into a module that uses the lua function if and only if the user has not set it
         size = function(term)
