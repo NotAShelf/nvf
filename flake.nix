@@ -401,6 +401,11 @@
       flake = false;
     };
 
+    leap-nvim = {
+      url = "github:ggandor/leap.nvim";
+      flake = false;
+    };
+
     # Note-taking
     obsidian-nvim = {
       url = "github:epwalsh/obsidian.nvim";
@@ -474,6 +479,11 @@
     nui-nvim = {
       # (required by noice.nvim)
       url = "github:MunifTanjim/nui.nvim";
+      flake = false;
+    };
+
+    vim-repeat = {
+      url = "github:tpope/vim-repeat";
       flake = false;
     };
   };

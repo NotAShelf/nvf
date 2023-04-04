@@ -560,6 +560,22 @@
         "type": "github"
       }
     },
+    "leap-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1678823512,
+        "narHash": "sha256-bzmsib8Qr2Whu1FqHzvrsIfSKf/CFutsaM3Sz8gaTLo=",
+        "owner": "ggandor",
+        "repo": "leap.nvim",
+        "rev": "f74473d23ebf60957e0db3ff8172349a82e5a442",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ggandor",
+        "repo": "leap.nvim",
+        "type": "github"
+      }
+    },
     "lsp-signature": {
       "flake": false,
       "locked": {
@@ -1298,6 +1314,7 @@
         "icon-picker-nvim": "icon-picker-nvim",
         "indent-blankline": "indent-blankline",
         "kommentary": "kommentary",
+        "leap-nvim": "leap-nvim",
         "lsp-signature": "lsp-signature",
         "lspkind": "lspkind",
         "lspsaga": "lspsaga",
@@ -1346,6 +1363,7 @@
         "trouble": "trouble",
         "venn-nvim": "venn-nvim",
         "vim-markdown": "vim-markdown",
+        "vim-repeat": "vim-repeat",
         "vim-startify": "vim-startify",
         "vim-vsnip": "vim-vsnip",
         "which-key": "which-key",
@@ -1638,6 +1656,22 @@
       "original": {
         "owner": "preservim",
         "repo": "vim-markdown",
+        "type": "github"
+      }
+    },
+    "vim-repeat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1611544268,
+        "narHash": "sha256-8rfZa3uKXB3TRCqaDHZ6DfzNbm7WaYnLvmTNzYtnKHg=",
+        "owner": "tpope",
+        "repo": "vim-repeat",
+        "rev": "24afe922e6a05891756ecf331f39a1f6743d3d5a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tpope",
+        "repo": "vim-repeat",
         "type": "github"
       }
     },

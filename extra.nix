@@ -141,7 +141,10 @@ inputs: let
         icon-picker.enable = true;
         venn-nvim.enable = false; # FIXME throws an error when its commands are ran manually
         diffview-nvim.enable = true;
-        hop.enable = true;
+        motion = {
+          hop.enable = true;
+          leap.enable = true;
+        };
       };
 
       vim.notes = {
