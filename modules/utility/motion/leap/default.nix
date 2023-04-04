@@ -3,6 +3,4 @@ _: {
     ./leap.nix
     ./config.nix
   ];
-
-  
 }
