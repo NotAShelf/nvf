@@ -406,6 +406,11 @@
       flake = false;
     };
 
+    smartcolumn = {
+      url = "github:m4xshen/smartcolumn.nvim";
+      flake = false;
+    };
+
     # Note-taking
     obsidian-nvim = {
       url = "github:epwalsh/obsidian.nvim";

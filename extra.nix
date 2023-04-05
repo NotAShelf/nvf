@@ -160,6 +160,7 @@ inputs: let
 
       vim.ui = {
         noice.enable = true;
+        smartcolumn.enable = true;
       };
 
       vim.assistant = {

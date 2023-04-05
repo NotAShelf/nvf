@@ -77,6 +77,7 @@ with lib; let
     "leap-nvim"
     "modes-nvim"
     "vim-repeat"
+    "smartcolumn"
   ];
   # You can either use the name of the plugin or a package.
   pluginsType = with types;

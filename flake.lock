@@ -1353,6 +1353,7 @@
         "rnix-lsp": "rnix-lsp",
         "rust-tools": "rust-tools",
         "scrollbar-nvim": "scrollbar-nvim",
+        "smartcolumn": "smartcolumn",
         "sqls-nvim": "sqls-nvim",
         "tabular": "tabular",
         "telescope": "telescope",
@@ -1424,6 +1425,22 @@
       "original": {
         "owner": "petertriho",
         "repo": "nvim-scrollbar",
+        "type": "github"
+      }
+    },
+    "smartcolumn": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1679417638,
+        "narHash": "sha256-DjPWBOLbzdfOQAx+6xgV1CD5NKuP1N6An2lmHNHd39Q=",
+        "owner": "m4xshen",
+        "repo": "smartcolumn.nvim",
+        "rev": "0c572e3eae48874f25b74394a486f38cadb5c958",
+        "type": "github"
+      },
+      "original": {
+        "owner": "m4xshen",
+        "repo": "smartcolumn.nvim",
         "type": "github"
       }
     },
