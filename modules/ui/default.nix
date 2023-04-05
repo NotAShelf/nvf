@@ -3,5 +3,6 @@ _: {
     ./noice
     ./modes
     ./notifications
+    ./smartcolumn
   ];
 }
