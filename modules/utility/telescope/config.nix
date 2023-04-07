@@ -109,6 +109,12 @@ in {
         then "telescope.load_extension('notify')"
         else ""
       }
+
+      ${
+        if config.vim.projects.project-nvim.enable
+        then "telescope.load_extension('projects')"
+        else ""
+      }
     '';
   };
 }

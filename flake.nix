@@ -292,6 +292,12 @@
       flake = false;
     };
 
+    # Project Management
+    project-nvim = {
+      url = "github:ahmedkhalf/project.nvim";
+      flake = false;
+    };
+
     # Visuals
     nvim-cursorline = {
       url = "github:yamatsum/nvim-cursorline";

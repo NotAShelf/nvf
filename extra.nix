@@ -136,6 +136,10 @@ inputs: let
         nvim-notify.enable = true;
       };
 
+      vim.projects = {
+        project-nvim.enable = true;
+      };
+
       vim.utility = {
         colorizer.enable = true;
         icon-picker.enable = true;

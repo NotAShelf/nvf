@@ -29,6 +29,7 @@
     ./assistant
     ./session
     ./comments
+    ./projects
   ];
 
   pkgsModule = {config, ...}: {
