@@ -1,4 +1,4 @@
-name: "Check validity of flakes"
+name: "Validate flake & check formatting"
 on:
   pull_request:
   workflow_dispatch:
@@ -11,6 +11,7 @@ on:
       - .gitignore
 jobs:
   nix-flake-check:
+    name: Validate Flake
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -19,3 +20,16 @@ jobs:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - run: nix flake check
+  format-with-alejandra:
+    name:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v18
+        with:
+          install_url: https://nixos.org/nix/install
+          extra_nix_config: |
+            auto-optimise-store = true
+            experimental-features = nix-command flakes
+      - run: nix run nixpkgs#alejandra -- -c .
+     
