@@ -9,7 +9,7 @@ with builtins; let
   cfg = config.vim.lsp;
 in {
   options.vim.lsp = {
-    enable = mkEnableOption "Enable neovim lsp support. Requires language specific LSPs to be anabled to take effect";
+    enable = mkEnableOption "Enable neovim LSP support. Requires language specific LSPs to be anabled to take effect";
     formatOnSave = mkEnableOption "Format on save";
     nix = {
       enable = mkEnableOption "Nix LSP";
@@ -59,6 +59,7 @@ in {
     };
 
     dart = {
+      enable = mkEnableOption "Dart Language LSP";
       flutter-tools = {
         enable = mkEnableOption "";
       };
