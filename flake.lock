@@ -1246,6 +1246,22 @@
         "type": "github"
       }
     },
+    "project-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1680567592,
+        "narHash": "sha256-avV3wMiDbraxW4mqlEsKy0oeewaRj9Q33K8NzWoaptU=",
+        "owner": "ahmedkhalf",
+        "repo": "project.nvim",
+        "rev": "8c6bad7d22eef1b71144b401c9f74ed01526a4fb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ahmedkhalf",
+        "repo": "project.nvim",
+        "type": "github"
+      }
+    },
     "registers": {
       "flake": false,
       "locked": {
@@ -1349,6 +1365,7 @@
         "orgmode-nvim": "orgmode-nvim",
         "plenary-nvim": "plenary-nvim",
         "presence-nvim": "presence-nvim",
+        "project-nvim": "project-nvim",
         "registers": "registers",
         "rnix-lsp": "rnix-lsp",
         "rust-tools": "rust-tools",
