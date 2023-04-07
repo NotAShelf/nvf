@@ -173,7 +173,7 @@ inputs: let
       };
 
       vim.session = {
-        nvim-session-manager.enable = false;
+        nvim-session-manager.enable = true;
       };
 
       vim.gestures = {
