@@ -9,6 +9,7 @@ with builtins; let
 in {
   config = mkIf cfg.enable {
     vim.startPlugins = [
+      "vim-vsnip"
       "nvim-cmp"
       "cmp-buffer"
       "cmp-vsnip"
