@@ -15,6 +15,14 @@ in {
       ]
       ++ optionals (cfg.usePicker) ["dressing-nvim"];
 
+    vim.nnoremap = {
+      "<leader>sl" = ":SessionManager load_session<CR>";
+      "<leader>sd" = ":SessionManager delete_session<CR>";
+      "<leader>sc" = ":SessionManager save_current_session<CR>";
+      "<leader>slt" = ":SessionManager load_last_session<CR>";
+      # TODO: load_current_dir_session
+    };
+
     vim.luaConfigRC.nvim-session-manager = nvim.dag.entryAnywhere ''
       local Path = require('plenary.path')
       local sm = require('session_manager.config')
