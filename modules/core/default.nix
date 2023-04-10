@@ -266,9 +266,8 @@ in {
 
     toLuaBindings = mode: maps:
       builtins.map (value: ''
-        vim.keymap.set(${toLuaObject mode}, ${toLuaObject value.key}, ${
-          toLuaObject value.action
-        }, ${toLuaObject value.config})'') (genMaps mode maps);
+        vim.keymap.set(${toLuaObject mode}, ${toLuaObject value.key}, ${toLuaObject value.action}, ${toLuaObject value.config})
+      '') (genMaps mode maps);
 
     # I'm not sure if every one of these will work.
     allmap = toLuaBindings "" config.vim.maps.normalVisualOp;
