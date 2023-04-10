@@ -23,24 +23,24 @@ in {
         "bufdelete-nvim"
       ];
 
-      vim.nnoremap = {
-        "<silent><leader>bn" = ":BufferLineCycleNext<CR>";
-        "<silent><leader>bp" = ":BufferLineCyclePrev<CR>";
-        "<silent><leader>bc" = ":BufferLinePick<CR>";
-        "<silent><leader>bse" = ":BufferLineSortByExtension<CR>";
-        "<silent><leader>bsd" = ":BufferLineSortByDirectory<CR>";
-        "<silent><leader>bsi" = ":lua require'bufferline'.sort_buffers_by(function (buf_a, buf_b) return buf_a.id < buf_b.id end)<CR>";
-        "<silent><leader>bmn" = ":BufferLineMoveNext<CR>";
-        "<silent><leader>bmp" = ":BufferLineMovePrev<CR>";
-        "<silent><leader>b1" = "<Cmd>BufferLineGoToBuffer 1<CR>";
-        "<silent><leader>b2" = "<Cmd>BufferLineGoToBuffer 2<CR>";
-        "<silent><leader>b3" = "<Cmd>BufferLineGoToBuffer 3<CR>";
-        "<silent><leader>b4" = "<Cmd>BufferLineGoToBuffer 4<CR>";
-        "<silent><leader>b5" = "<Cmd>BufferLineGoToBuffer 5<CR>";
-        "<silent><leader>b6" = "<Cmd>BufferLineGoToBuffer 6<CR>";
-        "<silent><leader>b7" = "<Cmd>BufferLineGoToBuffer 7<CR>";
-        "<silent><leader>b8" = "<Cmd>BufferLineGoToBuffer 8<CR>";
-        "<silent><leader>b9" = "<Cmd>BufferLineGoToBuffer 9<CR>";
+      vim.maps.normal = {
+        "<silent><leader>bn" = {action = ":BufferLineCycleNext<CR>";};
+        "<silent><leader>bp" = {action = ":BufferLineCyclePrev<CR>";};
+        "<silent><leader>bc" = {action = ":BufferLinePick<CR>";};
+        "<silent><leader>bse" = {action = ":BufferLineSortByExtension<CR>";};
+        "<silent><leader>bsd" = {action = ":BufferLineSortByDirectory<CR>";};
+        "<silent><leader>bsi" = {action = ":lua require'bufferline'.sort_buffers_by(function (buf_a, buf_b) return buf_a.id < buf_b.id end)<CR>";};
+        "<silent><leader>bmn" = {action = ":BufferLineMoveNext<CR>";};
+        "<silent><leader>bmp" = {action = ":BufferLineMovePrev<CR>";};
+        "<silent><leader>b1" = {action = "<Cmd>BufferLineGoToBuffer 1<CR>";};
+        "<silent><leader>b2" = {action = "<Cmd>BufferLineGoToBuffer 2<CR>";};
+        "<silent><leader>b3" = {action = "<Cmd>BufferLineGoToBuffer 3<CR>";};
+        "<silent><leader>b4" = {action = "<Cmd>BufferLineGoToBuffer 4<CR>";};
+        "<silent><leader>b5" = {action = "<Cmd>BufferLineGoToBuffer 5<CR>";};
+        "<silent><leader>b6" = {action = "<Cmd>BufferLineGoToBuffer 6<CR>";};
+        "<silent><leader>b7" = {action = "<Cmd>BufferLineGoToBuffer 7<CR>";};
+        "<silent><leader>b8" = {action = "<Cmd>BufferLineGoToBuffer 8<CR>";};
+        "<silent><leader>b9" = {action = "<Cmd>BufferLineGoToBuffer 9<CR>";};
       };
 
       vim.luaConfigRC.nvimBufferline = nvim.dag.entryAnywhere ''
