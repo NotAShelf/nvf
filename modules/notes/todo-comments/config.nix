@@ -13,10 +13,10 @@ in {
       "todo-comments"
     ];
 
-    vim.nnoremap = {
-      "<leader>tdq" = ":TodoQuickFix<CR>";
-      "<leader>tds" = ":TodoTelescope<CR>";
-      "<leader>tdt" = ":TodoTrouble<CR>";
+    vim.maps.normal = {
+      "<leader>tdq" = {action = ":TodoQuickFix<CR>";};
+      "<leader>tds" = {action = ":TodoTelescope<CR>";};
+      "<leader>tdt" = {action = ":TodoTrouble<CR>";};
     };
 
     vim.luaConfigRC.todo-comments = ''

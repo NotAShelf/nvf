@@ -9,8 +9,8 @@ in {
   config = mkIf cfg.enable {
     vim.startPlugins = ["hop-nvim"];
 
-    vim.nnoremap = {
-      "<leader>h" = "<cmd> HopPattern<CR>";
+    vim.maps.normal."<leader>h" = {
+      action = "<cmd> HopPattern<CR>";
     };
 
     vim.luaConfigRC.hop-nvim = nvim.dag.entryAnywhere ''
