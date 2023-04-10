@@ -12,10 +12,10 @@ in {
       "mind-nvim"
     ];
 
-    vim.nnoremap = {
-      "<leader>om" = ":MindOpenMain<CR>";
-      "<leader>op" = ":MindOpenProject<CR>";
-      "<leader>oc" = ":MindClose<CR>";
+    vim.maps.normal = {
+      "<leader>om" = {action = ":MindOpenMain<CR>";};
+      "<leader>op" = {action = ":MindOpenProject<CR>";};
+      "<leader>oc" = {action = ":MindClose<CR>";};
     };
 
     vim.luaConfigRC.mind-nvim = nvim.dag.entryAnywhere ''

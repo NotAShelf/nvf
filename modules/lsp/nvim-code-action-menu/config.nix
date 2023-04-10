@@ -10,8 +10,8 @@ in {
   config = mkIf (cfg.enable && cfg.nvimCodeActionMenu.enable) {
     vim.startPlugins = ["nvim-code-action-menu"];
 
-    vim.nnoremap = {
-      "<silent><leader>ca" = ":CodeActionMenu<CR>";
+    vim.maps.normal = {
+      "<silent><leader>ca" = {action = ":CodeActionMenu<CR>";};
     };
   };
 }
