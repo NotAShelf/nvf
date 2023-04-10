@@ -276,7 +276,7 @@ in {
     vmap = toLuaBindings "v" config.vim.maps.visual;
     xmap = toLuaBindings "x" config.vim.maps.visualOnly;
     smap = toLuaBindings "s" config.vim.maps.select;
-    imap = toLuaBindings "u" config.vim.maps.insert;
+    imap = toLuaBindings "i" config.vim.maps.insert;
     cmap = toLuaBindings "c" config.vim.maps.command;
     tmap = toLuaBindings "t" config.vim.maps.terminal;
     lmap = toLuaBindings "l" config.vim.maps.lang;
