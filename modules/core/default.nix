@@ -266,7 +266,7 @@ in {
 
     toLuaBindings = mode: maps:
       builtins.map (value: ''
-        map(${toLuaObject mode}, ${toLuaObject value.key}, ${
+        vim.keymap.set(${toLuaObject mode}, ${toLuaObject value.key}, ${
           toLuaObject value.action
         }, ${toLuaObject value.config})'') (genMaps mode maps);
 
@@ -317,17 +317,6 @@ in {
         # This is probably not the right way to set the config. I'm not sure how it should look like.
         mappings = let
           maps = [
-            (splitString
-              "\n"
-              ''
-                local function map(mode, lhs, rhs, opts)
-                  local options = { noremap=true, silent=true }
-                  if opts then
-                    options = vim.tbl_extend('force', options, opts)
-                  end
-                  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-                end
-              '')
             nmap
             imap
             vmap
