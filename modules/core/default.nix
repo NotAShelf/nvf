@@ -266,10 +266,8 @@ in {
 
     toLuaBindings = mode: maps:
       builtins.map (value: ''
-        map("${mode}", "${value.key}", ${
-          if value.action ? "__raw"
-          then value.action."__raw"
-          else "\"${value.action}\""
+        map(${toLuaObject mode}, ${toLuaObject value.key}, ${
+          toLuaObject value.action
         }, ${toLuaObject value.config})'') (genMaps mode maps);
 
     # I'm not sure if every one of these will work.
@@ -316,6 +314,7 @@ in {
         in
           nvim.dag.entryAfter ["globalsScript"] luaConfig;
 
+        # This is probably not the right way to set the config. I'm not sure how it should look like.
         mappings = let
           maps = [
             (splitString
