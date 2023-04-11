@@ -26,14 +26,14 @@ in {
       default = ["help" "text" "markdown" "NvimTree" "alpha"];
       description = "The filetypes smartcolumn will be disabled for.";
     };
-
+    
     /*
     languages = mkOption {
       default = {};
       description = "Language specific configuration.";
       type = with types;
         attrsOf (submodule {
-          options = attrsOf (submodule langOptions);
+          options = languageOpts;
         });
     };
     */
