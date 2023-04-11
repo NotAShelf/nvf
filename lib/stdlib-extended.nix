@@ -7,6 +7,23 @@ in
   nixpkgsLib.extend (self: super: {
     nvim = mkNvimLib {lib = self;};
 
+    mkLuaBinding = key: action: desc:
+      self.mkIf (key != null) {
+        "${key}" = {
+          inherit action desc;
+          lua = true;
+          silent = true;
+        };
+      };
+
+    mkBinding = key: action: desc:
+      self.mkIf (key != null) {
+        "${key}" = {
+          inherit action desc;
+          silent = true;
+        };
+      };
+
     # For forward compatibility.
     literalExpression = super.literalExpression or super.literalExample;
     literalDocBook = super.literalDocBook or super.literalExample;
