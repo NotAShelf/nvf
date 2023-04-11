@@ -15,7 +15,7 @@ in {
     (config.programs.neovim-flake.enable)
     {
       assertion = !config.programs.neovim.enable;
-      message = "You cannot use neovim-flake together with vanilla neovim.";
+      message = "You cannot use `programs.neovim-flake.enable` with `programs.neovim.enable`";
     }
   ];
 }
