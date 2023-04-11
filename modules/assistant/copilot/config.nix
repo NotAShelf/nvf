@@ -7,10 +7,6 @@
 with lib;
 with builtins; let
   cfg = config.vim.assistant.copilot;
-  keyOrFalse = key:
-    if key != null
-    then "'${key}'"
-    else "false";
 in {
   config = mkIf cfg.enable {
     vim.startPlugins = [
@@ -24,24 +20,47 @@ in {
         copilot_node_command = "${cfg.copilot_node_command}",
         panel = {
           keymap = {
-            jump_prev = ${keyOrFalse cfg.mappings.panel.jumpPrev},
-            jump_next = ${keyOrFalse cfg.mappings.panel.jumpNext},
-            accept = ${keyOrFalse cfg.mappings.panel.accept},
-            refresh = ${keyOrFalse cfg.mappings.panel.refresh},
-            open = ${keyOrFalse cfg.mappings.panel.open},
+            jump_prev = false,
+            jump_next = false,
+            accept = false,
+            refresh = false,
+            open = false,
+          },
+          layout = {
+            position = "${cfg.panel.position}",
+            ratio = ${toString cfg.panel.ratio},
           },
         },
         suggestion = {
           keymap = {
-            accept = ${keyOrFalse cfg.mappings.suggestion.accept},
-            accept_word = ${keyOrFalse cfg.mappings.suggestion.acceptWord},
-            accept_line = ${keyOrFalse cfg.mappings.suggestion.acceptLine},
-            next = ${keyOrFalse cfg.mappings.suggestion.next},
-            prev = ${keyOrFalse cfg.mappings.suggestion.prev},
-            dismiss = ${keyOrFalse cfg.mappings.suggestion.dismiss},
+            accept = false,
+            accept_word = false,
+            accept_line = false,
+            next = false,
+            prev = false,
+            dismiss = false,
           },
         },
       })
     '';
+
+    vim.maps.normal = mkMerge [
+      (mkLuaBinding cfg.mappings.panel.jumpPrev "require(\"copilot.panel\").jump_prev" "[copilot] Accept suggestion")
+      (mkLuaBinding cfg.mappings.panel.jumpNext "require(\"copilot.panel\").jump_next" "[copilot] Accept suggestion")
+      (mkLuaBinding cfg.mappings.panel.accept "require(\"copilot.panel\").accept" "[copilot] Accept suggestion")
+      (mkLuaBinding cfg.mappings.panel.refresh "require(\"copilot.panel\").refresh" "[copilot] Accept suggestion")
+      (mkLuaBinding cfg.mappings.panel.open ''
+        function() require("copilot.panel").open({ position = "${cfg.panel.position}", ratio = ${toString cfg.panel.ratio}, }) end
+      '' "[copilot] Accept suggestion")
+    ];
+
+    vim.maps.insert = mkMerge [
+      (mkLuaBinding cfg.mappings.suggestion.accept "require(\"copilot.suggestion\").accept" "[copilot] Accept suggestion")
+      (mkLuaBinding cfg.mappings.suggestion.acceptLine "require(\"copilot.suggestion\").accept_line" "[copilot] Accept suggestion (line)")
+      (mkLuaBinding cfg.mappings.suggestion.acceptWord "require(\"copilot.suggestion\").accept_word" "[copilot] Accept suggestion (word)")
+      (mkLuaBinding cfg.mappings.suggestion.next "require(\"copilot.suggestion\").next" "[copilot] next suggestion")
+      (mkLuaBinding cfg.mappings.suggestion.prev "require(\"copilot.suggestion\").prev" "[copilot] previous suggestion")
+      (mkLuaBinding cfg.mappings.suggestion.dismiss "require(\"copilot.suggestion\").dismiss" "[copilot] dismiss suggestion")
+    ];
   };
 }
