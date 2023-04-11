@@ -7,7 +7,7 @@ with lib;
 with lib.attrsets;
 with builtins; let
   cfg = config.vim.theme;
-  supported_themes = import ./supported_themes.nix;
+  supported_themes = import ./supported_themes.nix {inherit lib;};
 in {
   options.vim.theme = {
     enable = mkOption {
@@ -23,6 +23,12 @@ in {
     style = mkOption {
       type = with types; enum supported_themes.${cfg.name}.styles;
       description = "Specific style for theme if it supports it";
+    };
+
+    transparent = mkOption {
+      type = with types; bool;
+      default = false;
+      description = "Whether or not transparency should be enabled. Has no effect for themes that do not support transparency";
     };
 
     extraConfig = mkOption {

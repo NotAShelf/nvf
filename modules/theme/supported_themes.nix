@@ -1,4 +1,4 @@
-{
+{lib}: {
   onedark = {
     setup = {style ? "dark"}: ''
       -- OneDark theme
@@ -20,11 +20,14 @@
   };
 
   catppuccin = {
-    setup = {style ? "mocha"}: ''
+    setup = {
+      style ? "mocha",
+      transparent ? false,
+    }: ''
       -- Catppuccin theme
       require('catppuccin').setup {
         flavour = "${style}",
-        transparent_background = true,
+        transparent_background = "${builtins.toString transparent}",
         integrations = {
       	  nvimtree = {
       		  enabled = true,
