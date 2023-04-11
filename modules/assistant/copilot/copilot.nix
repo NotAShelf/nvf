@@ -9,6 +9,24 @@ with builtins; {
   options.vim.assistant.copilot = {
     enable = mkEnableOption "Enable GitHub Copilot";
 
+    panel = {
+      position = mkOption {
+        type = types.enum [
+          "bottom"
+          "top"
+          "left"
+          "right"
+        ];
+        default = "bottom";
+        description = "Panel position";
+      };
+      ratio = mkOption {
+        type = types.float;
+        default = 0.4;
+        description = "Panel size";
+      };
+    };
+
     mappings = {
       panel = {
         jumpPrev = mkOption {

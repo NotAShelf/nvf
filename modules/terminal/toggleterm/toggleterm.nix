@@ -9,7 +9,7 @@ with builtins; {
     enable = mkEnableOption "Enable toggleterm as a replacement to built-in terminal command";
     mappings = {
       open = mkOption {
-        type = types.str;
+        type = types.nullOr types.str;
         description = "The keymapping to open toggleterm";
         default = "<c-t>";
       };
