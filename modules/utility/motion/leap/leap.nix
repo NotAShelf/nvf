@@ -1,13 +1,35 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-with lib; let
-  cfg = config.vim.utility.motion.leap;
-in {
+{lib, ...}:
+with lib;
+with builtins; {
   options.vim.utility.motion.leap = {
     enable = mkEnableOption "Enable leap.nvim plugin (easy motion)";
+
+    mappings = {
+      leapForwardTo = mkOption {
+        type = types.nullOr types.str;
+        description = "Leap forward to";
+        default = "s";
+      };
+      leapBackwardTo = mkOption {
+        type = types.nullOr types.str;
+        description = "Leap backward to";
+        default = "S";
+      };
+      leapForwardTill = mkOption {
+        type = types.nullOr types.str;
+        description = "Leap forward till";
+        default = "x";
+      };
+      leapBackwardTill = mkOption {
+        type = types.nullOr types.str;
+        description = "Leap backward till";
+        default = "X";
+      };
+      leapFromWindow = mkOption {
+        type = types.nullOr types.str;
+        description = "Leap from window";
+        default = "gs";
+      };
+    };
   };
 }
