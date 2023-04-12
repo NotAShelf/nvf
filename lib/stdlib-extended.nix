@@ -24,6 +24,12 @@ in
         };
       };
 
+    mkMappingOption = description: default:
+      self.mkOption {
+        type = self.types.nullOr self.types.str;
+        inherit default description;
+      };
+
     # For forward compatibility.
     literalExpression = super.literalExpression or super.literalExample;
     literalDocBook = super.literalDocBook or super.literalExample;
