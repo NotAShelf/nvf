@@ -6,6 +6,10 @@
 with lib;
 with builtins; let
   cfg = config.vim.tabline.nvimBufferline;
+  self = import ./nvim-bufferline.nix {
+    inherit lib;
+  };
+  mappings = self.options.vim.tabline.nvimBufferline.mappings;
 in {
   config = mkIf cfg.enable (
     let
@@ -23,25 +27,18 @@ in {
         "bufdelete-nvim"
       ];
 
-      vim.maps.normal = {
-        "<silent><leader>bn" = {action = ":BufferLineCycleNext<CR>";};
-        "<silent><leader>bp" = {action = ":BufferLineCyclePrev<CR>";};
-        "<silent><leader>bc" = {action = ":BufferLinePick<CR>";};
-        "<silent><leader>bse" = {action = ":BufferLineSortByExtension<CR>";};
-        "<silent><leader>bsd" = {action = ":BufferLineSortByDirectory<CR>";};
-        "<silent><leader>bsi" = {action = ":lua require'bufferline'.sort_buffers_by(function (buf_a, buf_b) return buf_a.id < buf_b.id end)<CR>";};
-        "<silent><leader>bmn" = {action = ":BufferLineMoveNext<CR>";};
-        "<silent><leader>bmp" = {action = ":BufferLineMovePrev<CR>";};
-        "<silent><leader>b1" = {action = "<Cmd>BufferLineGoToBuffer 1<CR>";};
-        "<silent><leader>b2" = {action = "<Cmd>BufferLineGoToBuffer 2<CR>";};
-        "<silent><leader>b3" = {action = "<Cmd>BufferLineGoToBuffer 3<CR>";};
-        "<silent><leader>b4" = {action = "<Cmd>BufferLineGoToBuffer 4<CR>";};
-        "<silent><leader>b5" = {action = "<Cmd>BufferLineGoToBuffer 5<CR>";};
-        "<silent><leader>b6" = {action = "<Cmd>BufferLineGoToBuffer 6<CR>";};
-        "<silent><leader>b7" = {action = "<Cmd>BufferLineGoToBuffer 7<CR>";};
-        "<silent><leader>b8" = {action = "<Cmd>BufferLineGoToBuffer 8<CR>";};
-        "<silent><leader>b9" = {action = "<Cmd>BufferLineGoToBuffer 9<CR>";};
-      };
+      vim.maps.normal = mkMerge [
+        (mkLuaBinding cfg.mappings.closeCurrent "require(\"bufdelete\").bufdelete" mappings.closeCurrent.description)
+        (mkBinding cfg.mappings.cycleNext ":BufferLineCycleNext<CR>" mappings.cycleNext.description)
+        (mkBinding cfg.mappings.cycleNext ":BufferLineCycleNext<CR>" mappings.cycleNext.description)
+        (mkBinding cfg.mappings.cyclePrevious ":BufferLineCyclePrev<CR>" mappings.cyclePrevious.description)
+        (mkBinding cfg.mappings.pick ":BufferLinePick<CR>" mappings.pick.description)
+        (mkBinding cfg.mappings.sortByExtension ":BufferLineSortByExtension<CR>" mappings.sortByExtension.description)
+        (mkBinding cfg.mappings.sortByDirectory ":BufferLineSortByDirectory<CR>" mappings.sortByDirectory.description)
+        (mkLuaBinding cfg.mappings.sortById "function() require(\"bufferline\").sort_buffers_by(function (buf_a, buf_b) return buf_a.id < buf_b.id end) end" mappings.sortById.description)
+        (mkBinding cfg.mappings.moveNext ":BufferLineMoveNext<CR>" mappings.moveNext.description)
+        (mkBinding cfg.mappings.movePrevious ":BufferLineMovePrev<CR>" mappings.movePrevious.description)
+      ];
 
       vim.luaConfigRC.nvimBufferline = nvim.dag.entryAnywhere ''
         require("bufferline").setup{
