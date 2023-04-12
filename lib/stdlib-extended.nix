@@ -16,6 +16,16 @@ in
         };
       };
 
+    mkExprBinding = key: action: desc:
+      self.mkIf (key != null) {
+        "${key}" = {
+          inherit action desc;
+          lua = true;
+          silent = true;
+          expr = true;
+        };
+      };
+
     mkBinding = key: action: desc:
       self.mkIf (key != null) {
         "${key}" = {
