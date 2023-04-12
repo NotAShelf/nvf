@@ -51,8 +51,8 @@ in {
               close_command = ${mouse.close},
               right_mouse_command = ${mouse.right},
               indicator = {
-                style = 'underline',
-                -- indicator_icon = '▎',
+                style = 'icon',
+                indicator_icon = '▎',
               },
               buffer_close_icon = '',
               modified_icon = '●',
