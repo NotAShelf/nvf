@@ -88,6 +88,7 @@ in {
       }
 
         ${
+        # TODO: This probably will need to be reworked for custom-keybinds
         if config.vim.filetree.nvimTreeLua.enable
         then ''
           -- NvimTree
