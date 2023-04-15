@@ -344,7 +344,7 @@ in {
 
         ${writeIf cfg.elixir.enable ''
           lspconfig.elixirls.setup {
-            cmd = { "${pkgs.elixir-ls}/language_server.sh" },
+            cmd = { "${lib.getExe pkgs.elixir-ls}" },
             on_attach = on_attach
           }
         ''}

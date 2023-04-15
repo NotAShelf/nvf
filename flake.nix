@@ -153,6 +153,11 @@
       flake = false;
     };
 
+    elixir-tools = {
+      url = "github:elixir-tools/elixir-tools.nvim";
+      flake = false;
+    };
+
     # Copying/Registers
     registers = {
       url = "github:tversteeg/registers.nvim";

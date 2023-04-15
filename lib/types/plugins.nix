@@ -80,6 +80,7 @@ with lib; let
     "smartcolumn"
     "project-nvim"
     "elixir-ls"
+    "elixir-tools"
   ];
   # You can either use the name of the plugin or a package.
   pluginsType = with types;
