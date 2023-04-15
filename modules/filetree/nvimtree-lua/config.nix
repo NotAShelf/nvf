@@ -80,7 +80,6 @@ in {
           width = ${toString cfg.view.width},
           side = ${"'" + cfg.view.side + "'"},
           adaptive_size = ${boolToString cfg.view.adaptiveSize},
-          hide_root_folder = ${boolToString cfg.view.hideRootFolder},
         },
         git = {
           enable = ${boolToString cfg.git.enable},
@@ -119,6 +118,12 @@ in {
           -- TODO: those two
           add_trailing = ${boolToString cfg.renderer.trailingSlash},
           group_empty = ${boolToString cfg.renderer.groupEmptyFolders},
+
+          rootFolderLabel = ${
+        if cfg.renderer.rootFolderLabel == null
+        then "false"
+        else "''${toString cfg.rootFolderLabel}''"
+      },
         },
 
         system_open = {

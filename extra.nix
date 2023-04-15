@@ -88,6 +88,9 @@ inputs: let
       vim.filetree = {
         nvimTreeLua = {
           enable = true;
+          renderer = {
+            rootFolderLabel = null;
+          };
           view = {
             width = 25;
           };

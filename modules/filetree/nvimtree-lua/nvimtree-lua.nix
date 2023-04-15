@@ -160,12 +160,6 @@ with builtins; {
         description = "Width of the tree in charecters";
         type = types.int;
       };
-
-      hideRootFolder = mkOption {
-        default = true;
-        description = "Hide the root folder";
-        type = types.bool;
-      };
     };
 
     git = {
@@ -280,6 +274,12 @@ with builtins; {
         default = false;
         description = "Compact empty folders trees into a single item";
         type = types.bool;
+      };
+
+      rootFolderLabel = mkOption {
+        default = null;
+        description = "Root folder label. Set null to disable";
+        type = with types; nullOr str;
       };
 
       icons = {
