@@ -1,4 +1,4 @@
-name: "Validate flake & check formatting"
+name: "Validate flake & check documentation"
 on:
   pull_request:
   workflow_dispatch:
@@ -8,8 +8,8 @@ on:
     paths:
       - docs/**
 jobs:
-  nix-flake-check:
-    name: Validate Flake
+  flake-docs-check:
+    name: Validate Flake Documentation
     runs-on: ubuntu-latest
     strategy:
       matrix:
