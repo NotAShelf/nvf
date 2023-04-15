@@ -7,7 +7,7 @@
 
   </p></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="ch-try-it-out"></a>Chapter 1. Try it out</h1></div></div></div><pre class="programlisting console">$ cachix use neovim-flake # Optional: it'll save you CPU resources and time
 $ nix run github:notashelf/neovim-flake</pre><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_nix"></a>1.1. Nix</h2></div></div></div><p>By default LSP support for Nix is enabled alongside all complementary Neovim plugins. By running <code class="literal">nix run .</code>, which is the default package,
-you will build Neovim with this config.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_tidal"></a>1.2. Tidal</h2></div></div></div><p>Tidal is an alternative config that adds vim-tidal on top of the plugins from the Nix configuration.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_maximal"></a>1.3. Maximal</h2></div></div></div><p>Maximal is the ultimate configuration that will enable basically everything. Keep in mind, however, that this will pull a lot of dependencies.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_using_prebuilt_configs"></a>1.4. Using Prebuilt Configs</h2></div></div></div><pre class="programlisting console">$ nix run github:notashelf/neovim-flake#nix
+you will build Neovim with this config.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_tidal"></a>1.2. Tidal</h2></div></div></div><p>Tidal is an alternative config that adds vim-tidal on top of the plugins from the Nix configuration.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_maximal"></a>1.3. Maximal</h2></div></div></div><p>Maximal is the ultimate configuration that will enable basically everything. Keep in mind, however, that this will pull a lot of dependencies.</p><p>You are strongly recommended to use the binary cache if you would like to try the Maximal configuration.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_using_prebuilt_configs"></a>1.4. Using Prebuilt Configs</h2></div></div></div><pre class="programlisting console">$ nix run github:notashelf/neovim-flake#nix
 $ nix run github:notashelf/neovim-flake#tidal
 $ nix run github:notashelf/neovim-flake#maximal</pre></div></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="ch-default-configs"></a>Chapter 2. Default Configs</h1></div></div></div><p>While you can configure neovim-flake yourself using the builder, here are a few default configurations you can use.</p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-default-tidal"></a>2.1. Tidal Cycles</h2></div></div></div><pre class="programlisting console">$ nix run github:notashelf/neovim-flake#tidal file.tidal</pre><p>Utilizing <a class="link" href="https://github.com/tidalcycles/vim-tidal" target="_top">vim-tidal</a> and mitchmindtree’s fantastic <a class="link" href="https://github.com/mitchmindtree/tidalcycles.nix" target="_top">tidalcycles.nix</a> start playing with tidal cycles in a single command.</p><p>In your tidal file, type a cycle e.g. <code class="literal">d1 $ s "drum"</code> and then press <span class="emphasis"><em>ctrl+enter</em></span>. Super collider with superdirt, and a modified GHCI with tidal will start up and begin playing. Note, you need jack enabled on your system. If you are using pipewire, its as easy as setting <code class="literal">services.pipewire.jack.enable = true</code>.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-default-nix"></a>2.2. Nix</h2></div></div></div><pre class="programlisting console">$ nix run github:notashelf/neovim-flake#nix test.nix</pre><p>Enables all the of neovim plugins, with language support for specifically Nix. This lets you see what a fully configured neovim setup looks like without downloading a whole bunch of language servers and associated tools.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-default-maximal"></a>2.3. Maximal</h2></div></div></div><pre class="programlisting console">$ nix shell github:notashelf/neovim-flake#maximal test.nix</pre><p>It is the same fully configured neovim as with the <a class="link" href="index.html#sec-default-nix" title="2.2. Nix">Nix</a> config, but with every supported language enabled.</p><div class="note"><h3 class="title">Note</h3><p>Running the maximal config will download <span class="strong"><strong>a lot</strong></span> of packages as it is downloading language servers, formatters, and more.</p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="ch-custom-configuration"></a>Chapter 3. Custom Configuration</h1></div></div></div><p>Custom configuration is done with the <code class="literal">neovimConfiguration</code> function. It takes in the configuration as a module. The output of the configuration function is an attrset.</p><pre class="programlisting nix">{
   options = "The options that were available to configure";
@@ -15,7 +15,10 @@ $ nix run github:notashelf/neovim-flake#maximal</pre></div></div><div class="cha
   pkgs = "The package set used to evaluate the module";
   neovim = "The built neovim package";
 }</pre><p>The following is an example of a barebones vim configuration with the default theme enabled.</p><pre class="programlisting nix">{
-  inputs.neovim-flake.url = "github:jordanisaacs/neovim-flake";
+  inputs.neovim-flake = {
+    url = "github:notashelf/neovim-flake";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
 
   outputs = {nixpkgs, neovim-flake, ...}: let
     system = "x86_64-linux";
@@ -24,7 +27,9 @@ $ nix run github:notashelf/neovim-flake#maximal</pre></div></div><div class="cha
       # Add any custom options (and feel free to upstream them!)
       # options = ...
 
-      config.vim.theme.enable = true;
+      config.vim = {
+        theme.enable = true;
+      };
     };
 
     customNeovim = neovim-flake.lib.neovimConfiguration {
@@ -41,10 +46,12 @@ $ nix run github:notashelf/neovim-flake#maximal</pre></div></div><div class="cha
     inputs.nixpkgs.follows = "nixpkgs";
   };
 }</pre><p>Followed by importing the HM module.</p><pre class="programlisting nix">{
-  imports = [ neovim-flake.nixosModules.hm-module ];
+  imports = [ neovim-flake.homeManagerModules.default ];
 }</pre><p>Then we should be able to use the given module. E.g.</p><pre class="programlisting nix">{
   programs.neovim-flake = {
+
     enable = true;
+    # your settings need to go into the settings attrset
     settings = {
       vim.viAlias = false;
       vim.vimAlias = true;
