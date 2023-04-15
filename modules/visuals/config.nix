@@ -50,6 +50,8 @@ in {
       )
     ];
 
+    vim.maps.normal = mkIf (cfg.cellularAutomaton.enable) (mkBinding cfg.cellularAutomaton.mappings.makeItRain "<cmd>CellularAutomaton make_it_rain<CR>" "Make it rain");
+
     vim.luaConfigRC.visuals = nvim.dag.entryAnywhere ''
       ${
         if cfg.lspkind.enable
@@ -134,8 +136,6 @@ in {
           end
 
           require("cellular-automaton").register_animation(config)
-
-          vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
         ''
         else ""
       }

@@ -36,10 +36,16 @@ with builtins; {
       default = false;
     };
 
-    cellularAutomaton.enable = mkOption {
-      type = types.bool;
-      description = "Enable cellular automaton [cellular-automaton]";
-      default = false;
+    cellularAutomaton = {
+      enable = mkOption {
+        type = types.bool;
+        description = "Enable cellular automaton [cellular-automaton]";
+        default = false;
+      };
+
+      mappings = {
+        makeItRain = mkMappingOption "Make it rain [cellular-automaton]" "<leader>fml";
+      };
     };
 
     fidget-nvim = {
