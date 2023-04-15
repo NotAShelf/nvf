@@ -1,0 +1,30 @@
+name: "Validate flake & check formatting"
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - docs/**
+jobs:
+  nix-flake-check:
+    name: Validate Flake
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package:
+        - docs 
+        - docs-html 
+        - docs-manpages 
+        - docs-json 
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set default git branch (to reduce log spam)
+        run: git config --global init.defaultBranch main
+      - name: Validate Flakes
+        run: nix flake check
+      - name: Build neovim-flake with default settings
+        run: nix build .#${{ matrix.package }} --print-build-logs
+     
+
