@@ -21,6 +21,8 @@ Tidal is an alternative config that adds vim-tidal on top of the plugins from th
 
 Maximal is the ultimate configuration that will enable basically everything. Keep in mind, however, that this will pull a lot of dependencies.
 
+You are strongly recommended to use the binary cache if you would like to try the Maximal configuration.
+
 
 === Using Prebuilt Configs
 
