@@ -321,6 +321,22 @@
         "type": "github"
       }
     },
+    "elixir-ls": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1681462421,
+        "narHash": "sha256-pIwZFiCLJ0f7OXi1iTza04KSn7rpFpvUsNYrFh0FoEM=",
+        "owner": "elixir-lsp",
+        "repo": "elixir-ls",
+        "rev": "85cfc5604edeadb0a6a683c41abff60a0c959de7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "elixir-lsp",
+        "repo": "elixir-ls",
+        "type": "github"
+      }
+    },
     "fidget-nvim": {
       "flake": false,
       "locked": {
@@ -1319,6 +1335,7 @@
         "dashboard-nvim": "dashboard-nvim",
         "diffview-nvim": "diffview-nvim",
         "dressing-nvim": "dressing-nvim",
+        "elixir-ls": "elixir-ls",
         "fidget-nvim": "fidget-nvim",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
