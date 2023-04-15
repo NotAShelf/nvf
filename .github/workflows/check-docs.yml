@@ -19,6 +19,20 @@ jobs:
         - docs-manpages 
         - docs-json 
     steps:
+      - uses: easimon/maximize-build-space@v6
+        with:
+          overprovision-lvm: true
+          remove-android: true
+          remove-dotnet: true
+          remove-haskell: true
+      - uses: cachix/install-nix-action@v20
+        with:
+          extra_nix_config: | 
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            auto-optimise-store = true
+            experimental-features = nix-command flakes
+          nix_path: nixpkgs=channel:nixos-unstable
+
       - uses: actions/checkout@v3
       - name: Set default git branch (to reduce log spam)
         run: git config --global init.defaultBranch main
