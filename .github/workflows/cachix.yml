@@ -1,4 +1,4 @@
-name: build-and-cache
+name: "Set up binary cache"
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ on:
       - .gitignore
 
 jobs:
-  nix:
+  cahix:
     runs-on: ubuntu-latest
     strategy:
       matrix:
