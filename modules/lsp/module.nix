@@ -65,6 +65,10 @@ in {
       };
     };
 
+    elixir = {
+      enable = mkEnableOption "Elixir LSP";
+    };
+
     sql = mkEnableOption "SQL Language LSP";
     go = mkEnableOption "Go language LSP";
     ts = mkEnableOption "TS language LSP";

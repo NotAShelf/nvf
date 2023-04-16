@@ -45,6 +45,8 @@ with builtins; {
           graphql
           json
           zig
+          elixir
+          heex
         ]
         ++ (optional config.vim.notes.orgmode.enable org); # add orgmode grammar if enabled
       description = ''

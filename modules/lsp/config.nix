@@ -19,25 +19,20 @@ in {
         [
           "nvim-lspconfig"
           "null-ls"
-          (
-            if (config.vim.autocomplete.enable && (config.vim.autocomplete.type == "nvim-cmp"))
-            then "cmp-nvim-lsp"
-            else null
-          )
-          (
-            if cfg.sql
-            then "sqls-nvim"
-            else null
-          )
         ]
-        ++ (
-          if cfg.rust.enable
-          then [
-            "crates-nvim"
-            "rust-tools"
-          ]
-          else []
-        );
+        ++ optionals (cfg.rust.enable) [
+          "crates-nvim"
+          "rust-tools"
+        ]
+        ++ optionals (cfg.elixir.enable) [
+          "elixir-ls"
+        ]
+        ++ optionals ((config.vim.autocomplete.enable) && (config.vim.autocomplete.type == "nvim-cmp")) [
+          "cmp-nvim-lsp"
+        ]
+        ++ optionals (cfg.sql) [
+          "sqls-nvim"
+        ];
 
       vim.configRC.lsp = nvim.dag.entryAnywhere ''
         ${
@@ -344,6 +339,13 @@ in {
               attach_keymaps(client, bufnr)
             end,
             cmd = { "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server", "--stdio" }
+          }
+        ''}
+
+        ${writeIf cfg.elixir.enable ''
+          lspconfig.elixirls.setup {
+            cmd = { "${lib.getExe pkgs.elixir-ls}" },
+            on_attach = on_attach
           }
         ''}
       '';

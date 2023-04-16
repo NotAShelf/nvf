@@ -33,6 +33,7 @@ inputs: let
         nvimCodeActionMenu.enable = true;
         trouble.enable = true;
         lspSignature.enable = true;
+        elixir.enable = isMaximal;
         rust.enable = isMaximal;
         python = isMaximal;
         clang.enable = isMaximal;
