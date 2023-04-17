@@ -23,7 +23,8 @@ in {
         type = types.bool;
         default = config.vim.languages.enableTreesitter;
       };
-      package = nvim.types.mkGrammarOption pkgs "markdown";
+      mdPackage = nvim.types.mkGrammarOption pkgs "markdown";
+      mdInlinePackage = nvim.types.mkGrammarOption pkgs "markdown-inline";
     };
   };
 }

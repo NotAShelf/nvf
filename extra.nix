@@ -84,7 +84,7 @@ inputs: let
       vim.autopairs.enable = true;
 
       vim.autocomplete = {
-        enable = true;
+        enable = false;
         type = "nvim-cmp";
       };
 

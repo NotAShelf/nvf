@@ -6,94 +6,52 @@
 with lib; let
   cfg = config.vim.visuals;
 in {
-  config = mkIf cfg.enable {
-    vim.startPlugins = [
-      (
-        if cfg.nvimWebDevicons.enable
-        then "nvim-web-devicons"
-        else null
-      )
-      (
-        if cfg.lspkind.enable
-        then "lspkind"
-        else null
-      )
-      (
-        if cfg.cursorWordline.enable
-        then "nvim-cursorline"
-        else null
-      )
-      (
-        if cfg.indentBlankline.enable
-        then "indent-blankline"
-        else null
-      )
-      (
-        if cfg.scrollBar.enable
-        then "scrollbar-nvim"
-        else null
-      )
-      (
-        if cfg.smoothScroll.enable
-        then "cinnamon-nvim"
-        else null
-      )
-      (
-        if cfg.cellularAutomaton.enable
-        then "cellular-automaton"
-        else null
-      )
-      (
-        if cfg.fidget-nvim.enable
-        then "fidget-nvim"
-        else null
-      )
-    ];
+  config = mkIf cfg.enable (mkMerge [
+    (mkIf cfg.lspkind.enable {
+      vim.startPlugins = ["lspkind"];
+      vim.luaConfigRC.lspkind = nvim.dag.entryAnywhere ''
+        -- lspkind
+        require'lspkind'.init()
+      '';
+    })
 
-    vim.luaConfigRC.visuals = nvim.dag.entryAnywhere ''
-      ${
-        if cfg.lspkind.enable
-        then "require'lspkind'.init()"
-        else ""
-      }
-      ${
-        if cfg.indentBlankline.enable
-        then ''
-          -- highlight error: https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
-          vim.wo.colorcolumn = "99999"
-          vim.opt.list = true
+    (mkIf cfg.indentBlankline.enable {
+      vim.startPlugins = ["indent-blankline"];
+      vim.luaConfigRC.indent-blankline = nvim.dag.entryAnywhere ''
+        -- highlight error: https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
+        vim.wo.colorcolumn = "99999"
+        vim.opt.list = true
 
+        ${optionalString (cfg.indentBlankline.eolChar != "") ''
+          vim.opt.listchars:append({ eol = "${cfg.indentBlankline.eolChar}" })
+        ''}
+        ${optionalString (cfg.indentBlankline.fillChar != "") ''
+          vim.opt.listchars:append({ eol = "${cfg.indentBlankline.fillChar}" })
+        ''}
 
-          ${
-            if cfg.indentBlankline.eolChar == ""
-            then ""
-            else ''vim.opt.listchars:append({ eol = "${cfg.indentBlankline.eolChar}" })''
-          }
+        require("indent_blankline").setup {
+          char = "${cfg.indentBlankline.listChar}",
+          show_current_context = ${boolToString cfg.indentBlankline.showCurrContext},
+          show_end_of_line = true,
+        }
+      '';
+    })
 
-          ${
-            if cfg.indentBlankline.fillChar == ""
-            then ""
-            else ''vim.opt.listchars:append({ space = "${cfg.indentBlankline.fillChar}"})''
-          }
+    (mkIf cfg.cursorWordline.enable {
+      vim.startPlugins = ["nvim-cursorline"];
+      vim.luaConfigRC.cursorline = nvim.dag.entryAnywhere ''
+        vim.g.cursorline_timeout = ${toString cfg.cursorWordline.lineTimeout}
+      '';
+    })
 
-          require("indent_blankline").setup {
-            char = "${cfg.indentBlankline.listChar}",
-            show_current_context = ${boolToString cfg.indentBlankline.showCurrContext},
-            show_end_of_line = true,
-          }
-        ''
-        else ""
-      }
+    (mkIf cfg.nvimWebDevicons.enable {
+      vim.startPlugins = ["nvim-web-devicons"];
+    })
 
-      ${
-        if cfg.cursorWordline.enable
-        then "vim.g.cursorline_timeout = ${toString cfg.cursorWordline.lineTimeout}"
-        else ""
-      }
-
-      ${
-        if cfg.scrollBar.enable
-        then "require('scrollbar').setup{
+    (mkIf cfg.scrollBar.enable {
+      vim.startPlugins = ["scrollbar-nvim"];
+      vim.luaConfigRC.scrollBar = nvim.dag.entryAnywhere ''
+        require('scrollbar').setup{
             excluded_filetypes = {
               'prompt',
               'TelescopePrompt',
@@ -101,56 +59,57 @@ in {
               'NvimTree',
               'alpha'
             },
-          }"
-        else ""
-      }
-      ${
-        if cfg.smoothScroll.enable
-        then "require('cinnamon').setup()"
-        else ""
-      }
-      ${
-        if cfg.cellularAutomaton.enable
-        then ''
-          local config = {
-            fps = 50,
-            name = 'slide',
           }
+      '';
+    })
 
-          -- init function is invoked only once at the start
-          -- config.init = function (grid)
-          --
-          -- end
+    (mkIf cfg.smoothScroll.enable {
+      vim.startPlugins = ["cinnamon-nvim"];
+      vim.luaConfigRC.smoothScroll = nvim.dag.entryAnywhere ''
+        require('cinnamon').setup()
+      '';
+    })
 
-          -- update function
-          config.update = function (grid)
-          for i = 1, #grid do
-            local prev = grid[i][#(grid[i])]
-              for j = 1, #(grid[i]) do
-                grid[i][j], prev = prev, grid[i][j]
-              end
-            end
-            return true
-          end
-
-          require("cellular-automaton").register_animation(config)
-
-          vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
-        ''
-        else ""
-      }
-      ${
-        if cfg.fidget-nvim.enable
-        then ''
-          require"fidget".setup{
-            align = {
-              bottom = ${boolToString cfg.fidget-nvim.align.bottom},
-              right = ${boolToString cfg.fidget-nvim.align.right},
+    (mkIf cfg.cellularAutomaton.enable {
+      vim.startPlugins = ["cellular-automaton"];
+      vim.luaConfigRC.cellularAUtomaton = nvim.dag.entryAnywhere ''
+        local config = {
+              fps = 50,
+              name = 'slide',
             }
+
+            -- init function is invoked only once at the start
+            -- config.init = function (grid)
+            --
+            -- end
+
+            -- update function
+            config.update = function (grid)
+            for i = 1, #grid do
+              local prev = grid[i][#(grid[i])]
+                for j = 1, #(grid[i]) do
+                  grid[i][j], prev = prev, grid[i][j]
+                end
+              end
+              return true
+            end
+
+            require("cellular-automaton").register_animation(config)
+
+            vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
+      '';
+    })
+
+    (mkIf cfg.fidget-nvim.enable {
+      vim.startPlugins = ["fidget-nvim"];
+      vim.luaConfigRC.fidget-nvim = nvim.dag.entryAnywhere ''
+        require"fidget".setup{
+          align = {
+            bottom = ${boolToString cfg.fidget-nvim.align.bottom},
+            right = ${boolToString cfg.fidget-nvim.align.right},
           }
-        ''
-        else ""
-      }
-    '';
-  };
+        }
+      '';
+    })
+  ]);
 }
