@@ -8,3 +8,8 @@
 * <<opt-vim.git.gitsigns.codeActions>> has been added allowing you to turn on gitsigns codeactions.
 
 * Removed the plugins document in the docs. Was too unwieldy to keep updated.
+
+
+* `vim.visual.lspkind` has been moved to <<opt-vim.lsp.lspkind.enable>>
+
+* Improved handling of completion formatting. When setting <<opt-vim.autocomplete.sources>>, can also include optional menu mapping. And can provide your own function with <<opt-vim.autocomplete.formatting.format>>.
