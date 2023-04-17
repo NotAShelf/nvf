@@ -8,7 +8,7 @@ with lib;
 with builtins; let
   cfg = config.vim.languages.nix;
 
-  useFormat = "on_attach = default_on_attatch";
+  useFormat = "on_attach = default_on_attach";
   noFormat = "on_attach = attach_keymaps";
 
   defaultServer = "nil";

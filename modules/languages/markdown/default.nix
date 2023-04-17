@@ -1,6 +1,6 @@
-_: {
+{...}: {
   imports = [
-    ./glow.nix
     ./config.nix
+    ./markdown.nix
   ];
 }

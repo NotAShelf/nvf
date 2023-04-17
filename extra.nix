@@ -13,6 +13,10 @@ inputs: let
       configuration.imports = modules;
     };
 
+  tidalConfig = {
+    config.vim.languages.tidal.enable = true;
+  };
+
   mainConfig = isMaximal: {
     config = {
       vim = {
@@ -191,5 +195,5 @@ inputs: let
     };
   };
 in {
-  inherit neovimConfiguration mainConfig;
+  inherit neovimConfiguration mainConfig tidalConfig;
 }

@@ -14,10 +14,8 @@
     ./visuals
     ./lsp
     ./treesitter
-    ./tidal
     ./autopairs
     ./snippets
-    ./markdown
     ./git
     ./minimap
     ./dashboard

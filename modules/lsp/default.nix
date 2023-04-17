@@ -4,7 +4,7 @@
     ./config.nix
     ./module.nix
 
-    ./lspconfig  
+    ./lspconfig
     ./lspsaga
     ./null-ls
 
