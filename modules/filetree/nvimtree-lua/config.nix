@@ -119,7 +119,7 @@ in {
           add_trailing = ${boolToString cfg.renderer.trailingSlash},
           group_empty = ${boolToString cfg.renderer.groupEmptyFolders},
 
-          rootFolderLabel = ${
+          root_folder_label = ${
         if cfg.renderer.rootFolderLabel == null
         then "false"
         else "''${toString cfg.rootFolderLabel}''"
