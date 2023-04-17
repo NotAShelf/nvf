@@ -22,6 +22,7 @@ in {
       description = nvim.nmd.asciiDoc ''
         List of treesitter grammars to install. For supported languages
         use the `vim.language.<lang>.treesitter` option
+
       '';
     };
   };

@@ -1,4 +1,4 @@
-name: Github Pages docs
+name: "Build and deploy documentation"
 on:
   workflow_dispatch:
   push:

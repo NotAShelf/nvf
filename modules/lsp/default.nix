@@ -16,7 +16,8 @@ _: {
     ./lightbulb
     ./lspkind
 
-    # flutter-tools
-    ./flutter-tools-nvim
+    # language specific modules
+    ./flutter-tools-nvim # dart & flutter
+    ./elixir # elixir
   ];
 }

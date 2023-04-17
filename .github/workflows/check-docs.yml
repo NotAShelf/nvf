@@ -1,25 +1,23 @@
-name: "Set up binary cache"
-
+name: "Validate flake & check documentation"
 on:
+  pull_request:
   workflow_dispatch:
   push:
     branches:
       - main
-    paths-ignore:
-      - .github/**
-      - assets/**
-      - .gitignore
-
+    paths:
+      - docs/**
 jobs:
-  cahix:
+  flake-docs-check:
+    name: Validate Flake Documentation
     runs-on: ubuntu-latest
     strategy:
       matrix:
         package:
-        - default
-        - nix
-        - tidal
-        - maximal
+        - docs 
+        - docs-html 
+        - docs-manpages 
+        - docs-json 
     steps:
       - uses: easimon/maximize-build-space@v6
         with:
@@ -27,7 +25,6 @@ jobs:
           remove-android: true
           remove-dotnet: true
           remove-haskell: true
-      - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: | 
@@ -35,14 +32,13 @@ jobs:
             auto-optimise-store = true
             experimental-features = nix-command flakes
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_TOKEN }}
-          extraPullNames: nix-community
-          name: neovim-flake
+
+      - uses: actions/checkout@v3
       - name: Set default git branch (to reduce log spam)
         run: git config --global init.defaultBranch main
       - name: Validate Flakes
         run: nix flake check
       - name: Build neovim-flake with default settings
         run: nix build .#${{ matrix.package }} --print-build-logs
+     
+

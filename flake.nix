@@ -74,22 +74,27 @@
       url = "github:neovim/nvim-lspconfig";
       flake = false;
     };
+
     lspsaga = {
       url = "github:tami5/lspsaga.nvim";
       flake = false;
     };
+
     lspkind = {
       url = "github:onsails/lspkind-nvim";
       flake = false;
     };
+
     trouble = {
       url = "github:folke/trouble.nvim";
       flake = false;
     };
+
     nvim-treesitter-context = {
       url = "github:nvim-treesitter/nvim-treesitter-context";
       flake = false;
     };
+
     nvim-lightbulb = {
       url = "github:kosayoda/nvim-lightbulb";
       flake = false;
@@ -99,18 +104,22 @@
       url = "github:weilbith/nvim-code-action-menu";
       flake = false;
     };
+
     lsp-signature = {
       url = "github:ray-x/lsp_signature.nvim";
       flake = false;
     };
+
     null-ls = {
       url = "github:jose-elias-alvarez/null-ls.nvim";
       flake = false;
     };
+
     sqls-nvim = {
       url = "github:nanotee/sqls.nvim";
       flake = false;
     };
+
     rust-tools = {
       url = "github:simrat39/rust-tools.nvim";
       flake = false;
@@ -118,6 +127,16 @@
 
     flutter-tools = {
       url = "github:akinsho/flutter-tools.nvim";
+      flake = false;
+    };
+
+    elixir-ls = {
+      url = "github:elixir-lsp/elixir-ls";
+      flake = false;
+    };
+
+    elixir-tools = {
+      url = "github:elixir-tools/elixir-tools.nvim";
       flake = false;
     };
 

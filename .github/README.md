@@ -123,21 +123,25 @@ instead of the `maximal` output. This will reduce size by a lot, but you will lo
 **A**: Yes. As a matter of fact, I am actively working on making this flake smaller. Unfortunately the process of providing everything possible by itself makes the flake large. Best I can do is to optimize the flake as much as possible by selecting plugins that are small and fast. And the binary cache, so at least you don't have to build it from source.
 <br/><br/>
 
-**Q**: Will you use a plugin manager?
+**Q**: Will you use a plugin manager/language server installer?
 <br/>
-**A**: No. If you feel the need to ask that question, then you have missed the whole point of using nix and ultimately this flake. We load plugins with raw lua.
+**A**: No. If you feel the need to ask that question, then you have missed the whole point of using nix and ultimately this flake. The whole reason we use nix is to be able to handle EVERYTHING declaratively, well including the LSP and plugin installations.
 <br/><br/>
 
 **Q**: Can you add *X*?
 <br/>
-**A**: Maybe. Open an issue using the appropriate template and I will consider it. I do not intend to add every plugin that is in existence, but I will consider it, should it offer something useful to the flake.
+**A**: Maybe. Open an issue using the appropriate template and I will consider it. I do not intend to add *every plugin that is in existence*, but I will consider it, should it offer something useful to the flake.
 
 ## Credits
 
 ### Contributors
 
+Special thanks to
+
 - [@fufexan](https://github.com/fufexan) - For the transition to flake-parts
 - [@FlafyDev](https://github.com/FlafyDev) - For getting the home-manager to work 
+
+and everyone who has submitted issues or pull requests!
 
 ### Inspiration
 
