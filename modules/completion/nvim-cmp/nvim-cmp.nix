@@ -5,11 +5,7 @@
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.autocomplete;
-  builtSources =
-    concatMapStringsSep "\n" (x: "{ name = '${x}'},") cfg.sources;
-in {
+with builtins; {
   options.vim = {
     autocomplete = {
       enable = mkOption {
@@ -25,9 +21,40 @@ in {
       };
 
       sources = mkOption {
-        description = "List of source names for nvim-cmp";
-        type = with types; listOf str;
-        default = [];
+        description = nvim.nmd.asciiDoc ''
+          Attribute set of source names for nvim-cmp.
+
+          If an attribute set is provided, then the menu value of
+          `vim_item` in the format will be set to the value (if
+          utilizing the `nvim_cmp_menu_map` function).
+
+          Note: only use a single attribute name per attribute set
+        '';
+        type = with types; attrsOf (nullOr str);
+        default = {};
+        example = ''
+          {nvim-cmp = null; buffer = "[Buffer]";}
+        '';
+      };
+
+      formatting = {
+        format = mkOption {
+          description = nvim.nmd.asciiDoc ''
+            The function used to customize the appearance of the completion menu.
+
+            If <<opt-vim.lsp.lspkind.enable>> is true, then the function
+            will be called before modifications from lspkind.
+
+            Default is to call the menu mapping function.
+          '';
+          type = types.str;
+          default = "nvim_cmp_menu_map";
+          example = ''
+            function(entry, vim_item)
+              return vim_item
+            end
+          '';
+        };
       };
     };
   };

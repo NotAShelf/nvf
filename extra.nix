@@ -29,6 +29,16 @@ inputs: let
         };
       };
 
+      vim.lsp = {
+        formatOnSave = true;
+        lspkind.enable = false;
+        lightbulb.enable = true;
+        lspsaga.enable = false;
+        nvimCodeActionMenu.enable = true;
+        trouble.enable = true;
+        lspSignature.enable = true;
+      };
+
       vim.languages = {
         enableLSP = true;
         enableFormat = true;
@@ -56,7 +66,6 @@ inputs: let
         smoothScroll.enable = true;
         cellularAutomaton.enable = true;
         fidget-nvim.enable = true;
-        lspkind.enable = true;
         indentBlankline = {
           enable = true;
           fillChar = "";

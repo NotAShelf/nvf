@@ -7,14 +7,6 @@ with lib; let
   cfg = config.vim.visuals;
 in {
   config = mkIf cfg.enable (mkMerge [
-    (mkIf cfg.lspkind.enable {
-      vim.startPlugins = ["lspkind"];
-      vim.luaConfigRC.lspkind = nvim.dag.entryAnywhere ''
-        -- lspkind
-        require'lspkind'.init()
-      '';
-    })
-
     (mkIf cfg.indentBlankline.enable {
       vim.startPlugins = ["indent-blankline"];
       vim.luaConfigRC.indent-blankline = nvim.dag.entryAnywhere ''

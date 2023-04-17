@@ -14,7 +14,7 @@ in {
       ["nvim-treesitter"]
       ++ optional usingNvimCmp "cmp-treesitter";
 
-    vim.autocomplete.sources = ["treesitter"];
+    vim.autocomplete.sources = {"treesitter" = "[Treesitter]";};
 
     # For some reason treesitter highlighting does not work on start if this is set before syntax on
     vim.configRC.treesitter-fold = mkIf cfg.fold (nvim.dag.entryBefore ["basic"] ''

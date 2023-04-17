@@ -18,12 +18,6 @@ with builtins; {
       default = false;
     };
 
-    lspkind.enable = mkOption {
-      type = types.bool;
-      description = "Enable vscode-like pictograms for lsp [lspkind]";
-      default = false;
-    };
-
     scrollBar.enable = mkOption {
       type = types.bool;
       description = "Enable scrollbar [scrollbar.nvim]";

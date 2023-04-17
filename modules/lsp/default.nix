@@ -14,6 +14,7 @@ _: {
     ./trouble
     ./lsp-signature
     ./lightbulb
+    ./lspkind
 
     # flutter-tools
     ./flutter-tools-nvim
