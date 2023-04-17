@@ -6,17 +6,9 @@
 with lib;
 with builtins; {
   options.vim.visuals = {
-    enable = mkOption {
-      type = types.bool;
-      description = "Enable visual enhancements";
-      default = false;
-    };
+    enable = mkEnableOption "Visual enhancements.";
 
-    nvimWebDevicons.enable = mkOption {
-      type = types.bool;
-      description = "Enable dev icons. required for certain plugins [nvim-web-devicons]";
-      default = false;
-    };
+    nvimWebDevicons.enable = mkEnableOption "dev icons. Required for certain plugins [nvim-web-devicons].";
 
     scrollBar.enable = mkOption {
       type = types.bool;
@@ -58,15 +50,12 @@ with builtins; {
     };
 
     cursorWordline = {
-      enable = mkOption {
-        type = types.bool;
-        description = "Enable word and delayed line highlight [nvim-cursorline]";
-        default = false;
-      };
+      enable = mkEnableOption "word and delayed line highlight [nvim-cursorline].";
 
       lineTimeout = mkOption {
         type = types.int;
         description = "Time in milliseconds for cursorline to appear";
+        default = 500;
       };
     };
 
@@ -84,21 +73,39 @@ with builtins; {
       };
 
       fillChar = mkOption {
-        type = types.str;
         description = "Character to fill indents";
+        type = with types; nullOr types.str;
         default = "⋅";
       };
 
       eolChar = mkOption {
-        type = types.str;
         description = "Character at end of line";
+        type = with types; nullOr types.str;
         default = "↴";
       };
 
-      showCurrContext = mkOption {
+      showEndOfLine = mkOption {
+        description = nvim.nmd.asciiDoc ''
+          Displays the end of line character set by <<opt-vim.visuals.indentBlankline.eolChar>> instead of the
+          indent guide on line returns.
+        '';
         type = types.bool;
+        default = cfg.indentBlankline.eolChar != null;
+        defaultText = literalExpression "config.vim.visuals.indentBlankline.eolChar != null";
+      };
+
+      showCurrContext = mkOption {
         description = "Highlight current context from treesitter";
-        default = true;
+        type = types.bool;
+        default = config.vim.treesitter.enable;
+        defaultText = literalExpression "config.vim.treesitter.enable";
+      };
+
+      useTreesitter = mkOption {
+        description = "Use treesitter to calculate indentation when possible.";
+        type = types.bool;
+        default = config.vim.treesitter.enable;
+        defaultText = literalExpression "config.vim.treesitter.enable";
       };
     };
   };
