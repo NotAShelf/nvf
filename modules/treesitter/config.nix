@@ -12,7 +12,6 @@ in {
   config = mkIf cfg.enable {
     vim.startPlugins =
       ["nvim-treesitter"]
-      ++ optional cfg.autotagHtml "nvim-ts-autotag"
       ++ optional usingNvimCmp "cmp-treesitter";
 
     vim.autocomplete.sources = ["treesitter"];
@@ -43,12 +42,6 @@ in {
             node_decremental = "grm",
           },
         },
-
-      ${optionalString cfg.autotagHtml ''
-        autotag = {
-          enable = true,
-        },
-      ''}
       }
     '';
   };

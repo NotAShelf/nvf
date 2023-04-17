@@ -36,6 +36,7 @@ inputs: let
         enableExtraDiagnostics = true;
 
         nix.enable = true;
+        html.enable = isMaximal;
         clang.enable = isMaximal;
         sql.enable = isMaximal;
         rust = {

@@ -19,6 +19,7 @@ in {
     ./sql.nix
     ./ts.nix
     ./zig.nix
+    ./html.nix
   ];
 
   options.vim.languages = {

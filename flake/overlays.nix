@@ -1,4 +1,8 @@
-{inputs, ...}: let
+{
+  inputs,
+  pkgs,
+  ...
+}: let
   inherit (import ../extra.nix inputs) neovimConfiguration mainConfig;
 
   buildPkg = pkgs: modules:
@@ -14,5 +18,6 @@ in {
     neovim-nix = buildPkg prev [nixConfig];
     neovim-maximal = buildPkg prev [maximalConfig];
     neovim-tidal = buildPkg prev [tidalConfig];
+    devPkg = buildPkg pkgs [nixConfig {config.vim.languages.html.enable = pkgs.lib.mkForce true;}];
   };
 }
