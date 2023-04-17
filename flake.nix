@@ -32,18 +32,6 @@
           inherit (import ./extra.nix inputs) neovimConfiguration;
         };
 
-        /*
-        nixosModules.default = {
-          home-manager.sharedModules = [
-            ./lib/module
-          ];
-          nixpkgs.overlays = [
-            inputs.tidalcycles.overlays.default
-            inputs.self.overlays.default
-          ];
-        };
-        */
-
         homeManagerModules = {
           neovim-flake = {
             imports = [
@@ -61,6 +49,7 @@
         ...
       }: {
         devShells.default = pkgs.mkShell {nativeBuildInputs = [config.packages.nix];};
+
       };
     };
 
