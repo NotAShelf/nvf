@@ -8,11 +8,7 @@ with builtins; let
   supported_themes = import ./supported_themes.nix;
 in {
   options.vim.statusline.lualine = {
-    enable = mkOption {
-      type = types.bool;
-      description = "Enable lualine statusline";
-      default = true;
-    };
+    enable = mkEnableOption "lualine";
 
     icons = {
       enable = mkOption {
@@ -47,6 +43,7 @@ in {
     };
 
     theme = mkOption {
+      description = "Theme for lualine";
       default = "auto";
       type = types.enum (
         [
@@ -82,13 +79,8 @@ in {
           "tomorrow"
           "wombat"
         ]
-        ++ (
-          if elem config.vim.theme.name supported_themes
-          then [config.vim.theme.name]
-          else []
-        )
+        ++ optional (elem config.vim.theme.name supported_themes) config.vim.theme.name
       );
-      description = "Theme for lualine";
     };
 
     sectionSeparator = {

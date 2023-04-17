@@ -22,6 +22,7 @@ in {
           always_divide_middle = true,
           globalstatus = ${boolToString cfg.globalStatus},
           ignore_focus = {'NvimTree'},
+          extensions = {${optionalString config.vim.filetree.nvimTreeLua.enable "'nvim-tree'"}},
           refresh = {
             statusline = ${toString cfg.refresh.statusline},
             tabline = ${toString cfg.refresh.tabline},
