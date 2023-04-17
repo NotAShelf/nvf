@@ -6,6 +6,8 @@
 with lib;
 with builtins; {
   options.vim.lsp.dart.flutter-tools = {
+    enable = mkEnableOption "Enable flutter-tools for flutter support";
+
     color = {
       enable = mkEnableOption "Whether or mot to highlight color variables at all";
 

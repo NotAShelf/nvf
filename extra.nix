@@ -25,25 +25,23 @@ inputs: let
         };
       };
 
-      vim.lsp = {
-        enable = true;
-        formatOnSave = true;
-        lightbulb.enable = true;
-        lspsaga.enable = false;
-        nvimCodeActionMenu.enable = true;
-        trouble.enable = true;
-        lspSignature.enable = true;
-        rust.enable = isMaximal;
-        python = isMaximal;
+      vim.languages = {
+        enableLSP = true;
+        enableFormat = true;
+        enableTreesitter = true;
+        enableExtraDiagnostics = true;
+
+        nix.enable = true;
         clang.enable = isMaximal;
-        sql = isMaximal;
-        ts = isMaximal;
-        go = isMaximal;
-        zig.enable = isMaximal;
-        nix = {
-          enable = true;
-          formatter = "alejandra";
+        sql.enable = isMaximal;
+        rust = {
+          enable = isMaximal;
+          crates.enable = true;
         };
+        ts.enable = isMaximal;
+        go.enable = isMaximal;
+        zig.enable = isMaximal;
+        python.enable = isMaximal;
       };
 
       vim.visuals = {
@@ -101,24 +99,14 @@ inputs: let
         nvimBufferline.enable = true;
       };
 
-      vim.treesitter = {
-        enable = true;
-        context.enable = true;
-      };
+      vim.treesitter.context.enable = true;
 
       vim.binds = {
         whichKey.enable = true;
         cheatsheet.enable = true;
       };
 
-      vim.telescope = {
-        enable = true;
-      };
-
-      vim.markdown = {
-        enable = true;
-        glow.enable = true;
-      };
+      vim.telescope.enable = true;
 
       vim.git = {
         enable = true;

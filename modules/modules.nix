@@ -30,6 +30,7 @@
     ./session
     ./comments
     ./projects
+    ./languages
   ];
 
   pkgsModule = {config, ...}: {

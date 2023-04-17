@@ -4,6 +4,10 @@
     ./config.nix
     ./module.nix
 
+    ./lspconfig  
+    ./lspsaga
+    ./null-ls
+
     # lsp plugins
     ./lspsaga
     ./nvim-code-action-menu

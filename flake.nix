@@ -49,7 +49,6 @@
         ...
       }: {
         devShells.default = pkgs.mkShell {nativeBuildInputs = [config.packages.nix];};
-
       };
     };
 
