@@ -142,7 +142,7 @@ with builtins; {
     enableEditorconfig = mkOption {
       type = types.bool;
       default = false;
-      description = "Follow editorconfig rules in current directory"
+      description = "Follow editorconfig rules in current directory";
     };    
   };
 }
