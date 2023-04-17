@@ -6,7 +6,7 @@ inputs: {
   extraSpecialArgs ? {},
 }: let
   inherit (pkgs) neovim-unwrapped wrapNeovim vimPlugins;
-  inherit (builtins) map filter isString toString getAttr;
+  inherit (builtins) map filter isString toString getAttr hasAttr attrNames;
   inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
 
   extendedLib = import ../lib/stdlib-extended.nix lib;
