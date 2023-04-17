@@ -4,7 +4,9 @@
   ...
 }:
 with lib;
-with builtins; {
+with builtins; let
+  cfg = config.vim.visuals;
+in {
   options.vim.visuals = {
     enable = mkEnableOption "Visual enhancements.";
 

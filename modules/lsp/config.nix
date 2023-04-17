@@ -12,7 +12,7 @@ in {
   config = mkIf cfg.enable {
     vim.startPlugins = optional usingNvimCmp "cmp-nvim-lsp";
 
-    vim.autocomplete.sources = ["nvim_lsp"];
+    vim.autocomplete.sources = {"nvim_lsp" = "[LSP]";};
 
     vim.luaConfigRC.lsp-setup = ''
       vim.g.formatsave = ${boolToString cfg.formatOnSave};

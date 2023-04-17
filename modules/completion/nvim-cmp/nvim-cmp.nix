@@ -49,10 +49,13 @@ with builtins; {
           '';
           type = types.str;
           default = "nvim_cmp_menu_map";
-          example = ''
+          example = nvim.nmd.literalAsciiDoc ''
+            [source,lua]
+            ---
             function(entry, vim_item)
               return vim_item
             end
+            ---
           '';
         };
       };

@@ -42,46 +42,50 @@ in {
       default = true;
     };
 
-    theme = mkOption {
-      description = "Theme for lualine";
-      default = "auto";
-      type = types.enum (
-        [
-          "auto"
-          "16color"
-          "gruvbox"
-          "ayu_dark"
-          "ayu_light"
-          "ayu_mirage"
-          "codedark"
-          "dracula"
-          "everforest"
-          "gruvbox"
-          "gruvbox_light"
-          "gruvbox_material"
-          "horizon"
-          "iceberg_dark"
-          "iceberg_light"
-          "jellybeans"
-          "material"
-          "modus_vivendi"
-          "molokai"
-          "nightfly"
-          "nord"
-          "oceanicnext"
-          "onelight"
-          "palenight"
-          "papercolor_dark"
-          "papercolor_light"
-          "powerline"
-          "seoul256"
-          "solarized_dark"
-          "tomorrow"
-          "wombat"
-        ]
-        ++ optional (elem config.vim.theme.name supported_themes) config.vim.theme.name
-      );
-    };
+    theme = let
+      themeSupported = elem config.vim.theme.name supported_themes;
+    in
+      mkOption {
+        description = "Theme for lualine";
+        type = types.enum ([
+            "auto"
+            "16color"
+            "gruvbox"
+            "ayu_dark"
+            "ayu_light"
+            "ayu_mirage"
+            "codedark"
+            "dracula"
+            "everforest"
+            "gruvbox"
+            "gruvbox_light"
+            "gruvbox_material"
+            "horizon"
+            "iceberg_dark"
+            "iceberg_light"
+            "jellybeans"
+            "material"
+            "modus_vivendi"
+            "molokai"
+            "nightfly"
+            "nord"
+            "oceanicnext"
+            "onelight"
+            "palenight"
+            "papercolor_dark"
+            "papercolor_light"
+            "powerline"
+            "seoul256"
+            "solarized_dark"
+            "tomorrow"
+            "wombat"
+          ]
+          ++ optional themeSupported config.vim.theme.name);
+        default = "auto";
+        # TODO: xml generation error if the closing '' is on a new line.
+        # issue: https://gitlab.com/rycee/nmd/-/issues/10
+        defaultText = nvim.nmd.literalAsciiDoc ''`config.vim.theme.name` if theme supports lualine else "auto"'';
+      };
 
     sectionSeparator = {
       left = mkOption {
