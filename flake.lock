@@ -340,11 +340,11 @@
     "elixir-ls": {
       "flake": false,
       "locked": {
-        "lastModified": 1681462421,
-        "narHash": "sha256-pIwZFiCLJ0f7OXi1iTza04KSn7rpFpvUsNYrFh0FoEM=",
+        "lastModified": 1681745218,
+        "narHash": "sha256-b3mlcwV4eHR90e9BExhb51T5A7dQVMwXRRIGqKEFBzg=",
         "owner": "elixir-lsp",
         "repo": "elixir-ls",
-        "rev": "85cfc5604edeadb0a6a683c41abff60a0c959de7",
+        "rev": "bf9db5a29efb2331da6cfbc526ecbfc10d372abc",
         "type": "github"
       },
       "original": {
@@ -356,11 +356,11 @@
     "elixir-tools": {
       "flake": false,
       "locked": {
-        "lastModified": 1681453321,
-        "narHash": "sha256-7QgWrdq4p5t8WVnFhL5P948JFPR0i2C06kisxl30D2U=",
+        "lastModified": 1681746276,
+        "narHash": "sha256-1ZCFU79xZW52Dtx864hxeANzn+L15fnfso2NBnzBvOU=",
         "owner": "elixir-tools",
         "repo": "elixir-tools.nvim",
-        "rev": "8ccb696c048eca667486ee005f4386c0db8c5e14",
+        "rev": "7b42d9131521a11cfd504b450bb445757cf2ef63",
         "type": "github"
       },
       "original": {

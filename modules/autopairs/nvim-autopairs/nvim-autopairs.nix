@@ -24,7 +24,6 @@ with builtins; {
           type = types.bool;
           default = true;
           description = nvim.nmd.asciiDoc ''map <CR> on insert mode'';
-
         };
 
         map_complete = mkOption {
