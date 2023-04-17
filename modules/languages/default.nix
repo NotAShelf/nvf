@@ -2,7 +2,7 @@
 with lib; let
   mkEnable = desc:
     mkOption {
-      description = "Turn on ${desc} for enabled langauges by default";
+      description = "Turn on ${desc} for enabled languages by default";
       type = types.bool;
       default = false;
     };

@@ -15,7 +15,7 @@ with builtins; let
   servers = {
     rnix = {
       package = pkgs.rnix-lsp;
-      internalFormatter = true;
+      internalFormatter = cfg.format.type == "nixpkgs-fmt";
       lspConfig = ''
         lspconfig.rnix.setup{
           capabilities = capabilities,
@@ -31,7 +31,7 @@ with builtins; let
 
     nil = {
       package = pkgs.nil;
-      internalFormatter = cfg.format.type != "nixpkgs-fmt";
+      internalFormatter = true;
       lspConfig = ''
         lspconfig.nil_ls.setup{
           capabilities = capabilities,
