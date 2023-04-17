@@ -17,11 +17,7 @@ in {
         type = types.bool;
         default = config.vim.languages.enableTreesitter;
       };
-      package = mkOption {
-        description = "Rust treesitter grammar to use";
-        type = types.package;
-        default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.rust;
-      };
+      package = nvim.types.mkGrammarOption pkgs "rust";
     };
 
     crates = {

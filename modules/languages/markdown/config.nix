@@ -9,6 +9,11 @@ with builtins; let
   cfg = config.vim.languages.markdown;
 in {
   config = mkIf cfg.enable (mkMerge [
+    (mkIf cfg.treesitter.enable {
+      vim.treesitter.enable = true;
+      vim.treesitter.grammars = [cfg.treesitter.package];
+    })
+
     (mkIf cfg.glow.enable {
       vim.startPlugins = ["glow-nvim"];
 

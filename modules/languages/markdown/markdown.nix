@@ -16,5 +16,14 @@ in {
       default = true;
       description = "Enable markdown preview in neovim with glow";
     };
+
+    treesitter = {
+      enable = mkOption {
+        description = "Enable Markdown treesitter";
+        type = types.bool;
+        default = config.vim.languages.enableTreesitter;
+      };
+      package = nvim.types.mkGrammarOption pkgs "markdown";
+    };
   };
 }

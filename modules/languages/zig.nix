@@ -17,11 +17,7 @@ in {
         type = types.bool;
         default = config.vim.languages.enableTreesitter;
       };
-      package = mkOption {
-        description = "Zig treesitter grammar to use";
-        type = types.package;
-        default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.zig;
-      };
+      package = nvim.types.mkGrammarOption pkgs "zig";
     };
     lsp = {
       enable = mkOption {

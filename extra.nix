@@ -115,6 +115,7 @@ inputs: let
       vim.git = {
         enable = true;
         gitsigns.enable = true;
+        gitsigns.codeActions = true;
       };
 
       vim.minimap = {

@@ -92,11 +92,7 @@ in {
         type = types.bool;
         default = config.vim.languages.enableTreesitter;
       };
-      package = mkOption {
-        description = "Nix treesitter grammar to use";
-        type = types.package;
-        default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.nix;
-      };
+      package = nvim.types.mkGrammarOption pkgs "nix";
     };
 
     lsp = {

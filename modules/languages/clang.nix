@@ -41,16 +41,8 @@ in {
         type = types.bool;
         default = config.vim.languages.enableTreesitter;
       };
-      cPackage = mkOption {
-        description = "C treesitter grammar to use";
-        type = types.package;
-        default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.c;
-      };
-      cppPackage = mkOption {
-        description = "C++ treesitter grammar to use";
-        type = types.package;
-        default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.cpp;
-      };
+      cPackage = nvim.types.mkGrammarOption pkgs "c";
+      cppPackage = nvim.types.mkGrammarOption pkgs "cpp";
     };
 
     lsp = {

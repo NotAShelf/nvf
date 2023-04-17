@@ -63,16 +63,8 @@ in {
         type = types.bool;
         default = config.vim.languages.enableTreesitter;
       };
-      tsPackage = mkOption {
-        description = "Typescript treesitter grammar to use";
-        type = types.package;
-        default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.tsx;
-      };
-      jsPackage = mkOption {
-        description = "Javascript treesitter grammar to use";
-        type = types.package;
-        default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.javascript;
-      };
+      tsPackage = nvim.types.mkGrammarOption pkgs "tsx";
+      jsPackage = nvim.types.mkGrammarOption pkgs "javascript";
     };
 
     lsp = {

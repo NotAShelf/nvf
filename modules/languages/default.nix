@@ -8,7 +8,7 @@ with lib; let
     };
 in {
   imports = [
-    ./markdown 
+    ./markdown
     ./tidal
 
     ./clang.nix

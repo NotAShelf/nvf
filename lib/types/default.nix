@@ -5,5 +5,5 @@
 in {
   inherit (typesDag) dagOf;
   inherit (typesPlugin) pluginsOpt;
-  inherit (typesLanguage) diagnostics;
+  inherit (typesLanguage) diagnostics mkGrammarOption;
 }

@@ -64,11 +64,7 @@ in {
         type = with types; enum (attrNames servers);
         default = defaultServer;
       };
-      package = mkOption {
-        description = "Python LSP server package";
-        type = types.package;
-        default = servers.${cfg.lsp.server}.package;
-      };
+      package = nvim.types.mkGrammarOption pkgs "python";
     };
 
     format = {
