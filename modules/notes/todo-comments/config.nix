@@ -7,17 +7,19 @@
 with lib;
 with builtins; let
   cfg = config.vim.notes.todo-comments;
+  self = import ./todo-comments.nix {inherit lib;};
+  mappings = self.options.vim.notes.todo-comments.mappings;
 in {
   config = mkIf (cfg.enable) {
     vim.startPlugins = [
       "todo-comments"
     ];
 
-    vim.maps.normal = {
-      "<leader>tdq" = {action = ":TodoQuickFix<CR>";};
-      "<leader>tds" = {action = ":TodoTelescope<CR>";};
-      "<leader>tdt" = {action = ":TodoTrouble<CR>";};
-    };
+    vim.maps.normal = mkMerge [
+      (mkBinding cfg.mappings.quickFix ":TodoQuickFix<CR>" mappings.quickFix.description)
+      (mkIf config.vim.telescope.enable (mkBinding cfg.mappings.telescope ":TodoTelescope<CR>" mappings.telescope.description))
+      (mkIf config.vim.lsp.trouble.enable (mkBinding cfg.mappings.trouble ":TodoTrouble<CR>" mappings.trouble.description))
+    ];
 
     vim.luaConfigRC.todo-comments = ''
       require('todo-comments').setup {
