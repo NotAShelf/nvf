@@ -12,7 +12,7 @@ with builtins; let
     dart = {
       package = pkgs.dart;
       lspConfig = ''
-        lspconfig.dart.setup{
+        lspconfig.dartls.setup{
           capabilities = capabilities;
           on_attach=default_on_attach;
           cmd = {"${pkgs.dart}/bin/dart"};
