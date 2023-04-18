@@ -35,11 +35,7 @@ in {
     };
 
     lsp = {
-      enable = mkOption {
-        description = "Enable Dart LSP support";
-        type = types.bool;
-        default = config.vim.languages.enableLSP;
-      };
+      enable = mkEnableOption "Enable Dart LSP support";
       server = mkOption {
         description = "The Dart LSP server to use";
         type = with types; enum (attrNames servers);
@@ -58,7 +54,11 @@ in {
     };
 
     flutter-tools = {
-      enable = mkEnableOption "Enable flutter-tools for flutter support";
+      enable = mkOption {
+        description = "Enable flutter-tools for flutter support";
+        type = types.bool;
+        default = config.vim.languages.enableLSP;
+      };
 
       color = {
         enable = mkEnableOption "Whether or mot to highlight color variables at all";
