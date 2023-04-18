@@ -14,7 +14,7 @@
     setup = {style ? "night"}: ''
       vim.cmd[[colorscheme tokyonight-${style}]]
     '';
-    styles = ["day" "night" "storm"];
+    styles = ["day" "night" "storm" "moon"];
   };
 
   dracula = {
