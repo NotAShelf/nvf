@@ -32,7 +32,7 @@
       -- Catppuccin theme
       require('catppuccin').setup {
         flavour = "${style}",
-        transparent_background = "${builtins.toString transparent}",
+        transparent_background = ${lib.boolToString transparent},
         integrations = {
       	  nvimtree = {
       		  enabled = true,

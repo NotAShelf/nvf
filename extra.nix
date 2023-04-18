@@ -91,6 +91,7 @@ inputs: let
         enable = true;
         name = "catppuccin";
         style = "mocha";
+        transparent = false;
       };
       vim.autopairs.enable = true;
 
