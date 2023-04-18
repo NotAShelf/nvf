@@ -15,3 +15,5 @@
 * Improved handling of completion formatting. When setting <<opt-vim.autocomplete.sources>>, can also include optional menu mapping. And can provide your own function with <<opt-vim.autocomplete.formatting.format>>.
 
 * For <<opt-vim.visuals.indentBlankline.fillChar>> and <<opt-vim.visuals.indentBlankline.eolChar>> turning them off should use `null` rather than `""` now.
+
+* Fixed deprecated configuration method for Tokyonight, and added new style "moon"
