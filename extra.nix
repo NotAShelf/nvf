@@ -151,7 +151,6 @@ inputs: let
       vim.utility = {
         colorizer.enable = true;
         icon-picker.enable = true;
-        venn-nvim.enable = false; # FIXME throws an error when its commands are ran manually
         diffview-nvim.enable = true;
         motion = {
           hop.enable = true;

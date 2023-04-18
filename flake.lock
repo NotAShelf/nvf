@@ -1355,7 +1355,6 @@
         "toggleterm-nvim": "toggleterm-nvim",
         "tokyonight": "tokyonight",
         "trouble": "trouble",
-        "venn-nvim": "venn-nvim",
         "vim-markdown": "vim-markdown",
         "vim-repeat": "vim-repeat",
         "vim-startify": "vim-startify",
@@ -1649,22 +1648,6 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "venn-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1669127905,
-        "narHash": "sha256-Ks5qUaI0MrhVC2AhVsReVwC/2WArXqIQ36CcCSCyzAk=",
-        "owner": "jbyuki",
-        "repo": "venn.nvim",
-        "rev": "c114563960b8fb1197695d42798d1f3e7190b798",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jbyuki",
-        "repo": "venn.nvim",
         "type": "github"
       }
     },

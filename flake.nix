@@ -383,11 +383,6 @@
       flake = false;
     };
 
-    venn-nvim = {
-      url = "github:jbyuki/venn.nvim";
-      flake = false;
-    };
-
     icon-picker-nvim = {
       url = "github:ziontee113/icon-picker.nvim";
       flake = false;

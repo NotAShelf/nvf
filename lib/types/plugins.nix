@@ -51,7 +51,6 @@ with lib; let
     "cinnamon-nvim"
     "cheatsheet-nvim"
     "colorizer"
-    "venn-nvim"
     "cellular-automaton"
     "presence-nvim"
     "icon-picker-nvim"

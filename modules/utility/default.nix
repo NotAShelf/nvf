@@ -7,7 +7,6 @@ _: {
     ./colorizer
     ./icon-picker
     ./telescope
-    ./venn
     ./diffview
   ];
 }
