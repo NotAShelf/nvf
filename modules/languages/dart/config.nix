@@ -15,7 +15,7 @@ with builtins; let
         lspconfig.dartls.setup{
           capabilities = capabilities;
           on_attach=default_on_attach;
-          cmd = {"${pkgs.dart}/bin/dart"};
+          cmd = {"${pkgs.dart}/bin/dart", "language-server", "--protocol=lsp"};
           ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.dartOpts}"}
         }
       '';
