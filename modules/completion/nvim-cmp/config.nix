@@ -35,6 +35,7 @@ in {
       "cmp-buffer"
       "cmp-vsnip"
       "cmp-path"
+      "vim-vsnip"
     ];
 
     vim.autocomplete.sources = {
