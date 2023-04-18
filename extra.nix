@@ -190,7 +190,6 @@ inputs: let
 
       vim.comments = {
         comment-nvim.enable = true;
-        kommentary. enable = false;
       };
 
       vim.presence = {
