@@ -127,7 +127,7 @@ inputs: let
       vim.git = {
         enable = true;
         gitsigns.enable = true;
-        gitsigns.codeActions = true;
+        gitsigns.codeActions = false; # throws an annoying debug message
       };
 
       vim.minimap = {
