@@ -51,7 +51,8 @@ in {
               'TelescopePrompt',
               'noice',
               'NvimTree',
-              'alpha'
+              'alpha',
+              'code-action-menu-menu'
             },
           }
       '';
