@@ -13,6 +13,10 @@ inputs: let
       configuration.imports = modules;
     };
 
+  tidalConfig = {
+    config.vim.languages.tidal.enable = true;
+  };
+
   mainConfig = isMaximal: {
     config = {
       vim = {
@@ -26,25 +30,35 @@ inputs: let
       };
 
       vim.lsp = {
-        enable = true;
         formatOnSave = true;
+        lspkind.enable = false;
         lightbulb.enable = true;
         lspsaga.enable = false;
         nvimCodeActionMenu.enable = true;
         trouble.enable = true;
         lspSignature.enable = true;
-        elixir.enable = isMaximal;
-        rust.enable = isMaximal;
-        python = isMaximal;
+      };
+
+      vim.languages = {
+        enableLSP = true;
+        enableFormat = true;
+        enableTreesitter = true;
+        enableExtraDiagnostics = true;
+
+        nix.enable = true;
+        html.enable = isMaximal;
         clang.enable = isMaximal;
-        sql = isMaximal;
-        ts = isMaximal;
-        go = isMaximal;
-        zig.enable = isMaximal;
-        nix = {
-          enable = true;
-          formatter = "alejandra";
+        sql.enable = isMaximal;
+        rust = {
+          enable = isMaximal;
+          crates.enable = true;
         };
+        ts.enable = isMaximal;
+        go.enable = isMaximal;
+        zig.enable = isMaximal;
+        python.enable = isMaximal;
+        dart.enable = isMaximal;
+        elixir.enable = isMaximal;
       };
 
       vim.visuals = {
@@ -54,11 +68,10 @@ inputs: let
         smoothScroll.enable = true;
         cellularAutomaton.enable = true;
         fidget-nvim.enable = true;
-        lspkind.enable = true;
         indentBlankline = {
           enable = true;
-          fillChar = "";
-          eolChar = "";
+          fillChar = null;
+          eolChar = null;
           showCurrContext = true;
         };
         cursorWordline = {
@@ -89,6 +102,9 @@ inputs: let
       vim.filetree = {
         nvimTreeLua = {
           enable = true;
+          renderer = {
+            rootFolderLabel = null;
+          };
           view = {
             width = 25;
           };
@@ -99,28 +115,19 @@ inputs: let
         nvimBufferline.enable = true;
       };
 
-      vim.treesitter = {
-        enable = true;
-        context.enable = true;
-      };
+      vim.treesitter.context.enable = true;
 
       vim.binds = {
         whichKey.enable = true;
         cheatsheet.enable = true;
       };
 
-      vim.telescope = {
-        enable = true;
-      };
-
-      vim.markdown = {
-        enable = true;
-        glow.enable = true;
-      };
+      vim.telescope.enable = true;
 
       vim.git = {
         enable = true;
         gitsigns.enable = true;
+        gitsigns.codeActions = true;
       };
 
       vim.minimap = {
@@ -201,5 +208,5 @@ inputs: let
     };
   };
 in {
-  inherit neovimConfiguration mainConfig;
+  inherit neovimConfiguration mainConfig tidalConfig;
 }

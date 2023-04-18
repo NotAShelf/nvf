@@ -6,12 +6,11 @@
 }:
 with lib;
 with builtins; let
-  cfg = config.vim.lsp.elixir;
+  cfg = config.vim.languages.elixir;
 in {
   config = mkIf (cfg.enable) {
     vim.startPlugins = [
       "elixir-tools"
-      "plenary-nvim"
     ];
 
     vim.luaConfigRC.elixir-tools = nvim.dag.entryAnywhere ''

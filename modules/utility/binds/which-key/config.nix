@@ -106,7 +106,7 @@ in {
       }
 
         ${
-        if config.vim.markdown.glow.enable
+        if config.vim.languages.markdown.glow.enable
         then ''
           -- Markdown
           ["<leader>pm"] = { name = "+Preview Markdown" },

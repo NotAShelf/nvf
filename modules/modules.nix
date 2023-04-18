@@ -14,10 +14,8 @@
     ./visuals
     ./lsp
     ./treesitter
-    ./tidal
     ./autopairs
     ./snippets
-    ./markdown
     ./git
     ./minimap
     ./dashboard
@@ -30,6 +28,7 @@
     ./session
     ./comments
     ./projects
+    ./languages
   ];
 
   pkgsModule = {config, ...}: {

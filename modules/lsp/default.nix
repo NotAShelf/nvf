@@ -1,8 +1,12 @@
-{...}: {
+_: {
   imports = [
     # nvim lsp support
     ./config.nix
     ./module.nix
+
+    ./lspconfig
+    ./lspsaga
+    ./null-ls
 
     # lsp plugins
     ./lspsaga
@@ -10,9 +14,6 @@
     ./trouble
     ./lsp-signature
     ./lightbulb
-
-    # language specific modules
-    ./flutter-tools-nvim # dart & flutter
-    ./elixir # elixir
+    ./lspkind
   ];
 }

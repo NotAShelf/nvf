@@ -1,6 +1,6 @@
 _: {
   imports = [
-    ./flutter-tools.nix
     ./config.nix
+    ./null-ls.nix
   ];
 }

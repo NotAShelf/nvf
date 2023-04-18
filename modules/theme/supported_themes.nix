@@ -19,6 +19,13 @@
     styles = ["day" "night" "storm"];
   };
 
+  dracula = {
+    setup = ''
+      require('dracula').setup({});
+      require('dracula').load();
+    '';
+  };
+
   catppuccin = {
     setup = {
       style ? "mocha",

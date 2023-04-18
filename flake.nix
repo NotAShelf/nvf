@@ -32,18 +32,6 @@
           inherit (import ./extra.nix inputs) neovimConfiguration;
         };
 
-        /*
-        nixosModules.default = {
-          home-manager.sharedModules = [
-            ./lib/module
-          ];
-          nixpkgs.overlays = [
-            inputs.tidalcycles.overlays.default
-            inputs.self.overlays.default
-          ];
-        };
-        */
-
         homeManagerModules = {
           neovim-flake = {
             imports = [
@@ -69,12 +57,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
-
-    # TODO: neovim nightly
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # For generating documentation website
     nmd = {
@@ -109,7 +91,7 @@
     };
 
     nvim-treesitter-context = {
-      url = "github:lewis6991/nvim-treesitter-context";
+      url = "github:nvim-treesitter/nvim-treesitter-context";
       flake = false;
     };
 
@@ -206,7 +188,7 @@
       flake = false;
     };
     nvim-cmp = {
-      url = "github:hrsh7th/nvim-cmp";
+      url = "github:ShIRannx/nvim-cmp";
       flake = false;
     };
     cmp-buffer = {
@@ -302,6 +284,11 @@
 
     catppuccin = {
       url = "github:catppuccin/nvim";
+      flake = false;
+    };
+
+    dracula = {
+      url = "github:Mofiqul/dracula.nvim";
       flake = false;
     };
 

@@ -1,7 +1,6 @@
 {...}: {
   imports = [
-    ./glow
     ./config.nix
-    ./module.nix
+    ./markdown.nix
   ];
 }

@@ -41,6 +41,7 @@ with lib; let
     "rust-tools"
     "onedark"
     "catppuccin"
+    "dracula"
     "minimap-vim"
     "dashboard-nvim"
     "alpha-nvim"

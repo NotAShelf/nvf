@@ -5,53 +5,24 @@
   ...
 }:
 with lib;
-with builtins; {
+with builtins; let
+  cfg = config.vim.treesitter;
+  usingNvimCmp = config.vim.autocomplete.enable && config.vim.autocomplete.type == "nvim-cmp";
+in {
   options.vim.treesitter = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      description = "Enable tree-sitter [nvim-treesitter]";
-    };
+    enable = mkEnableOption "treesitter, also enabled automatically through language options";
 
-    fold = mkOption {
-      default = false;
-      type = types.bool;
-      description = "Enable fold with tree-sitter";
-    };
+    fold = mkEnableOption "fold with treesitter";
 
-    autotagHtml = mkOption {
-      default = false;
-      type = types.bool;
-      description = "Enable autoclose and rename html tag [nvim-ts-autotag]";
-    };
+    autotagHtml = mkEnableOption "autoclose and rename html tag";
 
     grammars = mkOption {
       type = with types; listOf package;
-      default = with (pkgs.vimPlugins.nvim-treesitter.builtGrammars);
-        [
-          c
-          cpp
-          nix
-          python
-          rust
-          markdown
-          comment
-          toml
-          make
-          tsx
-          html
-          javascript
-          css
-          graphql
-          json
-          zig
-          elixir
-          heex
-        ]
-        ++ (optional config.vim.notes.orgmode.enable org); # add orgmode grammar if enabled
-      description = ''
-        List of treesitter grammars to install.
-        When enabling a language, its treesitter grammar is added for you.
+      default = [];
+      description = nvim.nmd.asciiDoc ''
+        List of treesitter grammars to install. For supported languages
+        use the `vim.language.<lang>.treesitter` option
+
       '';
     };
   };

@@ -139,5 +139,10 @@ with builtins; {
       default = true;
       description = "New splits will open to the right";
     };
+    enableEditorconfig = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Follow editorconfig rules in current directory";
+    };
   };
 }

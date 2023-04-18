@@ -8,11 +8,7 @@ with builtins; let
   supported_themes = import ./supported_themes.nix;
 in {
   options.vim.statusline.lualine = {
-    enable = mkOption {
-      type = types.bool;
-      description = "Enable lualine statusline";
-      default = true;
-    };
+    enable = mkEnableOption "lualine";
 
     icons = {
       enable = mkOption {
@@ -46,50 +42,50 @@ in {
       default = true;
     };
 
-    theme = mkOption {
-      default = "auto";
-      type = types.enum (
-        [
-          "auto"
-          "16color"
-          "gruvbox"
-          "ayu_dark"
-          "ayu_light"
-          "ayu_mirage"
-          "codedark"
-          "dracula"
-          "everforest"
-          "gruvbox"
-          "gruvbox_light"
-          "gruvbox_material"
-          "horizon"
-          "iceberg_dark"
-          "iceberg_light"
-          "jellybeans"
-          "material"
-          "modus_vivendi"
-          "molokai"
-          "nightfly"
-          "nord"
-          "oceanicnext"
-          "onelight"
-          "palenight"
-          "papercolor_dark"
-          "papercolor_light"
-          "powerline"
-          "seoul256"
-          "solarized_dark"
-          "tomorrow"
-          "wombat"
-        ]
-        ++ (
-          if elem config.vim.theme.name supported_themes
-          then [config.vim.theme.name]
-          else []
-        )
-      );
-      description = "Theme for lualine";
-    };
+    theme = let
+      themeSupported = elem config.vim.theme.name supported_themes;
+    in
+      mkOption {
+        description = "Theme for lualine";
+        type = types.enum ([
+            "auto"
+            "16color"
+            "gruvbox"
+            "ayu_dark"
+            "ayu_light"
+            "ayu_mirage"
+            "codedark"
+            "dracula"
+            "everforest"
+            "gruvbox"
+            "gruvbox_light"
+            "gruvbox_material"
+            "horizon"
+            "iceberg_dark"
+            "iceberg_light"
+            "jellybeans"
+            "material"
+            "modus_vivendi"
+            "molokai"
+            "nightfly"
+            "nord"
+            "oceanicnext"
+            "onelight"
+            "palenight"
+            "papercolor_dark"
+            "papercolor_light"
+            "powerline"
+            "seoul256"
+            "solarized_dark"
+            "tomorrow"
+            "wombat"
+          ]
+          ++ optional themeSupported config.vim.theme.name);
+        default = "auto";
+        # TODO: xml generation error if the closing '' is on a new line.
+        # issue: https://gitlab.com/rycee/nmd/-/issues/10
+        defaultText = nvim.nmd.literalAsciiDoc ''`config.vim.theme.name` if theme supports lualine else "auto"'';
+      };
 
     sectionSeparator = {
       left = mkOption {
