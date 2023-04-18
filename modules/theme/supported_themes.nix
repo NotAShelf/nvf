@@ -12,9 +12,7 @@
 
   tokyonight = {
     setup = {style ? "night"}: ''
-      -- need to set style before colorscheme to apply
-      vim.g.tokyonight_style = '${style}'
-      vim.cmd[[colorscheme tokyonight]]
+      vim.cmd[[colorscheme tokyonight-${style}]]
     '';
     styles = ["day" "night" "storm"];
   };
