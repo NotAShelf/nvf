@@ -57,6 +57,8 @@ inputs: let
         go.enable = isMaximal;
         zig.enable = isMaximal;
         python.enable = isMaximal;
+        dart.enable = isMaximal;
+        elixir.enable = isMaximal;
       };
 
       vim.visuals = {

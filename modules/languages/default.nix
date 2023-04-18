@@ -10,6 +10,8 @@ in {
   imports = [
     ./markdown
     ./tidal
+    ./dart
+    ./elixir
 
     ./clang.nix
     ./go.nix

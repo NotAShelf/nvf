@@ -1,6 +1,6 @@
 _: {
   imports = [
-    ./flutter-tools.nix
+    ./dart.nix
     ./config.nix
   ];
 }

@@ -15,9 +15,5 @@ _: {
     ./lsp-signature
     ./lightbulb
     ./lspkind
-
-    # language specific modules
-    ./flutter-tools-nvim # dart & flutter
-    ./elixir # elixir
   ];
 }
