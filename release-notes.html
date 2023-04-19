@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Appendix B. Release Notes</title><link rel="stylesheet" type="text/css" href="style.css" /><script src="highlight.min.js" type="text/javascript"></script><script src="highlight.load.js" type="text/javascript"></script><meta name="generator" content="DocBook XSL Stylesheets V1.79.2" /><link rel="home" href="index.html" title="neovim-flake Manual" /><link rel="up" href="index.html" title="neovim-flake Manual" /><link rel="prev" href="options.html" title="Appendix A. Configuration Options" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Appendix B. Release Notes</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="options.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> </td></tr></table><hr /></div><div class="appendix"><div class="titlepage"><div><div><h1 class="title"><a id="ch-release-notes"></a>Appendix B. Release Notes</h1></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="release-notes.html#sec-release-0.1">B.1. Release 0.1</a></span></dt><dd><dl><dt><span class="section"><a href="release-notes.html#sec-release-0.1-changelog">B.1.1. Changelog</a></span></dt></dl></dd><dt><span class="section"><a href="release-notes.html#sec-release-0.2">B.2. Release 0.2</a></span></dt><dd><dl><dt><span class="section"><a href="release-notes.html#sec-release-0.2-changelog">B.2.1. Changelog</a></span></dt></dl></dd></dl></div><p>This section lists the release notes for tagged version of neovim-flake and current main.</p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-0.1"></a>B.1. Release 0.1</h2></div></div></div><p>This is the current master branch and information here is not final. These are changes from the v0.01 tag.</p><p>Special thanks to <a class="link" href="https://github.com/nix-community/home-manager/" target="_top">home-manager</a> for this release. Docs/manual generation, the new module evaluation system, and DAG implementation are from them.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-0.1-changelog"></a>B.1.1. Changelog</h3></div></div></div><p><a class="link" href="https://github.com/jordanisaacs" target="_top">jordanisaacs</a>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Appendix B. Release Notes</title><link rel="stylesheet" type="text/css" href="style.css" /><script src="highlight.min.js" type="text/javascript"></script><script src="highlight.load.js" type="text/javascript"></script><meta name="generator" content="DocBook XSL Stylesheets V1.79.2" /><link rel="home" href="index.html" title="neovim-flake Manual" /><link rel="up" href="index.html" title="neovim-flake Manual" /><link rel="prev" href="options.html" title="Appendix A. Configuration Options" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Appendix B. Release Notes</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="options.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> </td></tr></table><hr /></div><div class="appendix"><div class="titlepage"><div><div><h1 class="title"><a id="ch-release-notes"></a>Appendix B. Release Notes</h1></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="release-notes.html#sec-release-0.1">B.1. Release 0.1</a></span></dt><dd><dl><dt><span class="section"><a href="release-notes.html#sec-release-0.1-changelog">B.1.1. Changelog</a></span></dt></dl></dd><dt><span class="section"><a href="release-notes.html#sec-release-0.2">B.2. Release 0.2</a></span></dt><dd><dl><dt><span class="section"><a href="release-notes.html#sec-release-0.2-changelog">B.2.1. Changelog</a></span></dt></dl></dd><dt><span class="section"><a href="release-notes.html#sec-release-0.3">B.3. Release 0.3</a></span></dt><dd><dl><dt><span class="section"><a href="release-notes.html#sec-release-0.3-changelog">B.3.1. Changelog</a></span></dt></dl></dd></dl></div><p>This section lists the release notes for tagged version of neovim-flake and current main.</p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-0.1"></a>B.1. Release 0.1</h2></div></div></div><p>This is the current master branch and information here is not final. These are changes from the v0.01 tag.</p><p>Special thanks to <a class="link" href="https://github.com/nix-community/home-manager/" target="_top">home-manager</a> for this release. Docs/manual generation, the new module evaluation system, and DAG implementation are from them.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-0.1-changelog"></a>B.1.1. Changelog</h3></div></div></div><p><a class="link" href="https://github.com/jordanisaacs" target="_top">jordanisaacs</a>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 Removed hare language support (lsp/tree-sitter/etc). <code class="literal">vim.lsp.hare</code> is no longer defined. If you use hare and would like it added back, please file an issue.
 </li><li class="listitem"><p class="simpara">
 <a class="xref" href="options.html#opt-vim.startPlugins"><code class="option">vim.startPlugins</code></a> &amp; <a class="xref" href="options.html#opt-vim.optPlugins"><code class="option">vim.optPlugins</code></a> are now an enum of <code class="literal">string</code> for options sourced from the flake inputs. Users can still provide vim plugin packages.
@@ -47,4 +47,73 @@ Lualine had its configuration simplified and style toned down. Less color, more 
 Modules where multiple plugin configurations were in the same directory have been simplified. Each plugin inside a single module gets its own directory to be imported.
 </li><li class="listitem">
 Separate config options with the same parent attribute have been merged into one for simplicity.
+</li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-0.3"></a>B.3. Release 0.3</h2></div></div></div><p>Release 0.3 had to come out beore I wanted it to due to Neovim 0.9 dropping into nixpkgs-unstable. The treesitter changes
+have prompted a treesitter rework, which was followed by reworking the languages system. Most of the changes to those are downstreamed
+from the original repository. The feature requests that was originally planned for 0.3 have been moved to 0.4, which
+should come out soon.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-0.3-changelog"></a>B.3.1. Changelog</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+We have transitioned to flake-parts, from flake-utils to extend the flexibility of this flake. This means the flake structure
+is different than usual, but the functionality remains the same.
+</li><li class="listitem">
+We now provide a home-manager module. Do note that it is still far from perfect, but it works.
+</li><li class="listitem">
+<code class="literal">nodejs_16</code> is now bundled with <code class="literal">Copilot.lua</code> if the user has enabled Copilot assistant.
+</li><li class="listitem">
+which-key section titles have been fixed. This is to be changed once again in a possible keybind rewrite, but now it should
+display the correct titles instad of <code class="literal">+prefix</code>
+</li><li class="listitem">
+Most of <code class="literal">presence.nvim</code>'s options have been made fully configurable through your configuration file.
+</li><li class="listitem">
+Most of the modules have been refactored to separate <code class="literal">config</code> and <code class="literal">options</code> attributes.
+</li><li class="listitem">
+Darwin has been deprecated as the zig package is marked as broken. We will attempt to use the zig overlay to return Darwin
+support.
+</li><li class="listitem">
+<code class="literal">Fidget.nvim</code> has been added as a neat visual addition for LSP installations.
+</li><li class="listitem">
+<code class="literal">diffview.nvim</code> has been added to provide a convenient diff utility.
+</li><li class="listitem">
+Treesitter grammars are now configurable with <a class="xref" href="options.html#opt-vim.treesitter.grammars"><code class="option">vim.treesitter.grammars</code></a>. Utilizes the nixpkgs <code class="literal">nvim-treesitter</code> plugin rather than a custom input in order to take advantage of build support of pinned versions. See <a class="link" href="https://discourse.nixos.org/t/psa-if-you-are-on-unstable-try-out-nvim-treesitter-withallgrammars/23321?u=snowytrees" target="_top">discourse</a> for more information. Packages can be found under the <code class="literal">pkgs.vimPlugins.nvim-treesitter.builtGrammars</code> attribute. Treesitter grammars for supported languages should be enabled within the module. By default no grammars are installed, thus the following grammars which do not have a language section are not included anymore: comment, toml, make, html, css, graphql, json.
+</li><li class="listitem"><p class="simpara">
+A new section has been added for language support: <code class="literal">vim.languages.&lt;language&gt;</code>. The options <a class="xref" href="options.html#opt-vim.languages.enableLSP"><code class="option">vim.languages.enableLSP</code></a>, <a class="xref" href="options.html#opt-vim.languages.enableTreesitter"><code class="option">vim.languages.enableTreesitter</code></a>, etc. will enable the respective section for all languages that have been enabled.
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem">
+All LSP languages have been moved here
+</li><li class="listitem">
+<code class="literal">plantuml</code> and <code class="literal">markdown</code> have been moved here
+</li><li class="listitem">
+A new section has been added for <code class="literal">html</code>. The old <code class="literal">vim.treesitter.autotagHtml</code> can be found at <a class="xref" href="options.html#opt-vim.languages.html.treesitter.autotagHtml"><code class="option">vim.languages.html.treesitter.autotagHtml</code></a>.
+</li></ul></div></li><li class="listitem">
+<a class="xref" href="options.html#opt-vim.git.gitsigns.codeActions"><code class="option">vim.git.gitsigns.codeActions</code></a> has been added allowing you to turn on gitsigns codeactions.
+</li><li class="listitem">
+Removed the plugins document in the docs. Was too unwieldy to keep updated.
+</li><li class="listitem">
+<code class="literal">vim.visual.lspkind</code> has been moved to <a class="xref" href="options.html#opt-vim.lsp.lspkind.enable"><code class="option">vim.lsp.lspkind.enable</code></a>
+</li><li class="listitem">
+Improved handling of completion formatting. When setting <a class="xref" href="options.html#opt-vim.autocomplete.sources"><code class="option">vim.autocomplete.sources</code></a>, can also include optional menu mapping. And can provide your own function with <a class="xref" href="options.html#opt-vim.autocomplete.formatting.format"><code class="option">vim.autocomplete.formatting.format</code></a>.
+</li><li class="listitem">
+For <a class="xref" href="options.html#opt-vim.visuals.indentBlankline.fillChar"><code class="option">vim.visuals.indentBlankline.fillChar</code></a> and <a class="xref" href="options.html#opt-vim.visuals.indentBlankline.eolChar"><code class="option">vim.visuals.indentBlankline.eolChar</code></a> turning them off should use <code class="literal">null</code> rather than <code class="literal">""</code> now.
+</li><li class="listitem">
+Transparency has been made optional and has been disabled by default. <a class="xref" href="options.html#opt-vim.theme.transparent"><code class="option">vim.theme.transparent</code></a> option can be used to enable or
+disable transparency for your configuration.
+</li><li class="listitem">
+Fixed deprecated configuration method for Tokyonight, and added new style "moon"
+</li><li class="listitem">
+Dart language support as well as extended flutter support has been added. Thanks to @FlafyDev for his contributions towards Dart
+language support.
+</li><li class="listitem">
+Elixir language support has been added through <code class="literal">elixir-tools.nvim</code>.
+</li><li class="listitem">
+<code class="literal">hop.nvim</code> and <code class="literal">leap.nvim</code> have been added for fast navigation.
+</li><li class="listitem">
+<code class="literal">modes.nvim</code> has been added to the UI plugins as a minor error highlighter.
+</li><li class="listitem">
+<code class="literal">smartcollumn.nvim</code> has been added to dynamically display a colorcolumn when the limit has been exceeded, providing
+per-buftype column position and more.
+</li><li class="listitem">
+<code class="literal">project.nvim</code> has been added for better project management inside Neovim.
+</li><li class="listitem">
+More configuration options have been added to <code class="literal">nvim-session-manager</code>.
+</li><li class="listitem">
+Editorconfig support has been added to the core functionality, with an enable option.
+</li><li class="listitem">
+<code class="literal">venn-nvim</code> has been dropped due to broken keybinds.
 </li></ul></div></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="options.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> </td></tr><tr><td width="40%" align="left" valign="top">Appendix A. Configuration Options </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>
