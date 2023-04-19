@@ -47,7 +47,7 @@ support.
 
 * For <<opt-vim.visuals.indentBlankline.fillChar>> and <<opt-vim.visuals.indentBlankline.eolChar>> turning them off should use `null` rather than `""` now.
 
-* Transparency has been made optional and has been disabled by default. <<opt-vim.theme.transarent>> option can be used to enable or 
+* Transparency has been made optional and has been disabled by default. <<opt-vim.theme.transparent>> option can be used to enable or 
 disable transparency for your configuration.
 
 * Fixed deprecated configuration method for Tokyonight, and added new style "moon"
