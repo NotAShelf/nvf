@@ -12,6 +12,9 @@ Language specific support means there is a combination of language specific plug
 * Zig: <<opt-vim.languages.zig.enable>>
 * Markdown: <<opt-vim.languages.markdown.enable>>
 * HTML: <<opt-vim.languages.html.enable>>
+* SQL: <<opt-vim.languages.sql.enable>>
+* Dart: <<opt-vim.languages.dart.enable>>
+* Go: <<opt-vim.languages.go.enable>>
 
 Adding support for more languages, and improving support for existing ones are great places where you can contribute with a PR.
 
