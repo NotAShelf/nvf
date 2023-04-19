@@ -1,6 +1,9 @@
 {lib}: {
   onedark = {
-    setup = {style ? "dark"}: ''
+    setup = {
+      style ? "dark",
+      transparent,
+    }: ''
       -- OneDark theme
       require('onedark').setup {
         style = "${style}"
@@ -11,7 +14,10 @@
   };
 
   tokyonight = {
-    setup = {style ? "night"}: ''
+    setup = {
+      style ? "night",
+      transparent,
+    }: ''
       vim.cmd[[colorscheme tokyonight-${style}]]
     '';
     styles = ["day" "night" "storm" "moon"];
