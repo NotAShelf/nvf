@@ -1,40 +1,22 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+{lib, ...}:
 with lib;
-with builtins; let
-  cfg = config.vim.autocomplete;
-  lspkindEnabled = config.vim.lsp.enable && config.vim.lsp.lspkind.enable;
-  builtSources =
-    concatMapStringsSep
-    "\n"
-    (n: "{ name = '${n}'},")
-    (attrNames cfg.sources);
-
-  builtMaps =
-    concatStringsSep
-    "\n"
-    (mapAttrsToList
-      (n: v:
-        if v == null
-        then ""
-        else "${n} = '${v}',")
-      cfg.sources);
-
-  dagPlacement =
-    if lspkindEnabled
-    then nvim.dag.entryAfter ["lspkind"]
-    else nvim.dag.entryAnywhere;
-in {
+with builtins; {
   options.vim = {
     autocomplete = {
       enable = mkOption {
         type = types.bool;
         default = false;
         description = "enable autocomplete";
+      };
+
+      mappings = {
+        complete = mkMappingOption "Complete [nvim-cmp]" "<C-Space>";
+        confirm = mkMappingOption "Confirm [nvim-cmp]" "<CR>";
+        next = mkMappingOption "Next item [nvim-cmp]" "<Tab>";
+        previous = mkMappingOption "Previous item [nvim-cmp]" "<S-Tab>";
+        close = mkMappingOption "Close [nvim-cmp]" "<C-e>";
+        scrollDocsUp = mkMappingOption "Scroll docs up [nvim-cmp]" "<C-d>";
+        scrollDocsDown = mkMappingOption "Scroll docs down [nvim-cmp]" "<C-f>";
       };
 
       type = mkOption {
