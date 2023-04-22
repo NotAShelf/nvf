@@ -55,6 +55,9 @@ in
     mkSetBinding = binding: action:
       mkBinding binding.value action binding.description;
 
+    mkSetExprBinding = binding: action:
+      mkExprBinding binding.value action binding.description;
+
     mkSetLuaBinding = binding: action:
       mkLuaBinding binding.value action binding.description;
 
