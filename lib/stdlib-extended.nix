@@ -4,7 +4,7 @@
 nixpkgsLib: let
   mkNvimLib = import ./.;
 in
-  nixpkgsLib.extend (self: super: {
+  nixpkgsLib.extend (self: super: rec {
     nvim = mkNvimLib {lib = self;};
 
     mkLuaBinding = key: action: desc:
@@ -39,6 +39,24 @@ in
         type = self.types.nullOr self.types.str;
         inherit default description;
       };
+
+    # Utility function that takes two attrsets:
+    # { someKey = "some_value" } and
+    # { someKey = { description = "Some Description"; }; }
+    # and merges them into
+    # { someKey = { value = "some_value"; description = "Some Description"; }; }
+    addDescriptionsToMappings = actualMappings: mappingDefinitions:
+      self.attrsets.mapAttrs (name: value: {
+        value = value;
+        description = mappingDefinitions."${name}".description;
+      })
+      actualMappings;
+
+    mkSetBinding = binding: action:
+      mkBinding binding.value action binding.description;
+
+    mkSetLuaBinding = binding: action:
+      mkLuaBinding binding.value action binding.description;
 
     # For forward compatibility.
     literalExpression = super.literalExpression or super.literalExample;
