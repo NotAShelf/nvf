@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}:
+{lib, ...}:
 with lib;
 with builtins; {
   options.vim.assistant.tabnine = {
@@ -14,16 +10,9 @@ with builtins; {
       description = "Disable auto comment";
     };
 
-    accept_keymap = mkOption {
-      type = types.str;
-      default = "<Tab>";
-      description = "Accept keymap";
-    };
-
-    dismiss_keymap = mkOption {
-      type = types.str;
-      default = "<C-]>";
-      description = "Dismiss keymap";
+    mappings = {
+      accept = mkMappingOption "Accept [Tabnine]" "<Tab>";
+      dismiss = mkMappingOption "Dismiss [Tabnine]" "<C-]>";
     };
 
     debounce_ms = mkOption {
@@ -32,10 +21,10 @@ with builtins; {
       description = "Debounce ms";
     };
 
-    execlude_filetypes = mkOption {
+    exclude_filetypes = mkOption {
       type = types.listOf types.str;
       default = ["TelescopePrompt" "NvimTree" "alpha"];
-      description = "Execlude filetypes";
+      description = "Exclude filetypes";
     };
   };
 }
