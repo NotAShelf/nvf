@@ -16,8 +16,8 @@ with builtins; let
         lspconfig.ccls.setup{
           capabilities = capabilities;
           on_attach=default_on_attach;
-          cmd = {"${pkgs.ccls}/bin/ccls"};
-          ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.cclsOpts}"}
+          cmd = {"${cfg.lsp.package}/bin/ccls"};
+          ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.opts}"}
         }
       '';
     };
