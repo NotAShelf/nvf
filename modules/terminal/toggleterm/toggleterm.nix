@@ -17,5 +17,13 @@ with builtins; {
       default = false;
       description = "Enable winbar";
     };
+    lazygit = {
+      enable = mkEnableOption "Enable LazyGit integration";
+      direction = mkOption {
+        type = types.enum ["horizontal" "vertical" "tab" "float"];
+        default = "float";
+        description = "Direction of the lazygit window";
+      };
+    };
   };
 }
