@@ -21,6 +21,17 @@ with builtins; let
         }
       '';
     };
+    clangd = {
+      package = pkgs.clang-tools;
+      lspConfig = ''
+        lspconfig.clangd.setup{
+          capabilities = capabilities;
+          on_attach=default_on_attach;
+          cmd = {"${cfg.lsp.package}/bin/clangd"};
+          ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.opts}"}
+        }
+      '';
+    };
   };
 in {
   options.vim.languages.clang = {
