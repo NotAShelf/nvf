@@ -9,7 +9,8 @@ with builtins; let
   toggleKey = "<c-t>";
 in {
   config = mkMerge [
-    (mkIf cfg.enable {
+    (
+      mkIf cfg.enable {
         vim.startPlugins = [
           "toggleterm-nvim"
         ];
@@ -39,10 +40,17 @@ in {
     (
       mkIf (cfg.enable && cfg.lazygit.enable)
       {
-        vim.luaConfigRC.toggleterm-lazygit = mkIf cfg.lazygit.enable nvim.dag.entryAfter ["toggleterm"] ''
+        vim.startPlugins = lib.optionals (cfg.lazygit.package != null) [
+          cfg.lazygit.package
+        ];
+        vim.luaConfigRC.toggleterm-lazygit = nvim.dag.entryAfter ["toggleterm"] ''
           local terminal = require 'toggleterm.terminal'
           local lazygit = terminal.Terminal:new({
-            cmd = "lazygit",
+            cmd = '${
+            if (cfg.lazygit.package != null)
+            then getExe cfg.lazygit.package
+            else "lazygit"
+          }',
             direction = '${cfg.lazygit.direction}',
             hidden = true,
             on_open = function(term)

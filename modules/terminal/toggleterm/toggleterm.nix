@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   lib,
   ...
@@ -23,6 +24,11 @@ with builtins; {
         type = types.enum ["horizontal" "vertical" "tab" "float"];
         default = "float";
         description = "Direction of the lazygit window";
+      };
+      package = mkOption {
+        type = with types; nullOr package;
+        default = pkgs.lazygit;
+        description = "The package to use for lazygit, null means do not install automatically";
       };
     };
   };
