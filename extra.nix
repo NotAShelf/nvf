@@ -170,7 +170,7 @@ inputs: let
         toggleterm = {
           enable = true;
           lazygit.enable = true;
-          };
+        };
       };
 
       vim.ui = {
