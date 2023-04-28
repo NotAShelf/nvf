@@ -28,7 +28,7 @@ with builtins; {
       package = mkOption {
         type = with types; nullOr package;
         default = pkgs.lazygit;
-        description = "The package to use for lazygit, null means do not install automatically";
+        description = "The package that should be used for lazygit. Setting it to null will attempt to use lazygit from your PATH";
       };
     };
   };
