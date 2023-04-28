@@ -167,7 +167,10 @@ inputs: let
       };
 
       vim.terminal = {
-        toggleterm.enable = true;
+        toggleterm = {
+          enable = true;
+          lazygit.enable = true;
+          };
       };
 
       vim.ui = {
