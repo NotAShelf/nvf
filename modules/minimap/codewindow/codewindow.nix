@@ -1,11 +1,13 @@
-{
-  config,
-  lib,
-  ...
-}:
-with lib;
-with builtins; {
+{lib, ...}:
+with lib; {
   options.vim.minimap.codewindow = {
     enable = mkEnableOption "Enable codewindow plugin for minimap view";
+
+    mappings = {
+      open = mkMappingOption "Open minimap [codewindow]" "<leader>mo";
+      close = mkMappingOption "Close minimap [codewindow]" "<leader>mc";
+      toggle = mkMappingOption "Toggle minimap [codewindow]" "<leader>mm";
+      toggleFocus = mkMappingOption "Toggle minimap focus [codewindow]" "<leader>mf";
+    };
   };
 }
