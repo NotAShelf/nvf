@@ -40,6 +40,8 @@ in {
   config = mkIf cfg.enable {
     vim.startPlugins = [cfg.name];
     vim.luaConfigRC.themeSetup = nvim.dag.entryBefore ["theme"] cfg.extraConfig;
-    vim.luaConfigRC.theme = supported_themes.${cfg.name}.setup {style = cfg.style;};
+    vim.luaConfigRC.theme = supported_themes.${cfg.name}.setup (with cfg; {
+      inherit style transparent;
+    });
   };
 }

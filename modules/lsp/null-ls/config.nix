@@ -21,6 +21,7 @@ in {
       '';
       vim.luaConfigRC.null_ls = nvim.dag.entryAfter ["null_ls-setup" "lsp-setup"] ''
         require('null-ls').setup({
+          debug = false,
           diagnostics_format = "[#{m}] #{s} (#{c})",
           debounce = 250,
           default_timeout = 5000,

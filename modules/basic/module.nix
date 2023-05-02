@@ -141,7 +141,7 @@ with builtins; {
     };
     enableEditorconfig = mkOption {
       type = types.bool;
-      default = false;
+      default = true;
       description = "Follow editorconfig rules in current directory";
     };
   };

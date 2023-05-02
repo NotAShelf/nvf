@@ -1,6 +1,9 @@
 {lib}: {
   onedark = {
-    setup = {style ? "dark"}: ''
+    setup = {
+      style ? "dark",
+      transparent,
+    }: ''
       -- OneDark theme
       require('onedark').setup {
         style = "${style}"
@@ -11,12 +14,13 @@
   };
 
   tokyonight = {
-    setup = {style ? "night"}: ''
-      -- need to set style before colorscheme to apply
-      vim.g.tokyonight_style = '${style}'
-      vim.cmd[[colorscheme tokyonight]]
+    setup = {
+      style ? "night",
+      transparent,
+    }: ''
+      vim.cmd[[colorscheme tokyonight-${style}]]
     '';
-    styles = ["day" "night" "storm"];
+    styles = ["day" "night" "storm" "moon"];
   };
 
   dracula = {
@@ -34,7 +38,7 @@
       -- Catppuccin theme
       require('catppuccin').setup {
         flavour = "${style}",
-        transparent_background = "${builtins.toString transparent}",
+        transparent_background = ${lib.boolToString transparent},
         integrations = {
       	  nvimtree = {
       		  enabled = true,

@@ -55,7 +55,7 @@ with builtins; let
   };
 in {
   options.vim.languages.ts = {
-    enable = mkEnableOption "SQL language support";
+    enable = mkEnableOption "Typescript/Javascript language support";
 
     treesitter = {
       enable = mkOption {

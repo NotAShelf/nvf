@@ -133,8 +133,8 @@ in {
         set termguicolors
         set t_Co=256
       ''}
-      ${optionalString cfg.enableEditorconfig ''
-        vim.g.editorconfig = false
+      ${optionalString (!cfg.enableEditorconfig) ''
+        let g:editorconfig = v:false
       ''}
     '';
   };

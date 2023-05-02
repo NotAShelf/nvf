@@ -91,6 +91,7 @@ inputs: let
         enable = true;
         name = "catppuccin";
         style = "mocha";
+        transparent = false;
       };
       vim.autopairs.enable = true;
 
@@ -127,7 +128,7 @@ inputs: let
       vim.git = {
         enable = true;
         gitsigns.enable = true;
-        gitsigns.codeActions = true;
+        gitsigns.codeActions = false; # throws an annoying debug message
       };
 
       vim.minimap = {
@@ -151,7 +152,6 @@ inputs: let
       vim.utility = {
         colorizer.enable = true;
         icon-picker.enable = true;
-        venn-nvim.enable = false; # FIXME throws an error when its commands are ran manually
         diffview-nvim.enable = true;
         motion = {
           hop.enable = true;
@@ -167,7 +167,10 @@ inputs: let
       };
 
       vim.terminal = {
-        toggleterm.enable = true;
+        toggleterm = {
+          enable = true;
+          lazygit.enable = true;
+        };
       };
 
       vim.ui = {

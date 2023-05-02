@@ -28,7 +28,7 @@ in {
       package = mkOption {
         description = "ZLS package";
         type = types.package;
-        default = pkgs.nodePackages.pyright;
+        default = pkgs.zls;
       };
       zigPackage = mkOption {
         description = "Zig package used by ZLS";
@@ -37,7 +37,6 @@ in {
       };
     };
   };
-
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;

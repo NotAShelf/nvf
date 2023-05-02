@@ -1,0 +1,15 @@
+[[sec-release-0.4]]
+== Release 0.4
+
+Release notes for release 0.4
+
+
+[[sec-release-0.4-changelog]]
+=== Changelog
+
+
+ttps://github.com/horriblename[horriblename]:
+
+* Added `clangd` as alternative lsp for C/++.
+
+* Added `toggleterm` integration for `lazygit`.
