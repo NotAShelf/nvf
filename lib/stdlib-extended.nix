@@ -46,10 +46,17 @@ in
     # and merges them into
     # { someKey = { value = "some_value"; description = "Some Description"; }; }
     addDescriptionsToMappings = actualMappings: mappingDefinitions:
-      self.attrsets.mapAttrs (name: value: {
-        value = value;
-        description = mappingDefinitions."${name}".description;
-      })
+      self.attrsets.mapAttrs (name: value: let
+        isNested = self.isAttrs value;
+        returnedValue =
+          if isNested
+          then addDescriptionsToMappings actualMappings."${name}" mappingDefinitions."${name}"
+          else {
+            value = value;
+            description = mappingDefinitions."${name}".description;
+          };
+      in
+        returnedValue)
       actualMappings;
 
     mkSetBinding = binding: action:
