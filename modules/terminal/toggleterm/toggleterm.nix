@@ -37,6 +37,10 @@ with builtins; {
         default = pkgs.lazygit;
         description = "The package that should be used for lazygit. Setting it to null will attempt to use lazygit from your PATH";
       };
+
+      mappings = {
+        open = mkMappingOption "Open lazygit [toggleterm]" "<leader>gg";
+      };
     };
   };
 }
