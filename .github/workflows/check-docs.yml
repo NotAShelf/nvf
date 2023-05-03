@@ -40,5 +40,10 @@ jobs:
         run: nix flake check
       - name: Build neovim-flake with default settings
         run: nix build .#${{ matrix.package }} --print-build-logs
+      - name: Upload doc artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: doc
+          path: result/share/doc/neovim-flake/
      
 
