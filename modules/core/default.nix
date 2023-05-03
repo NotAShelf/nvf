@@ -13,13 +13,6 @@ with builtins; let
     EOF
   '';
 
-  mkMappingOption = it:
-    mkOption ({
-        default = {};
-        type = with types; attrsOf (nullOr str);
-      }
-      // it);
-
   mkBool = value: description:
     mkOption {
       type = types.bool;
@@ -31,23 +24,23 @@ with builtins; let
   mapConfigOptions = {
     silent =
       mkBool false
-      "Whether this mapping should be silent. Equivalent to adding <silent> to a map.";
+      (nvim.nmd.asciiDoc "Whether this mapping should be silent. Equivalent to adding <silent> to a map.");
 
     nowait =
       mkBool false
-      "Whether to wait for extra input on ambiguous mappings. Equivalent to adding <nowait> to a map.";
+      (nvim.nmd.asciiDoc "Whether to wait for extra input on ambiguous mappings. Equivalent to adding <nowait> to a map.");
 
     script =
       mkBool false
-      "Equivalent to adding <script> to a map.";
+      (nvim.nmd.asciiDoc "Equivalent to adding <script> to a map.");
 
     expr =
       mkBool false
-      "Means that the action is actually an expression. Equivalent to adding <expr> to a map.";
+      (nvim.nmd.asciiDoc "Means that the action is actually an expression. Equivalent to adding <expr> to a map.");
 
     unique =
       mkBool false
-      "Whether to fail if the map is already defined. Equivalent to adding <unique> to a map.";
+      (nvim.nmd.asciiDoc "Whether to fail if the map is already defined. Equivalent to adding <unique> to a map.");
 
     noremap =
       mkBool true
@@ -194,7 +187,6 @@ in {
 
       example = ''
         maps = {
-          normalVisualOp.";" = ":"; # Same as noremap ; :
           normal."<leader>m" = {
             silent = true;
             action = "<cmd>make<CR>";
