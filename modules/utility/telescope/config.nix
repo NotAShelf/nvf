@@ -7,47 +7,45 @@
 with lib;
 with builtins; let
   cfg = config.vim.telescope;
+  self = import ./telescope.nix {inherit lib;};
+  mappingDefinitions = self.options.vim.telescope.mappings;
+
+  mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
 in {
   config = mkIf (cfg.enable) {
     vim.startPlugins = [
       "telescope"
     ];
 
-    vim.nnoremap =
-      {
-        "<leader>ff" = "<cmd> Telescope find_files<CR>";
-        "<leader>fg" = "<cmd> Telescope live_grep<CR>";
-        "<leader>fb" = "<cmd> Telescope buffers<CR>";
-        "<leader>fh" = "<cmd> Telescope help_tags<CR>";
-        "<leader>ft" = "<cmd> Telescope<CR>";
+    vim.maps.normal = mkMerge [
+      (mkSetBinding mappings.findFiles "<cmd> Telescope find_files<CR>")
+      (mkSetBinding mappings.liveGrep "<cmd> Telescope live_grep<CR>")
+      (mkSetBinding mappings.buffers "<cmd> Telescope buffers<CR>")
+      (mkSetBinding mappings.helpTags "<cmd> Telescope help_tags<CR>")
+      (mkSetBinding mappings.open "<cmd> Telescope<CR>")
 
-        "<leader>fvcw" = "<cmd> Telescope git_commits<CR>";
-        "<leader>fvcb" = "<cmd> Telescope git_bcommits<CR>";
-        "<leader>fvb" = "<cmd> Telescope git_branches<CR>";
-        "<leader>fvs" = "<cmd> Telescope git_status<CR>";
-        "<leader>fvx" = "<cmd> Telescope git_stash<CR>";
-      }
-      // (
-        if config.vim.lsp.enable
-        then {
-          "<leader>flsb" = "<cmd> Telescope lsp_document_symbols<CR>";
-          "<leader>flsw" = "<cmd> Telescope lsp_workspace_symbols<CR>";
+      (mkSetBinding mappings.gitCommits "<cmd> Telescope git_commits<CR>")
+      (mkSetBinding mappings.gitBufferCommits "<cmd> Telescope git_bcommits<CR>")
+      (mkSetBinding mappings.gitBranches "<cmd> Telescope git_branches<CR>")
+      (mkSetBinding mappings.gitStatus "<cmd> Telescope git_status<CR>")
+      (mkSetBinding mappings.gitStash "<cmd> Telescope git_stash<CR>")
 
-          "<leader>flr" = "<cmd> Telescope lsp_references<CR>";
-          "<leader>fli" = "<cmd> Telescope lsp_implementations<CR>";
-          "<leader>flD" = "<cmd> Telescope lsp_definitions<CR>";
-          "<leader>flt" = "<cmd> Telescope lsp_type_definitions<CR>";
-          "<leader>fld" = "<cmd> Telescope diagnostics<CR>";
-        }
-        else {}
+      (mkIf config.vim.lsp.enable (mkMerge [
+        (mkSetBinding mappings.lspDocumentSymbols "<cmd> Telescope lsp_document_symbols<CR>")
+        (mkSetBinding mappings.lspWorkspaceSymbols "<cmd> Telescope lsp_workspace_symbols<CR>")
+
+        (mkSetBinding mappings.lspReferences "<cmd> Telescope lsp_references<CR>")
+        (mkSetBinding mappings.lspImplementations "<cmd> Telescope lsp_implementations<CR>")
+        (mkSetBinding mappings.lspDefinitions "<cmd> Telescope lsp_definitions<CR>")
+        (mkSetBinding mappings.lspTypeDefinitions "<cmd> Telescope lsp_type_definitions<CR>")
+        (mkSetBinding mappings.diagnostics "<cmd> Telescope diagnostics<CR>")
+      ]))
+
+      (
+        mkIf config.vim.treesitter.enable
+        (mkSetBinding mappings.treesitter "<cmd> Telescope treesitter<CR>")
       )
-      // (
-        if config.vim.treesitter.enable
-        then {
-          "<leader>fs" = "<cmd> Telescope treesitter<CR>";
-        }
-        else {}
-      );
+    ];
 
     vim.luaConfigRC.telescope = nvim.dag.entryAnywhere ''
       local telescope = require('telescope')

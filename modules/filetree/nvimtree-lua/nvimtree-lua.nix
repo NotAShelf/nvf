@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   lib,
   ...
 }:
@@ -11,6 +10,29 @@ with builtins; {
       type = types.bool;
       default = false;
       description = "Enable nvim-tree-lua";
+    };
+
+    mappings = {
+      toggle = mkOption {
+        type = types.nullOr types.str;
+        default = "<C-n>";
+        description = "Toggle NvimTree";
+      };
+      refresh = mkOption {
+        type = types.nullOr types.str;
+        default = "<leader>tr";
+        description = "Refresh NvimTree";
+      };
+      findFile = mkOption {
+        type = types.nullOr types.str;
+        default = "<leader>tg";
+        description = "Find file in NvimTree";
+      };
+      focus = mkOption {
+        type = types.nullOr types.str;
+        default = "<leader>tf";
+        description = "Focus NvimTree";
+      };
     };
 
     sortBy = mkOption {
