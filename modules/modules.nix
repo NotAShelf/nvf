@@ -29,6 +29,7 @@
     ./comments
     ./projects
     ./languages
+    ./debugger
   ];
 
   pkgsModule = {config, ...}: {

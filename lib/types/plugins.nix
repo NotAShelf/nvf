@@ -85,6 +85,8 @@ with lib; let
     "nvim-colorizer-lua"
     "vim-illuminate"
     "nvim-surround"
+    "nvim-dap"
+    "nvim-dap-ui"
   ];
   # You can either use the name of the plugin or a package.
   pluginsType = with types;

@@ -39,6 +39,13 @@ inputs: let
         lspSignature.enable = true;
       };
 
+      vim.debugger = {
+        nvim-dap = {
+          enable = true;
+          ui.enable = true;
+        };
+      };
+
       vim.languages = {
         enableLSP = true;
         enableFormat = true;
@@ -217,6 +224,7 @@ inputs: let
           image_text = "The Superior Text Editor";
           client_id = "793271441293967371";
           main_image = "neovim";
+          show_time = true;
           rich_presence = {
             editing_text = "Editing %s";
           };

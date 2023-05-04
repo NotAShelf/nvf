@@ -162,6 +162,17 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
+    # Debuggers
+    nvim-dap = {
+      url = "github:mfussenegger/nvim-dap";
+      flake = false;
+    };
+
+    nvim-dap-ui = {
+      url = "github:rcarriga/nvim-dap-ui";
+      flake = false;
+    };
+
     # Filetrees
     nvim-tree-lua = {
       url = "github:nvim-tree/nvim-tree.lua";
