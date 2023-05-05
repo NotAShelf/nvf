@@ -5,6 +5,11 @@ with lib; {
 
     ui = {
       enable = mkEnableOption "Enable UI extension for nvim-dap";
+      autoStart = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Automatically Opens and Closes DAP-UI upon starting/closing a debugging session";
+      };
     };
   };
 }
