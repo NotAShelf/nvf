@@ -27,6 +27,7 @@ in {
 
   options.vim.languages = {
     enableLSP = mkEnable "LSP";
+    enableDAP = mkEnable "Debug Adapter";
     enableTreesitter = mkEnable "treesitter";
     enableFormat = mkEnable "formatting";
     enableExtraDiagnostics = mkEnable "extra diagnostics";
