@@ -11,9 +11,13 @@ in {
     (mkIf cfg.enable {
       vim.startPlugins = ["nvim-dap"];
 
-      vim.luaConfigRC.nvim-dap =
-        nvim.dag.entryAnywhere ''
-        '';
+      vim.luaConfigRC =
+        {
+          nvim-dap = nvim.dag.entryAnywhere ''
+            local dap = require("dap")
+          '';
+        }
+        // mapAttrs (_: v: (nvim.dag.entryAfter ["nvim-dap"] v)) cfg.sources;
     })
     (mkIf (cfg.enable && cfg.ui.enable) {
       vim.startPlugins = ["nvim-dap-ui"];

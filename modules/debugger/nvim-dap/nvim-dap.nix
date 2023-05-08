@@ -11,5 +11,11 @@ with lib; {
         description = "Automatically Opens and Closes DAP-UI upon starting/closing a debugging session";
       };
     };
+
+    sources = mkOption {
+      default = {};
+      description = "List of debuggers to install";
+      type = with types; attrsOf string;
+    };
   };
 }
