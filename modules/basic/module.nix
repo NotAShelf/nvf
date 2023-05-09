@@ -144,5 +144,7 @@ with builtins; {
       default = true;
       description = "Follow editorconfig rules in current directory";
     };
+
+    enableLuaLoader = mkEnableOption "Enable the experimental Lua module loader to speed up the start up process";
   };
 }

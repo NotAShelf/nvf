@@ -9,6 +9,9 @@ with builtins; let
 
   wrapLuaConfig = luaConfig: ''
     lua << EOF
+    ${optionalString cfg.enableLuaLoader ''
+      vim.loader.enable()
+    ''}
     ${luaConfig}
     EOF
   '';
