@@ -13,3 +13,5 @@ ttps://github.com/horriblename[horriblename]:
 * Added `clangd` as alternative lsp for C/++.
 
 * Added `toggleterm` integration for `lazygit`.
+
+* Added new option `enableLuaLoader` to enable neovim's experimental module loader for faster startup time.
