@@ -184,7 +184,7 @@ in {
             {
               "diagnostics",
               sources = {'nvim_lsp', 'nvim_diagnostic', 'coc'},
-              symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '}
+              symbols = {error = '󰅙 ', warn = ' ', info = ' ', hint = '󰌵 '}
             },
           }
         '';
