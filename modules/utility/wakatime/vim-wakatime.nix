@@ -5,4 +5,3 @@ with builtins; {
     enable = mkEnableOption "Enable vim-wakatime";
   };
 }
-
