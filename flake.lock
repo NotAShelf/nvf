@@ -1359,6 +1359,7 @@
         "vim-repeat": "vim-repeat",
         "vim-startify": "vim-startify",
         "vim-vsnip": "vim-vsnip",
+        "vim-wakatime": "vim-wakatime",
         "which-key": "which-key",
         "zig": "zig"
       }
@@ -1729,6 +1730,22 @@
       "original": {
         "owner": "hrsh7th",
         "repo": "vim-vsnip",
+        "type": "github"
+      }
+    },
+    "vim-wakatime": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1683640992,
+        "narHash": "sha256-DIj+ps5XfpFHwBJ42EBw5ayHfdzCc+bDvpyYm/p+9Ec=",
+        "owner": "wakatime",
+        "repo": "vim-wakatime",
+        "rev": "02be9238319937e04afea73fd0fc7da5413ee041",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wakatime",
+        "repo": "vim-wakatime",
         "type": "github"
       }
     },

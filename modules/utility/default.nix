@@ -8,5 +8,6 @@ _: {
     ./icon-picker
     ./telescope
     ./diffview
+    ./wakatime
   ];
 }
