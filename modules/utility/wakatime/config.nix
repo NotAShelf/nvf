@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib;
@@ -9,7 +10,7 @@ with builtins; let
 in {
   config = mkIf (cfg.enable) {
     vim.startPlugins = [
-      "vim-wakatime"
+      pkgs.vimPlugins.vim-wakatime
     ];
   };
 }
