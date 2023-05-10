@@ -84,7 +84,9 @@ in {
           elseif has_words_before() then
             cmp.complete()
           else
-            fallback()
+            local termcode = vim.api.nvim_replace_termcodes(${builtins.toJSON mappings.next.value}, true, false, true)
+
+            vim.fn.feedkeys(termcode, 'n')
           end
         end
       '')
@@ -157,7 +159,9 @@ in {
           elseif has_words_before() then
             cmp.complete()
           else
-            fallback()
+            local termcode = vim.api.nvim_replace_termcodes(${builtins.toJSON mappings.next.value}, true, false, true)
+
+            vim.fn.feedkeys(termcode, 'n')
           end
         end
       '')
