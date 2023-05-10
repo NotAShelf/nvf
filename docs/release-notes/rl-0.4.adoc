@@ -1,17 +1,29 @@
 [[sec-release-0.4]]
 == Release 0.4
 
-Release notes for release 0.4
+Following the release of v0.3, I have decided to release v0.4 with a massive new change: customizable keybinds. As of the 0.4 release, keybinds will no longer be hardcoded and instead provided by each module's own keybinds section. The old keybind system (`vim.keybinds = {}`) is now considered deprecated and the new lib functions are recommended to be used for adding keybinds for new plugins, or adding keybinds to existing plugins.
+
+Alongside customizable keybinds, there are a few quality of life updates, such as `lazygit` integration and the new experimental Lua loader of Neovim 0.9 thanks to our awesome contributors who made this update possible during my absence.
 
 
 [[sec-release-0.4-changelog]]
 === Changelog
 
 
-ttps://github.com/horriblename[horriblename]:
+https://github.com/n3oney[n3oney]:
+
+* Streamlined keybind adding process towards new functions in extended stdlib.
+
+* Moved default keybinds into keybinds section of each module
+
+https://github.com/horriblename[horriblename]:
 
 * Added `clangd` as alternative lsp for C/++.
 
 * Added `toggleterm` integration for `lazygit`.
 
-* Added new option `enableLuaLoader` to enable neovim's experimental module loader for faster startup time.
+* Added new option `enableluaLoader` to enable neovim's experimental module loader for faster startup time.
+
+https://github.com/notashelf[notashelf]:
+
+* Made Copilot's Node package configurable. It is recommended to keep as default, but providing a different NodeJS version is now possible.
