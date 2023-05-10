@@ -23,7 +23,7 @@ in {
   config = mkIf cfg.enable {
     vim.startPlugins = [
       "copilot-lua"
-      pkgs.nodejs-slim-16_x
+      cfg.copilotNodePackage
     ];
 
     vim.luaConfigRC.copilot = nvim.dag.entryAnywhere ''

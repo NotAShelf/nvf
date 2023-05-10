@@ -5,7 +5,9 @@
   ...
 }:
 with lib;
-with builtins; {
+with builtins; let
+  cfg = config.vim.assistant.copilot;
+in {
   options.vim.assistant.copilot = {
     enable = mkEnableOption "Enable GitHub Copilot";
 
@@ -91,8 +93,14 @@ with builtins; {
 
     copilot_node_command = mkOption {
       type = types.str;
-      default = "${lib.getExe pkgs.nodejs-slim-16_x}";
+      default = "${lib.getExe cfg.copilotNodePackage}";
       description = "Path to nodejs";
+    };
+
+    copilotNodePackage = mkOption {
+      type = with types; nullOr package;
+      default = pkgs.nodejs-slim-16_x;
+      description = "The package that will be used for Copilot. NodeJS v16 is recommended.";
     };
   };
 }
