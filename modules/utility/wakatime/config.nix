@@ -12,5 +12,13 @@ in {
     vim.startPlugins = [
       pkgs.vimPlugins.vim-wakatime
     ];
+
+    vim.configRC.vim-wakatime = nvim.dag.entryAnywhere ''
+      ${
+        if cfg.cli-package == null
+        then ""
+        else ''let g:wakatime_CLIPath = "${cfg.cli-package}"''
+      }
+    '';
   };
 }
