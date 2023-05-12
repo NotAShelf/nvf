@@ -39,15 +39,15 @@ with builtins; let
   };
 
   # TODO: specify packages
-  defaultDiagnostics = ["eslint"];
+  defaultDiagnostics = ["eslint_d"];
   diagnostics = {
-    eslint = {
-      package = pkgs.nodePackages.eslint;
+    eslint_d = {
+      package = pkgs.nodePackages.eslint_d;
       nullConfig = pkg: ''
         table.insert(
           ls_sources,
-          null_ls.builtins.diagnostics.eslint.with({
-            command = "${pkg}/bin/eslint",
+          null_ls.builtins.diagnostics.eslint_d.with({
+            command = "${lib.getExe pkg}",
           })
         )
       '';
