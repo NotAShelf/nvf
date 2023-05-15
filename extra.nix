@@ -151,6 +151,7 @@ inputs: let
 
       vim.utility = {
         colorizer.enable = true;
+        vim-wakatime.enable = true;
         icon-picker.enable = true;
         diffview-nvim.enable = true;
         motion = {
