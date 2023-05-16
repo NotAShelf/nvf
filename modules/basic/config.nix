@@ -75,9 +75,13 @@ in {
       set shortmess+=c
       set tm=${toString cfg.mapTimeout}
       set hidden
+
       ${optionalString cfg.theme.transparent ''
         " this needs to be set if the theme is transparent
         set cursorlineopt=number
+        " override when vim is opened or a new buffer is entered
+        autocmd VimEnter * setlocal cursorlineopt=number
+        autocmd BufWinEnter * setlocal cursorlineopt=number
       ''}
       ${optionalString cfg.splitBelow ''
         set splitbelow
