@@ -75,6 +75,10 @@ in {
       set shortmess+=c
       set tm=${toString cfg.mapTimeout}
       set hidden
+      ${optionalString cfg.theme.transparent ''
+        " this needs to be set if the theme is transparent
+        set cursorlineopt=number
+      ''}
       ${optionalString cfg.splitBelow ''
         set splitbelow
       ''}
