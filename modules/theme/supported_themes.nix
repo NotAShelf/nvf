@@ -51,6 +51,7 @@
       	  telescope = true,
       	  treesitter = true,
       	  ts_rainbow = true,
+          fidget = true,
         },
       }
       -- setup must be called before loading
