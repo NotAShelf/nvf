@@ -79,7 +79,7 @@ in {
           width = ${toString cfg.view.width},
           side = ${"'" + cfg.view.side + "'"},
           adaptive_size = ${boolToString cfg.view.adaptiveSize},
-          cursorline = ${boolToString cfg.view.cursorLine}
+          cursorline = ${boolToString cfg.view.cursorline}
         },
 
         git = {

@@ -182,7 +182,7 @@ with builtins; {
         description = "Width of the tree in charecters";
         type = types.int;
       };
-      cursorLine = mkOption {
+      cursorline = mkOption {
         default = false;
         description = "Whether to display the cursor line in NvimTree";
         type = types.bool;
