@@ -145,6 +145,12 @@ with builtins; {
       description = "Follow editorconfig rules in current directory";
     };
 
+    cursorlineOpt = mkOption {
+      type = types.enum ["line" "screenline" "number" "both"];
+      default = "line";
+      description = "Highlight the text line of the cursor with CursorLine hl-CursorLine";
+    };
+
     enableLuaLoader = mkEnableOption "Enable the experimental Lua module loader to speed up the start up process";
   };
 }
