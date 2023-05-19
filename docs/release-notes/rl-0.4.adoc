@@ -27,3 +27,9 @@ https://github.com/horriblename[horriblename]:
 https://github.com/notashelf[notashelf]:
 
 * Made Copilot's Node package configurable. It is recommended to keep as default, but providing a different NodeJS version is now possible.
+
+* Added <<opt-vim.cursorlineOpt>> for configuring Neovim's cursorlineOpt.
+
+* Added <<opt-vim.fileTree.nvimtreeLua.cursorline>>, default false, to enable cursorline in nvimtre.
+
+* Added Fidget.nvim support for the Catppuccin theme.
