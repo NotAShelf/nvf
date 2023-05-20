@@ -98,9 +98,9 @@ in {
     };
 
     copilotNodePackage = mkOption {
-      type = with types; nullOr package;
-      default = pkgs.nodejs-slim-16_x;
-      description = "The package that will be used for Copilot. NodeJS v16 is recommended.";
+      type = with types; nullOr package; # TODO - maybe accept a path as well? imperative users might want to use something like nvm
+      default = pkgs.nodejs-slim; # this will likely need to be downgraded because Copilot does not stay up to date with NodeJS
+      description = "The package that will be used for Copilot. NodeJS v18 is recommended.";
     };
   };
 }
