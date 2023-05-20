@@ -33,3 +33,5 @@ https://github.com/notashelf[notashelf]:
 * Added <<opt-vim.filetree.nvimTreeLua.view.cursorline>>, default false, to enable cursorline in nvimtre.
 
 * Added Fidget.nvim support for the Catppuccin theme.
+
+* Updated bundled NodeJS version used by `Copilot.lua`. v16 is now marked as insecure on Nixpkgs, and we updated to v18
