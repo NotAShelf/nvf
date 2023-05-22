@@ -19,6 +19,7 @@
  <xi:include href="try-it-out.xml"/>
  <xi:include href="default-configs.xml"/>
  <xi:include href="custom-configs.xml"/>
+ <xi:include href="custom-plugins.xml"/>
  <xi:include href="home-manager.xml"/>
  <xi:include href="languages.xml"/>
  <appendix xml:id="ch-options">
