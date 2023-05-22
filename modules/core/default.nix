@@ -132,13 +132,13 @@ in {
 
     configRC = mkOption {
       description = "vimrc contents";
-      type = nvim.types.dagOf types.lines;
+      type = types.oneOf [(nvim.types.dagOf types.lines) types.str];
       default = {};
     };
 
     luaConfigRC = mkOption {
       description = "vim lua config";
-      type = nvim.types.dagOf types.lines;
+      type = types.oneOf [(nvim.types.dagOf types.lines) types.str];
       default = {};
     };
 
@@ -282,7 +282,12 @@ in {
       dag,
       mapResult,
     }: let
-      sortedDag = nvim.dag.topoSort dag;
+      finalDag = lib.mapAttrs (name: value:
+        if builtins.isString value
+        then nvim.dag.entryAnywhere value
+        else value)
+      dag;
+      sortedDag = nvim.dag.topoSort finalDag;
       result =
         if sortedDag ? result
         then mapResult sortedDag.result

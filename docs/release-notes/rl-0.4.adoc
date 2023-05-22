@@ -16,6 +16,8 @@ https://github.com/n3oney[n3oney]:
 
 * Moved default keybinds into keybinds section of each module
 
+* Simplified luaConfigRC and configRC setting - they can now just take strings
+
 https://github.com/horriblename[horriblename]:
 
 * Added `clangd` as alternative lsp for C/++.
