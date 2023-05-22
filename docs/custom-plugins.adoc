@@ -1,0 +1,34 @@
+[[ch-custom-plugins]]
+== Custom Plugins
+
+You can use custom plugins, before they are implemented in the flake.
+To add a plugin, you need to add it to your config's `config.vim.startPlugins` array.
+This is an example of adding the FrenzyExists/aquarium-vim plugin:
+
+[source,nix]
+----
+{
+  config.vim.startPlugins = [
+    (pkgs.fetchFromGitHub {
+      owner = "FrenzyExists";
+      repo = "aquarium-vim";
+      rev = "d09b1feda1148797aa5ff0dbca8d8e3256d028d5";
+      sha256 = "CtyEhCcGxxok6xFQ09feWpdEBIYHH+GIFVOaNZx10Bs=";
+    })
+  ];
+}
+----
+
+However, just making the plugin available might not be enough. In that case, you can write custom vimscript or lua config, using `config.vim.configRC` or `config.vim.luaConfigRC` respectively.
+These options are attribute sets, and you need to give the configuration you're adding some name, like this:
+
+[source,nix]
+----
+{
+  config.vim.configRC.aquarium = "colorscheme aquiarum";
+}
+----
+
+Note: If your configuration needs to be put in a specific place in the config, you can use functions from `inputs.neovim-flake.lib.nvim.dag` to order it. Refer to https://github.com/nix-community/home-manager/blob/master/modules/lib/dag.nix.
+
+Also, if you successfully made your plugin work, please make a PR to add it to the flake, or open an issue with your findings so that we can make it available for everyone easily.
