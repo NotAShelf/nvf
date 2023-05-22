@@ -282,6 +282,7 @@ in {
       dag,
       mapResult,
     }: let
+      # When the value is a string, default it to dag.entryAnywhere
       finalDag = lib.mapAttrs (name: value:
         if builtins.isString value
         then nvim.dag.entryAnywhere value

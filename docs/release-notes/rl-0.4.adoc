@@ -18,6 +18,8 @@ https://github.com/n3oney[n3oney]:
 
 * Simplified luaConfigRC and configRC setting - they can now just take strings
 
+* Refactored the resolveDag function - you can just provide a string now, which will default to dag.entryAnywhere
+
 https://github.com/horriblename[horriblename]:
 
 * Added `clangd` as alternative lsp for C/++.
