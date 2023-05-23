@@ -39,15 +39,43 @@ in {
       local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
       format_callback = function(client, bufnr)
-        if vim.g.formatsave and client.supports_method("textDocument/formatting") then
+        if vim.g.formatsave then
           vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
           vim.api.nvim_create_autocmd("BufWritePre", {
             group = augroup,
             buffer = bufnr,
             callback = function()
-              vim.lsp.buf.format({
-                bufnr = bufnr
+              ${
+        if config.vim.lsp.null-ls.enable
+        then ''
+          local function is_null_ls_formatting_enabled(bufnr)
+              local file_type = vim.api.nvim_buf_get_option(bufnr, "filetype")
+              local generators = require("null-ls.generators").get_available(
+                  file_type,
+                  require("null-ls.methods").internal.FORMATTING
+              )
+              return #generators > 0
+          end
+
+          if is_null_ls_formatting_enabled(bufnr) then
+             vim.lsp.buf.format({
+                bufnr = bufnr,
+                filter = function(client)
+                  return client.name == "null-ls"
+                end
               })
+          else
+              vim.lsp.buf.format({
+                bufnr = bufnr,
+              })
+          end
+        ''
+        else "
+              vim.lsp.buf.format({
+                bufnr = bufnr,
+              })
+        "
+      }
             end,
           })
         end
