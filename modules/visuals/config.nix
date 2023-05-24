@@ -103,7 +103,10 @@ in {
           align = {
             bottom = ${boolToString cfg.fidget-nvim.align.bottom},
             right = ${boolToString cfg.fidget-nvim.align.right},
-          }
+          },
+          window = {
+            blend = 0,
+          },
         }
       '';
     })
