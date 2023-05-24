@@ -42,7 +42,7 @@
         integrations = {
       	  nvimtree = {
       		  enabled = true,
-      		  transparent_panel = false,
+      		  transparent_panel = ${lib.boolToString transparent},
       		  show_root = true,
       	  },
 
@@ -52,6 +52,12 @@
       	  treesitter = true,
       	  ts_rainbow = true,
           fidget = true,
+          alpha = true,
+          leap = true,
+          markdown = true,
+          noice = true,
+          notify = true, -- nvim-notify
+          which_key = true
         },
       }
       -- setup must be called before loading
