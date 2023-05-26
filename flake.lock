@@ -1127,15 +1127,15 @@
     "nvim-web-devicons": {
       "flake": false,
       "locked": {
-        "lastModified": 1683422244,
-        "narHash": "sha256-+UH04+Bu167fthQntUATik9wl/vRfkMJ/A9JheaHx9w=",
-        "owner": "kyazdani42",
+        "lastModified": 1684714932,
+        "narHash": "sha256-JGGrIm8wTekB7FnD4jNnEQbmcktbVyTxLyER4VOGWto=",
+        "owner": "nvim-tree",
         "repo": "nvim-web-devicons",
-        "rev": "986875b7364095d6535e28bd4aac3a9357e91bbe",
+        "rev": "e283ab937e0197b37ec5d8013e49495193407324",
         "type": "github"
       },
       "original": {
-        "owner": "kyazdani42",
+        "owner": "nvim-tree",
         "repo": "nvim-web-devicons",
         "type": "github"
       }

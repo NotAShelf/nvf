@@ -330,7 +330,7 @@
       flake = false;
     };
     nvim-web-devicons = {
-      url = "github:kyazdani42/nvim-web-devicons";
+      url = "github:nvim-tree/nvim-web-devicons";
       flake = false;
     };
     gitsigns-nvim = {
