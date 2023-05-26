@@ -20,7 +20,11 @@ https://github.com/n3oney[n3oney]:
 
 * Refactored the resolveDag function - you can just provide a string now, which will default to dag.entryAnywhere
 
-* Fixed formatting issues and gave null-ls priority over other formatters
+* Fixed formatting sometimes removing parts of files
+
+* Made formatting synchronous
+
+* Gave null-ls priority over other formatters
 
 https://github.com/horriblename[horriblename]:
 
