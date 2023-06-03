@@ -81,6 +81,9 @@ with lib; let
     "project-nvim"
     "elixir-ls"
     "elixir-tools"
+    "vim-svelte"
+    "vim-javascript"
+    "vim-html"
   ];
   # You can either use the name of the plugin or a package.
   pluginsType = with types;
