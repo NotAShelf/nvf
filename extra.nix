@@ -54,6 +54,7 @@ inputs: let
           crates.enable = true;
         };
         ts.enable = isMaximal;
+        svelte.enable = isMaximal;
         go.enable = isMaximal;
         zig.enable = isMaximal;
         python.enable = isMaximal;

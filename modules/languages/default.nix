@@ -22,6 +22,7 @@ in {
     ./ts.nix
     ./zig.nix
     ./html.nix
+    ./svelte.nix
   ];
 
   options.vim.languages = {
