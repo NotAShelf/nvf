@@ -373,7 +373,7 @@
     };
 
     # Utilities
-    colorizer = {
+    ccc = {
       url = "github:uga-rosa/ccc.nvim";
       flake = false;
     };

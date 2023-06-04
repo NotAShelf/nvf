@@ -152,7 +152,7 @@ inputs: let
       };
 
       vim.utility = {
-        colorizer.enable = true;
+        ccc.enable = true;
         vim-wakatime.enable = true;
         icon-picker.enable = true;
         diffview-nvim.enable = true;

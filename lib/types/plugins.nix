@@ -50,7 +50,7 @@ with lib; let
     "nvim-notify"
     "cinnamon-nvim"
     "cheatsheet-nvim"
-    "colorizer"
+    "ccc"
     "cellular-automaton"
     "presence-nvim"
     "icon-picker-nvim"

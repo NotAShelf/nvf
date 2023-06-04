@@ -4,7 +4,7 @@ _: {
     ./gestures
     ./motion
     ./telescope
-    ./colorizer
+    ./ccc
     ./icon-picker
     ./telescope
     ./diffview

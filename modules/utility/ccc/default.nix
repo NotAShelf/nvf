@@ -1,6 +1,6 @@
 _: {
   imports = [
-    ./colorizer.nix
+    ./ccc.nix
     ./config.nix
   ];
 }
