@@ -48,4 +48,6 @@ https://github.com/notashelf[notashelf]:
 
 * Enabled Catppuccin modules for plugins available by default.
 
-* Added <<opt-vim.languages.svelte>> for experimental Svelte support.
+* Added experimental Svelte support under `vim.languages`.
+
+* Removed unnecessary scrollbar element from notifications and codeaction warning UI.
