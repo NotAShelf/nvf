@@ -185,6 +185,7 @@ inputs: let
             nix = 110;
             ruby = 120;
             java = 130;
+            go = [90 130];
           };
         };
         colorizer.enable = true;

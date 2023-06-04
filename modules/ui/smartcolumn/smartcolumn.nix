@@ -17,13 +17,21 @@ with builtins; {
     };
 
     columnAt = {
-      # TODO: the current implementation only allows for options such as { ruby = "120", java = "120" }
-      # whereas the lua config would allow { ruby = "120", java = { "180", "200"} }, this needs to be fixed in the custom lib
       languages = lib.mkOption {
         description = "The position at which smart column should be displayed for each individual buffer type";
         type = lib.types.submodule {
-          freeformType = with lib.types; attrsOf int;
+          freeformType = with lib.types; attrsOf (either int (listOf int));
         };
+
+        example = lib.literalExpression ''
+          vim.ui.smartcolumn.columnAt.languages = {
+            nix = 110;
+            ruby = 120;
+            java = 130;
+            go = [90 130];
+          };
+
+        '';
       };
     };
   };

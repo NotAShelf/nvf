@@ -12,21 +12,29 @@
     then "nil"
     else "'${value}'";
 
-  # Helper function to convert an attribute name to a Lua table key
-  attrToKey = name: name;
+  expToLua = exp:
+    if builtins.isList exp
+    then listToLuaTable exp
+    else if builtins.isAttrs exp
+    then attrsetToLuaTable exp
+    else ("\"" + builtins.toJSON exp + "\"");
 
-  # Function to convert a Nix attrset to a Lua table
+  listToLuaTable = list:
+    "{ " + (builtins.concatStringsSep ", " (map expToLua list)) + " }";
+
   attrsetToLuaTable = attrset:
     "{ "
     + (
       builtins.concatStringsSep ", "
-      (builtins.attrValues (
-        builtins.mapAttrs (
+      (
+        lib.mapAttrsToList (
           name: value:
-            attrToKey name + " = " + ("\"" + builtins.toJSON value + "\"")
+            name
+            + " = "
+            + (expToLua value)
         )
         attrset
-      ))
+      )
     )
     + " }";
 }
