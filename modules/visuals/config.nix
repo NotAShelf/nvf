@@ -52,7 +52,9 @@ in {
               'noice',
               'NvimTree',
               'alpha',
-              'code-action-menu-menu'
+              'code-action-menu-menu',
+              'code-action-menu-warning-message',
+              'notify'
             },
           }
       '';
