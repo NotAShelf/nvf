@@ -66,6 +66,7 @@ inputs: {
     };
   };
 in {
+  imports = [./assertions.nix];
   inherit (module) options config;
   inherit (module._module.args) pkgs;
   inherit neovim;
