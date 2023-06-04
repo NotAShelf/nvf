@@ -4,5 +4,6 @@ _: {
     ./modes
     ./notifications
     ./smartcolumn
+    ./colorizer
   ];
 }

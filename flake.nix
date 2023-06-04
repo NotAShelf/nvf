@@ -451,6 +451,11 @@
       flake = false;
     };
 
+    nvim-colorizer-lua = {
+      url = "github:norcalli/nvim-colorizer.lua";
+      flake = false;
+    };
+
     # Assistant
     copilot-lua = {
       url = "github:zbirenbaum/copilot.lua";

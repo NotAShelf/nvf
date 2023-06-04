@@ -179,11 +179,11 @@ inputs: let
       vim.ui = {
         noice.enable = true;
         smartcolumn.enable = true;
+        colorizer.enable = true;
       };
 
       vim.assistant = {
         copilot.enable = isMaximal;
-        #tabnine.enable = false; # FIXME: this is not working because the plugin depends on an internal script to be ran by the package manager
       };
 
       vim.session = {
