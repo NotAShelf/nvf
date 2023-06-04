@@ -51,3 +51,7 @@ https://github.com/notashelf[notashelf]:
 * Added experimental Svelte support under `vim.languages`.
 
 * Removed unnecessary scrollbar element from notifications and codeaction warning UI.
+
+* `vim.utility.colorizer` has been renamed to `vim.utility.ccc` after the plugin it uses
+
+* Color preview via `nvim-colorizer.lua`
