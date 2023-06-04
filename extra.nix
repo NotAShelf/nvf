@@ -178,7 +178,15 @@ inputs: let
 
       vim.ui = {
         noice.enable = true;
-        smartcolumn.enable = true;
+        smartcolumn = {
+          enable = true;
+          columnAt.languages = {
+            # this is a freeform module, it's `buftype = int;` for configuring column position
+            nix = 110;
+            ruby = 120;
+            java = 130;
+          };
+        };
         colorizer.enable = true;
       };
 

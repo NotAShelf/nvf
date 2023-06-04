@@ -1,19 +1,8 @@
-{
-  config,
-  lib,
-  ...
-}:
+{lib, ...}:
 with lib;
-with builtins; let
-  languageOpts = {
-    columnAt = mkOption {
-      type = types.nullOr types.int;
-      default = 80;
-    };
-  };
-in {
+with builtins; {
   options.vim.ui.smartcolumn = {
-    enable = mkEnableOption "Enable smartcolumn line length indicator";
+    enable = mkEnableOption "Enable Smartcolumn line length indicator";
 
     showColumnAt = mkOption {
       type = types.nullOr types.int;
@@ -27,15 +16,15 @@ in {
       description = "The filetypes smartcolumn will be disabled for.";
     };
 
-    /*
-    languages = mkOption {
-      default = {};
-      description = "Language specific configuration.";
-      type = with types;
-        attrsOf (submodule {
-          options = languageOpts;
-        });
+    columnAt = {
+      # TODO: the current implementation only allows for options such as { ruby = "120", java = "120" }
+      # whereas the lua config would allow { ruby = "120", java = { "180", "200"} }, this needs to be fixed in the custom lib
+      languages = lib.mkOption {
+        description = "The position at which smart column should be displayed for each individual buffer type";
+        type = lib.types.submodule {
+          freeformType = with lib.types; attrsOf int;
+        };
+      };
     };
-    */
   };
 }

@@ -16,12 +16,6 @@ in {
       "ccc"
     ];
 
-    vim.maps.normal = mkMerge [
-      (mkSetLuaBinding mappings.quit "require('ccc').mapping.quit")
-      (mkSetLuaBinding mappings.increase10 "require('ccc').mapping.increase10")
-      (mkSetLuaBinding mappings.decrease10 "require('ccc').mapping.decrease10")
-    ];
-
     vim.luaConfigRC.ccc = nvim.dag.entryAnywhere ''
       local ccc = require("ccc")
       ccc.setup {
@@ -51,6 +45,11 @@ in {
       		{ ccc.picker.hex, ccc.output.css_hsl },
       		{ ccc.picker.css_rgb, ccc.output.css_hsl },
       		{ ccc.picker.css_hsl, ccc.output.hex },
+      	},
+      	mappings = {
+      		["q"] = ccc.mapping.quit,
+      		["L"] = ccc.mapping.increase10,
+      		["H"] = ccc.mapping.decrease10,
       	},
       }
     '';
