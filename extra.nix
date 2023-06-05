@@ -135,12 +135,12 @@ inputs: let
 
       vim.minimap = {
         minimap-vim.enable = false;
-        codewindow.enable = true; # lighter, faster, and uses lua for configuration
+        codewindow.enable = isMaximal; # lighter, faster, and uses lua for configuration
       };
 
       vim.dashboard = {
         dashboard-nvim.enable = false;
-        alpha.enable = true;
+        alpha.enable = isMaximal;
       };
 
       vim.notify = {
@@ -152,9 +152,9 @@ inputs: let
       };
 
       vim.utility = {
-        ccc.enable = true;
-        vim-wakatime.enable = true;
-        icon-picker.enable = true;
+        ccc.enable = isMaximal;
+        vim-wakatime.enable = isMaximal;
+        icon-picker.enable = isMaximal;
         diffview-nvim.enable = true;
         motion = {
           hop.enable = true;
@@ -197,7 +197,7 @@ inputs: let
       };
 
       vim.session = {
-        nvim-session-manager.enable = true;
+        nvim-session-manager.enable = isMaximal;
       };
 
       vim.gestures = {
