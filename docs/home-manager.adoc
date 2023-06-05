@@ -45,7 +45,7 @@ Then we should be able to use the given module. E.g.
 
 === Custom vim plugins
 
-It's possible to add custom vim plugins by using the startPlugins and lua DAG settings. First we install the plugin by adding it to startPlugins, I'll be using the nvim-surround plugin for example. This process should be very similar for nixos installations.
+It's possible to add custom vim plugins by using the startPlugins and lua DAG settings. First we install the plugin by adding it to startPlugins. This example uses nvim-surround, but the process will be similar for other plugins as well.
 
 [source,nix]
 ----
@@ -59,7 +59,7 @@ It's possible to add custom vim plugins by using the startPlugins and lua DAG se
 }
 ----
 
-Then we continue by requireing the plugin in lua using DAG settings. Please note that you're able to name this setting to however you want, in my situation I'll name it nvim-surround since that's the plugin that I'll be installing.
+Then we continue by requiring the plugin in lua using DAG settings. Please note that you're able to name this setting to however you want, the name will add a `--SECTION <name>` in the init.vim, under which it will be initialized.
 
 [source,nix]
 ----
@@ -68,7 +68,7 @@ Then we continue by requireing the plugin in lua using DAG settings. Please note
     enable = true;
     settings = {
       vim.startPlugins = [ pkgs.vimPlugins.nvim-surround ];
-      luaConfigRC.nvim-surround = nvim-flake.lib.nvim.dag.entryAnywhere ''
+      luaConfigRC.nvim-surround = nvim-flake.lib.nvim.dag.entryAnywhere '' # nvim-flake is a reference to the flake. Please change this accordingly to your config.
         require("nvim-surround").setup()
       '';
     };
