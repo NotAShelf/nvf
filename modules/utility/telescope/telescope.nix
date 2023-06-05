@@ -28,6 +28,6 @@ with builtins; {
       treesitter = mkMappingOption "Treesitter [Telescope]" "<leader>fs";
     };
 
-    enable = mkEnableOption "telescope.nvim: multi-purpose search & picker utility";
+    enable = mkEnableOption "telescope.nvim: multi-purpose search and picker utility";
   };
 }
