@@ -178,6 +178,7 @@ inputs: let
 
       vim.ui = {
         noice.enable = true;
+        colorizer.enable = true;
         smartcolumn = {
           enable = true;
           columnAt.languages = {
@@ -188,7 +189,6 @@ inputs: let
             go = [90 130];
           };
         };
-        colorizer.enable = true;
       };
 
       vim.assistant = {
