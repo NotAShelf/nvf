@@ -14,7 +14,9 @@ in {
     ];
 
     vim.luaConfigRC.modes-nvim = nvim.dag.entryAnywhere ''
-      require('modes').setup()
+      require('modes').setup({
+        set_cursorline = ${boolToString cfg.setCursorline}, -- looks ugly
+      })
     '';
   };
 }
