@@ -18,13 +18,77 @@ If you have any questions regarding those files, feel free to open an issue or [
 
 The contribution process is mostly documented in the [pull request template](.github/pull_request_template.md). You will find a checklist of items to complete before submitting a pull request. Please make sure you complete it before submitting a pull request. If you are unsure about any of the items, please ask.
 
-## Code of Conduct
+### Code of Conduct
 
 This project does not quite have a code of conduct yet. And to be honest, I'm not sure if I want one. I'm not expecting this project to be a hotbed of activity, but I do want to make sure that everyone who does contribute feels welcome and safe. As such, I will do my best to make sure that those who distrupt the project are dealt with swiftly and appropriately.
 
 If you feel that you are not being treated with respect, please contact me directly.
 
-## Custom key mappings support for a plugin
+### Guidelines
+
+Here are the overall boundaries I would like you to follow while contributing to neovim-flake.
+
+#### Documentation
+
+If you are making a pull request to add a 
+
+
+#### Style
+
+**Nix**
+We use Alejandra for formatting nix code, which can be invoked directly with `nix fmt` in the repository. 
+
+While Alejandra is mostly opinionated on how code looks after formatting, certain formattings are done at the user's discretion.
+
+Please use one line code for attribute sets that contain only one subset.
+For example:
+
+```nix 
+# parent modules should always be unfolded
+module = { 
+    value = mkEnableOption "some description" // { default = true; };
+    # same as parent modules, unfold submodules
+    subModule = {
+        # this is an option that contains more than one nested value
+        someOtherValue = mkOption {
+            type = lib.types.bool;
+            description = "Some other description"
+            default = true;
+        };
+    };
+}
+```
+
+If you move a line down after the merge operator, Alejandra will automatically unfold the whole merged attrset for you, which we do not want.
+
+```nix
+module = {
+    key = mkEnableOption "some description" // {
+        default = true; # we want this to be inline
+    }; 
+    # ...
+}
+```
+
+For lists, it's up mostly to your discretion but please try to avoid unfolded lists if there is only one item in the list.
+```nix
+
+# ok 
+acceptableList = [
+    item1
+    item2
+    item3
+    item4
+];
+
+# not ok
+listToBeAvoided = [item1 item2 item3 item4];
+```
+
+*This will be moved elsewhere, disregard unless you are adding a new plugin with keybinds*
+#### Keybinds
+
+#####  Custom key mappings support for a plugin
 
 To add custom keymappings to a plugin, a couple of helper functions are available in the project.
 
@@ -173,3 +237,5 @@ in {
 ```
 
 If you have come across a plugin that has an API that doesn't seem to easily allow custom keybindings, don't be scared to implement a draft PR. We'll help you get it done.
+
+
