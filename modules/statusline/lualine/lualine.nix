@@ -6,6 +6,10 @@
 with lib;
 with builtins; let
   supported_themes = import ./supported_themes.nix;
+  colorPuccin =
+    if config.vim.statusline.lualine.theme == "catppuccin"
+    then "#181825"
+    else "none";
 in {
   options.vim.statusline.lualine = {
     enable = mkEnableOption "lualine statusline plugin";
@@ -119,6 +123,7 @@ in {
           {
             {
               "mode",
+              icons_enabled = true,
               separator = {
                 left = '▎',
                 right = ''
@@ -138,11 +143,11 @@ in {
               colored = true,
               icon_only = true,
               icon = { align = 'left' },
-              color = {bg='none', fg='lavender'},
+              color = {bg='${colorPuccin}', fg='lavender'},
             },
             {
               "filename",
-              color = {bg='none'},
+              color = {bg='${colorPuccin}'},
               symbols = {modified = '', readonly = ''},
             },
           }
@@ -165,7 +170,7 @@ in {
               },
               symbols = {added = '+', modified = '~', removed = '-'}, -- Changes the diff symbols
               color = {
-                bg='none',
+                bg='${colorPuccin}',
                 fg='lavender'
               },
             },
@@ -181,7 +186,7 @@ in {
             {
               "diagnostics",
               sources = {'nvim_lsp', 'nvim_diagnostic', 'coc'},
-              symbols = {error = '󰅙 ', warn = ' ', info = ' ', hint = '󰌵 '},
+              symbols = {error = '󰅙  ', warn = '  ', info = '  ', hint = '󰌵 '},
               diagnostics_color = {
                 color_error = { fg = 'red' },
                 color_warn = { fg = 'yellow' },
@@ -198,13 +203,15 @@ in {
         default = ''
           {
             {
-              "fileformat",
-              color = {bg='none', fg='lavender'},
-              symbols = {
-                unix = '', -- e712
-                dos = '',  -- e70f
-                mac = '',  -- e711
-              },
+              'searchcount',
+              maxcount = 999,
+              timeout = 120,
+
+            },
+            {
+              "branch",
+              icon = ' •',
+              color = {bg='${colorPuccin}', fg='lavender'},
             },
           }
         '';
@@ -217,16 +224,22 @@ in {
           {
             {
               "progress",
-              color = {bg='none', fg='lavender'},
+              separator = {
+                left = '',
+              },
+
             },
             {
               "location",
-              color = {bg='none', fg='lavender'},
             },
             {
-              "branch",
-              icon = ' •',
-              color = {bg='none', fg='lavender'},
+              "fileformat",
+              color = {fg='black'},
+              symbols = {
+                unix = '', -- e712
+                dos = '',  -- e70f
+                mac = '',  -- e711
+              },
             },
           }
         '';
