@@ -26,16 +26,12 @@ in {
     enable = mkEnableOption "Dart language support";
 
     treesitter = {
-      enable = mkOption {
-        description = "Enable Dart treesitter";
-        type = types.bool;
-        default = config.vim.languages.enableTreesitter;
-      };
+      enable = mkEnableOption "Enable Dart treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = nvim.types.mkGrammarOption pkgs "dart";
     };
 
     lsp = {
-      enable = mkEnableOption "Enable Dart LSP support";
+      enable = mkEnableOption "Dart LSP support";
       server = mkOption {
         description = "The Dart LSP server to use";
         type = with types; enum (attrNames servers);

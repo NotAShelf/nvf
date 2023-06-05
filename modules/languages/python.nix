@@ -41,11 +41,7 @@ in {
     enable = mkEnableOption "Python language support";
 
     treesitter = {
-      enable = mkOption {
-        description = "Enable Python treesitter";
-        type = types.bool;
-        default = config.vim.languages.enableTreesitter;
-      };
+      enable = mkEnableOption "Enable Python treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = mkOption {
         description = "Python treesitter grammar to use";
         type = types.package;
@@ -54,16 +50,14 @@ in {
     };
 
     lsp = {
-      enable = mkOption {
-        description = "Enable Python LSP support";
-        type = types.bool;
-        default = config.vim.languages.enableLSP;
-      };
+      enable = mkEnableOption "Enable Python LSP support" // {default = config.vim.languages.enableLSP;};
+
       server = mkOption {
         description = "Python LSP server to use";
         type = with types; enum (attrNames servers);
         default = defaultServer;
       };
+
       package = mkOption {
         description = "python LSP server package";
         type = types.package;
@@ -72,16 +66,14 @@ in {
     };
 
     format = {
-      enable = mkOption {
-        description = "Enable Python formatting";
-        type = types.bool;
-        default = config.vim.languages.enableFormat;
-      };
+      enable = mkEnableOption "Enable Python formatting" // {default = config.vim.languages.enableFormat;};
+
       type = mkOption {
         description = "Python formatter to use";
         type = with types; enum (attrNames formats);
         default = defaultFormat;
       };
+
       package = mkOption {
         description = "Python formatter package";
         type = types.package;

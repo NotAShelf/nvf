@@ -1,17 +1,9 @@
-{
-  lib,
-  config,
-  ...
-}:
+{lib, ...}:
 with lib;
 with builtins; {
   options.vim = {
     autopairs = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = "Enable autopairs";
-      };
+      enable = mkEnableOption "autopairs" // {default = false;};
 
       type = mkOption {
         type = types.enum ["nvim-autopairs"];

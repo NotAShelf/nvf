@@ -2,7 +2,7 @@
 with lib;
 with builtins; {
   options.vim.utility.motion.leap = {
-    enable = mkEnableOption "Enable leap.nvim plugin (easy motion)";
+    enable = mkEnableOption "leap.nvim plugin (easy motion)";
 
     mappings = {
       leapForwardTo = mkOption {

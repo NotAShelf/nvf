@@ -4,48 +4,60 @@
   ...
 }:
 with lib;
-with builtins; let
-  cfg = config.vim.projects.project-nvim;
-in {
-  config = mkIf cfg.enable {
-    vim.startPlugins = [
-      "project-nvim"
-    ];
+with builtins; {
+  options.vim.projects.project-nvim = {
+    enable = mkEnableOption "Enable project-nvim for project management";
 
-    vim.luaConfigRC.project-nvim = nvim.dag.entryAnywhere ''
-      require('project_nvim').setup({
-        manual_mode = ${boolToString cfg.manualMode},
-        detection_methods = { ${concatStringsSep ", " (map (x: "\"" + x + "\"") cfg.detectionMethods)} },
+    manualMode = mkOption {
+      type = types.bool;
+      default = true;
+      description = "don't automatically change the root directory so the user has the option to manually do so using `:ProjectRoot` command";
+    };
 
-        -- All the patterns used to detect root dir, when **"pattern"** is in
-        -- detection_methods
-        patterns = { ${concatStringsSep ", " (map (x: "\"" + x + "\"") cfg.patterns)} },
+    # detection methods should accept one or more strings from a list
+    detectionMethods = mkOption {
+      type = types.listOf types.str;
+      default = ["lsp" "pattern"];
+      description = "Detection methods to use";
+    };
 
-        -- Table of lsp clients to ignore by name
-        -- eg: { "efm", ... }
-        ignore_lsp = { ${concatStringsSep ", " (map (x: "\"" + x + "\"") cfg.lspIgnored)} },
+    # patterns
+    patterns = mkOption {
+      type = types.listOf types.str;
+      default = [".git" "_darcs" ".hg" ".bzr" ".svn" "Makefile" "package.json" "flake.nix" "cargo.toml"];
+      description = "Patterns to use for pattern detection method";
+    };
 
-        -- Don't calculate root dir on specific directories
-        -- Ex: { "~/.cargo/*", ... }
-        exclude_dirs = { ${concatStringsSep ", " (map (x: "\"" + x + "\"") cfg.excludeDirs)} },
+    # table of lsp servers to ignore by name
+    lspIgnored = mkOption {
+      type = types.listOf types.str;
+      default = [];
+      description = "LSP servers no ignore by name";
+    };
 
-        -- Show hidden files in telescope
-        show_hidden = ${boolToString cfg.showHidden},
+    excludeDirs = mkOption {
+      type = types.listOf types.str;
+      default = [];
+      description = "Directories to exclude from project root search";
+    };
 
-        -- When set to false, you will get a message when project.nvim changes your
-        -- directory.
-        silent_chdir = ${boolToString cfg.silentChdir},
+    showHidden = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Show hidden files in telescope picker";
+    };
 
-        -- What scope to change the directory, valid options are
-        -- * global (default)
-        -- * tab
-        -- * win
-        scope_chdir = '${toString cfg.scopeChdir}',
+    silentChdir = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Silently change directory when changing project";
+    };
 
-        -- Path where project.nvim will store the project history for use in
-        -- telescope
-        datapath = vim.fn.stdpath("data"),
-      })
-    '';
+    scopeChdir = mkOption {
+      type = types.enum ["global" "tab" "win"];
+      default = "global";
+      description = "What scope to change the directory";
+    };
   };
 }
+

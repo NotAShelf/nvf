@@ -6,7 +6,7 @@
 with lib;
 with builtins; {
   options.vim.utility.vim-wakatime = {
-    enable = mkEnableOption "Enable vim-wakatime";
+    enable = mkEnableOption "vim-wakatime: live code statistics";
 
     cli-package = mkOption {
       type = with types; nullOr package;

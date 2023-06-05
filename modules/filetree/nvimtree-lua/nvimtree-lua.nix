@@ -6,11 +6,7 @@
 with lib;
 with builtins; {
   options.vim.filetree.nvimTreeLua = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Enable nvim-tree-lua";
-    };
+    enable = mkEnableOption "filetree via nvim-tree-lua" // {default = false;};
 
     mappings = {
       toggle = mkOption {

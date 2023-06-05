@@ -58,25 +58,20 @@ in {
     enable = mkEnableOption "Svelte language support";
 
     treesitter = {
-      enable = mkOption {
-        description = "Enable Svelte treesitter";
-        type = types.bool;
-        default = config.vim.languages.enableTreesitter;
-      };
+      enable = mkEnableOption "Enable Svelte treesitter" // {default = config.vim.languages.enableTreesitter;};
+
       sveltePackage = nvim.types.mkGrammarOption pkgs "svelte";
     };
 
     lsp = {
-      enable = mkOption {
-        description = "Enable Svelte LSP support";
-        type = types.bool;
-        default = config.vim.languages.enableLSP;
-      };
+      enable = mkEnableOption "Enable Svelte LSP support" // {default = config.vim.languages.enableLSP;};
+
       server = mkOption {
         description = "Svelte LSP server to use";
         type = with types; enum (attrNames servers);
         default = defaultServer;
       };
+
       package = mkOption {
         description = "Svelte LSP server package";
         type = types.package;
@@ -85,16 +80,14 @@ in {
     };
 
     format = {
-      enable = mkOption {
-        description = "Enable Svelte formatting";
-        type = types.bool;
-        default = config.vim.languages.enableFormat;
-      };
+      enable = mkEnableOption "Enable Svelte formatting" // {default = config.vim.languages.enableFormat;};
+
       type = mkOption {
         description = "Svelte formatter to use";
         type = with types; enum (attrNames formats);
         default = defaultFormat;
       };
+
       package = mkOption {
         description = "Svelte formatter package";
         type = types.package;
@@ -103,11 +96,8 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkOption {
-        description = "Enable extra Svelte diagnostics";
-        type = types.bool;
-        default = config.vim.languages.enableExtraDiagnostics;
-      };
+      enable = mkEnableOption "Enable extra Svelte diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+
       types = lib.nvim.types.diagnostics {
         langDesc = "Svelte";
         inherit diagnostics;

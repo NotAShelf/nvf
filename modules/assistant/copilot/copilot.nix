@@ -9,7 +9,7 @@ with builtins; let
   cfg = config.vim.assistant.copilot;
 in {
   options.vim.assistant.copilot = {
-    enable = mkEnableOption "Enable GitHub Copilot";
+    enable = mkEnableOption "GitHub Copilot AI assistant";
 
     panel = {
       position = mkOption {

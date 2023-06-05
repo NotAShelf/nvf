@@ -5,6 +5,6 @@ with lib; {
       hop = mkMappingOption "Jump to occurences [hop.nvim]" "<leader>h";
     };
 
-    enable = mkEnableOption "Enable Hop.nvim plugin (easy motion)";
+    enable = mkEnableOption "Hop.nvim plugin (easy motion)";
   };
 }

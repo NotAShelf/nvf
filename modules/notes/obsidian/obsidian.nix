@@ -7,7 +7,7 @@ with lib;
 with builtins; {
   options.vim.notes = {
     obsidian = {
-      enable = mkEnableOption "Complementary neovim plugins for Obsidian editor";
+      enable = mkEnableOption "complementary neovim plugins for Obsidian editor";
       dir = mkOption {
         type = types.str;
         default = "~/my-vault";

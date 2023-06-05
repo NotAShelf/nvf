@@ -26,25 +26,20 @@ in {
     enable = mkEnableOption "Go language support";
 
     treesitter = {
-      enable = mkOption {
-        description = "Enable Go treesitter";
-        type = types.bool;
-        default = config.vim.languages.enableTreesitter;
-      };
+      enable = mkEnableOption "Enable Go treesitter" // {default = config.vim.languages.enableTreesitter;};
+
       package = nvim.types.mkGrammarOption pkgs "go";
     };
 
     lsp = {
-      enable = mkOption {
-        description = "Enable Go LSP support";
-        type = types.bool;
-        default = config.vim.languages.enableLSP;
-      };
+      enable = mkEnableOption "Enable Go LSP support" // {default = config.vim.languages.enableLSP;};
+
       server = mkOption {
         description = "Go LSP server to use";
         type = with types; enum (attrNames servers);
         default = defaultServer;
       };
+
       package = mkOption {
         description = "Go LSP server package";
         type = types.package;

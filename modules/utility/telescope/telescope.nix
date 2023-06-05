@@ -3,6 +3,8 @@ with lib;
 with builtins; {
   options.vim.telescope = {
     mappings = {
+      findProjects = mkMappingOption "Find files [Telescope]" "<leader>fp";
+
       findFiles = mkMappingOption "Find files [Telescope]" "<leader>ff";
       liveGrep = mkMappingOption "Live grep [Telescope]" "<leader>fg";
       buffers = mkMappingOption "Buffers [Telescope]" "<leader>fb";
@@ -26,6 +28,6 @@ with builtins; {
       treesitter = mkMappingOption "Treesitter [Telescope]" "<leader>fs";
     };
 
-    enable = mkEnableOption "Enable multi-purpose telescope utility";
+    enable = mkEnableOption "telescope.nvim: multi-purpose search & picker utility";
   };
 }

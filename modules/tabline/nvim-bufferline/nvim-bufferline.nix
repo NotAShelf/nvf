@@ -2,6 +2,8 @@
 with lib;
 with builtins; {
   options.vim.tabline.nvimBufferline = {
+    enable = mkEnableOption "nvim-bufferline-lua as a bufferline";
+
     mappings = {
       closeCurrent = mkMappingOption "Close buffer" null;
       cycleNext = mkMappingOption "Next buffer" "<leader>bn";
@@ -13,7 +15,5 @@ with builtins; {
       moveNext = mkMappingOption "Move next buffer" "<leader>bmn";
       movePrevious = mkMappingOption "Move previous buffer" "<leader>bmp";
     };
-
-    enable = mkEnableOption "Enable nvim-bufferline-lua as a bufferline";
   };
 }

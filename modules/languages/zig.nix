@@ -12,24 +12,19 @@ in {
     enable = mkEnableOption "SQL language support";
 
     treesitter = {
-      enable = mkOption {
-        description = "Enable Zig treesitter";
-        type = types.bool;
-        default = config.vim.languages.enableTreesitter;
-      };
+      enable = mkEnableOption "Enable Zig treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = nvim.types.mkGrammarOption pkgs "zig";
     };
+
     lsp = {
-      enable = mkOption {
-        description = "Zig LSP support (zls)";
-        type = types.bool;
-        default = config.vim.languages.enableLSP;
-      };
+      enable = mkEnableOption "Zig LSP support (zls)" // {default = config.vim.languages.enableLSP;};
+
       package = mkOption {
         description = "ZLS package";
         type = types.package;
         default = pkgs.zls;
       };
+
       zigPackage = mkOption {
         description = "Zig package used by ZLS";
         type = types.package;

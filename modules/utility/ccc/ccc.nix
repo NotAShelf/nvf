@@ -2,7 +2,7 @@
 with lib;
 with builtins; {
   options.vim.utility.ccc = {
-    enable = mkEnableOption "Enable ccc color picker for neovim";
+    enable = mkEnableOption "ccc color picker for neovim";
 
     mappings = {
       quit = mkMappingOption "Cancel and close the UI without replace or insert" "<Esc>";

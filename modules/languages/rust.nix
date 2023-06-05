@@ -12,11 +12,7 @@ in {
     enable = mkEnableOption "Rust language support";
 
     treesitter = {
-      enable = mkOption {
-        description = "Enable Rust treesitter";
-        type = types.bool;
-        default = config.vim.languages.enableTreesitter;
-      };
+      enable = mkEnableOption "Enable Rust treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = nvim.types.mkGrammarOption pkgs "rust";
     };
 
@@ -30,16 +26,14 @@ in {
     };
 
     lsp = {
-      enable = mkOption {
-        description = "Rust LSP support (rust-analyzer with extra tools)";
-        type = types.bool;
-        default = config.vim.languages.enableLSP;
-      };
+      enable = mkEnableOption "Rust LSP support (rust-analyzer with extra tools)" // {default = config.vim.languages.enableLSP;};
+
       package = mkOption {
         description = "rust-analyzer package";
         type = types.package;
         default = pkgs.rust-analyzer;
       };
+
       opts = mkOption {
         description = "Options to pass to rust analyzer";
         type = types.str;

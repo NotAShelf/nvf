@@ -7,7 +7,7 @@ with lib;
 with builtins; {
   options.vim = {
     debugMode = {
-      enable = mkEnableOption "Enable debug mode";
+      enable = mkEnableOption "debug mode";
       level = mkOption {
         type = types.int;
         default = 20;
@@ -151,6 +151,6 @@ with builtins; {
       description = "Highlight the text line of the cursor with CursorLine hl-CursorLine";
     };
 
-    enableLuaLoader = mkEnableOption "Enable the experimental Lua module loader to speed up the start up process";
+    enableLuaLoader = mkEnableOption "experimental Lua module loader to speed up the start up process";
   };
 }

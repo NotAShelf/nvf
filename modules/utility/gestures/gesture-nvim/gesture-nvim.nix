@@ -1,7 +1,7 @@
 {lib, ...}:
 with lib; {
   options.vim.gestures.gesture-nvim = {
-    enable = mkEnableOption "Enable gesture-nvim plugin";
+    enable = mkEnableOption "gesture-nvim: mouse gestures";
 
     mappings = {
       draw = mkMappingOption "Start drawing [gesture.nvim]" "<LeftDrag>";

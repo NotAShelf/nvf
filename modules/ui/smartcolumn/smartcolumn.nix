@@ -2,7 +2,7 @@
 with lib;
 with builtins; {
   options.vim.ui.smartcolumn = {
-    enable = mkEnableOption "Enable Smartcolumn line length indicator";
+    enable = mkEnableOption "line length indicator";
 
     showColumnAt = mkOption {
       type = types.nullOr types.int;

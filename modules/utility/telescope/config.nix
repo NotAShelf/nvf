@@ -45,6 +45,11 @@ in {
         mkIf config.vim.treesitter.enable
         (mkSetBinding mappings.treesitter "<cmd> Telescope treesitter<CR>")
       )
+
+      (
+        mkIf config.vim.projects.project-nvim.enable
+        (mkSetBinding mappings.findProjects "<cmd Telescope projects<CR>")
+      )
     ];
 
     vim.luaConfigRC.telescope = nvim.dag.entryAnywhere ''

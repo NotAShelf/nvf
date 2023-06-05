@@ -8,14 +8,10 @@ with builtins; let
   supported_themes = import ./supported_themes.nix;
 in {
   options.vim.statusline.lualine = {
-    enable = mkEnableOption "lualine";
+    enable = mkEnableOption "lualine statusline plugin";
 
     icons = {
-      enable = mkOption {
-        type = types.bool;
-        description = "Enable icons for lualine";
-        default = true;
-      };
+      enable = mkEnableOption "icons for lualine" // {default = true;};
     };
 
     refresh = {
@@ -125,6 +121,7 @@ in {
               "mode",
               separator = {
                 left = '▎',
+                right = ''
               },
             },
           }
@@ -184,7 +181,12 @@ in {
             {
               "diagnostics",
               sources = {'nvim_lsp', 'nvim_diagnostic', 'coc'},
-              symbols = {error = '󰅙 ', warn = ' ', info = ' ', hint = '󰌵 '}
+              symbols = {error = '󰅙 ', warn = ' ', info = ' ', hint = '󰌵 '},
+              diagnostics_color = {
+                color_error = { fg = colors.red },
+                color_warn = { fg = colors.yellow },
+                color_info = { fg = colors.cyan },
+              },
             },
           }
         '';
@@ -224,12 +226,7 @@ in {
             {
               "branch",
               icon = ' •',
-              separator = {
-                left = '(',
-                right = ')'
-              },
               color = {bg='none', fg='lavender'},
-
             },
           }
         '';

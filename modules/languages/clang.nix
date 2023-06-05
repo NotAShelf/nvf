@@ -47,31 +47,26 @@ in {
     };
 
     treesitter = {
-      enable = mkOption {
-        description = "Enable C/C++ treesitter";
-        type = types.bool;
-        default = config.vim.languages.enableTreesitter;
-      };
+      enable = mkEnableOption "C/C++ treesitter" // {default = config.vim.languages.enableTreesitter;};
       cPackage = nvim.types.mkGrammarOption pkgs "c";
       cppPackage = nvim.types.mkGrammarOption pkgs "cpp";
     };
 
     lsp = {
-      enable = mkOption {
-        description = "Enable clang LSP support";
-        type = types.bool;
-        default = config.vim.languages.enableLSP;
-      };
+      enable = mkEnableOption "Enable clang LSP support" // {default = config.vim.languages.enableLSP;};
+
       server = mkOption {
         description = "The clang LSP server to use";
         type = with types; enum (attrNames servers);
         default = defaultServer;
       };
+
       package = mkOption {
         description = "clang LSP server package";
         type = types.package;
         default = servers.${cfg.lsp.server}.package;
       };
+
       opts = mkOption {
         description = "Options to pass to clang LSP server";
         type = with types; nullOr str;

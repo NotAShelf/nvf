@@ -2,7 +2,7 @@
 with lib;
 with builtins; {
   options.vim.comments.comment-nvim = {
-    enable = mkEnableOption "Enable comment-nvim";
+    enable = mkEnableOption "smart and powerful comment plugin for neovim comment-nvim";
 
     mappings = {
       toggleCurrentLine = mkMappingOption "Toggle current line comment" "gcc";

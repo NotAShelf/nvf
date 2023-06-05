@@ -1,7 +1,7 @@
 {lib, ...}:
 with lib; {
   options.vim.minimap.codewindow = {
-    enable = mkEnableOption "Enable codewindow plugin for minimap view";
+    enable = mkEnableOption "codewindow plugin for minimap view";
 
     mappings = {
       open = mkMappingOption "Open minimap [codewindow]" "<leader>mo";

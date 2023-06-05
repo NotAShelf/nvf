@@ -2,7 +2,7 @@
 with lib;
 with builtins; {
   options.vim.git = {
-    enable = mkEnableOption "Git support";
+    enable = mkEnableOption "git tools via gitsigns";
 
     gitsigns = {
       enable = mkEnableOption "gitsigns";

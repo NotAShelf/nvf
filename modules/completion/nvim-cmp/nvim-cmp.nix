@@ -3,11 +3,7 @@ with lib;
 with builtins; {
   options.vim = {
     autocomplete = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = "enable autocomplete";
-      };
+      enable = mkEnableOption "enable autocomplete" // {default = false;};
 
       mappings = {
         complete = mkMappingOption "Complete [nvim-cmp]" "<C-Space>";

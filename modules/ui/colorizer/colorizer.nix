@@ -6,7 +6,7 @@
 with lib;
 with builtins; {
   options.vim.ui.colorizer = {
-    enable = mkEnableOption "Enable nvim-colorizer.lua for color highlighting";
+    enable = mkEnableOption "nvim-colorizer.lua for color highlighting";
 
     options = {
       rgb = mkOption {

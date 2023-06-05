@@ -2,7 +2,7 @@
 with lib;
 with builtins; {
   options.vim.assistant.tabnine = {
-    enable = mkEnableOption "Enable TabNine assistant";
+    enable = mkEnableOption "Tabnine assistant";
 
     disable_auto_comment = mkOption {
       type = types.bool;

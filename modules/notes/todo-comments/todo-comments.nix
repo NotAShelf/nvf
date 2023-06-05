@@ -2,7 +2,7 @@
 with lib;
 with builtins; {
   options.vim.notes.todo-comments = {
-    enable = mkEnableOption "Enable todo-comments";
+    enable = mkEnableOption "todo-comments: highlight and search for todo comments like TODO, HACK, BUG in your code base";
 
     patterns = {
       highlight = mkOption {
