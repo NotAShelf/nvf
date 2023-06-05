@@ -12,6 +12,7 @@
     then "nil"
     else "'${value}'";
 
+  # convert an expression to lua
   expToLua = exp:
     if builtins.isList exp
     then listToLuaTable exp
@@ -19,9 +20,11 @@
     then attrsetToLuaTable exp
     else ("\"" + builtins.toJSON exp + "\"");
 
+  # convert list to a lua table
   listToLuaTable = list:
     "{ " + (builtins.concatStringsSep ", " (map expToLua list)) + " }";
 
+  # convert attrset to a lua table
   attrsetToLuaTable = attrset:
     "{ "
     + (
