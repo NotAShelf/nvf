@@ -183,9 +183,9 @@ in {
               sources = {'nvim_lsp', 'nvim_diagnostic', 'coc'},
               symbols = {error = '󰅙 ', warn = ' ', info = ' ', hint = '󰌵 '},
               diagnostics_color = {
-                color_error = { fg = colors.red },
-                color_warn = { fg = colors.yellow },
-                color_info = { fg = colors.cyan },
+                color_error = { fg = 'red' },
+                color_warn = { fg = 'yellow' },
+                color_info = { fg = 'cyan' },
               },
             },
           }
