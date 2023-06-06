@@ -12,13 +12,14 @@ in {
     ];
 
     vim.luaConfigRC.lualine = nvim.dag.entryAnywhere ''
-      require('lualine').setup {
+      local lualine = require('lualine')
+      lualine.setup {
         options = {
           icons_enabled = ${boolToString cfg.icons.enable},
           theme = "${cfg.theme}",
           component_separators = {"${cfg.componentSeparator.left}","${cfg.componentSeparator.right}"},
           section_separators = {"${cfg.sectionSeparator.left}","${cfg.sectionSeparator.right}"},
-          disabled_filetypes = { 'alpha' }, -- 'NvimTree'
+          disabled_filetypes = { 'alpha' },
           always_divide_middle = true,
           globalstatus = ${boolToString cfg.globalStatus},
           ignore_focus = {'NvimTree'},
