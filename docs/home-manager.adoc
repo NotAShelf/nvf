@@ -1,0 +1,77 @@
+[[ch-hm-module]]
+== Home Manager
+
+The Home Manager module allows us to customize the different `vim` options. To use it, we first add the input flake.
+
+[source,nix]
+----
+{
+  neovim-flake = {
+    url = github:notashelf/neovim-flake;
+    # you can override input nixpkgs
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+}
+----
+
+Followed by importing the HM module.
+
+[source,nix]
+----
+{
+  imports = [ neovim-flake.homeManagerModules.default ];
+}
+----
+
+Then we should be able to use the given module. E.g.
+
+[source,nix]
+----
+{
+  programs.neovim-flake = {
+
+    enable = true;
+    # your settings need to go into the settings attrset
+    settings = {
+      vim.viAlias = false;
+      vim.vimAlias = true;
+      vim.lsp = {
+        enable = true;
+      };
+    };
+  };
+}
+----
+
+=== Custom vim plugins
+
+It's possible to add custom vim plugins by using the startPlugins and lua DAG settings. First we install the plugin by adding it to startPlugins. This example uses nvim-surround, but the process will be similar for other plugins as well.
+
+[source,nix]
+----
+{
+  programs.neovim-flake = {
+    enable = true;
+    settings = {
+      vim.startPlugins = [ pkgs.vimPlugins.nvim-surround ];
+    };
+  };
+}
+----
+
+Then we continue by requiring the plugin in lua using DAG settings. Please note that you're able to name this setting to however you want, the name will add a `--SECTION <name>` in the init.vim, under which it will be initialized.
+
+[source,nix]
+----
+{
+  programs.neovim-flake = {
+    enable = true;
+    settings = {
+      vim.startPlugins = [ pkgs.vimPlugins.nvim-surround ];
+      luaConfigRC.nvim-surround = nvim-flake.lib.nvim.dag.entryAnywhere '' # nvim-flake is a reference to the flake. Please change this accordingly to your config.
+        require("nvim-surround").setup()
+      '';
+    };
+  };
+}
+----
