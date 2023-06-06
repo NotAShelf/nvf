@@ -58,4 +58,9 @@ https://github.com/notashelf[notashelf]:
 
 * Updated Lualine statusline UI
 
+* Added vim-illuminate for smart highlighting
+
+* Added a module for enabling Neovim's spellchecker
+
 * Cleaned up documentation
+
