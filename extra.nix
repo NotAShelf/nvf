@@ -180,6 +180,7 @@ inputs: let
         noice.enable = true;
         colorizer.enable = true;
         modes-nvim.enable = true;
+        illuminate.enable = true;
         smartcolumn = {
           enable = true;
           columnAt.languages = {

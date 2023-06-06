@@ -457,6 +457,11 @@
       flake = false;
     };
 
+    vim-illuminate = {
+      url = "github:RRethy/vim-illuminate";
+      flake = false;
+    };
+
     # Assistant
     copilot-lua = {
       url = "github:zbirenbaum/copilot.lua";

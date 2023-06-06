@@ -5,5 +5,6 @@ _: {
     ./notifications
     ./smartcolumn
     ./colorizer
+    ./illuminate
   ];
 }

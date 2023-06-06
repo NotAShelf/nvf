@@ -82,6 +82,7 @@ with lib; let
     "elixir-ls"
     "elixir-tools"
     "nvim-colorizer-lua"
+    "vim-illuminate"
   ];
   # You can either use the name of the plugin or a package.
   pluginsType = with types;
