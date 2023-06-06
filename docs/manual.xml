@@ -16,12 +16,12 @@
 
   </para>
  </preface>
- <xi:include href="try-it-out.xml"/>
- <xi:include href="default-configs.xml"/>
- <xi:include href="custom-configs.xml"/>
- <xi:include href="custom-plugins.xml"/>
- <xi:include href="home-manager.xml"/>
- <xi:include href="languages.xml"/>
+ <xi:include href="manual/try-it-out.xml"/>
+ <xi:include href="manual/default-configs.xml"/>
+ <xi:include href="manual/custom-configs.xml"/>
+ <xi:include href="manual/custom-plugins.xml"/>
+ <xi:include href="manual/home-manager.xml"/>
+ <xi:include href="manual/languages.xml"/>
  <appendix xml:id="ch-options">
   <title>Configuration Options</title>
   <xi:include href="./nmd-result/neovim-flake-options.xml" />

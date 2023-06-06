@@ -55,3 +55,7 @@ https://github.com/notashelf[notashelf]:
 * `vim.utility.colorizer` has been renamed to `vim.utility.ccc` after the plugin it uses
 
 * Color preview via `nvim-colorizer.lua`
+
+* Updated Lualine statusline UI
+
+* Cleaned up documentation

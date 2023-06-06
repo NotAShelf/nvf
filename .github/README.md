@@ -41,10 +41,10 @@
 <div align="center"><p>
 
 **[<kbd> <br> Get Started <br> </kbd>][Get Started]**
-**[<kbd> <br> Documentation <br> </kbd>][Documentation]** 
-**[<kbd> <br> Help <br> </kbd>][Help]** 
-**[<kbd> <br> Contribute <br> </kbd>][Contribute]** 
-**[<kbd> <br> FAQ <br> </kbd>][Faq]** 
+**[<kbd> <br> Documentation <br> </kbd>][Documentation]**
+**[<kbd> <br> Help <br> </kbd>][Help]**
+**[<kbd> <br> Contribute <br> </kbd>][Contribute]**
+**[<kbd> <br> FAQ <br> </kbd>][Faq]**
 **[<kbd> <br> Credits <br> </kbd>][Credits]**
 
 </p></div>
@@ -78,7 +78,7 @@ nix run github:notashelf/neovim-flake#tidal
 
 Similar instructions will apply for `nix profile install`.
 
-P.S. The `maximal` configuration is *massive* and will take a while to build. To get a feel for the configuration, use the default `nix` or `tidal` configurations.
+P.S. The `maximal` configuration is _massive_ and will take a while to build. To get a feel for the configuration, use the default `nix` or `tidal` configurations.
 
 ## Documentation
 
@@ -103,8 +103,8 @@ I am always looking for new ways to help improve this flake. If you would like t
 ## Philosophy
 
 The philosophy behind this flake configuration is to create an easily configurable and reproducible Neovim environment. While it does sacrifice in size
-(which I know some users will find *disagreeable*), it offers a lot of flexibility and customizability in exchange for the large size of the flake inputs.
-The KISS (Keep it simple, stupid) principle has been abandoned here, however, you *can* ultimately leverage the flexibility of this flake to declare a configuration that follows KISS principles, it is very easy to bring your own plugins and configurations from non-nix. What this flake is meant to be does eventually fall into your hands. Whether you are a developer, writer, or live coder (see tidal cycles below!), you can quickly craft a config that suits every project's need. Think of it like a distribution of Neovim that takes advantage of pinning vim plugins and
+(which I know some users will find _disagreeable_), it offers a lot of flexibility and customizability in exchange for the large size of the flake inputs.
+The KISS (Keep it simple, stupid) principle has been abandoned here, however, you _can_ ultimately leverage the flexibility of this flake to declare a configuration that follows KISS principles, it is very easy to bring your own plugins and configurations from non-nix. What this flake is meant to be does eventually fall into your hands. Whether you are a developer, writer, or live coder, you can quickly craft a config that suits every project's need. Think of it like a distribution of Neovim that takes advantage of pinning vim plugins and
 third party dependencies (such as tree-sitter grammars, language servers, and more).
 
 One should never get a broken config when setting options. If setting multiple options results in a broken Neovim, file an issue! Each plugin knows when another plugin which allows for smart configuration of keybindings and automatic setup of things like completion sources and languages.
@@ -128,9 +128,9 @@ instead of the `maximal` output. This will reduce size by a lot, but you will lo
 **A**: No. If you feel the need to ask that question, then you have missed the whole point of using nix and ultimately this flake. The whole reason we use nix is to be able to handle EVERYTHING declaratively, well including the LSP and plugin installations.
 <br/><br/>
 
-**Q**: Can you add *X*?
+**Q**: Can you add _X_?
 <br/>
-**A**: Maybe. Open an issue using the appropriate template and I will consider it. I do not intend to add *every plugin that is in existence*, but I will consider it, should it offer something useful to the flake.
+**A**: Maybe. Open an issue using the appropriate template and I will consider it. I do not intend to add _every plugin that is in existence_, but I will consider it, should it offer something useful to the flake.
 
 ## Credits
 
@@ -149,9 +149,9 @@ and everyone who has submitted issues or pull requests!
 
 This configuration borrows from and is based on a few other configurations, including:
 
+- [@jordanisaacs's](https://github.com/jordanisaacs) [neovim-flake](https://github.com/jordanisaacs/neovim-flake)
 - [@sioodmy's](https://github.com/sioodmy) [dotfiles](https://github.com/sioodmy/dotfiles)
 - [@wiltaylor's](https://github.com/wiltaylor) [neovim-flake](https://github.com/wiltaylor/neovim-flake)
-- [@jordanisaacs's](https://github.com/jordanisaacs) [neovim-flake](https://github.com/jordanisaacs/neovim-flake)
 - [@gvolpe's](https://github.com/gvolpe) [neovim-flake](https://github.com/gvolpe/neovim-flake)
 
 I am grateful for their previous work and inspiration.
