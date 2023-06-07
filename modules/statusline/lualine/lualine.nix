@@ -225,7 +225,7 @@ in {
               'searchcount',
               maxcount = 999,
               timeout = 120,
-
+              color = {bg='${colorPuccin}', fg='lavender'}
             },
             {
               "branch",
