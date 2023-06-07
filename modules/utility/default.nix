@@ -9,5 +9,6 @@ _: {
     ./telescope
     ./diffview
     ./wakatime
+    ./surround
   ];
 }

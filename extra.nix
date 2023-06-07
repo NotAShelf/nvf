@@ -155,6 +155,7 @@ inputs: let
         ccc.enable = isMaximal;
         vim-wakatime.enable = isMaximal;
         icon-picker.enable = isMaximal;
+        surround.enable = isMaximal;
         diffview-nvim.enable = true;
         motion = {
           hop.enable = true;
@@ -179,7 +180,7 @@ inputs: let
       vim.ui = {
         noice.enable = true;
         colorizer.enable = true;
-        modes-nvim.enable = true;
+        modes-nvim.enable = false; # the theme looks terrible with catppuccin
         illuminate.enable = true;
         smartcolumn = {
           enable = true;

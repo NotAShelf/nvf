@@ -419,6 +419,11 @@
       flake = false;
     };
 
+    nvim-surround = {
+      url = "github:kylechui/nvim-surround";
+      flake = false;
+    };
+
     # Note-taking
     obsidian-nvim = {
       url = "github:epwalsh/obsidian.nvim";
