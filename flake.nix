@@ -10,11 +10,8 @@
       systems = [
         "x86_64-linux"
         "aarch64-linux"
-
-        # FIXME: zig compiler - therefore the maximal version - is broken on darwin
-        # see https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/compilers/zig/0.10.nix#L70
-        # "x86_64-darwin"
-        # "aarch64-darwin"
+        "x86_64-darwin"
+        "aarch64-darwin"
       ];
 
       imports = [
