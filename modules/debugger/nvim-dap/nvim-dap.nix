@@ -17,5 +17,27 @@ with lib; {
       description = "List of debuggers to install";
       type = with types; attrsOf string;
     };
+
+    mappings = {
+      continue = mkMappingOption "Contiue" "<leader>dc";
+      restart = mkMappingOption "Restart" "<leader>dR";
+      terminate = mkMappingOption "Terminate" "<leader>dq";
+      runLast = mkMappingOption "Re-run Last Debug Session" "<leader>d.";
+
+      toggleRepl = mkMappingOption "Toggle Repl" "<leader>dr";
+      hover = mkMappingOption "Hover" "<leader>dh";
+      toggleBreakpoint = mkMappingOption "Toggle breakpoint" "<leader>db";
+
+      runToCursor = mkMappingOption "Continue to the current cursor" "<leader>dgc";
+      stepInto = mkMappingOption "Step into function" "<leader>dgi";
+      stepOut = mkMappingOption "Step out of function" "<leader>dgo";
+      stepOver = mkMappingOption "Next step" "<leader>dgj";
+      stepBack = mkMappingOption "Step back" "<leader>dgk";
+
+      goUp = mkMappingOption "Go up stacktrace" "<leader>dvo";
+      goDown = mkMappingOption "Go down stacktrace" "<leader>dvi";
+
+      toggleDapUI = mkMappingOption "Toggle DAP-UI" "<leader>du";
+    };
   };
 }
