@@ -24,8 +24,11 @@ with builtins; let
     clangd = {
       package = pkgs.clang-tools;
       lspConfig = ''
+        local clangd_cap = capabilities
+        -- use same offsetEncoding as null-ls
+        clangd_cap.offsetEncoding = {"utf-16"}
         lspconfig.clangd.setup{
-          capabilities = capabilities;
+          capabilities = clangd_cap;
           on_attach=default_on_attach;
           cmd = {"${cfg.lsp.package}/bin/clangd"};
           ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.opts}"}
