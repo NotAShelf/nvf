@@ -21,6 +21,7 @@ in {
           # TODO customizable keymaps
           nvim-dap = nvim.dag.entryAnywhere ''
             local dap = require("dap")
+            vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "ErrorMsg", linehl = "", numhl = "" })
           '';
         }
         // mapAttrs (_: v: (nvim.dag.entryAfter ["nvim-dap"] v)) cfg.sources;
