@@ -73,6 +73,7 @@ with lib; let
     "diffview-nvim"
     "todo-comments"
     "flutter-tools"
+    "flutter-tools-patched"
     "hop-nvim"
     "leap-nvim"
     "modes-nvim"

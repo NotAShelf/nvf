@@ -1,0 +1,41 @@
+diff --git a/lua/flutter-tools/executable.lua b/lua/flutter-tools/executable.lua
+index 3807a4f..3345760 100644
+--- a/lua/flutter-tools/executable.lua
++++ b/lua/flutter-tools/executable.lua
+@@ -31,12 +31,12 @@ local function _dart_sdk_root(paths)
+   end
+ 
+   if utils.executable("flutter") then
+-    local flutter_path = fn.resolve(fn.exepath("flutter"))
++    local flutter_path = fn.exepath("flutter")
+     local flutter_bin = fn.fnamemodify(flutter_path, ":h")
+     return path.join(flutter_bin, dart_sdk)
+   end
+ 
+-  if utils.executable("dart") then return fn.resolve(fn.exepath("dart")) end
++  if utils.executable("dart") then return fn.exepath("dart") end
+ 
+   return ""
+ end
+@@ -50,10 +50,10 @@ end
+ ---Get paths for flutter and dart based on the binary locations
+ ---@return table<string, string>
+ local function get_default_binaries()
+-  local flutter_bin = fn.resolve(fn.exepath("flutter"))
++  local flutter_bin = fn.exepath("flutter")
+   return {
+     flutter_bin = flutter_bin,
+-    dart_bin = fn.resolve(fn.exepath("dart")),
++    dart_bin = fn.exepath("dart"),
+     flutter_sdk = _flutter_sdk_root(flutter_bin),
+   }
+ end
+@@ -119,7 +119,7 @@ function M.get(callback)
+   end
+ 
+   if config.flutter_path then
+-    local flutter_path = fn.resolve(config.flutter_path)
++    local flutter_path = config.flutter_path
+     _paths = { flutter_bin = flutter_path, flutter_sdk = _flutter_sdk_root(flutter_path) }
+     _paths.dart_sdk = _dart_sdk_root(_paths)
+     _paths.dart_bin = _flutter_sdk_dart_bin(_paths.flutter_sdk)
