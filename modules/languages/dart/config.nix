@@ -55,8 +55,12 @@ in {
             on_attach = default_on_attach;
             flags = lsp_flags,
           },
+          ${optionalString cfg.dap.enable ''
+          debugger = {
+            enabled = true,
+          },
+        ''}
         }
-
       '';
     })
   ]);

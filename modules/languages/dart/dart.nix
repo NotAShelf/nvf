@@ -49,6 +49,14 @@ in {
       };
     };
 
+    dap = {
+      enable = mkOption {
+        description = "Enable Dart DAP support via flutter-tools";
+        type = types.bool;
+        default = config.vim.languages.enableDAP;
+      };
+    };
+
     flutter-tools = {
       enable = mkOption {
         description = "Enable flutter-tools for flutter support";
