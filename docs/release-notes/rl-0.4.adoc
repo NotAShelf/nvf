@@ -35,6 +35,8 @@ https://github.com/horriblename[horriblename]:
 
 * Fixed bug where flutter-tools can't find `dart` LSP
 
+* Added Debug Adapter (DAP) support for clang, rust, go, python and dart.
+
 https://github.com/notashelf[notashelf]:
 
 * Made Copilot's Node package configurable. It is recommended to keep as default, but providing a different NodeJS version is now possible.
