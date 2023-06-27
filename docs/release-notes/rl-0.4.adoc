@@ -1,6 +1,5 @@
 [[sec-release-0.4]]
 == Release 0.4
-
 Following the release of v0.3, I have decided to release v0.4 with a massive new change: customizable keybinds. As of the 0.4 release, keybinds will no longer be hardcoded and instead provided by each module's own keybinds section. The old keybind system (`vim.keybinds = {}`) is now considered deprecated and the new lib functions are recommended to be used for adding keybinds for new plugins, or adding keybinds to existing plugins.
 
 Alongside customizable keybinds, there are a few quality of life updates, such as `lazygit` integration and the new experimental Lua loader of Neovim 0.9 thanks to our awesome contributors who made this update possible during my absence.
@@ -33,6 +32,10 @@ https://github.com/horriblename[horriblename]:
 * Added `toggleterm` integration for `lazygit`.
 
 * Added new option `enableluaLoader` to enable neovim's experimental module loader for faster startup time.
+
+* Fixed bug where flutter-tools can't find `dart` LSP
+
+* Added Debug Adapter (DAP) support for clang, rust, go, python and dart.
 
 https://github.com/notashelf[notashelf]:
 

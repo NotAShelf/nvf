@@ -36,6 +36,35 @@ with builtins; let
       '';
     };
   };
+
+  defaultDebugger = "lldb-vscode";
+  debuggers = {
+    lldb-vscode = {
+      package = pkgs.lldb;
+      dapConfig = ''
+        dap.adapters.lldb = {
+          type = 'executable',
+          command = '${cfg.dap.package}/bin/lldb-vscode',
+          name = 'lldb'
+        }
+        dap.configurations.cpp = {
+          {
+            name = 'Launch',
+            type = 'lldb',
+            request = 'launch',
+            program = function()
+              return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+            end,
+            cwd = "''${workspaceFolder}",
+            stopOnEntry = false,
+            args = {},
+          },
+        }
+
+        dap.configurations.c = dap.configurations.cpp
+      '';
+    };
+  };
 in {
   options.vim.languages.clang = {
     enable = mkEnableOption "C/C++ language support";
@@ -76,6 +105,24 @@ in {
         default = null;
       };
     };
+
+    dap = {
+      enable = mkOption {
+        description = "Enable clang Debug Adapter";
+        type = types.bool;
+        default = config.vim.languages.enableDAP;
+      };
+      debugger = mkOption {
+        description = "clang debugger to use";
+        type = with types; enum (attrNames debuggers);
+        default = defaultDebugger;
+      };
+      package = mkOption {
+        description = "clang debugger package.";
+        type = types.package;
+        default = debuggers.${cfg.dap.debugger}.package;
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -92,6 +139,11 @@ in {
       vim.lsp.lspconfig.enable = true;
 
       vim.lsp.lspconfig.sources.clang-lsp = servers.${cfg.lsp.server}.lspConfig;
+    })
+
+    (mkIf cfg.dap.enable {
+      vim.debugger.nvim-dap.enable = true;
+      vim.debugger.nvim-dap.sources.clang-debugger = debuggers.${cfg.dap.debugger}.dapConfig;
     })
   ]);
 }

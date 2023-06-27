@@ -49,11 +49,29 @@ in {
       };
     };
 
+    dap = {
+      enable = mkOption {
+        description = "Enable Dart DAP support via flutter-tools";
+        type = types.bool;
+        default = config.vim.languages.enableDAP;
+      };
+    };
+
     flutter-tools = {
       enable = mkOption {
         description = "Enable flutter-tools for flutter support";
         type = types.bool;
         default = config.vim.languages.enableLSP;
+      };
+
+      enableNoResolvePatch = mkOption {
+        description = ''
+          Patch flutter-tools so that it doesn't resolve symlinks when detecting flutter path.
+          This is required if you want to use a flutter package built with nix.
+          If you are using a flutter SDK installed from a different source and encounter the error "`dart` missing from PATH", disable this option.
+        '';
+        type = types.bool;
+        default = true;
       };
 
       color = {
