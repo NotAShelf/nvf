@@ -26,7 +26,7 @@
       flake = {
         lib = {
           inherit (import ./lib/stdlib-extended.nix nixpkgs.lib) nvim;
-          inherit (import ./extra.nix inputs) neovimConfiguration;
+          inherit (import ./configuration.nix inputs) neovimConfiguration;
         };
 
         homeManagerModules = {
@@ -348,7 +348,7 @@
     };
 
     fidget-nvim = {
-      url = "github:j-hui/fidget.nvim";
+      url = "github:j-hui/fidget.nvim?ref=legacy";
       flake = false;
     };
 
