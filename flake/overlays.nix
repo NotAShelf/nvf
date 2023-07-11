@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: let
-  inherit (import ../extra.nix inputs) neovimConfiguration mainConfig;
+  inherit (import ../configuration.nix inputs) neovimConfiguration mainConfig;
 
   buildPkg = pkgs: modules:
     (neovimConfiguration {inherit pkgs modules;})
