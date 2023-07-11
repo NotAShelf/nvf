@@ -36,6 +36,17 @@ with builtins; let
         )
       '';
     };
+    prettierd = {
+      package = pkgs.prettierd;
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.prettier.with({
+            command = "${cfg.format.package}/bin/prettierd",
+          })
+        )
+      '';
+    };
   };
 
   # TODO: specify packages
