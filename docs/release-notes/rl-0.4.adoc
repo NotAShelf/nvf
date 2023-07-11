@@ -65,5 +65,7 @@ https://github.com/notashelf[notashelf]:
 
 * Added a module for enabling Neovim's spellchecker
 
+* Replaced prettier with prettierd - the daemonized version of prettier
+
 * Cleaned up documentation
 

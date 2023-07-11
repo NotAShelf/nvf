@@ -23,7 +23,7 @@ with builtins; let
   };
 
   # TODO: specify packages
-  defaultFormat = "prettier";
+  defaultFormat = "prettierd";
   formats = {
     prettier = {
       package = pkgs.nodePackages.prettier;
@@ -32,6 +32,17 @@ with builtins; let
           ls_sources,
           null_ls.builtins.formatting.prettier.with({
             command = "${cfg.format.package}/bin/prettier",
+          })
+        )
+      '';
+    };
+    prettierd = {
+      package = pkgs.prettierd;
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.prettier.with({
+            command = "${cfg.format.package}/bin/prettierd",
           })
         )
       '';
