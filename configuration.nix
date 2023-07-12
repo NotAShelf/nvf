@@ -67,6 +67,7 @@ inputs: let
         python.enable = isMaximal;
         dart.enable = isMaximal;
         elixir.enable = isMaximal;
+        ruby.enable = isMaximal;
       };
 
       vim.visuals = {

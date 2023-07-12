@@ -17,6 +17,7 @@ in {
     ./go.nix
     ./nix.nix
     ./python.nix
+    ./ruby.nix
     ./rust.nix
     ./sql.nix
     ./ts.nix
