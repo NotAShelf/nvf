@@ -6,19 +6,52 @@
 }:
 with lib;
 with builtins; let
-  format-env = pkgs.callPackage ./format_derivation.nix {inherit pkgs;};
+  formatter-env = with pkgs;
+    bundlerEnv {
+      name = "Gem dependencies";
+      inherit ruby_3_2;
+      ruby = ruby_3_2;
+      gemdir = ./.;
+      #gemConfig =
+      #  pkgs.defaultGemConfig
+      #  // {
+      #    nokogiri = attrs: {
+      #      buildFlags = ["--use-system-libraries"]; # "--with-zlib-include=${pkgs.zlib}/include/libxml2"];
+      #};
+      #  };
+    };
 
+  #format-env = pkgs.callPackage ./format-derivation.nix {inherit pkgs;};
   cfg = config.vim.languages.ruby;
 
   defaultServer = "rubyserver";
   servers = {
     rubyserver = {
-      package = pkgs.rubyPackages_3_2.solargraph;
+      package = pkgs.rubyPackages_3_2.solargraph.overrideAttrs (
+        fa: oa: {
+          buildInputs = oa.buildInputs ++ [formatter-env];
+        }
+      );
       lspConfig = ''
         lspconfig.solargraph.setup {
+          capabilities = capabilities,
           on_attach = attach_keymaps,
-          cmd = { "${cfg.lsp.package}/bin/solargraph", "stdio" }
+          --cmd = { "${pkgs.ruby_3_2}/bin/bundle exec solargraph", "stdio" }
+          cmd = { "${cfg.lsp.package}/bin/solargraph", "stdio" },
+            settings = {
+              solargraph = {
+              diagnostics = true,
+              autoformat = true,
+              -- bundlerPath = "${pkgs.ruby_3_2}/bin/bundler",
+              completion = true,
+              formatting = true,
+              logLevel = "debug",
+              references = true,
+              useBundler = false
+            }
+          }
         }
+
       '';
     };
   };
@@ -27,33 +60,33 @@ with builtins; let
   defaultFormat = "rubocop";
   formats = {
     rubocop = {
-      package = format-env;
+      package = pkgs.rubyPackages_3_2.rubocop.overrideAttrs (
+        fa: oa: {
+          buildInputs = oa.buildInputs ++ [formatter-env];
+        }
+      );
       nullConfig = ''
-               lspconfig.rubocop.setup {
-                on_attach = attach_keymaps,
-                 cmd = { "${cfg.format.package}/bin/rubocop", "--lsp", "--require", "${cfg.format.package}/lib/ruby/gems/3.2.0/gems/rubocop-rails-2.20.2/lib/rubocop-rails.rb" }
-               }
-        --       local conditional = function(fn)
-        --         local utils = require("null-ls.utils").make_conditional_utils()
-        --         return fn(utils)
-        --       end
-        --
-        --       table.insert(
-        --         ls_sources,
-        --          conditional(function(utils)
-        --            return utils.root_has_file("Gemfile")
-        --                    and null_ls.builtins.formatting.rubocop.with({
-        --                        command = ",
-        --                     args = vim.list_extend(
-        --                         { "exec", "rubocop" },
-        --                         nls.builtins.formatting.rubocop._opts.args
-        --                       ),
-        --                    })
-        --                    or null_ls.builtins.formatting.rubocop.with({
-        --                      command = "${cfg.format.package}/bin/rubocop",
-        --                 })
-        --          end)
-        --       )
+                lspconfig.rubocop.setup {
+                 on_attach = attach_keymaps,
+                  cmd = { "${cfg.format.package}/bin/rubocop", "--require", "${formatter-env}/lib/ruby/gems/3.2.0/gems/rubocop-rails-2.20.2/lib/rubocop-rails.rb"} --, nls.builtins.formatting.rubocop._opts.args }
+                }
+         --       local conditional = function(fn)
+         --         local utils = require("null-ls.utils").make_conditional_utils()
+         --         return fn(utils)
+         --       end
+         --
+        --        table.insert(
+        --          ls_sources,
+        --                     null_ls.builtins.formatting.rubocop.with({
+        --                         command = "${cfg.format.package}/bin/rubocop",
+        --                      args = { "--require", "${formatter-env}/lib/ruby/gems/3.2.0/gems/rubocop-rails-2.20.2/lib/rubocop-rails.rb"}
+        --                     })
+        --                     )
+         --                    or null_ls.builtins.formatting.rubocop.with({
+         --                      command = "${cfg.format.package}/bin/rubocop",
+         --                 })
+         --          end)
+         --       )
       '';
     };
   };
