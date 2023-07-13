@@ -23,7 +23,7 @@ with builtins; let
   };
 
   # TODO: specify packages
-  defaultFormat = "prettierd";
+  defaultFormat = "prettier";
   formats = {
     prettier = {
       package = pkgs.nodePackages.prettier;
