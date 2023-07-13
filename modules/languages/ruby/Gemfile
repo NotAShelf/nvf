@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+gem "rubocop"
+gem "rubocop-rails"
+gem "rubocop-rspec"     
+gem "rubocop-minitest"
+gem "rubocop-sequel"
+gem "rubocop-rake"
+gem "rubocop-graphql"
+gem "rubocop-capybara"
+gem "rubocop-factory_bot"
+gem "solargraph"
+gem "mini_portile2", "~> 2.8.2"
+# gem "rails"
