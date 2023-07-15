@@ -22,9 +22,10 @@ with builtins; {
 
     client_id = mkOption {
       type = types.str;
-      default = "859194972255989790";
+      default = "79327144129396737";
       description = "Client ID of the application";
     };
+
     auto_update = mkOption {
       type = types.bool;
       default = true;
