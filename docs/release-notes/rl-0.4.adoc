@@ -65,7 +65,9 @@ https://github.com/notashelf[notashelf]:
 
 * Added a module for enabling Neovim's spellchecker
 
-* Replaced prettier with prettierd - the daemonized version of prettier
+* Added prettierd as an alternative formatter to prettier - currently defaults to prettier
+
+* Fixed presence.nvim inheriting the wrong client id
 
 * Cleaned up documentation
 
