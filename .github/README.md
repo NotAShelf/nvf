@@ -1,5 +1,7 @@
-<img align="center" src="../assets/neovim-flake-logo-work.svg" alt="Logo"  width="200">
-<h1 align="center">neovim-flake</h1>
+<div align="center">
+    <img src="../assets/neovim-flake-logo-work.svg" alt="Logo"  width="200">
+</div>
+<h1 align="center">❄️  neovim-flake</h1>
 <div align="center">
 <p>
     <a href="https://github.com/NotAShelf/neovim-flake/releases/latest">
@@ -61,7 +63,7 @@
 
 ## Get Started
 
-### Using `nix`
+### Using `nix` CLI
 
 If you would like to try out the configuration before even thinking about installing it, you can run:
 
@@ -104,17 +106,8 @@ I am always looking for new ways to help improve this flake. If you would like t
 ## Philosophy
 
 The philosophy behind this flake configuration is to create an easily configurable and reproducible Neovim environment. While it does sacrifice in size
-<<<<<<< HEAD
 (which I know some users will find _disagreeable_), it offers a lot of flexibility and customizability in exchange for the large size of the flake inputs.
-The KISS (Keep it simple, stupid) principle has been abandoned here, however, you _can_ ultimately leverage the flexibility of this flake to declare a configuration that follows KISS principles, it is very easy to bring your own plugins and configurations from non-nix. What this flake is meant to be does eventually fall into your hands. Whether you are a developer, writer, or live coder, you can quickly craft a config that suits every project's need. Think of it like a distribution of Neovim that takes advantage of pinning vim plugins and
-||||||| parent of d03998c (docs: use new neovim-flake logo)
-(which I know some users will find *disagreeable*), it offers a lot of flexibility and customizability in exchange for the large size of the flake inputs.
-The KISS (Keep it simple, stupid) principle has been abandoned here, however, you *can* ultimately leverage the flexibility of this flake to declare a configuration that follows KISS principles, it is very easy to bring your own plugins and configurations from non-nix. What this flake is meant to be does eventually fall into your hands. Whether you are a developer, writer, or live coder (see tidal cycles below!), you can quickly craft a config that suits every project's need. Think of it like a distribution of Neovim that takes advantage of pinning vim plugins and
-=======
-(which I know some users will find _disagreeable_), it offers a lot of flexibility and customizability in exchange for the large size of the flake inputs.
-The KISS (Keep it simple, stupid) principle has been abandoned here, however, you _can_ ultimately leverage the flexibility of this flake to declare a configuration that follows KISS principles, it is very easy to bring your own plugins and configurations from non-nix. What this flake is meant to be does eventually fall into your hands. Whether you are a developer, writer, or live coder (see tidal cycles below!), you can quickly craft a config that suits every project's need. Think of it like a distribution of Neovim that takes advantage of pinning vim plugins and
->>>>>>> d03998c (docs: use new neovim-flake logo)
-third party dependencies (such as tree-sitter grammars, language servers, and more).
+The KISS (Keep it simple, stupid) principle has been abandoned here, however, you _can_ ultimately leverage the flexibility of this flake to declare a configuration that follows KISS principles, it is very easy to bring your own plugins and configurations from non-nix. What this flake is meant to be does eventually fall into your hands. Whether you are a developer, writer, or live coder, you can quickly craft a config that suits every project's need. Think of it like a distributionof Neovim that takes advantage of pinning vim plugins and third party dependencies (such as tree-sitter grammars, language servers, and more).
 
 One should never get a broken config when setting options. If setting multiple options results in a broken Neovim, file an issue! Each plugin knows when another plugin which allows for smart configuration of keybindings and automatic setup of things like completion sources and languages.
 
@@ -148,15 +141,11 @@ instead of the `maximal` output. This will reduce size by a lot, but you will lo
 Special thanks to
 
 - [@fufexan](https://github.com/fufexan) - For the transition to flake-parts
-<<<<<<< HEAD
 - [@FlafyDev](https://github.com/FlafyDev) - For getting the home-manager to work
 - [@n3oney](https://github.com/n3oney) - For making custom keybinds finally possible
 - [@horriblename](https://github.com/horriblename) - For actively implementing planned features and quality of life updates
-||||||| parent of d03998c (docs: use new neovim-flake logo)
-- [@FlafyDev](https://github.com/FlafyDev) - For getting the home-manager to work 
-=======
 - [@FlafyDev](https://github.com/FlafyDev) - For getting the home-manager to work
->>>>>>> d03998c (docs: use new neovim-flake logo)
+- [@Yavko](https://github.com/Yavko) - For the amazing neovim-flake logo
 
 and everyone who has submitted issues or pull requests!
 
