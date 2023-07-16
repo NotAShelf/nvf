@@ -12,11 +12,7 @@ in {
     enable = mkEnableOption "Rust language support";
 
     treesitter = {
-      enable = mkOption {
-        description = "Enable Rust treesitter";
-        type = types.bool;
-        default = config.vim.languages.enableTreesitter;
-      };
+      enable = mkEnableOption "Enable Rust treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = nvim.types.mkGrammarOption pkgs "rust";
     };
 
@@ -30,20 +26,31 @@ in {
     };
 
     lsp = {
-      enable = mkOption {
-        description = "Rust LSP support (rust-analyzer with extra tools)";
-        type = types.bool;
-        default = config.vim.languages.enableLSP;
-      };
+      enable = mkEnableOption "Rust LSP support (rust-analyzer with extra tools)" // {default = config.vim.languages.enableLSP;};
+
       package = mkOption {
         description = "rust-analyzer package";
         type = types.package;
         default = pkgs.rust-analyzer;
       };
+
       opts = mkOption {
         description = "Options to pass to rust analyzer";
         type = types.str;
         default = "";
+      };
+    };
+
+    dap = {
+      enable = mkOption {
+        description = "Rust Debug Adapter support";
+        type = types.bool;
+        default = config.vim.languages.enableDAP;
+      };
+      package = mkOption {
+        description = "lldb pacakge";
+        type = types.package;
+        default = pkgs.lldb;
       };
     };
   };
@@ -68,8 +75,8 @@ in {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.package];
     })
-    (mkIf cfg.lsp.enable {
-      vim.startPlugins = ["rust-tools"];
+    (mkIf (cfg.lsp.enable || cfg.dap.enable) {
+      vim.startPlugins = ["rust-tools"] ++ optionals cfg.dap.enable [cfg.dap.package];
 
       vim.lsp.lspconfig.enable = true;
       vim.lsp.lspconfig.sources.rust-lsp = ''
@@ -84,6 +91,21 @@ in {
           vim.keymap.set("n", "<leader>rm", rt.expand_macro.expand_macro, opts)
           vim.keymap.set("n", "<leader>rc", rt.open_cargo_toml.open_cargo_toml, opts)
           vim.keymap.set("n", "<leader>rg", function() rt.crate_graph.view_crate_graph("x11", nil) end, opts)
+          ${optionalString cfg.dap.enable ''
+          vim.keymap.set("n", "<leader>rd", ":RustDebuggables<cr>", opts)
+          vim.keymap.set(
+            "n", "${config.vim.debugger.nvim-dap.mappings.continue}",
+            function()
+              local dap = require("dap")
+              if dap.status() == "" then
+                vim.cmd "RustDebuggables"
+              else
+                dap.continue()
+              end
+            end,
+            opts
+          )
+        ''}
         end
         local rustopts = {
           tools = {
@@ -100,7 +122,17 @@ in {
             settings = {
               ${cfg.lsp.opts}
             }
-          }
+          },
+
+          ${optionalString cfg.dap.enable ''
+          dap = {
+            adapter = {
+              type = "executable",
+              command = "${cfg.dap.package}/bin/lldb-vscode",
+              name = "rt_lldb",
+            },
+          },
+        ''}
         }
         rt.setup(rustopts)
       '';

@@ -8,13 +8,13 @@ packages: inputs: {
 }:
 with lib; let
   cfg = config.programs.neovim-flake;
-  inherit (import ../../extra.nix inputs) neovimConfiguration;
+  inherit (import ../../configuration.nix inputs) neovimConfiguration;
   set = neovimConfiguration {
     inherit pkgs;
     modules = [cfg.settings];
   };
 in {
-  meta.maintainers = [maintainers.notashelf];
+  meta.maintainers = with maintainers; [NotAShelf];
 
   options.programs.neovim-flake = {
     enable = mkEnableOption "A NeoVim IDE with a focus on configurability and extensibility.";

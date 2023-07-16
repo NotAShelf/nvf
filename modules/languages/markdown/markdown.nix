@@ -9,7 +9,7 @@ with builtins; let
   cfg = config.vim.languages.markdown;
 in {
   options.vim.languages.markdown = {
-    enable = mkEnableOption "Markdown language support";
+    enable = mkEnableOption "Markdown markup language support";
 
     glow.enable = mkOption {
       type = types.bool;

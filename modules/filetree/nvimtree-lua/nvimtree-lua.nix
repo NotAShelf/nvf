@@ -1,16 +1,34 @@
 {
   pkgs,
-  config,
   lib,
   ...
 }:
 with lib;
 with builtins; {
   options.vim.filetree.nvimTreeLua = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Enable nvim-tree-lua";
+    enable = mkEnableOption "filetree via nvim-tree-lua" // {default = false;};
+
+    mappings = {
+      toggle = mkOption {
+        type = types.nullOr types.str;
+        default = "<C-n>";
+        description = "Toggle NvimTree";
+      };
+      refresh = mkOption {
+        type = types.nullOr types.str;
+        default = "<leader>tr";
+        description = "Refresh NvimTree";
+      };
+      findFile = mkOption {
+        type = types.nullOr types.str;
+        default = "<leader>tg";
+        description = "Find file in NvimTree";
+      };
+      focus = mkOption {
+        type = types.nullOr types.str;
+        default = "<leader>tf";
+        description = "Focus NvimTree";
+      };
     };
 
     sortBy = mkOption {
@@ -159,6 +177,11 @@ with builtins; {
         default = 35;
         description = "Width of the tree in charecters";
         type = types.int;
+      };
+      cursorline = mkOption {
+        default = false;
+        description = "Whether to display the cursor line in NvimTree";
+        type = types.bool;
       };
     };
 

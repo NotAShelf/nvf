@@ -39,6 +39,13 @@ inputs: let
         lspSignature.enable = true;
       };
 
+      vim.debugger = {
+        nvim-dap = {
+          enable = true;
+          ui.enable = true;
+        };
+      };
+
       vim.languages = {
         enableLSP = true;
         enableFormat = true;
@@ -54,6 +61,7 @@ inputs: let
           crates.enable = true;
         };
         ts.enable = isMaximal;
+        svelte.enable = isMaximal;
         go.enable = isMaximal;
         zig.enable = isMaximal;
         python.enable = isMaximal;
@@ -108,6 +116,7 @@ inputs: let
           };
           view = {
             width = 25;
+            cursorline = false;
           };
         };
       };
@@ -133,12 +142,12 @@ inputs: let
 
       vim.minimap = {
         minimap-vim.enable = false;
-        codewindow.enable = true; # lighter, faster, and uses lua for configuration
+        codewindow.enable = isMaximal; # lighter, faster, and uses lua for configuration
       };
 
       vim.dashboard = {
         dashboard-nvim.enable = false;
-        alpha.enable = true;
+        alpha.enable = isMaximal;
       };
 
       vim.notify = {
@@ -150,8 +159,10 @@ inputs: let
       };
 
       vim.utility = {
-        colorizer.enable = true;
-        icon-picker.enable = true;
+        ccc.enable = isMaximal;
+        vim-wakatime.enable = isMaximal;
+        icon-picker.enable = isMaximal;
+        surround.enable = isMaximal;
         diffview-nvim.enable = true;
         motion = {
           hop.enable = true;
@@ -175,16 +186,27 @@ inputs: let
 
       vim.ui = {
         noice.enable = true;
-        smartcolumn.enable = true;
+        colorizer.enable = true;
+        modes-nvim.enable = false; # the theme looks terrible with catppuccin
+        illuminate.enable = true;
+        smartcolumn = {
+          enable = true;
+          columnAt.languages = {
+            # this is a freeform module, it's `buftype = int;` for configuring column position
+            nix = 110;
+            ruby = 120;
+            java = 130;
+            go = [90 130];
+          };
+        };
       };
 
       vim.assistant = {
         copilot.enable = isMaximal;
-        #tabnine.enable = false; # FIXME: this is not working because the plugin depends on an internal script to be ran by the package manager
       };
 
       vim.session = {
-        nvim-session-manager.enable = true;
+        nvim-session-manager.enable = isMaximal;
       };
 
       vim.gestures = {
@@ -202,6 +224,7 @@ inputs: let
           image_text = "The Superior Text Editor";
           client_id = "793271441293967371";
           main_image = "neovim";
+          show_time = true;
           rich_presence = {
             editing_text = "Editing %s";
           };

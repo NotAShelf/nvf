@@ -22,10 +22,12 @@ in {
     ./ts.nix
     ./zig.nix
     ./html.nix
+    ./svelte.nix
   ];
 
   options.vim.languages = {
     enableLSP = mkEnable "LSP";
+    enableDAP = mkEnable "Debug Adapter";
     enableTreesitter = mkEnable "treesitter";
     enableFormat = mkEnable "formatting";
     enableExtraDiagnostics = mkEnable "extra diagnostics";

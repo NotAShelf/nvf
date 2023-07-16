@@ -10,21 +10,51 @@ in {
   config = {
     vim.startPlugins = ["plenary-nvim"];
 
-    vim.nmap = mkIf cfg.disableArrows {
-      "<up>" = "<nop>";
-      "<down>" = "<nop>";
-      "<left>" = "<nop>";
-      "<right>" = "<nop>";
-    };
+    vim.maps.normal =
+      mkIf cfg.disableArrows {
+        "<up>" = {
+          action = "<nop>";
 
-    vim.imap = mkIf cfg.disableArrows {
-      "<up>" = "<nop>";
-      "<down>" = "<nop>";
-      "<left>" = "<nop>";
-      "<right>" = "<nop>";
-    };
+          noremap = false;
+        };
+        "<down>" = {
+          action = "<nop>";
 
-    vim.nnoremap = mkIf cfg.mapLeaderSpace {"<space>" = "<nop>";};
+          noremap = false;
+        };
+        "<left>" = {
+          action = "<nop>";
+          noremap = false;
+        };
+        "<right>" = {
+          action = "<nop>";
+          noremap = false;
+        };
+      }
+      // mkIf cfg.mapLeaderSpace {
+        "<space>" = {
+          action = "<nop>";
+        };
+      };
+
+    vim.maps.insert = mkIf cfg.disableArrows {
+      "<up>" = {
+        action = "<nop>";
+        noremap = false;
+      };
+      "<down>" = {
+        action = "<nop>";
+        noremap = false;
+      };
+      "<left>" = {
+        action = "<nop>";
+        noremap = false;
+      };
+      "<right>" = {
+        action = "<nop>";
+        noremap = false;
+      };
+    };
 
     vim.configRC.basic = nvim.dag.entryAfter ["globalsScript"] ''
       " Debug mode settings
@@ -45,6 +75,8 @@ in {
       set shortmess+=c
       set tm=${toString cfg.mapTimeout}
       set hidden
+      set cursorlineopt=${toString cfg.cursorlineOpt}
+
       ${optionalString cfg.splitBelow ''
         set splitbelow
       ''}
@@ -105,6 +137,10 @@ in {
       ''}
       ${optionalString (!cfg.enableEditorconfig) ''
         let g:editorconfig = v:false
+      ''}
+      ${optionalString (cfg.spellChecking.enable) ''
+        set spell
+        set spelllang=${toString cfg.spellChecking.language}
       ''}
     '';
   };

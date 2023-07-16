@@ -36,18 +36,29 @@ with builtins; let
         )
       '';
     };
+    prettierd = {
+      package = pkgs.prettierd;
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.prettier.with({
+            command = "${cfg.format.package}/bin/prettierd",
+          })
+        )
+      '';
+    };
   };
 
   # TODO: specify packages
-  defaultDiagnostics = ["eslint"];
+  defaultDiagnostics = ["eslint_d"];
   diagnostics = {
-    eslint = {
-      package = pkgs.nodePackages.eslint;
+    eslint_d = {
+      package = pkgs.nodePackages.eslint_d;
       nullConfig = pkg: ''
         table.insert(
           ls_sources,
-          null_ls.builtins.diagnostics.eslint.with({
-            command = "${pkg}/bin/eslint",
+          null_ls.builtins.diagnostics.eslint_d.with({
+            command = "${lib.getExe pkg}",
           })
         )
       '';
@@ -58,26 +69,20 @@ in {
     enable = mkEnableOption "Typescript/Javascript language support";
 
     treesitter = {
-      enable = mkOption {
-        description = "Enable Typescript/Javascript treesitter";
-        type = types.bool;
-        default = config.vim.languages.enableTreesitter;
-      };
+      enable = mkEnableOption "Enable Typescript/Javascript treesitter" // {default = config.vim.languages.enableTreesitter;};
       tsPackage = nvim.types.mkGrammarOption pkgs "tsx";
       jsPackage = nvim.types.mkGrammarOption pkgs "javascript";
     };
 
     lsp = {
-      enable = mkOption {
-        description = "Enable Typescript/Javascript LSP support";
-        type = types.bool;
-        default = config.vim.languages.enableLSP;
-      };
+      enable = mkEnableOption "Enable Typescript/Javascript LSP support" // {default = config.vim.languages.enableLSP;};
+
       server = mkOption {
         description = "Typescript/Javascript LSP server to use";
         type = with types; enum (attrNames servers);
         default = defaultServer;
       };
+
       package = mkOption {
         description = "Typescript/Javascript LSP server package";
         type = types.package;
@@ -86,16 +91,14 @@ in {
     };
 
     format = {
-      enable = mkOption {
-        description = "Enable Typescript/Javascript formatting";
-        type = types.bool;
-        default = config.vim.languages.enableFormat;
-      };
+      enable = mkEnableOption "Enable Typescript/Javascript formatting" // {default = config.vim.languages.enableFormat;};
+
       type = mkOption {
         description = "Typescript/Javascript formatter to use";
         type = with types; enum (attrNames formats);
         default = defaultFormat;
       };
+
       package = mkOption {
         description = "Typescript/Javascript formatter package";
         type = types.package;
@@ -104,11 +107,8 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkOption {
-        description = "Enable extra Typescript/Javascript diagnostics";
-        type = types.bool;
-        default = config.vim.languages.enableExtraDiagnostics;
-      };
+      enable = mkEnableOption "Enable extra Typescript/Javascript diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+
       types = lib.nvim.types.diagnostics {
         langDesc = "Typescript/Javascript";
         inherit diagnostics;

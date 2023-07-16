@@ -6,7 +6,30 @@
 with lib;
 with builtins; {
   options.vim.session.nvim-session-manager = {
-    enable = mkEnableOption "Enable nvim-session-manager";
+    enable = mkEnableOption "nvim-session-manager: manage sessions like folders in VSCode";
+
+    mappings = {
+      loadSession = mkOption {
+        type = types.nullOr types.str;
+        description = "Load session";
+        default = "<leader>sl";
+      };
+      deleteSession = mkOption {
+        type = types.nullOr types.str;
+        description = "Delete session";
+        default = "<leader>sd";
+      };
+      saveCurrentSession = mkOption {
+        type = types.nullOr types.str;
+        description = "Save current session";
+        default = "<leader>sc";
+      };
+      loadLastSession = mkOption {
+        type = types.nullOr types.str;
+        description = "Load last session";
+        default = "<leader>slt";
+      };
+    };
 
     usePicker = mkOption {
       type = types.bool;

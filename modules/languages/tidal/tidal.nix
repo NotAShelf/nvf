@@ -6,7 +6,7 @@
 with lib;
 with builtins; {
   options.vim.tidal = {
-    enable = mkEnableOption "Enable tidalcycles tools and plugins";
+    enable = mkEnableOption "tidalcycles tools and plugins";
 
     flash = mkOption {
       description = ''When sending a paragraph or a single line, vim-tidal will "flash" the selection for some milliseconds'';

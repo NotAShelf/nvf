@@ -25,13 +25,13 @@ inputs: {
       // extraSpecialArgs;
   };
 
-  buildPlug = name:
-    buildVimPluginFrom2Nix rec {
-      pname = name;
-      version = "master";
-      src = assert lib.asserts.assertMsg (name != "nvim-treesitter") "Use buildTreesitterPlug for building nvim-treesitter.";
-        getAttr pname inputs;
-    };
+  buildPlug = {pname, ...} @ args:
+    assert lib.asserts.assertMsg (pname != "nvim-treesitter") "Use buildTreesitterPlug for building nvim-treesitter.";
+      buildVimPluginFrom2Nix (args
+        // {
+          version = "master";
+          src = getAttr pname inputs;
+        });
 
   buildTreesitterPlug = grammars: vimPlugins.nvim-treesitter.withPlugins (_: grammars);
 
@@ -45,7 +45,13 @@ inputs: {
         (
           if (plug == "nvim-treesitter")
           then (buildTreesitterPlug vimOptions.treesitter.grammars)
-          else (buildPlug plug)
+          else if (plug == "flutter-tools-patched")
+          then
+            (buildPlug {
+              pname = "flutter-tools";
+              patches = [../patches/flutter-tools.patch];
+            })
+          else (buildPlug {pname = plug;})
         )
       else plug
     ))
@@ -66,6 +72,7 @@ inputs: {
     };
   };
 in {
+  imports = [./assertions.nix];
   inherit (module) options config;
   inherit (module._module.args) pkgs;
   inherit neovim;

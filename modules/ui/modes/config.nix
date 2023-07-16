@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   lib,
   ...
@@ -14,7 +13,18 @@ in {
     ];
 
     vim.luaConfigRC.modes-nvim = nvim.dag.entryAnywhere ''
-      require('modes').setup()
+      require('modes').setup({
+        set_cursorline = ${boolToString cfg.setCursorline},
+        line_opacity = {
+          visual = 0,
+        },
+        colors = {
+          copy = "${toString cfg.colors.copy}",
+          delete = "${toString cfg.colors.delete}",
+          insert = "${toString cfg.colors.insert}",
+          visual = "${toString cfg.colors.visual}",
+        },
+      })
     '';
   };
 }

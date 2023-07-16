@@ -96,11 +96,8 @@ in {
     };
 
     lsp = {
-      enable = mkOption {
-        description = "Enable Nix LSP support";
-        type = types.bool;
-        default = config.vim.languages.enableLSP;
-      };
+      enable = mkEnableOption "Enable Nix LSP support" // {default = config.vim.languages.enableLSP;};
+
       server = mkOption {
         description = "Nix LSP server to use";
         type = types.str;
@@ -114,11 +111,8 @@ in {
     };
 
     format = {
-      enable = mkOption {
-        description = "Enable Nix formatting";
-        type = types.bool;
-        default = config.vim.languages.enableFormat;
-      };
+      enable = mkEnableOption "Enable Nix formatting" // {default = config.vim.languages.enableFormat;};
+
       type = mkOption {
         description = "Nix formatter to use";
         type = with types; enum (attrNames formats);

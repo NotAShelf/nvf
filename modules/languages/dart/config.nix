@@ -35,7 +35,10 @@ in {
     })
 
     (mkIf (ftcfg.enable) {
-      vim.startPlugins = ["flutter-tools"];
+      vim.startPlugins =
+        if ftcfg.enableNoResolvePatch
+        then ["flutter-tools-patched"]
+        else ["flutter-tools"];
 
       vim.luaConfigRC.flutter-tools = nvim.dag.entryAnywhere ''
         require('flutter-tools').setup {
@@ -52,8 +55,12 @@ in {
             on_attach = default_on_attach;
             flags = lsp_flags,
           },
+          ${optionalString cfg.dap.enable ''
+          debugger = {
+            enabled = true,
+          },
+        ''}
         }
-
       '';
     })
   ]);

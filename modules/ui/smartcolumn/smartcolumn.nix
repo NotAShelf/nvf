@@ -1,19 +1,8 @@
-{
-  config,
-  lib,
-  ...
-}:
+{lib, ...}:
 with lib;
-with builtins; let
-  languageOpts = {
-    columnAt = mkOption {
-      type = types.nullOr types.int;
-      default = 80;
-    };
-  };
-in {
+with builtins; {
   options.vim.ui.smartcolumn = {
-    enable = mkEnableOption "Enable smartcolumn line length indicator";
+    enable = mkEnableOption "line length indicator";
 
     showColumnAt = mkOption {
       type = types.nullOr types.int;
@@ -27,15 +16,23 @@ in {
       description = "The filetypes smartcolumn will be disabled for.";
     };
 
-    /*
-    languages = mkOption {
-      default = {};
-      description = "Language specific configuration.";
-      type = with types;
-        attrsOf (submodule {
-          options = languageOpts;
-        });
+    columnAt = {
+      languages = lib.mkOption {
+        description = "The position at which smart column should be displayed for each individual buffer type";
+        type = lib.types.submodule {
+          freeformType = with lib.types; attrsOf (either int (listOf int));
+        };
+
+        example = lib.literalExpression ''
+          vim.ui.smartcolumn.columnAt.languages = {
+            nix = 110;
+            ruby = 120;
+            java = 130;
+            go = [90 130];
+          };
+
+        '';
+      };
     };
-    */
   };
 }

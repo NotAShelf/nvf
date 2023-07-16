@@ -10,11 +10,8 @@
       systems = [
         "x86_64-linux"
         "aarch64-linux"
-
-        # FIXME: zig compiler - therefore the maximal version - is broken on darwin
-        # see https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/compilers/zig/0.10.nix#L70
-        # "x86_64-darwin"
-        # "aarch64-darwin"
+        "x86_64-darwin"
+        "aarch64-darwin"
       ];
 
       imports = [
@@ -29,7 +26,7 @@
       flake = {
         lib = {
           inherit (import ./lib/stdlib-extended.nix nixpkgs.lib) nvim;
-          inherit (import ./extra.nix inputs) neovimConfiguration;
+          inherit (import ./configuration.nix inputs) neovimConfiguration;
         };
 
         homeManagerModules = {
@@ -49,6 +46,7 @@
         ...
       }: {
         devShells.default = pkgs.mkShell {nativeBuildInputs = [config.packages.nix];};
+        formatter = pkgs.alejandra;
       };
     };
 
@@ -162,6 +160,17 @@
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
+    };
+
+    # Debuggers
+    nvim-dap = {
+      url = "github:mfussenegger/nvim-dap";
+      flake = false;
+    };
+
+    nvim-dap-ui = {
+      url = "github:rcarriga/nvim-dap-ui";
+      flake = false;
     };
 
     # Filetrees
@@ -330,7 +339,7 @@
       flake = false;
     };
     nvim-web-devicons = {
-      url = "github:kyazdani42/nvim-web-devicons";
+      url = "github:nvim-tree/nvim-web-devicons";
       flake = false;
     };
     gitsigns-nvim = {
@@ -339,7 +348,7 @@
     };
 
     fidget-nvim = {
-      url = "github:j-hui/fidget.nvim";
+      url = "github:j-hui/fidget.nvim?ref=legacy";
       flake = false;
     };
 
@@ -373,7 +382,7 @@
     };
 
     # Utilities
-    colorizer = {
+    ccc = {
       url = "github:uga-rosa/ccc.nvim";
       flake = false;
     };
@@ -418,6 +427,11 @@
       flake = false;
     };
 
+    nvim-surround = {
+      url = "github:kylechui/nvim-surround";
+      flake = false;
+    };
+
     # Note-taking
     obsidian-nvim = {
       url = "github:epwalsh/obsidian.nvim";
@@ -448,6 +462,16 @@
 
     modes-nvim = {
       url = "github:mvllow/modes.nvim";
+      flake = false;
+    };
+
+    nvim-colorizer-lua = {
+      url = "github:norcalli/nvim-colorizer.lua";
+      flake = false;
+    };
+
+    vim-illuminate = {
+      url = "github:RRethy/vim-illuminate";
       flake = false;
     };
 

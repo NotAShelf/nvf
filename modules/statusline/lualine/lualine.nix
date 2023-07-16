@@ -6,16 +6,16 @@
 with lib;
 with builtins; let
   supported_themes = import ./supported_themes.nix;
+  colorPuccin =
+    if config.vim.statusline.lualine.theme == "catppuccin"
+    then "#181825"
+    else "none";
 in {
   options.vim.statusline.lualine = {
-    enable = mkEnableOption "lualine";
+    enable = mkEnableOption "lualine statusline plugin";
 
     icons = {
-      enable = mkOption {
-        type = types.bool;
-        description = "Enable icons for lualine";
-        default = true;
-      };
+      enable = mkEnableOption "icons for lualine" // {default = true;};
     };
 
     refresh = {
@@ -123,8 +123,10 @@ in {
           {
             {
               "mode",
+              icons_enabled = true,
               separator = {
                 left = '▎',
+                right = ''
               },
             },
           }
@@ -141,11 +143,11 @@ in {
               colored = true,
               icon_only = true,
               icon = { align = 'left' },
-              color = {bg='none', fg='lavender'},
+              color = {bg='${colorPuccin}', fg='lavender'},
             },
             {
               "filename",
-              color = {bg='none'},
+              color = {bg='${colorPuccin}'},
               symbols = {modified = '', readonly = ''},
             },
           }
@@ -168,7 +170,7 @@ in {
               },
               symbols = {added = '+', modified = '~', removed = '-'}, -- Changes the diff symbols
               color = {
-                bg='none',
+                bg='${colorPuccin}',
                 fg='lavender'
               },
             },
@@ -182,9 +184,33 @@ in {
         default = ''
           {
             {
+              -- Lsp server name .
+              function()
+                local msg = 'No Active Lsp'
+                local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+                local clients = vim.lsp.get_active_clients()
+                if next(clients) == nil then
+                  return msg
+                end
+                for _, client in ipairs(clients) do
+                  local filetypes = client.config.filetypes
+                  if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                    return client.name
+                  end
+                end
+                return msg
+              end,
+              icon = ' ',
+            },
+            {
               "diagnostics",
               sources = {'nvim_lsp', 'nvim_diagnostic', 'coc'},
-              symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '}
+              symbols = {error = '󰅙  ', warn = '  ', info = '  ', hint = '󰌵 '},
+              diagnostics_color = {
+                color_error = { fg = 'red' },
+                color_warn = { fg = 'yellow' },
+                color_info = { fg = 'cyan' },
+              },
             },
           }
         '';
@@ -196,13 +222,15 @@ in {
         default = ''
           {
             {
-              "fileformat",
-              color = {bg='none', fg='lavender'},
-              symbols = {
-                unix = '', -- e712
-                dos = '',  -- e70f
-                mac = '',  -- e711
-              },
+              'searchcount',
+              maxcount = 999,
+              timeout = 120,
+              color = {bg='${colorPuccin}', fg='lavender'}
+            },
+            {
+              "branch",
+              icon = ' •',
+              color = {bg='${colorPuccin}', fg='lavender'},
             },
           }
         '';
@@ -215,21 +243,21 @@ in {
           {
             {
               "progress",
-              color = {bg='none', fg='lavender'},
+              separator = {
+                left = '',
+              },
             },
             {
               "location",
-              color = {bg='none', fg='lavender'},
             },
             {
-              "branch",
-              icon = ' •',
-              separator = {
-                left = '(',
-                right = ')'
+              "fileformat",
+              color = {fg='black'},
+              symbols = {
+                unix = '', -- e712
+                dos = '',  -- e70f
+                mac = '',  -- e711
               },
-              color = {bg='none', fg='lavender'},
-
             },
           }
         '';

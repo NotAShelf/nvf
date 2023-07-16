@@ -7,16 +7,27 @@ with lib;
 with builtins; {
   options.vim = {
     debugMode = {
-      enable = mkEnableOption "Enable debug mode";
+      enable = mkEnableOption "debug mode";
       level = mkOption {
         type = types.int;
         default = 20;
         description = "Set the debug level";
       };
+
       logFile = mkOption {
         type = types.path;
         default = "/tmp/nvim.log";
         description = "Set the log file";
+      };
+    };
+
+    spellChecking = {
+      enable = mkEnableOption "neovim's built-in spellchecking";
+      language = mkOption {
+        type = types.str;
+        description = "The language to be used for spellchecking";
+        default = "en_US";
+        example = "de";
       };
     };
 
@@ -144,5 +155,13 @@ with builtins; {
       default = true;
       description = "Follow editorconfig rules in current directory";
     };
+
+    cursorlineOpt = mkOption {
+      type = types.enum ["line" "screenline" "number" "both"];
+      default = "line";
+      description = "Highlight the text line of the cursor with CursorLine hl-CursorLine";
+    };
+
+    enableLuaLoader = mkEnableOption "experimental Lua module loader to speed up the start up process";
   };
 }

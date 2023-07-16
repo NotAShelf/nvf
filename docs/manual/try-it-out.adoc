@@ -4,7 +4,7 @@
 [source,console]
 ----
 $ cachix use neovim-flake # Optional: it'll save you CPU resources and time
-$ nix run github:notashelf/neovim-flake
+$ nix run github:notashelf/neovim-flake # will run the default configuration
 ----
 
 

@@ -6,20 +6,25 @@
 with lib;
 with builtins; let
   cfg = config.vim.gestures.gesture-nvim;
+
+  self = import ./gesture-nvim.nix {inherit lib;};
+
+  mappingDefinitions = self.options.vim.gestures.gesture-nvim.mappings;
+  mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
 in {
   config = mkIf cfg.enable {
     vim.startPlugins = ["gesture-nvim"];
 
+    vim.maps.normal = mkMerge [
+      (mkSetLuaBinding mappings.draw "require('gesture').draw")
+      (mkSetLuaBinding mappings.finish "require('gesture').finish")
+      (mkIf (mappings.draw.value == "<RightDrag>") {
+        "<RightMouse>" = {action = "<Nop>";};
+      })
+    ];
+
     vim.luaConfigRC.gesture-nvim = nvim.dag.entryAnywhere ''
       vim.opt.mouse = "a"
-
-      vim.keymap.set("n", "<LeftDrag>", [[<Cmd>lua require("gesture").draw()<CR>]], { silent = true })
-      vim.keymap.set("n", "<LeftRelease>", [[<Cmd>lua require("gesture").finish()<CR>]], { silent = true })
-
-      -- or if you would like to use right click
-      -- vim.keymap.set("n", "<RightMouse>", [[<Nop>]])
-      -- vim.keymap.set("n", "<RightDrag>", [[<Cmd>lua require("gesture").draw()<CR>]], { silent = true })
-      -- vim.keymap.set("n", "<RightRelease>", [[<Cmd>lua require("gesture").finish()<CR>]], { silent = true })
 
       local gesture = require("gesture")
       gesture.register({

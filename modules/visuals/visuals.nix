@@ -12,30 +12,21 @@ in {
 
     nvimWebDevicons.enable = mkEnableOption "dev icons. Required for certain plugins [nvim-web-devicons].";
 
-    scrollBar.enable = mkOption {
-      type = types.bool;
-      description = "Enable scrollbar [scrollbar.nvim]";
-      default = false;
-    };
+    scrollBar.enable = mkEnableOption "Enable scrollbar [scrollbar.nvim]";
 
-    smoothScroll.enable = mkOption {
-      type = types.bool;
-      description = "Enable smooth scrolling [cinnamon-nvim]";
-      default = false;
-    };
+    smoothScroll.enable = mkEnableOption "Enable smooth scrolling [cinnamon-nvim]";
 
-    cellularAutomaton.enable = mkOption {
-      type = types.bool;
-      description = "Enable cellular automaton [cellular-automaton]";
-      default = false;
+    cellularAutomaton = {
+      enable = mkEnableOption "Enable cellular automaton [cellular-automaton]";
+
+      mappings = {
+        makeItRain = mkMappingOption "Make it rain [cellular-automaton]" "<leader>fml";
+      };
     };
 
     fidget-nvim = {
-      enable = mkOption {
-        type = types.bool;
-        description = "Enable nvim LSP UI element [fidget-nvim]";
-        default = false;
-      };
+      enable = mkEnableOption "Enable nvim LSP UI element [fidget-nvim]";
+
       align = {
         bottom = mkOption {
           type = types.bool;
@@ -62,11 +53,7 @@ in {
     };
 
     indentBlankline = {
-      enable = mkOption {
-        type = types.bool;
-        description = "Enable indentation guides [indent-blankline]";
-        default = false;
-      };
+      enable = mkEnableOption "Enable indentation guides [indent-blankline]";
 
       listChar = mkOption {
         type = types.str;

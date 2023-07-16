@@ -68,11 +68,8 @@ in {
     };
 
     treesitter = {
-      enable = mkOption {
-        description = "Enable SQL treesitter";
-        type = types.bool;
-        default = config.vim.languages.enableTreesitter;
-      };
+      enable = mkEnableOption "Enable SQL treesitter" // {default = config.vim.languages.enableTreesitter;};
+
       package = mkOption {
         description = "SQL treesitter grammar to use";
         type = types.package;
@@ -81,16 +78,14 @@ in {
     };
 
     lsp = {
-      enable = mkOption {
-        description = "Enable SQL LSP support";
-        type = types.bool;
-        default = config.vim.languages.enableLSP;
-      };
+      enable = mkEnableOption "Enable SQL LSP support" // {default = config.vim.languages.enableLSP;};
+
       server = mkOption {
         description = "SQL LSP server to use";
         type = with types; enum (attrNames servers);
         default = defaultServer;
       };
+
       package = mkOption {
         description = "SQL LSP server package";
         type = types.package;
@@ -99,16 +94,14 @@ in {
     };
 
     format = {
-      enable = mkOption {
-        description = "Enable SQL formatting";
-        type = types.bool;
-        default = config.vim.languages.enableFormat;
-      };
+      enable = mkEnableOption "Enable SQL formatting" // {default = config.vim.languages.enableFormat;};
+
       type = mkOption {
         description = "SQL formatter to use";
         type = with types; enum (attrNames formats);
         default = defaultFormat;
       };
+
       package = mkOption {
         description = "SQL formatter package";
         type = types.package;
@@ -117,11 +110,8 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkOption {
-        description = "Enable extra SQL diagnostics";
-        type = types.bool;
-        default = config.vim.languages.enableExtraDiagnostics;
-      };
+      enable = mkEnableOption "Enable extra SQL diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+
       types = lib.nvim.types.diagnostics {
         langDesc = "SQL";
         inherit diagnostics;

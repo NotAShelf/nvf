@@ -24,12 +24,44 @@ with builtins; let
     clangd = {
       package = pkgs.clang-tools;
       lspConfig = ''
+        local clangd_cap = capabilities
+        -- use same offsetEncoding as null-ls
+        clangd_cap.offsetEncoding = {"utf-16"}
         lspconfig.clangd.setup{
-          capabilities = capabilities;
+          capabilities = clangd_cap;
           on_attach=default_on_attach;
           cmd = {"${cfg.lsp.package}/bin/clangd"};
           ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.opts}"}
         }
+      '';
+    };
+  };
+
+  defaultDebugger = "lldb-vscode";
+  debuggers = {
+    lldb-vscode = {
+      package = pkgs.lldb;
+      dapConfig = ''
+        dap.adapters.lldb = {
+          type = 'executable',
+          command = '${cfg.dap.package}/bin/lldb-vscode',
+          name = 'lldb'
+        }
+        dap.configurations.cpp = {
+          {
+            name = 'Launch',
+            type = 'lldb',
+            request = 'launch',
+            program = function()
+              return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+            end,
+            cwd = "''${workspaceFolder}",
+            stopOnEntry = false,
+            args = {},
+          },
+        }
+
+        dap.configurations.c = dap.configurations.cpp
       '';
     };
   };
@@ -47,35 +79,48 @@ in {
     };
 
     treesitter = {
-      enable = mkOption {
-        description = "Enable C/C++ treesitter";
-        type = types.bool;
-        default = config.vim.languages.enableTreesitter;
-      };
+      enable = mkEnableOption "C/C++ treesitter" // {default = config.vim.languages.enableTreesitter;};
       cPackage = nvim.types.mkGrammarOption pkgs "c";
       cppPackage = nvim.types.mkGrammarOption pkgs "cpp";
     };
 
     lsp = {
-      enable = mkOption {
-        description = "Enable clang LSP support";
-        type = types.bool;
-        default = config.vim.languages.enableLSP;
-      };
+      enable = mkEnableOption "Enable clang LSP support" // {default = config.vim.languages.enableLSP;};
+
       server = mkOption {
         description = "The clang LSP server to use";
         type = with types; enum (attrNames servers);
         default = defaultServer;
       };
+
       package = mkOption {
         description = "clang LSP server package";
         type = types.package;
         default = servers.${cfg.lsp.server}.package;
       };
+
       opts = mkOption {
         description = "Options to pass to clang LSP server";
         type = with types; nullOr str;
         default = null;
+      };
+    };
+
+    dap = {
+      enable = mkOption {
+        description = "Enable clang Debug Adapter";
+        type = types.bool;
+        default = config.vim.languages.enableDAP;
+      };
+      debugger = mkOption {
+        description = "clang debugger to use";
+        type = with types; enum (attrNames debuggers);
+        default = defaultDebugger;
+      };
+      package = mkOption {
+        description = "clang debugger package.";
+        type = types.package;
+        default = debuggers.${cfg.dap.debugger}.package;
       };
     };
   };
@@ -94,6 +139,11 @@ in {
       vim.lsp.lspconfig.enable = true;
 
       vim.lsp.lspconfig.sources.clang-lsp = servers.${cfg.lsp.server}.lspConfig;
+    })
+
+    (mkIf cfg.dap.enable {
+      vim.debugger.nvim-dap.enable = true;
+      vim.debugger.nvim-dap.sources.clang-debugger = debuggers.${cfg.dap.debugger}.dapConfig;
     })
   ]);
 }

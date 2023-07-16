@@ -50,7 +50,7 @@ with lib; let
     "nvim-notify"
     "cinnamon-nvim"
     "cheatsheet-nvim"
-    "colorizer"
+    "ccc"
     "cellular-automaton"
     "presence-nvim"
     "icon-picker-nvim"
@@ -73,6 +73,7 @@ with lib; let
     "diffview-nvim"
     "todo-comments"
     "flutter-tools"
+    "flutter-tools-patched"
     "hop-nvim"
     "leap-nvim"
     "modes-nvim"
@@ -81,6 +82,11 @@ with lib; let
     "project-nvim"
     "elixir-ls"
     "elixir-tools"
+    "nvim-colorizer-lua"
+    "vim-illuminate"
+    "nvim-surround"
+    "nvim-dap"
+    "nvim-dap-ui"
   ];
   # You can either use the name of the plugin or a package.
   pluginsType = with types;

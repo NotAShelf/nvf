@@ -186,10 +186,10 @@ in {
       		{ type = "padding", val = 1 },
           -- TODO: buttons should be added based on whether or not the relevant plugin is available
       		dashboard.button("e", "  New file", "<cmd>ene<CR>"), -- available all the time
-      		dashboard.button("SPC F", "  Find file"), -- telescope
-      		dashboard.button("SPC ff", "  Live grep"), -- telescope
+      		dashboard.button("SPC F", "󰈞  Find file"), -- telescope
+      		dashboard.button("SPC ff", "󰊄  Live grep"), -- telescope
       		dashboard.button("SPC p", "  Projects"), -- any project
-      		dashboard.button("q", "  Quit", "<cmd>qa<CR>"), -- available all the time
+      		dashboard.button("q", "󰅚  Quit", "<cmd>qa<CR>"), -- available all the time
       	},
       	position = "center",
       }

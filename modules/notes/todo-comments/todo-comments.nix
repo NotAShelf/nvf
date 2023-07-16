@@ -1,12 +1,8 @@
-{
-  config,
-  lib,
-  ...
-}:
+{lib, ...}:
 with lib;
 with builtins; {
   options.vim.notes.todo-comments = {
-    enable = mkEnableOption "Enable todo-comments";
+    enable = mkEnableOption "todo-comments: highlight and search for todo comments like TODO, HACK, BUG in your code base";
 
     patterns = {
       highlight = mkOption {
@@ -20,6 +16,12 @@ with builtins; {
         default = ''[[\b(KEYWORDS)(\([^\)]*\))?:]]'';
         description = "ripgrep regex pattern used for searching comments";
       };
+    };
+
+    mappings = {
+      quickFix = mkMappingOption "Open Todo-s in a quickfix list" "<leader>tdq";
+      telescope = mkMappingOption "Open Todo-s in telescope" "<leader>tds";
+      trouble = mkMappingOption "Open Todo-s in Trouble" "<leader>tdt";
     };
   };
 }

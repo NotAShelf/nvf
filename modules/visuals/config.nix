@@ -52,7 +52,9 @@ in {
               'noice',
               'NvimTree',
               'alpha',
-              'code-action-menu-menu'
+              'code-action-menu-menu',
+              'code-action-menu-warning-message',
+              'notify'
             },
           }
       '';
@@ -67,6 +69,9 @@ in {
 
     (mkIf cfg.cellularAutomaton.enable {
       vim.startPlugins = ["cellular-automaton"];
+
+      vim.maps.normal = mkBinding cfg.cellularAutomaton.mappings.makeItRain "<cmd>CellularAutomaton make_it_rain<CR>" "Make it rain";
+
       vim.luaConfigRC.cellularAUtomaton = nvim.dag.entryAnywhere ''
         local config = {
               fps = 50,
@@ -90,8 +95,6 @@ in {
             end
 
             require("cellular-automaton").register_animation(config)
-
-            vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
       '';
     })
 
@@ -102,7 +105,10 @@ in {
           align = {
             bottom = ${boolToString cfg.fidget-nvim.align.bottom},
             right = ${boolToString cfg.fidget-nvim.align.right},
-          }
+          },
+          window = {
+            blend = 0,
+          },
         }
       '';
     })

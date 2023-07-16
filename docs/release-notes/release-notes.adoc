@@ -9,3 +9,4 @@ This section lists the release notes for tagged version of neovim-flake and curr
 include::rl-0.1.adoc[]
 include::rl-0.2.adoc[]
 include::rl-0.3.adoc[]
+include::rl-0.4.adoc[]

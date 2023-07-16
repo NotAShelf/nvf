@@ -23,8 +23,17 @@ in {
             DEBUG = "${cfg.icons.DEBUG}",
             TRACE = "${cfg.icons.TRACE}",
         },
-
       }
+
+      -- required to fix offset_encoding errors
+      local notify = vim.notify
+      vim.notify = function(msg, ...)
+        if msg:match("warning: multiple different client offset_encodings") then
+          return
+        end
+
+        notify(msg, ...)
+      end
     '';
   };
 }

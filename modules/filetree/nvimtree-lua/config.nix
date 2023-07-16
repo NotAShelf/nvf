@@ -1,30 +1,29 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib;
 with builtins; let
   cfg = config.vim.filetree.nvimTreeLua;
+  self = import ./nvimtree-lua.nix {
+    inherit pkgs;
+    lib = lib;
+  };
+  mappings = self.options.vim.filetree.nvimTreeLua.mappings;
 in {
   config = mkIf cfg.enable {
     vim.startPlugins = ["nvim-tree-lua"];
 
-    # vim.nnoremap = {
-    #   "<C-n>" = ":NvimTreeToggle<CR>";
-    #   "<leader>tr" = ":NvimTreeRefresh<CR>";
-    #   "<leader>tg" = ":NvimTreeFindFile<CR>";
-    #   "<leader>tf" = ":NvimTreeFocus<CR>";
-    # };
+    vim.maps.normal = mkMerge [
+      (mkBinding cfg.mappings.toggle ":NvimTreeToggle<cr>" mappings.toggle.description)
+      (mkBinding cfg.mappings.refresh ":NvimTreeRefresh<cr>" mappings.refresh.description)
+      (mkBinding cfg.mappings.findFile ":NvimTreeFindFile<cr>" mappings.findFile.description)
+      (mkBinding cfg.mappings.focus ":NvimTreeFocus<cr>" mappings.focus.description)
+    ];
 
     vim.luaConfigRC.nvimtreelua = nvim.dag.entryAnywhere ''
-        local opts = { silent = true, noremap = true }
-
-        vim.api.nvim_set_keymap("n", "<C-n>", ":NvimTreeToggle<cr>", opts)
-        vim.api.nvim_set_keymap("n", "<leader>tr", ":NvimTreeRefresh<cr>", opts)
-        vim.api.nvim_set_keymap("n", "<leader>tg", ":NvimTreeFindFile<cr>", opts)
-        vim.api.nvim_set_keymap("n", "<leader>tf", ":NvimTreeFocus<cr>", opts)
-
         local function open_nvim_tree(data)
             local IGNORED_FT = {
                 "markdown",
@@ -80,7 +79,9 @@ in {
           width = ${toString cfg.view.width},
           side = ${"'" + cfg.view.side + "'"},
           adaptive_size = ${boolToString cfg.view.adaptiveSize},
+          cursorline = ${boolToString cfg.view.cursorline}
         },
+
         git = {
           enable = ${boolToString cfg.git.enable},
           ignore = ${boolToString cfg.git.ignore},
