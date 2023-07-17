@@ -1,0 +1,11 @@
+[[sec-release-0.5]]
+== Release 0.5
+
+
+[[sec-release-0.5-changelog]]
+=== Changelog
+
+
+https://github.com/horriblename[horriblename]:
+
+* Add transparency support for tokyonight theme
