@@ -97,7 +97,26 @@ with lib; let
         package
       )
     );
+
+  extraPluginType = with types;
+    submodule {
+      options = {
+        package = mkOption {
+          type = pluginsType;
+        };
+        dependencies = mkOption {
+          type = listOf str;
+          default = [];
+        };
+        setup = mkOption {
+          type = lines;
+          default = "";
+        };
+      };
+    };
 in {
+  inherit extraPluginType;
+
   pluginsOpt = {
     description,
     default ? [],

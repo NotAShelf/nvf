@@ -158,6 +158,11 @@ in {
       description = "List of plugins to optionally load";
     };
 
+    extraPlugins = mkOption {
+      type = types.attrsOf nvim.types.extraPluginType;
+      default = {};
+    };
+
     globals = mkOption {
       default = {};
       description = "Set containing global variable values";
