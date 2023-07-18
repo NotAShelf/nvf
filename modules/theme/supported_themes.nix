@@ -18,6 +18,9 @@
       style ? "night",
       transparent,
     }: ''
+      require('tokyonight').setup {
+        transparent = ${lib.boolToString transparent};
+      }
       vim.cmd[[colorscheme tokyonight-${style}]]
     '';
     styles = ["day" "night" "storm" "moon"];
