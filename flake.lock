@@ -1077,6 +1077,38 @@
         "type": "github"
       }
     },
+    "nvim-navbuddy": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1688569844,
+        "narHash": "sha256-011RT/wnQdBR1vMrXFwxbicBAgdcd4eQYPbok/o3CIE=",
+        "owner": "SmiteshP",
+        "repo": "nvim-navbuddy",
+        "rev": "244a4cded6f2b568403684131d148048efe4e8af",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SmiteshP",
+        "repo": "nvim-navbuddy",
+        "type": "github"
+      }
+    },
+    "nvim-navic": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1689447657,
+        "narHash": "sha256-fcSer6l6oX0qnOcRfNSZImmtkqjdH0WSUkptjaFj0AI=",
+        "owner": "SmiteshP",
+        "repo": "nvim-navic",
+        "rev": "e6da6f74d89de65258ea7e98e22103ff5de6dcf5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SmiteshP",
+        "repo": "nvim-navic",
+        "type": "github"
+      }
+    },
     "nvim-neoclip": {
       "flake": false,
       "locked": {
@@ -1397,6 +1429,8 @@
         "nvim-dap-ui": "nvim-dap-ui",
         "nvim-lightbulb": "nvim-lightbulb",
         "nvim-lspconfig": "nvim-lspconfig",
+        "nvim-navbuddy": "nvim-navbuddy",
+        "nvim-navic": "nvim-navic",
         "nvim-neoclip": "nvim-neoclip",
         "nvim-notify": "nvim-notify",
         "nvim-session-manager": "nvim-session-manager",

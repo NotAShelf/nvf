@@ -54,7 +54,10 @@ inputs: let
 
         nix.enable = true;
         html.enable = isMaximal;
-        clang.enable = isMaximal;
+        clang = {
+          enable = isMaximal;
+          lsp.server = "clangd";
+        };
         sql.enable = isMaximal;
         rust = {
           enable = isMaximal;
@@ -189,6 +192,7 @@ inputs: let
         colorizer.enable = true;
         modes-nvim.enable = false; # the theme looks terrible with catppuccin
         illuminate.enable = true;
+        breadcrumbs.enable = true;
         smartcolumn = {
           enable = true;
           columnAt.languages = {
