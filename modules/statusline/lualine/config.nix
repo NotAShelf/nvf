@@ -49,6 +49,15 @@ in {
           lualine_z = ${cfg.inactiveSection.z},
         },
         tabline = {},
+        winbar = {
+          lualine_c = {
+            {
+                "navic",
+                color_correction = nil,
+                navic_opts = nil
+            }
+          }
+        },
         extensions = {${
         if (config.vim.filetree.nvimTreeLua.enable)
         then "\"nvim-tree\""
