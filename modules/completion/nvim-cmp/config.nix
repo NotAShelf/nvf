@@ -106,7 +106,7 @@ in {
         end
       '')
       (mkSetLuaBinding mappings.close ''
-        require('cmp').mapping.abort
+        require('cmp').mapping.abort()
       '')
       (mkSetLuaBinding mappings.scrollDocsUp ''
         function()
