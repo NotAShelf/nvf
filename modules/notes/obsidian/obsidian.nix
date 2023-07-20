@@ -14,6 +14,19 @@ with builtins; {
         description = "Obsidian vault directory";
       };
 
+      daily-notes = {
+        folder = mkOption {
+          type = types.str;
+          default = "";
+          description = "Directory in which daily notes should be created";
+        };
+        date-format = mkOption {
+          type = types.str;
+          default = "";
+          description = "Date format used for creating daily notes";
+        };
+      };
+
       completion = {
         nvim_cmp = mkOption {
           # if using nvim-cmp, otherwise set to false
