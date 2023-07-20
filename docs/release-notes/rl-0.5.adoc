@@ -8,4 +8,6 @@
 
 https://github.com/horriblename[horriblename]:
 
-* Add transparency support for tokyonight theme
+* Add transparency support for tokyonight theme.
+
+* Fix bug where cmp's close and scrollDocs mappings wasn't working.

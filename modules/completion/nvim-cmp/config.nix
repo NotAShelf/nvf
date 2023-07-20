@@ -106,17 +106,13 @@ in {
         end
       '')
       (mkSetLuaBinding mappings.close ''
-        require('cmp').mapping.abort
+        require('cmp').mapping.abort()
       '')
       (mkSetLuaBinding mappings.scrollDocsUp ''
-        function()
-          require('cmp').mapping.scroll_docs(-4)
-        end
+        require('cmp').mapping.scroll_docs(-4)
       '')
       (mkSetLuaBinding mappings.scrollDocsDown ''
-        function()
-          require('cmp').mapping.scroll_docs(4)
-        end
+        require('cmp').mapping.scroll_docs(4)
       '')
     ];
 
@@ -125,17 +121,13 @@ in {
         require('cmp').complete
       '')
       (mkSetLuaBinding mappings.close ''
-        require('cmp').mapping.close
+        require('cmp').mapping.close()
       '')
       (mkSetLuaBinding mappings.scrollDocsUp ''
-        function()
-          require('cmp').mapping.scroll_docs(-4)
-        end
+        require('cmp').mapping.scroll_docs(-4)
       '')
       (mkSetLuaBinding mappings.scrollDocsDown ''
-        function()
-          require('cmp').mapping.scroll_docs(4)
-        end
+        require('cmp').mapping.scroll_docs(4)
       '')
     ];
 
