@@ -6,6 +6,12 @@
 with lib;
 with builtins; let
   cfg = config.vim.ui.breadcrumbs;
+  nb = cfg.navbuddy;
+
+  nilOrStr = v:
+    if v == null
+    then "nil"
+    else toString v;
 in {
   config = mkIf cfg.enable {
     vim.startPlugins = [
@@ -19,41 +25,52 @@ in {
       local navic = require("nvim-navic")
       local actions = require("nvim-navbuddy.actions")
 
-
+      -- TODO: wrap this in an optional string with navbuddy as the enable condition
       navbuddy.setup {
           window = {
-              border = "single",  -- "rounded", "double", "solid", "none"
-                                  -- or an array with eight chars building up the border in a clockwise fashion
-                                  -- starting with the top-left corner. eg: { "╔", "═" ,"╗", "║", "╝", "═", "╚", "║" }.
-              size = "60%",       -- Or table format example: { height = "40%", width = "100%"}
-              position = "50%",   -- Or table format example: { row = "100%", col = "0%"}
-              scrolloff = nil,    -- scrolloff value within navbuddy window
+              border = "${nb.window.border}",  -- "rounded", "double", "solid", "none"
+              size = "60%",
+              position = "50%",
+              scrolloff = ${(nilOrStr nb.window.scrolloff)},
               sections = {
                   left = {
                       size = "20%",
-                      border = nil, -- You can set border style for each section individually as well.
+                      border = ${(nilOrStr nb.window.sections.left.border)},
                   },
+
                   mid = {
                       size = "40%",
-                      border = nil,
+                      border = ${(nilOrStr nb.window.sections.mid.border)},
                   },
+
                   right = {
-                      -- No size option for right most section. It fills to
-                      -- remaining area.
-                      border = nil,
-                      preview = "leaf",  -- Right section can show previews too.
-                                         -- Options: "leaf", "always" or "never"
+                      border = ${(nilOrStr nb.window.sections.right.border)},
+                      preview = "leaf",
                   }
               },
           },
           node_markers = {
-              enabled = true,
+              enabled = ${boolToString nb.nodeMarkers.enable},
               icons = {
-                  leaf = "  ",
-                  leaf_selected = " → ",
-                  branch = " ",
+                  leaf = "${nb.nodeMarkers.icons.leaf}",
+                  leaf_selected = "${nb.nodeMarkers.icons.leafSelected}",
+                  branch = "${nb.nodeMarkers.icons.branch}",
               },
           },
+
+          lsp = {
+              auto_attach = ${boolToString nb.lsp.autoAttach},
+              preference = nil, -- TODO: convert list to lua table if not null
+          },
+
+          source_buffer = {
+              follow_node = ${boolToString nb.sourceBuffer.followNode},
+              highlight = ${boolToString nb.sourceBuffer.highlight},
+              reorient = "${nb.sourceBuffer.reorient}",
+              scrolloff = ${nilOrStr nb.sourceBuffer.scrolloff}
+          },
+
+          -- TODO: make those configurable
           icons = {
               File          = "󰈙 ",
               Module        = " ",
@@ -82,10 +99,9 @@ in {
               Operator      = "󰆕 ",
               TypeParameter = "󰊄 ",
           },
-          use_default_mappings = true,            -- If set to false, only mappings set
-                                                  -- by user are set. Else default
-                                                  -- mappings are used for keys
-                                                  -- that are not set by user
+
+          -- make those configurable
+          use_default_mappings = true,
           mappings = {
               ["<esc>"] = actions.close(),        -- Close and cursor to original location
               ["q"] = actions.close(),
@@ -135,19 +151,8 @@ in {
               }),
 
               ["g?"] = actions.help(),            -- Open mappings help window
-          },
-          lsp = {
-              auto_attach = true,   -- If set to true, you don't need to manually use attach function
-              preference = nil,      -- list of lsp server names in order of preference
-          },
-          source_buffer = {
-              follow_node = true,    -- Keep the current node in focus on the source buffer
-              highlight = true,      -- Highlight the currently focused node
-              reorient = "smart",    -- "smart", "top", "mid" or "none"
-              scrolloff = nil        -- scrolloff value when navbuddy is open
           }
-      }
-
+        }
     '';
   };
 }
