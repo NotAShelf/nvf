@@ -302,6 +302,7 @@ in {
       result;
   in {
     vim = {
+      startPlugins = concatMap (x: x.package) (attrValues cfg.extraPlugins);
       configRC = {
         globalsScript = nvim.dag.entryAnywhere (concatStringsSep "\n" globalsScript);
 
@@ -318,6 +319,27 @@ in {
           };
         in
           nvim.dag.entryAfter ["globalsScript"] luaConfig;
+
+        extraPluginConfigs = let
+          mkSection = r: ''
+            -- SECTION: ${r.name}
+            ${r.data}
+          '';
+          mapResult = r: (wrapLuaConfig (concatStringsSep "\n" (map mkSection r)));
+          extraPluginsDag = mapAttrs (_: {
+            dependencies,
+            setup,
+            ...
+          }:
+            nvim.dag.entryAfter dependencies setup)
+          cfg.extraPlugins;
+          pluginConfig = resolveDag {
+            name = "extra plugins config";
+            dag = extraPluginsDag;
+            inherit mapResult;
+          };
+        in
+          nvim.dag.entryAfter ["luaScript"] pluginConfig;
 
         # This is probably not the right way to set the config. I'm not sure how it should look like.
         mappings = let
