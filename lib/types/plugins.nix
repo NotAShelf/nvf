@@ -89,20 +89,20 @@ with lib; let
     "nvim-dap-ui"
   ];
   # You can either use the name of the plugin or a package.
-  pluginsType = with types;
-    listOf (
-      nullOr (
-        either
-        (enum availablePlugins)
-        package
-      )
+  pluginType = with types;
+    nullOr (
+      either
+      package
+      (enum availablePlugins)
     );
+
+  pluginsType = types.listOf pluginType;
 
   extraPluginType = with types;
     submodule {
       options = {
         package = mkOption {
-          type = pluginsType;
+          type = pluginType;
         };
         dependencies = mkOption {
           type = listOf str;

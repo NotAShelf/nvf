@@ -302,7 +302,7 @@ in {
       result;
   in {
     vim = {
-      startPlugins = concatMap (x: x.package) (attrValues cfg.extraPlugins);
+      startPlugins = map (x: x.package) (attrValues cfg.extraPlugins);
       configRC = {
         globalsScript = nvim.dag.entryAnywhere (concatStringsSep "\n" globalsScript);
 
