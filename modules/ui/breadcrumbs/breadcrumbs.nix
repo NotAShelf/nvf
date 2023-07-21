@@ -8,6 +8,14 @@ in {
   options.vim.ui.breadcrumbs = {
     enable = lib.mkEnableOption "breadcrumbs";
 
+    # maybe this should be an option to *disable* alwaysRender optionally but oh well
+    # too late
+    alwaysRender = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Whether to always display the breadcrumbs component on winbar (always renders winbar)";
+    };
+
     navbuddy = {
       enable = mkEnableOption "navbuddy LSP UI";
       useDefaultMappings = mkEnableOption "default Navbuddy keybindings (disables user keybinds)";

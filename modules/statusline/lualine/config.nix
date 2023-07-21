@@ -55,7 +55,7 @@ in {
                 "navic",
                 color_correction = nil,
                 navic_opts = nil,
-                draw_empty = true
+                draw_empty = ${toString config.vim.ui.breadcrumbs.alwaysRender}
             }
           }
         },
