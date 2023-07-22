@@ -181,7 +181,7 @@
 
     # Tablines
     nvim-bufferline-lua = {
-      url = "github:akinsho/nvim-bufferline.lua?ref=v3.0.1";
+      url = "github:akinsho/nvim-bufferline.lua";
       flake = false;
     };
 
