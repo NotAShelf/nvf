@@ -39,7 +39,9 @@ in {
     vim.luaConfigRC.lspsage = nvim.dag.entryAnywhere ''
       -- Enable lspsaga
       local saga = require 'lspsaga'
-      saga.init_lsp_saga()
+      saga.init_lsp_saga({
+         border_style = 'single',
+      })
     '';
   };
 }
