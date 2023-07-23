@@ -16,6 +16,11 @@ in {
 
       vim.luaConfigRC.lspconfig = nvim.dag.entryAfter ["lsp-setup"] ''
         local lspconfig = require('lspconfig')
+
+        ${
+          # TODO: make border style configurable
+          optionalString (config.vim.ui.borders.enable) "require('lspconfig.ui.windows').default_options.border = 'single'"
+        }
       '';
     }
     {
