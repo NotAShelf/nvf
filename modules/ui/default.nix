@@ -6,5 +6,6 @@ _: {
     ./smartcolumn
     ./colorizer
     ./illuminate
+    ./borders
   ];
 }
