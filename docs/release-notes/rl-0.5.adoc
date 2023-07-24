@@ -15,3 +15,7 @@ https://github.com/horriblename[horriblename]:
 https://github.com/amanse[amanse]:
 
 * Add daily notes options for obsidian plugin
+
+https://github.com/notashelf[notashelf]:
+
+* Add GitHub Copilot to completion sources
