@@ -76,7 +76,6 @@ in {
               scrolloff = ${nilOrStr nb.sourceBuffer.scrolloff}
           },
 
-          -- TODO: make those configurable
           icons = {
               File          = "${cfg.navbuddy.icons.file}",
               Module        = "${cfg.navbuddy.icons.module}",
@@ -107,55 +106,53 @@ in {
           },
 
           -- make those configurable
-          use_default_mappings = ${cfg.navbuddy.useDefaultMappings},
+          use_default_mappings = ${toString (cfg.navbuddy.useDefaultMappings)},
           mappings = {
-              ["${cfg.navbuddy.mappings.close}"] = actions.close(),        -- Close and cursor to original location
+              ["${cfg.navbuddy.mappings.close}"] = actions.close(),
+              ["${cfg.navbuddy.mappings.nextSibling}"] = actions.next_sibling(),
+              ["${cfg.navbuddy.mappings.previousSibling}"] = actions.previous_sibling(),
+              ["${cfg.navbuddy.mappings.close}"] = actions.parent(),
+              ["${cfg.navbuddy.mappings.children}"] = actions.children(),
+              ["${cfg.navbuddy.mappings.root}"] = actions.root(),
 
-              ["${cfg.navbuddy.mappings.nextSibling}"] = actions.next_sibling(),     -- down
-              ["${cfg.navbuddy.mappings.previousSibling}"] = actions.previous_sibling(), -- up
+              ["${cfg.navbuddy.mappings.visualName}"] = actions.visual_name(),
+              ["${cfg.navbuddy.mappings.visualScope}"] = actions.visual_scope(),
 
-              ["${cfg.navbuddy.mappings.close}"] = actions.parent(),           -- Move to left panel
-              ["${cfg.navbuddy.mappings.children}"] = actions.children(),         -- Move to right panel
-              ["${cfg.navbuddy.mappings.root}"] = actions.root(),             -- Move to first panel
+              ["${cfg.navbuddy.mappings.yankName}"] = actions.yank_name(),
+              ["${cfg.navbuddy.mappings.yankScope}"] = actions.yank_scope(),
 
-              ["${cfg.navbuddy.mappings.visualName}"] = actions.visual_name(),      -- Visual selection of name
-              ["${cfg.navbuddy.mappings.visualScope}"] = actions.visual_scope(),     -- Visual selection of scope
+              ["${cfg.navbuddy.mappings.insertName}"] = actions.insert_name(),
+              ["${cfg.navbuddy.mappings.insertScope}"] = actions.insert_scope(),
 
-              ["${cfg.navbuddy.mappings.yankName}"] = actions.yank_name(),        -- Yank the name to system clipboard "+
-              ["${cfg.navbuddy.mappings.yankScope}"] = actions.yank_scope(),       -- Yank the scope to system clipboard "+
+              ["${cfg.navbuddy.mappings.appendName}"] = actions.append_name(),
+              ["${cfg.navbuddy.mappings.appendScope}"] = actions.append_scope(),
 
-              ["${cfg.navbuddy.mappings.insertName}"] = actions.insert_name(),      -- Insert at start of name
-              ["${cfg.navbuddy.mappings.insertScope}"] = actions.insert_scope(),     -- Insert at start of scope
+              ["${cfg.navbuddy.mappings.rename}"] = actions.rename(),
 
-              ["${cfg.navbuddy.mappings.appendName}"] = actions.append_name(),      -- Insert at end of name
-              ["${cfg.navbuddy.mappings.appendScope}"] = actions.append_scope(),     -- Insert at end of scope
+              ["${cfg.navbuddy.mappings.delete}"] = actions.delete(),
 
-              ["${cfg.navbuddy.mappings.rename}"] = actions.rename(),           -- Rename currently focused symbol
+              ["${cfg.navbuddy.mappings.foldCreate}"] = actions.fold_create(),
+              ["${cfg.navbuddy.mappings.foldDelete}"] = actions.fold_delete(),
 
-              ["${cfg.navbuddy.mappings.delete}"] = actions.delete(),           -- Delete scope
+              ["${cfg.navbuddy.mappings.comment}"] = actions.comment(),
 
-              ["${cfg.navbuddy.mappings.foldCreate}"] = actions.fold_create(),      -- Create fold of current scope
-              ["${cfg.navbuddy.mappings.foldDelete}"] = actions.fold_delete(),      -- Delete fold of current scope
+              ["${cfg.navbuddy.mappings.select}"] = actions.select(),
 
-              ["${cfg.navbuddy.mappings.comment}"] = actions.comment(),          -- Comment out current scope
+              ["${cfg.navbuddy.mappings.moveDown}"] = actions.move_down(),
+              ["${cfg.navbuddy.mappings.moveUp}"] = actions.move_up(),
 
-              ["${cfg.navbuddy.mappings.select}"] = actions.select(),     -- Goto selected symbol
-
-              ["${cfg.navbuddy.mappings.moveDown}"] = actions.move_down(),        -- Move focused node down
-              ["${cfg.navbuddy.mappings.moveUp}"] = actions.move_up(),          -- Move focused node up
-
-              ["${cfg.navbuddy.mappings.telescope}"] = actions.telescope({         -- Fuzzy finder at current level.
-                  layout_config = {               -- All options that can be
-                      height = 0.60,              -- passed to telescope.nvim's
-                      width = 0.75,               -- default can be passed here.
+              ["${cfg.navbuddy.mappings.telescope}"] = actions.telescope({
+                  layout_strategy = "horizontal",
+                  layout_config = {
+                      height = 0.60,
+                      width = 0.75,
                       prompt_position = "top",
                       preview_width = 0.50
                   },
-                  layout_strategy = "horizontal"
               }),
 
               ["${cfg.navbuddy.mappings.help}"] = actions.help(),            -- Open mappings help window
-          }
+          },
         }
     '';
   };

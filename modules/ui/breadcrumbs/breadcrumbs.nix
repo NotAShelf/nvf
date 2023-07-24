@@ -25,7 +25,13 @@ in {
 
     navbuddy = {
       enable = mkEnableOption "navbuddy LSP UI";
-      useDefaultMappings = mkEnableOption "default Navbuddy keybindings (disables user keybinds)";
+
+      # this option is interpreted as null if mkEnableOption is used, and therefore cannot be converted to a string in config.nix
+      useDefaultMappings = mkOption {
+        type = types.bool;
+        default = true;
+        description = "default Navbuddy keybindings (disables user-specified keybinds)";
+      };
 
       mappings = {
         close = mkOption {
@@ -346,6 +352,12 @@ in {
         };
 
         enum = mkOption {
+          type = types.str;
+          default = "󰕘";
+          description = "";
+        };
+
+        interface = mkOption {
           type = types.str;
           default = "󰕘";
           description = "";
