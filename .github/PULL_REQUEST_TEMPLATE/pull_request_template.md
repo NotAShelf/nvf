@@ -18,11 +18,10 @@ Please delete any options that are not relevant.
 
 ## Checklist
 
-Please try to check at least a majority of the checklist before opening your pull request. PRs 
-Exceptions to this will be reviewed on a case by case basis.
+Please try to check at least a majority of the checklist before opening your pull request. Exceptions to this will be reviewed on a case by case basis.
 
 - [ ] My code follows the style and contributing guidelines of this project.
-- [ ] I ran Alejandra to format my code.
+- [ ] I ran Alejandra to format my code (`nix fmt`).
 - [ ] I have performed a self-review of my own code and tested it.
 - [ ] I have commented my code, particularly in hard-to-understand areas.
 - [ ] My changes generate no new warnings.
