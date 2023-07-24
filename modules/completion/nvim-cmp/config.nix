@@ -49,6 +49,7 @@ in {
       "buffer" = "[Buffer]";
       "crates" = "[Crates]";
       "path" = "[Path]";
+      "copilot" = "[Copilot]";
     };
 
     vim.maps.insert = mkMerge [
