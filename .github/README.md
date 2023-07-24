@@ -52,7 +52,7 @@
 
 </p></div>
 
-[Get Started]: #try-it-out
+[Get Started]: #get-started
 [Documentation]: #documentation
 [Help]: #help
 [Contribute]: #contributing
@@ -144,8 +144,8 @@ Special thanks to
 - [@FlafyDev](https://github.com/FlafyDev) - For getting the home-manager to work
 - [@n3oney](https://github.com/n3oney) - For making custom keybinds finally possible
 - [@horriblename](https://github.com/horriblename) - For actively implementing planned features and quality of life updates
-- [@FlafyDev](https://github.com/FlafyDev) - For getting the home-manager to work
 - [@Yavko](https://github.com/Yavko) - For the amazing neovim-flake logo
+- [@FrothyMarrow](https://github.com/FrothyMarrow) - For seeing mistakes that I could not
 
 and everyone who has submitted issues or pull requests!
 
