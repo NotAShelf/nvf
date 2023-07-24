@@ -202,7 +202,10 @@ inputs: let
       };
 
       vim.assistant = {
-        copilot.enable = isMaximal;
+        copilot = {
+          enable = isMaximal;
+          cmp.enable = isMaximal;
+        };
       };
 
       vim.session = {

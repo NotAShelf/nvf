@@ -481,6 +481,11 @@
       flake = false;
     };
 
+    copilot-cmp = {
+      url = "github:zbirenbaum/copilot-cmp";
+      flake = false;
+    };
+
     # Session management
     nvim-session-manager = {
       url = "github:Shatur/neovim-session-manager";
