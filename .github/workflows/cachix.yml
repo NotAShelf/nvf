@@ -13,6 +13,7 @@ on:
 jobs:
   cachix:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         package:
