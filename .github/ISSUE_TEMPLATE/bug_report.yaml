@@ -7,7 +7,7 @@ body:
     id: no-duplicate-issues
     attributes:
       label: "⚠️ Please verify that this bug has NOT been reported before."
-      description: "Search in the issues sections by clicking [HERE](https://github.com/notashelf/neovim-flake4/issues?q=)"
+      description: "Search in the issues sections by clicking [HERE](https://github.com/notashelf/neovim-flake/issues?q=)"
       options:
         - label: "I checked all existing issues and didn't find a similar issue"
           required: true
