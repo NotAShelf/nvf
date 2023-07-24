@@ -11,15 +11,15 @@ on:
       - .gitignore
 
 jobs:
-  cahix:
+  cachix:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         package:
-        - default
-        - nix
-        - tidal
-        - maximal
+          - default
+          - nix
+          - tidal
+          - maximal
     steps:
       - uses: easimon/maximize-build-space@v6
         with:
@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v20
         with:
-          extra_nix_config: | 
+          extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             auto-optimise-store = true
             experimental-features = nix-command flakes
