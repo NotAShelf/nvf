@@ -54,7 +54,8 @@ in {
               'alpha',
               'code-action-menu-menu',
               'code-action-menu-warning-message',
-              'notify'
+              'notify',
+              'Navbuddy'
             },
           }
       '';
