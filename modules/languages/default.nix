@@ -12,8 +12,8 @@ in {
     ./tidal
     ./dart
     ./elixir
-    ./ruby
 
+    ./ruby.nix
     ./clang.nix
     ./go.nix
     ./nix.nix
