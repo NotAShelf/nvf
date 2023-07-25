@@ -6,7 +6,6 @@
 }:
 with lib;
 with builtins; let
-  #format-env = pkgs.callPackage ./format-derivation.nix {inherit pkgs;};
   cfg = config.vim.languages.ruby;
 
   defaultServer = "rubocop";
@@ -28,7 +27,7 @@ with builtins; let
       lspConfig = ''
         lspconfig.rubocop.setup {
           on_attach = attach_keymaps,
-          cmd = { "rubocop", "--lsp" },
+          cmd = { "${cfg.lsp.package}/bin/bundle", "exec", "rubocop", "--lsp" },
         }
       '';
     };
