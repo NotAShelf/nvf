@@ -1,8 +1,12 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption mkOption;
+  inherit (lib) mkEnableOption mkOption types;
 in {
   options.vim.ui.borders = {
-    enable = mkEnableOption "visible borders for most windows";
+    enable = mkOption {
+      type = types.bool;
+      default = true;
+      description = "visible borders for most windows";
+    };
 
     # TODO: make per-plugin borders configurable
   };
