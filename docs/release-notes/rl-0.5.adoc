@@ -1,0 +1,21 @@
+[[sec-release-0.5]]
+== Release 0.5
+
+
+[[sec-release-0.5-changelog]]
+=== Changelog
+
+
+https://github.com/horriblename[horriblename]:
+
+* Add transparency support for tokyonight theme.
+
+* Fix bug where cmp's close and scrollDocs mappings wasn't working.
+
+https://github.com/amanse[amanse]:
+
+* Add daily notes options for obsidian plugin
+
+https://github.com/notashelf[notashelf]:
+
+* Add GitHub Copilot to completion sources

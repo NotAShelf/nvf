@@ -1,4 +1,7 @@
-<h1 align="center">neovim-flake</h1>
+<div align="center">
+    <img src="../assets/neovim-flake-logo-work.svg" alt="Logo"  width="200">
+</div>
+<h1 align="center">❄️  neovim-flake</h1>
 <div align="center">
 <p>
     <a href="https://github.com/NotAShelf/neovim-flake/releases/latest">
@@ -49,7 +52,7 @@
 
 </p></div>
 
-[Get Started]: #try-it-out
+[Get Started]: #get-started
 [Documentation]: #documentation
 [Help]: #help
 [Contribute]: #contributing
@@ -60,7 +63,7 @@
 
 ## Get Started
 
-### Using `nix`
+### Using `nix` CLI
 
 If you would like to try out the configuration before even thinking about installing it, you can run:
 
@@ -104,8 +107,7 @@ I am always looking for new ways to help improve this flake. If you would like t
 
 The philosophy behind this flake configuration is to create an easily configurable and reproducible Neovim environment. While it does sacrifice in size
 (which I know some users will find _disagreeable_), it offers a lot of flexibility and customizability in exchange for the large size of the flake inputs.
-The KISS (Keep it simple, stupid) principle has been abandoned here, however, you _can_ ultimately leverage the flexibility of this flake to declare a configuration that follows KISS principles, it is very easy to bring your own plugins and configurations from non-nix. What this flake is meant to be does eventually fall into your hands. Whether you are a developer, writer, or live coder, you can quickly craft a config that suits every project's need. Think of it like a distribution of Neovim that takes advantage of pinning vim plugins and
-third party dependencies (such as tree-sitter grammars, language servers, and more).
+The KISS (Keep it simple, stupid) principle has been abandoned here, however, you _can_ ultimately leverage the flexibility of this flake to declare a configuration that follows KISS principles, it is very easy to bring your own plugins and configurations from non-nix. What this flake is meant to be does eventually fall into your hands. Whether you are a developer, writer, or live coder, you can quickly craft a config that suits every project's need. Think of it like a distributionof Neovim that takes advantage of pinning vim plugins and third party dependencies (such as tree-sitter grammars, language servers, and more).
 
 One should never get a broken config when setting options. If setting multiple options results in a broken Neovim, file an issue! Each plugin knows when another plugin which allows for smart configuration of keybindings and automatic setup of things like completion sources and languages.
 
@@ -142,6 +144,8 @@ Special thanks to
 - [@FlafyDev](https://github.com/FlafyDev) - For getting the home-manager to work
 - [@n3oney](https://github.com/n3oney) - For making custom keybinds finally possible
 - [@horriblename](https://github.com/horriblename) - For actively implementing planned features and quality of life updates
+- [@Yavko](https://github.com/Yavko) - For the amazing neovim-flake logo
+- [@FrothyMarrow](https://github.com/FrothyMarrow) - For seeing mistakes that I could not
 
 and everyone who has submitted issues or pull requests!
 

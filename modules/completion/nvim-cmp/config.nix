@@ -49,6 +49,7 @@ in {
       "buffer" = "[Buffer]";
       "crates" = "[Crates]";
       "path" = "[Path]";
+      "copilot" = "[Copilot]";
     };
 
     vim.maps.insert = mkMerge [
@@ -106,17 +107,13 @@ in {
         end
       '')
       (mkSetLuaBinding mappings.close ''
-        require('cmp').mapping.abort
+        require('cmp').mapping.abort()
       '')
       (mkSetLuaBinding mappings.scrollDocsUp ''
-        function()
-          require('cmp').mapping.scroll_docs(-4)
-        end
+        require('cmp').mapping.scroll_docs(-4)
       '')
       (mkSetLuaBinding mappings.scrollDocsDown ''
-        function()
-          require('cmp').mapping.scroll_docs(4)
-        end
+        require('cmp').mapping.scroll_docs(4)
       '')
     ];
 
@@ -125,17 +122,13 @@ in {
         require('cmp').complete
       '')
       (mkSetLuaBinding mappings.close ''
-        require('cmp').mapping.close
+        require('cmp').mapping.close()
       '')
       (mkSetLuaBinding mappings.scrollDocsUp ''
-        function()
-          require('cmp').mapping.scroll_docs(-4)
-        end
+        require('cmp').mapping.scroll_docs(-4)
       '')
       (mkSetLuaBinding mappings.scrollDocsDown ''
-        function()
-          require('cmp').mapping.scroll_docs(4)
-        end
+        require('cmp').mapping.scroll_docs(4)
       '')
     ];
 
@@ -182,6 +175,8 @@ in {
       '')
     ];
 
+    # TODO: alternative snippet engines to vsnip
+    # https://github.com/hrsh7th/nvim-cmp/blob/main/doc/cmp.txt#L82
     vim.luaConfigRC.completion = mkIf (cfg.type == "nvim-cmp") (dagPlacement ''
       local nvim_cmp_menu_map = function(entry, vim_item)
         -- name for each source
@@ -195,19 +190,30 @@ in {
       ${optionalString lspkindEnabled ''
         lspkind_opts.before = ${cfg.formatting.format}
       ''}
+
       local cmp = require'cmp'
       cmp.setup({
+        window = {
+          -- TODO: at some point, those need to be optional
+          -- but first nvim cmp module needs to be detached from "cfg.autocomplete"
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
+        },
+
         snippet = {
           expand = function(args)
             vim.fn["vsnip#anonymous"](args.body)
           end,
         },
+
         sources = {
           ${builtSources}
         },
+
         completion = {
           completeopt = 'menu,menuone,noinsert',
         },
+
         formatting = {
           format =
       ${
