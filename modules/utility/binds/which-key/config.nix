@@ -18,7 +18,13 @@ in {
           ["<leader>"] = "SPACE",
           ["<cr>"] = "RETURN",
           ["<tab>"] = "TAB",
-        }
+        },
+
+        ${lib.optionalString (config.vim.ui.borders.plugins.which-key.enable) ''
+        window = {
+          border = "${config.vim.ui.borders.plugins.which-key.style}",
+        },
+      ''}
       })
 
       wk.register({

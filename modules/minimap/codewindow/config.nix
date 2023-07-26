@@ -27,7 +27,7 @@ in {
     vim.luaConfigRC.codewindow = nvim.dag.entryAnywhere ''
       local codewindow = require('codewindow')
       codewindow.setup({
-        exclude_filetypes = { 'NvimTree', 'orgagenda'},
+        exclude_filetypes = { 'NvimTree', 'orgagenda', 'Alpha'},
       })
     '';
   };

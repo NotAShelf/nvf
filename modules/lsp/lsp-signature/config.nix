@@ -14,7 +14,14 @@ in {
 
     vim.luaConfigRC.lsp-signature = nvim.dag.entryAnywhere ''
       -- Enable lsp signature viewer
-      require("lsp_signature").setup()
+      require("lsp_signature").setup({
+        ${optionalString (config.vim.ui.borders.plugins.lsp-signature.enable) ''
+        bind = true, -- This is mandatory, otherwise border config won't get registered.
+        handler_opts = {
+          border = "${config.vim.ui.borders.plugins.lsp-signature.style}"
+        }
+      ''}
+      })
     '';
   };
 }

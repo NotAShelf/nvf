@@ -39,7 +39,11 @@ in {
     vim.luaConfigRC.lspsage = nvim.dag.entryAnywhere ''
       -- Enable lspsaga
       local saga = require 'lspsaga'
-      saga.init_lsp_saga()
+      saga.init_lsp_saga({
+        ${optionalString (config.vim.ui.borders.plugins.lspsaga.enable) ''
+        border_style = '${config.vim.ui.borders.plugins.lspsaga.style}',
+      ''}
+      })
     '';
   };
 }
