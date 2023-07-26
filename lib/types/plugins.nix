@@ -104,7 +104,7 @@ with lib; let
         package = mkOption {
           type = pluginType;
         };
-        dependencies = mkOption {
+        after = mkOption {
           type = listOf str;
           default = [];
         };

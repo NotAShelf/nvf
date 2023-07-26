@@ -327,11 +327,11 @@ in {
           '';
           mapResult = r: (wrapLuaConfig (concatStringsSep "\n" (map mkSection r)));
           extraPluginsDag = mapAttrs (_: {
-            dependencies,
+            after,
             setup,
             ...
           }:
-            nvim.dag.entryAfter dependencies setup)
+            nvim.dag.entryAfter after setup)
           cfg.extraPlugins;
           pluginConfig = resolveDag {
             name = "extra plugins config";
