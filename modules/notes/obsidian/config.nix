@@ -24,6 +24,18 @@ in {
         then "true"
         else "false"
       }
+        },
+        daily_notes = {
+          folder = ${
+        if (cfg.daily-notes.folder == "")
+        then "nil,"
+        else "'${cfg.daily-notes.folder}',"
+      }
+          date_format = ${
+        if (cfg.daily-notes.date-format == "")
+        then "nil,"
+        else "'${cfg.daily-notes.date-format}',"
+      }
         }
       })
     '';

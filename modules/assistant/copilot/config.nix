@@ -21,16 +21,21 @@ with builtins; let
   '';
 in {
   config = mkIf cfg.enable {
-    vim.startPlugins = [
-      "copilot-lua"
-      cfg.copilotNodePackage
-    ];
+    vim.startPlugins =
+      [
+        "copilot-lua"
+        cfg.copilotNodePackage
+      ]
+      ++ lib.optionals (cfg.cmp.enable) [
+        "copilot-cmp"
+      ];
 
     vim.luaConfigRC.copilot = nvim.dag.entryAnywhere ''
       require("copilot").setup({
         -- available options: https://github.com/zbirenbaum/copilot.lua
-        copilot_node_command = "${cfg.copilot_node_command}",
+        copilot_node_command = "${cfg.copilotNodeCommand}",
         panel = {
+          enabled = ${lib.boolToString (!cfg.cmp.enable)},
           keymap = {
             jump_prev = false,
             jump_next = false,
@@ -44,6 +49,7 @@ in {
           },
         },
         suggestion = {
+          enabled = ${lib.boolToString (!cfg.cmp.enable)},
           keymap = {
             accept = false,
             accept_word = false,
@@ -54,6 +60,10 @@ in {
           },
         },
       })
+
+      ${lib.optionalString (cfg.cmp.enable) ''
+        require("copilot_cmp").setup()
+      ''}
     '';
 
     vim.maps.normal = mkMerge [

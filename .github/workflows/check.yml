@@ -20,10 +20,11 @@ jobs:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - run: nix flake check
+
   format-with-alejandra:
     name: Formatting via Alejandra
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v20
         with:
@@ -32,4 +33,3 @@ jobs:
             auto-optimise-store = true
             experimental-features = nix-command flakes
       - run: nix run nixpkgs#alejandra -- -c .
-     

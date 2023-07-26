@@ -182,7 +182,7 @@
 
     # Tablines
     nvim-bufferline-lua = {
-      url = "github:akinsho/nvim-bufferline.lua?ref=v3.0.1";
+      url = "github:akinsho/nvim-bufferline.lua";
       flake = false;
     };
 
@@ -490,6 +490,11 @@
     # Assistant
     copilot-lua = {
       url = "github:zbirenbaum/copilot.lua";
+      flake = false;
+    };
+
+    copilot-cmp = {
+      url = "github:zbirenbaum/copilot-cmp";
       flake = false;
     };
 

@@ -10,6 +10,7 @@ with builtins; let
 in {
   options.vim.assistant.copilot = {
     enable = mkEnableOption "GitHub Copilot AI assistant";
+    cmp.enable = mkEnableOption "nvim-cmp integration for GitHub Copilot";
 
     panel = {
       position = mkOption {
@@ -91,16 +92,22 @@ in {
       };
     };
 
-    copilot_node_command = mkOption {
+    copilotNodeCommand = mkOption {
       type = types.str;
       default = "${lib.getExe cfg.copilotNodePackage}";
-      description = "Path to nodejs";
+      description = ''
+        The command that will be executed to initiate nodejs for GitHub Copilot.
+        Recommended to leave as default.
+      '';
     };
 
     copilotNodePackage = mkOption {
-      type = with types; nullOr package; # TODO - maybe accept a path as well? imperative users might want to use something like nvm
-      default = pkgs.nodejs-slim; # this will likely need to be downgraded because Copilot does not stay up to date with NodeJS
-      description = "The package that will be used for Copilot. NodeJS v18 is recommended.";
+      type = with types; nullOr package;
+      default = pkgs.nodejs-slim;
+      description = ''
+        The nodeJS package that will be used for GitHub Copilot. If you are using a custom node command
+        you may want to set this option to null so that the package is not pulled from nixpkgs.
+      '';
     };
   };
 }
