@@ -161,6 +161,22 @@ in {
     extraPlugins = mkOption {
       type = types.attrsOf nvim.types.extraPluginType;
       default = {};
+      description = ''
+        List of plugins and related config.
+        Note that these are setup after builtin plugins.
+      '';
+      example = literalExpression ''
+          with pkgs.vimPlugins; {
+          aerial = {
+            package = aerial-nvim;
+            setup = "require('aerial').setup {}";
+          };
+          harpoon = {
+            package = harpoon;
+            setup = "require('harpoon').setup {}";
+            after = ["aerial"];
+          };
+        }'';
     };
 
     globals = mkOption {

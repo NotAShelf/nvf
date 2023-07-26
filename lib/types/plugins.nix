@@ -107,10 +107,13 @@ with lib; let
         after = mkOption {
           type = listOf str;
           default = [];
+          description = "Setup this plugin after the following ones.";
         };
         setup = mkOption {
           type = lines;
           default = "";
+          description = "Lua code to run during setup.";
+          example = "require('aerial').setup {}";
         };
       };
     };
