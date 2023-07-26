@@ -40,7 +40,9 @@ in {
       -- Enable lspsaga
       local saga = require 'lspsaga'
       saga.init_lsp_saga({
-         border_style = 'single',
+        ${optionalString (config.vim.ui.borders.plugins.lspsaga.enable) ''
+        border_style = '${config.vim.ui.borders.plugins.lspsaga.style}',
+      ''}
       })
     '';
   };

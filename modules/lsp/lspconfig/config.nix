@@ -19,7 +19,9 @@ in {
 
         ${
           # TODO: make border style configurable
-          optionalString (config.vim.ui.borders.enable) "require('lspconfig.ui.windows').default_options.border = 'single'"
+          optionalString (config.vim.ui.borders.enable) ''
+            require('lspconfig.ui.windows').default_options.border = '${config.vim.ui.borders.globalStyle}'
+          ''
         }
       '';
     }

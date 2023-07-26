@@ -194,6 +194,7 @@ in {
       cmp.setup({
         ${optionalString (config.vim.ui.borders.enable) ''
         -- explicitly enabled by setting ui.borders.enable = true
+        -- TODO: try to get nvim-cmp to follow global border style
         window = {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
