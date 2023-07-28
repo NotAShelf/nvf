@@ -41,7 +41,7 @@ $ nix run github:notashelf/neovim-flake#maximal</pre></div></div><div class="cha
   };
 }</pre></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="ch-custom-plugins"></a>Chapter 4. Custom Plugins</h1></div></div></div><p>You can use custom plugins, before they are implemented in the flake.
 To add a plugin, you need to add it to your config’s <code class="literal">config.vim.startPlugins</code> array.</p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_new_method"></a>4.1. New Method</h2></div></div></div><p>As of version 0.5, we have a more extensive API for configuring plugins, under <code class="literal">vim.extraPlugins</code>.</p><p>Instead of using DAGs exposed by the library, you may use the extra plugin module as follows:</p><pre class="programlisting nix">{
-  config.vim.extraPlugins = with pkgs.vimPlugins; {
+  config.vim.extraPlugins = with pkgs.vimPlugins; [{
     aerial = {
       package = aerial-nvim;
       setup = ''
@@ -57,7 +57,7 @@ To add a plugin, you need to add it to your config’s <code class="literal">con
       after = ["aerial"];
     };
   };
-}</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_old_method"></a>4.2. Old Method</h2></div></div></div><p>Users who have not yet updated to 0.5, or prefer a more hands-on approach may use the old method where the load orderof the plugins is determined by DAGs.</p><pre class="programlisting nix">{
+}]</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_old_method"></a>4.2. Old Method</h2></div></div></div><p>Users who have not yet updated to 0.5, or prefer a more hands-on approach may use the old method where the load orderof the plugins is determined by DAGs.</p><pre class="programlisting nix">{
   # fetch plugin source from GitHub and add it to startPlugins
   config.vim.startPlugins = [
     (pkgs.fetchFromGitHub {
