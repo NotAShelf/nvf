@@ -8,10 +8,10 @@ in {
   options.vim.ui.breadcrumbs = {
     enable = lib.mkEnableOption "breadcrumbs";
     source = mkOption {
-      type = types.enum ["nvim-navic"]; # TODO: lspsaga and dropbar
+      type = with types; nullOr (enum ["nvim-navic"]); # TODO: lspsaga and dropbar
       default = "nvim-navic";
       description = ''
-        The source to be used for breadcrumbs component
+        The source to be used for breadcrumbs component. Null means no breadcrumbs.
       '';
     };
 
@@ -24,13 +24,13 @@ in {
     };
 
     navbuddy = {
-      enable = mkEnableOption "navbuddy LSP UI";
+      enable = mkEnableOption "navbuddy LSP helper UI. Enabling this option automatically loads and enables nvim-navic";
 
       # this option is interpreted as null if mkEnableOption is used, and therefore cannot be converted to a string in config.nix
       useDefaultMappings = mkOption {
         type = types.bool;
         default = true;
-        description = "default Navbuddy keybindings (disables user-specified keybinds)";
+        description = "use default Navbuddy keybindings (disables user-specified keybinds)";
       };
 
       mappings = {
