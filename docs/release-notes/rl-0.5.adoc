@@ -12,7 +12,7 @@ https://github.com/horriblename[horriblename]:
 
 * Fixed a bug where cmp's close and scrollDocs mappings wasn't working.
 
-* Streamlined and simplified extra plugin API with the addition of <<opt-vim.extraPlugins>>.
+* Streamlined and simplified extra plugin API with the addition of <<opt-vim.extraPlugins>>
 
 https://github.com/amanse[amanse]:
 
@@ -23,3 +23,7 @@ https://github.com/notashelf[notashelf]:
 * Added GitHub Copilot to completion sources.
 
 * Added <<opt-vim.ui.borders>> for global and individual plugin border configuration.
+
+* LSP integrated breadcrumbs with <<opt-vim.ui.breadcrumbs>> through nvim-navic
+
+* LSP navigation helper with nvim-navbuddy, depends on nvim-navic (automatically enabled)

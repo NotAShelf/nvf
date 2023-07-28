@@ -87,6 +87,8 @@ with lib; let
     "nvim-surround"
     "nvim-dap"
     "nvim-dap-ui"
+    "nvim-navic"
+    "nvim-navbuddy"
     "copilot-cmp"
   ];
   # You can either use the name of the plugin or a package.

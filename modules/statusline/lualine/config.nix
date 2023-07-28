@@ -49,6 +49,17 @@ in {
           lualine_z = ${cfg.inactiveSection.z},
         },
         tabline = {},
+
+        ${optionalString (config.vim.ui.breadcrumbs.source == "nvim-navic") ''
+        winbar = {
+          lualine_c = {
+            {
+                "navic",
+                draw_empty = ${toString config.vim.ui.breadcrumbs.alwaysRender}
+            }
+          }
+        },
+      ''}
         extensions = {${
         if (config.vim.filetree.nvimTreeLua.enable)
         then "\"nvim-tree\""

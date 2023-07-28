@@ -143,6 +143,7 @@
       url = "github:tversteeg/registers.nvim";
       flake = false;
     };
+
     nvim-neoclip = {
       url = "github:AckslD/nvim-neoclip.lua";
       flake = false;
@@ -248,6 +249,7 @@
       url = "github:b3nj5m1n/kommentary";
       flake = false;
     };
+
     comment-nvim = {
       url = "github:numToStr/Comment.nvim";
       flake = false;
@@ -455,6 +457,16 @@
     };
 
     # UI
+    nvim-navbuddy = {
+      url = "github:SmiteshP/nvim-navbuddy";
+      flake = false;
+    };
+
+    nvim-navic = {
+      url = "github:SmiteshP/nvim-navic";
+      flake = false;
+    };
+
     noice-nvim = {
       url = "github:folke/noice.nvim";
       flake = false;

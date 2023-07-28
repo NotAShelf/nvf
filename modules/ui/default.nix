@@ -6,6 +6,7 @@ _: {
     ./smartcolumn
     ./colorizer
     ./illuminate
+    ./breadcrumbs
     ./borders
   ];
 }
