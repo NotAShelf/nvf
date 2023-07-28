@@ -8,7 +8,7 @@ in {
   options.vim.ui.breadcrumbs = {
     enable = lib.mkEnableOption "breadcrumbs";
     source = mkOption {
-      type = types.enum ["nvim-navic" "lspsaga"];
+      type = types.enum ["nvim-navic"]; # TODO: lspsaga and dropbar
       default = "nvim-navic";
       description = ''
         The source to be used for breadcrumbs component
@@ -186,7 +186,7 @@ in {
         border = mkOption {
           # TODO: let this type accept a custom string
           type = types.enum ["single" "rounded" "double" "solid" "none"];
-          default = "single";
+          default = config.vim.ui.borders.globalStyle;
           description = "border style to use";
         };
 
@@ -199,22 +199,36 @@ in {
         sections = {
           # left section
           left = {
-            #size = {}
+            /*
+            size = {
+              type = with types; nullOr (intBetween 0 100);
+              default = null;
+              description = "size of the left section of Navbuddy UI in percentage (0-100)";
+            };
+            */
+
             border = mkOption {
               # TODO: let this type accept a custom string
               type = with types; nullOr (enum ["single" "rounded" "double" "solid" "none"]);
-              default = null;
+              default = config.vim.ui.borders.globalStyle;
               description = "border style to use for the left section of Navbuddy UI";
             };
           };
 
           # middle section
           mid = {
-            #size = {}
+            /*
+            size = {
+              type = with types; nullOr (intBetween 0 100);
+              default = null;
+              description = "size of the left section of Navbuddy UI in percentage (0-100)";
+            };
+            */
+
             border = mkOption {
               # TODO: let this type accept a custom string
               type = with types; nullOr (enum ["single" "rounded" "double" "solid" "none"]);
-              default = null;
+              default = config.vim.ui.borders.globalStyle;
               description = "border style to use for the middle section of Navbuddy UI";
             };
           };
@@ -225,7 +239,7 @@ in {
             border = mkOption {
               # TODO: let this type accept a custom string
               type = with types; nullOr (enum ["single" "rounded" "double" "solid" "none"]);
-              default = null;
+              default = config.vim.ui.borders.globalStyle;
               description = "border style to use for the right section of Navbuddy UI";
             };
 
