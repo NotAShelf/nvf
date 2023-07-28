@@ -4,6 +4,6 @@
   typesLanguage = import ./languages.nix {inherit lib;};
 in {
   inherit (typesDag) dagOf;
-  inherit (typesPlugin) pluginsOpt;
+  inherit (typesPlugin) pluginsOpt extraPluginType;
   inherit (typesLanguage) diagnostics mkGrammarOption;
 }

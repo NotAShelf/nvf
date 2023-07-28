@@ -66,7 +66,7 @@ in {
 
           lsp = {
               auto_attach = ${boolToString nb.lsp.autoAttach},
-              preference = nil, -- TODO: convert list to lua table if not null
+              -- preference = nil, -- TODO: convert list to lua table if not null
           },
 
           source_buffer = {

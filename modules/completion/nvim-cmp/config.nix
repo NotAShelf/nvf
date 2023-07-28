@@ -193,12 +193,14 @@ in {
 
       local cmp = require'cmp'
       cmp.setup({
+        ${optionalString (config.vim.ui.borders.enable) ''
+        -- explicitly enabled by setting ui.borders.enable = true
+        -- TODO: try to get nvim-cmp to follow global border style
         window = {
-          -- TODO: at some point, those need to be optional
-          -- but first nvim cmp module needs to be detached from "cfg.autocomplete"
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
         },
+      ''}
 
         snippet = {
           expand = function(args)

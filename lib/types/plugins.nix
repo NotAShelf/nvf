@@ -92,15 +92,37 @@ with lib; let
     "copilot-cmp"
   ];
   # You can either use the name of the plugin or a package.
-  pluginsType = with types;
-    listOf (
-      nullOr (
-        either
-        (enum availablePlugins)
-        package
-      )
+  pluginType = with types;
+    nullOr (
+      either
+      package
+      (enum availablePlugins)
     );
+
+  pluginsType = types.listOf pluginType;
+
+  extraPluginType = with types;
+    submodule {
+      options = {
+        package = mkOption {
+          type = pluginType;
+        };
+        after = mkOption {
+          type = listOf str;
+          default = [];
+          description = "Setup this plugin after the following ones.";
+        };
+        setup = mkOption {
+          type = lines;
+          default = "";
+          description = "Lua code to run during setup.";
+          example = "require('aerial').setup {}";
+        };
+      };
+    };
 in {
+  inherit extraPluginType;
+
   pluginsOpt = {
     description,
     default ? [],

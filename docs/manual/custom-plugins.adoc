@@ -3,11 +3,42 @@
 
 You can use custom plugins, before they are implemented in the flake.
 To add a plugin, you need to add it to your config's `config.vim.startPlugins` array.
-This is an example of adding the FrenzyExists/aquarium-vim plugin:
+
+
+=== New Method
+As of version 0.5, we have a more extensive API for configuring plugins, under `vim.extraPlugins`.
+
+Instead of using DAGs exposed by the library, you may use the extra plugin module as follows:
 
 [source,nix]
 ----
 {
+  config.vim.extraPlugins = with pkgs.vimPlugins; {
+    aerial = {
+      package = aerial-nvim;
+      setup = ''
+        require('aerial').setup {
+          -- some lua configuration here
+        }
+      '';
+    };
+    
+    harpoon = {
+      package = harpoon;
+      setup = "require('harpoon').setup {}";
+      after = ["aerial"];
+    };
+  };
+}
+----
+
+=== Old Method
+Users who have not yet updated to 0.5, or prefer a more hands-on approach may use the old method where the load orderof the plugins is determined by DAGs.
+
+[source,nix]
+----
+{
+  # fetch plugin source from GitHub and add it to startPlugins
   config.vim.startPlugins = [
     (pkgs.fetchFromGitHub {
       owner = "FrenzyExists";

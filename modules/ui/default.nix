@@ -7,5 +7,6 @@ _: {
     ./colorizer
     ./illuminate
     ./breadcrumbs
+    ./borders
   ];
 }

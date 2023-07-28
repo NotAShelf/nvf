@@ -43,38 +43,4 @@ Then we should be able to use the given module. E.g.
 }
 ----
 
-=== Custom vim/neovim plugins
 
-It is possible to add custom plugins to your configuration by using the `vim.startPlugins` option and the this flake's lua DAG library. 
-
-Start by adding it to startPlugins. This example uses nvim-surround, but the process will be similar for other plugins as well.
-
-[source,nix]
-----
-{
-  programs.neovim-flake = {
-    enable = true;
-    settings = {
-      vim.startPlugins = [ pkgs.vimPlugins.nvim-surround ];
-    };
-  };
-}
-----
-
-Followed by requiring the plugin, should it need one, in the lua DAG. Please note that you're able to name the DAG to however you want, the name will add a `--SECTION <name>` in the init.vim, under which it will be initialized. `lib.nvim.dag.entryAfter ["name"]` could also be used to initialize a plugin only after a previous plugin has beeni initialize
-Your final setup will likely look like this, where nvim-flake refers to your flake input or fetch.
-
-[source,nix]
-----
-{
-  programs.neovim-flake = {
-    enable = true;
-    settings = {
-      vim.startPlugins = [ pkgs.vimPlugins.nvim-surround ];
-      luaConfigRC.nvim-surround = nvim-flake.lib.nvim.dag.entryAnywhere '' # nvim-flake is a reference to the flake. Please change this accordingly to your config.
-        require("nvim-surround").setup()
-      '';
-    };
-  };
-}
-----
