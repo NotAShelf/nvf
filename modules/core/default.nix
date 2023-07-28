@@ -158,6 +158,27 @@ in {
       description = "List of plugins to optionally load";
     };
 
+    extraPlugins = mkOption {
+      type = types.attrsOf nvim.types.extraPluginType;
+      default = {};
+      description = ''
+        List of plugins and related config.
+        Note that these are setup after builtin plugins.
+      '';
+      example = literalExpression ''
+          with pkgs.vimPlugins; {
+          aerial = {
+            package = aerial-nvim;
+            setup = "require('aerial').setup {}";
+          };
+          harpoon = {
+            package = harpoon;
+            setup = "require('harpoon').setup {}";
+            after = ["aerial"];
+          };
+        }'';
+    };
+
     globals = mkOption {
       default = {};
       description = "Set containing global variable values";
@@ -297,6 +318,7 @@ in {
       result;
   in {
     vim = {
+      startPlugins = map (x: x.package) (attrValues cfg.extraPlugins);
       configRC = {
         globalsScript = nvim.dag.entryAnywhere (concatStringsSep "\n" globalsScript);
 
@@ -313,6 +335,27 @@ in {
           };
         in
           nvim.dag.entryAfter ["globalsScript"] luaConfig;
+
+        extraPluginConfigs = let
+          mkSection = r: ''
+            -- SECTION: ${r.name}
+            ${r.data}
+          '';
+          mapResult = r: (wrapLuaConfig (concatStringsSep "\n" (map mkSection r)));
+          extraPluginsDag = mapAttrs (_: {
+            after,
+            setup,
+            ...
+          }:
+            nvim.dag.entryAfter after setup)
+          cfg.extraPlugins;
+          pluginConfig = resolveDag {
+            name = "extra plugins config";
+            dag = extraPluginsDag;
+            inherit mapResult;
+          };
+        in
+          nvim.dag.entryAfter ["luaScript"] pluginConfig;
 
         # This is probably not the right way to set the config. I'm not sure how it should look like.
         mappings = let
