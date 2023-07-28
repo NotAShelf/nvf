@@ -77,7 +77,7 @@ inputs: let
         nvimWebDevicons.enable = true;
         scrollBar.enable = true;
         smoothScroll.enable = true;
-        cellularAutomaton.enable = true;
+        cellularAutomaton.enable = isMaximal;
         fidget-nvim.enable = true;
         indentBlankline = {
           enable = true;
@@ -158,7 +158,7 @@ inputs: let
       };
 
       vim.projects = {
-        project-nvim.enable = true;
+        project-nvim.enable = isMaximal;
       };
 
       vim.utility = {
@@ -176,7 +176,7 @@ inputs: let
       vim.notes = {
         obsidian.enable = false; # FIXME neovim fails to build if obsidian is enabled
         orgmode.enable = false;
-        mind-nvim.enable = true;
+        mind-nvim.enable = isMaximal;
         todo-comments.enable = true;
       };
 
@@ -193,7 +193,10 @@ inputs: let
         colorizer.enable = true;
         modes-nvim.enable = false; # the theme looks terrible with catppuccin
         illuminate.enable = true;
-        breadcrumbs.enable = true;
+        breadcrumbs = {
+          enable = isMaximal;
+          navbuddy.enable = isMaximal;
+        };
         smartcolumn = {
           enable = true;
           columnAt.languages = {
