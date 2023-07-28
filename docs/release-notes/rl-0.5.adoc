@@ -8,14 +8,18 @@
 
 https://github.com/horriblename[horriblename]:
 
-* Add transparency support for tokyonight theme.
+* Added transparency support for tokyonight theme.
 
-* Fix bug where cmp's close and scrollDocs mappings wasn't working.
+* Fixed a bug where cmp's close and scrollDocs mappings wasn't working.
+
+* Streamlined and simplified extra plugin API with the addition of <<opt-vim.extraPlugins>>.
 
 https://github.com/amanse[amanse]:
 
-* Add daily notes options for obsidian plugin
+* Added daily notes options for obsidian plugin.
 
 https://github.com/notashelf[notashelf]:
 
-* Add GitHub Copilot to completion sources
+* Added GitHub Copilot to completion sources.
+
+* Added <<opt-vim.ui.borders>> for global and individual plugin border configuration.
