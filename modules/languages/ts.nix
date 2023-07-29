@@ -20,6 +20,17 @@ with builtins; let
         }
       '';
     };
+    denols = {
+      package = pkgs.deno;
+      lspConfig = ''
+        vim.g.markdown_fenced_languages = { "ts=typescript" }
+        lspconfig.denols.setup {
+          capabilities = capabilities;
+          on_attach = attach_keymaps,
+          cmd = { "${cfg.lsp.package}/bin/deno", "lsp" }
+        }
+      '';
+    };
   };
 
   # TODO: specify packages
