@@ -34,9 +34,10 @@ inputs: let
         lspkind.enable = false;
         lightbulb.enable = true;
         lspsaga.enable = false;
-        nvimCodeActionMenu.enable = true;
+        nvimCodeActionMenu.enable = isMaximal;
         trouble.enable = true;
         lspSignature.enable = true;
+        lsplines.enable = isMaximal;
       };
 
       vim.debugger = {
