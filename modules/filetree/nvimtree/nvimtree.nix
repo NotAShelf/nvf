@@ -260,10 +260,12 @@ with builtins; {
 
           severity = mkOption {
             description = "Severity for which the diagnostics will be displayed. See `:help diagnostic-severity`";
+
             default = {
               min = "HINT";
               max = "ERROR";
             };
+
             type = types.submodule {
               options = {
                 min = mkOption {
@@ -306,7 +308,7 @@ with builtins; {
         '';
       };
 
-      timeOut = mkOption {
+      timeout = mkOption {
         type = types.int;
         default = 400;
         description = ''
@@ -472,6 +474,7 @@ with builtins; {
 
           float = mkOption {
             description = "Configuration options for floating window.";
+
             default = {
               enable = false;
               quitOnFocusLoss = true;
