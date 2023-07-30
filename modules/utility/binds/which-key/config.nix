@@ -95,7 +95,7 @@ in {
 
         ${
         # TODO: This probably will need to be reworked for custom-keybinds
-        if config.vim.filetree.nvimTreeLua.enable
+        if config.vim.filetree.nvimTree.enable
         then ''
           -- NvimTree
           ["<leader>t"] = { name = "+NvimTree" },
