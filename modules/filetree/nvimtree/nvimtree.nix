@@ -149,12 +149,7 @@ with builtins; {
         Update the focused file on `BufEnter`, un-collapses the folders recursively
         until it finds the file.
       '';
-
-      default = {
-        enable = false;
-        updateRoot = false;
-        ignoreList = [];
-      };
+      default = {};
 
       type = types.submodule {
         options = {
@@ -175,6 +170,7 @@ with builtins; {
               `update_focused_file.enable` are `true`.
             '';
             type = with types; listOf str;
+            default = [];
           };
         };
       };
