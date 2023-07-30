@@ -585,7 +585,7 @@ with builtins; {
                 edge = "│";
                 item = "│";
                 bottom = "─";
-                noner = "";
+                none = "";
               };
             };
           };
