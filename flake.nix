@@ -197,8 +197,9 @@
       url = "github:hrsh7th/nvim-compe";
       flake = false;
     };
+
     nvim-cmp = {
-      url = "github:ShIRannx/nvim-cmp";
+      url = "github:hrsh7th/nvim-cmp";
       flake = false;
     };
     cmp-buffer = {
