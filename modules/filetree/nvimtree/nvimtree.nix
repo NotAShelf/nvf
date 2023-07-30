@@ -973,7 +973,7 @@ with builtins; {
                           The picker may create a new window.
                         '';
 
-                        example = mkLiteralExample ''
+                        example = literalExpression ''
                           -- with s1n7ax/nvim-window-picker plugin
                           require('window-picker').pick_window,
                         '';
