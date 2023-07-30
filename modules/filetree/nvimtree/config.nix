@@ -74,7 +74,7 @@ in {
           disable_netrw = ${boolToString cfg.disableNetrw},
           hijack_netrw = ${boolToString cfg.hijackNetrw},
           auto_reload_on_write = ${boolToString cfg.autoreloadOnWrite},
-        
+      
           sort = {
             sorter = "${cfg.sort.sorter}",
             folders_first = ${boolToString cfg.sort.foldersFirst},
@@ -87,7 +87,7 @@ in {
           sync_root_with_cwd = ${boolToString cfg.syncRootWithCwd},
           reload_on_bufenter = ${boolToString cfg.reloadOnBufEnter},
           respect_buf_cwd = ${boolToString cfg.respectBufCwd},
-        
+      
           hijack_directories = {
             enable = ${boolToString cfg.hijackDirectories.enable},
             auto_open = ${boolToString cfg.hijackDirectories.autoOpen},
@@ -164,7 +164,7 @@ in {
               },
             },
           },
-        
+      
           renderer = {
             add_trailing = ${boolToString cfg.renderer.addTrailing},
             group_empty = ${boolToString cfg.renderer.groupEmpty},
@@ -179,7 +179,7 @@ in {
               inline_arrows = ${boolToString cfg.renderer.indentMarkers.inlineArrows},
               icons = ${nvim.lua.expToLua cfg.renderer.indentMarkers.icons},
             },
-      
+          
             special_files = ${nvim.lua.listToLuaTable cfg.renderer.specialFiles},
             symlink_destination = ${boolToString cfg.renderer.symlinkDestination},
 
@@ -189,7 +189,7 @@ in {
               modified_placement = "${cfg.renderer.icons.modifiedPlacement}",
               padding = "${cfg.renderer.icons.padding}",
               symlink_arrow = "${cfg.renderer.icons.symlinkArrow}",
-        
+      
               show = {
                 git = ${boolToString cfg.renderer.icons.show.git},
                 folder = ${boolToString cfg.renderer.icons.show.folder},
@@ -197,12 +197,12 @@ in {
                 file = ${boolToString cfg.renderer.icons.show.file},
                 modified = ${boolToString cfg.renderer.icons.show.modified},
               },
-          
+        
              glyphs = {
               default = "${cfg.renderer.icons.glyphs.default}",
               symlink = "${cfg.renderer.icons.glyphs.symlink}",
               modified = "${cfg.renderer.icons.glyphs.modified}",
-      
+          
               folder = {
                 default = "${cfg.renderer.icons.glyphs.folder.default}",
                 open = "${cfg.renderer.icons.glyphs.folder.open}",
@@ -226,7 +226,7 @@ in {
             },
           },
         },
-      
+          
         filters = {
           git_ignored = ${boolToString cfg.filters.gitIgnored},
           dotfiles = ${boolToString cfg.filters.dotfiles},
@@ -234,11 +234,11 @@ in {
           no_buffer = ${boolToString cfg.filters.noBuffer},
           exclude = ${nvim.lua.listToLuaTable cfg.filters.exclude},
         },
-      
+          
         trash = {
           cmd = "${cfg.trash.cmd}",
         },
-      
+          
         actions = {
           use_system_clipboard = ${boolToString cfg.actions.useSystemClipboard},
           change_dir = {
@@ -251,11 +251,11 @@ in {
             max_folder_discovery = ${toString cfg.actions.expandAll.maxFolderDiscovery},
             exclude = ${nvim.lua.listToLuaTable cfg.actions.expandAll.exclude},
           },
-          
+        
           file_popup = {
             open_win_config = ${nvim.lua.expToLua cfg.actions.filePopup.openWinConfig},
           },
-          
+        
           open_file = {
             quit_on_open = ${boolToString cfg.actions.openFile.quitOnOpen},
             eject = ${boolToString cfg.actions.openFile.eject},
@@ -270,17 +270,17 @@ in {
               },
             },
           },
-          
+        
           remove_file = {
             close_window = ${boolToString cfg.actions.removeFile.closeWindow},
           },
         },
-          
+        
         live_filter = {
           prefix = "${cfg.liveFilter.prefix}",
           always_show_folders = ${boolToString cfg.liveFilter.alwaysShowFolders},
         },
-          
+        
         tab = {
           sync = {
             open = ${boolToString cfg.tab.sync.open},

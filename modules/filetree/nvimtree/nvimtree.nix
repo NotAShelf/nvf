@@ -458,7 +458,7 @@ with builtins; {
           };
 
           signcolumn = mkOption {
-            description = " Show diagnostic sign column. Value can be `" yes "`, `" auto "`, `" no "`.";
+            description = ''Show diagnostic sign column. Value can be `"yes"`, `"auto"` or`"no"`.'';
             type = types.enum ["yes" "auto" "no"];
           };
 
