@@ -74,7 +74,7 @@ in {
             disable_netrw = ${boolToString cfg.disableNetrw},
             hijack_netrw = ${boolToString cfg.hijackNetrw},
             auto_reload_on_write = ${boolToString cfg.autoreloadOnWrite},
-      
+          
             sort = {
               sorter = "${cfg.sort.sorter}",
               folders_first = ${boolToString cfg.sort.foldersFirst},
@@ -87,7 +87,7 @@ in {
             sync_root_with_cwd = ${boolToString cfg.syncRootWithCwd},
             reload_on_bufenter = ${boolToString cfg.reloadOnBufEnter},
             respect_buf_cwd = ${boolToString cfg.respectBufCwd},
-      
+          
             hijack_directories = {
               enable = ${boolToString cfg.hijackDirectories.enable},
               auto_open = ${boolToString cfg.hijackDirectories.autoOpen},
@@ -140,7 +140,7 @@ in {
             },
 
             select_prompts = ${boolToString cfg.selectPrompts},
-      
+          
             view = {
               width = ${nvim.lua.expToLua cfg.view.width},  
               centralize_selection = ${boolToString cfg.view.centralizeSelection},
@@ -180,7 +180,7 @@ in {
               modified_placement = "${cfg.renderer.icons.modifiedPlacement}",
               padding = "${cfg.renderer.icons.padding}",
               symlink_arrow = "${cfg.renderer.icons.symlinkArrow}",
-      
+          
               show = {
                 git = ${boolToString cfg.renderer.icons.show.git},
                 folder = ${boolToString cfg.renderer.icons.show.folder},
@@ -188,12 +188,12 @@ in {
                 file = ${boolToString cfg.renderer.icons.show.file},
                 modified = ${boolToString cfg.renderer.icons.show.modified},
               },
-        
+      
              glyphs = {
               default = "${cfg.renderer.icons.glyphs.default}",
               symlink = "${cfg.renderer.icons.glyphs.symlink}",
               modified = "${cfg.renderer.icons.glyphs.modified}",
-          
+        
               folder = {
                 default = "${cfg.renderer.icons.glyphs.folder.default}",
                 open = "${cfg.renderer.icons.glyphs.folder.open}",
@@ -241,11 +241,11 @@ in {
             max_folder_discovery = ${toString cfg.actions.expandAll.maxFolderDiscovery},
             exclude = ${nvim.lua.listToLuaTable cfg.actions.expandAll.exclude},
           },
-        
+      
           file_popup = {
             open_win_config = ${nvim.lua.expToLua cfg.actions.filePopup.openWinConfig},
           },
-        
+      
           open_file = {
             quit_on_open = ${boolToString cfg.actions.openFile.quitOnOpen},
             eject = ${boolToString cfg.actions.openFile.eject},
@@ -260,17 +260,17 @@ in {
               },
             },
           },
-        
+      
           remove_file = {
             close_window = ${boolToString cfg.actions.removeFile.closeWindow},
           },
         },
-        
+      
         live_filter = {
           prefix = "${cfg.liveFilter.prefix}",
           always_show_folders = ${boolToString cfg.liveFilter.alwaysShowFolders},
         },
-        
+      
         tab = {
           sync = {
             open = ${boolToString cfg.tab.sync.open},

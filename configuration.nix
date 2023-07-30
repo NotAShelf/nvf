@@ -210,7 +210,7 @@ inputs: let
       };
 
       vim.session = {
-        nvim-session-manager.enable = isMaximal;
+        nvim-session-manager.enable = false;
       };
 
       vim.gestures = {
