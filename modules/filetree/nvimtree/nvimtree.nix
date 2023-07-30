@@ -414,11 +414,7 @@ with builtins; {
               longest line (previously `view.adaptive_size`).
             '';
 
-            default = {
-              min = 30;
-              max = -1;
-              padding = 1;
-            };
+            default = 30;
 
             type = with types; oneOf [int attrs];
           };
