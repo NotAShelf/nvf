@@ -76,8 +76,8 @@ in {
           },
 
           severity = {
-            min = "vim.diagnostic.severity.${cfg.diagnostics.severity.min}",
-            max = "vim.diagnostic.severity.${cfg.diagnostics.severity.max}",
+            min = vim.diagnostic.severity.${cfg.diagnostics.severity.min},
+            max = vim.diagnostic.severity.${cfg.diagnostics.severity.max},
           },
         },
 

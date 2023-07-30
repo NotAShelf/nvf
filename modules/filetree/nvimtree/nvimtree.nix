@@ -49,6 +49,45 @@ with builtins; {
       type = types.bool;
     };
 
+    updateFocusedFile = mkOption {
+      description = ''
+        Update the focused file on `BufEnter`, un-collapses the folders recursively
+        until it finds the file.
+      '';
+      default = {};
+      type = types.submodule {
+        options = {
+          enable = mkOption {
+            type = types.bool;
+            default = false;
+            description = "update focused file";
+          };
+
+          updateRoot = mkOption {
+            type = types.bool;
+            default = false;
+            description = ''
+              Update the root directory of the tree if the file is not under current
+              root directory. It prefers vim's cwd and `root_dirs`.
+              Otherwise it falls back to the folder containing the file.
+              Only relevant when `update_focused_file.enable` is `true`
+            '';
+          };
+
+          ignoreList = mkOption {
+            type = with types; listOf str;
+            default = [];
+            description = ''
+              List of buffer names and filetypes that will not update the root dir
+              of the tree if the file isn't found under the current root directory.
+              Only relevant when `update_focused_file.update_root` and
+              `update_focused_file.enable` are `true`.
+            '';
+          };
+        };
+      };
+    };
+
     sort = {
       # TODO: function as a possible type
       sorter = mkOption {
@@ -144,38 +183,6 @@ with builtins; {
       };
     };
 
-    updateFocusedFile = mkOption {
-      description = ''
-        Update the focused file on `BufEnter`, un-collapses the folders recursively
-        until it finds the file.
-      '';
-      default = {};
-
-      type = types.submodule {
-        options = {
-          enable = mkEnableOption "update focused file";
-
-          updateRoot = mkEnableOption ''
-            Update the root directory of the tree if the file is not under current
-            root directory. It prefers vim's cwd and `root_dirs`.
-            Otherwise it falls back to the folder containing the file.
-            Only relevant when `update_focused_file.enable` is `true`
-          '';
-
-          ignoreList = mkOption {
-            description = ''
-              List of buffer names and filetypes that will not update the root dir
-              of the tree if the file isn't found under the current root directory.
-              Only relevant when `update_focused_file.update_root` and
-              `update_focused_file.enable` are `true`.
-            '';
-            type = with types; listOf str;
-            default = [];
-          };
-        };
-      };
-    };
-
     systemOpen = {
       args = mkOption {
         default = [];
@@ -196,12 +203,7 @@ with builtins; {
         Note that the modified sign will take precedence over the diagnostics signs.
       '';
 
-      default = {
-        enable = false;
-        debounceDelay = 50;
-        showOnDirs = false;
-        showOnOpenDirs = true;
-      };
+      default = {};
 
       type = types.submodule {
         options = {
@@ -210,13 +212,17 @@ with builtins; {
           debounceDelay = mkOption {
             description = "Idle milliseconds between diagnostic event and update.";
             type = types.int;
+            default = 50;
           };
 
           showOnDirs = mkOption {
             description = "Show diagnostic icons on parent directories.";
+            default = false;
           };
 
           showOnOpenDirs = mkOption {
+            type = types.bool;
+            default = true;
             description = ''
               Show diagnostics icons on directories that are open.
               Only relevant when `diagnostics.show_on_dirs` is `true`.
@@ -225,30 +231,28 @@ with builtins; {
 
           icons = mkOption {
             description = "Icons for diagnostic severity.";
-            default = {
-              hint = "";
-              info = "";
-              warning = "";
-              error = "";
-            };
-
+            default = {};
             type = types.submodule {
               options = {
                 hint = mkOption {
                   description = "Icon used for `hint` diagnostic.";
                   type = types.str;
+                  default = "";
                 };
                 info = mkOption {
                   description = "Icon used for `info` diagnostic.";
                   type = types.str;
+                  default = "";
                 };
                 warning = mkOption {
                   description = "Icon used for `warning` diagnostic.";
                   type = types.str;
+                  default = "";
                 };
                 error = mkOption {
                   description = "Icon used for `error` diagnostic.";
                   type = types.str;
+                  default = "";
                 };
               };
             };
@@ -256,22 +260,19 @@ with builtins; {
 
           severity = mkOption {
             description = "Severity for which the diagnostics will be displayed. See `:help diagnostic-severity`";
-
-            default = {
-              min = "HINT";
-              max = "ERROR";
-            };
-
+            default = {};
             type = types.submodule {
               options = {
                 min = mkOption {
                   description = "Minimum severity.";
                   type = types.enum ["HINT" "INFO" "WARNING" "ERROR"];
+                  default = "HINT";
                 };
 
                 max = mkOption {
                   description = "Maximum severity.";
                   type = types.enum ["HINT" "INFO" "WARNING" "ERROR"];
+                  default = "ERROR";
                 };
               };
             };
@@ -316,13 +317,7 @@ with builtins; {
 
     modified = mkOption {
       description = "Indicate which file have unsaved modification.";
-
-      default = {
-        enable = false;
-        showOnDirs = true;
-        showOnOpenDirs = true;
-      };
-
+      default = {};
       type = types.submodule {
         options = {
           enable = mkEnableOption "Modified files with icons and color highlight.";
@@ -330,11 +325,13 @@ with builtins; {
           showOnDirs = mkOption {
             type = types.bool;
             description = "Show modified icons on parent directories.";
+            default = true;
           };
 
           showOnOpenDirs = mkOption {
             type = types.bool;
             description = "Show modified icons on directories that are open.";
+            default = true;
           };
         };
       };
@@ -348,27 +345,24 @@ with builtins; {
         updated only for the appropriate folder change, resulting in better
         performance.
       '';
-
-      default = {
-        enable = true;
-        debounceDelay = 50;
-        ignoreDirs = [];
-      };
-
+      default = {};
       type = types.submodule {
         options = {
           enable = mkOption {
             description = "Enable filesystem watchers.";
             type = types.bool;
+            default = true;
           };
 
           debounceDelay = mkOption {
             description = "Idle milliseconds between filesystem change and action.";
             type = types.int;
+            default = 50;
           };
 
           ignoreDirs = mkOption {
             type = with types; listOf str;
+            default = [];
             description = ''
               List of vim regex for absolute directory paths that will not be watched.
               Backslashes must be escaped e.g. `"my-project/\\.build$"`.
@@ -385,33 +379,24 @@ with builtins; {
 
     view = mkOption {
       description = "Window / buffer setup.";
-
-      default = {
-        centralizeSelection = false;
-        cursorline = true;
-        debounceDelay = 15;
-        width = 30;
-        side = "left";
-        preserveWindowProportions = false;
-        number = false;
-        relativenumber = false;
-        signcolumn = "yes";
-      };
-
+      default = {};
       type = types.submodule {
         options = {
           centralizeSelection = mkOption {
             description = "If true, reposition the view so that the current node is initially centralized when entering nvim-tree.";
             type = types.bool;
+            default = false;
           };
 
           cursorline = mkOption {
             description = "Enable cursorline in nvim-tree window.";
             type = types.bool;
+            default = true;
           };
 
           debounceDelay = mkOption {
             type = types.int;
+            default = 15;
             description = ''
               Idle milliseconds before some reload / refresh operations.
               Increase if you experience performance issues around screen refresh.
@@ -427,6 +412,7 @@ with builtins; {
               longest line.
             '';
             type = with types; oneOf [int attrs];
+            default = 30;
             example = literalExpression ''
               {
                 min = 30;
@@ -439,6 +425,7 @@ with builtins; {
           side = mkOption {
             description = "Side of the tree.";
             type = types.enum ["left" "right"];
+            default = "left";
           };
 
           preserveWindowProportions = mkOption {
@@ -447,11 +434,13 @@ with builtins; {
               If `false`, the height and width of windows other than nvim-tree will be equalized.
             '';
             type = types.bool;
+            default = false;
           };
 
           number = mkOption {
             description = "Print the line number in front of each line.";
             type = types.bool;
+            default = false;
           };
 
           relativenumber = mkOption {
@@ -461,44 +450,44 @@ with builtins; {
               will be the line number instead of `0`.
             '';
             type = types.bool;
+            default = false;
           };
 
           signcolumn = mkOption {
             description = ''Show diagnostic sign column. Value can be `"yes"`, `"auto"` or`"no"`.'';
             type = types.enum ["yes" "auto" "no"];
+            default = "yes";
           };
 
           float = mkOption {
             description = "Configuration options for floating window.";
 
-            default = {
-              enable = false;
-              quitOnFocusLoss = true;
-              openWinConfig = {
-                relative = "editor";
-                border = "rounded";
-                width = 30;
-                height = 30;
-                row = 1;
-                col = 1;
-              };
-            };
-
+            default = {};
             type = types.submodule {
               options = {
                 enable = mkOption {
                   description = "If true, tree window will be floating.";
                   type = types.bool;
+                  default = false;
                 };
 
                 quitOnFocusLoss = mkOption {
                   description = "Close the floating tree window when it loses focus.";
                   type = types.bool;
+                  default = true;
                 };
 
                 openWinConfig = mkOption {
                   description = "Floating window config. See `:h nvim_open_win()` for more details.";
                   type = types.attrs;
+                  default = {
+                    relative = "editor";
+                    border = "rounded";
+                    width = 30;
+                    height = 30;
+                    row = 1;
+                    col = 1;
+                  };
                 };
               };
             };
@@ -579,17 +568,7 @@ with builtins; {
 
       indentMarkers = mkOption {
         description = "Configuration options for tree indent markers.";
-        default = {
-          inlineArrows = true;
-          icons = {
-            corner = "└";
-            edge = "│";
-            item = "│";
-            bottom = "─";
-            none = "";
-          };
-        };
-
+        default = {};
         type = types.submodule {
           options = {
             enable = mkEnableOption "Display indent markers when folders are open.";
@@ -627,61 +606,55 @@ with builtins; {
 
       icons = mkOption {
         description = "Configuration options for icons.";
-        default = {
-          webdevColors = true;
-          gitPlacement = "before";
-          modifiedPlacement = "after";
-          padding = " ";
-          symlinkArrow = " ➛ ";
-          show = {
-            file = true;
-            folder = true;
-            folderArrow = true;
-            git = false;
-            modified = true;
-          };
-        };
-
+        default = {};
         type = types.submodule {
           options = {
             webdevColors = mkOption {
               type = types.bool;
               description = " Use the webdev icon colors, otherwise `NvimTreeFileIcon`";
+              default = true;
             };
 
             gitPlacement = mkOption {
               type = types.enum ["before" "after" "signcolumn"];
               description = "Place where the git icons will be rendered. `signcolumn` requires `view.signcolumn` to be enabled.";
+              default = "before";
             };
 
             modifiedPlacement = mkOption {
               type = types.enum ["before" "after" "signcolumn"];
               description = "Place where the modified icons will be rendered. `signcolumn` requires `view.signcolumn` to be enabled.";
+              default = "after";
             };
 
             padding = mkOption {
               type = types.str;
               description = "Inserted between icon and filename";
+              default = " ";
             };
 
             symlinkArrow = mkOption {
               type = types.str;
               description = "Used as a separator between symlinks' source and target.";
+              default = " ➛ ";
             };
 
             show = {
               file = mkOption {
                 type = types.bool;
                 description = "Show an icon before the file name. `nvim-web-devicons` will be used if available.";
+                default = true;
               };
 
               folder = mkOption {
                 type = types.bool;
                 description = "Show an icon before the folder name.";
+                default = true;
               };
 
               folderArrow = mkOption {
                 type = types.bool;
+                default = true;
                 description = ''
                   Show a small arrow before the folder node. Arrow will be a part of the
                   node when using `renderer.indent_markers`.
@@ -690,6 +663,7 @@ with builtins; {
 
               git = mkOption {
                 type = types.bool;
+                default = false;
                 description = ''
                   Show a git status icon, see `renderer.icons.gitPlacement`
                   Requires `git.enable` to be true.
@@ -711,59 +685,55 @@ with builtins; {
                 NOTE: Do not set any glyphs to more than two characters if it's going
                 to appear in the signcolumn.
               '';
-
-              default = {
-                default = "";
-                symlink = "";
-                modified = "";
-                folder = {
-                  default = "";
-                  open = "";
-                  arrowOpen = "";
-                  arrowClosed = "";
-                  empty = "";
-                  emptyOpen = "";
-                  symlink = "";
-                  symlinkOpen = "";
-                };
-
-                git = {
-                  unstaged = "✗";
-                  staged = "✓";
-                  unmerged = "";
-                  renamed = "➜";
-                  untracked = "★";
-                  deleted = "";
-                  ignored = "◌";
-                };
-              };
-
+              default = {};
               type = types.submodule {
                 options = {
                   default = mkOption {
                     type = types.str;
                     description = "Glyph for files. Will be overridden by `nvim-web-devicons` if available.";
+                    default = "";
                   };
 
                   symlink = mkOption {
                     type = types.str;
                     description = "Glyph for symlinks.";
+                    default = "";
                   };
 
                   modified = mkOption {
                     type = types.str;
                     description = "Icon to display for modified files.";
+                    default = "";
                   };
 
                   # TODO: hardcode each attribute
                   folder = mkOption {
                     type = types.attrs;
                     description = "Glyphs for directories. Recommended to use the defaults unless you know what you are doing.";
+                    default = {
+                      default = "";
+                      open = "";
+                      arrowOpen = "";
+                      arrowClosed = "";
+                      empty = "";
+                      emptyOpen = "";
+                      symlink = "";
+                      symlinkOpen = "";
+                    };
                   };
 
                   git = mkOption {
                     type = types.attrs;
                     description = "Glyphs for git status.";
+                    default = {
+                      unstaged = "✗";
+                      staged = "✓";
+                      unmerged = "";
+                      renamed = "➜";
+                      untracked = "★";
+                      deleted = "";
+                      ignored = "◌";
+                    };
                   };
                 };
               };
@@ -788,15 +758,19 @@ with builtins; {
           gitIgnored = mkOption {
             type = types.bool;
             description = "Ignore files based on `.gitignore`. Requires git.enable` to be `true`";
+            default = false;
           };
 
           dotfiles = mkOption {
             type = types.bool;
             description = "Do not show dotfiles: files starting with a `.`";
+            default = false;
           };
 
           gitClean = mkOption {
             type = types.bool;
+            default = false;
+
             description = ''
               Do not show files with no git status. This will show ignored files when
               `nvim-tree.filters.git_ignored` is set, as they are effectively dirty.
@@ -805,11 +779,13 @@ with builtins; {
 
           noBuffer = mkOption {
             type = types.bool;
+            default = false;
             description = "Do not show files that have no `buflisted()` buffer.";
           };
 
           exclude = mkOption {
-            type = types.listOf types.str;
+            type = with types; listOf str;
+            default = [];
             description = "List of directories or files to exclude from filtering: always show them.";
           };
         };
@@ -834,14 +810,7 @@ with builtins; {
 
     actions = mkOption {
       description = "Configuration for various actions.";
-      default = {
-        changeDir = {
-          enable = true;
-          global = false;
-          restrictAboveCwd = false;
-        };
-      };
-
+      default = {};
       type = types.submodule {
         options = {
           useSystemClipboard = mkOption {
@@ -857,15 +826,18 @@ with builtins; {
           # change_dir actions
           changeDir = mkOption {
             description = "vim `change-directory` behaviour";
+            default = {};
             type = types.submodule {
               options = {
                 enable = mkOption {
                   type = types.bool;
+                  default = true;
                   description = "Change the working directory when changing directories in the tree.";
                 };
 
                 global = mkOption {
                   type = types.bool;
+                  default = false;
                   description = ''
                     Use `:cd` instead of `:lcd` when changing directories.
                     Consider that this might cause issues with the `nvim-tree.syncRootWithCwd` option.
@@ -874,6 +846,7 @@ with builtins; {
 
                 restrictAboveCwd = mkOption {
                   type = types.bool;
+                  default = false;
                   description = ''
                     Restrict changing to a directory above the global current working directory.
                   '';
@@ -885,14 +858,12 @@ with builtins; {
           # expand_all actions
           expandAll = mkOption {
             description = "Configuration for expand_all behaviour.";
-            default = {
-              maxFolderDiscovery = 300;
-              exclude = [".git" "target" "build" "result"];
-            };
+            default = {};
             type = types.submodule {
               options = {
                 maxFolderDiscovery = mkOption {
                   type = types.int;
+                  default = 300;
                   description = ''
                     Limit the number of folders being explored when expanding every folders.
                     Avoids hanging neovim when running this action on very large folders.
@@ -901,6 +872,7 @@ with builtins; {
                 exclude = mkOption {
                   type = with types; listOf str;
                   description = "A list of directories that should not be expanded automatically.";
+                  default = [".git" "target" "build" "result"];
                 };
               };
             };
@@ -909,14 +881,7 @@ with builtins; {
           # file_popup actions
           filePopup = mkOption {
             description = "Configuration for file_popup behaviour.";
-            default.openWinConfig = {
-              col = 1;
-              row = 1;
-              relative = "cursor";
-              border = "rounded";
-              style = "minimal";
-            };
-
+            default = {};
             type = types.submodule {
               options = {
                 openWinConfig = mkOption {
@@ -937,50 +902,42 @@ with builtins; {
           # open_file actions
           openFile = mkOption {
             description = "Configuration options for opening a file from nvim-tree.";
-
-            default = {
-              quitOnOpen = false;
-              eject = false;
-              resizeWindow = false;
-              windowPicker = {
-                enable = false;
-                picker = "default";
-                chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-                exclude = {
-                  filetype = ["notify" "packer" "qf" "diff" "fugitive" "fugitiveblame"];
-                  buftype = ["nofile" "terminal" "help"];
-                };
-              };
-            };
-
+            default = {};
             type = types.submodule {
               options = {
                 quitOnOpen = mkOption {
                   type = types.bool;
                   description = "Closes the explorer when opening a file.";
+                  default = false;
                 };
 
                 eject = mkOption {
                   type = types.bool;
                   description = "Prevent new opened file from opening in the same window as the tree.";
+                  default = false;
                 };
 
                 resizeWindow = mkOption {
                   type = types.bool;
+                  default = false;
+
                   description = "Resizes the tree when opening a file. Previously `view.auto_resize`";
                 };
 
                 windowPicker = mkOption {
                   description = "window_picker";
+                  default = {};
                   type = types.submodule {
                     options = {
                       enable = mkOption {
                         type = types.bool;
                         description = "Enable the window picker. If this feature is not enabled, files will open in window from which you last opened the tree.";
+                        default = false;
                       };
 
                       picker = mkOption {
                         type = types.str;
+                        default = "default";
                         description = ''
                           Change the default window picker, can be a string `"default"` or a function.
                           The function should return the window id that will open the node,
@@ -998,17 +955,20 @@ with builtins; {
                       chars = mkOption {
                         type = types.str;
                         description = "A string of chars used as identifiers by the window picker.";
+                        default = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
                       };
 
                       exclude = {
                         filetype = mkOption {
                           type = with types; listOf str;
                           description = "A list of filetypes to exclude from the window picker.";
+                          default = ["notify" "packer" "qf" "diff" "fugitive" "fugitiveblame"];
                         };
 
                         buftype = mkOption {
                           type = with types; listOf str;
                           description = "A list of buftypes to exclude from the window picker.";
+                          default = ["nofile" "terminal" "help"];
                         };
                       };
                     };
@@ -1037,22 +997,19 @@ with builtins; {
         This feature is bound to the `f` key by default.
         The filter can be cleared with the `F` key by default.
       '';
-
-      default = {
-        prefix = "[FILTER]: ";
-        alwaysShowFolders = true;
-      };
-
+      default = {};
       type = types.submodule {
         options = {
           prefix = mkOption {
             type = types.str;
             description = "Prefix of the filter displayed in the buffer.";
+            default = "[FILTER]: ";
           };
 
           alwaysShowFolders = mkOption {
             type = types.bool;
             description = "Whether to filter folders or not.";
+            default = true;
           };
         };
       };
@@ -1060,23 +1017,17 @@ with builtins; {
 
     tab = mkOption {
       description = "Configuration for tab behaviour.";
-
-      default = {
-        sync = {
-          open = false;
-          close = false;
-          ignore = [];
-        };
-      };
-
+      default = {};
       type = types.submodule {
         options = {
           sync = mkOption {
             description = "Configuration for syncing nvim-tree across tabs.";
+            default = {};
             type = types.submodule {
               options = {
                 open = mkOption {
                   type = types.bool;
+                  default = false;
                   description = ''
                     Opens the tree automatically when switching tabpage or opening a new
                     tabpage if the tree was previously open.
@@ -1085,6 +1036,7 @@ with builtins; {
 
                 close = mkOption {
                   type = types.bool;
+                  default = false;
                   description = ''
                     Closes the tree across all tabpages when the tree is closed.
                   '';
@@ -1092,6 +1044,7 @@ with builtins; {
 
                 ignore = mkOption {
                   type = with types; listOf str;
+                  default = [];
                   description = ''
                     List of filetypes or buffer names on new tab that will prevent
                     `nvim-tree.tab.sync.open` and `nvim-tree.tab.sync.close`
@@ -1106,22 +1059,19 @@ with builtins; {
 
     notify = mkOption {
       description = "Configuration for notifications.";
-
-      default = {
-        threshold = "INFO";
-        absolutePath = true;
-      };
-
+      default = {};
       type = types.submodule {
         options = {
           threshold = mkOption {
             type = types.enum ["ERROR" "WARNING" "INFO" "DEBUG"];
-            default = "Specify minimum notification level, uses the values from `vim.log.levels`";
+            description = "Specify minimum notification level, uses the values from `vim.log.levels`";
+            default = "INFO";
           };
 
           absolutePath = mkOption {
             type = types.bool;
             description = "Whether to use absolute paths or item names in fs action notifications.";
+            default = true;
           };
         };
       };
@@ -1129,25 +1079,20 @@ with builtins; {
 
     ui = mkOption {
       description = "General UI configuration.";
-
-      default = {
-        confirm = {
-          remove = true;
-          trash = true;
-        };
-      };
-
+      default = {};
       type = types.submodule {
         options = {
           confirm = {
             remove = mkOption {
               type = types.bool;
               description = "Prompt before removing.";
+              default = true;
             };
 
             trash = mkOption {
               type = types.bool;
               description = "Prompt before trash.";
+              default = true;
             };
           };
         };
