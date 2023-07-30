@@ -86,7 +86,7 @@ in {
           show_on_dirs = ${boolToString cfg.git.showOnDirs},
           show_on_open_dirs = ${boolToString cfg.git.showOnOpenDirs},
           disable_for_dirs = ${nvim.lua.listToLuaTable cfg.git.disableForDirs},
-          timeout = ${toString cfg.git.timeOut},
+          timeout = ${toString cfg.git.timeout},
         },
 
         modified = {
