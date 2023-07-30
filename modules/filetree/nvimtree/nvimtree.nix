@@ -118,6 +118,12 @@ with builtins; {
 
     hijackDirectories = mkOption {
       description = "hijack new directory buffers when they are opened (`:e dir`).";
+
+      default = {
+        enable = true;
+        autoOpen = false;
+      };
+
       type = types.submodule {
         options = {
           enable = mkOption {
@@ -136,10 +142,6 @@ with builtins; {
           };
         };
       };
-      default = {
-        enable = true;
-        autoOpen = false;
-      };
     };
 
     updateFocusedFile = mkOption {
@@ -147,6 +149,13 @@ with builtins; {
         Update the focused file on `BufEnter`, un-collapses the folders recursively
         until it finds the file.
       '';
+
+      default = {
+        enable = false;
+        updateRoot = false;
+        ignoreList = [];
+      };
+
       type = types.submodule {
         options = {
           enable = mkEnableOption "update focused file";
@@ -168,9 +177,6 @@ with builtins; {
             type = with types; listOf str;
           };
         };
-      };
-      default = {
-        ignoreList = [];
       };
     };
 
@@ -199,11 +205,23 @@ with builtins; {
         debounceDelay = 50;
         showOnDirs = false;
         showOnOpenDirs = true;
+
+        icons = {
+          hint = "";
+          info = "";
+          warning = "";
+          error = "";
+        };
+
+        severity = {
+          min = "HINT";
+          max = "ERROR";
+        };
       };
 
       type = types.submodule {
         options = {
-          enable = mkEnableOption "diagnostics";
+          enable = mkEnableOption "Enable diagnostics view in the signcolumn.";
 
           debounceDelay = mkOption {
             description = "Idle milliseconds between diagnostic event and update.";
@@ -212,24 +230,17 @@ with builtins; {
 
           showOnDirs = mkOption {
             description = "Show diagnostic icons on parent directories.";
-            type = types.bool;
           };
 
           showOnOpenDirs = mkOption {
-            description = "Show diagnostics icons on directories that are open.";
-            type = types.bool;
+            description = ''
+              Show diagnostics icons on directories that are open.
+              Only relevant when `diagnostics.show_on_dirs` is `true`.
+            '';
           };
 
           icons = mkOption {
             description = "Icons for diagnostic severity.";
-
-            default = {
-              hint = "";
-              info = "";
-              warning = "";
-              error = "";
-            };
-
             type = types.submodule {
               options = {
                 hint = mkOption {
@@ -253,13 +264,7 @@ with builtins; {
           };
 
           severity = mkOption {
-            description = "Severity for which the diagnostics will be displayed";
-
-            default = {
-              min = "HINT";
-              max = "ERROR";
-            };
-
+            description = "Severity for which the diagnostics will be displayed. See `:help diagnostic-severity`";
             type = types.submodule {
               options = {
                 min = mkOption {
@@ -316,6 +321,7 @@ with builtins; {
       description = "Indicate which file have unsaved modification.";
 
       default = {
+        enable = false;
         showOnDirs = true;
         showOnOpenDirs = true;
       };
@@ -382,6 +388,7 @@ with builtins; {
 
     view = mkOption {
       description = "Window / buffer setup.";
+
       default = {
         centralizeSelection = false;
         cursorline = true;
@@ -405,6 +412,7 @@ with builtins; {
           };
         };
       };
+
       type = types.submodule {
         options = {
           centralizeSelection = mkOption {
@@ -1066,13 +1074,6 @@ with builtins; {
         options = {
           sync = mkOption {
             description = "Configuration for syncing nvim-tree across tabs.";
-
-            default = {
-              open = false;
-              close = false;
-              ignore = [];
-            };
-
             type = types.submodule {
               options = {
                 open = mkOption {
@@ -1126,8 +1127,10 @@ with builtins; {
         };
       };
     };
+
     ui = mkOption {
       description = "General UI configuration.";
+
       default = {
         confirm = {
           remove = true;
