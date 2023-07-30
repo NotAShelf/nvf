@@ -193,6 +193,7 @@ with builtins; {
         Show LSP and COC diagnostics in the signcolumn
         Note that the modified sign will take precedence over the diagnostics signs.
       '';
+
       default = {
         enable = false;
         debounceDelay = 50;
@@ -211,6 +212,7 @@ with builtins; {
           max = "ERROR";
         };
       };
+
       type = types.submodule {
         options = {
           enable = mkEnableOption "diagnostics";
