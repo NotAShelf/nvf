@@ -205,18 +205,6 @@ with builtins; {
         debounceDelay = 50;
         showOnDirs = false;
         showOnOpenDirs = true;
-
-        icons = {
-          hint = "";
-          info = "";
-          warning = "";
-          error = "";
-        };
-
-        severity = {
-          min = "HINT";
-          max = "ERROR";
-        };
       };
 
       type = types.submodule {
@@ -241,6 +229,13 @@ with builtins; {
 
           icons = mkOption {
             description = "Icons for diagnostic severity.";
+            default = {
+              hint = "";
+              info = "";
+              warning = "";
+              error = "";
+            };
+
             type = types.submodule {
               options = {
                 hint = mkOption {
@@ -265,6 +260,10 @@ with builtins; {
 
           severity = mkOption {
             description = "Severity for which the diagnostics will be displayed. See `:help diagnostic-severity`";
+            default = {
+              min = "HINT";
+              max = "ERROR";
+            };
             type = types.submodule {
               options = {
                 min = mkOption {
@@ -399,18 +398,6 @@ with builtins; {
         number = false;
         relativenumber = false;
         signcolumn = "yes";
-        float = {
-          enable = false;
-          quitOnFocusLoss = true;
-          openWinConfig = {
-            relative = "editor";
-            border = "rounded";
-            width = 30;
-            height = 30;
-            row = 1;
-            col = 1;
-          };
-        };
       };
 
       type = types.submodule {
@@ -485,6 +472,19 @@ with builtins; {
 
           float = mkOption {
             description = "Configuration options for floating window.";
+            default = {
+              enable = false;
+              quitOnFocusLoss = true;
+              openWinConfig = {
+                relative = "editor";
+                border = "rounded";
+                width = 30;
+                height = 30;
+                row = 1;
+                col = 1;
+              };
+            };
+
             type = types.submodule {
               options = {
                 enable = mkOption {
