@@ -199,18 +199,6 @@ with builtins; {
         debounceDelay = 50;
         showOnDirs = false;
         showOnOpenDirs = true;
-
-        icons = {
-          hint = "";
-          info = "";
-          warning = "";
-          error = "";
-        };
-
-        severity = {
-          min = "HINT";
-          max = "ERROR";
-        };
       };
 
       type = types.submodule {
@@ -232,34 +220,58 @@ with builtins; {
             type = types.bool;
           };
 
-          icons = {
-            hint = mkOption {
-              description = "Icon used for `hint` diagnostic.";
-              type = types.str;
+          icons = mkOption {
+            description = "Icons for diagnostic severity.";
+
+            default = {
+              hint = "";
+              info = "";
+              warning = "";
+              error = "";
             };
-            info = mkOption {
-              description = "Icon used for `info` diagnostic.";
-              type = types.str;
-            };
-            warning = mkOption {
-              description = "Icon used for `warning` diagnostic.";
-              type = types.str;
-            };
-            error = mkOption {
-              description = "Icon used for `error` diagnostic.";
-              type = types.str;
+
+            type = types.submodule {
+              options = {
+                hint = mkOption {
+                  description = "Icon used for `hint` diagnostic.";
+                  type = types.str;
+                };
+                info = mkOption {
+                  description = "Icon used for `info` diagnostic.";
+                  type = types.str;
+                };
+                warning = mkOption {
+                  description = "Icon used for `warning` diagnostic.";
+                  type = types.str;
+                };
+                error = mkOption {
+                  description = "Icon used for `error` diagnostic.";
+                  type = types.str;
+                };
+              };
             };
           };
 
-          severity = {
-            min = mkOption {
-              description = "Minimum severity.";
-              type = types.enum ["HINT" "INFO" "WARNING" "ERROR"];
+          severity = mkOption {
+            description = "Severity for which the diagnostics will be displayed";
+
+            default = {
+              min = "HINT";
+              max = "ERROR";
             };
 
-            max = mkOption {
-              description = "Maximum severity.";
-              type = types.enum ["HINT" "INFO" "WARNING" "ERROR"];
+            type = types.submodule {
+              options = {
+                min = mkOption {
+                  description = "Minimum severity.";
+                  type = types.enum ["HINT" "INFO" "WARNING" "ERROR"];
+                };
+
+                max = mkOption {
+                  description = "Maximum severity.";
+                  type = types.enum ["HINT" "INFO" "WARNING" "ERROR"];
+                };
+              };
             };
           };
         };
