@@ -11,7 +11,7 @@ with builtins; {
     mappings = {
       toggle = mkOption {
         type = types.nullOr types.str;
-        default = "<C-n>";
+        default = "<leader>t";
         description = "Toggle NvimTree";
       };
       refresh = mkOption {
@@ -95,7 +95,7 @@ with builtins; {
 
     syncRootWithCwd = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
       description = ''
         Changes the tree root directory on `DirChanged` and refreshes the tree.
         Only relevant when `updateFocusedFile.updateRoot` is `true`
@@ -194,9 +194,11 @@ with builtins; {
         Note that the modified sign will take precedence over the diagnostics signs.
       '';
       default = {
+        enable = false;
         debounceDelay = 50;
         showOnDirs = false;
         showOnOpenDirs = true;
+
         icons = {
           hint = "";
           info = "";
@@ -212,6 +214,7 @@ with builtins; {
       type = types.submodule {
         options = {
           enable = mkEnableOption "diagnostics";
+
           debounceDelay = mkOption {
             description = "Idle milliseconds between diagnostic event and update.";
             type = types.int;
@@ -246,19 +249,15 @@ with builtins; {
             };
           };
 
-          severity = mkOption {
-            type = types.submodule {
-              options = {
-                min = mkOption {
-                  description = "Minimum severity.";
-                  type = types.enum ["HINT" "INFO" "WARNING" "ERROR"];
-                };
+          severity = {
+            min = mkOption {
+              description = "Minimum severity.";
+              type = types.enum ["HINT" "INFO" "WARNING" "ERROR"];
+            };
 
-                max = mkOption {
-                  description = "Maximum severity.";
-                  type = types.enum ["HINT" "INFO" "WARNING" "ERROR"];
-                };
-              };
+            max = mkOption {
+              description = "Maximum severity.";
+              type = types.enum ["HINT" "INFO" "WARNING" "ERROR"];
             };
           };
         };
