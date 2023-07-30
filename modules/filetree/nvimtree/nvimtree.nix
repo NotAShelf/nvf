@@ -392,14 +392,12 @@ with builtins; {
           };
 
           cursorline = mkOption {
-            default = false;
             description = "Whether to display the cursor line in NvimTree";
             type = types.bool;
           };
 
           debounceDelay = mkOption {
             type = types.int;
-            default = 100;
             description = ''
               Idle milliseconds before some reload / refresh operations.
               Increase if you experience performance issues around screen refresh.
@@ -413,9 +411,6 @@ with builtins; {
               A table indicates that the view should be dynamically sized based on the
               longest line (previously `view.adaptive_size`).
             '';
-
-            default = 30;
-
             type = with types; oneOf [int attrs];
           };
 
