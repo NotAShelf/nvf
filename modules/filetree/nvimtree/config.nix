@@ -70,95 +70,101 @@ in {
         ''
       }
 
-          require'nvim-tree'.setup({
-            disable_netrw = ${boolToString cfg.disableNetrw},
-            hijack_netrw = ${boolToString cfg.hijackNetrw},
-            auto_reload_on_write = ${boolToString cfg.autoreloadOnWrite},
+        require'nvim-tree'.setup({
+          disable_netrw = ${boolToString cfg.disableNetrw},
+          hijack_netrw = ${boolToString cfg.hijackNetrw},
+          auto_reload_on_write = ${boolToString cfg.autoreloadOnWrite},
         
-            sort = {
-              sorter = "${cfg.sort.sorter}",
-              folders_first = ${boolToString cfg.sort.foldersFirst},
-            },
+          sort = {
+            sorter = "${cfg.sort.sorter}",
+            folders_first = ${boolToString cfg.sort.foldersFirst},
+          },
 
-            hijack_unnamed_buffer_when_opening = ${boolToString cfg.hijackUnnamedBufferWhenOpening},
-            hijack_cursor = ${boolToString cfg.hijackCursor},
-            root_dirs = ${nvim.lua.listToLuaTable cfg.rootDirs},
-            prefer_startup_root = ${boolToString cfg.preferStartupRoot},
-            sync_root_with_cwd = ${boolToString cfg.syncRootWithCwd},
-            reload_on_bufenter = ${boolToString cfg.reloadOnBufEnter},
-            respect_buf_cwd = ${boolToString cfg.respectBufCwd},
+          hijack_unnamed_buffer_when_opening = ${boolToString cfg.hijackUnnamedBufferWhenOpening},
+          hijack_cursor = ${boolToString cfg.hijackCursor},
+          root_dirs = ${nvim.lua.listToLuaTable cfg.rootDirs},
+          prefer_startup_root = ${boolToString cfg.preferStartupRoot},
+          sync_root_with_cwd = ${boolToString cfg.syncRootWithCwd},
+          reload_on_bufenter = ${boolToString cfg.reloadOnBufEnter},
+          respect_buf_cwd = ${boolToString cfg.respectBufCwd},
         
-            hijack_directories = {
-              enable = ${boolToString cfg.hijackDirectories.enable},
-              auto_open = ${boolToString cfg.hijackDirectories.autoOpen},
+          hijack_directories = {
+            enable = ${boolToString cfg.hijackDirectories.enable},
+            auto_open = ${boolToString cfg.hijackDirectories.autoOpen},
+          },
+
+          update_focused_file = {
+            enable = ${boolToString cfg.updateFocusedFile.enable},
+            update_root = ${boolToString cfg.updateFocusedFile.updateRoot},
+            ignore_list = ${nvim.lua.listToLuaTable cfg.updateFocusedFile.ignoreList},
+          },
+
+          system_open = {
+            cmd = "${cfg.systemOpen.cmd}",
+            args = ${nvim.lua.listToLuaTable cfg.systemOpen.args},
+          },
+
+          diagnostics = {
+            enable = ${boolToString cfg.diagnostics.enable},
+            icons = {
+              hint = "${cfg.diagnostics.icons.hint}",
+              info = "${cfg.diagnostics.icons.info}",
+              warning = "${cfg.diagnostics.icons.warning}",
+              error = "${cfg.diagnostics.icons.error}",
             },
 
-            update_focused_file = {
-              enable = ${boolToString cfg.updateFocusedFile.enable},
-              update_root = ${boolToString cfg.updateFocusedFile.updateRoot},
-              ignore_list = ${nvim.lua.listToLuaTable cfg.updateFocusedFile.ignoreList},
+            severity = {
+              min = "vim.diagnostic.severity.${cfg.diagnostics.severity.min}",
+              max = "vim.diagnostic.severity.${cfg.diagnostics.severity.max}",
             },
+          },
 
-            system_open = {
-              cmd = "${cfg.systemOpen.cmd}",
-              args = ${nvim.lua.listToLuaTable cfg.systemOpen.args},
-            },
+          git = {
+            enable = ${boolToString cfg.git.enable},
+            show_on_dirs = ${boolToString cfg.git.showOnDirs},
+            show_on_open_dirs = ${boolToString cfg.git.showOnOpenDirs},
+            disable_for_dirs = ${nvim.lua.listToLuaTable cfg.git.disableForDirs},
+            timeout = ${toString cfg.git.timeOut},
+          },
 
-            diagnostics = {
-              enable = ${boolToString cfg.diagnostics.enable},
-              icons = {
-                hint = "${cfg.diagnostics.icons.hint}",
-                info = "${cfg.diagnostics.icons.info}",
-                warning = "${cfg.diagnostics.icons.warning}",
-                error = "${cfg.diagnostics.icons.error}",
+          modified = {
+            enable = ${boolToString cfg.modified.enable},
+            show_on_dirs = ${boolToString cfg.modified.showOnDirs},
+            show_on_open_dirs = ${boolToString cfg.modified.showOnOpenDirs},
+          },
+
+          filesystem_watchers = {
+            enable = ${boolToString cfg.filesystemWatchers.enable},
+            debounce_delay = ${toString cfg.filesystemWatchers.debounceDelay},
+            ignore_dirs = ${nvim.lua.listToLuaTable cfg.filesystemWatchers.ignoreDirs},
+          },
+
+          select_prompts = ${boolToString cfg.selectPrompts},
+
+          view = {
+            centralize_selection = ${boolToString cfg.view.centralizeSelection},
+            cursorline = ${boolToString cfg.view.cursorline},
+            debounce_delay = ${toString cfg.view.debounceDelay},
+            width = ${nvim.lua.expToLua cfg.view.width},
+            side = "${cfg.view.side}",
+            preserve_window_proportions = ${boolToString cfg.view.preserveWindowProportions},
+            number = ${boolToString cfg.view.number},
+            relativenumber = ${boolToString cfg.view.relativenumber},
+            signcolumn = "${cfg.view.signcolumn}",
+            float = {
+              enable = ${boolToString cfg.view.float.enable},
+              quit_on_focus_loss = ${boolToString cfg.view.float.quitOnFocusLoss},
+              open_win_config = {
+                relative = "${cfg.view.float.openWinConfig.relative}",
+                border = "${cfg.view.float.openWinConfig.border}",
+                width = ${toString cfg.view.float.openWinConfig.width},
+                height = ${toString cfg.view.float.openWinConfig.height},
+                row = ${toString cfg.view.float.openWinConfig.row},
+                col = ${toString cfg.view.float.openWinConfig.col},
               },
-
-              severity = {
-                min = "vim.diagnostic.severity.${cfg.diagnostics.severity.min}",
-                max = "vim.diagnostic.severity.${cfg.diagnostics.severity.max}",
-              },
             },
-
-            git = {
-              enable = ${boolToString cfg.git.enable},
-              show_on_dirs = ${boolToString cfg.git.showOnDirs},
-              show_on_open_dirs = ${boolToString cfg.git.showOnOpenDirs},
-              disable_for_dirs = ${nvim.lua.listToLuaTable cfg.git.disableForDirs},
-              timeout = ${toString cfg.git.timeOut},
-            },
-
-            modified = {
-              enable = ${boolToString cfg.modified.enable},
-              show_on_dirs = ${boolToString cfg.modified.showOnDirs},
-              show_on_open_dirs = ${boolToString cfg.modified.showOnOpenDirs},
-            },
-
-            filesystem_watchers = {
-              enable = ${boolToString cfg.filesystemWatchers.enable},
-              debounce_delay = ${toString cfg.filesystemWatchers.debounceDelay},
-              ignore_dirs = ${nvim.lua.listToLuaTable cfg.filesystemWatchers.ignoreDirs},
-            },
-
-            select_prompts = ${boolToString cfg.selectPrompts},
+          },
         
-            view = {
-              width = ${nvim.lua.expToLua cfg.view.width},  
-              centralize_selection = ${boolToString cfg.view.centralizeSelection},
-              cursorline = ${boolToString cfg.view.cursorline},
-              debounce_delay = ${toString cfg.view.debounceDelay},
-              side = "${cfg.view.side}",
-              preserve_window_proportions = ${boolToString cfg.view.preserveWindowProportions},
-              number = ${boolToString cfg.view.number},
-              relativenumber = ${boolToString cfg.view.relativeNumber},
-              signcolumn = ${cfg.view.signcolumn},
-
-              float = {
-                enable = ${boolToString cfg.view.float.enable},
-                quit_on_focus_loss = ${boolToString cfg.view.float.quitOnFocusLoss},
-                open_win_config = ${nvim.lua.expToLua cfg.view.float.openWinConfig},
-              },
-            },
-
           renderer = {
             add_trailing = ${boolToString cfg.renderer.addTrailing},
             group_empty = ${boolToString cfg.renderer.groupEmpty},
@@ -173,6 +179,9 @@ in {
               inline_arrows = ${boolToString cfg.renderer.indentMarkers.inlineArrows},
               icons = ${nvim.lua.expToLua cfg.renderer.indentMarkers.icons},
             },
+      
+            special_files = ${nvim.lua.listToLuaTable cfg.renderer.specialFiles},
+            symlink_destination = ${boolToString cfg.renderer.symlinkDestination},
 
             icons = {
               webdev_colors = ${boolToString cfg.renderer.icons.webdevColors},
@@ -216,9 +225,8 @@ in {
               },
             },
           },
-          special_files = ${nvim.lua.listToLuaTable cfg.renderer.specialFiles},
-          symlink_destination = ${boolToString cfg.renderer.symlinkDestination},
         },
+      
         filters = {
           git_ignored = ${boolToString cfg.filters.gitIgnored},
           dotfiles = ${boolToString cfg.filters.dotfiles},
@@ -226,9 +234,11 @@ in {
           no_buffer = ${boolToString cfg.filters.noBuffer},
           exclude = ${nvim.lua.listToLuaTable cfg.filters.exclude},
         },
+      
         trash = {
           cmd = "${cfg.trash.cmd}",
         },
+      
         actions = {
           use_system_clipboard = ${boolToString cfg.actions.useSystemClipboard},
           change_dir = {

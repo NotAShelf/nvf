@@ -369,30 +369,38 @@ with builtins; {
 
     view = mkOption {
       description = "Window / buffer setup.";
-
       default = {
         centralizeSelection = false;
-        cursorline = false;
-        debounceDelay = 100;
+        cursorline = true;
+        debounceDelay = 15;
+        width = 30;
         side = "left";
         preserveWindowProportions = false;
         number = false;
-        relativeNumber = false;
+        relativenumber = false;
         signcolumn = "yes";
+        float = {
+          enable = false;
+          quitOnFocusLoss = true;
+          openWinConfig = {
+            relative = "editor";
+            border = "rounded";
+            width = 30;
+            height = 30;
+            row = 1;
+            col = 1;
+          };
+        };
       };
-
       type = types.submodule {
         options = {
           centralizeSelection = mkOption {
+            description = "If true, reposition the view so that the current node is initially centralized when entering nvim-tree.";
             type = types.bool;
-            description = ''
-              When entering nvim-tree, reposition the view so that the current node is
-              initially centralized
-            '';
           };
 
           cursorline = mkOption {
-            description = "Whether to display the cursor line in NvimTree";
+            description = "Enable cursorline in nvim-tree window.";
             type = types.bool;
           };
 
@@ -408,76 +416,69 @@ with builtins; {
             description = ''
               Width of the window: can be a `%` string, a number representing columns, a
               function or a table.
-              A table indicates that the view should be dynamically sized based on the
-              longest line (previously `view.adaptive_size`).
+
+              A table (an attribute set in our case, see example) indicates that the view should be dynamically sized based on the
+              longest line.
             '';
             type = with types; oneOf [int attrs];
+            example = literalExpression ''
+              {
+                min = 30;
+                max = -1;
+                padding = 1;
+              }
+            '';
           };
 
           side = mkOption {
+            description = "Side of the tree.";
             type = types.enum ["left" "right"];
-            default = "left";
-            description = "Side the tree will appear on left or right";
           };
 
           preserveWindowProportions = mkOption {
-            type = types.bool;
-            default = false;
             description = ''
               Preserves window proportions when opening a file.
               If `false`, the height and width of windows other than nvim-tree will be equalized.
             '';
+            type = types.bool;
           };
 
           number = mkOption {
-            type = types.bool;
-            default = false;
             description = "Print the line number in front of each line.";
+            type = types.bool;
           };
 
-          relativeNumber = mkOption {
-            type = types.bool;
-            default = false;
+          relativenumber = mkOption {
             description = ''
               Show the line number relative to the line with the cursor in front of each line.
               If the option `view.number` is also `true`, the number on the cursor line
               will be the line number instead of `0`.
             '';
+            type = types.bool;
           };
 
           signcolumn = mkOption {
+            description = " Show diagnostic sign column. Value can be `" yes "`, `" auto "`, `" no "`.";
             type = types.enum ["yes" "auto" "no"];
-            default = "yes";
-            description = "Show diagnostic sign column.";
           };
 
           float = mkOption {
-            description = "Configuration options for floating window";
-
-            default = {
-              quitOnFocusLoss = true;
-              openWinConfig = {
-                relative = "editor";
-                border = "single";
-                width = 30;
-                height = 30;
-                row = 1;
-                col = 1;
-              };
-            };
-
+            description = "Configuration options for floating window.";
             type = types.submodule {
               options = {
-                enable = mkEnableOption "Tree window will be floating.";
+                enable = mkOption {
+                  description = "If true, tree window will be floating.";
+                  type = types.bool;
+                };
 
                 quitOnFocusLoss = mkOption {
-                  type = types.bool;
                   description = "Close the floating tree window when it loses focus.";
+                  type = types.bool;
                 };
 
                 openWinConfig = mkOption {
-                  type = with types; oneOf [str attrs];
-                  description = "Floating window configuration.";
+                  description = "Floating window config. See `:h nvim_open_win()` for more details.";
+                  type = types.attrs;
                 };
               };
             };
