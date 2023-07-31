@@ -15,5 +15,6 @@ _: {
     ./lsp-signature
     ./lightbulb
     ./lspkind
+    ./lsplines
   ];
 }

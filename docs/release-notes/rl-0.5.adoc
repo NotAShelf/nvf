@@ -35,3 +35,5 @@ https://github.com/notashelf[notashelf]:
 * Addeed nvim-navic integration for catppuccin theme
 
 * Fixed mismatching zig language description
+
+* Added lsp_lines plugin for showing diagnostic messages

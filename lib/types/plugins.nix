@@ -90,6 +90,7 @@ with lib; let
     "nvim-navic"
     "nvim-navbuddy"
     "copilot-cmp"
+    "lsp-lines"
   ];
   # You can either use the name of the plugin or a package.
   pluginType = with types;

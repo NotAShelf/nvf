@@ -108,6 +108,11 @@
       flake = false;
     };
 
+    lsp-lines = {
+      url = "sourcehut:~whynothugo/lsp_lines.nvim";
+      flake = false;
+    };
+
     null-ls = {
       url = "github:jose-elias-alvarez/null-ls.nvim";
       flake = false;
