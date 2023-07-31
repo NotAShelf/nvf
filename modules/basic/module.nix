@@ -31,6 +31,12 @@ with builtins; {
       };
     };
 
+    leaderKey = mkOption {
+      type = with types; nullOr str;
+      default = null;
+      description = "The leader key to be used internally";
+    };
+
     colourTerm = mkOption {
       type = types.bool;
       default = true;

@@ -613,6 +613,22 @@
         "type": "github"
       }
     },
+    "lsp-lines": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1684163755,
+        "narHash": "sha256-Zhf2xitLWtE+dWqhvWtLM1K1WdtBvkqqoRLSYIO42oY=",
+        "owner": "~whynothugo",
+        "repo": "lsp_lines.nvim",
+        "rev": "f53af96d4789eef39a082dbcce078d2bfc384ece",
+        "type": "sourcehut"
+      },
+      "original": {
+        "owner": "~whynothugo",
+        "repo": "lsp_lines.nvim",
+        "type": "sourcehut"
+      }
+    },
     "lsp-signature": {
       "flake": false,
       "locked": {
@@ -1421,6 +1437,7 @@
         "indent-blankline": "indent-blankline",
         "kommentary": "kommentary",
         "leap-nvim": "leap-nvim",
+        "lsp-lines": "lsp-lines",
         "lsp-signature": "lsp-signature",
         "lspkind": "lspkind",
         "lspsaga": "lspsaga",
