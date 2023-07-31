@@ -1,5 +1,5 @@
 _: {
   imports = [
-    ./nvimtree-lua
+    ./nvimtree
   ];
 }

@@ -113,15 +113,8 @@ inputs: let
       };
 
       vim.filetree = {
-        nvimTreeLua = {
+        nvimTree = {
           enable = true;
-          renderer = {
-            rootFolderLabel = null;
-          };
-          view = {
-            width = 25;
-            cursorline = false;
-          };
         };
       };
 
@@ -218,7 +211,7 @@ inputs: let
       };
 
       vim.session = {
-        nvim-session-manager.enable = isMaximal;
+        nvim-session-manager.enable = false;
       };
 
       vim.gestures = {

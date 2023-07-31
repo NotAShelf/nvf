@@ -13,12 +13,17 @@
     else "'${value}'";
 
   # convert an expression to lua
+
   expToLua = exp:
     if builtins.isList exp
-    then listToLuaTable exp
+    then listToLuaTable exp # if list, convert to lua table
     else if builtins.isAttrs exp
-    then attrsetToLuaTable exp
-    else ("\"" + builtins.toJSON exp + "\"");
+    then attrsetToLuaTable exp # if attrs, convert to table
+    else if builtins.isBool exp
+    then lib.boolToString exp # if bool, convert to string
+    else if builtins.isInt exp
+    then builtins.toString exp # if int, convert to string
+    else (builtins.toJSON exp); # otherwise jsonify the value and print as is
 
   # convert list to a lua table
   listToLuaTable = list:
