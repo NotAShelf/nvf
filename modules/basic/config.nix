@@ -142,6 +142,9 @@ in {
         set spell
         set spelllang=${toString cfg.spellChecking.language}
       ''}
+      ${optionalString (cfg.leaderKey != null) ''
+        let mapleader = "${toString cfg.leaderKey}"
+      ''}
     '';
   };
 }
