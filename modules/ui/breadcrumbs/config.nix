@@ -31,6 +31,10 @@ in {
       local navic = require("nvim-navic")
       local actions = require("nvim-navbuddy.actions")
 
+      require("nvim-navic").setup {
+        highlight = true
+      }
+
       -- TODO: wrap this in an optional string with navbuddy as the enable condition
       navbuddy.setup {
           window = {

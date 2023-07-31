@@ -9,7 +9,7 @@ with builtins; let
   cfg = config.vim.languages.zig;
 in {
   options.vim.languages.zig = {
-    enable = mkEnableOption "SQL language support";
+    enable = mkEnableOption "Zig language support";
 
     treesitter = {
       enable = mkEnableOption "Enable Zig treesitter" // {default = config.vim.languages.enableTreesitter;};

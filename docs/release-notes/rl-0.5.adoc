@@ -16,7 +16,11 @@ https://github.com/horriblename[horriblename]:
 
 https://github.com/amanse[amanse]:
 
-* Added daily notes options for obsidian plugin.
+* Added daily notes options for obsidian plugin.a
+
+https://github.com/yavko[yavko]:
+
+* Added Deno Language Server for javascript/typescript
 
 https://github.com/notashelf[notashelf]:
 
@@ -27,3 +31,7 @@ https://github.com/notashelf[notashelf]:
 * LSP integrated breadcrumbs with <<opt-vim.ui.breadcrumbs>> through nvim-navic
 
 * LSP navigation helper with nvim-navbuddy, depends on nvim-navic (automatically enabled)
+
+* Addeed nvim-navic integration for catppuccin theme
+
+* Fixed mismatching zig language description

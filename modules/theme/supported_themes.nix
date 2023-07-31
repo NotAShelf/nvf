@@ -60,7 +60,11 @@
           markdown = true,
           noice = true,
           notify = true, -- nvim-notify
-          which_key = true
+          which_key = true,
+          navic = {
+            enabled = false,
+            custom_bg = "NONE", -- "lualine" will set background to mantle
+          },
         },
       }
       -- setup must be called before loading

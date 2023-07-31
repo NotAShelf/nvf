@@ -69,7 +69,7 @@ inputs: let
         zig.enable = isMaximal;
         python.enable = isMaximal;
         dart.enable = isMaximal;
-        elixir.enable = isMaximal;
+        elixir.enable = false;
       };
 
       vim.visuals = {
