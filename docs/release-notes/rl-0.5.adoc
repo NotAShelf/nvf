@@ -35,3 +35,5 @@ https://github.com/notashelf[notashelf]:
 * Addeed nvim-navic integration for catppuccin theme
 
 * Fixed mismatching zig language description
+
+* Added support for `statix` and `deadnix` through <<opt-vim.languages.nix.extraDiagnostics.types>>
