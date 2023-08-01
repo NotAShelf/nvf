@@ -138,7 +138,7 @@ in {
       ${optionalString (!cfg.enableEditorconfig) ''
         let g:editorconfig = v:false
       ''}
-      ${optionalString (cfg.spellChecking.enable) ''
+      ${optionalString cfg.spellChecking.enable ''
         set spell
         set spelllang=${toString cfg.spellChecking.language}
       ''}
