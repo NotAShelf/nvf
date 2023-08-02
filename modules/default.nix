@@ -6,7 +6,7 @@ inputs: {
   extraSpecialArgs ? {},
 }: let
   inherit (pkgs) neovim-unwrapped wrapNeovim vimPlugins;
-  inherit (builtins) map filter isString toString getAttr hasAttr attrNames;
+  inherit (builtins) map filter isString toString getAttr;
   inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
 
   extendedLib = import ../lib/stdlib-extended.nix lib;
@@ -18,11 +18,7 @@ inputs: {
 
   module = extendedLib.evalModules {
     modules = [configuration] ++ nvimModules;
-    specialArgs =
-      {
-        modulesPath = toString ./.;
-      }
-      // extraSpecialArgs;
+    specialArgs = {modulesPath = toString ./.;} // extraSpecialArgs;
   };
 
   buildPlug = {pname, ...} @ args:
@@ -59,9 +55,10 @@ inputs: {
       (f: f != null)
       plugins);
 
-  neovim = wrapNeovim neovim-unwrapped {
-    viAlias = vimOptions.viAlias;
-    vimAlias = vimOptions.vimAlias;
+  neovim = wrapNeovim vimOptions.package {
+    inherit (vimOptions) viAlias;
+    inherit (vimOptions) vimAlias;
+
     configure = {
       customRC = vimOptions.builtConfigRC;
 
@@ -72,7 +69,6 @@ inputs: {
     };
   };
 in {
-  imports = [./assertions.nix];
   inherit (module) options config;
   inherit (module._module.args) pkgs;
   inherit neovim;
