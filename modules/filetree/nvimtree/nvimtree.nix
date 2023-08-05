@@ -520,7 +520,7 @@ with builtins; {
         default = false;
         description = ''
           Enable file highlight for git attributes using `NvimTreeGit` highlight groups.
-          Requires `nvim-tree.git.enable`
+          Requires `nvimTree.git.enable`
           This can be used with or without the icons.
         '';
       };
@@ -539,7 +539,7 @@ with builtins; {
         default = "none";
         description = ''
           Highlight modified files in the tree using `NvimTreeNormal` highlight group.
-          Requires `nvim-tree.view.highlightOpenedFiles`
+          Requires `nvimTree.view.highlightOpenedFiles`
         '';
       };
 
@@ -773,7 +773,7 @@ with builtins; {
 
             description = ''
               Do not show files with no git status. This will show ignored files when
-              `nvim-tree.filters.git_ignored` is set, as they are effectively dirty.
+              `nvimTree.filters.gitIgnored` is set, as they are effectively dirty.
             '';
           };
 
@@ -840,7 +840,7 @@ with builtins; {
                   default = false;
                   description = ''
                     Use `:cd` instead of `:lcd` when changing directories.
-                    Consider that this might cause issues with the `nvim-tree.syncRootWithCwd` option.
+                    Consider that this might cause issues with the `nvimTree.syncRootWithCwd` option.
                   '';
                 };
 
@@ -1047,7 +1047,7 @@ with builtins; {
                   default = [];
                   description = ''
                     List of filetypes or buffer names on new tab that will prevent
-                    `nvim-tree.tab.sync.open` and `nvim-tree.tab.sync.close`
+                    `nvimTree.tab.sync.open` and `nvimTree.tab.sync.close`
                   '';
                 };
               };
