@@ -42,13 +42,19 @@ in {
       };
     };
 
-    cursorWordline = {
-      enable = mkEnableOption "word and delayed line highlight [nvim-cursorline].";
+    cursorline = {
+      enable = mkEnableOption "Enable line hightlighting on the cursor [nvim-cursorline]";
 
       lineTimeout = mkOption {
         type = types.int;
         description = "Time in milliseconds for cursorline to appear";
-        default = 500;
+        default = 0;
+      };
+
+      lineNumbersOnly = mkOption {
+        type = types.bool;
+        description = "Hightlight only in the presence of line numbers";
+        default = true;
       };
     };
 
