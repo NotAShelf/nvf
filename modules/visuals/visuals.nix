@@ -43,7 +43,7 @@ in {
     };
 
     cursorline = {
-      enable = mkEnableOption "Enable line hightlighting on the cursor [nvim-cursorline]";
+      enable = mkEnableOption "line hightlighting on the cursor [nvim-cursorline]";
 
       lineTimeout = mkOption {
         type = types.int;
