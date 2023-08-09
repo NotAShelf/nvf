@@ -64,6 +64,7 @@ inputs: let
           enable = isMaximal;
           crates.enable = true;
         };
+        java.enable = isMaximal;
         ts.enable = isMaximal;
         svelte.enable = isMaximal;
         go.enable = isMaximal;
