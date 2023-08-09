@@ -16,7 +16,9 @@ https://github.com/horriblename[horriblename]:
 
 https://github.com/amanse[amanse]:
 
-* Added daily notes options for obsidian plugin.a
+* Added daily notes options for obsidian plugin.
+
+* Added jdt-language-server for Java.
 
 https://github.com/yavko[yavko]:
 
