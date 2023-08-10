@@ -31,12 +31,12 @@ with builtins; {
 
     spellChecking = {
       enable = mkEnableOption "neovim's built-in spellchecking";
-      enableProgrammingWordList = mkEnableOption "adds vim-dirtytalk, a wordlist for programmers, that includes programming words";
+      enableProgrammingWordList = mkEnableOption "vim-dirtytalk, a wordlist for programmers, that includes programming words";
       languages = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "The languages to be used for spellchecking";
-        default = ["en_US"];
-        example = ["en_US" "de"];
+        default = ["en"];
+        example = ["en" "de"];
       };
     };
 

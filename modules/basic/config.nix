@@ -8,10 +8,7 @@ with builtins; let
   cfg = config.vim;
 in {
   config = {
-    vim.startPlugins =
-      if cfg.spellChecking.enableProgrammingWordList
-      then ["plenary-nvim" "vim-dirtytalk"]
-      else ["plenary-nvim"];
+    vim.startPlugins = ["plenary-nvim"] ++ lib.optionals (cfg.spellChecking.enableProgrammingWordList) ["vim-dirtytalk"];
 
     vim.maps.normal =
       mkIf cfg.disableArrows {
