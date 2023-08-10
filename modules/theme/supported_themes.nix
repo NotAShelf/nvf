@@ -27,8 +27,13 @@
   };
 
   dracula = {
-    setup = ''
-      require('dracula').setup({});
+    setup = {
+      style ? null,
+      transparent,
+    }: ''
+      require('dracula').setup({
+        transparent_bg = ${lib.boolToString transparent},
+      });
       require('dracula').load();
     '';
   };
