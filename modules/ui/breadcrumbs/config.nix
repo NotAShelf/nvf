@@ -3,42 +3,40 @@
   lib,
   ...
 }:
-with lib;
 with builtins; let
+  inherit (lib) optionalString boolToString mkIf optionals;
+  inherit (lib.nvim.lua) nullString;
+
   cfg = config.vim.ui.breadcrumbs;
   nb = cfg.navbuddy;
-
-  nilOrStr = v:
-    if v == null
-    then "nil"
-    else toString v;
 in {
   config = mkIf cfg.enable {
     vim.startPlugins =
       [
         "nvim-lspconfig"
       ]
-      ++ lib.optionals (cfg.source == "nvim-navic") [
+      ++ optionals (cfg.source == "nvim-navic") [
         "nvim-navic"
       ]
-      ++ lib.optionals (config.vim.lsp.lspsaga.enable && cfg.source == "lspsaga") [
+      ++ optionals (config.vim.lsp.lspsaga.enable && cfg.source == "lspsaga") [
         "lspsaga"
       ]
-      ++ lib.optionals cfg.navbuddy.enable [
+      ++ optionals cfg.navbuddy.enable [
         "nvim-navbuddy"
         "nui-nvim"
+        "nvim-navic"
       ];
 
-    vim.luaConfigRC.breadcrumbs = nvim.dag.entryAfter ["lspconfig"] ''
+    vim.luaConfigRC.breadcrumbs = lib.nvim.dag.entryAfter ["lspconfig"] ''
 
-      ${lib.optionalString (cfg.source == "nvim-navic") ''
+      ${optionalString (cfg.source == "nvim-navic") ''
         local navic = require("nvim-navic")
         require("nvim-navic").setup {
           highlight = true
         }
       ''}
 
-      ${lib.optionalString cfg.navbuddy.enable ''
+      ${optionalString cfg.navbuddy.enable ''
         local navbuddy = require("nvim-navbuddy")
         local actions = require("nvim-navbuddy.actions")
         navbuddy.setup {
@@ -46,20 +44,20 @@ in {
                 border = "${nb.window.border}",  -- "rounded", "double", "solid", "none"
                 size = "60%",
                 position = "50%",
-                scrolloff = ${(nilOrStr nb.window.scrolloff)},
+                scrolloff = ${(nullString nb.window.scrolloff)},
                 sections = {
                     left = {
                         size = "20%",
-                        border = ${(nilOrStr nb.window.sections.left.border)},
+                        border = ${(nullString nb.window.sections.left.border)},
                     },
 
                     mid = {
                         size = "40%",
-                        border = ${(nilOrStr nb.window.sections.mid.border)},
+                        border = ${(nullString nb.window.sections.mid.border)},
                     },
 
                     right = {
-                        border = ${(nilOrStr nb.window.sections.right.border)},
+                        border = ${(nullString nb.window.sections.right.border)},
                         preview = "leaf",
                     }
                 },
@@ -82,7 +80,7 @@ in {
                 follow_node = ${boolToString nb.sourceBuffer.followNode},
                 highlight = ${boolToString nb.sourceBuffer.highlight},
                 reorient = "${nb.sourceBuffer.reorient}",
-                scrolloff = ${nilOrStr nb.sourceBuffer.scrolloff}
+                scrolloff = ${nullString nb.sourceBuffer.scrolloff}
             },
 
             icons = {
@@ -115,7 +113,7 @@ in {
             },
 
             -- make those configurable
-            use_default_mappings = ${toString (cfg.navbuddy.useDefaultMappings)},
+            use_default_mappings = ${boolToString cfg.navbuddy.useDefaultMappings},
             mappings = {
                 ["${cfg.navbuddy.mappings.close}"] = actions.close(),
                 ["${cfg.navbuddy.mappings.nextSibling}"] = actions.next_sibling(),
