@@ -91,6 +91,7 @@ with lib; let
     "nvim-navbuddy"
     "copilot-cmp"
     "lsp-lines"
+    "vim-dirtytalk"
   ];
   # You can either use the name of the plugin or a package.
   pluginType = with types;
