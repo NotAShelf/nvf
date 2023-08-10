@@ -13,7 +13,6 @@
     else "'${value}'";
 
   # convert an expression to lua
-
   expToLua = exp:
     if builtins.isList exp
     then listToLuaTable exp # if list, convert to lua table
