@@ -1,6 +1,6 @@
 {lib}:
 with lib; let
-  diagnosticSubmodule = {...}: {
+  diagnosticSubmodule = _: {
     options = {
       type = mkOption {
         description = "Type of diagnostic to enable";
@@ -28,4 +28,10 @@ in {
     mkPackageOption pkgs ["${grammar} treesitter"] {
       default = ["vimPlugins" "nvim-treesitter" "builtGrammars" grammar];
     };
+
+  # helper function to return the desired value based on entry type in lsp server cmd
+  pkgOrStr = v:
+    if builtins.isString v
+    then v
+    else lib.getExe v;
 }
