@@ -456,6 +456,12 @@
       flake = false;
     };
 
+    # Spellchecking
+    vim-dirtytalk = {
+      url = "github:psliwka/vim-dirtytalk";
+      flake = false;
+    };
+
     # Terminal
     toggleterm-nvim = {
       url = "github:akinsho/toggleterm.nvim";

@@ -8,7 +8,7 @@ with builtins; let
   cfg = config.vim;
 in {
   config = {
-    vim.startPlugins = ["plenary-nvim"];
+    vim.startPlugins = ["plenary-nvim"] ++ lib.optionals (cfg.spellChecking.enableProgrammingWordList) ["vim-dirtytalk"];
 
     vim.maps.normal =
       mkIf cfg.disableArrows {
@@ -140,7 +140,7 @@ in {
       ''}
       ${optionalString cfg.spellChecking.enable ''
         set spell
-        set spelllang=${toString cfg.spellChecking.language}
+        set spelllang=${builtins.concatStringsSep "," cfg.spellChecking.languages}${optionalString cfg.spellChecking.enableProgrammingWordList ",programming"}
       ''}
       ${optionalString (cfg.leaderKey != null) ''
         let mapleader = "${toString cfg.leaderKey}"
