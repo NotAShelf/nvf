@@ -15,7 +15,7 @@ with lib; {
     sources = mkOption {
       default = {};
       description = "List of debuggers to install";
-      type = with types; attrsOf string;
+      type = with types; attrsOf str;
     };
 
     mappings = {

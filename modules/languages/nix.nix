@@ -56,9 +56,9 @@ with builtins; let
                 command = {"${cfg.format.package}/bin/nixpkgs-fmt"},
               },
             ''}
-        ''}
             },
-          };
+          },
+        ''}
         }
       '';
     };
