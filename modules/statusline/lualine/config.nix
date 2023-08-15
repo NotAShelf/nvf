@@ -55,7 +55,7 @@ in {
           lualine_c = {
             {
                 "navic",
-                draw_empty = ${toString config.vim.ui.breadcrumbs.alwaysRender}
+                draw_empty = ${boolToString config.vim.ui.breadcrumbs.alwaysRender}
             }
           }
         },
