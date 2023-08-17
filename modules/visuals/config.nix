@@ -31,10 +31,15 @@ in {
       '';
     })
 
-    (mkIf cfg.cursorWordline.enable {
+    (mkIf cfg.cursorline.enable {
       vim.startPlugins = ["nvim-cursorline"];
       vim.luaConfigRC.cursorline = nvim.dag.entryAnywhere ''
-        vim.g.cursorline_timeout = ${toString cfg.cursorWordline.lineTimeout}
+        require('nvim-cursorline').setup {
+          cursorline = {
+            timeout = ${toString cfg.cursorline.lineTimeout},
+            number = ${boolToString (!cfg.cursorline.lineNumbersOnly)},
+          }
+        }
       '';
     })
 

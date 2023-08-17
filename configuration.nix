@@ -87,7 +87,7 @@ inputs: let
           eolChar = null;
           showCurrContext = true;
         };
-        cursorWordline = {
+        cursorline = {
           enable = true;
           lineTimeout = 0;
         };
