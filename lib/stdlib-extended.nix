@@ -42,7 +42,7 @@ in
 
     mkMultipleMappingOption = description: defaults:
       self.mkOption {
-        type = self.types.nullOr self.types.listOf self.types.str;
+        type = self.types.nullOr (self.types.listOf self.types.str);
         default = defaults;
         inherit description;
       };
