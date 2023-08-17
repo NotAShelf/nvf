@@ -43,7 +43,8 @@ in
     mkMultipleMappingOption = description: defaults:
       self.mkOption {
         type = self.types.nullOr self.types.listOf self.types.str;
-        inherit defaults description;
+        default = defaults;
+        inherit description;
       };
 
     # Utility function that takes two attrsets:
