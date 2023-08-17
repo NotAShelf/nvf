@@ -40,6 +40,13 @@ in
         inherit default description;
       };
 
+    mkMultipleMappingOption = description: defaults:
+      self.mkOption {
+        type = self.types.nullOr self.types.listOf self.types.str;
+        default = defaults;
+        inherit description;
+      };
+
     # Utility function that takes two attrsets:
     # { someKey = "some_value" } and
     # { someKey = { description = "Some Description"; }; }
