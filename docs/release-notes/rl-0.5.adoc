@@ -26,6 +26,12 @@ https://github.com/yavko[yavko]:
 
 * Added support for multiple languages <<opt-vim.spellChecking.languages>>, and added vim-dirtytalk <<opt-vim.spellChecking.enableProgrammingWordList>>
 
+https://github.com/FrothyMarrow[frothymarrow]: 
+
+* Renamed `vim.visuals.cursorWordline` to <<opt-vim.visuals.cursorline>>.
+
+* Added <<opt-vim.viisuals.cursorline.lineNumbersOnly>> to display cursorline only in the presence of line numbers.
+
 https://github.com/notashelf[notashelf]:
 
 * Added GitHub Copilot to completion sources.
