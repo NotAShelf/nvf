@@ -34,4 +34,9 @@ in {
     if builtins.isString v
     then v
     else lib.getExe v;
+
+  # convert a list of user's LSP args into a list of strings concatenated with commas
+  # for example:
+  #   ["--foo" "--bar"] -> "--foo", "--bar"
+  listArgs = args: builtins.concatStringsSep ", " (map (s: "\"${s}\"") args);
 }
