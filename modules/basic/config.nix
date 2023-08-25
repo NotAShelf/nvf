@@ -76,6 +76,7 @@ in {
       set tm=${toString cfg.mapTimeout}
       set hidden
       set cursorlineopt=${toString cfg.cursorlineOpt}
+      set scrolloff=${toString cfg.scrollOffset}
 
       ${optionalString cfg.splitBelow ''
         set splitbelow
