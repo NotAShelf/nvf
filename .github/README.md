@@ -22,9 +22,6 @@
     <a href="https://github.com/NotAShelf/neovim-flake">
       <img alt="Repo Size" src="https://img.shields.io/github/repo-size/NotAShelf/neovim-flake?color=%23DDB6F2&label=SIZE&logo=codesandbox&style=for-the-badge&logoColor=D9E0EE&labelColor=302D41" />
     </a>
-    <a href="https://liberapay.com/notashelf/" title="Donate to this project using Liberapay">
-      <img alt="Patreon donate button" src="https://img.shields.io/badge/liberapay-donate-yellow.svg?style=for-the-badge&logo=starship&color=f5a97f&logoColor=D9E0EE&labelColor=302D41" />
-    </a>
 </p>
 <!-- 
     <p align="center">
@@ -153,12 +150,12 @@ and everyone who has submitted issues or pull requests!
 
 This configuration borrows from and is based on a few other configurations, including:
 
-- [@jordanisaacs's](https://github.com/jordanisaacs) [neovim-flake](https://github.com/jordanisaacs/neovim-flake)
-- [@sioodmy's](https://github.com/sioodmy) [dotfiles](https://github.com/sioodmy/dotfiles)
-- [@wiltaylor's](https://github.com/wiltaylor) [neovim-flake](https://github.com/wiltaylor/neovim-flake)
-- [@gvolpe's](https://github.com/gvolpe) [neovim-flake](https://github.com/gvolpe/neovim-flake)
+- [@jordanisaacs's](https://github.com/jordanisaacs) [neovim-flake](https://github.com/jordanisaacs/neovim-flake) that this flake is originally based on.
+- [@sioodmy's](https://github.com/sioodmy) [dotfiles](https://github.com/sioodmy/dotfiles) that inspired the design choices.
+- [@wiltaylor's](https://github.com/wiltaylor) [neovim-flake](https://github.com/wiltaylor/neovim-flake) for plugin and design ideas.
+- [@gvolpe's](https://github.com/gvolpe) [neovim-flake](https://github.com/gvolpe/neovim-flake) for plugin, design and nix concepts.
 
-I am grateful for their previous work and inspiration.
+I am grateful for their previous work and inspiration, and I wholeheartedly recommend checking their work out.
 <br/>
 
 ---
