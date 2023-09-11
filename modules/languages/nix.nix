@@ -12,6 +12,10 @@ with builtins; let
   noFormat = "on_attach = attach_keymaps";
 
   defaultServer = "nil";
+  packageToCmd = package: defaultCmd:
+    if isList package
+    then lib.nvim.lua.expToLua package
+    else ''{"${package}/bin/${defaultCmd}"}'';
   servers = {
     rnix = {
       package = pkgs.rnix-lsp;
@@ -24,7 +28,7 @@ with builtins; let
           then useFormat
           else noFormat
         },
-          cmd = {"${cfg.lsp.package}/bin/rnix-lsp"},
+          cmd = ${packageToCmd cfg.lsp.package "rnix-lsp"},
         }
       '';
     };
@@ -40,7 +44,7 @@ with builtins; let
           then useFormat
           else noFormat
         },
-          cmd = {"${cfg.lsp.package}/bin/nil"},
+          cmd = ${packageToCmd cfg.lsp.package "nil"},
         ${optionalString cfg.format.enable ''
           settings = {
             ["nil"] = {
@@ -131,7 +135,7 @@ in {
       };
       package = mkOption {
         description = "Nix LSP server package";
-        type = types.package;
+        type = with types; either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
     };
