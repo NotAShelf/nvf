@@ -21,7 +21,7 @@ in {
 
       package = mkOption {
         description = "java language server";
-        type = types.package;
+        type = with types; either package (listOf str);
         default = pkgs.jdt-language-server;
       };
     };
@@ -32,7 +32,11 @@ in {
       vim.lsp.lspconfig.enable = true;
       vim.lsp.lspconfig.sources.jdtls = ''
         lspconfig.jdtls.setup {
-          cmd = {"${cfg.lsp.package}/bin/jdt-language-server", "-data", vim.fn.stdpath("cache").."/jdtls/workspace"},
+          cmd = ${
+          if isList cfg.lsp.package
+          then nvim.lua.expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/jdt-language-server", "-data", vim.fn.stdpath("cache").."/jdtls/workspace"}''
+        },
         }
       '';
     })
