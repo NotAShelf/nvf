@@ -16,7 +16,11 @@ with builtins; let
         lspconfig.gopls.setup {
           capabilities = capabilities;
           on_attach = default_on_attach;
-          cmd = {"${cfg.lsp.package}/bin/gopls", "serve"},
+          cmd = ${
+          if isList cfg.lsp.package
+          then nvim.lua.expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/gopls", "serve"}''
+        },
         }
       '';
     };
@@ -82,7 +86,7 @@ in {
 
       package = mkOption {
         description = "Go LSP server package";
-        type = types.package;
+        type = with types; either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
     };
