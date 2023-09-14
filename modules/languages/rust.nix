@@ -30,7 +30,7 @@ in {
 
       package = mkOption {
         description = "rust-analyzer package";
-        type = types.package;
+        type = with types; either package (listOf str);
         default = pkgs.rust-analyzer;
       };
 
@@ -118,7 +118,11 @@ in {
           server = {
             capabilities = capabilities,
             on_attach = rust_on_attach,
-            cmd = {"${cfg.lsp.package}/bin/rust-analyzer"},
+            cmd = ${
+          if isList cfg.lsp.package
+          then nvim.lua.expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/rust-analyzer"}''
+        },
             settings = {
               ${cfg.lsp.opts}
             }
