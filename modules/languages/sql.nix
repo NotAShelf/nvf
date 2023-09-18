@@ -20,7 +20,11 @@ with builtins; let
             on_attach_keymaps(client, bufnr)
             require'sqls'.setup{}
           end,
-          cmd = { "${cfg.lsp.package}/bin/sqls", "-config", string.format("%s/config.yml", vim.fn.getcwd()) }
+          cmd = ${
+          if isList cfg.lsp.package
+          then nvim.lua.expToLua cfg.lsp.package
+          else ''{ "${cfg.lsp.package}/bin/sqls", "-config", string.format("%s/config.yml", vim.fn.getcwd()) }''
+        }
         }
       '';
     };
@@ -88,7 +92,7 @@ in {
 
       package = mkOption {
         description = "SQL LSP server package";
-        type = types.package;
+        type = with types; either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
     };
