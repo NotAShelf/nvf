@@ -16,7 +16,11 @@ with builtins; let
         lspconfig.tsserver.setup {
           capabilities = capabilities;
           on_attach = attach_keymaps,
-          cmd = { "${cfg.lsp.package}/bin/typescript-language-server", "--stdio" }
+          cmd = ${
+          if isList cfg.lsp.package
+          then nvim.lua.expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/typescript-language-server", "--stdio"}''
+        }
         }
       '';
     };
@@ -27,7 +31,11 @@ with builtins; let
         lspconfig.denols.setup {
           capabilities = capabilities;
           on_attach = attach_keymaps,
-          cmd = { "${cfg.lsp.package}/bin/deno", "lsp" }
+          cmd = ${
+          if isList cfg.lsp.package
+          then nvim.lua.expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/deno", "lsp"}''
+        }
         }
       '';
     };
@@ -96,7 +104,7 @@ in {
 
       package = mkOption {
         description = "Typescript/Javascript LSP server package";
-        type = types.package;
+        type = with types; either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
     };
