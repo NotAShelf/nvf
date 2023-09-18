@@ -22,7 +22,7 @@ with builtins; let
       '';
     };
     clangd = {
-      package = pkgs.clang-tools;
+      package = pkgs.clang-tools_16;
       lspConfig = ''
         local clangd_cap = capabilities
         -- use same offsetEncoding as null-ls
