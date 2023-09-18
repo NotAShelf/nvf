@@ -16,7 +16,11 @@ with builtins; let
         lspconfig.pyright.setup{
           capabilities = capabilities;
           on_attach = default_on_attach;
-          cmd = {"${cfg.lsp.package}/bin/pyright-langserver", "--stdio"}
+          cmd = ${
+          if isList cfg.lsp.package
+          then nvim.lua.expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/pyright-langserver", "--stdio"}''
+        }
         }
       '';
     };
@@ -123,7 +127,7 @@ in {
 
       package = mkOption {
         description = "python LSP server package";
-        type = types.package;
+        type = with types; either package (listOf string);
         default = servers.${cfg.lsp.server}.package;
       };
     };
