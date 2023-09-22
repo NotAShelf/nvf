@@ -134,7 +134,8 @@ in {
         default = defaultServer;
       };
       package = mkOption {
-        description = "Nix LSP server package";
+        description = "Nix LSP server package, or the command to run as a list of strings";
+        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
         type = with types; either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };

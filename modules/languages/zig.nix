@@ -20,7 +20,8 @@ in {
       enable = mkEnableOption "Zig LSP support (zls)" // {default = config.vim.languages.enableLSP;};
 
       package = mkOption {
-        description = "ZLS package";
+        description = "ZLS package, or the command to run as a list of strings";
+        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
         type = with types; either package (listOf str);
         default = pkgs.zls;
       };

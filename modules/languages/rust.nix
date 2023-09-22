@@ -29,7 +29,8 @@ in {
       enable = mkEnableOption "Rust LSP support (rust-analyzer with extra tools)" // {default = config.vim.languages.enableLSP;};
 
       package = mkOption {
-        description = "rust-analyzer package";
+        description = "rust-analyzer package, or the command to run as a list of strings";
+        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
         type = with types; either package (listOf str);
         default = pkgs.rust-analyzer;
       };

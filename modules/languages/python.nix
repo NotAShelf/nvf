@@ -126,7 +126,8 @@ in {
       };
 
       package = mkOption {
-        description = "python LSP server package";
+        description = "python LSP server package, or the command to run as a list of strings";
+        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
         type = with types; either package (listOf string);
         default = servers.${cfg.lsp.server}.package;
       };
