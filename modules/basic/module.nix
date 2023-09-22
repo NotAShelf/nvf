@@ -90,7 +90,7 @@ with builtins; {
 
     useSystemClipboard = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
       description = "Make use of the clipboard for default yank and paste operations. Don't use * and +";
     };
 

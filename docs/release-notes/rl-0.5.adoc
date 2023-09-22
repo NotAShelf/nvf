@@ -53,3 +53,11 @@ https://github.com/notashelf[notashelf]:
 * Added a configuration option for choosing the leader key
 
 * The package used for neovim is now customizable by the user, using <<opt-vim.package>>. For best results, always use an unwrapped package.
+
+https://github.com/jacekpoz[jacekpoz]:
+
+* Fixed scrollOffset not being used
+
+* Updated clangd to 16
+
+* Disabled `useSystemClipboard` by default
