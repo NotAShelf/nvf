@@ -762,6 +762,22 @@
         "type": "github"
       }
     },
+    "neodev-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1695449121,
+        "narHash": "sha256-WisbNLKEz0IgO7gLDA2quNzK69hJaHzmvWkZSUPQb6k=",
+        "owner": "folke",
+        "repo": "neodev.nvim",
+        "rev": "c8e126393a34939fb448d48eeddb510971739e3a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "neodev.nvim",
+        "type": "github"
+      }
+    },
     "nil": {
       "inputs": {
         "flake-utils": [
@@ -1445,6 +1461,7 @@
         "mind-nvim": "mind-nvim",
         "minimap-vim": "minimap-vim",
         "modes-nvim": "modes-nvim",
+        "neodev-nvim": "neodev-nvim",
         "nil": "nil",
         "nixpkgs": "nixpkgs",
         "nmd": "nmd",

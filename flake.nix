@@ -133,6 +133,11 @@
       flake = false;
     };
 
+    neodev-nvim = {
+      url = "github:folke/neodev.nvim";
+      flake = false;
+    };
+
     elixir-ls = {
       url = "github:elixir-lsp/elixir-ls";
       flake = false;

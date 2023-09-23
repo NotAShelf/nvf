@@ -80,6 +80,7 @@ with lib; let
     "vim-repeat"
     "smartcolumn"
     "project-nvim"
+    "neodev-nvim"
     "elixir-ls"
     "elixir-tools"
     "nvim-colorizer-lua"
