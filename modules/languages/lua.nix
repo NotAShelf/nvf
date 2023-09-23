@@ -23,7 +23,7 @@ in {
         default = pkgs.lua-language-server;
       };
 
-      neodev.enable = mkEnableOption "Enable neodev.nvim integration";
+      neodev.enable = mkEnableOption "Enable neodev.nvim integration, useful for neovim plugin developers";
     };
   };
 
