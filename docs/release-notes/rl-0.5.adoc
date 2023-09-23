@@ -16,6 +16,8 @@ https://github.com/horriblename[horriblename]:
 
 * Allow using command names in place of LSP packages to avoid automatic installation.
 
+* Add lua LSP and treesitter support, and neodev.nvim plugin support.
+
 https://github.com/amanse[amanse]:
 
 * Added daily notes options for obsidian plugin.
