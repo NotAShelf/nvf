@@ -24,6 +24,7 @@ in {
     ./html.nix
     ./svelte.nix
     ./java.nix
+    ./lua.nix
   ];
 
   options.vim.languages = {
