@@ -16,7 +16,11 @@ with builtins; let
         lspconfig.svelte.setup {
           capabilities = capabilities;
           on_attach = attach_keymaps,
-          cmd = { "${cfg.lsp.package}/bin/svelteserver", "--stdio" }
+          cmd = ${
+          if isList cfg.lsp.package
+          then nvim.lua.expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/svelteserver", "--stdio"}''
+        }
         }
       '';
     };
@@ -73,8 +77,9 @@ in {
       };
 
       package = mkOption {
-        description = "Svelte LSP server package";
-        type = types.package;
+        description = "Svelte LSP server package, or the command to run as a list of strings";
+        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
+        type = with types; either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
     };

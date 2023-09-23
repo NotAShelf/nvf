@@ -14,6 +14,8 @@ https://github.com/horriblename[horriblename]:
 
 * Streamlined and simplified extra plugin API with the addition of <<opt-vim.extraPlugins>>
 
+* Allow using command names in place of LSP packages to avoid automatic installation.
+
 https://github.com/amanse[amanse]:
 
 * Added daily notes options for obsidian plugin.

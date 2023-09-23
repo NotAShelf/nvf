@@ -9,6 +9,10 @@ with builtins; let
   cfg = config.vim.languages.clang;
 
   defaultServer = "ccls";
+  packageToCmd = package: defaultCmd:
+    if isList cfg.lsp.package
+    then nvim.lua.expToLua cfg.lsp.package
+    else ''{ "${cfg.lsp.package}/bin/${defaultCmd}" }'';
   servers = {
     ccls = {
       package = pkgs.ccls;
@@ -16,7 +20,7 @@ with builtins; let
         lspconfig.ccls.setup{
           capabilities = capabilities;
           on_attach=default_on_attach;
-          cmd = {"${cfg.lsp.package}/bin/ccls"};
+          cmd = ${packageToCmd cfg.lsp.package "ccls"};
           ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.opts}"}
         }
       '';
@@ -30,7 +34,7 @@ with builtins; let
         lspconfig.clangd.setup{
           capabilities = clangd_cap;
           on_attach=default_on_attach;
-          cmd = {"${cfg.lsp.package}/bin/clangd"};
+          cmd = ${packageToCmd cfg.lsp.package "clangd"};
           ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.opts}"}
         }
       '';
@@ -94,8 +98,9 @@ in {
       };
 
       package = mkOption {
-        description = "clang LSP server package";
-        type = types.package;
+        description = "clang LSP server package, or the command to run as a list of strings";
+        example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
+        type = with types; either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
 

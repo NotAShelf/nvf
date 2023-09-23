@@ -15,7 +15,11 @@ with builtins; let
         lspconfig.dartls.setup{
           capabilities = capabilities;
           on_attach=default_on_attach;
-          cmd = {"${pkgs.dart}/bin/dart", "language-server", "--protocol=lsp"};
+          cmd = ${
+          if isList cfg.lsp.package
+          then nvim.lua.expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/dart", "language-server", "--protocol=lsp"}''
+        };
           ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.dartOpts}"}
         }
       '';
@@ -38,8 +42,9 @@ in {
         default = defaultServer;
       };
       package = mkOption {
-        description = "Dart LSP server package";
-        type = types.package;
+        description = "Dart LSP server package, or the command to run as a list of strings";
+        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
+        type = with types; either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
       opts = mkOption {

@@ -15,7 +15,11 @@ with builtins; let
         lspconfig.dartls.setup{
           capabilities = capabilities;
           on_attach=default_on_attach;
-          cmd = {"${pkgs.dart}/bin/dart", "language-server", "--protocol=lsp"};
+          cmd = ${
+          if isList cfg.lsp.package
+          then nvim.lua.expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/dart", "language-server", "--protocol=lsp"}''
+        };
           ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.dartOpts}"}
         }
       '';

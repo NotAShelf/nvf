@@ -16,7 +16,11 @@ with builtins; let
         lspconfig.tsserver.setup {
           capabilities = capabilities;
           on_attach = attach_keymaps,
-          cmd = { "${cfg.lsp.package}/bin/typescript-language-server", "--stdio" }
+          cmd = ${
+          if isList cfg.lsp.package
+          then nvim.lua.expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/typescript-language-server", "--stdio"}''
+        }
         }
       '';
     };
@@ -27,7 +31,11 @@ with builtins; let
         lspconfig.denols.setup {
           capabilities = capabilities;
           on_attach = attach_keymaps,
-          cmd = { "${cfg.lsp.package}/bin/deno", "lsp" }
+          cmd = ${
+          if isList cfg.lsp.package
+          then nvim.lua.expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/deno", "lsp"}''
+        }
         }
       '';
     };
@@ -95,8 +103,9 @@ in {
       };
 
       package = mkOption {
-        description = "Typescript/Javascript LSP server package";
-        type = types.package;
+        description = "Typescript/Javascript LSP server package, or the command to run as a list of strings";
+        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
+        type = with types; either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
     };

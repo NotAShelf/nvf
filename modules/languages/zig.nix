@@ -20,8 +20,9 @@ in {
       enable = mkEnableOption "Zig LSP support (zls)" // {default = config.vim.languages.enableLSP;};
 
       package = mkOption {
-        description = "ZLS package";
-        type = types.package;
+        description = "ZLS package, or the command to run as a list of strings";
+        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
+        type = with types; either package (listOf str);
         default = pkgs.zls;
       };
 
@@ -44,7 +45,11 @@ in {
         lspconfig.zls.setup {
           capabilities = capabilities,
           on_attach=default_on_attach,
-          cmd = {"${cfg.lsp.package}/bin/zls"},
+          cmd = ${
+          if isList cfg.lsp.package
+          then nvim.lua.expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/zls"}''
+        },
           settings = {
             ["zls"] = {
               zig_exe_path = "${cfg.lsp.zigPackage}/bin/zig",

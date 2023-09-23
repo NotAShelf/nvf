@@ -20,8 +20,9 @@ in {
       enable = mkEnableOption "Java LSP support (java-language-server)" // {default = config.vim.languages.enableLSP;};
 
       package = mkOption {
-        description = "java language server";
-        type = types.package;
+        description = "java language server package, or the command to run as a list of strings";
+        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
+        type = with types; either package (listOf str);
         default = pkgs.jdt-language-server;
       };
     };
@@ -32,7 +33,11 @@ in {
       vim.lsp.lspconfig.enable = true;
       vim.lsp.lspconfig.sources.jdtls = ''
         lspconfig.jdtls.setup {
-          cmd = {"${cfg.lsp.package}/bin/jdt-language-server", "-data", vim.fn.stdpath("cache").."/jdtls/workspace"},
+          cmd = ${
+          if isList cfg.lsp.package
+          then nvim.lua.expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/jdt-language-server", "-data", vim.fn.stdpath("cache").."/jdtls/workspace"}''
+        },
         }
       '';
     })

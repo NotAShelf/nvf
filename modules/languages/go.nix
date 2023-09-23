@@ -16,7 +16,11 @@ with builtins; let
         lspconfig.gopls.setup {
           capabilities = capabilities;
           on_attach = default_on_attach;
-          cmd = {"${cfg.lsp.package}/bin/gopls", "serve"},
+          cmd = ${
+          if isList cfg.lsp.package
+          then nvim.lua.expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/gopls", "serve"}''
+        },
         }
       '';
     };
@@ -81,8 +85,9 @@ in {
       };
 
       package = mkOption {
-        description = "Go LSP server package";
-        type = types.package;
+        description = "Go LSP server package, or the command to run as a list of strings";
+        example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
+        type = with types; either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
     };
