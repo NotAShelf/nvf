@@ -11,7 +11,7 @@
   <para>
    If your problem is caused by a bug in neovim-flake then it should be reported on the
    <link xlink:href="https://github.com/notashelf/neovim-flake/issues">neovim-flake issue tracker</link>.
-   Alongside bug reports, feature requests are also welcome over 
+   Alongside bug reports, feature requests are also welcome over
    <link xlink:href="https://github.com/notashelf/neovim-flake/pulls">neovim-flake pull requests</link>.
 
   </para>
@@ -23,6 +23,7 @@
  <xi:include href="manual/custom-package.xml"/>
  <xi:include href="manual/home-manager.xml"/>
  <xi:include href="manual/languages.xml"/>
+ <xi:include href="manual/hacking.xml"/>
  <appendix xml:id="ch-options">
   <title>Configuration Options</title>
   <xi:include href="./nmd-result/neovim-flake-options.xml" />
