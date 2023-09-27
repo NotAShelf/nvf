@@ -33,6 +33,8 @@ in {
       vim.lsp.lspconfig.enable = true;
       vim.lsp.lspconfig.sources.jdtls = ''
         lspconfig.jdtls.setup {
+          capabilities = capabilities,
+          on_attach = default_on_attach,
           cmd = ${
           if isList cfg.lsp.package
           then nvim.lua.expToLua cfg.lsp.package
