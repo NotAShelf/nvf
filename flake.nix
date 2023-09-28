@@ -7,12 +7,9 @@
     ...
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
+      # provide overridable systems
+      # https://github.com/nix-systems/nix-systems
+      systems = import inputs.systems;
 
       imports = [
         # add lib to module args
@@ -55,6 +52,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
+    systems.url = "github:nix-systems/default";
 
     # For generating documentation website
     nmd = {
