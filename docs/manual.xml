@@ -7,12 +7,12 @@
   <title>neovim-flake Manual</title>
  </info>
  <preface>
-  <title>Preface</title>
+     <title>Preface</title>
   <para>
-   If you believe your problem is caused by a bug in neovim-flake then please consider reporting it over
-   <link xlink:href="https://github.com/notashelf/neovim-flake/issues">the neovim-flake issue tracker</link>.
-   Bugfixes, feature additions and upstream changes are welcome over
-   <link xlink:href="https://github.com/notashelf/neovim-flake/pulls">the neovim-flake pull requests tab</link>.
+    If you believe your problem is caused by a bug in neovim-flake then please consider reporting it over
+    <link xlink:href="tps://github.com/notashelf/neovim-flake/issues">the neovim-flake issue tracker</link>.
+    Bugfixes, feature additions and upstream changes are welcome over
+    <link xlink:href="https://github.com/notashelf/neovim-flake/pulls">the neovim-flake pull requests tab</link>.
   </para>
  </preface>
  <xi:include href="manual/try-it-out.xml"/>

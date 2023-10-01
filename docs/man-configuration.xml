@@ -14,26 +14,31 @@
  <refsection>
   <title>Description</title>
   <para>
-      Custom configuration is done with the neovim-flake.lib.neovimConfiguration if home-manager module is not in use.
-      It takes in the configuration as a module.
+    Custom configuration is done with the neovim-flake.lib.neovimConfiguration if home-manager module is not in use.
+    It takes in the configuration as a module.
+
     <programlisting>
       neovim-flake.lib.neovimConfiguration {
         inherit pkgs;
         modules = [{config = xxx;}];
       };
     </programlisting>
+
     The output of the configuration function is an attrset.
   </para>
-  <programlisting>
+  <para>
+    In case of the home-manager module, all options will be available under programs.neovim-flake once the module has
+    been imported from the flake inputs.
+
+    <programlisting>
     {
       options = "The options that were available to configure";
       config = "The outputted configuration";
       pkgs = "The package set used to evaluate the module";
       neovim = "The built neovim package";
     }
-  </programlisting>
-    In case of the home-manager module, all options will be available under programs.neovim-flake once the module has
-    been imported from the flake inputs.
+    </programlisting>
+ </para>
  </refsection>
  <refsection>
   <title>Options</title>
