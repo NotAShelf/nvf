@@ -33,7 +33,7 @@ https://github.com/FrothyMarrow[frothymarrow]:
 
 * Renamed `vim.visuals.cursorWordline` to <<opt-vim.visuals.cursorline>>.
 
-* Added <<opt-vim.viisuals.cursorline.lineNumbersOnly>> to display cursorline only in the presence of line numbers.
+* Added <<opt-vim.visuals.cursorline.lineNumbersOnly>> to display cursorline only in the presence of line numbers.
 
 https://github.com/notashelf[notashelf]:
 
