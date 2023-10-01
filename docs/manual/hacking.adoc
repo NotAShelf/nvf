@@ -2,8 +2,16 @@
 == Hacking neovim-flake
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 neovim-flake is designed for developers as much as it is for the end user. I would like any potential contributor
 to be able to propagate their desired changes into the repository without the extra effort. As such, below are guides
+||||||| parent of 33dd7b0 (docs/hacking: add testing section)
+neovim-flake is designed for developers as much as it is for the end user. I would like any potential contributor
+to be able to propagate their desired changes into the repository without the extra effort. As such, below are guides
+=======
+neovim-flake is designed for developers as much as it is for the end user. I would like any potential contributor to
+be able to propagate their desired changes into the repository without the extra effort. As such, below are guides
+>>>>>>> 33dd7b0 (docs/hacking: add testing section)
 (and guidelines) to streamline  the contribution process and ensure that your valuable input seamlessly integrates
 ||||||| parent of c609a56 (among us)
 neovim-flake is designed for developers as much as it is for the end user. I would like any potential contributor to
@@ -35,8 +43,8 @@ You naturally would like to start by forking the repository. If you are new to g
 you should create a branch starting at the most recent `main` branch.
 Give your branch a reasonably descriptive name, suffixed by its type - i.e `feature/debugger` or `fix/pesky-bug`.
 
-Implement your changes and commit them to the newly created branch and when you are happy with the result and positive that it
-fulfills <<sec-guidelines>>. Once you are confident everything is in order, push the branch to GitHub and
+Implement your changes and commit them to the newly created branch and when you are happy with the result and positive
+that it fulfills <<sec-guidelines>>. Once you are confident everything is in order, push the branch to GitHub and
 {create-a-pull-request}[create a pull request], following the template that you will be prompted to fill.
 
 [[sec-guidelines]]
@@ -201,8 +209,22 @@ listToBeAvoided = [item1 item2 /* comment */ item3 item4];
 singleItemList = [item1];
 ----
 
+[[sec-testing]]
+=== Testing Your Changes
+
+Once you have made your changes, you will need to test them throughly. If it is a module, add your module option to
+`configuration.nix` (located in the root of this project) inside `neovimConfiguration`. Enable it, and then run the
+maximal configuration with `nix run .#maximal -Lv` to check for build errors. If neovim opens in the current directory
+without any error messages (you can check the output of `:messages` inside neovim to see if there are any errors), then
+your changes are good to go. Open your pull request, and it will be reviewed as soon as posssible.
+
+If it is not a new module, but a change to an existing one, then make sure the module you have changed is enabled in the
+maximal configuration by editing configuration.nix, and then run it with `nix run .#maximal -Lv`. Same procedure as
+adding a new module will apply here.
+
 [[sec-keybinds]]
 === Keybinds
+
 As of 0.4, there exists an API for writing your own keybinds and a couple of useful utility functions are available in
 the https://github.com/NotAShelf/neovim-flake/tree/main/lib[extended standard library]. The following section contains
 a general overview to how you may utilize said functions.
