@@ -1,27 +1,9 @@
 [[ch-hacking]]
 == Hacking neovim-flake
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 neovim-flake is designed for developers as much as it is for the end user. I would like any potential contributor
 to be able to propagate their desired changes into the repository without the extra effort. As such, below are guides
-||||||| parent of 33dd7b0 (docs/hacking: add testing section)
-neovim-flake is designed for developers as much as it is for the end user. I would like any potential contributor
-to be able to propagate their desired changes into the repository without the extra effort. As such, below are guides
-=======
-neovim-flake is designed for developers as much as it is for the end user. I would like any potential contributor to
-be able to propagate their desired changes into the repository without the extra effort. As such, below are guides
->>>>>>> 33dd7b0 (docs/hacking: add testing section)
-(and guidelines) to streamline  the contribution process and ensure that your valuable input seamlessly integrates
-||||||| parent of c609a56 (among us)
-neovim-flake is designed for developers as much as it is for the end user. I would like any potential contributor to
-be able to propagate their desired changes into the repository without the extra effort. As such, below are guides
-(and guidelines) to streamline  the contribution process and ensure that your valuable input seamlessly integrates
-=======
-neovim-flake is designed for developers as much as it is for the end user. I would like any potential contributor to
-be able to propagate their desired changes into the repository without the extra effort. As such, below are guides
 (and guidelines) to streamline the contribution process and ensure that your valuable input seamlessly integrates
->>>>>>> c609a56 (among us)
 into neovim-flake's development without leaving question marks in your head.
 
 :fork-a-repo: https://help.github.com/articles/fork-a-repo/
@@ -37,7 +19,7 @@ issue, please try to include as much information as you can, ideally also includ
 occurs or a feature should be implemented.
 
 [[sec-contrib-getting-started]]
-==== Getting started
+=== Getting started
 
 You naturally would like to start by forking the repository. If you are new to git, have a look at GitHub's
 {fork-a-repo}[Fork a repo guide] for instructions on how you can do this. Once you have a fork of neovim-flake
@@ -231,7 +213,7 @@ the https://github.com/NotAShelf/neovim-flake/tree/main/lib[extended standard li
 a general overview to how you may utilize said functions.
 
 [[sec-custom-key-mappings]]
-=== Custom Key Mappings Support for a Plugin
+==== Custom Key Mappings Support for a Plugin
 
 :maps: https://notashelf.github.io/neovim-flake/options.html#opt-vim.maps.command._name_.action
 
@@ -391,3 +373,39 @@ in {
 If you have come across a plugin that has an API that doesn't seem to easily allow custom keybindings,
 don't be scared to implement a draft PR. We'll help you get it done.
 ====
+
+[[sec-additional-plugins]]
+=== Adding Plugins
+
+To add a new neovim plugin, first add the source url in the inputs section of `flake.nix`
+
+[source,nix]
+----
+{
+    inputs = {
+        # ...
+        neodev-nvim = {
+            url = "github:folke/neodev.nvim";
+            flake = false;
+        };
+    };
+}
+----
+
+Then add the name of the plugin into the `availablePlugins` variable in `lib/types/plugins.nix`:
+
+[source,nix]
+----
+# ...
+availablePlugins = [
+    # ...
+    "neodev-nvim"
+];
+----
+
+You can now reference this plugin using its string name:
+
+[source,nix]
+----
+config.vim.startPlugins = ["neodev-nvim"];
+----
