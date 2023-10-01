@@ -5,7 +5,6 @@
 [[sec-release-0.5-changelog]]
 === Changelog
 
-
 https://github.com/horriblename[horriblename]:
 
 * Added transparency support for tokyonight theme.
@@ -30,7 +29,7 @@ https://github.com/yavko[yavko]:
 
 * Added support for multiple languages <<opt-vim.spellChecking.languages>>, and added vim-dirtytalk <<opt-vim.spellChecking.enableProgrammingWordList>>
 
-https://github.com/FrothyMarrow[frothymarrow]: 
+https://github.com/FrothyMarrow[frothymarrow]:
 
 * Renamed `vim.visuals.cursorWordline` to <<opt-vim.visuals.cursorline>>.
 
