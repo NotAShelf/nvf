@@ -357,3 +357,38 @@ in {
 If you have come across a plugin that has an API that doesn't seem to easily allow custom keybindings,
 don't be scared to implement a draft PR. We'll help you get it done.
 ====
+
+=== Adding Plugins
+
+To add a new neovim plugin, first add the source url in the inputs section of `flake.nix`
+
+[source,nix]
+----
+{
+    inputs = {
+        # ...
+        neodev-nvim = {
+            url = "github:folke/neodev.nvim";
+            flake = false;
+        };
+    };
+}
+----
+
+Then add the name of the plugin into the `availablePlugins` variable in `lib/types/plugins.nix`:
+
+[source,nix]
+----
+# ...
+availablePlugins = [
+    # ...
+    "neodev-nvim"
+];
+----
+
+You can now reference this plugin using its string name:
+
+[source,nix]
+----
+config.vim.startPlugins = ["neodev-nvim"];
+----
