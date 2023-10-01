@@ -24,6 +24,7 @@ be able to propagate their desired changes into the repository without the extra
 >>>>>>> c609a56 (among us)
 into neovim-flake's development without leaving question marks in your head.
 
+:fork-a-repo: https://help.github.com/articles/fork-a-repo/
 :open-issues: https://github.com/notashelf/neovim-flake/issues
 :new-issue: https://github.com/notashelf/neovim-flake/issues/new
 :seven-rules: https://cbea.ms/git-commit/#seven-rules
