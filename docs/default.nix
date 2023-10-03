@@ -1,6 +1,6 @@
 {
   pkgs,
-  lib ? import ../lib/stdlib-extended.nix pkgs.lib,
+  lib,
   nmdSrc,
 }: let
   nmd = import nmdSrc {
