@@ -62,13 +62,8 @@
       flake = false;
     };
 
-    # TODO: get zig from the zig overlay instead of nixpkgs
-    zig.url = "github:mitchellh/zig-overlay";
-
     # LSP plugins
     nvim-lspconfig = {
-      # url = "github:neovim/nvim-lspconfig?ref=v0.1.3";
-      # Use master for nil_ls
       url = "github:neovim/nvim-lspconfig";
       flake = false;
     };
@@ -167,6 +162,7 @@
 
     # Langauge server (use master instead of nixpkgs)
     rnix-lsp.url = "github:nix-community/rnix-lsp";
+
     nil = {
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -212,22 +208,27 @@
       url = "github:hrsh7th/nvim-cmp";
       flake = false;
     };
+
     cmp-buffer = {
       url = "github:hrsh7th/cmp-buffer";
       flake = false;
     };
+
     cmp-nvim-lsp = {
       url = "github:hrsh7th/cmp-nvim-lsp";
       flake = false;
     };
+
     cmp-vsnip = {
       url = "github:hrsh7th/cmp-vsnip";
       flake = false;
     };
+
     cmp-path = {
       url = "github:hrsh7th/cmp-path";
       flake = false;
     };
+
     cmp-treesitter = {
       url = "github:ray-x/cmp-treesitter";
       flake = false;
