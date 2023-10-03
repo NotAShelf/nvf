@@ -7,7 +7,7 @@ inputs: {
 }: let
   inherit (pkgs) neovim-unwrapped wrapNeovim vimPlugins;
   inherit (builtins) map filter isString toString getAttr;
-  inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
+  inherit (pkgs.vimUtils) buildVimPlugin;
 
   extendedLib = import ../lib/stdlib-extended.nix lib;
 
@@ -23,7 +23,7 @@ inputs: {
 
   buildPlug = {pname, ...} @ args:
     assert lib.asserts.assertMsg (pname != "nvim-treesitter") "Use buildTreesitterPlug for building nvim-treesitter.";
-      buildVimPluginFrom2Nix (args
+      buildVimPlugin (args
         // {
           version = "master";
           src = getAttr pname inputs;
