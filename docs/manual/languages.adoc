@@ -16,6 +16,7 @@ Language specific support means there is a combination of language specific plug
 * Dart: <<opt-vim.languages.dart.enable>>
 * Go: <<opt-vim.languages.go.enable>>
 * Lua: <<opt-vim.languages.lua.enable>>
+* PHP: <<opt-vim.languages.php.enable>>
 
 Adding support for more languages, and improving support for existing ones are great places
 where you can contribute with a PR.
