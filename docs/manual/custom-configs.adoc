@@ -1,7 +1,8 @@
 [[ch-custom-configuration]]
 == Custom Configuration
 
-Custom configuration is done with the `neovimConfiguration` function. It takes in the configuration as a module. The output of the configuration function is an attrset.
+Custom configuration is done with the `neovimConfiguration` while using the flake as a standalone package.
+It takes in the configuration as a module. The output of the configuration function is an attrset.
 
 [source,nix]
 ----
@@ -40,8 +41,28 @@ The following is an example of a barebones vim configuration with the default th
       inherit pkgs;
     };
   in {
+    # this will make the package available as a flake input
     packages.${system}.neovim = customNeovim.neovim;
+
+    # this is an example nixosConfiguration using the built neovim package
+    nixosConfigurations = {
+      yourHostName = nixpkgs.lib.nixosSystem {
+        # ...
+        modules = [
+          ./configuration.nix # or whatever your configuration is
+
+          # this will make wrapped neovim available in your system packages
+          {environment.systemPackages = [customNeovim.neovim];}
+        ];
+        # ...
+      };
+    };
   };
 }
 ----
+
+Your built neovim configuration can be exposed as a flake output, or be added to your system packages to make
+it available across your system. You may also consider passing the flake output to home-manager to make it available
+to a specific user *without* using the home-manager module.
+
 

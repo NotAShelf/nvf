@@ -49,14 +49,14 @@
 
   # Flake inputs
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
     systems.url = "github:nix-systems/default";
 
     # For generating documentation website
     nmd = {
-      url = "sourcehut:~rycee/nmd";
+      url = "github:horriblename/nmd";
       flake = false;
     };
 

@@ -3,16 +3,33 @@
   lib ? import ../lib/stdlib-extended.nix pkgs.lib,
   nmdSrc,
 }: let
-  nmd = import nmdSrc {inherit lib pkgs;};
+  nmd = import nmdSrc {
+    inherit lib;
+    # The DocBook output of `nixos-render-docs` doesn't have the change
+    # `nmd` uses to work around the broken stylesheets in
+    # `docbook-xsl-ns`, so we restore the patched version here.
+    pkgs =
+      pkgs
+      // {
+        docbook-xsl-ns =
+          pkgs.docbook-xsl-ns.override {withManOptDedupPatch = true;};
+      };
+  };
+
+  # Make sure the used package is scrubbed to avoid actually
+  # instantiating derivations.
   scrubbedPkgsModule = {
     imports = [
       {
         _module.args = {
           pkgs = lib.mkForce (nmd.scrubDerivations "pkgs" pkgs);
+          pkgs_i686 = lib.mkForce {};
         };
       }
     ];
   };
+
+  dontCheckDefinitions = {_module.check = false;};
 
   nvimModuleDocs = nmd.buildModulesDocs {
     modules =
@@ -20,7 +37,7 @@
         inherit pkgs lib;
         check = false;
       }
-      ++ [scrubbedPkgsModule];
+      ++ [scrubbedPkgsModule dontCheckDefinitions];
     moduleRootPaths = [./..];
     mkModuleUrl = path: "https://github.com/notashelf/neovim-flake/blob/main/${path}#blob-path";
     channelName = "neovim-flake";

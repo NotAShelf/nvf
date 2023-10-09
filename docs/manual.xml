@@ -7,22 +7,22 @@
   <title>neovim-flake Manual</title>
  </info>
  <preface>
-  <title>Preface</title>
+     <title>Preface</title>
   <para>
-   If your problem is caused by a bug in neovim-flake then it should be reported on the
-   <link xlink:href="https://github.com/notashelf/neovim-flake/issues">neovim-flake issue tracker</link>.
-   Alongside bug reports, feature requests are also welcome over 
-   <link xlink:href="https://github.com/notashelf/neovim-flake/pulls">neovim-flake pull requests</link>.
-
+    If you believe your problem is caused by a bug in neovim-flake then please consider reporting it over
+    <link xlink:href="tps://github.com/notashelf/neovim-flake/issues">the neovim-flake issue tracker</link>.
+    Bugfixes, feature additions and upstream changes are welcome over
+    <link xlink:href="https://github.com/notashelf/neovim-flake/pulls">the neovim-flake pull requests tab</link>.
   </para>
  </preface>
  <xi:include href="manual/try-it-out.xml"/>
  <xi:include href="manual/default-configs.xml"/>
  <xi:include href="manual/custom-configs.xml"/>
- <xi:include href="manual/custom-plugins.xml"/>
  <xi:include href="manual/custom-package.xml"/>
+ <xi:include href="manual/custom-plugins.xml"/>
  <xi:include href="manual/home-manager.xml"/>
  <xi:include href="manual/languages.xml"/>
+ <xi:include href="manual/hacking.xml"/>
  <appendix xml:id="ch-options">
   <title>Configuration Options</title>
   <xi:include href="./nmd-result/neovim-flake-options.xml" />

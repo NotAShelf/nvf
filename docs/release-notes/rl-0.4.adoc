@@ -8,7 +8,6 @@ Alongside customizable keybinds, there are a few quality of life updates, such a
 [[sec-release-0.4-changelog]]
 === Changelog
 
-
 https://github.com/n3oney[n3oney]:
 
 * Streamlined keybind adding process towards new functions in extended stdlib.

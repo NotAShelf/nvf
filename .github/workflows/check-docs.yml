@@ -14,10 +14,10 @@ jobs:
     strategy:
       matrix:
         package:
-        - docs 
-        - docs-html 
-        - docs-manpages 
-        - docs-json 
+          - docs
+          - docs-html
+          - docs-manpages
+          - docs-json
     steps:
       - uses: easimon/maximize-build-space@v6
         with:
@@ -25,25 +25,29 @@ jobs:
           remove-android: true
           remove-dotnet: true
           remove-haskell: true
+
       - uses: cachix/install-nix-action@v20
         with:
-          extra_nix_config: | 
+          extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             auto-optimise-store = true
             experimental-features = nix-command flakes
           nix_path: nixpkgs=channel:nixos-unstable
 
       - uses: actions/checkout@v3
+        name: Checkout
+
       - name: Set default git branch (to reduce log spam)
         run: git config --global init.defaultBranch main
-      - name: Validate Flakes
+
+      - name: Validate Flake
         run: nix flake check
+
       - name: Build neovim-flake with default settings
         run: nix build .#${{ matrix.package }} --print-build-logs
+
       - name: Upload doc artifacts
         uses: actions/upload-artifact@v3
         with:
           name: doc
           path: result/share/doc/neovim-flake/
-     
-

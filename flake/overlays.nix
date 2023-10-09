@@ -5,9 +5,7 @@
 }: let
   inherit (import ../configuration.nix inputs) neovimConfiguration mainConfig;
 
-  buildPkg = pkgs: modules:
-    (neovimConfiguration {inherit pkgs modules;})
-    .neovim;
+  buildPkg = pkgs: modules: (neovimConfiguration {inherit pkgs modules;}).neovim;
 
   nixConfig = mainConfig false;
   maximalConfig = mainConfig true;

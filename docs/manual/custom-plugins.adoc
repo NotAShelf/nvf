@@ -4,7 +4,7 @@
 You can use custom plugins, before they are implemented in the flake.
 To add a plugin, you need to add it to your config's `config.vim.startPlugins` array.
 
-
+[[sec-new-method]]
 === New Method
 As of version 0.5, we have a more extensive API for configuring plugins, under `vim.extraPlugins`.
 
@@ -22,7 +22,7 @@ Instead of using DAGs exposed by the library, you may use the extra plugin modul
         }
       '';
     };
-    
+
     harpoon = {
       package = harpoon;
       setup = "require('harpoon').setup {}";
@@ -32,8 +32,10 @@ Instead of using DAGs exposed by the library, you may use the extra plugin modul
 }
 ----
 
+[[sec-old-method]]
 === Old Method
-Users who have not yet updated to 0.5, or prefer a more hands-on approach may use the old method where the load orderof the plugins is determined by DAGs.
+Users who have not yet updated to 0.5, or prefer a more hands-on approach may use the old method where the load order
+of the plugins is determined by DAGs.
 
 [source,nix]
 ----
@@ -50,16 +52,23 @@ Users who have not yet updated to 0.5, or prefer a more hands-on approach may us
 }
 ----
 
-However, just making the plugin available might not be enough. In that case, you can write custom vimscript or lua config, using `config.vim.configRC` or `config.vim.luaConfigRC` respectively.
+However, just making the plugin available might not be enough. In that case, you can write custom vimscript
+or lua config, using `config.vim.configRC` or `config.vim.luaConfigRC` respectively.
 These options are attribute sets, and you need to give the configuration you're adding some name, like this:
 
 [source,nix]
 ----
 {
+  # this will create an "aquarium" section in your init.vim with the contents of your custom config
+  # which will be *appended* to the rest of your configuration, inside your init.vim
   config.vim.configRC.aquarium = "colorscheme aquiarum";
 }
 ----
 
-Note: If your configuration needs to be put in a specific place in the config, you can use functions from `inputs.neovim-flake.lib.nvim.dag` to order it. Refer to https://github.com/nix-community/home-manager/blob/master/modules/lib/dag.nix.
+Note: If your configuration needs to be put in a specific place in the config, you can use functions from
+`inputs.neovim-flake.lib.nvim.dag` to order it.
+Refer to https://github.com/nix-community/home-manager/blob/master/modules/lib/dag.nix to find out more about
+the DAG system.
 
-Also, if you successfully made your plugin work, please make a PR to add it to the flake, or open an issue with your findings so that we can make it available for everyone easily.
+Also, if you successfully made your plugin work, please make a PR to add it to the flake, or open an issue
+with your findings so that we can make it available for everyone easily.
