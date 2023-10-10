@@ -41,7 +41,7 @@ with builtins; let
           then nvim.lua.expToLua cfg.lsp.package
           else ''
               {
-                "${getExe cfg.lsp.package}
+                "${getExe cfg.lsp.package}",
                 "-m",
                 "json",
                 "--no-color",
