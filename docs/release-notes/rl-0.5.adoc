@@ -5,6 +5,11 @@
 [[sec-release-0.5-changelog]]
 === Changelog
 
+https://github.com/vagahbond[vagahbond]: 
+* Added phan language server for PHP.
+
+* Added phpactor language server for PHP.
+
 https://github.com/horriblename[horriblename]:
 
 * Added transparency support for tokyonight theme.
