@@ -1,0 +1,47 @@
+name: "Check validity of .editorconfig"
+
+permissions: read-all
+
+on:
+  pull_request:
+
+jobs:
+  check-editorconfig:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.pull_request.title, '[skip treewide]')"
+    steps:
+      - name: Get list of changed files from PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api \
+            repos/NixOS/nixpkgs/pulls/${{github.event.number}}/files --paginate \
+            | jq '.[] | select(.status != "removed") | .filename' \
+            > "$HOME/changed_files"
+
+      - name: Print list of changed files
+        run: |
+          cat "$HOME/changed_files"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ github.event.pull_request.number }}/merge
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v23
+        with:
+          # nixpkgs commit is pinned so that it doesn't break
+          # editorconfig-checker 2.4.0
+          nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/c473cc8714710179df205b153f4e9fa007107ff9.tar.gz
+
+      - name: Checking EditorConfig
+        run: |
+          cat "$HOME/changed_files" | nix-shell -p editorconfig-checker --run 'xargs -r editorconfig-checker -disable-indent-size'
+
+      - if: ${{ failure() }}
+        shell: bash
+        run: |
+          echo "::error:: Current formatting does not fit convention provided by .editorconfig located in the project root."
+          echo "Please make sure your editor properly integrates editorconfig. See https://editorconfig.org/#download for more."
+          exit 1
