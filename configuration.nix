@@ -89,7 +89,9 @@ inputs: let
           enable = true;
           fillChar = null;
           eolChar = null;
-          showCurrContext = true;
+          scope = {
+            showCurrContext = true;
+          };
         };
 
         cursorline = {
