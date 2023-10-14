@@ -41,6 +41,7 @@ in {
         ${mkBinding mappings.renameSymbol "vim.lsp.buf.rename()"}
         ${mkBinding mappings.codeAction "vim.lsp.buf.code_action()"}
         ${mkBinding mappings.format "vim.lsp.buf.format()"}
+        ${mkBinding mappings.toggleFormatOnSave "vim.b.disableFormatSave = not vim.b.disableFormatSave"}
       end
 
       -- Enable formatting
@@ -56,6 +57,10 @@ in {
               ${
         if config.vim.lsp.null-ls.enable
         then ''
+          if vim.b.disableFormatSave then
+            return
+          end
+
           local function is_null_ls_formatting_enabled(bufnr)
               local file_type = vim.api.nvim_buf_get_option(bufnr, "filetype")
               local generators = require("null-ls.generators").get_available(
