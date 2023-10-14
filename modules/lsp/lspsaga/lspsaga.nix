@@ -22,7 +22,7 @@ with builtins; {
 
       codeAction = mkMappingOption "Code action [LSPSaga]" "<leader>ca";
 
-      signatureHelp = mkMappingOption "Signature help [LSPSaga]" "<ledaer>ls";
+      signatureHelp = mkMappingOption "Signature help [LSPSaga]" "<leader>ls";
     };
   };
 }
