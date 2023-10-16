@@ -54,7 +54,6 @@ with builtins; {
         default = "cs";
         description = "Change surrounding character";
       };
-
     };
   };
 }
