@@ -1,59 +1,88 @@
-{lib, ...}:
+{
+  lib,
+  config,
+  ...
+}:
 with lib;
 with builtins; {
   options.vim.utility.surround = {
-    enable = mkEnableOption "nvim-surround: add/change/delete surrounding delimiter pairs with ease";
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = "nvim-surround: add/change/delete surrounding delimiter pairs with ease. Note that the default mappings deviate from upstreeam to avoid conflicts with nvim-leap.";
+    };
+    useVendoredKeybindings = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Use alternative set of keybindings that avoids conflicts with other popular plugins, e.g. nvim-leap";
+    };
     mappings = {
       insert = mkOption {
         type = types.nullOr types.str;
-        default = "<C-g>s";
+        default = "<C-g>z";
         description = "Add surround character around the cursor";
       };
       insertLine = mkOption {
         type = types.nullOr types.str;
-        default = "<C-g>S";
+        default = "<C-g>Z";
         description = "Add surround character around the cursor on new lines";
       };
       normal = mkOption {
         type = types.nullOr types.str;
-        default = "ys";
+        default = "gz";
         description = "Surround motion with character";
       };
       normalCur = mkOption {
         type = types.nullOr types.str;
-        default = "yss";
+        default = "gZ";
         description = "Surround motion with character on new lines";
       };
       normalLine = mkOption {
         type = types.nullOr types.str;
-        default = "yS";
+        default = "gzz";
         description = "Surround line with character";
       };
       normalCurLine = mkOption {
         type = types.nullOr types.str;
-        default = "ySS";
+        default = "gZZ";
         description = "Surround line with character on new lines";
       };
       visual = mkOption {
         type = types.nullOr types.str;
-        default = "S";
+        default = "gz";
         description = "Surround selection with character";
       };
       visualLine = mkOption {
         type = types.nullOr types.str;
-        default = "gS";
+        default = "gZ";
         description = "Surround selection with character on new lines";
       };
       delete = mkOption {
         type = types.nullOr types.str;
-        default = "ds";
+        default = "gzd";
         description = "Delete surrounding character";
       };
       change = mkOption {
         type = types.nullOr types.str;
-        default = "cs";
+        default = "gzr";
         description = "Change surrounding character";
       };
     };
+  };
+  config.vim.utility.surround = let
+    cfg = config.vim.utility.surround;
+  in {
+    mappings = mkIf (! cfg.useVendoredKeybindings) (mkDefault {
+      insert = null;
+      insertLine = null;
+      normal = null;
+      normalCur = null;
+      normalLine = null;
+      normalCurLine = null;
+      visual = null;
+      visualLine = null;
+      delete = null;
+      change = null;
+    });
   };
 }

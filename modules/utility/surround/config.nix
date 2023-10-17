@@ -6,7 +6,7 @@
 with lib;
 with builtins; let
   cfg = config.vim.utility.surround;
-  self = import ./surround.nix {inherit lib;};
+  self = import ./surround.nix {inherit lib config;};
   mappingDefinitions = self.options.vim.utility.surround.mappings;
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
 in {
@@ -22,20 +22,20 @@ in {
 
       maps = {
         insert = mkMerge [
-          (mkSetBinding mappings.insert "<Plug>(nvim-surround-insert)")
-          (mkSetBinding mappings.insertLine "<Plug>(nvim-surround-insert-line)")
+          (mkIf (mappings.insert != null) (mkSetBinding mappings.insert "<Plug>(nvim-surround-insert)"))
+          (mkIf (mappings.insertLine != null) (mkSetBinding mappings.insertLine "<Plug>(nvim-surround-insert-line)"))
         ];
         normal = mkMerge [
-          (mkSetBinding mappings.normal "<Plug>(nvim-surround-normal)")
-          (mkSetBinding mappings.normalCur "<Plug>(nvim-surround-normal-cur)")
-          (mkSetBinding mappings.normalLine "<Plug>(nvim-surround-normal-line)")
-          (mkSetBinding mappings.normalCurLine "<Plug>(nvim-surround-normal-cur-line)")
-          (mkSetBinding mappings.delete "<Plug>(nvim-surround-delete)")
-          (mkSetBinding mappings.change "<Plug>(nvim-surround-change)")
+          (mkIf (mappings.normal != null) (mkSetBinding mappings.normal "<Plug>(nvim-surround-normal)"))
+          (mkIf (mappings.normalCur != null) (mkSetBinding mappings.normalCur "<Plug>(nvim-surround-normal-cur)"))
+          (mkIf (mappings.normalLine != null) (mkSetBinding mappings.normalLine "<Plug>(nvim-surround-normal-line)"))
+          (mkIf (mappings.normalCurLine != null) (mkSetBinding mappings.normalCurLine "<Plug>(nvim-surround-normal-cur-line)"))
+          (mkIf (mappings.delete != null) (mkSetBinding mappings.delete "<Plug>(nvim-surround-delete)"))
+          (mkIf (mappings.change != null) (mkSetBinding mappings.change "<Plug>(nvim-surround-change)"))
         ];
         visualOnly = mkMerge [
-          (mkSetBinding mappings.visual "<Plug>(nvim-surround-visual)")
-          (mkSetBinding mappings.visualLine "<Plug>(nvim-surround-visual-line)")
+          (mkIf (mappings.visual != null) (mkSetBinding mappings.visual "<Plug>(nvim-surround-visual)"))
+          (mkIf (mappings.visualLine != null) (mkSetBinding mappings.visualLine "<Plug>(nvim-surround-visual-line)"))
         ];
       };
     };
