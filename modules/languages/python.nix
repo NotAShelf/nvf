@@ -40,7 +40,7 @@ with builtins; let
       '';
     };
     isort = {
-      package = pkgs.black;
+      package = pkgs.isort;
       nullConfig = ''
         table.insert(
           ls_sources,
