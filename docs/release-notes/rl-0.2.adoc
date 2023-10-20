@@ -19,7 +19,7 @@ https://github.com/notashelf[notashelf]:
 
 * There is now a scrollbar on active buffers, which can highlight errors by hooking to your LSPs. This is on by default, but can be toggled off under `vim.visuals` if seen necessary.
 
-* Discord Rich Presence has been added through `presence.nvim` for those who want to flex that they are using the *superior* text editor. 
+* Discord Rich Presence has been added through `presence.nvim` for those who want to flex that they are using the *superior* text editor.
 
 * An icon picker is now available with telescope integration. You can use `:IconPickerInsert` or `:IconPickerYank` to add icons to your code.
 
@@ -29,7 +29,7 @@ https://github.com/notashelf[notashelf]:
 
 * Most UI components of Neovim have been replaced through the help of `noice.nvim`. There are also notifications and custom UI elements available for Neovim messages and prompts.
 
-* A (floating by default) terminal has been added through `toggleterm.nvim`. 
+* A (floating by default) terminal has been added through `toggleterm.nvim`.
 
 * Harness the power of ethical (`tabnine.nvim`) and not-so-ethical (`copilot.lua`) AI by those new assistant plugins. Both are off by default, TabNine needs to be wrapped before it's working.
 
@@ -37,7 +37,7 @@ https://github.com/notashelf[notashelf]:
 
 * Re-open last visited buffers via `nvim-session-manager`. Disabled by default as deleting buffers seems to be problematic at the moment.
 
-* Most of NvimTree's configuration options have been changed with some options being toggled to off by default. 
+* Most of NvimTree's configuration options have been changed with some options being toggled to off by default.
 
 * Lualine had its configuration simplified and style toned down. Less color, more info.
 
