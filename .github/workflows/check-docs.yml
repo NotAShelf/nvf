@@ -19,7 +19,7 @@ jobs:
           - docs-manpages
           - docs-json
     steps:
-      - uses: easimon/maximize-build-space@v6
+      - uses: easimon/maximize-build-space@v8
         with:
           overprovision-lvm: true
           remove-android: true
