@@ -26,13 +26,9 @@ jobs:
           remove-dotnet: true
           remove-haskell: true
 
-      - uses: cachix/install-nix-action@v20
-        with:
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            auto-optimise-store = true
-            experimental-features = nix-command flakes
-          nix_path: nixpkgs=channel:nixos-unstable
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
 
       - uses: actions/checkout@v4
         name: Checkout
@@ -40,10 +36,7 @@ jobs:
       - name: Set default git branch (to reduce log spam)
         run: git config --global init.defaultBranch main
 
-      - name: Validate Flake
-        run: nix flake check
-
-      - name: Build neovim-flake with default settings
+      - name: Build documentation packages
         run: nix build .#${{ matrix.package }} --print-build-logs
 
       - name: Upload doc artifacts
