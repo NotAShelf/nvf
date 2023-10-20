@@ -187,7 +187,7 @@ in {
               -- Lsp server name .
 
               function()
-                local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+                local buf_ft = vim.api.nvim_get_option_value('filetype', {})
 
                 -- Check if the current buffer type is "toggleterm"
                 if buf_ft == "toggleterm" then
