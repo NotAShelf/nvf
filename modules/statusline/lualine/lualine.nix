@@ -184,19 +184,25 @@ in {
         default = ''
           {
             {
-              -- Lsp server name .
-
+              -- Lsp server name
               function()
                 local buf_ft = vim.api.nvim_get_option_value('filetype', {})
 
-                -- Check if the current buffer type is "toggleterm"
-                if buf_ft == "toggleterm" then
-                  return ""
+                -- List of buffer types to exclude
+                local excluded_buf_ft = {"toggleterm", "NvimTree", "TelescopePrompt"}
+
+                -- Check if the current buffer type is in the excluded list
+                for _, excluded_type in ipairs(excluded_buf_ft) do
+                  if buf_ft == excluded_type then
+                    return ""
+                  end
                 end
 
-                local msg = 'No Active Lsp'
+                -- Get the name of the LSP server active in the current buffer
                 local clients = vim.lsp.get_active_clients()
+                local msg = 'No Active Lsp'
 
+                -- if no lsp client is attached then return the msg
                 if next(clients) == nil then
                   return msg
                 end
@@ -211,11 +217,13 @@ in {
                 return msg
               end,
               icon = ' ',
+              color = {bg='${colorPuccin}', fg='lavender'},
             },
             {
               "diagnostics",
               sources = {'nvim_lsp', 'nvim_diagnostic', 'coc'},
               symbols = {error = '󰅙  ', warn = '  ', info = '  ', hint = '󰌵 '},
+              color = {bg='${colorPuccin}', fg='lavender'},
               diagnostics_color = {
                 color_error = { fg = 'red' },
                 color_warn = { fg = 'yellow' },
