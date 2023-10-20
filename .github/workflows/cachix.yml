@@ -31,7 +31,7 @@ jobs:
           remove-haskell: true
           remove-codeql: true
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         name: Checkout
 
       - uses: cachix/install-nix-action@v20
