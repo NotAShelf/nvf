@@ -33,10 +33,13 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Checking EditorConfig
+        shell: bash
         run: |
-          cat "$HOME/changed_files" | nix-shell -p editorconfig-checker.out --run 'xargs -r editorconfig-checker -disable-indent-size'
+          cat "$HOME/changed_files" | nix-shell -p editorconfig-checker.out --run 'xargs -r editorconfig-checker -disable-indent-size --verbose'
+          echo -n "Check status: $?"
 
-      - if: ${{ failure() }}
+      - name: Fail Gracefully
+        if: ${{ failure() }}
         shell: bash
         run: |
           echo "::error:: Current formatting does not fit convention provided by .editorconfig located in the project root."
