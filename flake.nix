@@ -312,6 +312,11 @@
       flake = false;
     };
 
+    oxocarbon = {
+      url = "github:glyh/oxocarbon.nvim/lualine-support";
+      flake = false;
+    };
+
     # Rust crates
     crates-nvim = {
       url = "github:Saecki/crates.nvim";

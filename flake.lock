@@ -1332,6 +1332,23 @@
         "type": "github"
       }
     },
+    "oxocarbon": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1687168305,
+        "narHash": "sha256-2o++5aRDULfI35d+7psa6bk0eSXH2HwfuGjGtYGjR4w=",
+        "owner": "glyh",
+        "repo": "oxocarbon.nvim",
+        "rev": "7591d2e18df05374d612acba2b2573c7ff44dce4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "glyh",
+        "ref": "lualine-support",
+        "repo": "oxocarbon.nvim",
+        "type": "github"
+      }
+    },
     "plenary-nvim": {
       "flake": false,
       "locked": {
@@ -1492,6 +1509,7 @@
         "obsidian-nvim": "obsidian-nvim",
         "onedark": "onedark",
         "orgmode-nvim": "orgmode-nvim",
+        "oxocarbon": "oxocarbon",
         "plenary-nvim": "plenary-nvim",
         "presence-nvim": "presence-nvim",
         "project-nvim": "project-nvim",

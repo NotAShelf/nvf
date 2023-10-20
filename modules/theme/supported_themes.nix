@@ -77,4 +77,19 @@
     '';
     styles = ["latte" "frappe" "macchiato" "mocha"];
   };
+
+  oxocarbon = {
+    setup = {
+      style ? "dark",
+      transparent ? false,
+    }: let
+      style' =
+        lib.warnIf (style == "light") "oxocarbon: light theme is not well-supported" style;
+    in ''
+      require('oxocarbon')
+      vim.opt.background = "${style'}"
+      vim.cmd.colorscheme = "oxocarbon"
+    '';
+    styles = ["dark" "light"];
+  };
 }
