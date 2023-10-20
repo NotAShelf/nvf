@@ -73,3 +73,5 @@ https://github.com/jacekpoz[jacekpoz]:
 https://github.com/ksonj[ksonj]:
 
 * Add support to change mappings to utility/surround
+
+* Add black-and-isort python formatter
