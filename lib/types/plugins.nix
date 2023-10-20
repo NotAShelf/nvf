@@ -42,6 +42,7 @@ with lib; let
     "onedark"
     "catppuccin"
     "dracula"
+    "oxocarbon"
     "minimap-vim"
     "dashboard-nvim"
     "alpha-nvim"

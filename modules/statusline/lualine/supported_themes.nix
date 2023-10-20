@@ -2,4 +2,5 @@
   "tokyonight"
   "onedark"
   "catppuccin"
+  "oxocarbon"
 ]
