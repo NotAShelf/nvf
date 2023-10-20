@@ -34,13 +34,9 @@ jobs:
       - uses: actions/checkout@v4
         name: Checkout
 
-      - uses: cachix/install-nix-action@v20
-        with:
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            auto-optimise-store = true
-            experimental-features = nix-command flakes
-          nix_path: nixpkgs=channel:nixos-unstable
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
 
       - uses: cachix/cachix-action@v12
         with:
