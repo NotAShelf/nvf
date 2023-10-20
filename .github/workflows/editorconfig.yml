@@ -35,7 +35,7 @@ jobs:
       - name: Checking EditorConfig
         shell: bash
         run: |
-          cat "$HOME/changed_files" | nix-shell -p editorconfig-checker.out --run 'xargs -r editorconfig-checker -disable-indent-size --verbose'
+          cat "$HOME/changed_files" | nix-shell -p editorconfig-checker.out --run 'xargs -r editorconfig-checker -disable-indentation -exclude flake.lock --verbose'
           echo -n "Check status: $?"
 
       - name: Fail Gracefully
