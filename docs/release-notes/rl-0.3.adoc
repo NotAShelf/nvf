@@ -3,13 +3,13 @@
 
 Release 0.3 had to come out beore I wanted it to due to Neovim 0.9 dropping into nixpkgs-unstable. The treesitter changes
 have prompted a treesitter rework, which was followed by reworking the languages system. Most of the changes to those are downstreamed
-from the original repository. The feature requests that was originally planned for 0.3 have been moved to 0.4, which 
+from the original repository. The feature requests that was originally planned for 0.3 have been moved to 0.4, which
 should come out soon.
 
 [[sec-release-0.3-changelog]]
 === Changelog
 
-* We have transitioned to flake-parts, from flake-utils to extend the flexibility of this flake. This means the flake structure 
+* We have transitioned to flake-parts, from flake-utils to extend the flexibility of this flake. This means the flake structure
 is different than usual, but the functionality remains the same.
 
 * We now provide a home-manager module. Do note that it is still far from perfect, but it works.
@@ -24,7 +24,7 @@ display the correct titles instad of `+prefix`
 * Most of the modules have been refactored to separate `config` and `options` attributes.
 
 * Darwin has been deprecated as the zig package is marked as broken. We will attempt to use the zig overlay to return Darwin
-support. 
+support.
 
 * `Fidget.nvim` has been added as a neat visual addition for LSP installations.
 
@@ -47,12 +47,12 @@ support.
 
 * For <<opt-vim.visuals.indentBlankline.fillChar>> and <<opt-vim.visuals.indentBlankline.eolChar>> turning them off should use `null` rather than `""` now.
 
-* Transparency has been made optional and has been disabled by default. <<opt-vim.theme.transparent>> option can be used to enable or 
+* Transparency has been made optional and has been disabled by default. <<opt-vim.theme.transparent>> option can be used to enable or
 disable transparency for your configuration.
 
 * Fixed deprecated configuration method for Tokyonight, and added new style "moon"
 
-* Dart language support as well as extended flutter support has been added. Thanks to @FlafyDev for his contributions towards Dart 
+* Dart language support as well as extended flutter support has been added. Thanks to @FlafyDev for his contributions towards Dart
 language support.
 
 * Elixir language support has been added through `elixir-tools.nvim`.
@@ -61,7 +61,7 @@ language support.
 
 * `modes.nvim` has been added to the UI plugins as a minor error highlighter.
 
-* `smartcollumn.nvim` has been added to dynamically display a colorcolumn when the limit has been exceeded, providing 
+* `smartcollumn.nvim` has been added to dynamically display a colorcolumn when the limit has been exceeded, providing
 per-buftype column position and more.
 
 * `project.nvim` has been added for better project management inside Neovim.
