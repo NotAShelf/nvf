@@ -34,7 +34,7 @@ jobs:
             experimental-features = nix-command flakes
           nix_path: nixpkgs=channel:nixos-unstable
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         name: Checkout
 
       - name: Set default git branch (to reduce log spam)
