@@ -939,7 +939,7 @@ This is a python package with debugpy installed, see https://nixos.wiki/wiki/Pyt
                     &lt;neovim-flake/modules/languages/python.nix&gt;
                 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.languages.python.format.package"></a><a class="link" href="options.html#opt-vim.languages.python.format.package"><code class="option">vim.languages.python.format.package</code></a></span></dt><dd><p>Python formatter package</p><p><span class="emphasis"><em>Type:</em></span> package</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">&lt;derivation black-23.9.1&gt;</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/python.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/languages/python.nix&gt;
-                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.languages.python.format.type"></a><a class="link" href="options.html#opt-vim.languages.python.format.type"><code class="option">vim.languages.python.format.type</code></a></span></dt><dd><p>Python formatter to use</p><p><span class="emphasis"><em>Type:</em></span> value "black" (singular enum)</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">"black"</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/python.nix#blob-path" target="_top">
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.languages.python.format.type"></a><a class="link" href="options.html#opt-vim.languages.python.format.type"><code class="option">vim.languages.python.format.type</code></a></span></dt><dd><p>Python formatter to use</p><p><span class="emphasis"><em>Type:</em></span> one of "black", "black-and-isort", "isort"</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">"black"</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/python.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/languages/python.nix&gt;
                 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.languages.python.lsp.enable"></a><a class="link" href="options.html#opt-vim.languages.python.lsp.enable"><code class="option">vim.languages.python.lsp.enable</code></a></span></dt><dd><p>Whether to enable Enable Python LSP support.</p><p><span class="emphasis"><em>Type:</em></span> boolean</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">false</code></p><p><span class="emphasis"><em>Example:</em></span> <code class="literal">true</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/python.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/languages/python.nix&gt;
@@ -1626,28 +1626,46 @@ Thus, it will not be wrapped in `""`.</p><p><span class="emphasis"><em>Type:</em
                 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.activeSection.x"></a><a class="link" href="options.html#opt-vim.statusline.lualine.activeSection.x"><code class="option">vim.statusline.lualine.activeSection.x</code></a></span></dt><dd><p>active config for: | A | B | C       (X) | Y | Z |</p><p><span class="emphasis"><em>Type:</em></span> string</p><p><span class="emphasis"><em>Default:</em></span> </p><pre class="programlisting">''
   {
     {
-      -- Lsp server name .
+      -- Lsp server name
       function()
-        local msg = 'No Active Lsp'
-        local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+        local buf_ft = vim.api.nvim_get_option_value('filetype', {})
+  
+        -- List of buffer types to exclude
+        local excluded_buf_ft = {"toggleterm", "NvimTree", "TelescopePrompt"}
+  
+        -- Check if the current buffer type is in the excluded list
+        for _, excluded_type in ipairs(excluded_buf_ft) do
+          if buf_ft == excluded_type then
+            return ""
+          end
+        end
+  
+        -- Get the name of the LSP server active in the current buffer
         local clients = vim.lsp.get_active_clients()
+        local msg = 'No Active Lsp'
+  
+        -- if no lsp client is attached then return the msg
         if next(clients) == nil then
           return msg
         end
+  
         for _, client in ipairs(clients) do
           local filetypes = client.config.filetypes
           if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
             return client.name
           end
         end
+  
         return msg
       end,
       icon = ' ',
+      color = {bg='none', fg='lavender'},
     },
     {
       "diagnostics",
       sources = {'nvim_lsp', 'nvim_diagnostic', 'coc'},
       symbols = {error = '󰅙  ', warn = '  ', info = '  ', hint = '󰌵 '},
+      color = {bg='none', fg='lavender'},
       diagnostics_color = {
         color_error = { fg = 'red' },
         color_warn = { fg = 'yellow' },
