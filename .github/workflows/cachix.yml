@@ -34,7 +34,7 @@ jobs:
       - uses: actions/checkout@v4
         name: Checkout
 
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v23
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
