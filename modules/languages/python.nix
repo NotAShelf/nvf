@@ -39,6 +39,34 @@ with builtins; let
         )
       '';
     };
+    isort = {
+      package = pkgs.black;
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.isort.with({
+            command = "${cfg.format.package}/bin/isort",
+          })
+        )
+      '';
+    };
+    black-and-isort = {
+      package = pkgs.writeShellApplication {
+        name = "black";
+        text = ''
+          black --quiet - "$@" | isort --profile black -
+        '';
+        runtimeInputs = [pkgs.black pkgs.isort];
+      };
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.black.with({
+            command = "${cfg.format.package}/bin/black",
+          })
+        )
+      '';
+    };
   };
 
   defaultDebugger = "debugpy";
