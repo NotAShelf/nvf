@@ -30,7 +30,7 @@ in {
     enable = mkEnableOption "Dart language support";
 
     treesitter = {
-      enable = mkEnableOption "Enable Dart treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable = mkEnableOption "Dart treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = nvim.types.mkGrammarOption pkgs "dart";
     };
 

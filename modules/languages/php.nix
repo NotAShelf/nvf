@@ -63,7 +63,7 @@ in {
     enable = mkEnableOption "PHP language support";
 
     treesitter = {
-      enable = mkEnableOption "Enable PHP treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable = mkEnableOption "PHP treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = nvim.types.mkGrammarOption pkgs "php";
     };
 

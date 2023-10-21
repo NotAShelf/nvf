@@ -7,7 +7,7 @@
 with lib;
 with builtins; {
   options.vim.terminal.toggleterm = {
-    enable = mkEnableOption "Enable toggleterm as a replacement to built-in terminal command";
+    enable = mkEnableOption "toggleterm as a replacement to built-in terminal command";
     mappings = {
       open = mkOption {
         type = types.nullOr types.str;

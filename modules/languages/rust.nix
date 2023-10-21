@@ -12,7 +12,7 @@ in {
     enable = mkEnableOption "Rust language support";
 
     treesitter = {
-      enable = mkEnableOption "Enable Rust treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable = mkEnableOption "Rust treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = nvim.types.mkGrammarOption pkgs "rust";
     };
 

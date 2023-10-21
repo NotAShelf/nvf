@@ -22,7 +22,7 @@ with builtins; {
     };
 
     treesitter = {
-      enable = mkEnableOption "Enable Orgmode treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable = mkEnableOption "Orgmode treesitter" // {default = config.vim.languages.enableTreesitter;};
 
       orgPackage = nvim.types.mkGrammarOption pkgs "org";
     };

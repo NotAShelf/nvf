@@ -23,7 +23,7 @@ in {
     # TODO: make per-plugin borders configurable
     plugins = let
       mkPluginStyleOption = name: {
-        enable = mkEnableOption "whether to enable borders for the ${name} plugin" // {default = cfg.enable;};
+        enable = mkEnableOption "borders for the ${name} plugin" // {default = cfg.enable;};
 
         style = mkOption {
           type = types.enum (defaultStyles ++ lib.optionals (name != "which-key") ["shadow"]);

@@ -88,13 +88,13 @@ in {
     enable = mkEnableOption "Typescript/Javascript language support";
 
     treesitter = {
-      enable = mkEnableOption "Enable Typescript/Javascript treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable = mkEnableOption "Typescript/Javascript treesitter" // {default = config.vim.languages.enableTreesitter;};
       tsPackage = nvim.types.mkGrammarOption pkgs "tsx";
       jsPackage = nvim.types.mkGrammarOption pkgs "javascript";
     };
 
     lsp = {
-      enable = mkEnableOption "Enable Typescript/Javascript LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Typescript/Javascript LSP support" // {default = config.vim.languages.enableLSP;};
 
       server = mkOption {
         description = "Typescript/Javascript LSP server to use";
@@ -111,7 +111,7 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "Enable Typescript/Javascript formatting" // {default = config.vim.languages.enableFormat;};
+      enable = mkEnableOption "Typescript/Javascript formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
         description = "Typescript/Javascript formatter to use";
@@ -127,7 +127,7 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkEnableOption "Enable extra Typescript/Javascript diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      enable = mkEnableOption "extra Typescript/Javascript diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
 
       types = lib.nvim.types.diagnostics {
         langDesc = "Typescript/Javascript";

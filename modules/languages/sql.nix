@@ -72,7 +72,7 @@ in {
     };
 
     treesitter = {
-      enable = mkEnableOption "Enable SQL treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable = mkEnableOption "SQL treesitter" // {default = config.vim.languages.enableTreesitter;};
 
       package = mkOption {
         description = "SQL treesitter grammar to use";
@@ -82,7 +82,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Enable SQL LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "SQL LSP support" // {default = config.vim.languages.enableLSP;};
 
       server = mkOption {
         description = "SQL LSP server to use";
@@ -99,7 +99,7 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "Enable SQL formatting" // {default = config.vim.languages.enableFormat;};
+      enable = mkEnableOption "SQL formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
         description = "SQL formatter to use";
@@ -115,7 +115,7 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkEnableOption "Enable extra SQL diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      enable = mkEnableOption "extra SQL diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
 
       types = lib.nvim.types.diagnostics {
         langDesc = "SQL";

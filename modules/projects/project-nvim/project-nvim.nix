@@ -6,7 +6,7 @@
 with lib;
 with builtins; {
   options.vim.projects.project-nvim = {
-    enable = mkEnableOption "Enable project-nvim for project management";
+    enable = mkEnableOption "project-nvim for project management";
 
     manualMode = mkOption {
       type = types.bool;

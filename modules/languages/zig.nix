@@ -12,7 +12,7 @@ in {
     enable = mkEnableOption "Zig language support";
 
     treesitter = {
-      enable = mkEnableOption "Enable Zig treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable = mkEnableOption "Zig treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = nvim.types.mkGrammarOption pkgs "zig";
     };
 

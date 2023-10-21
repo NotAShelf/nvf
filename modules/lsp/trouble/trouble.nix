@@ -2,7 +2,7 @@
 with lib; {
   options.vim.lsp = {
     trouble = {
-      enable = mkEnableOption "Enable trouble diagnostics viewer";
+      enable = mkEnableOption "trouble diagnostics viewer";
 
       mappings = {
         toggle = mkMappingOption "Toggle trouble [trouble]" "<leader>xx";

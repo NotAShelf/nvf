@@ -207,7 +207,7 @@ with builtins; {
 
       type = types.submodule {
         options = {
-          enable = mkEnableOption "Enable diagnostics view in the signcolumn.";
+          enable = mkEnableOption "diagnostics view in the signcolumn.";
 
           debounceDelay = mkOption {
             description = "Idle milliseconds between diagnostic event and update.";

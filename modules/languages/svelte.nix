@@ -62,13 +62,13 @@ in {
     enable = mkEnableOption "Svelte language support";
 
     treesitter = {
-      enable = mkEnableOption "Enable Svelte treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable = mkEnableOption "Svelte treesitter" // {default = config.vim.languages.enableTreesitter;};
 
       sveltePackage = nvim.types.mkGrammarOption pkgs "svelte";
     };
 
     lsp = {
-      enable = mkEnableOption "Enable Svelte LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Svelte LSP support" // {default = config.vim.languages.enableLSP;};
 
       server = mkOption {
         description = "Svelte LSP server to use";
@@ -85,7 +85,7 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "Enable Svelte formatting" // {default = config.vim.languages.enableFormat;};
+      enable = mkEnableOption "Svelte formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
         description = "Svelte formatter to use";
@@ -101,7 +101,7 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkEnableOption "Enable extra Svelte diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      enable = mkEnableOption "extra Svelte diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
 
       types = lib.nvim.types.diagnostics {
         langDesc = "Svelte";
