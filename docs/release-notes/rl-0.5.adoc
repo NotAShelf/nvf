@@ -6,27 +6,27 @@
 === Changelog
 
 https://github.com/vagahbond[vagahbond]:
-* Added phan language server for PHP.
+* Added phan language server for PHP
 
-* Added phpactor language server for PHP.
+* Added phpactor language server for PHP
 
 https://github.com/horriblename[horriblename]:
 
-* Added transparency support for tokyonight theme.
+* Added transparency support for tokyonight theme
 
-* Fixed a bug where cmp's close and scrollDocs mappings wasn't working.
+* Fixed a bug where cmp's close and scrollDocs mappings wasn't working
 
 * Streamlined and simplified extra plugin API with the addition of <<opt-vim.extraPlugins>>
 
-* Allow using command names in place of LSP packages to avoid automatic installation.
+* Allow using command names in place of LSP packages to avoid automatic installation
 
-* Add lua LSP and treesitter support, and neodev.nvim plugin support.
+* Add lua LSP and treesitter support, and neodev.nvim plugin support
 
 https://github.com/amanse[amanse]:
 
-* Added daily notes options for obsidian plugin.
+* Added daily notes options for obsidian plugin
 
-* Added jdt-language-server for Java.
+* Added jdt-language-server for Java
 
 https://github.com/yavko[yavko]:
 
@@ -36,9 +36,9 @@ https://github.com/yavko[yavko]:
 
 https://github.com/FrothyMarrow[frothymarrow]:
 
-* Renamed `vim.visuals.cursorWordline` to <<opt-vim.visuals.cursorline.enable>>.
+* Renamed `vim.visuals.cursorWordline` to <<opt-vim.visuals.cursorline.enable>>
 
-* Added <<opt-vim.visuals.cursorline.lineNumbersOnly>> to display cursorline only in the presence of line numbers.
+* Added <<opt-vim.visuals.cursorline.lineNumbersOnly>> to display cursorline only in the presence of line numbers
 
 https://github.com/notashelf[notashelf]:
 
@@ -60,7 +60,9 @@ https://github.com/notashelf[notashelf]:
 
 * Added a configuration option for choosing the leader key
 
-* The package used for neovim is now customizable by the user, using <<opt-vim.package>>. For best results, always use an unwrapped package.
+* The package used for neovim is now customizable by the user, using <<opt-vim.package>>. For best results, always use an unwrapped package
+
+* Added highlight-undo plugin for highlighting undo/redo targets
 
 https://github.com/jacekpoz[jacekpoz]:
 
@@ -75,3 +77,5 @@ https://github.com/ksonj[ksonj]:
 * Add support to change mappings to utility/surround
 
 * Add black-and-isort python formatter
+
+* Removed redundant "Enable ..." in `mkEnableOption` descriptions

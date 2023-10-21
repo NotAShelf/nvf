@@ -79,14 +79,17 @@ inputs: let
         nvimWebDevicons.enable = true;
         scrollBar.enable = true;
         smoothScroll.enable = true;
-        cellularAutomaton.enable = isMaximal;
+        cellularAutomaton.enable = false;
         fidget-nvim.enable = true;
+        highlight-undo.enable = true;
+
         indentBlankline = {
           enable = true;
           fillChar = null;
           eolChar = null;
           showCurrContext = true;
         };
+
         cursorline = {
           enable = true;
           lineTimeout = 0;

@@ -94,6 +94,7 @@ with lib; let
     "copilot-cmp"
     "lsp-lines"
     "vim-dirtytalk"
+    "highlight-undo"
   ];
   # You can either use the name of the plugin or a package.
   pluginType = with types;

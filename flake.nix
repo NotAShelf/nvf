@@ -368,6 +368,11 @@
       flake = false;
     };
 
+    highlight-undo = {
+      url = "github:tzachar/highlight-undo.nvim";
+      flake = false;
+    };
+
     # Markdown
     glow-nvim = {
       url = "github:ellisonleao/glow.nvim";
