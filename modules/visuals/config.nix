@@ -118,5 +118,30 @@ in {
         }
       '';
     })
+
+    (mkIf cfg.highlight-undo.enable {
+      vim.startPlugins = ["highlight-undo"];
+      vim.luaConfigRC.fidget-nvim = nvim.dag.entryAnywhere ''
+        require('highlight-undo').setup({
+          duration = ${toString cfg.highlight-undo.duration},
+          highlight_for_count = ${boolToString cfg.highlight-undo.highlightForCount},
+          undo = {
+            hlgroup = ${cfg.highlight-undo.undo.hlGroup},
+            mode = 'n',
+            lhs = 'u',
+            map = 'undo',
+            opts = {}
+          },
+
+          redo = {
+            hlgroup = ${cfg.highlight-undo.redo.hlGroup},
+            mode = 'n',
+            lhs = '<C-r>',
+            map = 'redo',
+            opts = {}
+          },
+        })
+      '';
+    })
   ]);
 }
