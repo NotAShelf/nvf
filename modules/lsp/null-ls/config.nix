@@ -11,7 +11,7 @@ in {
   config = mkIf cfg.null-ls.enable (mkMerge [
     {
       vim.lsp.enable = true;
-      vim.startPlugins = ["null-ls"];
+      vim.startPlugins = ["none-ls"];
 
       vim.luaConfigRC.null_ls-setup = nvim.dag.entryAnywhere ''
         local null_ls = require("null-ls")

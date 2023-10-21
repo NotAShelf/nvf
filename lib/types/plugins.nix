@@ -31,7 +31,7 @@ with lib; let
     "vim-vsnip"
     "nvim-code-action-menu"
     "trouble"
-    "null-ls"
+    "none-ls"
     "which-key"
     "indent-blankline"
     "nvim-cursorline"
