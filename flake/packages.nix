@@ -30,13 +30,13 @@
         maximal = config.legacyPackages.neovim-maximal;
         default = config.legacyPackages.neovim-nix;
 
-        # Publisged docker images
+        # Published docker images
         docker-nix = let
           inherit (pkgs) bash gitFull buildEnv dockerTools;
           inherit (config.legacyPackages) neovim-nix;
         in
           dockerTools.buildImage {
-            name = "neovim-flake-nix";
+            name = "neovim-flake";
             tag = "latest";
 
             copyToRoot = buildEnv {
