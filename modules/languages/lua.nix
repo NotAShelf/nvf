@@ -11,11 +11,11 @@ in {
   options.vim.languages.lua = {
     enable = mkEnableOption "Lua language support";
     treesitter = {
-      enable = mkEnableOption "Enable Lua Treesitter support" // {default = config.vim.languages.enableTreesitter;};
+      enable = mkEnableOption "Lua Treesitter support" // {default = config.vim.languages.enableTreesitter;};
       package = nvim.types.mkGrammarOption pkgs "lua";
     };
     lsp = {
-      enable = mkEnableOption "Enable Lua LSP support via LuaLS" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Lua LSP support via LuaLS" // {default = config.vim.languages.enableLSP;};
 
       package = mkOption {
         description = "LuaLS package, or the command to run as a list of strings";
@@ -23,7 +23,7 @@ in {
         default = pkgs.lua-language-server;
       };
 
-      neodev.enable = mkEnableOption "Enable neodev.nvim integration, useful for neovim plugin developers";
+      neodev.enable = mkEnableOption "neodev.nvim integration, useful for neovim plugin developers";
     };
   };
 

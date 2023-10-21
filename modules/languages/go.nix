@@ -70,13 +70,13 @@ in {
     enable = mkEnableOption "Go language support";
 
     treesitter = {
-      enable = mkEnableOption "Enable Go treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable = mkEnableOption "Go treesitter" // {default = config.vim.languages.enableTreesitter;};
 
       package = nvim.types.mkGrammarOption pkgs "go";
     };
 
     lsp = {
-      enable = mkEnableOption "Enable Go LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Go LSP support" // {default = config.vim.languages.enableLSP;};
 
       server = mkOption {
         description = "Go LSP server to use";

@@ -126,7 +126,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Enable Nix LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Nix LSP support" // {default = config.vim.languages.enableLSP;};
 
       server = mkOption {
         description = "Nix LSP server to use";
@@ -142,7 +142,7 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "Enable Nix formatting" // {default = config.vim.languages.enableFormat;};
+      enable = mkEnableOption "Nix formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
         description = "Nix formatter to use";

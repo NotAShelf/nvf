@@ -12,7 +12,7 @@ in {
     enable = mkEnableOption "Java language support";
 
     treesitter = {
-      enable = mkEnableOption "Enable Java treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable = mkEnableOption "Java treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = nvim.types.mkGrammarOption pkgs "java";
     };
 

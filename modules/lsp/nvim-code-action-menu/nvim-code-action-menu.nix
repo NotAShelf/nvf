@@ -2,7 +2,7 @@
 with lib; {
   options.vim.lsp = {
     nvimCodeActionMenu = {
-      enable = mkEnableOption "Enable nvim code action menu";
+      enable = mkEnableOption "nvim code action menu";
 
       show = {
         details = mkEnableOption "Show details" // {default = true;};
