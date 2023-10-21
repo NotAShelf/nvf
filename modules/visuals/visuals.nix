@@ -110,9 +110,9 @@ in {
       highlightForCount = mkOption {
         type = types.bool;
         default = true;
-        description = ''
-          Enable support for highlighting when a `<count>` is provided before the key
-          If set to false it will only highlight when the mapping is not prefixed with a `<count>`
+        description = nvim.nmd.literalAsciiDoc ''
+          Enable support for highlighting when a <count> is provided before the key
+          If set to false it will only highlight when the mapping is not prefixed with a <count>
         '';
       };
 
