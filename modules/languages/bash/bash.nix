@@ -61,11 +61,7 @@ in {
     enable = mkEnableOption "Bash language support";
 
     treesitter = {
-      enable = mkOption {
-        description = "Bash treesitter";
-        type = types.bool;
-        default = config.vim.languages.enableTreesitter;
-      };
+      enable = mkEnableOption "Bash treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = lib.nvim.types.mkGrammarOption pkgs "bash";
     };
 
@@ -106,11 +102,8 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkOption {
-        description = "Enable extra Bash diagnostics";
-        type = types.bool;
-        default = config.vim.languages.enableExtraDiagnostics;
-      };
+      enable = mkEnableOption "extra Bash diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+
       types = lib.nvim.types.diagnostics {
         langDesc = "Bash";
         inherit diagnostics;
