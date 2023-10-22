@@ -8,31 +8,41 @@ with lib;
 with builtins; let
   cfg = config.vim.lsp;
   usingNvimCmp = config.vim.autocomplete.enable && config.vim.autocomplete.type == "nvim-cmp";
+  self = import ./module.nix {inherit config lib pkgs;};
+
+  mappingDefinitions = self.options.vim.lsp.mappings;
+  mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
+  mkBinding = binding: action: "vim.api.nvim_buf_set_keymap(bufnr, 'n', '${binding.value}', '<cmd>lua ${action}<CR>', {noremap=true, silent=true, desc='${binding.description}'})";
 in {
   config = mkIf cfg.enable {
     vim.startPlugins = optional usingNvimCmp "cmp-nvim-lsp";
 
     vim.autocomplete.sources = {"nvim_lsp" = "[LSP]";};
-
     vim.luaConfigRC.lsp-setup = ''
       vim.g.formatsave = ${boolToString cfg.formatOnSave};
 
       local attach_keymaps = function(client, bufnr)
-        local opts = { noremap=true, silent=true }
-
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lgD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lgd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lgt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lgn', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lgp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lwa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lwr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lwl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ls', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ln', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+        ${mkBinding mappings.goToDeclaration "vim.lsp.buf.declaration()"}
+        ${mkBinding mappings.goToDefinition "vim.lsp.buf.definition()"}
+        ${mkBinding mappings.goToDeclaration "vim.lsp.buf.declaration()"}
+        ${mkBinding mappings.goToDefinition "vim.lsp.buf.definition()"}
+        ${mkBinding mappings.goToType "vim.lsp.buf.type_definition()"}
+        ${mkBinding mappings.listImplementations "vim.lsp.buf.implementation()"}
+        ${mkBinding mappings.listReferences "vim.lsp.buf.references()"}
+        ${mkBinding mappings.nextDiagnostic "vim.diagnostic.goto_next()"}
+        ${mkBinding mappings.previousDiagnostic "vim.diagnostic.goto_prev()"}
+        ${mkBinding mappings.openDiagnosticFloat "vim.diagnostic.open_float()"}
+        ${mkBinding mappings.documentHighlight "vim.lsp.buf.document_highlight()"}
+        ${mkBinding mappings.listDocumentSymbols "vim.lsp.buf.document_symbol()"}
+        ${mkBinding mappings.addWorkspaceFolder "vim.lsp.buf.add_workspace_folder()"}
+        ${mkBinding mappings.removeWorkspaceFolder "vim.lsp.buf.remove_workspace_folder()"}
+        ${mkBinding mappings.listWorkspaceFolders "print(vim.inspect(vim.lsp.buf.list_workspace_folders()))"}
+        ${mkBinding mappings.listWorkspaceSymbols "vim.lsp.buf.workspace_symbol()"}
+        ${mkBinding mappings.hover "vim.lsp.buf.hover()"}
+        ${mkBinding mappings.signatureHelp "vim.lsp.buf.signature_help()"}
+        ${mkBinding mappings.renameSymbol "vim.lsp.buf.rename()"}
+        ${mkBinding mappings.codeAction "vim.lsp.buf.code_action()"}
+        ${mkBinding mappings.format "vim.lsp.buf.format()"}
       end
 
       -- Enable formatting
