@@ -119,7 +119,7 @@ in {
       duration = mkOption {
         type = types.int;
         description = "Duration of highlight";
-        default = 200;
+        default = 500;
       };
 
       undo = {
