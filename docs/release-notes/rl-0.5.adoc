@@ -40,6 +40,8 @@ https://github.com/FrothyMarrow[frothymarrow]:
 
 * Added <<opt-vim.visuals.cursorline.lineNumbersOnly>> to display cursorline only in the presence of line numbers
 
+* Added Oxocarbon to the list of available themes.
+
 https://github.com/notashelf[notashelf]:
 
 * Added GitHub Copilot to nvim-cmp completion sources.
@@ -63,6 +65,10 @@ https://github.com/notashelf[notashelf]:
 * The package used for neovim is now customizable by the user, using <<opt-vim.package>>. For best results, always use an unwrapped package
 
 * Added highlight-undo plugin for highlighting undo/redo targets
+
+* Added bash LSP and formatter support
+
+* Disabled Lualine LSP status indicator for toggleterm buffer
 
 https://github.com/jacekpoz[jacekpoz]:
 
