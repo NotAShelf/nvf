@@ -1,6 +1,6 @@
 {lib}:
 with lib; let
-  diagnosticSubmodule = {...}: {
+  diagnosticSubmodule = _: {
     options = {
       type = mkOption {
         description = "Type of diagnostic to enable";

@@ -22,4 +22,11 @@
         value = diagnostics.${type}.nullConfig package;
       })
       config);
+
+  mkEnable = desc:
+    lib.mkOption {
+      description = "Turn on ${desc} for enabled languages by default";
+      type = lib.types.bool;
+      default = false;
+    };
 }

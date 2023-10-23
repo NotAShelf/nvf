@@ -1,17 +1,12 @@
-{lib, ...}:
-with lib; let
-  mkEnable = desc:
-    mkOption {
-      description = "Turn on ${desc} for enabled languages by default";
-      type = types.bool;
-      default = false;
-    };
+{lib, ...}: let
+  inherit (lib.nvim.languages) mkEnable;
 in {
   imports = [
     ./markdown
     ./tidal
     ./dart
     ./elixir
+    ./bash
 
     ./clang.nix
     ./go.nix
@@ -31,8 +26,8 @@ in {
   options.vim.languages = {
     enableLSP = mkEnable "LSP";
     enableDAP = mkEnable "Debug Adapter";
-    enableTreesitter = mkEnable "treesitter";
-    enableFormat = mkEnable "formatting";
+    enableTreesitter = mkEnable "Treesitter";
+    enableFormat = mkEnable "Formatting";
     enableExtraDiagnostics = mkEnable "extra diagnostics";
   };
 }
