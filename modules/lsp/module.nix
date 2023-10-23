@@ -63,6 +63,9 @@ in {
       format =
         mkMappingOption "Format"
         "<leader>lf";
+      toggleFormatOnSave =
+        mkMappingOption "Toggle format on save"
+        "<leader>ltf";
     };
   };
 }
