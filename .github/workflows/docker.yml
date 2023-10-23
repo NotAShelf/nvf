@@ -1,0 +1,58 @@
+name: "Publish Docker Image"
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    tags:
+      - "v*"
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+
+jobs:
+  build-docker-image:
+    name: "Build Docker Image"
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+      - name: Magic Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Build Docker Image
+        run: nix build .#docker-nix --print-build-logs
+
+      - name: Load & Tag Built Docker Image
+        run: |
+          docker load -i result &&
+          docker tag neovim-flake:latest notashelf/neovim-flake:latest
+
+      - name: Log into DockerHub
+        uses: docker/login-action@master
+        with:
+          username: notashelf
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      - name: Push to DockerHub
+        run: docker push notashelf/neovim-flake:latest
+
+      - name: Log into ghcr
+        uses: docker/login-action@master
+        with:
+          registry: "ghcr.io"
+          username: "${{ github.actor }}"
+          password: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Publish Docker Image (Github Packages)
+        run: docker push notashelf/neovim-flake:latest
