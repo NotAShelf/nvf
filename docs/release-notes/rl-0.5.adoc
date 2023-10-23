@@ -79,3 +79,5 @@ https://github.com/ksonj[ksonj]:
 * Add black-and-isort python formatter
 
 * Removed redundant "Enable ..." in `mkEnableOption` descriptions
+
+* Add options to modify LSP key bindings and add proper whichkey descriptions
