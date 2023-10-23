@@ -24,8 +24,6 @@ in {
       local attach_keymaps = function(client, bufnr)
         ${mkBinding mappings.goToDeclaration "vim.lsp.buf.declaration()"}
         ${mkBinding mappings.goToDefinition "vim.lsp.buf.definition()"}
-        ${mkBinding mappings.goToDeclaration "vim.lsp.buf.declaration()"}
-        ${mkBinding mappings.goToDefinition "vim.lsp.buf.definition()"}
         ${mkBinding mappings.goToType "vim.lsp.buf.type_definition()"}
         ${mkBinding mappings.listImplementations "vim.lsp.buf.implementation()"}
         ${mkBinding mappings.listReferences "vim.lsp.buf.references()"}
