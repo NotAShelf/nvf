@@ -72,7 +72,7 @@ inputs: let
         python.enable = isMaximal;
         dart.enable = isMaximal;
         elixir.enable = false;
-        bash.enable = true;
+        bash.enable = isMaximal;
       };
 
       vim.visuals = {
