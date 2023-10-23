@@ -5,6 +5,7 @@
 }:
 with lib; let
   cfg = config.vim.statusline.lualine;
+  luaTable = items: ''{${builtins.concatStringsSep "," items}}'';
 in {
   config = (mkIf cfg.enable) {
     vim.startPlugins = [
@@ -32,21 +33,21 @@ in {
         },
         -- active sections
         sections = {
-          lualine_a = ${cfg.activeSection.a},
-          lualine_b = ${cfg.activeSection.b},
-          lualine_c = ${cfg.activeSection.c},
-          lualine_x = ${cfg.activeSection.x},
-          lualine_y = ${cfg.activeSection.y},
-          lualine_z = ${cfg.activeSection.z},
+          lualine_a = ${luaTable (cfg.activeSection.a ++ cfg.extraActiveSection.a)},
+          lualine_b = ${luaTable (cfg.activeSection.b ++ cfg.extraActiveSection.b)},
+          lualine_c = ${luaTable (cfg.activeSection.c ++ cfg.extraActiveSection.c)},
+          lualine_x = ${luaTable (cfg.activeSection.x ++ cfg.extraActiveSection.x)},
+          lualine_y = ${luaTable (cfg.activeSection.y ++ cfg.extraActiveSection.y)},
+          lualine_z = ${luaTable (cfg.activeSection.z ++ cfg.extraActiveSection.z)},
         },
         --
         inactive_sections = {
-          lualine_a = ${cfg.inactiveSection.a},
-          lualine_b = ${cfg.inactiveSection.b},
-          lualine_c = ${cfg.inactiveSection.c},
-          lualine_x = ${cfg.inactiveSection.x},
-          lualine_y = ${cfg.inactiveSection.y},
-          lualine_z = ${cfg.inactiveSection.z},
+          lualine_a = ${luaTable (cfg.inactiveSection.a ++ cfg.extraInactiveSection.a)},
+          lualine_b = ${luaTable (cfg.inactiveSection.b ++ cfg.extraInactiveSection.b)},
+          lualine_c = ${luaTable (cfg.inactiveSection.c ++ cfg.extraInactiveSection.c)},
+          lualine_x = ${luaTable (cfg.inactiveSection.x ++ cfg.extraInactiveSection.x)},
+          lualine_y = ${luaTable (cfg.inactiveSection.y ++ cfg.extraInactiveSection.y)},
+          lualine_z = ${luaTable (cfg.inactiveSection.z ++ cfg.extraInactiveSection.z)},
         },
         tabline = {},
 
