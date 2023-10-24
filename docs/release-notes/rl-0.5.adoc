@@ -89,3 +89,7 @@ https://github.com/ksonj[ksonj]:
 * Removed redundant "Enable ..." in `mkEnableOption` descriptions
 
 * Add options to modify LSP key bindings and add proper whichkey descriptions
+
+* Changed type of `statusline.lualine.activeSection` and `statusline.lualine.inactiveSection` from `attrsOf str` to `attrsOf (listOf str)`
+
+* Added `statusline.lualine.extraActiveSection` and `statusline.lualine.extraInactiveSection`
