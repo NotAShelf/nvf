@@ -117,7 +117,7 @@ in {
 
     activeSection = {
       a = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "active config for: | (A) | B | C       X | Y | Z |";
         default = [
           ''
@@ -134,7 +134,7 @@ in {
       };
 
       b = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "active config for: | A | (B) | C       X | Y | Z |";
         default = [
           ''
@@ -157,7 +157,7 @@ in {
       };
 
       c = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "active config for: | A | B | (C)       X | Y | Z |";
         default = [
           ''
@@ -181,7 +181,7 @@ in {
       };
 
       x = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "active config for: | A | B | C       (X) | Y | Z |";
         default = [
           ''
@@ -239,7 +239,7 @@ in {
       };
 
       y = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "active config for: | A | B | C       X | (Y) | Z |";
         default = [
           ''
@@ -261,7 +261,7 @@ in {
       };
 
       z = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "active config for: | A | B | C       X | Y | (Z) |";
         default = [
           ''
@@ -293,32 +293,32 @@ in {
     };
     extraActiveSection = {
       a = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "Extra entries for activeSection.a";
         default = [];
       };
       b = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "Extra entries for activeSection.b";
         default = [];
       };
       c = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "Extra entries for activeSection.c";
         default = [];
       };
       x = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "Extra entries for activeSection.x";
         default = [];
       };
       y = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "Extra entries for activeSection.y";
         default = [];
       };
       z = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "Extra entries for activeSection.z";
         default = [];
       };
@@ -326,69 +326,69 @@ in {
 
     inactiveSection = {
       a = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "inactive config for: | (A) | B | C       X | Y | Z |";
         default = [];
       };
 
       b = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "inactive config for: | A | (B) | C       X | Y | Z |";
         default = [];
       };
 
       c = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "inactive config for: | A | B | (C)       X | Y | Z |";
         default = ["'filename'"];
       };
 
       x = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "inactive config for: | A | B | C       (X) | Y | Z |";
         default = ["'location'"];
       };
 
       y = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "inactive config for: | A | B | C       X | (Y) | Z |";
         default = [];
       };
 
       z = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "inactive config for: | A | B | C       X | Y | (Z) |";
         default = [];
       };
     };
     extraInactiveSection = {
       a = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "Extra entries for inactiveSection.a";
         default = [];
       };
       b = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "Extra entries for inactiveSection.b";
         default = [];
       };
       c = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "Extra entries for inactiveSection.c";
         default = [];
       };
       x = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "Extra entries for inactiveSection.x";
         default = [];
       };
       y = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "Extra entries for inactiveSection.y";
         default = [];
       };
       z = mkOption {
-        type = types.listOf types.str;
+        type = with types; listOf str;
         description = "Extra entries for inactiveSection.z";
         default = [];
       };

@@ -5,7 +5,7 @@
 }:
 with lib; let
   cfg = config.vim.statusline.lualine;
-  luaTable = items: ''{${builtins.concatStringsSep "," items}}'';
+  inherit (nvim.lua) luaTable;
 in {
   config = (mkIf cfg.enable) {
     vim.startPlugins = [
