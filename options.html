@@ -1637,8 +1637,8 @@ Thus, it will not be wrapped in `""`.</p><p><span class="emphasis"><em>Type:</em
                     &lt;neovim-flake/modules/core&gt;
                 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.enable"></a><a class="link" href="options.html#opt-vim.statusline.lualine.enable"><code class="option">vim.statusline.lualine.enable</code></a></span></dt><dd><p>Whether to enable lualine statusline plugin.</p><p><span class="emphasis"><em>Type:</em></span> boolean</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">false</code></p><p><span class="emphasis"><em>Example:</em></span> <code class="literal">true</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
-                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.activeSection.a"></a><a class="link" href="options.html#opt-vim.statusline.lualine.activeSection.a"><code class="option">vim.statusline.lualine.activeSection.a</code></a></span></dt><dd><p>active config for: | (A) | B | C       X | Y | Z |</p><p><span class="emphasis"><em>Type:</em></span> string</p><p><span class="emphasis"><em>Default:</em></span> </p><pre class="programlisting">''
-  {
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.activeSection.a"></a><a class="link" href="options.html#opt-vim.statusline.lualine.activeSection.a"><code class="option">vim.statusline.lualine.activeSection.a</code></a></span></dt><dd><p>active config for: | (A) | B | C       X | Y | Z |</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> </p><pre class="programlisting">[
+  ''
     {
       "mode",
       icons_enabled = true,
@@ -1646,29 +1646,31 @@ Thus, it will not be wrapped in `""`.</p><p><span class="emphasis"><em>Type:</em
         left = '▎',
         right = ''
       },
-    },
-  }
-''</pre><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+    }
+  ''
+]</pre><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
-                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.activeSection.b"></a><a class="link" href="options.html#opt-vim.statusline.lualine.activeSection.b"><code class="option">vim.statusline.lualine.activeSection.b</code></a></span></dt><dd><p>active config for: | A | (B) | C       X | Y | Z |</p><p><span class="emphasis"><em>Type:</em></span> string</p><p><span class="emphasis"><em>Default:</em></span> </p><pre class="programlisting">''
-  {
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.activeSection.b"></a><a class="link" href="options.html#opt-vim.statusline.lualine.activeSection.b"><code class="option">vim.statusline.lualine.activeSection.b</code></a></span></dt><dd><p>active config for: | A | (B) | C       X | Y | Z |</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> </p><pre class="programlisting">[
+  ''
     {
       "filetype",
       colored = true,
       icon_only = true,
       icon = { align = 'left' },
       color = {bg='none', fg='lavender'},
-    },
+    }
+  ''
+  ''
     {
       "filename",
       color = {bg='none'},
       symbols = {modified = '', readonly = ''},
-    },
-  }
-''</pre><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+    }
+  ''
+]</pre><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
-                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.activeSection.c"></a><a class="link" href="options.html#opt-vim.statusline.lualine.activeSection.c"><code class="option">vim.statusline.lualine.activeSection.c</code></a></span></dt><dd><p>active config for: | A | B | (C)       X | Y | Z |</p><p><span class="emphasis"><em>Type:</em></span> string</p><p><span class="emphasis"><em>Default:</em></span> </p><pre class="programlisting">''
-  {
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.activeSection.c"></a><a class="link" href="options.html#opt-vim.statusline.lualine.activeSection.c"><code class="option">vim.statusline.lualine.activeSection.c</code></a></span></dt><dd><p>active config for: | A | B | (C)       X | Y | Z |</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> </p><pre class="programlisting">[
+  ''
     {
       "diff",
       colored = false,
@@ -1683,48 +1685,50 @@ Thus, it will not be wrapped in `""`.</p><p><span class="emphasis"><em>Type:</em
         bg='none',
         fg='lavender'
       },
-    },
-  }
-''</pre><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+    }
+  ''
+]</pre><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
-                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.activeSection.x"></a><a class="link" href="options.html#opt-vim.statusline.lualine.activeSection.x"><code class="option">vim.statusline.lualine.activeSection.x</code></a></span></dt><dd><p>active config for: | A | B | C       (X) | Y | Z |</p><p><span class="emphasis"><em>Type:</em></span> string</p><p><span class="emphasis"><em>Default:</em></span> </p><pre class="programlisting">''
-  {
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.activeSection.x"></a><a class="link" href="options.html#opt-vim.statusline.lualine.activeSection.x"><code class="option">vim.statusline.lualine.activeSection.x</code></a></span></dt><dd><p>active config for: | A | B | C       (X) | Y | Z |</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> </p><pre class="programlisting">[
+  ''
     {
       -- Lsp server name
       function()
         local buf_ft = vim.api.nvim_get_option_value('filetype', {})
-  
+    
         -- List of buffer types to exclude
         local excluded_buf_ft = {"toggleterm", "NvimTree", "TelescopePrompt"}
-  
+    
         -- Check if the current buffer type is in the excluded list
         for _, excluded_type in ipairs(excluded_buf_ft) do
           if buf_ft == excluded_type then
             return ""
           end
         end
-  
+    
         -- Get the name of the LSP server active in the current buffer
         local clients = vim.lsp.get_active_clients()
         local msg = 'No Active Lsp'
-  
+    
         -- if no lsp client is attached then return the msg
         if next(clients) == nil then
           return msg
         end
-  
+    
         for _, client in ipairs(clients) do
           local filetypes = client.config.filetypes
           if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
             return client.name
           end
         end
-  
+    
         return msg
       end,
       icon = ' ',
       color = {bg='none', fg='lavender'},
-    },
+    }
+  ''
+  ''
     {
       "diagnostics",
       sources = {'nvim_lsp', 'nvim_diagnostic', 'coc'},
@@ -1735,37 +1739,43 @@ Thus, it will not be wrapped in `""`.</p><p><span class="emphasis"><em>Type:</em
         color_warn = { fg = 'yellow' },
         color_info = { fg = 'cyan' },
       },
-    },
-  }
-''</pre><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+    }
+  ''
+]</pre><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
-                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.activeSection.y"></a><a class="link" href="options.html#opt-vim.statusline.lualine.activeSection.y"><code class="option">vim.statusline.lualine.activeSection.y</code></a></span></dt><dd><p>active config for: | A | B | C       X | (Y) | Z |</p><p><span class="emphasis"><em>Type:</em></span> string</p><p><span class="emphasis"><em>Default:</em></span> </p><pre class="programlisting">''
-  {
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.activeSection.y"></a><a class="link" href="options.html#opt-vim.statusline.lualine.activeSection.y"><code class="option">vim.statusline.lualine.activeSection.y</code></a></span></dt><dd><p>active config for: | A | B | C       X | (Y) | Z |</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> </p><pre class="programlisting">[
+  ''
     {
       'searchcount',
       maxcount = 999,
       timeout = 120,
       color = {bg='none', fg='lavender'}
-    },
+    }
+  ''
+  ''
     {
       "branch",
       icon = ' •',
       color = {bg='none', fg='lavender'},
-    },
-  }
-''</pre><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+    }
+  ''
+]</pre><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
-                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.activeSection.z"></a><a class="link" href="options.html#opt-vim.statusline.lualine.activeSection.z"><code class="option">vim.statusline.lualine.activeSection.z</code></a></span></dt><dd><p>active config for: | A | B | C       X | Y | (Z) |</p><p><span class="emphasis"><em>Type:</em></span> string</p><p><span class="emphasis"><em>Default:</em></span> </p><pre class="programlisting">''
-  {
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.activeSection.z"></a><a class="link" href="options.html#opt-vim.statusline.lualine.activeSection.z"><code class="option">vim.statusline.lualine.activeSection.z</code></a></span></dt><dd><p>active config for: | A | B | C       X | Y | (Z) |</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> </p><pre class="programlisting">[
+  ''
     {
       "progress",
       separator = {
         left = '',
       },
-    },
+    }
+  ''
+  ''
     {
       "location",
-    },
+    }
+  ''
+  ''
     {
       "fileformat",
       color = {fg='black'},
@@ -1774,29 +1784,57 @@ Thus, it will not be wrapped in `""`.</p><p><span class="emphasis"><em>Type:</em
         dos = '',  -- e70f
         mac = '',  -- e711
       },
-    },
-  }
-''</pre><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+    }
+  ''
+]</pre><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
                 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.componentSeparator.left"></a><a class="link" href="options.html#opt-vim.statusline.lualine.componentSeparator.left"><code class="option">vim.statusline.lualine.componentSeparator.left</code></a></span></dt><dd><p>Component separator for left side</p><p><span class="emphasis"><em>Type:</em></span> string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">""</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
                 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.componentSeparator.right"></a><a class="link" href="options.html#opt-vim.statusline.lualine.componentSeparator.right"><code class="option">vim.statusline.lualine.componentSeparator.right</code></a></span></dt><dd><p>Component separator for right side</p><p><span class="emphasis"><em>Type:</em></span> string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">""</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.extraActiveSection.a"></a><a class="link" href="options.html#opt-vim.statusline.lualine.extraActiveSection.a"><code class="option">vim.statusline.lualine.extraActiveSection.a</code></a></span></dt><dd><p>Extra entries for activeSection.a</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">[ ]</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+                    &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.extraActiveSection.b"></a><a class="link" href="options.html#opt-vim.statusline.lualine.extraActiveSection.b"><code class="option">vim.statusline.lualine.extraActiveSection.b</code></a></span></dt><dd><p>Extra entries for activeSection.b</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">[ ]</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+                    &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.extraActiveSection.c"></a><a class="link" href="options.html#opt-vim.statusline.lualine.extraActiveSection.c"><code class="option">vim.statusline.lualine.extraActiveSection.c</code></a></span></dt><dd><p>Extra entries for activeSection.c</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">[ ]</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+                    &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.extraActiveSection.x"></a><a class="link" href="options.html#opt-vim.statusline.lualine.extraActiveSection.x"><code class="option">vim.statusline.lualine.extraActiveSection.x</code></a></span></dt><dd><p>Extra entries for activeSection.x</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">[ ]</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+                    &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.extraActiveSection.y"></a><a class="link" href="options.html#opt-vim.statusline.lualine.extraActiveSection.y"><code class="option">vim.statusline.lualine.extraActiveSection.y</code></a></span></dt><dd><p>Extra entries for activeSection.y</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">[ ]</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+                    &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.extraActiveSection.z"></a><a class="link" href="options.html#opt-vim.statusline.lualine.extraActiveSection.z"><code class="option">vim.statusline.lualine.extraActiveSection.z</code></a></span></dt><dd><p>Extra entries for activeSection.z</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">[ ]</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+                    &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.extraInactiveSection.a"></a><a class="link" href="options.html#opt-vim.statusline.lualine.extraInactiveSection.a"><code class="option">vim.statusline.lualine.extraInactiveSection.a</code></a></span></dt><dd><p>Extra entries for inactiveSection.a</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">[ ]</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+                    &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.extraInactiveSection.b"></a><a class="link" href="options.html#opt-vim.statusline.lualine.extraInactiveSection.b"><code class="option">vim.statusline.lualine.extraInactiveSection.b</code></a></span></dt><dd><p>Extra entries for inactiveSection.b</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">[ ]</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+                    &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.extraInactiveSection.c"></a><a class="link" href="options.html#opt-vim.statusline.lualine.extraInactiveSection.c"><code class="option">vim.statusline.lualine.extraInactiveSection.c</code></a></span></dt><dd><p>Extra entries for inactiveSection.c</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">[ ]</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+                    &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.extraInactiveSection.x"></a><a class="link" href="options.html#opt-vim.statusline.lualine.extraInactiveSection.x"><code class="option">vim.statusline.lualine.extraInactiveSection.x</code></a></span></dt><dd><p>Extra entries for inactiveSection.x</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">[ ]</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+                    &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.extraInactiveSection.y"></a><a class="link" href="options.html#opt-vim.statusline.lualine.extraInactiveSection.y"><code class="option">vim.statusline.lualine.extraInactiveSection.y</code></a></span></dt><dd><p>Extra entries for inactiveSection.y</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">[ ]</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+                    &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.extraInactiveSection.z"></a><a class="link" href="options.html#opt-vim.statusline.lualine.extraInactiveSection.z"><code class="option">vim.statusline.lualine.extraInactiveSection.z</code></a></span></dt><dd><p>Extra entries for inactiveSection.z</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">[ ]</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+                    &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
                 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.globalStatus"></a><a class="link" href="options.html#opt-vim.statusline.lualine.globalStatus"><code class="option">vim.statusline.lualine.globalStatus</code></a></span></dt><dd><p>Enable global status for lualine</p><p><span class="emphasis"><em>Type:</em></span> boolean</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">true</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
                 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.icons.enable"></a><a class="link" href="options.html#opt-vim.statusline.lualine.icons.enable"><code class="option">vim.statusline.lualine.icons.enable</code></a></span></dt><dd><p>Whether to enable icons for lualine.</p><p><span class="emphasis"><em>Type:</em></span> boolean</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">true</code></p><p><span class="emphasis"><em>Example:</em></span> <code class="literal">true</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
-                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.inactiveSection.a"></a><a class="link" href="options.html#opt-vim.statusline.lualine.inactiveSection.a"><code class="option">vim.statusline.lualine.inactiveSection.a</code></a></span></dt><dd><p>inactive config for: | (A) | B | C       X | Y | Z |</p><p><span class="emphasis"><em>Type:</em></span> string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">"{}"</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.inactiveSection.a"></a><a class="link" href="options.html#opt-vim.statusline.lualine.inactiveSection.a"><code class="option">vim.statusline.lualine.inactiveSection.a</code></a></span></dt><dd><p>inactive config for: | (A) | B | C       X | Y | Z |</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">[ ]</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
-                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.inactiveSection.b"></a><a class="link" href="options.html#opt-vim.statusline.lualine.inactiveSection.b"><code class="option">vim.statusline.lualine.inactiveSection.b</code></a></span></dt><dd><p>inactive config for: | A | (B) | C       X | Y | Z |</p><p><span class="emphasis"><em>Type:</em></span> string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">"{}"</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.inactiveSection.b"></a><a class="link" href="options.html#opt-vim.statusline.lualine.inactiveSection.b"><code class="option">vim.statusline.lualine.inactiveSection.b</code></a></span></dt><dd><p>inactive config for: | A | (B) | C       X | Y | Z |</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">[ ]</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
-                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.inactiveSection.c"></a><a class="link" href="options.html#opt-vim.statusline.lualine.inactiveSection.c"><code class="option">vim.statusline.lualine.inactiveSection.c</code></a></span></dt><dd><p>inactive config for: | A | B | (C)       X | Y | Z |</p><p><span class="emphasis"><em>Type:</em></span> string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">"{'filename'}"</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.inactiveSection.c"></a><a class="link" href="options.html#opt-vim.statusline.lualine.inactiveSection.c"><code class="option">vim.statusline.lualine.inactiveSection.c</code></a></span></dt><dd><p>inactive config for: | A | B | (C)       X | Y | Z |</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> </p><pre class="programlisting">[
+  "'filename'"
+]</pre><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
-                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.inactiveSection.x"></a><a class="link" href="options.html#opt-vim.statusline.lualine.inactiveSection.x"><code class="option">vim.statusline.lualine.inactiveSection.x</code></a></span></dt><dd><p>inactive config for: | A | B | C       (X) | Y | Z |</p><p><span class="emphasis"><em>Type:</em></span> string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">"{'location'}"</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.inactiveSection.x"></a><a class="link" href="options.html#opt-vim.statusline.lualine.inactiveSection.x"><code class="option">vim.statusline.lualine.inactiveSection.x</code></a></span></dt><dd><p>inactive config for: | A | B | C       (X) | Y | Z |</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> </p><pre class="programlisting">[
+  "'location'"
+]</pre><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
-                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.inactiveSection.y"></a><a class="link" href="options.html#opt-vim.statusline.lualine.inactiveSection.y"><code class="option">vim.statusline.lualine.inactiveSection.y</code></a></span></dt><dd><p>inactive config for: | A | B | C       X | (Y) | Z |</p><p><span class="emphasis"><em>Type:</em></span> string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">"{}"</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.inactiveSection.y"></a><a class="link" href="options.html#opt-vim.statusline.lualine.inactiveSection.y"><code class="option">vim.statusline.lualine.inactiveSection.y</code></a></span></dt><dd><p>inactive config for: | A | B | C       X | (Y) | Z |</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">[ ]</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
-                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.inactiveSection.z"></a><a class="link" href="options.html#opt-vim.statusline.lualine.inactiveSection.z"><code class="option">vim.statusline.lualine.inactiveSection.z</code></a></span></dt><dd><p>inactive config for: | A | B | C       X | Y | (Z) |</p><p><span class="emphasis"><em>Type:</em></span> string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">"{}"</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
+                </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.inactiveSection.z"></a><a class="link" href="options.html#opt-vim.statusline.lualine.inactiveSection.z"><code class="option">vim.statusline.lualine.inactiveSection.z</code></a></span></dt><dd><p>inactive config for: | A | B | C       X | Y | (Z) |</p><p><span class="emphasis"><em>Type:</em></span> list of string</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">[ ]</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
                 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.statusline.lualine.refresh.statusline"></a><a class="link" href="options.html#opt-vim.statusline.lualine.refresh.statusline"><code class="option">vim.statusline.lualine.refresh.statusline</code></a></span></dt><dd><p>Refresh rate for lualine</p><p><span class="emphasis"><em>Type:</em></span> signed integer</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">1000</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix#blob-path" target="_top">
                     &lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
