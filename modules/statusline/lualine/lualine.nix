@@ -117,10 +117,10 @@ in {
 
     activeSection = {
       a = mkOption {
-        type = types.str;
+        type = with types; listOf str;
         description = "active config for: | (A) | B | C       X | Y | Z |";
-        default = ''
-          {
+        default = [
+          ''
             {
               "mode",
               icons_enabled = true,
@@ -128,37 +128,39 @@ in {
                 left = '▎',
                 right = ''
               },
-            },
-          }
-        '';
+            }
+          ''
+        ];
       };
 
       b = mkOption {
-        type = types.str;
+        type = with types; listOf str;
         description = "active config for: | A | (B) | C       X | Y | Z |";
-        default = ''
-          {
+        default = [
+          ''
             {
               "filetype",
               colored = true,
               icon_only = true,
               icon = { align = 'left' },
               color = {bg='${colorPuccin}', fg='lavender'},
-            },
+            }
+          ''
+          ''
             {
               "filename",
               color = {bg='${colorPuccin}'},
               symbols = {modified = '', readonly = ''},
-            },
-          }
-        '';
+            }
+          ''
+        ];
       };
 
       c = mkOption {
-        type = types.str;
+        type = with types; listOf str;
         description = "active config for: | A | B | (C)       X | Y | Z |";
-        default = ''
-          {
+        default = [
+          ''
             {
               "diff",
               colored = false,
@@ -173,16 +175,16 @@ in {
                 bg='${colorPuccin}',
                 fg='lavender'
               },
-            },
-          }
-        '';
+            }
+          ''
+        ];
       };
 
       x = mkOption {
-        type = types.str;
+        type = with types; listOf str;
         description = "active config for: | A | B | C       (X) | Y | Z |";
-        default = ''
-          {
+        default = [
+          ''
             {
               -- Lsp server name
               function()
@@ -218,7 +220,9 @@ in {
               end,
               icon = ' ',
               color = {bg='${colorPuccin}', fg='lavender'},
-            },
+            }
+          ''
+          ''
             {
               "diagnostics",
               sources = {'nvim_lsp', 'nvim_diagnostic', 'coc'},
@@ -229,45 +233,51 @@ in {
                 color_warn = { fg = 'yellow' },
                 color_info = { fg = 'cyan' },
               },
-            },
-          }
-        '';
+            }
+          ''
+        ];
       };
 
       y = mkOption {
-        type = types.str;
+        type = with types; listOf str;
         description = "active config for: | A | B | C       X | (Y) | Z |";
-        default = ''
-          {
+        default = [
+          ''
             {
               'searchcount',
               maxcount = 999,
               timeout = 120,
               color = {bg='${colorPuccin}', fg='lavender'}
-            },
+            }
+          ''
+          ''
             {
               "branch",
               icon = ' •',
               color = {bg='${colorPuccin}', fg='lavender'},
-            },
-          }
-        '';
+            }
+          ''
+        ];
       };
 
       z = mkOption {
-        type = types.str;
+        type = with types; listOf str;
         description = "active config for: | A | B | C       X | Y | (Z) |";
-        default = ''
-          {
+        default = [
+          ''
             {
               "progress",
               separator = {
                 left = '',
               },
-            },
+            }
+          ''
+          ''
             {
               "location",
-            },
+            }
+          ''
+          ''
             {
               "fileformat",
               color = {fg='black'},
@@ -276,47 +286,111 @@ in {
                 dos = '',  -- e70f
                 mac = '',  -- e711
               },
-            },
-          }
-        '';
+            }
+          ''
+        ];
+      };
+    };
+    extraActiveSection = {
+      a = mkOption {
+        type = with types; listOf str;
+        description = "Extra entries for activeSection.a";
+        default = [];
+      };
+      b = mkOption {
+        type = with types; listOf str;
+        description = "Extra entries for activeSection.b";
+        default = [];
+      };
+      c = mkOption {
+        type = with types; listOf str;
+        description = "Extra entries for activeSection.c";
+        default = [];
+      };
+      x = mkOption {
+        type = with types; listOf str;
+        description = "Extra entries for activeSection.x";
+        default = [];
+      };
+      y = mkOption {
+        type = with types; listOf str;
+        description = "Extra entries for activeSection.y";
+        default = [];
+      };
+      z = mkOption {
+        type = with types; listOf str;
+        description = "Extra entries for activeSection.z";
+        default = [];
       };
     };
 
     inactiveSection = {
       a = mkOption {
-        type = types.str;
+        type = with types; listOf str;
         description = "inactive config for: | (A) | B | C       X | Y | Z |";
-        default = "{}";
+        default = [];
       };
 
       b = mkOption {
-        type = types.str;
+        type = with types; listOf str;
         description = "inactive config for: | A | (B) | C       X | Y | Z |";
-        default = "{}";
+        default = [];
       };
 
       c = mkOption {
-        type = types.str;
+        type = with types; listOf str;
         description = "inactive config for: | A | B | (C)       X | Y | Z |";
-        default = "{'filename'}";
+        default = ["'filename'"];
       };
 
       x = mkOption {
-        type = types.str;
+        type = with types; listOf str;
         description = "inactive config for: | A | B | C       (X) | Y | Z |";
-        default = "{'location'}";
+        default = ["'location'"];
       };
 
       y = mkOption {
-        type = types.str;
+        type = with types; listOf str;
         description = "inactive config for: | A | B | C       X | (Y) | Z |";
-        default = "{}";
+        default = [];
       };
 
       z = mkOption {
-        type = types.str;
+        type = with types; listOf str;
         description = "inactive config for: | A | B | C       X | Y | (Z) |";
-        default = "{}";
+        default = [];
+      };
+    };
+    extraInactiveSection = {
+      a = mkOption {
+        type = with types; listOf str;
+        description = "Extra entries for inactiveSection.a";
+        default = [];
+      };
+      b = mkOption {
+        type = with types; listOf str;
+        description = "Extra entries for inactiveSection.b";
+        default = [];
+      };
+      c = mkOption {
+        type = with types; listOf str;
+        description = "Extra entries for inactiveSection.c";
+        default = [];
+      };
+      x = mkOption {
+        type = with types; listOf str;
+        description = "Extra entries for inactiveSection.x";
+        default = [];
+      };
+      y = mkOption {
+        type = with types; listOf str;
+        description = "Extra entries for inactiveSection.y";
+        default = [];
+      };
+      z = mkOption {
+        type = with types; listOf str;
+        description = "Extra entries for inactiveSection.z";
+        default = [];
       };
     };
   };

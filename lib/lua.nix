@@ -44,4 +44,6 @@
       )
     )
     + " }";
+  # Convert a list of lua expressions to a lua table. The difference to listToLuaTable is that the elements here are expected to be lua expressions already, whereas listToLuaTable converts from nix types to lua first
+  luaTable = items: ''{${builtins.concatStringsSep "," items}}'';
 }
