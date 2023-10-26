@@ -72,6 +72,8 @@ https://github.com/notashelf[notashelf]:
 
 * Disabled Lualine LSP status indicator for toggleterm buffer
 
+* Added `nvim-docs-view`, a plugin to display lsp hover documentation in a side panel
+
 https://github.com/jacekpoz[jacekpoz]:
 
 * Fixed scrollOffset not being used
