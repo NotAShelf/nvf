@@ -95,6 +95,7 @@ with lib; let
     "lsp-lines"
     "vim-dirtytalk"
     "highlight-undo"
+    "nvim-docs-view"
   ];
   # You can either use the name of the plugin or a package.
   pluginType = with types;

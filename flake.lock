@@ -1108,6 +1108,22 @@
         "type": "github"
       }
     },
+    "nvim-docs-view": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1697737319,
+        "narHash": "sha256-EmQbnleqxE+VHO5bMI9U/gMpwbJbPdNhrEWE7357MCE=",
+        "owner": "amrbashir",
+        "repo": "nvim-docs-view",
+        "rev": "74a5e989e3fdcfd9418bb9dfec0ace308e00a5a0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "amrbashir",
+        "repo": "nvim-docs-view",
+        "type": "github"
+      }
+    },
     "nvim-lightbulb": {
       "flake": false,
       "locked": {
@@ -1511,6 +1527,7 @@
         "nvim-cursorline": "nvim-cursorline",
         "nvim-dap": "nvim-dap",
         "nvim-dap-ui": "nvim-dap-ui",
+        "nvim-docs-view": "nvim-docs-view",
         "nvim-lightbulb": "nvim-lightbulb",
         "nvim-lspconfig": "nvim-lspconfig",
         "nvim-navbuddy": "nvim-navbuddy",
