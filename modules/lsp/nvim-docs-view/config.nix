@@ -3,10 +3,14 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim;
+  inherit (lib) mkIf nvim addDescriptionsToMappings mkSetBinding mkMerge;
   inherit (builtins) toString;
 
   cfg = config.vim.lsp.nvim-docs-view;
+  self = import ./nvim-docs-view.nix {inherit lib;};
+
+  mappingDefinitions = self.options.vim.lsp.nvim-docs-view.mappings;
+  mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
 in {
   config = mkIf cfg.enable {
     vim = {
@@ -21,6 +25,11 @@ in {
           update_mode = "${cfg.updateMode}",
         }
       '';
+
+      maps.normal = mkMerge [
+        (mkSetBinding mappings.viewToggle "<cmd>DocsViewToggle<CR>")
+        (mkSetBinding mappings.viewUpdate "<cmd>DocsViewUpdate<CR>")
+      ];
     };
   };
 }

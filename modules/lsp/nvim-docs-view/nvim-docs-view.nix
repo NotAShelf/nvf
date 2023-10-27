@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption mkOption types;
+  inherit (lib) mkEnableOption mkOption types mkMappingOption;
 in {
   options.vim.lsp.nvim-docs-view = {
     enable = mkEnableOption "nvim-docs-view, for displaying lsp hover documentation in a side panel.";
@@ -36,6 +36,11 @@ in {
         - If auto, the content will update upon cursor move.
         - If manual, the content will only update once :DocsViewUpdate is called
       '';
+    };
+
+    mappings = {
+      viewToggle = mkMappingOption "Open or close the docs view panel" "lvt";
+      viewUpdate = mkMappingOption "Manually update the docs view panel" "lvu";
     };
   };
 }
