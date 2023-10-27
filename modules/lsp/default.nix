@@ -16,5 +16,6 @@ _: {
     ./lightbulb
     ./lspkind
     ./lsplines
+    ./nvim-docs-view
   ];
 }

@@ -116,6 +116,12 @@
       flake = false;
     };
 
+    nvim-docs-view = {
+      url = "github:amrbashir/nvim-docs-view";
+      flake = false;
+    };
+
+    # language support
     sqls-nvim = {
       url = "github:nanotee/sqls.nvim";
       flake = false;
@@ -144,6 +150,17 @@
     elixir-tools = {
       url = "github:elixir-tools/elixir-tools.nvim";
       flake = false;
+    };
+
+    glow-nvim = {
+      url = "github:ellisonleao/glow.nvim";
+      flake = false;
+    };
+
+    # Tidal cycles
+    tidalcycles = {
+      url = "github:mitchmindtree/tidalcycles.nix";
+      inputs.vim-tidal-src.url = "github:tidalcycles/vim-tidal";
     };
 
     # Copying/Registers
@@ -371,18 +388,6 @@
     highlight-undo = {
       url = "github:tzachar/highlight-undo.nvim";
       flake = false;
-    };
-
-    # Markdown
-    glow-nvim = {
-      url = "github:ellisonleao/glow.nvim";
-      flake = false;
-    };
-
-    # Tidal cycles
-    tidalcycles = {
-      url = "github:mitchmindtree/tidalcycles.nix";
-      inputs.vim-tidal-src.url = "github:tidalcycles/vim-tidal";
     };
 
     # Minimap

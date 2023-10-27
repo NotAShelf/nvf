@@ -38,6 +38,7 @@ inputs: let
         trouble.enable = true;
         lspSignature.enable = true;
         lsplines.enable = isMaximal;
+        nvim-docs-view.enable = isMaximal;
       };
 
       vim.debugger = {
