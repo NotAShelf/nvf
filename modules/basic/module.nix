@@ -178,5 +178,11 @@ with builtins; {
     };
 
     enableLuaLoader = mkEnableOption "experimental Lua module loader to speed up the start up process";
+
+    searchCase = mkOption {
+      type = types.enum ["ignore" "smart" "sensitive"];
+      default = "sensitive";
+      description = "Set the case sensitivity of search";
+    };
   };
 }

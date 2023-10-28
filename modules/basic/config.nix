@@ -146,6 +146,18 @@ in {
       ${optionalString (cfg.leaderKey != null) ''
         let mapleader = "${toString cfg.leaderKey}"
       ''}
+      ${optionalString (cfg.searchCase == "ignore") ''
+        set nosmartcase
+        set ignorecase
+      ''}
+      ${optionalString (cfg.searchCase == "smart") ''
+        set noignorecase
+        set smartcase
+      ''}
+      ${optionalString (cfg.searchCase == "sensitive") ''
+        set noignorecase
+        set nosmartcase
+      ''}
     '';
   };
 }
