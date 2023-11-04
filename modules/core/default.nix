@@ -27,23 +27,23 @@ with builtins; let
   mapConfigOptions = {
     silent =
       mkBool false
-      (nvim.nmd.asciiDoc "Whether this mapping should be silent. Equivalent to adding <silent> to a map.");
+      "Whether this mapping should be silent. Equivalent to adding <silent> to a map.";
 
     nowait =
       mkBool false
-      (nvim.nmd.asciiDoc "Whether to wait for extra input on ambiguous mappings. Equivalent to adding <nowait> to a map.");
+      "Whether to wait for extra input on ambiguous mappings. Equivalent to adding <nowait> to a map.";
 
     script =
       mkBool false
-      (nvim.nmd.asciiDoc "Equivalent to adding <script> to a map.");
+      "Equivalent to adding <script> to a map.";
 
     expr =
       mkBool false
-      (nvim.nmd.asciiDoc "Means that the action is actually an expression. Equivalent to adding <expr> to a map.");
+      "Means that the action is actually an expression. Equivalent to adding <expr> to a map.";
 
     unique =
       mkBool false
-      (nvim.nmd.asciiDoc "Whether to fail if the map is already defined. Equivalent to adding <unique> to a map.");
+      "Whether to fail if the map is already defined. Equivalent to adding <unique> to a map.";
 
     noremap =
       mkBool true

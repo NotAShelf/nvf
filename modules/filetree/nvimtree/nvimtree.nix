@@ -580,6 +580,7 @@ with builtins; {
 
             icons = mkOption {
               type = types.attrs;
+              description = "Individual elements of the indent markers";
               default = {
                 corner = "└";
                 edge = "│";

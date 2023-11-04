@@ -80,8 +80,8 @@ in {
       };
 
       showEndOfLine = mkOption {
-        description = nvim.nmd.asciiDoc ''
-          Displays the end of line character set by <<opt-vim.visuals.indentBlankline.eolChar>> instead of the
+        description = ''
+          Displays the end of line character set by {option}`vim.visuals.indentBlankline.eolChar` instead of the
           indent guide on line returns.
         '';
         type = types.bool;
@@ -110,7 +110,7 @@ in {
       highlightForCount = mkOption {
         type = types.bool;
         default = true;
-        description = nvim.nmd.literalAsciiDoc ''
+        description = ''
           Enable support for highlighting when a <count> is provided before the key
           If set to false it will only highlight when the mapping is not prefixed with a <count>
         '';

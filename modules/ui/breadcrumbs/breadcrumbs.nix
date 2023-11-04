@@ -305,6 +305,7 @@ in {
         reorient = mkOption {
           type = types.enum ["smart" "top" "mid" "none"];
           default = "smart";
+          description = "reorient buffer after changing nodes";
         };
 
         scrolloff = mkOption {

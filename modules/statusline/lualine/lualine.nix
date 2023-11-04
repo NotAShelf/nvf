@@ -84,7 +84,7 @@ in {
         default = "auto";
         # TODO: xml generation error if the closing '' is on a new line.
         # issue: https://gitlab.com/rycee/nmd/-/issues/10
-        defaultText = nvim.nmd.literalAsciiDoc ''`config.vim.theme.name` if theme supports lualine else "auto"'';
+        defaultText = ''`config.vim.theme.name` if theme supports lualine else "auto"'';
       };
 
     sectionSeparator = {
