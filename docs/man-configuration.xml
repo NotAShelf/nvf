@@ -45,6 +45,6 @@
   <para>
    You can use the following options in your neovim configuration.
   </para>
-  <xi:include href="./nmd-result/neovim-flake-options.xml"/>
+  <xi:include href="./nmd-result/neovim-flake-options.xml" xpointer="neovim-flake-options"/>
  </refsection>
 </refentry>
