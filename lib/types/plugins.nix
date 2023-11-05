@@ -112,6 +112,7 @@ with lib; let
       options = {
         package = mkOption {
           type = pluginType;
+          description = "Plugin Package.";
         };
         after = mkOption {
           type = listOf str;
