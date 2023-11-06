@@ -4,7 +4,7 @@
   ...
 }:
 with builtins; let
-  inherit (lib) mkOption types mapAttrsFlatten filterAttrs optionalString getAttrs;
+  inherit (lib) mkOption types mapAttrsFlatten filterAttrs optionalString getAttrs literalExpression;
   inherit (lib) nvim;
   inherit (nvim.lua) toLuaObject;
 
@@ -125,12 +125,14 @@ in {
       type = with types; listOf unspecified;
       internal = true;
       default = [];
-      example = lib.literalExpression [
-        {
-          assertion = false;
-          message = "you can't enable this for that reason";
-        }
-      ];
+      example = literalExpression ''
+        [
+          {
+            assertion = false;
+            message = "you can't enable this for that reason";
+          }
+        ]
+      '';
     };
 
     warnings = mkOption {
