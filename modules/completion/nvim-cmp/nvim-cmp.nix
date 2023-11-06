@@ -22,7 +22,7 @@ with builtins; {
       };
 
       sources = mkOption {
-        description = nvim.nmd.asciiDoc ''
+        description = ''
           Attribute set of source names for nvim-cmp.
 
           If an attribute set is provided, then the menu value of
@@ -40,23 +40,22 @@ with builtins; {
 
       formatting = {
         format = mkOption {
-          description = nvim.nmd.asciiDoc ''
+          description = ''
             The function used to customize the appearance of the completion menu.
 
-            If <<opt-vim.lsp.lspkind.enable>> is true, then the function
+            If [](#opt-vim.lsp.lspkind.enable) is true, then the function
             will be called before modifications from lspkind.
 
             Default is to call the menu mapping function.
           '';
           type = types.str;
           default = "nvim_cmp_menu_map";
-          example = nvim.nmd.literalAsciiDoc ''
-            [source,lua]
-            ---
+          example = lib.literalMD ''
+            ```lua
             function(entry, vim_item)
               return vim_item
             end
-            ---
+            ```
           '';
         };
       };

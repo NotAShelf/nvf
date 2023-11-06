@@ -144,6 +144,7 @@ For example:
 [source,nix]
 ----
 # parent modules should always be unfolded
+# which means module = { value = ... } instead of module.value = { ... }
 module = {
     value = mkEnableOption "some description" // { default = true; }; # merges can be done inline where possible
 
@@ -202,7 +203,7 @@ without any error messages (you can check the output of `:messages` inside neovi
 your changes are good to go. Open your pull request, and it will be reviewed as soon as posssible.
 
 If it is not a new module, but a change to an existing one, then make sure the module you have changed is enabled in the
-maximal configuration by editing configuration.nix, and then run it with `nix run .#maximal -Lv`. Same procedure as
+maximal configuration by editing `configuration.nix`, and then run it with `nix run .#maximal -Lv`. Same procedure as
 adding a new module will apply here.
 
 [[sec-keybinds]]

@@ -37,7 +37,7 @@ in {
     };
 
     trimScope = mkOption {
-      description = nvim.nmd.asciiDoc "Which context lines to discard if <<opt-vim.treesitter.context.maxLines>> is exceeded.";
+      description = "Which context lines to discard if [](#opt-vim.treesitter.context.maxLines) is exceeded.";
       type = types.enum ["inner" "outer"];
       default = "outer";
     };
@@ -49,7 +49,7 @@ in {
     };
 
     separator = mkOption {
-      description = nvim.nmd.asciiDoc ''
+      description = ''
         Separator between context and content. Should be a single character string, like '-'.
 
         When separator is set, the context will only show up when there are at least 2 lines above cursorline.
