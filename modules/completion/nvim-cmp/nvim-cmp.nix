@@ -43,7 +43,7 @@ with builtins; {
           description = ''
             The function used to customize the appearance of the completion menu.
 
-            If {option}`vim.lsp.lspkind.enable` is true, then the function
+            If [](#opt-vim.lsp.lspkind.enable) is true, then the function
             will be called before modifications from lspkind.
 
             Default is to call the menu mapping function.

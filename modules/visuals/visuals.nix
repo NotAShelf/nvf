@@ -81,7 +81,7 @@ in {
 
       showEndOfLine = mkOption {
         description = ''
-          Displays the end of line character set by {option}`vim.visuals.indentBlankline.eolChar` instead of the
+          Displays the end of line character set by [](#opt-vim.visuals.indentBlankline.eolChar) instead of the
           indent guide on line returns.
         '';
         type = types.bool;

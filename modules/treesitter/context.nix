@@ -37,7 +37,7 @@ in {
     };
 
     trimScope = mkOption {
-      description = "Which context lines to discard if {option}`vim.treesitter.context.maxLines` is exceeded.";
+      description = "Which context lines to discard if [](#opt-vim.treesitter.context.maxLines) is exceeded.";
       type = types.enum ["inner" "outer"];
       default = "outer";
     };
