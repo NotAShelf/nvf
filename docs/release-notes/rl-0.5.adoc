@@ -74,6 +74,11 @@ https://github.com/notashelf[notashelf]:
 
 * Added `nvim-docs-view`, a plugin to display lsp hover documentation in a side panel
 
+* Switched to `nixosOptionsDoc` in option documentation.
+To quote home-manager commit: "Output is mostly unchanged aside from some minor typographical and
+formatting changes, along with better source links."
+
+
 https://github.com/jacekpoz[jacekpoz]:
 
 * Fixed scrollOffset not being used
