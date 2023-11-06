@@ -5,7 +5,7 @@ inputs: {
   check ? true,
   extraSpecialArgs ? {},
 }: let
-  inherit (pkgs) neovim-unwrapped wrapNeovim vimPlugins;
+  inherit (pkgs) wrapNeovim vimPlugins;
   inherit (builtins) map filter isString toString getAttr;
   inherit (pkgs.vimUtils) buildVimPlugin;
 
@@ -21,6 +21,8 @@ inputs: {
     specialArgs = {modulesPath = toString ./.;} // extraSpecialArgs;
   };
 
+  vimOptions = module.config.vim;
+
   buildPlug = {pname, ...} @ args:
     assert lib.asserts.assertMsg (pname != "nvim-treesitter") "Use buildTreesitterPlug for building nvim-treesitter.";
       buildVimPlugin (args
@@ -30,8 +32,6 @@ inputs: {
         });
 
   buildTreesitterPlug = grammars: vimPlugins.nvim-treesitter.withPlugins (_: grammars);
-
-  vimOptions = module.config.vim;
 
   buildConfigPlugins = plugins:
     map

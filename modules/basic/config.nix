@@ -2,9 +2,9 @@
   lib,
   config,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) optionalString mkIf nvim;
+
   cfg = config.vim;
 in {
   config = {
@@ -57,8 +57,8 @@ in {
     };
 
     vim.configRC.basic = nvim.dag.entryAfter ["globalsScript"] ''
-      " Debug mode settings
       ${optionalString cfg.debugMode.enable ''
+        " Debug mode settings
         set verbose=${toString cfg.debugMode.level}
         set verbosefile=${cfg.debugMode.logFile}
       ''}

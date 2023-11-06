@@ -34,10 +34,14 @@
 
   pkgsModule = {config, ...}: {
     config = {
-      _module.args.baseModules = modules;
-      _module.args.pkgsPath = lib.mkDefault pkgs.path;
-      _module.args.pkgs = lib.mkDefault pkgs;
-      _module.check = check;
+      _module = {
+        inherit check;
+        args = {
+          baseModules = modules;
+          pkgsPath = lib.mkDefault pkgs.path;
+          pkgs = lib.mkDefault pkgs;
+        };
+      };
     };
   };
 in
