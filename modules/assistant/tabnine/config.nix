@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkIf mkMerge mkExprBinding boolToString nvim;
+
   cfg = config.vim.assistant.tabnine;
 in {
   config = mkIf cfg.enable {

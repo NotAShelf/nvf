@@ -1,6 +1,6 @@
-{lib, ...}:
-with lib;
-with builtins; {
+{lib, ...}: let
+  inherit (lib) mkEnableOption mkOption types mkMappingOption;
+in {
   options.vim.notes.todo-comments = {
     enable = mkEnableOption "todo-comments: highlight and search for todo comments like TODO, HACK, BUG in your code base";
 

@@ -1,6 +1,6 @@
-{lib, ...}:
-with lib;
-with builtins; {
+{lib, ...}: let
+  inherit (lib) mkEnableOption mkOption types;
+in {
   options.vim.utility.motion.leap = {
     enable = mkEnableOption "leap.nvim plugin (easy motion)";
 

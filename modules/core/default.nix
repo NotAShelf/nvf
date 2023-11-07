@@ -7,6 +7,7 @@ with builtins; let
   inherit (lib) mkOption types mapAttrsFlatten filterAttrs optionalString getAttrs literalExpression;
   inherit (lib) nvim;
   inherit (nvim.lua) toLuaObject;
+  inherit (nvim.vim) valToVim;
 
   cfg = config.vim;
 

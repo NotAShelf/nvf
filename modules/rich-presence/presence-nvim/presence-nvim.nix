@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; {
+}: let
+  inherit (lib) mkEnableOption mkOption types;
+in {
   options.vim.presence.presence-nvim = {
     enable = mkEnableOption "presence.nvim plugin for discord rich presence";
 

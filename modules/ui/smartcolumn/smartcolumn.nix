@@ -1,6 +1,6 @@
-{lib, ...}:
-with lib;
-with builtins; {
+{lib, ...}: let
+  inherit (lib) mkEnableOption mkOption types;
+in {
   options.vim.ui.smartcolumn = {
     enable = mkEnableOption "line length indicator";
 

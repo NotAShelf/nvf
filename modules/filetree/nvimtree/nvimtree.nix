@@ -2,9 +2,9 @@
   pkgs,
   lib,
   ...
-}:
-with lib;
-with builtins; {
+}: let
+  inherit (lib) mkEnableOption mkOption types literalExpression;
+in {
   options.vim.filetree.nvimTree = {
     enable = mkEnableOption "filetree via nvim-tree.lua";
 

@@ -2,9 +2,9 @@
   lib,
   config,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) addDescriptionsToMappings concatMapStringsSep attrNames concatStringsSep mapAttrsToList nvim mkIf mkSetLuaBinding mkMerge optionalString;
+
   cfg = config.vim.autocomplete;
   lspkindEnabled = config.vim.lsp.enable && config.vim.lsp.lspkind.enable;
 

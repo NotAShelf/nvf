@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkIf nvim mkLuaBinding mkMerge;
+
   cfg = config.vim.assistant.copilot;
 
   wrapPanelBinding = luaFunction: key: ''

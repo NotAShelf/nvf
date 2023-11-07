@@ -1,5 +1,6 @@
-{lib, ...}:
-with lib; {
+{lib, ...}: let
+  inherit (lib) mkEnableOption mkMappingOption mkOption types;
+in {
   options.vim.treesitter = {
     enable = mkEnableOption "treesitter, also enabled automatically through language options";
 

@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; {
+}: let
+  inherit (lib) mkEnableOption mkOption types;
+in {
   options.vim.notes = {
     obsidian = {
       enable = mkEnableOption "complementary neovim plugins for Obsidian editor";

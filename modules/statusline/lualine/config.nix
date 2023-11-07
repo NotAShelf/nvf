@@ -2,10 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib; let
+}: let
   cfg = config.vim.statusline.lualine;
-  inherit (nvim.lua) luaTable;
+  inherit (lib) mkIf nvim boolToString optionalString;
 in {
   config = (mkIf cfg.enable) {
     vim.startPlugins = [
@@ -33,21 +32,21 @@ in {
         },
         -- active sections
         sections = {
-          lualine_a = ${luaTable (cfg.activeSection.a ++ cfg.extraActiveSection.a)},
-          lualine_b = ${luaTable (cfg.activeSection.b ++ cfg.extraActiveSection.b)},
-          lualine_c = ${luaTable (cfg.activeSection.c ++ cfg.extraActiveSection.c)},
-          lualine_x = ${luaTable (cfg.activeSection.x ++ cfg.extraActiveSection.x)},
-          lualine_y = ${luaTable (cfg.activeSection.y ++ cfg.extraActiveSection.y)},
-          lualine_z = ${luaTable (cfg.activeSection.z ++ cfg.extraActiveSection.z)},
+          lualine_a = ${nvim.lua.luaTable (cfg.activeSection.a ++ cfg.extraActiveSection.a)},
+          lualine_b = ${nvim.lua.luaTable (cfg.activeSection.b ++ cfg.extraActiveSection.b)},
+          lualine_c = ${nvim.lua.luaTable (cfg.activeSection.c ++ cfg.extraActiveSection.c)},
+          lualine_x = ${nvim.lua.luaTable (cfg.activeSection.x ++ cfg.extraActiveSection.x)},
+          lualine_y = ${nvim.lua.luaTable (cfg.activeSection.y ++ cfg.extraActiveSection.y)},
+          lualine_z = ${nvim.lua.luaTable (cfg.activeSection.z ++ cfg.extraActiveSection.z)},
         },
         --
         inactive_sections = {
-          lualine_a = ${luaTable (cfg.inactiveSection.a ++ cfg.extraInactiveSection.a)},
-          lualine_b = ${luaTable (cfg.inactiveSection.b ++ cfg.extraInactiveSection.b)},
-          lualine_c = ${luaTable (cfg.inactiveSection.c ++ cfg.extraInactiveSection.c)},
-          lualine_x = ${luaTable (cfg.inactiveSection.x ++ cfg.extraInactiveSection.x)},
-          lualine_y = ${luaTable (cfg.inactiveSection.y ++ cfg.extraInactiveSection.y)},
-          lualine_z = ${luaTable (cfg.inactiveSection.z ++ cfg.extraInactiveSection.z)},
+          lualine_a = ${nvim.lua.luaTable (cfg.inactiveSection.a ++ cfg.extraInactiveSection.a)},
+          lualine_b = ${nvim.lua.luaTable (cfg.inactiveSection.b ++ cfg.extraInactiveSection.b)},
+          lualine_c = ${nvim.lua.luaTable (cfg.inactiveSection.c ++ cfg.extraInactiveSection.c)},
+          lualine_x = ${nvim.lua.luaTable (cfg.inactiveSection.x ++ cfg.extraInactiveSection.x)},
+          lualine_y = ${nvim.lua.luaTable (cfg.inactiveSection.y ++ cfg.extraInactiveSection.y)},
+          lualine_z = ${nvim.lua.luaTable (cfg.inactiveSection.z ++ cfg.extraInactiveSection.z)},
         },
         tabline = {},
 

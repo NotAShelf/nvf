@@ -2,8 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf mkMerge nvim optionalString boolToString mkBinding;
+
   cfg = config.vim.visuals;
 in {
   config = mkIf cfg.enable (mkMerge [

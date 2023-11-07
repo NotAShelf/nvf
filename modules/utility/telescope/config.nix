@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetBinding nvim;
+
   cfg = config.vim.telescope;
   self = import ./telescope.nix {inherit lib;};
   mappingDefinitions = self.options.vim.telescope.mappings;

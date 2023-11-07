@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkEnableOption mkOption types mkIf nvim boolToString;
+
   treesitter = config.vim.treesitter;
   cfg = treesitter.context;
 in {

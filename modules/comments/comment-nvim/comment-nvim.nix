@@ -1,6 +1,6 @@
-{lib, ...}:
-with lib;
-with builtins; {
+{lib, ...}: let
+  inherit (lib) mkEnableOption mkMappingOption;
+in {
   options.vim.comments.comment-nvim = {
     enable = mkEnableOption "smart and powerful comment plugin for neovim comment-nvim";
 

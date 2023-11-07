@@ -3,9 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkIf nvim;
+
   cfg = config.vim.utility.vim-wakatime;
 in {
   config = mkIf (cfg.enable) {

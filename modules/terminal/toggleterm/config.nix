@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkMerge mkIf mkBinding nvim getExe;
+
   cfg = config.vim.terminal.toggleterm;
 in {
   config = mkMerge [
@@ -59,7 +59,7 @@ in {
             end
           })
 
-          vim.keymap.set('n', ${toJSON cfg.lazygit.mappings.open}, function() lazygit:toggle() end, {silent = true, noremap = true, desc = 'Open lazygit [toggleterm]'})
+          vim.keymap.set('n', ${builtins.toJSON cfg.lazygit.mappings.open}, function() lazygit:toggle() end, {silent = true, noremap = true, desc = 'Open lazygit [toggleterm]'})
         '';
       }
     )

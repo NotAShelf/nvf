@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkIf nvim;
+
   cfg = config.vim.binds.cheatsheet;
 in {
   config = mkIf (cfg.enable) {

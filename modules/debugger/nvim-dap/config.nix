@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) addDescriptionsToMappings mkMerge mkIf mapAttrs nvim mkSetLuaBinding optionalString;
+
   cfg = config.vim.debugger.nvim-dap;
   self = import ./nvim-dap.nix {
     inherit lib;

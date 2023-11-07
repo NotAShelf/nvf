@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with builtins;
-with lib; let
+}: let
+  inherit (lib) mkIf;
+
   cfg = config.vim.dashboard.startify;
 
   mkVimBool = val:

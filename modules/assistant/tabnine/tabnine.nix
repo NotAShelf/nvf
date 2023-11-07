@@ -1,6 +1,6 @@
-{lib, ...}:
-with lib;
-with builtins; {
+{lib, ...}: let
+  inherit (lib) mkEnableOption mkOption types mkMappingOption;
+in {
   options.vim.assistant.tabnine = {
     enable = mkEnableOption "Tabnine assistant";
 

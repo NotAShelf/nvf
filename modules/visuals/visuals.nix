@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkEnableOption mkMappingOption mkOption types literalExpression;
+
   cfg = config.vim.visuals;
 in {
   options.vim.visuals = {

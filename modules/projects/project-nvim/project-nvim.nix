@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; {
+}: let
+  inherit (lib) mkEnableOption mkOption types;
+in {
   options.vim.projects.project-nvim = {
     enable = mkEnableOption "project-nvim for project management";
 

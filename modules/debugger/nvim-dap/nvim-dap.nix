@@ -1,5 +1,6 @@
-{lib, ...}:
-with lib; {
+{lib, ...}: let
+  inherit (lib) mkEnableOption mkOption types mkMappingOption;
+in {
   options.vim.debugger.nvim-dap = {
     enable = mkEnableOption "debugging via nvim-dap";
 

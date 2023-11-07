@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetBinding nvim;
+
   cfg = config.vim.utility.surround;
   self = import ./surround.nix {inherit lib config;};
   mappingDefinitions = self.options.vim.utility.surround.mappings;

@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; {
+}: let
+  inherit (lib) mkEnableOption mkOption types;
+in {
   options.vim.notify.nvim-notify = {
     enable = mkEnableOption "nvim-notify notifications";
     stages = mkOption {

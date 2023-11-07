@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetLuaBinding nvim;
+
   cfg = config.vim.gestures.gesture-nvim;
 
   self = import ./gesture-nvim.nix {inherit lib;};
