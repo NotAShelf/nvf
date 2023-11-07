@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkIf optionals mkMerge mkBinding nvim concatStringsSep boolToString;
+
   cfg = config.vim.session.nvim-session-manager;
 in {
   config = mkIf cfg.enable {

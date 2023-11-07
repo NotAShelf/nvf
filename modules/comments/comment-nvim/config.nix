@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkIf mkMerge mkExprBinding mkBinding nvim;
+
   cfg = config.vim.comments.comment-nvim;
   self = import ./comment-nvim.nix {
     inherit lib;

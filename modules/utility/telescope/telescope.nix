@@ -1,6 +1,6 @@
-{lib, ...}:
-with lib;
-with builtins; {
+{lib, ...}: let
+  inherit (lib) mkMappingOption mkEnableOption;
+in {
   options.vim.telescope = {
     mappings = {
       findProjects = mkMappingOption "Find files [Telescope]" "<leader>fp";

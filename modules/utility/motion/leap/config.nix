@@ -2,8 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf mkMerge mkBinding nvim;
+
   cfg = config.vim.utility.motion.leap;
 in {
   config = mkIf cfg.enable {

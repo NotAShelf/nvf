@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; {
+}: let
+  inherit (lib) mkEnableOption mkOption types;
+in {
   options.vim.session.nvim-session-manager = {
     enable = mkEnableOption "nvim-session-manager: manage sessions like folders in VSCode";
 

@@ -1,6 +1,6 @@
-{lib, ...}:
-with lib;
-with builtins; {
+{lib, ...}: let
+  inherit (lib) mkEnableOption mkMappingOption;
+in {
   options.vim.git = {
     enable = mkEnableOption "git tools via gitsigns";
 

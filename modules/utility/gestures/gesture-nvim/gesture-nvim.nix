@@ -1,5 +1,6 @@
-{lib, ...}:
-with lib; {
+{lib, ...}: let
+  inherit (lib) mkEnableOption mkMappingOption;
+in {
   options.vim.gestures.gesture-nvim = {
     enable = mkEnableOption "gesture-nvim: mouse gestures";
 

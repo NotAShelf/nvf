@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkIf nvim;
+
   cfg = config.vim.ui.illuminate;
 in {
   config = mkIf cfg.enable {

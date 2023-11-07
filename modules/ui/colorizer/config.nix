@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkIf nvim boolToString;
+
   cfg = config.vim.ui.colorizer;
 in {
   config = mkIf cfg.enable {

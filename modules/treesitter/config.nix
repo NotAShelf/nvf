@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) addDescriptionsToMappings mkIf optional mkSetBinding mkMerge nvim;
+
   cfg = config.vim.treesitter;
   usingNvimCmp = config.vim.autocomplete.enable && config.vim.autocomplete.type == "nvim-cmp";
 

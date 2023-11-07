@@ -3,9 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkIf mkMerge mkBinding nvim boolToString;
+
   cfg = config.vim.filetree.nvimTree;
   self = import ./nvimtree.nix {
     inherit pkgs;

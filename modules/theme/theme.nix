@@ -2,10 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with lib.attrsets;
-with builtins; let
+}: let
+  inherit (lib) mkOption types attrNames mkIf nvim;
+
   cfg = config.vim.theme;
   supported_themes = import ./supported_themes.nix {inherit lib;};
 in {

@@ -2,8 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib; {
+}: let
+  inherit (lib) mkDefault;
+in {
   config = {
     vim.theme = {
       enable = mkDefault false;

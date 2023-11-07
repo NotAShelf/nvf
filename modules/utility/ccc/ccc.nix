@@ -1,6 +1,6 @@
-{lib, ...}:
-with lib;
-with builtins; {
+{lib, ...}: let
+  inherit (lib) mkEnableOption mkMappingOption;
+in {
   options.vim.utility.ccc = {
     enable = mkEnableOption "ccc color picker for neovim";
 

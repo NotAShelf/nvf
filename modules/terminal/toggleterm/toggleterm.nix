@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; {
+}: let
+  inherit (lib) mkEnableOption mkOption types mkMappingOption;
+in {
   options.vim.terminal.toggleterm = {
     enable = mkEnableOption "toggleterm as a replacement to built-in terminal command";
     mappings = {

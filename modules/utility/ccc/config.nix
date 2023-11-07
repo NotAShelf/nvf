@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) addDescriptionsToMappings mkIf nvim;
+
   cfg = config.vim.utility.ccc;
   self = import ./ccc.nix {inherit lib;};
 

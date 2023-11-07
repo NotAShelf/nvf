@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkIf nvim;
+
   cfg = config.vim.utility.icon-picker;
 in {
   config = mkIf (cfg.enable) {

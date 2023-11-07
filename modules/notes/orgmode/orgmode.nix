@@ -3,9 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-with lib;
-with builtins; {
+}: let
+  inherit (lib) mkEnableOption types mkOption nvim;
+in {
   options.vim.notes.orgmode = {
     enable = mkEnableOption "nvim-orgmode: Neovim plugin for Emac Orgmode. Get the best of both worlds";
 
