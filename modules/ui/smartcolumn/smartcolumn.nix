@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption mkOption types;
+  inherit (lib) mkEnableOption mkOption types literalExpression;
 in {
   options.vim.ui.smartcolumn = {
     enable = mkEnableOption "line length indicator";
@@ -17,20 +17,19 @@ in {
     };
 
     columnAt = {
-      languages = lib.mkOption {
+      languages = mkOption {
         description = "The position at which smart column should be displayed for each individual buffer type";
-        type = lib.types.submodule {
-          freeformType = with lib.types; attrsOf (either int (listOf int));
+        type = types.submodule {
+          freeformType = with types; attrsOf (either int (listOf int));
         };
 
-        example = lib.literalExpression ''
+        example = literalExpression ''
           vim.ui.smartcolumn.columnAt.languages = {
             nix = 110;
             ruby = 120;
             java = 130;
             go = [90 130];
           };
-
         '';
       };
     };
