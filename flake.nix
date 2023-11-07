@@ -38,12 +38,19 @@
       };
 
       perSystem = {
+        self',
         config,
         pkgs,
         ...
       }: {
-        devShells.default = pkgs.mkShell {nativeBuildInputs = [config.packages.nix];};
         formatter = pkgs.alejandra;
+        devShells = {
+          default = self'.devShells.lsp;
+          nvim-nix = pkgs.mkShell {nativeBuildInputs = [config.packages.nix];};
+          lsp = pkgs.mkShell {
+            nativeBuildInputs = with pkgs; [nil statix deadnix];
+          };
+        };
       };
     };
 
