@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkIf nvim;
+
   cfg = config.vim.lsp;
 in {
   config = mkIf (cfg.enable && cfg.lspkind.enable) {

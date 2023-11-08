@@ -3,9 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) isList nvim mkIf mkMerge optionalString boolToString;
+
   cfg = config.vim.languages.dart;
   ftcfg = cfg.flutter-tools;
   servers = {

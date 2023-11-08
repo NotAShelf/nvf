@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge;
+
   cfg = config.vim.languages.ts;
 
   defaultServer = "tsserver";
@@ -98,7 +98,7 @@ in {
 
       server = mkOption {
         description = "Typescript/Javascript LSP server to use";
-        type = with types; enum (attrNames servers);
+        type = with types; enum (builtins.attrNames servers);
         default = defaultServer;
       };
 
@@ -115,7 +115,7 @@ in {
 
       type = mkOption {
         description = "Typescript/Javascript formatter to use";
-        type = with types; enum (attrNames formats);
+        type = with types; enum (builtins.attrNames formats);
         default = defaultFormat;
       };
 

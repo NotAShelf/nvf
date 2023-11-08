@@ -1,5 +1,6 @@
-{lib, ...}:
-with lib; {
+{lib, ...}: let
+  inherit (lib) mkEnableOption mkMappingOption;
+in {
   options.vim.lsp = {
     nvimCodeActionMenu = {
       enable = mkEnableOption "nvim code action menu";

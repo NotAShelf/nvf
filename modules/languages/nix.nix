@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge optionalString;
+
   cfg = config.vim.languages.nix;
 
   useFormat = "on_attach = default_on_attach";
@@ -146,7 +146,7 @@ in {
 
       type = mkOption {
         description = "Nix formatter to use";
-        type = with types; enum (attrNames formats);
+        type = with types; enum (builtins.attrNames formats);
         default = defaultFormat;
       };
       package = mkOption {

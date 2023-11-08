@@ -3,9 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) nvim mkIf getExe;
+
   cfg = config.vim.languages.elixir;
 in {
   config = mkIf (cfg.enable) {
@@ -23,7 +23,7 @@ in {
 
           -- alternatively, point to an existing elixir-ls installation (optional)
           -- not currently supported by elixirls, but can be a table if you wish to pass other args `{"path/to/elixirls", "--foo"}`
-          cmd = "${lib.getExe pkgs.elixir-ls}",
+          cmd = "${getExe pkgs.elixir-ls}",
 
           -- default settings, use the `settings` function to override settings
           settings = elixirls.settings {

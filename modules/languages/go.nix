@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) isList nvim getExe mkEnableOption mkOption types mkMerge mkIf;
+
   cfg = config.vim.languages.go;
 
   defaultServer = "gopls";
@@ -80,7 +80,7 @@ in {
 
       server = mkOption {
         description = "Go LSP server to use";
-        type = with types; enum (attrNames servers);
+        type = with types; enum (builtins.attrNames servers);
         default = defaultServer;
       };
 
@@ -100,7 +100,7 @@ in {
       };
       debugger = mkOption {
         description = "Go debugger to use";
-        type = with types; enum (attrNames debuggers);
+        type = with types; enum (builtins.attrNames debuggers);
         default = defaultDebugger;
       };
       package = mkOption {

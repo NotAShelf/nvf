@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) isList nvim optionalString mkEnableOption mkOption types mkIf mkMerge;
+
   cfg = config.vim.languages.clang;
 
   defaultServer = "ccls";
@@ -93,7 +93,7 @@ in {
 
       server = mkOption {
         description = "The clang LSP server to use";
-        type = with types; enum (attrNames servers);
+        type = with types; enum (builtins.attrNames servers);
         default = defaultServer;
       };
 
@@ -119,7 +119,7 @@ in {
       };
       debugger = mkOption {
         description = "clang debugger to use";
-        type = with types; enum (attrNames debuggers);
+        type = with types; enum (builtins.attrNames debuggers);
         default = defaultDebugger;
       };
       package = mkOption {

@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkEnableOption mkOption types;
+
   cfg = config.vim.lsp;
 in {
   options.vim.lsp = {

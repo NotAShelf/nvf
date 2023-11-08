@@ -1,6 +1,5 @@
-{lib, ...}:
-with lib;
-with builtins; let
+{lib, ...}: let
+  inherit (lib) mkEnableOption mkMappingOption;
 in {
   options.vim.lsp = {
     enable = mkEnableOption "LSP, also enabled automatically through null-ls and lspconfig options";

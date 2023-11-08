@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge optionalString getExe;
+
   cfg = config.vim.languages.lua;
 in {
   options.vim.languages.lua = {

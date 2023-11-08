@@ -3,9 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) isList nvim mkEnableOption mkOption types optionalString;
+
   cfg = config.vim.languages.dart;
   defaultServer = "dart";
   servers = {
@@ -38,7 +38,7 @@ in {
       enable = mkEnableOption "Dart LSP support";
       server = mkOption {
         description = "The Dart LSP server to use";
-        type = with types; enum (attrNames servers);
+        type = with types; enum (builtins.attrNames servers);
         default = defaultServer;
       };
       package = mkOption {

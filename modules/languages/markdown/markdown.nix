@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkEnableOption mkOption types nvim;
+
   cfg = config.vim.languages.markdown;
 in {
   options.vim.languages.markdown = {

@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge;
+
   cfg = config.vim.languages.svelte;
 
   defaultServer = "svelte";
@@ -72,7 +72,7 @@ in {
 
       server = mkOption {
         description = "Svelte LSP server to use";
-        type = with types; enum (attrNames servers);
+        type = with types; enum (builtins.attrNames servers);
         default = defaultServer;
       };
 
@@ -89,7 +89,7 @@ in {
 
       type = mkOption {
         description = "Svelte formatter to use";
-        type = with types; enum (attrNames formats);
+        type = with types; enum (builtins.attrNames formats);
         default = defaultFormat;
       };
 
