@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (builtins) attrNames;
   inherit (lib) mkOption mkEnableOption types isList nvim;
 
   cfg = config.vim.languages.bash;
@@ -69,7 +70,7 @@ in {
 
       server = mkOption {
         description = "Bash LSP server to use";
-        type = with types; enum (builtins.attrNames servers);
+        type = with types; enum (attrNames servers);
         default = defaultServer;
       };
 
@@ -89,7 +90,7 @@ in {
       };
       type = mkOption {
         description = "Bash formatter to use";
-        type = with types; enum (builtins.attrNames formats);
+        type = with types; enum (attrNames formats);
         default = defaultFormat;
       };
 

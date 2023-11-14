@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (builtins) attrNames;
   inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge getExe literalExpression;
 
   cfg = config.vim.languages.python;
@@ -149,7 +150,7 @@ in {
 
       server = mkOption {
         description = "Python LSP server to use";
-        type = with types; enum (builtins.attrNames servers);
+        type = with types; enum (attrNames servers);
         default = defaultServer;
       };
 
@@ -166,7 +167,7 @@ in {
 
       type = mkOption {
         description = "Python formatter to use";
-        type = with types; enum (builtins.attrNames formats);
+        type = with types; enum (attrNames formats);
         default = defaultFormat;
       };
 
@@ -186,7 +187,7 @@ in {
       };
       debugger = mkOption {
         description = "Python debugger to use";
-        type = with types; enum (builtins.attrNames debuggers);
+        type = with types; enum (attrNames debuggers);
         default = defaultDebugger;
       };
       package = mkOption {

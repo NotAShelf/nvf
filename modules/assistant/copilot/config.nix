@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (builtins) toJSON;
   inherit (lib) mkIf nvim mkLuaBinding mkMerge;
 
   cfg = config.vim.assistant.copilot;
@@ -13,7 +14,7 @@
       local s, _ = pcall(${luaFunction})
 
       if not s then
-        local termcode = vim.api.nvim_replace_termcodes(${builtins.toJSON key}, true, false, true)
+        local termcode = vim.api.nvim_replace_termcodes(${toJSON key}, true, false, true)
 
         vim.fn.feedkeys(termcode, 'n')
       end

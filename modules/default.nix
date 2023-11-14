@@ -5,8 +5,8 @@ inputs: {
   check ? true,
   extraSpecialArgs ? {},
 }: let
-  inherit (pkgs) wrapNeovim vimPlugins;
   inherit (builtins) map filter isString toString getAttr;
+  inherit (pkgs) wrapNeovim vimPlugins;
   inherit (pkgs.vimUtils) buildVimPlugin;
 
   extendedLib = import ../lib/stdlib-extended.nix lib;

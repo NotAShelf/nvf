@@ -3,6 +3,7 @@
   lib,
   ...
 }: let
+  inherit (builtins) toJSON;
   inherit (lib) mkIf mkMerge mkExprBinding boolToString nvim;
 
   cfg = config.vim.assistant.tabnine;
@@ -17,7 +18,7 @@ in {
           local completion = require("tabnine.completion")
 
         	if not state.completions_cache then
-          	return "${builtins.toJSON cfg.mappings.accept}"
+          	return "${toJSON cfg.mappings.accept}"
           end
 
           vim.schedule(completion.accept)
@@ -29,7 +30,7 @@ in {
           local completion = require("tabnine.completion")
 
         	if not state.completions_cache then
-          	return "${builtins.toJSON cfg.mappings.dismiss}"
+          	return "${toJSON cfg.mappings.dismiss}"
           end
 
           vim.schedule(function()

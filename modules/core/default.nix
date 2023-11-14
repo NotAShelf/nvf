@@ -2,8 +2,8 @@
   config,
   lib,
   ...
-}:
-with builtins; let
+}: let
+  inherit (builtins) attrValues attrNames map mapAttrs toJSON isString concatStringsSep filter;
   inherit (lib) mkOption types mapAttrsFlatten filterAttrs optionalString getAttrs literalExpression;
   inherit (lib) nvim;
   inherit (nvim.lua) toLuaObject;
@@ -84,7 +84,7 @@ with builtins; let
         else action.action;
     };
   in
-    builtins.attrValues (builtins.mapAttrs
+    attrValues (mapAttrs
       (key: action: let
         normalizedAction = normalizeAction action;
       in {
@@ -258,7 +258,7 @@ in {
       (filterNonNull cfg.globals);
 
     toLuaBindings = mode: maps:
-      builtins.map (value: ''
+      map (value: ''
         vim.keymap.set(${toLuaObject mode}, ${toLuaObject value.key}, ${toLuaObject value.action}, ${toLuaObject value.config})
       '') (genMaps mode maps);
 
@@ -282,7 +282,7 @@ in {
     }: let
       # When the value is a string, default it to dag.entryAnywhere
       finalDag = lib.mapAttrs (_: value:
-        if builtins.isString value
+        if isString value
         then nvim.dag.entryAnywhere value
         else value)
       dag;
@@ -290,7 +290,7 @@ in {
       result =
         if sortedDag ? result
         then mapResult sortedDag.result
-        else abort ("Dependency cycle in ${name}: " + toJSON sortedConfig);
+        else abort ("Dependency cycle in ${name}: " + toJSON sortedDag);
     in
       result;
   in {

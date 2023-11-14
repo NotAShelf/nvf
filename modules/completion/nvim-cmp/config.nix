@@ -3,7 +3,9 @@
   config,
   ...
 }: let
-  inherit (lib) addDescriptionsToMappings concatMapStringsSep attrNames concatStringsSep mapAttrsToList nvim mkIf mkSetLuaBinding mkMerge optionalString;
+  inherit (builtins) toJSON;
+  inherit (lib) addDescriptionsToMappings concatMapStringsSep attrNames concatStringsSep mapAttrsToList mkIf mkSetLuaBinding mkMerge optionalString;
+  inherit (lib.nvim) dag;
 
   cfg = config.vim.autocomplete;
   lspkindEnabled = config.vim.lsp.enable && config.vim.lsp.lspkind.enable;
@@ -31,8 +33,8 @@
 
   dagPlacement =
     if lspkindEnabled
-    then nvim.dag.entryAfter ["lspkind"]
-    else nvim.dag.entryAnywhere;
+    then dag.entryAfter ["lspkind"]
+    else dag.entryAnywhere;
 in {
   config = mkIf cfg.enable {
     vim.startPlugins = [
@@ -59,7 +61,7 @@ in {
       (mkSetLuaBinding mappings.confirm ''
         function()
           if not require('cmp').confirm({ select = true }) then
-            local termcode = vim.api.nvim_replace_termcodes(${builtins.toJSON mappings.confirm.value}, true, false, true)
+            local termcode = vim.api.nvim_replace_termcodes(${toJSON mappings.confirm.value}, true, false, true)
 
             vim.fn.feedkeys(termcode, 'n')
           end
@@ -85,7 +87,7 @@ in {
           elseif has_words_before() then
             cmp.complete()
           else
-            local termcode = vim.api.nvim_replace_termcodes(${builtins.toJSON mappings.next.value}, true, false, true)
+            local termcode = vim.api.nvim_replace_termcodes(${toJSON mappings.next.value}, true, false, true)
 
             vim.fn.feedkeys(termcode, 'n')
           end
@@ -152,7 +154,7 @@ in {
           elseif has_words_before() then
             cmp.complete()
           else
-            local termcode = vim.api.nvim_replace_termcodes(${builtins.toJSON mappings.next.value}, true, false, true)
+            local termcode = vim.api.nvim_replace_termcodes(${toJSON mappings.next.value}, true, false, true)
 
             vim.fn.feedkeys(termcode, 'n')
           end

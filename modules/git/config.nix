@@ -3,7 +3,9 @@
   lib,
   ...
 }: let
-  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetExprBinding toJSON mkSetLuaBinding nvim;
+  inherit (builtins) toJSON;
+  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetExprBinding mkSetLuaBinding nvim;
+
   cfg = config.vim.git;
 
   self = import ./git.nix {inherit lib;};
@@ -19,7 +21,7 @@ in {
         vim.maps.normal = mkMerge [
           (mkSetExprBinding gsMappings.nextHunk ''
             function()
-              if vim.wo.diff then return ${builtins.toJSON gsMappings.nextHunk.value} end
+              if vim.wo.diff then return ${toJSON gsMappings.nextHunk.value} end
 
               vim.schedule(function() package.loaded.gitsigns.next_hunk() end)
 
@@ -28,7 +30,7 @@ in {
           '')
           (mkSetExprBinding gsMappings.previousHunk ''
             function()
-              if vim.wo.diff then return ${builtins.toJSON gsMappings.previousHunk.value} end
+              if vim.wo.diff then return ${toJSON gsMappings.previousHunk.value} end
 
               vim.schedule(function() package.loaded.gitsigns.prev_hunk() end)
 
@@ -69,7 +71,7 @@ in {
         vim.lsp.null-ls.sources.gitsigns-ca = ''
           table.insert(
             ls_sources,
-            null_ls.builtins.code_actions.gitsigns
+            null_ls.gcode_actions.gitsigns
           )
         '';
       })

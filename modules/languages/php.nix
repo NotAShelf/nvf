@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (builtins) attrNames;
   inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge getExe;
 
   cfg = config.vim.languages.php;
@@ -72,7 +73,7 @@ in {
 
       server = mkOption {
         description = "PHP LSP server to use";
-        type = with types; enum (builtins.attrNames servers);
+        type = with types; enum (attrNames servers);
         default = defaultServer;
       };
 

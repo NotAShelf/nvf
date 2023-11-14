@@ -3,6 +3,7 @@
   config,
   ...
 }: let
+  inherit (builtins) concatStringsSep;
   inherit (lib) optionalString mkIf nvim;
 
   cfg = config.vim;
@@ -141,7 +142,7 @@ in {
       ''}
       ${optionalString cfg.spellChecking.enable ''
         set spell
-        set spelllang=${builtins.concatStringsSep "," cfg.spellChecking.languages}${optionalString cfg.spellChecking.enableProgrammingWordList ",programming"}
+        set spelllang=${concatStringsSep "," cfg.spellChecking.languages}${optionalString cfg.spellChecking.enableProgrammingWordList ",programming"}
       ''}
       ${optionalString (cfg.leaderKey != null) ''
         let mapleader = "${toString cfg.leaderKey}"
