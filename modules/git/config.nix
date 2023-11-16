@@ -2,9 +2,10 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (builtins) toJSON;
+  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetExprBinding mkSetLuaBinding nvim;
+
   cfg = config.vim.git;
 
   self = import ./git.nix {inherit lib;};
@@ -70,7 +71,7 @@ in {
         vim.lsp.null-ls.sources.gitsigns-ca = ''
           table.insert(
             ls_sources,
-            null_ls.builtins.code_actions.gitsigns
+            null_ls.gcode_actions.gitsigns
           )
         '';
       })

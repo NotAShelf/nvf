@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkIf nvim optionalString;
+
   cfg = config.vim.lsp;
 in {
   config = mkIf (cfg.enable && cfg.lspSignature.enable) {

@@ -1,6 +1,6 @@
-{lib, ...}:
-with lib;
-with builtins; {
+{lib, ...}: let
+  inherit (lib) mkEnableOption mkMappingOption;
+in {
   options.vim.tabline.nvimBufferline = {
     enable = mkEnableOption "nvim-bufferline-lua as a bufferline";
 

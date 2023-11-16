@@ -3,9 +3,10 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (builtins) attrNames;
+  inherit (lib) isList nvim optionalString mkEnableOption mkOption types mkIf mkMerge;
+
   cfg = config.vim.languages.clang;
 
   defaultServer = "ccls";

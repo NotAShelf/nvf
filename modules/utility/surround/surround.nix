@@ -2,9 +2,9 @@
   lib,
   config,
   ...
-}:
-with lib;
-with builtins; {
+}: let
+  inherit (lib) mkOption types mkIf mkDefault;
+in {
   options.vim.utility.surround = {
     enable = mkOption {
       type = types.bool;

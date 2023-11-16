@@ -3,9 +3,10 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (builtins) attrNames;
+  inherit (lib) isList nvim getExe mkEnableOption mkOption types mkMerge mkIf;
+
   cfg = config.vim.languages.go;
 
   defaultServer = "gopls";

@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkIf nvim boolToString concatStringsSep;
+
   cfg = config.vim.projects.project-nvim;
 in {
   config = mkIf cfg.enable {

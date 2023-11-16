@@ -2,8 +2,7 @@
   config,
   lib,
   ...
-}:
-with builtins; let
+}: let
   inherit (lib) optionalString boolToString mkIf optionals;
   inherit (lib.nvim.lua) nullString;
 

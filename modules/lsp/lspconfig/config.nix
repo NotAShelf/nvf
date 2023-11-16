@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkIf mkMerge nvim optionalString mapAttrs;
+
   cfg = config.vim.lsp;
 in {
   config = mkIf cfg.lspconfig.enable (mkMerge [

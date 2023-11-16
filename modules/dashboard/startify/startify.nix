@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with builtins;
-with lib; {
+}: let
+  inherit (lib) mkEnableOption mkOption types;
+in {
   options.vim.dashboard.startify = {
     enable = mkEnableOption "dashboard via vim-startify";
 

@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge;
+
   cfg = config.vim.languages.zig;
 in {
   options.vim.languages.zig = {

@@ -3,9 +3,10 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (builtins) attrNames;
+  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge getExe literalExpression;
+
   cfg = config.vim.languages.python;
 
   defaultServer = "pyright";

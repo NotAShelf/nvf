@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) addDescriptionsToMappings mkIf mkSetLuaBinding mkMerge nvim optionalString;
+
   cfg = config.vim.lsp;
   self = import ./lspsaga.nix {inherit lib;};
 

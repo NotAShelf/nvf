@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge optionalString boolToString optionals;
+
   cfg = config.vim.languages.rust;
 in {
   options.vim.languages.rust = {

@@ -1,6 +1,6 @@
-{lib, ...}:
-with lib;
-with builtins; {
+{lib, ...}: let
+  inherit (lib) mkEnableOption mkOption types;
+in {
   options.vim.ui.modes-nvim = {
     enable = mkEnableOption "modes.nvim's prismatic line decorations";
 

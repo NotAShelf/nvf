@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkIf;
+
   cfg = config.vim.tidal;
 in {
   config = mkIf (cfg.enable) {

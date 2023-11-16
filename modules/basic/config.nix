@@ -2,9 +2,10 @@
   lib,
   config,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (builtins) concatStringsSep;
+  inherit (lib) optionalString mkIf nvim;
+
   cfg = config.vim;
 in {
   config = {
@@ -57,8 +58,8 @@ in {
     };
 
     vim.configRC.basic = nvim.dag.entryAfter ["globalsScript"] ''
-      " Debug mode settings
       ${optionalString cfg.debugMode.enable ''
+        " Debug mode settings
         set verbose=${toString cfg.debugMode.level}
         set verbosefile=${cfg.debugMode.logFile}
       ''}
@@ -141,7 +142,7 @@ in {
       ''}
       ${optionalString cfg.spellChecking.enable ''
         set spell
-        set spelllang=${builtins.concatStringsSep "," cfg.spellChecking.languages}${optionalString cfg.spellChecking.enableProgrammingWordList ",programming"}
+        set spelllang=${concatStringsSep "," cfg.spellChecking.languages}${optionalString cfg.spellChecking.enableProgrammingWordList ",programming"}
       ''}
       ${optionalString (cfg.leaderKey != null) ''
         let mapleader = "${toString cfg.leaderKey}"

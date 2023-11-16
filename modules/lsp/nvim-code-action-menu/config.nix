@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) addDescriptionsToMappings mkIf mkSetBinding nvim;
+
   cfg = config.vim.lsp;
 
   self = import ./nvim-code-action-menu.nix {inherit lib;};

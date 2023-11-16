@@ -2,9 +2,9 @@
   lib,
   config,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkIf nvim optionalString boolToString;
+
   cfg = config.vim.autopairs;
 in {
   config =

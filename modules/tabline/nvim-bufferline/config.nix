@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkIf mkMerge mkLuaBinding mkBinding nvim;
+
   cfg = config.vim.tabline.nvimBufferline;
   self = import ./nvim-bufferline.nix {
     inherit lib;

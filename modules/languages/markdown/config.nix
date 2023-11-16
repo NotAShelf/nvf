@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) nvim mkIf mkMerge;
+
   cfg = config.vim.languages.markdown;
 in {
   config = mkIf cfg.enable (mkMerge [

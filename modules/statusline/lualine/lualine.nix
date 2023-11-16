@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkEnableOption mkOption types elem optional;
+
   supported_themes = import ./supported_themes.nix;
   colorPuccin =
     if config.vim.statusline.lualine.theme == "catppuccin"

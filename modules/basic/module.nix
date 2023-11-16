@@ -2,9 +2,10 @@
   pkgs,
   lib,
   ...
-}:
-with lib;
-with builtins; {
+}: let
+  inherit (lib) mkEnableOption mkOption;
+  inherit (lib.types) types;
+in {
   options.vim = {
     package = mkOption {
       type = types.package;

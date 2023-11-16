@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; {
+}: let
+  inherit (lib) mkEnableOption mkOption types;
+in {
   options.vim.ui.colorizer = {
     enable = mkEnableOption "nvim-colorizer.lua for color highlighting";
 

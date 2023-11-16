@@ -3,9 +3,10 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (builtins) attrNames;
+  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge optionalString;
+
   cfg = config.vim.languages.nix;
 
   useFormat = "on_attach = default_on_attach";

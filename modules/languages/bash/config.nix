@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) isList nvim mkIf mkMerge;
+
   cfg = config.vim.languages.bash;
   diagnostics = {
     shellcheck = {

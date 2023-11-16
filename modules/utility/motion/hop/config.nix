@@ -2,8 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) addDescriptionsToMappings mkIf mkSetBinding nvim;
+
   cfg = config.vim.utility.motion.hop;
 
   self = import ./hop.nix {inherit lib;};

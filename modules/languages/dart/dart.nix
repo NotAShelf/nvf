@@ -3,9 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (builtins) attrNames;
+  inherit (lib) isList nvim mkEnableOption mkOption types optionalString;
+
   cfg = config.vim.languages.dart;
   defaultServer = "dart";
   servers = {

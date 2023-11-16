@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkEnableOption mkOption types nvim mkIf mkMerge optional;
+
   cfg = config.vim.languages.html;
 in {
   options.vim.languages.html = {

@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with builtins; let
-  inherit (lib) mkOption mkEnableOption types;
+}: let
+  inherit (builtins) attrNames;
+  inherit (lib) mkOption mkEnableOption types isList nvim;
 
   cfg = config.vim.languages.bash;
 

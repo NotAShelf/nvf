@@ -2,9 +2,10 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (builtins) toJSON;
+  inherit (lib) mkMerge mkIf mkBinding nvim getExe;
+
   cfg = config.vim.terminal.toggleterm;
 in {
   config = mkMerge [

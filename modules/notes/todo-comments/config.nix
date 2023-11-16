@@ -3,9 +3,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkMerge mkBinding mkIf;
+
   cfg = config.vim.notes.todo-comments;
   self = import ./todo-comments.nix {inherit lib;};
   mappings = self.options.vim.notes.todo-comments.mappings;

@@ -1,6 +1,6 @@
-{lib, ...}:
-with lib;
-with builtins; {
+{lib, ...}: let
+  inherit (lib) mkEnableOption mkMappingOption mkOption types;
+in {
   options.vim = {
     autocomplete = {
       enable = mkEnableOption "enable autocomplete" // {default = false;};

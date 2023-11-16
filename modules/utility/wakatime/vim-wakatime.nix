@@ -2,9 +2,9 @@
   lib,
   pkgs,
   ...
-}:
-with lib;
-with builtins; {
+}: let
+  inherit (lib) mkEnableOption mkOption types;
+in {
   options.vim.utility.vim-wakatime = {
     enable = mkEnableOption "vim-wakatime: live code statistics";
 

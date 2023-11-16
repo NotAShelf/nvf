@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (lib) mkIf;
+
   cfg = config.vim.snippets.vsnip;
 in {
   config = mkIf cfg.enable {

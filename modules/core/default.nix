@@ -2,9 +2,13 @@
   config,
   lib,
   ...
-}:
-with lib;
-with builtins; let
+}: let
+  inherit (builtins) attrValues attrNames map mapAttrs toJSON isString concatStringsSep filter;
+  inherit (lib) mkOption types mapAttrsFlatten filterAttrs optionalString getAttrs literalExpression;
+  inherit (lib) nvim;
+  inherit (nvim.lua) toLuaObject;
+  inherit (nvim.vim) valToVim;
+
   cfg = config.vim;
 
   wrapLuaConfig = luaConfig: ''
@@ -20,7 +24,7 @@ with builtins; let
     mkOption {
       type = types.bool;
       default = value;
-      description = description;
+      inherit description;
     };
 
   # Most of the keybindings code is highly inspired by pta2002/nixvim. Thank you!
@@ -67,7 +71,7 @@ with builtins; let
     normalizeAction = action: let
       # Extract the values of the config options that have been explicitly set by the user
       config =
-        filterAttrs (n: v: v != null)
+        filterAttrs (_: v: v != null)
         (getAttrs (attrNames mapConfigOptions) action);
     in {
       config =
@@ -80,13 +84,13 @@ with builtins; let
         else action.action;
     };
   in
-    builtins.attrValues (builtins.mapAttrs
+    attrValues (mapAttrs
       (key: action: let
         normalizedAction = normalizeAction action;
       in {
         inherit (normalizedAction) action config;
-        key = key;
-        mode = mode;
+        inherit key;
+        inherit mode;
       })
       maps);
 
@@ -117,171 +121,144 @@ with builtins; let
       default = {};
     };
 in {
-  options.vim = {
-    viAlias = mkOption {
-      description = "Enable vi alias";
-      type = types.bool;
-      default = true;
-    };
-
-    vimAlias = mkOption {
-      description = "Enable vim alias";
-      type = types.bool;
-      default = true;
-    };
-
-    configRC = mkOption {
-      description = "vimrc contents";
-      type = types.oneOf [(nvim.types.dagOf types.lines) types.str];
-      default = {};
-    };
-
-    luaConfigRC = mkOption {
-      description = "vim lua config";
-      type = types.oneOf [(nvim.types.dagOf types.lines) types.str];
-      default = {};
-    };
-
-    builtConfigRC = mkOption {
+  options = {
+    assertions = lib.mkOption {
+      type = with types; listOf unspecified;
       internal = true;
-      type = types.lines;
-      description = "The built config for neovim after resolving the DAG";
-    };
-
-    startPlugins = nvim.types.pluginsOpt {
       default = [];
-      description = "List of plugins to startup.";
-    };
-
-    optPlugins = nvim.types.pluginsOpt {
-      default = [];
-      description = "List of plugins to optionally load";
-    };
-
-    extraPlugins = mkOption {
-      type = types.attrsOf nvim.types.extraPluginType;
-      default = {};
-      description = ''
-        List of plugins and related config.
-        Note that these are setup after builtin plugins.
-      '';
       example = literalExpression ''
-          with pkgs.vimPlugins; {
-          aerial = {
-            package = aerial-nvim;
-            setup = "require('aerial').setup {}";
-          };
-          harpoon = {
-            package = harpoon;
-            setup = "require('harpoon').setup {}";
-            after = ["aerial"];
-          };
-        }'';
+        [
+          {
+            assertion = false;
+            message = "you can't enable this for that reason";
+          }
+        ]
+      '';
     };
 
-    globals = mkOption {
-      default = {};
-      description = "Set containing global variable values";
-      type = types.attrs;
+    warnings = mkOption {
+      internal = true;
+      default = [];
+      type = with types; listOf str;
+      example = ["The `foo' service is deprecated and will go away soon!"];
+      description = lib.mdDoc ''
+        This option allows modules to show warnings to users during
+        the evaluation of the system configuration.
+      '';
     };
 
-    maps = mkOption {
-      type = types.submodule {
-        options = {
-          normal = mapOptions "normal";
-          insert = mapOptions "insert";
-          select = mapOptions "select";
-          visual = mapOptions "visual and select";
-          terminal = mapOptions "terminal";
-          normalVisualOp = mapOptions "normal, visual, select and operator-pending (same as plain 'map')";
-
-          visualOnly = mapOptions "visual only";
-          operator = mapOptions "operator-pending";
-          insertCommand = mapOptions "insert and command-line";
-          lang = mapOptions "insert, command-line and lang-arg";
-          command = mapOptions "command-line";
-        };
+    vim = {
+      viAlias = mkOption {
+        description = "Enable vi alias";
+        type = types.bool;
+        default = true;
       };
-      default = {};
-      description = ''
-        Custom keybindings for any mode.
 
-        For plain maps (e.g. just 'map' or 'remap') use maps.normalVisualOp.
-      '';
+      vimAlias = mkOption {
+        description = "Enable vim alias";
+        type = types.bool;
+        default = true;
+      };
 
-      example = ''
-        maps = {
-          normal."<leader>m" = {
-            silent = true;
-            action = "<cmd>make<CR>";
-          }; # Same as nnoremap <leader>m <silent> <cmd>make<CR>
+      configRC = mkOption {
+        description = "vimrc contents";
+        type = types.oneOf [(nvim.types.dagOf types.lines) types.str];
+        default = {};
+      };
+
+      luaConfigRC = mkOption {
+        description = "vim lua config";
+        type = types.oneOf [(nvim.types.dagOf types.lines) types.str];
+        default = {};
+      };
+
+      builtConfigRC = mkOption {
+        internal = true;
+        type = types.lines;
+        description = "The built config for neovim after resolving the DAG";
+      };
+
+      startPlugins = nvim.types.pluginsOpt {
+        default = [];
+        description = "List of plugins to startup.";
+      };
+
+      optPlugins = nvim.types.pluginsOpt {
+        default = [];
+        description = "List of plugins to optionally load";
+      };
+
+      extraPlugins = mkOption {
+        type = types.attrsOf nvim.types.extraPluginType;
+        default = {};
+        description = ''
+          List of plugins and related config.
+          Note that these are setup after builtin plugins.
+        '';
+        example = literalExpression ''
+            with pkgs.vimPlugins; {
+            aerial = {
+              package = aerial-nvim;
+              setup = "require('aerial').setup {}";
+            };
+            harpoon = {
+              package = harpoon;
+              setup = "require('harpoon').setup {}";
+              after = ["aerial"];
+            };
+          }'';
+      };
+
+      globals = mkOption {
+        default = {};
+        description = "Set containing global variable values";
+        type = types.attrs;
+      };
+
+      maps = mkOption {
+        type = types.submodule {
+          options = {
+            normal = mapOptions "normal";
+            insert = mapOptions "insert";
+            select = mapOptions "select";
+            visual = mapOptions "visual and select";
+            terminal = mapOptions "terminal";
+            normalVisualOp = mapOptions "normal, visual, select and operator-pending (same as plain 'map')";
+
+            visualOnly = mapOptions "visual only";
+            operator = mapOptions "operator-pending";
+            insertCommand = mapOptions "insert and command-line";
+            lang = mapOptions "insert, command-line and lang-arg";
+            command = mapOptions "command-line";
+          };
         };
-      '';
+        default = {};
+        description = ''
+          Custom keybindings for any mode.
+
+          For plain maps (e.g. just 'map' or 'remap') use maps.normalVisualOp.
+        '';
+
+        example = ''
+          maps = {
+            normal."<leader>m" = {
+              silent = true;
+              action = "<cmd>make<CR>";
+            }; # Same as nnoremap <leader>m <silent> <cmd>make<CR>
+          };
+        '';
+      };
     };
   };
 
   config = let
-    mkVimBool = val:
-      if val
-      then "1"
-      else "0";
-    valToVim = val:
-      if (isInt val)
-      then (builtins.toString val)
-      else
-        (
-          if (isBool val)
-          then (mkVimBool val)
-          else (toJSON val)
-        );
-
     filterNonNull = mappings: filterAttrs (_name: value: value != null) mappings;
     globalsScript =
       mapAttrsFlatten (name: value: "let g:${name}=${valToVim value}")
       (filterNonNull cfg.globals);
 
-    toLuaObject = args:
-      if builtins.isAttrs args
-      then
-        if hasAttr "__raw" args
-        then args.__raw
-        else if hasAttr "__empty" args
-        then "{ }"
-        else
-          "{"
-          + (concatStringsSep ","
-            (mapAttrsToList
-              (n: v:
-                if head (stringToCharacters n) == "@"
-                then toLuaObject v
-                else "[${toLuaObject n}] = " + (toLuaObject v))
-              (filterAttrs
-                (
-                  n: v:
-                    !isNull v && (toLuaObject v != "{}")
-                )
-                args)))
-          + "}"
-      else if builtins.isList args
-      then "{" + concatMapStringsSep "," toLuaObject args + "}"
-      else if builtins.isString args
-      then
-        # This should be enough!
-        builtins.toJSON args
-      else if builtins.isPath args
-      then builtins.toJSON (toString args)
-      else if builtins.isBool args
-      then "${boolToString args}"
-      else if builtins.isFloat args
-      then "${toString args}"
-      else if builtins.isInt args
-      then "${toString args}"
-      else if isNull args
-      then "nil"
-      else "";
-
     toLuaBindings = mode: maps:
-      builtins.map (value: ''
+      map (value: ''
         vim.keymap.set(${toLuaObject mode}, ${toLuaObject value.key}, ${toLuaObject value.action}, ${toLuaObject value.config})
       '') (genMaps mode maps);
 
@@ -304,8 +281,8 @@ in {
       mapResult,
     }: let
       # When the value is a string, default it to dag.entryAnywhere
-      finalDag = lib.mapAttrs (name: value:
-        if builtins.isString value
+      finalDag = lib.mapAttrs (_: value:
+        if isString value
         then nvim.dag.entryAnywhere value
         else value)
       dag;
@@ -313,7 +290,7 @@ in {
       result =
         if sortedDag ? result
         then mapResult sortedDag.result
-        else abort ("Dependency cycle in ${name}: " + toJSON sortedConfig);
+        else abort ("Dependency cycle in ${name}: " + toJSON sortedDag);
     in
       result;
   in {
@@ -378,6 +355,13 @@ in {
       };
 
       builtConfigRC = let
+        failedAssertions = map (x: x.message) (filter (x: !x.assertion) config.assertions);
+
+        baseSystemAssertWarn =
+          if failedAssertions != []
+          then throw "\nFailed assertions:\n${concatStringsSep "\n" (map (x: "- ${x}") failedAssertions)}"
+          else lib.showWarnings config.warnings;
+
         mkSection = r: ''
           " SECTION: ${r.name}
           ${r.data}
@@ -389,7 +373,7 @@ in {
           inherit mapResult;
         };
       in
-        vimConfig;
+        baseSystemAssertWarn vimConfig;
     };
   };
 }
