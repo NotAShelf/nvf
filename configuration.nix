@@ -90,7 +90,7 @@ inputs: let
           fillChar = null;
           eolChar = null;
           scope = {
-            showCurrContext = true;
+            enabled = true;
           };
         };
 

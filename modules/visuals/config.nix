@@ -33,7 +33,7 @@ in {
           },
 
           scope = {
-            enabled = ${boolToString cfg.indentBlankline.scope.showCurrContext},
+            enabled = ${boolToString cfg.indentBlankline.scope.enabled},
             show_end = ${boolToString cfg.indentBlankline.scope.showEndOfLine}
           },
         }

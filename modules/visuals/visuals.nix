@@ -8,7 +8,7 @@
   cfg = config.vim.visuals;
 in {
   imports = [
-    (mkRenamedOptionModule ["vim" "visuals" "indentBlankline" "showCurrContext"] ["vim" "visuals" "indentBlankline" "scope" "showCurrContext"])
+    (mkRenamedOptionModule ["vim" "visuals" "indentBlankline" "showCurrContext"] ["vim" "visuals" "indentBlankline" "scope" "enabled"])
     (mkRenamedOptionModule ["vim" "visuals" "indentBlankline" "showEndOfLine"] ["vim" "visuals" "indentBlankline" "scope" "showEndOfLine"])
     (mkRemovedOptionModule ["vim" "visuals" "indentBlankline" "useTreesitter"] "`vim.visuals.indentBlankline.useTreesitter` has been removed upstream and can safely be removed from your configuration.")
   ];
@@ -115,6 +115,13 @@ in {
       };
 
       scope = {
+        enabled = mkOption {
+          description = "Highlight current scope from treesitter";
+          type = types.bool;
+          default = config.vim.treesitter.enable;
+          defaultText = literalExpression "config.vim.treesitter.enable";
+        };
+
         showEndOfLine = mkOption {
           description = ''
             Displays the end of line character set by [](#opt-vim.visuals.indentBlankline.eolChar) instead of the
@@ -123,13 +130,6 @@ in {
           type = types.bool;
           default = cfg.indentBlankline.eolChar != null;
           defaultText = literalExpression "config.vim.visuals.indentBlankline.eolChar != null";
-        };
-
-        showCurrContext = mkOption {
-          description = "Highlight current context from treesitter";
-          type = types.bool;
-          default = config.vim.treesitter.enable;
-          defaultText = literalExpression "config.vim.treesitter.enable";
         };
       };
     };
