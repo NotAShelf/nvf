@@ -55,7 +55,7 @@ string</p><p><span class="emphasis"><em>Default:</em></span>
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.assistant.copilot.copilotNodePackage"></a><a class="term" href="options.html#opt-vim.assistant.copilot.copilotNodePackage"><code class="option">vim.assistant.copilot.copilotNodePackage</code></a></span></dt><dd><p>The nodeJS package that will be used for GitHub Copilot. If you are using a custom node command
 you may want to set this option to null so that the package is not pulled from nixpkgs.</p><p><span class="emphasis"><em>Type:</em></span>
 null or package</p><p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation nodejs-slim-18.18.0&gt;</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/assistant/copilot/copilot.nix" target="_top">
+<code class="literal">&lt;derivation nodejs-slim-18.18.2&gt;</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/assistant/copilot/copilot.nix" target="_top">
 &lt;neovim-flake/modules/assistant/copilot/copilot.nix&gt;
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.assistant.copilot.mappings.panel.accept"></a><a class="term" href="options.html#opt-vim.assistant.copilot.mappings.panel.accept"><code class="option">vim.assistant.copilot.mappings.panel.accept</code></a></span></dt><dd><p>Accept suggestion</p><p><span class="emphasis"><em>Type:</em></span>
 null or string</p><p><span class="emphasis"><em>Default:</em></span>
@@ -1542,7 +1542,7 @@ boolean</p><p><span class="emphasis"><em>Default:</em></span>
 &lt;neovim-flake/modules/languages/go.nix&gt;
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.languages.go.lsp.package"></a><a class="term" href="options.html#opt-vim.languages.go.lsp.package"><code class="option">vim.languages.go.lsp.package</code></a></span></dt><dd><p>Go LSP server package, or the command to run as a list of strings</p><p><span class="emphasis"><em>Type:</em></span>
 package or list of string</p><p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation gopls-0.13.2&gt;</code></p><p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&lt;derivation gopls-0.14.0&gt;</code></p><p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">"[lib.getExe pkgs.jdt-language-server \" - data \" \" ~/.cache/jdtls/workspace \"]"</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/go.nix" target="_top">
 &lt;neovim-flake/modules/languages/go.nix&gt;
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.languages.go.lsp.server"></a><a class="term" href="options.html#opt-vim.languages.go.lsp.server"><code class="option">vim.languages.go.lsp.server</code></a></span></dt><dd><p>Go LSP server to use</p><p><span class="emphasis"><em>Type:</em></span>
@@ -1739,7 +1739,7 @@ boolean</p><p><span class="emphasis"><em>Default:</em></span>
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.languages.python.dap.package"></a><a class="term" href="options.html#opt-vim.languages.python.dap.package"><code class="option">vim.languages.python.dap.package</code></a></span></dt><dd><p>Python debugger package.
 This is a python package with debugpy installed, see https://nixos.wiki/wiki/Python#Install_Python_Packages.</p><p><span class="emphasis"><em>Type:</em></span>
 package</p><p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation python3-3.10.12-env&gt;</code></p><p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&lt;derivation python3-3.11.5-env&gt;</code></p><p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">with pkgs; python39.withPackages (ps: with ps; [debugpy])</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/python.nix" target="_top">
 &lt;neovim-flake/modules/languages/python.nix&gt;
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.languages.python.dap.debugger"></a><a class="term" href="options.html#opt-vim.languages.python.dap.debugger"><code class="option">vim.languages.python.dap.debugger</code></a></span></dt><dd><p>Python debugger to use</p><p><span class="emphasis"><em>Type:</em></span>
@@ -1766,7 +1766,7 @@ boolean</p><p><span class="emphasis"><em>Default:</em></span>
 &lt;neovim-flake/modules/languages/python.nix&gt;
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.languages.python.lsp.package"></a><a class="term" href="options.html#opt-vim.languages.python.lsp.package"><code class="option">vim.languages.python.lsp.package</code></a></span></dt><dd><p>python LSP server package, or the command to run as a list of strings</p><p><span class="emphasis"><em>Type:</em></span>
 package or list of string</p><p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation pyright-1.1.329&gt;</code></p><p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&lt;derivation pyright-1.1.334&gt;</code></p><p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">"[lib.getExe pkgs.jdt-language-server \"-data\" \"~/.cache/jdtls/workspace\"]"</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/python.nix" target="_top">
 &lt;neovim-flake/modules/languages/python.nix&gt;
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.languages.python.lsp.server"></a><a class="term" href="options.html#opt-vim.languages.python.lsp.server"><code class="option">vim.languages.python.lsp.server</code></a></span></dt><dd><p>Python LSP server to use</p><p><span class="emphasis"><em>Type:</em></span>
@@ -1854,7 +1854,7 @@ boolean</p><p><span class="emphasis"><em>Default:</em></span>
 &lt;neovim-flake/modules/languages/sql.nix&gt;
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.languages.sql.format.package"></a><a class="term" href="options.html#opt-vim.languages.sql.format.package"><code class="option">vim.languages.sql.format.package</code></a></span></dt><dd><p>SQL formatter package</p><p><span class="emphasis"><em>Type:</em></span>
 package</p><p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation sqlfluff-2.3.4&gt;</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/sql.nix" target="_top">
+<code class="literal">&lt;derivation sqlfluff-2.3.5&gt;</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/sql.nix" target="_top">
 &lt;neovim-flake/modules/languages/sql.nix&gt;
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.languages.sql.format.type"></a><a class="term" href="options.html#opt-vim.languages.sql.format.type"><code class="option">vim.languages.sql.format.type</code></a></span></dt><dd><p>SQL formatter to use</p><p><span class="emphasis"><em>Type:</em></span>
 value “sqlfluff” (singular enum)</p><p><span class="emphasis"><em>Default:</em></span>
@@ -1881,7 +1881,7 @@ boolean</p><p><span class="emphasis"><em>Default:</em></span>
 &lt;neovim-flake/modules/languages/sql.nix&gt;
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.languages.sql.treesitter.package"></a><a class="term" href="options.html#opt-vim.languages.sql.treesitter.package"><code class="option">vim.languages.sql.treesitter.package</code></a></span></dt><dd><p>SQL treesitter grammar to use</p><p><span class="emphasis"><em>Type:</em></span>
 package</p><p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation sql-grammar-0.0.0+rev=36c4de3&gt;</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/sql.nix" target="_top">
+<code class="literal">&lt;derivation sql-grammar-0.0.0+rev=caf2938&gt;</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/sql.nix" target="_top">
 &lt;neovim-flake/modules/languages/sql.nix&gt;
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.languages.svelte.enable"></a><a class="term" href="options.html#opt-vim.languages.svelte.enable"><code class="option">vim.languages.svelte.enable</code></a></span></dt><dd><p>Whether to enable Svelte language support.</p><p><span class="emphasis"><em>Type:</em></span>
 boolean</p><p><span class="emphasis"><em>Default:</em></span>
@@ -1919,7 +1919,7 @@ boolean</p><p><span class="emphasis"><em>Default:</em></span>
 &lt;neovim-flake/modules/languages/svelte.nix&gt;
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.languages.svelte.lsp.package"></a><a class="term" href="options.html#opt-vim.languages.svelte.lsp.package"><code class="option">vim.languages.svelte.lsp.package</code></a></span></dt><dd><p>Svelte LSP server package, or the command to run as a list of strings</p><p><span class="emphasis"><em>Type:</em></span>
 package or list of string</p><p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation svelte-language-server-0.15.19&gt;</code></p><p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&lt;derivation svelte-language-server-0.15.20&gt;</code></p><p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">"[lib.getExe pkgs.jdt-language-server \"-data\" \"~/.cache/jdtls/workspace\"]"</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/svelte.nix" target="_top">
 &lt;neovim-flake/modules/languages/svelte.nix&gt;
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.languages.svelte.lsp.server"></a><a class="term" href="options.html#opt-vim.languages.svelte.lsp.server"><code class="option">vim.languages.svelte.lsp.server</code></a></span></dt><dd><p>Svelte LSP server to use</p><p><span class="emphasis"><em>Type:</em></span>
@@ -1971,7 +1971,7 @@ boolean</p><p><span class="emphasis"><em>Default:</em></span>
 &lt;neovim-flake/modules/languages/ts.nix&gt;
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.languages.ts.lsp.package"></a><a class="term" href="options.html#opt-vim.languages.ts.lsp.package"><code class="option">vim.languages.ts.lsp.package</code></a></span></dt><dd><p>Typescript/Javascript LSP server package, or the command to run as a list of strings</p><p><span class="emphasis"><em>Type:</em></span>
 package or list of string</p><p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation typescript-language-server-3.3.2&gt;</code></p><p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&lt;derivation typescript-language-server-4.0.0&gt;</code></p><p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">"[lib.getExe pkgs.jdt-language-server \"-data\" \"~/.cache/jdtls/workspace\"]"</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/ts.nix" target="_top">
 &lt;neovim-flake/modules/languages/ts.nix&gt;
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.languages.ts.lsp.server"></a><a class="term" href="options.html#opt-vim.languages.ts.lsp.server"><code class="option">vim.languages.ts.lsp.server</code></a></span></dt><dd><p>Typescript/Javascript LSP server to use</p><p><span class="emphasis"><em>Type:</em></span>
@@ -4107,7 +4107,6 @@ attribute set of (signed integer or list of signed integer)</p><p><span class="e
   go = [90 130];
 };
 
-
 </pre><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/ui/smartcolumn/smartcolumn.nix" target="_top">
 &lt;neovim-flake/modules/ui/smartcolumn/smartcolumn.nix&gt;
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.ui.smartcolumn.disabledFiletypes"></a><a class="term" href="options.html#opt-vim.ui.smartcolumn.disabledFiletypes"><code class="option">vim.ui.smartcolumn.disabledFiletypes</code></a></span></dt><dd><p>The filetypes smartcolumn will be disabled for.</p><p><span class="emphasis"><em>Type:</em></span>
@@ -4325,6 +4324,10 @@ boolean</p><p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">false</code></p><p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">true</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/visuals/visuals.nix" target="_top">
 &lt;neovim-flake/modules/visuals/visuals.nix&gt;
+</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.visuals.indentBlankline.debounce"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.debounce"><code class="option">vim.visuals.indentBlankline.debounce</code></a></span></dt><dd><p>Debounce time in milliseconds</p><p><span class="emphasis"><em>Type:</em></span>
+signed integer</p><p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">200</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/visuals/visuals.nix" target="_top">
+&lt;neovim-flake/modules/visuals/visuals.nix&gt;
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.visuals.indentBlankline.eolChar"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.eolChar"><code class="option">vim.visuals.indentBlankline.eolChar</code></a></span></dt><dd><p>Character at end of line</p><p><span class="emphasis"><em>Type:</em></span>
 null or string</p><p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">"↴"</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/visuals/visuals.nix" target="_top">
@@ -4333,22 +4336,32 @@ null or string</p><p><span class="emphasis"><em>Default:</em></span>
 null or string</p><p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">"⋅"</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/visuals/visuals.nix" target="_top">
 &lt;neovim-flake/modules/visuals/visuals.nix&gt;
+</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.visuals.indentBlankline.indent.char"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.indent.char"><code class="option">vim.visuals.indentBlankline.indent.char</code></a></span></dt><dd><p>Character for indentation line</p><p><span class="emphasis"><em>Type:</em></span>
+string</p><p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">"│"</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/visuals/visuals.nix" target="_top">
+&lt;neovim-flake/modules/visuals/visuals.nix&gt;
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.visuals.indentBlankline.listChar"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.listChar"><code class="option">vim.visuals.indentBlankline.listChar</code></a></span></dt><dd><p>Character for indentation line</p><p><span class="emphasis"><em>Type:</em></span>
 string</p><p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">"│"</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/visuals/visuals.nix" target="_top">
 &lt;neovim-flake/modules/visuals/visuals.nix&gt;
-</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.visuals.indentBlankline.showCurrContext"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.showCurrContext"><code class="option">vim.visuals.indentBlankline.showCurrContext</code></a></span></dt><dd><p>Highlight current context from treesitter</p><p><span class="emphasis"><em>Type:</em></span>
+</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.visuals.indentBlankline.scope.enabled"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.scope.enabled"><code class="option">vim.visuals.indentBlankline.scope.enabled</code></a></span></dt><dd><p>Highlight current scope from treesitter</p><p><span class="emphasis"><em>Type:</em></span>
 boolean</p><p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">config.vim.treesitter.enable</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/visuals/visuals.nix" target="_top">
 &lt;neovim-flake/modules/visuals/visuals.nix&gt;
-</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.visuals.indentBlankline.showEndOfLine"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.showEndOfLine"><code class="option">vim.visuals.indentBlankline.showEndOfLine</code></a></span></dt><dd><p>Displays the end of line character set by <a class="xref" href="options.html#opt-vim.visuals.indentBlankline.eolChar"><code class="option">vim.visuals.indentBlankline.eolChar</code></a> instead of the
+</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.visuals.indentBlankline.scope.showEndOfLine"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.scope.showEndOfLine"><code class="option">vim.visuals.indentBlankline.scope.showEndOfLine</code></a></span></dt><dd><p>Displays the end of line character set by <a class="xref" href="options.html#opt-vim.visuals.indentBlankline.eolChar"><code class="option">vim.visuals.indentBlankline.eolChar</code></a> instead of the
 indent guide on line returns.</p><p><span class="emphasis"><em>Type:</em></span>
 boolean</p><p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">config.vim.visuals.indentBlankline.eolChar != null</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/visuals/visuals.nix" target="_top">
 &lt;neovim-flake/modules/visuals/visuals.nix&gt;
-</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.visuals.indentBlankline.useTreesitter"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.useTreesitter"><code class="option">vim.visuals.indentBlankline.useTreesitter</code></a></span></dt><dd><p>Use treesitter to calculate indentation when possible.</p><p><span class="emphasis"><em>Type:</em></span>
-boolean</p><p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">config.vim.treesitter.enable</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/visuals/visuals.nix" target="_top">
+</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.visuals.indentBlankline.viewportBuffer.max"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.viewportBuffer.max"><code class="option">vim.visuals.indentBlankline.viewportBuffer.max</code></a></span></dt><dd><p>Number of lines above and below of what is currently
+visible in the window</p><p><span class="emphasis"><em>Type:</em></span>
+signed integer</p><p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">500</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/visuals/visuals.nix" target="_top">
+&lt;neovim-flake/modules/visuals/visuals.nix&gt;
+</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.visuals.indentBlankline.viewportBuffer.min"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.viewportBuffer.min"><code class="option">vim.visuals.indentBlankline.viewportBuffer.min</code></a></span></dt><dd><p>Number of lines above and below of what is currently
+visible in the window</p><p><span class="emphasis"><em>Type:</em></span>
+signed integer</p><p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">30</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/notashelf/neovim-flake/blob/main/modules/visuals/visuals.nix" target="_top">
 &lt;neovim-flake/modules/visuals/visuals.nix&gt;
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-vim.visuals.nvimWebDevicons.enable"></a><a class="term" href="options.html#opt-vim.visuals.nvimWebDevicons.enable"><code class="option">vim.visuals.nvimWebDevicons.enable</code></a></span></dt><dd><p>Whether to enable dev icons. Required for certain plugins [nvim-web-devicons]…</p><p><span class="emphasis"><em>Type:</em></span>
 boolean</p><p><span class="emphasis"><em>Default:</em></span>
