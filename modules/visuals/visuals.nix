@@ -3,10 +3,16 @@
   lib,
   ...
 }: let
-  inherit (lib) mkEnableOption mkMappingOption mkOption types literalExpression;
+  inherit (lib) mkEnableOption mkMappingOption mkOption types literalExpression mkRenamedOptionModule mkRemovedOptionModule;
 
   cfg = config.vim.visuals;
 in {
+  imports = [
+    (mkRenamedOptionModule ["vim" "visuals" "indentBlankline" "showCurrContext"] ["vim" "visuals" "indentBlankline" "scope" "enabled"])
+    (mkRenamedOptionModule ["vim" "visuals" "indentBlankline" "showEndOfLine"] ["vim" "visuals" "indentBlankline" "scope" "showEndOfLine"])
+    (mkRemovedOptionModule ["vim" "visuals" "indentBlankline" "useTreesitter"] "`vim.visuals.indentBlankline.useTreesitter` has been removed upstream and can safely be removed from your configuration.")
+  ];
+
   options.vim.visuals = {
     enable = mkEnableOption "Visual enhancements.";
 
@@ -60,6 +66,35 @@ in {
 
     indentBlankline = {
       enable = mkEnableOption "indentation guides [indent-blankline]";
+      debounce = mkOption {
+        type = types.int;
+        description = "Debounce time in milliseconds";
+        default = 200;
+      };
+
+      viewportBuffer = {
+        min = mkOption {
+          type = types.int;
+          description = "Number of lines above and below of what is currently
+            visible in the window";
+          default = 30;
+        };
+
+        max = mkOption {
+          type = types.int;
+          description = "Number of lines above and below of what is currently
+            visible in the window";
+          default = 500;
+        };
+      };
+
+      indent = {
+        char = mkOption {
+          type = types.str;
+          description = "Character for indentation line";
+          default = "│";
+        };
+      };
 
       listChar = mkOption {
         type = types.str;
@@ -79,28 +114,23 @@ in {
         default = "↴";
       };
 
-      showEndOfLine = mkOption {
-        description = ''
-          Displays the end of line character set by [](#opt-vim.visuals.indentBlankline.eolChar) instead of the
-          indent guide on line returns.
-        '';
-        type = types.bool;
-        default = cfg.indentBlankline.eolChar != null;
-        defaultText = literalExpression "config.vim.visuals.indentBlankline.eolChar != null";
-      };
+      scope = {
+        enabled = mkOption {
+          description = "Highlight current scope from treesitter";
+          type = types.bool;
+          default = config.vim.treesitter.enable;
+          defaultText = literalExpression "config.vim.treesitter.enable";
+        };
 
-      showCurrContext = mkOption {
-        description = "Highlight current context from treesitter";
-        type = types.bool;
-        default = config.vim.treesitter.enable;
-        defaultText = literalExpression "config.vim.treesitter.enable";
-      };
-
-      useTreesitter = mkOption {
-        description = "Use treesitter to calculate indentation when possible.";
-        type = types.bool;
-        default = config.vim.treesitter.enable;
-        defaultText = literalExpression "config.vim.treesitter.enable";
+        showEndOfLine = mkOption {
+          description = ''
+            Displays the end of line character set by [](#opt-vim.visuals.indentBlankline.eolChar) instead of the
+            indent guide on line returns.
+          '';
+          type = types.bool;
+          default = cfg.indentBlankline.eolChar != null;
+          defaultText = literalExpression "config.vim.visuals.indentBlankline.eolChar != null";
+        };
       };
     };
 

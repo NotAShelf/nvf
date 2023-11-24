@@ -12,7 +12,7 @@ in {
       vim.startPlugins = ["indent-blankline"];
       vim.luaConfigRC.indent-blankline = nvim.dag.entryAnywhere ''
         -- highlight error: https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
-        vim.wo.colorcolumn = "99999"
+        -- vim.wo.colorcolumn = "99999"
         vim.opt.list = true
 
         ${optionalString (cfg.indentBlankline.eolChar != null) ''
@@ -22,12 +22,20 @@ in {
           vim.opt.listchars:append({ space = "${cfg.indentBlankline.fillChar}" })
         ''}
 
-        require("indent_blankline").setup {
+        require("ibl").setup {
           enabled = true,
-          char = "${cfg.indentBlankline.listChar}",
-          show_current_context = ${boolToString cfg.indentBlankline.showCurrContext},
-          show_end_of_line = ${boolToString cfg.indentBlankline.showEndOfLine},
-          use_treesitter = ${boolToString cfg.indentBlankline.useTreesitter},
+          debounce = ${toString cfg.indentBlankline.debounce},
+          indent = { char = "${cfg.indentBlankline.indent.char}" },
+
+          viewport_buffer = {
+            min = ${toString cfg.indentBlankline.viewportBuffer.min},
+            max = ${toString cfg.indentBlankline.viewportBuffer.max},
+          },
+
+          scope = {
+            enabled = ${boolToString cfg.indentBlankline.scope.enabled},
+            show_end = ${boolToString cfg.indentBlankline.scope.showEndOfLine}
+          },
         }
       '';
     })

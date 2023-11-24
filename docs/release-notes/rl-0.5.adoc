@@ -78,6 +78,8 @@ https://github.com/notashelf[notashelf]:
 To quote home-manager commit: "Output is mostly unchanged aside from some minor typographical and
 formatting changes, along with better source links."
 
+* Updated indent-blankine.nvim to v3 - this comes with a few option changes, which will be migrated with `renamedOptionModule`
+
 
 https://github.com/jacekpoz[jacekpoz]:
 
