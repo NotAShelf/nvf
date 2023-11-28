@@ -74,6 +74,7 @@ inputs: let
         dart.enable = isMaximal;
         elixir.enable = false;
         bash.enable = isMaximal;
+        terraform.enable = isMaximal;
       };
 
       vim.visuals = {
