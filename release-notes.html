@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Appendix B. Release Notes</title><link rel="stylesheet" type="text/css" href="style.css" /><script src="highlight.min.js" type="text/javascript"></script><script src="highlight.load.js" type="text/javascript"></script><meta name="generator" content="DocBook XSL Stylesheets V1.79.2" /><link rel="home" href="index.html" title="neovim-flake Manual" /><link rel="up" href="index.html" title="neovim-flake Manual" /><link rel="prev" href="options.html" title="Appendix A. Configuration Options" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Appendix B. Release Notes</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="options.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> </td></tr></table><hr /></div><div class="appendix"><div class="titlepage"><div><div><h1 class="title"><a id="ch-release-notes"></a>Appendix B. Release Notes</h1></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="release-notes.html#sec-release-0.1">B.1. Release 0.1</a></span></dt><dd><dl><dt><span class="section"><a href="release-notes.html#sec-release-0.1-changelog">B.1.1. Changelog</a></span></dt></dl></dd><dt><span class="section"><a href="release-notes.html#sec-release-0.2">B.2. Release 0.2</a></span></dt><dd><dl><dt><span class="section"><a href="release-notes.html#sec-release-0.2-changelog">B.2.1. Changelog</a></span></dt></dl></dd><dt><span class="section"><a href="release-notes.html#sec-release-0.3">B.3. Release 0.3</a></span></dt><dd><dl><dt><span class="section"><a href="release-notes.html#sec-release-0.3-changelog">B.3.1. Changelog</a></span></dt></dl></dd><dt><span class="section"><a href="release-notes.html#sec-release-0.4">B.4. Release 0.4</a></span></dt><dd><dl><dt><span class="section"><a href="release-notes.html#sec-release-0.4-changelog">B.4.1. Changelog</a></span></dt></dl></dd><dt><span class="section"><a href="release-notes.html#sec-release-0.5">B.5. Release 0.5</a></span></dt><dd><dl><dt><span class="section"><a href="release-notes.html#sec-release-0.5-changelog">B.5.1. Changelog</a></span></dt></dl></dd><dt><span class="section"><a href="release-notes.html#sec-release-0.6">B.6. Release 0.6</a></span></dt><dd><dl><dt><span class="section"><a href="release-notes.html#sec-release-0.6-changelog">B.6.1. Changelog</a></span></dt></dl></dd></dl></div><p>This section lists the release notes for tagged version of neovim-flake and current main.</p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-0.1"></a>B.1. Release 0.1</h2></div></div></div><p>This is the current master branch and information here is not final. These are changes from the v0.01 tag.</p><p>Special thanks to <a class="link" href="https://github.com/nix-community/home-manager/" target="_top">home-manager</a> for this release. Docs/manual generation, the new module evaluation system, and DAG implementation are from them.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-0.1-changelog"></a>B.1.1. Changelog</h3></div></div></div><p><a class="link" href="https://github.com/jordanisaacs" target="_top">jordanisaacs</a>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+Removed hare language support (lsp/tree-sitter/etc). <code class="literal">vim.lsp.hare</code> is no longer defined. If you use hare and would like it added back, please file an issue.
+</li><li class="listitem"><p class="simpara">
+<a class="xref" href="options.html#opt-vim.startPlugins"><code class="option">vim.startPlugins</code></a> &amp; <a class="xref" href="options.html#opt-vim.optPlugins"><code class="option">vim.optPlugins</code></a> are now an enum of <code class="literal">string</code> for options sourced from the flake inputs. Users can still provide vim plugin packages.
+</p><p class="simpara">If you are contributing and adding a new plugin, add the plugin name to <code class="literal">availablePlugins</code> in <a class="link" href="https://github.com/jordanisaacs/neovim-flake/blob/20cec032bd74bc3d20ac17ce36cd84786a04fd3e/modules/lib/types-plugin.nix" target="_top">types-plugin.nix</a>.</p></li><li class="listitem">
+<code class="literal">neovimBuilder</code> has been removed for configuration. Using an overlay is no longer required. See the manual for the new way to configuration.
+</li><li class="listitem">
+Treesitter grammars are now configurable with <a class="xref" href="options.html#opt-vim.treesitter.grammars"><code class="option">vim.treesitter.grammars</code></a>. Utilizes the nixpkgs <code class="literal">nvim-treesitter</code> plugin rather than a custom input in order to take advantage of build support of pinned versions. See <a class="link" href="https://discourse.nixos.org/t/psa-if-you-are-on-unstable-try-out-nvim-treesitter-withallgrammars/23321?u=snowytrees" target="_top">discourse</a> for more information. Packages can be found under the <code class="literal">vimPlugins.nvim-treesitter.builtGrammars</code> namespace.
+</li><li class="listitem"><p class="simpara">
+<a class="xref" href="options.html#opt-vim.configRC"><code class="option">vim.configRC</code></a> and <a class="xref" href="options.html#opt-vim.luaConfigRC"><code class="option">vim.luaConfigRC</code></a> are now of type DAG lines. This allows for ordering of the config. Usage is the same is in home-manager’s <code class="literal">home.activation</code> option.
+</p><pre class="programlisting nix">vim.luaConfigRC = lib.nvim.dag.entryAnywhere "config here"</pre></li></ul></div><p><a class="link" href="https://github.com/MoritzBoehme" target="_top">MoritzBoehme</a>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+<code class="literal">catppuccin</code> theme is now available as a neovim theme <a class="xref" href="options.html#opt-vim.theme.style"><code class="option">vim.theme.style</code></a> and lualine theme <a class="xref" href="options.html#opt-vim.statusline.lualine.theme"><code class="option">vim.statusline.lualine.theme</code></a>.
+</li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-0.2"></a>B.2. Release 0.2</h2></div></div></div><p>Release notes for release 0.2</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-0.2-changelog"></a>B.2.1. Changelog</h3></div></div></div><p><a class="link" href="https://github.com/notashelf" target="_top">notashelf</a>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+Added two minimap plugins under <code class="literal">vim.minimap</code>. <code class="literal">codewindow.nvim</code> is enabled by default, while <code class="literal">minimap.vim</code> is available with its code-minimap dependency.
+</li><li class="listitem">
+A complementary plugin, ‘obsidian.nvim` and the Neovim alternative for Emacs’ orgmode  with <code class="literal">orgmode.nvim</code> have been added. Both will be disabled by default.
+</li><li class="listitem">
+Smooth scrolling for ANY movement command is now available with <code class="literal">cinnamon.nvim</code>
+</li><li class="listitem">
+You will now notice a dashboard on startup. This is provided by the <code class="literal">alpha.nvim</code> plugin. You can use any of the three available dashboard plugins, or disable them entirely.
+</li><li class="listitem">
+There is now a scrollbar on active buffers, which can highlight errors by hooking to your LSPs. This is on by default, but can be toggled off under <code class="literal">vim.visuals</code> if seen necessary.
+</li><li class="listitem">
+Discord Rich Presence has been added through <code class="literal">presence.nvim</code> for those who want to flex that they are using the <span class="strong"><strong>superior</strong></span> text editor.
+</li><li class="listitem">
+An icon picker is now available with telescope integration. You can use <code class="literal">:IconPickerInsert</code> or <code class="literal">:IconPickerYank</code> to add icons to your code.
+</li><li class="listitem">
+A general purpose cheatsheet has been added through <code class="literal">cheatsheet.nvim</code>. Forget no longer!
+</li><li class="listitem">
+<code class="literal">ccc.nvim</code> has been added to the default plugins to allow picking colors with ease.
+</li><li class="listitem">
+Most UI components of Neovim have been replaced through the help of <code class="literal">noice.nvim</code>. There are also notifications and custom UI elements available for Neovim messages and prompts.
+</li><li class="listitem">
+A (floating by default) terminal has been added through <code class="literal">toggleterm.nvim</code>.
+</li><li class="listitem">
+Harness the power of ethical (<code class="literal">tabnine.nvim</code>) and not-so-ethical (<code class="literal">copilot.lua</code>) AI by those new assistant plugins. Both are off by default, TabNine needs to be wrapped before it’s working.
+</li><li class="listitem">
+Experimental mouse gestures have been addede through <code class="literal">gesture.nvim</code>. See plugin page and the relevant module for more details on how to use.
+</li><li class="listitem">
+Re-open last visited buffers via <code class="literal">nvim-session-manager</code>. Disabled by default as deleting buffers seems to be problematic at the moment.
+</li><li class="listitem">
+Most of NvimTree’s configuration options have been changed with some options being toggled to off by default.
+</li><li class="listitem">
+Lualine had its configuration simplified and style toned down. Less color, more info.
+</li><li class="listitem">
+Modules where multiple plugin configurations were in the same directory have been simplified. Each plugin inside a single module gets its own directory to be imported.
+</li><li class="listitem">
+Separate config options with the same parent attribute have been merged into one for simplicity.
+</li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-0.3"></a>B.3. Release 0.3</h2></div></div></div><p>Release 0.3 had to come out beore I wanted it to due to Neovim 0.9 dropping into nixpkgs-unstable. The treesitter changes
+have prompted a treesitter rework, which was followed by reworking the languages system. Most of the changes to those are downstreamed
+from the original repository. The feature requests that was originally planned for 0.3 have been moved to 0.4, which
+should come out soon.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-0.3-changelog"></a>B.3.1. Changelog</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+We have transitioned to flake-parts, from flake-utils to extend the flexibility of this flake. This means the flake structure
+is different than usual, but the functionality remains the same.
+</li><li class="listitem">
+We now provide a home-manager module. Do note that it is still far from perfect, but it works.
+</li><li class="listitem">
+<code class="literal">nodejs_16</code> is now bundled with <code class="literal">Copilot.lua</code> if the user has enabled Copilot assistant.
+</li><li class="listitem">
+which-key section titles have been fixed. This is to be changed once again in a possible keybind rewrite, but now it should
+display the correct titles instad of <code class="literal">+prefix</code>
+</li><li class="listitem">
+Most of <code class="literal">presence.nvim</code>'s options have been made fully configurable through your configuration file.
+</li><li class="listitem">
+Most of the modules have been refactored to separate <code class="literal">config</code> and <code class="literal">options</code> attributes.
+</li><li class="listitem">
+Darwin has been deprecated as the zig package is marked as broken. We will attempt to use the zig overlay to return Darwin
+support.
+</li><li class="listitem">
+<code class="literal">Fidget.nvim</code> has been added as a neat visual addition for LSP installations.
+</li><li class="listitem">
+<code class="literal">diffview.nvim</code> has been added to provide a convenient diff utility.
+</li><li class="listitem">
+Treesitter grammars are now configurable with <a class="xref" href="options.html#opt-vim.treesitter.grammars"><code class="option">vim.treesitter.grammars</code></a>. Utilizes the nixpkgs <code class="literal">nvim-treesitter</code> plugin rather than a custom input in order to take advantage of build support of pinned versions. See <a class="link" href="https://discourse.nixos.org/t/psa-if-you-are-on-unstable-try-out-nvim-treesitter-withallgrammars/23321?u=snowytrees" target="_top">discourse</a> for more information. Packages can be found under the <code class="literal">pkgs.vimPlugins.nvim-treesitter.builtGrammars</code> attribute. Treesitter grammars for supported languages should be enabled within the module. By default no grammars are installed, thus the following grammars which do not have a language section are not included anymore: comment, toml, make, html, css, graphql, json.
+</li><li class="listitem"><p class="simpara">
+A new section has been added for language support: <code class="literal">vim.languages.&lt;language&gt;</code>. The options <a class="xref" href="options.html#opt-vim.languages.enableLSP"><code class="option">vim.languages.enableLSP</code></a>, <a class="xref" href="options.html#opt-vim.languages.enableTreesitter"><code class="option">vim.languages.enableTreesitter</code></a>, etc. will enable the respective section for all languages that have been enabled.
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem">
+All LSP languages have been moved here
+</li><li class="listitem">
+<code class="literal">plantuml</code> and <code class="literal">markdown</code> have been moved here
+</li><li class="listitem">
+A new section has been added for <code class="literal">html</code>. The old <code class="literal">vim.treesitter.autotagHtml</code> can be found at <a class="xref" href="options.html#opt-vim.languages.html.treesitter.autotagHtml"><code class="option">vim.languages.html.treesitter.autotagHtml</code></a>.
+</li></ul></div></li><li class="listitem">
+<a class="xref" href="options.html#opt-vim.git.gitsigns.codeActions"><code class="option">vim.git.gitsigns.codeActions</code></a> has been added allowing you to turn on gitsigns codeactions.
+</li><li class="listitem">
+Removed the plugins document in the docs. Was too unwieldy to keep updated.
+</li><li class="listitem">
+<code class="literal">vim.visual.lspkind</code> has been moved to <a class="xref" href="options.html#opt-vim.lsp.lspkind.enable"><code class="option">vim.lsp.lspkind.enable</code></a>
+</li><li class="listitem">
+Improved handling of completion formatting. When setting <a class="xref" href="options.html#opt-vim.autocomplete.sources"><code class="option">vim.autocomplete.sources</code></a>, can also include optional menu mapping. And can provide your own function with <a class="xref" href="options.html#opt-vim.autocomplete.formatting.format"><code class="option">vim.autocomplete.formatting.format</code></a>.
+</li><li class="listitem">
+For <a class="xref" href="options.html#opt-vim.visuals.indentBlankline.fillChar"><code class="option">vim.visuals.indentBlankline.fillChar</code></a> and <a class="xref" href="options.html#opt-vim.visuals.indentBlankline.eolChar"><code class="option">vim.visuals.indentBlankline.eolChar</code></a> turning them off should use <code class="literal">null</code> rather than <code class="literal">""</code> now.
+</li><li class="listitem">
+Transparency has been made optional and has been disabled by default. <a class="xref" href="options.html#opt-vim.theme.transparent"><code class="option">vim.theme.transparent</code></a> option can be used to enable or
+disable transparency for your configuration.
+</li><li class="listitem">
+Fixed deprecated configuration method for Tokyonight, and added new style "moon"
+</li><li class="listitem">
+Dart language support as well as extended flutter support has been added. Thanks to @FlafyDev for his contributions towards Dart
+language support.
+</li><li class="listitem">
+Elixir language support has been added through <code class="literal">elixir-tools.nvim</code>.
+</li><li class="listitem">
+<code class="literal">hop.nvim</code> and <code class="literal">leap.nvim</code> have been added for fast navigation.
+</li><li class="listitem">
+<code class="literal">modes.nvim</code> has been added to the UI plugins as a minor error highlighter.
+</li><li class="listitem">
+<code class="literal">smartcollumn.nvim</code> has been added to dynamically display a colorcolumn when the limit has been exceeded, providing
+per-buftype column position and more.
+</li><li class="listitem">
+<code class="literal">project.nvim</code> has been added for better project management inside Neovim.
+</li><li class="listitem">
+More configuration options have been added to <code class="literal">nvim-session-manager</code>.
+</li><li class="listitem">
+Editorconfig support has been added to the core functionality, with an enable option.
+</li><li class="listitem">
+<code class="literal">venn-nvim</code> has been dropped due to broken keybinds.
+</li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-0.4"></a>B.4. Release 0.4</h2></div></div></div><p>Following the release of v0.3, I have decided to release v0.4 with a massive new change: customizable keybinds. As of the 0.4 release, keybinds will no longer be hardcoded and instead provided by each module’s own keybinds section. The old keybind system (<code class="literal">vim.keybinds = {}</code>) is now considered deprecated and the new lib functions are recommended to be used for adding keybinds for new plugins, or adding keybinds to existing plugins.</p><p>Alongside customizable keybinds, there are a few quality of life updates, such as <code class="literal">lazygit</code> integration and the new experimental Lua loader of Neovim 0.9 thanks to our awesome contributors who made this update possible during my absence.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-0.4-changelog"></a>B.4.1. Changelog</h3></div></div></div><p><a class="link" href="https://github.com/n3oney" target="_top">n3oney</a>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+Streamlined keybind adding process towards new functions in extended stdlib.
+</li><li class="listitem">
+Moved default keybinds into keybinds section of each module
+</li><li class="listitem">
+Simplified luaConfigRC and configRC setting - they can now just take strings
+</li><li class="listitem">
+Refactored the resolveDag function - you can just provide a string now, which will default to dag.entryAnywhere
+</li><li class="listitem">
+Fixed formatting sometimes removing parts of files
+</li><li class="listitem">
+Made formatting synchronous
+</li><li class="listitem">
+Gave null-ls priority over other formatters
+</li></ul></div><p><a class="link" href="https://github.com/horriblename" target="_top">horriblename</a>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+Added <code class="literal">clangd</code> as alternative lsp for C/++.
+</li><li class="listitem">
+Added <code class="literal">toggleterm</code> integration for <code class="literal">lazygit</code>.
+</li><li class="listitem">
+Added new option <code class="literal">enableluaLoader</code> to enable neovim’s experimental module loader for faster startup time.
+</li><li class="listitem">
+Fixed bug where flutter-tools can’t find <code class="literal">dart</code> LSP
+</li><li class="listitem">
+Added Debug Adapter (DAP) support for clang, rust, go, python and dart.
+</li></ul></div><p><a class="link" href="https://github.com/notashelf" target="_top">notashelf</a>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+Made Copilot’s Node package configurable. It is recommended to keep as default, but providing a different NodeJS version is now possible.
+</li><li class="listitem">
+Added <a class="xref" href="options.html#opt-vim.cursorlineOpt"><code class="option">vim.cursorlineOpt</code></a> for configuring Neovim’s cursorlineOpt.
+</li><li class="listitem">
+Added <code class="literal">filetree.nvimTreeLua.view.cursorline</code>, default false, to enable cursorline in nvimtre.
+</li><li class="listitem">
+Added Fidget.nvim support for the Catppuccin theme.
+</li><li class="listitem">
+Updated bundled NodeJS version used by <code class="literal">Copilot.lua</code>. v16 is now marked as insecure on Nixpkgs, and we updated to v18
+</li><li class="listitem">
+Enabled Catppuccin modules for plugins available by default.
+</li><li class="listitem">
+Added experimental Svelte support under <code class="literal">vim.languages</code>.
+</li><li class="listitem">
+Removed unnecessary scrollbar element from notifications and codeaction warning UI.
+</li><li class="listitem">
+<code class="literal">vim.utility.colorizer</code> has been renamed to <code class="literal">vim.utility.ccc</code> after the plugin it uses
+</li><li class="listitem">
+Color preview via <code class="literal">nvim-colorizer.lua</code>
+</li><li class="listitem">
+Updated Lualine statusline UI
+</li><li class="listitem">
+Added vim-illuminate for smart highlighting
+</li><li class="listitem">
+Added a module for enabling Neovim’s spellchecker
+</li><li class="listitem">
+Added prettierd as an alternative formatter to prettier - currently defaults to prettier
+</li><li class="listitem">
+Fixed presence.nvim inheriting the wrong client id
+</li><li class="listitem">
+Cleaned up documentation
+</li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-0.5"></a>B.5. Release 0.5</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-0.5-changelog"></a>B.5.1. Changelog</h3></div></div></div><p><a class="link" href="https://github.com/vagahbond" target="_top">vagahbond</a>:
+* Added phan language server for PHP</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+Added phpactor language server for PHP
+</li></ul></div><p><a class="link" href="https://github.com/horriblename" target="_top">horriblename</a>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+Added transparency support for tokyonight theme
+</li><li class="listitem">
+Fixed a bug where cmp’s close and scrollDocs mappings wasn’t working
+</li><li class="listitem">
+Streamlined and simplified extra plugin API with the addition of <a class="xref" href="options.html#opt-vim.extraPlugins"><code class="option">vim.extraPlugins</code></a>
+</li><li class="listitem">
+Allow using command names in place of LSP packages to avoid automatic installation
+</li><li class="listitem">
+Add lua LSP and treesitter support, and neodev.nvim plugin support
+</li><li class="listitem">
+Add <a class="xref" href="options.html#opt-vim.lsp.mappings.toggleFormatOnSave"><code class="option">vim.lsp.mappings.toggleFormatOnSave</code></a> keybind
+</li></ul></div><p><a class="link" href="https://github.com/amanse" target="_top">amanse</a>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+Added daily notes options for obsidian plugin
+</li><li class="listitem">
+Added jdt-language-server for Java
+</li></ul></div><p><a class="link" href="https://github.com/yavko" target="_top">yavko</a>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+Added Deno Language Server for javascript/typescript
+</li><li class="listitem">
+Added support for multiple languages <a class="xref" href="options.html#opt-vim.spellChecking.languages"><code class="option">vim.spellChecking.languages</code></a>, and added vim-dirtytalk <a class="xref" href="options.html#opt-vim.spellChecking.enableProgrammingWordList"><code class="option">vim.spellChecking.enableProgrammingWordList</code></a>
+</li></ul></div><p><a class="link" href="https://github.com/FrothyMarrow" target="_top">frothymarrow</a>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+Renamed <code class="literal">vim.visuals.cursorWordline</code> to <a class="xref" href="options.html#opt-vim.visuals.cursorline.enable"><code class="option">vim.visuals.cursorline.enable</code></a>
+</li><li class="listitem">
+Added <a class="xref" href="options.html#opt-vim.visuals.cursorline.lineNumbersOnly"><code class="option">vim.visuals.cursorline.lineNumbersOnly</code></a> to display cursorline only in the presence of line numbers
+</li><li class="listitem">
+Added Oxocarbon to the list of available themes.
+</li></ul></div><p><a class="link" href="https://github.com/notashelf" target="_top">notashelf</a>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+Added GitHub Copilot to nvim-cmp completion sources.
+</li><li class="listitem">
+Added <a class="xref" href="options.html#opt-vim.ui.borders.enable"><code class="option">vim.ui.borders.enable</code></a> for global and individual plugin border configuration.
+</li><li class="listitem">
+LSP integrated breadcrumbs with <a class="xref" href="options.html#opt-vim.ui.breadcrumbs.enable"><code class="option">vim.ui.breadcrumbs.enable</code></a> through nvim-navic
+</li><li class="listitem">
+LSP navigation helper with nvim-navbuddy, depends on nvim-navic (automatically enabled)
+</li><li class="listitem">
+Addeed nvim-navic integration for catppuccin theme
+</li><li class="listitem">
+Fixed mismatching zig language description
+</li><li class="listitem">
+Added support for <code class="literal">statix</code> and <code class="literal">deadnix</code> through <a class="xref" href="options.html#opt-vim.languages.nix.extraDiagnostics.types"><code class="option">vim.languages.nix.extraDiagnostics.types</code></a>
+</li><li class="listitem">
+Added lsp_lines plugin for showing diagnostic messages
+</li><li class="listitem">
+Added a configuration option for choosing the leader key
+</li><li class="listitem">
+The package used for neovim is now customizable by the user, using <a class="xref" href="options.html#opt-vim.package"><code class="option">vim.package</code></a>. For best results, always use an unwrapped package
+</li><li class="listitem">
+Added highlight-undo plugin for highlighting undo/redo targets
+</li><li class="listitem">
+Added bash LSP and formatter support
+</li><li class="listitem">
+Disabled Lualine LSP status indicator for toggleterm buffer
+</li><li class="listitem">
+Added <code class="literal">nvim-docs-view</code>, a plugin to display lsp hover documentation in a side panel
+</li><li class="listitem">
+Switched to <code class="literal">nixosOptionsDoc</code> in option documentation.
+To quote home-manager commit: "Output is mostly unchanged aside from some minor typographical and
+formatting changes, along with better source links."
+</li><li class="listitem">
+Updated indent-blankine.nvim to v3 - this comes with a few option changes, which will be migrated with <code class="literal">renamedOptionModule</code>
+</li></ul></div><p><a class="link" href="https://github.com/jacekpoz" target="_top">jacekpoz</a>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+Fixed scrollOffset not being used
+</li><li class="listitem">
+Updated clangd to 16
+</li><li class="listitem">
+Disabled <code class="literal">useSystemClipboard</code> by default
+</li></ul></div><p><a class="link" href="https://github.com/ksonj" target="_top">ksonj</a>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+Add support to change mappings to utility/surround
+</li><li class="listitem">
+Add black-and-isort python formatter
+</li><li class="listitem">
+Removed redundant "Enable …" in <code class="literal">mkEnableOption</code> descriptions
+</li><li class="listitem">
+Add options to modify LSP key bindings and add proper whichkey descriptions
+</li><li class="listitem">
+Changed type of <code class="literal">statusline.lualine.activeSection</code> and <code class="literal">statusline.lualine.inactiveSection</code> from <code class="literal">attrsOf str</code> to <code class="literal">attrsOf (listOf str)</code>
+</li><li class="listitem">
+Added <code class="literal">statusline.lualine.extraActiveSection</code> and <code class="literal">statusline.lualine.extraInactiveSection</code>
+</li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-0.6"></a>B.6. Release 0.6</h2></div></div></div><p>Release notes for release 0.6</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-0.6-changelog"></a>B.6.1. Changelog</h3></div></div></div><p><a class="link" href="https://github.com/ksonj" target="_top">ksonj</a>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+Add Terraform language support
+</li></ul></div></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="options.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> </td></tr><tr><td width="40%" align="left" valign="top">Appendix A. Configuration Options </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>
