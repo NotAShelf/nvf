@@ -21,6 +21,7 @@ in {
     ./java.nix
     ./lua.nix
     ./php.nix
+    ./terraform.nix
   ];
 
   options.vim.languages = {
