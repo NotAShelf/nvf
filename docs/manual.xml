@@ -25,6 +25,7 @@
  <xi:include href="manual/hacking.xml"/>
  <appendix xml:id="ch-options">
   <title>Configuration Options</title>
-  <xi:include href="./nmd-result/neovim-flake-options.xml" xpointer="neovim-flake-options" />
+  <xi:include href="nmd-result/neovim-flake-options.xml" xpointer="neovim-flake-options" />
  </appendix>
+  <xi:include href="release-notes/release-notes.xml"/>
 </book>
