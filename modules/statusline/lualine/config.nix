@@ -4,6 +4,7 @@
   ...
 }: let
   cfg = config.vim.statusline.lualine;
+  breadcrumbsCfg = config.vim.ui.breadcrumbs;
   inherit (lib) mkIf nvim boolToString optionalString;
 in {
   config = (mkIf cfg.enable) {
@@ -50,7 +51,7 @@ in {
         },
         tabline = {},
 
-        ${optionalString (config.vim.ui.breadcrumbs.source == "nvim-navic") ''
+        ${optionalString (breadcrumbsCfg.enable && breadcrumbsCfg.source == "nvim-navic") ''
         winbar = {
           lualine_c = {
             {
