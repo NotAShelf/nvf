@@ -87,7 +87,7 @@
   release-config = builtins.fromJSON (builtins.readFile ../release.json);
   revision = "release-${release-config.release}";
   # Generate the `man home-configuration.nix` package
-  home-configuration-manual =
+  nvf-configuration-manual =
     pkgs.runCommand "neovim-flake-reference-manpage" {
       nativeBuildInputs = [pkgs.buildPackages.installShellFiles pkgs.nixos-render-docs];
       allowedReferences = ["out"];
@@ -97,8 +97,6 @@
       mkdir -p $out/share/man/man1
       nixos-render-docs -j $NIX_BUILD_CORES options manpage \
         --revision ${revision} \
-        --header ${./header.5} \
-        --footer ${./footer.5} \
         ${nvimModuleDocs.optionsJSON}/share/doc/nixos/options.json \
         $out/share/man/man5/neovim-flake.5
       cp ${./neovim-flake.1} $out/share/man/man1/neovim-flake.1
@@ -135,6 +133,6 @@ in {
       '';
   };
 
-  manPages = home-configuration-manual;
+  manPages = nvf-configuration-manual;
   manual = {inherit html htmlOpenTool;};
 }
