@@ -2,6 +2,7 @@
   pkgs,
   lib ? import ../lib/stdlib-extended.nix pkgs.lib,
   nmdSrc,
+  ...
 }: let
   nmd = import nmdSrc {
     inherit lib;
@@ -29,6 +30,8 @@
     ];
   };
 
+  dontCheckDefinitions = {_module.check = false;};
+
   githubDeclaration = user: repo: subpath: let
     urlRef = "main";
   in {
@@ -36,96 +39,102 @@
     name = "<${repo}/${subpath}>";
   };
 
-  dontCheckDefinitions = {_module.check = false;};
-
-  nvimPath = toString ./..;
+  hmPath = toString ./..;
 
   buildOptionsDocs = args @ {
     modules,
-    includeModuleSystemsOptions ? true,
+    includeModuleSystemOptions ? true,
     ...
   }: let
-    options = (lib.evalModules {inherit modules;}).options;
+    inherit ((lib.evalModules {inherit modules;})) options;
   in
-    pkgs.buildPackages.nixosOptionsDoc
-    ({
+    pkgs.buildPackages.nixosOptionsDoc ({
         options =
-          if includeModuleSystemsOptions
+          if includeModuleSystemOptions
           then options
-          else builtins.removeAttrs (options ["_module"]);
+          else builtins.removeAttrs options ["_module"];
         transformOptions = opt:
           opt
           // {
-            # Clean up declaration sites to not refer to local source tree
-            declarations =
-              map
-              (decl:
-                if lib.hasPrefix nvimPath (toString decl)
-                then
-                  githubDeclaration "notashelf" "neovim-flake"
-                  (lib.removePrefix "/" (lib.removePrefix nvimPath (toString decl)))
-                else decl)
-              opt.declarations;
+            # Clean up declaration sites to not refer to the Home Manager
+            # source tree.
+            declarations = map (decl:
+              if lib.hasPrefix hmPath (toString decl)
+              then
+                githubDeclaration "notashelf" "neovim-flake"
+                (lib.removePrefix "/" (lib.removePrefix hmPath (toString decl)))
+              else if decl == "lib/modules.nix"
+              then
+                # TODO: handle this in a better way (may require upstream
+                # changes to nixpkgs)
+                githubDeclaration "NixOS" "nixpkgs" decl
+              else decl)
+            opt.declarations;
           };
       }
-      // builtins.removeAttrs args ["modules" "includeModuleSystemsOptions"]);
+      // builtins.removeAttrs args ["modules" "includeModuleSystemOptions"]);
 
   nvimModuleDocs = buildOptionsDocs {
     modules =
-      import ../modules/modules.nix
-      {
-        inherit pkgs lib;
+      import ../modules/modules.nix {
+        inherit lib pkgs;
         check = false;
       }
       ++ [scrubbedPkgsModule];
     variablelistId = "neovim-flake-options";
   };
 
-  docs = nmd.buildDocBookDocs {
-    pathName = "neovim-flake";
-    projectName = "neovim-flake";
-    modulesDocs = [
-      {
-        docBook = pkgs.linkFarm "nvim-module-docs-for-nmd" {
-          "nmd-result/neovim-flake-options.xml" = nvimModuleDocs.optionsDocBook;
-        };
-      }
-    ];
-    documentsDirectory = ./.;
-    documentType = "book";
-    chunkToc = ''
-      <toc>
-        <d:tocentry xmlns:d="http://docbook.org/ns/docbook" linkend="book-neovim-flake-manual">
-          <?dbhtml filename="index.html"?>
-          <d:tocentry linkend="ch-options">
-            <?dbhtml filename="options.html"?>
-          </d:tocentry>
-          <d:tocentry linkend="ch-release-notes">
-            <?dbhtml filename="release-notes.html"?>
-          </d:tocentry>
-        </d:tocentry>
-      </toc>
-    '';
-  };
-in {
-  options.json =
-    pkgs.runCommand "options.json"
-    # TODO: Use `nvimOptionsDoc.optionsJSON` directly once upstream
-    # `nixosOptionsDoc` is more customizable
-    {
-      meta.description = "List of neovim-flake options in JSON format";
+  release-config = builtins.fromJSON (builtins.readFile ../release.json);
+  revision = "release-${release-config.release}";
+  # Generate the `man home-configuration.nix` package
+  home-configuration-manual =
+    pkgs.runCommand "neovim-flake-reference-manpage" {
+      nativeBuildInputs = [pkgs.buildPackages.installShellFiles pkgs.nixos-render-docs];
+      allowedReferences = ["out"];
     } ''
-      mkdir -p $out/{share/doc,nix-support}
-      cp -a ${nvimModuleDocs.optionsJSON}/share/doc/nixos $out/share/doc/neovim-flake
-      substitute \
-       ${nvimModuleDocs.optionsJSON}/nix-support/hydra-build-products \
-       $out/nix-support/hydra-build-products \
-       --replace \
-        '${nvimModuleDocs.optionsJSON}/share/doc/nixos' \
-        "$out/share/doc/neovim-flake"
+      # Generate manpages.
+      mkdir -p $out/share/man/man5
+      mkdir -p $out/share/man/man1
+      nixos-render-docs -j $NIX_BUILD_CORES options manpage \
+        --revision ${revision} \
+        --header ${./home-configuration-nix-header.5} \
+        --footer ${./home-configuration-nix-footer.5} \
+        ${nvimModuleDocs.optionsJSON}/share/doc/nixos/options.json \
+        $out/share/man/man5/home-configuration.nix.5
+      cp ${./home-manager.1} $out/share/man/man1/home-manager.1
     '';
+  # Generate the HTML manual pages
+  neovim-flake-manual = pkgs.callPackage ./manual.nix {
+    inherit revision;
+    outputPath = "share/doc/neovim-flake";
+    nmd = nmdSrc;
+    options = {
+      neovim-flake = nvimModuleDocs.optionsJSON;
+    };
+  };
+  html = neovim-flake-manual;
+  htmlOpenTool = pkgs.callPackage ./html-open-tool.nix {} {inherit html;};
+in {
+  inherit nmdSrc;
 
-  inherit (docs) manPages;
+  options = {
+    # TODO: Use `hmOptionsDocs.optionsJSON` directly once upstream
+    # `nixosOptionsDoc` is more customizable.
+    json =
+      pkgs.runCommand "options.json" {
+        meta.description = "List of Home Manager options in JSON format";
+      } ''
+        mkdir -p $out/{share/doc,nix-support}
+        cp -a ${nvimModuleDocs.optionsJSON}/share/doc/nixos $out/share/doc/home-manager
+        substitute \
+          ${nvimModuleDocs.optionsJSON}/nix-support/hydra-build-products \
+          $out/nix-support/hydra-build-products \
+          --replace \
+            '${nvimModuleDocs.optionsJSON}/share/doc/nixos' \
+            "$out/share/doc/home-manager"
+      '';
+  };
 
-  manual = {inherit (docs) html htmlOpenTool;};
+  manPages = home-configuration-manual;
+  manual = {inherit html htmlOpenTool;};
 }

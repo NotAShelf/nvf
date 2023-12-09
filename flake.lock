@@ -903,17 +903,17 @@
     "nmd": {
       "flake": false,
       "locked": {
-        "lastModified": 1696846470,
-        "narHash": "sha256-S/6s3nRcg+xZfsO7aLe01W+EMAKFVyieHa4eFvOKOLk=",
-        "owner": "horriblename",
+        "lastModified": 1701431551,
+        "narHash": "sha256-5HPHG1u3koaWHG/TXHl5/YxYPYOuKc58104btrD8ypE=",
+        "owner": "~rycee",
         "repo": "nmd",
-        "rev": "bcf805ce85b9e938f7e027b3311137ffbd995794",
-        "type": "github"
+        "rev": "f18defadcc25e69e95b04493ee02682005472255",
+        "type": "sourcehut"
       },
       "original": {
-        "owner": "horriblename",
+        "owner": "~rycee",
         "repo": "nmd",
-        "type": "github"
+        "type": "sourcehut"
       }
     },
     "noice-nvim": {

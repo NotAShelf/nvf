@@ -63,7 +63,7 @@
 
     # For generating documentation website
     nmd = {
-      url = "github:horriblename/nmd";
+      url = "sourcehut:~rycee/nmd";
       flake = false;
     };
 
