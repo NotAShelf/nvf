@@ -39,7 +39,7 @@
     name = "<${repo}/${subpath}>";
   };
 
-  hmPath = toString ./..;
+  nvimPath = toString ./..;
 
   buildOptionsDocs = args @ {
     modules,
@@ -59,10 +59,10 @@
             # Clean up declaration sites to not refer to the Home Manager
             # source tree.
             declarations = map (decl:
-              if lib.hasPrefix hmPath (toString decl)
+              if lib.hasPrefix nvimPath (toString decl)
               then
                 githubDeclaration "notashelf" "neovim-flake"
-                (lib.removePrefix "/" (lib.removePrefix hmPath (toString decl)))
+                (lib.removePrefix "/" (lib.removePrefix nvimPath (toString decl)))
               else if decl == "lib/modules.nix"
               then
                 # TODO: handle this in a better way (may require upstream
@@ -97,11 +97,11 @@
       mkdir -p $out/share/man/man1
       nixos-render-docs -j $NIX_BUILD_CORES options manpage \
         --revision ${revision} \
-        --header ${./home-configuration-nix-header.5} \
-        --footer ${./home-configuration-nix-footer.5} \
+        --header ${./header.5} \
+        --footer ${./footer.5} \
         ${nvimModuleDocs.optionsJSON}/share/doc/nixos/options.json \
-        $out/share/man/man5/home-configuration.nix.5
-      cp ${./home-manager.1} $out/share/man/man1/home-manager.1
+        $out/share/man/man5/neovim-flake.5
+      cp ${./neovim-flake.1} $out/share/man/man1/neovim-flake.1
     '';
   # Generate the HTML manual pages
   neovim-flake-manual = pkgs.callPackage ./manual.nix {
@@ -125,13 +125,13 @@ in {
         meta.description = "List of Home Manager options in JSON format";
       } ''
         mkdir -p $out/{share/doc,nix-support}
-        cp -a ${nvimModuleDocs.optionsJSON}/share/doc/nixos $out/share/doc/home-manager
+        cp -a ${nvimModuleDocs.optionsJSON}/share/doc/nixos $out/share/doc/neovim-flake
         substitute \
           ${nvimModuleDocs.optionsJSON}/nix-support/hydra-build-products \
           $out/nix-support/hydra-build-products \
           --replace \
             '${nvimModuleDocs.optionsJSON}/share/doc/nixos' \
-            "$out/share/doc/home-manager"
+            "$out/share/doc/neovim-flake"
       '';
   };
 
