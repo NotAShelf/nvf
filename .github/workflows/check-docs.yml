@@ -40,7 +40,7 @@ jobs:
         run: nix build .#${{ matrix.package }} --print-build-logs
 
       - name: Upload doc artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: doc
           path: result/share/doc/neovim-flake/
