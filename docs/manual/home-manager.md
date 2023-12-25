@@ -1,13 +1,11 @@
-[[ch-hm-module]]
-== Home Manager
+# Home Manager {#ch-hm-module}
 
 The Home Manager module allows us to customize the different `vim` options from inside the home-manager configuration
 and it is the preferred way of configuring neovim-flake, both on NixOS and non-NixOS systems.
 
 To use it, we first add the input flake.
 
-[source,nix]
-----
+```nix
 {
   neovim-flake = {
     url = github:notashelf/neovim-flake;
@@ -17,22 +15,20 @@ To use it, we first add the input flake.
     # i.e inputs.obsidian-nvim.follows = "obsidian-nvim"; # <- obsidian nvim needs to be in your inputs
   };
 }
-----
+```
 
 Followed by importing the home-manager module somewhere in your configuration.
 
-[source,nix]
-----
+```nix
 {
   # assuming neovim-flake is in your inputs and inputs is in the argset
   imports = [ inputs.neovim-flake.homeManagerModules.default ];
 }
-----
+```
 
 An example installation for standalone home-manager would look like this:
 
-[source,nix]
-----
+```nix
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -52,14 +48,12 @@ An example installation for standalone home-manager would look like this:
     };
   };
 }
-----
+```
 
 Once the module is imported, we will be able to define the following options (and much more) from inside the
 home-manager configuration.
 
-[source,nix]
-----
-{
+```nix{
   programs.neovim-flake = {
 
     enable = true;
@@ -74,12 +68,8 @@ home-manager configuration.
     };
   };
 }
-----
+```
 
-[NOTE]
-====
-You may find all avaliable options in the https://notashelf.github.io/neovim-flake/options[appendix]
-====
-
-
-
+:::{.note}
+You may find all avaliable options in the [appendix](https://notashelf.github.io/neovim-flake/options)
+:::
