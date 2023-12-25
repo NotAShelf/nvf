@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <title>neovim-flake-manual</title>
+<link rel="stylesheet" type="text/css" href="style.css" /><link rel="stylesheet" type="text/css" href="highlightjs/tomorrow-night.min.css" /><link rel="stylesheet" type="text/css" href="highlightjs/highlight-style.css" />
+<script src="highlightjs/highlight.pack.js" type="text/javascript"></script><script src="highlightjs/loader.js" type="text/javascript"></script>
+ <meta name="generator" content="nixos-render-docs" />
+ <link rel="home" href="index.xhtml" title="neovim-flake-manual" />
+ <link rel="next" href="options.html" title="Appendix A. Neovim Flake Configuration Options" />
+ </head>
+ <body>
+  <div class="navheader">
+   <table width="100%" summary="Navigation header">
+    <tr>
+    <th colspan="3" align="center">neovim-flake-manual</th>
+    </tr>
+    <tr>
+    <td width="20%" align="left">&nbsp;</td>
+    <th width="60%" align="center">&nbsp;</th>
+    <td width="20%" align="right">&nbsp;<a accesskey="n" href="options.html">Next</a></td>
+    </tr>
+   </table>
+   <hr />
+  </div>
+ <div class="book">
+  <div class="titlepage">
+   <div>
+   <div><h1 class="title"><a id="neovim-flake-manual"></a>neovim-flake-manual</h1></div>
+   <div><h2 class="subtitle">Version release-v0.6</h2></div>
+   </div>
+   <hr />
+  </div>
+<div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="preface">  <a href="index.xhtml#sec-preface">Preface</a> </span></dt><dt> <span class="preface">  <a href="index.xhtml#ch-try-it-out">Try it out</a> </span></dt><dt> <span class="part">  <a href="index.xhtml#ch-custom-configuration">Custom Configuration</a> </span></dt><dt> <span class="part">  <a href="index.xhtml#ch-custom-package">Custom Neovim Package</a> </span></dt><dt> <span class="part">  <a href="index.xhtml#ch-custom-plugins">Custom Plugins</a> </span></dt><dd><dl><dt> <span class="section">  <a href="index.xhtml#sec-new-method">New Method</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-old-method">Old Method</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#configuring-plugins">Configuring</a> </span></dt></dl></dd><dt> <span class="part">  <a href="index.xhtml#ch-default-configs">Default Configs</a> </span></dt><dd><dl><dt> <span class="section">  <a href="index.xhtml#sec-default-maximal">Maximal</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-default-nix">Nix</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-default-tidal">Tidal Cycles</a> </span></dt></dl></dd><dt> <span class="part">  <a href="index.xhtml#ch-hm-module">Home Manager</a> </span></dt><dt> <span class="part">  <a href="index.xhtml#ch-languages">Language Support</a> </span></dt><dd><dl><dt> <span class="section">  <a href="index.xhtml#sec-languages-custom-lsp-packages">LSP Custom Packages/Command</a> </span></dt></dl></dd><dt> <span class="part">  <a href="index.xhtml#ch-hacking">Hacking neovim-flake</a> </span></dt><dd><dl><dt> <span class="section">  <a href="index.xhtml#sec-contrib-getting-started">Getting Started</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-guidelines">Guidelines</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-testing-changes">Testing Changes</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-keybinds">Keybinds</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-additional-plugins">Adding Plugins</a> </span></dt></dl></dd><dt> <span class="appendix">  <a href="options.html">A. Neovim Flake Configuration Options</a> </span></dt> </dl></div>
+<div class="preface"> <div class="titlepage">  <div>   <div>    <h1 class="title" >     <a id="sec-preface"></a>Preface   </h1>  </div> </div></div><p>If you noticed a bug caused by neovim-flake then please consider reporting it over
+<a class="link" href="https://github.com/notashelf/neovim-flake/issues"  target="_top">the neovim-flake issue tracker</a>.
+Bugfixes, feature additions and upstreamed changes are welcome over
+<a class="link" href="https://github.com/notashelf/neovim-flake/pulls"  target="_top">the neovim-flake pull requests tab</a>.</p>
+</div><div class="preface"> <div class="titlepage">  <div>   <div>    <h1 class="title" >     <a id="ch-try-it-out"></a>Try it out   </h1>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-using-prebuild-configs">Using Prebuilt Configs</a> </span></dt> </dl></div><p>Thanks to the portability of Nix, you can try out neovim-flake without actually installing it to your machine.
+Below are the commands you may run to try out different configurations provided by this flake. As of v0.5, three
+configurations are provided:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Nix</p></li><li class="listitem"><p>Tidal</p></li><li class="listitem"><p>Maximal</p></li></ul></div><p>You may try out any of the provided configurations using the <code class="literal">nix run</code> command on a system where Nix is installed.</p><pre><code class="programlisting console">$ cachix use neovim-flake # Optional: it&#x27;ll save you CPU resources and time
+$ nix run github:notashelf/neovim-flake#nix # will run the default minimal configuration
+</code></pre><p>Do keep in mind that this is <span class="strong"><strong>susceptible to garbage collection</strong></span> meaning it will be removed from your Nix store
+once you garbage collect. If you wish to install neovim-flake, please take a look at
+<a class="link" href="index.xhtml#ch-custom-configuration" title="Custom Configuration" >custom-configuration</a> or <a class="link" href="index.xhtml#ch-hm-module" title="Home Manager" >home-manager</a> sections for installation
+instructions.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="sec-using-prebuild-configs"></a>Using Prebuilt Configs   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-available-configs">Available Configs</a> </span></dt> </dl></div><pre><code class="programlisting console">$ nix run github:notashelf/neovim-flake#nix
+$ nix run github:notashelf/neovim-flake#tidal
+$ nix run github:notashelf/neovim-flake#maximal
+</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-available-configs"></a>Available Configs   </h3>  </div> </div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="sec-configs-nix"></a>Nix   </h4>  </div> </div></div><p><code class="literal">Nix</code> configuration by default provides LSP/diagnostic support for Nix alongisde a set of visual and functional plugins.
+By running <code class="literal">nix run .</code>, which is the default package, you will build Neovim with this config.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="sec-configs-tidal"></a>Tidal   </h4>  </div> </div></div><p>Tidal is an alternative config that adds vim-tidal on top of the plugins from the Nix configuration.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="sec-configs-maximal"></a>Maximal   </h4>  </div> </div></div><p><code class="literal">Maximal</code> is the ultimate configuration that will enable support for more commonly used language as well as additional
+complementary plugins. Keep in mind, however, that this will pull a lot of dependencies.</p><p>You are <span class="emphasis"><em>strongly</em></span> recommended to use the binary cache if you would like to try the Maximal configuration.</p>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="part"> <div class="titlepage">  <div>   <div>    <h1 class="title" >     <a id="ch-custom-configuration"></a>Custom Configuration   </h1>  </div> </div></div><div class="partintro"><p>Custom configuration is done with the <code class="literal">neovimConfiguration</code> while using the flake as a standalone package.
+It takes in the configuration as a module. The output of the configuration function is an attrset.</p><pre><code class="programlisting nix">{
+  options = &quot;The options that were available to configure&quot;;
+  config = &quot;The outputted configuration&quot;;
+  pkgs = &quot;The package set used to evaluate the module&quot;;
+  neovim = &quot;The built neovim package&quot;;
+}
+</code></pre><p>The following is an example of a barebones vim configuration with the default theme enabled.</p><pre><code class="programlisting nix">{
+  inputs.neovim-flake = {
+    url = &quot;github:notashelf/neovim-flake&quot;;
+    inputs.nixpkgs.follows = &quot;nixpkgs&quot;;
+  };
+
+  outputs = {nixpkgs, neovim-flake, ...}: let
+    system = &quot;x86_64-linux&quot;;
+    pkgs = nixpkgs.legacyPackages.${system};
+    configModule = {
+      # Add any custom options (and feel free to upstream them!)
+      # options = ...
+
+      config.vim = {
+        theme.enable = true;
+      };
+    };
+
+    customNeovim = neovim-flake.lib.neovimConfiguration {
+      modules = [configModule];
+      inherit pkgs;
+    };
+  in {
+    # this will make the package available as a flake input
+    packages.${system}.neovim = customNeovim.neovim;
+
+    # this is an example nixosConfiguration using the built neovim package
+    nixosConfigurations = {
+      yourHostName = nixpkgs.lib.nixosSystem {
+        # ...
+        modules = [
+          ./configuration.nix # or whatever your configuration is
+
+          # this will make wrapped neovim available in your system packages
+          {environment.systemPackages = [customNeovim.neovim];}
+        ];
+        # ...
+      };
+    };
+  };
+}
+</code></pre><p>Your built neovim configuration can be exposed as a flake output, or be added to your system packages to make
+it available across your system. You may also consider passing the flake output to home-manager to make it available
+to a specific user <span class="emphasis"><em>without</em></span> using the home-manager module.</p></div>
+</div><div class="part"> <div class="titlepage">  <div>   <div>    <h1 class="title" >     <a id="ch-custom-package"></a>Custom Neovim Package   </h1>  </div> </div></div><div class="partintro"><p>As of v0.5, you may now specify the neovim package that will be wrapped with your configuration. This is done with the <code class="literal">vim.package</code> option.</p><pre><code class="programlisting nix">{inputs, pkgs, ...}: {
+  # using the neovim-nightly overlay
+  config.vim.package = inputs.neovim-overlay.packages.${pkgs.system}.neovim;
+}
+</code></pre><p>The neovim-nightly-overlay always exposes an unwrapped package. If using a different source, you are highly recommended to get an “unwrapped” version of the neovim package,similar to <code class="literal">neovim-unwrapped</code> in nixpkgs.</p></div>
+</div><div class="part"> <div class="titlepage">  <div>   <div>    <h1 class="title" >     <a id="ch-custom-plugins"></a>Custom Plugins   </h1>  </div> </div></div><div class="partintro"><p>You can use custom plugins, before they are implemented in the flake.
+To add a plugin, you need to add it to your config’s <code class="literal">config.vim.startPlugins</code> array.</p><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-new-method">New Method</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-old-method">Old Method</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#configuring-plugins">Configuring</a> </span></dt> </dl></div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-new-method"></a>New Method   </h2>  </div> </div></div><p>As of version 0.5, we have a more extensive API for configuring plugins, under <code class="literal">vim.extraPlugins</code>.</p><p>Instead of using DAGs exposed by the library, you may use the extra plugin module as follows:</p><pre><code class="programlisting nix">{
+  config.vim.extraPlugins = with pkgs.vimPlugins; {
+    aerial = {
+      package = aerial-nvim;
+      setup = &#x27;&#x27;
+        require(&#x27;aerial&#x27;).setup {
+          -- some lua configuration here
+        }
+      &#x27;&#x27;;
+    };
+
+    harpoon = {
+      package = harpoon;
+      setup = &quot;require(&#x27;harpoon&#x27;).setup {}&quot;;
+      after = [&quot;aerial&quot;];
+    };
+  };
+}
+</code></pre>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-old-method"></a>Old Method   </h2>  </div> </div></div><p>Users who have not yet updated to 0.5, or prefer a more hands-on approach may use the old method where the load order
+of the plugins is determined by DAGs.</p><pre><code class="programlisting nix">{
+  # fetch plugin source from GitHub and add it to startPlugins
+  config.vim.startPlugins = [
+    (pkgs.fetchFromGitHub {
+      owner = &quot;FrenzyExists&quot;;
+      repo = &quot;aquarium-vim&quot;;
+      rev = &quot;d09b1feda1148797aa5ff0dbca8d8e3256d028d5&quot;;
+      sha256 = &quot;CtyEhCcGxxok6xFQ09feWpdEBIYHH+GIFVOaNZx10Bs=&quot;;
+    })
+  ];
+}
+</code></pre>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="configuring-plugins"></a>Configuring   </h2>  </div> </div></div><p>Just making the plugin to your neovim configuration available might not always be enough.
+In that case, you can write custom vimscript or lua config, using <code class="literal">config.vim.configRC</code> or <code class="literal">config.vim.luaConfigRC</code>
+respectively. These options are attribute sets, and you need to give the configuration you’re adding some name, like this:</p><pre><code class="programlisting nix">{
+  # this will create an &quot;aquarium&quot; section in your init.vim with the contents of your custom config
+  # which will be *appended* to the rest of your configuration, inside your init.vim
+  config.vim.configRC.aquarium = &quot;colorscheme aquiarum&quot;;
+}
+</code></pre><div class="note"><h3 class="title">Note</h3><p>If your configuration needs to be put in a specific place in the config, you can use functions from
+<code class="literal">inputs.neovim-flake.lib.nvim.dag</code> to order it.
+Refer to https://github.com/nix-community/home-manager/blob/master/modules/lib/dag.nix to find out more about
+the DAG system.</p></div><p>Also, if you successfully made your plugin work, please make a PR to add it to the flake, or open an issue
+with your findings so that we can make it available for everyone easily.</p>
+</div>
+</div><div class="part"> <div class="titlepage">  <div>   <div>    <h1 class="title" >     <a id="ch-default-configs"></a>Default Configs   </h1>  </div> </div></div><div class="partintro"><p>While you can configure neovim-flake yourself using the builder, you can also use the pre-built configs that are available.
+Here are a few default configurations you can use.</p><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-default-maximal">Maximal</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-default-nix">Nix</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-default-tidal">Tidal Cycles</a> </span></dt> </dl></div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-default-maximal"></a>Maximal   </h2>  </div> </div></div><pre><code class="programlisting bash">$ nix shell github:notashelf/neovim-flake#maximal test.nix
+</code></pre><p>It is the same fully configured neovim as with the <a class="link" href="index.xhtml#sec-default-nix" title="Nix" >Nix</a> config, but with every supported language enabled.</p><p>::: note
+Running the maximal config will download <span class="emphasis"><em>a lot</em></span> of packages as it is downloading language servers, formatters, and more.
+:::</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-default-nix"></a>Nix   </h2>  </div> </div></div><pre><code class="programlisting bash">$ nix run github:notashelf/neovim-flake#nix test.nix
+</code></pre><p>Enables all the of neovim plugins, with language support for specifically Nix. This lets you see what a fully configured neovim setup looks like without downloading a whole bunch of language servers and associated tools.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-default-tidal"></a>Tidal Cycles   </h2>  </div> </div></div><pre><code class="programlisting bash">$ nix run github:notashelf/neovim-flake#tidal file.tidal
+</code></pre><p>Utilizing <a class="link" href="https://github.com/tidalcycles/vim-tidal"  target="_top">vim-tidal</a> and mitchmindtree’s fantastic
+<a class="link" href="https://github.com/mitchmindtree/tidalcycles.nix"  target="_top">tidalcycles.nix</a> start playing with tidal cycles in a single command.</p><p>In your tidal file, type a cycle e.g. <code class="literal">d1 $ s &quot;drum&quot;</code> and then press <span class="emphasis"><em>ctrl+enter</em></span>. Super collider with superdirt, and a
+modified GHCI with tidal will start up and begin playing. Note, you need jack enabled on your system. If you are using
+pipewire, its as easy as setting <code class="literal">services.pipewire.jack.enable = true</code> in your configuration.</p>
+</div>
+</div><div class="part"> <div class="titlepage">  <div>   <div>    <h1 class="title" >     <a id="ch-hm-module"></a>Home Manager   </h1>  </div> </div></div><div class="partintro"><p>The Home Manager module allows us to customize the different <code class="literal">vim</code> options from inside the home-manager configuration
+and it is the preferred way of configuring neovim-flake, both on NixOS and non-NixOS systems.</p><p>To use it, we first add the input flake.</p><pre><code class="programlisting nix">{
+  neovim-flake = {
+    url = github:notashelf/neovim-flake;
+    # you can override input nixpkgs
+    inputs.nixpkgs.follows = &quot;nixpkgs&quot;;
+    # you can also override individual plugins
+    # i.e inputs.obsidian-nvim.follows = &quot;obsidian-nvim&quot;; # &lt;- obsidian nvim needs to be in your inputs
+  };
+}
+</code></pre><p>Followed by importing the home-manager module somewhere in your configuration.</p><pre><code class="programlisting nix">{
+  # assuming neovim-flake is in your inputs and inputs is in the argset
+  imports = [ inputs.neovim-flake.homeManagerModules.default ];
+}
+</code></pre><p>An example installation for standalone home-manager would look like this:</p><pre><code class="programlisting nix">{
+  inputs = {
+    nixpkgs.url = &quot;github:NixOS/nixpkgs/nixos-unstable&quot;;
+    home-manager.url = &quot;github:nix-community/home-manager&quot;;
+    stylix.url = &quot;github:notashelf/neovim-flake&quot;;
+  };
+
+  outputs = { nixpkgs, home-manager, neovim-flake ... }: let
+  system = &quot;x86_64-linux&quot;; in {
+    # ↓ this is the home-manager output in the flake schema
+    homeConfigurations.&quot;yourUsername»&quot; = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      modules = [
+        neovim-flake.homeManagerModules.default # &lt;- this imports the home-manager module that provides the options
+        ./home.nix # your home-manager configuration, probably where you will want to add programs.neovim-flake options
+      ];
+    };
+  };
+}
+</code></pre><p>Once the module is imported, we will be able to define the following options (and much more) from inside the
+home-manager configuration.</p><pre><code class="programlisting nix{">  programs.neovim-flake = {
+
+    enable = true;
+    # your settings need to go into the settings attribute set
+    # most settings are documented in the appendix
+    settings = {
+      vim.viAlias = false;
+      vim.vimAlias = true;
+      vim.lsp = {
+        enable = true;
+      };
+    };
+  };
+}
+</code></pre><div class="note"><h3 class="title">Note</h3><p>You may find all avaliable options in the <a class="link" href="https://notashelf.github.io/neovim-flake/options"  target="_top">appendix</a></p></div></div>
+</div><div class="part"> <div class="titlepage">  <div>   <div>    <h1 class="title" >     <a id="ch-languages"></a>Language Support   </h1>  </div> </div></div><div class="partintro"><p>Language specific support means there is a combination of language specific plugins, <code class="literal">treesitter</code> support, <code class="literal">nvim-lspconfig</code> language servers, and <code class="literal">null-ls</code> integration. This gets you capabilities ranging from autocompletion to formatting to diagnostics. The following languages have sections under the <code class="literal">vim.languages</code> attribute. See the configuration docs for details.</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Rust: <a class="link" href="options.html#opt-vim.languages.rust.enable"  >vim.languages.rust.enable</a></p></li><li class="listitem"><p>Nix: <a class="link" href="options.html#opt-vim.languages.nix.enable"  >vim.languages.nix.enable</a></p></li><li class="listitem"><p>SQL: <a class="link" href="options.html#opt-vim.languages.sql.enable"  >vim.languages.sql.enable</a></p></li><li class="listitem"><p>C/C++: <a class="link" href="options.html#opt-vim.languages.clang.enable"  >vim.languages.clang.enable</a></p></li><li class="listitem"><p>Typescript/Javascript: <a class="link" href="options.html#opt-vim.languages.ts.enable"  >vim.languages.ts.enable</a></p></li><li class="listitem"><p>Python: <a class="link" href="options.html#opt-vim.languages.python.enable"  >vim.languages.python.enable</a>:</p></li><li class="listitem"><p>Zig: <a class="link" href="options.html#opt-vim.languages.zig.enable"  >vim.languages.zig.enable</a></p></li><li class="listitem"><p>Markdown: <a class="link" href="options.html#opt-vim.languages.markdown.enable"  >vim.languages.markdown.enable</a></p></li><li class="listitem"><p>HTML: <a class="link" href="options.html#opt-vim.languages.html.enable"  >vim.languages.html.enable</a></p></li><li class="listitem"><p>Dart: <a class="link" href="options.html#opt-vim.languages.dart.enable"  >vim.languages.dart.enable</a></p></li><li class="listitem"><p>Go: <a class="link" href="options.html#opt-vim.languages.go.enable"  >vim.languages.go.enable</a></p></li><li class="listitem"><p>Lua: <a class="link" href="options.html#opt-vim.languages.lua.enable"  >vim.languages.lua.enable</a></p></li><li class="listitem"><p>PHP: <a class="link" href="options.html#opt-vim.languages.php.enable"  >vim.languages.php.enable</a></p></li></ul></div><p>Adding support for more languages, and improving support for existing ones are great places
+where you can contribute with a PR.</p><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-languages-custom-lsp-packages">LSP Custom Packages/Command</a> </span></dt> </dl></div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-languages-custom-lsp-packages"></a>LSP Custom Packages/Command   </h2>  </div> </div></div><p>In any of the <code class="literal">opt.languages.&lt;language&gt;.lsp.package</code> options you can provide your own LSP package, or provide
+the command to launch the language server, as a list of strings.</p><p>You can use this to skip automatic installation of a language server, and instead
+use the one found in your <code class="literal">$PATH</code> during runtime, for example:</p><pre><code class="programlisting nix">vim.languages.java = {
+  lsp = {
+    enable = true;
+    package = [&quot;jdt-language-server&quot; &quot;-data&quot; &quot;~/.cache/jdtls/workspace&quot;];
+  };
+}
+</code></pre>
+</div>
+</div><div class="part"> <div class="titlepage">  <div>   <div>    <h1 class="title" >     <a id="ch-hacking"></a>Hacking neovim-flake   </h1>  </div> </div></div><div class="partintro"><p>neovim-flake is designed for developers as much as it is for the end user. I would like any potential contributor
+to be able to propagate their desired changes into the repository without the extra effort. As such, below are guides
+(and guidelines) to streamline the contribution process and ensure that your valuable input seamlessly integrates
+into neovim-flake’s development without leaving question marks in your head.</p><p>This section is mainly directed towards those who wish to contribute code into neovim-flake. If you wish to instead
+report a bug or discuss a potential feature implementation, first look among the
+already <a class="link" href="https://github.com/notashelf/neovim-flake/issues"  target="_top">open issues</a> and if no matching issue exists you may open
+a <a class="link" href="https://github.com/notashelf/neovim-flake/issues/new"  target="_top">new issue</a> and describe your problem/request. While creating an
+issue, please try to include as much information as you can, ideally also include relevant context in which an issue
+occurs or a feature should be implemented.</p><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-contrib-getting-started">Getting Started</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-guidelines">Guidelines</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-testing-changes">Testing Changes</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-keybinds">Keybinds</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-additional-plugins">Adding Plugins</a> </span></dt> </dl></div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-contrib-getting-started"></a>Getting Started   </h2>  </div> </div></div><p>You naturally would like to start by forking the repository. If you are new to git, have a look at GitHub’s
+<a class="link" href="https://help.github.com/articles/fork-a-repo/"  target="_top">Fork a repo guide</a> for instructions on how you can do this. Once you have a fork of neovim-flake
+you should create a branch starting at the most recent <code class="literal">main</code> branch.
+Give your branch a reasonably descriptive name, suffixed by its type - i.e <code class="literal">feature/debugger</code> or <code class="literal">fix/pesky-bug</code>.</p><p>Implement your changes and commit them to the newly created branch and when you are happy with the result and positive
+that it fulfills <a class="link" href="index.xhtml#sec-guidelines" title="Guidelines" >Guidelines</a>. Once you are confident everything is in order, push the branch to GitHub and
+<a class="link" href="https://help.github.com/articles/creating-a-pull-request"  target="_top">create a pull request</a>, following the template that you will be prompted to fill.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-guidelines"></a>Guidelines   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-guidelines-documentation">Adding Documentation</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-guidelines-formatting">Formatting Code</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-guidelines-commit-message-style">Formatting Commits</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-guidelines-commit-style">Commit Style</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-guidelines-ex-commit-message">Example Commit</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-guidelines-code-style">Code Style</a> </span></dt> </dl></div><p>If your contribution tightly follows the guidelines, then there is a good chance it will be merged without too much
+trouble. Some of the guidelines will be strictly enforced, others will remain as gentle nudges towards the correct
+direction. As we have no automated system enforcing those guidelines, please try to double check your changes before
+making your pull request in order to avoid “faulty” code slipping by.</p><p>If you are uncertain how these rules affect the change you would like to make then feel free to start a
+discussion in the <a class="link" href="https://github.com/NotAShelf/neovim-flake/discussions"  target="_top">discussions tab</a> ideally (but not necessarily)
+before you start developing.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-guidelines-documentation"></a>Adding Documentation   </h3>  </div> </div></div><p>Most, if not all, changes warrant changes to the documentation. Module options should be documented with
+<a class="link" href="https://nixos.org/manual/nixpkgs/unstable/#sec-contributing-markup"  target="_top">Nixpkgs-flavoured Markdown</a>, albeit with exceptions.</p><div class="note"><h3 class="title">Note</h3><p>As of v0.6, neovim-flake is itself documented using full markdown in both module options and the manual.</p></div><p>The HTML version of this manual containing both the module option descriptions and the documentation of neovim-flake
+(such as this page) can be generated and opened by typing the following in a shell within a clone of the
+neovim-flake Git repository:</p><pre><code class="programlisting console">$ nix build .#docs-html
+$ xdg-open $PWD/result/share/doc/neovim-flake/index.html
+</code></pre>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-guidelines-formatting"></a>Formatting Code   </h3>  </div> </div></div><p>Make sure your code is formatted as described in <a class="link" href="index.xhtml#sec-guidelines-code-style" title="Code Style" >code-style section</a>. To maintain consistency throughout
+the project you are encouraged to browse through existing code and adopt its style also in new code.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-guidelines-commit-message-style"></a>Formatting Commits   </h3>  </div> </div></div><p>Similar to <a class="link" href="index.xhtml#sec-guidelines-code-style" title="Code Style" >code style guidelines</a> we encourage a consistent commit message format as described
+in <a class="link" href="index.xhtml#sec-guidelines-commit-style" title="Commit Style" >commit style guidelines</a>.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-guidelines-commit-style"></a>Commit Style   </h3>  </div> </div></div><p>The commits in your pull request should be reasonably self-contained. Which means each and every commit in
+a pull request should make sense both on its own and in general context. That is, a second commit should not resolve
+an issue that is introduced in an earlier commit. In particular, you will be asked to amend any commit that
+introduces syntax errors or similar problems even if they are fixed in a later commit.</p><p>The commit messages should follow the {seven-rules}[seven rules], except for “Capitalize the subject line”.
+We also ask you to include the affected code component or module in the first line.
+A commit message ideally, but not necessarily, follow the given template from home-manager’s own documentation</p><pre><code class="programlisting">  {component}: {description}
+
+  {long description}
+</code></pre><p>where <code class="literal">{component}</code> refers to the code component (or module) your change affects, <code class="literal">{description}</code> is a very brief
+description of your change, and <code class="literal">{long description}</code> is an optional clarifying description. As a rare exception, if
+there is no clear component, or your change affects many components, then the <code class="literal">{component}</code> part is optional.
+See &lt;&lt;ex-commit-message&gt;&gt; for a commit message that fulfills these requirements.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-guidelines-ex-commit-message"></a>Example Commit   </h3>  </div> </div></div><p>The commit {example-commit-message}[69f8e47e9e74c8d3d060ca22e18246b7f7d988ef] contains the commit message</p><pre><code class="programlisting">
+starship: allow running in Emacs if vterm is used
+
+The vterm buffer is backed by libvterm and can handle Starship prompts
+without issues.
+
+</code></pre><p>Long description can be ommitted if the change is too simple to warrant it. A minor fix in spelling or a formatting
+change does not warrant long description, however, a module addition or removal does as you would like to provide the
+relevant context for your changes.</p><p>Finally, when adding a new module, say <code class="literal">modules/foo.nix</code>, we use the fixed commit format <code class="literal">foo: add module</code>.
+You can, of course, still include a long description if you wish.</p><p>In case of nested modules, i.e <code class="literal">modules/languages/java.nix</code> you are recommended to contain the parent as well - for
+example <code class="literal">languages/java: some major change</code>.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-guidelines-code-style"></a>Code Style   </h3>  </div> </div></div><p><span class="strong"><strong>Treewide</strong></span>
+Keep lines at a reasonable width, ideally 80 characters or less. This also applies to string literals and module
+descriptions and documentation.</p><p><span class="strong"><strong>Nix</strong></span>
+neovim-flake is formatted by the <a class="link" href="https://github.com/kamadorueda/alejandra"  target="_top">alejandra</a> tool and the formatting is checked in the pull
+request and push workflows. Run the <code class="literal">nix fmt</code> command inside the project repository before submitting your
+pull request.</p><p>While Alejandra is mostly opinionated on how code looks after formatting, certain changes are done at the
+user’s discretion based on how the original code was structured.</p><p>Please use one line code for attribute sets that contain only one subset.
+For example:</p><pre><code class="programlisting nix"># parent modules should always be unfolded
+# which means module = { value = ... } instead of module.value = { ... }
+module = {
+  value = mkEnableOption &quot;some description&quot; // { default = true; }; # merges can be done inline where possible
+
+    # same as parent modules, unfold submodules
+    subModule = {
+        # this is an option that contains more than one nested value
+        someOtherValue = mkOption {
+            type = lib.types.bool;
+            description = &quot;Some other description&quot;;
+            default = true;
+        };
+    };
+}
+</code></pre><p>If you move a line down after the merge operator, Alejandra will automatically unfold the whole merged attrset
+for you, which we <span class="strong"><strong>do not</strong></span> want.</p><pre><code class="programlisting nix">module = {
+  key = mkEnableOption &quot;some description&quot; // {
+    default = true; # we want this to be inline
+  }; # ...
+}
+</code></pre><p>For lists, it is mostly up to your own discretion how you want to format them, but please try to unfold lists if
+they contain multiple items and especially if they are to include comments.</p><pre><code class="programlisting nix">
+# this is ok
+
+acceptableList = [
+  item1 # comment
+  item2
+  item3 # some other comment
+  item4
+];
+
+# this is not ok
+listToBeAvoided = [item1 item2 /* comment */ item3 item4];
+
+# this is ok
+acceptableList = [item1];
+
+# this is not ok
+listToBeAvoided = [
+  item1
+];
+</code></pre>
+</div>
+
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-testing-changes"></a>Testing Changes   </h2>  </div> </div></div><p>Once you have made your changes, you will need to test them throughly. If it is a module, add your module option to
+<code class="literal">configuration.nix</code> (located in the root of this project) inside <code class="literal">neovimConfiguration</code>. Enable it, and then run the
+maximal configuration with <code class="literal">nix run .#maximal -Lv</code> to check for build errors. If neovim opens in the current directory
+without any error messages (you can check the output of <code class="literal">:messages</code> inside neovim to see if there are any errors), then
+your changes are good to go. Open your pull request, and it will be reviewed as soon as posssible.</p><p>If it is not a new module, but a change to an existing one, then make sure the module you have changed is enabled in the
+maximal configuration by editing <code class="literal">configuration.nix</code>, and then run it with <code class="literal">nix run .#maximal -Lv</code>. Same procedure as
+adding a new module will apply here.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-keybinds"></a>Keybinds   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-custom-key-mappings">Custom Key Mappings Support for a Plugin</a> </span></dt> </dl></div><p>As of 0.4, there exists an API for writing your own keybinds and a couple of useful utility functions are available in
+the https://github.com/NotAShelf/neovim-flake/tree/main/lib[extended standard library]. The following section contains
+a general overview to how you may utilize said functions.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-custom-key-mappings"></a>Custom Key Mappings Support for a Plugin   </h3>  </div> </div></div><p>:maps: https://notashelf.github.io/neovim-flake/options.html#opt-vim.maps.command.<span class="emphasis"><em>name</em></span>.action</p><p>To set a mapping, you should define it in <code class="literal">vim.maps.&lt;&lt;mode&gt;&gt;</code>.
+The available modes are:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>normal</p></li><li class="listitem"><p>insert</p></li><li class="listitem"><p>select</p></li><li class="listitem"><p>visual</p></li><li class="listitem"><p>terminal</p></li><li class="listitem"><p>normalVisualOp</p></li><li class="listitem"><p>visualOnly</p></li><li class="listitem"><p>operator</p></li><li class="listitem"><p>insertCommand</p></li><li class="listitem"><p>lang</p></li><li class="listitem"><p>command</p></li></ul></div><p>An example, simple keybinding, can look like this:</p><pre><code class="programlisting nix">{
+  vim.maps.normal = {
+    &quot;&lt;leader&gt;wq&quot; = {
+      action = &quot;:wq&lt;CR&gt;&quot;;
+      silent = true;
+      desc = &quot;Save file and quit&quot;;
+    };
+  };
+}
+</code></pre><p>There are many settings available in the options. Please refer to the {maps}[documentation] to see a list of them.</p><p><code class="literal">neovim-flake</code> provides a list of helper commands, so that you don’t have to write the mapping attribute sets every
+time:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">mkBinding = key: action: desc:</code> - makes a basic binding, with <code class="literal">silent</code> set to true.</p></li><li class="listitem"><p><code class="literal">mkExprBinding = key: action: desc:</code> - makes an expression binding, with <code class="literal">lua</code>, <code class="literal">silent</code>, and <code class="literal">expr</code> set to true.</p></li><li class="listitem"><p><code class="literal">mkLuaBinding = key: action: desc:</code> - makes an expression binding, with <code class="literal">lua</code>, and <code class="literal">silent</code> set to true.</p></li></ul></div><p>Note that the Lua in these bindings is actual Lua, not pasted into a <code class="literal">:lua</code> command.
+Therefore, you either pass in a function like <code class="literal">require(&#x27;someplugin&#x27;).some_function</code>, without actually calling it,
+or you define your own function, like <code class="literal">function() require(&#x27;someplugin&#x27;).some_function() end</code>.</p><p>Additionally, to not have to repeat the descriptions, there’s another utility function with its own set of functions:</p><p>Utility function that takes two attrsets:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">{ someKey = &quot;some_value&quot; }</code></p></li><li class="listitem"><p><code class="literal">{ someKey = { description = &quot;Some Description&quot;; }; }</code></p></li></ul></div><p>and merges them into <code class="literal">{ someKey = { value = &quot;some_value&quot;; description = &quot;Some Description&quot;; }; }</code></p><pre><code class="programlisting">addDescriptionsToMappings = actualMappings: mappingDefinitions:
+</code></pre><p>This function can be used in combination with the same <code class="literal">mkBinding</code> functions as above, except they only take two
+arguments - <code class="literal">binding</code> and <code class="literal">action</code>, and have different names:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">mkSetBinding = binding: action:</code> - makes a basic binding, with <code class="literal">silent</code> set to true.</p></li><li class="listitem"><p><code class="literal">mkSetExprBinding = binding: action:</code> - makes an expression binding, with <code class="literal">lua</code>, <code class="literal">silent</code>, and <code class="literal">expr</code> set to true.</p></li><li class="listitem"><p><code class="literal">mkSetLuaBinding = binding: action:</code> - makes an expression binding, with <code class="literal">lua</code>, and <code class="literal">silent</code> set to true.</p></li></ul></div><p>You can read the source code of some modules to see them in action, but their usage should look something like this:</p><pre><code class="programlisting nix">
+# plugindefinition.nix
+{lib, ...}: with lib; {
+  options.vim.plugin = {
+    enable = mkEnableOption &quot;Enable plugin&quot;;
+
+    # Mappings should always be inside an attrset called mappings
+    mappings = {
+      # mkMappingOption is a helper function from lib,
+      # that takes a description (which will also appear in which-key),
+      # and a default mapping (which can be null)
+      toggleCurrentLine = mkMappingOption &quot;Toggle current line comment&quot; &quot;gcc&quot;;
+      toggleCurrentBlock = mkMappingOption &quot;Toggle current block comment&quot; &quot;gbc&quot;;
+
+      toggleOpLeaderLine = mkMappingOption &quot;Toggle line comment&quot; &quot;gc&quot;;
+      toggleOpLeaderBlock = mkMappingOption &quot;Toggle block comment&quot; &quot;gb&quot;;
+
+      toggleSelectedLine = mkMappingOption &quot;Toggle selected comment&quot; &quot;gc&quot;;
+      toggleSelectedBlock = mkMappingOption &quot;Toggle selected block&quot; &quot;gb&quot;;
+    };
+
+  };
+}
+
+</code></pre><pre><code class="programlisting nix">
+# config.nix
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+  with lib;
+  with builtins; let
+    cfg = config.vim.plugin;
+    self = import ./plugindefinition.nix {inherit lib;};
+    mappingDefinitions = self.options.vim.plugin;
+
+    # addDescriptionsToMappings is a helper function from lib,
+    # that merges mapping values and their descriptions
+    # into one nice attribute set
+    mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
+in {
+  config = mkIf (cfg.enable) {
+    # ...
+    vim.maps.normal = mkMerge [
+      # mkSetBinding is another helper function from lib,
+      # that actually adds the mapping with a description.
+      (mkSetBinding mappings.findFiles &quot;&lt;cmd&gt; Telescope find_files&lt;CR&gt;&quot;)
+      (mkSetBinding mappings.liveGrep &quot;&lt;cmd&gt; Telescope live_grep&lt;CR&gt;&quot;)
+      (mkSetBinding mappings.buffers &quot;&lt;cmd&gt; Telescope buffers&lt;CR&gt;&quot;)
+      (mkSetBinding mappings.helpTags &quot;&lt;cmd&gt; Telescope help_tags&lt;CR&gt;&quot;)
+      (mkSetBinding mappings.open &quot;&lt;cmd&gt; Telescope&lt;CR&gt;&quot;)
+
+      (mkSetBinding mappings.gitCommits &quot;&lt;cmd&gt; Telescope git_commits&lt;CR&gt;&quot;)
+      (mkSetBinding mappings.gitBufferCommits &quot;&lt;cmd&gt; Telescope git_bcommits&lt;CR&gt;&quot;)
+      (mkSetBinding mappings.gitBranches &quot;&lt;cmd&gt; Telescope git_branches&lt;CR&gt;&quot;)
+      (mkSetBinding mappings.gitStatus &quot;&lt;cmd&gt; Telescope git_status&lt;CR&gt;&quot;)
+      (mkSetBinding mappings.gitStash &quot;&lt;cmd&gt; Telescope git_stash&lt;CR&gt;&quot;)
+
+      (mkIf config.vim.lsp.enable (mkMerge [
+        (mkSetBinding mappings.lspDocumentSymbols &quot;&lt;cmd&gt; Telescope lsp_document_symbols&lt;CR&gt;&quot;)
+        (mkSetBinding mappings.lspWorkspaceSymbols &quot;&lt;cmd&gt; Telescope lsp_workspace_symbols&lt;CR&gt;&quot;)
+
+        (mkSetBinding mappings.lspReferences &quot;&lt;cmd&gt; Telescope lsp_references&lt;CR&gt;&quot;)
+        (mkSetBinding mappings.lspImplementations &quot;&lt;cmd&gt; Telescope lsp_implementations&lt;CR&gt;&quot;)
+        (mkSetBinding mappings.lspDefinitions &quot;&lt;cmd&gt; Telescope lsp_definitions&lt;CR&gt;&quot;)
+        (mkSetBinding mappings.lspTypeDefinitions &quot;&lt;cmd&gt; Telescope lsp_type_definitions&lt;CR&gt;&quot;)
+        (mkSetBinding mappings.diagnostics &quot;&lt;cmd&gt; Telescope diagnostics&lt;CR&gt;&quot;)
+      ]))
+
+      (
+        mkIf config.vim.treesitter.enable
+        (mkSetBinding mappings.treesitter &quot;&lt;cmd&gt; Telescope treesitter&lt;CR&gt;&quot;)
+      )
+    ];
+    # ...
+  };
+}
+
+</code></pre><div class="note"><h3 class="title">Note</h3><p>If you have come across a plugin that has an API that doesn’t seem to easily allow custom keybindings,
+don’t be scared to implement a draft PR. We’ll help you get it done.</p></div>
+</div>
+
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-additional-plugins"></a>Adding Plugins   </h2>  </div> </div></div><p>To add a new neovim plugin, first add the source url in the inputs section of <code class="literal">flake.nix</code></p><pre><code class="programlisting nix">
+{
+  inputs = {
+    # ...
+    neodev-nvim = {
+      url = &quot;github:folke/neodev.nvim&quot;;
+      flake = false;
+    };
+    # ...
+  };
+}
+</code></pre><p>Then add the name of the plugin into the <code class="literal">availablePlugins</code> variable in <code class="literal">lib/types/plugins.nix</code>:</p><pre><code class="programlisting nix"># ...
+availablePlugins = [
+  # ...
+  &quot;neodev-nvim&quot;
+];
+</code></pre><p>You can now reference this plugin using its string name:</p><pre><code class="programlisting nix">config.vim.startPlugins = [&quot;neodev-nvim&quot;];
+</code></pre>
+</div>
+</div>
+ </div>
+  <div class="navfooter">
+   <hr />
+   <table width="100%" summary="Navigation footer">
+    <tr>
+    <td width="40%" align="left">&nbsp;</td>
+    <td width="20%" align="center">&nbsp;</td>
+    <td width="40%" align="right">&nbsp;<a accesskey="n" href="options.html">Next</a></td>
+    </tr>
+    <tr>
+     <td width="40%" align="left" valign="top">&nbsp;</td>
+     <td width="20%" align="center">&nbsp;</td>
+     <td width="40%" align="right" valign="top">&nbsp;Appendix A. Neovim Flake Configuration Options</td>
+    </tr>
+   </table>
+  </div>
+ </body>
+</html>
