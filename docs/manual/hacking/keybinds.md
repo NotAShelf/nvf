@@ -1,12 +1,10 @@
 # Keybinds {#sec-keybinds}
 
 As of 0.4, there exists an API for writing your own keybinds and a couple of useful utility functions are available in
-the https://github.com/NotAShelf/neovim-flake/tree/main/lib[extended standard library]. The following section contains
+the [extended standard library](https://github.com/NotAShelf/neovim-flake/tree/main/lib). The following section contains
 a general overview to how you may utilize said functions.
 
 ## Custom Key Mappings Support for a Plugin {#sec-custom-key-mappings}
-
-:maps: https://notashelf.github.io/neovim-flake/options.html#opt-vim.maps.command._name_.action
 
 To set a mapping, you should define it in `vim.maps.<<mode>>`.
 The available modes are:
@@ -37,7 +35,9 @@ An example, simple keybinding, can look like this:
 }
 ```
 
-There are many settings available in the options. Please refer to the {maps}[documentation] to see a list of them.
+There are many settings available in the options. Please refer to the
+[documentation](https://notashelf.github.io/neovim-flake/options.html#opt-vim.maps.command._name_.action)
+to see a list of them.
 
 `neovim-flake` provides a list of helper commands, so that you don't have to write the mapping attribute sets every
 time:

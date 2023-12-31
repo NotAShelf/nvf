@@ -10,10 +10,9 @@
 }:
 stdenv.mkDerivation {
   name = "neovim-flake-manual";
+  src = ./manual;
 
   nativeBuildInputs = [nixos-render-docs];
-
-  src = ./manual;
 
   buildPhase = ''
     mkdir -p out/media
@@ -35,9 +34,11 @@ stdenv.mkDerivation {
         '@VERSION@' \
         ${revision}
 
-    cp ${nmd}/static/style.css out/style.css
-    cp -t out/highlightjs ${nmd}/static/highlightjs/tomorrow-night.min.css
-    cp ${./highlight-style.css} out/highlightjs/highlight-style.css
+    cp -v ${nmd}/static/style.css out/style.css
+    cp -vt out/highlightjs ${nmd}/static/highlightjs/tomorrow-night.min.css
+    cp -v ${./highlight-style.css} out/highlightjs/highlight-style.css
+
+    cp -vr ${./release-notes} release-notes
 
     nixos-render-docs manual html \
       --manpage-urls ./manpage-urls.json \
