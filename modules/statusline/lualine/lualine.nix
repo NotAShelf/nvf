@@ -7,14 +7,36 @@
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) int bool str listOf enum;
   inherit (lib.lists) optional;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 
   supported_themes = import ./supported_themes.nix;
   colorPuccin =
     if config.vim.statusline.lualine.theme == "catppuccin"
     then "#181825"
     else "none";
+  tempDesc = "see plugin docs for more info";
 in {
   options.vim.statusline.lualine = {
+    setupOpts = mkPluginSetupOption "Lualine" {
+      options = {
+        disabled_filetypes = mkOption {
+          description = tempDesc;
+          type = listOf str;
+          default = ["alpha"];
+        };
+        always_divide_middle = mkOption {
+          description = tempDesc;
+          type = bool;
+          default = true;
+        };
+        ignore_focus = mkOption {
+          description = tempDesc;
+          type = listOf str;
+          default = ["NvimTree"];
+        };
+      };
+    };
+
     enable = mkEnableOption "lualine statusline plugin";
 
     icons = {
