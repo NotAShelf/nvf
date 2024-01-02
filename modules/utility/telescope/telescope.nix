@@ -1,6 +1,62 @@
-{lib, ...}: let
-  inherit (lib.options) mkEnableOption;
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.types) int str listOf float bool;
   inherit (lib.nvim.binds) mkMappingOption;
+  inherit (lib.nvim.types) mkPluginSetupOption;
+  mkOptOfType = type: default:
+    mkOption {
+      # TODO: description
+      description = "See plugin docs for more info";
+      inherit type default;
+    };
+
+  setupOptions = {
+    defaults = {
+      vimgrep_arguments = mkOptOfType (listOf str) [
+        "${pkgs.ripgrep}/bin/rg"
+        "--color=never"
+        "--no-heading"
+        "--with-filename"
+        "--line-number"
+        "--column"
+        "--smart-case"
+        "--hidden"
+        "--no-ignore"
+      ];
+      pickers.find_command = mkOptOfType (listOf str) ["${pkgs.fd}/bin/fd"];
+      prompt_prefix = mkOptOfType str "     ";
+      selection_caret = mkOptOfType str "  ";
+      entry_prefix = mkOptOfType str "  ";
+      initial_mode = mkOptOfType str "insert";
+      selection_strategy = mkOptOfType str "reset";
+      sorting_strategy = mkOptOfType str "ascending";
+      layout_strategy = mkOptOfType str "horizontal";
+      layout_config = {
+        horizontal = {
+          prompt_position = mkOptOfType str "top";
+          preview_width = mkOptOfType float 0.55;
+          results_width = mkOptOfType float 0.8;
+        };
+        vertical = {
+          mirror = mkOptOfType bool false;
+        };
+        width = mkOptOfType float 0.8;
+        height = mkOptOfType float 0.8;
+        preview_cutoff = mkOptOfType int 120;
+      };
+      file_ignore_patterns = mkOptOfType (listOf str) ["node_modules" ".git/" "dist/" "build/" "target/" "result/"];
+      color_devicons = mkOptOfType bool true;
+      path_display = mkOptOfType (listOf str) ["absolute"];
+      set_env = {
+        COLORTERM = mkOptOfType str "truecolor";
+      };
+      winblend = mkOptOfType int 0;
+    };
+  };
 in {
   options.vim.telescope = {
     mappings = {
@@ -30,5 +86,7 @@ in {
     };
 
     enable = mkEnableOption "telescope.nvim: multi-purpose search and picker utility";
+
+    setupOpts = mkPluginSetupOption "Telescope" setupOptions;
   };
 }

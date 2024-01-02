@@ -11,7 +11,7 @@
   inherit (lib) pushDownDefault;
 
   cfg = config.vim.telescope;
-  self = import ./telescope.nix {inherit lib;};
+  self = import ./telescope.nix {inherit pkgs lib;};
   mappingDefinitions = self.options.vim.telescope.mappings;
 
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
@@ -66,52 +66,7 @@ in {
 
     vim.luaConfigRC.telescope = entryAnywhere ''
       local telescope = require('telescope')
-      telescope.setup {
-        defaults = {
-          vimgrep_arguments = {
-            "${pkgs.ripgrep}/bin/rg",
-            "--color=never",
-            "--no-heading",
-            "--with-filename",
-            "--line-number",
-            "--column",
-            "--smart-case",
-            "--hidden",
-            "--no-ignore",
-          },
-          pickers = {
-            find_command = {
-              "${pkgs.fd}/bin/fd",
-            },
-          },
-        },
-        prompt_prefix = "     ",
-        selection_caret = "  ",
-        entry_prefix = "  ",
-        initial_mode = "insert",
-        selection_strategy = "reset",
-        sorting_strategy = "ascending",
-        layout_strategy = "horizontal",
-        layout_config = {
-          horizontal = {
-            prompt_position = "top",
-            preview_width = 0.55,
-            results_width = 0.8,
-          },
-          vertical = {
-            mirror = false,
-          },
-          width = 0.8,
-          height = 0.8,
-          preview_cutoff = 120,
-        },
-        file_ignore_patterns = { "node_modules", ".git/", "dist/", "build/", "target/", "result/" }, -- TODO: make this configurable
-        color_devicons = true,
-        path_display = { "absolute" },
-        set_env = { ["COLORTERM"] = "truecolor" },
-        winblend = 0,
-        border = {},
-      }
+      telescope.setup(${nvim.lua.toLuaObject cfg.setupOpts})
 
       ${
         if config.vim.ui.noice.enable
