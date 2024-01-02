@@ -3,10 +3,12 @@
   lib,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption types literalExpression;
+  inherit (lib) mkEnableOption mkOption types literalExpression nvim;
 in {
   options.vim.filetree.nvimTree = {
     enable = mkEnableOption "filetree via nvim-tree.lua";
+
+    setupOpts = nvim.types.mkPluginSetupOption "Nvim Tree" {};
 
     mappings = {
       toggle = mkOption {

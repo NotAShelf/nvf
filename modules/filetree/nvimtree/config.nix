@@ -9,13 +9,14 @@
   inherit (lib.trivial) boolToString;
   inherit (lib.nvim.binds) mkBinding;
   inherit (lib.nvim.dag) entryAnywhere;
-  inherit (lib.nvim.lua) listToLuaTable expToLua;
+  inherit (lib.nvim.lua) listToLuaTable expToLua toLuaObject;
   # TODO: move this to its own module
   inherit (lib) pushDownDefault;
 
   cfg = config.vim.filetree.nvimTree;
   self = import ./nvimtree.nix {inherit pkgs lib;};
   inherit (self.options.vim.filetree.nvimTree) mappings;
+  rawLua = code: {__raw = code;};
 in {
   config = mkIf cfg.enable {
     vim.startPlugins = ["nvim-tree-lua"];
@@ -40,237 +41,7 @@ in {
         ''
       }
 
-      require'nvim-tree'.setup({
-        disable_netrw = ${boolToString cfg.disableNetrw},
-        hijack_netrw = ${boolToString cfg.hijackNetrw},
-        auto_reload_on_write = ${boolToString cfg.autoreloadOnWrite},
-
-        sort = {
-          sorter = "${cfg.sort.sorter}",
-          folders_first = ${boolToString cfg.sort.foldersFirst},
-        },
-
-        hijack_unnamed_buffer_when_opening = ${boolToString cfg.hijackUnnamedBufferWhenOpening},
-        hijack_cursor = ${boolToString cfg.hijackCursor},
-        root_dirs = ${listToLuaTable cfg.rootDirs},
-        prefer_startup_root = ${boolToString cfg.preferStartupRoot},
-        sync_root_with_cwd = ${boolToString cfg.syncRootWithCwd},
-        reload_on_bufenter = ${boolToString cfg.reloadOnBufEnter},
-        respect_buf_cwd = ${boolToString cfg.respectBufCwd},
-
-        hijack_directories = {
-          enable = ${boolToString cfg.hijackDirectories.enable},
-          auto_open = ${boolToString cfg.hijackDirectories.autoOpen},
-        },
-
-        update_focused_file = {
-          enable = ${boolToString cfg.updateFocusedFile.enable},
-          update_root = ${boolToString cfg.updateFocusedFile.updateRoot},
-          ignore_list = ${listToLuaTable cfg.updateFocusedFile.ignoreList},
-        },
-
-        system_open = {
-          cmd = "${cfg.systemOpen.cmd}",
-          args = ${listToLuaTable cfg.systemOpen.args},
-        },
-
-        diagnostics = {
-          enable = ${boolToString cfg.diagnostics.enable},
-          icons = {
-            hint = "${cfg.diagnostics.icons.hint}",
-            info = "${cfg.diagnostics.icons.info}",
-            warning = "${cfg.diagnostics.icons.warning}",
-            error = "${cfg.diagnostics.icons.error}",
-          },
-
-          severity = {
-            min = vim.diagnostic.severity.${cfg.diagnostics.severity.min},
-            max = vim.diagnostic.severity.${cfg.diagnostics.severity.max},
-          },
-        },
-
-        git = {
-          enable = ${boolToString cfg.git.enable},
-          show_on_dirs = ${boolToString cfg.git.showOnDirs},
-          show_on_open_dirs = ${boolToString cfg.git.showOnOpenDirs},
-          disable_for_dirs = ${listToLuaTable cfg.git.disableForDirs},
-          timeout = ${toString cfg.git.timeout},
-        },
-
-        modified = {
-          enable = ${boolToString cfg.modified.enable},
-          show_on_dirs = ${boolToString cfg.modified.showOnDirs},
-          show_on_open_dirs = ${boolToString cfg.modified.showOnOpenDirs},
-        },
-
-        filesystem_watchers = {
-          enable = ${boolToString cfg.filesystemWatchers.enable},
-          debounce_delay = ${toString cfg.filesystemWatchers.debounceDelay},
-          ignore_dirs = ${listToLuaTable cfg.filesystemWatchers.ignoreDirs},
-        },
-
-        select_prompts = ${boolToString cfg.selectPrompts},
-
-        view = {
-          centralize_selection = ${boolToString cfg.view.centralizeSelection},
-          cursorline = ${boolToString cfg.view.cursorline},
-          debounce_delay = ${toString cfg.view.debounceDelay},
-          width = ${expToLua cfg.view.width},
-          side = "${cfg.view.side}",
-          preserve_window_proportions = ${boolToString cfg.view.preserveWindowProportions},
-          number = ${boolToString cfg.view.number},
-          relativenumber = ${boolToString cfg.view.relativenumber},
-          signcolumn = "${cfg.view.signcolumn}",
-          float = {
-            enable = ${boolToString cfg.view.float.enable},
-            quit_on_focus_loss = ${boolToString cfg.view.float.quitOnFocusLoss},
-            open_win_config = {
-              relative = "${cfg.view.float.openWinConfig.relative}",
-              border = "${cfg.view.float.openWinConfig.border}",
-              width = ${toString cfg.view.float.openWinConfig.width},
-              height = ${toString cfg.view.float.openWinConfig.height},
-              row = ${toString cfg.view.float.openWinConfig.row},
-              col = ${toString cfg.view.float.openWinConfig.col},
-            },
-          },
-        },
-
-        renderer = {
-          add_trailing = ${boolToString cfg.renderer.addTrailing},
-          group_empty = ${boolToString cfg.renderer.groupEmpty},
-          full_name = ${boolToString cfg.renderer.fullName},
-          highlight_git = ${boolToString cfg.renderer.highlightGit},
-          highlight_opened_files = ${cfg.renderer.highlightOpenedFiles},
-          highlight_modified = ${cfg.renderer.highlightModified},
-          root_folder_label = ${expToLua cfg.renderer.rootFolderLabel},
-          indent_width = ${toString cfg.renderer.indentWidth},
-          indent_markers = {
-            enable = ${boolToString cfg.renderer.indentMarkers.enable},
-            inline_arrows = ${boolToString cfg.renderer.indentMarkers.inlineArrows},
-            icons = ${expToLua cfg.renderer.indentMarkers.icons},
-          },
-
-          special_files = ${listToLuaTable cfg.renderer.specialFiles},
-          symlink_destination = ${boolToString cfg.renderer.symlinkDestination},
-
-          icons = {
-            webdev_colors = ${boolToString cfg.renderer.icons.webdevColors},
-            git_placement = "${cfg.renderer.icons.gitPlacement}",
-            modified_placement = "${cfg.renderer.icons.modifiedPlacement}",
-            padding = "${cfg.renderer.icons.padding}",
-            symlink_arrow = "${cfg.renderer.icons.symlinkArrow}",
-
-            show = {
-              git = ${boolToString cfg.renderer.icons.show.git},
-              folder = ${boolToString cfg.renderer.icons.show.folder},
-              folder_arrow = ${boolToString cfg.renderer.icons.show.folderArrow},
-              file = ${boolToString cfg.renderer.icons.show.file},
-              modified = ${boolToString cfg.renderer.icons.show.modified},
-            },
-
-            glyphs = {
-              default = "${cfg.renderer.icons.glyphs.default}",
-              symlink = "${cfg.renderer.icons.glyphs.symlink}",
-              modified = "${cfg.renderer.icons.glyphs.modified}",
-
-              folder = {
-                default = "${cfg.renderer.icons.glyphs.folder.default}",
-                open = "${cfg.renderer.icons.glyphs.folder.open}",
-                arrow_open = "${cfg.renderer.icons.glyphs.folder.arrowOpen}",
-                arrow_closed = "${cfg.renderer.icons.glyphs.folder.arrowClosed}",
-                empty = "${cfg.renderer.icons.glyphs.folder.empty}",
-                empty_open = "${cfg.renderer.icons.glyphs.folder.emptyOpen}",
-                symlink = "${cfg.renderer.icons.glyphs.folder.symlink}",
-                symlink_open = "${cfg.renderer.icons.glyphs.folder.symlinkOpen}",
-              },
-
-              git = {
-                unstaged = "${cfg.renderer.icons.glyphs.git.unstaged}",
-                staged = "${cfg.renderer.icons.glyphs.git.staged}",
-                unmerged = "${cfg.renderer.icons.glyphs.git.unmerged}",
-                renamed = "${cfg.renderer.icons.glyphs.git.renamed}",
-                untracked = "${cfg.renderer.icons.glyphs.git.untracked}",
-                deleted = "${cfg.renderer.icons.glyphs.git.deleted}",
-                ignored = "${cfg.renderer.icons.glyphs.git.ignored}",
-              },
-            },
-          },
-        },
-
-        filters = {
-          git_ignored = ${boolToString cfg.filters.gitIgnored},
-          dotfiles = ${boolToString cfg.filters.dotfiles},
-          git_clean = ${boolToString cfg.filters.gitClean},
-          no_buffer = ${boolToString cfg.filters.noBuffer},
-          exclude = ${listToLuaTable cfg.filters.exclude},
-        },
-
-        trash = {
-          cmd = "${cfg.trash.cmd}",
-        },
-
-        actions = {
-          use_system_clipboard = ${boolToString cfg.actions.useSystemClipboard},
-          change_dir = {
-            enable = ${boolToString cfg.actions.changeDir.enable},
-            global = ${boolToString cfg.actions.changeDir.global},
-            restrict_above_cwd = ${boolToString cfg.actions.changeDir.restrictAboveCwd},
-          },
-
-          expand_all = {
-            max_folder_discovery = ${toString cfg.actions.expandAll.maxFolderDiscovery},
-            exclude = ${listToLuaTable cfg.actions.expandAll.exclude},
-          },
-
-          file_popup = {
-            open_win_config = ${expToLua cfg.actions.filePopup.openWinConfig},
-          },
-
-          open_file = {
-            quit_on_open = ${boolToString cfg.actions.openFile.quitOnOpen},
-            eject = ${boolToString cfg.actions.openFile.eject},
-            resize_window = ${boolToString cfg.actions.openFile.resizeWindow},
-            window_picker = {
-              enable = ${boolToString cfg.actions.openFile.windowPicker.enable},
-              picker = "${cfg.actions.openFile.windowPicker.picker}",
-              chars = "${cfg.actions.openFile.windowPicker.chars}",
-              exclude = {
-                filetype = ${listToLuaTable cfg.actions.openFile.windowPicker.exclude.filetype},
-                buftype = ${listToLuaTable cfg.actions.openFile.windowPicker.exclude.buftype},
-              },
-            },
-          },
-
-          remove_file = {
-            close_window = ${boolToString cfg.actions.removeFile.closeWindow},
-          },
-        },
-
-        live_filter = {
-          prefix = "${cfg.liveFilter.prefix}",
-          always_show_folders = ${boolToString cfg.liveFilter.alwaysShowFolders},
-        },
-
-        tab = {
-          sync = {
-            open = ${boolToString cfg.tab.sync.open},
-            close = ${boolToString cfg.tab.sync.close},
-            ignore = ${listToLuaTable cfg.tab.sync.ignore},
-          },
-        },
-
-        notify = {
-          threshold = vim.log.levels.${cfg.notify.threshold},
-          absolute_path = ${boolToString cfg.notify.absolutePath},
-        },
-
-        ui = {
-          confirm = {
-            remove = ${boolToString cfg.ui.confirm.remove},
-            trash = ${boolToString cfg.ui.confirm.trash},
-          },
-        },
-      })
+      require'nvim-tree'.setup(${toLuaObject cfg.setupOpts})
 
       ${
         optionalString cfg.openOnSetup ''
@@ -312,5 +83,238 @@ in {
         ''
       }
     '';
+
+    # backwards compatibility
+    vim.filetree.nvimTree.setupOpts = {
+      disable_netrw = cfg.disableNetrw;
+      hijack_netrw = cfg.hijackNetrw;
+      auto_reload_on_write = cfg.autoreloadOnWrite;
+
+      sort = {
+        sorter = cfg.sort.sorter;
+        folders_first = cfg.sort.foldersFirst;
+      };
+
+      hijack_unnamed_buffer_when_opening = cfg.hijackUnnamedBufferWhenOpening;
+      hijack_cursor = cfg.hijackCursor;
+      root_dirs = cfg.rootDirs;
+      prefer_startup_root = cfg.preferStartupRoot;
+      sync_root_with_cwd = cfg.syncRootWithCwd;
+      reload_on_bufenter = cfg.reloadOnBufEnter;
+      respect_buf_cwd = cfg.respectBufCwd;
+
+      hijack_directories = {
+        enable = cfg.hijackDirectories.enable;
+        auto_open = cfg.hijackDirectories.autoOpen;
+      };
+
+      update_focused_file = {
+        enable = cfg.updateFocusedFile.enable;
+        update_root = cfg.updateFocusedFile.updateRoot;
+        ignore_list = cfg.updateFocusedFile.ignoreList;
+      };
+
+      system_open = {
+        cmd = cfg.systemOpen.cmd;
+        args = cfg.systemOpen.args;
+      };
+
+      diagnostics = {
+        enable = cfg.diagnostics.enable;
+        icons = {
+          hint = cfg.diagnostics.icons.hint;
+          info = cfg.diagnostics.icons.info;
+          warning = cfg.diagnostics.icons.warning;
+          error = cfg.diagnostics.icons.error;
+        };
+
+        severity = {
+          min = rawLua "vim.diagnostic.severity.${cfg.diagnostics.severity.min}";
+          max = rawLua "vim.diagnostic.severity.${cfg.diagnostics.severity.max}";
+        };
+      };
+
+      git = {
+        enable = cfg.git.enable;
+        show_on_dirs = cfg.git.showOnDirs;
+        show_on_open_dirs = cfg.git.showOnOpenDirs;
+        disable_for_dirs = cfg.git.disableForDirs;
+        timeout = cfg.git.timeout;
+      };
+
+      modified = {
+        enable = cfg.modified.enable;
+        show_on_dirs = cfg.modified.showOnDirs;
+        show_on_open_dirs = cfg.modified.showOnOpenDirs;
+      };
+
+      filesystem_watchers = {
+        enable = cfg.filesystemWatchers.enable;
+        debounce_delay = cfg.filesystemWatchers.debounceDelay;
+        ignore_dirs = cfg.filesystemWatchers.ignoreDirs;
+      };
+
+      select_prompts = cfg.selectPrompts;
+
+      view = {
+        centralize_selection = cfg.view.centralizeSelection;
+        cursorline = cfg.view.cursorline;
+        debounce_delay = cfg.view.debounceDelay;
+        width = cfg.view.width;
+        side = cfg.view.side;
+        preserve_window_proportions = cfg.view.preserveWindowProportions;
+        number = cfg.view.number;
+        relativenumber = cfg.view.relativenumber;
+        signcolumn = cfg.view.signcolumn;
+        float = {
+          enable = cfg.view.float.enable;
+          quit_on_focus_loss = cfg.view.float.quitOnFocusLoss;
+          open_win_config = {
+            relative = cfg.view.float.openWinConfig.relative;
+            border = cfg.view.float.openWinConfig.border;
+            width = cfg.view.float.openWinConfig.width;
+            height = cfg.view.float.openWinConfig.height;
+            row = cfg.view.float.openWinConfig.row;
+            col = cfg.view.float.openWinConfig.col;
+          };
+        };
+      };
+
+      renderer = {
+        add_trailing = cfg.renderer.addTrailing;
+        group_empty = cfg.renderer.groupEmpty;
+        full_name = cfg.renderer.fullName;
+        highlight_git = cfg.renderer.highlightGit;
+        highlight_opened_files = cfg.renderer.highlightOpenedFiles;
+        highlight_modified = cfg.renderer.highlightModified;
+        root_folder_label = cfg.renderer.rootFolderLabel;
+        indent_width = cfg.renderer.indentWidth;
+        indent_markers = {
+          enable = cfg.renderer.indentMarkers.enable;
+          inline_arrows = cfg.renderer.indentMarkers.inlineArrows;
+          icons = cfg.renderer.indentMarkers.icons;
+        };
+
+        special_files = cfg.renderer.specialFiles;
+        symlink_destination = cfg.renderer.symlinkDestination;
+
+        icons = {
+          webdev_colors = cfg.renderer.icons.webdevColors;
+          git_placement = cfg.renderer.icons.gitPlacement;
+          modified_placement = cfg.renderer.icons.modifiedPlacement;
+          padding = cfg.renderer.icons.padding;
+          symlink_arrow = cfg.renderer.icons.symlinkArrow;
+
+          show = {
+            git = cfg.renderer.icons.show.git;
+            folder = cfg.renderer.icons.show.folder;
+            folder_arrow = cfg.renderer.icons.show.folderArrow;
+            file = cfg.renderer.icons.show.file;
+            modified = cfg.renderer.icons.show.modified;
+          };
+
+          glyphs = {
+            default = cfg.renderer.icons.glyphs.default;
+            symlink = cfg.renderer.icons.glyphs.symlink;
+            modified = cfg.renderer.icons.glyphs.modified;
+
+            folder = {
+              default = cfg.renderer.icons.glyphs.folder.default;
+              open = cfg.renderer.icons.glyphs.folder.open;
+              arrow_open = cfg.renderer.icons.glyphs.folder.arrowOpen;
+              arrow_closed = cfg.renderer.icons.glyphs.folder.arrowClosed;
+              empty = cfg.renderer.icons.glyphs.folder.empty;
+              empty_open = cfg.renderer.icons.glyphs.folder.emptyOpen;
+              symlink = cfg.renderer.icons.glyphs.folder.symlink;
+              symlink_open = cfg.renderer.icons.glyphs.folder.symlinkOpen;
+            };
+
+            git = {
+              unstaged = cfg.renderer.icons.glyphs.git.unstaged;
+              staged = cfg.renderer.icons.glyphs.git.staged;
+              unmerged = cfg.renderer.icons.glyphs.git.unmerged;
+              renamed = cfg.renderer.icons.glyphs.git.renamed;
+              untracked = cfg.renderer.icons.glyphs.git.untracked;
+              deleted = cfg.renderer.icons.glyphs.git.deleted;
+              ignored = cfg.renderer.icons.glyphs.git.ignored;
+            };
+          };
+        };
+      };
+
+      filters = {
+        git_ignored = cfg.filters.gitIgnored;
+        dotfiles = cfg.filters.dotfiles;
+        git_clean = cfg.filters.gitClean;
+        no_buffer = cfg.filters.noBuffer;
+        exclude = cfg.filters.exclude;
+      };
+
+      trash = {
+        cmd = cfg.trash.cmd;
+      };
+
+      actions = {
+        use_system_clipboard = cfg.actions.useSystemClipboard;
+        change_dir = {
+          enable = cfg.actions.changeDir.enable;
+          global = cfg.actions.changeDir.global;
+          restrict_above_cwd = cfg.actions.changeDir.restrictAboveCwd;
+        };
+
+        expand_all = {
+          max_folder_discovery = cfg.actions.expandAll.maxFolderDiscovery;
+          exclude = cfg.actions.expandAll.exclude;
+        };
+
+        file_popup = {
+          open_win_config = cfg.actions.filePopup.openWinConfig;
+        };
+
+        open_file = {
+          quit_on_open = cfg.actions.openFile.quitOnOpen;
+          eject = cfg.actions.openFile.eject;
+          resize_window = cfg.actions.openFile.resizeWindow;
+          window_picker = {
+            enable = cfg.actions.openFile.windowPicker.enable;
+            picker = cfg.actions.openFile.windowPicker.picker;
+            chars = cfg.actions.openFile.windowPicker.chars;
+            exclude = {
+              filetype = cfg.actions.openFile.windowPicker.exclude.filetype;
+              buftype = cfg.actions.openFile.windowPicker.exclude.buftype;
+            };
+          };
+        };
+
+        remove_file = {
+          close_window = cfg.actions.removeFile.closeWindow;
+        };
+      };
+
+      live_filter = {
+        prefix = cfg.liveFilter.prefix;
+        always_show_folders = cfg.liveFilter.alwaysShowFolders;
+      };
+
+      tab = {
+        sync = {
+          open = cfg.tab.sync.open;
+          close = cfg.tab.sync.close;
+          ignore = cfg.tab.sync.ignore;
+        };
+      };
+
+      notify = {
+        threshold = rawLua "vim.log.levels.${cfg.notify.threshold}";
+        absolute_path = cfg.notify.absolutePath;
+      };
+
+      ui = {
+        confirm = {
+          remove = cfg.ui.confirm.remove;
+          trash = cfg.ui.confirm.trash;
+        };
+      };
+    };
   };
 }
