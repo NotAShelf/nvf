@@ -15,7 +15,10 @@ Most, if not all, changes warrant changes to the documentation. Module options s
 [Nixpkgs-flavoured Markdown](https://nixos.org/manual/nixpkgs/unstable/#sec-contributing-markup), albeit with exceptions.
 
 :::{.note}
-As of v0.6, neovim-flake is itself documented using full markdown in both module options and the manual.
+
+As of v0.5, neovim-flake is itself documented using full markdown in both module options and the manual. With
+v0.6, this manual has also been converted to markdown in full.
+
 :::
 
 The HTML version of this manual containing both the module option descriptions and the documentation of neovim-flake
@@ -44,9 +47,9 @@ a pull request should make sense both on its own and in general context. That is
 an issue that is introduced in an earlier commit. In particular, you will be asked to amend any commit that
 introduces syntax errors or similar problems even if they are fixed in a later commit.
 
-The commit messages should follow the {seven-rules}[seven rules], except for "Capitalize the subject line".
-We also ask you to include the affected code component or module in the first line.
-A commit message ideally, but not necessarily, follow the given template from home-manager's own documentation
+The commit messages should follow the [seven rules](https://chris.beams.io/posts/git-commit/#seven-rule),
+except for "Capitalize the subject line". We also ask you to include the affected code component or module in
+the first line. A commit message ideally, but not necessarily, follow the given template from home-manager's own documentation
 
 ```
   {component}: {description}
@@ -57,11 +60,11 @@ A commit message ideally, but not necessarily, follow the given template from ho
 where `{component}` refers to the code component (or module) your change affects, `{description}` is a very brief
 description of your change, and `{long description}` is an optional clarifying description. As a rare exception, if
 there is no clear component, or your change affects many components, then the `{component}` part is optional.
-See <<ex-commit-message>> for a commit message that fulfills these requirements.
+See [example commit message](#sec-guidelines-ex-commit-message) for a commit message that fulfills these requirements.
 
 ## Example Commit {#sec-guidelines-ex-commit-message}
 
-The commit {example-commit-message}[69f8e47e9e74c8d3d060ca22e18246b7f7d988ef] contains the commit message
+The commit [69f8e47e9e74c8d3d060ca22e18246b7f7d988ef](https://github.com/nix-community/home-manager/commit/69f8e47e9e74c8d3d060ca22e18246b7f7d988ef) contains the commit message
 
 ```
 
