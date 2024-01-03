@@ -138,4 +138,25 @@ in {
       inherit description default;
       type = pluginsType;
     };
+
+  # opts is a attrset of options, example:
+  # ```
+  # mkPluginSetupOption "telescope" {
+  #   file_ignore_patterns = mkOption {
+  #     description = "...";
+  #     type = types.listOf types.str;
+  #     default = [];
+  #   };
+  #   layout_config.horizontal = mkOption {...};
+  # }
+  # ```
+  mkPluginSetupOption = pluginName: opts:
+    mkOption {
+      description = "Option table to pass into the setup function of " + pluginName;
+      default = {};
+      type = types.submodule {
+        freeformType = with types; attrsOf anything;
+        options = opts;
+      };
+    };
 }
