@@ -232,17 +232,7 @@ inputs: let
       };
 
       vim.presence = {
-        presence-nvim = {
-          enable = true;
-          auto_update = true;
-          image_text = "The Superior Text Editor";
-          client_id = "793271441293967371";
-          main_image = "neovim";
-          show_time = true;
-          rich_presence = {
-            editing_text = "Editing %s";
-          };
-        };
+        neocord.enable = true;
       };
     };
   };

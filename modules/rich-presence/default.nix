@@ -1,5 +1,5 @@
-_: {
+{
   imports = [
-    ./presence-nvim
+    ./neocord
   ];
 }

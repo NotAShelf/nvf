@@ -53,7 +53,7 @@ with lib; let
     "cheatsheet-nvim"
     "ccc"
     "cellular-automaton"
-    "presence-nvim"
+    "neocord"
     "icon-picker-nvim"
     "dressing-nvim"
     "orgmode-nvim"

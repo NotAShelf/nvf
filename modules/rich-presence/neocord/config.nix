@@ -4,26 +4,29 @@
   ...
 }: let
   inherit (lib) mkIf nvim boolToString;
+  inherit (lib.nvim.lua) listToLuaTable;
+  inherit (builtins) toString;
 
-  cfg = config.vim.presence.presence-nvim;
+  cfg = config.vim.presence.neocord;
 in {
   config = mkIf cfg.enable {
-    vim.startPlugins = ["presence-nvim"];
+    vim.startPlugins = ["neocord"];
 
-    vim.luaConfigRC.presence-nvim = nvim.dag.entryAnywhere ''
-      -- Description of each option can be found in https://github.com/andweeb/presence.nvim
-      require("presence").setup({
+    vim.luaConfigRC.neocord = nvim.dag.entryAnywhere ''
+      -- Description of each option can be found in https://github.com/IogaMaster/neocord#lua
+      require("neocord").setup({
           -- General options
-          auto_update         = true,
-          neovim_image_text   = "${cfg.image_text}",
+          logo                = "${cfg.logo}",
+          logo_tooltip        = "${cfg.logo_tooltip}",
           main_image          = "${cfg.main_image}",
           client_id           = "${cfg.client_id}",
-          log_level           = nil,
-          debounce_timeout    = 10,
-          enable_line_number  = "${boolToString cfg.enable_line_number}",
-          blacklist           = {},
-          buttons             = "${boolToString cfg.buttons}",
-          file_assets         = {},
+          log_level           = "${
+        if cfg.log_level == null
+        then "nil"
+        else cfg.log_level
+      }",
+          debounce_timeout    = ${toString cfg.debounce_timeout},
+          blacklist           = ${listToLuaTable cfg.blacklist},
           show_time           = "${boolToString cfg.show_time}",
 
           -- Rich Presence text options
@@ -34,6 +37,7 @@ in {
           reading_text        = "${cfg.rich_presence.reading_text}",
           workspace_text      = "${cfg.rich_presence.workspace_text}",
           line_number_text    = "${cfg.rich_presence.line_number_text}",
+          terminal_text       = "${cfg.rich_presence.terminal_text}",
       })
     '';
   };

@@ -262,9 +262,9 @@
     };
 
     # Presence
-    presence-nvim = {
-      url = "github:andweeb/presence.nvim";
-      flake = false;
+    neocord = {
+      url = "github:IogaMaster/neocord";
+      flake = false; # uses flake-utils, avoid the flake
     };
 
     # Autopairs

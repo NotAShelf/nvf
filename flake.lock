@@ -778,6 +778,22 @@
         "type": "github"
       }
     },
+    "neocord": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1704948184,
+        "narHash": "sha256-HnaMKTNjMuDwHDvxHH5kd4ysa5WU+MlbdD9jH/iJcU8=",
+        "owner": "IogaMaster",
+        "repo": "neocord",
+        "rev": "9b624d5189f699ab454e9515262c13965395b8dd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "IogaMaster",
+        "repo": "neocord",
+        "type": "github"
+      }
+    },
     "neodev-nvim": {
       "flake": false,
       "locked": {
@@ -1397,22 +1413,6 @@
         "type": "github"
       }
     },
-    "presence-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1674984077,
-        "narHash": "sha256-ZpsunLsn//zYgUtmAm5FqKVueVd/Pa1r55ZDqxCimBk=",
-        "owner": "andweeb",
-        "repo": "presence.nvim",
-        "rev": "87c857a56b7703f976d3a5ef15967d80508df6e6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "andweeb",
-        "repo": "presence.nvim",
-        "type": "github"
-      }
-    },
     "project-nvim": {
       "flake": false,
       "locked": {
@@ -1511,6 +1511,7 @@
         "mind-nvim": "mind-nvim",
         "minimap-vim": "minimap-vim",
         "modes-nvim": "modes-nvim",
+        "neocord": "neocord",
         "neodev-nvim": "neodev-nvim",
         "nil": "nil",
         "nixpkgs": "nixpkgs",
@@ -1545,7 +1546,6 @@
         "orgmode-nvim": "orgmode-nvim",
         "oxocarbon": "oxocarbon",
         "plenary-nvim": "plenary-nvim",
-        "presence-nvim": "presence-nvim",
         "project-nvim": "project-nvim",
         "registers": "registers",
         "rnix-lsp": "rnix-lsp",
