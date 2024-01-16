@@ -778,6 +778,22 @@
         "type": "github"
       }
     },
+    "neocord": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1704948184,
+        "narHash": "sha256-HnaMKTNjMuDwHDvxHH5kd4ysa5WU+MlbdD9jH/iJcU8=",
+        "owner": "IogaMaster",
+        "repo": "neocord",
+        "rev": "9b624d5189f699ab454e9515262c13965395b8dd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "IogaMaster",
+        "repo": "neocord",
+        "type": "github"
+      }
+    },
     "neodev-nvim": {
       "flake": false,
       "locked": {
@@ -820,11 +836,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1703013332,
-        "narHash": "sha256-+tFNwMvlXLbJZXiMHqYq77z/RfmpfpiI3yjL6o/Zo9M=",
+        "lastModified": 1704194953,
+        "narHash": "sha256-RtDKd8Mynhe5CFnVT8s0/0yqtWFMM9LmCzXv/YKxnq4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "54aac082a4d9bb5bbc5c4e899603abfb76a3f6d6",
+        "rev": "bd645e8668ec6612439a9ee7e71f7eac4099d4f6",
         "type": "github"
       },
       "original": {
@@ -1397,22 +1413,6 @@
         "type": "github"
       }
     },
-    "presence-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1674984077,
-        "narHash": "sha256-ZpsunLsn//zYgUtmAm5FqKVueVd/Pa1r55ZDqxCimBk=",
-        "owner": "andweeb",
-        "repo": "presence.nvim",
-        "rev": "87c857a56b7703f976d3a5ef15967d80508df6e6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "andweeb",
-        "repo": "presence.nvim",
-        "type": "github"
-      }
-    },
     "project-nvim": {
       "flake": false,
       "locked": {
@@ -1511,6 +1511,7 @@
         "mind-nvim": "mind-nvim",
         "minimap-vim": "minimap-vim",
         "modes-nvim": "modes-nvim",
+        "neocord": "neocord",
         "neodev-nvim": "neodev-nvim",
         "nil": "nil",
         "nixpkgs": "nixpkgs",
@@ -1545,7 +1546,6 @@
         "orgmode-nvim": "orgmode-nvim",
         "oxocarbon": "oxocarbon",
         "plenary-nvim": "plenary-nvim",
-        "presence-nvim": "presence-nvim",
         "project-nvim": "project-nvim",
         "registers": "registers",
         "rnix-lsp": "rnix-lsp",

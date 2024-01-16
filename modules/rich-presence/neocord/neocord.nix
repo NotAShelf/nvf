@@ -1,29 +1,56 @@
-{
-  config,
-  lib,
-  ...
-}: let
-  inherit (lib) mkEnableOption mkOption types;
+{lib, ...}: let
+  inherit (lib) mkEnableOption mkOption types literalExpression mkRemovedOptionModule;
 in {
-  options.vim.presence.presence-nvim = {
-    enable = mkEnableOption "presence.nvim plugin for discord rich presence";
+  imports = [
+    (mkRemovedOptionModule ["vim" "presence" "presence-nvim"] ''
+      The option vim.presence.presence-nvim has been deprecated in favor of the new neocord module.
+      Options provided by the plugin remain mostly the same, but manual migration is required.
 
-    image_text = mkOption {
+      Please see neocord documentation and the neovim-flake options for more info
+    '')
+  ];
+
+  options.vim.presence.neocord = {
+    enable = mkEnableOption "neocord plugin for discord rich presence";
+
+    logo = mkOption {
+      type = types.str; # TODO: can the default be documented better, maybe with an enum?
+      default = "auto";
+      description = ''
+        Logo to be displayed on the RPC item
+
+        This must be either "auto" or an URL to your image of choice
+      '';
+    };
+
+    logo_tooltip = mkOption {
       type = types.str;
       default = "The One True Text Editor";
       description = "Text displayed when hovering over the Neovim image";
     };
 
     main_image = mkOption {
-      type = types.str;
-      default = "neovim";
+      type = types.enum ["language" "logo"];
+      default = "language";
       description = "Main image to be displayed";
     };
 
     client_id = mkOption {
       type = types.str;
-      default = "79327144129396737";
+      default = "1157438221865717891";
       description = "Client ID of the application";
+    };
+
+    log_level = mkOption {
+      type = with types; nullOr (enum ["debug" "info" "warn" "error"]);
+      default = null;
+      description = "Log level to be used by the plugin";
+    };
+
+    debounce_timeout = mkOption {
+      type = types.int;
+      default = 10;
+      description = "Number of seconds to debounce events";
     };
 
     auto_update = mkOption {
@@ -38,16 +65,17 @@ in {
       description = "Show line number on the RPC item";
     };
 
-    buttons = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Show buttons on the RPC item";
-    };
-
     show_time = mkOption {
       type = types.bool;
       default = true;
       description = "Show time on the RPC item";
+    };
+
+    blacklist = mkOption {
+      type = with types; listOf str;
+      default = [];
+      example = literalExpression ''["Alpha"]'';
+      description = "List of filetypes to ignore";
     };
 
     rich_presence = {
@@ -91,6 +119,12 @@ in {
         type = types.str;
         default = "Line %s out of %s";
         description = "Text displayed when showing line number";
+      };
+
+      terminal_text = mkOption {
+        type = types.str;
+        default = "Working on the terminal";
+        description = "Text displayed when working on the terminal";
       };
     };
   };
