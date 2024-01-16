@@ -1,5 +1,0 @@
-_: {
-  imports = [
-    ./gesture-nvim
-  ];
-}

@@ -1,0 +1,6 @@
+{
+  imports = [
+    ./which-key
+    ./cheatsheet
+  ];
+}

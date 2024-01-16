@@ -1,0 +1,26 @@
+{
+  imports = [
+    ./completion
+    ./statusline
+    ./tabline
+    ./filetree
+    ./visuals
+    ./lsp
+    ./treesitter
+    ./autopairs
+    ./snippets
+    ./git
+    ./minimap
+    ./dashboard
+    ./utility
+    ./rich-presence
+    ./notes
+    ./terminal
+    ./ui
+    ./assistant
+    ./session
+    ./comments
+    ./projects
+    ./debugger
+  ];
+}

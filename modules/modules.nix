@@ -4,32 +4,11 @@
   check ? true,
 }: let
   modules = [
-    ./completion
-    ./theme
-    ./core
     ./basic
-    ./statusline
-    ./tabline
-    ./filetree
-    ./visuals
-    ./lsp
-    ./treesitter
-    ./autopairs
-    ./snippets
-    ./git
-    ./minimap
-    ./dashboard
-    ./utility
-    ./rich-presence
-    ./notes
-    ./terminal
-    ./ui
-    ./assistant
-    ./session
-    ./comments
-    ./projects
+    ./core
     ./languages
-    ./debugger
+    ./plugins
+    ./themes
   ];
 
   pkgsModule = {config, ...}: {
