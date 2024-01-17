@@ -5,6 +5,7 @@
 }: let
   inherit (lib) mkIf nvim boolToString;
   inherit (lib.nvim.lua) listToLuaTable;
+  inherit (lib.strings) escapeNixString;
   inherit (builtins) toString;
 
   cfg = config.vim.presence.neocord;
@@ -20,11 +21,11 @@ in {
           logo_tooltip        = "${cfg.logo_tooltip}",
           main_image          = "${cfg.main_image}",
           client_id           = "${cfg.client_id}",
-          log_level           = "${
+          log_level           = ${
         if cfg.log_level == null
         then "nil"
-        else cfg.log_level
-      }",
+        else "${escapeNixString cfg.log_level}"
+      },
           debounce_timeout    = ${toString cfg.debounce_timeout},
           blacklist           = ${listToLuaTable cfg.blacklist},
           show_time           = "${boolToString cfg.show_time}",
