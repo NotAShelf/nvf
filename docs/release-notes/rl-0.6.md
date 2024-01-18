@@ -21,3 +21,7 @@ Release notes for release 0.6
 - Deprecated `presence.nvim` in favor of `neocord`. This means `vim.rich-presence.presence-nvim` is removed and will throw
   a warning if used. You are recommended to rewrite your neocord config from scratch based on the
   [official documentation](https://github.com/IogaMaster/neocord)
+
+[donnerinoern](https://github.com/donnerinoern):
+
+- Added Gruvbox theme

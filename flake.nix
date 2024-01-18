@@ -341,6 +341,11 @@
       flake = false;
     };
 
+    gruvbox = {
+      url = "github:ellisonleao/gruvbox.nvim";
+      flake = false;
+    };
+
     # Rust crates
     crates-nvim = {
       url = "github:Saecki/crates.nvim";

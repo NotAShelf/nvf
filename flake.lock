@@ -533,6 +533,22 @@
         "type": "github"
       }
     },
+    "gruvbox": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1704132908,
+        "narHash": "sha256-p/y65ub1qL+5g0ZiWzaTyQeiP7LtVfsdcdJ0eb0A7Og=",
+        "owner": "ellisonleao",
+        "repo": "gruvbox.nvim",
+        "rev": "4176b0b720db0c90ab4030e5c1b4893faf41fd51",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ellisonleao",
+        "repo": "gruvbox.nvim",
+        "type": "github"
+      }
+    },
     "highlight-undo": {
       "flake": false,
       "locked": {
@@ -1497,6 +1513,7 @@
         "gesture-nvim": "gesture-nvim",
         "gitsigns-nvim": "gitsigns-nvim",
         "glow-nvim": "glow-nvim",
+        "gruvbox": "gruvbox",
         "highlight-undo": "highlight-undo",
         "hop-nvim": "hop-nvim",
         "icon-picker-nvim": "icon-picker-nvim",
