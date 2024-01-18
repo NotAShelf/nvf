@@ -4,9 +4,13 @@
   lib,
   ...
 }: let
-  inherit (lib) nvim mkIf mkMerge isList;
+  inherit (lib) nvim mkIf mkMerge mkBinding isList;
 
   cfg = config.vim.languages.markdown;
+  self = import ./markdown.nix {
+    inherit lib config pkgs;
+  };
+  mappings = self.options.vim.languages.markdown.glow.mappings;
   servers = {
     marksman = {
       package = pkgs.marksman;
@@ -34,12 +38,14 @@ in {
     (mkIf cfg.glow.enable {
       vim.startPlugins = ["glow-nvim"];
 
-      vim.globals = {
-        "glow_binary_path" = "${pkgs.glow}/bin";
-      };
+      vim.maps.normal = mkMerge [
+        (mkBinding cfg.glow.mappings.openPreview ":Glow<CR>" mappings.openPreview.description)
+      ];
 
-      vim.configRC.glow = nvim.dag.entryAnywhere ''
-        autocmd FileType markdown noremap <leader>p :Glow<CR>
+      vim.luaConfigRC.glow = nvim.dag.entryAnywhere ''
+        require('glow').setup({
+          glow_path = "${pkgs.glow}/bin/glow"
+        });
       '';
     })
 

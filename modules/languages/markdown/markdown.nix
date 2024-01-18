@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib) mkEnableOption mkOption types nvim isList;
+  inherit (lib) mkEnableOption mkMappingOption mkOption types nvim isList;
 
   cfg = config.vim.languages.markdown;
   defaultServer = "marksman";
@@ -29,10 +29,15 @@ in {
   options.vim.languages.markdown = {
     enable = mkEnableOption "Markdown markup language support";
 
-    glow.enable = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Enable markdown preview in neovim with glow";
+    glow = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Enable markdown preview in neovim with glow";
+      };
+      mappings = {
+        openPreview = mkMappingOption "Open preview" "<leader>p";
+      };
     };
 
     treesitter = {
