@@ -25,3 +25,7 @@ Release notes for release 0.6
 [donnerinoern](https://github.com/donnerinoern):
 
 - Added Gruvbox theme
+
+- Added marksman LSP for Markdown
+
+- Fixed Markdown-previewer Glow not working and added an option for changing the preview keybind
