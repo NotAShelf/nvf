@@ -8620,6 +8620,108 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.languages.markdown.glow.mappings.openPreview"></a><a class="term" href="options.html#opt-vim.languages.markdown.glow.mappings.openPreview"><code class="option">vim.languages.markdown.glow.mappings.openPreview</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Open preview</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;&lt;leader&gt;p&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/markdown/markdown.nix" target="_top">
+&lt;neovim-flake/modules/languages/markdown/markdown.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.markdown.lsp.enable"></a><a class="term" href="options.html#opt-vim.languages.markdown.lsp.enable"><code class="option">vim.languages.markdown.lsp.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Enable Markdown LSP support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/markdown/markdown.nix" target="_top">
+&lt;neovim-flake/modules/languages/markdown/markdown.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.markdown.lsp.package"></a><a class="term" href="options.html#opt-vim.languages.markdown.lsp.package"><code class="option">vim.languages.markdown.lsp.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Markdown LSP server package, or the command to run as a list of strings</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package or list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation marksman-2023-12-09&gt;</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot; - data \&quot; \&quot; ~/.cache/jdtls/workspace \&quot;]&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/markdown/markdown.nix" target="_top">
+&lt;neovim-flake/modules/languages/markdown/markdown.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.markdown.lsp.server"></a><a class="term" href="options.html#opt-vim.languages.markdown.lsp.server"><code class="option">vim.languages.markdown.lsp.server</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Markdown LSP server to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+value “marksman” (singular enum)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;marksman&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/markdown/markdown.nix" target="_top">
+&lt;neovim-flake/modules/languages/markdown/markdown.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.languages.markdown.treesitter.enable"></a><a class="term" href="options.html#opt-vim.languages.markdown.treesitter.enable"><code class="option">vim.languages.markdown.treesitter.enable</code>
   </a>
  </span>
