@@ -22,6 +22,9 @@ Release notes for release 0.6
   a warning if used. You are recommended to rewrite your neocord config from scratch based on the
   [official documentation](https://github.com/IogaMaster/neocord)
 
+- Added support for css and tailwindcss through vscode-language-servers-extracted & tailwind-language-server.
+  Those can be enabled through `vim.languages.css` and `vim.languages.tailwind`
+
 [donnerinoern](https://github.com/donnerinoern):
 
 - Added Gruvbox theme
