@@ -7547,6 +7547,162 @@ package</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.languages.css.enable"></a><a class="term" href="options.html#opt-vim.languages.css.enable"><code class="option">vim.languages.css.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable CSS language support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/css.nix" target="_top">
+&lt;neovim-flake/modules/languages/css.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.css.lsp.enable"></a><a class="term" href="options.html#opt-vim.languages.css.lsp.enable"><code class="option">vim.languages.css.lsp.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable CSS LSP support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/css.nix" target="_top">
+&lt;neovim-flake/modules/languages/css.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.css.lsp.package"></a><a class="term" href="options.html#opt-vim.languages.css.lsp.package"><code class="option">vim.languages.css.lsp.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>CSS LSP server package, or the command to run as a list of strings</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package or list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation vscode-langservers-extracted-4.8.0&gt;</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot; - data \&quot; \&quot; ~/.cache/jdtls/workspace \&quot;]&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/css.nix" target="_top">
+&lt;neovim-flake/modules/languages/css.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.css.lsp.server"></a><a class="term" href="options.html#opt-vim.languages.css.lsp.server"><code class="option">vim.languages.css.lsp.server</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>CSS LSP server to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+value “vscode-langservers-extracted” (singular enum)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;vscode-langservers-extracted&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/css.nix" target="_top">
+&lt;neovim-flake/modules/languages/css.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.css.treesitter.enable"></a><a class="term" href="options.html#opt-vim.languages.css.treesitter.enable"><code class="option">vim.languages.css.treesitter.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable CSS treesitter.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/css.nix" target="_top">
+&lt;neovim-flake/modules/languages/css.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.css.treesitter.package"></a><a class="term" href="options.html#opt-vim.languages.css.treesitter.package"><code class="option">vim.languages.css.treesitter.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The css treesitter package to use.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">pkgs.vimPlugins.nvim-treesitter.builtGrammars.css</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/css.nix" target="_top">
+&lt;neovim-flake/modules/languages/css.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.languages.dart.enable"></a><a class="term" href="options.html#opt-vim.languages.dart.enable"><code class="option">vim.languages.dart.enable</code>
   </a>
  </span>
@@ -10377,6 +10533,111 @@ package</p>
 <tr><td>
 <code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/svelte.nix" target="_top">
 &lt;neovim-flake/modules/languages/svelte.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.tailwind.enable"></a><a class="term" href="options.html#opt-vim.languages.tailwind.enable"><code class="option">vim.languages.tailwind.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Tailwindcss language support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/tailwind.nix" target="_top">
+&lt;neovim-flake/modules/languages/tailwind.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.tailwind.lsp.enable"></a><a class="term" href="options.html#opt-vim.languages.tailwind.lsp.enable"><code class="option">vim.languages.tailwind.lsp.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Tailwindcss LSP support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/tailwind.nix" target="_top">
+&lt;neovim-flake/modules/languages/tailwind.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.tailwind.lsp.package"></a><a class="term" href="options.html#opt-vim.languages.tailwind.lsp.package"><code class="option">vim.languages.tailwind.lsp.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Tailwindcss LSP server package, or the command to run as a list of strings</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package or list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation tailwindcss-language-server-0.0.16&gt;</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot; - data \&quot; \&quot; ~/.cache/jdtls/workspace \&quot;]&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/tailwind.nix" target="_top">
+&lt;neovim-flake/modules/languages/tailwind.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.tailwind.lsp.server"></a><a class="term" href="options.html#opt-vim.languages.tailwind.lsp.server"><code class="option">vim.languages.tailwind.lsp.server</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Tailwindcss LSP server to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+value “tailwindcss-language-server” (singular enum)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;tailwindcss-language-server&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/tailwind.nix" target="_top">
+&lt;neovim-flake/modules/languages/tailwind.nix&gt;
 </a></code>
 </td></tr>
 </table>
