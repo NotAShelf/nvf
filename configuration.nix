@@ -56,15 +56,8 @@ inputs: let
 
         nix.enable = true;
         html.enable = isMaximal;
-        clang = {
-          enable = isMaximal;
-          lsp.server = "clangd";
-        };
+        css.enable = isMaximal;
         sql.enable = isMaximal;
-        rust = {
-          enable = isMaximal;
-          crates.enable = true;
-        };
         java.enable = isMaximal;
         ts.enable = isMaximal;
         svelte.enable = isMaximal;
@@ -72,9 +65,19 @@ inputs: let
         zig.enable = isMaximal;
         python.enable = isMaximal;
         dart.enable = isMaximal;
-        elixir.enable = false;
+        elixir.enable = isMaximal;
         bash.enable = isMaximal;
         terraform.enable = isMaximal;
+        tailwind.enable = isMaximal;
+        clang = {
+          enable = isMaximal;
+          lsp.server = "clangd";
+        };
+
+        rust = {
+          enable = isMaximal;
+          crates.enable = true;
+        };
       };
 
       vim.visuals = {
