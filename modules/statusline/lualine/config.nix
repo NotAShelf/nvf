@@ -20,10 +20,10 @@ in {
           theme = "${cfg.theme}",
           component_separators = {"${cfg.componentSeparator.left}","${cfg.componentSeparator.right}"},
           section_separators = {"${cfg.sectionSeparator.left}","${cfg.sectionSeparator.right}"},
-          disabled_filetypes = { 'alpha' },
-          always_divide_middle = true,
+          disabled_filetypes = ${nvim.lua.listToLuaTable cfg.disabledFiletypes},
+          always_divide_middle = ${boolToString cfg.alwaysDivideMiddle},
           globalstatus = ${boolToString cfg.globalStatus},
-          ignore_focus = {'NvimTree'},
+          ignore_focus = ${nvim.lua.listToLuaTable cfg.ignoreFocus},
           extensions = {${optionalString config.vim.filetree.nvimTree.enable "'nvim-tree'"}},
           refresh = {
             statusline = ${toString cfg.refresh.statusline},
@@ -31,6 +31,7 @@ in {
             winbar = ${toString cfg.refresh.winbar},
           },
         },
+
         -- active sections
         sections = {
           lualine_a = ${nvim.lua.luaTable (cfg.activeSection.a ++ cfg.extraActiveSection.a)},
@@ -40,7 +41,8 @@ in {
           lualine_y = ${nvim.lua.luaTable (cfg.activeSection.y ++ cfg.extraActiveSection.y)},
           lualine_z = ${nvim.lua.luaTable (cfg.activeSection.z ++ cfg.extraActiveSection.z)},
         },
-        --
+
+        -- inactive sections
         inactive_sections = {
           lualine_a = ${nvim.lua.luaTable (cfg.inactiveSection.a ++ cfg.extraInactiveSection.a)},
           lualine_b = ${nvim.lua.luaTable (cfg.inactiveSection.b ++ cfg.extraInactiveSection.b)},
@@ -49,9 +51,12 @@ in {
           lualine_y = ${nvim.lua.luaTable (cfg.inactiveSection.y ++ cfg.extraInactiveSection.y)},
           lualine_z = ${nvim.lua.luaTable (cfg.inactiveSection.z ++ cfg.extraInactiveSection.z)},
         },
+
+        -- tabline (currently unsupported)
         tabline = {},
 
         ${optionalString (breadcrumbsCfg.enable && breadcrumbsCfg.source == "nvim-navic") ''
+        -- enable winbar if nvim-navic is enabled
         winbar = {
           lualine_c = {
             {
