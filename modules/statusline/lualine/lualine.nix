@@ -24,11 +24,13 @@ in {
         description = "Refresh rate for lualine";
         default = 1000;
       };
+
       tabline = mkOption {
         type = types.int;
         description = "Refresh rate for tabline";
         default = 1000;
       };
+
       winbar = mkOption {
         type = types.int;
         description = "Refresh rate for winbar";
@@ -40,6 +42,27 @@ in {
       type = types.bool;
       description = "Enable global status for lualine";
       default = true;
+    };
+
+    alwaysDivideMiddle = mkOption {
+      type = types.bool;
+      description = "Always divide middle section";
+      default = true;
+    };
+
+    disabledFiletypes = mkOption {
+      type = with types; listOf str;
+      description = "Filetypes to disable lualine on";
+      default = ["alpha"];
+    };
+
+    ignoreFocus = mkOption {
+      type = with types; listOf str;
+      default = ["NvimTree"];
+      description = ''
+        If current filetype is in this list it'll always be drawn as inactive statusline
+        and the last window will be drawn as active statusline.
+      '';
     };
 
     theme = let
@@ -175,6 +198,9 @@ in {
                 bg='${colorPuccin}',
                 fg='lavender'
               },
+              separator = {
+                right = ''
+              },
             }
           ''
         ];
@@ -220,6 +246,9 @@ in {
               end,
               icon = ' ',
               color = {bg='${colorPuccin}', fg='lavender'},
+              separator = {
+                left = '',
+              },
             }
           ''
           ''

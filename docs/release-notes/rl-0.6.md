@@ -12,6 +12,14 @@ Release notes for release 0.6
 
 - Fixed empty winbar when breadcrumbs are disabled
 
+[donnerinoern](https://github.com/donnerinoern):
+
+- Added Gruvbox theme
+
+- Added marksman LSP for Markdown
+
+- Fixed markdown preview with Glow not working and added an option for changing the preview keybind
+
 [notashelf](https://github.com/notashelf):
 
 - Finished moving to `nixosOptionsDoc` in the documentation and changelog. We are fully free of asciidoc now
@@ -25,10 +33,10 @@ Release notes for release 0.6
 - Added support for css and tailwindcss through vscode-language-servers-extracted & tailwind-language-server.
   Those can be enabled through `vim.languages.css` and `vim.languages.tailwind`
 
-[donnerinoern](https://github.com/donnerinoern):
+- Lualine module now allows customizing `always_divide_middle`, `ignore_focus` and `disabled_filetypes` through the new
+  options: [vim.statusline.lualine.alwaysDivideMiddle](vim.statusline.lualine.alwaysDivideMiddle),
+  [vim.statusline.lualine.ignoreFocus](vim.statusline.lualine.ignoreFocus) and
+  [vim.statusline.lualine.disabledFiletypes](vim.statusline.lualine.disabledFiletypes)
 
-- Added Gruvbox theme
-
-- Added marksman LSP for Markdown
-
-- Fixed Markdown-previewer Glow not working and added an option for changing the preview keybind
+- Updated all plugin inputs to their latest versions (26.01.2024) - this brought minor color changess to the Catppuccin
+  theme
