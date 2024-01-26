@@ -9856,7 +9856,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation rust-analyzer-2024-01-08&gt;</code></p>
+<code class="literal">&lt;derivation rust-analyzer-2024-01-15&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot;-data\&quot; \&quot;~/.cache/jdtls/workspace\&quot;]&quot;</code></p>
@@ -10242,7 +10242,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation sql-grammar-0.0.0+rev=b599f6a&gt;</code></p>
+<code class="literal">&lt;derivation sql-grammar-0.0.0+rev=fd70fb3&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -10709,7 +10709,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation terraform-ls-0.32.4&gt;</code></p>
+<code class="literal">&lt;derivation terraform-ls-0.32.5&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -17830,6 +17830,9 @@ list of string</p>
         bg=&#x27;none&#x27;,
         fg=&#x27;lavender&#x27;
       },
+      separator = {
+        right = &#x27;&#x27;
+      },
     }
   &#x27;&#x27;
 ]
@@ -17893,6 +17896,9 @@ list of string</p>
       end,
       icon = &#x27; &#x27;,
       color = {bg=&#x27;none&#x27;, fg=&#x27;lavender&#x27;},
+      separator = {
+        left = &#x27;&#x27;,
+      },
     }
   &#x27;&#x27;
   &#x27;&#x27;
@@ -18011,6 +18017,30 @@ list of string</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.statusline.lualine.alwaysDivideMiddle"></a><a class="term" href="options.html#opt-vim.statusline.lualine.alwaysDivideMiddle"><code class="option">vim.statusline.lualine.alwaysDivideMiddle</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Always divide middle section</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix" target="_top">
+&lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.statusline.lualine.componentSeparator.left"></a><a class="term" href="options.html#opt-vim.statusline.lualine.componentSeparator.left"><code class="option">vim.statusline.lualine.componentSeparator.left</code>
   </a>
  </span>
@@ -18047,6 +18077,32 @@ string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">&quot;&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix" target="_top">
+&lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.statusline.lualine.disabledFiletypes"></a><a class="term" href="options.html#opt-vim.statusline.lualine.disabledFiletypes"><code class="option">vim.statusline.lualine.disabledFiletypes</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Filetypes to disable lualine on</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
+  &quot;alpha&quot;
+]
+</code></pre>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -18386,6 +18442,33 @@ boolean</p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/statusline/lualine/lualine.nix" target="_top">
+&lt;neovim-flake/modules/statusline/lualine/lualine.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.statusline.lualine.ignoreFocus"></a><a class="term" href="options.html#opt-vim.statusline.lualine.ignoreFocus"><code class="option">vim.statusline.lualine.ignoreFocus</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>If current filetype is in this list it’ll always be drawn as inactive statusline
+and the last window will be drawn as active statusline.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
+  &quot;NvimTree&quot;
+]
+</code></pre>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
