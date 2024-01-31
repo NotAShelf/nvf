@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge;
+  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge getExe;
 
   cfg = config.vim.languages.java;
 in {
@@ -38,7 +38,7 @@ in {
           cmd = ${
           if isList cfg.lsp.package
           then nvim.lua.expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/jdt-language-server", "-data", vim.fn.stdpath("cache").."/jdtls/workspace"}''
+          else ''{"${getExe cfg.lsp.package}", "-data", vim.fn.stdpath("cache").."/jdtls/workspace"}''
         },
         }
       '';
