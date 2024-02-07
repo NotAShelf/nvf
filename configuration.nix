@@ -56,15 +56,8 @@ inputs: let
 
         nix.enable = true;
         html.enable = isMaximal;
-        clang = {
-          enable = isMaximal;
-          lsp.server = "clangd";
-        };
+        css.enable = isMaximal;
         sql.enable = isMaximal;
-        rust = {
-          enable = isMaximal;
-          crates.enable = true;
-        };
         java.enable = isMaximal;
         ts.enable = isMaximal;
         svelte.enable = isMaximal;
@@ -72,10 +65,20 @@ inputs: let
         zig.enable = isMaximal;
         python.enable = isMaximal;
         dart.enable = isMaximal;
-        elixir.enable = false;
+        elixir.enable = isMaximal;
         bash.enable = isMaximal;
         terraform.enable = isMaximal;
         nim.enable = isMaximal;
+        tailwind.enable = isMaximal;
+        clang = {
+          enable = isMaximal;
+          lsp.server = "clangd";
+        };
+
+        rust = {
+          enable = isMaximal;
+          crates.enable = true;
+        };
       };
 
       vim.visuals = {
@@ -233,17 +236,7 @@ inputs: let
       };
 
       vim.presence = {
-        presence-nvim = {
-          enable = true;
-          auto_update = true;
-          image_text = "The Superior Text Editor";
-          client_id = "793271441293967371";
-          main_image = "neovim";
-          show_time = true;
-          rich_presence = {
-            editing_text = "Editing %s";
-          };
-        };
+        neocord.enable = true;
       };
     };
   };

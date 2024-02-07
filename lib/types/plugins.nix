@@ -43,6 +43,7 @@ with lib; let
     "catppuccin"
     "dracula"
     "oxocarbon"
+    "gruvbox"
     "minimap-vim"
     "dashboard-nvim"
     "alpha-nvim"
@@ -53,7 +54,7 @@ with lib; let
     "cheatsheet-nvim"
     "ccc"
     "cellular-automaton"
-    "presence-nvim"
+    "neocord"
     "icon-picker-nvim"
     "dressing-nvim"
     "orgmode-nvim"
@@ -137,5 +138,26 @@ in {
     mkOption {
       inherit description default;
       type = pluginsType;
+    };
+
+  # opts is a attrset of options, example:
+  # ```
+  # mkPluginSetupOption "telescope" {
+  #   file_ignore_patterns = mkOption {
+  #     description = "...";
+  #     type = types.listOf types.str;
+  #     default = [];
+  #   };
+  #   layout_config.horizontal = mkOption {...};
+  # }
+  # ```
+  mkPluginSetupOption = pluginName: opts:
+    mkOption {
+      description = "Option table to pass into the setup function of " + pluginName;
+      default = {};
+      type = types.submodule {
+        freeformType = with types; attrsOf anything;
+        options = opts;
+      };
     };
 }

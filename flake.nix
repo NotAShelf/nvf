@@ -63,7 +63,7 @@
 
     # For generating documentation website
     nmd = {
-      url = "github:horriblename/nmd";
+      url = "sourcehut:~rycee/nmd";
       flake = false;
     };
 
@@ -262,9 +262,9 @@
     };
 
     # Presence
-    presence-nvim = {
-      url = "github:andweeb/presence.nvim";
-      flake = false;
+    neocord = {
+      url = "github:IogaMaster/neocord";
+      flake = false; # uses flake-utils, avoid the flake
     };
 
     # Autopairs
@@ -338,6 +338,11 @@
 
     oxocarbon = {
       url = "github:glyh/oxocarbon.nvim/lualine-support";
+      flake = false;
+    };
+
+    gruvbox = {
+      url = "github:ellisonleao/gruvbox.nvim";
       flake = false;
     };
 
