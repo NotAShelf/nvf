@@ -20,6 +20,7 @@ in {
     ./svelte.nix
     ./java.nix
     ./lua.nix
+    ./nim.nix
     ./php.nix
     ./terraform.nix
   ];

@@ -75,6 +75,7 @@ inputs: let
         elixir.enable = false;
         bash.enable = isMaximal;
         terraform.enable = isMaximal;
+        nim.enable = isMaximal;
       };
 
       vim.visuals = {
