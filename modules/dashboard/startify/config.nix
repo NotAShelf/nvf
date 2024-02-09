@@ -4,17 +4,13 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf nvim;
+  inherit (nvim.vim) mkVimBool;
 
   cfg = config.vim.dashboard.startify;
-
-  mkVimBool = val:
-    if val
-    then "1"
-    else "0";
 in {
-  config = mkIf (cfg.enable) {
-    vim.startPlugins = with pkgs.neovimPlugins; [vim-startify];
+  config = mkIf cfg.enable {
+    vim.startPlugins = with pkgs.vimPlugins; [vim-startify];
 
     vim.globals = {
       "startify_custom_header" =
