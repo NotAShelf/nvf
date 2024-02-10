@@ -8,6 +8,15 @@ in {
   options.vim.ui.colorizer = {
     enable = mkEnableOption "nvim-colorizer.lua for color highlighting";
 
+    filetypes = mkOption {
+      type = with types; attrsOf attrs;
+      default = {
+        css = {};
+        scss = {};
+      };
+      description = "Filetypes to highlight on";
+    };
+
     options = {
       rgb = mkOption {
         type = types.bool;
@@ -47,7 +56,7 @@ in {
 
       css = mkOption {
         type = types.bool;
-        default = true;
+        default = false;
         description = "Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB";
       };
 
@@ -61,6 +70,24 @@ in {
         type = types.enum ["foreground" "background"];
         default = "background";
         description = "Set the display mode";
+      };
+
+      tailwind = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Enable tailwind colors";
+      };
+
+      sass = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Enable sass colors";
+      };
+
+      alwaysUpdate = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Update color values even if buffer is not focused, like when using cmp_menu, cmp_docs";
       };
     };
   };
