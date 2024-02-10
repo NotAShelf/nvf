@@ -14,6 +14,7 @@ in {
     ./html.nix
     ./java.nix
     ./lua.nix
+    ./nim.nix
     ./nix.nix
     ./php.nix
     ./python.nix
