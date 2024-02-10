@@ -68,7 +68,7 @@ inputs: let
         elixir.enable = isMaximal;
         bash.enable = isMaximal;
         terraform.enable = isMaximal;
-        nim.enable = isMaximal;
+        nim.enable = false;
         tailwind.enable = isMaximal;
         clang = {
           enable = isMaximal;

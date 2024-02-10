@@ -88,6 +88,15 @@ in {
   };
 
   config = mkIf cfg.enable (mkMerge [
+    {
+      assertions = [
+        {
+          assertion = !pkgs.stdenv.isDarwin;
+          message = "Nim language support is only available on Linux";
+        }
+      ];
+    }
+
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.package];
