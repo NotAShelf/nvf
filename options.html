@@ -22335,6 +22335,57 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.ui.colorizer.filetypes"></a><a class="term" href="options.html#opt-vim.ui.colorizer.filetypes"><code class="option">vim.ui.colorizer.filetypes</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Filetypes to highlight on</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+attribute set of (attribute set)</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">{
+  css = { };
+  scss = { };
+}
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/ui/colorizer/colorizer.nix" target="_top">
+&lt;neovim-flake/modules/ui/colorizer/colorizer.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.colorizer.options.alwaysUpdate"></a><a class="term" href="options.html#opt-vim.ui.colorizer.options.alwaysUpdate"><code class="option">vim.ui.colorizer.options.alwaysUpdate</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Update color values even if buffer is not focused, like when using cmp_menu, cmp_docs</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/ui/colorizer/colorizer.nix" target="_top">
+&lt;neovim-flake/modules/ui/colorizer/colorizer.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.ui.colorizer.options.css"></a><a class="term" href="options.html#opt-vim.ui.colorizer.options.css"><code class="option">vim.ui.colorizer.options.css</code>
   </a>
  </span>
@@ -22346,7 +22397,7 @@ boolean</p>
 boolean</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">true</code></p>
+<code class="literal">false</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -22533,6 +22584,54 @@ boolean</p>
 </dt>
 <dd>
 <p>#RRGGBBAA hex codes</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/ui/colorizer/colorizer.nix" target="_top">
+&lt;neovim-flake/modules/ui/colorizer/colorizer.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.colorizer.options.sass"></a><a class="term" href="options.html#opt-vim.ui.colorizer.options.sass"><code class="option">vim.ui.colorizer.options.sass</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Enable sass colors</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/ui/colorizer/colorizer.nix" target="_top">
+&lt;neovim-flake/modules/ui/colorizer/colorizer.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.colorizer.options.tailwind"></a><a class="term" href="options.html#opt-vim.ui.colorizer.options.tailwind"><code class="option">vim.ui.colorizer.options.tailwind</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Enable tailwind colors</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
