@@ -520,7 +520,7 @@
     };
 
     nvim-colorizer-lua = {
-      url = "github:norcalli/nvim-colorizer.lua";
+      url = "github:NvChad/nvim-colorizer.lua";
       flake = false;
     };
 

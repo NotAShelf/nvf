@@ -20,6 +20,8 @@ Release notes for release 0.6
 
 - Fixed markdown preview with Glow not working and added an option for changing the preview keybind
 
+- colorizer.nvim: switched to a maintained fork
+
 [notashelf](https://github.com/notashelf):
 
 - Finished moving to `nixosOptionsDoc` in the documentation and changelog. We are fully free of asciidoc now

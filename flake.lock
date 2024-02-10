@@ -1063,15 +1063,15 @@
     "nvim-colorizer-lua": {
       "flake": false,
       "locked": {
-        "lastModified": 1591879145,
-        "narHash": "sha256-6YrnItxExL2C8pNIdLd+hXCjsB2MbZANwWkah6dreD8=",
-        "owner": "norcalli",
+        "lastModified": 1703321305,
+        "narHash": "sha256-oKvFN2K+ASlPNwj2rhptR/ErYgo6XKBPhXSZotDdCP0=",
+        "owner": "NvChad",
         "repo": "nvim-colorizer.lua",
-        "rev": "36c610a9717cc9ec426a07c8e6bf3b3abcb139d6",
+        "rev": "85855b38011114929f4058efc97af1059ab3e41d",
         "type": "github"
       },
       "original": {
-        "owner": "norcalli",
+        "owner": "NvChad",
         "repo": "nvim-colorizer.lua",
         "type": "github"
       }
