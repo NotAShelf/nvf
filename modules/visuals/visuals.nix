@@ -30,24 +30,6 @@ in {
       };
     };
 
-    fidget-nvim = {
-      enable = mkEnableOption "nvim LSP UI element [fidget-nvim]";
-
-      align = {
-        bottom = mkOption {
-          type = types.bool;
-          description = "Align to bottom";
-          default = true;
-        };
-
-        right = mkOption {
-          type = types.bool;
-          description = "Align to right";
-          default = true;
-        };
-      };
-    };
-
     cursorline = {
       enable = mkEnableOption "line hightlighting on the cursor [nvim-cursorline]";
 
