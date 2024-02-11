@@ -4,5 +4,6 @@
 
     ./config.nix
     ./visuals.nix
+    ./fidget
   ];
 }
