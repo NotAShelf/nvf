@@ -191,7 +191,12 @@ in {
       };
 
       cmd = mkOption {
-        default = "${pkgs.xdg-utils}/bin/xdg-open";
+        default =
+          if pkgs.stdenv.isDarwin
+          then "open"
+          else if pkgs.stdenv.isLinux
+          then "${pkgs.xdg-utils}/bin/xdg-open"
+          else throw "NvimTree: No default system open command for this platform, please set `vim.filetree.nvimTree.systemOpen.cmd`";
         description = "The open command itself";
         type = types.str;
       };
