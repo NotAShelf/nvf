@@ -30,6 +30,14 @@ in {
       };
     };
 
+    enableLuaLoader = mkEnableOption "experimental Lua module loader to speed up the start up process";
+
+    leaderKey = mkOption {
+      type = with types; nullOr str;
+      default = null;
+      description = "The leader key to be used internally";
+    };
+
     spellChecking = {
       enable = mkEnableOption "neovim's built-in spellchecking";
       enableProgrammingWordList = mkEnableOption "vim-dirtytalk, a wordlist for programmers, that includes programming words";
@@ -39,12 +47,6 @@ in {
         default = ["en"];
         example = ["en" "de"];
       };
-    };
-
-    leaderKey = mkOption {
-      type = with types; nullOr str;
-      default = null;
-      description = "The leader key to be used internally";
     };
 
     colourTerm = mkOption {
@@ -98,13 +100,24 @@ in {
     mouseSupport = mkOption {
       type = with types; enum ["a" "n" "v" "i" "c"];
       default = "a";
-      description = "Set modes for mouse support. a - all, n - normal, v - visual, i - insert, c - command";
+      description = ''
+        Set modes for mouse support.
+
+        * a - all
+        * n - normal
+        * v - visual
+        * i - insert
+        * c - command
+      '';
     };
 
     lineNumberMode = mkOption {
       type = with types; enum ["relative" "number" "relNumber" "none"];
       default = "relNumber";
-      description = "How line numbers are displayed. none, relative, number, relNumber";
+      description = ''
+        How line numbers are displayed. Available options are
+        none, relative, number, relNumber
+      '';
     };
 
     preventJunkFiles = mkOption {
@@ -177,8 +190,6 @@ in {
       default = "line";
       description = "Highlight the text line of the cursor with CursorLine hl-CursorLine";
     };
-
-    enableLuaLoader = mkEnableOption "experimental Lua module loader to speed up the start up process";
 
     searchCase = mkOption {
       type = types.enum ["ignore" "smart" "sensitive"];
