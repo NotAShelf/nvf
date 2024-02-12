@@ -4,7 +4,8 @@
   lib,
   ...
 }: let
-  inherit (lib) nvim mkIf mkMerge mkBinding isList;
+  inherit (lib) nvim mkIf mkMerge mkBinding isList concatMapStringsSep;
+  inherit (nvim.vim) mkVimBool;
 
   cfg = config.vim.languages.markdown;
   self = import ./markdown.nix {
@@ -46,6 +47,21 @@ in {
         require('glow').setup({
           glow_path = "${pkgs.glow}/bin/glow"
         });
+      '';
+    })
+
+    (mkIf cfg.markdownPreview.enable {
+      vim.startPlugins = [pkgs.vimPlugins.markdown-preview-nvim];
+
+      vim.configRC.markdown-preview = nvim.dag.entryAnywhere ''
+        let g:mkdp_auto_start = ${mkVimBool cfg.markdownPreview.autoStart}
+        let g:mkdp_auto_close = ${mkVimBool cfg.markdownPreview.autoClose}
+        let g:mkdp_refresh_slow = ${mkVimBool cfg.markdownPreview.lazyRefresh}
+        let g:mkdp_filetypes = [${concatMapStringsSep ", " (x: "'" + x + "'") cfg.markdownPreview.filetypes}]
+        let g:mkdp_command_for_global = ${mkVimBool cfg.markdownPreview.alwaysAllowPreview}
+        let g:mkdp_open_to_the_world = ${mkVimBool cfg.markdownPreview.broadcastServer}
+        let g:mkdp_open_ip = '${cfg.markdownPreview.customIP}'
+        let g:mkdp_port = '${cfg.markdownPreview.customPort}'
       '';
     })
 
