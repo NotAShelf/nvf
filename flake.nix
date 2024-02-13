@@ -346,6 +346,11 @@
       flake = false;
     };
 
+    rose-pine = {
+      url = "github:rose-pine/neovim";
+      flake = false;
+    };
+
     # Rust crates
     crates-nvim = {
       url = "github:Saecki/crates.nvim";

@@ -42,3 +42,7 @@ Release notes for release 0.6
 
 - Updated all plugin inputs to their latest versions (26.01.2024) - this brought minor color changess to the Catppuccin
   theme
+
+[elijahimmer](https://github.com/elijahimmer)
+
+- Added rose-pine theme
