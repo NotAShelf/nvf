@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib) mkEnableOption mkMappingOption mkOption types nvim isList;
+  inherit (lib) mkEnableOption mkOption types nvim isList;
 
   cfg = config.vim.languages.markdown;
   defaultServer = "marksman";
@@ -28,73 +28,6 @@
 in {
   options.vim.languages.markdown = {
     enable = mkEnableOption "Markdown markup language support";
-
-    glow = {
-      enable = mkOption {
-        type = types.bool;
-        default = true;
-        description = "Enable markdown preview in neovim with glow";
-      };
-      mappings = {
-        openPreview = mkMappingOption "Open preview" "<leader>p";
-      };
-    };
-
-    markdownPreview = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = "Enable markdown preview in neovim with markdown-preview.nvim";
-      };
-
-      autoStart = mkOption {
-        type = types.bool;
-        default = false;
-        description = "Automatically open the preview window after entering a Markdown buffer";
-      };
-
-      autoClose = mkOption {
-        type = types.bool;
-        default = true;
-        description = "Automatically close the preview window after leaving a Markdown buffer";
-      };
-
-      lazyRefresh = mkOption {
-        type = types.bool;
-        default = false;
-        description = "Only update preview when saving or leaving insert mode";
-      };
-
-      filetypes = mkOption {
-        type = types.listOf types.str;
-        default = ["markdown"];
-        description = "Allowed filetypes";
-      };
-
-      alwaysAllowPreview = mkOption {
-        type = types.bool;
-        default = false;
-        description = "Allow preview on all filetypes";
-      };
-
-      broadcastServer = mkOption {
-        type = types.bool;
-        default = false;
-        description = "Allow for outside and network wide connections";
-      };
-
-      customIP = mkOption {
-        type = types.str;
-        default = "";
-        description = "IP-address to use";
-      };
-
-      customPort = mkOption {
-        type = types.str;
-        default = "";
-        description = "Port to use";
-      };
-    };
 
     treesitter = {
       enable = mkOption {
