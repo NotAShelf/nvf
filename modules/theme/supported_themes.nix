@@ -128,4 +128,30 @@
     '';
     styles = ["dark" "light"];
   };
+  rose-pine = {
+    setup = {
+      style ? "main",
+      transparent ? false,
+    }: ''
+      require("rose-pine").setup({
+        dark_variant = "${style}", -- main, moon, or dawn
+        dim_inactive_windows = false,
+        extend_background_behind_borders = true,
+
+        enable = {
+          terminal = true,
+          migrations = true,
+        },
+
+        styles = {
+          bold = false,
+          italic = false, -- I would like to add more options for this
+          transparency = ${lib.boolToString transparent},
+        },
+      })
+
+      vim.cmd("colorscheme rose-pine")
+    '';
+    styles = ["main" "moon" "dawn"];
+  };
 }

@@ -44,6 +44,7 @@ with lib; let
     "dracula"
     "oxocarbon"
     "gruvbox"
+    "rose-pine"
     "minimap-vim"
     "dashboard-nvim"
     "alpha-nvim"
