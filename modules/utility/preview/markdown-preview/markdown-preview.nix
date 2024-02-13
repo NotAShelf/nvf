@@ -3,7 +3,7 @@
 in {
   options.vim.utility.preview = {
     markdownPreview = {
-      enable = mkEnableOption "enable Markdown preview in neovim with markdown-preview.nvim";
+      enable = mkEnableOption "Markdown preview in neovim with markdown-preview.nvim";
 
       autoStart = mkOption {
         type = types.bool;

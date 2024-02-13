@@ -16,13 +16,13 @@ in {
     vim.startPlugins = ["glow-nvim"];
 
     vim.maps.normal = mkMerge [
-      (mkBinding cfg.glow.mappings.openPreview ":Glow<CR>" mappings.openPreview.description)
+      (mkBinding cfg.mappings.openPreview ":Glow<CR>" mappings.openPreview.description)
     ];
 
     vim.luaConfigRC.glow = nvim.dag.entryAnywhere ''
       require('glow').setup({
-          glow_path = "${pkgs.glow}/bin/glow"
-          });
+        glow_path = "${pkgs.glow}/bin/glow"
+      });
     '';
   };
 }
