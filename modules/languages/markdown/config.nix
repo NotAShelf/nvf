@@ -4,13 +4,9 @@
   lib,
   ...
 }: let
-  inherit (lib) nvim mkIf mkMerge mkBinding isList;
+  inherit (lib) nvim mkIf mkMerge isList;
 
   cfg = config.vim.languages.markdown;
-  self = import ./markdown.nix {
-    inherit lib config pkgs;
-  };
-  mappings = self.options.vim.languages.markdown.glow.mappings;
   servers = {
     marksman = {
       package = pkgs.marksman;
@@ -33,20 +29,6 @@ in {
       vim.treesitter.enable = true;
 
       vim.treesitter.grammars = [cfg.treesitter.mdPackage cfg.treesitter.mdInlinePackage];
-    })
-
-    (mkIf cfg.glow.enable {
-      vim.startPlugins = ["glow-nvim"];
-
-      vim.maps.normal = mkMerge [
-        (mkBinding cfg.glow.mappings.openPreview ":Glow<CR>" mappings.openPreview.description)
-      ];
-
-      vim.luaConfigRC.glow = nvim.dag.entryAnywhere ''
-        require('glow').setup({
-          glow_path = "${pkgs.glow}/bin/glow"
-        });
-      '';
     })
 
     (mkIf cfg.lsp.enable {

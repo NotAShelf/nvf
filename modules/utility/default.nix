@@ -10,5 +10,6 @@ _: {
     ./diffview
     ./wakatime
     ./surround
+    ./preview
   ];
 }

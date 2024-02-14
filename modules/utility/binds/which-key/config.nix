@@ -113,7 +113,7 @@ in {
       }
 
         ${
-        if config.vim.languages.markdown.glow.enable
+        if config.vim.utility.preview.glow.enable
         then ''
           -- Markdown
           ["<leader>pm"] = { name = "+Preview Markdown" },
