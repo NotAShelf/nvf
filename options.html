@@ -8752,54 +8752,6 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.languages.markdown.glow.enable"></a><a class="term" href="options.html#opt-vim.languages.markdown.glow.enable"><code class="option">vim.languages.markdown.glow.enable</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Enable markdown preview in neovim with glow</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-boolean</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">true</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/markdown/markdown.nix" target="_top">
-&lt;neovim-flake/modules/languages/markdown/markdown.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="opt-vim.languages.markdown.glow.mappings.openPreview"></a><a class="term" href="options.html#opt-vim.languages.markdown.glow.mappings.openPreview"><code class="option">vim.languages.markdown.glow.mappings.openPreview</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Open preview</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-null or string</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&quot;&lt;leader&gt;p&quot;</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/languages/markdown/markdown.nix" target="_top">
-&lt;neovim-flake/modules/languages/markdown/markdown.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
  <a id="opt-vim.languages.markdown.lsp.enable"></a><a class="term" href="options.html#opt-vim.languages.markdown.lsp.enable"><code class="option">vim.languages.markdown.lsp.enable</code>
   </a>
  </span>
@@ -23584,6 +23536,278 @@ null or string</p>
 <tr><td>
 <code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/utility/motion/leap/leap.nix" target="_top">
 &lt;neovim-flake/modules/utility/motion/leap/leap.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.preview.glow.enable"></a><a class="term" href="options.html#opt-vim.utility.preview.glow.enable"><code class="option">vim.utility.preview.glow.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable markdown preview in neovim with glow.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/utility/preview/glow/glow.nix" target="_top">
+&lt;neovim-flake/modules/utility/preview/glow/glow.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.preview.glow.mappings.openPreview"></a><a class="term" href="options.html#opt-vim.utility.preview.glow.mappings.openPreview"><code class="option">vim.utility.preview.glow.mappings.openPreview</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Open preview</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;&lt;leader&gt;p&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/utility/preview/glow/glow.nix" target="_top">
+&lt;neovim-flake/modules/utility/preview/glow/glow.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.preview.markdownPreview.enable"></a><a class="term" href="options.html#opt-vim.utility.preview.markdownPreview.enable"><code class="option">vim.utility.preview.markdownPreview.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Markdown preview in neovim with markdown-preview.nvim.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/utility/preview/markdown-preview/markdown-preview.nix" target="_top">
+&lt;neovim-flake/modules/utility/preview/markdown-preview/markdown-preview.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.preview.markdownPreview.alwaysAllowPreview"></a><a class="term" href="options.html#opt-vim.utility.preview.markdownPreview.alwaysAllowPreview"><code class="option">vim.utility.preview.markdownPreview.alwaysAllowPreview</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Allow preview on all filetypes</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/utility/preview/markdown-preview/markdown-preview.nix" target="_top">
+&lt;neovim-flake/modules/utility/preview/markdown-preview/markdown-preview.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.preview.markdownPreview.autoClose"></a><a class="term" href="options.html#opt-vim.utility.preview.markdownPreview.autoClose"><code class="option">vim.utility.preview.markdownPreview.autoClose</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Automatically close the preview window after leaving a Markdown buffer</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/utility/preview/markdown-preview/markdown-preview.nix" target="_top">
+&lt;neovim-flake/modules/utility/preview/markdown-preview/markdown-preview.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.preview.markdownPreview.autoStart"></a><a class="term" href="options.html#opt-vim.utility.preview.markdownPreview.autoStart"><code class="option">vim.utility.preview.markdownPreview.autoStart</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Automatically open the preview window after entering a Markdown buffer</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/utility/preview/markdown-preview/markdown-preview.nix" target="_top">
+&lt;neovim-flake/modules/utility/preview/markdown-preview/markdown-preview.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.preview.markdownPreview.broadcastServer"></a><a class="term" href="options.html#opt-vim.utility.preview.markdownPreview.broadcastServer"><code class="option">vim.utility.preview.markdownPreview.broadcastServer</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Allow for outside and network wide connections</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/utility/preview/markdown-preview/markdown-preview.nix" target="_top">
+&lt;neovim-flake/modules/utility/preview/markdown-preview/markdown-preview.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.preview.markdownPreview.customIP"></a><a class="term" href="options.html#opt-vim.utility.preview.markdownPreview.customIP"><code class="option">vim.utility.preview.markdownPreview.customIP</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>IP-address to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/utility/preview/markdown-preview/markdown-preview.nix" target="_top">
+&lt;neovim-flake/modules/utility/preview/markdown-preview/markdown-preview.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.preview.markdownPreview.customPort"></a><a class="term" href="options.html#opt-vim.utility.preview.markdownPreview.customPort"><code class="option">vim.utility.preview.markdownPreview.customPort</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Port to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/utility/preview/markdown-preview/markdown-preview.nix" target="_top">
+&lt;neovim-flake/modules/utility/preview/markdown-preview/markdown-preview.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.preview.markdownPreview.filetypes"></a><a class="term" href="options.html#opt-vim.utility.preview.markdownPreview.filetypes"><code class="option">vim.utility.preview.markdownPreview.filetypes</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Allowed filetypes</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
+  &quot;markdown&quot;
+]
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/utility/preview/markdown-preview/markdown-preview.nix" target="_top">
+&lt;neovim-flake/modules/utility/preview/markdown-preview/markdown-preview.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.preview.markdownPreview.lazyRefresh"></a><a class="term" href="options.html#opt-vim.utility.preview.markdownPreview.lazyRefresh"><code class="option">vim.utility.preview.markdownPreview.lazyRefresh</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Only update preview when saving or leaving insert mode</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/neovim-flake/blob/main/modules/utility/preview/markdown-preview/markdown-preview.nix" target="_top">
+&lt;neovim-flake/modules/utility/preview/markdown-preview/markdown-preview.nix&gt;
 </a></code>
 </td></tr>
 </table>
