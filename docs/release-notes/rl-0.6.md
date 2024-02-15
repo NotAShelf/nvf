@@ -22,6 +22,8 @@ Release notes for release 0.6
 
 - colorizer.nvim: switched to a maintained fork
 
+- Added `markdown-preview.nvim`, moved `glow.nvim` to a brand new `vim.utility.preview` category.
+
 [notashelf](https://github.com/notashelf):
 
 - Finished moving to `nixosOptionsDoc` in the documentation and changelog. We are fully free of asciidoc now
