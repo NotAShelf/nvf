@@ -10,12 +10,13 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins =
-        [
-          "image-nvim"
-          # TODO: needs luarockss here somehow
-        ]
-        ++ (attrValues {inherit (pkgs) luarocks imagemagick;});
+      startPlugins = [
+        "image-nvim"
+      ];
+
+      luaPackages = [
+        "magick"
+      ];
 
       luaConfigRC.image-nvim = nvim.dag.entryAnywhere ''
         require("image").setup(
