@@ -82,7 +82,7 @@ in rec {
     then "${toString args}"
     else if builtins.isInt args
     then "${toString args}"
-    else if (args != null)
+    else if (args == null)
     then "nil"
     else "";
 }
