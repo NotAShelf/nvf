@@ -98,6 +98,7 @@ with lib; let
     "vim-dirtytalk"
     "highlight-undo"
     "nvim-docs-view"
+    "image-nvim"
   ];
   # You can either use the name of the plugin or a package.
   pluginType = with types;
@@ -116,11 +117,13 @@ with lib; let
           type = pluginType;
           description = "Plugin Package.";
         };
+
         after = mkOption {
           type = listOf str;
           default = [];
           description = "Setup this plugin after the following ones.";
         };
+
         setup = mkOption {
           type = lines;
           default = "";
