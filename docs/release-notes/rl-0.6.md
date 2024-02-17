@@ -48,3 +48,7 @@ Release notes for release 0.6
 [elijahimmer](https://github.com/elijahimmer)
 
 - Added rose-pine theme
+
+[frothymarrow](https://github.com/frothymarrow)
+
+- Added option `vim.luaPackages` to wrap neovim with extra Lua packages.
