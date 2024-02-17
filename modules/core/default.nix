@@ -209,6 +209,14 @@ in {
           }'';
       };
 
+      luaPackages = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = ''
+          List of lua packages to install.
+        '';
+      };
+
       globals = mkOption {
         default = {};
         description = "Set containing global variable values";
