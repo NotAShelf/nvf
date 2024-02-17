@@ -59,58 +59,57 @@ in {
             this will be scaled down to fit within this width.
           '';
         };
+      };
 
-        maxHeight = mkOption {
-          type = with types; nullOr int;
-          default = null;
-          description = ''
-            The maximum height of images to render. Images larger than
-            this will be scaled down to fit within this height.
-          '';
-        };
+      maxHeight = mkOption {
+        type = with types; nullOr int;
+        default = null;
+        description = ''
+          The maximum height of images to render. Images larger than
+          this will be scaled down to fit within this height.
+        '';
+      };
 
-        maxWidthWindowPercentage = mkOption {
-          type = with types; nullOr int;
-          default = null;
-          description = ''
-            The maximum width of images to render as a percentage of the
-            window width. Images larger than this will be scaled down to
-            fit within this width.
-          '';
-        };
+      maxWidthWindowPercentage = mkOption {
+        type = with types; nullOr int;
+        default = null;
+        description = ''
+          The maximum width of images to render as a percentage of the
+          window width. Images larger than this will be scaled down to
+          fit within this width.
+        '';
+      };
 
-        maxHeightWindowPercentage = mkOption {
-          type = with types; nullOr int;
-          default = 50;
-          description = ''
-            The maximum height of images to render as a percentage of the
-            window height. Images larger than this will be scaled down to
-            fit within this height.
-          '';
-        };
+      maxHeightWindowPercentage = mkOption {
+        type = with types; nullOr int;
+        default = 50;
+        description = ''
+          The maximum height of images to render as a percentage of the
+          window height. Images larger than this will be scaled down to
+          fit within this height.
+        '';
+      };
 
-        windowOverlapClear = {
-          enable = mkEnableOption "clearing of images when they overlap with the window";
-          ftIgnore = mkOption {
-            type = with types; listOf str;
-            default = ["cmp_menu" "cmp_docs" ""];
-            description = ''
-              Filetypes to ignore window overlap clearing in.
-            '';
-          };
-        };
-
-        editorOnlyRenderWhenFocused = mkEnableOption "only rendering images when the editor is focused";
-        hijackFilePatterns = mkOption {
+      windowOverlapClear = {
+        enable = mkEnableOption "clearing of images when they overlap with the window";
+        ftIgnore = mkOption {
           type = with types; listOf str;
-          default = ["*.png" "*.jpg" "*.jpeg" "*.gif" "*.webp"];
+          default = ["cmp_menu" "cmp_docs" ""];
           description = ''
-            File patterns to hijack for image.nvim. This is useful for
-            filetypes that don't have a dedicated integration.
+            Filetypes to ignore window overlap clearing in.
           '';
         };
+      };
+
+      editorOnlyRenderWhenFocused = mkEnableOption "only rendering images when the editor is focused";
+      hijackFilePatterns = mkOption {
+        type = with types; listOf str;
+        default = ["*.png" "*.jpg" "*.jpeg" "*.gif" "*.webp"];
+        description = ''
+          File patterns to hijack for image.nvim. This is useful for
+          filetypes that don't have a dedicated integration.
+        '';
       };
     };
   };
 }
-
