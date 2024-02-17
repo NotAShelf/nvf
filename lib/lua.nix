@@ -19,6 +19,8 @@ in rec {
     then lib.boolToString exp # if bool, convert to string
     else if builtins.isInt exp
     then builtins.toString exp # if int, convert to string
+    else if exp == null
+    then "nil"
     else (builtins.toJSON exp); # otherwise jsonify the value and print as is
 
   # convert list to a lua table
