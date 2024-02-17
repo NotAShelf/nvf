@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="../assets/neovim-flake-logo-work.svg" alt="neovim-flake Logo"  width="200">
+    <img src="./assets/neovim-flake-logo-work.svg" alt="neovim-flake Logo"  width="200">
 </div>
 <h1 align="center">❄️  neovim-flake</h1>
 <div align="center">
