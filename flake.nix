@@ -29,7 +29,7 @@
         homeManagerModules = {
           neovim-flake = {
             imports = [
-              (import ./lib/module self.packages inputs)
+              (import ./flake/modules/hm-module.nix self.packages inputs)
             ];
           };
 

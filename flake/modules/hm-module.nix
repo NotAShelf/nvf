@@ -20,7 +20,7 @@ in {
     enable = mkEnableOption "A NeoVim IDE with a focus on configurability and extensibility.";
 
     settings = mkOption {
-      type = types.attrsOf types.anything;
+      type = with types; attrsOf anything;
       default = {};
       example = literalExpression ''
         {
