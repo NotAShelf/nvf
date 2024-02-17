@@ -1,4 +1,5 @@
 {lib}: {
+  bool = import ./bool.nix {inherit lib;};
   dag = import ./dag.nix {inherit lib;};
   types = import ./types {inherit lib;};
   languages = import ./languages.nix {inherit lib;};
