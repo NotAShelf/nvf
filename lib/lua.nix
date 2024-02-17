@@ -1,7 +1,7 @@
 # Helpers for converting values to lua
 {lib}: let
   inherit (lib) mapAttrsToList filterAttrs concatStringsSep concatMapStringsSep stringToCharacters boolToString;
-  inherit (builtins) hasAttr head;
+  inherit (builtins) hasAttr head throw typeOf;
 in rec {
   # Convert a null value to lua's nil
   nullString = value:
@@ -84,5 +84,5 @@ in rec {
     then "${toString args}"
     else if (args == null)
     then "nil"
-    else "";
+    else throw "could not convert object of type `${typeOf args}` to lua object";
 }
