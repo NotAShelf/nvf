@@ -3,33 +3,43 @@
   lib,
   check ? true,
 }: let
+  inherit (lib) mkDefault;
+
+  plugins = builtins.map (p: ./plugins + "/${p}") [
+    "completion"
+    "theme"
+    "statusline"
+    "tabline"
+    "filetree"
+    "visuals"
+    "lsp"
+    "treesitter"
+    "autopairs"
+    "snippets"
+    "git"
+    "minimap"
+    "dashboard"
+    "utility"
+    "rich-presence"
+    "notes"
+    "terminal"
+    "ui"
+    "assistant"
+    "session"
+    "comments"
+    "projects"
+    "languages"
+    "debugger"
+  ];
+
+  core = builtins.map (p: ./core + "/${p}") [
+    "build"
+    "mappings"
+    "warnings"
+  ];
+
   modules = [
-    ./completion
-    ./theme
-    ./core
-    ./basic
-    ./statusline
-    ./tabline
-    ./filetree
-    ./visuals
-    ./lsp
-    ./treesitter
-    ./autopairs
-    ./snippets
-    ./git
-    ./minimap
-    ./dashboard
-    ./utility
-    ./rich-presence
-    ./notes
-    ./terminal
-    ./ui
-    ./assistant
-    ./session
-    ./comments
-    ./projects
-    ./languages
-    ./debugger
+    ./neovim
   ];
 
   pkgsModule = {config, ...}: {
@@ -38,11 +48,11 @@
         inherit check;
         args = {
           baseModules = modules;
-          pkgsPath = lib.mkDefault pkgs.path;
-          pkgs = lib.mkDefault pkgs;
+          pkgsPath = mkDefault pkgs.path;
+          pkgs = mkDefault pkgs;
         };
       };
     };
   };
 in
-  modules ++ [pkgsModule]
+  [pkgsModule] ++ (lib.concatLists [core modules plugins])
