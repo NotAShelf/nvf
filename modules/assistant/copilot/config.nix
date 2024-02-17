@@ -4,10 +4,10 @@
   ...
 }: let
   inherit (builtins) toJSON;
+  inherit (lib.nvim.lua) expToLua;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.lists) optionals;
-  inherit (lib.trivial) boolToString;
   inherit (lib.nvim.binds) mkLuaBinding;
 
   cfg = config.vim.assistant.copilot;
@@ -28,47 +28,39 @@ in {
     vim.startPlugins =
       [
         "copilot-lua"
-        cfg.copilotNodePackage
+        # cfg.copilotNodePackage
       ]
       ++ optionals (cfg.cmp.enable) [
         "copilot-cmp"
       ];
 
     vim.luaConfigRC.copilot = entryAnywhere ''
-      require("copilot").setup({
-        -- available options: https://github.com/zbirenbaum/copilot.lua
-        copilot_node_command = "${cfg.copilotNodeCommand}",
-        panel = {
-          enabled = ${boolToString (!cfg.cmp.enable)},
-          keymap = {
-            jump_prev = false,
-            jump_next = false,
-            accept = false,
-            refresh = false,
-            open = false,
-          },
-          layout = {
-            position = "${cfg.panel.position}",
-            ratio = ${toString cfg.panel.ratio},
-          },
-        },
-        suggestion = {
-          enabled = ${boolToString (!cfg.cmp.enable)},
-          keymap = {
-            accept = false,
-            accept_word = false,
-            accept_line = false,
-            next = false,
-            prev = false,
-            dismiss = false,
-          },
-        },
-      })
+      require("copilot").setup(${expToLua cfg.setupOpts})
 
       ${lib.optionalString (cfg.cmp.enable) ''
         require("copilot_cmp").setup()
       ''}
     '';
+
+    # Disable plugin handled keymaps.
+    # Setting it here so that it doesn't show up in user docs
+    vim.assistant.copilot.setupOpts = {
+      panel.keymap = {
+        jump_prev = lib.mkDefault false;
+        jump_next = lib.mkDefault false;
+        accept = lib.mkDefault false;
+        refresh = lib.mkDefault false;
+        open = lib.mkDefault false;
+      };
+      suggestion.keymap = {
+        accept = lib.mkDefault false;
+        accept_word = lib.mkDefault false;
+        accept_line = lib.mkDefault false;
+        next = lib.mkDefault false;
+        prev = lib.mkDefault false;
+        dismiss = lib.mkDefault false;
+      };
+    };
 
     vim.maps.normal = mkMerge [
       (mkLuaBinding cfg.mappings.panel.jumpPrev (wrapPanelBinding "require(\"copilot.panel\").jump_prev" cfg.mappings.panel.jumpPrev) "[copilot] Accept suggestion")
@@ -76,7 +68,7 @@ in {
       (mkLuaBinding cfg.mappings.panel.accept (wrapPanelBinding ''require("copilot.panel").accept'' cfg.mappings.panel.accept) "[copilot] Accept suggestion")
       (mkLuaBinding cfg.mappings.panel.refresh (wrapPanelBinding "require(\"copilot.panel\").refresh" cfg.mappings.panel.refresh) "[copilot] Accept suggestion")
       (mkLuaBinding cfg.mappings.panel.open (wrapPanelBinding ''
-          function() require("copilot.panel").open({ position = "${cfg.panel.position}", ratio = ${toString cfg.panel.ratio}, }) end
+          function() require("copilot.panel").open({ position = "${cfg.setupOpts.panel.layout.position}", ratio = ${toString cfg.setupOpts.panel.layout.ratio}, }) end
         ''
         cfg.mappings.panel.open) "[copilot] Accept suggestion")
     ];

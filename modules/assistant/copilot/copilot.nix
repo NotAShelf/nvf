@@ -4,9 +4,9 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) enum float nullOr str package;
-  inherit (lib.meta) getExe;
+  inherit (lib.options) mkEnableOption mkOption mkRenamedOptionModule;
+  inherit (lib.types) nullOr str enum float;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 
   cfg = config.vim.assistant.copilot;
 in {
@@ -14,21 +14,45 @@ in {
     enable = mkEnableOption "GitHub Copilot AI assistant";
     cmp.enable = mkEnableOption "nvim-cmp integration for GitHub Copilot";
 
-    panel = {
-      position = mkOption {
-        type = enum [
-          "bottom"
-          "top"
-          "left"
-          "right"
-        ];
-        default = "bottom";
-        description = "Panel position";
+    imports = [
+      (mkRenamedOptionModule ["vim" "assistant" "copilot" "panel"] ["vim" "assistant" "copilot" "setupOpts" "panel"])
+      (mkRenamedOptionModule ["vim" "assistant" "copilot" "copilotNodeCommand"] ["vim" "assistant" "copilot" "setupOpts" "copilot_node_command"])
+      (mkRenamedOptionModule ["vim" "assistant" "copilot" "copilotNodePackage"] ["vim" "assistant" "copilot" "setupOpts" "copilot_node_command"])
+    ];
+
+    setupOpts = mkPluginSetupOption "Copilot" {
+      copilot_node_command = mkOption {
+        type = str;
+        default = "${lib.getExe pkgs.nodejs-slim}";
+        description = ''
+          The command that will be executed to initiate nodejs for GitHub Copilot.
+          Recommended to leave as default.
+        '';
       };
-      ratio = mkOption {
-        type = float;
-        default = 0.4;
-        description = "Panel size";
+      panel = {
+        enabled = mkEnableOption "Completion Panel" // {default = !cfg.cmp.enable;};
+        layout = {
+          position = mkOption {
+            type = enum [
+              "bottom"
+              "top"
+              "left"
+              "right"
+            ];
+            default = "bottom";
+            description = "Panel position";
+          };
+          ratio = mkOption {
+            type = float;
+            default = 0.4;
+            description = "Panel size";
+          };
+        };
+      };
+
+      suggestion = {
+        enabled = mkEnableOption "Suggestions" // {default = !cfg.cmp.enable;};
+        # keymap = { };
       };
     };
 
@@ -102,23 +126,6 @@ in {
         };
       };
     };
-
-    copilotNodeCommand = mkOption {
-      type = str;
-      default = "${getExe cfg.copilotNodePackage}";
-      description = ''
-        The command that will be executed to initiate nodejs for GitHub Copilot.
-        Recommended to leave as default.
-      '';
-    };
-
-    copilotNodePackage = mkOption {
-      type = nullOr package;
-      default = pkgs.nodejs-slim;
-      description = ''
-        The nodeJS package that will be used for GitHub Copilot. If you are using a custom node command
-        you may want to set this option to null so that the package is not pulled from nixpkgs.
-      '';
-    };
   };
 }
+
