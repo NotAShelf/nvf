@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim optionalString;
+  inherit (lib) mkIf nvim;
 
   cfg = config.vim.lsp;
 in {
@@ -12,16 +12,14 @@ in {
       "lsp-signature"
     ];
 
+    vim.lsp.lspSignature.setupOpts = {
+      bind = config.vim.ui.borders.plugins.lsp-signature.enable;
+      handler_opts.border = config.vim.ui.borders.plugins.lsp-signature.style;
+    };
+
     vim.luaConfigRC.lsp-signature = nvim.dag.entryAnywhere ''
       -- Enable lsp signature viewer
-      require("lsp_signature").setup({
-        ${optionalString (config.vim.ui.borders.plugins.lsp-signature.enable) ''
-        bind = true, -- This is mandatory, otherwise border config won't get registered.
-        handler_opts = {
-          border = "${config.vim.ui.borders.plugins.lsp-signature.style}"
-        }
-      ''}
-      })
+      require("lsp_signature").setup(${nvim.lua.expToLua cfg.lspSignature.setupOpts})
     '';
   };
 }
