@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption mkRenamedOptionModule;
   inherit (lib.types) enum bool;
 in {
   options.vim = {
@@ -12,7 +12,11 @@ in {
         description = "Set the autopairs type. Options: nvim-autopairs [nvim-autopairs]";
       };
 
-      nvim-compe = {
+      imports = [
+        (mkRenamedOptionModule ["vim" "autopairs" "nvim-compe"] ["vim" "autopairs" "nvim-compe" "setupOpts"])
+      ];
+
+      nvim-compe.setupOpts = lib.nvim.types.mkPluginSetupOption {
         map_cr = mkOption {
           type = bool;
           default = true;
