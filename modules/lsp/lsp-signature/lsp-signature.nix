@@ -3,7 +3,8 @@
 in {
   options.vim.lsp = {
     lspSignature = {
-      enable = mkEnableOption "lsp signature viewer [lsp-signature]";
+      enable = mkEnableOption "lsp signature viewer";
+      setupOpts = lib.nvim.types.mkPluginSetupOption "lsp-signature" {};
     };
   };
 }
