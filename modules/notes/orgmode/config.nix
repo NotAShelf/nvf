@@ -6,6 +6,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.binds) pushDownDefault;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.notes.orgmode;
 in {
@@ -37,10 +38,7 @@ in {
             },
           }
 
-          require('orgmode').setup({
-            org_agenda_files = ${cfg.orgAgendaFiles},
-            org_default_notes_file = '${cfg.orgDefaultNotesFile}',
-          })
+          require('orgmode').setup(${toLuaObject cfg.setupOpts})
         '';
       };
     }
