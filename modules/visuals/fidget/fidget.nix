@@ -15,7 +15,7 @@ in {
   options.vim.visuals.fidget-nvim = {
     enable = mkEnableOption "nvim LSP UI element [fidget-nvim]";
 
-    setupOpts = nvim.types.mkPluginSetupOption "Nvim Tree" {
+    setupOpts = nvim.types.mkPluginSetupOption "Fidget" {
       progress = {
         poll_rate = mkOption {
           description = "How frequently to poll for LSP progress messages";
