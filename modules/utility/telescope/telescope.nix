@@ -1,5 +1,9 @@
-{lib, ...}: let
-  inherit (lib) mkMappingOption mkEnableOption;
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit (lib) mkMappingOption mkEnableOption mkOption types;
 in {
   options.vim.telescope = {
     mappings = {
@@ -29,5 +33,21 @@ in {
     };
 
     enable = mkEnableOption "telescope.nvim: multi-purpose search and picker utility";
+
+    vimgrep_arguments = mkOption {
+      description = "Arguments to use for the grep command";
+      type = types.listOf types.str;
+      default = [
+        "${pkgs.ripgrep}/bin/rg"
+        "--color=never"
+        "--no-heading"
+        "--with-filename"
+        "--line-number"
+        "--column"
+        "--smart-case"
+        "--hidden"
+        "--no-ignore"
+      ];
+    };
   };
 }
