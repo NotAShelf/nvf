@@ -49,6 +49,10 @@ Release notes for release 0.6
 
 - Added rose-pine theme
 
-[frothymarrow](https://github.com/frothymarrow)
+[frothymarrow](https://github.com/frothymarrow):
 
 - Added option `vim.luaPackages` to wrap neovim with extra Lua packages.
+
+- Rewrote the entire `fidget.nvim` module to include extensive configuration options. Option `vim.fidget-nvim.align.bottom` has
+  been removed in favor of [vim.fidget-nvim.notification.window.align](vim.fidget-nvim.notification.window.align), which now supports
+  `top` and `bottom` values. `vim.fidget-nvim.align.right` has no longer any equivalent and also has been removed.
