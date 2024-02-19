@@ -3,17 +3,20 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim;
+  inherit (lib.options) mkIf;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.dashboard.dashboard-nvim;
 in {
   config = mkIf cfg.enable {
-    vim.startPlugins = [
-      "dashboard-nvim"
-    ];
+    vim = {
+      startPlugins = [
+        "dashboard-nvim"
+      ];
 
-    vim.luaConfigRC.dashboard-nvim = nvim.dag.entryAnywhere ''
-      require("dashboard").setup{}
-    '';
+      luaConfigRC.dashboard-nvim = entryAnywhere ''
+        require("dashboard").setup{}
+      '';
+    };
   };
 }

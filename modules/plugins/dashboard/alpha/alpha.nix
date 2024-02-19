@@ -1,11 +1,7 @@
-{
-  config,
-  lib,
-  ...
-}: let
-  inherit (lib) mkEnableOption;
+{lib, ...}: let
+  inherit (lib.options) mkEnableOption;
 in {
   options.vim.dashboard.alpha = {
-    enable = mkEnableOption "dashboard via alpha.nvim";
+    enable = mkEnableOption "dashboard [alpha-nvim]";
   };
 }

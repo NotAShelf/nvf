@@ -1,9 +1,10 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption mkMappingOption mkOption types;
+  inherit (lib.types) enum nullOr attrsOf str;
+  inherit (lib) mkEnableOption mkMappingOption mkOption;
 in {
   options.vim = {
     autocomplete = {
-      enable = mkEnableOption "enable autocomplete" // {default = false;};
+      enable = mkEnableOption "enable autocomplete";
 
       mappings = {
         complete = mkMappingOption "Complete [nvim-cmp]" "<C-Space>";
@@ -16,9 +17,14 @@ in {
       };
 
       type = mkOption {
-        type = types.enum ["nvim-cmp"];
+        type = enum ["nvim-cmp"];
         default = "nvim-cmp";
-        description = "Set the autocomplete plugin. Options: [nvim-cmp]";
+        description = ''
+          Set the autocomplete plugin.
+
+          Options:
+          - [nvim-cmp]
+        '';
       };
 
       sources = mkOption {
@@ -31,7 +37,7 @@ in {
 
           Note: only use a single attribute name per attribute set
         '';
-        type = with types; attrsOf (nullOr str);
+        type = attrsOf (nullOr str);
         default = {};
         example = ''
           {nvim-cmp = null; buffer = "[Buffer]";}
@@ -48,9 +54,9 @@ in {
 
             Default is to call the menu mapping function.
           '';
-          type = types.str;
+          type = str;
           default = "nvim_cmp_menu_map";
-          example = lib.literalMD ''
+          example = ''
             ```lua
             function(entry, vim_item)
               return vim_item

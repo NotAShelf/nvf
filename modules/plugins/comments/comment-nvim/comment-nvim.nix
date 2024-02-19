@@ -1,8 +1,9 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption mkMappingOption;
+  inherit (lib.options) mkEnableOption;
+  inherit (lib.nvim.binds) mkMappingOption;
 in {
   options.vim.comments.comment-nvim = {
-    enable = mkEnableOption "smart and powerful comment plugin for neovim comment-nvim";
+    enable = mkEnableOption "smart and powerful comment plugin for neovim [comment-nvim]";
 
     mappings = {
       toggleCurrentLine = mkMappingOption "Toggle current line comment" "gcc";

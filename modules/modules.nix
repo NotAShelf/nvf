@@ -39,13 +39,12 @@
 
   core = map (p: ./core + "/${p}") [
     "build"
-    "mappings"
     "warnings"
   ];
 
   neovim = map (p: ./neovim + "/${p}") [
     "basic"
-    "maps"
+    "mappings"
     "spellcheck"
   ];
 

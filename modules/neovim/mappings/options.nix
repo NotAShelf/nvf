@@ -1,7 +1,7 @@
 {lib, ...}: let
-  inherit (lib) mkOption types;
-  inherit (lib) nvim;
-  inherit (nvim.modules) mkBoolOption;
+  inherit (lib.types) submodule str bool attrsOf nullOr;
+  inherit (lib.options) mkOption;
+  inherit (lib.nvim.modules) mkBoolOption;
 
   # Most of the keybindings code is highly inspired by pta2002/nixvim. Thank you!
   mapConfigOptions = {
@@ -30,23 +30,23 @@
       "Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.";
 
     desc = mkOption {
-      type = types.nullOr types.str;
+      type = nullOr str;
       default = null;
       description = "A description of this keybind, to be shown in which-key, if you have it enabled.";
     };
   };
 
-  mapOption = types.submodule {
+  mapOption = submodule {
     options =
       mapConfigOptions
       // {
         action = mkOption {
-          type = types.str;
+          type = str;
           description = "The action to execute.";
         };
 
         lua = mkOption {
-          type = types.bool;
+          type = bool;
           description = ''
             If true, `action` is considered to be lua code.
             Thus, it will not be wrapped in `""`.
@@ -59,14 +59,14 @@
   mapOptions = mode:
     mkOption {
       description = "Mappings for ${mode} mode";
-      type = types.attrsOf mapOption;
+      type = attrsOf mapOption;
       default = {};
     };
 in {
   options = {
     vim = {
       maps = mkOption {
-        type = types.submodule {
+        type = submodule {
           options = {
             normal = mapOptions "normal";
             insert = mapOptions "insert";
