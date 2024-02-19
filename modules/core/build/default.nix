@@ -4,12 +4,13 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrValues attrNames map mapAttrs toJSON isString concatStringsSep filter;
+  inherit (builtins) attrValues attrNames map mapAttrs concatStringsSep filter;
   inherit (lib) mkOption types mapAttrsFlatten filterAttrs optionalString getAttrs literalExpression;
   inherit (lib) nvim;
   inherit (nvim.lua) toLuaObject;
   inherit (nvim.vim) valToVim;
   inherit (nvim.bool) mkBool;
+  inherit (nvim.dag) resolveDag;
 
   cfg = config.vim;
 
@@ -179,10 +180,12 @@ in {
   };
 
   config = let
-    filterNonNull = mappings: filterAttrs (_name: value: value != null) mappings;
     globalsScript =
       mapAttrsFlatten (name: value: "let g:${name}=${valToVim value}")
       (filterNonNull cfg.globals);
+
+    # TODO: everything below this line needs to be moved to lib
+    filterNonNull = mappings: filterAttrs (_name: value: value != null) mappings;
 
     toLuaBindings = mode: maps:
       map (value: ''
@@ -202,24 +205,12 @@ in {
     omap = toLuaBindings "o" config.vim.maps.operator;
     icmap = toLuaBindings "ic" config.vim.maps.insertCommand;
 
-    resolveDag = {
-      name,
-      dag,
-      mapResult,
-    }: let
-      # When the value is a string, default it to dag.entryAnywhere
-      finalDag = lib.mapAttrs (_: value:
-        if isString value
-        then nvim.dag.entryAnywhere value
-        else value)
-      dag;
-      sortedDag = nvim.dag.topoSort finalDag;
-      result =
-        if sortedDag ? result
-        then mapResult sortedDag.result
-        else abort ("Dependency cycle in ${name}: " + toJSON sortedDag);
-    in
-      result;
+    mkSection = r: ''
+      -- SECTION: ${r.name}
+      ${r.data}
+    '';
+
+    mapResult = r: (wrapLuaConfig (concatStringsSep "\n" (map mkSection r)));
   in {
     vim = {
       startPlugins = map (x: x.package) (attrValues cfg.extraPlugins);
@@ -227,11 +218,6 @@ in {
         globalsScript = nvim.dag.entryAnywhere (concatStringsSep "\n" globalsScript);
 
         luaScript = let
-          mkSection = r: ''
-            -- SECTION: ${r.name}
-            ${r.data}
-          '';
-          mapResult = r: (wrapLuaConfig (concatStringsSep "\n" (map mkSection r)));
           luaConfig = resolveDag {
             name = "lua config script";
             dag = cfg.luaConfigRC;
@@ -241,11 +227,6 @@ in {
           nvim.dag.entryAfter ["globalsScript"] luaConfig;
 
         extraPluginConfigs = let
-          mkSection = r: ''
-            -- SECTION: ${r.name}
-            ${r.data}
-          '';
-          mapResult = r: (wrapLuaConfig (concatStringsSep "\n" (map mkSection r)));
           extraPluginsDag = mapAttrs (_: {
             after,
             setup,
@@ -253,6 +234,7 @@ in {
           }:
             nvim.dag.entryAfter after setup)
           cfg.extraPlugins;
+
           pluginConfig = resolveDag {
             name = "extra plugins config";
             dag = extraPluginsDag;

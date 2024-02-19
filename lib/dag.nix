@@ -8,13 +8,16 @@
 #  - the addition of the function `entryBefore` indicating a "wanted
 #    by" relationship.
 {lib}: let
-  inherit (lib) all filterAttrs nvim mapAttrs toposort;
+  inherit (builtins) isAttrs map toJSON isString elem;
+  inherit (lib.attrsets) attrNames attrValues filterAttrs mapAttrs;
+  inherit (lib.lists) all toposort;
+  inherit (lib) nvim;
 in {
   empty = {};
 
   isEntry = e: e ? data && e ? after && e ? before;
   isDag = dag:
-    builtins.isAttrs dag && all nvim.dag.isEntry (builtins.attrValues dag);
+    isAttrs dag && all nvim.dag.isEntry (attrValues dag);
 
   /*
   Takes an attribute set containing entries built by entryAnywhere,
@@ -76,17 +79,17 @@ in {
   */
   topoSort = dag: let
     dagBefore = dag: name:
-      builtins.attrNames
-      (filterAttrs (_n: v: builtins.elem name v.before) dag);
+      attrNames
+      (filterAttrs (_n: v: elem name v.before) dag);
     normalizedDag =
       mapAttrs (n: v: {
+        inherit (v) data;
         name = n;
-        data = v.data;
         after = v.after ++ dagBefore dag n;
       })
       dag;
-    before = a: b: builtins.elem a.name b.after;
-    sorted = toposort before (builtins.attrValues normalizedDag);
+    before = a: b: elem a.name b.after;
+    sorted = toposort before (attrValues normalizedDag);
   in
     if sorted ? result
     then {
@@ -104,4 +107,23 @@ in {
 
   entryAfter = nvim.dag.entryBetween [];
   entryBefore = before: nvim.dag.entryBetween before [];
+
+  resolveDag = {
+    name,
+    dag,
+    mapResult,
+  }: let
+    # When the value is a string, default it to dag.entryAnywhere
+    finalDag = lib.mapAttrs (_: value:
+      if isString value
+      then nvim.dag.entryAnywhere value
+      else value)
+    dag;
+    sortedDag = nvim.dag.topoSort finalDag;
+    result =
+      if sortedDag ? result
+      then mapResult sortedDag.result
+      else abort ("Dependency cycle in ${name}: " + toJSON sortedDag);
+  in
+    result;
 }
