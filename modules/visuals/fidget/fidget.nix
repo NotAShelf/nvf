@@ -3,12 +3,11 @@
   lib,
   ...
 }: let
-  inherit (lib) mkRemovedOptionModule mkEnableOption mkOption mapAttrs toUpper nvim types;
+  inherit (lib) mkRemovedOptionModule mkEnableOption mkOption mapAttrs toUpper nvim types mkRenamedOptionModule;
   rawLua = lua: {__raw = lua;};
 in {
   imports = [
-    (mkRemovedOptionModule ["vim" "visuals" "fidget-nvim" "align" "bottom"]
-      "Option `vim.fidget-nvim.align.bottom` has been removed in favor of `vim.fidget-nvim.notification.window.align`, which supports the `bottom` value for the same purpose.")
+    (mkRenamedOptionModule ["vim" "visuals" "fidget-nvim" "align" "bottom"] ["vim" "visuals" "fidget-nvim" "setupOpts" "notification" "window" "align"])
     (mkRemovedOptionModule ["vim" "visuals" "fidget-nvim" "align" "right"]
       "Option `vim.fidget-nvim.align.right` has been removed and does not have an equivalent replacement in rewritten fidget.nvim configuration.")
   ];
