@@ -5,9 +5,10 @@
   ...
 }: let
   inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetBinding nvim;
+  inherit (nvim.lua) listToLuaTable;
 
   cfg = config.vim.telescope;
-  self = import ./telescope.nix {inherit lib;};
+  self = import ./telescope.nix {inherit pkgs lib;};
   mappingDefinitions = self.options.vim.telescope.mappings;
 
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
@@ -56,17 +57,7 @@ in {
       local telescope = require('telescope')
       telescope.setup {
         defaults = {
-          vimgrep_arguments = {
-            "${pkgs.ripgrep}/bin/rg",
-            "--color=never",
-            "--no-heading",
-            "--with-filename",
-            "--line-number",
-            "--column",
-            "--smart-case",
-            "--hidden",
-            "--no-ignore",
-          },
+          vimgrep_arguments = ${listToLuaTable cfg.vimgrep_arguments},
           pickers = {
             find_command = {
               "${pkgs.fd}/bin/fd",
