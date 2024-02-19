@@ -8,31 +8,33 @@
   inherit (lib.lists) concatLists;
 
   # map each plugin from our plugins module into a list
+  # while adding a new parent module, it needs to be added
+  # here by name before it can be evaluated
   plugins = map (p: ./plugins + "/${p}") [
+    "assistant"
+    "autopairs"
+    "comments"
     "completion"
-    "theme"
+    "dashboard"
+    "debugger"
+    "filetree"
+    "git"
+    "languages"
+    "lsp"
+    "minimap"
+    "notes"
+    "projects"
+    "rich-presence"
+    "session"
+    "snippets"
     "statusline"
     "tabline"
-    "filetree"
-    "visuals"
-    "lsp"
-    "treesitter"
-    "autopairs"
-    "snippets"
-    "git"
-    "minimap"
-    "dashboard"
-    "utility"
-    "rich-presence"
-    "notes"
     "terminal"
+    "theme"
+    "treesitter"
     "ui"
-    "assistant"
-    "session"
-    "comments"
-    "projects"
-    "languages"
-    "debugger"
+    "utility"
+    "visuals"
   ];
 
   core = map (p: ./core + "/${p}") [

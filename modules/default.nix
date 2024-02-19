@@ -6,11 +6,12 @@ inputs: {
   extraSpecialArgs ? {},
 }: let
   inherit (builtins) map filter isString toString getAttr;
-  inherit (pkgs) wrapNeovim vimPlugins;
-  inherit (pkgs.vimUtils) buildVimPlugin;
+  inherit (lib.asserts) assertMsg;
 
+  # extend nixpkgs.lib with our own set of functions
   extendedLib = import ../lib/stdlib-extended.nix lib;
 
+  # define neovim modules that will be used to configure neovim
   nvimModules = import ./modules.nix {
     inherit check pkgs;
     lib = extendedLib;
@@ -23,10 +24,13 @@ inputs: {
 
   vimOptions = module.config.vim;
 
+  inherit (pkgs) wrapNeovim vimPlugins;
+  inherit (pkgs.vimUtils) buildVimPlugin;
+
   extraLuaPackages = ps: map (x: ps.${x}) vimOptions.luaPackages;
 
   buildPlug = {pname, ...} @ args:
-    assert lib.asserts.assertMsg (pname != "nvim-treesitter") "Use buildTreesitterPlug for building nvim-treesitter.";
+    assert assertMsg (pname != "nvim-treesitter") "Use buildTreesitterPlug for building nvim-treesitter.";
       buildVimPlugin (args
         // {
           version = "master";
@@ -57,6 +61,10 @@ inputs: {
       (f: f != null)
       plugins);
 
+  # configure the neovim wrapper
+  # for details on how to use the wrapper, see:
+  # - https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/neovim/wrapper.nix
+  # - https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/neovim/utils.nix
   neovim = wrapNeovim vimOptions.package {
     inherit (vimOptions) viAlias;
     inherit (vimOptions) vimAlias;

@@ -1,32 +1,32 @@
 {lib, ...}: let
   inherit (lib) mkOption types;
   inherit (lib) nvim;
-  inherit (nvim.bool) mkBool;
+  inherit (nvim.modules) mkBoolOption;
 
   # Most of the keybindings code is highly inspired by pta2002/nixvim. Thank you!
   mapConfigOptions = {
     silent =
-      mkBool false
+      mkBoolOption false
       "Whether this mapping should be silent. Equivalent to adding <silent> to a map.";
 
     nowait =
-      mkBool false
+      mkBoolOption false
       "Whether to wait for extra input on ambiguous mappings. Equivalent to adding <nowait> to a map.";
 
     script =
-      mkBool false
+      mkBoolOption false
       "Equivalent to adding <script> to a map.";
 
     expr =
-      mkBool false
+      mkBoolOption false
       "Means that the action is actually an expression. Equivalent to adding <expr> to a map.";
 
     unique =
-      mkBool false
+      mkBoolOption false
       "Whether to fail if the map is already defined. Equivalent to adding <unique> to a map.";
 
     noremap =
-      mkBool true
+      mkBoolOption true
       "Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.";
 
     desc = mkOption {
