@@ -398,7 +398,7 @@
     };
 
     fidget-nvim = {
-      url = "github:j-hui/fidget.nvim?ref=legacy";
+      url = "github:j-hui/fidget.nvim";
       flake = false;
     };
 

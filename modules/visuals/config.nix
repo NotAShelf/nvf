@@ -113,24 +113,9 @@ in {
       '';
     })
 
-    (mkIf cfg.fidget-nvim.enable {
-      vim.startPlugins = ["fidget-nvim"];
-      vim.luaConfigRC.fidget-nvim = nvim.dag.entryAnywhere ''
-        require"fidget".setup{
-          align = {
-            bottom = ${boolToString cfg.fidget-nvim.align.bottom},
-            right = ${boolToString cfg.fidget-nvim.align.right},
-          },
-          window = {
-            blend = 0,
-          },
-        }
-      '';
-    })
-
     (mkIf cfg.highlight-undo.enable {
       vim.startPlugins = ["highlight-undo"];
-      vim.luaConfigRC.fidget-nvim = nvim.dag.entryAnywhere ''
+      vim.luaConfigRC.highlight-undo = nvim.dag.entryAnywhere ''
         require('highlight-undo').setup({
           duration = ${toString cfg.highlight-undo.duration},
           highlight_for_count = ${boolToString cfg.highlight-undo.highlightForCount},
