@@ -23,6 +23,8 @@ inputs: {
 
   vimOptions = module.config.vim;
 
+  extraLuaPackages = ps: map (x: ps.${x}) vimOptions.luaPackages;
+
   buildPlug = {pname, ...} @ args:
     assert lib.asserts.assertMsg (pname != "nvim-treesitter") "Use buildTreesitterPlug for building nvim-treesitter.";
       buildVimPlugin (args
@@ -58,6 +60,8 @@ inputs: {
   neovim = wrapNeovim vimOptions.package {
     inherit (vimOptions) viAlias;
     inherit (vimOptions) vimAlias;
+
+    inherit extraLuaPackages;
 
     configure = {
       customRC = vimOptions.builtConfigRC;
