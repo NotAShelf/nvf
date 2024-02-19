@@ -3,9 +3,12 @@
   lib,
   check ? true,
 }: let
-  inherit (lib) mkDefault;
+  inherit (builtins) map;
+  inherit (lib.modules) mkDefault;
+  inherit (lib.lists) concatLists;
 
-  plugins = builtins.map (p: ./plugins + "/${p}") [
+  # map each plugin from our plugins module into a list
+  plugins = map (p: ./plugins + "/${p}") [
     "completion"
     "theme"
     "statusline"
@@ -32,14 +35,16 @@
     "debugger"
   ];
 
-  core = builtins.map (p: ./core + "/${p}") [
+  core = map (p: ./core + "/${p}") [
     "build"
     "mappings"
     "warnings"
   ];
 
-  modules = [
-    ./neovim
+  neovim = map (p: ./neovim + "/${p}") [
+    "basic"
+    "maps"
+    "spellcheck"
   ];
 
   pkgsModule = {config, ...}: {
@@ -54,5 +59,7 @@
       };
     };
   };
+
+  modules = concatLists [core neovim plugins] ++ [pkgsModule];
 in
-  [pkgsModule] ++ (lib.concatLists [core modules plugins])
+  modules

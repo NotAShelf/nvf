@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   lib,
   ...
 }: let
@@ -90,6 +91,14 @@
 in {
   options = {
     vim = {
+      package = mkOption {
+        type = types.package;
+        default = pkgs.neovim-unwrapped;
+        description = ''
+          The neovim package to use. You will need to use an unwrapped package for this option to work as intended.
+        '';
+      };
+
       viAlias = mkOption {
         description = "Enable vi alias";
         type = types.bool;

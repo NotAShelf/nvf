@@ -7,14 +7,6 @@
   inherit (lib.types) types;
 in {
   options.vim = {
-    package = mkOption {
-      type = types.package;
-      default = pkgs.neovim-unwrapped;
-      description = ''
-        The neovim package to use. You will need to use an unwrapped package for this option to work as intended.
-      '';
-    };
-
     debugMode = {
       enable = mkEnableOption "debug mode";
       level = mkOption {
@@ -36,17 +28,6 @@ in {
       type = with types; nullOr str;
       default = null;
       description = "The leader key to be used internally";
-    };
-
-    spellChecking = {
-      enable = mkEnableOption "neovim's built-in spellchecking";
-      enableProgrammingWordList = mkEnableOption "vim-dirtytalk, a wordlist for programmers, that includes programming words";
-      languages = mkOption {
-        type = with types; listOf str;
-        description = "The languages to be used for spellchecking";
-        default = ["en"];
-        example = ["en" "de"];
-      };
     };
 
     colourTerm = mkOption {
@@ -179,6 +160,7 @@ in {
       default = true;
       description = "New splits will open to the right";
     };
+
     enableEditorconfig = mkOption {
       type = types.bool;
       default = true;
