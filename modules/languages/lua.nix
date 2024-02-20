@@ -27,33 +27,35 @@ in {
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = mkMerge [
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.package];
     })
 
-    (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.lua-lsp = ''
-        lspconfig.lua_ls.setup {
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          ${optionalString cfg.lsp.neodev.enable "before_init = require('neodev.lsp').before_init;"}
-          cmd = ${
-          if isList cfg.lsp.package
-          then nvim.lua.expToLua cfg.lsp.package
-          else ''{"${getExe cfg.lsp.package}"}''
-        };
-        }
-      '';
-    })
+    (mkIf cfg.enable (mkMerge [
+      (mkIf cfg.lsp.enable {
+        vim.lsp.lspconfig.enable = true;
+        vim.lsp.lspconfig.sources.lua-lsp = ''
+          lspconfig.lua_ls.setup {
+            capabilities = capabilities;
+            on_attach = default_on_attach;
+            ${optionalString cfg.lsp.neodev.enable "before_init = require('neodev.lsp').before_init;"}
+            cmd = ${
+            if isList cfg.lsp.package
+            then nvim.lua.expToLua cfg.lsp.package
+            else ''{"${getExe cfg.lsp.package}"}''
+          };
+          }
+        '';
+      })
 
-    (mkIf cfg.lsp.neodev.enable {
-      vim.startPlugins = ["neodev-nvim"];
-      vim.luaConfigRC.neodev = nvim.dag.entryBefore ["lua-lsp"] ''
-        require("neodev").setup({})
-      '';
-    })
-  ]);
+      (mkIf cfg.lsp.neodev.enable {
+        vim.startPlugins = ["neodev-nvim"];
+        vim.luaConfigRC.neodev = nvim.dag.entryBefore ["lua-lsp"] ''
+          require("neodev").setup({})
+        '';
+      })
+    ]))
+  ];
 }
