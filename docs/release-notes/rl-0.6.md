@@ -52,3 +52,4 @@ Release notes for release 0.6
 [frothymarrow](https://github.com/frothymarrow)
 
 - Added option `vim.luaPackages` to wrap neovim with extra Lua packages.
+- `which-key.nvim` categories can now be customized through [vim.binds.which-key.register](vim.binds.which-key.register).
