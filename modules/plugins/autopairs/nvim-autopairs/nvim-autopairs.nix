@@ -1,6 +1,6 @@
 {lib, ...}: let
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.tyoes) enum bool;
+  inherit (lib.types) enum bool;
 in {
   options.vim = {
     autopairs = {
