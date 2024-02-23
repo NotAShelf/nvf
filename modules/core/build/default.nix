@@ -1,27 +1,19 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }: let
   inherit (builtins) attrValues attrNames map mapAttrs concatStringsSep filter;
-  inherit (lib) mkOption types mapAttrsFlatten filterAttrs optionalString getAttrs literalExpression;
-  inherit (lib) nvim;
-  inherit (nvim.lua) toLuaObject;
-  inherit (nvim.vim) valToVim;
-  inherit (nvim.bool) mkBool;
-  inherit (nvim.dag) resolveDag;
+  inherit (lib) types;
+  inherit (lib.attrsets) mapAttrsFlatten filterAttrs getAttrs;
+  inherit (lib.options) mkOption;
+  inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.nvim.build) wrapLuaConfig;
+  inherit (lib.nvim.vim) valToVim;
+  inherit (lib.nvim.bool) mkBool;
+  inherit (lib.nvim.dag) resolveDag mkSection entryAnywhere entryAfter;
 
   cfg = config.vim;
-
-  wrapLuaConfig = luaConfig: ''
-    lua << EOF
-    ${optionalString cfg.enableLuaLoader ''
-      vim.loader.enable()
-    ''}
-    ${luaConfig}
-    EOF
-  '';
 
   # Most of the keybindings code is highly inspired by pta2002/nixvim. Thank you!
   mapConfigOptions = {
@@ -90,95 +82,7 @@
       })
       maps);
 in {
-  options = {
-    vim = {
-      package = mkOption {
-        type = types.package;
-        default = pkgs.neovim-unwrapped;
-        description = ''
-          The neovim package to use. You will need to use an unwrapped package for this option to work as intended.
-        '';
-      };
-
-      viAlias = mkOption {
-        description = "Enable vi alias";
-        type = types.bool;
-        default = true;
-      };
-
-      vimAlias = mkOption {
-        description = "Enable vim alias";
-        type = types.bool;
-        default = true;
-      };
-
-      configRC = mkOption {
-        description = "vimrc contents";
-        type = types.oneOf [(nvim.types.dagOf types.lines) types.str];
-        default = {};
-      };
-
-      luaConfigRC = mkOption {
-        description = "vim lua config";
-        type = types.oneOf [(nvim.types.dagOf types.lines) types.str];
-        default = {};
-      };
-
-      builtConfigRC = mkOption {
-        internal = true;
-        type = types.lines;
-        description = "The built config for neovim after resolving the DAG";
-      };
-
-      startPlugins = nvim.types.pluginsOpt {
-        default = [];
-        description = "List of plugins to startup.";
-      };
-
-      optPlugins = nvim.types.pluginsOpt {
-        default = [];
-        description = "List of plugins to optionally load";
-      };
-
-      extraPlugins = mkOption {
-        type = types.attrsOf nvim.types.extraPluginType;
-        default = {};
-        description = ''
-          List of plugins and related config.
-          Note that these are setup after builtin plugins.
-        '';
-        example = literalExpression ''
-          with pkgs.vimPlugins; {
-            aerial = {
-              package = aerial-nvim;
-              setup = "require('aerial').setup {}";
-            };
-
-            harpoon = {
-              package = harpoon;
-              setup = "require('harpoon').setup {}";
-              after = ["aerial"];
-            };
-          }
-        '';
-      };
-
-      luaPackages = mkOption {
-        type = types.listOf types.str;
-        default = [];
-        description = ''
-          List of lua packages to install.
-        '';
-      };
-
-      globals = mkOption {
-        default = {};
-        description = "Set containing global variable values";
-        type = types.attrs;
-      };
-    };
-  };
-
+  imports = [./options.nix];
   config = let
     globalsScript =
       mapAttrsFlatten (name: value: "let g:${name}=${valToVim value}")
@@ -205,17 +109,12 @@ in {
     omap = toLuaBindings "o" config.vim.maps.operator;
     icmap = toLuaBindings "ic" config.vim.maps.insertCommand;
 
-    mkSection = r: ''
-      -- SECTION: ${r.name}
-      ${r.data}
-    '';
-
     mapResult = r: (wrapLuaConfig (concatStringsSep "\n" (map mkSection r)));
   in {
     vim = {
       startPlugins = map (x: x.package) (attrValues cfg.extraPlugins);
       configRC = {
-        globalsScript = nvim.dag.entryAnywhere (concatStringsSep "\n" globalsScript);
+        globalsScript = entryAnywhere (concatStringsSep "\n" globalsScript);
 
         luaScript = let
           luaConfig = resolveDag {
@@ -224,7 +123,7 @@ in {
             inherit mapResult;
           };
         in
-          nvim.dag.entryAfter ["globalsScript"] luaConfig;
+          entryAfter ["globalsScript"] luaConfig;
 
         extraPluginConfigs = let
           extraPluginsDag = mapAttrs (_: {
@@ -232,7 +131,7 @@ in {
             setup,
             ...
           }:
-            nvim.dag.entryAfter after setup)
+            entryAfter after setup)
           cfg.extraPlugins;
 
           pluginConfig = resolveDag {
@@ -241,7 +140,7 @@ in {
             inherit mapResult;
           };
         in
-          nvim.dag.entryAfter ["luaScript"] pluginConfig;
+          entryAfter ["luaScript"] pluginConfig;
 
         # This is probably not the right way to set the config. I'm not sure how it should look like.
         mappings = let
@@ -260,7 +159,7 @@ in {
           ];
           mapConfig = wrapLuaConfig (concatStringsSep "\n" (map (v: concatStringsSep "\n" v) maps));
         in
-          nvim.dag.entryAfter ["globalsScript"] mapConfig;
+          entryAfter ["globalsScript"] mapConfig;
       };
 
       builtConfigRC = let
@@ -271,11 +170,8 @@ in {
           then throw "\nFailed assertions:\n${concatStringsSep "\n" (map (x: "- ${x}") failedAssertions)}"
           else lib.showWarnings config.warnings;
 
-        mkSection = r: ''
-          " SECTION: ${r.name}
-          ${r.data}
-        '';
         mapResult = r: (concatStringsSep "\n" (map mkSection r));
+
         vimConfig = resolveDag {
           name = "vim config script";
           dag = cfg.configRC;

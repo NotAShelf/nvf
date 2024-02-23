@@ -126,4 +126,10 @@ in {
       else abort ("Dependency cycle in ${name}: " + toJSON sortedDag);
   in
     result;
+
+  # Create a section in the final output
+  mkSection = section: ''
+    -- SECTION: ${section.name}
+    ${section.data}
+  '';
 }

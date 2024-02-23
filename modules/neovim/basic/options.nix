@@ -7,21 +7,6 @@
   inherit (lib.types) types;
 in {
   options.vim = {
-    debugMode = {
-      enable = mkEnableOption "debug mode";
-      level = mkOption {
-        type = types.int;
-        default = 20;
-        description = "Set the debug level";
-      };
-
-      logFile = mkOption {
-        type = types.path;
-        default = "/tmp/nvim.log";
-        description = "Set the log file";
-      };
-    };
-
     enableLuaLoader = mkEnableOption "experimental Lua module loader to speed up the start up process";
 
     leaderKey = mkOption {
@@ -177,6 +162,21 @@ in {
       type = types.enum ["ignore" "smart" "sensitive"];
       default = "sensitive";
       description = "Set the case sensitivity of search";
+    };
+
+    debugMode = {
+      enable = mkEnableOption "debug mode";
+      level = mkOption {
+        type = types.int;
+        default = 20;
+        description = "Set the debug level";
+      };
+
+      logFile = mkOption {
+        type = types.path;
+        default = "/tmp/nvim.log";
+        description = "Set the log file";
+      };
     };
   };
 }

@@ -34,7 +34,19 @@ in {
       default = {};
     };
 
+    prependLuaConfigRC = mkOption {
+      description = "vim lua config";
+      type = oneOf [(dagOf lines) str];
+      default = {};
+    };
+
     luaConfigRC = mkOption {
+      description = "vim lua config";
+      type = oneOf [(dagOf lines) str];
+      default = {};
+    };
+
+    appendLuaConfigRC = mkOption {
       description = "vim lua config";
       type = oneOf [(dagOf lines) str];
       default = {};
