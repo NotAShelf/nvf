@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkIf;
+  inherit (lib.modules) mkIf;
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.dashboard.alpha;

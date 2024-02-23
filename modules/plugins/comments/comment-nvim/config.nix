@@ -3,8 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkIf;
-  inherit (lib.modules) mkMerge;
+  inherit (lib.modules) mkMerge mkIf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.binds) mkExprBinding mkBinding;
 
