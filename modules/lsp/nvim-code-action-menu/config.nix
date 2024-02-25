@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) addDescriptionsToMappings mkIf mkSetBinding nvim;
+  inherit (lib) addDescriptionsToMappings mkIf mkSetBinding nvim defaultAttributes;
 
   cfg = config.vim.lsp;
 
@@ -16,6 +16,10 @@ in {
     vim.startPlugins = ["nvim-code-action-menu"];
 
     vim.maps.normal = mkSetBinding mappings.open ":CodeActionMenu<CR>";
+
+    vim.binds.whichKey.register = defaultAttributes {
+      "<leader>c" = "+CodeAction";
+    };
 
     vim.luaConfigRC.code-action-menu = nvim.dag.entryAnywhere ''
       -- border configuration

@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim;
+  inherit (lib) mkIf nvim defaultAttributes;
 
   cfg = config.vim.notes.obsidian;
   auto = config.vim.autocomplete;
@@ -14,6 +14,10 @@ in {
       "vim-markdown"
       "tabular"
     ];
+
+    vim.binds.whichKey.register = defaultAttributes {
+      "<leader>o" = "+Notes";
+    };
 
     vim.luaConfigRC.obsidian = nvim.dag.entryAnywhere ''
       require("obsidian").setup({

@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetLuaBinding nvim;
+  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetLuaBinding nvim defaultAttributes;
 
   cfg = config.vim.minimap.codewindow;
 
@@ -23,6 +23,10 @@ in {
       (mkSetLuaBinding mappings.toggle "require('codewindow').toggle_minimap")
       (mkSetLuaBinding mappings.toggleFocus "require('codewindow').toggle_focus")
     ];
+
+    vim.binds.whichKey.register = defaultAttributes {
+      "<leader>m" = "+Minimap";
+    };
 
     vim.luaConfigRC.codewindow = nvim.dag.entryAnywhere ''
       local codewindow = require('codewindow')

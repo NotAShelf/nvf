@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf mkMerge mkBinding nvim boolToString;
+  inherit (lib) mkIf mkMerge mkBinding nvim boolToString defaultAttributes;
 
   cfg = config.vim.filetree.nvimTree;
   self = import ./nvimtree.nix {
@@ -22,6 +22,10 @@ in {
       (mkBinding cfg.mappings.findFile ":NvimTreeFindFile<cr>" mappings.findFile.description)
       (mkBinding cfg.mappings.focus ":NvimTreeFocus<cr>" mappings.focus.description)
     ];
+
+    vim.binds.whichKey.register = defaultAttributes {
+      "<leader>t" = "+NvimTree";
+    };
 
     vim.luaConfigRC.nvimtreelua = nvim.dag.entryAnywhere ''
       ${

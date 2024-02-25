@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf mkMerge mkLuaBinding mkBinding nvim;
+  inherit (lib) mkIf mkMerge mkLuaBinding mkBinding nvim defaultAttributes;
 
   cfg = config.vim.tabline.nvimBufferline;
   self = import ./nvim-bufferline.nix {
@@ -39,6 +39,13 @@ in {
         (mkBinding cfg.mappings.moveNext ":BufferLineMoveNext<CR>" mappings.moveNext.description)
         (mkBinding cfg.mappings.movePrevious ":BufferLineMovePrev<CR>" mappings.movePrevious.description)
       ];
+
+      vim.binds.whichKey.register = defaultAttributes {
+        "<leader>b" = "+Buffer";
+        "<leader>bm" = "BufferLineMove";
+        "<leader>bs" = "BufferLineSort";
+        "<leader>bsi" = "BufferLineSortById";
+      };
 
       vim.luaConfigRC.nvimBufferline = nvim.dag.entryAnywhere ''
         require("bufferline").setup{

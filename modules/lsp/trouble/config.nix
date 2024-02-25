@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetBinding nvim;
+  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetBinding nvim defaultAttributes;
 
   cfg = config.vim.lsp;
 
@@ -23,6 +23,12 @@ in {
       (mkSetBinding mappings.quickfix "<cmd>TroubleToggle quickfix<CR>")
       (mkSetBinding mappings.locList "<cmd>TroubleToggle loclist<CR>")
     ];
+
+    vim.binds.whichKey.register = defaultAttributes {
+      "<leader>l" = "Trouble";
+      "<leader>x" = "+Trouble";
+      "<leader>lw" = "Workspace";
+    };
 
     vim.luaConfigRC.trouble = nvim.dag.entryAnywhere ''
       -- Enable trouble diagnostics viewer
