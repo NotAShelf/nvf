@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf mkMerge nvim defaultAttributes;
+  inherit (lib) mkIf mkMerge nvim pushDownDefault;
 
   cfg = config.vim.notes.orgmode;
 in {
@@ -13,7 +13,7 @@ in {
         "orgmode-nvim"
       ];
 
-      vim.binds.whichKey.register = defaultAttributes {
+      vim.binds.whichKey.register = pushDownDefault {
         "<leader>o" = "+Notes";
       };
 

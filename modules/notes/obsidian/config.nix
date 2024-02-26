@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim defaultAttributes;
+  inherit (lib) mkIf nvim pushDownDefault;
 
   cfg = config.vim.notes.obsidian;
   auto = config.vim.autocomplete;
@@ -15,7 +15,7 @@ in {
       "tabular"
     ];
 
-    vim.binds.whichKey.register = defaultAttributes {
+    vim.binds.whichKey.register = pushDownDefault {
       "<leader>o" = "+Notes";
     };
 

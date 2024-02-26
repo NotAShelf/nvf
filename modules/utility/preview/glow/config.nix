@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib) nvim mkIf mkMerge mkBinding defaultAttributes;
+  inherit (lib) nvim mkIf mkMerge mkBinding pushDownDefault;
 
   cfg = config.vim.utility.preview.glow;
   self = import ./glow.nix {
@@ -19,7 +19,7 @@ in {
       (mkBinding cfg.mappings.openPreview ":Glow<CR>" mappings.openPreview.description)
     ];
 
-    vim.binds.whichKey.register = defaultAttributes {
+    vim.binds.whichKey.register = pushDownDefault {
       "<leader>pm" = "+Preview Markdown";
     };
 

@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetBinding nvim defaultAttributes;
+  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetBinding nvim pushDownDefault;
 
   cfg = config.vim.telescope;
   self = import ./telescope.nix {inherit lib;};
@@ -52,7 +52,7 @@ in {
       )
     ];
 
-    vim.binds.whichKey.register = defaultAttributes {
+    vim.binds.whichKey.register = pushDownDefault {
       "<leader>f" = "+Telescope";
       "<leader>fl" = "Telescope LSP";
       "<leader>fm" = "Cellular Automaton";

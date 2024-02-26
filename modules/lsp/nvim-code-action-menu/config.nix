@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) addDescriptionsToMappings mkIf mkSetBinding nvim defaultAttributes;
+  inherit (lib) addDescriptionsToMappings mkIf mkSetBinding nvim pushDownDefault;
 
   cfg = config.vim.lsp;
 
@@ -17,7 +17,7 @@ in {
 
     vim.maps.normal = mkSetBinding mappings.open ":CodeActionMenu<CR>";
 
-    vim.binds.whichKey.register = defaultAttributes {
+    vim.binds.whichKey.register = pushDownDefault {
       "<leader>c" = "+CodeAction";
     };
 

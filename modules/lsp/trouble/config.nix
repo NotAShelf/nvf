@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetBinding nvim defaultAttributes;
+  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetBinding nvim pushDownDefault;
 
   cfg = config.vim.lsp;
 
@@ -24,7 +24,7 @@ in {
       (mkSetBinding mappings.locList "<cmd>TroubleToggle loclist<CR>")
     ];
 
-    vim.binds.whichKey.register = defaultAttributes {
+    vim.binds.whichKey.register = pushDownDefault {
       "<leader>l" = "Trouble";
       "<leader>x" = "+Trouble";
       "<leader>lw" = "Workspace";

@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (builtins) toJSON;
-  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetExprBinding mkSetLuaBinding nvim defaultAttributes;
+  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetExprBinding mkSetLuaBinding nvim pushDownDefault;
 
   cfg = config.vim.git;
 
@@ -61,7 +61,7 @@ in {
           (mkSetLuaBinding gsMappings.resetHunk "function() package.loaded.gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end")
         ];
 
-        vim.binds.whichKey.register = defaultAttributes {
+        vim.binds.whichKey.register = pushDownDefault {
           "<leader>g" = "+Gitsigns";
         };
 

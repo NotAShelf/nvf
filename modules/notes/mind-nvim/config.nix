@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim defaultAttributes;
+  inherit (lib) mkIf nvim pushDownDefault;
 
   cfg = config.vim.notes.mind-nvim;
 in {
@@ -18,7 +18,7 @@ in {
       "<leader>oc" = {action = ":MindClose<CR>";};
     };
 
-    vim.binds.whichKey.register = defaultAttributes {
+    vim.binds.whichKey.register = pushDownDefault {
       "<leader>o" = "+Notes";
     };
 

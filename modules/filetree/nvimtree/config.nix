@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf mkMerge mkBinding nvim boolToString defaultAttributes;
+  inherit (lib) mkIf mkMerge mkBinding nvim boolToString pushDownDefault;
 
   cfg = config.vim.filetree.nvimTree;
   self = import ./nvimtree.nix {
@@ -23,7 +23,7 @@ in {
       (mkBinding cfg.mappings.focus ":NvimTreeFocus<cr>" mappings.focus.description)
     ];
 
-    vim.binds.whichKey.register = defaultAttributes {
+    vim.binds.whichKey.register = pushDownDefault {
       "<leader>t" = "+NvimTree";
     };
 

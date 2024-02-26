@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf mkMerge mkLuaBinding mkBinding nvim defaultAttributes;
+  inherit (lib) mkIf mkMerge mkLuaBinding mkBinding nvim pushDownDefault;
 
   cfg = config.vim.tabline.nvimBufferline;
   self = import ./nvim-bufferline.nix {
@@ -40,7 +40,7 @@ in {
         (mkBinding cfg.mappings.movePrevious ":BufferLineMovePrev<CR>" mappings.movePrevious.description)
       ];
 
-      vim.binds.whichKey.register = defaultAttributes {
+      vim.binds.whichKey.register = pushDownDefault {
         "<leader>b" = "+Buffer";
         "<leader>bm" = "BufferLineMove";
         "<leader>bs" = "BufferLineSort";

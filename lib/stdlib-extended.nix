@@ -68,7 +68,7 @@ in
     mkSetLuaBinding = binding: action:
       mkLuaBinding binding.value action binding.description;
 
-    defaultAttributes = attr: self.mapAttrs (name: value: self.mkDefault value) attr;
+    pushDownDefault = attr: self.mapAttrs (name: value: self.mkDefault value) attr;
 
     # For forward compatibility.
     literalExpression = super.literalExpression or super.literalExample;

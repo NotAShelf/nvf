@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf defaultAttributes;
+  inherit (lib) mkIf pushDownDefault;
 
   cfg = config.vim.minimap.minimap-vim;
 in {
@@ -14,7 +14,7 @@ in {
       "minimap-vim"
     ];
 
-    vim.binds.whichKey.register = defaultAttributes {
+    vim.binds.whichKey.register = pushDownDefault {
       "<leader>m" = "+Minimap";
     };
   };
