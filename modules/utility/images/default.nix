@@ -1,6 +1,5 @@
 {
   imports = [
-    ./hologram
     ./image-nvim
   ];
 }
