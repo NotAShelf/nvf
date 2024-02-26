@@ -178,10 +178,14 @@ inputs: let
           hop.enable = true;
           leap.enable = true;
         };
+
+        images = {
+          image-nvim.enable = false;
+        };
       };
 
       vim.notes = {
-        obsidian.enable = false; # FIXME neovim fails to build if obsidian is enabled
+        obsidian.enable = false; # FIXME: neovim fails to build if obsidian is enabled
         orgmode.enable = false;
         mind-nvim.enable = isMaximal;
         todo-comments.enable = true;

@@ -162,6 +162,11 @@
       flake = false;
     };
 
+    image-nvim = {
+      url = "github:3rd/image.nvim";
+      flake = false;
+    };
+
     # Tidal cycles
     tidalcycles = {
       url = "github:mitchmindtree/tidalcycles.nix";

@@ -596,6 +596,22 @@
         "type": "github"
       }
     },
+    "image-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1707861531,
+        "narHash": "sha256-mh3J3lW2Co2uA7YJzSGum0ZmpJBP0ZzBWUvJLAI9bHw=",
+        "owner": "3rd",
+        "repo": "image.nvim",
+        "rev": "4c6cb5ad93ee93d8d7b7c84e1eb291cee99f0a0e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "3rd",
+        "repo": "image.nvim",
+        "type": "github"
+      }
+    },
     "indent-blankline": {
       "flake": false,
       "locked": {
@@ -1516,6 +1532,7 @@
         "highlight-undo": "highlight-undo",
         "hop-nvim": "hop-nvim",
         "icon-picker-nvim": "icon-picker-nvim",
+        "image-nvim": "image-nvim",
         "indent-blankline": "indent-blankline",
         "kommentary": "kommentary",
         "leap-nvim": "leap-nvim",

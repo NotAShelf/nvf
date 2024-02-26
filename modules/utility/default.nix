@@ -1,11 +1,12 @@
-_: {
+{
   imports = [
     ./binds
+    ./ccc
     ./gestures
     ./motion
     ./telescope
-    ./ccc
     ./icon-picker
+    ./images
     ./telescope
     ./diffview
     ./wakatime
