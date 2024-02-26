@@ -1,11 +1,14 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }: let
   inherit (builtins) toJSON;
-  inherit (lib) mkIf nvim mkLuaBinding mkMerge;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.lists) optionals;
+  inherit (lib.trivial) boolToString;
+  inherit (lib.nvim.binds) mkLuaBinding;
 
   cfg = config.vim.assistant.copilot;
 
@@ -27,16 +30,16 @@ in {
         "copilot-lua"
         cfg.copilotNodePackage
       ]
-      ++ lib.optionals (cfg.cmp.enable) [
+      ++ optionals (cfg.cmp.enable) [
         "copilot-cmp"
       ];
 
-    vim.luaConfigRC.copilot = nvim.dag.entryAnywhere ''
+    vim.luaConfigRC.copilot = entryAnywhere ''
       require("copilot").setup({
         -- available options: https://github.com/zbirenbaum/copilot.lua
         copilot_node_command = "${cfg.copilotNodeCommand}",
         panel = {
-          enabled = ${lib.boolToString (!cfg.cmp.enable)},
+          enabled = ${boolToString (!cfg.cmp.enable)},
           keymap = {
             jump_prev = false,
             jump_next = false,
@@ -50,7 +53,7 @@ in {
           },
         },
         suggestion = {
-          enabled = ${lib.boolToString (!cfg.cmp.enable)},
+          enabled = ${boolToString (!cfg.cmp.enable)},
           keymap = {
             accept = false,
             accept_word = false,

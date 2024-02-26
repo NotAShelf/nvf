@@ -1,6 +1,6 @@
-_: {
+{
   imports = [
     ./config.nix
-    ./tabnine.nix
+    ./image-nvim.nix
   ];
 }

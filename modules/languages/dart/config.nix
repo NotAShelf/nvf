@@ -4,7 +4,12 @@
   pkgs,
   ...
 }: let
-  inherit (lib) isList nvim mkIf mkMerge optionalString boolToString;
+  inherit (lib.lists) isList;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.strings) optionalString;
+  inherit (lib.trivial) boolToString;
+  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.languages.dart;
   ftcfg = cfg.flutter-tools;
@@ -17,7 +22,7 @@
           on_attach=default_on_attach;
           cmd = ${
           if isList cfg.lsp.package
-          then nvim.lua.expToLua cfg.lsp.package
+          then expToLua cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/dart", "language-server", "--protocol=lsp"}''
         };
           ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.dartOpts}"}
@@ -38,13 +43,13 @@ in {
       vim.lsp.lspconfig.sources.dart-lsp = servers.${cfg.lsp.server}.lspConfig;
     })
 
-    (mkIf (ftcfg.enable) {
+    (mkIf ftcfg.enable {
       vim.startPlugins =
         if ftcfg.enableNoResolvePatch
         then ["flutter-tools-patched"]
         else ["flutter-tools"];
 
-      vim.luaConfigRC.flutter-tools = nvim.dag.entryAnywhere ''
+      vim.luaConfigRC.flutter-tools = entryAnywhere ''
         require('flutter-tools').setup {
           lsp = {
             color = { -- show the derived colours for dart variables

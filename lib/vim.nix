@@ -1,4 +1,4 @@
-{lib}: let
+let
   inherit (builtins) isInt isBool toJSON;
 in rec {
   # yes? no.

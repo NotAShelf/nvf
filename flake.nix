@@ -28,9 +28,7 @@
 
         homeManagerModules = {
           neovim-flake = {
-            imports = [
-              (import ./lib/module self.packages inputs)
-            ];
+            imports = [(import ./flake/modules/home-manager.nix self.packages inputs)];
           };
 
           default = self.homeManagerModules.neovim-flake;
@@ -161,6 +159,11 @@
 
     glow-nvim = {
       url = "github:ellisonleao/glow.nvim";
+      flake = false;
+    };
+
+    image-nvim = {
+      url = "github:3rd/image.nvim";
       flake = false;
     };
 

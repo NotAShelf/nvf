@@ -596,6 +596,22 @@
         "type": "github"
       }
     },
+    "image-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1707861531,
+        "narHash": "sha256-mh3J3lW2Co2uA7YJzSGum0ZmpJBP0ZzBWUvJLAI9bHw=",
+        "owner": "3rd",
+        "repo": "image.nvim",
+        "rev": "4c6cb5ad93ee93d8d7b7c84e1eb291cee99f0a0e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "3rd",
+        "repo": "image.nvim",
+        "type": "github"
+      }
+    },
     "indent-blankline": {
       "flake": false,
       "locked": {
@@ -851,11 +867,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1705856552,
-        "narHash": "sha256-JXfnuEf5Yd6bhMs/uvM67/joxYKoysyE3M2k6T3eWbg=",
+        "lastModified": 1708807242,
+        "narHash": "sha256-sRTRkhMD4delO/hPxxi+XwLqPn8BuUq6nnj4JqLwOu0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "612f97239e2cc474c13c9dafa0df378058c5ad8d",
+        "rev": "73de017ef2d18a04ac4bfd0c02650007ccb31c2a",
         "type": "github"
       },
       "original": {
@@ -1516,6 +1532,7 @@
         "highlight-undo": "highlight-undo",
         "hop-nvim": "hop-nvim",
         "icon-picker-nvim": "icon-picker-nvim",
+        "image-nvim": "image-nvim",
         "indent-blankline": "indent-blankline",
         "kommentary": "kommentary",
         "leap-nvim": "leap-nvim",

@@ -3,7 +3,8 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim;
+  inherit (lib.modules) mkIf;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.dashboard.alpha;
 in {
@@ -15,7 +16,7 @@ in {
 
     # the entire credit for this dashboard configuration to https://github.com/Rishabh672003
     # honestly, excellent work
-    vim.luaConfigRC.alpha = nvim.dag.entryAnywhere ''
+    vim.luaConfigRC.alpha = entryAnywhere ''
       local alpha = require("alpha")
       local plenary_path = require("plenary.path")
       local dashboard = require("alpha.themes.dashboard")

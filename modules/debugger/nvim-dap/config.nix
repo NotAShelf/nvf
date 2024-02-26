@@ -3,12 +3,14 @@
   lib,
   ...
 }: let
-  inherit (lib) addDescriptionsToMappings mkMerge mkIf mapAttrs nvim mkSetLuaBinding optionalString;
+  inherit (lib.strings) optionalString;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.attrsets) mapAttrs;
+  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetLuaBinding;
+  inherit (lib.nvim.dag) entryAnywhere entryAfter;
 
   cfg = config.vim.debugger.nvim-dap;
-  self = import ./nvim-dap.nix {
-    inherit lib;
-  };
+  self = import ./nvim-dap.nix {inherit lib;};
   mappingDefinitions = self.options.vim.debugger.nvim-dap.mappings;
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
 in {
@@ -19,12 +21,12 @@ in {
       vim.luaConfigRC =
         {
           # TODO customizable keymaps
-          nvim-dap = nvim.dag.entryAnywhere ''
+          nvim-dap = entryAnywhere ''
             local dap = require("dap")
             vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "ErrorMsg", linehl = "", numhl = "" })
           '';
         }
-        // mapAttrs (_: v: (nvim.dag.entryAfter ["nvim-dap"] v)) cfg.sources;
+        // mapAttrs (_: v: (entryAfter ["nvim-dap"] v)) cfg.sources;
 
       vim.maps.normal = mkMerge [
         (mkSetLuaBinding mappings.continue "require('dap').continue")
@@ -49,7 +51,7 @@ in {
     (mkIf (cfg.enable && cfg.ui.enable) {
       vim.startPlugins = ["nvim-dap-ui"];
 
-      vim.luaConfigRC.nvim-dap-ui = nvim.dag.entryAfter ["nvim-dap"] (''
+      vim.luaConfigRC.nvim-dap-ui = entryAfter ["nvim-dap"] (''
           local dapui = require("dapui")
           dapui.setup()
         ''

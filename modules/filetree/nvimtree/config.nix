@@ -4,14 +4,18 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf mkMerge mkBinding nvim boolToString pushDownDefault;
+  inherit (lib.strings) optionalString;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.trivial) boolToString;
+  inherit (lib.nvim.binds) mkBinding;
+  inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) listToLuaTable expToLua;
+  # TODO: move this to its own module
+  inherit (lib) pushDownDefault;
 
   cfg = config.vim.filetree.nvimTree;
-  self = import ./nvimtree.nix {
-    inherit pkgs;
-    lib = lib;
-  };
-  mappings = self.options.vim.filetree.nvimTree.mappings;
+  self = import ./nvimtree.nix {inherit pkgs lib;};
+  inherit (self.options.vim.filetree.nvimTree) mappings;
 in {
   config = mkIf cfg.enable {
     vim.startPlugins = ["nvim-tree-lua"];
@@ -27,9 +31,9 @@ in {
       "<leader>t" = "+NvimTree";
     };
 
-    vim.luaConfigRC.nvimtreelua = nvim.dag.entryAnywhere ''
+    vim.luaConfigRC.nvimtreelua = entryAnywhere ''
       ${
-        lib.optionalString (cfg.disableNetrw) ''
+        lib.optionalString cfg.disableNetrw ''
           -- disable netrew completely
           vim.g.loaded_netrw = 1
           vim.g.loaded_netrwPlugin = 1
@@ -48,7 +52,7 @@ in {
 
         hijack_unnamed_buffer_when_opening = ${boolToString cfg.hijackUnnamedBufferWhenOpening},
         hijack_cursor = ${boolToString cfg.hijackCursor},
-        root_dirs = ${nvim.lua.listToLuaTable cfg.rootDirs},
+        root_dirs = ${listToLuaTable cfg.rootDirs},
         prefer_startup_root = ${boolToString cfg.preferStartupRoot},
         sync_root_with_cwd = ${boolToString cfg.syncRootWithCwd},
         reload_on_bufenter = ${boolToString cfg.reloadOnBufEnter},
@@ -62,12 +66,12 @@ in {
         update_focused_file = {
           enable = ${boolToString cfg.updateFocusedFile.enable},
           update_root = ${boolToString cfg.updateFocusedFile.updateRoot},
-          ignore_list = ${nvim.lua.listToLuaTable cfg.updateFocusedFile.ignoreList},
+          ignore_list = ${listToLuaTable cfg.updateFocusedFile.ignoreList},
         },
 
         system_open = {
           cmd = "${cfg.systemOpen.cmd}",
-          args = ${nvim.lua.listToLuaTable cfg.systemOpen.args},
+          args = ${listToLuaTable cfg.systemOpen.args},
         },
 
         diagnostics = {
@@ -89,7 +93,7 @@ in {
           enable = ${boolToString cfg.git.enable},
           show_on_dirs = ${boolToString cfg.git.showOnDirs},
           show_on_open_dirs = ${boolToString cfg.git.showOnOpenDirs},
-          disable_for_dirs = ${nvim.lua.listToLuaTable cfg.git.disableForDirs},
+          disable_for_dirs = ${listToLuaTable cfg.git.disableForDirs},
           timeout = ${toString cfg.git.timeout},
         },
 
@@ -102,7 +106,7 @@ in {
         filesystem_watchers = {
           enable = ${boolToString cfg.filesystemWatchers.enable},
           debounce_delay = ${toString cfg.filesystemWatchers.debounceDelay},
-          ignore_dirs = ${nvim.lua.listToLuaTable cfg.filesystemWatchers.ignoreDirs},
+          ignore_dirs = ${listToLuaTable cfg.filesystemWatchers.ignoreDirs},
         },
 
         select_prompts = ${boolToString cfg.selectPrompts},
@@ -111,7 +115,7 @@ in {
           centralize_selection = ${boolToString cfg.view.centralizeSelection},
           cursorline = ${boolToString cfg.view.cursorline},
           debounce_delay = ${toString cfg.view.debounceDelay},
-          width = ${nvim.lua.expToLua cfg.view.width},
+          width = ${expToLua cfg.view.width},
           side = "${cfg.view.side}",
           preserve_window_proportions = ${boolToString cfg.view.preserveWindowProportions},
           number = ${boolToString cfg.view.number},
@@ -138,15 +142,15 @@ in {
           highlight_git = ${boolToString cfg.renderer.highlightGit},
           highlight_opened_files = ${cfg.renderer.highlightOpenedFiles},
           highlight_modified = ${cfg.renderer.highlightModified},
-          root_folder_label = ${nvim.lua.expToLua cfg.renderer.rootFolderLabel},
+          root_folder_label = ${expToLua cfg.renderer.rootFolderLabel},
           indent_width = ${toString cfg.renderer.indentWidth},
           indent_markers = {
             enable = ${boolToString cfg.renderer.indentMarkers.enable},
             inline_arrows = ${boolToString cfg.renderer.indentMarkers.inlineArrows},
-            icons = ${nvim.lua.expToLua cfg.renderer.indentMarkers.icons},
+            icons = ${expToLua cfg.renderer.indentMarkers.icons},
           },
 
-          special_files = ${nvim.lua.listToLuaTable cfg.renderer.specialFiles},
+          special_files = ${listToLuaTable cfg.renderer.specialFiles},
           symlink_destination = ${boolToString cfg.renderer.symlinkDestination},
 
           icons = {
@@ -198,7 +202,7 @@ in {
           dotfiles = ${boolToString cfg.filters.dotfiles},
           git_clean = ${boolToString cfg.filters.gitClean},
           no_buffer = ${boolToString cfg.filters.noBuffer},
-          exclude = ${nvim.lua.listToLuaTable cfg.filters.exclude},
+          exclude = ${listToLuaTable cfg.filters.exclude},
         },
 
         trash = {
@@ -215,11 +219,11 @@ in {
 
           expand_all = {
             max_folder_discovery = ${toString cfg.actions.expandAll.maxFolderDiscovery},
-            exclude = ${nvim.lua.listToLuaTable cfg.actions.expandAll.exclude},
+            exclude = ${listToLuaTable cfg.actions.expandAll.exclude},
           },
 
           file_popup = {
-            open_win_config = ${nvim.lua.expToLua cfg.actions.filePopup.openWinConfig},
+            open_win_config = ${expToLua cfg.actions.filePopup.openWinConfig},
           },
 
           open_file = {
@@ -231,8 +235,8 @@ in {
               picker = "${cfg.actions.openFile.windowPicker.picker}",
               chars = "${cfg.actions.openFile.windowPicker.chars}",
               exclude = {
-                filetype = ${nvim.lua.listToLuaTable cfg.actions.openFile.windowPicker.exclude.filetype},
-                buftype = ${nvim.lua.listToLuaTable cfg.actions.openFile.windowPicker.exclude.buftype},
+                filetype = ${listToLuaTable cfg.actions.openFile.windowPicker.exclude.filetype},
+                buftype = ${listToLuaTable cfg.actions.openFile.windowPicker.exclude.buftype},
               },
             },
           },
@@ -251,7 +255,7 @@ in {
           sync = {
             open = ${boolToString cfg.tab.sync.open},
             close = ${boolToString cfg.tab.sync.close},
-            ignore = ${nvim.lua.listToLuaTable cfg.tab.sync.ignore},
+            ignore = ${listToLuaTable cfg.tab.sync.ignore},
           },
         },
 
@@ -268,9 +272,9 @@ in {
         },
       })
 
-      -- autostart behaviour
       ${
-        lib.optionalString (cfg.openOnSetup) ''
+        optionalString cfg.openOnSetup ''
+          -- autostart behaviour
           -- Open on startup has been deprecated
           -- see https://github.com/nvim-tree/nvim-tree.lua/wiki/Open-At-Startup
 

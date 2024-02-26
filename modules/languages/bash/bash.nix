@@ -5,7 +5,10 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib) mkOption mkEnableOption types isList nvim;
+  inherit (lib.options) mkOption mkEnableOption literalExpression;
+  inherit (lib.lists) isList;
+  inherit (lib.types) enum either package listOf str bool;
+  inherit (lib.nvim.lua) expToLua;
 
   cfg = config.vim.languages.bash;
 
@@ -19,7 +22,7 @@
           on_attach = default_on_attach;
           cmd = ${
           if isList cfg.lsp.package
-          then nvim.lua.expToLua cfg.lsp.package
+          then expToLua cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/bash-language-server",  "start"}''
         };
         }
@@ -70,14 +73,14 @@ in {
 
       server = mkOption {
         description = "Bash LSP server to use";
-        type = with types; enum (attrNames servers);
+        type = enum (attrNames servers);
         default = defaultServer;
       };
 
       package = mkOption {
         description = "bash-language-server package, or the command to run as a list of strings";
-        example = lib.literalExpression ''[lib.getExe pkgs.nodePackages.bash-language-server "start"]'';
-        type = with types; either package (listOf str);
+        example = literalExpression ''[lib.getExe pkgs.nodePackages.bash-language-server "start"]'';
+        type = either package (listOf str);
         default = pkgs.nodePackages.bash-language-server;
       };
     };
@@ -85,25 +88,24 @@ in {
     format = {
       enable = mkOption {
         description = "Enable Bash formatting";
-        type = types.bool;
+        type = bool;
         default = config.vim.languages.enableFormat;
       };
       type = mkOption {
         description = "Bash formatter to use";
-        type = with types; enum (attrNames formats);
+        type = enum (attrNames formats);
         default = defaultFormat;
       };
 
       package = mkOption {
         description = "Bash formatter package";
-        type = types.package;
+        type = package;
         default = formats.${cfg.format.type}.package;
       };
     };
 
     extraDiagnostics = {
       enable = mkEnableOption "extra Bash diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
-
       types = lib.nvim.types.diagnostics {
         langDesc = "Bash";
         inherit diagnostics;

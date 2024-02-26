@@ -5,7 +5,12 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib) isList nvim mkEnableOption mkOption types optionalString;
+  inherit (lib.lists) isList;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.types) enum either listOf package nullOr str bool;
+  inherit (lib.strings) optionalString;
+  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.dart;
   defaultServer = "dart";
@@ -18,7 +23,7 @@
           on_attach=default_on_attach;
           cmd = ${
           if isList cfg.lsp.package
-          then nvim.lua.expToLua cfg.lsp.package
+          then expToLua cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/dart", "language-server", "--protocol=lsp"}''
         };
           ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.dartOpts}"}
@@ -32,25 +37,25 @@ in {
 
     treesitter = {
       enable = mkEnableOption "Dart treesitter" // {default = config.vim.languages.enableTreesitter;};
-      package = nvim.types.mkGrammarOption pkgs "dart";
+      package = mkGrammarOption pkgs "dart";
     };
 
     lsp = {
       enable = mkEnableOption "Dart LSP support";
       server = mkOption {
         description = "The Dart LSP server to use";
-        type = with types; enum (attrNames servers);
+        type = enum (attrNames servers);
         default = defaultServer;
       };
       package = mkOption {
         description = "Dart LSP server package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = with types; either package (listOf str);
+        type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
       opts = mkOption {
         description = "Options to pass to Dart LSP server";
-        type = with types; nullOr str;
+        type = nullOr str;
         default = null;
       };
     };
@@ -58,7 +63,7 @@ in {
     dap = {
       enable = mkOption {
         description = "Enable Dart DAP support via flutter-tools";
-        type = types.bool;
+        type = bool;
         default = config.vim.languages.enableDAP;
       };
     };
@@ -66,7 +71,7 @@ in {
     flutter-tools = {
       enable = mkOption {
         description = "Enable flutter-tools for flutter support";
-        type = types.bool;
+        type = bool;
         default = config.vim.languages.enableLSP;
       };
 
@@ -76,7 +81,7 @@ in {
           This is required if you want to use a flutter package built with nix.
           If you are using a flutter SDK installed from a different source and encounter the error "`dart` missing from PATH", disable this option.
         '';
-        type = types.bool;
+        type = bool;
         default = true;
       };
 
@@ -84,13 +89,13 @@ in {
         enable = mkEnableOption "Whether or mot to highlight color variables at all";
 
         highlightBackground = mkOption {
-          type = types.bool;
+          type = bool;
           default = false;
           description = "Highlight the background";
         };
 
         highlightForeground = mkOption {
-          type = types.bool;
+          type = bool;
           default = false;
           description = "Highlight the foreground";
         };
@@ -99,7 +104,7 @@ in {
           enable = mkEnableOption "Show the highlight using virtual text";
 
           character = mkOption {
-            type = types.str;
+            type = str;
             default = "■";
             description = "Virtual text character to highlight";
           };
