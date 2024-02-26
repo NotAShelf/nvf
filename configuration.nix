@@ -180,7 +180,7 @@ inputs: let
         };
 
         images = {
-          image-nvim.enable = true;
+          image-nvim.enable = false;
         };
       };
 
