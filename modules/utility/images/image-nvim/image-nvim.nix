@@ -6,7 +6,7 @@
   inherit (lib.options) mkEnableOption mkOption;
 
   inherit (lib.types) enum listOf str nullOr int;
-  inherit (lib.nvim.lua) mkPluginSetupOption;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   options.vim.utility.images.image-nvim = {
     enable = mkEnableOption "image support in Neovim [image.nvim]";
