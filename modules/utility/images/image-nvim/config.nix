@@ -1,10 +1,11 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }: let
-  inherit (lib) nvim mkIf attrValues;
+  inherit (lib.modules) mkIf;
+  inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.utility.images.image-nvim;
 in {
@@ -18,9 +19,9 @@ in {
         "magick"
       ];
 
-      luaConfigRC.image-nvim = nvim.dag.entryAnywhere ''
+      luaConfigRC.image-nvim = entryAnywhere ''
         require("image").setup(
-          ${nvim.lua.toLuaObject cfg.setupOpts}
+          ${toLuaObject cfg.setupOpts}
         )
       '';
     };

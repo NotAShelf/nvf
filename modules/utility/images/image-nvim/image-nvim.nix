@@ -3,14 +3,17 @@
   lib,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption nvim types;
+  inherit (lib.options) mkEnableOption mkOption;
+
+  inherit (lib.types) enum listOf str nullOr int;
+  inherit (lib.nvim.lua) mkPluginSetupOption;
 in {
   options.vim.utility.images.image-nvim = {
     enable = mkEnableOption "image support in Neovim [image.nvim]";
 
-    setupOpts = nvim.types.mkPluginSetupOption "image.nvim" {
+    setupOpts = mkPluginSetupOption "image.nvim" {
       backend = mkOption {
-        type = types.enum ["kitty" "ueberzug"];
+        type = enum ["kitty" "ueberzug"];
         default = "ueberzug";
         description = ''
           The backend to use for rendering images.
@@ -28,7 +31,7 @@ in {
           downloadRemoteImages = mkEnableOption "downloading remote images";
           onlyRenderAtCursor = mkEnableOption "only rendering images at cursor";
           filetypes = mkOption {
-            type = with types; listOf str;
+            type = listOf str;
             default = ["markdown" "vimwiki"];
             description = ''
               Filetypes to enable image.nvim in. Markdown extensions
@@ -43,7 +46,7 @@ in {
           downloadRemoteImages = mkEnableOption "downloading remote images";
           onlyRenderAtCursor = mkEnableOption "only rendering images at cursor";
           filetypes = mkOption {
-            type = with types; listOf str;
+            type = listOf str;
             default = ["neorg"];
             description = ''
               Filetypes to enable image.nvim in.
@@ -52,7 +55,7 @@ in {
         };
 
         maxWidth = mkOption {
-          type = with types; nullOr int;
+          type = nullOr int;
           default = null;
           description = ''
             The maximum width of images to render. Images larger than
@@ -62,7 +65,7 @@ in {
       };
 
       maxHeight = mkOption {
-        type = with types; nullOr int;
+        type = nullOr int;
         default = null;
         description = ''
           The maximum height of images to render. Images larger than
@@ -71,7 +74,7 @@ in {
       };
 
       maxWidthWindowPercentage = mkOption {
-        type = with types; nullOr int;
+        type = nullOr int;
         default = null;
         description = ''
           The maximum width of images to render as a percentage of the
@@ -81,7 +84,7 @@ in {
       };
 
       maxHeightWindowPercentage = mkOption {
-        type = with types; nullOr int;
+        type = nullOr int;
         default = 50;
         description = ''
           The maximum height of images to render as a percentage of the
@@ -93,7 +96,7 @@ in {
       windowOverlapClear = {
         enable = mkEnableOption "clearing of images when they overlap with the window";
         ftIgnore = mkOption {
-          type = with types; listOf str;
+          type = listOf str;
           default = ["cmp_menu" "cmp_docs" ""];
           description = ''
             Filetypes to ignore window overlap clearing in.
@@ -103,7 +106,7 @@ in {
 
       editorOnlyRenderWhenFocused = mkEnableOption "only rendering images when the editor is focused";
       hijackFilePatterns = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         default = ["*.png" "*.jpg" "*.jpeg" "*.gif" "*.webp"];
         description = ''
           File patterns to hijack for image.nvim. This is useful for
