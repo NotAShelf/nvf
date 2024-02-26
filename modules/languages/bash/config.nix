@@ -4,7 +4,9 @@
   lib,
   ...
 }: let
-  inherit (lib) isList nvim mkIf mkMerge;
+  inherit (lib.lists) isList;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.nvim.lua) expToLua;
 
   cfg = config.vim.languages.bash;
   diagnostics = {
@@ -44,7 +46,7 @@
           on_attach = default_on_attach;
           cmd = ${
           if isList cfg.lsp.package
-          then nvim.lua.expToLua cfg.lsp.package
+          then expToLua cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/bash-language-server",  "start"}''
         };
         }

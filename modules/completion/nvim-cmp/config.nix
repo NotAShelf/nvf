@@ -4,8 +4,11 @@
   ...
 }: let
   inherit (builtins) toJSON;
-  inherit (lib) addDescriptionsToMappings concatMapStringsSep attrNames concatStringsSep mapAttrsToList mkIf mkSetLuaBinding mkMerge optionalString;
-  inherit (lib.nvim) dag;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.attrsets) attrNames mapAttrsToList;
+  inherit (lib.strings) concatMapStringsSep concatStringsSep optionalString;
+  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetLuaBinding;
+  inherit (lib.nvim.dag) entryAnywhere entryAfter;
 
   cfg = config.vim.autocomplete;
   lspkindEnabled = config.vim.lsp.enable && config.vim.lsp.lspkind.enable;
@@ -33,8 +36,8 @@
 
   dagPlacement =
     if lspkindEnabled
-    then dag.entryAfter ["lspkind"]
-    else dag.entryAnywhere;
+    then entryAfter ["lspkind"]
+    else entryAnywhere;
 in {
   config = mkIf cfg.enable {
     vim.startPlugins = [
@@ -195,7 +198,7 @@ in {
 
       local cmp = require'cmp'
       cmp.setup({
-        ${optionalString (config.vim.ui.borders.enable) ''
+        ${optionalString config.vim.ui.borders.enable ''
         -- explicitly enabled by setting ui.borders.enable = true
         -- TODO: try to get nvim-cmp to follow global border style
         window = {

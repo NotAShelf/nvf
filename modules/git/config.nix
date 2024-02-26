@@ -4,11 +4,13 @@
   ...
 }: let
   inherit (builtins) toJSON;
-  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetExprBinding mkSetLuaBinding nvim;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetExprBinding mkSetLuaBinding;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.git;
 
-  self = import ./git.nix {inherit lib;};
+  self = import ./git.nix {inherit lib config;};
   gsMappingDefinitions = self.options.vim.git.gitsigns.mappings;
 
   gsMappings = addDescriptionsToMappings cfg.gitsigns.mappings gsMappingDefinitions;
@@ -61,7 +63,7 @@ in {
           (mkSetLuaBinding gsMappings.resetHunk "function() package.loaded.gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end")
         ];
 
-        vim.luaConfigRC.gitsigns = nvim.dag.entryAnywhere ''
+        vim.luaConfigRC.gitsigns = entryAnywhere ''
           require('gitsigns').setup{}
         '';
       }

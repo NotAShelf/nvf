@@ -1,11 +1,16 @@
-{lib, ...}: let
-  inherit (lib) mkEnableOption mkMappingOption;
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit (lib.options) mkEnableOption;
+  inherit (lib.nvim.binds) mkMappingOption;
 in {
   options.vim.git = {
-    enable = mkEnableOption "git tools via gitsigns";
+    enable = mkEnableOption "git integration";
 
     gitsigns = {
-      enable = mkEnableOption "gitsigns";
+      enable = mkEnableOption "gitsigns" // {default = config.vim.git.enable;};
 
       mappings = {
         nextHunk = mkMappingOption "Next hunk [Gitsigns]" "]c";

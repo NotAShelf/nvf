@@ -4,7 +4,9 @@
   pkgs,
   ...
 }: let
-  inherit (lib) nvim mkIf getExe;
+  inherit (lib.modules) mkIf;
+  inherit (lib.meta) getExe;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.languages.elixir;
 in {
@@ -13,14 +15,12 @@ in {
       "elixir-tools"
     ];
 
-    vim.luaConfigRC.elixir-tools = nvim.dag.entryAnywhere ''
+    vim.luaConfigRC.elixir-tools = entryAnywhere ''
         local elixir = require("elixir")
         local elixirls = require("elixir.elixirls")
 
         elixir.setup {
           elixirls = {
-
-
           -- alternatively, point to an existing elixir-ls installation (optional)
           -- not currently supported by elixirls, but can be a table if you wish to pass other args `{"path/to/elixirls", "--foo"}`
           cmd = "${getExe pkgs.elixir-ls}",
@@ -51,6 +51,7 @@ in {
             vim.keymap.set("n", "<space>K", "<cmd>lua vim.lsp.buf.hover()<cr>", map_opts)
             vim.keymap.set("n", "<space>gD","<cmd>lua vim.lsp.buf.implementation()<cr>", map_opts)
             vim.keymap.set("n", "<space>1gD","<cmd>lua vim.lsp.buf.type_definition()<cr>", map_opts)
+
             -- keybinds for fzf-lsp.nvim: https://github.com/gfanto/fzf-lsp.nvim
             -- you could also use telescope.nvim: https://github.com/nvim-telescope/telescope.nvim
             -- there are also core vim.lsp functions that put the same data in the loclist

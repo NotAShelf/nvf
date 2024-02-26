@@ -1,4 +1,4 @@
-{...}: {
+{
   imports = [
     ./alpha
     ./dashboard-nvim

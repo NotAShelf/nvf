@@ -1,5 +1,7 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption mkOption types mkMappingOption;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.types) bool attrsOf str;
+  inherit (lib.nvim.binds) mkMappingOption;
 in {
   options.vim.debugger.nvim-dap = {
     enable = mkEnableOption "debugging via nvim-dap";
@@ -7,7 +9,7 @@ in {
     ui = {
       enable = mkEnableOption "UI extension for nvim-dap";
       autoStart = mkOption {
-        type = types.bool;
+        type = bool;
         default = true;
         description = "Automatically Opens and Closes DAP-UI upon starting/closing a debugging session";
       };
@@ -16,7 +18,7 @@ in {
     sources = mkOption {
       default = {};
       description = "List of debuggers to install";
-      type = with types; attrsOf str;
+      type = attrsOf str;
     };
 
     mappings = {

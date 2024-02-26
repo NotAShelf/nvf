@@ -3,13 +3,13 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf mkMerge mkExprBinding mkBinding nvim;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.nvim.binds) mkExprBinding mkBinding;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.comments.comment-nvim;
-  self = import ./comment-nvim.nix {
-    inherit lib;
-  };
-  mappings = self.options.vim.comments.comment-nvim.mappings;
+  self = import ./comment-nvim.nix {inherit lib;};
+  inherit (self.options.vim.comments.comment-nvim) mappings;
 in {
   config = mkIf cfg.enable {
     vim.startPlugins = [
@@ -41,7 +41,7 @@ in {
       (mkBinding cfg.mappings.toggleSelectedBlock "<Plug>(comment_toggle_blockwise_visual)" mappings.toggleSelectedBlock.description)
     ];
 
-    vim.luaConfigRC.comment-nvim = nvim.dag.entryAnywhere ''
+    vim.luaConfigRC.comment-nvim = entryAnywhere ''
       require('Comment').setup({
         mappings = { basic = false, extra = false, },
       })

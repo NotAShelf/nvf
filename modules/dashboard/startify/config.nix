@@ -4,8 +4,8 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim;
-  inherit (nvim.vim) mkVimBool;
+  inherit (lib.modules) mkIf;
+  inherit (lib.nvim.vim) mkVimBool;
 
   cfg = config.vim.dashboard.startify;
 in {
