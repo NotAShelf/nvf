@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetBinding nvim;
+  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetBinding nvim pushDownDefault;
 
   cfg = config.vim.telescope;
   self = import ./telescope.nix {inherit lib;};
@@ -51,6 +51,14 @@ in {
         (mkSetBinding mappings.findProjects "<cmd Telescope projects<CR>")
       )
     ];
+
+    vim.binds.whichKey.register = pushDownDefault {
+      "<leader>f" = "+Telescope";
+      "<leader>fl" = "Telescope LSP";
+      "<leader>fm" = "Cellular Automaton";
+      "<leader>fv" = "Telescope Git";
+      "<leader>fvc" = "Commits";
+    };
 
     vim.luaConfigRC.telescope = nvim.dag.entryAnywhere ''
       local telescope = require('telescope')

@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib) nvim mkIf mkMerge mkBinding;
+  inherit (lib) nvim mkIf mkMerge mkBinding pushDownDefault;
 
   cfg = config.vim.utility.preview.glow;
   self = import ./glow.nix {
@@ -18,6 +18,10 @@ in {
     vim.maps.normal = mkMerge [
       (mkBinding cfg.mappings.openPreview ":Glow<CR>" mappings.openPreview.description)
     ];
+
+    vim.binds.whichKey.register = pushDownDefault {
+      "<leader>pm" = "+Preview Markdown";
+    };
 
     vim.luaConfigRC.glow = nvim.dag.entryAnywhere ''
       require('glow').setup({

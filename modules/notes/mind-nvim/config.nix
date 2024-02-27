@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim;
+  inherit (lib) mkIf nvim pushDownDefault;
 
   cfg = config.vim.notes.mind-nvim;
 in {
@@ -16,6 +16,10 @@ in {
       "<leader>om" = {action = ":MindOpenMain<CR>";};
       "<leader>op" = {action = ":MindOpenProject<CR>";};
       "<leader>oc" = {action = ":MindClose<CR>";};
+    };
+
+    vim.binds.whichKey.register = pushDownDefault {
+      "<leader>o" = "+Notes";
     };
 
     vim.luaConfigRC.mind-nvim = nvim.dag.entryAnywhere ''

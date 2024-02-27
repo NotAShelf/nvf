@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf mkMerge nvim;
+  inherit (lib) mkIf mkMerge nvim pushDownDefault;
 
   cfg = config.vim.notes.orgmode;
 in {
@@ -12,6 +12,10 @@ in {
       vim.startPlugins = [
         "orgmode-nvim"
       ];
+
+      vim.binds.whichKey.register = pushDownDefault {
+        "<leader>o" = "+Notes";
+      };
 
       vim.luaConfigRC.orgmode = nvim.dag.entryAnywhere ''
         -- Load custom treesitter grammar for org filetype

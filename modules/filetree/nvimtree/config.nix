@@ -10,6 +10,8 @@
   inherit (lib.nvim.binds) mkBinding;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.lua) listToLuaTable expToLua;
+  # TODO: move this to its own module
+  inherit (lib) pushDownDefault;
 
   cfg = config.vim.filetree.nvimTree;
   self = import ./nvimtree.nix {inherit pkgs lib;};
@@ -24,6 +26,10 @@ in {
       (mkBinding cfg.mappings.findFile ":NvimTreeFindFile<cr>" mappings.findFile.description)
       (mkBinding cfg.mappings.focus ":NvimTreeFocus<cr>" mappings.focus.description)
     ];
+
+    vim.binds.whichKey.register = pushDownDefault {
+      "<leader>t" = "+NvimTree";
+    };
 
     vim.luaConfigRC.nvimtreelua = entryAnywhere ''
       ${

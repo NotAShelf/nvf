@@ -7,6 +7,8 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.binds) addDescriptionsToMappings mkSetExprBinding mkSetLuaBinding;
   inherit (lib.nvim.dag) entryAnywhere;
+  # TODO: move this to its own module
+  inherit (lib) pushDownDefault;
 
   cfg = config.vim.git;
 
@@ -62,6 +64,10 @@ in {
           (mkSetLuaBinding gsMappings.stageHunk "function() package.loaded.gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end")
           (mkSetLuaBinding gsMappings.resetHunk "function() package.loaded.gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end")
         ];
+
+        vim.binds.whichKey.register = pushDownDefault {
+          "<leader>g" = "+Gitsigns";
+        };
 
         vim.luaConfigRC.gitsigns = entryAnywhere ''
           require('gitsigns').setup{}

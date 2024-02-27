@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf pushDownDefault;
 
   cfg = config.vim.minimap.minimap-vim;
 in {
@@ -13,5 +13,9 @@ in {
       pkgs.code-minimap
       "minimap-vim"
     ];
+
+    vim.binds.whichKey.register = pushDownDefault {
+      "<leader>m" = "+Minimap";
+    };
   };
 }
