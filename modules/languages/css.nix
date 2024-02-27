@@ -32,6 +32,33 @@
       '';
     };
   };
+
+  defaultFormat = "prettier";
+  formats = {
+    prettier = {
+      package = pkgs.nodePackages.prettier;
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.prettier.with({
+            command = "${cfg.format.package}/bin/prettier",
+          })
+        )
+      '';
+    };
+
+    prettierd = {
+      package = pkgs.prettierd;
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.prettier.with({
+            command = "${cfg.format.package}/bin/prettierd",
+          })
+        )
+      '';
+    };
+  };
 in {
   options.vim.languages.css = {
     enable = mkEnableOption "CSS language support";
@@ -58,6 +85,22 @@ in {
         default = servers.${cfg.lsp.server}.package;
       };
     };
+
+    format = {
+      enable = mkEnableOption "CSS formatting" // {default = config.vim.languages.enableFormat;};
+
+      type = mkOption {
+        description = "CSS formatter to use";
+        type = with types; enum (attrNames formats);
+        default = defaultFormat;
+      };
+
+      package = mkOption {
+        description = "CSS formatter package";
+        type = types.package;
+        default = formats.${cfg.format.type}.package;
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -68,7 +111,12 @@ in {
 
     (mkIf cfg.lsp.enable {
       vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.tailwindcss-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.lspconfig.sources.css-lsp = servers.${cfg.lsp.server}.lspConfig;
+    })
+
+    (mkIf cfg.format.enable {
+      vim.lsp.null-ls.enable = true;
+      vim.lsp.null-ls.sources.css-format = formats.${cfg.format.type}.nullConfig;
     })
   ]);
 }
