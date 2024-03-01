@@ -1,10 +1,16 @@
 {
-  pkgs,
   config,
+  pkgs,
   lib,
   ...
 }: let
-  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge getExe;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.meta) getExe;
+  inherit (lib.lists) isList;
+  inherit (lib.types) either listOf package str;
+  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.lua) expToLua;
 
   cfg = config.vim.languages.java;
 in {
@@ -13,16 +19,15 @@ in {
 
     treesitter = {
       enable = mkEnableOption "Java treesitter" // {default = config.vim.languages.enableTreesitter;};
-      package = nvim.types.mkGrammarOption pkgs "java";
+      package = mkGrammarOption pkgs "java";
     };
 
     lsp = {
       enable = mkEnableOption "Java LSP support (java-language-server)" // {default = config.vim.languages.enableLSP;};
-
       package = mkOption {
         description = "java language server package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = with types; either package (listOf str);
+        type = either package (listOf str);
         default = pkgs.jdt-language-server;
       };
     };
@@ -37,7 +42,7 @@ in {
           on_attach = default_on_attach,
           cmd = ${
           if isList cfg.lsp.package
-          then nvim.lua.expToLua cfg.lsp.package
+          then expToLua cfg.lsp.package
           else ''{"${getExe cfg.lsp.package}", "-data", vim.fn.stdpath("cache").."/jdtls/workspace"}''
         },
         }

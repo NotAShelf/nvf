@@ -1,13 +1,9 @@
-{
-  config,
-  lib,
-  ...
-}: let
-  inherit (lib) mkEnableOption;
+{lib, ...}: let
+  inherit (lib.options) mkEnableOption;
 in {
   options.vim.lsp = {
     lspSignature = {
-      enable = mkEnableOption "lsp signature viewer";
+      enable = mkEnableOption "lsp signature viewer [lsp-signature]";
     };
   };
 }

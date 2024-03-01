@@ -1,27 +1,26 @@
 {
-  pkgs,
   config,
+  pkgs,
   lib,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption types nvim mkIf mkMerge optional;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.types) bool;
+  inherit (lib.lists) optional;
+  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.languages.html;
 in {
   options.vim.languages.html = {
     enable = mkEnableOption "HTML language support";
-
     treesitter = {
-      enable = mkOption {
-        description = "Enable HTML treesitter";
-        type = types.bool;
-        default = config.vim.languages.enableTreesitter;
-      };
-      package = nvim.types.mkGrammarOption pkgs "html";
-
+      enable = mkEnableOption "HTML treesitter support" // {default = config.vim.languages.enableTreesitter;};
+      package = mkGrammarOption pkgs "html";
       autotagHtml = mkOption {
         description = "Enable autoclose/autorename of html tags (nvim-ts-autotag)";
-        type = types.bool;
+        type = bool;
         default = true;
       };
     };
@@ -29,14 +28,18 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      vim = {
+        startPlugins = optional cfg.treesitter.autotagHtml "nvim-ts-autotag";
 
-      vim.startPlugins = optional cfg.treesitter.autotagHtml "nvim-ts-autotag";
+        treesitter = {
+          enable = true;
+          grammars = [cfg.treesitter.package];
+        };
 
-      vim.luaConfigRC.html-autotag = mkIf cfg.treesitter.autotagHtml (nvim.dag.entryAnywhere ''
-        require('nvim-ts-autotag').setup()
-      '');
+        luaConfigRC.html-autotag = mkIf cfg.treesitter.autotagHtml (entryAnywhere ''
+          require('nvim-ts-autotag').setup()
+        '');
+      };
     })
   ]);
 }

@@ -46,7 +46,7 @@
           default = self'.devShells.lsp;
           nvim-nix = pkgs.mkShell {nativeBuildInputs = [config.packages.nix];};
           lsp = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [nil statix deadnix];
+            nativeBuildInputs = with pkgs; [nil statix deadnix alejandra];
           };
         };
       };
@@ -117,7 +117,8 @@
     };
 
     none-ls = {
-      url = "github:nvimtools/none-ls.nvim";
+      # https://github.com/nvimtools/none-ls.nvim/issues/58
+      url = "github:nvimtools/none-ls.nvim/bb680d752cec37949faca7a1f509e2fe67ab418a";
       flake = false;
     };
 
@@ -587,6 +588,12 @@
 
     vim-repeat = {
       url = "github:tpope/vim-repeat";
+      flake = false;
+    };
+
+    nvim-nio = {
+      # (required nvim-dap-ui)
+      url = "github:nvim-neotest/nvim-nio";
       flake = false;
     };
   };

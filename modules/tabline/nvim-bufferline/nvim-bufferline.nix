@@ -1,8 +1,9 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption mkMappingOption;
+  inherit (lib.options) mkEnableOption;
+  inherit (lib.nvim.binds) mkMappingOption;
 in {
   options.vim.tabline.nvimBufferline = {
-    enable = mkEnableOption "nvim-bufferline-lua as a bufferline";
+    enable = mkEnableOption "neovim bufferline";
 
     mappings = {
       closeCurrent = mkMappingOption "Close buffer" null;

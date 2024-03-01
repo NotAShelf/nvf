@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim;
+  inherit (lib.modules) mkIf;
 
   cfg = config.vim.utility.diffview-nvim;
 in {
@@ -12,9 +12,5 @@ in {
       "diffview-nvim"
       "plenary-nvim"
     ];
-
-    vim.luaConfigRC.diffview-nvim =
-      nvim.dag.entryAnywhere ''
-      '';
   };
 }

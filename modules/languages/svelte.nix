@@ -1,11 +1,18 @@
 {
-  pkgs,
   config,
+  pkgs,
   lib,
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.lists) isList;
+  inherit (lib.meta) getExe;
+  inherit (lib.types) enum either listOf package str;
+  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.languages) diagnosticsToLua;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics;
 
   cfg = config.vim.languages.svelte;
 
@@ -19,7 +26,7 @@
           on_attach = attach_keymaps,
           cmd = ${
           if isList cfg.lsp.package
-          then nvim.lua.expToLua cfg.lsp.package
+          then expToLua cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/svelteserver", "--stdio"}''
         }
         }
@@ -44,15 +51,15 @@
   };
 
   # TODO: specify packages
-  defaultDiagnostics = ["eslint_d"];
-  diagnostics = {
+  defaultDiagnosticsProvider = ["eslint_d"];
+  diagnosticsProviders = {
     eslint_d = {
       package = pkgs.nodePackages.eslint_d;
       nullConfig = pkg: ''
         table.insert(
           ls_sources,
           null_ls.builtins.diagnostics.eslint_d.with({
-            command = "${lib.getExe pkg}",
+            command = "${getExe pkg}",
           })
         )
       '';
@@ -65,7 +72,7 @@ in {
     treesitter = {
       enable = mkEnableOption "Svelte treesitter" // {default = config.vim.languages.enableTreesitter;};
 
-      sveltePackage = nvim.types.mkGrammarOption pkgs "svelte";
+      sveltePackage = mkGrammarOption pkgs "svelte";
     };
 
     lsp = {
@@ -73,14 +80,14 @@ in {
 
       server = mkOption {
         description = "Svelte LSP server to use";
-        type = with types; enum (attrNames servers);
+        type = enum (attrNames servers);
         default = defaultServer;
       };
 
       package = mkOption {
         description = "Svelte LSP server package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = with types; either package (listOf str);
+        type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
     };
@@ -90,13 +97,13 @@ in {
 
       type = mkOption {
         description = "Svelte formatter to use";
-        type = with types; enum (attrNames formats);
+        type = enum (attrNames formats);
         default = defaultFormat;
       };
 
       package = mkOption {
         description = "Svelte formatter package";
-        type = types.package;
+        type = package;
         default = formats.${cfg.format.type}.package;
       };
     };
@@ -104,10 +111,10 @@ in {
     extraDiagnostics = {
       enable = mkEnableOption "extra Svelte diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
 
-      types = lib.nvim.types.diagnostics {
+      types = diagnostics {
         langDesc = "Svelte";
-        inherit diagnostics;
-        inherit defaultDiagnostics;
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
@@ -130,10 +137,10 @@ in {
 
     (mkIf cfg.extraDiagnostics.enable {
       vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources = lib.nvim.languages.diagnosticsToLua {
+      vim.lsp.null-ls.sources = diagnosticsToLua {
         lang = "svelte";
         config = cfg.extraDiagnostics.types;
-        inherit diagnostics;
+        inherit diagnosticsProviders;
       };
     })
   ]);

@@ -1,32 +1,37 @@
 # From home-manager: https://github.com/nix-community/home-manager/blob/master/modules/lib/booleans.nix
-{lib}: {
+{lib}: let
+  inherit (builtins) isString getAttr;
+  inherit (lib.options) mkOption;
+  inherit (lib.attrsets) listToAttrs;
+  inherit (lib.types) bool;
+in {
   # Converts a boolean to a yes/no string. This is used in lots of
   # configuration formats.
   diagnosticsToLua = {
     lang,
     config,
-    diagnostics,
+    diagnosticsProviders,
   }:
-    lib.listToAttrs
+    listToAttrs
     (map (v: let
         type =
-          if builtins.isString v
+          if isString v
           then v
-          else builtins.getAttr v.type;
+          else getAttr v.type;
         package =
-          if builtins.isString v
-          then diagnostics.${type}.package
+          if isString v
+          then diagnosticsProviders.${type}.package
           else v.package;
       in {
         name = "${lang}-diagnostics-${type}";
-        value = diagnostics.${type}.nullConfig package;
+        value = diagnosticsProviders.${type}.nullConfig package;
       })
       config);
 
   mkEnable = desc:
-    lib.mkOption {
+    mkOption {
       description = "Turn on ${desc} for enabled languages by default";
-      type = lib.types.bool;
+      type = bool;
       default = false;
     };
 }

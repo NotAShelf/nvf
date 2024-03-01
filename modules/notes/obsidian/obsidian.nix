@@ -1,27 +1,24 @@
-{
-  config,
-  lib,
-  ...
-}: let
-  inherit (lib) mkEnableOption mkOption types;
+{lib, ...}: let
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.types) str bool;
 in {
   options.vim.notes = {
     obsidian = {
       enable = mkEnableOption "complementary neovim plugins for Obsidian editor";
       dir = mkOption {
-        type = types.str;
+        type = str;
         default = "~/my-vault";
         description = "Obsidian vault directory";
       };
 
       daily-notes = {
         folder = mkOption {
-          type = types.str;
+          type = str;
           default = "";
           description = "Directory in which daily notes should be created";
         };
         date-format = mkOption {
-          type = types.str;
+          type = str;
           default = "";
           description = "Date format used for creating daily notes";
         };
@@ -29,8 +26,7 @@ in {
 
       completion = {
         nvim_cmp = mkOption {
-          # if using nvim-cmp, otherwise set to false
-          type = types.bool;
+          type = bool;
           description = "If using nvim-cmp, otherwise set to false";
         };
       };

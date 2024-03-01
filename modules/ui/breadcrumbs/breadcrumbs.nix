@@ -1,14 +1,15 @@
 {
-  lib,
   config,
+  lib,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption types;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.types) nullOr listOf enum bool str int;
 in {
   options.vim.ui.breadcrumbs = {
-    enable = lib.mkEnableOption "breadcrumbs";
+    enable = mkEnableOption "breadcrumbs";
     source = mkOption {
-      type = with types; nullOr (enum ["nvim-navic"]); # TODO: lspsaga and dropbar
+      type = nullOr (enum ["nvim-navic"]); # TODO: lspsaga and dropbar
       default = "nvim-navic";
       description = ''
         The source to be used for breadcrumbs component. Null means no breadcrumbs.
@@ -18,7 +19,7 @@ in {
     # maybe this should be an option to *disable* alwaysRender optionally but oh well
     # too late
     alwaysRender = mkOption {
-      type = types.bool;
+      type = bool;
       default = true;
       description = "Whether to always display the breadcrumbs component on winbar (always renders winbar)";
     };
@@ -28,152 +29,152 @@ in {
 
       # this option is interpreted as null if mkEnableOption is used, and therefore cannot be converted to a string in config.nix
       useDefaultMappings = mkOption {
-        type = types.bool;
+        type = bool;
         default = true;
         description = "use default Navbuddy keybindings (disables user-specified keybinds)";
       };
 
       mappings = {
         close = mkOption {
-          type = types.str;
+          type = str;
           default = "<esc>";
           description = "keybinding to close Navbuddy UI";
         };
 
         nextSibling = mkOption {
-          type = types.str;
+          type = str;
           default = "j";
           description = "keybinding to navigate to the next sibling node";
         };
 
         previousSibling = mkOption {
-          type = types.str;
+          type = str;
           default = "k";
           description = "keybinding to navigate to the previous sibling node";
         };
 
         parent = mkOption {
-          type = types.str;
+          type = str;
           default = "h";
           description = "keybinding to navigate to the parent node";
         };
 
         children = mkOption {
-          type = types.str;
+          type = str;
           default = "h";
           description = "keybinding to navigate to the child node";
         };
 
         root = mkOption {
-          type = types.str;
+          type = str;
           default = "0";
           description = "keybinding to navigate to the root node";
         };
 
         visualName = mkOption {
-          type = types.str;
+          type = str;
           default = "v";
           description = "visual selection of name";
         };
 
         visualScope = mkOption {
-          type = types.str;
+          type = str;
           default = "V";
           description = "visual selection of scope";
         };
 
         yankName = mkOption {
-          type = types.str;
+          type = str;
           default = "y";
           description = "yank the name to system clipboard";
         };
 
         yankScope = mkOption {
-          type = types.str;
+          type = str;
           default = "Y";
           description = "yank the scope to system clipboard";
         };
 
         insertName = mkOption {
-          type = types.str;
+          type = str;
           default = "i";
           description = "insert at start of name";
         };
 
         insertScope = mkOption {
-          type = types.str;
+          type = str;
           default = "I";
           description = "insert at start of scope";
         };
 
         appendName = mkOption {
-          type = types.str;
+          type = str;
           default = "a";
           description = "insert at end of name";
         };
 
         appendScope = mkOption {
-          type = types.str;
+          type = str;
           default = "A";
           description = "insert at end of scope";
         };
 
         rename = mkOption {
-          type = types.str;
+          type = str;
           default = "r";
           description = "rename the node";
         };
 
         delete = mkOption {
-          type = types.str;
+          type = str;
           default = "d";
           description = "delete the node";
         };
 
         foldCreate = mkOption {
-          type = types.str;
+          type = str;
           default = "f";
           description = "create a new fold";
         };
 
         foldDelete = mkOption {
-          type = types.str;
+          type = str;
           default = "F";
           description = "delete the current fold";
         };
 
         comment = mkOption {
-          type = types.str;
+          type = str;
           default = "c";
           description = "comment the node";
         };
 
         select = mkOption {
-          type = types.str;
+          type = str;
           default = "<enter>";
           description = "goto selected symbol";
         };
 
         moveDown = mkOption {
-          type = types.str;
+          type = str;
           default = "J";
           description = "move focused node down";
         };
 
         moveUp = mkOption {
-          type = types.str;
+          type = str;
           default = "K";
           description = "move focused node up";
         };
 
         telescope = mkOption {
-          type = types.str;
+          type = str;
           default = "t";
           description = "fuzzy finder at current level";
         };
 
         help = mkOption {
-          type = types.str;
+          type = str;
           default = "g?";
           description = "open mapping help window";
         };
@@ -185,13 +186,13 @@ in {
 
         border = mkOption {
           # TODO: let this type accept a custom string
-          type = types.enum ["single" "rounded" "double" "solid" "none"];
+          type = enum ["single" "rounded" "double" "solid" "none"];
           default = config.vim.ui.borders.globalStyle;
           description = "border style to use";
         };
 
         scrolloff = mkOption {
-          type = with types; nullOr int;
+          type = nullOr int;
           default = null;
           description = "Scrolloff value within navbuddy window";
         };
@@ -209,7 +210,7 @@ in {
 
             border = mkOption {
               # TODO: let this type accept a custom string
-              type = with types; nullOr (enum ["single" "rounded" "double" "solid" "none"]);
+              type = nullOr (enum ["single" "rounded" "double" "solid" "none"]);
               default = config.vim.ui.borders.globalStyle;
               description = "border style to use for the left section of Navbuddy UI";
             };
@@ -227,7 +228,7 @@ in {
 
             border = mkOption {
               # TODO: let this type accept a custom string
-              type = with types; nullOr (enum ["single" "rounded" "double" "solid" "none"]);
+              type = nullOr (enum ["single" "rounded" "double" "solid" "none"]);
               default = config.vim.ui.borders.globalStyle;
               description = "border style to use for the middle section of Navbuddy UI";
             };
@@ -238,13 +239,13 @@ in {
           right = {
             border = mkOption {
               # TODO: let this type accept a custom string
-              type = with types; nullOr (enum ["single" "rounded" "double" "solid" "none"]);
+              type = nullOr (enum ["single" "rounded" "double" "solid" "none"]);
               default = config.vim.ui.borders.globalStyle;
               description = "border style to use for the right section of Navbuddy UI";
             };
 
             preview = mkOption {
-              type = types.enum ["leaf" "always" "never"];
+              type = enum ["leaf" "always" "never"];
               default = "leaf";
               description = "display mode of the preview on the right section";
             };
@@ -256,19 +257,19 @@ in {
         enable = mkEnableOption "node markers";
         icons = {
           leaf = mkOption {
-            type = types.str;
+            type = str;
             default = "  ";
             description = "";
           };
 
           leafSelected = mkOption {
-            type = types.str;
+            type = str;
             default = " → ";
             description = "";
           };
 
           branch = mkOption {
-            type = types.str;
+            type = str;
             default = " ";
             description = "";
           };
@@ -277,13 +278,13 @@ in {
 
       lsp = {
         autoAttach = mkOption {
-          type = types.bool;
+          type = bool;
           default = true;
           description = "Whether to attach to LSP server manually";
         };
 
         preference = mkOption {
-          type = with types; nullOr (listOf str);
+          type = nullOr (listOf str);
           default = null;
           description = "list of lsp server names in order of preference";
         };
@@ -291,25 +292,25 @@ in {
 
       sourceBuffer = {
         followNode = mkOption {
-          type = types.bool;
+          type = bool;
           default = true;
           description = "keep the current node in focus on the source buffer";
         };
 
         highlight = mkOption {
-          type = types.bool;
+          type = bool;
           default = true;
           description = "highlight the currently focused node";
         };
 
         reorient = mkOption {
-          type = types.enum ["smart" "top" "mid" "none"];
+          type = enum ["smart" "top" "mid" "none"];
           default = "smart";
           description = "reorient buffer after changing nodes";
         };
 
         scrolloff = mkOption {
-          type = with types; nullOr int;
+          type = nullOr int;
           default = null;
           description = "scrolloff value when navbuddy is open";
         };
@@ -319,159 +320,159 @@ in {
       # alas, I am not a nix wizard
       icons = {
         file = mkOption {
-          type = types.str;
+          type = str;
           default = "󰈙 ";
-          description = "";
+          description = "File icon";
         };
 
         module = mkOption {
-          type = types.str;
+          type = str;
           default = " ";
-          description = "";
+          description = "Module icon";
         };
 
         namespace = mkOption {
-          type = types.str;
+          type = str;
           default = "󰌗 ";
-          description = "";
+          description = "Namespace icon";
         };
 
         package = mkOption {
-          type = types.str;
+          type = str;
           default = " ";
           description = "";
         };
 
         class = mkOption {
-          type = types.str;
+          type = str;
           default = "󰌗 ";
-          description = "";
+          description = "Class icon";
         };
 
         property = mkOption {
-          type = types.str;
+          type = str;
           default = " ";
           description = "";
         };
 
         field = mkOption {
-          type = types.str;
+          type = str;
           default = " ";
-          description = "";
+          description = "Field icon";
         };
 
         constructor = mkOption {
-          type = types.str;
+          type = str;
           default = " ";
-          description = "";
+          description = "Constructor icon";
         };
 
         enum = mkOption {
-          type = types.str;
+          type = str;
           default = "󰕘";
-          description = "";
+          description = "Enum icon";
         };
 
         interface = mkOption {
-          type = types.str;
+          type = str;
           default = "󰕘";
-          description = "";
+          description = "Interface icon";
         };
 
         function = mkOption {
-          type = types.str;
+          type = str;
           default = "󰊕 ";
-          description = "";
+          description = "Function icon";
         };
 
         variable = mkOption {
-          type = types.str;
+          type = str;
           default = "󰆧 ";
           description = "";
         };
 
         constant = mkOption {
-          type = types.str;
+          type = str;
           default = "󰏿 ";
-          description = "";
+          description = "Constant icon";
         };
 
         string = mkOption {
-          type = types.str;
+          type = str;
           default = " ";
           description = "";
         };
 
         number = mkOption {
-          type = types.str;
+          type = str;
           default = "󰎠 ";
-          description = "";
+          description = "Number icon";
         };
 
         boolean = mkOption {
-          type = types.str;
+          type = str;
           default = "◩ ";
           description = "";
         };
 
         array = mkOption {
-          type = types.str;
+          type = str;
           default = "󰅪 ";
-          description = "";
+          description = "Array icon";
         };
 
         object = mkOption {
-          type = types.str;
+          type = str;
           default = "󰅩 ";
-          description = "";
+          description = "Object icon";
         };
 
         method = mkOption {
-          type = types.str;
+          type = str;
           default = "󰆧 ";
-          description = "";
+          description = "Method icon";
         };
 
         key = mkOption {
-          type = types.str;
+          type = str;
           default = "󰌋 ";
-          description = "";
+          description = "Key icon";
         };
 
         null = mkOption {
-          type = types.str;
+          type = str;
           default = "󰟢 ";
-          description = "";
+          description = "Null icon";
         };
 
         enumMember = mkOption {
-          type = types.str;
+          type = str;
           default = "󰕘 ";
-          description = "";
+          description = "Enum member icon";
         };
 
         struct = mkOption {
-          type = types.str;
+          type = str;
           default = "󰌗 ";
-          description = "";
+          description = "Struct icon";
         };
 
         event = mkOption {
-          type = types.str;
+          type = str;
           default = " ";
-          description = "";
+          description = "Event icon";
         };
 
         operator = mkOption {
-          type = types.str;
+          type = str;
           default = "󰆕 ";
-          description = "";
+          description = "Operator icon";
         };
 
         typeParameter = mkOption {
-          type = types.str;
+          type = str;
           default = "󰊄 ";
-          description = "";
+          description = "Type parameter icon";
         };
       };
     };

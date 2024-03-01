@@ -1,11 +1,7 @@
-{
-  config,
-  lib,
-  ...
-}: let
-  inherit (lib) mkEnableOption;
+{lib, ...}: let
+  inherit (lib.options) mkEnableOption;
 in {
   options.vim.ui.illuminate = {
-    enable = mkEnableOption "vim-illuminate: automatically highlight other uses of the word under the cursor";
+    enable = mkEnableOption "automatically highlight other uses of the word under the cursor [vim-illuminate]";
   };
 }

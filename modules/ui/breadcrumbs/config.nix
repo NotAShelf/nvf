@@ -3,11 +3,15 @@
   lib,
   ...
 }: let
-  inherit (lib) optionalString boolToString mkIf optionals;
+  inherit (lib.strings) optionalString;
+  inherit (lib.trivial) boolToString;
+  inherit (lib.modules) mkIf;
+  inherit (lib.lists) optionals;
   inherit (lib.nvim.lua) nullString;
+  inherit (lib.nvim.dag) entryAfter;
 
   cfg = config.vim.ui.breadcrumbs;
-  nb = cfg.navbuddy;
+  nbcfg = cfg.navbuddy;
 in {
   config = mkIf cfg.enable {
     vim.startPlugins =
@@ -26,7 +30,7 @@ in {
         "nvim-navic"
       ];
 
-    vim.luaConfigRC.breadcrumbs = lib.nvim.dag.entryAfter ["lspconfig"] ''
+    vim.luaConfigRC.breadcrumbs = entryAfter ["lspconfig"] ''
 
       ${optionalString (cfg.source == "nvim-navic") ''
         local navic = require("nvim-navic")
@@ -40,46 +44,46 @@ in {
         local actions = require("nvim-navbuddy.actions")
         navbuddy.setup {
             window = {
-                border = "${nb.window.border}",  -- "rounded", "double", "solid", "none"
+                border = "${nbcfg.window.border}",  -- "rounded", "double", "solid", "none"
                 size = "60%",
                 position = "50%",
-                scrolloff = ${(nullString nb.window.scrolloff)},
+                scrolloff = ${(nullString nbcfg.window.scrolloff)},
                 sections = {
                     left = {
                         size = "20%",
-                        border = ${(nullString nb.window.sections.left.border)},
+                        border = ${(nullString nbcfg.window.sections.left.border)},
                     },
 
                     mid = {
                         size = "40%",
-                        border = ${(nullString nb.window.sections.mid.border)},
+                        border = ${(nullString nbcfg.window.sections.mid.border)},
                     },
 
                     right = {
-                        border = ${(nullString nb.window.sections.right.border)},
+                        border = ${(nullString nbcfg.window.sections.right.border)},
                         preview = "leaf",
                     }
                 },
             },
             node_markers = {
-                enabled = ${boolToString nb.nodeMarkers.enable},
+                enabled = ${boolToString nbcfg.nodeMarkers.enable},
                 icons = {
-                    leaf = "${nb.nodeMarkers.icons.leaf}",
-                    leaf_selected = "${nb.nodeMarkers.icons.leafSelected}",
-                    branch = "${nb.nodeMarkers.icons.branch}",
+                    leaf = "${nbcfg.nodeMarkers.icons.leaf}",
+                    leaf_selected = "${nbcfg.nodeMarkers.icons.leafSelected}",
+                    branch = "${nbcfg.nodeMarkers.icons.branch}",
                 },
             },
 
             lsp = {
-                auto_attach = ${boolToString nb.lsp.autoAttach},
+                auto_attach = ${boolToString nbcfg.lsp.autoAttach},
                 -- preference = nil, -- TODO: convert list to lua table if not null
             },
 
             source_buffer = {
-                follow_node = ${boolToString nb.sourceBuffer.followNode},
-                highlight = ${boolToString nb.sourceBuffer.highlight},
-                reorient = "${nb.sourceBuffer.reorient}",
-                scrolloff = ${nullString nb.sourceBuffer.scrolloff}
+                follow_node = ${boolToString nbcfg.sourceBuffer.followNode},
+                highlight = ${boolToString nbcfg.sourceBuffer.highlight},
+                reorient = "${nbcfg.sourceBuffer.reorient}",
+                scrolloff = ${nullString nbcfg.sourceBuffer.scrolloff}
             },
 
             icons = {

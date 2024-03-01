@@ -1,10 +1,13 @@
 {
-  pkgs,
   config,
+  pkgs,
   lib,
   ...
 }: let
-  inherit (lib) nvim mkEnableOption mkOption types mkIf mkMerge;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.types) package;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.terraform;
 in {
@@ -13,7 +16,7 @@ in {
 
     treesitter = {
       enable = mkEnableOption "Terraform treesitter" // {default = config.vim.languages.enableTreesitter;};
-      package = nvim.types.mkGrammarOption pkgs "terraform";
+      package = mkGrammarOption pkgs "terraform";
     };
 
     lsp = {
@@ -21,7 +24,7 @@ in {
 
       package = mkOption {
         description = "terraform-ls package";
-        type = with types; package;
+        type = package;
         default = pkgs.terraform-ls;
       };
     };

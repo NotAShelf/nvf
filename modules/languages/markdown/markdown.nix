@@ -1,11 +1,15 @@
 {
-  pkgs,
   config,
+  pkgs,
   lib,
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib) mkEnableOption mkOption types nvim isList;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.lists) isList;
+  inherit (lib.types) bool enum either package listOf str;
+  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.markdown;
   defaultServer = "marksman";
@@ -18,7 +22,7 @@
           on_attach = default_on_attach;
           cmd = ${
           if isList cfg.lsp.package
-          then nvim.lua.expToLua cfg.lsp.package
+          then expToLua cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/marksman", "server"}''
         },
         }
@@ -32,11 +36,11 @@ in {
     treesitter = {
       enable = mkOption {
         description = "Enable Markdown treesitter";
-        type = types.bool;
+        type = bool;
         default = config.vim.languages.enableTreesitter;
       };
-      mdPackage = nvim.types.mkGrammarOption pkgs "markdown";
-      mdInlinePackage = nvim.types.mkGrammarOption pkgs "markdown-inline";
+      mdPackage = mkGrammarOption pkgs "markdown";
+      mdInlinePackage = mkGrammarOption pkgs "markdown-inline";
     };
 
     lsp = {
@@ -44,14 +48,14 @@ in {
 
       server = mkOption {
         description = "Markdown LSP server to use";
-        type = with types; enum (attrNames servers);
+        type = enum (attrNames servers);
         default = defaultServer;
       };
 
       package = mkOption {
         description = "Markdown LSP server package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
-        type = with types; either package (listOf str);
+        type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
     };

@@ -3,7 +3,10 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim boolToString concatStringsSep;
+  inherit (lib.modules) mkIf;
+  inherit (lib.trivial) boolToString;
+  inherit (lib.strings) concatStringsSep;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.projects.project-nvim;
 in {
@@ -12,7 +15,7 @@ in {
       "project-nvim"
     ];
 
-    vim.luaConfigRC.project-nvim = nvim.dag.entryAnywhere ''
+    vim.luaConfigRC.project-nvim = entryAnywhere ''
       require('project_nvim').setup({
         manual_mode = ${boolToString cfg.manualMode},
         detection_methods = { ${concatStringsSep ", " (map (x: "\"" + x + "\"") cfg.detectionMethods)} },

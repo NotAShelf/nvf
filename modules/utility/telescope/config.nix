@@ -4,7 +4,11 @@
   lib,
   ...
 }: let
-  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetBinding nvim pushDownDefault;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetBinding;
+  inherit (lib.nvim.dag) entryAnywhere;
+  # TODO: move this to its own module
+  inherit (lib) pushDownDefault;
 
   cfg = config.vim.telescope;
   self = import ./telescope.nix {inherit lib;};
@@ -60,7 +64,7 @@ in {
       "<leader>fvc" = "Commits";
     };
 
-    vim.luaConfigRC.telescope = nvim.dag.entryAnywhere ''
+    vim.luaConfigRC.telescope = entryAnywhere ''
       local telescope = require('telescope')
       telescope.setup {
         defaults = {

@@ -1,32 +1,35 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }: let
-  inherit (lib) mkIf mkMerge nvim optionalString mapAttrs;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.strings) optionalString;
+  inherit (lib.attrsets) mapAttrs;
+  inherit (lib.nvim.dag) entryAfter;
 
   cfg = config.vim.lsp;
 in {
   config = mkIf cfg.lspconfig.enable (mkMerge [
     {
-      vim.lsp.enable = true;
+      vim = {
+        lsp.enable = true;
 
-      vim.startPlugins = ["nvim-lspconfig"];
+        startPlugins = ["nvim-lspconfig"];
 
-      vim.luaConfigRC.lspconfig = nvim.dag.entryAfter ["lsp-setup"] ''
-        local lspconfig = require('lspconfig')
+        luaConfigRC.lspconfig = entryAfter ["lsp-setup"] ''
+          local lspconfig = require('lspconfig')
 
-        ${
-          # TODO: make border style configurable
-          optionalString (config.vim.ui.borders.enable) ''
-            require('lspconfig.ui.windows').default_options.border = '${config.vim.ui.borders.globalStyle}'
-          ''
-        }
-      '';
+          ${
+            optionalString config.vim.ui.borders.enable ''
+              require('lspconfig.ui.windows').default_options.border = '${config.vim.ui.borders.globalStyle}'
+            ''
+          }
+        '';
+      };
     }
     {
-      vim.luaConfigRC = mapAttrs (_: v: (nvim.dag.entryAfter ["lspconfig"] v)) cfg.lspconfig.sources;
+      vim.luaConfigRC = mapAttrs (_: v: (entryAfter ["lspconfig"] v)) cfg.lspconfig.sources;
     }
   ]);
 }

@@ -1,9 +1,5 @@
-{
-  config,
-  lib,
-  ...
-}: let
-  inherit (lib) mkDefault;
+{lib, ...}: let
+  inherit (lib.modules) mkDefault;
 in {
   config = {
     vim.theme = {

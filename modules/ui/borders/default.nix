@@ -1,4 +1,4 @@
-_: {
+{
   imports = [
     ./borders.nix
   ];

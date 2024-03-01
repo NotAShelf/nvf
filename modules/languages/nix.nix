@@ -1,11 +1,19 @@
 {
-  pkgs,
   config,
+  pkgs,
   lib,
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge optionalString;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.lists) isList;
+  inherit (lib.strings) optionalString;
+  inherit (lib.types) enum either listOf package str;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.languages) diagnosticsToLua;
 
   cfg = config.vim.languages.nix;
 
@@ -15,7 +23,7 @@
   defaultServer = "nil";
   packageToCmd = package: defaultCmd:
     if isList package
-    then lib.nvim.lua.expToLua package
+    then expToLua package
     else ''{"${package}/bin/${defaultCmd}"}'';
   servers = {
     rnix = {
@@ -82,14 +90,15 @@
         )
       '';
     };
+
     nixpkgs-fmt = {
       package = pkgs.nixpkgs-fmt;
       # Never need to use null-ls for nixpkgs-fmt
     };
   };
 
-  defaultDiagnostics = ["statix" "deadnix"];
-  diagnostics = {
+  defaultDiagnosticsProvider = ["statix" "deadnix"];
+  diagnosticsProviders = {
     statix = {
       package = pkgs.statix;
       nullConfig = pkg: ''
@@ -101,6 +110,7 @@
         )
       '';
     };
+
     deadnix = {
       package = pkgs.deadnix;
       nullConfig = pkg: ''
@@ -118,26 +128,22 @@ in {
     enable = mkEnableOption "Nix language support";
 
     treesitter = {
-      enable = mkOption {
-        description = "Enable Nix treesitter";
-        type = types.bool;
-        default = config.vim.languages.enableTreesitter;
-      };
-      package = nvim.types.mkGrammarOption pkgs "nix";
+      enable = mkEnableOption "Nix treesitter" // {default = config.vim.languages.enableTreesitter;};
+      package = mkGrammarOption pkgs "nix";
     };
 
     lsp = {
       enable = mkEnableOption "Nix LSP support" // {default = config.vim.languages.enableLSP;};
-
       server = mkOption {
         description = "Nix LSP server to use";
-        type = types.str;
+        type = str;
         default = defaultServer;
       };
+
       package = mkOption {
         description = "Nix LSP server package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = with types; either package (listOf str);
+        type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
     };
@@ -147,33 +153,30 @@ in {
 
       type = mkOption {
         description = "Nix formatter to use";
-        type = with types; enum (attrNames formats);
+        type = enum (attrNames formats);
         default = defaultFormat;
       };
       package = mkOption {
         description = "Nix formatter package";
-        type = types.package;
+        type = package;
         default = formats.${cfg.format.type}.package;
       };
     };
 
     extraDiagnostics = {
-      enable = mkOption {
-        description = "Enable extra Nix diagnostics";
-        type = types.bool;
-        default = config.vim.languages.enableExtraDiagnostics;
-      };
-      types = lib.nvim.types.diagnostics {
+      enable = mkEnableOption "extra Nix diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+
+      types = diagnostics {
         langDesc = "Nix";
-        inherit diagnostics;
-        inherit defaultDiagnostics;
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
 
   config = mkIf cfg.enable (mkMerge [
     {
-      vim.configRC.nix = nvim.dag.entryAnywhere ''
+      vim.configRC.nix = entryAnywhere ''
         autocmd filetype nix setlocal tabstop=2 shiftwidth=2 softtabstop=2
       '';
     }
@@ -195,10 +198,10 @@ in {
 
     (mkIf cfg.extraDiagnostics.enable {
       vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources = lib.nvim.languages.diagnosticsToLua {
+      vim.lsp.null-ls.sources = diagnosticsToLua {
         lang = "nix";
         config = cfg.extraDiagnostics.types;
-        inherit diagnostics;
+        inherit diagnosticsProviders;
       };
     })
   ]);

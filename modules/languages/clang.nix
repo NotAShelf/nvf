@@ -1,19 +1,27 @@
 {
-  pkgs,
   config,
+  pkgs,
   lib,
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib) isList nvim optionalString mkEnableOption mkOption types mkIf mkMerge;
+  inherit (lib.lists) isList;
+  inherit (lib.strings) optionalString;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.types) bool enum package either listOf str nullOr;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.dag) entryAnywhere;
+
+  packageToCmd = package: defaultCmd:
+    if isList cfg.lsp.package
+    then expToLua cfg.lsp.package
+    else ''{ "${cfg.lsp.package}/bin/${defaultCmd}" }'';
 
   cfg = config.vim.languages.clang;
 
   defaultServer = "ccls";
-  packageToCmd = package: defaultCmd:
-    if isList cfg.lsp.package
-    then nvim.lua.expToLua cfg.lsp.package
-    else ''{ "${cfg.lsp.package}/bin/${defaultCmd}" }'';
   servers = {
     ccls = {
       package = pkgs.ccls;
@@ -79,14 +87,14 @@ in {
         C syntax for headers. Can fix treesitter errors, see:
         https://www.reddit.com/r/neovim/comments/orfpcd/question_does_the_c_parser_from_nvimtreesitter/
       '';
-      type = types.bool;
+      type = bool;
       default = false;
     };
 
     treesitter = {
       enable = mkEnableOption "C/C++ treesitter" // {default = config.vim.languages.enableTreesitter;};
-      cPackage = nvim.types.mkGrammarOption pkgs "c";
-      cppPackage = nvim.types.mkGrammarOption pkgs "cpp";
+      cPackage = mkGrammarOption pkgs "c";
+      cppPackage = mkGrammarOption pkgs "cpp";
     };
 
     lsp = {
@@ -94,20 +102,20 @@ in {
 
       server = mkOption {
         description = "The clang LSP server to use";
-        type = with types; enum (attrNames servers);
+        type = enum (attrNames servers);
         default = defaultServer;
       };
 
       package = mkOption {
         description = "clang LSP server package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
-        type = with types; either package (listOf str);
+        type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
 
       opts = mkOption {
         description = "Options to pass to clang LSP server";
-        type = with types; nullOr str;
+        type = nullOr str;
         default = null;
       };
     };
@@ -115,17 +123,17 @@ in {
     dap = {
       enable = mkOption {
         description = "Enable clang Debug Adapter";
-        type = types.bool;
+        type = bool;
         default = config.vim.languages.enableDAP;
       };
       debugger = mkOption {
         description = "clang debugger to use";
-        type = with types; enum (attrNames debuggers);
+        type = enum (attrNames debuggers);
         default = defaultDebugger;
       };
       package = mkOption {
         description = "clang debugger package.";
-        type = types.package;
+        type = package;
         default = debuggers.${cfg.dap.debugger}.package;
       };
     };
@@ -133,7 +141,7 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.cHeader {
-      vim.configRC.c-header = nvim.dag.entryAnywhere "let g:c_syntax_for_h = 1";
+      vim.configRC.c-header = entryAnywhere "let g:c_syntax_for_h = 1";
     })
 
     (mkIf cfg.treesitter.enable {

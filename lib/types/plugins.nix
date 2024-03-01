@@ -99,6 +99,7 @@ with lib; let
     "highlight-undo"
     "nvim-docs-view"
     "image-nvim"
+    "nvim-nio"
   ];
   # You can either use the name of the plugin or a package.
   pluginType = with types;

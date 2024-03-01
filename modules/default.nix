@@ -6,8 +6,9 @@ inputs: {
   extraSpecialArgs ? {},
 }: let
   inherit (builtins) map filter isString toString getAttr;
-  inherit (pkgs) wrapNeovim vimPlugins;
+  inherit (pkgs) wrapNeovimUnstable vimPlugins;
   inherit (pkgs.vimUtils) buildVimPlugin;
+  inherit (pkgs.neovimUtils) makeNeovimConfig;
 
   extendedLib = import ../lib/stdlib-extended.nix lib;
 
@@ -57,21 +58,22 @@ inputs: {
       (f: f != null)
       plugins);
 
-  neovim = wrapNeovim vimOptions.package {
+  plugins =
+    (buildConfigPlugins vimOptions.startPlugins)
+    ++ (map (package: {
+        plugin = package;
+        optional = false;
+      })
+      (buildConfigPlugins
+        vimOptions.optPlugins));
+
+  neovim = wrapNeovimUnstable vimOptions.package (makeNeovimConfig {
     inherit (vimOptions) viAlias;
     inherit (vimOptions) vimAlias;
-
     inherit extraLuaPackages;
-
-    configure = {
-      customRC = vimOptions.builtConfigRC;
-
-      packages.myVimPackage = {
-        start = buildConfigPlugins vimOptions.startPlugins;
-        opt = buildConfigPlugins vimOptions.optPlugins;
-      };
-    };
-  };
+    inherit plugins;
+    customRC = vimOptions.builtConfigRC;
+  });
 in {
   inherit (module) options config;
   inherit (module._module.args) pkgs;

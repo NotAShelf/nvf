@@ -3,7 +3,9 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim boolToString;
+  inherit (lib.modules) mkIf;
+  inherit (lib.trivial) boolToString;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.ui.noice;
 in {
@@ -13,7 +15,7 @@ in {
       "nui-nvim"
     ];
 
-    vim.luaConfigRC.noice-nvim = nvim.dag.entryAnywhere ''
+    vim.luaConfigRC.noice-nvim = entryAnywhere ''
       require("noice").setup({
         lsp = {
           override = {

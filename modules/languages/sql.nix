@@ -1,11 +1,17 @@
 {
-  pkgs,
   config,
+  pkgs,
   lib,
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.lists) isList;
+  inherit (lib.types) enum either listOf package str;
+  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.languages) diagnosticsToLua;
+  inherit (lib.nvim.types) diagnostics;
 
   cfg = config.vim.languages.sql;
   sqlfluffDefault = pkgs.sqlfluff;
@@ -23,7 +29,7 @@
           end,
           cmd = ${
           if isList cfg.lsp.package
-          then nvim.lua.expToLua cfg.lsp.package
+          then expToLua cfg.lsp.package
           else ''{ "${cfg.lsp.package}/bin/sqls", "-config", string.format("%s/config.yml", vim.fn.getcwd()) }''
         }
         }
@@ -47,8 +53,8 @@
     };
   };
 
-  defaultDiagnostics = ["sqlfluff"];
-  diagnostics = {
+  defaultDiagnosticsProvider = ["sqlfluff"];
+  diagnosticsProviders = {
     sqlfluff = {
       package = sqlfluffDefault;
       nullConfig = pkg: ''
@@ -68,7 +74,7 @@ in {
 
     dialect = mkOption {
       description = "SQL dialect for sqlfluff (if used)";
-      type = types.str;
+      type = str;
       default = "ansi";
     };
 
@@ -77,7 +83,7 @@ in {
 
       package = mkOption {
         description = "SQL treesitter grammar to use";
-        type = types.package;
+        type = package;
         default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.sql;
       };
     };
@@ -87,14 +93,14 @@ in {
 
       server = mkOption {
         description = "SQL LSP server to use";
-        type = with types; enum (attrNames servers);
+        type = enum (attrNames servers);
         default = defaultServer;
       };
 
       package = mkOption {
         description = "SQL LSP server package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = with types; either package (listOf str);
+        type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
     };
@@ -104,13 +110,13 @@ in {
 
       type = mkOption {
         description = "SQL formatter to use";
-        type = with types; enum (attrNames formats);
+        type = enum (attrNames formats);
         default = defaultFormat;
       };
 
       package = mkOption {
         description = "SQL formatter package";
-        type = types.package;
+        type = package;
         default = formats.${cfg.format.type}.package;
       };
     };
@@ -118,10 +124,10 @@ in {
     extraDiagnostics = {
       enable = mkEnableOption "extra SQL diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
 
-      types = lib.nvim.types.diagnostics {
+      types = diagnostics {
         langDesc = "SQL";
-        inherit diagnostics;
-        inherit defaultDiagnostics;
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
@@ -133,10 +139,14 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.startPlugins = ["sqls-nvim"];
+      vim = {
+        startPlugins = ["sqls-nvim"];
 
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.sql-lsp = servers.${cfg.lsp.server}.lspConfig;
+        lsp.lspconfig = {
+          enable = true;
+          sources.sql-lsp = servers.${cfg.lsp.server}.lspConfig;
+        };
+      };
     })
 
     (mkIf cfg.format.enable {
@@ -146,10 +156,10 @@ in {
 
     (mkIf cfg.extraDiagnostics.enable {
       vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources = lib.nvim.languages.diagnosticsToLua {
+      vim.lsp.null-ls.sources = diagnosticsToLua {
         lang = "sql";
         config = cfg.extraDiagnostics.types;
-        inherit diagnostics;
+        inherit diagnosticsProviders;
       };
     })
   ]);

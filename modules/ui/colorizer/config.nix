@@ -1,10 +1,12 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim boolToString;
+  inherit (lib.modules) mkIf;
+  inherit (lib.trivial) boolToString;
+  inherit (lib.nvim.lua) attrsetToLuaTable;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.ui.colorizer;
 in {
@@ -13,14 +15,14 @@ in {
       "nvim-colorizer-lua"
     ];
 
-    vim.luaConfigRC.colorizer = nvim.dag.entryAnywhere ''
+    vim.luaConfigRC.colorizer = entryAnywhere ''
       require('colorizer').setup({
-        filetypes = ${nvim.lua.attrsetToLuaTable cfg.filetypes},
+        filetypes = ${attrsetToLuaTable cfg.filetypes},
         user_default_options = {
           RGB           = ${boolToString cfg.options.rgb};
           RRGGBB        = ${boolToString cfg.options.rrggbb};
-          names         = ${boolToString cfg.options.names};
           RRGGBBAA      = ${boolToString cfg.options.rrggbbaa};
+          names         = ${boolToString cfg.options.names};
           rgb_fn        = ${boolToString cfg.options.rgb_fn};
           hsl_fn        = ${boolToString cfg.options.hsl_fn};
           css           = ${boolToString cfg.options.css};

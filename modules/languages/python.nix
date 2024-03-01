@@ -1,11 +1,16 @@
 {
-  pkgs,
   config,
+  pkgs,
   lib,
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge getExe literalExpression;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib.meta) getExe;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.lists) isList;
+  inherit (lib.types) enum either listOf package str bool;
+  inherit (lib.nvim.lua) expToLua;
 
   cfg = config.vim.languages.python;
 
@@ -19,7 +24,7 @@
           on_attach = default_on_attach;
           cmd = ${
           if isList cfg.lsp.package
-          then nvim.lua.expToLua cfg.lsp.package
+          then expToLua cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/pyright-langserver", "--stdio"}''
         }
         }
@@ -40,6 +45,7 @@
         )
       '';
     };
+
     isort = {
       package = pkgs.isort;
       nullConfig = ''
@@ -51,6 +57,7 @@
         )
       '';
     };
+
     black-and-isort = {
       package = pkgs.writeShellApplication {
         name = "black";
@@ -140,7 +147,7 @@ in {
       enable = mkEnableOption "Python treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = mkOption {
         description = "Python treesitter grammar to use";
-        type = types.package;
+        type = package;
         default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.python;
       };
     };
@@ -150,14 +157,14 @@ in {
 
       server = mkOption {
         description = "Python LSP server to use";
-        type = with types; enum (attrNames servers);
+        type = enum (attrNames servers);
         default = defaultServer;
       };
 
       package = mkOption {
         description = "python LSP server package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = with types; either package (listOf str);
+        type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
     };
@@ -167,13 +174,13 @@ in {
 
       type = mkOption {
         description = "Python formatter to use";
-        type = with types; enum (attrNames formats);
+        type = enum (attrNames formats);
         default = defaultFormat;
       };
 
       package = mkOption {
         description = "Python formatter package";
-        type = types.package;
+        type = package;
         default = formats.${cfg.format.type}.package;
       };
     };
@@ -182,25 +189,28 @@ in {
     dap = {
       enable = mkOption {
         description = "Enable Python Debug Adapter";
-        type = types.bool;
+        type = bool;
         default = config.vim.languages.enableDAP;
       };
+
       debugger = mkOption {
         description = "Python debugger to use";
-        type = with types; enum (attrNames debuggers);
+        type = enum (attrNames debuggers);
         default = defaultDebugger;
       };
+
       package = mkOption {
+        type = package;
+        default = debuggers.${cfg.dap.debugger}.package;
+        example = literalExpression "with pkgs; python39.withPackages (ps: with ps; [debugpy])";
         description = ''
           Python debugger package.
           This is a python package with debugpy installed, see https://nixos.wiki/wiki/Python#Install_Python_Packages.
         '';
-        example = literalExpression "with pkgs; python39.withPackages (ps: with ps; [debugpy])";
-        type = types.package;
-        default = debuggers.${cfg.dap.debugger}.package;
       };
     };
   };
+
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;

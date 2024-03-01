@@ -1,12 +1,6 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}: let
-  inherit (lib) mkEnableOption mkOption types;
-
-  cfg = config.vim.lsp;
+{lib, ...}: let
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.types) enum;
 in {
   options.vim.lsp = {
     lspkind = {
@@ -14,7 +8,7 @@ in {
 
       mode = mkOption {
         description = "Defines how annotations are shown";
-        type = with types; enum ["text" "text_symbol" "symbol_text" "symbol"];
+        type = enum ["text" "text_symbol" "symbol_text" "symbol"];
         default = "symbol_text";
       };
     };

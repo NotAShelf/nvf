@@ -1,5 +1,7 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption mkMappingOption mkRenamedOptionModule;
+  inherit (lib.modules) mkRenamedOptionModule;
+  inherit (lib.options) mkEnableOption;
+  inherit (lib.nvim.binds) mkMappingOption;
 in {
   imports = [
     (mkRenamedOptionModule ["vim" "languages" "markdown" "glow" "enable"] ["vim" "utility" "preview" "glow" "enable"])

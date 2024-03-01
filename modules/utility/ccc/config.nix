@@ -3,20 +3,17 @@
   lib,
   ...
 }: let
-  inherit (lib) addDescriptionsToMappings mkIf nvim;
+  inherit (lib.modules) mkIf;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.utility.ccc;
-  self = import ./ccc.nix {inherit lib;};
-
-  mappingDefinitions = self.options.vim.utility.ccc.mappings;
-  mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
 in {
   config = mkIf (cfg.enable) {
     vim.startPlugins = [
       "ccc"
     ];
 
-    vim.luaConfigRC.ccc = nvim.dag.entryAnywhere ''
+    vim.luaConfigRC.ccc = entryAnywhere ''
       local ccc = require("ccc")
       ccc.setup {
       	highlighter = {

@@ -3,7 +3,9 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim boolToString;
+  inherit (lib.modules) mkIf;
+  inherit (lib.trivial) boolToString;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.ui.modes-nvim;
 in {
@@ -12,7 +14,7 @@ in {
       "modes-nvim"
     ];
 
-    vim.luaConfigRC.modes-nvim = nvim.dag.entryAnywhere ''
+    vim.luaConfigRC.modes-nvim = entryAnywhere ''
       require('modes').setup({
         set_cursorline = ${boolToString cfg.setCursorline},
         line_opacity = {

@@ -1,11 +1,17 @@
 {
-  pkgs,
   config,
+  pkgs,
   lib,
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.lists) isList;
+  inherit (lib.types) enum either listOf package str;
+  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.lua) expToLua;
+
   cfg = config.vim.languages.nim;
 
   defaultServer = "nimlsp";
@@ -18,7 +24,7 @@
           on_attach = default_on_attach;
           cmd = ${
           if isList cfg.lsp.package
-          then nvim.lua.expToLua cfg.lsp.package
+          then expToLua cfg.lsp.package
           else ''
             {"${cfg.lsp.package}/bin/nimlsp"}
           ''
@@ -47,41 +53,37 @@ in {
     enable = mkEnableOption "Nim language support";
 
     treesitter = {
-      enable = mkOption {
-        description = "Enable Nim treesitter";
-        type = types.bool;
-        default = config.vim.languages.enableTreesitter;
-      };
-      package = nvim.types.mkGrammarOption pkgs "nim";
+      enable = mkEnableOption "Nim treesitter" // {default = config.vim.languages.enableTreesitter;};
+      package = mkGrammarOption pkgs "nim";
     };
 
     lsp = {
       enable = mkEnableOption "Nim LSP support" // {default = config.vim.languages.enableLSP;};
-
       server = mkOption {
         description = "Nim LSP server to use";
-        type = types.str;
+        type = str;
         default = defaultServer;
       };
+
       package = mkOption {
         description = "Nim LSP server package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.nimlsp]'';
-        type = with types; either package (listOf str);
+        type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
     };
 
     format = {
       enable = mkEnableOption "Nim formatting" // {default = config.vim.languages.enableFormat;};
-
       type = mkOption {
         description = "Nim formatter to use";
-        type = with types; enum (attrNames formats);
+        type = enum (attrNames formats);
         default = defaultFormat;
       };
+
       package = mkOption {
         description = "Nim formatter package";
-        type = types.package;
+        type = package;
         default = formats.${cfg.format.type}.package;
       };
     };

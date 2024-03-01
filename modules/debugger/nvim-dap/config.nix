@@ -49,7 +49,7 @@ in {
       ];
     })
     (mkIf (cfg.enable && cfg.ui.enable) {
-      vim.startPlugins = ["nvim-dap-ui"];
+      vim.startPlugins = ["nvim-dap-ui" "nvim-nio"];
 
       vim.luaConfigRC.nvim-dap-ui = entryAfter ["nvim-dap"] (''
           local dapui = require("dapui")
