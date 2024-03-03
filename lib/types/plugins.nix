@@ -145,6 +145,18 @@ in {
       type = pluginsType;
     };
 
+  rawLua = lib.mkOptionType {
+    name = "rawLua";
+    check = val: isString val || val ? __raw;
+    merge = loc: defs: let
+      val =
+        if isString loc
+        then {__raw = val;}
+        else loc;
+    in
+      lib.mergeOneOption val defs;
+  };
+
   # opts is a attrset of options, example:
   # ```
   # mkPluginSetupOption "telescope" {
