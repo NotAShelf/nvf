@@ -117,7 +117,8 @@
     };
 
     none-ls = {
-      url = "github:nvimtools/none-ls.nvim";
+      # https://github.com/nvimtools/none-ls.nvim/issues/58
+      url = "github:nvimtools/none-ls.nvim/bb680d752cec37949faca7a1f509e2fe67ab418a";
       flake = false;
     };
 
