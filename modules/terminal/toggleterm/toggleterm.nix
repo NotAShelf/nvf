@@ -5,8 +5,15 @@
 }: let
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.nvim.binds) mkMappingOption;
-  inherit (lib.types) nullOr str enum bool package;
+  inherit (lib.types) nullOr str enum bool package either int;
+  inherit (lib) mkRenamedOptionModule;
+  inherit (lib.nvim.types) mkPluginSetupOption rawLua;
 in {
+  imports = [
+    (mkRenamedOptionModule ["vim" "terminal" "toggleterm" "direction"] ["vim" "terminal" "toggleterm" "setupOpts" "direction"])
+    (mkRenamedOptionModule ["vim" "terminal" "toggleterm" "enable_winbar"] ["vim" "terminal" "toggleterm" "setupOpts" "enable_winbar"])
+  ];
+
   options.vim.terminal.toggleterm = {
     enable = mkEnableOption "toggleterm as a replacement to built-in terminal command";
     mappings = {
@@ -17,16 +24,48 @@ in {
       };
     };
 
-    direction = mkOption {
-      type = enum ["horizontal" "vertical" "tab" "float"];
-      default = "horizontal";
-      description = "Direction of the terminal";
-    };
+    setupOpts = mkPluginSetupOption "ToggleTerm" {
+      direction = mkOption {
+        type = enum ["horizontal" "vertical" "tab" "float"];
+        default = "horizontal";
+        description = "Direction of the terminal";
+      };
 
-    enable_winbar = mkOption {
-      type = bool;
-      default = false;
-      description = "Enable winbar";
+      enable_winbar = mkOption {
+        type = bool;
+        default = false;
+        description = "Enable winbar";
+      };
+
+      size = mkOption {
+        type = either rawLua int;
+        description = "Number or lua function which is passed to the current terminal";
+        default = {
+          __raw = ''
+            function(term)
+              if term.direction == "horizontal" then
+                return 15
+              elseif term.direction == "vertical" then
+                return vim.o.columns * 0.4
+              end
+            end
+          '';
+        };
+      };
+      winbar = {
+        enabled = mkEnableOption "winbar in terminal" // {default = true;};
+        name_formatter = mkOption {
+          type = rawLua;
+          description = "Winbar formatter function.";
+          default = {
+            __raw = ''
+              function(term)
+                return term.name
+              end
+            '';
+          };
+        };
+      };
     };
 
     lazygit = {

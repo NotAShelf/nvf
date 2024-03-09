@@ -9,6 +9,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.nvim.binds) mkBinding;
   inherit (lib.nvim.dag) entryAnywhere entryAfter;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.terminal.toggleterm;
 in {
@@ -23,24 +24,7 @@ in {
           maps.normal = mkBinding cfg.mappings.open "<Cmd>execute v:count . \"ToggleTerm\"<CR>" "Toggle terminal";
 
           luaConfigRC.toggleterm = entryAnywhere ''
-            require("toggleterm").setup({
-              open_mapping = null,
-              direction = '${toString cfg.direction}',
-              -- TODO: this should probably be turned into a module that uses the lua function if and only if the user has not set it
-              size = function(term)
-                if term.direction == "horizontal" then
-                  return 15
-                elseif term.direction == "vertical" then
-                  return vim.o.columns * 0.4
-                end
-              end,
-              winbar = {
-                enabled = '${toString cfg.enable_winbar}',
-                name_formatter = function(term) --  term: Terminal
-                  return term.name
-                end
-              },
-            })
+            require("toggleterm").setup(${toLuaObject cfg.setupOpts})
           '';
         };
       }
