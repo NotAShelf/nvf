@@ -1,11 +1,16 @@
 {
-  pkgs,
   config,
+  pkgs,
   lib,
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.lists) isList;
+  inherit (lib.types) enum either listOf package str;
+  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.ts;
 
@@ -19,7 +24,7 @@
           on_attach = attach_keymaps,
           cmd = ${
           if isList cfg.lsp.package
-          then nvim.lua.expToLua cfg.lsp.package
+          then expToLua cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/typescript-language-server", "--stdio"}''
         }
         }
@@ -34,7 +39,7 @@
           on_attach = attach_keymaps,
           cmd = ${
           if isList cfg.lsp.package
-          then nvim.lua.expToLua cfg.lsp.package
+          then expToLua cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/deno", "lsp"}''
         }
         }
@@ -90,8 +95,8 @@ in {
 
     treesitter = {
       enable = mkEnableOption "Typescript/Javascript treesitter" // {default = config.vim.languages.enableTreesitter;};
-      tsPackage = nvim.types.mkGrammarOption pkgs "tsx";
-      jsPackage = nvim.types.mkGrammarOption pkgs "javascript";
+      tsPackage = mkGrammarOption pkgs "tsx";
+      jsPackage = mkGrammarOption pkgs "javascript";
     };
 
     lsp = {
@@ -99,14 +104,14 @@ in {
 
       server = mkOption {
         description = "Typescript/Javascript LSP server to use";
-        type = with types; enum (attrNames servers);
+        type = enum (attrNames servers);
         default = defaultServer;
       };
 
       package = mkOption {
         description = "Typescript/Javascript LSP server package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = with types; either package (listOf str);
+        type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
     };
@@ -116,13 +121,13 @@ in {
 
       type = mkOption {
         description = "Typescript/Javascript formatter to use";
-        type = with types; enum (attrNames formats);
+        type = enum (attrNames formats);
         default = defaultFormat;
       };
 
       package = mkOption {
         description = "Typescript/Javascript formatter package";
-        type = types.package;
+        type = package;
         default = formats.${cfg.format.type}.package;
       };
     };

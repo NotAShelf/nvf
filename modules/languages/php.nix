@@ -1,11 +1,17 @@
 {
-  pkgs,
   config,
+  pkgs,
   lib,
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge getExe;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.meta) getExe;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.lists) isList;
+  inherit (lib.types) enum either listOf package str;
+  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.lua) expToLua;
 
   cfg = config.vim.languages.php;
 
@@ -19,7 +25,7 @@
           on_attach = default_on_attach,
           cmd = ${
           if isList cfg.lsp.package
-          then nvim.lua.expToLua cfg.lsp.package
+          then expToLua cfg.lsp.package
           else ''
             {
               "${getExe cfg.lsp.package}",
@@ -39,7 +45,7 @@
           on_attach = default_on_attach,
           cmd = ${
           if isList cfg.lsp.package
-          then nvim.lua.expToLua cfg.lsp.package
+          then expToLua cfg.lsp.package
           else ''
               {
                 "${getExe cfg.lsp.package}",
@@ -65,7 +71,7 @@ in {
 
     treesitter = {
       enable = mkEnableOption "PHP treesitter" // {default = config.vim.languages.enableTreesitter;};
-      package = nvim.types.mkGrammarOption pkgs "php";
+      package = mkGrammarOption pkgs "php";
     };
 
     lsp = {
@@ -73,14 +79,14 @@ in {
 
       server = mkOption {
         description = "PHP LSP server to use";
-        type = with types; enum (attrNames servers);
+        type = enum (attrNames servers);
         default = defaultServer;
       };
 
       package = mkOption {
         description = "PHP LSP server package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
-        type = with types; either package (listOf str);
+        type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
     };

@@ -5,7 +5,11 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib) mkEnableOption mkOption mkIf mkMerge isList types nvim;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.lists) isList;
+  inherit (lib.types) enum either listOf package str;
+  inherit (lib.nvim.lua) expToLua;
 
   cfg = config.vim.languages.tailwind;
 
@@ -19,7 +23,7 @@
           on_attach = default_on_attach;
           cmd = ${
           if isList cfg.lsp.package
-          then nvim.lua.expToLua cfg.lsp.package
+          then expToLua cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/tailwindcss-language-server", "--stdio"}''
         }
         }
@@ -35,14 +39,14 @@ in {
 
       server = mkOption {
         description = "Tailwindcss LSP server to use";
-        type = with types; enum (attrNames servers);
+        type = enum (attrNames servers);
         default = defaultServer;
       };
 
       package = mkOption {
         description = "Tailwindcss LSP server package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
-        type = with types; either package (listOf str);
+        type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
     };

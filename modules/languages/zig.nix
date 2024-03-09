@@ -1,10 +1,15 @@
 {
-  pkgs,
   config,
+  pkgs,
   lib,
   ...
 }: let
-  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.lists) isList;
+  inherit (lib.types) either listOf package str;
+  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.zig;
 in {
@@ -13,7 +18,7 @@ in {
 
     treesitter = {
       enable = mkEnableOption "Zig treesitter" // {default = config.vim.languages.enableTreesitter;};
-      package = nvim.types.mkGrammarOption pkgs "zig";
+      package = mkGrammarOption pkgs "zig";
     };
 
     lsp = {
@@ -22,13 +27,13 @@ in {
       package = mkOption {
         description = "ZLS package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = with types; either package (listOf str);
+        type = either package (listOf str);
         default = pkgs.zls;
       };
 
       zigPackage = mkOption {
         description = "Zig package used by ZLS";
-        type = types.package;
+        type = package;
         default = pkgs.zig;
       };
     };
@@ -47,7 +52,7 @@ in {
           on_attach=default_on_attach,
           cmd = ${
           if isList cfg.lsp.package
-          then nvim.lua.expToLua cfg.lsp.package
+          then expToLua cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/zls"}''
         },
           settings = {
