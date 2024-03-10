@@ -210,7 +210,7 @@ inputs: let
         };
         smartcolumn = {
           enable = true;
-          columnAt.languages = {
+          setupOpts.custom_colorcolumn = {
             # this is a freeform module, it's `buftype = int;` for configuring column position
             nix = 110;
             ruby = 120;
