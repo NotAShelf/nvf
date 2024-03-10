@@ -5,7 +5,28 @@
 }: let
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) nullOr listOf enum bool str int;
+  inherit (lib.modules) mkRenamedOptionModule;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 in {
+  imports = let
+    renameSetupOpt = oldPath: newPath:
+      mkRenamedOptionModule
+      (["vim" "ui" "breadcrumbs" "navbuddy"] ++ oldPath)
+      (["vim" "ui" "breadcrumbs" "navbuddy" "setupOpts"] ++ newPath);
+  in [
+    (renameSetupOpt ["useDefaultMappings"] ["use_default_mappings"])
+    (renameSetupOpt ["window"] ["window"])
+    (renameSetupOpt ["nodeMarkers"] ["node_markers"])
+    (renameSetupOpt ["lsp" "autoAttach"] ["lsp" "auto_attach"])
+    (renameSetupOpt ["lsp" "preference"] ["lsp" "preference"])
+    (renameSetupOpt ["sourceBuffer" "followNode"] ["source_buffer" "follow_node"])
+    (renameSetupOpt ["sourceBuffer" "highlight"] ["source_buffer" "highlight"])
+    (renameSetupOpt ["sourceBuffer" "reorient"] ["source_buffer" "reorient"])
+    (renameSetupOpt ["sourceBuffer" "scrolloff"] ["source_buffer" "scrolloff"])
+    # TODO: every option under icon is renamed to first letter capitalized
+    (renameSetupOpt ["icon"] ["icon"])
+  ];
+
   options.vim.ui.breadcrumbs = {
     enable = mkEnableOption "breadcrumbs";
     source = mkOption {
@@ -26,13 +47,6 @@ in {
 
     navbuddy = {
       enable = mkEnableOption "navbuddy LSP helper UI. Enabling this option automatically loads and enables nvim-navic";
-
-      # this option is interpreted as null if mkEnableOption is used, and therefore cannot be converted to a string in config.nix
-      useDefaultMappings = mkOption {
-        type = bool;
-        default = true;
-        description = "use default Navbuddy keybindings (disables user-specified keybinds)";
-      };
 
       mappings = {
         close = mkOption {
@@ -61,7 +75,7 @@ in {
 
         children = mkOption {
           type = str;
-          default = "h";
+          default = "l";
           description = "keybinding to navigate to the child node";
         };
 
@@ -180,301 +194,310 @@ in {
         };
       };
 
-      window = {
-        # size = {}
-        # position = {}
-
-        border = mkOption {
-          # TODO: let this type accept a custom string
-          type = enum ["single" "rounded" "double" "solid" "none"];
-          default = config.vim.ui.borders.globalStyle;
-          description = "border style to use";
+      setupOpts = mkPluginSetupOption "navbuddy" {
+        useDefaultMappings = mkOption {
+          type = bool;
+          default = true;
+          description = "use default Navbuddy keybindings (disables user-specified keybinds)";
         };
 
-        scrolloff = mkOption {
-          type = nullOr int;
-          default = null;
-          description = "Scrolloff value within navbuddy window";
+        window = {
+          # size = {}
+          # position = {}
+
+          border = mkOption {
+            # TODO: let this type accept a custom string
+            type = enum ["single" "rounded" "double" "solid" "none"];
+            default = config.vim.ui.borders.globalStyle;
+            description = "border style to use";
+          };
+
+          scrolloff = mkOption {
+            type = nullOr int;
+            default = null;
+            description = "Scrolloff value within navbuddy window";
+          };
+
+          sections = {
+            # left section
+            left = {
+              /*
+              size = mkOption {
+                type = nullOr (intBetween 0 100);
+                default = null;
+                description = "size of the left section of Navbuddy UI in percentage (0-100)";
+              };
+              */
+
+              border = mkOption {
+                # TODO: let this type accept a custom string
+                type = nullOr (enum ["single" "rounded" "double" "solid" "none"]);
+                default = config.vim.ui.borders.globalStyle;
+                description = "border style to use for the left section of Navbuddy UI";
+              };
+            };
+
+            # middle section
+            mid = {
+              /*
+              size = {
+                type = nullOr (intBetween 0 100);
+                default = null;
+                description = "size of the left section of Navbuddy UI in percentage (0-100)";
+              };
+              */
+
+              border = mkOption {
+                # TODO: let this type accept a custom string
+                type = nullOr (enum ["single" "rounded" "double" "solid" "none"]);
+                default = config.vim.ui.borders.globalStyle;
+                description = "border style to use for the middle section of Navbuddy UI";
+              };
+            };
+
+            # right section
+            # there is no size option for the right section, it fills the remaining space
+            right = {
+              border = mkOption {
+                # TODO: let this type accept a custom string
+                type = nullOr (enum ["single" "rounded" "double" "solid" "none"]);
+                default = config.vim.ui.borders.globalStyle;
+                description = "border style to use for the right section of Navbuddy UI";
+              };
+
+              preview = mkOption {
+                type = enum ["leaf" "always" "never"];
+                default = "leaf";
+                description = "display mode of the preview on the right section";
+              };
+            };
+          };
         };
 
-        sections = {
-          # left section
-          left = {
-            /*
-            size = {
-              type = with types; nullOr (intBetween 0 100);
-              default = null;
-              description = "size of the left section of Navbuddy UI in percentage (0-100)";
-            };
-            */
-
-            border = mkOption {
-              # TODO: let this type accept a custom string
-              type = nullOr (enum ["single" "rounded" "double" "solid" "none"]);
-              default = config.vim.ui.borders.globalStyle;
-              description = "border style to use for the left section of Navbuddy UI";
-            };
-          };
-
-          # middle section
-          mid = {
-            /*
-            size = {
-              type = with types; nullOr (intBetween 0 100);
-              default = null;
-              description = "size of the left section of Navbuddy UI in percentage (0-100)";
-            };
-            */
-
-            border = mkOption {
-              # TODO: let this type accept a custom string
-              type = nullOr (enum ["single" "rounded" "double" "solid" "none"]);
-              default = config.vim.ui.borders.globalStyle;
-              description = "border style to use for the middle section of Navbuddy UI";
-            };
-          };
-
-          # right section
-          # there is no size option for the right section, it fills the remaining space
-          right = {
-            border = mkOption {
-              # TODO: let this type accept a custom string
-              type = nullOr (enum ["single" "rounded" "double" "solid" "none"]);
-              default = config.vim.ui.borders.globalStyle;
-              description = "border style to use for the right section of Navbuddy UI";
+        node_markers = {
+          enable = mkEnableOption "node markers";
+          icons = {
+            leaf = mkOption {
+              type = str;
+              default = "  ";
+              description = "";
             };
 
-            preview = mkOption {
-              type = enum ["leaf" "always" "never"];
-              default = "leaf";
-              description = "display mode of the preview on the right section";
+            leaf_selected = mkOption {
+              type = str;
+              default = " → ";
+              description = "";
+            };
+
+            branch = mkOption {
+              type = str;
+              default = " ";
+              description = "";
             };
           };
         };
-      };
 
-      nodeMarkers = {
-        enable = mkEnableOption "node markers";
+        lsp = {
+          auto_attach = mkOption {
+            type = bool;
+            default = true;
+            description = "Whether to attach to LSP server manually";
+          };
+
+          preference = mkOption {
+            type = nullOr (listOf str);
+            default = null;
+            description = "list of lsp server names in order of preference";
+          };
+        };
+
+        source_buffer = {
+          followNode = mkOption {
+            type = bool;
+            default = true;
+            description = "keep the current node in focus on the source buffer";
+          };
+
+          highlight = mkOption {
+            type = bool;
+            default = true;
+            description = "highlight the currently focused node";
+          };
+
+          reorient = mkOption {
+            type = enum ["smart" "top" "mid" "none"];
+            default = "smart";
+            description = "reorient buffer after changing nodes";
+          };
+
+          scrolloff = mkOption {
+            type = nullOr int;
+            default = null;
+            description = "scrolloff value when navbuddy is open";
+          };
+        };
+
         icons = {
-          leaf = mkOption {
+          File = mkOption {
             type = str;
-            default = "  ";
+            default = "󰈙 ";
             description = "";
           };
 
-          leafSelected = mkOption {
+          Module = mkOption {
             type = str;
-            default = " → ";
+            default = " ";
             description = "";
           };
 
-          branch = mkOption {
+          Namespace = mkOption {
             type = str;
-            default = " ";
+            default = "󰌗 ";
             description = "";
           };
-        };
-      };
 
-      lsp = {
-        autoAttach = mkOption {
-          type = bool;
-          default = true;
-          description = "Whether to attach to LSP server manually";
-        };
+          Package = mkOption {
+            type = str;
+            default = " ";
+            description = "";
+          };
 
-        preference = mkOption {
-          type = nullOr (listOf str);
-          default = null;
-          description = "list of lsp server names in order of preference";
-        };
-      };
+          Class = mkOption {
+            type = str;
+            default = "󰌗 ";
+            description = "";
+          };
 
-      sourceBuffer = {
-        followNode = mkOption {
-          type = bool;
-          default = true;
-          description = "keep the current node in focus on the source buffer";
-        };
+          Property = mkOption {
+            type = str;
+            default = " ";
+            description = "";
+          };
 
-        highlight = mkOption {
-          type = bool;
-          default = true;
-          description = "highlight the currently focused node";
-        };
+          Field = mkOption {
+            type = str;
+            default = " ";
+            description = "";
+          };
 
-        reorient = mkOption {
-          type = enum ["smart" "top" "mid" "none"];
-          default = "smart";
-          description = "reorient buffer after changing nodes";
-        };
+          Constructor = mkOption {
+            type = str;
+            default = " ";
+            description = "";
+          };
 
-        scrolloff = mkOption {
-          type = nullOr int;
-          default = null;
-          description = "scrolloff value when navbuddy is open";
+          Enum = mkOption {
+            type = str;
+            default = "󰕘";
+            description = "";
+          };
+
+          Interface = mkOption {
+            type = str;
+            default = "󰕘";
+            description = "";
+          };
+
+          Function = mkOption {
+            type = str;
+            default = "󰊕 ";
+            description = "";
+          };
+
+          Variable = mkOption {
+            type = str;
+            default = "󰆧 ";
+            description = "";
+          };
+
+          Constant = mkOption {
+            type = str;
+            default = "󰏿 ";
+            description = "";
+          };
+
+          String = mkOption {
+            type = str;
+            default = " ";
+            description = "";
+          };
+
+          Number = mkOption {
+            type = str;
+            default = "󰎠 ";
+            description = "";
+          };
+
+          Boolean = mkOption {
+            type = str;
+            default = "◩ ";
+            description = "";
+          };
+
+          Array = mkOption {
+            type = str;
+            default = "󰅪 ";
+            description = "";
+          };
+
+          Object = mkOption {
+            type = str;
+            default = "󰅩 ";
+            description = "";
+          };
+
+          Method = mkOption {
+            type = str;
+            default = "󰆧 ";
+            description = "";
+          };
+
+          Key = mkOption {
+            type = str;
+            default = "󰌋 ";
+            description = "";
+          };
+
+          Null = mkOption {
+            type = str;
+            default = "󰟢 ";
+            description = "";
+          };
+
+          EnumMember = mkOption {
+            type = str;
+            default = "󰕘 ";
+            description = "";
+          };
+
+          Struct = mkOption {
+            type = str;
+            default = "󰌗 ";
+            description = "";
+          };
+
+          Event = mkOption {
+            type = str;
+            default = " ";
+            description = "";
+          };
+
+          Operator = mkOption {
+            type = str;
+            default = "󰆕 ";
+            description = "";
+          };
+
+          TypeParameter = mkOption {
+            type = str;
+            default = "󰊄 ";
+            description = "";
+          };
         };
       };
 
       # there probably is a better way to do this
       # alas, I am not a nix wizard
-      icons = {
-        file = mkOption {
-          type = str;
-          default = "󰈙 ";
-          description = "File icon";
-        };
-
-        module = mkOption {
-          type = str;
-          default = " ";
-          description = "Module icon";
-        };
-
-        namespace = mkOption {
-          type = str;
-          default = "󰌗 ";
-          description = "Namespace icon";
-        };
-
-        package = mkOption {
-          type = str;
-          default = " ";
-          description = "";
-        };
-
-        class = mkOption {
-          type = str;
-          default = "󰌗 ";
-          description = "Class icon";
-        };
-
-        property = mkOption {
-          type = str;
-          default = " ";
-          description = "";
-        };
-
-        field = mkOption {
-          type = str;
-          default = " ";
-          description = "Field icon";
-        };
-
-        constructor = mkOption {
-          type = str;
-          default = " ";
-          description = "Constructor icon";
-        };
-
-        enum = mkOption {
-          type = str;
-          default = "󰕘";
-          description = "Enum icon";
-        };
-
-        interface = mkOption {
-          type = str;
-          default = "󰕘";
-          description = "Interface icon";
-        };
-
-        function = mkOption {
-          type = str;
-          default = "󰊕 ";
-          description = "Function icon";
-        };
-
-        variable = mkOption {
-          type = str;
-          default = "󰆧 ";
-          description = "";
-        };
-
-        constant = mkOption {
-          type = str;
-          default = "󰏿 ";
-          description = "Constant icon";
-        };
-
-        string = mkOption {
-          type = str;
-          default = " ";
-          description = "";
-        };
-
-        number = mkOption {
-          type = str;
-          default = "󰎠 ";
-          description = "Number icon";
-        };
-
-        boolean = mkOption {
-          type = str;
-          default = "◩ ";
-          description = "";
-        };
-
-        array = mkOption {
-          type = str;
-          default = "󰅪 ";
-          description = "Array icon";
-        };
-
-        object = mkOption {
-          type = str;
-          default = "󰅩 ";
-          description = "Object icon";
-        };
-
-        method = mkOption {
-          type = str;
-          default = "󰆧 ";
-          description = "Method icon";
-        };
-
-        key = mkOption {
-          type = str;
-          default = "󰌋 ";
-          description = "Key icon";
-        };
-
-        null = mkOption {
-          type = str;
-          default = "󰟢 ";
-          description = "Null icon";
-        };
-
-        enumMember = mkOption {
-          type = str;
-          default = "󰕘 ";
-          description = "Enum member icon";
-        };
-
-        struct = mkOption {
-          type = str;
-          default = "󰌗 ";
-          description = "Struct icon";
-        };
-
-        event = mkOption {
-          type = str;
-          default = " ";
-          description = "Event icon";
-        };
-
-        operator = mkOption {
-          type = str;
-          default = "󰆕 ";
-          description = "Operator icon";
-        };
-
-        typeParameter = mkOption {
-          type = str;
-          default = "󰊄 ";
-          description = "Type parameter icon";
-        };
-      };
     };
   };
 }
