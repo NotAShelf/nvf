@@ -7,6 +7,12 @@
   inherit (lib.types) nullOr listOf enum bool str int;
   inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.nvim.types) mkPluginSetupOption;
+  mkSimpleIconOption = default:
+    mkOption {
+      inherit default;
+      type = str;
+      description = "";
+    };
 in {
   imports = let
     renameSetupOpt = oldPath: newPath:
@@ -277,23 +283,9 @@ in {
         node_markers = {
           enable = mkEnableOption "node markers";
           icons = {
-            leaf = mkOption {
-              type = str;
-              default = "  ";
-              description = "";
-            };
-
-            leaf_selected = mkOption {
-              type = str;
-              default = " → ";
-              description = "";
-            };
-
-            branch = mkOption {
-              type = str;
-              default = " ";
-              description = "";
-            };
+            leaf = mkSimpleIconOption "  ";
+            leaf_selected = mkSimpleIconOption " → ";
+            branch = mkSimpleIconOption " ";
           };
         };
 
@@ -338,166 +330,34 @@ in {
         };
 
         icons = {
-          File = mkOption {
-            type = str;
-            default = "󰈙 ";
-            description = "";
-          };
-
-          Module = mkOption {
-            type = str;
-            default = " ";
-            description = "";
-          };
-
-          Namespace = mkOption {
-            type = str;
-            default = "󰌗 ";
-            description = "";
-          };
-
-          Package = mkOption {
-            type = str;
-            default = " ";
-            description = "";
-          };
-
-          Class = mkOption {
-            type = str;
-            default = "󰌗 ";
-            description = "";
-          };
-
-          Property = mkOption {
-            type = str;
-            default = " ";
-            description = "";
-          };
-
-          Field = mkOption {
-            type = str;
-            default = " ";
-            description = "";
-          };
-
-          Constructor = mkOption {
-            type = str;
-            default = " ";
-            description = "";
-          };
-
-          Enum = mkOption {
-            type = str;
-            default = "󰕘";
-            description = "";
-          };
-
-          Interface = mkOption {
-            type = str;
-            default = "󰕘";
-            description = "";
-          };
-
-          Function = mkOption {
-            type = str;
-            default = "󰊕 ";
-            description = "";
-          };
-
-          Variable = mkOption {
-            type = str;
-            default = "󰆧 ";
-            description = "";
-          };
-
-          Constant = mkOption {
-            type = str;
-            default = "󰏿 ";
-            description = "";
-          };
-
-          String = mkOption {
-            type = str;
-            default = " ";
-            description = "";
-          };
-
-          Number = mkOption {
-            type = str;
-            default = "󰎠 ";
-            description = "";
-          };
-
-          Boolean = mkOption {
-            type = str;
-            default = "◩ ";
-            description = "";
-          };
-
-          Array = mkOption {
-            type = str;
-            default = "󰅪 ";
-            description = "";
-          };
-
-          Object = mkOption {
-            type = str;
-            default = "󰅩 ";
-            description = "";
-          };
-
-          Method = mkOption {
-            type = str;
-            default = "󰆧 ";
-            description = "";
-          };
-
-          Key = mkOption {
-            type = str;
-            default = "󰌋 ";
-            description = "";
-          };
-
-          Null = mkOption {
-            type = str;
-            default = "󰟢 ";
-            description = "";
-          };
-
-          EnumMember = mkOption {
-            type = str;
-            default = "󰕘 ";
-            description = "";
-          };
-
-          Struct = mkOption {
-            type = str;
-            default = "󰌗 ";
-            description = "";
-          };
-
-          Event = mkOption {
-            type = str;
-            default = " ";
-            description = "";
-          };
-
-          Operator = mkOption {
-            type = str;
-            default = "󰆕 ";
-            description = "";
-          };
-
-          TypeParameter = mkOption {
-            type = str;
-            default = "󰊄 ";
-            description = "";
-          };
+          File = mkSimpleIconOption "󰈙 ";
+          Module = mkSimpleIconOption " ";
+          Namespace = mkSimpleIconOption "󰌗 ";
+          Package = mkSimpleIconOption " ";
+          Class = mkSimpleIconOption "󰌗 ";
+          Property = mkSimpleIconOption " ";
+          Field = mkSimpleIconOption " ";
+          Constructor = mkSimpleIconOption " ";
+          Enum = mkSimpleIconOption "󰕘";
+          Interface = mkSimpleIconOption "󰕘";
+          Function = mkSimpleIconOption "󰊕 ";
+          Variable = mkSimpleIconOption "󰆧 ";
+          Constant = mkSimpleIconOption "󰏿 ";
+          String = mkSimpleIconOption " ";
+          Number = mkSimpleIconOption "󰎠 ";
+          Boolean = mkSimpleIconOption "◩ ";
+          Array = mkSimpleIconOption "󰅪 ";
+          Object = mkSimpleIconOption "󰅩 ";
+          Method = mkSimpleIconOption "󰆧 ";
+          Key = mkSimpleIconOption "󰌋 ";
+          Null = mkSimpleIconOption "󰟢 ";
+          EnumMember = mkSimpleIconOption "󰕘 ";
+          Struct = mkSimpleIconOption "󰌗 ";
+          Event = mkSimpleIconOption " ";
+          Operator = mkSimpleIconOption "󰆕 ";
+          TypeParameter = mkSimpleIconOption "󰊄 ";
         };
       };
-
-      # there probably is a better way to do this
-      # alas, I am not a nix wizard
     };
   };
 }
