@@ -1,39 +1,47 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) str;
+  inherit (lib.types) bool str float;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   options.vim.ui.modes-nvim = {
     enable = mkEnableOption "modes.nvim's prismatic line decorations";
 
-    setCursorline = mkOption {
-      type = bool;
-      description = "Set a colored cursorline on current line";
-      default = false; # looks ugly, disabled by default
-    };
-
-    colors = {
-      copy = mkOption {
-        type = str;
-        default = "#f5c359";
-        description = "The #RRGGBB color code for the visual mode highlights";
+    setupOpts = {
+      setCursorline = mkOption {
+        type = bool;
+        description = "Set a colored cursorline on current line";
+        default = false; # looks ugly, disabled by default
       };
 
-      delete = mkOption {
-        type = str;
-        default = "#c75c6a";
-        description = "The #RRGGBB color code for the visual mode highlights";
+      line_opacity = {
+        visual = mkOption {
+          type = float;
+          description = "Set opacity for cursorline and number background";
+          default = 0.0;
+        };
       };
 
-      insert = mkOption {
-        type = str;
-        default = "#78ccc5";
-        description = "The #RRGGBB color code for the visual mode highlights";
-      };
-
-      visual = mkOption {
-        type = str;
-        default = "#9745be";
-        description = "The #RRGGBB color code for the visual mode highlights";
+      colors = mkPluginSetupOption "modes.nvim" {
+        copy = mkOption {
+          type = str;
+          description = "The #RRGGBB color code for the visual mode highlights";
+          default = "#f5c359";
+        };
+        delete = mkOption {
+          type = str;
+          description = "The #RRGGBB color code for the visual mode highlights";
+          default = "#c75c6a";
+        };
+        insert = mkOption {
+          type = str;
+          description = "The #RRGGBB color code for the visual mode highlights";
+          default = "#78ccc5";
+        };
+        visual = mkOption {
+          type = str;
+          description = "The #RRGGBB color code for the visual mode highlights";
+          default = "#9745be";
+        };
       };
     };
   };
