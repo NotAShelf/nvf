@@ -3,8 +3,10 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim addDescriptionsToMappings mkSetBinding mkMerge;
   inherit (builtins) toString;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetBinding;
 
   cfg = config.vim.lsp.nvim-docs-view;
   self = import ./nvim-docs-view.nix {inherit lib;};
@@ -17,7 +19,7 @@ in {
       lsp.enable = true;
       startPlugins = ["nvim-docs-view"];
 
-      luaConfigRC.nvim-docs-view = nvim.dag.entryAnywhere ''
+      luaConfigRC.nvim-docs-view = entryAnywhere ''
         require("docs-view").setup {
           position = "${cfg.position}",
           width = ${toString cfg.width},
