@@ -1,11 +1,7 @@
-{
-  config,
-  lib,
-  ...
-}: let
-  inherit (lib) mkEnableOption;
+{lib, ...}: let
+  inherit (lib.options) mkEnableOption;
 in {
   options.vim.minimap.minimap-vim = {
-    enable = mkEnableOption "minimap-vim plugin for minimap view";
+    enable = mkEnableOption "minimap view [minimap-vim]";
   };
 }

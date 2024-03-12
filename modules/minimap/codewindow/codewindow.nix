@@ -1,5 +1,6 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption mkMappingOption;
+  inherit (lib.options) mkEnableOption;
+  inherit (lib.nvim.binds) mkMappingOption;
 in {
   options.vim.minimap.codewindow = {
     enable = mkEnableOption "codewindow plugin for minimap view";

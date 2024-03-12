@@ -1,10 +1,11 @@
 {
-  pkgs,
   config,
+  pkgs,
   lib,
   ...
 }: let
-  inherit (lib) mkIf pushDownDefault;
+  inherit (lib.modules) mkIf;
+  inherit (lib.nvim.binds) pushDownDefault;
 
   cfg = config.vim.minimap.minimap-vim;
 in {
