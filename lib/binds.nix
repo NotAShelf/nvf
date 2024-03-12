@@ -1,6 +1,6 @@
 {lib}: let
   inherit (lib.options) mkOption;
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkDefault;
   inherit (lib.types) nullOr str;
   inherit (lib.attrsets) isAttrs mapAttrs;
 
@@ -65,6 +65,8 @@
 
     mkSetLuaBinding = binding: action:
       mkLuaBinding binding.value action binding.description;
+
+    pushDownDefault = attr: mapAttrs (_name: value: mkDefault value) attr;
   };
 in
   binds
