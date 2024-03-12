@@ -1,11 +1,7 @@
-{
-  config,
-  lib,
-  ...
-}: let
-  inherit (lib) mkEnableOption;
+{lib, ...}: let
+  inherit (lib.options) mkEnableOption;
 in {
   options.vim.notes.mind-nvim = {
-    enable = mkEnableOption "organizer tool for Neovim.";
+    enable = mkEnableOption "note organizer tool for Neovim [mind-nvim]";
   };
 }
