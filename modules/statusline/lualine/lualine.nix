@@ -3,7 +3,10 @@
   lib,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption types elem optional;
+  inherit (builtins) elem;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.types) int bool str listOf enum;
+  inherit (lib.lists) optional;
 
   supported_themes = import ./supported_themes.nix;
   colorPuccin =
@@ -20,44 +23,44 @@ in {
 
     refresh = {
       statusline = mkOption {
-        type = types.int;
+        type = int;
         description = "Refresh rate for lualine";
         default = 1000;
       };
 
       tabline = mkOption {
-        type = types.int;
+        type = int;
         description = "Refresh rate for tabline";
         default = 1000;
       };
 
       winbar = mkOption {
-        type = types.int;
+        type = int;
         description = "Refresh rate for winbar";
         default = 1000;
       };
     };
 
     globalStatus = mkOption {
-      type = types.bool;
+      type = bool;
       description = "Enable global status for lualine";
       default = true;
     };
 
     alwaysDivideMiddle = mkOption {
-      type = types.bool;
+      type = bool;
       description = "Always divide middle section";
       default = true;
     };
 
     disabledFiletypes = mkOption {
-      type = with types; listOf str;
+      type = listOf str;
       description = "Filetypes to disable lualine on";
       default = ["alpha"];
     };
 
     ignoreFocus = mkOption {
-      type = with types; listOf str;
+      type = listOf str;
       default = ["NvimTree"];
       description = ''
         If current filetype is in this list it'll always be drawn as inactive statusline
@@ -70,7 +73,7 @@ in {
     in
       mkOption {
         description = "Theme for lualine";
-        type = types.enum ([
+        type = enum ([
             "auto"
             "16color"
             "gruvbox"
@@ -112,13 +115,13 @@ in {
 
     sectionSeparator = {
       left = mkOption {
-        type = types.str;
+        type = str;
         description = "Section separator for left side";
         default = "";
       };
 
       right = mkOption {
-        type = types.str;
+        type = str;
         description = "Section separator for right side";
         default = "";
       };
@@ -126,13 +129,13 @@ in {
 
     componentSeparator = {
       left = mkOption {
-        type = types.str;
+        type = str;
         description = "Component separator for left side";
         default = "";
       };
 
       right = mkOption {
-        type = types.str;
+        type = str;
         description = "Component separator for right side";
         default = "";
       };
@@ -140,7 +143,7 @@ in {
 
     activeSection = {
       a = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "active config for: | (A) | B | C       X | Y | Z |";
         default = [
           ''
@@ -157,7 +160,7 @@ in {
       };
 
       b = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "active config for: | A | (B) | C       X | Y | Z |";
         default = [
           ''
@@ -180,7 +183,7 @@ in {
       };
 
       c = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "active config for: | A | B | (C)       X | Y | Z |";
         default = [
           ''
@@ -207,7 +210,7 @@ in {
       };
 
       x = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "active config for: | A | B | C       (X) | Y | Z |";
         default = [
           ''
@@ -268,7 +271,7 @@ in {
       };
 
       y = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "active config for: | A | B | C       X | (Y) | Z |";
         default = [
           ''
@@ -290,7 +293,7 @@ in {
       };
 
       z = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "active config for: | A | B | C       X | Y | (Z) |";
         default = [
           ''
@@ -322,32 +325,32 @@ in {
     };
     extraActiveSection = {
       a = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "Extra entries for activeSection.a";
         default = [];
       };
       b = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "Extra entries for activeSection.b";
         default = [];
       };
       c = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "Extra entries for activeSection.c";
         default = [];
       };
       x = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "Extra entries for activeSection.x";
         default = [];
       };
       y = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "Extra entries for activeSection.y";
         default = [];
       };
       z = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "Extra entries for activeSection.z";
         default = [];
       };
@@ -355,69 +358,69 @@ in {
 
     inactiveSection = {
       a = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "inactive config for: | (A) | B | C       X | Y | Z |";
         default = [];
       };
 
       b = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "inactive config for: | A | (B) | C       X | Y | Z |";
         default = [];
       };
 
       c = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "inactive config for: | A | B | (C)       X | Y | Z |";
         default = ["'filename'"];
       };
 
       x = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "inactive config for: | A | B | C       (X) | Y | Z |";
         default = ["'location'"];
       };
 
       y = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "inactive config for: | A | B | C       X | (Y) | Z |";
         default = [];
       };
 
       z = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "inactive config for: | A | B | C       X | Y | (Z) |";
         default = [];
       };
     };
     extraInactiveSection = {
       a = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "Extra entries for inactiveSection.a";
         default = [];
       };
       b = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "Extra entries for inactiveSection.b";
         default = [];
       };
       c = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "Extra entries for inactiveSection.c";
         default = [];
       };
       x = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "Extra entries for inactiveSection.x";
         default = [];
       };
       y = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "Extra entries for inactiveSection.y";
         default = [];
       };
       z = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         description = "Extra entries for inactiveSection.z";
         default = [];
       };
