@@ -1,4 +1,4 @@
-{...}: {
+{
   imports = [
     ./treesitter.nix
     ./context.nix
