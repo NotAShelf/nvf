@@ -1,6 +1,6 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.types) attrsOf either nullOr listOf int str submodule;
+  inherit (lib.types) nullOr int str submodule attrsOf either listOf;
 in {
   options.vim.ui.smartcolumn = {
     enable = mkEnableOption "line length indicator";

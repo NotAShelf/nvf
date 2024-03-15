@@ -339,8 +339,8 @@ in {
 
         package = mkOption {
           type = str;
-          default = " ";
-          description = "Package icon";
+          default = " ";
+          description = "";
         };
 
         class = mkOption {
@@ -351,8 +351,8 @@ in {
 
         property = mkOption {
           type = str;
-          default = " ";
-          description = "Property icon";
+          default = " ";
+          description = "";
         };
 
         field = mkOption {
@@ -387,8 +387,8 @@ in {
 
         variable = mkOption {
           type = str;
-          default = "󰫧 ";
-          description = "Variable icon";
+          default = "󰆧 ";
+          description = "";
         };
 
         constant = mkOption {
@@ -399,8 +399,8 @@ in {
 
         string = mkOption {
           type = str;
-          default = " ";
-          description = "String icon";
+          default = " ";
+          description = "";
         };
 
         number = mkOption {
@@ -411,8 +411,8 @@ in {
 
         boolean = mkOption {
           type = str;
-          default = " ";
-          description = "Boolean icon";
+          default = "◩ ";
+          description = "";
         };
 
         array = mkOption {

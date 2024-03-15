@@ -11,7 +11,6 @@ in {
   config = mkIf cfg.enable {
     vim = {
       startPlugins = ["nvim-notify"];
-
       luaConfigRC.nvim-notify = entryAnywhere ''
         require('notify').setup {
           stages = "${cfg.stages}",

@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib) mkOption mkEnableOption;
   inherit (lib.types) enum int str attrsOf;
 in {
   options.vim.notify.nvim-notify = {

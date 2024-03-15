@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkIf;
   inherit (lib.strings) optionalString;
   inherit (lib.trivial) boolToString;
+  inherit (lib.modules) mkIf;
   inherit (lib.lists) optionals;
   inherit (lib.nvim.lua) nullString;
   inherit (lib.nvim.dag) entryAfter;

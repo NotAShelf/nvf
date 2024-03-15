@@ -3,31 +3,37 @@
   inherit (lib.types) str;
 in {
   options.vim.ui.modes-nvim = {
-    enable = mkEnableOption "prismatic line decorations [modes.nvim]";
-    setCursorline = mkEnableOption "colored cursorline on current line";
+    enable = mkEnableOption "modes.nvim's prismatic line decorations";
+
+    setCursorline = mkOption {
+      type = bool;
+      description = "Set a colored cursorline on current line";
+      default = false; # looks ugly, disabled by default
+    };
+
     colors = {
       copy = mkOption {
         type = str;
-        description = "The #RRGGBB color code for the visual mode highlights";
         default = "#f5c359";
+        description = "The #RRGGBB color code for the visual mode highlights";
       };
 
       delete = mkOption {
         type = str;
-        description = "The #RRGGBB color code for the visual mode highlights";
         default = "#c75c6a";
+        description = "The #RRGGBB color code for the visual mode highlights";
       };
 
       insert = mkOption {
         type = str;
-        description = "The #RRGGBB color code for the visual mode highlights";
         default = "#78ccc5";
+        description = "The #RRGGBB color code for the visual mode highlights";
       };
 
       visual = mkOption {
         type = str;
-        description = "The #RRGGBB color code for the visual mode highlights";
         default = "#9745be";
+        description = "The #RRGGBB color code for the visual mode highlights";
       };
     };
   };
