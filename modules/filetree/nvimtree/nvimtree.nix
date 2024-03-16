@@ -4,6 +4,7 @@
   ...
 }: let
   inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.types) nullOr str bool int submodule listOf enum oneOf attrs addCheck;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
@@ -46,7 +47,7 @@ in {
         type = bool;
       };
 
-      autoreload_on_write = mkOption {
+      auto_reload_on_write = mkOption {
         default = true;
         description = "Auto reload tree on write";
         type = bool;
@@ -146,7 +147,7 @@ in {
         '';
       };
 
-      reload_on_buf_enter = mkOption {
+      reload_on_bufenter = mkOption {
         default = false;
         type = bool;
         description = "Automatically reloads the tree on `BufEnter` nvim-tree.";
@@ -266,12 +267,14 @@ in {
                     description = "Minimum severity.";
                     type = enum ["HINT" "INFO" "WARNING" "ERROR"];
                     default = "HINT";
+                    apply = x: mkLuaInline "vim.diagnostic.severity.${x}";
                   };
 
                   max = mkOption {
                     description = "Maximum severity.";
                     type = enum ["HINT" "INFO" "WARNING" "ERROR"];
                     default = "ERROR";
+                    apply = x: mkLuaInline "vim.diagnostic.severity.${x}";
                   };
                 };
               };
@@ -372,7 +375,7 @@ in {
         };
       };
 
-      selectPrompts = mkEnableOption ''
+      select_prompts = mkEnableOption ''
         Use `vim.ui.select` style prompts. Necessary when using a UI prompt decorator such as dressing.nvim or telescope-ui-select.nvim
       '';
 
@@ -713,12 +716,12 @@ in {
                       default = {
                         default = "";
                         open = "";
-                        arrowOpen = "";
-                        arrowClosed = "";
+                        arrow_open = "";
+                        arrow_closed = "";
                         empty = "";
-                        emptyOpen = "";
+                        empty_open = "";
                         symlink = "";
-                        symlinkOpen = "";
+                        symlink_open = "";
                       };
                     };
 
@@ -1066,6 +1069,7 @@ in {
               type = enum ["ERROR" "WARNING" "INFO" "DEBUG"];
               description = "Specify minimum notification level, uses the values from `vim.log.levels`";
               default = "INFO";
+              apply = x: mkLuaInline "vim.log.levels.${x}";
             };
 
             absolute_path = mkOption {
