@@ -1,17 +1,18 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption mkOption types literalExpression;
+  inherit (lib.options) mkOption mkEnableOption literalExpression;
+  inherit (lib.types) attrsOf either nullOr listOf int str submodule;
 in {
   options.vim.ui.smartcolumn = {
     enable = mkEnableOption "line length indicator";
 
     showColumnAt = mkOption {
-      type = types.nullOr types.int;
+      type = nullOr int;
       default = 120;
       description = "The position at which the column will be displayed. Set to null to disable";
     };
 
     disabledFiletypes = mkOption {
-      type = types.listOf types.str;
+      type = listOf str;
       default = ["help" "text" "markdown" "NvimTree" "alpha"];
       description = "The filetypes smartcolumn will be disabled for.";
     };
@@ -19,8 +20,8 @@ in {
     columnAt = {
       languages = mkOption {
         description = "The position at which smart column should be displayed for each individual buffer type";
-        type = types.submodule {
-          freeformType = with types; attrsOf (either int (listOf int));
+        type = submodule {
+          freeformType = attrsOf (either int (listOf int));
         };
 
         example = literalExpression ''

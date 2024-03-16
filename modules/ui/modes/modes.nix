@@ -1,33 +1,31 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption mkOption types;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.types) str;
 in {
   options.vim.ui.modes-nvim = {
-    enable = mkEnableOption "modes.nvim's prismatic line decorations";
-
-    setCursorline = mkOption {
-      type = types.bool;
-      description = "Set a colored cursorline on current line";
-      default = false; # looks ugly, disabled by default
-    };
-
+    enable = mkEnableOption "prismatic line decorations [modes.nvim]";
+    setCursorline = mkEnableOption "colored cursorline on current line";
     colors = {
       copy = mkOption {
-        type = types.str;
+        type = str;
         description = "The #RRGGBB color code for the visual mode highlights";
         default = "#f5c359";
       };
+
       delete = mkOption {
-        type = types.str;
+        type = str;
         description = "The #RRGGBB color code for the visual mode highlights";
         default = "#c75c6a";
       };
+
       insert = mkOption {
-        type = types.str;
+        type = str;
         description = "The #RRGGBB color code for the visual mode highlights";
         default = "#78ccc5";
       };
+
       visual = mkOption {
-        type = types.str;
+        type = str;
         description = "The #RRGGBB color code for the visual mode highlights";
         default = "#9745be";
       };

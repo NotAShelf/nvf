@@ -3,14 +3,15 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim;
+  inherit (lib.modules) mkIf;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.ui.illuminate;
 in {
   config = mkIf cfg.enable {
     vim.startPlugins = ["vim-illuminate"];
 
-    vim.luaConfigRC.vim-illuminate = nvim.dag.entryAnywhere ''
+    vim.luaConfigRC.vim-illuminate = entryAnywhere ''
         require('illuminate').configure({
           filetypes_denylist = {
           'dirvish',
