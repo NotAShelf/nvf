@@ -145,13 +145,13 @@ in {
       type = pluginsType;
     };
 
-  rawLua = lib.mkOptionType {
-    name = "rawLua";
-    check = val: isString val || val ? __raw;
+  luaInline = lib.mkOptionType {
+    name = "luaInline";
+    check = x: lib.nvim.lua.isLuaInline x || builtins.isString x;
     merge = loc: defs: let
       val =
         if isString loc
-        then {__raw = val;}
+        then lib.generators.mkLuaInline loc
         else loc;
     in
       lib.mergeOneOption val defs;
