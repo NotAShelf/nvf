@@ -8,9 +8,9 @@
   inherit (lib.lists) optionals;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.ui.breadcrumbs;
-  mkRawLua = code: {__raw = code;};
 in {
   config = mkIf cfg.enable {
     vim.startPlugins =
@@ -31,40 +31,40 @@ in {
 
     vim.ui.breadcrumbs.navbuddy.setupOpts = {
       mappings = {
-        ${cfg.navbuddy.mappings.close} = mkRawLua "actions.close()";
-        ${cfg.navbuddy.mappings.nextSibling} = mkRawLua "actions.next_sibling()";
-        ${cfg.navbuddy.mappings.previousSibling} = mkRawLua "actions.previous_sibling()";
-        ${cfg.navbuddy.mappings.parent} = mkRawLua "actions.parent()";
-        ${cfg.navbuddy.mappings.children} = mkRawLua "actions.children()";
-        ${cfg.navbuddy.mappings.root} = mkRawLua "actions.root()";
+        ${cfg.navbuddy.mappings.close} = mkLuaInline "actions.close()";
+        ${cfg.navbuddy.mappings.nextSibling} = mkLuaInline "actions.next_sibling()";
+        ${cfg.navbuddy.mappings.previousSibling} = mkLuaInline "actions.previous_sibling()";
+        ${cfg.navbuddy.mappings.parent} = mkLuaInline "actions.parent()";
+        ${cfg.navbuddy.mappings.children} = mkLuaInline "actions.children()";
+        ${cfg.navbuddy.mappings.root} = mkLuaInline "actions.root()";
 
-        ${cfg.navbuddy.mappings.visualName} = mkRawLua "actions.visual_name()";
-        ${cfg.navbuddy.mappings.visualScope} = mkRawLua "actions.visual_scope()";
+        ${cfg.navbuddy.mappings.visualName} = mkLuaInline "actions.visual_name()";
+        ${cfg.navbuddy.mappings.visualScope} = mkLuaInline "actions.visual_scope()";
 
-        ${cfg.navbuddy.mappings.yankName} = mkRawLua "actions.yank_name()";
-        ${cfg.navbuddy.mappings.yankScope} = mkRawLua "actions.yank_scope()";
+        ${cfg.navbuddy.mappings.yankName} = mkLuaInline "actions.yank_name()";
+        ${cfg.navbuddy.mappings.yankScope} = mkLuaInline "actions.yank_scope()";
 
-        ${cfg.navbuddy.mappings.insertName} = mkRawLua "actions.insert_name()";
-        ${cfg.navbuddy.mappings.insertScope} = mkRawLua "actions.insert_scope()";
+        ${cfg.navbuddy.mappings.insertName} = mkLuaInline "actions.insert_name()";
+        ${cfg.navbuddy.mappings.insertScope} = mkLuaInline "actions.insert_scope()";
 
-        ${cfg.navbuddy.mappings.appendName} = mkRawLua "actions.append_name()";
-        ${cfg.navbuddy.mappings.appendScope} = mkRawLua "actions.append_scope()";
+        ${cfg.navbuddy.mappings.appendName} = mkLuaInline "actions.append_name()";
+        ${cfg.navbuddy.mappings.appendScope} = mkLuaInline "actions.append_scope()";
 
-        ${cfg.navbuddy.mappings.rename} = mkRawLua "actions.rename()";
+        ${cfg.navbuddy.mappings.rename} = mkLuaInline "actions.rename()";
 
-        ${cfg.navbuddy.mappings.delete} = mkRawLua "actions.delete()";
+        ${cfg.navbuddy.mappings.delete} = mkLuaInline "actions.delete()";
 
-        ${cfg.navbuddy.mappings.foldCreate} = mkRawLua "actions.fold_create()";
-        ${cfg.navbuddy.mappings.foldDelete} = mkRawLua "actions.fold_delete()";
+        ${cfg.navbuddy.mappings.foldCreate} = mkLuaInline "actions.fold_create()";
+        ${cfg.navbuddy.mappings.foldDelete} = mkLuaInline "actions.fold_delete()";
 
-        ${cfg.navbuddy.mappings.comment} = mkRawLua "actions.comment()";
+        ${cfg.navbuddy.mappings.comment} = mkLuaInline "actions.comment()";
 
-        ${cfg.navbuddy.mappings.select} = mkRawLua "actions.select()";
+        ${cfg.navbuddy.mappings.select} = mkLuaInline "actions.select()";
 
-        ${cfg.navbuddy.mappings.moveDown} = mkRawLua "actions.move_down()";
-        ${cfg.navbuddy.mappings.moveUp} = mkRawLua "actions.move_up()";
+        ${cfg.navbuddy.mappings.moveDown} = mkLuaInline "actions.move_down()";
+        ${cfg.navbuddy.mappings.moveUp} = mkLuaInline "actions.move_up()";
 
-        ${cfg.navbuddy.mappings.telescope} = mkRawLua ''
+        ${cfg.navbuddy.mappings.telescope} = mkLuaInline ''
           actions.telescope({
             layout_strategy = "horizontal",
             layout_config = {
@@ -74,7 +74,7 @@ in {
               preview_width = 0.50
             },
           })'';
-        ${cfg.navbuddy.mappings.help} = mkRawLua "actions.help()";
+        ${cfg.navbuddy.mappings.help} = mkLuaInline "actions.help()";
       };
     };
 

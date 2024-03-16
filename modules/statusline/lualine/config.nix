@@ -6,10 +6,11 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.trivial) boolToString;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.statusline.lualine;
   breadcrumbsCfg = config.vim.ui.breadcrumbs;
-  rawLua = code: {"__raw" = code;};
 in {
   config = mkMerge [
     # TODO: move into nvim-tree file
@@ -23,7 +24,7 @@ in {
         # TODO: rewrite in new syntax
         winbar.lualine_c = [
           "navic"
-          (rawLua "draw_empty = ${boolToString config.vim.ui.breadcrumbs.alwaysRender}")
+          (mkLuaInline "draw_empty = ${boolToString config.vim.ui.breadcrumbs.alwaysRender}")
         ];
       };
     })
@@ -49,20 +50,20 @@ in {
         };
 
         sections = {
-          lualine_a = builtins.map rawLua (cfg.activeSection.a ++ cfg.extraActiveSection.a);
-          lualine_b = builtins.map rawLua (cfg.activeSection.b ++ cfg.extraActiveSection.b);
-          lualine_c = builtins.map rawLua (cfg.activeSection.c ++ cfg.extraActiveSection.c);
-          lualine_x = builtins.map rawLua (cfg.activeSection.x ++ cfg.extraActiveSection.x);
-          lualine_y = builtins.map rawLua (cfg.activeSection.y ++ cfg.extraActiveSection.y);
-          lualine_z = builtins.map rawLua (cfg.activeSection.z ++ cfg.extraActiveSection.z);
+          lualine_a = builtins.map mkLuaInline (cfg.activeSection.a ++ cfg.extraActiveSection.a);
+          lualine_b = builtins.map mkLuaInline (cfg.activeSection.b ++ cfg.extraActiveSection.b);
+          lualine_c = builtins.map mkLuaInline (cfg.activeSection.c ++ cfg.extraActiveSection.c);
+          lualine_x = builtins.map mkLuaInline (cfg.activeSection.x ++ cfg.extraActiveSection.x);
+          lualine_y = builtins.map mkLuaInline (cfg.activeSection.y ++ cfg.extraActiveSection.y);
+          lualine_z = builtins.map mkLuaInline (cfg.activeSection.z ++ cfg.extraActiveSection.z);
         };
         inactive_sections = {
-          lualine_a = builtins.map rawLua (cfg.inactiveSection.a ++ cfg.extraInactiveSection.a);
-          lualine_b = builtins.map rawLua (cfg.inactiveSection.b ++ cfg.extraInactiveSection.b);
-          lualine_c = builtins.map rawLua (cfg.inactiveSection.c ++ cfg.extraInactiveSection.c);
-          lualine_x = builtins.map rawLua (cfg.inactiveSection.x ++ cfg.extraInactiveSection.x);
-          lualine_y = builtins.map rawLua (cfg.inactiveSection.y ++ cfg.extraInactiveSection.y);
-          lualine_z = builtins.map rawLua (cfg.inactiveSection.z ++ cfg.extraInactiveSection.z);
+          lualine_a = builtins.map mkLuaInline (cfg.inactiveSection.a ++ cfg.extraInactiveSection.a);
+          lualine_b = builtins.map mkLuaInline (cfg.inactiveSection.b ++ cfg.extraInactiveSection.b);
+          lualine_c = builtins.map mkLuaInline (cfg.inactiveSection.c ++ cfg.extraInactiveSection.c);
+          lualine_x = builtins.map mkLuaInline (cfg.inactiveSection.x ++ cfg.extraInactiveSection.x);
+          lualine_y = builtins.map mkLuaInline (cfg.inactiveSection.y ++ cfg.extraInactiveSection.y);
+          lualine_z = builtins.map mkLuaInline (cfg.inactiveSection.z ++ cfg.extraInactiveSection.z);
         };
         # probably don't need this?
         tabline = [];

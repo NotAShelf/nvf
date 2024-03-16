@@ -9,6 +9,7 @@
   inherit (lib.nvim.dag) entryAnywhere;
   # TODO: move this to its own module
   inherit (lib) pushDownDefault;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.telescope;
   self = import ./telescope.nix {inherit pkgs lib;};
@@ -66,7 +67,7 @@ in {
 
     vim.luaConfigRC.telescope = entryAnywhere ''
       local telescope = require('telescope')
-      telescope.setup(${nvim.lua.toLuaObject cfg.setupOpts})
+      telescope.setup(${toLuaObject cfg.setupOpts})
 
       ${
         if config.vim.ui.noice.enable

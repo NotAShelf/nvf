@@ -7,7 +7,8 @@
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.types) nullOr str enum bool package either int;
   inherit (lib) mkRenamedOptionModule;
-  inherit (lib.nvim.types) mkPluginSetupOption rawLua;
+  inherit (lib.nvim.types) mkPluginSetupOption luaInline;
+  inherit (lib.generators) mkLuaInline;
 in {
   imports = [
     (mkRenamedOptionModule ["vim" "terminal" "toggleterm" "direction"] ["vim" "terminal" "toggleterm" "setupOpts" "direction"])
@@ -38,32 +39,28 @@ in {
       };
 
       size = mkOption {
-        type = either rawLua int;
+        type = either luaInline int;
         description = "Number or lua function which is passed to the current terminal";
-        default = {
-          __raw = ''
-            function(term)
-              if term.direction == "horizontal" then
-                return 15
-              elseif term.direction == "vertical" then
-                return vim.o.columns * 0.4
-              end
+        default = mkLuaInline ''
+          function(term)
+            if term.direction == "horizontal" then
+              return 15
+            elseif term.direction == "vertical" then
+              return vim.o.columns * 0.4
             end
-          '';
-        };
+          end
+        '';
       };
       winbar = {
         enabled = mkEnableOption "winbar in terminal" // {default = true;};
         name_formatter = mkOption {
-          type = rawLua;
+          type = luaInline;
           description = "Winbar formatter function.";
-          default = {
-            __raw = ''
-              function(term)
-                return term.name
-              end
-            '';
-          };
+          default = mkLuaInline ''
+            function(term)
+              return term.name
+            end
+          '';
         };
       };
     };

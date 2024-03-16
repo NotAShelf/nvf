@@ -2,6 +2,7 @@
   inherit (lib.modules) mkRemovedOptionModule mkRenamedOptionModule;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) bool int str enum nullOr listOf;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   imports =
     [
@@ -22,7 +23,7 @@ in {
   options.vim.presence.neocord = {
     enable = mkEnableOption "neocord plugin for discord rich presence";
 
-    setupOpts = lib.nvim.mkPluginSetupOption "neocord" {
+    setupOpts = mkPluginSetupOption "neocord" {
       logo = mkOption {
         type = str; # TODO: can the default be documented better, maybe with an enum?
         default = "auto";
