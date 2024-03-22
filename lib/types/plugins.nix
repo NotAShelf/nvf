@@ -15,7 +15,6 @@ with lib; let
     "nvim-tree-lua"
     "nvim-bufferline-lua"
     "lualine"
-    "nvim-compe"
     "nvim-autopairs"
     "nvim-ts-autotag"
     "nvim-web-devicons"

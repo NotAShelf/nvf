@@ -15,9 +15,6 @@ in {
 
     vim.luaConfigRC.autopairs = entryAnywhere ''
       require("nvim-autopairs").setup{}
-      ${optionalString (config.vim.autocomplete.type == "nvim-compe") ''
-        require('nvim-autopairs.completion.compe').setup(${toLuaObject cfg.setupOpts})
-      ''}
     '';
   };
 }
