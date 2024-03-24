@@ -46,7 +46,7 @@
           default = self'.devShells.lsp;
           nvim-nix = pkgs.mkShell {nativeBuildInputs = [config.packages.nix];};
           lsp = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [nil statix deadnix];
+            nativeBuildInputs = with pkgs; [nil statix deadnix alejandra];
           };
         };
       };
