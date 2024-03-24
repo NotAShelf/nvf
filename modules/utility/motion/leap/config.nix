@@ -3,7 +3,9 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf mkMerge mkBinding nvim;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.nvim.binds) mkBinding;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.utility.motion.leap;
 in {
@@ -35,7 +37,7 @@ in {
       (mkBinding cfg.mappings.leapFromWindow "<Plug>(leap-from-window)" "Leap from window")
     ];
 
-    vim.luaConfigRC.leap-nvim = nvim.dag.entryAnywhere ''
+    vim.luaConfigRC.leap-nvim = entryAnywhere ''
       require('leap').opts = {
         max_phase_one_targets = nil,
         highlight_unlabeled_phase_one_targets = false,

@@ -3,7 +3,9 @@
   lib,
   ...
 }: let
-  inherit (lib) addDescriptionsToMappings mkIf mkSetBinding nvim;
+  inherit (lib.modules) mkIf;
+  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetBinding;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.utility.motion.hop;
 
@@ -17,7 +19,7 @@ in {
 
     vim.maps.normal = mkSetBinding mappings.hop "<cmd> HopPattern<CR>";
 
-    vim.luaConfigRC.hop-nvim = nvim.dag.entryAnywhere ''
+    vim.luaConfigRC.hop-nvim = entryAnywhere ''
       require('hop').setup()
     '';
   };

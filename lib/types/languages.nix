@@ -15,13 +15,13 @@ with lib; let
 in {
   diagnostics = {
     langDesc,
-    diagnostics,
-    defaultDiagnostics,
+    diagnosticsProviders,
+    defaultDiagnosticsProvider,
   }:
     mkOption {
       description = "List of ${langDesc} diagnostics to enable";
-      type = with types; listOf (either (enum (attrNames diagnostics)) (submodule diagnosticSubmodule));
-      default = defaultDiagnostics;
+      type = with types; listOf (either (enum (attrNames diagnosticsProviders)) (submodule diagnosticSubmodule));
+      default = defaultDiagnosticsProvider;
     };
 
   mkGrammarOption = pkgs: grammar:

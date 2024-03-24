@@ -7,9 +7,10 @@
   inherit (lib.lists) isList;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.languages) diagnosticsToLua;
 
   cfg = config.vim.languages.bash;
-  diagnostics = {
+  diagnosticsProviders = {
     shellcheck = {
       package = pkgs.shellcheck;
       nullConfig = pkg: ''
@@ -72,10 +73,10 @@ in {
 
     (mkIf cfg.extraDiagnostics.enable {
       vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources = lib.nvim.languages.diagnosticsToLua {
+      vim.lsp.null-ls.sources = diagnosticsToLua {
         lang = "bash";
         config = cfg.extraDiagnostics.types;
-        inherit diagnostics;
+        inherit diagnosticsProviders;
       };
     })
   ]);

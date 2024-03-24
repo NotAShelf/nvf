@@ -10,6 +10,8 @@
   inherit (lib.lists) isList;
   inherit (lib.types) enum either listOf package str;
   inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.languages) diagnosticsToLua;
+  inherit (lib.nvim.types) diagnostics;
 
   cfg = config.vim.languages.sql;
   sqlfluffDefault = pkgs.sqlfluff;
@@ -51,8 +53,8 @@
     };
   };
 
-  defaultDiagnostics = ["sqlfluff"];
-  diagnostics = {
+  defaultDiagnosticsProvider = ["sqlfluff"];
+  diagnosticsProviders = {
     sqlfluff = {
       package = sqlfluffDefault;
       nullConfig = pkg: ''
@@ -122,10 +124,10 @@ in {
     extraDiagnostics = {
       enable = mkEnableOption "extra SQL diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
 
-      types = lib.nvim.types.diagnostics {
+      types = diagnostics {
         langDesc = "SQL";
-        inherit diagnostics;
-        inherit defaultDiagnostics;
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
@@ -154,10 +156,10 @@ in {
 
     (mkIf cfg.extraDiagnostics.enable {
       vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources = lib.nvim.languages.diagnosticsToLua {
+      vim.lsp.null-ls.sources = diagnosticsToLua {
         lang = "sql";
         config = cfg.extraDiagnostics.types;
-        inherit diagnostics;
+        inherit diagnosticsProviders;
       };
     })
   ]);

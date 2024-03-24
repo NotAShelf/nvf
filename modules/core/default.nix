@@ -4,10 +4,16 @@
   ...
 }: let
   inherit (builtins) attrValues attrNames map mapAttrs toJSON isString concatStringsSep filter;
-  inherit (lib) mkOption types mapAttrsFlatten filterAttrs optionalString getAttrs literalExpression;
-  inherit (lib) nvim;
-  inherit (nvim.lua) toLuaObject;
-  inherit (nvim.vim) valToVim;
+  inherit (lib.options) mkOption literalExpression mdDoc;
+  inherit (lib.attrsets) filterAttrs getAttrs;
+  inherit (lib.strings) optionalString;
+  inherit (lib.misc) mapAttrsFlatten;
+  inherit (lib.trivial) showWarnings;
+  inherit (lib.types) bool str listOf oneOf attrsOf nullOr attrs submodule unspecified lines;
+  inherit (lib.nvim.types) dagOf pluginsOpt extraPluginType;
+  inherit (lib.nvim.dag) entryAnywhere entryAfter topoSort;
+  inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.nvim.vim) valToVim;
 
   cfg = config.vim;
 
@@ -22,7 +28,7 @@
 
   mkBool = value: description:
     mkOption {
-      type = types.bool;
+      type = bool;
       default = value;
       inherit description;
     };
@@ -54,7 +60,7 @@
       "Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.";
 
     desc = mkOption {
-      type = types.nullOr types.str;
+      type = nullOr str;
       default = null;
       description = "A description of this keybind, to be shown in which-key, if you have it enabled.";
     };
@@ -94,17 +100,17 @@
       })
       maps);
 
-  mapOption = types.submodule {
+  mapOption = submodule {
     options =
       mapConfigOptions
       // {
         action = mkOption {
-          type = types.str;
+          type = str;
           description = "The action to execute.";
         };
 
         lua = mkOption {
-          type = types.bool;
+          type = bool;
           description = ''
             If true, `action` is considered to be lua code.
             Thus, it will not be wrapped in `""`.
@@ -117,13 +123,13 @@
   mapOptions = mode:
     mkOption {
       description = "Mappings for ${mode} mode";
-      type = types.attrsOf mapOption;
+      type = attrsOf mapOption;
       default = {};
     };
 in {
   options = {
-    assertions = lib.mkOption {
-      type = with types; listOf unspecified;
+    assertions = mkOption {
+      type = listOf unspecified;
       internal = true;
       default = [];
       example = literalExpression ''
@@ -139,9 +145,9 @@ in {
     warnings = mkOption {
       internal = true;
       default = [];
-      type = with types; listOf str;
+      type = listOf str;
       example = ["The `foo' service is deprecated and will go away soon!"];
-      description = lib.mdDoc ''
+      description = mdDoc ''
         This option allows modules to show warnings to users during
         the evaluation of the system configuration.
       '';
@@ -150,46 +156,46 @@ in {
     vim = {
       viAlias = mkOption {
         description = "Enable vi alias";
-        type = types.bool;
+        type = bool;
         default = true;
       };
 
       vimAlias = mkOption {
         description = "Enable vim alias";
-        type = types.bool;
+        type = bool;
         default = true;
       };
 
       configRC = mkOption {
         description = "vimrc contents";
-        type = types.oneOf [(nvim.types.dagOf types.lines) types.str];
+        type = oneOf [(dagOf lines) str];
         default = {};
       };
 
       luaConfigRC = mkOption {
         description = "vim lua config";
-        type = types.oneOf [(nvim.types.dagOf types.lines) types.str];
+        type = oneOf [(dagOf lines) str];
         default = {};
       };
 
       builtConfigRC = mkOption {
         internal = true;
-        type = types.lines;
+        type = lines;
         description = "The built config for neovim after resolving the DAG";
       };
 
-      startPlugins = nvim.types.pluginsOpt {
+      startPlugins = pluginsOpt {
         default = [];
         description = "List of plugins to startup.";
       };
 
-      optPlugins = nvim.types.pluginsOpt {
+      optPlugins = pluginsOpt {
         default = [];
         description = "List of plugins to optionally load";
       };
 
       extraPlugins = mkOption {
-        type = types.attrsOf nvim.types.extraPluginType;
+        type = attrsOf extraPluginType;
         default = {};
         description = ''
           List of plugins and related config.
@@ -210,7 +216,7 @@ in {
       };
 
       luaPackages = mkOption {
-        type = types.listOf types.str;
+        type = listOf str;
         default = [];
         description = ''
           List of lua packages to install.
@@ -220,11 +226,11 @@ in {
       globals = mkOption {
         default = {};
         description = "Set containing global variable values";
-        type = types.attrs;
+        type = attrs;
       };
 
       maps = mkOption {
-        type = types.submodule {
+        type = submodule {
           options = {
             normal = mapOptions "normal";
             insert = mapOptions "insert";
@@ -289,12 +295,12 @@ in {
       mapResult,
     }: let
       # When the value is a string, default it to dag.entryAnywhere
-      finalDag = lib.mapAttrs (_: value:
+      finalDag = mapAttrs (_: value:
         if isString value
-        then nvim.dag.entryAnywhere value
+        then entryAnywhere value
         else value)
       dag;
-      sortedDag = nvim.dag.topoSort finalDag;
+      sortedDag = topoSort finalDag;
       result =
         if sortedDag ? result
         then mapResult sortedDag.result
@@ -305,7 +311,7 @@ in {
     vim = {
       startPlugins = map (x: x.package) (attrValues cfg.extraPlugins);
       configRC = {
-        globalsScript = nvim.dag.entryAnywhere (concatStringsSep "\n" globalsScript);
+        globalsScript = entryAnywhere (concatStringsSep "\n" globalsScript);
 
         luaScript = let
           mkSection = r: ''
@@ -319,7 +325,7 @@ in {
             inherit mapResult;
           };
         in
-          nvim.dag.entryAfter ["globalsScript"] luaConfig;
+          entryAfter ["globalsScript"] luaConfig;
 
         extraPluginConfigs = let
           mkSection = r: ''
@@ -332,7 +338,7 @@ in {
             setup,
             ...
           }:
-            nvim.dag.entryAfter after setup)
+            entryAfter after setup)
           cfg.extraPlugins;
           pluginConfig = resolveDag {
             name = "extra plugins config";
@@ -340,7 +346,7 @@ in {
             inherit mapResult;
           };
         in
-          nvim.dag.entryAfter ["luaScript"] pluginConfig;
+          entryAfter ["luaScript"] pluginConfig;
 
         # This is probably not the right way to set the config. I'm not sure how it should look like.
         mappings = let
@@ -359,7 +365,7 @@ in {
           ];
           mapConfig = wrapLuaConfig (concatStringsSep "\n" (map (v: concatStringsSep "\n" v) maps));
         in
-          nvim.dag.entryAfter ["globalsScript"] mapConfig;
+          entryAfter ["globalsScript"] mapConfig;
       };
 
       builtConfigRC = let
@@ -368,7 +374,7 @@ in {
         baseSystemAssertWarn =
           if failedAssertions != []
           then throw "\nFailed assertions:\n${concatStringsSep "\n" (map (x: "- ${x}") failedAssertions)}"
-          else lib.showWarnings config.warnings;
+          else showWarnings config.warnings;
 
         mkSection = r: ''
           " SECTION: ${r.name}

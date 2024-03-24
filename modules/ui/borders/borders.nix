@@ -4,6 +4,7 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.lists) optionals;
   inherit (lib.types) enum;
 
   cfg = config.vim.ui.borders;
@@ -27,7 +28,7 @@ in {
         enable = mkEnableOption "borders for the ${name} plugin" // {default = cfg.enable;};
 
         style = mkOption {
-          type = enum (defaultStyles ++ lib.optionals (name != "which-key") ["shadow"]);
+          type = enum (defaultStyles ++ optionals (name != "which-key") ["shadow"]);
           default = cfg.globalStyle;
           description = "The border style to use for the ${name} plugin";
         };

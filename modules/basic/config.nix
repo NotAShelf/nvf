@@ -4,12 +4,15 @@
   ...
 }: let
   inherit (builtins) concatStringsSep;
-  inherit (lib) optionalString mkIf nvim;
+  inherit (lib.modules) mkIf;
+  inherit (lib.lists) optionals;
+  inherit (lib.strings) optionalString;
+  inherit (lib.nvim.dag) entryAfter;
 
   cfg = config.vim;
 in {
   config = {
-    vim.startPlugins = ["plenary-nvim"] ++ lib.optionals (cfg.spellChecking.enableProgrammingWordList) ["vim-dirtytalk"];
+    vim.startPlugins = ["plenary-nvim"] ++ optionals (cfg.spellChecking.enableProgrammingWordList) ["vim-dirtytalk"];
 
     vim.maps.normal =
       mkIf cfg.disableArrows {
@@ -57,7 +60,7 @@ in {
       };
     };
 
-    vim.configRC.basic = nvim.dag.entryAfter ["globalsScript"] ''
+    vim.configRC.basic = entryAfter ["globalsScript"] ''
       " Settings that are set for everything
       set encoding=utf-8
       set mouse=${cfg.mouseSupport}

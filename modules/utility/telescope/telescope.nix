@@ -1,5 +1,6 @@
 {lib, ...}: let
-  inherit (lib) mkMappingOption mkEnableOption;
+  inherit (lib.options) mkEnableOption;
+  inherit (lib.nvim.binds) mkMappingOption;
 in {
   options.vim.telescope = {
     mappings = {

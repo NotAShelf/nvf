@@ -8,9 +8,11 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
+  inherit (lib.meta) getExe;
   inherit (lib.types) enum either listOf package str;
   inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.languages) diagnosticsToLua;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics;
 
   cfg = config.vim.languages.svelte;
 
@@ -49,15 +51,15 @@
   };
 
   # TODO: specify packages
-  defaultDiagnostics = ["eslint_d"];
-  diagnostics = {
+  defaultDiagnosticsProvider = ["eslint_d"];
+  diagnosticsProviders = {
     eslint_d = {
       package = pkgs.nodePackages.eslint_d;
       nullConfig = pkg: ''
         table.insert(
           ls_sources,
           null_ls.builtins.diagnostics.eslint_d.with({
-            command = "${lib.getExe pkg}",
+            command = "${getExe pkg}",
           })
         )
       '';
@@ -109,10 +111,10 @@ in {
     extraDiagnostics = {
       enable = mkEnableOption "extra Svelte diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
 
-      types = lib.nvim.types.diagnostics {
+      types = diagnostics {
         langDesc = "Svelte";
-        inherit diagnostics;
-        inherit defaultDiagnostics;
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
@@ -135,10 +137,10 @@ in {
 
     (mkIf cfg.extraDiagnostics.enable {
       vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources = lib.nvim.languages.diagnosticsToLua {
+      vim.lsp.null-ls.sources = diagnosticsToLua {
         lang = "svelte";
         config = cfg.extraDiagnostics.types;
-        inherit diagnostics;
+        inherit diagnosticsProviders;
       };
     })
   ]);

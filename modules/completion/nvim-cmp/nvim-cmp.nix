@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalMD;
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.types) enum attrsOf nullOr str;
 in {
@@ -52,7 +52,7 @@ in {
           '';
           type = str;
           default = "nvim_cmp_menu_map";
-          example = lib.literalMD ''
+          example = literalMD ''
             ```lua
             function(entry, vim_item)
               return vim_item

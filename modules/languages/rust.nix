@@ -4,7 +4,15 @@
   lib,
   ...
 }: let
-  inherit (lib) isList nvim mkEnableOption mkOption types mkIf mkMerge optionalString boolToString optionals;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.strings) optionalString;
+  inherit (lib.trivial) boolToString;
+  inherit (lib.lists) isList optionals;
+  inherit (lib.types) bool package str listOf either;
+  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.languages.rust;
 in {
@@ -13,14 +21,14 @@ in {
 
     treesitter = {
       enable = mkEnableOption "Rust treesitter" // {default = config.vim.languages.enableTreesitter;};
-      package = nvim.types.mkGrammarOption pkgs "rust";
+      package = mkGrammarOption pkgs "rust";
     };
 
     crates = {
       enable = mkEnableOption "crates-nvim, tools for managing dependencies";
       codeActions = mkOption {
         description = "Enable code actions through null-ls";
-        type = types.bool;
+        type = bool;
         default = true;
       };
     };
@@ -30,13 +38,13 @@ in {
       package = mkOption {
         description = "rust-analyzer package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = with types; either package (listOf str);
+        type = either package (listOf str);
         default = pkgs.rust-analyzer;
       };
 
       opts = mkOption {
         description = "Options to pass to rust analyzer";
-        type = types.str;
+        type = str;
         default = "";
       };
     };
@@ -44,13 +52,13 @@ in {
     dap = {
       enable = mkOption {
         description = "Rust Debug Adapter support";
-        type = types.bool;
+        type = bool;
         default = config.vim.languages.enableDAP;
       };
 
       package = mkOption {
         description = "lldb pacakge";
-        type = types.package;
+        type = package;
         default = pkgs.lldb;
       };
     };
@@ -62,7 +70,7 @@ in {
         startPlugins = ["crates-nvim"];
         lsp.null-ls.enable = mkIf cfg.crates.codeActions true;
         autocomplete.sources = {"crates" = "[Crates]";};
-        luaConfigRC.rust-crates = nvim.dag.entryAnywhere ''
+        luaConfigRC.rust-crates = entryAnywhere ''
           require('crates').setup {
             null_ls = {
               enabled = ${boolToString cfg.crates.codeActions},
@@ -125,7 +133,7 @@ in {
                 on_attach = rust_on_attach,
                 cmd = ${
               if isList cfg.lsp.package
-              then nvim.lua.expToLua cfg.lsp.package
+              then expToLua cfg.lsp.package
               else ''{"${cfg.lsp.package}/bin/rust-analyzer"}''
             },
                 settings = {

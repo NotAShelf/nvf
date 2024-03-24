@@ -4,7 +4,11 @@
   pkgs,
   ...
 }: let
-  inherit (lib) addDescriptionsToMappings mkIf optional boolToString optionalString;
+  inherit (lib.modules) mkIf;
+  inherit (lib.lists) optional;
+  inherit (lib.strings) optionalString;
+  inherit (lib.trivial) boolToString;
+  inherit (lib.nvim.binds) addDescriptionsToMappings;
 
   cfg = config.vim.lsp;
   usingNvimCmp = config.vim.autocomplete.enable && config.vim.autocomplete.type == "nvim-cmp";
