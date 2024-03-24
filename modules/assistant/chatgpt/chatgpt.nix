@@ -1,9 +1,14 @@
-{lib, ...}: let
-  inherit (lib.options) mkEnableOption;
-  inherit (lib) mkMappingOption;
+{
+  lib,
+  ...
+}: let
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib) mkMappingOption types;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   options.vim.assistant.chatgpt = {
     enable = mkEnableOption "ChatGPT AI assistant. Requires the environment variable OPENAI_API_KEY to be set";
+    setupOpts = mkPluginSetupOption "chatgpt" {};
     mappings = {
       chatGpt = mkMappingOption "ChatGPT" "<leader>ac";
       editWithInstructions = mkMappingOption "[ChatGPT] Edit with instructions" "<leader>ae";

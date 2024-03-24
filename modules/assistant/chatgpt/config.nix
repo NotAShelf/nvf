@@ -6,6 +6,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib) addDescriptionsToMappings mkSetBinding;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.assistant.chatgpt;
 
@@ -33,8 +34,7 @@ in {
         "chatgpt"
       ];
       luaConfigRC.chagpt = entryAnywhere ''
-        require("chatgpt").setup({
-        })
+        require("chatgpt").setup(${toLuaObject cfg.setupOpts})
       '';
       maps.normal = mkMerge [
         (mkSetBinding mappings.chatGpt "<cmd>ChatGPT<CR>")
