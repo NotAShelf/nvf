@@ -66,6 +66,7 @@ with lib; let
     "noice-nvim"
     "nui-nvim"
     "copilot-lua"
+    "chatgpt"
     "tabnine-nvim"
     "nvim-session-manager"
     "gesture-nvim"

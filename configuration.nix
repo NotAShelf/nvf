@@ -221,6 +221,7 @@ inputs: let
           enable = isMaximal;
           cmp.enable = isMaximal;
         };
+        chatgpt.enable = isMaximal;
       };
 
       vim.session = {

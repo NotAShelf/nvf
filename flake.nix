@@ -545,6 +545,11 @@
       flake = false;
     };
 
+    chatgpt = {
+      url = "github:jackMort/ChatGPT.nvim";
+      flake = false;
+    };
+
     # Session management
     nvim-session-manager = {
       url = "github:Shatur/neovim-session-manager";

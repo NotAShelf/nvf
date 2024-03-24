@@ -80,6 +80,22 @@
         "type": "github"
       }
     },
+    "chatgpt": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1709721561,
+        "narHash": "sha256-vD3NEsYmPRWlxBSOxyIMIQiJXQXxx0hhsw4zIxxXB3o=",
+        "owner": "jackMort",
+        "repo": "ChatGPT.nvim",
+        "rev": "df53728e05129278d6ea26271ec086aa013bed90",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jackMort",
+        "repo": "ChatGPT.nvim",
+        "type": "github"
+      }
+    },
     "cheatsheet-nvim": {
       "flake": false,
       "locked": {
@@ -1488,6 +1504,7 @@
         "catppuccin": "catppuccin",
         "ccc": "ccc",
         "cellular-automaton": "cellular-automaton",
+        "chatgpt": "chatgpt",
         "cheatsheet-nvim": "cheatsheet-nvim",
         "cinnamon-nvim": "cinnamon-nvim",
         "cmp-buffer": "cmp-buffer",

@@ -1,0 +1,46 @@
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib) addDescriptionsToMappings mkSetBinding;
+
+  cfg = config.vim.assistant.chatgpt;
+
+  self = import ./chatgpt.nix {inherit lib;};
+  mappingDefinitions = self.options.vim.assistant.chatgpt.mappings;
+  mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
+  maps = mkMerge [
+    (mkSetBinding mappings.editWithInstructions "<cmd>ChatGPTEditWithInstruction<CR>")
+    (mkSetBinding mappings.grammarCorrection "<cmd>ChatGPTRun grammar_correction<CR>")
+    (mkSetBinding mappings.translate "<cmd>ChatGPTRun translate<CR>")
+    (mkSetBinding mappings.keyword "<cmd>ChatGPTRun keywords<CR>")
+    (mkSetBinding mappings.docstring "<cmd>ChatGPTRun docstring<CR>")
+    (mkSetBinding mappings.addTests "<cmd>ChatGPTRun add_tests<CR>")
+    (mkSetBinding mappings.optimize "<cmd>ChatGPTRun optimize_code<CR>")
+    (mkSetBinding mappings.summarize "<cmd>ChatGPTRun summarize<CR>")
+    (mkSetBinding mappings.fixBugs "<cmd>ChatGPTRun fix_bugs<CR>")
+    (mkSetBinding mappings.explain "<cmd>ChatGPTRun explain_code<CR>")
+    (mkSetBinding mappings.roxygenEdit "<cmd>ChatGPTRun roxygen_edit<CR>")
+    (mkSetBinding mappings.readabilityanalysis "<cmd>ChatGPTRun code_readability_analysis<CR>")
+  ];
+in {
+  config = mkIf cfg.enable {
+    vim = {
+      startPlugins = [
+        "chatgpt"
+      ];
+      luaConfigRC.chagpt = entryAnywhere ''
+        require("chatgpt").setup({
+        })
+      '';
+      maps.normal = mkMerge [
+        (mkSetBinding mappings.chatGpt "<cmd>ChatGPT<CR>")
+        maps
+      ];
+      maps.visual = maps;
+    };
+  };
+}
