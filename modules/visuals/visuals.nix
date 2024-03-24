@@ -3,7 +3,10 @@
   lib,
   ...
 }: let
-  inherit (lib) mkEnableOption mkMappingOption mkOption types literalExpression mkRenamedOptionModule mkRemovedOptionModule;
+  inherit (lib.modules) mkRemovedOptionModule mkRenamedOptionModule;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib.types) int bool str nullOr;
+  inherit (lib.nvim.binds) mkMappingOption;
 
   cfg = config.vim.visuals;
 in {
@@ -34,13 +37,13 @@ in {
       enable = mkEnableOption "line hightlighting on the cursor [nvim-cursorline]";
 
       lineTimeout = mkOption {
-        type = types.int;
+        type = int;
         description = "Time in milliseconds for cursorline to appear";
         default = 0;
       };
 
       lineNumbersOnly = mkOption {
-        type = types.bool;
+        type = bool;
         description = "Hightlight only in the presence of line numbers";
         default = true;
       };
@@ -49,21 +52,21 @@ in {
     indentBlankline = {
       enable = mkEnableOption "indentation guides [indent-blankline]";
       debounce = mkOption {
-        type = types.int;
+        type = int;
         description = "Debounce time in milliseconds";
         default = 200;
       };
 
       viewportBuffer = {
         min = mkOption {
-          type = types.int;
+          type = int;
           description = "Number of lines above and below of what is currently
             visible in the window";
           default = 30;
         };
 
         max = mkOption {
-          type = types.int;
+          type = int;
           description = "Number of lines above and below of what is currently
             visible in the window";
           default = 500;
@@ -72,34 +75,34 @@ in {
 
       indent = {
         char = mkOption {
-          type = types.str;
+          type = str;
           description = "Character for indentation line";
           default = "│";
         };
       };
 
       listChar = mkOption {
-        type = types.str;
+        type = str;
         description = "Character for indentation line";
         default = "│";
       };
 
       fillChar = mkOption {
         description = "Character to fill indents";
-        type = with types; nullOr types.str;
+        type = nullOr str;
         default = "⋅";
       };
 
       eolChar = mkOption {
         description = "Character at end of line";
-        type = with types; nullOr types.str;
+        type = nullOr str;
         default = "↴";
       };
 
       scope = {
         enabled = mkOption {
           description = "Highlight current scope from treesitter";
-          type = types.bool;
+          type = bool;
           default = config.vim.treesitter.enable;
           defaultText = literalExpression "config.vim.treesitter.enable";
         };
@@ -109,7 +112,7 @@ in {
             Displays the end of line character set by [](#opt-vim.visuals.indentBlankline.eolChar) instead of the
             indent guide on line returns.
           '';
-          type = types.bool;
+          type = bool;
           default = cfg.indentBlankline.eolChar != null;
           defaultText = literalExpression "config.vim.visuals.indentBlankline.eolChar != null";
         };
@@ -120,7 +123,7 @@ in {
       enable = mkEnableOption "highlight undo [highlight-undo]";
 
       highlightForCount = mkOption {
-        type = types.bool;
+        type = bool;
         default = true;
         description = ''
           Enable support for highlighting when a <count> is provided before the key
@@ -129,14 +132,14 @@ in {
       };
 
       duration = mkOption {
-        type = types.int;
+        type = int;
         description = "Duration of highlight";
         default = 500;
       };
 
       undo = {
         hlGroup = mkOption {
-          type = types.str;
+          type = str;
           description = "Highlight group for undo";
           default = "HighlightUndo";
         };
@@ -144,7 +147,7 @@ in {
 
       redo = {
         hlGroup = mkOption {
-          type = types.str;
+          type = str;
           description = "Highlight group for redo";
           default = "HighlightUndo";
         };

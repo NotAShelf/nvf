@@ -3,7 +3,9 @@
   lib,
   ...
 }: let
-  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetBinding nvim;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetBinding;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.utility.surround;
   self = import ./surround.nix {inherit lib config;};
@@ -16,7 +18,7 @@ in {
         "nvim-surround"
       ];
 
-      luaConfigRC.surround = nvim.dag.entryAnywhere ''
+      luaConfigRC.surround = entryAnywhere ''
         require('nvim-surround').setup()
       '';
 

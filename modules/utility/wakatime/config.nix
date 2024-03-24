@@ -4,7 +4,8 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf nvim;
+  inherit (lib.modules) mkIf;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.utility.vim-wakatime;
 in {
@@ -13,7 +14,7 @@ in {
       pkgs.vimPlugins.vim-wakatime
     ];
 
-    vim.configRC.vim-wakatime = nvim.dag.entryAnywhere ''
+    vim.configRC.vim-wakatime = entryAnywhere ''
       ${
         if cfg.cli-package == null
         then ""

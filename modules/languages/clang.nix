@@ -6,15 +6,17 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.lists) isList;
-  inherit (lib) nvim;
   inherit (lib.strings) optionalString;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) bool enum package either listOf str nullOr;
   inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   packageToCmd = package: defaultCmd:
     if isList cfg.lsp.package
-    then nvim.lua.expToLua cfg.lsp.package
+    then expToLua cfg.lsp.package
     else ''{ "${cfg.lsp.package}/bin/${defaultCmd}" }'';
 
   cfg = config.vim.languages.clang;
@@ -91,8 +93,8 @@ in {
 
     treesitter = {
       enable = mkEnableOption "C/C++ treesitter" // {default = config.vim.languages.enableTreesitter;};
-      cPackage = nvim.types.mkGrammarOption pkgs "c";
-      cppPackage = nvim.types.mkGrammarOption pkgs "cpp";
+      cPackage = mkGrammarOption pkgs "c";
+      cppPackage = mkGrammarOption pkgs "cpp";
     };
 
     lsp = {
@@ -139,7 +141,7 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.cHeader {
-      vim.configRC.c-header = nvim.dag.entryAnywhere "let g:c_syntax_for_h = 1";
+      vim.configRC.c-header = entryAnywhere "let g:c_syntax_for_h = 1";
     })
 
     (mkIf cfg.treesitter.enable {

@@ -10,8 +10,10 @@
   inherit (lib.lists) isList;
   inherit (lib.strings) optionalString;
   inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.languages) diagnosticsToLua;
 
   cfg = config.vim.languages.nix;
 
@@ -21,7 +23,7 @@
   defaultServer = "nil";
   packageToCmd = package: defaultCmd:
     if isList package
-    then lib.nvim.lua.expToLua package
+    then expToLua package
     else ''{"${package}/bin/${defaultCmd}"}'';
   servers = {
     rnix = {
@@ -95,8 +97,8 @@
     };
   };
 
-  defaultDiagnostics = ["statix" "deadnix"];
-  diagnostics = {
+  defaultDiagnosticsProvider = ["statix" "deadnix"];
+  diagnosticsProviders = {
     statix = {
       package = pkgs.statix;
       nullConfig = pkg: ''
@@ -164,10 +166,10 @@ in {
     extraDiagnostics = {
       enable = mkEnableOption "extra Nix diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
 
-      types = lib.nvim.types.diagnostics {
+      types = diagnostics {
         langDesc = "Nix";
-        inherit diagnostics;
-        inherit defaultDiagnostics;
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
@@ -196,10 +198,10 @@ in {
 
     (mkIf cfg.extraDiagnostics.enable {
       vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources = lib.nvim.languages.diagnosticsToLua {
+      vim.lsp.null-ls.sources = diagnosticsToLua {
         lang = "nix";
         config = cfg.extraDiagnostics.types;
-        inherit diagnostics;
+        inherit diagnosticsProviders;
       };
     })
   ]);

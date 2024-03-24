@@ -3,7 +3,9 @@
   lib,
   ...
 }: let
-  inherit (lib) addDescriptionsToMappings mkIf mkMerge mkSetLuaBinding nvim;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetLuaBinding;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.gestures.gesture-nvim;
 
@@ -23,7 +25,7 @@ in {
       })
     ];
 
-    vim.luaConfigRC.gesture-nvim = nvim.dag.entryAnywhere ''
+    vim.luaConfigRC.gesture-nvim = entryAnywhere ''
       vim.opt.mouse = "a"
 
       local gesture = require("gesture")

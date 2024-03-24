@@ -8,9 +8,11 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
+  inherit (lib.meta) getExe;
   inherit (lib.types) enum either listOf package str;
   inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.nvim.languages) diagnosticsToLua;
 
   cfg = config.vim.languages.ts;
 
@@ -75,15 +77,15 @@
   };
 
   # TODO: specify packages
-  defaultDiagnostics = ["eslint_d"];
-  diagnostics = {
+  defaultDiagnosticsProvider = ["eslint_d"];
+  diagnosticsProviders = {
     eslint_d = {
       package = pkgs.nodePackages.eslint_d;
       nullConfig = pkg: ''
         table.insert(
           ls_sources,
           null_ls.builtins.diagnostics.eslint_d.with({
-            command = "${lib.getExe pkg}",
+            command = "${getExe pkg}",
           })
         )
       '';
@@ -135,10 +137,10 @@ in {
     extraDiagnostics = {
       enable = mkEnableOption "extra Typescript/Javascript diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
 
-      types = lib.nvim.types.diagnostics {
+      types = diagnostics {
         langDesc = "Typescript/Javascript";
-        inherit diagnostics;
-        inherit defaultDiagnostics;
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
@@ -161,10 +163,10 @@ in {
 
     (mkIf cfg.extraDiagnostics.enable {
       vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources = lib.nvim.languages.diagnosticsToLua {
+      vim.lsp.null-ls.sources = diagnosticsToLua {
         lang = "ts";
         config = cfg.extraDiagnostics.types;
-        inherit diagnostics;
+        inherit diagnosticsProviders;
       };
     })
   ]);

@@ -3,17 +3,19 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim boolToString;
-  inherit (lib.nvim.lua) listToLuaTable;
-  inherit (lib.strings) escapeNixString;
   inherit (builtins) toString;
+  inherit (lib.modules) mkIf;
+  inherit (lib.trivial) boolToString;
+  inherit (lib.strings) escapeNixString;
+  inherit (lib.nvim.lua) listToLuaTable;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.presence.neocord;
 in {
   config = mkIf cfg.enable {
     vim.startPlugins = ["neocord"];
 
-    vim.luaConfigRC.neocord = nvim.dag.entryAnywhere ''
+    vim.luaConfigRC.neocord = entryAnywhere ''
       -- Description of each option can be found in https://github.com/IogaMaster/neocord#lua
       require("neocord").setup({
           -- General options

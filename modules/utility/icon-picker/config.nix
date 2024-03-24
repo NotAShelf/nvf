@@ -3,7 +3,8 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim;
+  inherit (lib.modules) mkIf;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.utility.icon-picker;
 in {
@@ -13,7 +14,7 @@ in {
       "dressing-nvim"
     ];
 
-    vim.luaConfigRC.icon-picker = nvim.dag.entryAnywhere ''
+    vim.luaConfigRC.icon-picker = entryAnywhere ''
       require("icon-picker").setup({
         disable_legacy_commands = true
       })

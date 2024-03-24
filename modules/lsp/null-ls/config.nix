@@ -3,7 +3,9 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf mkMerge nvim mapAttrs;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.attrsets) mapAttrs;
+  inherit (lib.nvim.dag) entryAnywhere entryAfter entryBetween;
 
   cfg = config.vim.lsp;
 in {
@@ -13,14 +15,14 @@ in {
         lsp.enable = true;
         startPlugins = ["none-ls"];
 
-        luaConfigRC.null_ls-setup = nvim.dag.entryAnywhere ''
+        luaConfigRC.null_ls-setup = entryAnywhere ''
           local null_ls = require("null-ls")
           local null_helpers = require("null-ls.helpers")
           local null_methods = require("null-ls.methods")
           local ls_sources = {}
         '';
 
-        luaConfigRC.null_ls = nvim.dag.entryAfter ["null_ls-setup" "lsp-setup"] ''
+        luaConfigRC.null_ls = entryAfter ["null_ls-setup" "lsp-setup"] ''
           require('null-ls').setup({
             debug = false,
             diagnostics_format = "[#{m}] #{s} (#{c})",
@@ -33,7 +35,7 @@ in {
       };
     }
     {
-      vim.luaConfigRC = mapAttrs (_: v: (nvim.dag.entryBetween ["null_ls"] ["null_ls-setup"] v)) cfg.null-ls.sources;
+      vim.luaConfigRC = mapAttrs (_: v: (entryBetween ["null_ls"] ["null_ls-setup"] v)) cfg.null-ls.sources;
     }
   ]);
 }

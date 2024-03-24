@@ -4,7 +4,11 @@
   lib,
   ...
 }: let
-  inherit (lib) nvim mkIf mkMerge mkBinding pushDownDefault;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.nvim.binds) mkBinding;
+  inherit (lib.nvim.dag) entryAnywhere;
+  # TODO: move this to its own module
+  inherit (lib) pushDownDefault;
 
   cfg = config.vim.utility.preview.glow;
   self = import ./glow.nix {
@@ -23,7 +27,7 @@ in {
       "<leader>pm" = "+Preview Markdown";
     };
 
-    vim.luaConfigRC.glow = nvim.dag.entryAnywhere ''
+    vim.luaConfigRC.glow = entryAnywhere ''
       require('glow').setup({
         glow_path = "${pkgs.glow}/bin/glow"
       });

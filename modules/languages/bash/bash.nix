@@ -9,6 +9,7 @@
   inherit (lib.lists) isList;
   inherit (lib.types) enum either package listOf str bool;
   inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption;
 
   cfg = config.vim.languages.bash;
 
@@ -45,8 +46,8 @@
     };
   };
 
-  defaultDiagnostics = ["shellcheck"];
-  diagnostics = {
+  defaultDiagnosticsProvider = ["shellcheck"];
+  diagnosticsProviders = {
     shellcheck = {
       package = pkgs.shellcheck;
       nullConfig = pkg: ''
@@ -65,7 +66,7 @@ in {
 
     treesitter = {
       enable = mkEnableOption "Bash treesitter" // {default = config.vim.languages.enableTreesitter;};
-      package = lib.nvim.types.mkGrammarOption pkgs "bash";
+      package = mkGrammarOption pkgs "bash";
     };
 
     lsp = {
@@ -106,10 +107,10 @@ in {
 
     extraDiagnostics = {
       enable = mkEnableOption "extra Bash diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
-      types = lib.nvim.types.diagnostics {
+      types = diagnostics {
         langDesc = "Bash";
-        inherit diagnostics;
-        inherit defaultDiagnostics;
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };

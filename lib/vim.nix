@@ -1,5 +1,5 @@
 let
-  inherit (builtins) isInt isBool toJSON;
+  inherit (builtins) isInt isBool toJSON toString;
 in rec {
   # yes? no.
   yesNo = value:
@@ -16,7 +16,7 @@ in rec {
   # convert a literal value to a vim compliant value
   valToVim = val:
     if (isInt val)
-    then (builtins.toString val)
+    then (toString val)
     else
       (
         if (isBool val)
