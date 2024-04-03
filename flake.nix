@@ -590,5 +590,11 @@
       url = "github:tpope/vim-repeat";
       flake = false;
     };
+
+    nvim-nio = {
+      # (required nvim-dap-ui)
+      url = "github:nvim-neotest/nvim-nio";
+      flake = false;
+    };
   };
 }
