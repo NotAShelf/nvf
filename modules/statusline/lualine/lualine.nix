@@ -14,28 +14,9 @@
     if config.vim.statusline.lualine.theme == "catppuccin"
     then "#181825"
     else "none";
-  tempDesc = "see plugin docs for more info";
 in {
   options.vim.statusline.lualine = {
-    setupOpts = mkPluginSetupOption "Lualine" {
-      options = {
-        disabled_filetypes = mkOption {
-          description = tempDesc;
-          type = listOf str;
-          default = ["alpha"];
-        };
-        always_divide_middle = mkOption {
-          description = tempDesc;
-          type = bool;
-          default = true;
-        };
-        ignore_focus = mkOption {
-          description = tempDesc;
-          type = listOf str;
-          default = ["NvimTree"];
-        };
-      };
-    };
+    setupOpts = mkPluginSetupOption "Lualine" {};
 
     enable = mkEnableOption "lualine statusline plugin";
 
