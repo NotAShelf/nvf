@@ -23,8 +23,10 @@ in {
       vim.statusline.lualine.setupOpts = {
         # TODO: rewrite in new syntax
         winbar.lualine_c = [
-          "navic"
-          (mkLuaInline "draw_empty = ${boolToString config.vim.ui.breadcrumbs.alwaysRender}")
+          [
+            "navic"
+            (mkLuaInline "draw_empty = ${boolToString config.vim.ui.breadcrumbs.alwaysRender}")
+          ]
         ];
       };
     })
