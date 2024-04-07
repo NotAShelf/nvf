@@ -3,46 +3,59 @@
   lib,
   check ? true,
 }: let
-  modules = [
-    ./completion
-    ./theme
-    ./core
-    ./basic
-    ./statusline
-    ./tabline
-    ./filetree
-    ./visuals
-    ./lsp
-    ./treesitter
-    ./autopairs
-    ./snippets
-    ./git
-    ./minimap
-    ./dashboard
-    ./utility
-    ./rich-presence
-    ./notes
-    ./terminal
-    ./ui
-    ./assistant
-    ./session
-    ./comments
-    ./projects
-    ./languages
-    ./debugger
+  inherit (lib.modules) mkDefault;
+  inherit (lib.lists) concatLists;
+
+  core = map (p: ./core + "/${p}") [
+    "build"
+    "warnings"
   ];
+
+  neovim = map (p: ./neovim + "/${p}") [
+    "basic"
+    "mappings"
+  ];
+
+  plugins = map (p: ./plugins + "/${p}") [
+    "assistant"
+    "autopairs"
+    "comments"
+    "completion"
+    "dashboard"
+    "debugger"
+    "filetree"
+    "git"
+    "languages"
+    "lsp"
+    "minimap"
+    "notes"
+    "projects"
+    "rich-presence"
+    "session"
+    "snippets"
+    "statusline"
+    "tabline"
+    "terminal"
+    "theme"
+    "treesitter"
+    "ui"
+    "utility"
+    "visuals"
+  ];
+
+  allModules = concatLists [core neovim plugins];
 
   pkgsModule = {config, ...}: {
     config = {
       _module = {
         inherit check;
         args = {
-          baseModules = modules;
-          pkgsPath = lib.mkDefault pkgs.path;
-          pkgs = lib.mkDefault pkgs;
+          baseModules = allModules;
+          pkgsPath = mkDefault pkgs.path;
+          pkgs = mkDefault pkgs;
         };
       };
     };
   };
 in
-  modules ++ [pkgsModule]
+  allModules ++ [pkgsModule]

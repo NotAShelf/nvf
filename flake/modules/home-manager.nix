@@ -1,15 +1,19 @@
 # Home Manager module
 packages: inputs: {
-  pkgs,
   config,
+  pkgs,
   lib ? pkgs.lib,
-  self,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) maintainers;
+  inherit (lib.modules) mkIf;
+  inherit (lib.options) mkOption mkEnableOption literalExpression;
+  inherit (lib.types) attrsOf anything;
+
   cfg = config.programs.neovim-flake;
   inherit (import ../../configuration.nix inputs) neovimConfiguration;
-  set = neovimConfiguration {
+
+  builtPackage = neovimConfiguration {
     inherit pkgs;
     modules = [cfg.settings];
   };
@@ -17,10 +21,10 @@ in {
   meta.maintainers = with maintainers; [NotAShelf];
 
   options.programs.neovim-flake = {
-    enable = mkEnableOption "A NeoVim IDE with a focus on configurability and extensibility.";
+    enable = mkEnableOption "neovim-flake, the extensible neovim-wrapper";
 
     settings = mkOption {
-      type = types.attrsOf types.anything;
+      type = attrsOf anything;
       default = {};
       example = literalExpression ''
         {
@@ -44,6 +48,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = [set.neovim];
+    home.packages = [builtPackage];
   };
 }

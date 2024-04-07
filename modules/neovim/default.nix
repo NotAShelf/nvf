@@ -1,6 +1,8 @@
-_: {
+{
   imports = [
+    ./basic
+    ./mappings
+
     ./config.nix
-    ./module.nix
   ];
 }
