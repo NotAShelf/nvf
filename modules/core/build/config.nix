@@ -3,10 +3,10 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrValues attrNames map mapAttrs toJSON isString concatStringsSep filter;
+  inherit (builtins) map mapAttrs toJSON filter;
   inherit (lib.options) mkOption;
-  inherit (lib.attrsets) filterAttrs getAttrs;
-  inherit (lib.strings) optionalString;
+  inherit (lib.attrsets) filterAttrs getAttrs attrValues attrNames;
+  inherit (lib.strings) optionalString isString concatStringsSep;
   inherit (lib.misc) mapAttrsFlatten;
   inherit (lib.trivial) showWarnings;
   inherit (lib.types) bool str oneOf attrsOf nullOr attrs submodule lines;
@@ -15,6 +15,7 @@
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.vim) valToVim;
+  inherit (lib.nvim.config) mkBool;
 
   cfg = config.vim;
 
@@ -26,13 +27,6 @@
     ${luaConfig}
     EOF
   '';
-
-  mkBool = value: description:
-    mkOption {
-      type = bool;
-      default = value;
-      inherit description;
-    };
 
   # Most of the keybindings code is highly inspired by pta2002/nixvim. Thank you!
   mapConfigOptions = {
