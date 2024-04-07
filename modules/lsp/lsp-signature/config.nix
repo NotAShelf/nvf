@@ -5,7 +5,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.dag) entryAnywhere;
-  inherit (lib.strings) optionalString;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.lsp;
 in {
@@ -15,16 +15,14 @@ in {
         "lsp-signature"
       ];
 
+      lsp.lspSignature.setupOpts = {
+        bind = config.vim.ui.borders.plugins.lsp-signature.enable;
+        handler_opts.border = config.vim.ui.borders.plugins.lsp-signature.style;
+      };
+
       luaConfigRC.lsp-signature = entryAnywhere ''
         -- Enable lsp signature viewer
-        require("lsp_signature").setup({
-          ${optionalString config.vim.ui.borders.plugins.lsp-signature.enable ''
-          bind = true, -- This is mandatory, otherwise border config won't get registered.
-          handler_opts = {
-            border = "${config.vim.ui.borders.plugins.lsp-signature.style}"
-          }
-        ''}
-        })
+        require("lsp_signature").setup(${toLuaObject cfg.lspSignature.setupOpts})
       '';
     };
   };

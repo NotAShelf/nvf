@@ -3,75 +3,73 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (lib.trivial) boolToString;
-  inherit (lib.strings) optionalString;
-  inherit (lib.nvim.lua) luaTable listToLuaTable;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.statusline.lualine;
   breadcrumbsCfg = config.vim.ui.breadcrumbs;
 in {
-  config = (mkIf cfg.enable) {
-    vim.startPlugins = [
-      "lualine"
-    ];
+  config = mkMerge [
+    # TODO: move into nvim-tree file
+    (mkIf (config.vim.filetree.nvimTree.enable) {
+      vim.statusline.lualine.setupOpts = {
+        extensions = ["nvim-tree"];
+      };
+    })
+    (mkIf (breadcrumbsCfg.enable && breadcrumbsCfg.source == "nvim-navic") {
+      vim.statusline.lualine.setupOpts = {
+        # TODO: rewrite in new syntax
+        winbar.lualine_c = [
+          [
+            "navic"
+            (mkLuaInline "draw_empty = ${boolToString config.vim.ui.breadcrumbs.alwaysRender}")
+          ]
+        ];
+      };
+    })
+    (mkIf cfg.enable {
+      vim.startPlugins = [
+        "lualine"
+      ];
 
-    vim.luaConfigRC.lualine = entryAnywhere ''
-      local lualine = require('lualine')
-      lualine.setup {
+      vim.luaConfigRC.lualine = entryAnywhere ''
+        local lualine = require('lualine')
+        lualine.setup ${toLuaObject cfg.setupOpts}
+      '';
+
+      # this is for backwards-compatibility
+      vim.statusline.lualine.setupOpts = {
         options = {
-          icons_enabled = ${boolToString cfg.icons.enable},
-          theme = "${cfg.theme}",
-          component_separators = {"${cfg.componentSeparator.left}","${cfg.componentSeparator.right}"},
-          section_separators = {"${cfg.sectionSeparator.left}","${cfg.sectionSeparator.right}"},
-          disabled_filetypes = ${listToLuaTable cfg.disabledFiletypes},
-          always_divide_middle = ${boolToString cfg.alwaysDivideMiddle},
-          globalstatus = ${boolToString cfg.globalStatus},
-          ignore_focus = ${listToLuaTable cfg.ignoreFocus},
-          extensions = {${optionalString config.vim.filetree.nvimTree.enable "'nvim-tree'"}},
-          refresh = {
-            statusline = ${toString cfg.refresh.statusline},
-            tabline = ${toString cfg.refresh.tabline},
-            winbar = ${toString cfg.refresh.winbar},
-          },
-        },
+          icons_enabled = cfg.icons.enable;
+          theme = cfg.theme;
+          component_separators = [cfg.componentSeparator.left cfg.componentSeparator.right];
+          section_separators = [cfg.sectionSeparator.left cfg.sectionSeparator.right];
+          globalstatus = cfg.globalStatus;
+          refresh = cfg.refresh;
+        };
 
-        -- active sections
         sections = {
-          lualine_a = ${luaTable (cfg.activeSection.a ++ cfg.extraActiveSection.a)},
-          lualine_b = ${luaTable (cfg.activeSection.b ++ cfg.extraActiveSection.b)},
-          lualine_c = ${luaTable (cfg.activeSection.c ++ cfg.extraActiveSection.c)},
-          lualine_x = ${luaTable (cfg.activeSection.x ++ cfg.extraActiveSection.x)},
-          lualine_y = ${luaTable (cfg.activeSection.y ++ cfg.extraActiveSection.y)},
-          lualine_z = ${luaTable (cfg.activeSection.z ++ cfg.extraActiveSection.z)},
-        },
-
-        -- inactive sections
+          lualine_a = builtins.map mkLuaInline (cfg.activeSection.a ++ cfg.extraActiveSection.a);
+          lualine_b = builtins.map mkLuaInline (cfg.activeSection.b ++ cfg.extraActiveSection.b);
+          lualine_c = builtins.map mkLuaInline (cfg.activeSection.c ++ cfg.extraActiveSection.c);
+          lualine_x = builtins.map mkLuaInline (cfg.activeSection.x ++ cfg.extraActiveSection.x);
+          lualine_y = builtins.map mkLuaInline (cfg.activeSection.y ++ cfg.extraActiveSection.y);
+          lualine_z = builtins.map mkLuaInline (cfg.activeSection.z ++ cfg.extraActiveSection.z);
+        };
         inactive_sections = {
-          lualine_a = ${luaTable (cfg.inactiveSection.a ++ cfg.extraInactiveSection.a)},
-          lualine_b = ${luaTable (cfg.inactiveSection.b ++ cfg.extraInactiveSection.b)},
-          lualine_c = ${luaTable (cfg.inactiveSection.c ++ cfg.extraInactiveSection.c)},
-          lualine_x = ${luaTable (cfg.inactiveSection.x ++ cfg.extraInactiveSection.x)},
-          lualine_y = ${luaTable (cfg.inactiveSection.y ++ cfg.extraInactiveSection.y)},
-          lualine_z = ${luaTable (cfg.inactiveSection.z ++ cfg.extraInactiveSection.z)},
-        },
-
-        -- tabline (currently unsupported)
-        tabline = {},
-
-        ${optionalString (breadcrumbsCfg.enable && breadcrumbsCfg.source == "nvim-navic") ''
-        -- enable winbar if nvim-navic is enabled
-        winbar = {
-          lualine_c = {
-            {
-                "navic",
-                draw_empty = ${boolToString config.vim.ui.breadcrumbs.alwaysRender}
-            }
-          }
-        },
-      ''}
-      }
-    '';
-  };
+          lualine_a = builtins.map mkLuaInline (cfg.inactiveSection.a ++ cfg.extraInactiveSection.a);
+          lualine_b = builtins.map mkLuaInline (cfg.inactiveSection.b ++ cfg.extraInactiveSection.b);
+          lualine_c = builtins.map mkLuaInline (cfg.inactiveSection.c ++ cfg.extraInactiveSection.c);
+          lualine_x = builtins.map mkLuaInline (cfg.inactiveSection.x ++ cfg.extraInactiveSection.x);
+          lualine_y = builtins.map mkLuaInline (cfg.inactiveSection.y ++ cfg.extraInactiveSection.y);
+          lualine_z = builtins.map mkLuaInline (cfg.inactiveSection.z ++ cfg.extraInactiveSection.z);
+        };
+        # probably don't need this?
+        tabline = [];
+      };
+    })
+  ];
 }

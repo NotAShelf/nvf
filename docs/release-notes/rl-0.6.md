@@ -12,6 +12,10 @@ Release notes for release 0.6
 
 - Fixed empty winbar when breadcrumbs are disabled
 
+- Added custom setupOpts for various plugins
+
+- Removed support for deprecated plugin "nvim-compe"
+
 [donnerinoern](https://github.com/donnerinoern):
 
 - Added Gruvbox theme

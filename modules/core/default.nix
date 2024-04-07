@@ -12,6 +12,7 @@
   inherit (lib.types) bool str listOf oneOf attrsOf nullOr attrs submodule unspecified lines;
   inherit (lib.nvim.types) dagOf pluginsOpt extraPluginType;
   inherit (lib.nvim.dag) entryAnywhere entryAfter topoSort;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.vim) valToVim;
 
@@ -86,7 +87,7 @@
         else config;
       action =
         if action.lua
-        then {"__raw" = action.action;}
+        then mkLuaInline action.action
         else action.action;
     };
   in

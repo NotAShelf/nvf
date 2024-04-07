@@ -4,11 +4,11 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.binds) mkBinding;
+  inherit (lib) mkMerge mkBinding mkIf;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.notes.todo-comments;
-  self = import ./todo-comments.nix {inherit lib;};
+  self = import ./todo-comments.nix {inherit pkgs lib;};
   inherit (self.options.vim.notes.todo-comments) mappings;
 in {
   config = mkIf cfg.enable {
@@ -24,28 +24,7 @@ in {
       ];
 
       luaConfigRC.todo-comments = ''
-        require('todo-comments').setup {
-          highlight = {
-            before = "", -- "fg" or "bg" or empty
-            keyword = "bg", -- "fg", "bg", "wide" or empty
-            after = "fg", -- "fg" or "bg" or empty
-            pattern = ${cfg.patterns.highlight},
-            comments_only = true, -- uses treesitter to match keywords in comments only
-            max_line_len = 400, -- ignore lines longer than this
-            exclude = {}, -- list of file types to exclude highlighting
-          },
-          search = {
-            command = "${pkgs.ripgrep}/bin/rg",
-            args = {
-              "--color=never",
-              "--no-heading",
-              "--with-filename",
-              "--line-number",
-              "--column",
-            },
-            pattern = ${cfg.patterns.search},
-          },
-        }
+        require('todo-comments').setup(${toLuaObject cfg.setupOpts})
       '';
     };
   };

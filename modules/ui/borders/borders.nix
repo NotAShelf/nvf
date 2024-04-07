@@ -18,7 +18,7 @@ in {
       type = enum defaultStyles;
       default = "rounded";
       description = ''
-        The global border style to use
+        The global border style to use.
       '';
     };
 

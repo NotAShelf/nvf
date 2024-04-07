@@ -1,42 +1,64 @@
-{lib, ...}: let
-  inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) enum int str attrsOf;
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.modules) mkRenamedOptionModule;
+  inherit (lib.types) int str enum attrsOf;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 in {
+  imports = let
+    renamedSetupOpt = name:
+      mkRenamedOptionModule
+      ["vim" "notify" "nvim-notify" name]
+      ["vim" "notify" "nvim-notify" "setupOpts" name];
+  in [
+    (renamedSetupOpt "stages")
+    (renamedSetupOpt "timeout")
+    (renamedSetupOpt "background_colour")
+    (renamedSetupOpt "position")
+    (renamedSetupOpt "icons")
+  ];
+
   options.vim.notify.nvim-notify = {
     enable = mkEnableOption "nvim-notify notifications";
-    stages = mkOption {
-      type = enum ["fade_in_slide_out" "fade_in" "slide_out" "none"];
-      default = "fade_in_slide_out";
-      description = "The stages of the notification";
-    };
 
-    timeout = mkOption {
-      type = int;
-      default = 1000;
-      description = "The timeout of the notification";
-    };
+    setupOpts = mkPluginSetupOption "nvim-notify" {
+      stages = mkOption {
+        type = enum ["fade_in_slide_out" "fade_in" "slide_out" "none"];
+        default = "fade_in_slide_out";
+        description = "The stages of the notification";
+      };
 
-    background_colour = mkOption {
-      type = str;
-      default = "#000000";
-      description = "The background colour of the notification";
-    };
+      timeout = mkOption {
+        type = int;
+        default = 1000;
+        description = "The timeout of the notification";
+      };
 
-    position = mkOption {
-      type = enum ["top_left" "top_right" "bottom_left" "bottom_right"];
-      default = "top_right";
-      description = "The position of the notification";
-    };
+      background_colour = mkOption {
+        type = str;
+        default = "#000000";
+        description = "The background colour of the notification";
+      };
 
-    icons = mkOption {
-      type = attrsOf str;
-      description = "The icons of the notification";
-      default = {
-        ERROR = "";
-        WARN = "";
-        INFO = "";
-        DEBUG = "";
-        TRACE = "";
+      position = mkOption {
+        type = enum ["top_left" "top_right" "bottom_left" "bottom_right"];
+        default = "top_right";
+        description = "The position of the notification";
+      };
+
+      icons = mkOption {
+        type = attrsOf str;
+        description = "The icons of the notification";
+        default = {
+          ERROR = "";
+          WARN = "";
+          INFO = "";
+          DEBUG = "";
+          TRACE = "";
+        };
       };
     };
   };

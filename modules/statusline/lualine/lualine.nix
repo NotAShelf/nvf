@@ -7,6 +7,7 @@
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) int bool str listOf enum;
   inherit (lib.lists) optional;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 
   supported_themes = import ./supported_themes.nix;
   colorPuccin =
@@ -15,6 +16,8 @@
     else "none";
 in {
   options.vim.statusline.lualine = {
+    setupOpts = mkPluginSetupOption "Lualine" {};
+
     enable = mkEnableOption "lualine statusline plugin";
 
     icons = {

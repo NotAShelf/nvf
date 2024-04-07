@@ -15,7 +15,6 @@ with lib; let
     "nvim-tree-lua"
     "nvim-bufferline-lua"
     "lualine"
-    "nvim-compe"
     "nvim-autopairs"
     "nvim-ts-autotag"
     "nvim-web-devicons"
@@ -144,6 +143,18 @@ in {
       inherit description default;
       type = pluginsType;
     };
+
+  luaInline = lib.mkOptionType {
+    name = "luaInline";
+    check = x: lib.nvim.lua.isLuaInline x || builtins.isString x;
+    merge = loc: defs: let
+      val =
+        if isString loc
+        then lib.generators.mkLuaInline loc
+        else loc;
+    in
+      lib.mergeOneOption val defs;
+  };
 
   # opts is a attrset of options, example:
   # ```
