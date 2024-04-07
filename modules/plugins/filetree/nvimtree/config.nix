@@ -9,8 +9,7 @@
   inherit (lib.nvim.binds) mkBinding;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.lua) toLuaObject;
-  # TODO: move this to its own module
-  inherit (lib) pushDownDefault;
+  inherit (lib.nvim.binds) pushDownDefault;
 
   cfg = config.vim.filetree.nvimTree;
   self = import ./nvimtree.nix {inherit pkgs lib;};

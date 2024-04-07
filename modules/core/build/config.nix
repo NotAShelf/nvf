@@ -236,6 +236,11 @@ in {
         else abort ("Dependency cycle in ${name}: " + toJSON sortedDag);
     in
       result;
+
+    mkSection = r: ''
+      -- SECTION: ${r.name}
+      ${r.data}
+    '';
   in {
     vim = {
       startPlugins = map (x: x.package) (attrValues cfg.extraPlugins);
@@ -243,10 +248,6 @@ in {
         globalsScript = entryAnywhere (concatStringsSep "\n" globalsScript);
 
         luaScript = let
-          mkSection = r: ''
-            -- SECTION: ${r.name}
-            ${r.data}
-          '';
           mapResult = r: (wrapLuaConfig (concatStringsSep "\n" (map mkSection r)));
           luaConfig = resolveDag {
             name = "lua config script";
@@ -257,10 +258,6 @@ in {
           entryAfter ["globalsScript"] luaConfig;
 
         extraPluginConfigs = let
-          mkSection = r: ''
-            -- SECTION: ${r.name}
-            ${r.data}
-          '';
           mapResult = r: (wrapLuaConfig (concatStringsSep "\n" (map mkSection r)));
           extraPluginsDag = mapAttrs (_: {
             after,

@@ -3,7 +3,8 @@
   lib,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption types mkMappingOption mkRenamedOptionModule;
+  inherit (lib) mkEnableOption mkOption types mkRenamedOptionModule;
+  inherit (lib.nvim.binds) mkMappingOption;
 in {
   imports = let
     renamedSetupOption = oldPath: newPath:

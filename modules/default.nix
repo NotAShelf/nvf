@@ -9,6 +9,7 @@ inputs: {
   inherit (pkgs) wrapNeovimUnstable vimPlugins;
   inherit (pkgs.vimUtils) buildVimPlugin;
   inherit (pkgs.neovimUtils) makeNeovimConfig;
+  inherit (lib.attrsets) recursiveUpdate;
 
   extendedLib = import ../lib/stdlib-extended.nix lib;
 
@@ -19,7 +20,7 @@ inputs: {
 
   module = extendedLib.evalModules {
     modules = [configuration] ++ nvimModules;
-    specialArgs = {modulesPath = toString ./.;} // extraSpecialArgs;
+    specialArgs = recursiveUpdate {modulesPath = toString ./.;} extraSpecialArgs;
   };
 
   vimOptions = module.config.vim;

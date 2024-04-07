@@ -4,7 +4,8 @@
   lib,
   ...
 }: let
-  inherit (lib) mkMerge mkBinding mkIf;
+  inherit (lib) mkMerge mkIf;
+  inherit (lib.nvim.binds) mkBinding;
   inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.notes.todo-comments;

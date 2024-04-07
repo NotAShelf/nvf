@@ -7,8 +7,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.binds) addDescriptionsToMappings mkSetBinding;
   inherit (lib.nvim.dag) entryAnywhere;
-  # TODO: move this to its own module
-  inherit (lib) pushDownDefault;
+  inherit (lib.nvim.binds) pushDownDefault;
   inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.telescope;
