@@ -1,7 +1,16 @@
 <div align="center">
     <img src="../assets/neovim-flake-logo-work.svg" alt="neovim-flake Logo"  width="200">
 </div>
+
 <h1 align="center">❄️  neovim-flake</h1>
+
+<div align="center">
+  <a>
+    A highly modular, configurable, extensible and easy to use Neovim configuration wrapper written in Nix. Designed for flexibility and ease of use and with code quality in mind.
+  </a>
+</div>
+<br/>
+
 <div align="center">
 <p>
     <a href="https://github.com/NotAShelf/neovim-flake/releases/latest">
@@ -27,14 +36,15 @@
 <p align="center">
     <img src="https://stars.medv.io/NotAShelf/neovim-flake.svg", title="stars"/>
 </p>
-
-<div align="center">
-  <a>
-    A highly modular, configurable, extensible and easy to use Neovim configuration wrapper written in Nix. Designed for flexibility and ease of use, this flake allows you to easily configure your Neovim instance with a few lines of Nix code.
-  </a>
 </div>
+<br/>
 
-</div>
+> [!WARNING]  
+> Main branch is only updated for small, non-breaking changes. For the latest version of neovim-flake, please see
+> [the list of branches](https://github.com/NotAShelf/neovim-flake/branches) or
+> [open pull requests](https://github.com/NotAShelf/neovim-flake/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc).
+> neovim-flake, at the time, is still being actively developed - and will continue to be so for the foreseeable
+> future.
 
 ---
 
@@ -80,13 +90,16 @@ nix run github:notashelf/neovim-flake#tidal
 Similar instructions will apply for `nix profile install`. However, you are recommended to instead use the module system as described in the manual.
 
 > [!NOTE]  
-> The `maximal` configuration is _massive_ and will take a while to build. To get a feel for the configuration, use the default `nix` or `tidal` configurations.
-> Should you choose to try out the `maximal` configuration, using the binary cache as described in the manual is _strongly_ recommended.
+> The `maximal` configuration is _massive_ and will take a while to build.
+> To get a feel for the configuration, use the default `nix` or `tidal` configurations.
+> Should you choose to try out the `maximal` configuration, using the binary cache as described
+> in the manual is _strongly_ recommended.
 
 ### Docker
 
-As of version 0.5, an image for the `nix` output is published to Dockerhub and GitHub packages with each tagged release. If you do not have Nix installed
-on your system, you may run neovim within a container using your favorite tool.
+As of version 0.5, an image for the `nix` output is published to Dockerhub and GitHub packages with each tagged release. If you do not have Docker installed
+on your system, you may run neovim within a container using your favorite tool. You are still recommended to use `nix` instead of Docker.
+
 The following command will open the current directory in neovim with necessary tools bootstrapped.
 
 ```console
@@ -191,3 +204,7 @@ I am grateful for their previous work and inspiration, and I wholeheartedly reco
 <br/>
 
 ---
+
+<div align="right">
+  <a href="#readme">Back to the Top</a>
+</div>
