@@ -1,5 +1,9 @@
-{lib}: {
-  types = import ./types {inherit lib;};
+{
+  inputs,
+  lib,
+  ...
+}: {
+  types = import ./types {inherit inputs lib;};
 
   config = import ./config.nix {inherit lib;};
   binds = import ./binds.nix {inherit lib;};

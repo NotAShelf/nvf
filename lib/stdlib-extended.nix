@@ -1,6 +1,6 @@
 # Cconvenience function that returns the given Nixpkgs standard library
 # extended with our functions using `lib.extend`.
-nixpkgsLib: let
+nixpkgsLib: inputs: let
   mkNvimLib = import ./.;
 in
   # WARNING: New functions should not be added here, but to files
@@ -8,7 +8,10 @@ in
   # function does not fit to any of the existing categories, create
   # a new file and import it in `./default.nix.`
   nixpkgsLib.extend (self: super: {
-    nvim = mkNvimLib {lib = self;};
+    nvim = mkNvimLib {
+      inherit inputs;
+      lib = self;
+    };
 
     # For forward compatibility.
     literalExpression = super.literalExpression or super.literalExample;

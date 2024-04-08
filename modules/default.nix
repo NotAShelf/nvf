@@ -11,7 +11,7 @@ inputs: {
   inherit (pkgs.neovimUtils) makeNeovimConfig;
   inherit (lib.attrsets) recursiveUpdate;
 
-  extendedLib = import ../lib/stdlib-extended.nix lib;
+  extendedLib = import ../lib/stdlib-extended.nix lib inputs;
 
   nvimModules = import ./modules.nix {
     inherit check pkgs;
