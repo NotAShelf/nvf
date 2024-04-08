@@ -8,7 +8,7 @@ packages: inputs: {
   inherit (lib) maintainers;
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.types) attrsOf anything package;
+  inherit (lib.types) attrsOf package anything;
 
   cfg = config.programs.neovim-flake;
   inherit (import ../../configuration.nix inputs) neovimConfiguration;
@@ -57,6 +57,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = [builtPackage];
+    environment.systemPackages = [builtPackage];
   };
 }
