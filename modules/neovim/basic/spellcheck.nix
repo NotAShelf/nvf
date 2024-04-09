@@ -19,7 +19,7 @@ in {
     languages = mkOption {
       type = listOf str;
       default = ["en"];
-      example = literalExpression ["en" "de"];
+      example = literalExpression ''["en" "de"]'';
       description = "The languages to be used for spellchecking";
     };
   };
