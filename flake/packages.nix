@@ -5,10 +5,7 @@
     pkgs,
     ...
   }: let
-    docs = import ../docs {
-      inherit pkgs;
-      nmdSrc = inputs.nmd;
-    };
+    docs = import ../docs {inherit pkgs inputs;};
   in {
     packages =
       {

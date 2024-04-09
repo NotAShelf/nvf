@@ -1,10 +1,10 @@
 {
+  inputs,
   pkgs,
-  lib ? import ../lib/stdlib-extended.nix pkgs.lib,
-  nmdSrc,
+  lib ? import ../lib/stdlib-extended.nix pkgs.lib inputs,
   ...
 }: let
-  nmd = import nmdSrc {
+  nmd = import inputs.nmd {
     inherit lib;
     # The DocBook output of `nixos-render-docs` doesn't have the change
     # `nmd` uses to work around the broken stylesheets in
@@ -103,9 +103,9 @@
     '';
   # Generate the HTML manual pages
   neovim-flake-manual = pkgs.callPackage ./manual.nix {
+    inherit (inputs) nmd;
     inherit revision;
     outputPath = "share/doc/neovim-flake";
-    nmd = nmdSrc;
     options = {
       neovim-flake = nvimModuleDocs.optionsJSON;
     };
@@ -113,7 +113,7 @@
   html = neovim-flake-manual;
   htmlOpenTool = pkgs.callPackage ./html-open-tool.nix {} {inherit html;};
 in {
-  inherit nmdSrc;
+  inherit (inputs) nmd;
 
   options = {
     # TODO: Use `hmOptionsDocs.optionsJSON` directly once upstream
