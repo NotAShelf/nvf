@@ -10,6 +10,7 @@ inputs: {
   inherit (pkgs.vimUtils) buildVimPlugin;
   inherit (pkgs.neovimUtils) makeNeovimConfig;
   inherit (lib.attrsets) recursiveUpdate;
+  inherit (lib.asserts) assertMsg;
 
   extendedLib = import ../lib/stdlib-extended.nix lib inputs;
 
@@ -28,11 +29,11 @@ inputs: {
   extraLuaPackages = ps: map (x: ps.${x}) vimOptions.luaPackages;
 
   buildPlug = {pname, ...} @ args:
-    assert lib.asserts.assertMsg (pname != "nvim-treesitter") "Use buildTreesitterPlug for building nvim-treesitter.";
+    assert assertMsg (pname != "nvim-treesitter") "Use buildTreesitterPlug for building nvim-treesitter.";
       buildVimPlugin (args
         // {
           version = "master";
-          src = getAttr pname inputs;
+          src = getAttr ("plugin-" + pname) inputs;
         });
 
   buildTreesitterPlug = grammars: vimPlugins.nvim-treesitter.withPlugins (_: grammars);

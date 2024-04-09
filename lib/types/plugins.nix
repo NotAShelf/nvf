@@ -9,18 +9,23 @@
   inherit (lib.types) submodule either package enum str lines attrsOf anything listOf nullOr;
 
   # Get the names of all flake inputs that start with the given prefix.
-  fromInputs = inputs: prefix:
+  fromInputs = {
+    inputs,
+    prefix,
+  }:
     mapAttrs' (n: v: nameValuePair (removePrefix prefix n) {src = v;}) (filterAttrs (n: _: hasPrefix prefix n) inputs);
 
-  pluginsFromInputs = attrNames (fromInputs inputs "plugin-");
-
   #  Get the names of all flake inputs that start with the given prefix.
+  pluginInputNames = attrNames (fromInputs {
+    inherit inputs;
+    prefix = "plugin-";
+  });
 
   # You can either use the name of the plugin or a package.
   pluginType = nullOr (
     either
     package
-    (enum (pluginsFromInputs ++ ["nvim-treesitter" "flutter-tools-patched" "vim-repeat"]))
+    (enum (pluginInputNames ++ ["nvim-treesitter" "flutter-tools-patched" "vim-repeat"]))
   );
 
   pluginsType = listOf pluginType;
@@ -47,7 +52,7 @@
     };
   };
 in {
-  inherit extraPluginType;
+  inherit extraPluginType fromInputs;
 
   pluginsOpt = {
     description,
