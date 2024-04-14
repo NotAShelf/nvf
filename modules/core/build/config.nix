@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (builtins) map mapAttrs toJSON filter;
-  inherit (lib.options) mkOption;
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.attrsets) filterAttrs getAttrs attrValues attrNames;
   inherit (lib.strings) optionalString isString concatStringsSep;
   inherit (lib.misc) mapAttrsFlatten;
@@ -181,7 +181,7 @@ in {
         '';
       };
 
-      enableLuaLoader = lib.options.mkEnableOption ''
+      enableLuaLoader = mkEnableOption ''
         experimental Lua module loader to speed up the start up process
       '';
     };

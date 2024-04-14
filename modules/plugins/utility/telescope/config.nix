@@ -1,6 +1,6 @@
 {
-  pkgs,
   config,
+  pkgs,
   lib,
   ...
 }: let
@@ -19,6 +19,7 @@ in {
   config = mkIf (cfg.enable) {
     vim.startPlugins = [
       "telescope"
+      "plenary-nvim"
     ];
 
     vim.maps.normal = mkMerge [
