@@ -407,6 +407,11 @@
       flake = false;
     };
 
+    plugin-vim-fugitive = {
+      url = "github:tpope/vim-fugitive";
+      flake = false;
+    };
+
     plugin-fidget-nvim = {
       url = "github:j-hui/fidget.nvim";
       flake = false;

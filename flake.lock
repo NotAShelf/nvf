@@ -1653,6 +1653,22 @@
         "type": "github"
       }
     },
+    "plugin-vim-fugitive": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1712554826,
+        "narHash": "sha256-pmY1EQbupKvsqok9O5omkOWi0BEZ8df7HL0F7ubdY9Q=",
+        "owner": "tpope",
+        "repo": "vim-fugitive",
+        "rev": "dac8e5c2d85926df92672bf2afb4fc48656d96c7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tpope",
+        "repo": "vim-fugitive",
+        "type": "github"
+      }
+    },
     "plugin-vim-illuminate": {
       "flake": false,
       "locked": {
@@ -1865,6 +1881,7 @@
         "plugin-tokyonight": "plugin-tokyonight",
         "plugin-trouble": "plugin-trouble",
         "plugin-vim-dirtytalk": "plugin-vim-dirtytalk",
+        "plugin-vim-fugitive": "plugin-vim-fugitive",
         "plugin-vim-illuminate": "plugin-vim-illuminate",
         "plugin-vim-markdown": "plugin-vim-markdown",
         "plugin-vim-repeat": "plugin-vim-repeat",
