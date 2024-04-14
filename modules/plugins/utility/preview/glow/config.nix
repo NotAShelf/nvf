@@ -5,10 +5,8 @@
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.binds) mkBinding;
+  inherit (lib.nvim.binds) mkBinding pushDownDefault;
   inherit (lib.nvim.dag) entryAnywhere;
-  # TODO: move this to its own module
-  inherit (lib) pushDownDefault;
 
   cfg = config.vim.utility.preview.glow;
   self = import ./glow.nix {
