@@ -13,7 +13,7 @@ packages: inputs: {
   cfg = config.programs.neovim-flake;
   inherit (import ../../configuration.nix inputs) neovimConfiguration;
 
-  builtPackage = neovimConfiguration {
+  neovimConfigured = neovimConfiguration {
     inherit pkgs;
     modules = [cfg.settings];
   };
@@ -23,10 +23,10 @@ in {
   options.programs.neovim-flake = {
     enable = mkEnableOption "neovim-flake, the extensible neovim-wrapper";
 
-    builtPackage = mkOption {
+    finalPackage = mkOption {
       type = anything;
-      default = builtPackage;
-      internal = true;
+      visible = false;
+      readOnly = true;
       description = ''
         The built neovim-flake package, wrapped with the user's configuration.
       '';
@@ -57,6 +57,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = [builtPackage];
+    home.packages = [cfg.finalPackage];
+
+    programs.neovim-flake.finalPackage = neovimConfigured.neovim;
   };
 }
