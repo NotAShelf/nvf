@@ -88,3 +88,7 @@ Release notes for release 0.6
 
 - Added plugin auto-discovery from plugin inputs. This is mostly from
   [JordanIsaac's neovim-flake](https://github.com/jordanisaacs/neovim-flake)
+
+[jacekpoz](https://github.com/jacekpoz):
+
+- Added `vim.autocomplete.alwaysComplete`. Allows users to have the autocomplete window popup only when manually activated.

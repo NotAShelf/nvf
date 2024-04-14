@@ -1,11 +1,17 @@
 {lib, ...}: let
   inherit (lib.options) mkEnableOption mkOption literalMD;
   inherit (lib.nvim.binds) mkMappingOption;
-  inherit (lib.types) enum attrsOf nullOr str;
+  inherit (lib.types) enum attrsOf nullOr str bool;
 in {
   options.vim = {
     autocomplete = {
-      enable = mkEnableOption "enable autocomplete" // {default = false;};
+      enable = mkEnableOption "autocomplete" // {default = false;};
+
+      alwaysComplete = mkOption {
+        type = bool;
+        description = "Automatically show completion.";
+        default = true;
+      };
 
       mappings = {
         complete = mkMappingOption "Complete [nvim-cmp]" "<C-Space>";

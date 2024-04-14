@@ -219,6 +219,7 @@ in {
 
         completion = {
           completeopt = 'menu,menuone,noinsert',
+          ${optionalString (!cfg.alwaysComplete) "autocomplete = false"}
         },
 
         formatting = {
