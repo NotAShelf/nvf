@@ -107,4 +107,14 @@ in {
 
   entryAfter = entryBetween [];
   entryBefore = before: entryBetween before [];
+
+  mkLuarcSection = section: ''
+    -- SECTION: ${section.name}
+    ${section.data}
+  '';
+
+  mkVimrcSection = section: ''
+    " SECTION: ${section.name}
+    ${section.data}
+  '';
 }

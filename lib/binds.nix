@@ -66,7 +66,7 @@
     mkSetLuaBinding = binding: action:
       mkLuaBinding binding.value action binding.description;
 
-    pushDownDefault = attr: mapAttrs (_name: value: mkDefault value) attr;
+    pushDownDefault = attr: mapAttrs (_: value: mkDefault value) attr;
   };
 in
   binds

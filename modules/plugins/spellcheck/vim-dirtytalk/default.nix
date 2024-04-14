@@ -1,6 +1,6 @@
-_: {
+{
   imports = [
     ./config.nix
-    ./module.nix
+    ./vim-dirtytalk.nix
   ];
 }

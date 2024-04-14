@@ -1,5 +1,5 @@
 # From home-manager: https://github.com/nix-community/home-manager/blob/master/modules/lib/types-dag.nix
-# Used for ordering config text.
+# Used for ordering configuration text.
 {lib}: let
   inherit
     (lib)
@@ -59,8 +59,8 @@ in rec {
       name = "dagOf";
       description = "DAG of ${elemType.description}";
       inherit (attrEquivalent) check merge emptyValue;
+      inherit (elemType) getSubModules;
       getSubOptions = prefix: elemType.getSubOptions (prefix ++ ["<name>"]);
-      getSubModules = elemType.getSubModules;
       substSubModules = m: dagOf (elemType.substSubModules m);
       functor = (defaultFunctor name) // {wrapped = elemType;};
       nestedTypes.elemType = elemType;

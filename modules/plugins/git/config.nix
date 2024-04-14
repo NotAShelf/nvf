@@ -5,10 +5,8 @@
 }: let
   inherit (builtins) toJSON;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetExprBinding mkSetLuaBinding;
+  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetExprBinding mkSetLuaBinding pushDownDefault;
   inherit (lib.nvim.dag) entryAnywhere;
-  # TODO: move this to its own module
-  inherit (lib) pushDownDefault;
 
   cfg = config.vim.git;
 
