@@ -22,6 +22,16 @@ in {
 
   options.programs.neovim-flake = {
     enable = mkEnableOption "neovim-flake, the extensible neovim-wrapper";
+
+    builtPackage = mkOption {
+      type = anything;
+      default = builtPackage;
+      internal = true;
+      description = ''
+        The built neovim-flake package, wrapped with the user's configuration.
+      '';
+    };
+
     settings = mkOption {
       type = attrsOf anything;
       default = {};
