@@ -11,8 +11,8 @@
   inherit (lib.trivial) showWarnings;
   inherit (lib.types) bool str oneOf attrsOf nullOr attrs submodule lines;
   inherit (lib.nvim.types) dagOf;
-  inherit (lib.nvim.dag) entryAnywhere entryAfter topoSort;
   inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.dag) entryAnywhere entryAfter topoSort mkLuarcSection mkVimrcSection;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.vim) valToVim;
   inherit (lib.nvim.config) mkBool;
@@ -21,14 +21,13 @@
 
   wrapLuaConfig = luaConfig: ''
     lua << EOF
-    ${optionalString cfg.enableLuaLoader ''
-      vim.loader.enable()
-    ''}
+    ${optionalString cfg.enableLuaLoader "vim.loader.enable()"}
     ${luaConfig}
     EOF
   '';
 
-  # Most of the keybindings code is highly inspired by pta2002/nixvim. Thank you!
+  # Most of the keybindings code is highly inspired by pta2002/nixvim.
+  # Thank you!
   mapConfigOptions = {
     silent =
       mkBool false
@@ -230,11 +229,6 @@ in {
         else abort ("Dependency cycle in ${name}: " + toJSON sortedDag);
     in
       result;
-
-    mkSection = r: ''
-      -- SECTION: ${r.name}
-      ${r.data}
-    '';
   in {
     vim = {
       startPlugins = map (x: x.package) (attrValues cfg.extraPlugins);
@@ -242,7 +236,7 @@ in {
         globalsScript = entryAnywhere (concatStringsSep "\n" globalsScript);
 
         luaScript = let
-          mapResult = r: (wrapLuaConfig (concatStringsSep "\n" (map mkSection r)));
+          mapResult = result: (wrapLuaConfig (concatStringsSep "\n" (map mkLuarcSection result)));
           luaConfig = resolveDag {
             name = "lua config script";
             dag = cfg.luaConfigRC;
@@ -252,7 +246,7 @@ in {
           entryAfter ["globalsScript"] luaConfig;
 
         extraPluginConfigs = let
-          mapResult = r: (wrapLuaConfig (concatStringsSep "\n" (map mkSection r)));
+          mapResult = r: (wrapLuaConfig (concatStringsSep "\n" (map mkLuarcSection r)));
           extraPluginsDag = mapAttrs (_: {
             after,
             setup,
@@ -289,18 +283,15 @@ in {
       };
 
       builtConfigRC = let
+        # Catch assertions and warnings
+        # and throw for each failed assertion. If no assertions are found, show warnings.
         failedAssertions = map (x: x.message) (filter (x: !x.assertion) config.assertions);
-
         baseSystemAssertWarn =
           if failedAssertions != []
           then throw "\nFailed assertions:\n${concatStringsSep "\n" (map (x: "- ${x}") failedAssertions)}"
           else showWarnings config.warnings;
 
-        mkSection = r: ''
-          " SECTION: ${r.name}
-          ${r.data}
-        '';
-        mapResult = r: (concatStringsSep "\n" (map mkSection r));
+        mapResult = result: (concatStringsSep "\n" (map mkVimrcSection result));
         vimConfig = resolveDag {
           name = "vim config script";
           dag = cfg.configRC;
