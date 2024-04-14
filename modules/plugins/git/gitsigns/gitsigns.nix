@@ -8,7 +8,7 @@
   inherit (lib.nvim.binds) mkMappingOption;
 in {
   imports = [
-    (mkRenamedOptionModule ["vim" "git" "gitsigns" "codeActions" "vim" "gitsigns"] ["vim" "git" "gitsigns" "codeActions" "enable"])
+    (mkRenamedOptionModule ["vim" "git" "gitsigns" "codeActions" "vim" "gitsigns" "codeActions"] ["vim" "git" "gitsigns" "codeActions" "enable"])
   ];
 
   options.vim.git.gitsigns = {
