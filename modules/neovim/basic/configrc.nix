@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption;
+  inherit (lib.options) mkOption literalExpression;
   inherit (lib.strings) optionalString;
   inherit (lib.types) enum bool str int nullOr;
   inherit (lib.nvim.dag) entryAfter;
@@ -82,15 +82,8 @@ in {
     lineNumberMode = mkOption {
       type = enum ["relative" "number" "relNumber" "none"];
       default = "relNumber";
-      description = ''
-        How line numbers are displayed.
-
-        Available options are:
-        * none
-        * relative
-        * number
-        * relNumber
-      '';
+      example = literalExpression "none";
+      description = "How line numbers are displayed.";
     };
 
     preventJunkFiles = mkOption {
