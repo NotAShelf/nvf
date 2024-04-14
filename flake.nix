@@ -228,6 +228,11 @@
       flake = false;
     };
 
+    plugin-neo-tree-nvim = {
+      url = "github:nvim-neo-tree/neo-tree.nvim";
+      flake = false;
+    };
+
     # Tablines
     plugin-nvim-bufferline-lua = {
       url = "github:akinsho/nvim-bufferline.lua";
