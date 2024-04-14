@@ -29,6 +29,8 @@ inputs: let
         };
       };
 
+      vim.spellcheck.vim-dirtytalk.enable = true;
+
       vim.lsp = {
         formatOnSave = true;
         lspkind.enable = false;

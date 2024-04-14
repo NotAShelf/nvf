@@ -33,6 +33,7 @@
     "rich-presence"
     "session"
     "snippets"
+    "spellcheck"
     "statusline"
     "tabline"
     "terminal"
