@@ -8,7 +8,7 @@ packages: inputs: {
   inherit (lib) maintainers;
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.types) attrsOf package anything;
+  inherit (lib.types) attrsOf anything;
 
   cfg = config.programs.neovim-flake;
   inherit (import ../../configuration.nix inputs) neovimConfiguration;
@@ -24,7 +24,7 @@ in {
     enable = mkEnableOption "neovim-flake, the extensible neovim-wrapper";
 
     builtPackage = mkOption {
-      type = package;
+      type = anything;
       default = builtPackage;
       internal = true;
       description = ''

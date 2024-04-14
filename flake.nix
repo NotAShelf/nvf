@@ -33,6 +33,14 @@
 
           default = self.homeManagerModules.neovim-flake;
         };
+
+        nixosModules = {
+          neovim-flake = {
+            imports = [(import ./flake/modules/nixos.nix self.packages inputs)];
+          };
+
+          default = self.nixosModules.neovim-flake;
+        };
       };
 
       perSystem = {
