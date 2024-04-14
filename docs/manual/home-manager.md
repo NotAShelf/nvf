@@ -7,12 +7,16 @@ To use it, we first add the input flake.
 
 ```nix
 {
-  neovim-flake = {
-    url = github:notashelf/neovim-flake;
-    # you can override input nixpkgs
-    inputs.nixpkgs.follows = "nixpkgs";
-    # you can also override individual plugins
-    # i.e inputs.obsidian-nvim.follows = "obsidian-nvim"; # <- obsidian nvim needs to be in your inputs
+  inputs = {
+    obsidian-nvim.url = "github:epwalsh/obsidian.nvim";
+    neovim-flake = {
+      url = "github:notashelf/neovim-flake";
+      # you can override input nixpkgs
+      inputs.nixpkgs.follows = "nixpkgs";
+      # you can also override individual plugins
+      # for example:
+      inputs.obsidian-nvim.follows = "obsidian-nvim"; # <- this will use the obsidian-nvim from your inputs
+    };
   };
 }
 ```
@@ -26,14 +30,15 @@ Followed by importing the home-manager module somewhere in your configuration.
 }
 ```
 
-An example installation for standalone home-manager would look like this:
+An example installation for neovim-flake under standalone home-manager
+would look like this:
 
 ```nix
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
-    stylix.url = "github:notashelf/neovim-flake";
+    neovim-flake.url = "github:notashelf/neovim-flake";
   };
 
   outputs = { nixpkgs, home-manager, neovim-flake ... }: let
@@ -55,7 +60,6 @@ home-manager configuration.
 
 ```nix{
   programs.neovim-flake = {
-
     enable = true;
     # your settings need to go into the settings attribute set
     # most settings are documented in the appendix

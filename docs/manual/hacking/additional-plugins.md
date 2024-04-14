@@ -1,13 +1,14 @@
 # Adding Plugins {#sec-additional-plugins}
 
 To add a new neovim plugin, first add the source url in the inputs section of `flake.nix`
+with the prefix `plugin-`
 
 ```nix
 
 {
   inputs = {
     # ...
-    neodev-nvim = {
+    plugin-neodev-nvim = {
       url = "github:folke/neodev.nvim";
       flake = false;
     };
@@ -16,17 +17,13 @@ To add a new neovim plugin, first add the source url in the inputs section of `f
 }
 ```
 
-Then add the name of the plugin into the `availablePlugins` variable in `lib/types/plugins.nix`:
+The addition of the `plugin-` prefix will allow neovim-flake to autodiscover the
+input from the flake inputs automatically, allowing you to refer to it in areas
+that require a very specific plugin type as defined in `lib/types/plugins.nix`
 
-```nix
-# ...
-availablePlugins = [
-  # ...
-  "neodev-nvim"
-];
-```
-
-You can now reference this plugin using its string name:
+You can now reference this plugin using its string name, the plugin will be
+built with the name and source URL from the flake input, allowing you to
+refer to it as a **string**.
 
 ```nix
 config.vim.startPlugins = ["neodev-nvim"];
@@ -107,19 +104,23 @@ Now users can set any of the pre-defined option field, and can also add their ow
 
 ## Details of toLuaObject {#sec-details-of-toluaobject}
 
-As you've seen above, `toLuaObject` is used to convert our nix attrSet `cfg.setupOpts`, into a lua
-table. Here are some rules of the conversion:
+As you've seen above, `toLuaObject` is used to convert our nix attrSet
+`cfg.setupOpts`, into a lua table. Here are some rules of the conversion:
 
 1. nix `null` converts to lua `nil`
 2. number and strings convert to their lua counterparts
-3. nix attrSet/list converts into lua tables
-4. you can write raw lua code using `lib.generators.mkLuaInline`. This function is part of nixpkgs.
-   ```nix
-   vim.your-plugin.setupOpts = {
-     on_init = lib.generators.mkLuaInline ''
-       function()
-         print('we can write lua!')
-       end
-     '';
-   }
-   ```
+3. nix attrSet/list convert into lua tables
+4. you can write raw lua code using `lib.generators.mkLuaInline`. This
+   function is part of nixpkgs.
+
+Example:
+
+```nix
+vim.your-plugin.setupOpts = {
+  on_init = lib.generators.mkLuaInline ''
+    function()
+      print('we can write lua!')
+    end
+  '';
+}
+```
