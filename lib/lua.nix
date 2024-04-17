@@ -5,6 +5,16 @@
   inherit (lib.strings) concatStringsSep concatMapStringsSep stringToCharacters;
   inherit (lib.trivial) boolToString;
 in rec {
+  wrapLuaConfig = {
+    luaBefore ? "",
+    luaConfig,
+    luaAfter ? "",
+  }: ''
+    lua << EOF
+    ${concatStringsSep "\n" [luaBefore luaConfig luaAfter]}
+    EOF
+  '';
+
   # Convert a null value to lua's nil
   nullString = value:
     if value == null
