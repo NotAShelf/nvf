@@ -70,7 +70,7 @@ Release notes for release 0.6
   [vim.statusline.lualine.ignoreFocus](vim.statusline.lualine.ignoreFocus) and
   [vim.statusline.lualine.disabledFiletypes](vim.statusline.lualine.disabledFiletypes)
 
-- Updated all plugin inputs to their latest versions (14.04.2024) - this brought minor color changes to the Catppuccin
+- Updated all plugin inputs to their latest versions (**14.04.2024**) - this brought minor color changes to the Catppuccin
   theme.
 
 - Moved home-manager module entrypoint to `flake/modules` and added an experimental Nixos module. This requires further testing
@@ -88,6 +88,13 @@ Release notes for release 0.6
 
 - Added plugin auto-discovery from plugin inputs. This is mostly from
   [JordanIsaac's neovim-flake](https://github.com/jordanisaacs/neovim-flake)
+
+- Moved internal `wrapLuaConfig` to the extended library, structured its arguments to take `luaBefore`, `luaConfig`
+  and `luaAfter` as strings, which are then concatted inside a lua block.
+
+- Added [`vim.luaConfigBefore`](vim.luaConfigBefore) and [`vim.luaConfigAfter`](vim.luaConfigAfter)
+  for inserting verbatim Lua configuration before and after the resolved Lua DAG respectively. Both of those options
+  take strings as the type, so you may read the contents of a Lua file from a given path.
 
 [jacekpoz](https://github.com/jacekpoz):
 

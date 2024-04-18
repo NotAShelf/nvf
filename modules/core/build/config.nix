@@ -4,27 +4,20 @@
   ...
 }: let
   inherit (builtins) map mapAttrs toJSON filter;
-  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
   inherit (lib.attrsets) filterAttrs getAttrs attrValues attrNames;
   inherit (lib.strings) optionalString isString concatStringsSep;
   inherit (lib.misc) mapAttrsFlatten;
   inherit (lib.trivial) showWarnings;
-  inherit (lib.types) bool str oneOf attrsOf nullOr attrs submodule lines;
-  inherit (lib.nvim.types) dagOf;
+  inherit (lib.types) bool str oneOf attrsOf nullOr attrs submodule lines listOf;
   inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.dag) entryAnywhere entryAfter topoSort mkLuarcSection mkVimrcSection;
-  inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.nvim.lua) toLuaObject wrapLuaConfig;
   inherit (lib.nvim.vim) valToVim;
   inherit (lib.nvim.config) mkBool;
 
   cfg = config.vim;
-
-  wrapLuaConfig = luaConfig: ''
-    lua << EOF
-    ${optionalString cfg.enableLuaLoader "vim.loader.enable()"}
-    ${luaConfig}
-    EOF
-  '';
 
   # Most of the keybindings code is highly inspired by pta2002/nixvim.
   # Thank you!
@@ -123,28 +116,33 @@
 in {
   options = {
     vim = {
-      configRC = mkOption {
-        description = "vimrc contents";
-        type = oneOf [(dagOf lines) str];
-        default = {};
-      };
+      enableLuaLoader = mkEnableOption ''
+        the experimental Lua module loader to speed up the start up process
+      '';
 
-      luaConfigRC = mkOption {
-        description = "vim lua config";
-        type = oneOf [(dagOf lines) str];
-        default = {};
-      };
+      additionalRuntimePaths = mkOption {
+        type = listOf str;
+        default = [];
+        example = literalExpression ''["./nvim"]'';
+        description = ''
+          Additional runtime paths that will be appended to the
+          active runtimepath of the Neovim. This can be used to
+          add additional lookup paths for configs, plugins, spell
+          languages and other things you would generally place in
+          your `$HOME/.config/nvim`.
 
-      builtConfigRC = mkOption {
-        internal = true;
-        type = lines;
-        description = "The built config for neovim after resolving the DAG";
+          This is meant as a declarative alternative to throwing
+          files into `~/.config/nvim` and having the Neovim
+          wrapper pick them up. For more details on
+          `vim.o.runtimepath`, and what paths to use; please see
+          [the official documentation](https://neovim.io/doc/user/options.html#'runtimepath')
+        '';
       };
 
       globals = mkOption {
         default = {};
-        description = "Set containing global variable values";
         type = attrs;
+        description = "Set containing global variable values";
       };
 
       maps = mkOption {
@@ -168,7 +166,7 @@ in {
         description = ''
           Custom keybindings for any mode.
 
-          For plain maps (e.g. just 'map' or 'remap') use maps.normalVisualOp.
+          For plain maps (e.g. just 'map' or 'remap') use `maps.normalVisualOp`.
         '';
 
         example = ''
@@ -181,9 +179,103 @@ in {
         '';
       };
 
-      enableLuaLoader = mkEnableOption ''
-        experimental Lua module loader to speed up the start up process
-      '';
+      configRC = mkOption {
+        type = oneOf [(dagOf lines) str];
+        default = {};
+        description = ''
+          Contents of vimrc, either as a string or a DAG.
+
+          If this option is passed as a DAG, it will be resolved
+          according to the DAG resolution rules (e.g. entryBefore
+          or entryAfter) as per the neovim-flake library.
+        '';
+
+        example = literalMD ''
+          ```vim
+          " Set the tab size to 4 spaces
+          set tabstop=4
+          set shiftwidth=4
+          set expandtab
+          ```
+        '';
+      };
+
+      luaConfigPre = mkOption {
+        type = str;
+        default = let
+          additionalRuntimePaths = concatStringsSep "," cfg.additionalRuntimePaths;
+        in ''
+          ${optionalString (cfg.additionalRuntimePaths != []) ''
+            if not vim.o.runtimepath:find('${additionalRuntimePaths}', 1, true) then
+                vim.o.runtimepath = vim.o.runtimepath .. ',' .. '${additionalRuntimePaths}'
+            end
+          ''}
+
+          ${optionalString cfg.enableLuaLoader "vim.loader.enable()"}
+        '';
+
+        defaultText = literalMD ''
+          By default, this option will **append** paths in
+          [vim.additionalRuntimePaths](#opt-vim.additionalRuntimePaths)
+          to the `runtimepath` and enable the experimental Lua module loader
+          if [vim.enableLuaLoader](#opt-vim.enableLuaLoader) is set to true.
+        '';
+
+        description = ''
+          Verbatim lua code that will be inserted **before**
+          the result of `luaConfigRc` DAG has been resolved.
+
+          This option **does not** take a DAG set, but a string
+          instead. Useful when you'd like to insert contents
+          of lua configs after the DAG result.
+
+          ::: {.warning}
+          You do not want to override this option. It is used
+          internally to set certain options as early as possible
+          and should be avoided unless you know what you're doing.
+          :::
+        '';
+      };
+
+      luaConfigRC = mkOption {
+        type = oneOf [(dagOf lines) str];
+        default = {};
+        description = ''
+          Lua configuration, either as a string or a DAG.
+
+          If this option is passed as a DAG, it will be resolved
+          according to the DAG resolution rules (e.g. entryBefore
+          or entryAfter) as per the neovim-flake library.
+        '';
+
+        example = literalMD ''
+          ```lua
+          -- Set the tab size to 4 spaces
+          vim.opt.tabstop = 4
+          vim.opt.shiftwidth = 4
+          vim.opt.expandtab = true
+          ```
+        '';
+      };
+
+      luaConfigPost = mkOption {
+        type = str;
+        default = "";
+        description = ''
+          Verbatim lua code that will be inserted after
+          the result of the `luaConfigRc` DAG has been resolved
+
+          This option **does not** take a DAG set, but a string
+          instead. Useful when you'd like to insert contents
+          of lua configs after the DAG result.
+        '';
+      };
+
+      builtConfigRC = mkOption {
+        internal = true;
+        type = lines;
+        description = "The built config for neovim after resolving the DAG";
+      };
     };
   };
 
@@ -235,8 +327,15 @@ in {
       configRC = {
         globalsScript = entryAnywhere (concatStringsSep "\n" globalsScript);
 
+        # wrap the lua config in a lua block
+        # using the wrapLuaConfic function from the lib
         luaScript = let
-          mapResult = result: (wrapLuaConfig (concatStringsSep "\n" (map mkLuarcSection result)));
+          mapResult = result: (wrapLuaConfig {
+            luaBefore = "${cfg.luaConfigPre}";
+            luaConfig = concatStringsSep "\n" (map mkLuarcSection result);
+            luaAfter = "${cfg.luaConfigPost}";
+          });
+
           luaConfig = resolveDag {
             name = "lua config script";
             dag = cfg.luaConfigRC;
@@ -246,7 +345,10 @@ in {
           entryAfter ["globalsScript"] luaConfig;
 
         extraPluginConfigs = let
-          mapResult = r: (wrapLuaConfig (concatStringsSep "\n" (map mkLuarcSection r)));
+          mapResult = result: (wrapLuaConfig {
+            luaConfig = concatStringsSep "\n" (map mkLuarcSection result);
+          });
+
           extraPluginsDag = mapAttrs (_: {
             after,
             setup,
@@ -254,6 +356,7 @@ in {
           }:
             entryAfter after setup)
           cfg.extraPlugins;
+
           pluginConfig = resolveDag {
             name = "extra plugins config";
             dag = extraPluginsDag;
@@ -277,7 +380,7 @@ in {
             icmap
             allmap
           ];
-          mapConfig = wrapLuaConfig (concatStringsSep "\n" (map (v: concatStringsSep "\n" v) maps));
+          mapConfig = wrapLuaConfig {luaConfig = concatStringsSep "\n" (map (v: concatStringsSep "\n" v) maps);};
         in
           entryAfter ["globalsScript"] mapConfig;
       };
