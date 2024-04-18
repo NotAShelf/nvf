@@ -8,7 +8,7 @@ it to your configuration locally.
 
 ## Adding Plugins {#ch-adding-plugins}
 
-There are multiple way of adding custom plugins to your neovim-flake
+There are multiple ways of adding custom plugins to your neovim-flake
 configuration.
 
 You can use custom plugins, before they are implemented in the flake. To add a
