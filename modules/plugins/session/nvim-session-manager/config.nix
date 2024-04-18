@@ -3,8 +3,11 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf optionals mkMerge mkBinding nvim;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.lists) optionals;
   inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.binds) mkBinding;
 
   cfg = config.vim.session.nvim-session-manager;
 in {
@@ -25,7 +28,7 @@ in {
         # TODO: load_current_dir_session
       ];
 
-      luaConfigRC.nvim-session-manager = nvim.dag.entryAnywhere ''
+      luaConfigRC.nvim-session-manager = entryAnywhere ''
         local Path = require('plenary.path')
         local sm = require('session_manager.config')
         require('session_manager').setup(${toLuaObject cfg.setupOpts})
