@@ -1,16 +1,4 @@
-# Custom Configuration {#ch-custom-configuration}
-
-Custom configuration is done with the `neovimConfiguration` while using the flake as a standalone package.
-It takes in the configuration as a module. The output of the configuration function is an attrset.
-
-```nix
-{
-  options = "The options that were available to configure";
-  config = "The outputted configuration";
-  pkgs = "The package set used to evaluate the module";
-  neovim = "The built neovim package";
-}
-```
+# Standalone Installation (NixOS) {#ch-standalone-nixos}
 
 The following is an example of a barebones vim configuration with the default theme enabled.
 
@@ -60,4 +48,4 @@ The following is an example of a barebones vim configuration with the default th
 
 Your built neovim configuration can be exposed as a flake output, or be added to your system packages to make
 it available across your system. You may also consider passing the flake output to home-manager to make it available
-to a specific user _without_ using the home-manager module.
+to a specific user.

@@ -1,4 +1,4 @@
-# Home Manager {#ch-hm-module}
+# Home Manager Module {#ch-hm-module}
 
 The Home Manager module allows us to customize the different `vim` options from inside the home-manager configuration
 and it is the preferred way of configuring neovim-flake, both on NixOS and non-NixOS systems.

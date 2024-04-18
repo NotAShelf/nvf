@@ -2,11 +2,17 @@
   inputs,
   pkgs,
   lib ? import ../lib/stdlib-extended.nix pkgs.lib inputs,
+  manpageUrls ? pkgs.path + "/doc/manpage-urls.json",
   ...
 }: let
   inherit (lib.modules) mkForce evalModules;
   inherit (lib.strings) hasPrefix removePrefix;
   inherit (lib.attrsets) isAttrs mapAttrs optionalAttrs recursiveUpdate isDerivation;
+  inherit (builtins) fromJSON readFile;
+
+  # release data
+  release-config = fromJSON (readFile ../release.json);
+  revision = release-config.release;
 
   # From home-manager:
   #
@@ -54,11 +60,14 @@
   buildOptionsDocs = args @ {
     modules,
     includeModuleSystemOptions ? true,
+    warningsAreErrors ? true,
     ...
   }: let
     inherit ((evalModules {inherit modules;})) options;
 
     # Declaration of the Github site URL.
+    # Takes a user, repo, and subpath, and returns a declaration site
+    # as a string.
     githubDeclaration = user: repo: subpath: let
       urlRef = "github.com";
       branch = "main";
@@ -68,10 +77,13 @@
     };
   in
     pkgs.buildPackages.nixosOptionsDoc ({
+        inherit warningsAreErrors;
+
         options =
           if includeModuleSystemOptions
           then options
           else builtins.removeAttrs options ["_module"];
+
         transformOptions = opt:
           recursiveUpdate opt {
             # Clean up declaration sites to not refer to the neovim-flakee
@@ -93,17 +105,15 @@
       // builtins.removeAttrs args ["modules" "includeModuleSystemOptions"]);
 
   nvimModuleDocs = buildOptionsDocs {
+    variablelistId = "neovim-flake-options";
+
     modules =
       import ../modules/modules.nix {
         inherit lib pkgs;
         check = false;
       }
       ++ [scrubbedPkgsModule];
-    variablelistId = "neovim-flake-options";
   };
-
-  release-config = builtins.fromJSON (builtins.readFile ../release.json);
-  revision = "release-${release-config.release}";
 
   # Generate the `man home-configuration.nix` package
   nvf-configuration-manual =
@@ -125,8 +135,7 @@
 
   # Generate the HTML manual pages
   neovim-flake-manual = pkgs.callPackage ./manual.nix {
-    inherit (inputs) nmd;
-    inherit revision;
+    inherit revision manpageUrls;
     outputPath = "share/doc/neovim-flake";
     options = {
       neovim-flake = nvimModuleDocs.optionsJSON;

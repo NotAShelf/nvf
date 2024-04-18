@@ -1,6 +1,6 @@
 # New Method {#sec-new-method}
 
-As of version 0.5, we have a more extensive API for configuring plugins, under `vim.extraPlugins`.
+As of version **0.5**, we have a more extensive API for configuring plugins, under `vim.extraPlugins`.
 
 Instead of using DAGs exposed by the library, you may use the extra plugin module as follows:
 
