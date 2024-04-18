@@ -3,7 +3,7 @@
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
-  options.vim.filetree.nvimTree = {
+  options.vim.filetree.neo-tree = {
     enable = mkEnableOption "filetree via neo-tree.nvim";
 
     # Permalink:
@@ -67,6 +67,7 @@ in {
         This will make the git status check async and will not block the UI.
       '';
 
+      /*
       git_status_async_options = mkOption {
         description = "These options are for people with VERY large git repos";
         type = submodule {
@@ -94,6 +95,7 @@ in {
           };
         };
       };
+      */
 
       hide_root_node = mkOption {
         type = bool;
@@ -144,7 +146,7 @@ in {
       open_files_do_not_replace_types = mkOption {
         type = listOf str;
         default = ["terminal" "Trouble" "qf" "edgy"];
-        descriptin = ''
+        description = ''
           A list of filetypes that should not be replaced when opening a file
         '';
       };

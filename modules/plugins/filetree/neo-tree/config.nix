@@ -5,7 +5,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.dag) entryAnywhere;
-  inherit (lib.toLuaObject) toLuaObject;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.filetree.neo-tree;
 in {
@@ -20,7 +20,7 @@ in {
         "neo-tree-nvim"
       ];
 
-      luaConfigRc.neo-tree = entryAnywhere ''
+      luaConfigRC.neo-tree = entryAnywhere ''
         require("neo-tree").setup(${toLuaObject cfg.setupOpts})
       '';
     };
