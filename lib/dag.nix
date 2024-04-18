@@ -8,10 +8,10 @@
 #  - the addition of the function `entryBefore` indicating a "wanted
 #    by" relationship.
 {lib}: let
-  inherit (builtins) isAttrs attrValues attrNames elem all;
+  inherit (builtins) isAttrs attrValues attrNames elem all head tail length;
   inherit (lib.attrsets) filterAttrs mapAttrs;
   inherit (lib.lists) toposort;
-  inherit (lib.nvim.dag) isEntry entryBetween;
+  inherit (lib.nvim.dag) empty isEntry entryBetween entryAfter entriesBetween;
 in {
   empty = {};
 
@@ -108,6 +108,41 @@ in {
   entryAfter = entryBetween [];
   entryBefore = before: entryBetween before [];
 
+  # Given a list of entries, this function places them in order within the DAG.
+  # Each entry is labeled "${tag}-${entry index}" and other DAG entries can be
+  # added with 'before' or 'after' referring these indexed entries.
+  #
+  # The entries as a whole can be given a relation to other DAG nodes. All
+  # generated nodes are then placed before or after those dependencies.
+  entriesBetween = tag: let
+    go = i: before: after: entries: let
+      name = "${tag}-${toString i}";
+      i' = i + 1;
+    in
+      if entries == []
+      then empty
+      else if length entries == 1
+      then {
+        "${name}" = entryBetween before after (head entries);
+      }
+      else
+        {
+          "${name}" = entryAfter after (head entries);
+        }
+        // go (i + 1) before [name] (tail entries);
+  in
+    go 0;
+
+  entriesAnywhere = tag: entriesBetween tag [] [];
+  entriesAfter = tag: entriesBetween tag [];
+  entriesBefore = tag: before: entriesBetween tag before [];
+
+  # mkLuarcSection and mkVimrcSection take a section DAG
+  # and return a string containing a comment to identify
+  # the section, and the data contained within the section
+  #
+  # all operations are done without any modifications
+  # to the inputted section data
   mkLuarcSection = section: ''
     -- SECTION: ${section.name}
     ${section.data}
