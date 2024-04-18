@@ -1,16 +1,19 @@
 {
-  stdenv,
   lib,
-  documentation-highlighter,
-  revision,
-  outputPath ? "share/doc/neovim-flake",
-  options,
+  stdenvNoCC,
+  # build inputs
   nixos-render-docs,
+  documentation-highlighter,
+  # nrd configuration
+  manpageUrls,
+  revision,
+  options,
+  outputPath ? "share/doc/neovim-flake",
 }:
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   name = "neovim-flake-manual";
   src = builtins.path {
-    path = ./manual;
+    path = lib.sourceFilesBySuffices ./manual [".md"];
     name = "neovim-flake-manual";
   };
 
@@ -43,7 +46,7 @@ stdenv.mkDerivation {
 
     # generate manual from
     nixos-render-docs manual html \
-      --manpage-urls ./manpage-urls.json \
+      --manpage-urls ${manpageUrls} \
       --revision ${lib.trivial.revisionWithDefault revision} \
       --stylesheet style.css \
       --script highlightjs/highlight.pack.js \
