@@ -34,16 +34,16 @@ in {
       };
     };
 
-    disableNetrw = mkOption {
-      default = false;
-      description = "Disables netrw and replaces it with tree";
-      type = bool;
-    };
-
     setupOpts = mkPluginSetupOption "Nvim Tree" {
       hijack_netrw = mkOption {
         default = true;
         description = "Prevents netrw from automatically opening when opening directories";
+        type = bool;
+      };
+
+      disable_netrw = mkOption {
+        default = false;
+        description = "Disables netrw and replaces it with tree";
         type = bool;
       };
 
