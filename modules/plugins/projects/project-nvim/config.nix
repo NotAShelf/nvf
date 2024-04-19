@@ -3,7 +3,9 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf nvim;
+  inherit (lib.modules) mkIf;
+  inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.projects.project-nvim;
 in {
@@ -12,8 +14,8 @@ in {
       "project-nvim"
     ];
 
-    vim.luaConfigRC.project-nvim = nvim.dag.entryAnywhere ''
-      require('project_nvim').setup(${nvim.lua.toLuaObject cfg.setupOpts})
+    vim.luaConfigRC.project-nvim = entryAnywhere ''
+      require('project_nvim').setup(${toLuaObject cfg.setupOpts})
     '';
   };
 }

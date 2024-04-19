@@ -1,7 +1,9 @@
 {lib, ...}: let
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.nvim.binds) mkMappingOption;
-  inherit (lib) types mkRenamedOptionModule;
+  inherit (lib.nvim.types) mkPluginSetupOption;
+  inherit (lib.types) enum int;
+  inherit (lib.modules) mkRenamedOptionModule;
 in {
   imports = let
     renamedSetupOption = oldPath: newPath:
@@ -18,9 +20,9 @@ in {
   options.vim.lsp.nvim-docs-view = {
     enable = mkEnableOption "nvim-docs-view, for displaying lsp hover documentation in a side panel.";
 
-    setupOpts = lib.nvim.types.mkPluginSetupOption "nvim-docs-view" {
+    setupOpts = mkPluginSetupOption "nvim-docs-view" {
       position = mkOption {
-        type = types.enum ["left" "right" "top" "bottom"];
+        type = enum ["left" "right" "top" "bottom"];
         default = "right";
         description = ''
           Where to open the docs view panel
@@ -28,7 +30,7 @@ in {
       };
 
       height = mkOption {
-        type = types.int;
+        type = int;
         default = 10;
         description = ''
           Height of the docs view panel if the position is set to either top or bottom
@@ -36,7 +38,7 @@ in {
       };
 
       width = mkOption {
-        type = types.int;
+        type = int;
         default = 60;
         description = ''
           Width of the docs view panel if the position is set to either left or right
@@ -44,7 +46,7 @@ in {
       };
 
       update_mode = mkOption {
-        type = types.enum ["auto" "manual"];
+        type = enum ["auto" "manual"];
         default = "auto";
         description = ''
           Determines the mechanism used to update the docs view panel content.

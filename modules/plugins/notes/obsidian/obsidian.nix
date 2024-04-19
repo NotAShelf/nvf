@@ -3,7 +3,10 @@
   lib,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption types mkRenamedOptionModule;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.types) bool str nullOr;
+  inherit (lib.modules) mkRenamedOptionModule;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   imports = let
     renamedSetupOption = oldPath: newPath:
@@ -20,21 +23,21 @@ in {
     obsidian = {
       enable = mkEnableOption "complementary neovim plugins for Obsidian editor";
 
-      setupOpts = lib.nvim.types.mkPluginSetupOption "Obsidian.nvim" {
+      setupOpts = mkPluginSetupOption "Obsidian.nvim" {
         dir = mkOption {
-          type = types.str;
+          type = str;
           default = "~/my-vault";
           description = "Obsidian vault directory";
         };
 
         daily_notes = {
           folder = mkOption {
-            type = types.nullOr types.str;
+            type = nullOr str;
             default = null;
             description = "Directory in which daily notes should be created";
           };
           date_format = mkOption {
-            type = types.nullOr types.str;
+            type = nullOr str;
             default = null;
             description = "Date format used for creating daily notes";
           };
@@ -43,7 +46,7 @@ in {
         completion = {
           nvim_cmp = mkOption {
             # if using nvim-cmp, otherwise set to false
-            type = types.bool;
+            type = bool;
             description = "If using nvim-cmp, otherwise set to false";
             default = config.vim.autocomplete.type == "nvim-cmp";
           };
