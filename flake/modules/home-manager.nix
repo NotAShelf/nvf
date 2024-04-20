@@ -7,7 +7,7 @@ packages: inputs: {
 }: let
   inherit (lib) maintainers;
   inherit (lib.modules) mkIf;
-  inherit (lib.lists) optionals;
+  inherit (lib.lists) optional;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) attrsOf anything bool;
 
@@ -81,7 +81,7 @@ in {
       sessionVariables = mkIf cfg.defaultEditor {EDITOR = "nvim";};
       packages =
         [cfg.finalPackage]
-        ++ optionals cfg.enableManpages packages.${pkgs.stdenv.system}.docs-manpages;
+        ++ optional cfg.enableManpages packages.${pkgs.stdenv.system}.docs-manpages;
     };
   };
 }

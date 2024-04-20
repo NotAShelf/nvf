@@ -7,7 +7,7 @@ packages: inputs: {
 }: let
   inherit (lib) maintainers;
   inherit (lib.modules) mkIf mkOverride;
-  inherit (lib.lists) optionals;
+  inherit (lib.lists) optional;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) attrsOf anything bool;
 
@@ -81,7 +81,7 @@ in {
       variables.EDITOR = mkIf cfg.defaultEditor (mkOverride 900 "nvim");
       systemPackages =
         [cfg.finalPackage]
-        ++ optionals cfg.enableManpages packages.${pkgs.stdenv.system}.docs-manpages;
+        ++ optional cfg.enableManpages packages.${pkgs.stdenv.system}.docs-manpages;
     };
   };
 }
