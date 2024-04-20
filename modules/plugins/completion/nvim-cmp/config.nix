@@ -188,7 +188,6 @@ in {
         vim_item.menu = ({
           ${builtMaps}
         })[entry.source.name]
-        print(vim_item.menu)
         return vim_item
       end
 
