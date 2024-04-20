@@ -5,7 +5,7 @@
 }: let
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
   inherit (lib.strings) optionalString;
-  inherit (lib.types) str oneOf attrs lines listOf either path;
+  inherit (lib.types) str oneOf attrs lines listOf either path bool;
   inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.lua) listToLuaTable;
   cfg = config.vim;
@@ -13,6 +13,15 @@ in {
   options.vim = {
     enableLuaLoader = mkEnableOption ''
       the experimental Lua module loader to speed up the start up process
+
+      If `true`, this will enable the experimental Lua module loader which:
+        - overrides loadfile
+        - adds the lua loader using the byte-compilation cache
+        - adds the libs loader
+        - removes the default Neovim loader
+
+      This is disabled by default. Before setting this option, please
+      take a look at the [{option}`official documentation`](https://neovim.io/doc/user/lua.html#vim.loader.enable()).
     '';
 
     additionalRuntimePaths = mkOption {
@@ -20,10 +29,11 @@ in {
       default = [];
       example = literalExpression ''
         [
-          "~/.config/nvim-extra" # absolute path, as a string - impure
+          "$HOME/.config/nvim-extra" # absolute path, as a string - impure
           ./nvim # relative path, as a path - pure
         ]
       '';
+
       description = ''
         Additional runtime paths that will be appended to the
         active runtimepath of the Neovim. This can be used to
