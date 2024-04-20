@@ -49,16 +49,15 @@ in {
   batchRenameOptions = oldBasePath: newBasePath: mappings: let
     genSetupOptRenames = oldSubpath: newSubpath: table:
       mapAttrsToList (
-        oldName: newNameOrAttr:
-          if builtins.isAttrs newNameOrAttr
+        oldName: newNameOrNestedOpts:
+          if builtins.isAttrs newNameOrNestedOpts
           then
-            genSetupOptRenames (oldSubpath ++ [oldName]) (newSubpath
-              ++ [newNameOrAttr._name or oldName])
-            newNameOrAttr
+            genSetupOptRenames (oldSubpath ++ [oldName]) (newSubpath ++ [newNameOrNestedOpts._name or oldName])
+            (builtins.removeAttrs newNameOrNestedOpts ["_name"])
           else
             mkRenamedOptionModule
             (oldBasePath ++ oldSubpath ++ [oldName])
-            (newBasePath ++ newSubpath ++ [newNameOrAttr])
+            (newBasePath ++ newSubpath ++ [newNameOrNestedOpts])
       )
       table;
   in
