@@ -5,7 +5,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.dag) entryAfter;
-  cfg = config.vim.spellChecking;
+  cfg = config.vim.spellcheck;
 in {
   config = mkIf (cfg.enable && cfg.programmingWordlist.enable) {
     vim = {
