@@ -51,7 +51,7 @@ stdenv.mkDerivation {
       --stylesheet highlightjs/tomorrow-night.min.css \
       --stylesheet highlightjs/highlight-style.css \
       --toc-depth 2 \
-      --section-toc-depth 2 \
+      --section-toc-depth 1 \
       manual.md \
       out/index.xhtml
   '';
