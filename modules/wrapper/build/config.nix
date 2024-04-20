@@ -13,7 +13,7 @@
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.dag) entryAnywhere entryAfter topoSort mkLuarcSection mkVimrcSection;
-  inherit (lib.nvim.lua) toLuaObject wrapLuaConfig;
+  inherit (lib.nvim.lua) toLuaObject wrapLuaConfig listToLuaTable;
   inherit (lib.nvim.vim) valToVim;
   inherit (lib.nvim.config) mkBool;
 
@@ -207,12 +207,15 @@ in {
 
       luaConfigPre = mkOption {
         type = str;
-        default = let
-          additionalRuntimePaths = concatStringsSep "," cfg.additionalRuntimePaths;
-        in ''
+        default = ''
           ${optionalString (cfg.additionalRuntimePaths != []) ''
-            if not vim.o.runtimepath:find('${additionalRuntimePaths}', 1, true) then
-                vim.o.runtimepath = vim.o.runtimepath .. ',' .. '${additionalRuntimePaths}'
+            -- The following list is generated from `vim.additionalRuntimePaths`
+            -- and is used to append additional runtime paths to the
+            -- `runtimepath` option.
+            local additionalRuntimePaths = ${listToLuaTable cfg.additionalRuntimePaths};
+
+            for _, path in ipairs(additionalRuntimePaths) do
+              vim.opt.runtimepath:append(path)
             end
           ''}
 
@@ -226,7 +229,7 @@ in {
           if [vim.enableLuaLoader](#opt-vim.enableLuaLoader) is set to true.
         '';
 
-        description = ''
+        description = literalMD ''
           Verbatim lua code that will be inserted **before**
           the result of `luaConfigRc` DAG has been resolved.
 

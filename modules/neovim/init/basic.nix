@@ -145,6 +145,7 @@ in {
       default = true;
       description = "New splits will open to the right";
     };
+
     enableEditorconfig = mkOption {
       type = bool;
       default = true;
@@ -167,24 +168,18 @@ in {
   config.vim.configRC.basic = entryAfter ["globalsScript"] ''
     " Settings that are set for everything
     set encoding=utf-8
+    set hidden
+    set shortmess+=c
+    set expandtab
     set mouse=${cfg.mouseSupport}
     set tabstop=${toString cfg.tabWidth}
     set shiftwidth=${toString cfg.tabWidth}
     set softtabstop=${toString cfg.tabWidth}
-    set expandtab
     set cmdheight=${toString cfg.cmdHeight}
     set updatetime=${toString cfg.updateTime}
-    set shortmess+=c
     set tm=${toString cfg.mapTimeout}
-    set hidden
     set cursorlineopt=${toString cfg.cursorlineOpt}
     set scrolloff=${toString cfg.scrollOffset}
-
-    ${optionalString cfg.debugMode.enable ''
-      " Debug mode settings
-      set verbose=${toString cfg.debugMode.level}
-      set verbosefile=${cfg.debugMode.logFile}
-    ''}
 
     ${optionalString cfg.splitBelow ''
       set splitbelow
