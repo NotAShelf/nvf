@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkRenamedOptionModule;
+  inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) nullOr str enum float;
   inherit (lib.nvim.types) mkPluginSetupOption;

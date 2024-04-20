@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkMerge mkIf;
+  inherit (lib.modules) mkMerge mkIf;
   inherit (lib.nvim.binds) mkBinding;
   inherit (lib.nvim.lua) toLuaObject;
 

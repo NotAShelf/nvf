@@ -6,7 +6,7 @@
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.types) nullOr str enum bool package either int;
-  inherit (lib) mkRenamedOptionModule;
+  inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   inherit (lib.generators) mkLuaInline;
 in {
