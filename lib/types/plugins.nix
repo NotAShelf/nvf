@@ -56,10 +56,11 @@ in {
 
   pluginsOpt = {
     description,
+    example,
     default ? [],
   }:
     mkOption {
-      inherit description default;
+      inherit example description default;
       type = pluginsType;
     };
 
