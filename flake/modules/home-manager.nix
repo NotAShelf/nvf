@@ -6,7 +6,7 @@ packages: inputs: {
   ...
 }: let
   inherit (lib) maintainers;
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf;
   inherit (lib.lists) optionals;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) attrsOf anything bool;
@@ -75,10 +75,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    programs.neovim-flake.finalPackage = neovimConfigured.neovim-wrapped;
+    programs.neovim-flake.finalPackage = neovimConfigured.neovim;
 
     home = {
-      sessionVariables.EDITOR = mkIf cfg.defaultEditor (lib.mkOverride 900 "nvim");
+      sessionVariables = mkIf cfg.defaultEditor {EDITOR = "nvim";};
       packages =
         [cfg.finalPackage]
         ++ optionals cfg.enableManpages packages.${pkgs.stdenv.system}.docs-manpages;
