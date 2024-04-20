@@ -6,9 +6,10 @@ packages: inputs: {
   ...
 }: let
   inherit (lib) maintainers;
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.lists) optionals;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.types) attrsOf anything;
+  inherit (lib.types) attrsOf anything bool;
 
   cfg = config.programs.neovim-flake;
   inherit (import ../../configuration.nix inputs) neovimConfiguration;
@@ -21,7 +22,24 @@ in {
   meta.maintainers = with maintainers; [NotAShelf];
 
   options.programs.neovim-flake = {
-    enable = mkEnableOption "neovim-flake, the extensible neovim-wrapper";
+    enable = mkEnableOption "neovim-flake, the extensible neovim configuration wrapper";
+
+    enableManpages = mkOption {
+      type = bool;
+      default = false;
+      description = "Whether to enable manpages for neovim-flake.";
+    };
+
+    defaultEditor = mkOption {
+      type = bool;
+      default = false;
+      description = ''
+        Whether to set `neovim-flake` as the default editor.
+
+        This will set the `EDITOR` environment variable as `nvim`
+        if set to true.
+      '';
+    };
 
     finalPackage = mkOption {
       type = anything;
@@ -56,9 +74,16 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
-    home.packages = [cfg.finalPackage];
+  config = mkIf cfg.enable mkMerge [
+    {
+      programs.neovim-flake.finalPackage = neovimConfigured.neovim;
 
-    programs.neovim-flake.finalPackage = neovimConfigured.neovim;
-  };
+      home = {
+        sessionVariables.EDITOR = mkIf cfg.defaultEditor (lib.mkOverride 900 "nvim");
+        packages =
+          [cfg.finalPackage]
+          ++ optionals cfg.enableManpages packages.${pkgs.stdenv.system}.docs-manpages;
+      };
+    }
+  ];
 }
