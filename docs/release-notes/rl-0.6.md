@@ -2,6 +2,41 @@
 
 Release notes for release 0.6
 
+## Breaking Changes and Migration Guide
+
+In v0.6 we are introducing `setupOpts`: many plugin related options are moved into their respective `setupOpts`
+submodule, e.g. `nvimTree.disableNetrw` is renamed to `nvimTree.setupOpts.disable_netrw`.
+
+_Why?_ in short, you can now pass in anything to setupOpts and it will be passed to your `require'plugin'.setup{...}`.
+No need to wait for us to support every single plugin option.
+
+The warnings when you rebuild your config should be enough to guide you through what you need to do, if there's an
+option that was renamed but wasn't listed in the warning, please file a bug report!
+
+To make your migration process less annoying, here's a keybind that will help you with renaming stuff from camelCase to
+snake_case (you'll be doing that a lot):
+
+```lua
+-- paste this in a temp.lua file and load it in vim with :source /path/to/temp.lua
+function camelToSnake()
+    -- Get the current word under the cursor
+    local word = vim.fn.expand("<cword>")
+    -- Replace each capital letter with an underscore followed by its lowercase equivalent
+    local snakeCase = string.gsub(word, "%u", function(match)
+        return "_" .. string.lower(match)
+    end)
+    -- Remove the leading underscore if present
+    if string.sub(snakeCase, 1, 1) == "_" then
+        snakeCase = string.sub(snakeCase, 2)
+    end
+    vim.fn.setreg(vim.v.register, snakeCase)
+    -- Select the word under the cursor and paste
+    vim.cmd("normal! viwP")
+end
+
+vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap = true, silent = true })
+```
+
 ## Changelog {#sec-release-0.6-changelog}
 
 [ksonj](https://github.com/ksonj):
