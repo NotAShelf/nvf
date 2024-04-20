@@ -27,7 +27,7 @@ inputs: let
         logFile = "/tmp/nvim.log";
       };
 
-      spellChecking = {
+      spellcheck = {
         enable = isMaximal;
         programmingWordlist.enable = isMaximal;
       };
