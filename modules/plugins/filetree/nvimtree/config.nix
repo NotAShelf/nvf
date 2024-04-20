@@ -31,7 +31,7 @@ in {
 
     vim.luaConfigRC.nvimtreelua = entryAnywhere ''
       ${
-        optionalString cfg.disableNetrw ''
+        optionalString cfg.setupOpts.disable_netrw ''
           -- disable netrew completely
           vim.g.loaded_netrw = 1
           vim.g.loaded_netrwPlugin = 1
