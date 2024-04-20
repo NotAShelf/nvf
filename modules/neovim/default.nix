@@ -1,8 +1,6 @@
 {
   imports = [
-    ./basic
+    ./init
     ./mappings
-
-    ./config.nix
   ];
 }

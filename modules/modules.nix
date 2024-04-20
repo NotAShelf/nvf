@@ -6,16 +6,17 @@
   inherit (lib.modules) mkDefault;
   inherit (lib.lists) concatLists;
 
-  core = map (p: ./core + "/${p}") [
-    "build"
-    "warnings"
-  ];
-
+  # The core neovim modules.
+  # Contains configuration for core neovim features
+  # such as spellchecking, mappings, and the init script (init.vim).
   neovim = map (p: ./neovim + "/${p}") [
-    "basic"
+    "init"
     "mappings"
   ];
 
+  # Individual plugin modules, separated by the type of plugin.
+  # While adding a new type, you must make sure your type is
+  # included in the list below.
   plugins = map (p: ./plugins + "/${p}") [
     "assistant"
     "autopairs"
@@ -44,7 +45,14 @@
     "visuals"
   ];
 
-  allModules = concatLists [core neovim plugins];
+  # The neovim wrapper, used to build a wrapped neovim package
+  # using the configuration passed in `neovim` and `plugins` modules.
+  wrapper = map (p: ./wrapper + "/${p}") [
+    "build"
+    "warnings"
+  ];
+
+  allModules = concatLists [neovim plugins wrapper];
 
   pkgsModule = {config, ...}: {
     config = {

@@ -1,6 +1,7 @@
 {
   imports = [
-    ./configrc.nix
+    ./basic.nix
+    ./debug.nix
     ./spellcheck.nix
   ];
 }

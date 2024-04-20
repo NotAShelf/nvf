@@ -7,9 +7,11 @@ inputs: let
     lib ? pkgs.lib,
     check ? true,
     extraSpecialArgs ? {},
+    extraModules ? [],
+    ...
   }:
     modulesWithInputs {
-      inherit pkgs lib check extraSpecialArgs;
+      inherit pkgs lib check extraSpecialArgs extraModules;
       configuration.imports = modules;
     };
 
@@ -23,11 +25,14 @@ inputs: let
       vimAlias = true;
       debugMode = {
         enable = false;
-        level = 20;
+        level = 16;
         logFile = "/tmp/nvim.log";
       };
 
-      spellcheck.vim-dirtytalk.enable = true;
+      spellcheck = {
+        enable = isMaximal;
+        programmingWordlist.enable = isMaximal;
+      };
 
       lsp = {
         formatOnSave = true;

@@ -13,7 +13,7 @@
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.dag) entryAnywhere entryAfter topoSort mkLuarcSection mkVimrcSection;
-  inherit (lib.nvim.lua) toLuaObject wrapLuaConfig;
+  inherit (lib.nvim.lua) toLuaObject wrapLuaConfig listToLuaTable;
   inherit (lib.nvim.vim) valToVim;
   inherit (lib.nvim.config) mkBool;
 
@@ -207,12 +207,15 @@ in {
 
       luaConfigPre = mkOption {
         type = str;
-        default = let
-          additionalRuntimePaths = concatStringsSep "," cfg.additionalRuntimePaths;
-        in ''
+        default = ''
           ${optionalString (cfg.additionalRuntimePaths != []) ''
-            if not vim.o.runtimepath:find('${additionalRuntimePaths}', 1, true) then
-                vim.o.runtimepath = vim.o.runtimepath .. ',' .. '${additionalRuntimePaths}'
+            -- The following list is generated from `vim.additionalRuntimePaths`
+            -- and is used to append additional runtime paths to the
+            -- `runtimepath` option.
+            local additionalRuntimePaths = ${listToLuaTable cfg.additionalRuntimePaths};
+
+            for _, path in ipairs(additionalRuntimePaths) do
+              vim.opt.runtimepath:append(path)
             end
           ''}
 
@@ -226,6 +229,8 @@ in {
           if [vim.enableLuaLoader](#opt-vim.enableLuaLoader) is set to true.
         '';
 
+        example = literalExpression ''"$${builtins.readFile ./my-lua-config-pre.lua}"'';
+
         description = ''
           Verbatim lua code that will be inserted **before**
           the result of `luaConfigRc` DAG has been resolved.
@@ -235,9 +240,11 @@ in {
           of lua configs after the DAG result.
 
           ::: {.warning}
-          You do not want to override this option. It is used
-          internally to set certain options as early as possible
-          and should be avoided unless you know what you're doing.
+          You do not want to override this option with mkForce
+          It is used internally to set certain options as early
+          as possible and should be avoided unless you know what
+          you're doing. Passing a string to this option will
+          merge it with the default contents.
           :::
         '';
       };
@@ -266,8 +273,9 @@ in {
       luaConfigPost = mkOption {
         type = str;
         default = "";
+        example = literalExpression ''"$${builtins.readFile ./my-lua-config-post.lua}"'';
         description = ''
-          Verbatim lua code that will be inserted after
+          Verbatim lua code that will be inserted **after**
           the result of the `luaConfigRc` DAG has been resolved
 
           This option **does not** take a DAG set, but a string
