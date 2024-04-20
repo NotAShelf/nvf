@@ -49,6 +49,7 @@
   # using the configuration passed in `neovim` and `plugins` modules.
   wrapper = map (p: ./wrapper + "/${p}") [
     "build"
+    "rc"
     "warnings"
   ];
 

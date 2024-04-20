@@ -1,6 +1,6 @@
 {
   imports = [
     ./config.nix
-    #./options.nix
+    ./options.nix
   ];
 }
