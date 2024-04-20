@@ -229,7 +229,9 @@ in {
           if [vim.enableLuaLoader](#opt-vim.enableLuaLoader) is set to true.
         '';
 
-        description = literalMD ''
+        example = literalExpression ''"$${builtins.readFile ./my-lua-config-pre.lua}"'';
+
+        description = ''
           Verbatim lua code that will be inserted **before**
           the result of `luaConfigRc` DAG has been resolved.
 
@@ -238,9 +240,11 @@ in {
           of lua configs after the DAG result.
 
           ::: {.warning}
-          You do not want to override this option. It is used
-          internally to set certain options as early as possible
-          and should be avoided unless you know what you're doing.
+          You do not want to override this option with mkForce
+          It is used internally to set certain options as early
+          as possible and should be avoided unless you know what
+          you're doing. Passing a string to this option will
+          merge it with the default contents.
           :::
         '';
       };
@@ -269,8 +273,9 @@ in {
       luaConfigPost = mkOption {
         type = str;
         default = "";
+        example = literalExpression ''"$${builtins.readFile ./my-lua-config-post.lua}"'';
         description = ''
-          Verbatim lua code that will be inserted after
+          Verbatim lua code that will be inserted **after**
           the result of the `luaConfigRc` DAG has been resolved
 
           This option **does not** take a DAG set, but a string
