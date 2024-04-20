@@ -1,5 +1,6 @@
 {
   imports = [
+    ./chatgpt
     ./copilot
   ];
 }
