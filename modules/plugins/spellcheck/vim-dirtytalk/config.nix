@@ -5,9 +5,9 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.dag) entryAfter;
-  cfg = config.vim.spellcheck;
+  cfg = config.vim.spellChecking;
 in {
-  config = mkIf cfg.vim-dirtytalk.enable {
+  config = mkIf (cfg.enable && cfg.programmingWordlist.enable) {
     vim = {
       startPlugins = ["vim-dirtytalk"];
 
