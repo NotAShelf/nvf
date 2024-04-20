@@ -25,18 +25,18 @@ stdenv.mkDerivation {
       ${documentation-highlighter}/mono-blue.css \
       ${documentation-highlighter}/loader.js
 
-    cp ${./static/style.css} out/style.css
-
     substituteInPlace ./options.md \
-      --replace-fail \
-        '@OPTIONS_JSON@' \
+      --subst-var-by \
+        OPTIONS_JSON \
         ${options.neovim-flake}/share/doc/nixos/options.json
 
     substituteInPlace ./manual.md \
-      --replace-fail \
-        '@NVF_VERSION@' \
+      --subst-var-by \
+        NVF_VERSION \
         ${revision}
 
+    # copy stylesheet
+    cp ${./static/style.css} out/style.css
 
     # copy release notes
     cp -vr ${./release-notes} release-notes
@@ -45,11 +45,9 @@ stdenv.mkDerivation {
     nixos-render-docs manual html \
       --manpage-urls ./manpage-urls.json \
       --revision ${lib.trivial.revisionWithDefault revision} \
+      --stylesheet style.css \
       --script highlightjs/highlight.pack.js \
       --script highlightjs/loader.js \
-      --stylesheet style.css \
-      --stylesheet highlightjs/tomorrow-night.min.css \
-      --stylesheet highlightjs/highlight-style.css \
       --toc-depth 2 \
       --section-toc-depth 1 \
       manual.md \
