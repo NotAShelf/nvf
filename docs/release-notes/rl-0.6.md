@@ -2,7 +2,7 @@
 
 Release notes for release 0.6
 
-## Breaking Changes and Migration Guide
+## Breaking Changes and Migration Guide {#sec-breaking-changes-and-migration-guide}
 
 In v0.6 we are introducing `setupOpts`: many plugin related options are moved into their respective `setupOpts`
 submodule, e.g. `nvimTree.disableNetrw` is renamed to `nvimTree.setupOpts.disable_netrw`.
