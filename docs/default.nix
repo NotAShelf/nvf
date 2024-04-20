@@ -127,10 +127,12 @@
 
       nixos-render-docs -j $NIX_BUILD_CORES options manpage \
         --revision ${revision} \
+        --header ${./man/header.5} \
+        --footer ${./man/footer.5} \
         ${nvimModuleDocs.optionsJSON}/share/doc/nixos/options.json \
         $out/share/man/man5/neovim-flake.5
 
-      cp ${./neovim-flake.1} $out/share/man/man1/neovim-flake.1
+      cp ${./man/neovim-flake.1} $out/share/man/man1/neovim-flake.1
     '';
 
   # Generate the HTML manual pages
