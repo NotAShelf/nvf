@@ -23,11 +23,14 @@ inputs: let
       vimAlias = true;
       debugMode = {
         enable = false;
-        level = 20;
+        level = 16;
         logFile = "/tmp/nvim.log";
       };
 
-      spellcheck.vim-dirtytalk.enable = true;
+      spellChecking = {
+        enable = isMaximal;
+        programmingWordlist.enable = isMaximal;
+      };
 
       lsp = {
         formatOnSave = true;
