@@ -103,7 +103,7 @@
   };
 
   release-config = builtins.fromJSON (builtins.readFile ../release.json);
-  revision = "release-${release-config.release}";
+  revision = release-config.release;
 
   # Generate the `man home-configuration.nix` package
   nvf-configuration-manual =
@@ -125,7 +125,6 @@
 
   # Generate the HTML manual pages
   neovim-flake-manual = pkgs.callPackage ./manual.nix {
-    inherit (inputs) nmd;
     inherit revision;
     outputPath = "share/doc/neovim-flake";
     options = {

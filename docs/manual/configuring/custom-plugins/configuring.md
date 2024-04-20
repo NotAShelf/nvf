@@ -1,4 +1,4 @@
-# Configuring {#configuring-plugins}
+# Configuring {#sec-configuring-plugins}
 
 Just making the plugin to your neovim configuration available might not always be enough.
 In that case, you can write custom vimscript or lua config, using `config.vim.configRC` or `config.vim.luaConfigRC`

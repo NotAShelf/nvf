@@ -64,20 +64,28 @@ See [example commit message](#sec-guidelines-ex-commit-message) for a commit mes
 
 ## Example Commit {#sec-guidelines-ex-commit-message}
 
-The commit [69f8e47e9e74c8d3d060ca22e18246b7f7d988ef](https://github.com/nix-community/home-manager/commit/69f8e47e9e74c8d3d060ca22e18246b7f7d988ef) contains the commit message
+The commit [69f8e47e9e74c8d3d060ca22e18246b7f7d988ef](https://github.com/nix-community/home-manager/commit/69f8e47e9e74c8d3d060ca22e18246b7f7d988ef)
+in home-manager contains the commit message
 
 ```
-
 starship: allow running in Emacs if vterm is used
 
 The vterm buffer is backed by libvterm and can handle Starship prompts
 without issues.
+```
 
+Similarly, if you are contributing to neovim-flake, you would include the scope of the commit followed by
+the description
+
+```
+languages/ruby: init module
+
+Adds a language module for Ruby, and adds appropriate formatters and TS grammers
 ```
 
 Long description can be ommitted if the change is too simple to warrant it. A minor fix in spelling or a formatting
 change does not warrant long description, however, a module addition or removal does as you would like to provide the
-relevant context for your changes.
+relevant context, e.g. the reasoning behind it, for your commit.
 
 Finally, when adding a new module, say `modules/foo.nix`, we use the fixed commit format `foo: add module`.
 You can, of course, still include a long description if you wish.

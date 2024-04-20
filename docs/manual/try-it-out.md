@@ -16,9 +16,7 @@ $ nix run github:notashelf/neovim-flake#nix # will run the default minimal confi
 ```
 
 Do keep in mind that this is **susceptible to garbage collection** meaning it will be removed from your Nix store
-once you garbage collect. If you wish to install neovim-flake, please take a look at
-[custom-configuration](#ch-custom-configuration) or [home-manager](#ch-hm-module) sections for installation
-instructions.
+once you garbage collect.
 
 ## Using Prebuilt Configs {#sec-using-prebuild-configs}
 
@@ -33,7 +31,7 @@ $ nix run github:notashelf/neovim-flake#maximal
 #### Nix {#sec-configs-nix}
 
 `Nix` configuration by default provides LSP/diagnostic support for Nix alongisde a set of visual and functional plugins.
-By running `nix run .`, which is the default package, you will build Neovim with this config.
+By running `nix run .#`, which is the default package, you will build Neovim with this config.
 
 #### Tidal {#sec-configs-tidal}
 

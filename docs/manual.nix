@@ -2,7 +2,6 @@
   stdenv,
   lib,
   documentation-highlighter,
-  nmd,
   revision,
   outputPath ? "share/doc/neovim-flake",
   options,
@@ -10,46 +9,49 @@
 }:
 stdenv.mkDerivation {
   name = "neovim-flake-manual";
-  src = ./manual;
+  src = builtins.path {
+    path = ./manual;
+    name = "neovim-flake-manual";
+  };
 
   nativeBuildInputs = [nixos-render-docs];
 
   buildPhase = ''
-    mkdir -p out/media
+    mkdir -p out/{highlightjs,media}
 
-    mkdir -p out/highlightjs
-    cp -t out/highlightjs \
+    cp -vt out/highlightjs \
       ${documentation-highlighter}/highlight.pack.js \
       ${documentation-highlighter}/LICENSE \
       ${documentation-highlighter}/mono-blue.css \
       ${documentation-highlighter}/loader.js
 
+    cp ${./static/style.css} out/style.css
+
     substituteInPlace ./options.md \
-      --replace \
+      --replace-fail \
         '@OPTIONS_JSON@' \
         ${options.neovim-flake}/share/doc/nixos/options.json
 
     substituteInPlace ./manual.md \
-      --replace \
-        '@VERSION@' \
+      --replace-fail \
+        '@NVF_VERSION@' \
         ${revision}
 
-    cp -v ${nmd}/static/style.css out/style.css
-    cp -vt out/highlightjs ${nmd}/static/highlightjs/tomorrow-night.min.css
-    cp -v ${./highlight-style.css} out/highlightjs/highlight-style.css
 
+    # copy release notes
     cp -vr ${./release-notes} release-notes
 
+    # generate manual from
     nixos-render-docs manual html \
       --manpage-urls ./manpage-urls.json \
       --revision ${lib.trivial.revisionWithDefault revision} \
+      --script highlightjs/highlight.pack.js \
+      --script highlightjs/loader.js \
       --stylesheet style.css \
       --stylesheet highlightjs/tomorrow-night.min.css \
       --stylesheet highlightjs/highlight-style.css \
-      --script highlightjs/highlight.pack.js \
-      --script highlightjs/loader.js \
-      --toc-depth 1 \
-      --section-toc-depth 1 \
+      --toc-depth 2 \
+      --section-toc-depth 2 \
       manual.md \
       out/index.xhtml
   '';
