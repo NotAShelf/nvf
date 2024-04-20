@@ -3,13 +3,11 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.types) nullOr str bool int submodule listOf enum oneOf attrs addCheck;
   inherit (lib.nvim.types) mkPluginSetupOption;
-  inherit (lib.lists) flatten;
-  inherit (lib.attrsets) mapAttrsToList;
+  inherit (lib.nvim.config) batchRenameOptions;
 
   migrationTable = {
     disableNetrw = "disable_netrw";
@@ -67,21 +65,11 @@
     ui = "ui";
   };
 
-  renamedSetupOpts = flatten (genSetupOptRenames [] migrationTable);
-
-  # Note: I cut a few corners so it only works in this specific case
-  # if the parent of a nested option needs to be renamed, this would not work
-  genSetupOptRenames = path: table:
-    mapAttrsToList (
-      oldName: newNameOrAttr:
-        if builtins.isAttrs newNameOrAttr
-        then genSetupOptRenames (path ++ [oldName]) newNameOrAttr
-        else
-          mkRenamedOptionModule
-          (["vim" "filetree" "nvimTree"] ++ path ++ [oldName])
-          (["vim" "filetree" "nvimTree" "setupOpts"] ++ path ++ [newNameOrAttr])
-    )
-    table;
+  renamedSetupOpts =
+    batchRenameOptions
+    ["vim" "filetree" "nvimTree"]
+    ["vim" "filetree" "nvimTree" "setupOpts"]
+    migrationTable;
 in {
   imports = renamedSetupOpts;
   options.vim.filetree.nvimTree = {
