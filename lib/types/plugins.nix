@@ -91,10 +91,10 @@ in {
   mkPluginSetupOption = pluginName: opts:
     mkOption {
       description = ''
-        	Option table to pass into the setup function of ${pluginName}
+        Option table to pass into the setup function of ${pluginName}
 
         You can pass in any additional options even if they're
-        	not listed in the docs
+        not listed in the docs
       '';
 
       default = {};
