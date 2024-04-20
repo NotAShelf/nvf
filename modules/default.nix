@@ -83,6 +83,7 @@ inputs: {
   plugins = builtStartPlugins ++ builtOptPlugins;
 
   extraLuaPackages = ps: map (x: ps.${x}) vimOptions.luaPackages;
+  extraPython3Packages = ps: map (x: ps.${x}) vimOptions.python3Packages;
 
   # wrap user's desired neovim package using the neovim wrapper from nixpkgs
   # the wrapper takes the following arguments:
@@ -95,8 +96,8 @@ inputs: {
   #  - customRC (string)
   # and returns the wrapped package
   neovim-wrapped = wrapNeovimUnstable vimOptions.package (makeNeovimConfig {
-    inherit (vimOptions) viAlias vimAlias;
-    inherit plugins extraLuaPackages;
+    inherit (vimOptions) viAlias vimAlias withRuby withNodeJs withPython3;
+    inherit plugins extraLuaPackages extraPython3Packages;
     customRC = vimOptions.builtConfigRC;
   });
 in {

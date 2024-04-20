@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption literalExpression;
+  inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) package bool str listOf attrsOf;
   inherit (lib.nvim.types) pluginsOpt extraPluginType;
 in {
@@ -94,12 +94,40 @@ in {
       '';
     };
 
+    # this defaults to `true` in the wrapper
+    # and since we passs this value to the wrapper
+    # with an inherit, it should be `true` here as well
+    withRuby =
+      mkEnableOption ''
+        Ruby support in the Neovim wrapper.
+      ''
+      // {
+        default = true;
+      };
+
+    withNodeJs = mkEnableOption ''
+      NodeJs support in the Neovim wrapper.
+    '';
+
     luaPackages = mkOption {
       type = listOf str;
       default = [];
       example = literalExpression ''["magick" "serpent"]'';
       description = ''
         List of lua packages to install.
+      '';
+    };
+
+    withPython3 = mkEnableOption ''
+      Python3 support in the Neovim wrapper.
+    '';
+
+    python3Packages = mkOption {
+      type = listOf str;
+      default = [];
+      example = literalExpression ''["pynvim"]'';
+      description = ''
+        List of python packages to install.
       '';
     };
   };
