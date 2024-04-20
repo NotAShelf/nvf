@@ -59,6 +59,10 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
 
 - Added rose-pine theme
 
+[jacekpoz](https://github.com/jacekpoz):
+
+- Added `vim.autocomplete.alwaysComplete`. Allows users to have the autocomplete window popup only when manually activated.
+
 [horriblename](https://github.com/horriblename):
 
 - Fixed empty winbar when breadcrumbs are disabled
@@ -122,7 +126,8 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
 - Changed the tree structure to distinguish between core options and plugin options.
 
 - Added plugin auto-discovery from plugin inputs. This is mostly from
-  [JordanIsaac's neovim-flake](https://github.com/jordanisaacs/neovim-flake)
+  [JordanIsaac's neovim-flake](https://github.com/jordanisaacs/neovim-flake). Allows contributors to add plugin inputs
+  with the `plugin-` prefix to have them automatically discovered for the `plugin` type in `lib/types`.
 
 - Moved internal `wrapLuaConfig` to the extended library, structured its arguments to take `luaBefore`, `luaConfig`
   and `luaAfter` as strings, which are then concatted inside a lua block.
@@ -131,6 +136,7 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
   for inserting verbatim Lua configuration before and after the resolved Lua DAG respectively. Both of those options
   take strings as the type, so you may read the contents of a Lua file from a given path.
 
-[jacekpoz](https://github.com/jacekpoz):
-
-- Added `vim.autocomplete.alwaysComplete`. Allows users to have the autocomplete window popup only when manually activated.
+- Added [`vim.spellChecking.ignoredFiletypes`](vim.spellChecking.ignoredFiletypes)
+  and [`vim.spellChecking.programmingWordlist.enable`](vim.spellChecking.programmingWordlist.enable) for ignoring certain filetypes
+  in spellchecking and enabling `vim-dirtytalk` respectively. The previously used `vim.spellcheck.vim-dirtytalk` aliases to the latter
+  option.
