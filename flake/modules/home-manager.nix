@@ -74,16 +74,14 @@ in {
     };
   };
 
-  config = mkIf cfg.enable mkMerge [
-    {
-      programs.neovim-flake.finalPackage = neovimConfigured.neovim;
+  config = mkIf cfg.enable {
+    programs.neovim-flake.finalPackage = neovimConfigured.neovim-wrapped;
 
-      home = {
-        sessionVariables.EDITOR = mkIf cfg.defaultEditor (lib.mkOverride 900 "nvim");
-        packages =
-          [cfg.finalPackage]
-          ++ optionals cfg.enableManpages packages.${pkgs.stdenv.system}.docs-manpages;
-      };
-    }
-  ];
+    home = {
+      sessionVariables.EDITOR = mkIf cfg.defaultEditor (lib.mkOverride 900 "nvim");
+      packages =
+        [cfg.finalPackage]
+        ++ optionals cfg.enableManpages packages.${pkgs.stdenv.system}.docs-manpages;
+    };
+  };
 }

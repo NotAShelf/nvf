@@ -7,9 +7,11 @@ inputs: let
     lib ? pkgs.lib,
     check ? true,
     extraSpecialArgs ? {},
+    extraModules ? [],
+    ...
   }:
     modulesWithInputs {
-      inherit pkgs lib check extraSpecialArgs;
+      inherit pkgs lib check extraSpecialArgs extraModules;
       configuration.imports = modules;
     };
 
