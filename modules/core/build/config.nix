@@ -9,7 +9,7 @@
   inherit (lib.strings) optionalString isString concatStringsSep;
   inherit (lib.misc) mapAttrsFlatten;
   inherit (lib.trivial) showWarnings;
-  inherit (lib.types) bool str oneOf attrsOf nullOr attrs submodule lines listOf;
+  inherit (lib.types) bool str oneOf attrsOf nullOr attrs submodule lines listOf either path;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.dag) entryAnywhere entryAfter topoSort mkLuarcSection mkVimrcSection;
@@ -121,9 +121,14 @@ in {
       '';
 
       additionalRuntimePaths = mkOption {
-        type = listOf str;
+        type = listOf (either path str);
         default = [];
-        example = literalExpression ''["./nvim"]'';
+        example = literalExpression ''
+          [
+            "~/.config/nvim-extra" # absolute path, as a string - impure
+            ./nvim # relative path, as a path - pure
+          ]
+        '';
         description = ''
           Additional runtime paths that will be appended to the
           active runtimepath of the Neovim. This can be used to
