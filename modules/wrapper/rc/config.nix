@@ -4,16 +4,15 @@
   ...
 }: let
   inherit (builtins) map mapAttrs toJSON filter;
-  inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
+  inherit (lib.options) mkOption;
   inherit (lib.attrsets) filterAttrs getAttrs attrValues attrNames;
-  inherit (lib.strings) optionalString isString concatStringsSep;
+  inherit (lib.strings) isString concatStringsSep;
   inherit (lib.misc) mapAttrsFlatten;
   inherit (lib.trivial) showWarnings;
-  inherit (lib.types) bool str oneOf attrsOf nullOr attrs submodule lines listOf either path;
+  inherit (lib.types) str nullOr;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.dag) entryAnywhere entryAfter topoSort mkLuarcSection mkVimrcSection;
-  inherit (lib.nvim.lua) toLuaObject wrapLuaConfig listToLuaTable;
+  inherit (lib.nvim.lua) toLuaObject wrapLuaConfig;
   inherit (lib.nvim.vim) valToVim;
   inherit (lib.nvim.config) mkBool;
 
