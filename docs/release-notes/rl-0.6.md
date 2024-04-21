@@ -41,23 +41,26 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
 
 [ksonj](https://github.com/ksonj):
 
-- Add Terraform language support
+- Added Terraform language support.
+
+- Added `ChatGPT.nvim`, which can be enabled with [`vim.assistant.chatgpt`](vim.assistant.chatgpt). Do
+  keep in mind that this option requires `OPENAI_API_KEY` environment variable to be set.
 
 [donnerinoern](https://github.com/donnerinoern):
 
-- Added Gruvbox theme
+- Added Gruvbox theme.
 
-- Added marksman LSP for Markdown
+- Added marksman LSP for Markdown.
 
-- Fixed markdown preview with Glow not working and added an option for changing the preview keybind
+- Fixed markdown preview with Glow not working and added an option for changing the preview keybind.
 
-- colorizer.nvim: switched to a maintained fork
+- colorizer.nvim: switched to a maintained fork.
 
 - Added `markdown-preview.nvim`, moved `glow.nvim` to a brand new `vim.utility.preview` category.
 
 [elijahimmer](https://github.com/elijahimmer)
 
-- Added rose-pine theme
+- Added rose-pine theme.
 
 [jacekpoz](https://github.com/jacekpoz):
 
@@ -65,13 +68,13 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
 
 [horriblename](https://github.com/horriblename):
 
-- Fixed empty winbar when breadcrumbs are disabled
+- Fixed empty winbar when breadcrumbs are disabled.
 
-- Added custom `setupOpts` for various plugins
+- Added custom `setupOpts` for various plugins.
 
-- Removed support for deprecated plugin "nvim-compe"
+- Removed support for deprecated plugin "nvim-compe".
 
-- Moved most plugins to `setupOpts` method
+- Moved most plugins to `setupOpts` method.
 
 [frothymarrow](https://github.com/frothymarrow):
 
@@ -81,35 +84,36 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
   been removed in favor of [vim.fidget-nvim.notification.window.align](vim.fidget-nvim.notification.window.align), which now supports
   `top` and `bottom` values. `vim.fidget-nvim.align.right` has no longer any equivalent and also has been removed.
 
-- `which-key.nvim` categories can now be customized through [vim.binds.whichKey.register](vim.binds.whichKey.register).
+- `which-key.nvim` categories can now be customized through [vim.binds.whichKey.register](vim.binds.whichKey.register)
 
-- Added `magick` to `vim.luaPackages` for `image.nvim`
+- Added `magick` to `vim.luaPackages` for `image.nvim`.
 
 - Added `alejandra` to the default devShell.
 
-- Migrated neovim-flake to `makeNeovimUnstable` wrapper
+- Migrated neovim-flake to `makeNeovimUnstable` wrapper.
 
 [notashelf](https://github.com/notashelf):
 
-- Finished moving to `nixosOptionsDoc` in the documentation and changelog. We are fully free of asciidoc now
+- Finished moving to `nixosOptionsDoc` in the documentation and changelog. All documentation options
+  and files are fully free of Asciidoc, and will now use Nixpkgs flavored markdown.
 
-- Bumped plugin inputs to their latest versions
+- Bumped plugin inputs to their latest versions.
 
 - Deprecated `presence.nvim` in favor of `neocord`. This means `vim.rich-presence.presence-nvim` is removed and will throw
-  a warning if used. You are recommended to rewrite your neocord configuration from scratch based on the
+  a warning if used. You are recommended to rewrite your neocord configuration from scratch based on the.
   [official documentation](https://github.com/IogaMaster/neocord)
 
-- Removed Tabnine plugin due to the usage of imperative tarball downloads. If you'd like to see it back, please make an issue.
+- Removed Tabnine plugin due to the usage of imperative tarball downloads. If you'd like to see it back, please create an issue.
 
 - Added support for css and tailwindcss through vscode-language-servers-extracted & tailwind-language-server.
-  Those can be enabled through `vim.languages.css` and `vim.languages.tailwind`
+  Those can be enabled through `vim.languages.css` and `vim.languages.tailwind`.
 
 - Lualine module now allows customizing `always_divide_middle`, `ignore_focus` and `disabled_filetypes` through the new
   options: [vim.statusline.lualine.alwaysDivideMiddle](vim.statusline.lualine.alwaysDivideMiddle),
   [vim.statusline.lualine.ignoreFocus](vim.statusline.lualine.ignoreFocus) and
-  [vim.statusline.lualine.disabledFiletypes](vim.statusline.lualine.disabledFiletypes)
+  [vim.statusline.lualine.disabledFiletypes](vim.statusline.lualine.disabledFiletypes).
 
-- Updated all plugin inputs to their latest versions (**14.04.2024**) - this brought minor color changes to the Catppuccin
+- Updated all plugin inputs to their latest versions (**21.04.2024**) - this brought minor color changes to the Catppuccin
   theme.
 
 - Moved home-manager module entrypoint to `flake/modules` and added an experimental Nixos module. This requires further testing
