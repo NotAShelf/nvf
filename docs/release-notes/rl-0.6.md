@@ -140,3 +140,8 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
   and [`vim.spellChecking.programmingWordlist.enable`](vim.spellChecking.programmingWordlist.enable) for ignoring certain filetypes
   in spellchecking and enabling `vim-dirtytalk` respectively. The previously used `vim.spellcheck.vim-dirtytalk` aliases to the latter
   option.
+
+- Exposed `withRuby`, `withNodeJs`, `withPython3`, and `python3Packages` from the `makeNeovimConfig` function under their respective options.
+
+- Added [`vim.extraPackages`](vim.extraPackages) for appending additional packages to the wrapper PATH, making said packages available
+  while inside the Neovim session.
