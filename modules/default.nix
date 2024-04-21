@@ -81,6 +81,8 @@ inputs: {
     optional = false;
   }) (buildConfigPlugins vimOptions.optPlugins);
 
+  # combine built start and optional plugins
+  # into a single list
   plugins = builtStartPlugins ++ builtOptPlugins;
 
   # additional Lua and Python3 packages, mapped to their respective functions

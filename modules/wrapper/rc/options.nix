@@ -70,9 +70,19 @@ in {
     };
 
     globals = mkOption {
-      default = {};
       type = attrs;
-      description = "Set containing global variable values";
+      default = {};
+      description = ''
+        An attribute set containing global variable values
+        for storing vim variables as early as possible. If
+        populated, this soption will set vim variables in the
+        built configRC as the first item.
+
+        E.g. {foo = "bar"} will set `g:foo` to "bar" where
+        the type of `bar` in the resulting vimscript will be
+        infered from the type of the value in the `{name = value}`
+        pair.
+      '';
     };
 
     configRC = mkOption {
