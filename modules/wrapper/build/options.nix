@@ -94,6 +94,16 @@ in {
       '';
     };
 
+    extraPackages = mkOption {
+      type = listOf package;
+      default = [];
+      example = literalExpression ''[pkgs.fzf pkgs.ripgrep]'';
+      description = ''
+        List of additional packages to make available to the Neovim
+        wrapper.
+      '';
+    };
+
     # this defaults to `true` in the wrapper
     # and since we passs this value to the wrapper
     # with an inherit, it should be `true` here as well

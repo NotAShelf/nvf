@@ -10,7 +10,8 @@ inputs: {
   inherit (pkgs) wrapNeovimUnstable vimPlugins;
   inherit (pkgs.vimUtils) buildVimPlugin;
   inherit (pkgs.neovimUtils) makeNeovimConfig;
-  inherit (lib.lists) concatLists;
+  inherit (lib.strings) makeBinPath escapeShellArgs concatStringsSep;
+  inherit (lib.lists) concatLists optional;
   inherit (lib.attrsets) recursiveUpdate;
   inherit (lib.asserts) assertMsg;
 
@@ -82,11 +83,19 @@ inputs: {
 
   plugins = builtStartPlugins ++ builtOptPlugins;
 
+  # additional Lua and Python3 packages, mapped to their respective functions
+  # to conform to the format makeNeovimConfig expects. end user should
+  # only ever need to pass a list of packages, which are modified
+  # here
   extraLuaPackages = ps: map (x: ps.${x}) vimOptions.luaPackages;
   extraPython3Packages = ps: map (x: ps.${x}) vimOptions.python3Packages;
 
-  # wrap user's desired neovim package using the neovim wrapper from nixpkgs
-  # the wrapper takes the following arguments:
+  extraWrapperArgs =
+    concatStringsSep " " (optional (vimOptions.extraPackages != []) ''--prefix PATH : "${makeBinPath vimOptions.extraPackages}"'');
+
+  # wrap user's desired neovim package with the desired neovim configuration
+  # using wrapNeovimUnstable and makeNeovimConfig from nixpkgs.
+  # the makeNeovimConfig function takes the following arguments:
   #  - withPython (bool)
   #  - extraPython3Packages (lambda)
   #  - withNodeJs (bool)
@@ -95,10 +104,14 @@ inputs: {
   #  - plugins (list)
   #  - customRC (string)
   # and returns the wrapped package
-  neovim-wrapped = wrapNeovimUnstable vimOptions.package (makeNeovimConfig {
+  neovimConfigured = makeNeovimConfig {
     inherit (vimOptions) viAlias vimAlias withRuby withNodeJs withPython3;
     inherit plugins extraLuaPackages extraPython3Packages;
     customRC = vimOptions.builtConfigRC;
+  };
+
+  neovim-wrapped = wrapNeovimUnstable vimOptions.package (recursiveUpdate neovimConfigured {
+    wrapperArgs = escapeShellArgs neovimConfigured.wrapperArgs + " " + extraWrapperArgs;
   });
 in {
   inherit (module) options config;

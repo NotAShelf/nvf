@@ -1,93 +1,59 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
   inherit (lib.strings) optionalString;
-  inherit (lib.types) bool str oneOf attrsOf nullOr attrs submodule lines listOf either path;
+  inherit (lib.types) str oneOf attrs lines listOf either path bool;
   inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.lua) listToLuaTable;
-  inherit (lib.nvim.config) mkBool;
-
-  # Most of the keybindings code is highly inspired by pta2002/nixvim.
-  # Thank you!
-  mapConfigOptions = {
-    silent =
-      mkBool false
-      "Whether this mapping should be silent. Equivalent to adding <silent> to a map.";
-
-    nowait =
-      mkBool false
-      "Whether to wait for extra input on ambiguous mappings. Equivalent to adding <nowait> to a map.";
-
-    script =
-      mkBool false
-      "Equivalent to adding <script> to a map.";
-
-    expr =
-      mkBool false
-      "Means that the action is actually an expression. Equivalent to adding <expr> to a map.";
-
-    unique =
-      mkBool false
-      "Whether to fail if the map is already defined. Equivalent to adding <unique> to a map.";
-
-    noremap =
-      mkBool true
-      "Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.";
-
-    desc = mkOption {
-      type = nullOr str;
-      default = null;
-      description = "A description of this keybind, to be shown in which-key, if you have it enabled.";
-    };
-  };
-
-  mapOption = submodule {
-    options =
-      mapConfigOptions
-      // {
-        action = mkOption {
-          type = str;
-          description = "The action to execute.";
-        };
-
-        lua = mkOption {
-          type = bool;
-          description = ''
-            If true, `action` is considered to be lua code.
-            Thus, it will not be wrapped in `""`.
-          '';
-          default = false;
-        };
-      };
-  };
-
-  mapOptions = mode:
-    mkOption {
-      description = "Mappings for ${mode} mode";
-      type = attrsOf mapOption;
-      default = {};
-    };
-
   cfg = config.vim;
 in {
   options.vim = {
     enableLuaLoader = mkEnableOption ''
       the experimental Lua module loader to speed up the start up process
+
+      If `true`, this will enable the experimental Lua module loader which:
+        - overrides loadfile
+        - adds the lua loader using the byte-compilation cache
+        - adds the libs loader
+        - removes the default Neovim loader
+
+      This is disabled by default. Before setting this option, please
+      take a look at the [{option}`official documentation`](https://neovim.io/doc/user/lua.html#vim.loader.enable()).
     '';
+
+    disableDefaultRuntimePaths = mkOption {
+      type = bool;
+      default = true;
+      example = false;
+      description = ''
+        Disables the default runtime paths that are set by Neovim
+        when it starts up. This is useful when you want to have
+        full control over the runtime paths that are set by Neovim.
+
+        ::: {.note}
+        To avoid leaking imperative user configuration into your
+        configuration, this is enabled by default. If you wish
+        to load configuration from user configuration directories
+        (e.g. `$HOME/.config/nvim`, `$HOME/.config/nvim/after`
+        and `$HOME/.local/share/nvim/site`) you may set this
+        option to true.
+        :::
+      '';
+    };
 
     additionalRuntimePaths = mkOption {
       type = listOf (either path str);
       default = [];
       example = literalExpression ''
         [
-          "~/.config/nvim-extra" # absolute path, as a string - impure
+          "$HOME/.config/nvim-extra" # absolute path, as a string - impure
           ./nvim # relative path, as a path - pure
         ]
       '';
+
       description = ''
         Additional runtime paths that will be appended to the
         active runtimepath of the Neovim. This can be used to
@@ -107,40 +73,6 @@ in {
       default = {};
       type = attrs;
       description = "Set containing global variable values";
-    };
-
-    maps = mkOption {
-      type = submodule {
-        options = {
-          normal = mapOptions "normal";
-          insert = mapOptions "insert";
-          select = mapOptions "select";
-          visual = mapOptions "visual and select";
-          terminal = mapOptions "terminal";
-          normalVisualOp = mapOptions "normal, visual, select and operator-pending (same as plain 'map')";
-
-          visualOnly = mapOptions "visual only";
-          operator = mapOptions "operator-pending";
-          insertCommand = mapOptions "insert and command-line";
-          lang = mapOptions "insert, command-line and lang-arg";
-          command = mapOptions "command-line";
-        };
-      };
-      default = {};
-      description = ''
-        Custom keybindings for any mode.
-
-        For plain maps (e.g. just 'map' or 'remap') use `maps.normalVisualOp`.
-      '';
-
-      example = ''
-        maps = {
-          normal."<leader>m" = {
-            silent = true;
-            action = "<cmd>make<CR>";
-          }; # Same as nnoremap <leader>m <silent> <cmd>make<CR>
-        };
-      '';
     };
 
     configRC = mkOption {
@@ -176,6 +108,15 @@ in {
           for _, path in ipairs(additionalRuntimePaths) do
             vim.opt.runtimepath:append(path)
           end
+        ''}
+
+        ${optionalString cfg.disableDefaultRuntimePaths ''
+          -- Remove default user runtime paths from the
+          -- `runtimepath` option to avoid leaking user configuration
+          -- into the final neovim wrapper
+          vim.opt.runtimepath:remove(vim.fn.stdpath('config'))              -- $HOME/.config/nvim
+          vim.opt.runtimepath:remove(vim.fn.stdpath('config') .. "/after")  -- $HOME/.config/nvim/after
+          vim.opt.runtimepath:remove(vim.fn.stdpath('data') .. "/site")     -- $HOME/.local/share/nvim/site
         ''}
 
         ${optionalString cfg.enableLuaLoader "vim.loader.enable()"}
