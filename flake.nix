@@ -550,6 +550,11 @@
     };
 
     # Assistant
+    plugin-chatgpt = {
+      url = "github:jackMort/ChatGPT.nvim";
+      flake = false;
+    };
+
     plugin-copilot-lua = {
       url = "github:zbirenbaum/copilot.lua";
       flake = false;

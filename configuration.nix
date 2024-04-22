@@ -227,6 +227,7 @@ inputs: let
       };
 
       assistant = {
+        chatgpt.enable = isMaximal;
         copilot = {
           enable = isMaximal;
           cmp.enable = isMaximal;
