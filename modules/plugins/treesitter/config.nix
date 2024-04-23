@@ -6,7 +6,9 @@
 }: let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) optional;
+  inherit (lib.trivial) boolToString;
   inherit (lib.nvim.binds) mkSetBinding addDescriptionsToMappings;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryBefore entryAnywhere;
 
   cfg = config.vim.treesitter;
@@ -50,8 +52,8 @@ in {
           ensure_installed = {},
 
           highlight = {
-            enable = true,
-            disable = {},
+            enable = ${boolToString cfg.highlight.enable},
+            disable = ${toLuaObject cfg.highlight.disable},
           },
 
           incremental_selection = {

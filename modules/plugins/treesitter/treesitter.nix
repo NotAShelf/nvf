@@ -3,9 +3,10 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.options) mkOption mkEnableOption literalMD;
   inherit (lib.nvim.binds) mkMappingOption;
-  inherit (lib.types) listOf package;
+  inherit (lib.types) listOf package str either;
+  inherit (lib.nvim.types) luaInline;
 
   inherit (pkgs.vimPlugins.nvim-treesitter) builtGrammars;
 in {
@@ -31,6 +32,41 @@ in {
         use the {option}`vim.language.<lang>.treesitter` options, which
         will automatically add the required grammars to this.
       '';
+    };
+
+    highlight = {
+      enable = mkEnableOption "highlighting with treesitter";
+      disable = mkOption {
+        type = either (luaInline (listOf str));
+        default = [];
+        example = literalMD ''
+          ```lua
+          -- Disable slow treesitter highlight for large files
+          disable = function(lang, buf)
+            local max_filesize = 1000 * 1024 -- 1MB
+            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+            if ok and stats and stats.size > max_filesize then
+                return true
+            end
+          end
+          ```
+        '';
+
+        description = ''
+          List of treesitter grammars to disable highlighting for.
+
+          This option can be either a list, in which case it will be
+          converted to a Lua table containing grammars to disable
+          highlighting for, or a string containing a **lua function**
+          that will be read as is.
+
+          ::: {.warning}
+          A comma will be added at the end of your function, so you
+          do not need to add it yourself. Doing so will cause in
+          syntax errors within your Neovim configuration.
+          :::
+        '';
+      };
     };
 
     defaultGrammars = mkOption {
