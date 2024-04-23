@@ -4,11 +4,9 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption literalMD;
+  inherit (lib.types) listOf package str either bool;
   inherit (lib.nvim.binds) mkMappingOption;
-  inherit (lib.types) listOf package str either;
-  inherit (lib.nvim.types) luaInline;
-
-  inherit (pkgs.vimPlugins.nvim-treesitter) builtGrammars;
+  inherit (lib.nvim.types) luaInline mkGrammarOption;
 in {
   options.vim.treesitter = {
     enable = mkEnableOption "treesitter, also enabled automatically through language options";
@@ -37,7 +35,7 @@ in {
     highlight = {
       enable = mkEnableOption "highlighting with treesitter";
       disable = mkOption {
-        type = either (luaInline (listOf str));
+        type = either (listOf str) luaInline;
         default = [];
         example = literalMD ''
           ```lua
@@ -69,20 +67,33 @@ in {
       };
     };
 
+    addDefaultGrammars = mkOption {
+      type = bool;
+      default = true;
+      description = ''
+        Whether to add the default grammars to the list of grammars
+        to install.
+        This option is only relevant if treesitter has been enabled.
+      '';
+    };
+
     defaultGrammars = mkOption {
       internal = true;
       readOnly = true;
       type = listOf package;
-      default = with builtGrammars; [c lua vim vimdoc query];
+      default = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [c lua vim vimdoc query];
       description = ''
         A list of treesitter grammars that will be installed by default
-        if treesitter has been enabled.
+        if treesitter has been enabled and  {option}`vim.treeesitter.addDefaultGrammars`
+        has been set to true.
 
-        ::: {.warning}
+        ::: {.note}
         Regardless of which language module options you enable, Neovim
         depends on those grammars to be enabled while treesitter is enabled.
-        This list cannot be modified, but its contents will only be appended
-        if the list of grammars does not contain the required grammars.
+
+        This list cannot be modified, but if you would like to bring your own
+        parsers instead of those provided here, you can set `addDefaultGrammars`
+        to false
         :::
       '';
     };

@@ -5,8 +5,9 @@
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) optional;
+  inherit (lib.lists) optional optionals;
   inherit (lib.trivial) boolToString;
+  inherit (lib.nvim.lists) listContainsValues;
   inherit (lib.nvim.binds) mkSetBinding addDescriptionsToMappings;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryBefore entryAnywhere;
@@ -23,6 +24,7 @@ in {
       startPlugins = ["nvim-treesitter"] ++ optional usingNvimCmp "cmp-treesitter";
 
       autocomplete.sources = {"treesitter" = "[Treesitter]";};
+      treesitter.grammars = optionals cfg.addDefaultGrammars cfg.defaultGrammars;
 
       maps = {
         # HACK: Using mkSetLuaBinding and putting the lua code does not work for some reason: It just selects the whole file.
@@ -35,6 +37,7 @@ in {
           (mkSetBinding mappings.incrementalSelection.decrementByNode ":lua require('nvim-treesitter.incremental_selection').node_decremental()<CR>")
         ];
       };
+
       # For some reason treesitter highlighting does not work on start if this is set before syntax on
       configRC.treesitter-fold = mkIf cfg.fold (entryBefore ["basic"] ''
         set foldmethod=expr
@@ -43,7 +46,7 @@ in {
       '');
 
       luaConfigRC.treesitter = entryAnywhere ''
-        require'nvim-treesitter.configs'.setup {
+        require('nvim-treesitter.configs').setup {
           -- Disable imperative treesitter options that would attempt to fetch
           -- grammars into the read-only Nix store. To add additional grammars here
           -- you must use the `config.vim.treesitter.grammars` option.
@@ -51,13 +54,23 @@ in {
           sync_install = false,
           ensure_installed = {},
 
+          -- Indentation module for Treesitter
+          indent = {
+            enable = true,
+            disable = {},
+          },
+
+          -- Highlight module for Treesitter
           highlight = {
             enable = ${boolToString cfg.highlight.enable},
             disable = ${toLuaObject cfg.highlight.disable},
+            additional_vim_regex_highlighting = false,
           },
 
+          -- Indentation module for Treesitter
           incremental_selection = {
             enable = true,
+            disable = {},
             keymaps = {
               init_selection = false,
               node_incremental = false,
