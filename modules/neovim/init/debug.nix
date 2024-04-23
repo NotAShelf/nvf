@@ -39,11 +39,11 @@ in {
   config.vim = mkIf cfg.enable {
     luaConfigRC.debug-mode = entryAfter ["basic"] ''
       -- Debug mode settings
-      vim.o.verbose = ${toString cfg.level},
+      vim.o.verbose = ${toString cfg.level}
 
       ${optionalString (cfg.logFile != null) ''
         -- Set verbose log file
-        vim.o.verbosefile = ${cfg.logFile},
+        vim.o.verbosefile = "${cfg.logFile}"
       ''}
     '';
   };
