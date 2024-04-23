@@ -43,7 +43,7 @@ in {
       luaConfigRC.treesitter = entryAnywhere ''
         require'nvim-treesitter.configs'.setup {
           -- Disable imperative treesitter options that would attempt to fetch
-          -- grammars into the read-only Nix store. To add additionall grammars here
+          -- grammars into the read-only Nix store. To add additional grammars here
           -- you must use the `config.vim.treesitter.grammars` option.
           auto_install = false,
           sync_install = false,
