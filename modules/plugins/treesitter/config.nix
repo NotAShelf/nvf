@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   lib,
   ...
 }: let
@@ -11,7 +12,7 @@
   cfg = config.vim.treesitter;
   usingNvimCmp = config.vim.autocomplete.enable && config.vim.autocomplete.type == "nvim-cmp";
 
-  self = import ./treesitter.nix {inherit lib;};
+  self = import ./treesitter.nix {inherit pkgs lib;};
   mappingDefinitions = self.options.vim.treesitter.mappings;
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
 in {
@@ -32,7 +33,6 @@ in {
           (mkSetBinding mappings.incrementalSelection.decrementByNode ":lua require('nvim-treesitter.incremental_selection').node_decremental()<CR>")
         ];
       };
-
       # For some reason treesitter highlighting does not work on start if this is set before syntax on
       configRC.treesitter-fold = mkIf cfg.fold (entryBefore ["basic"] ''
         set foldmethod=expr
@@ -42,13 +42,17 @@ in {
 
       luaConfigRC.treesitter = entryAnywhere ''
         require'nvim-treesitter.configs'.setup {
+          -- Disable imperative treesitter options that would attempt to fetch
+          -- grammars into the read-only Nix store. To add additionall grammars here
+          -- you must use the `config.vim.treesitter.grammars` option.
+          auto_install = false,
+          sync_install = false,
+          ensure_installed = {},
+
           highlight = {
             enable = true,
             disable = {},
           },
-
-          auto_install = false,
-          ensure_installed = {},
 
           incremental_selection = {
             enable = true,
