@@ -93,8 +93,6 @@
 
     # LSP plugins
     plugin-nvim-lspconfig = {
-      # url = "github:neovim/nvim-lspconfig?ref=v0.1.3";
-      # Use master for nil_ls
       url = "github:neovim/nvim-lspconfig";
       flake = false;
     };
@@ -345,7 +343,7 @@
     };
 
     plugin-oxocarbon = {
-      url = "github:glyh/oxocarbon.nvim/lualine-support";
+      url = "github:nyoom-engineering/oxocarbon.nvim";
       flake = false;
     };
 
