@@ -7,10 +7,9 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) optional optionals;
   inherit (lib.trivial) boolToString;
-  inherit (lib.nvim.lists) listContainsValues;
   inherit (lib.nvim.binds) mkSetBinding addDescriptionsToMappings;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.dag) entryBefore entryAnywhere;
+  inherit (lib.nvim.dag) entryBefore entryAfter;
 
   cfg = config.vim.treesitter;
   usingNvimCmp = config.vim.autocomplete.enable && config.vim.autocomplete.type == "nvim-cmp";
@@ -45,7 +44,7 @@ in {
         set nofoldenable
       '');
 
-      luaConfigRC.treesitter = entryAnywhere ''
+      luaConfigRC.treesitter = entryAfter ["basic"] ''
         require('nvim-treesitter.configs').setup {
           -- Disable imperative treesitter options that would attempt to fetch
           -- grammars into the read-only Nix store. To add additional grammars here
