@@ -37,11 +37,11 @@ in {
         ];
       };
 
-      # For some reason treesitter highlighting does not work on start
-      # if this is set before syntax on
-      configRC.treesitter-fold = mkIf cfg.fold (entryAfter ["basic"] ''
+      # For some reason treesitter highlighting does not work on start if this is set before syntax on
+      configRC.treesitter-fold = mkIf cfg.fold (entryBefore ["basic"] ''
         set foldmethod=expr
         set foldexpr=nvim_treesitter#foldexpr()
+        set nofoldenable
       '');
 
       luaConfigRC.treesitter = entryAfter ["basic"] ''
