@@ -24,7 +24,7 @@ in {
         trim_scope = '${cfg.trimScope}',
         mode = '${cfg.mode}',
         separator = ${nullString cfg.separator},
-        max_lines = ${toString cfg.zindex},
+        z_index = ${toString cfg.zindex},
       }
     '';
   };
