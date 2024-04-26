@@ -1,12 +1,8 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{lib, ...}: let
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkRenamedOptionModule;
-  inherit (lib.types) int str enum attrsOf;
-  inherit (lib.nvim.types) mkPluginSetupOption;
+  inherit (lib.types) int str enum attrsOf either;
+  inherit (lib.nvim.types) mkPluginSetupOption luaInline;
 in {
   imports = let
     renamedSetupOpt = name:
@@ -25,6 +21,12 @@ in {
     enable = mkEnableOption "nvim-notify notifications";
 
     setupOpts = mkPluginSetupOption "nvim-notify" {
+      render = mkOption {
+        type = either (enum ["default" "minimal" "simple" "compact" "wrapped-compact"]) luaInline;
+        default = "compact";
+        description = "Custom rendering method to be used for displaying notifications";
+      };
+
       stages = mkOption {
         type = enum ["fade_in_slide_out" "fade_in" "slide_out" "none"];
         default = "fade_in_slide_out";
@@ -57,7 +59,7 @@ in {
           WARN = "";
           INFO = "";
           DEBUG = "";
-          TRACE = "";
+          TRACE = "";
         };
       };
     };
