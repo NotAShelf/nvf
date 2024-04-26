@@ -92,8 +92,10 @@ inputs: {
   extraLuaPackages = ps: map (x: ps.${x}) vimOptions.luaPackages;
   extraPython3Packages = ps: map (x: ps.${x}) vimOptions.python3Packages;
 
-  extraWrapperArgs =
-    concatStringsSep " " (optional (vimOptions.extraPackages != []) ''--prefix PATH : "${makeBinPath vimOptions.extraPackages}"'');
+  extraWrapperArgs = concatStringsSep " " (optional (vimOptions.extraPackages != []) ''
+    --unset XDG_DATA_DIRS \
+    --prefix PATH : "${makeBinPath vimOptions.extraPackages}"
+  '');
 
   # wrap user's desired neovim package with the desired neovim configuration
   # using wrapNeovimUnstable and makeNeovimConfig from nixpkgs.
@@ -119,6 +121,8 @@ in {
   inherit (module) options config;
   inherit (module._module.args) pkgs;
 
-  # expose wrapped neovim-package
-  neovim = neovim-wrapped;
+  # expose wrapped neovim package
+  neovim = neovim-wrapped.overrideAttrs (old: {
+    generatedWrapperArgs = (old.generatedWrapperArgs or []) ++ ["--set" "NVIM_APPNAME" "nvf"];
+  });
 }

@@ -60,6 +60,13 @@ in {
             path = ./runtime;
             name = "nvim-runtime";
           })
+
+          # as a Neovim plugin - pure, reproducible and follows Neovim practices
+          (pkgs.vimUtils.buildVimPlugin {
+             pname = "nvim-runtime";
+             src = ./nvim-runtime; # needs a plugin/init.lua, can refer to modules in a root level lua/ dir
+             version = "#";
+          })
         ]
       '';
 
@@ -133,14 +140,27 @@ in {
           -- Remove default user runtime paths from the
           -- `runtimepath` option to avoid leaking user configuration
           -- into the final neovim wrapper
-          local defaultRuntimePaths = {
-            vim.fn.stdpath('config'),              -- $HOME/.config/nvim
-            vim.fn.stdpath('config') .. "/after",  -- $HOME/.config/nvim/after
-            vim.fn.stdpath('data') .. "/site",     -- $HOME/.local/share/nvim/site
-          }
+          local defaultRuntimePaths = {}
+          local function addPath(path)
+              table.insert(defaultRuntimePaths, path)
+              table.insert(defaultRuntimePaths, path .. "/site")
+          end
+
+          -- Add standard paths to the table
+          addPath(vim.fn.stdpath('config'))            -- $HOME/.config/nvim
+          addPath(vim.fn.stdpath('data'))              -- $HOME/.local/share
+          addPath(vim.fn.stdpath('state'))             -- $HOME/.local/state
+          addPath(vim.fn.stdpath('cache'))             -- $HOME/.cache/nvim
+          addPath(vim.fn.stdpath('config_dirs'))
+          addPath(vim.fn.stdpath('data_dirs'))
 
           for _, path in ipairs(defaultRuntimePaths) do
-            vim.opt.runtimepath:remove(path)
+              -- Check if the path exists in runtimepath before removing it
+              if vim.fn.index(vim.opt.runtimepath, path) >= 0 then
+                  vim.opt.runtimepath:remove(path)
+              else
+                  print("Path does not exist in runtimepath:", path)
+              end
           end
         ''}
 
