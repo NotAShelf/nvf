@@ -58,6 +58,7 @@
       	  gitsigns = true,
       	  telescope = true,
       	  treesitter = true,
+          treesitter_context = true,
       	  ts_rainbow = true,
           fidget = true,
           alpha = true,

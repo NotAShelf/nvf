@@ -1,7 +1,9 @@
 {
   imports = [
+    # treesitter extras
+    ./ts-context
+
     ./treesitter.nix
-    ./context.nix
     ./config.nix
   ];
 }

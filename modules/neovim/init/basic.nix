@@ -49,7 +49,7 @@ in {
 
     syntaxHighlighting = mkOption {
       type = bool;
-      default = true;
+      default = !config.vim.treesitter.highlight.enable;
       description = "Enable syntax highlighting";
     };
 
