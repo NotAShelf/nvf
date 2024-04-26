@@ -149,3 +149,10 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
 
 - Added [`vim.extraPackages`](vim.extraPackages) for appending additional packages to the wrapper PATH, making said packages available
   while inside the Neovim session.
+
+- Made treesitter options configurable, and moved `treesitter-context to
+`setupOpts` while it is enabled.
+
+- Added `vim.notify.nvim-notify.setupOpts.render` which takes either a string of enum or
+  a lua function. The default is "compact", but you may change it according to
+  nvim-notify documentation.
