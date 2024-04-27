@@ -66,14 +66,7 @@ in {
 
   luaInline = lib.mkOptionType {
     name = "luaInline";
-    check = x: lib.nvim.lua.isLuaInline x || builtins.isString x;
-    merge = loc: defs: let
-      val =
-        if isString loc
-        then lib.generators.mkLuaInline loc
-        else loc;
-    in
-      lib.mergeOneOption val defs;
+    check = x: lib.nvim.lua.isLuaInline x;
   };
 
   /*
