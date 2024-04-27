@@ -33,7 +33,7 @@ Followed by importing the NixOS module somewhere in your configuration.
 }
 ```
 
-## Example Installation {#sec-example-installation}
+## Example Installation {#sec-example-installation-nixos}
 
 ```nix
 {

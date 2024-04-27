@@ -33,7 +33,7 @@ Followed by importing the home-manager module somewhere in your configuration.
 }
 ```
 
-## Example Installation {#sec-example-installation}
+## Example Installation {#sec-example-installation-hm}
 
 ```nix
 {

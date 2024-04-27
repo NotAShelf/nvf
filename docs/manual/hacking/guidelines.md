@@ -110,12 +110,12 @@ to contain the parent as well - for example `languages/java: some major change`.
 
 ## Code Style {#sec-guidelines-code-style}
 
-### Treewide
+### Treewide {#sec-code-style-treewide}
 
 Keep lines at a reasonable width, ideally 80 characters or less. This also applies
 to string literals and module descriptions and documentation.
 
-### Nix
+### Nix {#sec-code-style-nix}
 
 **nvf** is formatted by the [alejandra](https://github.com/kamadorueda/alejandra)
 tool and the formatting is checked in the pull request and push workflows. Run the
