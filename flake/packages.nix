@@ -33,7 +33,7 @@
           inherit (config.legacyPackages) neovim-nix;
         in
           dockerTools.buildImage {
-            name = "neovim-flake";
+            name = "nvf";
             tag = "latest";
 
             copyToRoot = buildEnv {

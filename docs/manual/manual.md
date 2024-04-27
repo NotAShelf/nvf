@@ -1,4 +1,4 @@
-# neovim-flake-manual {#neovim-flake-manual}
+# nvf manual {#nvf-manual}
 
 ## Version @NVF_VERSION@
 

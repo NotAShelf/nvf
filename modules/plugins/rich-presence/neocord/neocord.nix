@@ -7,10 +7,12 @@ in {
   imports =
     [
       (mkRemovedOptionModule ["vim" "presence" "presence-nvim"] ''
-        The option vim.presence.presence-nvim has been deprecated in favor of the new neocord module.
-        Options provided by the plugin remain mostly the same, but manual migration is required.
+        The option vim.presence.presence-nvim has been deprecated in favor of the new
+        neocord module. Options provided by the plugin remain mostly the same, but manual
+        migration is required.
 
-        Please see neocord documentation and the neovim-flake options for more info
+        Please see neocord documentation and options page on the **nvf** manual
+        for mor einformation
       '')
     ]
     ++ (map

@@ -27,19 +27,33 @@
         };
 
         homeManagerModules = {
-          neovim-flake = {
+          neovim-flake =
+            nixpkgs.lib.warn ''
+              homeManagerModules.neovim-flake has been deprecated.
+              Plese use the homeManagereModules.nvf instead
+            ''
+            self.homeManagerModules.nvf;
+
+          nvf = {
             imports = [(import ./flake/modules/home-manager.nix self.packages inputs)];
           };
 
-          default = self.homeManagerModules.neovim-flake;
+          default = self.homeManagerModules.nvf;
         };
 
         nixosModules = {
-          neovim-flake = {
+          neovim-flake =
+            nixpkgs.lib.warn ''
+              nixosModules.neovim-flake has been deprecated.
+              Please use the nixosModules.nvf instead
+            ''
+            self.nixosModules.neovim-flake;
+
+          nvf = {
             imports = [(import ./flake/modules/nixos.nix self.packages inputs)];
           };
 
-          default = self.nixosModules.neovim-flake;
+          default = self.nixosModules.nvf;
         };
       };
 

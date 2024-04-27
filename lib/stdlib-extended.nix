@@ -9,7 +9,7 @@ nixpkgsLib.extend (self: super: {
 
   # Makes our custom functions available under `lib.nvim` where stdlib-extended.nix is imported
   # with the appropriate arguments. For end-users, a `lib` output will be accessible from the flake.
-  # E.g. for an input called `neovim-flake`, `inputs.neovim-flake.lib.nvim` will return the set
+  # E.g. for an input called `nvf`, `inputs.nvf.lib.nvim` will return the set
   # below.
   nvim = import ./. {
     inherit inputs;

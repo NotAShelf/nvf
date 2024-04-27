@@ -1,6 +1,6 @@
 # Adding Plugins {#sec-additional-plugins}
 
-To add a new neovim plugin, first add the source url in the inputs section of `flake.nix`
+To add a new Neovim plugin, first add the source url in the inputs section of `flake.nix`
 with the prefix `plugin-`
 
 ```nix
@@ -17,7 +17,7 @@ with the prefix `plugin-`
 }
 ```
 
-The addition of the `plugin-` prefix will allow neovim-flake to autodiscover the
+The addition of the `plugin-` prefix will allow **nvf** to autodiscover the
 input from the flake inputs automatically, allowing you to refer to it in areas
 that require a very specific plugin type as defined in `lib/types/plugins.nix`
 
