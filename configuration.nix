@@ -246,7 +246,7 @@ inputs: let
       };
 
       presence = {
-        neocord.enable = true;
+        neocord.enable = false;
       };
     };
   };
