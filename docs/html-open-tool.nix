@@ -4,7 +4,7 @@
   symlinkJoin,
 }: {
   html,
-  pathName ? "neovim-flake",
+  pathName ? "nvf",
   projectName ? pathName,
   name ? "${pathName}-help",
 }: let

@@ -1,4 +1,4 @@
-# Configuring neovim-flake {#ch-configuring}
+# Configuring nvf {#ch-configuring}
 
 ```{=include=} chapters
 configuring/custom-package.md

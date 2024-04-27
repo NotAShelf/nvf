@@ -86,12 +86,12 @@
 
         transformOptions = opt:
           recursiveUpdate opt {
-            # Clean up declaration sites to not refer to the neovim-flakee
+            # Clean up declaration sites to not refer to the nvf
             # source tree.
             declarations = map (decl:
               if hasPrefix nvimPath (toString decl)
               then
-                githubDeclaration "notashelf" "neovim-flake"
+                githubDeclaration "notashelf" "nvf"
                 (removePrefix "/" (removePrefix nvimPath (toString decl)))
               else if decl == "lib/modules.nix"
               then
@@ -105,7 +105,7 @@
       // builtins.removeAttrs args ["modules" "includeModuleSystemOptions"]);
 
   nvimModuleDocs = buildOptionsDocs {
-    variablelistId = "neovim-flake-options";
+    variablelistId = "nvf-options";
 
     modules =
       import ../modules/modules.nix {
@@ -117,7 +117,7 @@
 
   # Generate the `man home-configuration.nix` package
   nvf-configuration-manual =
-    pkgs.runCommand "neovim-flake-reference-manpage" {
+    pkgs.runCommand "nvf-reference-manpage" {
       nativeBuildInputs = [pkgs.buildPackages.installShellFiles pkgs.nixos-render-docs];
       allowedReferences = ["out"];
     } ''
@@ -130,21 +130,21 @@
         --header ${./man/header.5} \
         --footer ${./man/footer.5} \
         ${nvimModuleDocs.optionsJSON}/share/doc/nixos/options.json \
-        $out/share/man/man5/neovim-flake.5
+        $out/share/man/man5/nvf.5
 
-      cp ${./man/neovim-flake.1} $out/share/man/man1/neovim-flake.1
+      cp ${./man/nvf.1} $out/share/man/man1/nvf.1
     '';
 
   # Generate the HTML manual pages
-  neovim-flake-manual = pkgs.callPackage ./manual.nix {
+  nvf-manual = pkgs.callPackage ./manual.nix {
     inherit revision manpageUrls;
-    outputPath = "share/doc/neovim-flake";
+    outputPath = "share/doc/nvf";
     options = {
-      neovim-flake = nvimModuleDocs.optionsJSON;
+      nvf = nvimModuleDocs.optionsJSON;
     };
   };
 
-  html = neovim-flake-manual;
+  html = nvf-manual;
   htmlOpenTool = pkgs.callPackage ./html-open-tool.nix {} {inherit html;};
 in {
   inherit (inputs) nmd;
@@ -154,16 +154,16 @@ in {
     # `nixosOptionsDoc` is more customizable.
     json =
       pkgs.runCommand "options.json" {
-        meta.description = "List of neovim-flake options in JSON format";
+        meta.description = "List of nvf options in JSON format";
       } ''
         mkdir -p $out/{share/doc,nix-support}
-        cp -a ${nvimModuleDocs.optionsJSON}/share/doc/nixos $out/share/doc/neovim-flake
+        cp -a ${nvimModuleDocs.optionsJSON}/share/doc/nixos $out/share/doc/nvf
         substitute \
           ${nvimModuleDocs.optionsJSON}/nix-support/hydra-build-products \
           $out/nix-support/hydra-build-products \
           --replace \
             '${nvimModuleDocs.optionsJSON}/share/doc/nixos' \
-            "$out/share/doc/neovim-flake"
+            "$out/share/doc/nvf"
       '';
   };
 

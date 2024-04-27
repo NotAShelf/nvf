@@ -1,13 +1,17 @@
 # Using DAGs {#ch-using-dags}
 
-We conform to the NixOS options types for the most part, however, a noteworthy addition
-for certain options is the [**DAG (Directed acyclic graph)**](https://en.wikipedia.org/wiki/Directed_acyclic_graph)
-type which is borrowed from home-manager's extended library. This type is most used for
-topologically sorting strings. The DAG type allows the attribute set entries to express dependency
-relations among themselves. This can, for example, be used to control the order of configuration
-sections in your `configRC` or `luaConfigRC`.
+We conform to the NixOS options types for the most part, however, a noteworthy
+addition for certain options is the [**DAG
+(Directed acyclic graph)**](https://en.wikipedia.org/wiki/Directed_acyclic_graph)
+type which is borrowed from home-manager's extended library. This type is most
+used for topologically sorting strings. The DAG type allows the attribute set
+entries to express dependency relations among themselves. This can, for
+example, be used to control the order of configuration sections in your
+`configRC` or `luaConfigRC`.
 
-The below section, mostly taken from the [home-manager manual](https://raw.githubusercontent.com/nix-community/home-manager/master/docs/manual/writing-modules/types.md) explains the overal usage logic of the DAG typee
+The below section, mostly taken from the [home-manager
+manual](https://raw.githubusercontent.com/nix-community/home-manager/master/docs/manual/writing-modules/types.md)
+explains in more detail the overall usage logic of the DAG type.
 
 ## entryAnywhere {#sec-types-dag-entryAnywhere}
 

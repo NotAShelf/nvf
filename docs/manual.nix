@@ -8,13 +8,13 @@
   manpageUrls,
   revision,
   options,
-  outputPath ? "share/doc/neovim-flake",
+  outputPath ? "share/doc/nvf",
 }:
 stdenvNoCC.mkDerivation {
-  name = "neovim-flake-manual";
+  name = "nvf-manual";
   src = builtins.path {
     path = lib.sourceFilesBySuffices ./manual [".md"];
-    name = "neovim-flake-manual";
+    name = "nvf-manual";
   };
 
   nativeBuildInputs = [nixos-render-docs];
@@ -31,7 +31,7 @@ stdenvNoCC.mkDerivation {
     substituteInPlace ./options.md \
       --subst-var-by \
         OPTIONS_JSON \
-        ${options.neovim-flake}/share/doc/nixos/options.json
+        ${options.nvf}/share/doc/nixos/options.json
 
     substituteInPlace ./manual.md \
       --subst-var-by \
