@@ -36,8 +36,14 @@
     Nix code.
   </a>
 </div>
+<br/>
 
-</div>
+> [!WARNING]  
+> Main branch is only updated for small, non-breaking changes. For the latest version of neovim-flake, please see
+> [the list of branches](https://github.com/NotAShelf/neovim-flake/branches) or
+> [open pull requests](https://github.com/NotAShelf/neovim-flake/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc).
+> neovim-flake, at the time, is still being actively developed - and will continue to be so for the foreseeable
+> future.
 
 ---
 
@@ -177,3 +183,7 @@ Following the [original neovim-flake](https://github.com/jordanisaacs/neovim-fla
 are published under the [CC BY License].
 
 ---
+
+<div align="right">
+  <a href="#readme">Back to the Top</a>
+</div>
