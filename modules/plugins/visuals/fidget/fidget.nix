@@ -7,8 +7,8 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.attrsets) mapAttrs;
   inherit (lib.strings) toUpper;
-  inherit (lib.types) int float bool str enum listOf attrsOf;
-  inherit (lib.nvim.types) mkPluginSetupOption;
+  inherit (lib.types) int float bool str enum listOf attrsOf anything;
+  inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   inherit (lib.generators) mkLuaInline;
 in {
   imports = [
@@ -44,13 +44,12 @@ in {
         };
         notification_group = mkOption {
           description = "How to get a progress message's notification group key";
-          type = str;
-          default = ''
+          type = luaInline;
+          default = mkLuaInline ''
             function(msg)
               return msg.lsp_client.name
             end
           '';
-          apply = mkLuaInline;
         };
         ignore = mkOption {
           description = "Ignore LSP servers by name";
@@ -157,33 +156,29 @@ in {
           };
           format_message = mkOption {
             description = "How to format a progress message";
-            type = str;
-            default = ''
+            type = luaInline;
+            default = mkLuaInline ''
               require("fidget.progress.display").default_format_message
             '';
-            apply = mkLuaInline;
           };
           format_annote = mkOption {
             description = "How to format a progress annotation";
-            type = str;
-            default = ''
+            type = luaInline;
+            default = mkLuaInline ''
               function(msg) return msg.title end
             '';
-            apply = mkLuaInline;
           };
           format_group_name = mkOption {
             description = "How to format a progress notification group's name";
-            type = str;
-            default = ''
+            type = luaInline;
+            default = mkLuaInline ''
               function(group) return tostring(group) end
             '';
-            apply = mkLuaInline;
           };
           overrides = mkOption {
             description = "Override options from the default notification config";
-            type = attrsOf str;
-            default = {rust_analyzer = "{ name = 'rust-analyzer' }";};
-            apply = mapAttrs (key: lua: mkLuaInline lua);
+            type = attrsOf (attrsOf anything);
+            default = {rust_analyzer = {name = "rust-analyzer";};};
           };
         };
 
@@ -225,21 +220,19 @@ in {
         };
         configs = mkOption {
           description = "How to configure notification groups when instantiated";
-          type = attrsOf str;
-          default = {default = "require('fidget.notification').default_config";};
-          apply = mapAttrs (key: lua: mkLuaInline lua);
+          type = attrsOf luaInline;
+          default = {default = mkLuaInline "require('fidget.notification').default_config";};
         };
         redirect = mkOption {
           description = "Conditionally redirect notifications to another backend";
-          type = str;
-          default = ''
+          type = luaInline;
+          default = mkLuaInline ''
             function(msg, level, opts)
               if opts and opts.on_open then
                 return require("fidget.integration.nvim-notify").delegate(msg, level, opts)
               end
             end
           '';
-          apply = mkLuaInline;
         };
 
         view = {
@@ -265,13 +258,12 @@ in {
           };
           render_message = mkOption {
             description = "How to render notification messages";
-            type = str;
-            default = ''
+            type = luaInline;
+            default = mkLuaInline ''
               function(msg, cnt)
                 return cnt == 1 and msg or string.format("(%dx) %s", cnt, msg)
               end
             '';
-            apply = mkLuaInline;
           };
         };
 
@@ -371,11 +363,10 @@ in {
         };
         path = mkOption {
           description = "Where Fidget writes its logs to";
-          type = str;
-          default = ''
+          type = luaInline;
+          default = mkLuaInline ''
             string.format("%s/fidget.nvim.log", vim.fn.stdpath("cache"))
           '';
-          apply = mkLuaInline;
         };
       };
     };
