@@ -42,21 +42,6 @@ in {
           type = bool;
           default = false;
         };
-        clear_on_detach = mkOption {
-          description = "Clear notification group when LSP server detaches";
-          type = bool;
-          default = true;
-          apply = clear:
-            if clear
-            then
-              mkLuaInline ''
-                function(client_id)
-                  local client = vim.lsp.get_client_by_id(client_id)
-                  return client and client.name or nil
-                end
-              ''
-            else null;
-        };
         notification_group = mkOption {
           description = "How to get a progress message's notification group key";
           type = str;
