@@ -43,6 +43,10 @@ in {
       '';
     };
 
+    /*
+    # FIXME: This needs to be revisited. It tries to install
+    # the spellfile to an user directory, but it cannot do so
+    # as we sanitize runtime paths.
     programmingWordlist.enable = mkEnableOption ''
       vim-dirtytalk, a wordlist for programmers containing
       common programming terms.
@@ -50,6 +54,7 @@ in {
       Setting this value as `true` has the same effect
       as setting {option}`vim.spellCheck.enable`
     '';
+    */
   };
 
   config = mkIf cfg.enable {

@@ -31,7 +31,6 @@ inputs: let
 
       spellcheck = {
         enable = isMaximal;
-        programmingWordlist.enable = isMaximal;
       };
 
       lsp = {

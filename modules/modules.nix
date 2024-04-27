@@ -34,7 +34,7 @@
     "rich-presence"
     "session"
     "snippets"
-    "spellcheck"
+    # "spellcheck" # FIXME: see neovim/init/spellcheck.nix
     "statusline"
     "tabline"
     "terminal"
