@@ -102,7 +102,7 @@ in {
 
         If this option is passed as a DAG, it will be resolved
         according to the DAG resolution rules (e.g. entryBefore
-        or entryAfter) as per the neovim-flake library.
+        or entryAfter) as per the **nvf** extended library.
       '';
 
       example = literalMD ''
@@ -182,7 +182,7 @@ in {
 
         If this option is passed as a DAG, it will be resolved
         according to the DAG resolution rules (e.g. entryBefore
-        or entryAfter) as per the neovim-flake library.
+        or entryAfter) as per the **nvf** extended library.
       '';
 
       example = literalMD ''

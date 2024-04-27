@@ -12,11 +12,14 @@ in {
       type = package;
       default = pkgs.neovim-unwrapped;
       description = ''
-        The neovim package to use.
+        The neovim package to use for the wrapper. This
+        corresponds to the package that will be wrapped
+        with your plugins and settings.
 
         ::: {.warning}
         You will need to use an unwrapped package for this
-        option to work as intended.
+        option to work as intended. Using an already wrapped
+        package here may yield undesirable results.
         :::
       '';
     };
@@ -74,8 +77,7 @@ in {
         set up after builtin plugins.
 
         This option takes a special type that allows you to order
-        your custom plugins using neovim-flake's modified DAG
-        library.
+        your custom plugins using nvf's modified DAG library.
       '';
 
       example = literalExpression ''

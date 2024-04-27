@@ -16,7 +16,7 @@ in {
   ];
 
   options.vim.spellcheck = {
-    enable = mkEnableOption "neovim's built-in spellchecking";
+    enable = mkEnableOption "Neovim's built-in spellchecking";
     languages = mkOption {
       type = listOf str;
       default = ["en"];
@@ -27,7 +27,7 @@ in {
         To add your own language files, you may place your `spell`
         directory in either `~/.config/nvim` or the
         [additionalRuntimePaths](#opt-vim.additionalRuntimePaths)
-        directory provided by neovim-flake.
+        directory provided by **nvf**.
       '';
     };
 
@@ -38,7 +38,7 @@ in {
       description = ''
         A list of filetypes for which spellchecking will be disabled.
 
-        You may use `echo &filetype` in neovim to find out the
+        You may use `echo &filetype` in Neovim to find out the
         filetype for a specific buffer.
       '';
     };

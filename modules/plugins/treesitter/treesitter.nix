@@ -27,7 +27,7 @@ in {
       description = ''
         List of treesitter grammars to install.
 
-        For languages already supported by neovim-flake, you may
+        For languages already supported by nvf, you may
         use the {option}`vim.language.<lang>.treesitter` options, which
         will automatically add the required grammars to this.
       '';
@@ -39,6 +39,7 @@ in {
       description = ''
         Whether to add the default grammars to the list of grammars
         to install.
+
         This option is only relevant if treesitter has been enabled.
       '';
     };
