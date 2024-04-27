@@ -1,5 +1,5 @@
 <div align="center">
-    <img src=".github/assets/nvf-logo-work.svg" alt="nvf Logo"  width="200">
+    <img src="assets/nvf-logo-work.svg" alt="nvf Logo"  width="200">
 </div>
 <h1 align="center">❄️  nvf</h1>
 <div align="center">
