@@ -18,7 +18,7 @@ should be documented with [Nixpkgs-flavoured Markdown](https://nixos.org/manual/
 albeit with exceptions.
 
 ::: {.note}
-As of **v0.5**, **vf** is itself documented using full markdown in both module
+As of **v0.5**, **nvf** is itself documented using full markdown in both module
 options and the manual. With **v0.6**, this manual has also been converted to
 markdown in full.
 :::
