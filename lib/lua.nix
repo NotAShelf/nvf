@@ -58,7 +58,7 @@ in rec {
   # Convert a list of lua expressions to a lua table. The difference to listToLuaTable is that the elements here are expected to be lua expressions already, whereas listToLuaTable converts from nix types to lua first
   luaTable = items: ''{${concatStringsSep "," items}}'';
 
-  isLuaInline = {_type ? null, ...}: _type == "lua-inline";
+  isLuaInline = object: (object._type or null) == "lua-inline";
 
   toLuaObject = args:
     if isAttrs args
