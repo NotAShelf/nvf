@@ -33,7 +33,7 @@ jobs:
       - name: Build
         run: |
           nix build '.#docs'
-          cp -r result/share/doc/neovim-flake public
+          cp -r result/share/doc/nvf public
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
