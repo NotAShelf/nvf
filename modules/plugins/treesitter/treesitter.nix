@@ -97,7 +97,7 @@ in {
         example = literalMD ''
           ```lua
           -- Disable slow treesitter highlight for large files
-          disable = function(lang, buf)
+          function(lang, buf)
             local max_filesize = 1000 * 1024 -- 1MB
             local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
             if ok and stats and stats.size > max_filesize then
