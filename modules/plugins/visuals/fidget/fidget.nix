@@ -4,10 +4,9 @@
   ...
 }: let
   inherit (lib.modules) mkRemovedOptionModule mkRenamedOptionModule;
-  inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.attrsets) mapAttrs;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.strings) toUpper;
-  inherit (lib.types) int float bool str enum listOf attrsOf anything;
+  inherit (lib.types) int float bool str enum listOf attrsOf oneOf nullOr submodule;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   inherit (lib.generators) mkLuaInline;
 in {
@@ -176,9 +175,183 @@ in {
             '';
           };
           overrides = mkOption {
-            description = "Override options from the default notification config";
-            type = attrsOf (attrsOf anything);
-            default = {rust_analyzer = {name = "rust-analyzer";};};
+            description = ''
+              Overrides the default configuration for a notification group defined
+              in [](#opt-vim.visuals.fidget-nvim.setupOpts.notification.configs).
+
+              If any of the fields are null, the value from the default
+              configuration is used.
+
+              If default configuration is not defined, the following defaults are used:
+              ```lua
+                 {
+                     name = "Notifications",
+                     icon = "❰❰",
+                     ttl = 5,
+                     group_style = "Title",
+                     icon_style = "Special",
+                     annote_style = "Question",
+                     debug_style = "Comment",
+                     info_style = "Question",
+                     warn_style = "WarningMsg",
+                     error_style = "ErrorMsg",
+                     debug_annote = "DEBUG",
+                     info_annote = "INFO",
+                     warn_annote = "WARN",
+                     error_annote = "ERROR",
+                     update_hook = function(item)
+                       notification.set_content_key(item)
+                     end,
+                 }
+              ```
+            '';
+            type = attrsOf (submodule {
+              options = {
+                name = mkOption {
+                  description = ''
+                    Name of the group, displayed in the notification window.
+                    Can be a string or a function that returns a string.
+
+                    If a function, it is invoked every render cycle with the items
+                    list, useful for rendering animations and other dynamic content.
+
+                    ::: {.note}
+                    If you're looking for detailed information into the function
+                    signature, you can refer to the fidget API documentation available
+                    [here](https://github.com/j-hui/fidget.nvim/blob/1ba38e4cbb24683973e00c2e36f53ae64da38ef5/doc/fidget-api.txt#L70-L77)
+                    :::
+                  '';
+                  type = nullOr (oneOf [str luaInline]);
+                  default = null;
+                };
+                icon = mkOption {
+                  description = ''
+                    Icon of the group, displayed in the notification window.
+                    Can be a string or a function that returns a string.
+
+                    If a function, it is invoked every render cycle with the items
+                    list, useful for rendering animations and other dynamic content.
+
+                    ::: {.note}
+                    If you're looking for detailed information into the function
+                    signature, you can refer to the fidget API documentation available
+                    [here](https://github.com/j-hui/fidget.nvim/blob/1ba38e4cbb24683973e00c2e36f53ae64da38ef5/doc/fidget-api.txt#L70-L77)
+                    :::
+                  '';
+                  type = nullOr (oneOf [str luaInline]);
+                  default = null;
+                };
+                icon_on_left = mkOption {
+                  description = "If true, icon is rendered on the left instead of right";
+                  type = nullOr bool;
+                  default = null;
+                };
+                annote_separator = mkOption {
+                  description = "Separator between message from annote";
+                  type = nullOr str;
+                  default = " ";
+                };
+                ttl = mkOption {
+                  description = "How long a notification item should exist";
+                  type = nullOr int;
+                  default = 5;
+                };
+                render_limit = mkOption {
+                  description = "How many notification items to show at once";
+                  type = nullOr int;
+                  default = null;
+                };
+                group_style = mkOption {
+                  description = "Style used to highlight group name";
+                  type = nullOr str;
+                  default = "Title";
+                };
+                icon_style = mkOption {
+                  description = "Style used to highlight icon, if null, use group_style";
+                  type = nullOr str;
+                  default = null;
+                };
+                annote_style = mkOption {
+                  description = "Default style used to highlight item annotes";
+                  type = nullOr str;
+                  default = "Question";
+                };
+                debug_style = mkOption {
+                  description = "Style used to highlight debug item annotes";
+                  type = nullOr str;
+                  default = null;
+                };
+                info_style = mkOption {
+                  description = "Style used to highlight info item annotes";
+                  type = nullOr str;
+                  default = null;
+                };
+                warn_style = mkOption {
+                  description = "Style used to highlight warn item annotes";
+                  type = nullOr str;
+                  default = null;
+                };
+                error_style = mkOption {
+                  description = "Style used to highlight error item annotes";
+                  type = nullOr str;
+                  default = null;
+                };
+                debug_annote = mkOption {
+                  description = "Default annotation for debug items";
+                  type = nullOr str;
+                  default = null;
+                };
+                info_annote = mkOption {
+                  description = "Default annotation for info items";
+                  type = nullOr str;
+                  default = null;
+                };
+                warn_annote = mkOption {
+                  description = "Default annotation for warn items";
+                  type = nullOr str;
+                  default = null;
+                };
+                error_annote = mkOption {
+                  description = "Default annotation for error items";
+                  type = nullOr str;
+                  default = null;
+                };
+                priority = mkOption {
+                  description = "Order in which group should be displayed";
+                  type = nullOr int;
+                  default = 50;
+                };
+                skip_history = mkOption {
+                  description = "Whether messages should be preserved in history";
+                  type = nullOr bool;
+                  default = null;
+                };
+                update_hook = mkOption {
+                  description = ''
+                    Called when an item is updated.
+
+                    If false, no action is taken.
+                    If a function, it is invoked with the item being updated.
+
+                    ::: {.note}
+                    If you're looking for detailed information into the function
+                    signature, you can refer to the fidget API documentation available
+                    [here](https://github.com/j-hui/fidget.nvim/blob/1ba38e4cbb24683973e00c2e36f53ae64da38ef5/doc/fidget-api.txt#L114)
+                    :::
+                  '';
+                  type = nullOr (oneOf [bool luaInline]);
+                  default = false;
+                };
+              };
+            });
+            default = {};
+            example = literalExpression ''
+              {
+                rust_analyzer = {
+                  name = "Rust Analyzer";
+                };
+              }
+            '';
           };
         };
 
