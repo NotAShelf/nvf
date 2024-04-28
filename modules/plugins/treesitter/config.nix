@@ -39,8 +39,13 @@ in {
 
       # For some reason treesitter highlighting does not work on start if this is set before syntax on
       configRC.treesitter-fold = mkIf cfg.fold (entryBefore ["basic"] ''
+        " This is required by treesitter-context to handle folds
         set foldmethod=expr
         set foldexpr=nvim_treesitter#foldexpr()
+
+        " This is optional, but is set rather as a sane default.
+        " If unset, opened files will be folded by automatically as
+        " the files are opened
         set nofoldenable
       '');
 
@@ -67,6 +72,9 @@ in {
           },
 
           -- Indentation module for Treesitter
+          -- Keymaps are set to false here as they are
+          -- handled by `vim.maps` entries calling lua
+          -- functions achieving the same functionality.
           incremental_selection = {
             enable = true,
             disable = {},

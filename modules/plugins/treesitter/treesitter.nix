@@ -6,7 +6,7 @@
   inherit (lib.options) mkOption mkEnableOption literalMD;
   inherit (lib.types) listOf package str either bool;
   inherit (lib.nvim.binds) mkMappingOption;
-  inherit (lib.nvim.types) luaInline mkGrammarOption;
+  inherit (lib.nvim.types) luaInline;
 in {
   options.vim.treesitter = {
     enable = mkEnableOption "treesitter, also enabled automatically through language options";
