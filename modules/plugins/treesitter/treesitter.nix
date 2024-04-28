@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption mkEnableOption literalMD;
+  inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
   inherit (lib.types) listOf package str either bool;
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.types) luaInline;
@@ -20,6 +20,7 @@ in {
 
     fold = mkEnableOption "fold with treesitter";
     autotagHtml = mkEnableOption "autoclose and rename html tag";
+
     grammars = mkOption {
       type = listOf package;
       default = [];
@@ -30,41 +31,6 @@ in {
         use the {option}`vim.language.<lang>.treesitter` options, which
         will automatically add the required grammars to this.
       '';
-    };
-
-    highlight = {
-      enable = mkEnableOption "highlighting with treesitter";
-      disable = mkOption {
-        type = either (listOf str) luaInline;
-        default = [];
-        example = literalMD ''
-          ```lua
-          -- Disable slow treesitter highlight for large files
-          disable = function(lang, buf)
-            local max_filesize = 1000 * 1024 -- 1MB
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
-                return true
-            end
-          end
-          ```
-        '';
-
-        description = ''
-          List of treesitter grammars to disable highlighting for.
-
-          This option can be either a list, in which case it will be
-          converted to a Lua table containing grammars to disable
-          highlighting for, or a string containing a **lua function**
-          that will be read as is.
-
-          ::: {.warning}
-          A comma will be added at the end of your function, so you
-          do not need to add it yourself. Doing so will cause in
-          syntax errors within your Neovim configuration.
-          :::
-        '';
-      };
     };
 
     addDefaultGrammars = mkOption {
@@ -96,6 +62,107 @@ in {
         to false
         :::
       '';
+    };
+
+    indent = {
+      enable = mkEnableOption "indentation with treesitter" // {default = true;};
+      disable = mkOption {
+        type = either (listOf str) luaInline;
+        default = [];
+        example = literalExpression ''["c" "rust"]'';
+
+        description = ''
+          List of treesitter grammars to disable indentation for.
+
+          This option can be either a list, in which case it will be
+          converted to a Lua table containing grammars to disable
+          indentation for, or a string containing a **lua function**
+          that will be read as is.
+
+          ::: {.warning}
+          A comma will be added at the end of your function, so you
+          do not need to add it yourself. Doing so will cause in
+          syntax errors within your Neovim configuration.
+          :::
+        '';
+      };
+    };
+
+    highlight = {
+      enable = mkEnableOption "highlighting with treesitter" // {default = true;};
+      disable = mkOption {
+        type = either (listOf str) luaInline;
+        default = [];
+        example = literalMD ''
+          ```lua
+          -- Disable slow treesitter highlight for large files
+          disable = function(lang, buf)
+            local max_filesize = 1000 * 1024 -- 1MB
+            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+            if ok and stats and stats.size > max_filesize then
+                return true
+            end
+          end
+          ```
+        '';
+
+        description = ''
+          List of treesitter grammars to disable highlighting for.
+
+          This option can be either a list, in which case it will be
+          converted to a Lua table containing grammars to disable
+          highlighting for, or a string containing a **lua function**
+          that will be read as is.
+
+          ::: {.warning}
+          A comma will be added at the end of your function, so you
+          do not need to add it yourself. Doing so will cause in
+          syntax errors within your Neovim configuration.
+          :::
+        '';
+      };
+
+      additionalVimRegexHighlighting = mkOption {
+        type = either bool (listOf str);
+        default = false;
+        description = ''
+          Takes either a boolean or a list of languages.
+
+          Setting this to true will run `:h syntax` and tree-sitter at the same time.
+          You may this to `true` if you depend on 'syntax' being enabled (like for
+          indentation).
+
+          ::: {.note}
+          Using this option may slow down your editor, and you may see some duplicate
+          highlights.
+          :::
+        '';
+      };
+    };
+
+    incrementalSelection = {
+      enable = mkEnableOption "incremental selection with treesitter" // {default = true;};
+      disable = mkOption {
+        type = either (listOf str) luaInline;
+        default = [];
+        example = literalExpression ''["c" "rust" ]'';
+
+        description = ''
+          List of treesitter grammars to disable incremental selection
+          for.
+
+          This option can be either a list, in which case it will be
+          converted to a Lua table containing grammars to disable
+          indentation for, or a string containing a **lua function**
+          that will be read as is.
+
+          ::: {.warning}
+          A comma will be added at the end of your function, so you
+          do not need to add it yourself. Doing so will cause in
+          syntax errors within your Neovim configuration.
+          :::
+        '';
+      };
     };
   };
 }

@@ -60,15 +60,15 @@ in {
 
           -- Indentation module for Treesitter
           indent = {
-            enable = true,
-            disable = {},
+            enable = ${toLuaObject cfg.indent.enable},
+            disable = ${toLuaObject cfg.indent.disable},
           },
 
           -- Highlight module for Treesitter
           highlight = {
-            enable = ${boolToString cfg.highlight.enable},
+            enable = ${toLuaObject cfg.highlight.enable},
             disable = ${toLuaObject cfg.highlight.disable},
-            additional_vim_regex_highlighting = false,
+            additional_vim_regex_highlighting = ${toLuaObject cfg.highlight.additionalVimRegexHighlighting},
           },
 
           -- Indentation module for Treesitter
@@ -76,13 +76,14 @@ in {
           -- handled by `vim.maps` entries calling lua
           -- functions achieving the same functionality.
           incremental_selection = {
-            enable = true,
-            disable = {},
+            enable = ${toLuaObject cfg.incrementalSelection.enable},
+            disable = ${toLuaObject cfg.incrementalSelection.disable},
             keymaps = {
               init_selection = false,
               node_incremental = false,
               scope_incremental = false,
               node_decremental = false,
+
             },
           },
         }
