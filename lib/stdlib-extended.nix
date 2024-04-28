@@ -1,73 +1,21 @@
-# From home-manager: https://github.com/nix-community/home-manager/blob/master/modules/lib/stdlib-extended.nix
-# Just a convenience function that returns the given Nixpkgs standard
-# library extended with the HM library.
-nixpkgsLib: let
-  mkNvimLib = import ./.;
-in
-  nixpkgsLib.extend (self: super: rec {
-    nvim = mkNvimLib {lib = self;};
+# Convenience function that returns the given Nixpkgs standard library
+# extended with our functions using `lib.extend`.
+nixpkgsLib: inputs:
+nixpkgsLib.extend (self: super: {
+  # WARNING: New functions should not be added here, but to files
+  # imported by `./default.nix` under their own categories. If your
+  # function does not fit to any of the existing categories, create
+  # a new file and import it in `./default.nix.`
 
-    mkLuaBinding = key: action: desc:
-      self.mkIf (key != null) {
-        "${key}" = {
-          inherit action desc;
-          lua = true;
-          silent = true;
-        };
-      };
+  # Makes our custom functions available under `lib.nvim` where stdlib-extended.nix is imported
+  # with the appropriate arguments. For end-users, a `lib` output will be accessible from the flake.
+  # E.g. for an input called `nvf`, `inputs.nvf.lib.nvim` will return the set
+  # below.
+  nvim = import ./. {
+    inherit inputs;
+    lib = self;
+  };
 
-    mkExprBinding = key: action: desc:
-      self.mkIf (key != null) {
-        "${key}" = {
-          inherit action desc;
-          lua = true;
-          silent = true;
-          expr = true;
-        };
-      };
-
-    mkBinding = key: action: desc:
-      self.mkIf (key != null) {
-        "${key}" = {
-          inherit action desc;
-          silent = true;
-        };
-      };
-
-    mkMappingOption = description: default:
-      self.mkOption {
-        type = self.types.nullOr self.types.str;
-        inherit default description;
-      };
-
-    # Utility function that takes two attrsets:
-    # { someKey = "some_value" } and
-    # { someKey = { description = "Some Description"; }; }
-    # and merges them into
-    # { someKey = { value = "some_value"; description = "Some Description"; }; }
-    addDescriptionsToMappings = actualMappings: mappingDefinitions:
-      self.attrsets.mapAttrs (name: value: let
-        isNested = self.isAttrs value;
-        returnedValue =
-          if isNested
-          then addDescriptionsToMappings actualMappings."${name}" mappingDefinitions."${name}"
-          else {
-            value = value;
-            description = mappingDefinitions."${name}".description;
-          };
-      in
-        returnedValue)
-      actualMappings;
-
-    mkSetBinding = binding: action:
-      mkBinding binding.value action binding.description;
-
-    mkSetExprBinding = binding: action:
-      mkExprBinding binding.value action binding.description;
-
-    mkSetLuaBinding = binding: action:
-      mkLuaBinding binding.value action binding.description;
-
-    # For forward compatibility.
-    literalExpression = super.literalExpression or super.literalExample;
-  })
+  # For forward compatibility.
+  literalExpression = super.literalExpression or super.literalExample;
+})

@@ -1,0 +1,35 @@
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.strings) optionalString;
+  inherit (lib.attrsets) mapAttrs;
+  inherit (lib.nvim.dag) entryAfter;
+
+  cfg = config.vim.lsp;
+in {
+  config = mkIf cfg.lspconfig.enable (mkMerge [
+    {
+      vim = {
+        lsp.enable = true;
+
+        startPlugins = ["nvim-lspconfig"];
+
+        luaConfigRC.lspconfig = entryAfter ["lsp-setup"] ''
+          local lspconfig = require('lspconfig')
+
+          ${
+            optionalString config.vim.ui.borders.enable ''
+              require('lspconfig.ui.windows').default_options.border = '${config.vim.ui.borders.globalStyle}'
+            ''
+          }
+        '';
+      };
+    }
+    {
+      vim.luaConfigRC = mapAttrs (_: v: (entryAfter ["lspconfig"] v)) cfg.lspconfig.sources;
+    }
+  ]);
+}

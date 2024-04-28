@@ -1,0 +1,57 @@
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.types) bool str nullOr;
+  inherit (lib.modules) mkRenamedOptionModule;
+  inherit (lib.nvim.types) mkPluginSetupOption;
+in {
+  imports = let
+    renamedSetupOption = oldPath: newPath:
+      mkRenamedOptionModule
+      (["vim" "notes" "obsidian"] ++ oldPath)
+      (["vim" "notes" "obsidian" "setupOpts"] ++ newPath);
+  in [
+    (renamedSetupOption ["dir"] ["dir"])
+    (renamedSetupOption ["daily-notes" "folder"] ["daily_notes" "folder"])
+    (renamedSetupOption ["daily-notes" "date-format"] ["daily_notes" "date_format"])
+    (renamedSetupOption ["completion"] ["completion"])
+  ];
+  options.vim.notes = {
+    obsidian = {
+      enable = mkEnableOption "complementary neovim plugins for Obsidian editor";
+
+      setupOpts = mkPluginSetupOption "Obsidian.nvim" {
+        dir = mkOption {
+          type = str;
+          default = "~/my-vault";
+          description = "Obsidian vault directory";
+        };
+
+        daily_notes = {
+          folder = mkOption {
+            type = nullOr str;
+            default = null;
+            description = "Directory in which daily notes should be created";
+          };
+          date_format = mkOption {
+            type = nullOr str;
+            default = null;
+            description = "Date format used for creating daily notes";
+          };
+        };
+
+        completion = {
+          nvim_cmp = mkOption {
+            # if using nvim-cmp, otherwise set to false
+            type = bool;
+            description = "If using nvim-cmp, otherwise set to false";
+            default = config.vim.autocomplete.type == "nvim-cmp";
+          };
+        };
+      };
+    };
+  };
+}

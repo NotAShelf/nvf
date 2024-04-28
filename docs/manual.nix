@@ -1,54 +1,57 @@
 {
-  stdenv,
   lib,
-  documentation-highlighter,
-  nmd,
-  revision,
-  outputPath ? "share/doc/neovim-flake",
-  options,
+  stdenvNoCC,
+  # build inputs
   nixos-render-docs,
+  documentation-highlighter,
+  # nrd configuration
+  manpageUrls,
+  revision,
+  options,
+  outputPath ? "share/doc/nvf",
 }:
-stdenv.mkDerivation {
-  name = "neovim-flake-manual";
-  src = ./manual;
+stdenvNoCC.mkDerivation {
+  name = "nvf-manual";
+  src = builtins.path {
+    path = lib.sourceFilesBySuffices ./manual [".md"];
+    name = "nvf-manual";
+  };
 
   nativeBuildInputs = [nixos-render-docs];
 
   buildPhase = ''
-    mkdir -p out/media
+    mkdir -p out/{highlightjs,media}
 
-    mkdir -p out/highlightjs
-    cp -t out/highlightjs \
+    cp -vt out/highlightjs \
       ${documentation-highlighter}/highlight.pack.js \
       ${documentation-highlighter}/LICENSE \
       ${documentation-highlighter}/mono-blue.css \
       ${documentation-highlighter}/loader.js
 
     substituteInPlace ./options.md \
-      --replace \
-        '@OPTIONS_JSON@' \
-        ${options.neovim-flake}/share/doc/nixos/options.json
+      --subst-var-by \
+        OPTIONS_JSON \
+        ${options.nvf}/share/doc/nixos/options.json
 
     substituteInPlace ./manual.md \
-      --replace \
-        '@VERSION@' \
+      --subst-var-by \
+        NVF_VERSION \
         ${revision}
 
-    cp -v ${nmd}/static/style.css out/style.css
-    cp -vt out/highlightjs ${nmd}/static/highlightjs/tomorrow-night.min.css
-    cp -v ${./highlight-style.css} out/highlightjs/highlight-style.css
+    # copy stylesheet
+    cp ${./static/style.css} out/style.css
 
+    # copy release notes
     cp -vr ${./release-notes} release-notes
 
+    # generate manual from
     nixos-render-docs manual html \
-      --manpage-urls ./manpage-urls.json \
+      --manpage-urls ${manpageUrls} \
       --revision ${lib.trivial.revisionWithDefault revision} \
       --stylesheet style.css \
-      --stylesheet highlightjs/tomorrow-night.min.css \
-      --stylesheet highlightjs/highlight-style.css \
       --script highlightjs/highlight.pack.js \
       --script highlightjs/loader.js \
-      --toc-depth 1 \
+      --toc-depth 2 \
       --section-toc-depth 1 \
       manual.md \
       out/index.xhtml

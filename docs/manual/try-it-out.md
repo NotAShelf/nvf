@@ -1,6 +1,6 @@
 # Try it out {#ch-try-it-out}
 
-Thanks to the portability of Nix, you can try out neovim-flake without actually installing it to your machine.
+Thanks to the portability of Nix, you can try out nvf without actually installing it to your machine.
 Below are the commands you may run to try out different configurations provided by this flake. As of v0.5, three
 configurations are provided:
 
@@ -11,21 +11,19 @@ configurations are provided:
 You may try out any of the provided configurations using the `nix run` command on a system where Nix is installed.
 
 ```console
-$ cachix use neovim-flake # Optional: it'll save you CPU resources and time
-$ nix run github:notashelf/neovim-flake#nix # will run the default minimal configuration
+$ cachix use nvf                   # Optional: it'll save you CPU resources and time
+$ nix run github:notashelf/nvf#nix # will run the default minimal configuration
 ```
 
 Do keep in mind that this is **susceptible to garbage collection** meaning it will be removed from your Nix store
-once you garbage collect. If you wish to install neovim-flake, please take a look at
-[custom-configuration](#ch-custom-configuration) or [home-manager](#ch-hm-module) sections for installation
-instructions.
+once you garbage collect.
 
 ## Using Prebuilt Configs {#sec-using-prebuild-configs}
 
 ```console
-$ nix run github:notashelf/neovim-flake#nix
-$ nix run github:notashelf/neovim-flake#tidal
-$ nix run github:notashelf/neovim-flake#maximal
+$ nix run github:notashelf/nvf#nix
+$ nix run github:notashelf/nvf#tidal
+$ nix run github:notashelf/nvf#maximal
 ```
 
 ### Available Configs {#sec-available-configs}
@@ -33,7 +31,7 @@ $ nix run github:notashelf/neovim-flake#maximal
 #### Nix {#sec-configs-nix}
 
 `Nix` configuration by default provides LSP/diagnostic support for Nix alongisde a set of visual and functional plugins.
-By running `nix run .`, which is the default package, you will build Neovim with this config.
+By running `nix run .#`, which is the default package, you will build Neovim with this config.
 
 #### Tidal {#sec-configs-tidal}
 

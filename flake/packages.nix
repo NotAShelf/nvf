@@ -5,10 +5,7 @@
     pkgs,
     ...
   }: let
-    docs = import ../docs {
-      inherit pkgs;
-      nmdSrc = inputs.nmd;
-    };
+    docs = import ../docs {inherit pkgs inputs;};
   in {
     packages =
       {
@@ -36,7 +33,7 @@
           inherit (config.legacyPackages) neovim-nix;
         in
           dockerTools.buildImage {
-            name = "neovim-flake";
+            name = "nvf";
             tag = "latest";
 
             copyToRoot = buildEnv {

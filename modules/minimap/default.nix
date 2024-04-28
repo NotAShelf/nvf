@@ -1,6 +1,0 @@
-{...}: {
-  imports = [
-    ./minimap-vim
-    ./codewindow
-  ];
-}

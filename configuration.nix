@@ -7,9 +7,11 @@ inputs: let
     lib ? pkgs.lib,
     check ? true,
     extraSpecialArgs ? {},
+    extraModules ? [],
+    ...
   }:
     modulesWithInputs {
-      inherit pkgs lib check extraSpecialArgs;
+      inherit pkgs lib check extraSpecialArgs extraModules;
       configuration.imports = modules;
     };
 
@@ -18,18 +20,20 @@ inputs: let
   };
 
   mainConfig = isMaximal: {
-    config = {
-      vim = {
-        viAlias = true;
-        vimAlias = true;
-        debugMode = {
-          enable = false;
-          level = 20;
-          logFile = "/tmp/nvim.log";
-        };
+    config.vim = {
+      viAlias = true;
+      vimAlias = true;
+      debugMode = {
+        enable = false;
+        level = 16;
+        logFile = "/tmp/nvim.log";
       };
 
-      vim.lsp = {
+      spellcheck = {
+        enable = isMaximal;
+      };
+
+      lsp = {
         formatOnSave = true;
         lspkind.enable = false;
         lightbulb.enable = true;
@@ -41,14 +45,14 @@ inputs: let
         nvim-docs-view.enable = isMaximal;
       };
 
-      vim.debugger = {
+      debugger = {
         nvim-dap = {
           enable = true;
           ui.enable = true;
         };
       };
 
-      vim.languages = {
+      languages = {
         enableLSP = true;
         enableFormat = true;
         enableTreesitter = true;
@@ -81,7 +85,7 @@ inputs: let
         };
       };
 
-      vim.visuals = {
+      visuals = {
         enable = true;
         nvimWebDevicons.enable = true;
         scrollBar.enable = true;
@@ -105,70 +109,71 @@ inputs: let
         };
       };
 
-      vim.statusline = {
+      statusline = {
         lualine = {
           enable = true;
           theme = "catppuccin";
         };
       };
 
-      vim.theme = {
+      theme = {
         enable = true;
         name = "catppuccin";
         style = "mocha";
         transparent = false;
       };
-      vim.autopairs.enable = true;
 
-      vim.autocomplete = {
+      autopairs.enable = true;
+
+      autocomplete = {
         enable = true;
         type = "nvim-cmp";
       };
 
-      vim.filetree = {
+      filetree = {
         nvimTree = {
           enable = true;
         };
       };
 
-      vim.tabline = {
+      tabline = {
         nvimBufferline.enable = true;
       };
 
-      vim.treesitter.context.enable = true;
+      treesitter.context.enable = true;
 
-      vim.binds = {
+      binds = {
         whichKey.enable = true;
         cheatsheet.enable = true;
       };
 
-      vim.telescope.enable = true;
+      telescope.enable = true;
 
-      vim.git = {
+      git = {
         enable = true;
         gitsigns.enable = true;
-        gitsigns.codeActions = false; # throws an annoying debug message
+        gitsigns.codeActions.enable = false; # throws an annoying debug message
       };
 
-      vim.minimap = {
+      minimap = {
         minimap-vim.enable = false;
         codewindow.enable = isMaximal; # lighter, faster, and uses lua for configuration
       };
 
-      vim.dashboard = {
+      dashboard = {
         dashboard-nvim.enable = false;
         alpha.enable = isMaximal;
       };
 
-      vim.notify = {
+      notify = {
         nvim-notify.enable = true;
       };
 
-      vim.projects = {
+      projects = {
         project-nvim.enable = isMaximal;
       };
 
-      vim.utility = {
+      utility = {
         ccc.enable = isMaximal;
         vim-wakatime.enable = isMaximal;
         icon-picker.enable = isMaximal;
@@ -178,23 +183,27 @@ inputs: let
           hop.enable = true;
           leap.enable = true;
         };
+
+        images = {
+          image-nvim.enable = false;
+        };
       };
 
-      vim.notes = {
-        obsidian.enable = false; # FIXME neovim fails to build if obsidian is enabled
+      notes = {
+        obsidian.enable = false; # FIXME: neovim fails to build if obsidian is enabled
         orgmode.enable = false;
         mind-nvim.enable = isMaximal;
         todo-comments.enable = true;
       };
 
-      vim.terminal = {
+      terminal = {
         toggleterm = {
           enable = true;
           lazygit.enable = true;
         };
       };
 
-      vim.ui = {
+      ui = {
         borders.enable = true;
         noice.enable = true;
         colorizer.enable = true;
@@ -206,7 +215,7 @@ inputs: let
         };
         smartcolumn = {
           enable = true;
-          columnAt.languages = {
+          setupOpts.custom_colorcolumn = {
             # this is a freeform module, it's `buftype = int;` for configuring column position
             nix = 110;
             ruby = 120;
@@ -216,27 +225,28 @@ inputs: let
         };
       };
 
-      vim.assistant = {
+      assistant = {
+        chatgpt.enable = false;
         copilot = {
-          enable = isMaximal;
+          enable = false;
           cmp.enable = isMaximal;
         };
       };
 
-      vim.session = {
+      session = {
         nvim-session-manager.enable = false;
       };
 
-      vim.gestures = {
+      gestures = {
         gesture-nvim.enable = false;
       };
 
-      vim.comments = {
+      comments = {
         comment-nvim.enable = true;
       };
 
-      vim.presence = {
-        neocord.enable = true;
+      presence = {
+        neocord.enable = false;
       };
     };
   };
