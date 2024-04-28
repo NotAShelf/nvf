@@ -38,13 +38,6 @@
 </div>
 <br/>
 
-> [!WARNING]  
-> Main branch is only updated for small, non-breaking changes. For the latest version of neovim-flake, please see
-> [the list of branches](https://github.com/NotAShelf/neovim-flake/branches) or
-> [open pull requests](https://github.com/NotAShelf/neovim-flake/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc).
-> neovim-flake, at the time, is still being actively developed - and will continue to be so for the foreseeable
-> future.
-
 ---
 
 <div align="center"><p>
@@ -147,6 +140,15 @@ consider a module addition.
 plugin configurations! Please see the documentation on how you may do
 this.
 
+**Q**: Main branch is awfully silent, is the project dead?
+<br/>
+**A**: No! Sometimes we branch out (e.g. v0.6) to avoid breaking userspace
+and work in a separate branch until we make sure the new additions are
+implemented in the most comfortable way available to the end user. If you have
+not noticed any activity on the main branch, consider taking a look at the [list
+of branches](https://github.com/NotAShelf/nvf/branches=) or the [list of open
+pull requests](https://github.com/NotAShelf/nvf)
+
 ## Credits
 
 ### Contributors
@@ -180,7 +182,7 @@ recommend checking their work out.
 
 Following the [original neovim-flake](https://github.com/jordanisaacs/neovim-flake)
 **nvf** has been made available under the **MIT License**. However, all assets
-are published under the [CC BY License].
+and documentation are published under the [CC BY License].
 
 ---
 
