@@ -74,6 +74,7 @@ inputs: let
         terraform.enable = isMaximal;
         nim.enable = false;
         tailwind.enable = isMaximal;
+        typst.enable = isMaximal;
         clang = {
           enable = isMaximal;
           lsp.server = "clangd";
