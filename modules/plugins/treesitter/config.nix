@@ -6,7 +6,6 @@
 }: let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) optional optionals;
-  inherit (lib.trivial) boolToString;
   inherit (lib.nvim.binds) mkSetBinding addDescriptionsToMappings;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryBefore entryAfter;
