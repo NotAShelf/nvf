@@ -24,6 +24,7 @@ in {
     ./tailwind.nix
     ./terraform.nix
     ./ts.nix
+    ./typst.nix
     ./zig.nix
   ];
 
