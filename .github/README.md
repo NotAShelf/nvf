@@ -1,9 +1,10 @@
 <div align="center">
     <img src="assets/nvf-logo-work.svg" alt="nvf Logo"  width="200">
+    <h1 ❄️  nvf</h1>
 </div>
-<h1 align="center">❄️  nvf</h1>
+
 <div align="center">
-<p>
+  <p>
     <a href="https://github.com/NotAShelf/nvf/releases/latest">
       <img alt="Latest release" src="https://img.shields.io/github/v/release/NotAShelf/nvf?style=for-the-badge&logo=nixos&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41" />
     </a>
@@ -22,7 +23,8 @@
     <a href="https://github.com/NotAShelf/nvf">
       <img alt="Repo Size" src="https://img.shields.io/github/repo-size/NotAShelf/nvf?color=%23DDB6F2&label=SIZE&logo=codesandbox&style=for-the-badge&logoColor=D9E0EE&labelColor=302D41" />
     </a>
-</p>
+  </p>
+</div>
 
 <p align="center">
     <img src="https://stars.medv.io/NotAShelf/nvf.svg", title="stars"/>
@@ -36,11 +38,17 @@
     Nix code.
   </a>
 </div>
-<br/>
 
 ---
 
 <div align="center"><p>
+
+[Get Started]: #get-started
+[Documentation]: #documentation
+[Help]: #help
+[Contribute]: #contributing
+[FAQ]: #faq
+[Credits]: #credits
 
 **[<kbd> <br> Get Started <br> </kbd>][Get Started]**
 **[<kbd> <br> Documentation <br> </kbd>][Documentation]**
@@ -50,13 +58,6 @@
 **[<kbd> <br> Credits <br> </kbd>][Credits]**
 
 </p></div>
-
-[Get Started]: #get-started
-[Documentation]: #documentation
-[Help]: #help
-[Contribute]: #contributing
-[FAQ]: #faq
-[Credits]: #credits
 
 ---
 
@@ -106,13 +107,15 @@ featured configuration with `nix` language support by running:
 nix run github:notashelf/nvf#nix
 ```
 
-Please create an issue on the [issue tracker](../../../issues) if you find
+[Issues]: https://github.com/NotAShelf/nvf/issues
+
+Please create an issue on the [issue tracker](issues) if you find
 the documentation lacking or confusing. I also appreciate any contributions
 to the documentation.
 
 ## Help
 
-You can create an issue on the [issue tracker](../../../issues) to ask questions
+You can create an issue on the [issue tracker](issues) to ask questions
 or report bugs. I am not yet on spaces like matrix or IRC, so please use the issue
 tracker for now.
 
@@ -121,7 +124,7 @@ tracker for now.
 I am always looking for new ways to help improve this flake. If you would like
 to contribute, please read the [contributing guide](CONTRIBUTING.md) before
 submitting a pull request. You can also create an issue on the
-[issue tracker](../../../issues) before submitting a pull request if you would
+[issue tracker](issues) before submitting a pull request if you would
 like to discuss a feature or bug fix.
 
 ## FAQ
@@ -130,8 +133,7 @@ like to discuss a feature or bug fix.
 <br/>
 **A**: Maybe! It is not one of our goals to support each and every Neovim
 plugin, however, I am always open to new modules and plugin setup additions
-to **nvf**. Use the [appropritate issue
-template](https://github.com/NotAShelf/nvf/issues/new/choose) and I will
+to **nvf**. Use the [appropritate issue template](issues/new/choose) and I will
 consider a module addition.
 
 **Q**: A plugin I need is not available in **nvf**. What to do?
