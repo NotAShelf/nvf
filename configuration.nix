@@ -175,7 +175,7 @@ inputs: let
 
       utility = {
         ccc.enable = isMaximal;
-        vim-wakatime.enable = isMaximal;
+        vim-wakatime.enable = false;
         icon-picker.enable = isMaximal;
         surround.enable = isMaximal;
         diffview-nvim.enable = true;
