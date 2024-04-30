@@ -147,20 +147,14 @@ in {
           end
 
           -- Add standard paths to the table
-          addPath(vim.fn.stdpath('config'))            -- $HOME/.config/nvim
-          addPath(vim.fn.stdpath('data'))              -- $HOME/.local/share
-          addPath(vim.fn.stdpath('state'))             -- $HOME/.local/state
-          addPath(vim.fn.stdpath('cache'))             -- $HOME/.cache/nvim
-          addPath(vim.fn.stdpath('config_dirs'))
-          addPath(vim.fn.stdpath('data_dirs'))
+          addPath(vim.fn.stdpath('config')) -- $XDG_CONFIG_HOME
+          addPath(vim.fn.stdpath('data'))   -- $XDG_DATA_HOME
+          addPath(vim.fn.stdpath('state'))  -- $XDG_STATE_HOME
+          addPath(vim.fn.stdpath('cache'))  -- $XDG_CACHE_HOME
 
+          -- Remove paths that are already in runtimepath
           for _, path in ipairs(defaultRuntimePaths) do
-              -- Check if the path exists in runtimepath before removing it
-              if vim.fn.index(vim.opt.runtimepath, path) >= 0 then
-                  vim.opt.runtimepath:remove(path)
-              else
-                  print("Path does not exist in runtimepath:", path)
-              end
+            vim.opt.runtimepath:remove(path)
           end
         ''}
 
