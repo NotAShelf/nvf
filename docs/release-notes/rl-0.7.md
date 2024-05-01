@@ -6,4 +6,5 @@ Release notes for release 0.7
 
 [ItsSorae](https://github.com/ItsSorae):
 
-- Added typst language support with `typst-lsp` LSP and `typstfmt` as the default formatter. It can be enabled by setting `languages.typst` to `true`.
+- Added support for [typst](https://typst.app/) under `vim.languages.typst`.
+  This will enable the `typst-lsp` language server, and the `typstfmt` formatter.
