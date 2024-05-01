@@ -11911,6 +11911,213 @@ package</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.languages.typst.enable"></a><a class="term" href="options.html#opt-vim.languages.typst.enable"><code class="option">vim.languages.typst.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Typst language support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_top">
+&lt;nvf/modules/plugins/languages/typst.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.typst.format.enable"></a><a class="term" href="options.html#opt-vim.languages.typst.format.enable"><code class="option">vim.languages.typst.format.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Typst document formatting.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_top">
+&lt;nvf/modules/plugins/languages/typst.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.typst.format.package"></a><a class="term" href="options.html#opt-vim.languages.typst.format.package"><code class="option">vim.languages.typst.format.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Typst formatter package</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation typstfmt-0.2.9&gt;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_top">
+&lt;nvf/modules/plugins/languages/typst.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.typst.format.type"></a><a class="term" href="options.html#opt-vim.languages.typst.format.type"><code class="option">vim.languages.typst.format.type</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Typst formatter to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+one of “typstfmt”, “typstyle”</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;typstfmt&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_top">
+&lt;nvf/modules/plugins/languages/typst.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.typst.lsp.enable"></a><a class="term" href="options.html#opt-vim.languages.typst.lsp.enable"><code class="option">vim.languages.typst.lsp.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Typst LSP support (typst-lsp).</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_top">
+&lt;nvf/modules/plugins/languages/typst.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.typst.lsp.package"></a><a class="term" href="options.html#opt-vim.languages.typst.lsp.package"><code class="option">vim.languages.typst.lsp.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>typst-lsp package, or the command to run as a list of strings</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package or list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation typst-lsp-0.13.0&gt;</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot;-data\&quot; \&quot;~/.cache/jdtls/workspace\&quot;]&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_top">
+&lt;nvf/modules/plugins/languages/typst.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.typst.treesitter.enable"></a><a class="term" href="options.html#opt-vim.languages.typst.treesitter.enable"><code class="option">vim.languages.typst.treesitter.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Typst treesitter.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_top">
+&lt;nvf/modules/plugins/languages/typst.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.typst.treesitter.package"></a><a class="term" href="options.html#opt-vim.languages.typst.treesitter.package"><code class="option">vim.languages.typst.treesitter.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The typst treesitter package to use.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">pkgs.vimPlugins.nvim-treesitter.builtGrammars.typst</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_top">
+&lt;nvf/modules/plugins/languages/typst.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.languages.zig.enable"></a><a class="term" href="options.html#opt-vim.languages.zig.enable"><code class="option">vim.languages.zig.enable</code>
   </a>
  </span>
