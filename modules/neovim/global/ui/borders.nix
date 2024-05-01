@@ -4,6 +4,7 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.attrsets) mapAttrs;
   inherit (lib.lists) optionals;
   inherit (lib.types) enum;
 
@@ -22,7 +23,6 @@ in {
       '';
     };
 
-    # TODO: make per-plugin borders configurable
     plugins = let
       mkPluginStyleOption = name: {
         enable = mkEnableOption "borders for the ${name} plugin" // {default = cfg.enable;};
@@ -33,14 +33,15 @@ in {
           description = "The border style to use for the ${name} plugin";
         };
       };
-    in {
-      # despite not having it listed in example configuration, which-key does support the rounded type
-      # additionally, it supports a "shadow" type that is similar to none but is of higher contrast
-      which-key = mkPluginStyleOption "which-key";
-      lspsaga = mkPluginStyleOption "lspsaga";
-      nvim-cmp = mkPluginStyleOption "nvim-cmp";
-      lsp-signature = mkPluginStyleOption "lsp-signature";
-      code-action-menu = mkPluginStyleOption "code-actions-menu";
-    };
+    in
+      mapAttrs (_: mkPluginStyleOption) {
+        # despite not having it listed in example configuration, which-key does support the rounded type
+        # additionally, it supports a "shadow" type that is similar to none but is of higher contrast
+        which-key = mkPluginStyleOption "which-key";
+        lspsaga = mkPluginStyleOption "lspsaga";
+        nvim-cmp = mkPluginStyleOption "nvim-cmp";
+        lsp-signature = mkPluginStyleOption "lsp-signature";
+        code-action-menu = mkPluginStyleOption "code-actions-menu";
+      };
   };
 }
