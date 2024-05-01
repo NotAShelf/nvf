@@ -10,4 +10,5 @@ rl-0.3.md
 rl-0.4.md
 rl-0.5.md
 rl-0.6.md
+rl-0.7.md
 ```
