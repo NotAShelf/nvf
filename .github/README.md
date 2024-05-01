@@ -182,9 +182,10 @@ recommend checking their work out.
 
 ## License
 
-Following the [original neovim-flake](https://github.com/jordanisaacs/neovim-flake)
-**nvf** has been made available under the **MIT License**. However, all assets
-and documentation are published under the [CC BY License].
+Following the license of the [original neovim-flake](https://github.com/jordanisaacs/neovim-flake),
+**nvf** has been made available under the [**MIT License**](LICENSE). However, all assets
+and documentation are published under the 
+[**CC BY License**](https://github.com/NotAShelf/nvf/blob/main/.github/assets/LICENSE).
 
 ---
 
