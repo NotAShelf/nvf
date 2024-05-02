@@ -28249,17 +28249,533 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>Override options from the default notification config</p>
+<p>Overrides the default configuration for a notification group defined
+in <a class="xref" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.notification.configs"  ><code class="option">vim.visuals.fidget-nvim.setupOpts.notification.configs</code></a>.</p><p>If any of the fields are null, the value from the default
+configuration is used.</p><p>If default configuration is not defined, the following defaults are used:</p><pre><code class="programlisting lua">   {
+       name = &quot;Notifications&quot;,
+       icon = &quot;❰❰&quot;,
+       ttl = 5,
+       group_style = &quot;Title&quot;,
+       icon_style = &quot;Special&quot;,
+       annote_style = &quot;Question&quot;,
+       debug_style = &quot;Comment&quot;,
+       info_style = &quot;Question&quot;,
+       warn_style = &quot;WarningMsg&quot;,
+       error_style = &quot;ErrorMsg&quot;,
+       debug_annote = &quot;DEBUG&quot;,
+       info_annote = &quot;INFO&quot;,
+       warn_annote = &quot;WARN&quot;,
+       error_annote = &quot;ERROR&quot;,
+       update_hook = function(item)
+         notification.set_content_key(item)
+       end,
+   }
+</code></pre>
 
 <p><span class="emphasis"><em>Type:</em></span>
-attribute set of attribute set of anything</p>
+attribute set of (submodule)</p>
 
-<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">{
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">{
   rust_analyzer = {
-    name = &quot;rust-analyzer&quot;;
+    name = &quot;Rust Analyzer&quot;;
   };
 }
+
 </code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.annote_separator"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.annote_separator"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.annote_separator</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Separator between message from annote</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot; &quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.annote_style"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.annote_style"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.annote_style</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Default style used to highlight item annotes</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;Question&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.debug_annote"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.debug_annote"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.debug_annote</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Default annotation for debug items</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.debug_style"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.debug_style"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.debug_style</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Style used to highlight debug item annotes</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.error_annote"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.error_annote"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.error_annote</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Default annotation for error items</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.error_style"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.error_style"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.error_style</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Style used to highlight error item annotes</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.group_style"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.group_style"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.group_style</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Style used to highlight group name</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;Title&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.icon"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.icon"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.icon</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Icon of the group, displayed in the notification window.
+Can be a string or a function that returns a string.</p><p>If a function, it is invoked every render cycle with the items
+list, useful for rendering animations and other dynamic content.</p><div class="note"><h3 class="title">Note</h3><p>If you’re looking for detailed information into the function
+signature, you can refer to the fidget API documentation available
+<a class="link" href="https://github.com/j-hui/fidget.nvim/blob/1ba38e4cbb24683973e00c2e36f53ae64da38ef5/doc/fidget-api.txt#L70-L77"  target="_top">here</a></p></div>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string or (luaInline)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.icon_on_left"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.icon_on_left"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.icon_on_left</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>If true, icon is rendered on the left instead of right</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.icon_style"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.icon_style"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.icon_style</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Style used to highlight icon, if null, use group_style</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.info_annote"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.info_annote"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.info_annote</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Default annotation for info items</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.info_style"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.info_style"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.info_style</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Style used to highlight info item annotes</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.name"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.name"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.name</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Name of the group, displayed in the notification window.
+Can be a string or a function that returns a string.</p><p>If a function, it is invoked every render cycle with the items
+list, useful for rendering animations and other dynamic content.</p><div class="note"><h3 class="title">Note</h3><p>If you’re looking for detailed information into the function
+signature, you can refer to the fidget API documentation available
+<a class="link" href="https://github.com/j-hui/fidget.nvim/blob/1ba38e4cbb24683973e00c2e36f53ae64da38ef5/doc/fidget-api.txt#L70-L77"  target="_top">here</a></p></div>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string or (luaInline)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.priority"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.priority"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.priority</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Order in which group should be displayed</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or signed integer</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">50</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.render_limit"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.render_limit"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.render_limit</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>How many notification items to show at once</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or signed integer</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.skip_history"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.skip_history"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.skip_history</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether messages should be preserved in history</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.ttl"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.ttl"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.ttl</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>How long a notification item should exist</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or signed integer</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">5</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.update_hook"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.update_hook"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.update_hook</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Called when an item is updated.</p><p>If false, no action is taken.
+If a function, it is invoked with the item being updated.</p><div class="note"><h3 class="title">Note</h3><p>If you’re looking for detailed information into the function
+signature, you can refer to the fidget API documentation available
+<a class="link" href="https://github.com/j-hui/fidget.nvim/blob/1ba38e4cbb24683973e00c2e36f53ae64da38ef5/doc/fidget-api.txt#L114"  target="_top">here</a></p></div>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean or (luaInline)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.warn_annote"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.warn_annote"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.warn_annote</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Default annotation for warn items</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/fidget/fidget.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/fidget/fidget.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.warn_style"></a><a class="term" href="options.html#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides._name_.warn_style"><code class="option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides.&lt;name&gt;.warn_style</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Style used to highlight warn item annotes</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
