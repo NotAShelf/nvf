@@ -6,12 +6,12 @@ packages: inputs: {
   ...
 }: let
   inherit (lib) maintainers;
-  inherit (lib.modules) mkIf mkOverride;
+  inherit (lib.modules) mkIf mkOverride mkAliasOptionModule;
   inherit (lib.lists) optional;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) attrsOf anything bool;
 
-  cfg = config.programs.neovim-flake;
+  cfg = config.programs.nvf;
   inherit (import ../../configuration.nix inputs) neovimConfiguration;
 
   neovimConfigured = neovimConfiguration {
@@ -19,22 +19,26 @@ packages: inputs: {
     modules = [cfg.settings];
   };
 in {
+  imports = [
+    (mkAliasOptionModule ["programs" "neovim-flake"] ["programs" "nvf"])
+  ];
+
   meta.maintainers = with maintainers; [NotAShelf];
 
-  options.programs.neovim-flake = {
-    enable = mkEnableOption "neovim-flake, the extensible neovim configuration wrapper";
+  options.programs.nvf = {
+    enable = mkEnableOption "nvf, the extensible neovim configuration wrapper";
 
     enableManpages = mkOption {
       type = bool;
       default = false;
-      description = "Whether to enable manpages for neovim-flake.";
+      description = "Whether to enable manpages for nvf.";
     };
 
     defaultEditor = mkOption {
       type = bool;
       default = false;
       description = ''
-        Whether to set `neovim-flake` as the default editor.
+        Whether to set `nvf` as the default editor.
 
         This will set the `EDITOR` environment variable as `nvim`
         if set to true.
@@ -46,14 +50,14 @@ in {
       visible = false;
       readOnly = true;
       description = ''
-        The built neovim-flake package, wrapped with the user's configuration.
+        The built nvf package, wrapped with the user's configuration.
       '';
     };
 
     settings = mkOption {
       type = attrsOf anything;
       default = {};
-      description = "Attribute set of neovim-flake preferences.";
+      description = "Attribute set of nvf preferences.";
       example = literalExpression ''
         {
           vim.viAlias = false;
@@ -75,7 +79,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    programs.neovim-flake.finalPackage = neovimConfigured.neovim;
+    programs.nvf.finalPackage = neovimConfigured.neovim;
 
     environment = {
       variables.EDITOR = mkIf cfg.defaultEditor (mkOverride 900 "nvim");
