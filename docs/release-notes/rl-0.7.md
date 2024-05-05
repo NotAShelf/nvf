@@ -13,3 +13,7 @@ Release notes for release 0.7
 
 - Modified type for [](#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides)
   from `anything` to a `submodule` for better type checking.
+
+[horriblename](https://github.com/horriblename)
+
+- Fix broken treesitter-context keybinds in visual mode

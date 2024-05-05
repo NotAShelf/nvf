@@ -30,9 +30,9 @@ in {
         normal = mkSetBinding mappings.incrementalSelection.init ":lua require('nvim-treesitter.incremental_selection').init_selection()<CR>";
 
         visualOnly = mkMerge [
-          (mkSetBinding mappings.incrementalSelection.incrementByNode ":lua require('nvim-treesitter.incremental_selection').node_incremental()<CR>")
-          (mkSetBinding mappings.incrementalSelection.incrementByScope ":lua require('nvim-treesitter.incremental_selection').scope_incremental()<CR>")
-          (mkSetBinding mappings.incrementalSelection.decrementByNode ":lua require('nvim-treesitter.incremental_selection').node_decremental()<CR>")
+          (mkSetBinding mappings.incrementalSelection.incrementByNode "<cmd>lua require('nvim-treesitter.incremental_selection').node_incremental()<CR>")
+          (mkSetBinding mappings.incrementalSelection.incrementByScope "<cmd>lua require('nvim-treesitter.incremental_selection').scope_incremental()<CR>")
+          (mkSetBinding mappings.incrementalSelection.decrementByNode "<cmd>lua require('nvim-treesitter.incremental_selection').node_decremental()<CR>")
         ];
       };
 
