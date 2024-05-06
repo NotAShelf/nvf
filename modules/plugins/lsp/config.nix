@@ -16,7 +16,10 @@
 
   mappingDefinitions = self.options.vim.lsp.mappings;
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
-  mkBinding = binding: action: "vim.api.nvim_buf_set_keymap(bufnr, 'n', '${binding.value}', '<cmd>lua ${action}<CR>', {noremap=true, silent=true, desc='${binding.description}'})";
+  mkBinding = binding: action:
+    if binding.value != null
+    then "vim.api.nvim_buf_set_keymap(bufnr, 'n', '${binding.value}', '<cmd>lua ${action}<CR>', {noremap=true, silent=true, desc='${binding.description}'})"
+    else "";
 in {
   config = mkIf cfg.enable {
     vim = {
