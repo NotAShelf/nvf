@@ -76,6 +76,7 @@
 
   # Flake inputs
   inputs = {
+    ## Basic Inputs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
@@ -98,13 +99,7 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    ### Plugins
-    # Tidal cycles
-    tidalcycles = {
-      url = "github:mitchmindtree/tidalcycles.nix";
-      inputs.vim-tidal-src.url = "github:tidalcycles/vim-tidal";
-    };
-
+    ## Plugins
     # LSP plugins
     plugin-nvim-lspconfig = {
       url = "github:neovim/nvim-lspconfig";

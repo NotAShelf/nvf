@@ -5,7 +5,6 @@ in {
     ./bash
     ./dart
     ./elixir
-    ./tidal
 
     ./clang.nix
     ./css.nix
