@@ -58,7 +58,12 @@ inputs: let
         enableTreesitter = true;
         enableExtraDiagnostics = true;
 
+        nim.enable = false;
+        elixir.enable = false;
+
         nix.enable = true;
+        markdown.enable = true;
+
         html.enable = isMaximal;
         css.enable = isMaximal;
         sql.enable = isMaximal;
@@ -69,10 +74,7 @@ inputs: let
         zig.enable = isMaximal;
         python.enable = isMaximal;
         dart.enable = isMaximal;
-        elixir.enable = isMaximal;
         bash.enable = isMaximal;
-        terraform.enable = isMaximal;
-        nim.enable = false;
         tailwind.enable = isMaximal;
         typst.enable = isMaximal;
         clang = {

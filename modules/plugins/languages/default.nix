@@ -5,7 +5,6 @@ in {
     ./bash
     ./dart
     ./elixir
-    ./markdown
     ./tidal
 
     ./clang.nix
@@ -14,6 +13,7 @@ in {
     ./html.nix
     ./java.nix
     ./lua.nix
+    ./markdown.nix
     ./nim.nix
     ./nix.nix
     ./php.nix

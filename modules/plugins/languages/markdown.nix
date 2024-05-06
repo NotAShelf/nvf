@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
+  inherit (builtins) attrNames concatLists;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.lists) isList;
   inherit (lib.types) bool enum either package listOf str;
@@ -26,6 +26,22 @@
           else ''{"${cfg.lsp.package}/bin/marksman", "server"}''
         },
         }
+      '';
+    };
+  };
+
+  defaultFormat = "denofmt";
+  formats = {
+    denofmt = {
+      package = pkgs.deno;
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.deno_fmt.with({
+            filetypes = ${concatLists cfg.format.extraFiletypes ["markdown"]},
+            command = "${cfg.format.package}/bin/deno",
+          })
+        )
       '';
     };
   };
@@ -57,6 +73,28 @@ in {
         example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+      };
+    };
+
+    format = {
+      enable = mkEnableOption "Markdown formatting" // {default = config.vim.languages.enableFormat;};
+
+      type = mkOption {
+        description = "Markdown formatter to use";
+        type = enum (attrNames formats);
+        default = defaultFormat;
+      };
+
+      package = mkOption {
+        description = "Markdown formatter package";
+        type = package;
+        default = formats.${cfg.format.type}.package;
+      };
+
+      extraFiletypes = mkOption {
+        description = "Extra filetypes to format with the Markdown formatter";
+        type = listOf str;
+        default = [];
       };
     };
   };
