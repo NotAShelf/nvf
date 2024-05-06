@@ -5,7 +5,6 @@ Below are the commands you may run to try out different configurations provided 
 configurations are provided:
 
 - Nix
-- Tidal
 - Maximal
 
 You may try out any of the provided configurations using the `nix run` command on a system where Nix is installed.
@@ -22,7 +21,6 @@ once you garbage collect.
 
 ```console
 $ nix run github:notashelf/nvf#nix
-$ nix run github:notashelf/nvf#tidal
 $ nix run github:notashelf/nvf#maximal
 ```
 
@@ -32,10 +30,6 @@ $ nix run github:notashelf/nvf#maximal
 
 `Nix` configuration by default provides LSP/diagnostic support for Nix alongisde a set of visual and functional plugins.
 By running `nix run .#`, which is the default package, you will build Neovim with this config.
-
-#### Tidal {#sec-configs-tidal}
-
-Tidal is an alternative config that adds vim-tidal on top of the plugins from the Nix configuration.
 
 #### Maximal {#sec-configs-maximal}
 

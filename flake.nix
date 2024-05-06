@@ -178,16 +178,6 @@
       flake = false;
     };
 
-    plugin-elixir-ls = {
-      url = "github:elixir-lsp/elixir-ls";
-      flake = false;
-    };
-
-    plugin-elixir-tools = {
-      url = "github:elixir-tools/elixir-tools.nvim";
-      flake = false;
-    };
-
     plugin-glow-nvim = {
       url = "github:ellisonleao/glow.nvim";
       flake = false;

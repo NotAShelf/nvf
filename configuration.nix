@@ -55,8 +55,6 @@ inputs: let
         enableExtraDiagnostics = true;
 
         nim.enable = false;
-        elixir.enable = false;
-
         nix.enable = true;
         markdown.enable = true;
 

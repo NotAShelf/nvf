@@ -546,38 +546,6 @@
         "type": "github"
       }
     },
-    "plugin-elixir-ls": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1713724318,
-        "narHash": "sha256-1kLMxznNRRJ7M10zkuWexA/sPFaN449M0SKUjLrnc8c=",
-        "owner": "elixir-lsp",
-        "repo": "elixir-ls",
-        "rev": "8486de473a219dcdb72408702f8d56d0227c7366",
-        "type": "github"
-      },
-      "original": {
-        "owner": "elixir-lsp",
-        "repo": "elixir-ls",
-        "type": "github"
-      }
-    },
-    "plugin-elixir-tools": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1713617654,
-        "narHash": "sha256-pJgtW51FLs+Yr+tlQckRmGkRnSUQNI3fEROn3D51mMs=",
-        "owner": "elixir-tools",
-        "repo": "elixir-tools.nvim",
-        "rev": "3c4f8344a341818417b3d75c04eb96d894cb4640",
-        "type": "github"
-      },
-      "original": {
-        "owner": "elixir-tools",
-        "repo": "elixir-tools.nvim",
-        "type": "github"
-      }
-    },
     "plugin-fidget-nvim": {
       "flake": false,
       "locked": {
@@ -1796,8 +1764,6 @@
         "plugin-diffview-nvim": "plugin-diffview-nvim",
         "plugin-dracula": "plugin-dracula",
         "plugin-dressing-nvim": "plugin-dressing-nvim",
-        "plugin-elixir-ls": "plugin-elixir-ls",
-        "plugin-elixir-tools": "plugin-elixir-tools",
         "plugin-fidget-nvim": "plugin-fidget-nvim",
         "plugin-flutter-tools": "plugin-flutter-tools",
         "plugin-gesture-nvim": "plugin-gesture-nvim",
