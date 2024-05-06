@@ -23,4 +23,10 @@ Release notes for release 0.7
 - Add `deno fmt` as the default Markdown formatter. This will be enabled
   automatically if you have autoformatting enabled, but can be disabled manually
   if you choose to.
+
 - Remove vim-tidal and friends
+
+- Remove unmaintained Elixir language module. This has been long broken, and was
+  unmaintained due to my disinterest in using Elixir. If you depend on Elixir
+  language support, please create an issue. Do keep in mind that elixirls **does
+  not exist in nixpkgs**.
