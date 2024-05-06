@@ -6,6 +6,7 @@ in {
     ./dart.nix
     ./clang.nix
     ./css.nix
+    ./elixir.nix
     ./go.nix
     ./html.nix
     ./java.nix

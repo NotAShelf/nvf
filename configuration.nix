@@ -54,7 +54,6 @@ inputs: let
         enableTreesitter = true;
         enableExtraDiagnostics = true;
 
-        nim.enable = false;
         nix.enable = true;
         markdown.enable = true;
 
@@ -65,12 +64,14 @@ inputs: let
         ts.enable = isMaximal;
         svelte.enable = isMaximal;
         go.enable = isMaximal;
+        elixir.enable = isMaximal;
         zig.enable = isMaximal;
         python.enable = isMaximal;
         dart.enable = isMaximal;
         bash.enable = isMaximal;
         tailwind.enable = isMaximal;
         typst.enable = isMaximal;
+        nim.enable = isMaximal;
         clang = {
           enable = isMaximal;
           lsp.server = "clangd";

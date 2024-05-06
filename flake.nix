@@ -178,13 +178,8 @@
       flake = false;
     };
 
-    plugin-glow-nvim = {
-      url = "github:ellisonleao/glow.nvim";
-      flake = false;
-    };
-
-    plugin-image-nvim = {
-      url = "github:3rd/image.nvim";
+    plugin-elixir-tools = {
+      url = "github:elixir-tools/elixir-tools.nvim";
       flake = false;
     };
 
@@ -484,6 +479,16 @@
 
     plugin-nvim-surround = {
       url = "github:kylechui/nvim-surround";
+      flake = false;
+    };
+
+    plugin-glow-nvim = {
+      url = "github:ellisonleao/glow.nvim";
+      flake = false;
+    };
+
+    plugin-image-nvim = {
+      url = "github:3rd/image.nvim";
       flake = false;
     };
 

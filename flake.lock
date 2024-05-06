@@ -546,6 +546,22 @@
         "type": "github"
       }
     },
+    "plugin-elixir-tools": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1714657398,
+        "narHash": "sha256-U6db1n/RIpT7Dd54e9iI/PjO1BhDpMyNPfaph+dUk7k=",
+        "owner": "elixir-tools",
+        "repo": "elixir-tools.nvim",
+        "rev": "51eddb03a7a8c9f00d6415b356a4d3b75d8e75b6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "elixir-tools",
+        "repo": "elixir-tools.nvim",
+        "type": "github"
+      }
+    },
     "plugin-fidget-nvim": {
       "flake": false,
       "locked": {
@@ -1764,6 +1780,7 @@
         "plugin-diffview-nvim": "plugin-diffview-nvim",
         "plugin-dracula": "plugin-dracula",
         "plugin-dressing-nvim": "plugin-dressing-nvim",
+        "plugin-elixir-tools": "plugin-elixir-tools",
         "plugin-fidget-nvim": "plugin-fidget-nvim",
         "plugin-flutter-tools": "plugin-flutter-tools",
         "plugin-gesture-nvim": "plugin-gesture-nvim",

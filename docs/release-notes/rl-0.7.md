@@ -24,9 +24,9 @@ Release notes for release 0.7
   automatically if you have autoformatting enabled, but can be disabled manually
   if you choose to.
 
-- Remove vim-tidal and friends
+- Refactor `programs.languages.elixir` to use lspconfig and none-ls for LSP and
+  formatter setups respectively. Diagnostics support is considered, and may be
+  added once the [credo](https://github.com/rrrene/credo) linter has been added
+  to nixpkgs. A pull request is currently open.
 
-- Remove unmaintained Elixir language module. This has been long broken, and was
-  unmaintained due to my disinterest in using Elixir. If you depend on Elixir
-  language support, please create an issue. Do keep in mind that elixirls **does
-  not exist in nixpkgs**.
+- Remove vim-tidal and friends
