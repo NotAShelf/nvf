@@ -54,9 +54,16 @@ inputs: let
         enableTreesitter = true;
         enableExtraDiagnostics = true;
 
-        nix.enable = true;
-        markdown.enable = true;
+        # Nim LSP is broken on Darwin and therefore
+        # should be disabled by default. Users may still enable
+        # `vim.languages.vim` to enable it, this does not restrict
+        # that.
+        # See: <https://github.com/PMunch/nimlsp/issues/178#issue-2128106096>
+        nim.enable = false;
 
+        nix.enable = true;
+
+        markdown.enable = isMaximal;
         html.enable = isMaximal;
         css.enable = isMaximal;
         sql.enable = isMaximal;
@@ -71,7 +78,6 @@ inputs: let
         bash.enable = isMaximal;
         tailwind.enable = isMaximal;
         typst.enable = isMaximal;
-        nim.enable = isMaximal;
         clang = {
           enable = isMaximal;
           lsp.server = "clangd";
@@ -79,14 +85,14 @@ inputs: let
 
         rust = {
           enable = isMaximal;
-          crates.enable = true;
+          crates.enable = isMaximal;
         };
       };
 
       visuals = {
         enable = true;
         nvimWebDevicons.enable = true;
-        scrollBar.enable = true;
+        scrollBar.enable = isMaximal;
         smoothScroll.enable = true;
         cellularAutomaton.enable = false;
         fidget-nvim.enable = true;
