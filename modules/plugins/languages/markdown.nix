@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames concatLists;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.lists) isList;
   inherit (lib.types) bool enum either package listOf str;
@@ -51,9 +52,9 @@ in {
 
     treesitter = {
       enable = mkOption {
-        description = "Enable Markdown treesitter";
         type = bool;
         default = config.vim.languages.enableTreesitter;
+        description = "Enable Markdown treesitter";
       };
       mdPackage = mkGrammarOption pkgs "markdown";
       mdInlinePackage = mkGrammarOption pkgs "markdown-inline";
@@ -63,16 +64,16 @@ in {
       enable = mkEnableOption "Enable Markdown LSP support" // {default = config.vim.languages.enableLSP;};
 
       server = mkOption {
-        description = "Markdown LSP server to use";
         type = enum (attrNames servers);
         default = defaultServer;
+        description = "Markdown LSP server to use";
       };
 
       package = mkOption {
-        description = "Markdown LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+        example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
+        description = "Markdown LSP server package, or the command to run as a list of strings";
       };
     };
 
@@ -98,4 +99,21 @@ in {
       };
     };
   };
+
+  config = mkIf cfg.enable (mkMerge [
+    (mkIf cfg.treesitter.enable {
+      vim.treesitter.enable = true;
+      vim.treesitter.grammars = [cfg.treesitter.mdPackage cfg.treesitter.mdInlinePackage];
+    })
+
+    (mkIf cfg.lsp.enable {
+      vim.lsp.lspconfig.enable = true;
+      vim.lsp.lspconfig.sources.markdown-lsp = servers.${cfg.lsp.server}.lspConfig;
+    })
+
+    (mkIf cfg.format.enable {
+      vim.lsp.null-ls.enable = true;
+      vim.lsp.null-ls.sources.markdown-format = formats.${cfg.format.type}.nullConfig;
+    })
+  ]);
 }
