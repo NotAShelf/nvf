@@ -39,7 +39,7 @@
         table.insert(
           ls_sources,
           null_ls.builtins.formatting.deno_fmt.with({
-            filetypes = ${concatLists cfg.format.extraFiletypes ["markdown"]},
+            filetypes = ${expToLua (concatLists [cfg.format.extraFiletypes ["markdown"]])},
             command = "${cfg.format.package}/bin/deno",
           })
         )
@@ -81,21 +81,21 @@ in {
       enable = mkEnableOption "Markdown formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        description = "Markdown formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "Markdown formatter to use";
       };
 
       package = mkOption {
-        description = "Markdown formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "Markdown formatter package";
       };
 
       extraFiletypes = mkOption {
-        description = "Extra filetypes to format with the Markdown formatter";
         type = listOf str;
         default = [];
+        description = "Extra filetypes to format with the Markdown formatter";
       };
     };
   };
