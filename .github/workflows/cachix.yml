@@ -19,7 +19,6 @@ jobs:
         package:
           - default
           - nix
-          - tidal
           - maximal
     steps:
       - uses: easimon/maximize-build-space@v10
