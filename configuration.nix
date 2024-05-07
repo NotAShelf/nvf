@@ -15,10 +15,6 @@ inputs: let
       configuration.imports = modules;
     };
 
-  tidalConfig = {
-    config.vim.languages.tidal.enable = true;
-  };
-
   mainConfig = isMaximal: {
     config.vim = {
       viAlias = true;
@@ -58,7 +54,16 @@ inputs: let
         enableTreesitter = true;
         enableExtraDiagnostics = true;
 
+        # Nim LSP is broken on Darwin and therefore
+        # should be disabled by default. Users may still enable
+        # `vim.languages.vim` to enable it, this does not restrict
+        # that.
+        # See: <https://github.com/PMunch/nimlsp/issues/178#issue-2128106096>
+        nim.enable = false;
+
         nix.enable = true;
+
+        markdown.enable = isMaximal;
         html.enable = isMaximal;
         css.enable = isMaximal;
         sql.enable = isMaximal;
@@ -66,13 +71,11 @@ inputs: let
         ts.enable = isMaximal;
         svelte.enable = isMaximal;
         go.enable = isMaximal;
+        elixir.enable = isMaximal;
         zig.enable = isMaximal;
         python.enable = isMaximal;
         dart.enable = isMaximal;
-        elixir.enable = isMaximal;
         bash.enable = isMaximal;
-        terraform.enable = isMaximal;
-        nim.enable = false;
         tailwind.enable = isMaximal;
         typst.enable = isMaximal;
         clang = {
@@ -82,14 +85,14 @@ inputs: let
 
         rust = {
           enable = isMaximal;
-          crates.enable = true;
+          crates.enable = isMaximal;
         };
       };
 
       visuals = {
         enable = true;
         nvimWebDevicons.enable = true;
-        scrollBar.enable = true;
+        scrollBar.enable = isMaximal;
         smoothScroll.enable = true;
         cellularAutomaton.enable = false;
         fidget-nvim.enable = true;
@@ -252,5 +255,5 @@ inputs: let
     };
   };
 in {
-  inherit neovimConfiguration mainConfig tidalConfig;
+  inherit neovimConfiguration mainConfig;
 }

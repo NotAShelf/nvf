@@ -1,15 +1,17 @@
 {
-  pkgs,
   config,
+  pkgs,
   lib,
   ...
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.types) enum either package listOf str bool;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.languages) diagnosticsToLua;
   inherit (lib.nvim.types) diagnostics mkGrammarOption;
+  inherit (lib.nvim.lua) expToLua;
 
   cfg = config.vim.languages.bash;
 
@@ -55,6 +57,7 @@
           ls_sources,
           null_ls.builtins.diagnostics.shellcheck.with({
             command = "${pkg}/bin/shellcheck",
+            diagnostics_format = "#{m} [#{c}]"
           })
         )
       '';
@@ -114,4 +117,30 @@ in {
       };
     };
   };
+
+  config = mkIf cfg.enable (mkMerge [
+    (mkIf cfg.treesitter.enable {
+      vim.treesitter.enable = true;
+      vim.treesitter.grammars = [cfg.treesitter.package];
+    })
+
+    (mkIf cfg.lsp.enable {
+      vim.lsp.lspconfig.enable = true;
+      vim.lsp.lspconfig.sources.bash-lsp = servers.${cfg.lsp.server}.lspConfig;
+    })
+
+    (mkIf cfg.format.enable {
+      vim.lsp.null-ls.enable = true;
+      vim.lsp.null-ls.sources.bash-format = formats.${cfg.format.type}.nullConfig;
+    })
+
+    (mkIf cfg.extraDiagnostics.enable {
+      vim.lsp.null-ls.enable = true;
+      vim.lsp.null-ls.sources = diagnosticsToLua {
+        lang = "bash";
+        config = cfg.extraDiagnostics.types;
+        inherit diagnosticsProviders;
+      };
+    })
+  ]);
 }
