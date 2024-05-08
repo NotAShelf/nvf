@@ -133,6 +133,14 @@ in {
       configRC = {
         globalsScript = entryAnywhere (concatStringsSep "\n" globalsScript);
 
+        # Call additional lua files with :luafile in Vimscript
+        # section of the configuration, only after
+        # the luaScript section  has been evaluated
+        extraLuaFiles = let
+          callLuaFiles = map (file: "luafile ${file}") cfg.extraLuaFiles;
+        in
+          entryAfter ["globalScript"] (concatStringsSep "\n" callLuaFiles);
+
         # wrap the lua config in a lua block
         # using the wrapLuaConfic function from the lib
         luaScript = let
@@ -148,7 +156,7 @@ in {
             inherit mapResult;
           };
         in
-          entryAfter ["globalsScript"] luaConfig;
+          entryAnywhere luaConfig;
 
         extraPluginConfigs = let
           mapResult = result: (wrapLuaConfig {
