@@ -37,8 +37,8 @@ in {
         To avoid leaking imperative user configuration into your
         configuration, this is enabled by default. If you wish
         to load configuration from user configuration directories
-        (e.g. `$HOME/.config/nvim`, `$HOME/.config/nvim/after`
-        and `$HOME/.local/share/nvim/site`) you may set this
+        (e.g. {file}`$HOME/.config/nvim`, {file}`$HOME/.config/nvim/after`
+        and {file}`$HOME/.local/share/nvim/site`) you may set this
         option to true.
         :::
       '';
@@ -68,13 +68,49 @@ in {
         active runtimepath of the Neovim. This can be used to
         add additional lookup paths for configs, plugins, spell
         languages and other things you would generally place in
-        your `$HOME/.config/nvim`.
+        your {file}`$HOME/.config/nvim`.
 
         This is meant as a declarative alternative to throwing
-        files into `~/.config/nvim` and having the Neovim
+        files into {file}`~/.config/nvim` and having the Neovim
         wrapper pick them up. For more details on
         `vim.o.runtimepath`, and what paths to use; please see
         [the official documentation](https://neovim.io/doc/user/options.html#'runtimepath')
+      '';
+    };
+
+    extraLuaFiles = mkOption {
+      type = listOf (either path str);
+      default = [];
+      example = literalExpression ''
+        [
+          # absolute path, as a string - impure
+          "$HOME/.config/nvim/my-lua-file.lua"
+
+          # relative path, as a path - pure
+          ./nvim/my-lua-file.lua
+
+          # source type path - pure and reproducible
+          (builtins.source {
+            path = ./nvim/my-lua-file.lua;
+            name = "my-lua-file";
+          })
+        ]
+      '';
+
+      description = ''
+        Additional lua files that will be sourced by Neovim.
+        Takes both absolute and relative paths, all of which
+        will be called via the `luafile` command in Neovim.
+
+        See [lua-commands](https://neovim.io/doc/user/lua.html#lua-commands)
+        on the Neovim documentation for more details.
+
+        ::: {.warning}
+        All paths passed to this option must be valid. If Neovim cannot
+        resolve the path you are attempting to sourcee, then your configuration
+        will error, and Neovim will not start. Please ensure that all paths
+        are correct before using this option.
+        :::
       '';
     };
 
