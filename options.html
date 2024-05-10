@@ -164,8 +164,8 @@ package</p>
 active runtimepath of the Neovim. This can be used to
 add additional lookup paths for configs, plugins, spell
 languages and other things you would generally place in
-your <code class="literal">$HOME/.config/nvim</code>.</p><p>This is meant as a declarative alternative to throwing
-files into <code class="literal">~/.config/nvim</code> and having the Neovim
+your <code class="filename">$HOME/.config/nvim</code>.</p><p>This is meant as a declarative alternative to throwing
+files into <code class="filename">~/.config/nvim</code> and having the Neovim
 wrapper pick them up. For more details on
 <code class="literal">vim.o.runtimepath</code>, and what paths to use; please see
 <a class="link" href="https://neovim.io/doc/user/options.html#&#x27;runtimepath&#x27;"  target="_top">the official documentation</a></p>
@@ -3107,8 +3107,8 @@ when it starts up. This is useful when you want to have
 full control over the runtime paths that are set by Neovim.</p><div class="note"><h3 class="title">Note</h3><p>To avoid leaking imperative user configuration into your
 configuration, this is enabled by default. If you wish
 to load configuration from user configuration directories
-(e.g. <code class="literal">$HOME/.config/nvim</code>, <code class="literal">$HOME/.config/nvim/after</code>
-and <code class="literal">$HOME/.local/share/nvim/site</code>) you may set this
+(e.g. <code class="filename">$HOME/.config/nvim</code>, <code class="filename">$HOME/.config/nvim/after</code>
+and <code class="filename">$HOME/.local/share/nvim/site</code>) you may set this
 option to true.</p></div>
 
 <p><span class="emphasis"><em>Type:</em></span>
@@ -3119,6 +3119,52 @@ boolean</p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_top">
+&lt;nvf/modules/wrapper/rc/options.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.extraLuaFiles"></a><a class="term" href="options.html#opt-vim.extraLuaFiles"><code class="option">vim.extraLuaFiles</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Additional lua files that will be sourced by Neovim.
+Takes both absolute and relative paths, all of which
+will be called via the <code class="literal">luafile</code> command in Neovim.</p><p>See <a class="link" href="https://neovim.io/doc/user/lua.html#lua-commands"  target="_top">lua-commands</a>
+on the Neovim documentation for more details.</p><div class="warning"><h3 class="title">Warning</h3><p>All paths passed to this option must be valid. If Neovim cannot
+resolve the path you are attempting to sourcee, then your configuration
+will error, and Neovim will not start. Please ensure that all paths
+are correct before using this option.</p></div>
+
+<p><span class="emphasis"><em>Type:</em></span>
+list of (path or string)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">[ ]</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">[
+  # absolute path, as a string - impure
+  &quot;$HOME/.config/nvim/my-lua-file.lua&quot;
+
+  # relative path, as a path - pure
+  ./nvim/my-lua-file.lua
+
+  # source type path - pure and reproducible
+  (builtins.source {
+    path = ./nvim/my-lua-file.lua;
+    name = &quot;my-lua-file&quot;;
+  })
+]
+
+</code></pre>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -8607,7 +8653,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation dart-3.3.3&gt;</code></p>
+<code class="literal">&lt;derivation dart-3.3.4&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot;-data\&quot; \&quot;~/.cache/jdtls/workspace\&quot;]&quot;</code></p>
@@ -9507,7 +9553,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation lua-language-server-3.7.4&gt;</code></p>
+<code class="literal">&lt;derivation lua-language-server-3.8.3&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -9663,7 +9709,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation deno-1.42.3&gt;</code></p>
+<code class="literal">&lt;derivation deno-1.43.1&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -9939,7 +9985,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation x86_64-unknown-linux-gnu-nim-wrapper-2.0.2&gt;</code></p>
+<code class="literal">&lt;derivation x86_64-unknown-linux-gnu-nim-wrapper-2.0.4&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -10687,7 +10733,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation black-24.3.0&gt;</code></p>
+<code class="literal">&lt;derivation black-24.4.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -10840,7 +10886,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation python-grammar-0.0.0+rev=a227610&gt;</code></p>
+<code class="literal">&lt;derivation python-grammar-0.0.0+rev=71778c2&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -11017,7 +11063,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation rust-analyzer-2024-04-08&gt;</code></p>
+<code class="literal">&lt;derivation rust-analyzer-2024-04-29&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot;-data\&quot; \&quot;~/.cache/jdtls/workspace\&quot;]&quot;</code></p>
@@ -11250,7 +11296,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation sqlfluff-3.0.5&gt;</code></p>
+<code class="literal">&lt;derivation sqlfluff-3.0.6&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -12514,7 +12560,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation zls-0.11.0&gt;</code></p>
+<code class="literal">&lt;derivation zls-0.12.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot;-data\&quot; \&quot;~/.cache/jdtls/workspace\&quot;]&quot;</code></p>
@@ -12541,7 +12587,7 @@ package or list of string</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation zig-0.11.0&gt;</code></p>
+<code class="literal">&lt;derivation zig-0.12.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
