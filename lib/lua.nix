@@ -65,6 +65,7 @@ in rec {
     then
       if isLuaInline args
       then args.expr
+      # if nobody is using this we should get rid of this
       else if hasAttr "__empty" args
       then "{ }"
       else
@@ -76,10 +77,7 @@ in rec {
               then toLuaObject v
               else "[${toLuaObject n}] = " + (toLuaObject v))
             (filterAttrs
-              (
-                _: v:
-                  (v != null) && (toLuaObject v != "{}")
-              )
+              (_: v: v != null)
               args)))
         + "}"
     else if isList args
