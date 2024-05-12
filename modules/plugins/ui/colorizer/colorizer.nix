@@ -109,9 +109,16 @@ in {
         description = ''
           Filetypes to enable on and their option overrides.
 
-          The special filetype "*" means enable on all filetypes.
+          "*" means enable on all filetypes. Filetypes prefixed with "!" are disabled.
         '';
         default = {};
+        example = {
+          "*" = {};
+          "!vim" = {};
+          javascript = {
+            AARRGGBB = false;
+          };
+        };
         type = submodule {
           freeformType = attrsOf settingSubmodule;
         };
