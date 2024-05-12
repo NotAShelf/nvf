@@ -4,8 +4,9 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) attrsOf enum nullOr submodule bool;
+  inherit (lib.types) attrsOf enum nullOr submodule bool str;
   inherit (lib.modules) mkRenamedOptionModule;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 
   settingSubmodule = submodule {
     options = {
@@ -29,6 +30,12 @@
 
       RRGGBBAA = mkOption {
         description = "Colorize #RRGGBBAA hex codes";
+        default = null;
+        type = nullOr bool;
+      };
+
+      AARRGGBB = mkOption {
+        description = "Colorize 0xAARRGGBB hex codes";
         default = null;
         type = nullOr bool;
       };
@@ -57,10 +64,34 @@
         type = nullOr bool;
       };
 
+      tailwind = mkOption {
+        description = "Enable tailwind colors";
+        default = null;
+        type = nullOr bool;
+      };
+
+      sass = mkOption {
+        description = "Enable sass colors";
+        default = null;
+        type = nullOr bool;
+      };
+
+      virtualtext = mkOption {
+        description = "String to display as virtualtext";
+        type = nullOr str;
+        default = null;
+      };
+
       mode = mkOption {
         description = "Set the display mode";
         type = nullOr (enum ["foreground" "background"]);
         default = null;
+      };
+
+      always_update = mkOption {
+        description = "Update color values even if buffer is not focused. Example use: cmp_menu, cmp_docs";
+        default = null;
+        type = nullOr bool;
       };
     };
   };
@@ -73,20 +104,23 @@ in {
   options.vim.ui.colorizer = {
     enable = mkEnableOption "color highlighting [nvim-colorizer.lua]";
 
-    defaultOptions = mkOption {
-      description = ''
-        Default options that apply to all filetypes. Filetype specific settings from
-        [filetypeSettings](#opt-vim.ui.colorizer.filetypeSettings) take precedence.
-      '';
-      default = {};
-      type = settingSubmodule;
-    };
+    setupOpts = mkPluginSetupOption "colorizer" {
+      filetypes = mkOption {
+        description = ''
+          Filetypes to enable on and their option overrides.
 
-    filetypeOptions = mkOption {
-      description = "Filetype specific settings";
-      default = {};
-      type = submodule {
-        freeformType = attrsOf settingSubmodule;
+          The special filetype "*" means enable on all filetypes.
+        '';
+        default = {};
+        type = submodule {
+          freeformType = attrsOf settingSubmodule;
+        };
+      };
+
+      user_default_options = mkOption {
+        description = "Default options";
+        default = {};
+        type = settingSubmodule;
       };
     };
   };

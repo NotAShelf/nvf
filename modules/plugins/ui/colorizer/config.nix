@@ -15,7 +15,7 @@ in {
     ];
 
     vim.luaConfigRC.colorizer = entryAnywhere ''
-      require('colorizer').setup(${toLuaObject cfg.filetypeOptions}, ${toLuaObject cfg.defaultOptions})
+      require('colorizer').setup(${toLuaObject cfg.setupOpts})
     '';
   };
 }
