@@ -10,10 +10,6 @@
   inherit (lib.nvim.types) mkPluginSetupOption;
 
   supported_themes = import ./supported_themes.nix;
-  colorPuccin =
-    if config.vim.statusline.lualine.theme == "catppuccin"
-    then "#181825"
-    else "none";
 in {
   options.vim.statusline.lualine = {
     setupOpts = mkPluginSetupOption "Lualine" {};
@@ -172,13 +168,11 @@ in {
               colored = true,
               icon_only = true,
               icon = { align = 'left' },
-              color = {bg='${colorPuccin}', fg='lavender'},
             }
           ''
           ''
             {
               "filename",
-              color = {bg='${colorPuccin}'},
               symbols = {modified = '', readonly = ''},
             }
           ''
@@ -200,10 +194,6 @@ in {
                 removed  = 'DiffDelete', -- Changes the diff's removed color you
               },
               symbols = {added = '+', modified = '~', removed = '-'}, -- Changes the diff symbols
-              color = {
-                bg='${colorPuccin}',
-                fg='lavender'
-              },
               separator = {
                 right = ''
               },
@@ -251,7 +241,6 @@ in {
                 return msg
               end,
               icon = ' ',
-              color = {bg='${colorPuccin}', fg='lavender'},
               separator = {
                 left = '',
               },
@@ -262,7 +251,6 @@ in {
               "diagnostics",
               sources = {'nvim_lsp', 'nvim_diagnostic', 'coc'},
               symbols = {error = '󰅙  ', warn = '  ', info = '  ', hint = '󰌵 '},
-              color = {bg='${colorPuccin}', fg='lavender'},
               diagnostics_color = {
                 color_error = { fg = 'red' },
                 color_warn = { fg = 'yellow' },
@@ -282,14 +270,12 @@ in {
               'searchcount',
               maxcount = 999,
               timeout = 120,
-              color = {bg='${colorPuccin}', fg='lavender'}
             }
           ''
           ''
             {
               "branch",
               icon = ' •',
-              color = {bg='${colorPuccin}', fg='lavender'},
             }
           ''
         ];
