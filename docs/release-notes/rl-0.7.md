@@ -36,7 +36,7 @@ Release notes for release 0.7
 
 - Remove vim-tidal and friends
 
-[balkenix](https://github.com/balkenix)
+[balkenix](https://github.com/balkenix):
 
 - Remove reliance on Catppuccin in `modules/statusline/lualine/lualine.nix`
 - flake.lock update
