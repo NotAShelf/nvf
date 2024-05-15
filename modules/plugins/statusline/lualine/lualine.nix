@@ -10,19 +10,45 @@
   inherit (lib.nvim.types) mkPluginSetupOption;
 
   supported_themes = import ./supported_themes.nix;
-  colorPuccin =
-    if config.vim.statusline.lualine.theme == "catppuccin"
-    then "#181825"
-    else "none";
+  builtin_themes = [
+    "auto"
+    "16color"
+    "gruvbox"
+    "ayu_dark"
+    "ayu_light"
+    "ayu_mirage"
+    "codedark"
+    "dracula"
+    "everforest"
+    "gruvbox"
+    "gruvbox_light"
+    "gruvbox_material"
+    "horizon"
+    "iceberg_dark"
+    "iceberg_light"
+    "jellybeans"
+    "material"
+    "modus_vivendi"
+    "molokai"
+    "nightfly"
+    "nord"
+    "oceanicnext"
+    "onelight"
+    "palenight"
+    "papercolor_dark"
+    "papercolor_light"
+    "powerline"
+    "seoul256"
+    "solarized_dark"
+    "tomorrow"
+    "wombat"
+  ];
 in {
   options.vim.statusline.lualine = {
+    enable = mkEnableOption "lualine statusline plugin";
     setupOpts = mkPluginSetupOption "Lualine" {};
 
-    enable = mkEnableOption "lualine statusline plugin";
-
-    icons = {
-      enable = mkEnableOption "icons for lualine" // {default = true;};
-    };
+    icons.enable = mkEnableOption "icons for lualine" // {default = true;};
 
     refresh = {
       statusline = mkOption {
@@ -73,47 +99,15 @@ in {
 
     theme = let
       themeSupported = elem config.vim.theme.name supported_themes;
+      themesConcatted = builtin_themes ++ optional themeSupported config.vim.theme.name;
     in
       mkOption {
-        description = "Theme for lualine";
-        type = enum ([
-            "auto"
-            "16color"
-            "gruvbox"
-            "ayu_dark"
-            "ayu_light"
-            "ayu_mirage"
-            "codedark"
-            "dracula"
-            "everforest"
-            "gruvbox"
-            "gruvbox_light"
-            "gruvbox_material"
-            "horizon"
-            "iceberg_dark"
-            "iceberg_light"
-            "jellybeans"
-            "material"
-            "modus_vivendi"
-            "molokai"
-            "nightfly"
-            "nord"
-            "oceanicnext"
-            "onelight"
-            "palenight"
-            "papercolor_dark"
-            "papercolor_light"
-            "powerline"
-            "seoul256"
-            "solarized_dark"
-            "tomorrow"
-            "wombat"
-          ]
-          ++ optional themeSupported config.vim.theme.name);
+        type = enum themesConcatted;
         default = "auto";
         # TODO: xml generation error if the closing '' is on a new line.
         # issue: https://gitlab.com/rycee/nmd/-/issues/10
         defaultText = ''`config.vim.theme.name` if theme supports lualine else "auto"'';
+        description = "Theme for lualine";
       };
 
     sectionSeparator = {
@@ -171,15 +165,14 @@ in {
               "filetype",
               colored = true,
               icon_only = true,
-              icon = { align = 'left' },
-              color = {bg='${colorPuccin}', fg='lavender'},
+              icon = { align = 'left' }
             }
           ''
           ''
             {
               "filename",
-              color = {bg='${colorPuccin}'},
-              symbols = {modified = '', readonly = ''},
+              symbols = {modified = ' ', readonly = ' '},
+              separator = {right = ''}
             }
           ''
         ];
@@ -200,13 +193,7 @@ in {
                 removed  = 'DiffDelete', -- Changes the diff's removed color you
               },
               symbols = {added = '+', modified = '~', removed = '-'}, -- Changes the diff symbols
-              color = {
-                bg='${colorPuccin}',
-                fg='lavender'
-              },
-              separator = {
-                right = ''
-              },
+              separator = {right = ''}
             }
           ''
         ];
@@ -251,10 +238,6 @@ in {
                 return msg
               end,
               icon = ' ',
-              color = {bg='${colorPuccin}', fg='lavender'},
-              separator = {
-                left = '',
-              },
             }
           ''
           ''
@@ -262,7 +245,6 @@ in {
               "diagnostics",
               sources = {'nvim_lsp', 'nvim_diagnostic', 'coc'},
               symbols = {error = '󰅙  ', warn = '  ', info = '  ', hint = '󰌵 '},
-              color = {bg='${colorPuccin}', fg='lavender'},
               diagnostics_color = {
                 color_error = { fg = 'red' },
                 color_warn = { fg = 'yellow' },
@@ -282,14 +264,16 @@ in {
               'searchcount',
               maxcount = 999,
               timeout = 120,
-              color = {bg='${colorPuccin}', fg='lavender'}
+
             }
           ''
           ''
             {
               "branch",
               icon = ' •',
-              color = {bg='${colorPuccin}', fg='lavender'},
+              separator = {
+                left = '',
+              },
             }
           ''
         ];
@@ -300,17 +284,10 @@ in {
         description = "active config for: | A | B | C       X | Y | (Z) |";
         default = [
           ''
-            {
-              "progress",
-              separator = {
-                left = '',
-              },
-            }
+            {"progress"}
           ''
           ''
-            {
-              "location",
-            }
+            {"location"}
           ''
           ''
             {
@@ -326,32 +303,38 @@ in {
         ];
       };
     };
+
     extraActiveSection = {
       a = mkOption {
         type = listOf str;
         description = "Extra entries for activeSection.a";
         default = [];
       };
+
       b = mkOption {
         type = listOf str;
         description = "Extra entries for activeSection.b";
         default = [];
       };
+
       c = mkOption {
         type = listOf str;
         description = "Extra entries for activeSection.c";
         default = [];
       };
+
       x = mkOption {
         type = listOf str;
         description = "Extra entries for activeSection.x";
         default = [];
       };
+
       y = mkOption {
         type = listOf str;
         description = "Extra entries for activeSection.y";
         default = [];
       };
+
       z = mkOption {
         type = listOf str;
         description = "Extra entries for activeSection.z";
@@ -402,26 +385,31 @@ in {
         description = "Extra entries for inactiveSection.a";
         default = [];
       };
+
       b = mkOption {
         type = listOf str;
         description = "Extra entries for inactiveSection.b";
         default = [];
       };
+
       c = mkOption {
         type = listOf str;
         description = "Extra entries for inactiveSection.c";
         default = [];
       };
+
       x = mkOption {
         type = listOf str;
         description = "Extra entries for inactiveSection.x";
         default = [];
       };
+
       y = mkOption {
         type = listOf str;
         description = "Extra entries for inactiveSection.y";
         default = [];
       };
+
       z = mkOption {
         type = listOf str;
         description = "Extra entries for inactiveSection.z";
