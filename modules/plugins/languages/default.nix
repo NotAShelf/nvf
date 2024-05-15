@@ -14,6 +14,7 @@ in {
     ./markdown.nix
     ./nim.nix
     ./nix.nix
+    ./ocaml.nix
     ./php.nix
     ./python.nix
     ./rust.nix

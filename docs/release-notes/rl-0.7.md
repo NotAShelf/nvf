@@ -38,3 +38,7 @@ Release notes for release 0.7
 
 - Cleaned up Lualine module to reduce theme dependency on Catppuccin, and fixed
   blending issues in component separators.
+
+[jacekpoz](https://github.com/jacekpoz):
+
+- Added [ocaml-lsp](https://github.com/ocaml/ocaml-lsp) support.
