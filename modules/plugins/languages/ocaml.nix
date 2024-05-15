@@ -30,6 +30,15 @@ in {
         default = pkgs.ocamlPackages.ocaml-lsp;
       };
     };
+
+    format = {
+      enable = mkEnableOption "OCaml formatting support (ocamlformat)" // {default = config.vim.languages.enableFormat;};
+      package = mkOption {
+        description = "OCaml formatter package";
+        type = package;
+        default = pkgs.ocamlPackages.ocamlformat;
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -51,6 +60,18 @@ in {
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.package];
+    })
+
+    (mkIf cfg.format.enable {
+      vim.lsp.null-ls.enable = true;
+      vim.lsp.null-ls.sources.ocamlformat = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.ocamlformat.with({
+            command = "${cfg.format.package}/bin/ocamlformat",
+          })
+        )
+      '';
     })
   ]);
 }
