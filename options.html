@@ -19629,15 +19629,14 @@ list of string</p>
       &quot;filetype&quot;,
       colored = true,
       icon_only = true,
-      icon = { align = &#x27;left&#x27; },
-      color = {bg=&#x27;none&#x27;, fg=&#x27;lavender&#x27;},
+      icon = { align = &#x27;left&#x27; }
     }
   &#x27;&#x27;
   &#x27;&#x27;
     {
       &quot;filename&quot;,
-      color = {bg=&#x27;none&#x27;},
-      symbols = {modified = &#x27;&#x27;, readonly = &#x27;&#x27;},
+      symbols = {modified = &#x27; &#x27;, readonly = &#x27; &#x27;},
+      separator = {right = &#x27;&#x27;}
     }
   &#x27;&#x27;
 ]
@@ -19676,13 +19675,7 @@ list of string</p>
         removed  = &#x27;DiffDelete&#x27;, -- Changes the diff&#x27;s removed color you
       },
       symbols = {added = &#x27;+&#x27;, modified = &#x27;~&#x27;, removed = &#x27;-&#x27;}, -- Changes the diff symbols
-      color = {
-        bg=&#x27;none&#x27;,
-        fg=&#x27;lavender&#x27;
-      },
-      separator = {
-        right = &#x27;&#x27;
-      },
+      separator = {right = &#x27;&#x27;}
     }
   &#x27;&#x27;
 ]
@@ -19745,10 +19738,6 @@ list of string</p>
         return msg
       end,
       icon = &#x27; &#x27;,
-      color = {bg=&#x27;none&#x27;, fg=&#x27;lavender&#x27;},
-      separator = {
-        left = &#x27;&#x27;,
-      },
     }
   &#x27;&#x27;
   &#x27;&#x27;
@@ -19756,7 +19745,6 @@ list of string</p>
       &quot;diagnostics&quot;,
       sources = {&#x27;nvim_lsp&#x27;, &#x27;nvim_diagnostic&#x27;, &#x27;coc&#x27;},
       symbols = {error = &#x27;󰅙  &#x27;, warn = &#x27;  &#x27;, info = &#x27;  &#x27;, hint = &#x27;󰌵 &#x27;},
-      color = {bg=&#x27;none&#x27;, fg=&#x27;lavender&#x27;},
       diagnostics_color = {
         color_error = { fg = &#x27;red&#x27; },
         color_warn = { fg = &#x27;yellow&#x27; },
@@ -19794,14 +19782,16 @@ list of string</p>
       &#x27;searchcount&#x27;,
       maxcount = 999,
       timeout = 120,
-      color = {bg=&#x27;none&#x27;, fg=&#x27;lavender&#x27;}
+    
     }
   &#x27;&#x27;
   &#x27;&#x27;
     {
       &quot;branch&quot;,
       icon = &#x27; •&#x27;,
-      color = {bg=&#x27;none&#x27;, fg=&#x27;lavender&#x27;},
+      separator = {
+        left = &#x27;&#x27;,
+      },
     }
   &#x27;&#x27;
 ]
@@ -19830,17 +19820,10 @@ list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
   &#x27;&#x27;
-    {
-      &quot;progress&quot;,
-      separator = {
-        left = &#x27;&#x27;,
-      },
-    }
+    {&quot;progress&quot;}
   &#x27;&#x27;
   &#x27;&#x27;
-    {
-      &quot;location&quot;,
-    }
+    {&quot;location&quot;}
   &#x27;&#x27;
   &#x27;&#x27;
     {
