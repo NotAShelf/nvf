@@ -35,3 +35,6 @@ Release notes for release 0.7
   to nixpkgs. A pull request is currently open.
 
 - Remove vim-tidal and friends
+
+- Cleaned up Lualine module to reduce theme dependency on Catppuccin, and fixed
+  blending issues in component separators.
