@@ -20,7 +20,7 @@ Release notes for release 0.7
 
 - Fix broken treesitter-context keybinds in visual mode
 
-[NotAShelf](https://github.com/notashelf)
+[NotAShelf](https://github.com/notashelf):
 
 - Add `deno fmt` as the default Markdown formatter. This will be enabled
   automatically if you have autoformatting enabled, but can be disabled manually
@@ -35,3 +35,8 @@ Release notes for release 0.7
   to nixpkgs. A pull request is currently open.
 
 - Remove vim-tidal and friends
+
+[balkenix](https://github.com/balkenix)
+
+- Remove reliance on Catppuccin in `modules/statusline/lualine/lualine.nix`
+- flake.lock update
