@@ -171,7 +171,7 @@ in {
           ''
             {
               "filename",
-              symbols = {modified = ' ', readonly = ' '},
+              symbols = {modified = ' ', readonly = ' '},
               separator = {right = ''}
             }
           ''
@@ -238,13 +238,17 @@ in {
                 return msg
               end,
               icon = ' ',
+              separator = {left = ''},
             }
           ''
           ''
             {
               "diagnostics",
-              sources = {'nvim_lsp', 'nvim_diagnostic', 'coc'},
+              sources = {'nvim_lsp', 'nvim_diagnostic', 'nvim_diagnostic', 'vim_lsp', 'coc'},
               symbols = {error = '󰅙  ', warn = '  ', info = '  ', hint = '󰌵 '},
+              colored = true,
+              update_in_insert = false,
+              always_visible = false,
               diagnostics_color = {
                 color_error = { fg = 'red' },
                 color_warn = { fg = 'yellow' },
@@ -264,16 +268,13 @@ in {
               'searchcount',
               maxcount = 999,
               timeout = 120,
-
             }
           ''
           ''
             {
               "branch",
               icon = ' •',
-              separator = {
-                left = '',
-              },
+              separator = {left = ''}
             }
           ''
         ];
@@ -284,7 +285,10 @@ in {
         description = "active config for: | A | B | C       X | Y | (Z) |";
         default = [
           ''
-            {"progress"}
+            {
+              "progress",
+              separator = {left = ''}
+            }
           ''
           ''
             {"location"}
@@ -297,7 +301,7 @@ in {
                 unix = '', -- e712
                 dos = '',  -- e70f
                 mac = '',  -- e711
-              },
+              }
             }
           ''
         ];
