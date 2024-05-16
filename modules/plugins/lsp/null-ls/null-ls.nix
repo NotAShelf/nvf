@@ -1,8 +1,6 @@
 {lib, ...}: let
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) attrsOf str int;
-  inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) luaInline;
 in {
   options.vim.lsp.null-ls = {
     enable = mkEnableOption "null-ls, also enabled automatically";
@@ -10,8 +8,8 @@ in {
     debug = mkEnableOption "debugging information for `null-ls";
 
     diagnostics_format = mkOption {
-      type = luaInline;
-      default = mkLuaInline "[#{m}] #{s} (#{c})";
+      type = str;
+      default = "[#{m}] #{s} (#{c})";
       description = "Diagnostic output format for null-ls";
     };
 
