@@ -99,6 +99,7 @@ in {
     (mkIf cfg.format.enable {
       vim.lsp.null-ls.enable = true;
       vim.lsp.null-ls.sources.ocamlformat = formats.${cfg.format.type}.nullConfig;
+      vim.extraPackages = [ formats.${cfg.format.type}.package ];
     })
   ]);
 }
