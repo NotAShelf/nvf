@@ -24,10 +24,10 @@
           capabilities = capabilities,
           on_attach = default_on_attach,
             cmd = ${
-            if isList cfg.lsp.package
-            then expToLua cfg.lsp.package
-            else ''{"${getExe cfg.lsp.package}"}''
-          };
+          if isList cfg.lsp.package
+          then expToLua cfg.lsp.package
+          else ''{"${getExe cfg.lsp.package}"}''
+        };
         }
       '';
     };
@@ -99,7 +99,7 @@ in {
     (mkIf cfg.format.enable {
       vim.lsp.null-ls.enable = true;
       vim.lsp.null-ls.sources.ocamlformat = formats.${cfg.format.type}.nullConfig;
-      vim.extraPackages = [ formats.${cfg.format.type}.package ];
+      vim.extraPackages = [formats.${cfg.format.type}.package];
     })
   ]);
 }

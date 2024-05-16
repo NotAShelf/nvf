@@ -73,6 +73,7 @@ inputs: let
         go.enable = isMaximal;
         elixir.enable = isMaximal;
         zig.enable = isMaximal;
+        ocaml.enable = isMaximal;
         python.enable = isMaximal;
         dart.enable = isMaximal;
         bash.enable = isMaximal;
