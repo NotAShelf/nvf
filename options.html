@@ -10436,6 +10436,234 @@ package</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.languages.ocaml.enable"></a><a class="term" href="options.html#opt-vim.languages.ocaml.enable"><code class="option">vim.languages.ocaml.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable OCaml language support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/ocaml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ocaml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ocaml.format.enable"></a><a class="term" href="options.html#opt-vim.languages.ocaml.format.enable"><code class="option">vim.languages.ocaml.format.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable OCaml formatting support (ocamlformat).</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/ocaml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ocaml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ocaml.format.package"></a><a class="term" href="options.html#opt-vim.languages.ocaml.format.package"><code class="option">vim.languages.ocaml.format.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>OCaml formatter package</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation ocaml5.1.1-ocamlformat-0.26.1&gt;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/ocaml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ocaml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ocaml.format.type"></a><a class="term" href="options.html#opt-vim.languages.ocaml.format.type"><code class="option">vim.languages.ocaml.format.type</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>OCaml formatter to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+value “ocamlformat” (singular enum)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;ocamlformat&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/ocaml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ocaml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ocaml.lsp.enable"></a><a class="term" href="options.html#opt-vim.languages.ocaml.lsp.enable"><code class="option">vim.languages.ocaml.lsp.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable OCaml LSP support (ocaml-lsp).</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/ocaml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ocaml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ocaml.lsp.package"></a><a class="term" href="options.html#opt-vim.languages.ocaml.lsp.package"><code class="option">vim.languages.ocaml.lsp.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>OCaml language server package, or the command to run as a list of strings</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package or list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation ocaml5.1.1-ocaml-lsp-server-1.17.0&gt;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/ocaml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ocaml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ocaml.lsp.server"></a><a class="term" href="options.html#opt-vim.languages.ocaml.lsp.server"><code class="option">vim.languages.ocaml.lsp.server</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>OCaml LSP server to user</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+value “ocaml-lsp” (singular enum)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;ocaml-lsp&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/ocaml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ocaml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ocaml.treesitter.enable"></a><a class="term" href="options.html#opt-vim.languages.ocaml.treesitter.enable"><code class="option">vim.languages.ocaml.treesitter.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable OCaml treesitter.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/ocaml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ocaml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ocaml.treesitter.package"></a><a class="term" href="options.html#opt-vim.languages.ocaml.treesitter.package"><code class="option">vim.languages.ocaml.treesitter.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The ocaml treesitter package to use.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">pkgs.vimPlugins.nvim-treesitter.builtGrammars.ocaml</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/ocaml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ocaml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.languages.php.enable"></a><a class="term" href="options.html#opt-vim.languages.php.enable"><code class="option">vim.languages.php.enable</code>
   </a>
  </span>
@@ -19635,7 +19863,7 @@ list of string</p>
   &#x27;&#x27;
     {
       &quot;filename&quot;,
-      symbols = {modified = &#x27; &#x27;, readonly = &#x27; &#x27;},
+      symbols = {modified = &#x27; &#x27;, readonly = &#x27; &#x27;},
       separator = {right = &#x27;&#x27;}
     }
   &#x27;&#x27;
@@ -19738,13 +19966,17 @@ list of string</p>
         return msg
       end,
       icon = &#x27; &#x27;,
+      separator = {left = &#x27;&#x27;},
     }
   &#x27;&#x27;
   &#x27;&#x27;
     {
       &quot;diagnostics&quot;,
-      sources = {&#x27;nvim_lsp&#x27;, &#x27;nvim_diagnostic&#x27;, &#x27;coc&#x27;},
+      sources = {&#x27;nvim_lsp&#x27;, &#x27;nvim_diagnostic&#x27;, &#x27;nvim_diagnostic&#x27;, &#x27;vim_lsp&#x27;, &#x27;coc&#x27;},
       symbols = {error = &#x27;󰅙  &#x27;, warn = &#x27;  &#x27;, info = &#x27;  &#x27;, hint = &#x27;󰌵 &#x27;},
+      colored = true,
+      update_in_insert = false,
+      always_visible = false,
       diagnostics_color = {
         color_error = { fg = &#x27;red&#x27; },
         color_warn = { fg = &#x27;yellow&#x27; },
@@ -19782,16 +20014,13 @@ list of string</p>
       &#x27;searchcount&#x27;,
       maxcount = 999,
       timeout = 120,
-    
     }
   &#x27;&#x27;
   &#x27;&#x27;
     {
       &quot;branch&quot;,
       icon = &#x27; •&#x27;,
-      separator = {
-        left = &#x27;&#x27;,
-      },
+      separator = {left = &#x27;&#x27;}
     }
   &#x27;&#x27;
 ]
@@ -19820,7 +20049,10 @@ list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
   &#x27;&#x27;
-    {&quot;progress&quot;}
+    {
+      &quot;progress&quot;,
+      separator = {left = &#x27;&#x27;}
+    }
   &#x27;&#x27;
   &#x27;&#x27;
     {&quot;location&quot;}
@@ -19833,7 +20065,7 @@ list of string</p>
         unix = &#x27;&#x27;, -- e712
         dos = &#x27;&#x27;,  -- e70f
         mac = &#x27;&#x27;,  -- e711
-      },
+      }
     }
   &#x27;&#x27;
 ]
