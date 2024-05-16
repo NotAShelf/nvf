@@ -1,7 +1,7 @@
 {
+  check ? true,
   pkgs,
   lib,
-  check ? true,
 }: let
   inherit (lib.modules) mkDefault;
   inherit (lib.lists) concatLists;

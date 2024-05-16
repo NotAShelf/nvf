@@ -25,7 +25,7 @@ inputs: {
   # check can be disabled while calling this file is called
   # to avoid checking in all modules
   nvimModules = import ./modules.nix {
-    inherit check pkgs;
+    inherit pkgs check;
     lib = extendedLib;
   };
 
