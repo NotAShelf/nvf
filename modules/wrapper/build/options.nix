@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption mkEnableOption literalExpression;
+  inherit (lib.options) mkOption mkEnableOption literalMD;
   inherit (lib.types) package bool str listOf attrsOf;
   inherit (lib.nvim.types) pluginsOpt extraPluginType;
 in {
@@ -38,7 +38,7 @@ in {
 
     startPlugins = pluginsOpt {
       default = ["plenary-nvim"];
-      example = literalExpression ''
+      example = ''
         [pkgs.vimPlugins.telescope-nvim]
       '';
 
@@ -54,7 +54,7 @@ in {
 
     optPlugins = pluginsOpt {
       default = [];
-      example = literalExpression ''
+      example = ''
         [pkgs.vimPlugins.vim-ghost]
       '';
       description = ''
@@ -80,7 +80,8 @@ in {
         your custom plugins using nvf's modified DAG library.
       '';
 
-      example = literalExpression ''
+      example = literalMD ''
+        ```nix
         with pkgs.vimPlugins; {
           aerial = {
             package = aerial-nvim;
@@ -93,13 +94,14 @@ in {
             after = ["aerial"]; # place harpoon configuration after aerial
           };
         }
+        ```
       '';
     };
 
     extraPackages = mkOption {
       type = listOf package;
       default = [];
-      example = literalExpression ''[pkgs.fzf pkgs.ripgrep]'';
+      example = ''[pkgs.fzf pkgs.ripgrep]'';
       description = ''
         List of additional packages to make available to the Neovim
         wrapper.
@@ -107,7 +109,7 @@ in {
     };
 
     # this defaults to `true` in the wrapper
-    # and since we passs this value to the wrapper
+    # and since we pass this value to the wrapper
     # with an inherit, it should be `true` here as well
     withRuby =
       mkEnableOption ''
@@ -118,29 +120,25 @@ in {
       };
 
     withNodeJs = mkEnableOption ''
-      NodeJs support in the Neovim wrapper.
+      NodeJs support in the Neovim wrapper
     '';
 
     luaPackages = mkOption {
       type = listOf str;
       default = [];
-      example = literalExpression ''["magick" "serpent"]'';
-      description = ''
-        List of lua packages to install.
-      '';
+      example = ''["magick" "serpent"]'';
+      description = "List of lua packages to install";
     };
 
     withPython3 = mkEnableOption ''
-      Python3 support in the Neovim wrapper.
+      Python3 support in the Neovim wrapper
     '';
 
     python3Packages = mkOption {
       type = listOf str;
       default = [];
-      example = literalExpression ''["pynvim"]'';
-      description = ''
-        List of python packages to install.
-      '';
+      example = ''["pynvim"]'';
+      description = "List of python packages to install";
     };
   };
 }
