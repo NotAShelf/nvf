@@ -47,7 +47,7 @@
               nixosModules.neovim-flake has been deprecated.
               Please use the nixosModules.nvf instead
             ''
-            self.nixosModules.neovim-flake;
+            self.nixosModules.nvf;
 
           nvf = {
             imports = [(import ./flake/modules/nixos.nix self.packages inputs)];
