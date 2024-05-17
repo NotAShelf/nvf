@@ -268,6 +268,7 @@ in {
               'searchcount',
               maxcount = 999,
               timeout = 120,
+              separator = {left = ''}
             }
           ''
           ''
