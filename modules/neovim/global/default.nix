@@ -1,6 +1,12 @@
-{lib}: {
-  imports = lib.concatLists [
+{lib, ...}: let
+  inherit (lib.lists) concatLists;
+  inherit (lib.filesystem) listFilesRecursive;
+in {
+  imports = concatLists [
     # Configuration options for Neovim UI
-    (lib.filesystem.listFilesRecursive ./ui)
+    (listFilesRecursive ./ui)
+
+    # vim.diagnostics
+    [./diagnostics.nix]
   ];
 }

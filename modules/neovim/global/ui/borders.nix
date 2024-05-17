@@ -10,14 +10,18 @@
 
   cfg = config.vim.ui.borders;
 
-  defaultStyles = ["none" "single" "double" "rounded"];
+  # See `:h nvim_open_win` for the available border styles
+  # this list can be updated if additional styles are added.
+  defaultStyles = ["none" "single" "double" "rounded" "solid" "shadow"];
 in {
   options.vim.ui.borders = {
-    enable = mkEnableOption "visible borders for most windows";
+    enable = mkEnableOption "visible borders for windows that support configurable borders";
 
+    # TODO: support configurable border elements with a lua table converted from a list of str
+    # e.g. [ "╔" "═" "╗" "║" "╝" "═" "╚" "║" ]
     globalStyle = mkOption {
       type = enum defaultStyles;
-      default = "rounded";
+      default = "single";
       description = ''
         The global border style to use.
       '';
@@ -37,11 +41,11 @@ in {
       mapAttrs (_: mkPluginStyleOption) {
         # despite not having it listed in example configuration, which-key does support the rounded type
         # additionally, it supports a "shadow" type that is similar to none but is of higher contrast
-        which-key = mkPluginStyleOption "which-key";
-        lspsaga = mkPluginStyleOption "lspsaga";
-        nvim-cmp = mkPluginStyleOption "nvim-cmp";
-        lsp-signature = mkPluginStyleOption "lsp-signature";
-        code-action-menu = mkPluginStyleOption "code-actions-menu";
+        which-key = "which-key";
+        lspsaga = "lspsaga";
+        nvim-cmp = "nvim-cmp";
+        lsp-signature = "lsp-signature";
+        code-action-menu = "code-actions-menu";
       };
   };
 }
