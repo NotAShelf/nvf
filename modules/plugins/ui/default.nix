@@ -1,8 +1,9 @@
 {
   imports = [
-    ./breadcumbs
+    ./breadcrumbs
     ./colorizer
     ./illuminate
+    ./modes
     ./noice
     ./notifications
     ./smartcolumn
