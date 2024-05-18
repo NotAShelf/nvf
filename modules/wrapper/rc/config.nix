@@ -60,16 +60,11 @@
       config = (attrs) the configuration options for this mapping (noremap, silent...)
     }
     */
-    normalizeAction = action: let
+    normalizeAction = action: {
       # Extract the values of the config options that have been explicitly set by the user
       config =
         filterAttrs (_: v: v != null)
         (getAttrs (attrNames mapConfigOptions) action);
-    in {
-      config =
-        if config == {}
-        then {"__empty" = null;}
-        else config;
       action =
         if action.lua
         then mkLuaInline action.action

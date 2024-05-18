@@ -65,9 +65,6 @@ in rec {
     then
       if isLuaInline args
       then args.expr
-      # if nobody is using this we should get rid of this
-      else if hasAttr "__empty" args
-      then "{ }"
       else
         "{"
         + (concatStringsSep ","
