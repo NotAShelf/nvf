@@ -142,7 +142,7 @@ package here may yield undesirable results.</p></div>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation neovim-unwrapped-0.9.5&gt;</code></p>
+<code class="literal">&lt;derivation neovim-unwrapped-0.10.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -3192,7 +3192,7 @@ list of package</p>
 <code class="literal">[ ]</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
-<code class="literal">[pkgs.fzf pkgs.ripgrep]</code></p>
+<code class="literal">&quot;[pkgs.fzf pkgs.ripgrep]&quot;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -3220,7 +3220,7 @@ attribute set of (submodule)</p>
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">{ }</code></p>
 
-<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">with pkgs.vimPlugins; {
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting nix">with pkgs.vimPlugins; {
   aerial = {
     package = aerial-nvim;
     setup = &quot;require(&#x27;aerial&#x27;).setup {}&quot;;
@@ -3232,7 +3232,6 @@ attribute set of (submodule)</p>
     after = [&quot;aerial&quot;]; # place harpoon configuration after aerial
   };
 }
-
 </code></pre>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
@@ -8296,7 +8295,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation vscode-langservers-extracted-4.8.0&gt;</code></p>
+<code class="literal">&lt;derivation vscode-langservers-extracted-4.9.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot; - data \&quot; \&quot; ~/.cache/jdtls/workspace \&quot;]&quot;</code></p>
@@ -8935,7 +8934,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation elixir-ls-0.20.0&gt;</code></p>
+<code class="literal">&lt;derivation elixir-ls-0.21.1&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot; - data \&quot; \&quot; ~/.cache/jdtls/workspace \&quot;]&quot;</code></p>
@@ -9553,7 +9552,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation lua-language-server-3.8.3&gt;</code></p>
+<code class="literal">&lt;derivation lua-language-server-3.9.1&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -10501,7 +10500,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation ocaml5.1.1-ocamlformat-0.26.1&gt;</code></p>
+<code class="literal">&lt;derivation ocaml5.1.1-ocamlformat-0.26.2&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -14015,6 +14014,105 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.lsp.null-ls.debounce"></a><a class="term" href="options.html#opt-vim.lsp.null-ls.debounce"><code class="option">vim.lsp.null-ls.debounce</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Default debounce</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+signed integer</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">250</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/lsp/null-ls/null-ls.nix" target="_top">
+&lt;nvf/modules/plugins/lsp/null-ls/null-ls.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.lsp.null-ls.debug"></a><a class="term" href="options.html#opt-vim.lsp.null-ls.debug"><code class="option">vim.lsp.null-ls.debug</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable debugging information for `null-ls.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/lsp/null-ls/null-ls.nix" target="_top">
+&lt;nvf/modules/plugins/lsp/null-ls/null-ls.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.lsp.null-ls.default_timeout"></a><a class="term" href="options.html#opt-vim.lsp.null-ls.default_timeout"><code class="option">vim.lsp.null-ls.default_timeout</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Default timeout value, in miliseconds</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+signed integer</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">5000</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/lsp/null-ls/null-ls.nix" target="_top">
+&lt;nvf/modules/plugins/lsp/null-ls/null-ls.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.lsp.null-ls.diagnostics_format"></a><a class="term" href="options.html#opt-vim.lsp.null-ls.diagnostics_format"><code class="option">vim.lsp.null-ls.diagnostics_format</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Diagnostic output format for null-ls</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;[#{m}] #{s} (#{c})&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/lsp/null-ls/null-ls.nix" target="_top">
+&lt;nvf/modules/plugins/lsp/null-ls/null-ls.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.lsp.null-ls.sources"></a><a class="term" href="options.html#opt-vim.lsp.null-ls.sources"><code class="option">vim.lsp.null-ls.sources</code>
   </a>
  </span>
@@ -14642,7 +14740,7 @@ vim.opt.expandtab = true
  </span>
 </dt>
 <dd>
-<p>List of lua packages to install.</p>
+<p>List of lua packages to install</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 list of string</p>
@@ -14651,7 +14749,7 @@ list of string</p>
 <code class="literal">[ ]</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
-<code class="literal">[&quot;magick&quot; &quot;serpent&quot;]</code></p>
+<code class="literal">&quot;[\&quot;magick\&quot; \&quot;serpent\&quot;]&quot;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -18311,8 +18409,9 @@ list of (null or package or one of “alpha-nvim”, “bufdelete-nvim”, “ca
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">[ ]</code></p>
 
-<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">[pkgs.vimPlugins.vim-ghost]
-
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">&#x27;&#x27;
+  [pkgs.vimPlugins.vim-ghost]
+&#x27;&#x27;
 </code></pre>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
@@ -19099,7 +19198,7 @@ boolean</p>
  </span>
 </dt>
 <dd>
-<p>List of python packages to install.</p>
+<p>List of python packages to install</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 list of string</p>
@@ -19108,7 +19207,7 @@ list of string</p>
 <code class="literal">[ ]</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
-<code class="literal">[&quot;pynvim&quot;]</code></p>
+<code class="literal">&quot;[\&quot;pynvim\&quot;]&quot;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -19764,8 +19863,9 @@ list of (null or package or one of “alpha-nvim”, “bufdelete-nvim”, “ca
 ]
 </code></pre>
 
-<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">[pkgs.vimPlugins.telescope-nvim]
-
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">&#x27;&#x27;
+  [pkgs.vimPlugins.telescope-nvim]
+&#x27;&#x27;
 </code></pre>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
@@ -20014,6 +20114,7 @@ list of string</p>
       &#x27;searchcount&#x27;,
       maxcount = 999,
       timeout = 120,
+      separator = {left = &#x27;&#x27;}
     }
   &#x27;&#x27;
   &#x27;&#x27;
@@ -27614,7 +27715,7 @@ boolean</p>
 null or package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation wakatime-1.73.0&gt;</code></p>
+<code class="literal">&lt;derivation wakatime-1.90.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -30128,7 +30229,7 @@ boolean</p>
  </span>
 </dt>
 <dd>
-<p>Whether to enable NodeJs support in the Neovim wrapper.
+<p>Whether to enable NodeJs support in the Neovim wrapper
 .</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
@@ -30156,7 +30257,7 @@ boolean</p>
  </span>
 </dt>
 <dd>
-<p>Whether to enable Python3 support in the Neovim wrapper.
+<p>Whether to enable Python3 support in the Neovim wrapper
 .</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
