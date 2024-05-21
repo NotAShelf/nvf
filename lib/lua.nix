@@ -65,6 +65,11 @@ in rec {
     then
       if isLuaInline args
       then args.expr
+      else if hasAttr "__empty" args
+      then
+        lib.warn ''
+          Using `__empty` to define an empty lua table is deprecated. Use an empty attrset instead.
+        '' "{ }"
       else
         "{"
         + (concatStringsSep ","
