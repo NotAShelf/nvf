@@ -3,7 +3,7 @@
   inherit (builtins) hasAttr head throw typeOf isList isAttrs isBool isInt isString isPath isFloat toJSON;
   inherit (lib.attrsets) mapAttrsToList filterAttrs;
   inherit (lib.strings) concatStringsSep concatMapStringsSep stringToCharacters;
-  inherit (lib.trivial) boolToString;
+  inherit (lib.trivial) boolToString warn;
 in rec {
   wrapLuaConfig = {
     luaBefore ? "",
@@ -66,7 +66,10 @@ in rec {
       if isLuaInline args
       then args.expr
       else if hasAttr "__empty" args
-      then "{ }"
+      then
+        warn ''
+          Using `__empty` to define an empty lua table is deprecated. Use an empty attrset instead.
+        '' "{ }"
       else
         "{"
         + (concatStringsSep ","
@@ -76,10 +79,7 @@ in rec {
               then toLuaObject v
               else "[${toLuaObject n}] = " + (toLuaObject v))
             (filterAttrs
-              (
-                _: v:
-                  (v != null) && (toLuaObject v != "{}")
-              )
+              (_: v: v != null)
               args)))
         + "}"
     else if isList args

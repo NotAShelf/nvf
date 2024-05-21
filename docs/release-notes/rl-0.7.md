@@ -19,6 +19,8 @@ Release notes for release 0.7
 [horriblename](https://github.com/horriblename):
 
 - Fix broken treesitter-context keybinds in visual mode
+- Depcrecate use of `__empty` to define empty tables in lua. Empty attrset are
+  no longer filtered and thus should be used instead.
 
 [NotAShelf](https://github.com/notashelf)
 
