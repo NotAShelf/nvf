@@ -119,9 +119,7 @@ in {
             AARRGGBB = false;
           };
         };
-        type = submodule {
-          freeformType = attrsOf settingSubmodule;
-        };
+        type = attrsOf settingSubmodule;
       };
 
       user_default_options = mkOption {
