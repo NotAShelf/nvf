@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) anything nullOr;
+  inherit (lib.types) anything nullOr listOf submodule str;
   inherit (lib.nvim.types) mkPluginSetupOption;
   inherit (lib.nvim.config) mkBool;
 in {
@@ -102,7 +102,38 @@ in {
         };
       };
 
-      # TODO: messages, routes
+      routes = mkOption {
+        description = "How to route messages";
+        type = listOf (submodule {
+          options = {
+            view = mkOption {
+              description = "";
+              type = str;
+            };
+
+            filter = mkOption {
+              description = "";
+              type = anything;
+            };
+
+            opts = mkOption {
+              description = "";
+              type = nullOr anything;
+            };
+          };
+        });
+
+        default = [
+          {
+            filter = {
+              event = "msg_show";
+              kind = "";
+              find = "written";
+            };
+            opts = {skip = true;};
+          }
+        ];
+      };
     };
   };
 }
