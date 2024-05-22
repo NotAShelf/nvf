@@ -223,6 +223,12 @@
       flake = false;
     };
 
+    # Cokeline
+    plugin-nvim-cokeline = {
+      url = "github:willothy/nvim-cokeline";
+      flake = false;
+    };
+
     # Statuslines
     plugin-lualine = {
       url = "github:hoob3rt/lualine.nvim";

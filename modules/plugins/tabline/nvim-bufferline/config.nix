@@ -32,7 +32,6 @@ in {
         maps.normal = mkMerge [
           (mkLuaBinding cfg.mappings.closeCurrent "require(\"bufdelete\").bufdelete" mappings.closeCurrent.description)
           (mkBinding cfg.mappings.cycleNext ":BufferLineCycleNext<CR>" mappings.cycleNext.description)
-          (mkBinding cfg.mappings.cycleNext ":BufferLineCycleNext<CR>" mappings.cycleNext.description)
           (mkBinding cfg.mappings.cyclePrevious ":BufferLineCyclePrev<CR>" mappings.cyclePrevious.description)
           (mkBinding cfg.mappings.pick ":BufferLinePick<CR>" mappings.pick.description)
           (mkBinding cfg.mappings.sortByExtension ":BufferLineSortByExtension<CR>" mappings.sortByExtension.description)

@@ -1021,6 +1021,22 @@
         "type": "github"
       }
     },
+    "plugin-nvim-cokeline": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1715991329,
+        "narHash": "sha256-FXXh+a5hld9e1nW53S7vgumW4AD3bbMuewxmZyN+WvI=",
+        "owner": "willothy",
+        "repo": "nvim-cokeline",
+        "rev": "8145048ae68e05f31979c13b0adf7aa99f04f4c0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "willothy",
+        "repo": "nvim-cokeline",
+        "type": "github"
+      }
+    },
     "plugin-nvim-colorizer-lua": {
       "flake": false,
       "locked": {
@@ -1804,6 +1820,7 @@
         "plugin-nvim-bufferline-lua": "plugin-nvim-bufferline-lua",
         "plugin-nvim-cmp": "plugin-nvim-cmp",
         "plugin-nvim-code-action-menu": "plugin-nvim-code-action-menu",
+        "plugin-nvim-cokeline": "plugin-nvim-cokeline",
         "plugin-nvim-colorizer-lua": "plugin-nvim-colorizer-lua",
         "plugin-nvim-cursorline": "plugin-nvim-cursorline",
         "plugin-nvim-dap": "plugin-nvim-dap",
