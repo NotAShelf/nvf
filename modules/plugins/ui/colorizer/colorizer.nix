@@ -4,100 +4,128 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) attrsOf attrs bool enum;
+  inherit (lib.types) attrsOf enum nullOr submodule bool str;
   inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.nvim.types) mkPluginSetupOption;
+
+  settingSubmodule = submodule {
+    options = {
+      RGB = mkOption {
+        description = "Colorize #RGB hex codes";
+        default = null;
+        type = nullOr bool;
+      };
+
+      RRGGBB = mkOption {
+        description = "Colorize #RRGGBB hex codes";
+        default = null;
+        type = nullOr bool;
+      };
+
+      names = mkOption {
+        description = ''Colorize "Name" codes like Blue'';
+        default = null;
+        type = nullOr bool;
+      };
+
+      RRGGBBAA = mkOption {
+        description = "Colorize #RRGGBBAA hex codes";
+        default = null;
+        type = nullOr bool;
+      };
+
+      AARRGGBB = mkOption {
+        description = "Colorize 0xAARRGGBB hex codes";
+        default = null;
+        type = nullOr bool;
+      };
+
+      rgb_fn = mkOption {
+        description = "Colorize CSS rgb() and rgba() functions";
+        default = null;
+        type = nullOr bool;
+      };
+
+      hsl_fn = mkOption {
+        description = "Colorize CSS hsl() and hsla() functions";
+        default = null;
+        type = nullOr bool;
+      };
+
+      css = mkOption {
+        description = "Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB";
+        default = null;
+        type = nullOr bool;
+      };
+
+      css_fn = mkOption {
+        description = "Enable all CSS *functions*: rgb_fn, hsl_fn";
+        default = null;
+        type = nullOr bool;
+      };
+
+      tailwind = mkOption {
+        description = "Enable tailwind colors";
+        default = null;
+        type = nullOr bool;
+      };
+
+      sass = mkOption {
+        description = "Enable sass colors";
+        default = null;
+        type = nullOr bool;
+      };
+
+      virtualtext = mkOption {
+        description = "String to display as virtualtext";
+        type = nullOr str;
+        default = null;
+      };
+
+      mode = mkOption {
+        description = "Set the display mode";
+        type = nullOr (enum ["foreground" "background"]);
+        default = null;
+      };
+
+      always_update = mkOption {
+        description = "Update color values even if buffer is not focused. Example use: cmp_menu, cmp_docs";
+        default = null;
+        type = nullOr bool;
+      };
+    };
+  };
 in {
   imports = [
-    (mkRenamedOptionModule ["vim" "ui" "colorizer" "options"] ["vim" "ui" "colorizer" "setupOpts" "user_default_options"])
+    (mkRenamedOptionModule ["vim" "ui" "colorizer" "options"] ["vim" "ui" "colorizer" "setupOpts" "defaultOptions"])
     (mkRenamedOptionModule ["vim" "ui" "colorizer" "filetypes"] ["vim" "ui" "colorizer" "setupOpts" "filetypes"])
   ];
 
   options.vim.ui.colorizer = {
     enable = mkEnableOption "color highlighting [nvim-colorizer.lua]";
 
-    setupOpts = mkPluginSetupOption "nvim-colorizer" {
+    setupOpts = mkPluginSetupOption "colorizer" {
       filetypes = mkOption {
-        type = attrsOf attrs;
-        default = {
-          css = {};
-          scss = {};
+        description = ''
+          Filetypes to enable on and their option overrides.
+
+          "*" means enable on all filetypes. Filetypes prefixed with "!" are disabled.
+        '';
+        default = {};
+        example = {
+          "*" = {};
+          "!vim" = {};
+          javascript = {
+            AARRGGBB = false;
+          };
         };
-        description = "Filetypes to highlight on";
+        type = attrsOf settingSubmodule;
       };
 
-      user_default_options = {
-        rgb = mkOption {
-          type = bool;
-          default = true;
-          description = "#RGB hex codes";
-        };
-
-        rrggbb = mkOption {
-          type = bool;
-          default = true;
-          description = "#RRGGBB hex codes";
-        };
-
-        names = mkOption {
-          type = bool;
-          default = true;
-          description = ''"Name" codes such as "Blue"'';
-        };
-
-        rgb_fn = mkOption {
-          type = bool;
-          default = false;
-          description = "CSS rgb() and rgba() functions";
-        };
-
-        rrggbbaa = mkOption {
-          type = bool;
-          default = false;
-          description = "#RRGGBBAA hex codes";
-        };
-
-        hsl_fn = mkOption {
-          type = bool;
-          default = false;
-          description = "CSS hsl() and hsla() functions";
-        };
-
-        css = mkOption {
-          type = bool;
-          default = false;
-          description = "Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB";
-        };
-
-        css_fn = mkOption {
-          type = bool;
-          default = false;
-          description = "Enable all CSS *functions*: rgb_fn, hsl_fn";
-        };
-
-        mode = mkOption {
-          type = enum ["foreground" "background"];
-          default = "background";
-          description = "Set the display mode";
-        };
-
-        tailwind = mkOption {
-          type = bool;
-          default = false;
-          description = "Enable tailwind colors";
-        };
-
-        sass = mkOption {
-          type = bool;
-          default = false;
-          description = "Enable sass colors";
-        };
-
-        alwaysUpdate = mkOption {
-          type = bool;
-          default = false;
-          description = "Update color values even if buffer is not focused, like when using cmp_menu, cmp_docs";
-        };
+      user_default_options = mkOption {
+        description = "Default options";
+        default = {};
+        type = settingSubmodule;
       };
     };
   };
