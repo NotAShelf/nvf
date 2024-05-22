@@ -133,6 +133,7 @@ in {
             opts = {skip = true;};
           }
         ];
+        defaultText = "Hide written messages";
       };
     };
   };
