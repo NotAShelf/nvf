@@ -24,9 +24,12 @@
     </tr>
    </table>
    <hr />
-  </div><div class="appendix"> <div class="titlepage">  <div>   <div>    <h1 id="ch-plugins" class="title" >Appendix A. Plugin specific quirks   </h1>  </div> </div></div><p>At times, certain plugins refuse to play nicely. Be it as a result of generating
+  </div><div class="appendix"> <div class="titlepage">  <div>   <div>    <h1 id="ch-plugins" class="title" >Appendix A. Plugin specific quirks   </h1>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="chapter">  <a href="plugins.html#ch-plugins-nodejs">NodeJS</a> </span></dt> </dl></div><p>At times, certain plugins refuse to play nicely. Be it as a result of generating
 lua from Nix, or the state of packaging. This page shall list any plugins that
-are known to misbehave, and potential workarounds.</p>
+are known to misbehave, and potential workarounds.</p><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="ch-plugins-nodejs" class="title" >NodeJS   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="plugins.html#sec-eslint-plugin-prettier">eslint-plugin-prettier</a> </span></dt> </dl></div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-eslint-plugin-prettier" class="title" style="clear: both">eslint-plugin-prettier   </h2>  </div> </div></div><p>When working with NodeJS, everything works as expected, but some projects have settings that can fool nvf.</p><p>If <a class="link" href="https://github.com/prettier/eslint-plugin-prettier"  target="_top">this plugin</a> or similar is included, you might get a situation where your eslint configuration diagnoses your formatting according to its own config (usually <code class="literal">.eslintrc.js</code>).</p><p>The issue there is your formatting is made via prettierd.</p><p>This results in auto-formating relying on your prettier config, while your eslint config diagnoses formatting <a class="link" href="https://prettier.io/docs/en/comparison.html"  target="_top">which it’s not supposed to</a>)</p><p>In the end, you get discrepancies between what your editor does and what it wants.</p><p>Solutions are:</p><div class="orderedlist"><ol class="orderedlist compact"  type="1"><li class="listitem"><p>Don’t add a formatting config to eslint, and separate prettier and eslint.</p></li><li class="listitem"><p>PR this repo to add an ESLint formatter and configure nvf to use it.</p></li></ol></div>
+</div>
+
+</div>
 </div>  <div class="navfooter">
    <hr />
    <table width="100%" summary="Navigation footer">
