@@ -1,4 +1,10 @@
-{lib}: {
+{
+  config,
+  lib,
+}: let
+  inherit (lib.strings) optionalString;
+  inherit (lib.trivial) boolToString warnIf;
+in {
   onedark = {
     setup = {
       style ? "dark",
@@ -19,7 +25,7 @@
       transparent,
     }: ''
       require('tokyonight').setup {
-        transparent = ${lib.boolToString transparent};
+        transparent = ${boolToString transparent};
       }
       vim.cmd[[colorscheme tokyonight-${style}]]
     '';
@@ -32,7 +38,7 @@
       transparent,
     }: ''
       require('dracula').setup({
-        transparent_bg = ${lib.boolToString transparent},
+        transparent_bg = ${boolToString transparent},
       });
       require('dracula').load();
     '';
@@ -46,11 +52,11 @@
       -- Catppuccin theme
       require('catppuccin').setup {
         flavour = "${style}",
-        transparent_background = ${lib.boolToString transparent},
+        transparent_background = ${boolToString transparent},
         integrations = {
       	  nvimtree = {
       		  enabled = true,
-      		  transparent_panel = ${lib.boolToString transparent},
+      		  transparent_panel = ${boolToString transparent},
       		  show_root = true,
       	  },
 
@@ -85,11 +91,20 @@
       transparent ? false,
     }: let
       style' =
-        lib.warnIf (style == "light") "oxocarbon: light theme is not well-supported" style;
+        warnIf (style == "light") "oxocarbon: light theme is not well-supported" style;
     in ''
-      require('oxocarbon')
-      vim.opt.background = "${style'}"
-      vim.cmd.colorscheme = "oxocarbon"
+       require('oxocarbon')
+       vim.opt.background = "${style'}"
+       vim.cmd.colorscheme = "oxocarbon"
+      ${optionalString transparent ''
+        vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+        vim.api.nvim_set_hl(0, "LineNr", { bg = "none" })
+        vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
+        ${lib.optionalString config.vim.filetree.nvimTree.enable ''
+          vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = "none" })
+        ''}
+      ''}
     '';
     styles = ["dark" "light"];
   };
@@ -122,7 +137,7 @@
         palette_overrides = {},
         overrides = {},
         dim_inactive = false,
-        transparent_mode = ${lib.boolToString transparent},
+        transparent_mode = ${boolToString transparent},
       })
       vim.o.background = "${style}"
       vim.cmd("colorscheme gruvbox")
@@ -147,7 +162,7 @@
         styles = {
           bold = false,
           italic = false, -- I would like to add more options for this
-          transparency = ${lib.boolToString transparent},
+          transparency = ${boolToString transparent},
         },
       })
 
