@@ -101,7 +101,7 @@ in {
         vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
         vim.api.nvim_set_hl(0, "LineNr", { bg = "none" })
         vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
-        ${lib.optionalString config.vim.filetree.nvimTree.enable ''
+        ${optionalString config.vim.filetree.nvimTree.enable ''
           vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = "none" })
         ''}
       ''}
