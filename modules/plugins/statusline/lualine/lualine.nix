@@ -153,6 +153,13 @@ in {
               },
             }
           ''
+          ''
+            {
+              "",
+              draw_empty = true,
+              separator = { left = '', right = '' }
+            }
+          ''
         ];
       };
 
@@ -173,6 +180,13 @@ in {
               "filename",
               symbols = {modified = ' ', readonly = ' '},
               separator = {right = ''}
+            }
+          ''
+          ''
+            {
+              "",
+              draw_empty = true,
+              separator = { left = '', right = '' }
             }
           ''
         ];
@@ -265,6 +279,13 @@ in {
         default = [
           ''
             {
+              "",
+              draw_empty = true,
+              separator = { left = '', right = '' }
+            }
+          ''
+          ''
+            {
               'searchcount',
               maxcount = 999,
               timeout = 120,
@@ -285,6 +306,13 @@ in {
         type = listOf str;
         description = "active config for: | A | B | C       X | Y | (Z) |";
         default = [
+          ''
+            {
+              "",
+              draw_empty = true,
+              separator = { left = '', right = '' }
+            }
+          ''
           ''
             {
               "progress",

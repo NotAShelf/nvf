@@ -10,7 +10,9 @@
   inherit (lib.nvim.dag) entryBefore;
 
   cfg = config.vim.theme;
-  supported_themes = import ./supported_themes.nix {inherit lib;};
+  supported_themes = import ./supported_themes.nix {
+    inherit lib config;
+  };
 in {
   options.vim.theme = {
     enable = mkOption {

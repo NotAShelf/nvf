@@ -17,6 +17,10 @@ configuring.md
 hacking.md
 ```
 
+```{=include=} appendix html:into-file=//plugins.html
+plugins.md
+```
+
 ```{=include=} appendix html:into-file=//options.html
 options.md
 ```
