@@ -47,3 +47,5 @@ Release notes for release 0.7
 [jacekpoz](https://github.com/jacekpoz):
 
 - Add [ocaml-lsp](https://github.com/ocaml/ocaml-lsp) support.
+
+- Fix Emac typo

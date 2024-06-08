@@ -15,7 +15,7 @@ in {
   ];
 
   options.vim.notes.orgmode = {
-    enable = mkEnableOption "nvim-orgmode: Neovim plugin for Emac Orgmode. Get the best of both worlds";
+    enable = mkEnableOption "nvim-orgmode: Neovim plugin for Emacs Orgmode. Get the best of both worlds";
 
     setupOpts = mkPluginSetupOption "Orgmode" {
       org_agenda_files = mkOption {
