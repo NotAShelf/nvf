@@ -80,7 +80,7 @@
   defaultDiagnosticsProvider = ["eslint_d"];
   diagnosticsProviders = {
     eslint_d = {
-      package = pkgs.nodePackages.eslint_d;
+      package = pkgs.eslint_d;
       nullConfig = pkg: ''
         table.insert(
           ls_sources,

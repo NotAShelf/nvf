@@ -17,7 +17,7 @@
   defaultServer = "vscode-langservers-extracted";
   servers = {
     vscode-langservers-extracted = {
-      package = pkgs.nodePackages.vscode-langservers-extracted;
+      package = pkgs.vscode-langservers-extracted;
       lspConfig = ''
         -- enable (broadcasting) snippet capability for completion
         -- see <https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#cssls>
