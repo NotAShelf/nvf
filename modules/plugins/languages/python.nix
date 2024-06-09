@@ -17,7 +17,7 @@
   defaultServer = "pyright";
   servers = {
     pyright = {
-      package = pkgs.nodePackages.pyright;
+      package = pkgs.pyright;
       lspConfig = ''
         lspconfig.pyright.setup{
           capabilities = capabilities;
