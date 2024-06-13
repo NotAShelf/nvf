@@ -30,7 +30,7 @@
           neovim-flake =
             nixpkgs.lib.warn ''
               homeManagerModules.neovim-flake has been deprecated.
-              Plese use the homeManagereModules.nvf instead
+              Plese use the homeManagerModules.nvf instead
             ''
             self.homeManagerModules.nvf;
 
