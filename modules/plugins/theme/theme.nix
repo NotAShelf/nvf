@@ -45,10 +45,12 @@ in {
   config = mkIf cfg.enable {
     vim = {
       startPlugins = [cfg.name];
-      luaConfigRC = {
-        themeSetup = entryBefore ["theme"] cfg.extraConfig;
-        theme = supported_themes.${cfg.name}.setup (with cfg; {inherit style transparent;});
-      };
+      configRC.theme = entryBefore ["luaScript"] ''
+        lua << EOF
+        ${cfg.extraConfig}
+        ${supported_themes.${cfg.name}.setup (with cfg; {inherit style transparent;})}
+        EOF
+      '';
     };
   };
 }

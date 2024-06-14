@@ -49,3 +49,7 @@ Release notes for release 0.7
 - Add [ocaml-lsp](https://github.com/ocaml/ocaml-lsp) support.
 
 - Fix Emac typo
+
+[diniamo](https://github.com/diniamo):
+
+- Move the `theme` dag entry to before `luaScript`.
