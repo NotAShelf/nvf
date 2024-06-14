@@ -1,6 +1,7 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.types) enum bool either nullOr str int listOf;
+  inherit (lib.types) enum bool either nullOr str int listOf attrs;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
 in {
@@ -26,6 +27,13 @@ in {
         description = "Mode to use for bufferline";
       };
 
+      style_preset = mkOption {
+        type = enum ["default" "minimal" "no_bold" "no_italic"];
+        default = "default";
+        apply = value: mkLuaInline "require('bufferline').style_preset.${value}";
+        description = "The base style of bufferline";
+      };
+
       themable = mkOption {
         type = bool;
         default = true;
@@ -38,7 +46,7 @@ in {
 
       numbers = mkOption {
         type = either (enum ["none" "ordinal" "buffer_id" "both"]) luaInline;
-        default = lib.generators.mkLuaInline ''
+        default = mkLuaInline ''
           function(opts)
             return string.format('%s·%s', opts.raise(opts.id), opts.lower(opts.ordinal))
           end
@@ -48,7 +56,7 @@ in {
 
       close_command = mkOption {
         type = either str luaInline;
-        default = lib.generators.mkLuaInline ''
+        default = mkLuaInline ''
           function(bufnum)
             require("bufdelete").bufdelete(bufnum, false)
           end
@@ -60,6 +68,12 @@ in {
         type = nullOr (either str luaInline);
         default = "vertical sbuffer %d";
         description = "Command to run when right clicking a buffer";
+      };
+
+      left_mouse_command = mkOption {
+        type = nullOr (either str luaInline);
+        default = "buffer %d";
+        description = "Command to run when left clicking a buffer";
       };
 
       middle_mouse_command = mkOption {
@@ -151,6 +165,12 @@ in {
         description = "Truncate names";
       };
 
+      tab_size = mkOption {
+        type = int;
+        default = 18;
+        description = "The size of the tabs in bufferline";
+      };
+
       diagnostics = mkOption {
         type = enum [false "nvim_lsp" "coc"];
         default = "nvim_lsp";
@@ -171,7 +191,7 @@ in {
 
       diagnostics_indicator = mkOption {
         type = nullOr luaInline;
-        default = lib.generators.mkLuaInline ''
+        default = mkLuaInline ''
           function(count, level, diagnostics_dict, context)
             local s = " "
               for e, n in pairs(diagnostics_dict) do
@@ -195,7 +215,7 @@ in {
       custom_filter = mkOption {
         type = nullOr luaInline;
         default = null;
-        example = literalExpression lib.generators.mkLuaInline ''
+        example = literalExpression ''
           custom_filter = function(buf_number, buf_numbers)
             -- filter out filetypes you don't want to see
             if vim.bo[buf_number].filetype ~= "<i-dont-want-to-see-this>" then
@@ -228,10 +248,35 @@ in {
         '';
       };
 
+      offsets = mkOption {
+        type = listOf attrs;
+        default = [
+          {
+            filetype = "NvimTree";
+            text = "File Explorer";
+            highlight = "Directory";
+            separator = true;
+          }
+        ];
+        description = "The windows to offset bufferline above, see `:help bufferline-offset`";
+      };
+
       color_icons = mkOption {
         type = bool;
         default = true;
         description = "Whether or not to add filetype icon highlights";
+      };
+
+      get_element_icon = mkOption {
+        type = nullOr luaInline;
+        default = null;
+        example = literalExpression ''
+          function(element)
+            local custom_map = {my_thing_ft: {icon = "my_thing_icon", hl = "DevIconDefault"}}
+            return custom_map[element.filetype]
+          end
+        '';
+        description = "The function bufferline uses to get the icon. Recommended to leave as default.";
       };
 
       show_buffer_icons = mkOption {
