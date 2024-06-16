@@ -395,7 +395,7 @@ in {
         sort_by = mkOption {
           type = either (enum ["insert_after_current" "insert_at_end" "id" "extension" "relative_directory" "directory" "tabs"]) luaInline;
           default = "extension";
-          description = "Method to sort buffers by. Must be one of the supported valuees, or an inline Lua value.";
+          description = "Method to sort buffers by. Must be one of the supported values, or an inline Lua value.";
         };
       };
     };
