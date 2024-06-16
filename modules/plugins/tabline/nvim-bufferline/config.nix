@@ -40,7 +40,7 @@ in {
       };
 
       luaConfigRC.nvimBufferline = entryAnywhere ''
-        require("bufferline").setup({options = ${toLuaObject cfg.setupOpts}})
+        require("bufferline").setup(${toLuaObject cfg.setupOpts})
       '';
     };
   };
