@@ -350,7 +350,7 @@ in {
         };
 
         separator_style = mkOption {
-          type = nullOr (either (enum ["slant" "slope" "thick" "thin"]) (listOf str));
+          type = nullOr (either (enum ["slant" "padded_slant" "slope" "padded_slope" "thick" "thin"]) (listOf str));
           default = "thin";
           description = ''
             The type of separator used to separate buffers and tabs.
