@@ -49,9 +49,9 @@ in {
           type = bool;
           default = true;
           description = ''
-            Whether or not highlight groups to be overriden.
+            Whether or not to allow highlight groups to be overriden.
 
-            While false, bufferline.nvim sets highlights as default
+            While false, bufferline.nvim sets highlights as default.
           '';
         };
 
@@ -98,7 +98,7 @@ in {
             type = nullOr str;
             default = null;
             description = ''
-              The indicatotor icon to use for current buffer.
+              The indicatotor icon to use for the current buffer.
 
               ::: {.warning}
               This **must** be ommitted while style is not `icon`
@@ -167,7 +167,7 @@ in {
         max_prefix_length = mkOption {
           type = int;
           default = 15;
-          description = "Length of prefix used when a buffer is de-duplicated";
+          description = "Length of the prefix used when a buffer is de-duplicated";
         };
 
         truncate_names = mkOption {
@@ -305,7 +305,7 @@ in {
         show_close_icon = mkOption {
           type = bool;
           default = true;
-          description = "Whether or not to show close icon";
+          description = "Whether or not to show the close icon";
         };
 
         show_tab_indicators = mkOption {
@@ -317,7 +317,7 @@ in {
         show_duplicate_prefix = mkOption {
           type = bool;
           default = true;
-          description = "Whether or not to show duplicate prefix";
+          description = "Whether or not to show duplicate buffer prefixes";
         };
 
         duplicates_across_groups = mkOption {
@@ -373,7 +373,7 @@ in {
 
         auto_toggle_bufferline = mkOption {
           type = bool;
-          default = false;
+          default = true;
           description = "Whether to auto toggle bufferline";
         };
 
