@@ -1,6 +1,6 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.types) enum bool either nullOr str int listOf attrs;
+  inherit (lib.types) enum bool either nullOr str int listOf attrs list;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
@@ -335,6 +335,16 @@ in {
 
           Can be either one of the suspported values, or a list containing
           **at most** two elements for `focused` and `unfocused` respectively.
+        '';
+      };
+
+      separator_style = mkOption {
+        type = enum ["slant" "slope" "thick" "thin" list];
+        default = "thin";
+        description = ''
+          The type of separator used to separate buffers and tabs.
+
+          Either one of the listed types, or a list of 2 characters for either side.
         '';
       };
 
