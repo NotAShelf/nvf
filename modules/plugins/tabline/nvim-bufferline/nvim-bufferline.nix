@@ -23,7 +23,7 @@ in {
     setupOpts = mkPluginSetupOption "Bufferline-nvim" {
       mode = mkOption {
         type = enum ["tabs" "buffers"];
-        default = "tabs";
+        default = "buffers";
         description = "Mode to use for bufferline";
       };
 
