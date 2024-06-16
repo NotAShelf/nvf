@@ -1,6 +1,6 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.types) enum bool either nullOr str int listOf attrs list;
+  inherit (lib.types) enum bool either nullOr str int listOf attrs;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
@@ -350,7 +350,7 @@ in {
         };
 
         separator_style = mkOption {
-          type = enum ["slant" "slope" "thick" "thin" list];
+          type = nullOr (either (enum ["slant" "slope" "thick" "thin"]) (listOf str));
           default = "thin";
           description = ''
             The type of separator used to separate buffers and tabs.
