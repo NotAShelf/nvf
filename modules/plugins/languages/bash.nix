@@ -18,7 +18,7 @@
   defaultServer = "bash-ls";
   servers = {
     bash-ls = {
-      package = pkgs.nodePackages.bash-language-server;
+      package = pkgs.bash-language-server;
       lspConfig = ''
         lspconfig.bashls.setup{
           capabilities = capabilities;
@@ -85,7 +85,7 @@ in {
         description = "bash-language-server package, or the command to run as a list of strings";
         example = literalExpression ''[lib.getExe pkgs.nodePackages.bash-language-server "start"]'';
         type = either package (listOf str);
-        default = pkgs.nodePackages.bash-language-server;
+        default = pkgs.bash-language-server;
       };
     };
 
