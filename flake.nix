@@ -77,7 +77,7 @@
   # Flake inputs
   inputs = {
     ## Basic Inputs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
     systems.url = "github:nix-systems/default";
