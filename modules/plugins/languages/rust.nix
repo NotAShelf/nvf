@@ -4,17 +4,33 @@
   lib,
   ...
 }: let
+  inherit (builtins) attrNames;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.strings) optionalString;
   inherit (lib.trivial) boolToString;
   inherit (lib.lists) isList optionals;
-  inherit (lib.types) bool package str listOf either;
+  inherit (lib.types) bool package str listOf either enum;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.languages.rust;
+
+  defaultFormat = "rustfmt";
+  formats = {
+    rustfmt = {
+      package = pkgs.rustfmt;
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.rustfmt.with({
+            command = "${cfg.format.package}/bin/rustfmt",
+          })
+        )
+      '';
+    };
+  };
 in {
   options.vim.languages.rust = {
     enable = mkEnableOption "Rust language support";
@@ -46,6 +62,22 @@ in {
         description = "Options to pass to rust analyzer";
         type = str;
         default = "";
+      };
+    };
+
+    format = {
+      enable = mkEnableOption "Rust formatting" // {default = config.vim.languages.enableFormat;};
+
+      type = mkOption {
+        description = "Rust formatter to use";
+        type = enum (attrNames formats);
+        default = defaultFormat;
+      };
+
+      package = mkOption {
+        description = "Rust formatter package";
+        type = package;
+        default = formats.${cfg.format.type}.package;
       };
     };
 
@@ -84,6 +116,11 @@ in {
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.package];
+    })
+
+    (mkIf cfg.format.enable {
+      vim.lsp.null-ls.enable = true;
+      vim.lsp.null-ls.sources.rust-format = formats.${cfg.format.type}.nullConfig;
     })
 
     (mkIf (cfg.lsp.enable || cfg.dap.enable) {
