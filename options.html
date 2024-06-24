@@ -3253,7 +3253,7 @@ attribute set of (submodule)</p>
 <p>Plugin Package.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-null or package or one of “alpha-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc”, “cellular-automaton”, “chatgpt”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “cmp-vsnip”, “codewindow-nvim”, “comment-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools”, “fidget-nvim”, “flutter-tools”, “gesture-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “highlight-undo”, “hop-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline”, “leap-nvim”, “lsp-lines”, “lsp-signature”, “lspkind”, “lspsaga”, “lualine”, “mind-nvim”, “minimap-vim”, “modes-nvim”, “neocord”, “neodev-nvim”, “noice-nvim”, “none-ls”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-code-action-menu”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lspconfig”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip”, “nvim-nio”, “nvim-notify”, “nvim-session-manager”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-web-devicons”, “obsidian-nvim”, “onedark”, “orgmode-nvim”, “oxocarbon”, “plenary-nvim”, “project-nvim”, “registers”, “rose-pine”, “rust-tools”, “scrollbar-nvim”, “smartcolumn”, “sqls-nvim”, “tabular”, “telescope”, “todo-comments”, “toggleterm-nvim”, “tokyonight”, “trouble”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “vim-vsnip”, “which-key”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”</p>
+null or package or one of “alpha-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc”, “cellular-automaton”, “chatgpt”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “cmp-vsnip”, “codewindow-nvim”, “comment-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools”, “fidget-nvim”, “flutter-tools”, “gesture-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “highlight-undo”, “hop-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline”, “leap-nvim”, “lsp-lines”, “lsp-signature”, “lspkind”, “lspsaga”, “lualine”, “mind-nvim”, “minimap-vim”, “modes-nvim”, “neocord”, “neodev-nvim”, “noice-nvim”, “none-ls”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-code-action-menu”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lspconfig”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip”, “nvim-nio”, “nvim-notify”, “nvim-session-manager”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-web-devicons”, “obsidian-nvim”, “onedark”, “orgmode-nvim”, “oxocarbon”, “plenary-nvim”, “project-nvim”, “registers”, “rose-pine”, “rust-tools”, “scrollbar-nvim”, “smartcolumn”, “sqls-nvim”, “tabular”, “telescope”, “todo-comments”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “vim-vsnip”, “which-key”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”</p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -12309,6 +12309,84 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.languages.ts.extensions.ts-error-translator.enable"></a><a class="term" href="options.html#opt-vim.languages.ts.extensions.ts-error-translator.enable"><code class="option">vim.languages.ts.extensions.ts-error-translator.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Typescript error translation with
+<a class="link" href="github.com/dmmulroy/ts-error-translator.nvim"  target="_top">ts-error-translator.nvim</a>
+.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/ts.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ts.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ts.extensions.ts-error-translator.setupOpts"></a><a class="term" href="options.html#opt-vim.languages.ts.extensions.ts-error-translator.setupOpts"><code class="option">vim.languages.ts.extensions.ts-error-translator.setupOpts</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Option table to pass into the setup function of ts-error-translator</p><p>You can pass in any additional options even if they’re
+not listed in the docs</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+attribute set of anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/ts.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ts.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ts.extensions.ts-error-translator.setupOpts.auto_override_publish_diagnostics"></a><a class="term" href="options.html#opt-vim.languages.ts.extensions.ts-error-translator.setupOpts.auto_override_publish_diagnostics"><code class="option">vim.languages.ts.extensions.ts-error-translator.setupOpts.auto_override_publish_diagnostics</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Automatically override the publish_diagnostics handler</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/languages/ts.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ts.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.languages.ts.extraDiagnostics.enable"></a><a class="term" href="options.html#opt-vim.languages.ts.extraDiagnostics.enable"><code class="option">vim.languages.ts.extraDiagnostics.enable</code>
   </a>
  </span>
@@ -18479,7 +18557,7 @@ the wrapper during the build process.</p><p>To avoid overriding packages and dep
 are recommended to use this option or <code class="option">vim.extraPlugins</code> option.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-list of (null or package or one of “alpha-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc”, “cellular-automaton”, “chatgpt”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “cmp-vsnip”, “codewindow-nvim”, “comment-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools”, “fidget-nvim”, “flutter-tools”, “gesture-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “highlight-undo”, “hop-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline”, “leap-nvim”, “lsp-lines”, “lsp-signature”, “lspkind”, “lspsaga”, “lualine”, “mind-nvim”, “minimap-vim”, “modes-nvim”, “neocord”, “neodev-nvim”, “noice-nvim”, “none-ls”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-code-action-menu”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lspconfig”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip”, “nvim-nio”, “nvim-notify”, “nvim-session-manager”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-web-devicons”, “obsidian-nvim”, “onedark”, “orgmode-nvim”, “oxocarbon”, “plenary-nvim”, “project-nvim”, “registers”, “rose-pine”, “rust-tools”, “scrollbar-nvim”, “smartcolumn”, “sqls-nvim”, “tabular”, “telescope”, “todo-comments”, “toggleterm-nvim”, “tokyonight”, “trouble”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “vim-vsnip”, “which-key”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
+list of (null or package or one of “alpha-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc”, “cellular-automaton”, “chatgpt”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “cmp-vsnip”, “codewindow-nvim”, “comment-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools”, “fidget-nvim”, “flutter-tools”, “gesture-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “highlight-undo”, “hop-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline”, “leap-nvim”, “lsp-lines”, “lsp-signature”, “lspkind”, “lspsaga”, “lualine”, “mind-nvim”, “minimap-vim”, “modes-nvim”, “neocord”, “neodev-nvim”, “noice-nvim”, “none-ls”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-code-action-menu”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lspconfig”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip”, “nvim-nio”, “nvim-notify”, “nvim-session-manager”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-web-devicons”, “obsidian-nvim”, “onedark”, “orgmode-nvim”, “oxocarbon”, “plenary-nvim”, “project-nvim”, “registers”, “rose-pine”, “rust-tools”, “scrollbar-nvim”, “smartcolumn”, “sqls-nvim”, “tabular”, “telescope”, “todo-comments”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “vim-vsnip”, “which-key”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">[ ]</code></p>
@@ -19931,7 +20009,7 @@ using the <a class="link" href="options.html#opt-vim.optPlugins"  ><code class="
 option.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-list of (null or package or one of “alpha-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc”, “cellular-automaton”, “chatgpt”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “cmp-vsnip”, “codewindow-nvim”, “comment-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools”, “fidget-nvim”, “flutter-tools”, “gesture-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “highlight-undo”, “hop-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline”, “leap-nvim”, “lsp-lines”, “lsp-signature”, “lspkind”, “lspsaga”, “lualine”, “mind-nvim”, “minimap-vim”, “modes-nvim”, “neocord”, “neodev-nvim”, “noice-nvim”, “none-ls”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-code-action-menu”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lspconfig”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip”, “nvim-nio”, “nvim-notify”, “nvim-session-manager”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-web-devicons”, “obsidian-nvim”, “onedark”, “orgmode-nvim”, “oxocarbon”, “plenary-nvim”, “project-nvim”, “registers”, “rose-pine”, “rust-tools”, “scrollbar-nvim”, “smartcolumn”, “sqls-nvim”, “tabular”, “telescope”, “todo-comments”, “toggleterm-nvim”, “tokyonight”, “trouble”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “vim-vsnip”, “which-key”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
+list of (null or package or one of “alpha-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc”, “cellular-automaton”, “chatgpt”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “cmp-vsnip”, “codewindow-nvim”, “comment-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools”, “fidget-nvim”, “flutter-tools”, “gesture-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “highlight-undo”, “hop-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline”, “leap-nvim”, “lsp-lines”, “lsp-signature”, “lspkind”, “lspsaga”, “lualine”, “mind-nvim”, “minimap-vim”, “modes-nvim”, “neocord”, “neodev-nvim”, “noice-nvim”, “none-ls”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-code-action-menu”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lspconfig”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip”, “nvim-nio”, “nvim-notify”, “nvim-session-manager”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-web-devicons”, “obsidian-nvim”, “onedark”, “orgmode-nvim”, “oxocarbon”, “plenary-nvim”, “project-nvim”, “registers”, “rose-pine”, “rust-tools”, “scrollbar-nvim”, “smartcolumn”, “sqls-nvim”, “tabular”, “telescope”, “todo-comments”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “vim-vsnip”, “which-key”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
 
 <p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
   &quot;plenary-nvim&quot;
