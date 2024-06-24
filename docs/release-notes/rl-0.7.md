@@ -12,12 +12,17 @@ Release notes for release 0.7
 [frothymarrow](https://github.com/frothymarrow):
 
 - Modified type for
-  [](#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides) from
-  `anything` to a `submodule` for better type checking.
+  [vim.visuals.fidget-nvim.setupOpts.progress.display.overrides](#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides)
+  from `anything` to a `submodule` for better type checking.
+
 - Fix null `vim.lsp.mappings` generating an error and not being filtered out.
+
 - Add basic transparency support for `oxocarbon` theme by setting the highlight
   group for `Normal`, `NormalFloat`, `LineNr`, `SignColumn` and optionally
   `NvimTreeNormal` to `none`.
+
+- Fix [vim.ui.smartcolumn.setupOpts.custom_colorcolumn](#opt-vim.ui.smartcolumn.setupOpts.custom_colorcolumn)
+  using the wrong type `int` instead of the expected type `string`.
 
 [horriblename](https://github.com/horriblename):
 
@@ -37,7 +42,7 @@ Release notes for release 0.7
 
 - Add rustfmt as the default formatter for Rust
 
-[NotAShelf](https://github.com/notashelf)
+[NotAShelf](https://github.com/notashelf):
 
 - Add `deno fmt` as the default Markdown formatter. This will be enabled
   automatically if you have autoformatting enabled, but can be disabled manually
