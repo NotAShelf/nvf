@@ -31,15 +31,15 @@ in {
 
       custom_colorcolumn = mkOption {
         description = "The position at which smart column should be displayed for each individual buffer type";
-        type = attrsOf (either int (listOf int));
+        type = attrsOf (either str (listOf str));
         default = {};
 
         example = literalExpression ''
           vim.ui.smartcolumn.setupOpts.custom_colorcolumn = {
-            nix = 110;
-            ruby = 120;
-            java = 130;
-            go = [90 130];
+            nix = "110";
+            ruby = "120";
+            java = "130";
+            go = ["90" "130"];
           };
         '';
       };
