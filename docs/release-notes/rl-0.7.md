@@ -15,15 +15,27 @@ Release notes for release 0.7
   [](#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides) from
   `anything` to a `submodule` for better type checking.
 - Fix null `vim.lsp.mappings` generating an error and not being filtered out.
-- Add basic transparency support for `oxocarbon` theme by setting the
-  highlight group for `Normal`, `NormalFloat`, `LineNr`, `SignColumn` and
-  optionally `NvimTreeNormal` to `none`.
+- Add basic transparency support for `oxocarbon` theme by setting the highlight
+  group for `Normal`, `NormalFloat`, `LineNr`, `SignColumn` and optionally
+  `NvimTreeNormal` to `none`.
 
 [horriblename](https://github.com/horriblename):
 
 - Fix broken treesitter-context keybinds in visual mode
-- Depcrecate use of `__empty` to define empty tables in lua. Empty attrset are
-  no longer filtered and thus should be used instead.
+- Deprecate use of `__empty` to define empty tables in lua. Empty attrset are no
+  longer filtered and thus should be used instead.
+
+[jacekpoz](https://github.com/jacekpoz):
+
+- Add [ocaml-lsp](https://github.com/ocaml/ocaml-lsp) support.
+
+- Fix Emac typo
+
+[diniamo](https://github.com/diniamo):
+
+- Move the `theme` dag entry to before `luaScript`.
+
+- Add rustfmt as the default formatter for Rust
 
 [NotAShelf](https://github.com/notashelf)
 
@@ -39,19 +51,12 @@ Release notes for release 0.7
   added once the [credo](https://github.com/rrrene/credo) linter has been added
   to nixpkgs. A pull request is currently open.
 
-- Remove vim-tidal and friends
+- Remove vim-tidal and friends.
 
 - Clean up Lualine module to reduce theme dependency on Catppuccin, and fixed
   blending issues in component separators.
 
-[jacekpoz](https://github.com/jacekpoz):
-
-- Add [ocaml-lsp](https://github.com/ocaml/ocaml-lsp) support.
-
-- Fix Emac typo
-
-[diniamo](https://github.com/diniamo):
-
-- Move the `theme` dag entry to before `luaScript`.
-
-- Add rustfmt as the default formatter for Rust
+- Add
+  [ts-error-translator.nvim](https://github.com/dmmulroy/ts-error-translator.nvim)
+  extension of the TS language module, under
+  `vim.languages.ts.extensions.ts-error-translator`

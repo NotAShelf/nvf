@@ -183,6 +183,11 @@
       flake = false;
     };
 
+    plugin-ts-error-translator = {
+      url = "github:dmmulroy/ts-error-translator.nvim";
+      flake = false;
+    };
+
     # Copying/Registers
     plugin-registers = {
       url = "github:tversteeg/registers.nvim";
