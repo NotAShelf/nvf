@@ -53,3 +53,5 @@ Release notes for release 0.7
 [diniamo](https://github.com/diniamo):
 
 - Move the `theme` dag entry to before `luaScript`.
+
+- Add rustfmt as the default formatter for Rust
