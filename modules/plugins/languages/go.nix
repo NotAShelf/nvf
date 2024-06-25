@@ -12,6 +12,7 @@
   inherit (lib.types) bool enum either listOf package str;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.dag) entryAfter;
 
   cfg = config.vim.languages.go;
 
@@ -37,40 +38,6 @@
   debuggers = {
     delve = {
       package = pkgs.delve;
-      dapConfig = ''
-        dap.adapters.delve = {
-          type = "server",
-          port = "''${port}",
-          executable = {
-            command = "${getExe cfg.dap.package}",
-            args = { "dap", "-l", "127.0.0.1:''${port}" },
-          },
-        }
-
-        dap.configurations.go = {
-          {
-            type = "delve",
-            name = "Debug",
-            request = "launch",
-            program = "''${file}",
-          },
-          {
-            type = "delve",
-            name = "Debug test", -- configuration for debugging test files
-            request = "launch",
-            mode = "test",
-            program = "''${file}",
-          },
-          -- works with go.mod packages and sub packages
-          {
-            type = "delve",
-            name = "Debug test (go.mod)",
-            request = "launch",
-            mode = "test",
-            program = "./''${relativeFileDirname}",
-          },
-        }
-      '';
     };
   };
 in {
@@ -102,15 +69,17 @@ in {
 
     dap = {
       enable = mkOption {
-        description = "Enable Go Debug Adapter";
+        description = "Enable Go Debug Adapter via nvim-dap-go plugin";
         type = bool;
         default = config.vim.languages.enableDAP;
       };
+
       debugger = mkOption {
         description = "Go debugger to use";
         type = enum (attrNames debuggers);
         default = defaultDebugger;
       };
+
       package = mkOption {
         description = "Go debugger package.";
         type = package;
@@ -131,8 +100,17 @@ in {
     })
 
     (mkIf cfg.dap.enable {
-      vim.debugger.nvim-dap.enable = true;
-      vim.debugger.nvim-dap.sources.go-debugger = debuggers.${cfg.dap.debugger}.dapConfig;
+      vim = {
+        startPlugins = ["nvim-dap-go"];
+        luaConfigRC.nvim-dap-go = entryAfter ["nvim-dap"] ''
+          require('dap-go').setup {
+            delve = {
+              path = '${getExe cfg.dap.package}',
+            }
+          }
+        '';
+        debugger.nvim-dap.enable = true;
+      };
     })
   ]);
 }
