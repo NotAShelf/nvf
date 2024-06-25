@@ -40,7 +40,9 @@ Release notes for release 0.7
 
 - Move the `theme` dag entry to before `luaScript`.
 
-- Add rustfmt as the default formatter for Rust
+- Add rustfmt as the default formatter for Rust.
+
+- Enabled the terminal integration of catppuccin for theming Neovim's built-in terminal (this also affects toggleterm).
 
 [NotAShelf](https://github.com/notashelf):
 
