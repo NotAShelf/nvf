@@ -102,6 +102,12 @@
     };
 
     ## Plugins
+    # Lazy loading
+    plugin-lz-n = {
+      url = "github:nvim-neorocks/lz.n";
+      flake = false;
+    };
+
     # LSP plugins
     plugin-nvim-lspconfig = {
       url = "github:neovim/nvim-lspconfig";
