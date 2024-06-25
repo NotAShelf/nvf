@@ -35,7 +35,7 @@
       '';
     };
     clangd = {
-      package = pkgs.clang-tools_16;
+      package = pkgs.clang-tools;
       lspConfig = ''
         local clangd_cap = capabilities
         -- use same offsetEncoding as null-ls
