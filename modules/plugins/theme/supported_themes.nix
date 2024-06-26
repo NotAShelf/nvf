@@ -53,6 +53,7 @@ in {
       require('catppuccin').setup {
         flavour = "${style}",
         transparent_background = ${boolToString transparent},
+        term_colors = true,
         integrations = {
       	  nvimtree = {
       		  enabled = true,
