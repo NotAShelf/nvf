@@ -108,7 +108,8 @@ in {
           options = {
             view = mkOption {
               description = "";
-              type = str;
+              type = nullOr str;
+              default = null;
             };
 
             filter = mkOption {
@@ -119,6 +120,7 @@ in {
             opts = mkOption {
               description = "";
               type = nullOr anything;
+              default = null;
             };
           };
         });
