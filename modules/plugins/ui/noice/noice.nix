@@ -107,18 +107,18 @@ in {
         type = listOf (submodule {
           options = {
             view = mkOption {
-              description = "";
+              description = "how this route is viewed";
               type = nullOr str;
               default = null;
             };
 
             filter = mkOption {
-              description = "";
+              description = "a filter for messages matching this route";
               type = anything;
             };
 
             opts = mkOption {
-              description = "";
+              description = "options for the view and the route";
               type = nullOr anything;
               default = null;
             };
