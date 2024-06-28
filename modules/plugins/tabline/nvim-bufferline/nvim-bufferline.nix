@@ -23,7 +23,7 @@ in {
     setupOpts = mkPluginSetupOption "Bufferline-nvim" {
       highlights = mkOption {
         type = either attrs luaInline;
-        default = null;
+        default = {};
         description = ''
           Overrides the highlight groups of bufferline.
 
