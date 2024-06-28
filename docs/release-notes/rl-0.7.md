@@ -44,6 +44,8 @@ Release notes for release 0.7
 
 - Enabled the terminal integration of catppuccin for theming Neovim's built-in terminal (this also affects toggleterm).
 
+- Migrate bufferline to setupOpts for more customizability
+
 [NotAShelf](https://github.com/notashelf):
 
 - Add `deno fmt` as the default Markdown formatter. This will be enabled
