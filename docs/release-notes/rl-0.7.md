@@ -29,6 +29,7 @@ Release notes for release 0.7
 - Fix broken treesitter-context keybinds in visual mode
 - Deprecate use of `__empty` to define empty tables in lua. Empty attrset are no
   longer filtered and thus should be used instead.
+- Add dap-go for better dap configurations
 
 [jacekpoz](https://github.com/jacekpoz):
 

@@ -216,6 +216,11 @@
       flake = false;
     };
 
+    plugin-nvim-dap-go = {
+      url = "github:leoluz/nvim-dap-go";
+      flake = false;
+    };
+
     # Filetrees
     plugin-nvim-tree-lua = {
       url = "github:nvim-tree/nvim-tree.lua";
