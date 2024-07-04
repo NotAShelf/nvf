@@ -5,6 +5,15 @@
   inherit (lib.attrsets) listToAttrs;
   inherit (lib.types) bool;
 in {
+  # A wrapper around `mkOption` to create a boolean option that is
+  # used for Language Server modules.
+  mkEnable = desc:
+    mkOption {
+      description = "Turn on ${desc} for enabled languages by default";
+      type = bool;
+      default = false;
+    };
+
   # Converts a boolean to a yes/no string. This is used in lots of
   # configuration formats.
   diagnosticsToLua = {
@@ -27,11 +36,4 @@ in {
         value = diagnosticsProviders.${type}.nullConfig package;
       })
       config);
-
-  mkEnable = desc:
-    mkOption {
-      description = "Turn on ${desc} for enabled languages by default";
-      type = bool;
-      default = false;
-    };
 }
