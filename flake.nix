@@ -14,6 +14,8 @@
       imports = [
         # add lib to module args
         {_module.args = {inherit (nixpkgs) lib;};}
+
+        ./flake/tests # machine tests for nvf
         ./flake/apps.nix
         ./flake/legacyPackages.nix
         ./flake/overlays.nix
@@ -86,6 +88,12 @@
     nmd = {
       url = "sourcehut:~rycee/nmd";
       flake = false;
+    };
+
+    # Primarily used for testing nvf.
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # TODO: get zig from the zig overlay instead of nixpkgs
