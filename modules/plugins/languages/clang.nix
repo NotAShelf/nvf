@@ -21,7 +21,7 @@
 
   cfg = config.vim.languages.clang;
 
-  defaultServer = "ccls";
+  defaultServer = "clangd";
   servers = {
     ccls = {
       package = pkgs.ccls;
