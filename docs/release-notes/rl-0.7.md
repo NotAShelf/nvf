@@ -47,6 +47,8 @@ Release notes for release 0.7
 
 - Migrate bufferline to setupOpts for more customizability
 
+- Use `clangd` as the default language server for C languages
+
 [NotAShelf](https://github.com/notashelf):
 
 - Add `deno fmt` as the default Markdown formatter. This will be enabled
