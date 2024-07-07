@@ -52,7 +52,7 @@
     };
   };
 in {
-  inherit extraPluginType fromInputs;
+  inherit extraPluginType fromInputs pluginType;
 
   pluginsOpt = {
     description,

@@ -8,6 +8,6 @@
   typesLanguage = import ./languages.nix {inherit lib;};
 in {
   inherit (typesDag) dagOf;
-  inherit (typesPlugin) pluginsOpt extraPluginType mkPluginSetupOption luaInline;
+  inherit (typesPlugin) pluginsOpt extraPluginType mkPluginSetupOption luaInline pluginType;
   inherit (typesLanguage) diagnostics mkGrammarOption;
 }
