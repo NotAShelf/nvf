@@ -2,9 +2,10 @@
   perSystem = {
     config,
     pkgs,
+    lib,
     ...
   }: let
-    docs = import ../docs {inherit pkgs inputs;};
+    docs = import ../docs {inherit pkgs inputs lib;};
   in {
     packages = {
       # Documentation

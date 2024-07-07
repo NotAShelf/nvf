@@ -1,7 +1,7 @@
 inputs: {
   configuration,
   pkgs,
-  lib ? pkgs.lib,
+  lib,
   check ? true,
   extraSpecialArgs ? {},
   extraModules ? [],
@@ -15,23 +15,16 @@ inputs: {
   inherit (lib.attrsets) recursiveUpdate;
   inherit (lib.asserts) assertMsg;
 
-  # call the extedended library with `lib` and `inputs` as arguments
-  # lib is used to provide the standard library functions to the extended library
-  # but it can be overridden while this file is being called
-  # inputs is used to pass inputs to the plugin autodiscovery function
-  extendedLib = import ../lib/stdlib-extended.nix lib inputs;
-
   # import modules.nix with `check`, `pkgs` and `lib` as arguments
   # check can be disabled while calling this file is called
   # to avoid checking in all modules
   nvimModules = import ./modules.nix {
-    inherit pkgs check;
-    lib = extendedLib;
+    inherit pkgs check lib;
   };
 
   # evaluate the extended library with the modules
   # optionally with any additional modules passed by the user
-  module = extendedLib.evalModules {
+  module = lib.evalModules {
     specialArgs = recursiveUpdate {modulesPath = toString ./.;} extraSpecialArgs;
     modules = concatLists [[configuration] nvimModules extraModules];
   };
