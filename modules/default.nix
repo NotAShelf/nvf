@@ -8,7 +8,7 @@ inputs: {
 }: let
   inherit (pkgs) vimPlugins;
   inherit (pkgs.vimUtils) buildVimPlugin;
-  inherit (lib.strings) isString toString;
+  inherit (lib.strings) makeBinPath isString toString;
   inherit (lib.lists) filter map concatLists;
   inherit (lib.attrsets) recursiveUpdate getAttr;
   inherit (lib.asserts) assertMsg;
