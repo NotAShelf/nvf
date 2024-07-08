@@ -61,9 +61,9 @@
         formatter = pkgs.alejandra;
         devShells = {
           default = self'.devShells.lsp;
-          nvim-nix = pkgs.mkShell {nativeBuildInputs = [config.packages.nix];};
+          nvim-nix = pkgs.mkShell {packages = [config.packages.nix];};
           lsp = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [nil statix deadnix alejandra];
+            packages = with pkgs; [nil statix deadnix alejandra];
           };
         };
       };
