@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) attrsOf enum nullOr submodule bool str;
   inherit (lib.modules) mkRenamedOptionModule;

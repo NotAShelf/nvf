@@ -1,6 +1,6 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.types) nullOr int str attrsOf either listOf;
+  inherit (lib.types) nullOr str attrsOf either listOf;
   inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {

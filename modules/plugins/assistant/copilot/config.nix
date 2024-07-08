@@ -30,14 +30,14 @@ in {
         "copilot-lua"
         # cfg.copilotNodePackage
       ]
-      ++ optionals (cfg.cmp.enable) [
+      ++ optionals cfg.cmp.enable [
         "copilot-cmp"
       ];
 
     vim.luaConfigRC.copilot = entryAnywhere ''
       require("copilot").setup(${toLuaObject cfg.setupOpts})
 
-      ${lib.optionalString (cfg.cmp.enable) ''
+      ${lib.optionalString cfg.cmp.enable ''
         require("copilot_cmp").setup()
       ''}
     '';

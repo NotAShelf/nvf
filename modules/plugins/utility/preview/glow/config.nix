@@ -12,7 +12,7 @@
   self = import ./glow.nix {
     inherit lib config pkgs;
   };
-  mappings = self.options.vim.utility.preview.glow.mappings;
+  inherit (self.options.vim.utility.preview.glow) mappings;
 in {
   config = mkIf cfg.enable {
     vim.startPlugins = ["glow-nvim"];
