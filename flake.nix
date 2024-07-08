@@ -77,6 +77,12 @@
     flake-utils.url = "github:numtide/flake-utils";
     systems.url = "github:nix-systems/default";
 
+    # Alternate neovim-wrapper
+    neovim-wrapper = {
+      url = "github:Gerg-L/neovim-wrapper";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # For generating documentation website
     nmd = {
       url = "sourcehut:~rycee/nmd";
