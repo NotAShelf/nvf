@@ -2,7 +2,7 @@
 {lib}: let
   inherit (builtins) hasAttr head throw typeOf isList isAttrs isBool isInt isString isPath isFloat toJSON;
   inherit (lib.attrsets) mapAttrsToList filterAttrs;
-  inherit (lib.strings) concatStringsSep concatMapStringsSep stringToCharacters;
+  inherit (lib.strings) concatStringsSep concatMapStringsSep stringToCharacters concatLines;
   inherit (lib.trivial) boolToString warn;
 in rec {
   wrapLuaConfig = {
@@ -11,7 +11,7 @@ in rec {
     luaAfter ? "",
   }: ''
     lua << EOF
-    ${concatStringsSep "\n" [luaBefore luaConfig luaAfter]}
+    ${concatLines [luaBefore luaConfig luaAfter]}
     EOF
   '';
 
