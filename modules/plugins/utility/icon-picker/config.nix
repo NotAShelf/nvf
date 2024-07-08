@@ -8,7 +8,7 @@
 
   cfg = config.vim.utility.icon-picker;
 in {
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     vim.startPlugins = [
       "icon-picker-nvim"
       "dressing-nvim"

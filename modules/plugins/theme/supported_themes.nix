@@ -6,10 +6,7 @@
   inherit (lib.trivial) boolToString warnIf;
 in {
   onedark = {
-    setup = {
-      style ? "dark",
-      transparent,
-    }: ''
+    setup = {style ? "dark"}: ''
       -- OneDark theme
       require('onedark').setup {
         style = "${style}"
@@ -33,10 +30,7 @@ in {
   };
 
   dracula = {
-    setup = {
-      style ? null,
-      transparent,
-    }: ''
+    setup = {transparent}: ''
       require('dracula').setup({
         transparent_bg = ${boolToString transparent},
       });

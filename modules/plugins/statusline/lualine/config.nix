@@ -15,7 +15,7 @@
 in {
   config = mkMerge [
     # TODO: move into nvim-tree file
-    (mkIf (config.vim.filetree.nvimTree.enable) {
+    (mkIf config.vim.filetree.nvimTree.enable {
       vim.statusline.lualine.setupOpts = {
         extensions = ["nvim-tree"];
       };
@@ -44,11 +44,11 @@ in {
         statusline.lualine.setupOpts = {
           options = {
             icons_enabled = cfg.icons.enable;
-            theme = cfg.theme;
+            inherit (cfg) theme;
             component_separators = [cfg.componentSeparator.left cfg.componentSeparator.right];
             section_separators = [cfg.sectionSeparator.left cfg.sectionSeparator.right];
             globalstatus = cfg.globalStatus;
-            refresh = cfg.refresh;
+            inherit (cfg) refresh;
           };
 
           sections = {

@@ -8,7 +8,7 @@
 
   cfg = config.vim.utility.ccc;
 in {
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     vim.startPlugins = [
       "ccc"
     ];

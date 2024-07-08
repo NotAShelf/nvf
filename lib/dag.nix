@@ -84,7 +84,7 @@ in {
     normalizedDag =
       mapAttrs (n: v: {
         name = n;
-        data = v.data;
+        inherit (v) data;
         after = v.after ++ dagBefore dag n;
       })
       dag;
@@ -117,7 +117,6 @@ in {
   entriesBetween = tag: let
     go = i: before: after: entries: let
       name = "${tag}-${toString i}";
-      i' = i + 1;
     in
       if entries == []
       then empty

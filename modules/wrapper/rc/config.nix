@@ -6,7 +6,7 @@
   inherit (builtins) map mapAttrs toJSON filter;
   inherit (lib.options) mkOption;
   inherit (lib.attrsets) filterAttrs getAttrs attrValues attrNames;
-  inherit (lib.strings) isString concatStringsSep;
+  inherit (lib.strings) isString concatLines concatMapStringsSep;
   inherit (lib.misc) mapAttrsFlatten;
   inherit (lib.trivial) showWarnings;
   inherit (lib.types) str nullOr;
@@ -126,7 +126,7 @@ in {
   in {
     vim = {
       configRC = {
-        globalsScript = entryAnywhere (concatStringsSep "\n" globalsScript);
+        globalsScript = entryAnywhere (concatLines globalsScript);
 
         # Call additional lua files with :luafile in Vimscript
         # section of the configuration, only after
@@ -134,14 +134,14 @@ in {
         extraLuaFiles = let
           callLuaFiles = map (file: "luafile ${file}") cfg.extraLuaFiles;
         in
-          entryAfter ["globalScript"] (concatStringsSep "\n" callLuaFiles);
+          entryAfter ["globalScript"] (concatLines callLuaFiles);
 
         # wrap the lua config in a lua block
         # using the wrapLuaConfic function from the lib
         luaScript = let
           mapResult = result: (wrapLuaConfig {
             luaBefore = "${cfg.luaConfigPre}";
-            luaConfig = concatStringsSep "\n" (map mkLuarcSection result);
+            luaConfig = concatLines (map mkLuarcSection result);
             luaAfter = "${cfg.luaConfigPost}";
           });
 
@@ -155,7 +155,7 @@ in {
 
         extraPluginConfigs = let
           mapResult = result: (wrapLuaConfig {
-            luaConfig = concatStringsSep "\n" (map mkLuarcSection result);
+            luaConfig = concatLines (map mkLuarcSection result);
           });
 
           extraPluginsDag = mapAttrs (_: {
@@ -189,7 +189,7 @@ in {
             icmap
             allmap
           ];
-          mapConfig = wrapLuaConfig {luaConfig = concatStringsSep "\n" (map (v: concatStringsSep "\n" v) maps);};
+          mapConfig = wrapLuaConfig {luaConfig = concatLines (map concatLines maps);};
         in
           entryAfter ["globalsScript"] mapConfig;
       };
@@ -200,10 +200,10 @@ in {
         failedAssertions = map (x: x.message) (filter (x: !x.assertion) config.assertions);
         baseSystemAssertWarn =
           if failedAssertions != []
-          then throw "\nFailed assertions:\n${concatStringsSep "\n" (map (x: "- ${x}") failedAssertions)}"
+          then throw "\nFailed assertions:\n${concatMapStringsSep "\n" (x: "- ${x}") failedAssertions}"
           else showWarnings config.warnings;
 
-        mapResult = result: (concatStringsSep "\n" (map mkVimrcSection result));
+        mapResult = result: concatMapStringsSep "\n" mkVimrcSection result;
         vimConfig = resolveDag {
           name = "vim config script";
           dag = cfg.configRC;

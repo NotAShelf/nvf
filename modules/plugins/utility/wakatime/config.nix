@@ -9,7 +9,7 @@
 
   cfg = config.vim.utility.vim-wakatime;
 in {
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     vim.startPlugins = [
       pkgs.vimPlugins.vim-wakatime
     ];

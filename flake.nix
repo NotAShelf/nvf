@@ -10,15 +10,14 @@
       # provide overridable systems
       # https://github.com/nix-systems/nix-systems
       systems = import inputs.systems;
-
       imports = [
-        # add lib to module args
-        {_module.args = {inherit (nixpkgs) lib;};}
         ./flake/apps.nix
         ./flake/legacyPackages.nix
         ./flake/overlays.nix
         ./flake/packages.nix
       ];
+
+      _module.args = {inherit (nixpkgs) lib;};
 
       flake = {
         lib = {
@@ -34,9 +33,7 @@
             ''
             self.homeManagerModules.nvf;
 
-          nvf = {
-            imports = [(import ./flake/modules/home-manager.nix self.packages inputs)];
-          };
+          nvf = import ./flake/modules/home-manager.nix self.packages inputs;
 
           default = self.homeManagerModules.nvf;
         };
@@ -49,9 +46,7 @@
             ''
             self.nixosModules.nvf;
 
-          nvf = {
-            imports = [(import ./flake/modules/nixos.nix self.packages inputs)];
-          };
+          nvf = import ./flake/modules/nixos.nix self.packages inputs;
 
           default = self.nixosModules.nvf;
         };
@@ -66,9 +61,9 @@
         formatter = pkgs.alejandra;
         devShells = {
           default = self'.devShells.lsp;
-          nvim-nix = pkgs.mkShell {nativeBuildInputs = [config.packages.nix];};
+          nvim-nix = pkgs.mkShell {packages = [config.packages.nix];};
           lsp = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [nil statix deadnix alejandra];
+            packages = with pkgs; [nil statix deadnix alejandra];
           };
         };
       };

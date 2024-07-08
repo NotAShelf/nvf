@@ -16,7 +16,7 @@
 
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
 in {
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     vim.startPlugins = [
       "telescope"
       "plenary-nvim"

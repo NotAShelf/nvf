@@ -10,7 +10,7 @@
 
   cfg = config.vim.binds.whichKey;
 in {
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     vim.startPlugins = ["which-key"];
 
     vim.luaConfigRC.whichkey = entryAnywhere ''
@@ -23,7 +23,7 @@ in {
           ["<tab>"] = "TAB",
         },
 
-        ${optionalString (config.vim.ui.borders.plugins.which-key.enable) ''
+        ${optionalString config.vim.ui.borders.plugins.which-key.enable ''
         window = {
           border = "${config.vim.ui.borders.plugins.which-key.style}",
         },
