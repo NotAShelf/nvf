@@ -88,4 +88,5 @@ in {
         ++ optional cfg.enableManpages packages.${pkgs.stdenv.system}.docs-manpages;
     };
   };
+  _file = ./home-manager.nix;
 }

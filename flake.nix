@@ -34,9 +34,7 @@
             ''
             self.homeManagerModules.nvf;
 
-          nvf = {
-            imports = [(import ./flake/modules/home-manager.nix self.packages inputs)];
-          };
+          nvf = import ./flake/modules/home-manager.nix self.packages inputs;
 
           default = self.homeManagerModules.nvf;
         };
@@ -49,9 +47,7 @@
             ''
             self.nixosModules.nvf;
 
-          nvf = {
-            imports = [(import ./flake/modules/nixos.nix self.packages inputs)];
-          };
+          nvf = import ./flake/modules/nixos.nix self.packages inputs;
 
           default = self.nixosModules.nvf;
         };
