@@ -10,15 +10,14 @@
       # provide overridable systems
       # https://github.com/nix-systems/nix-systems
       systems = import inputs.systems;
-
       imports = [
-        # add lib to module args
-        {_module.args = {inherit (nixpkgs) lib;};}
         ./flake/apps.nix
         ./flake/legacyPackages.nix
         ./flake/overlays.nix
         ./flake/packages.nix
       ];
+
+      _module.args = {inherit (nixpkgs) lib;};
 
       flake = {
         lib = {
