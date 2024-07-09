@@ -76,7 +76,7 @@ inputs: {
   builtStartPlugins = buildConfigPlugins vimOptions.startPlugins;
   builtOptPlugins = map (package: {
     plugin = package;
-    optional = false;
+    optional = true;
   }) (buildConfigPlugins vimOptions.optPlugins);
 
   # additional Lua and Python3 packages, mapped to their respective functions
