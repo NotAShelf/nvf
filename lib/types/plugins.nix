@@ -56,6 +56,7 @@
     check = x: lib.nvim.lua.isLuaInline x;
   };
 
+  lznPluginTableType = attrsOf lznPluginType;
   lznPluginType = submodule {
     options = {
       ## Should probably infer from the actual plugin somehow
@@ -64,7 +65,9 @@
       #   type=  str;
       # }
 
-      package = pluginType;
+      package = mkOption {
+        type = pluginType;
+      };
 
       before = mkOption {
         type = nullOr luaInline;
@@ -80,7 +83,7 @@
 
       event = mkOption {
         description = "Lazy-load on event";
-        default = "null";
+        default = null;
         type = let
           event = submodule {
             options = {
@@ -97,7 +100,7 @@
             };
           };
         in
-          oneOf [str (listOf str) event];
+          nullOr (oneOf [str (listOf str) event]);
       };
 
       cmd = mkOption {
@@ -122,7 +125,7 @@
     };
   };
 in {
-  inherit extraPluginType fromInputs pluginType luaInline lznPluginType;
+  inherit extraPluginType fromInputs pluginType luaInline lznPluginType lznPluginTableType;
 
   pluginsOpt = {
     description,
