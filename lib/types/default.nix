@@ -9,7 +9,7 @@
   typesCustom = import ./custom.nix {inherit lib;};
 in {
   inherit (typesDag) dagOf;
-  inherit (typesPlugin) pluginsOpt extraPluginType mkPluginSetupOption luaInline pluginType borderType lznPluginType;
+  inherit (typesPlugin) pluginsOpt extraPluginType mkPluginSetupOption luaInline pluginType borderType lznPluginType lznPluginTableType;
   inherit (typesLanguage) diagnostics mkGrammarOption;
   inherit (typesCustom) anythingConcatLists char;
 }
