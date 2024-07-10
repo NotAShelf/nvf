@@ -30,6 +30,7 @@ Release notes for release 0.7
 - Deprecate use of `__empty` to define empty tables in lua. Empty attrset are no
   longer filtered and thus should be used instead.
 - Add dap-go for better dap configurations
+- Make noice.nvim customizable
 
 [jacekpoz](https://github.com/jacekpoz):
 
@@ -48,6 +49,8 @@ Release notes for release 0.7
 - Migrate bufferline to setupOpts for more customizability
 
 - Use `clangd` as the default language server for C languages
+
+- Expose `lib.nvim.types.pluginType`, which for example allows the user to create abstractions for adding plugins
 
 [NotAShelf](https://github.com/notashelf):
 

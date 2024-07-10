@@ -71,7 +71,7 @@ inputs: {
   builtStartPlugins = buildConfigPlugins vimOptions.startPlugins;
   builtOptPlugins = map (package: {
     plugin = package;
-    optional = false;
+    optional = true;
   }) (buildConfigPlugins vimOptions.optPlugins);
 
   # combine built start and optional plugins
