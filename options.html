@@ -27798,6 +27798,512 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts"><code class="option">vim.ui.noice.setupOpts</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Option table to pass into the setup function of noice.nvim</p><p>You can pass in any additional options even if they’re
+not listed in the docs</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+attribute set of anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.format.cmdline"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.format.cmdline"><code class="option">vim.ui.noice.setupOpts.format.cmdline</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>formatting options for the cmdline</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">{
+  icon = &quot;&quot;;
+  lang = &quot;vim&quot;;
+  pattern = &quot;^:&quot;;
+}
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.format.filter"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.format.filter"><code class="option">vim.ui.noice.setupOpts.format.filter</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>formatting options for filter</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">{
+  icon = &quot;&quot;;
+  lang = &quot;bash&quot;;
+  pattern = &quot;^:%s*!&quot;;
+}
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.format.help"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.format.help"><code class="option">vim.ui.noice.setupOpts.format.help</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>formatting options for help</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">{
+  icon = &quot;󰋖&quot;;
+  pattern = &quot;^:%s*he?l?p?%s+&quot;;
+}
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.format.lua"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.format.lua"><code class="option">vim.ui.noice.setupOpts.format.lua</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>formatting options for lua</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">{
+  icon = &quot;&quot;;
+  lang = &quot;lua&quot;;
+  pattern = &quot;^:%s*lua%s+&quot;;
+}
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.format.search_down"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.format.search_down"><code class="option">vim.ui.noice.setupOpts.format.search_down</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>formatting options for search_down</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">{
+  icon = &quot; &quot;;
+  kind = &quot;search&quot;;
+  lang = &quot;regex&quot;;
+  pattern = &quot;^/&quot;;
+}
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.format.search_up"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.format.search_up"><code class="option">vim.ui.noice.setupOpts.format.search_up</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>formatting options for search_up</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">{
+  icon = &quot; &quot;;
+  kind = &quot;search&quot;;
+  lang = &quot;regex&quot;;
+  pattern = &quot;^%?&quot;;
+}
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.lsp.override._cmp.entry.get_documentation_"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.lsp.override._cmp.entry.get_documentation_"><code class="option">vim.ui.noice.setupOpts.lsp.override.&quot;cmp.entry.get_documentation&quot;</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>override cmp documentation with Noice</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.lsp.override._vim.lsp.util.convert_input_to_markdown_lines_"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.lsp.override._vim.lsp.util.convert_input_to_markdown_lines_"><code class="option">vim.ui.noice.setupOpts.lsp.override.&quot;vim.lsp.util.convert_input_to_markdown_lines&quot;</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>override the default lsp markdown formatter with Noice</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.lsp.override._vim.lsp.util.stylize_markdown_"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.lsp.override._vim.lsp.util.stylize_markdown_"><code class="option">vim.ui.noice.setupOpts.lsp.override.&quot;vim.lsp.util.stylize_markdown&quot;</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>override the lsp markdown formatter with Noice</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.lsp.signature.enabled"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.lsp.signature.enabled"><code class="option">vim.ui.noice.setupOpts.lsp.signature.enabled</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable signature help.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.presets.bottom_search"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.presets.bottom_search"><code class="option">vim.ui.noice.setupOpts.presets.bottom_search</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>use a classic bottom cmdline for search</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.presets.command_palette"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.presets.command_palette"><code class="option">vim.ui.noice.setupOpts.presets.command_palette</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>position the cmdline and popupmenu together</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.presets.inc_rename"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.presets.inc_rename"><code class="option">vim.ui.noice.setupOpts.presets.inc_rename</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>enables an input dialog for inc-rename.nvim</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.presets.long_message_to_split"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.presets.long_message_to_split"><code class="option">vim.ui.noice.setupOpts.presets.long_message_to_split</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>long messages will be sent to a split</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.presets.lsp_doc_border"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.presets.lsp_doc_border"><code class="option">vim.ui.noice.setupOpts.presets.lsp_doc_border</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>add a border to hover docs and signature help</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.routes"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.routes"><code class="option">vim.ui.noice.setupOpts.routes</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>How to route messages</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+list of (submodule)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;Hide written messages&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.routes._.filter"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.routes._.filter"><code class="option">vim.ui.noice.setupOpts.routes.*.filter</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>a filter for messages matching this route</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+anything</p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.routes._.opts"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.routes._.opts"><code class="option">vim.ui.noice.setupOpts.routes.*.opts</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>options for the view and the route</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.noice.setupOpts.routes._.view"></a><a class="term" href="options.html#opt-vim.ui.noice.setupOpts.routes._.view"><code class="option">vim.ui.noice.setupOpts.routes.*.view</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>how this route is viewed</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/noice/noice.nix" target="_top">
+&lt;nvf/modules/plugins/ui/noice/noice.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.ui.smartcolumn.enable"></a><a class="term" href="options.html#opt-vim.ui.smartcolumn.enable"><code class="option">vim.ui.smartcolumn.enable</code>
   </a>
  </span>
