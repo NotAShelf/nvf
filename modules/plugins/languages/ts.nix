@@ -20,7 +20,7 @@
   defaultServer = "tsserver";
   servers = {
     tsserver = {
-      package = pkgs.nodePackages.typescript-language-server;
+      package = pkgs.typescript-language-server;
       lspConfig = ''
         lspconfig.tsserver.setup {
           capabilities = capabilities;
