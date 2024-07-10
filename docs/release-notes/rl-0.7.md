@@ -49,6 +49,8 @@ Release notes for release 0.7
 
 - Use `clangd` as the default language server for C languages
 
+- Expose `lib.nvim.types.pluginType`, which for example allows the user to create abstractions for adding plugins
+
 [NotAShelf](https://github.com/notashelf):
 
 - Add `deno fmt` as the default Markdown formatter. This will be enabled
