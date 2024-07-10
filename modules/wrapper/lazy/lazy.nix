@@ -19,7 +19,7 @@ in {
         {
           toggleterm-nvim = {
             package = "toggleterm-nvim";
-            after = "require('toggleterm').setup{}";
+            after = lib.generators.mkLuaInline "function() require('toggleterm').setup{} end";
             cmd = ["ToggleTerm"];
           };
         }
