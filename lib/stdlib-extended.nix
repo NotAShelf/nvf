@@ -1,7 +1,7 @@
 # Convenience function that returns the given Nixpkgs standard library
 # extended with our functions using `lib.extend`.
-nixpkgsLib: inputs:
-nixpkgsLib.extend (self: super: {
+inputs:
+inputs.nixpkgs.lib.extend (self: super: {
   # WARNING: New functions should not be added here, but to files
   # imported by `./default.nix` under their own categories. If your
   # function does not fit to any of the existing categories, create

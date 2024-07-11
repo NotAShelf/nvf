@@ -1,260 +1,240 @@
-inputs: let
-  modulesWithInputs = import ./modules inputs;
-
-  neovimConfiguration = {
-    modules ? [],
-    pkgs,
-    lib ? pkgs.lib,
-    check ? true,
-    extraSpecialArgs ? {},
-    extraModules ? [],
-    ...
-  }:
-    modulesWithInputs {
-      inherit pkgs lib check extraSpecialArgs extraModules;
-      configuration.imports = modules;
+isMaximal: {
+  config.vim = {
+    viAlias = true;
+    vimAlias = true;
+    debugMode = {
+      enable = false;
+      level = 16;
+      logFile = "/tmp/nvim.log";
     };
 
-  mainConfig = isMaximal: {
-    config.vim = {
-      viAlias = true;
-      vimAlias = true;
-      debugMode = {
-        enable = false;
-        level = 16;
-        logFile = "/tmp/nvim.log";
-      };
+    spellcheck = {
+      enable = isMaximal;
+    };
 
-      spellcheck = {
+    lsp = {
+      formatOnSave = true;
+      lspkind.enable = false;
+      lightbulb.enable = true;
+      lspsaga.enable = false;
+      nvimCodeActionMenu.enable = isMaximal;
+      trouble.enable = true;
+      lspSignature.enable = true;
+      lsplines.enable = isMaximal;
+      nvim-docs-view.enable = isMaximal;
+    };
+
+    debugger = {
+      nvim-dap = {
+        enable = true;
+        ui.enable = true;
+      };
+    };
+
+    languages = {
+      enableLSP = true;
+      enableFormat = true;
+      enableTreesitter = true;
+      enableExtraDiagnostics = true;
+
+      # Nim LSP is broken on Darwin and therefore
+      # should be disabled by default. Users may still enable
+      # `vim.languages.vim` to enable it, this does not restrict
+      # that.
+      # See: <https://github.com/PMunch/nimlsp/issues/178#issue-2128106096>
+      nim.enable = false;
+
+      nix.enable = true;
+
+      markdown.enable = isMaximal;
+      html.enable = isMaximal;
+      css.enable = isMaximal;
+      sql.enable = isMaximal;
+      java.enable = isMaximal;
+      ts.enable = isMaximal;
+      svelte.enable = isMaximal;
+      go.enable = isMaximal;
+      elixir.enable = isMaximal;
+      zig.enable = isMaximal;
+      ocaml.enable = isMaximal;
+      python.enable = isMaximal;
+      dart.enable = isMaximal;
+      bash.enable = isMaximal;
+      tailwind.enable = isMaximal;
+      typst.enable = isMaximal;
+      clang = {
         enable = isMaximal;
+        lsp.server = "clangd";
       };
 
-      lsp = {
-        formatOnSave = true;
-        lspkind.enable = false;
-        lightbulb.enable = true;
-        lspsaga.enable = false;
-        nvimCodeActionMenu.enable = isMaximal;
-        trouble.enable = true;
-        lspSignature.enable = true;
-        lsplines.enable = isMaximal;
-        nvim-docs-view.enable = isMaximal;
+      rust = {
+        enable = isMaximal;
+        crates.enable = isMaximal;
       };
+    };
 
-      debugger = {
-        nvim-dap = {
-          enable = true;
-          ui.enable = true;
-        };
-      };
+    visuals = {
+      enable = true;
+      nvimWebDevicons.enable = true;
+      scrollBar.enable = isMaximal;
+      smoothScroll.enable = true;
+      cellularAutomaton.enable = false;
+      fidget-nvim.enable = true;
+      highlight-undo.enable = true;
 
-      languages = {
-        enableLSP = true;
-        enableFormat = true;
-        enableTreesitter = true;
-        enableExtraDiagnostics = true;
-
-        # Nim LSP is broken on Darwin and therefore
-        # should be disabled by default. Users may still enable
-        # `vim.languages.vim` to enable it, this does not restrict
-        # that.
-        # See: <https://github.com/PMunch/nimlsp/issues/178#issue-2128106096>
-        nim.enable = false;
-
-        nix.enable = true;
-
-        markdown.enable = isMaximal;
-        html.enable = isMaximal;
-        css.enable = isMaximal;
-        sql.enable = isMaximal;
-        java.enable = isMaximal;
-        ts.enable = isMaximal;
-        svelte.enable = isMaximal;
-        go.enable = isMaximal;
-        elixir.enable = isMaximal;
-        zig.enable = isMaximal;
-        ocaml.enable = isMaximal;
-        python.enable = isMaximal;
-        dart.enable = isMaximal;
-        bash.enable = isMaximal;
-        tailwind.enable = isMaximal;
-        typst.enable = isMaximal;
-        clang = {
-          enable = isMaximal;
-          lsp.server = "clangd";
-        };
-
-        rust = {
-          enable = isMaximal;
-          crates.enable = isMaximal;
-        };
-      };
-
-      visuals = {
+      indentBlankline = {
         enable = true;
-        nvimWebDevicons.enable = true;
-        scrollBar.enable = isMaximal;
-        smoothScroll.enable = true;
-        cellularAutomaton.enable = false;
-        fidget-nvim.enable = true;
-        highlight-undo.enable = true;
-
-        indentBlankline = {
-          enable = true;
-          fillChar = null;
-          eolChar = null;
-          scope = {
-            enabled = true;
-          };
-        };
-
-        cursorline = {
-          enable = true;
-          lineTimeout = 0;
+        fillChar = null;
+        eolChar = null;
+        scope = {
+          enabled = true;
         };
       };
 
-      statusline = {
-        lualine = {
-          enable = true;
-          theme = "catppuccin";
-        };
-      };
-
-      theme = {
+      cursorline = {
         enable = true;
-        name = "catppuccin";
-        style = "mocha";
-        transparent = false;
+        lineTimeout = 0;
       };
+    };
 
-      autopairs.enable = true;
-
-      autocomplete = {
+    statusline = {
+      lualine = {
         enable = true;
-        type = "nvim-cmp";
+        theme = "catppuccin";
       };
+    };
 
-      filetree = {
-        nvimTree = {
-          enable = true;
-        };
-      };
+    theme = {
+      enable = true;
+      name = "catppuccin";
+      style = "mocha";
+      transparent = false;
+    };
 
-      tabline = {
-        nvimBufferline.enable = true;
-      };
+    autopairs.enable = true;
 
-      treesitter.context.enable = true;
+    autocomplete = {
+      enable = true;
+      type = "nvim-cmp";
+    };
 
-      binds = {
-        whichKey.enable = true;
-        cheatsheet.enable = true;
-      };
-
-      telescope.enable = true;
-
-      git = {
+    filetree = {
+      nvimTree = {
         enable = true;
-        gitsigns.enable = true;
-        gitsigns.codeActions.enable = false; # throws an annoying debug message
+      };
+    };
+
+    tabline = {
+      nvimBufferline.enable = true;
+    };
+
+    treesitter.context.enable = true;
+
+    binds = {
+      whichKey.enable = true;
+      cheatsheet.enable = true;
+    };
+
+    telescope.enable = true;
+
+    git = {
+      enable = true;
+      gitsigns.enable = true;
+      gitsigns.codeActions.enable = false; # throws an annoying debug message
+    };
+
+    minimap = {
+      minimap-vim.enable = false;
+      codewindow.enable = isMaximal; # lighter, faster, and uses lua for configuration
+    };
+
+    dashboard = {
+      dashboard-nvim.enable = false;
+      alpha.enable = isMaximal;
+    };
+
+    notify = {
+      nvim-notify.enable = true;
+    };
+
+    projects = {
+      project-nvim.enable = isMaximal;
+    };
+
+    utility = {
+      ccc.enable = isMaximal;
+      vim-wakatime.enable = false;
+      icon-picker.enable = isMaximal;
+      surround.enable = isMaximal;
+      diffview-nvim.enable = true;
+      motion = {
+        hop.enable = true;
+        leap.enable = true;
       };
 
-      minimap = {
-        minimap-vim.enable = false;
-        codewindow.enable = isMaximal; # lighter, faster, and uses lua for configuration
+      images = {
+        image-nvim.enable = false;
       };
+    };
 
-      dashboard = {
-        dashboard-nvim.enable = false;
-        alpha.enable = isMaximal;
+    notes = {
+      obsidian.enable = false; # FIXME: neovim fails to build if obsidian is enabled
+      orgmode.enable = false;
+      mind-nvim.enable = isMaximal;
+      todo-comments.enable = true;
+    };
+
+    terminal = {
+      toggleterm = {
+        enable = true;
+        lazygit.enable = true;
       };
+    };
 
-      notify = {
-        nvim-notify.enable = true;
+    ui = {
+      borders.enable = true;
+      noice.enable = true;
+      colorizer.enable = true;
+      modes-nvim.enable = false; # the theme looks terrible with catppuccin
+      illuminate.enable = true;
+      breadcrumbs = {
+        enable = isMaximal;
+        navbuddy.enable = isMaximal;
       };
-
-      projects = {
-        project-nvim.enable = isMaximal;
-      };
-
-      utility = {
-        ccc.enable = isMaximal;
-        vim-wakatime.enable = false;
-        icon-picker.enable = isMaximal;
-        surround.enable = isMaximal;
-        diffview-nvim.enable = true;
-        motion = {
-          hop.enable = true;
-          leap.enable = true;
+      smartcolumn = {
+        enable = true;
+        setupOpts.custom_colorcolumn = {
+          # this is a freeform module, it's `buftype = int;` for configuring column position
+          nix = "110";
+          ruby = "120";
+          java = "130";
+          go = ["90" "130"];
         };
-
-        images = {
-          image-nvim.enable = false;
-        };
       };
+    };
 
-      notes = {
-        obsidian.enable = false; # FIXME: neovim fails to build if obsidian is enabled
-        orgmode.enable = false;
-        mind-nvim.enable = isMaximal;
-        todo-comments.enable = true;
+    assistant = {
+      chatgpt.enable = false;
+      copilot = {
+        enable = false;
+        cmp.enable = isMaximal;
       };
+    };
 
-      terminal = {
-        toggleterm = {
-          enable = true;
-          lazygit.enable = true;
-        };
-      };
+    session = {
+      nvim-session-manager.enable = false;
+    };
 
-      ui = {
-        borders.enable = true;
-        noice.enable = true;
-        colorizer.enable = true;
-        modes-nvim.enable = false; # the theme looks terrible with catppuccin
-        illuminate.enable = true;
-        breadcrumbs = {
-          enable = isMaximal;
-          navbuddy.enable = isMaximal;
-        };
-        smartcolumn = {
-          enable = true;
-          setupOpts.custom_colorcolumn = {
-            # this is a freeform module, it's `buftype = int;` for configuring column position
-            nix = "110";
-            ruby = "120";
-            java = "130";
-            go = ["90" "130"];
-          };
-        };
-      };
+    gestures = {
+      gesture-nvim.enable = false;
+    };
 
-      assistant = {
-        chatgpt.enable = false;
-        copilot = {
-          enable = false;
-          cmp.enable = isMaximal;
-        };
-      };
+    comments = {
+      comment-nvim.enable = true;
+    };
 
-      session = {
-        nvim-session-manager.enable = false;
-      };
-
-      gestures = {
-        gesture-nvim.enable = false;
-      };
-
-      comments = {
-        comment-nvim.enable = true;
-      };
-
-      presence = {
-        neocord.enable = false;
-      };
+    presence = {
+      neocord.enable = false;
     };
   };
-in {
-  inherit neovimConfiguration mainConfig;
 }

@@ -1,7 +1,7 @@
 {
   inputs,
   pkgs,
-  lib ? import ../lib/stdlib-extended.nix pkgs.lib inputs,
+  lib,
   manpageUrls ? pkgs.path + "/doc/manpage-urls.json",
   ...
 }: let

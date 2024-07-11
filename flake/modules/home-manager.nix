@@ -1,8 +1,7 @@
 # Home Manager module
-packages: inputs: {
+packages: lib: {
   config,
   pkgs,
-  lib ? pkgs.lib,
   ...
 }: let
   inherit (lib) maintainers;
@@ -10,9 +9,10 @@ packages: inputs: {
   inherit (lib.lists) optional;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) attrsOf anything bool;
+  inherit (lib.nvim) neovimConfiguration;
+  inherit (lib.nvim.types) anythingConcatLists;
 
   cfg = config.programs.nvf;
-  inherit (import ../../configuration.nix inputs) neovimConfiguration;
 
   neovimConfigured = neovimConfiguration {
     inherit pkgs;
@@ -55,7 +55,7 @@ in {
     };
 
     settings = mkOption {
-      type = attrsOf anything;
+      type = attrsOf anythingConcatLists;
       default = {};
       description = "Attribute set of nvf preferences.";
       example = literalExpression ''

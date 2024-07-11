@@ -1,12 +1,18 @@
 {
   description = "A neovim flake with a modular configuration";
   outputs = {
-    nixpkgs,
     flake-parts,
     self,
     ...
-  } @ inputs:
-    flake-parts.lib.mkFlake {inherit inputs;} {
+  } @ inputs: let
+    # call the extedended library with `inputs`
+    # inputs is used to get the original standard library, and to pass inputs to the plugin autodiscovery function
+    lib = import ./lib/stdlib-extended.nix inputs;
+  in
+    flake-parts.lib.mkFlake {
+      inherit inputs;
+      specialArgs = {inherit lib;};
+    } {
       # provide overridable systems
       # https://github.com/nix-systems/nix-systems
       systems = import inputs.systems;
@@ -17,36 +23,33 @@
         ./flake/packages.nix
       ];
 
-      _module.args = {inherit (nixpkgs) lib;};
-
       flake = {
         lib = {
-          inherit (import ./lib/stdlib-extended.nix nixpkgs.lib inputs) nvim;
-          inherit (import ./configuration.nix inputs) neovimConfiguration;
+          inherit (lib) nvim neovimConfiguration;
         };
 
         homeManagerModules = {
           neovim-flake =
-            nixpkgs.lib.warn ''
+            lib.warn ''
               homeManagerModules.neovim-flake has been deprecated.
               Plese use the homeManagerModules.nvf instead
             ''
             self.homeManagerModules.nvf;
 
-          nvf = import ./flake/modules/home-manager.nix self.packages inputs;
+          nvf = import ./flake/modules/home-manager.nix self.packages lib;
 
           default = self.homeManagerModules.nvf;
         };
 
         nixosModules = {
           neovim-flake =
-            nixpkgs.lib.warn ''
+            lib.warn ''
               nixosModules.neovim-flake has been deprecated.
               Please use the nixosModules.nvf instead
             ''
             self.nixosModules.nvf;
 
-          nvf = import ./flake/modules/nixos.nix self.packages inputs;
+          nvf = import ./flake/modules/nixos.nix self.packages lib;
 
           default = self.nixosModules.nvf;
         };
