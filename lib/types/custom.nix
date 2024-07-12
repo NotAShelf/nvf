@@ -1,8 +1,8 @@
 {lib}: let
-  inherit (lib) isStringLike showOption showFiles getFiles mergeOneOption mergeEqualOption;
+  inherit (lib) isStringLike showOption showFiles getFiles mergeOneOption mergeEqualOption mkOptionType;
   inherit (lib.types) anything attrsOf;
   inherit (lib.nvim.types) anythingConcatLists;
-  inherit (builtins) typeOf isAttrs any head concatLists;
+  inherit (builtins) typeOf isAttrs any head concatLists stringLength;
 in {
   # HACK: Does this break anything in our case?
   # A modified version of the nixpkgs anything type that concatenates lists
@@ -50,4 +50,12 @@ in {
         # otherwise only allow equal values
         (mergeFunctions.${commonType} or mergeEqualOption) loc defs;
     };
+
+  char = mkOptionType {
+    name = "char";
+    description = "character";
+    descriptionClass = "noun";
+    check = value: stringLength value < 2;
+    merge = mergeEqualOption;
+  };
 }

@@ -4,10 +4,10 @@
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.strings) optionalString;
   inherit (lib.trivial) boolToString;
   inherit (lib.nvim.binds) mkBinding;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.visuals;
 in {
@@ -15,32 +15,7 @@ in {
     (mkIf cfg.indentBlankline.enable {
       vim.startPlugins = ["indent-blankline"];
       vim.luaConfigRC.indent-blankline = entryAnywhere ''
-        -- highlight error: https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
-        -- vim.wo.colorcolumn = "99999"
-        vim.opt.list = true
-
-        ${optionalString (cfg.indentBlankline.eolChar != null) ''
-          vim.opt.listchars:append({ eol = "${cfg.indentBlankline.eolChar}" })
-        ''}
-        ${optionalString (cfg.indentBlankline.fillChar != null) ''
-          vim.opt.listchars:append({ space = "${cfg.indentBlankline.fillChar}" })
-        ''}
-
-        require("ibl").setup {
-          enabled = true,
-          debounce = ${toString cfg.indentBlankline.debounce},
-          indent = { char = "${cfg.indentBlankline.indent.char}" },
-
-          viewport_buffer = {
-            min = ${toString cfg.indentBlankline.viewportBuffer.min},
-            max = ${toString cfg.indentBlankline.viewportBuffer.max},
-          },
-
-          scope = {
-            enabled = ${boolToString cfg.indentBlankline.scope.enabled},
-            show_end = ${boolToString cfg.indentBlankline.scope.showEndOfLine}
-          },
-        }
+        require("ibl").setup(${toLuaObject cfg.indentBlankline.setupOpts})
       '';
     })
 

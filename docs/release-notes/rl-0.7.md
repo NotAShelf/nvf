@@ -52,6 +52,11 @@ Release notes for release 0.7
 
 - Expose `lib.nvim.types.pluginType`, which for example allows the user to create abstractions for adding plugins
 
+- Migrate indent-blankline to setupOpts for more customizability. While the plugin's options can now be found under `indentBlankline.setupOpts`, the previous iteration of the module also included out of place/broken options, which have been removed for the time being. These are:
+  - `listChar` - this was already unused
+  - `fillChar` - this had nothing to do with the plugin, please configure it yourself by adding `vim.opt.listchars:append({ space = '<char>' })` to your lua configuration
+  - `eolChar`  - this also had nothing to do with the plugin, please configure it yourself by adding `vim.opt.listchars:append({ eol = '<char>' })` to your lua configuration
+
 [NotAShelf](https://github.com/notashelf):
 
 - Add `deno fmt` as the default Markdown formatter. This will be enabled

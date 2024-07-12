@@ -11,5 +11,5 @@ in {
   inherit (typesDag) dagOf;
   inherit (typesPlugin) pluginsOpt extraPluginType mkPluginSetupOption luaInline pluginType;
   inherit (typesLanguage) diagnostics mkGrammarOption;
-  inherit (typesCustom) anythingConcatLists;
+  inherit (typesCustom) anythingConcatLists char;
 }
