@@ -32211,7 +32211,7 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.visuals.indentBlankline.debounce"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.debounce"><code class="option">vim.visuals.indentBlankline.debounce</code>
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.debounce"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.debounce"><code class="option">vim.visuals.indentBlankline.setupOpts.debounce</code>
   </a>
  </span>
 </dt>
@@ -32235,63 +32235,15 @@ signed integer</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.visuals.indentBlankline.eolChar"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.eolChar"><code class="option">vim.visuals.indentBlankline.eolChar</code>
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.indent.char"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.indent.char"><code class="option">vim.visuals.indentBlankline.setupOpts.indent.char</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>Character at end of line</p>
+<p>Character(s) for indentation guide</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-null or string</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&quot;↴&quot;</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/visuals.nix" target="_top">
-&lt;nvf/modules/plugins/visuals/visuals.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="opt-vim.visuals.indentBlankline.fillChar"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.fillChar"><code class="option">vim.visuals.indentBlankline.fillChar</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Character to fill indents</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-null or string</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&quot;⋅&quot;</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/visuals.nix" target="_top">
-&lt;nvf/modules/plugins/visuals/visuals.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="opt-vim.visuals.indentBlankline.indent.char"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.indent.char"><code class="option">vim.visuals.indentBlankline.indent.char</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Character for indentation line</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-string</p>
+string or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">&quot;│&quot;</code></p>
@@ -32307,18 +32259,18 @@ string</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.visuals.indentBlankline.listChar"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.listChar"><code class="option">vim.visuals.indentBlankline.listChar</code>
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.indent.highlight"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.indent.highlight"><code class="option">vim.visuals.indentBlankline.setupOpts.indent.highlight</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>Character for indentation line</p>
+<p>The highlight group(s) applied to the indentation guide.</p><p>See <code class="literal">:help ibl.config.indent.highlight</code>.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-string</p>
+null or string or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&quot;│&quot;</code></p>
+<code class="literal">null</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -32331,7 +32283,103 @@ string</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.visuals.indentBlankline.scope.enabled"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.scope.enabled"><code class="option">vim.visuals.indentBlankline.scope.enabled</code>
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.indent.priority"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.indent.priority"><code class="option">vim.visuals.indentBlankline.setupOpts.indent.priority</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Virtual text priority for the indentation guide</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+signed integer</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">1</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/visuals.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/visuals.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.indent.repeat_linebreak"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.indent.repeat_linebreak"><code class="option">vim.visuals.indentBlankline.setupOpts.indent.repeat_linebreak</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Repeat indentation guides on wrapped lines</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/visuals.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/visuals.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.indent.smart_indent_cap"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.indent.smart_indent_cap"><code class="option">vim.visuals.indentBlankline.setupOpts.indent.smart_indent_cap</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Caps the number of indentation levels based on surrounding code</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/visuals.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/visuals.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.indent.tab_char"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.indent.tab_char"><code class="option">vim.visuals.indentBlankline.setupOpts.indent.tab_char</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Character(s) for tab indentation guide.</p><p>See <code class="literal">:help ibl.config.indent.tab_char</code>.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string or list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/visuals.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/visuals.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.scope.enabled"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.scope.enabled"><code class="option">vim.visuals.indentBlankline.setupOpts.scope.enabled</code>
   </a>
  </span>
 </dt>
@@ -32355,19 +32403,18 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.visuals.indentBlankline.scope.showEndOfLine"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.scope.showEndOfLine"><code class="option">vim.visuals.indentBlankline.scope.showEndOfLine</code>
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.scope.char"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.scope.char"><code class="option">vim.visuals.indentBlankline.setupOpts.scope.char</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>Displays the end of line character set by <a class="xref" href="options.html#opt-vim.visuals.indentBlankline.eolChar"  ><code class="option">vim.visuals.indentBlankline.eolChar</code></a> instead of the
-indent guide on line returns.</p>
+<p>The character(s) for the scope indentation guide</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-boolean</p>
+string or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">config.vim.visuals.indentBlankline.eolChar != null</code></p>
+<code class="literal">config.vim.visuals.indentBlankline.setuopOpts.indent.char</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -32380,7 +32427,234 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.visuals.indentBlankline.viewportBuffer.max"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.viewportBuffer.max"><code class="option">vim.visuals.indentBlankline.viewportBuffer.max</code>
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.scope.exclude.language"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.scope.exclude.language"><code class="option">vim.visuals.indentBlankline.setupOpts.scope.exclude.language</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The list of treesitter languages to disable scope for.</p><p><code class="literal">*</code> can be used as a wildcard for every language/node type.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">[ ]</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/visuals.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/visuals.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.scope.exclude.node_type"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.scope.exclude.node_type"><code class="option">vim.visuals.indentBlankline.setupOpts.scope.exclude.node_type</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Nodes to ignore in scope checking, per language.</p><p><code class="literal">*</code> can be used as a wildcard for every language.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+attribute set of list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">{
+  &quot;*&quot; = [
+    &quot;source_file&quot;
+    &quot;program&quot;
+  ];
+  lua = [
+    &quot;chunk&quot;
+  ];
+  python = [
+    &quot;module&quot;
+  ];
+}
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/visuals.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/visuals.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.scope.highlight"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.scope.highlight"><code class="option">vim.visuals.indentBlankline.setupOpts.scope.highlight</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The highlight group(s) applied to the scope.</p><p>See <code class="literal">:help </code>ibl.config.scope.highlight`.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string or list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/visuals.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/visuals.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.scope.include.node_type"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.scope.include.node_type"><code class="option">vim.visuals.indentBlankline.setupOpts.scope.include.node_type</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Additional nodes to be used for scope checking, per language</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+attribute set of list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/visuals.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/visuals.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.scope.injected_languages"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.scope.injected_languages"><code class="option">vim.visuals.indentBlankline.setupOpts.scope.injected_languages</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Check for injected languages (treesitter)</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">config.vim.treesitter.enable</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/visuals.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/visuals.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.scope.priority"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.scope.priority"><code class="option">vim.visuals.indentBlankline.setupOpts.scope.priority</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Virtual text priority for the scope</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+signed integer</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">1024</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/visuals.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/visuals.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.scope.show_end"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.scope.show_end"><code class="option">vim.visuals.indentBlankline.setupOpts.scope.show_end</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Show an underline on the last line of the scope</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/visuals.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/visuals.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.scope.show_exact_scope"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.scope.show_exact_scope"><code class="option">vim.visuals.indentBlankline.setupOpts.scope.show_exact_scope</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Show the scope underline at the exact start of the scope, even if that’s to the right of the indentation guide</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/visuals.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/visuals.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.scope.show_start"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.scope.show_start"><code class="option">vim.visuals.indentBlankline.setupOpts.scope.show_start</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Show an underline on the first line of the scope</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/visuals.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/visuals.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.viewport_buffer.max"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.viewport_buffer.max"><code class="option">vim.visuals.indentBlankline.setupOpts.viewport_buffer.max</code>
   </a>
  </span>
 </dt>
@@ -32405,7 +32679,7 @@ signed integer</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.visuals.indentBlankline.viewportBuffer.min"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.viewportBuffer.min"><code class="option">vim.visuals.indentBlankline.viewportBuffer.min</code>
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.viewport_buffer.min"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.viewport_buffer.min"><code class="option">vim.visuals.indentBlankline.setupOpts.viewport_buffer.min</code>
   </a>
  </span>
 </dt>
@@ -32418,6 +32692,54 @@ signed integer</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">30</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/visuals.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/visuals.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.whitespace.highlight"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.whitespace.highlight"><code class="option">vim.visuals.indentBlankline.setupOpts.whitespace.highlight</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The highlight group(s) applied to whitespace.</p><p>See <code class="literal">:help ibl.config.whitespace.highlight</code>.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string or list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/visuals/visuals.nix" target="_top">
+&lt;nvf/modules/plugins/visuals/visuals.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.visuals.indentBlankline.setupOpts.whitespace.remove_blankline_trail"></a><a class="term" href="options.html#opt-vim.visuals.indentBlankline.setupOpts.whitespace.remove_blankline_trail"><code class="option">vim.visuals.indentBlankline.setupOpts.whitespace.remove_blankline_trail</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Remove trailing whitespace on blanklines</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
