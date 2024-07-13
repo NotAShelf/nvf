@@ -33,13 +33,27 @@ inputs: {
   # build a vim plugin with the given name and arguments
   # if the plugin is nvim-treesitter, warn the user to use buildTreesitterPlug
   # instead
-  buildPlug = {pname, ...} @ args:
-    assert assertMsg (pname != "nvim-treesitter") "Use buildTreesitterPlug for building nvim-treesitter.";
-      buildVimPlugin (args
-        // {
-          version = "master";
-          src = getAttr ("plugin-" + pname) inputs;
-        });
+  buildPlug = {pname, ...} @ attrs: let
+    src = getAttr ("plugin-" + pname) inputs;
+  in
+    pkgs.runCommand pname {
+      inherit src;
+      version = src.shortRev or src.shortDirtyRev or "dirty";
+    }
+    // attrs
+    ''
+      mkdir -p $out
+      cp -r . $out
+    '';
+
+  noBuildPlug = {pname, ...} @ attrs: let
+    input = getAttr ("plugin-" + pname) inputs;
+  in
+    {
+      version = input.shortRev or input.shortDirtyRev or "dirty";
+      outPath = getAttr ("plugin-" + pname) inputs;
+    }
+    // attrs;
 
   buildTreesitterPlug = grammars: vimPlugins.nvim-treesitter.withPlugins (_: grammars);
 
@@ -53,11 +67,14 @@ inputs: {
           then (buildTreesitterPlug vimOptions.treesitter.grammars)
           else if (plug == "flutter-tools-patched")
           then
-            (buildPlug {
-              pname = "flutter-tools";
-              patches = [../patches/flutter-tools.patch];
-            })
-          else (buildPlug {pname = plug;})
+            (
+              buildPlug
+              {
+                pname = "flutter-tools";
+                patches = [../patches/flutter-tools.patch];
+              }
+            )
+          else noBuildPlug {pname = plug;}
         )
       else plug
     ))
@@ -84,7 +101,7 @@ inputs: {
   neovim-wrapped = inputs.neovim-wrapper.legacyPackages.${pkgs.stdenv.system}.neovimWrapper {
     neovim = vimOptions.package;
     plugins = concatLists [builtStartPlugins builtOptPlugins];
-    wrapperArgs = ["--set" "NVIM_APPNAME" "nvf"];
+    appName = "nvf";
     initViml = vimOptions.builtConfigRC;
     extraBinPath = vimOptions.extraPackages;
 
