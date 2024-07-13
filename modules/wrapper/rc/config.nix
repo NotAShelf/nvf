@@ -11,9 +11,8 @@
   inherit (lib.trivial) showWarnings;
   inherit (lib.types) str nullOr;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.dag) entryAnywhere entryAfter topoSort mkLuarcSection mkVimrcSection;
-  inherit (lib.nvim.lua) toLuaObject wrapLuaConfig;
-  inherit (lib.nvim.vim) valToVim;
+  inherit (lib.nvim.dag) entryAnywhere entryAfter topoSort mkLuarcSection;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.config) mkBool;
 
   cfg = config.vim;
@@ -82,9 +81,9 @@
       maps);
 in {
   config = let
-    filterNonNull = mappings: filterAttrs (_name: value: value != null) mappings;
+    filterNonNull = attrs: filterAttrs (_: value: value != null) attrs;
     globalsScript =
-      mapAttrsFlatten (name: value: "let g:${name}=${valToVim value}")
+      mapAttrsFlatten (name: value: "vim.g.${name} = ${toLuaObject value}")
       (filterNonNull cfg.globals);
 
     toLuaBindings = mode: maps:
@@ -123,78 +122,34 @@ in {
         else abort ("Dependency cycle in ${name}: " + toJSON sortedDag);
     in
       result;
+
+    extraPluginConfigs = resolveDag {
+      name = "extra plugins config";
+      dag = mapAttrs (_: value: entryAfter value.after value.setup) cfg.extraPlugins;
+      mapResult = result: concatLines (map mkLuarcSection result);
+    };
+
+    maps = [
+      nmap
+      imap
+      vmap
+      xmap
+      smap
+      cmap
+      omap
+      tmap
+      lmap
+      icmap
+      allmap
+    ];
+    mappings = concatLines (map concatLines maps);
   in {
     vim = {
-      configRC = {
-        globalsScript = entryAnywhere (concatLines globalsScript);
-
-        # Call additional lua files with :luafile in Vimscript
-        # section of the configuration, only after
-        # the luaScript section  has been evaluated
-        extraLuaFiles = let
-          callLuaFiles = map (file: "luafile ${file}") cfg.extraLuaFiles;
-        in
-          entryAfter ["globalScript"] (concatLines callLuaFiles);
-
-        # wrap the lua config in a lua block
-        # using the wrapLuaConfic function from the lib
-        luaScript = let
-          mapResult = result: (wrapLuaConfig {
-            luaBefore = "${cfg.luaConfigPre}";
-            luaConfig = concatLines (map mkLuarcSection result);
-            luaAfter = "${cfg.luaConfigPost}";
-          });
-
-          luaConfig = resolveDag {
-            name = "lua config script";
-            dag = cfg.luaConfigRC;
-            inherit mapResult;
-          };
-        in
-          entryAnywhere luaConfig;
-
-        extraPluginConfigs = let
-          mapResult = result: (wrapLuaConfig {
-            luaConfig = concatLines (map mkLuarcSection result);
-          });
-
-          extraPluginsDag = mapAttrs (_: {
-            after,
-            setup,
-            ...
-          }:
-            entryAfter after setup)
-          cfg.extraPlugins;
-
-          pluginConfig = resolveDag {
-            name = "extra plugins config";
-            dag = extraPluginsDag;
-            inherit mapResult;
-          };
-        in
-          entryAfter ["luaScript"] pluginConfig;
-
-        # This is probably not the right way to set the config. I'm not sure how it should look like.
-        mappings = let
-          maps = [
-            nmap
-            imap
-            vmap
-            xmap
-            smap
-            cmap
-            omap
-            tmap
-            lmap
-            icmap
-            allmap
-          ];
-          mapConfig = wrapLuaConfig {luaConfig = concatLines (map concatLines maps);};
-        in
-          entryAfter ["globalsScript"] mapConfig;
+      luaConfigRC = {
+        globalsScript = concatLines globalsScript;
       };
 
-      builtConfigRC = let
+      builtLuaConfigRC = let
         # Catch assertions and warnings
         # and throw for each failed assertion. If no assertions are found, show warnings.
         failedAssertions = map (x: x.message) (filter (x: !x.assertion) config.assertions);
@@ -203,14 +158,22 @@ in {
           then throw "\nFailed assertions:\n${concatMapStringsSep "\n" (x: "- ${x}") failedAssertions}"
           else showWarnings config.warnings;
 
-        mapResult = result: concatMapStringsSep "\n" mkVimrcSection result;
-        vimConfig = resolveDag {
-          name = "vim config script";
-          dag = cfg.configRC;
-          inherit mapResult;
+        luaConfig = resolveDag {
+          name = "lua config script";
+          dag = cfg.luaConfigRC;
+          mapResult = result:
+            concatLines [
+              cfg.luaConfigPre
+
+              (concatMapStringsSep "\n" mkLuarcSection result)
+              extraPluginConfigs
+              mappings
+
+              cfg.luaConfigPost
+            ];
         };
       in
-        baseSystemAssertWarn vimConfig;
+        baseSystemAssertWarn luaConfig;
     };
   };
 }

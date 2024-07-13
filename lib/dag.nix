@@ -146,9 +146,4 @@ in {
     -- SECTION: ${section.name}
     ${section.data}
   '';
-
-  mkVimrcSection = section: ''
-    " SECTION: ${section.name}
-    ${section.data}
-  '';
 }

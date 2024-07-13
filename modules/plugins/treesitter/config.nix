@@ -37,15 +37,16 @@ in {
       };
 
       # For some reason treesitter highlighting does not work on start if this is set before syntax on
-      configRC.treesitter-fold = mkIf cfg.fold (entryBefore ["basic"] ''
-        " This is required by treesitter-context to handle folds
-        set foldmethod=expr
-        set foldexpr=nvim_treesitter#foldexpr()
+      # HACK: is there a way to convert the foldexpr line to lua?
+      luaConfigRC.treesitter-fold = mkIf cfg.fold (entryBefore ["basic"] ''
+        -- This is required by treesitter-context to handle folds
+        vim.o.foldmethod = "expr"
+        vim.cmd("set foldexpr=nvim_treesitter#foldexpr())"
 
-        " This is optional, but is set rather as a sane default.
-        " If unset, opened files will be folded by automatically as
-        " the files are opened
-        set nofoldenable
+        -- This is optional, but is set rather as a sane default.
+        -- If unset, opened files will be folded by automatically as
+        -- the files are opened
+        vim.o.foldenable = false
       '');
 
       luaConfigRC.treesitter = entryAfter ["basic"] ''

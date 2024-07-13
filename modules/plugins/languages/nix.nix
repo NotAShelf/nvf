@@ -176,8 +176,16 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
-      vim.configRC.nix = entryAnywhere ''
-        autocmd filetype nix setlocal tabstop=2 shiftwidth=2 softtabstop=2
+      vim.luaConfigRC.nix = ''
+        vim.api.nvim_create_autocmd("FileType", {
+          pattern = "nix",
+          callback = function(opts)
+            bo = vim.bo[opts.buf]
+            bo.tabstop = 2
+            bo.shiftwidth = 2
+            bo.softtabstop = 2
+          end
+        })
       '';
     }
 

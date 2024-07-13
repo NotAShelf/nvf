@@ -5,16 +5,17 @@
 }: let
   inherit (lib.options) mkOption literalExpression;
   inherit (lib.strings) optionalString;
-  inherit (lib.types) enum bool str int nullOr;
+  inherit (lib.types) enum bool str int ;
   inherit (lib.nvim.dag) entryAfter;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim;
 in {
   options.vim = {
     leaderKey = mkOption {
-      type = nullOr str;
-      default = null;
-      description = "The leader key to be used internally";
+      type = str;
+      default = " ";
+      description = "The leader key used for `<leader>` mappings";
     };
 
     colourTerm = mkOption {
@@ -51,12 +52,6 @@ in {
       type = bool;
       default = !config.vim.treesitter.highlight.enable;
       description = "Enable syntax highlighting";
-    };
-
-    mapLeaderSpace = mkOption {
-      type = bool;
-      default = true;
-      description = "Map the space key to leader key";
     };
 
     useSystemClipboard = mkOption {
@@ -165,117 +160,110 @@ in {
     };
   };
 
-  config.vim.configRC.basic = entryAfter ["globalsScript"] ''
-    " Settings that are set for everything
-    set encoding=utf-8
-    set hidden
-    set shortmess+=c
-    set expandtab
-    set mouse=${cfg.mouseSupport}
-    set tabstop=${toString cfg.tabWidth}
-    set shiftwidth=${toString cfg.tabWidth}
-    set softtabstop=${toString cfg.tabWidth}
-    set cmdheight=${toString cfg.cmdHeight}
-    set updatetime=${toString cfg.updateTime}
-    set tm=${toString cfg.mapTimeout}
-    set cursorlineopt=${toString cfg.cursorlineOpt}
-    set scrolloff=${toString cfg.scrollOffset}
+  config.vim.luaConfigRC.basic = entryAfter ["globalsScript"] ''
+    -- Settings that are set for everything
+    vim.o.encoding = "utf-8"
+    vim.o.hidden = true
+    vim.opt.shortmess:append("c")
+    vim.o.expandtab = true
+    vim.o.mouse = ${toLuaObject cfg.mouseSupport}
+    vim.o.tabstop = ${toLuaObject cfg.tabWidth}
+    vim.o.shiftwidth = ${toLuaObject cfg.tabWidth}
+    vim.o.softtabstop = ${toLuaObject cfg.tabWidth}
+    vim.o.cmdheight = ${toLuaObject cfg.cmdHeight}
+    vim.o.updatetime = ${toLuaObject cfg.updateTime}
+    vim.o.tm = ${toLuaObject cfg.mapTimeout}
+    vim.o.cursorlineopt = ${toLuaObject cfg.cursorlineOpt}
+    vim.o.scrolloff = ${toLuaObject cfg.scrollOffset}
+    vim.g.mapleader = ${toLuaObject cfg.leaderKey}
+    vim.g.maplocalleader = ${toLuaObject cfg.leaderKey}
 
     ${optionalString cfg.splitBelow ''
-      set splitbelow
+      vim.o.splitbelow = true
     ''}
 
     ${optionalString cfg.splitRight ''
-      set splitright
+      vim.o.splitright = true
     ''}
 
     ${optionalString cfg.showSignColumn ''
-      set signcolumn=yes
+      vim.o.signcolumn = "yes"
     ''}
 
     ${optionalString cfg.autoIndent ''
-      set autoindent
+      vim.o.autoindent = true
     ''}
 
     ${optionalString cfg.preventJunkFiles ''
-      set noswapfile
-      set nobackup
-      set nowritebackup
+      vim.o.swapfile = false
+      vim.o.backup = false
+      vim.o.writebackup = false
     ''}
 
     ${optionalString (cfg.bell == "none") ''
-      set noerrorbells
-      set novisualbell
+      vim.o.errorbells = false
+      vim.o.visualbell = false
     ''}
 
     ${optionalString (cfg.bell == "on") ''
-      set novisualbell
+      vim.o.visualbell = false
     ''}
 
     ${optionalString (cfg.bell == "visual") ''
-      set noerrorbells
+      vim.o.errorbells = false
     ''}
 
     ${optionalString (cfg.lineNumberMode == "relative") ''
-      set relativenumber
+      vim.o.relativenumber = true
     ''}
 
     ${optionalString (cfg.lineNumberMode == "number") ''
-      set number
+      vim.o.number = true
     ''}
 
     ${optionalString (cfg.lineNumberMode == "relNumber") ''
-      set number relativenumber
+      vim.o.number = true
+      vim.o.relativenumber = true
     ''}
 
     ${optionalString cfg.useSystemClipboard ''
-      set clipboard+=unnamedplus
-    ''}
-
-    ${optionalString cfg.mapLeaderSpace ''
-      let mapleader=" "
-      let maplocalleader=" "
+      vim.opt.clipboard:append("unnamedplus")
     ''}
 
     ${optionalString cfg.syntaxHighlighting ''
-      syntax on
+      vim.cmd("syntax on")
     ''}
 
     ${optionalString (!cfg.wordWrap) ''
-      set nowrap
+      vim.o.wrap = false
     ''}
 
     ${optionalString cfg.hideSearchHighlight ''
-      set nohlsearch
-      set incsearch
+      vim.o.hlsearch = false
+      vim.o.incsearch = true
     ''}
 
     ${optionalString cfg.colourTerm ''
-      set termguicolors
-      set t_Co=256
+      vim.o.termguicolors = true
     ''}
 
     ${optionalString (!cfg.enableEditorconfig) ''
-      let g:editorconfig = v:false
-    ''}
-
-    ${optionalString (cfg.leaderKey != null) ''
-      let mapleader = "${toString cfg.leaderKey}"
+      vim.g.editorconfig = false
     ''}
 
     ${optionalString (cfg.searchCase == "ignore") ''
-      set nosmartcase
-      set ignorecase
+      vim.o.smartcase = false
+      vim.o.ignorecase = true
     ''}
 
     ${optionalString (cfg.searchCase == "smart") ''
-      set smartcase
-      set ignorecase
+      vim.o.smartcase = true
+      vim.o.ignorecase = true
     ''}
 
     ${optionalString (cfg.searchCase == "sensitive") ''
-      set nosmartcase
-      set noignorecase
+      vim.o.smartcase = false
+      vim.o.ignorecase = false
     ''}
   '';
 }

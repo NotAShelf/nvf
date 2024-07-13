@@ -12,7 +12,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.dag) entryAfter;
 
   packageToCmd = package: defaultCmd:
     if isList cfg.lsp.package
@@ -141,7 +141,7 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.cHeader {
-      vim.configRC.c-header = entryAnywhere "let g:c_syntax_for_h = 1";
+      vim.luaConfigRC.c-header = entryAfter ["basic"] "vim.g.c_syntax_for_h = 1";
     })
 
     (mkIf cfg.treesitter.enable {
