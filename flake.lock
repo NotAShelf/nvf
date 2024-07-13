@@ -88,6 +88,26 @@
         "type": "github"
       }
     },
+    "neovim-wrapper": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1720539383,
+        "narHash": "sha256-HF4+pQJwgw62lLpWo5TiXFb8ui0FpZcb2TkSh9qXju8=",
+        "owner": "Gerg-L",
+        "repo": "neovim-wrapper",
+        "rev": "a2b26accc1c414bc0ef0132ab167e2973dc26e68",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Gerg-L",
+        "repo": "neovim-wrapper",
+        "type": "github"
+      }
+    },
     "nil": {
       "inputs": {
         "flake-utils": [
@@ -1781,6 +1801,7 @@
       "inputs": {
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
+        "neovim-wrapper": "neovim-wrapper",
         "nil": "nil",
         "nixpkgs": "nixpkgs",
         "nmd": "nmd",

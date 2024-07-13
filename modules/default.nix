@@ -6,13 +6,11 @@ inputs: {
   extraSpecialArgs ? {},
   extraModules ? [],
 }: let
-  inherit (builtins) map filter isString toString getAttr;
-  inherit (pkgs) wrapNeovimUnstable vimPlugins;
+  inherit (pkgs) vimPlugins;
   inherit (pkgs.vimUtils) buildVimPlugin;
-  inherit (pkgs.neovimUtils) makeNeovimConfig;
-  inherit (lib.strings) makeBinPath escapeShellArgs concatStringsSep;
-  inherit (lib.lists) concatLists optional;
-  inherit (lib.attrsets) recursiveUpdate;
+  inherit (lib.strings) isString toString;
+  inherit (lib.lists) filter map concatLists;
+  inherit (lib.attrsets) recursiveUpdate getAttr;
   inherit (lib.asserts) assertMsg;
 
   # import modules.nix with `check`, `pkgs` and `lib` as arguments
@@ -74,10 +72,6 @@ inputs: {
     optional = true;
   }) (buildConfigPlugins vimOptions.optPlugins);
 
-  # combine built start and optional plugins
-  # into a single list
-  plugins = builtStartPlugins ++ builtOptPlugins;
-
   # additional Lua and Python3 packages, mapped to their respective functions
   # to conform to the format makeNeovimConfig expects. end user should
   # only ever need to pass a list of packages, which are modified
@@ -85,29 +79,18 @@ inputs: {
   extraLuaPackages = ps: map (x: ps.${x}) vimOptions.luaPackages;
   extraPython3Packages = ps: map (x: ps.${x}) vimOptions.python3Packages;
 
-  extraWrapperArgs =
-    concatStringsSep " " (optional (vimOptions.extraPackages != []) ''--prefix PATH : "${makeBinPath vimOptions.extraPackages}"'');
+  # Wrap the user's desired (unwrapped) Neovim package with arguments that'll be used to
+  # generate a wrapped Neovim package.
+  neovim-wrapped = inputs.neovim-wrapper.legacyPackages.${pkgs.stdenv.system}.neovimWrapper {
+    neovim = vimOptions.package;
+    plugins = concatLists [builtStartPlugins builtOptPlugins];
+    wrapperArgs = ["--set" "NVIM_APPNAME" "nvf"];
+    initViml = vimOptions.builtConfigRC;
+    extraBinPath = vimOptions.extraPackages;
 
-  # wrap user's desired neovim package with the desired neovim configuration
-  # using wrapNeovimUnstable and makeNeovimConfig from nixpkgs.
-  # the makeNeovimConfig function takes the following arguments:
-  #  - withPython (bool)
-  #  - extraPython3Packages (lambda)
-  #  - withNodeJs (bool)
-  #  - withRuby (bool)
-  #  - extraLuaPackages (lambda)
-  #  - plugins (list)
-  #  - customRC (string)
-  # and returns the wrapped package
-  neovimConfigured = makeNeovimConfig {
     inherit (vimOptions) viAlias vimAlias withRuby withNodeJs withPython3;
-    inherit plugins extraLuaPackages extraPython3Packages;
-    customRC = vimOptions.builtConfigRC;
+    inherit extraLuaPackages extraPython3Packages;
   };
-
-  neovim-wrapped = wrapNeovimUnstable vimOptions.package (recursiveUpdate neovimConfigured {
-    wrapperArgs = escapeShellArgs neovimConfigured.wrapperArgs + " " + extraWrapperArgs;
-  });
 in {
   inherit (module) options config;
   inherit (module._module.args) pkgs;
