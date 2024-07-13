@@ -84,7 +84,7 @@ inputs: {
   neovim-wrapped = inputs.neovim-wrapper.legacyPackages.${pkgs.stdenv.system}.neovimWrapper {
     neovim = vimOptions.package;
     plugins = concatLists [builtStartPlugins builtOptPlugins];
-    wrapperArgs = ["--set" "NVIM_APPNAME" "nvf"];
+    appName = "nvf";
     initViml = vimOptions.builtConfigRC;
     extraBinPath = vimOptions.extraPackages;
 
