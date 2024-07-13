@@ -167,8 +167,8 @@
       flake = false;
     };
 
-    plugin-rust-tools = {
-      url = "github:simrat39/rust-tools.nvim";
+    plugin-rustaceanvim = {
+      url = "github:mrcjkb/rustaceanvim";
       flake = false;
     };
 
