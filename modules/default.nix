@@ -8,7 +8,7 @@ inputs: {
 }: let
   inherit (pkgs) vimPlugins;
   inherit (pkgs.vimUtils) buildVimPlugin;
-  inherit (lib.strings) makeBinPath isString toString;
+  inherit (lib.strings) isString toString;
   inherit (lib.lists) filter map concatLists;
   inherit (lib.attrsets) recursiveUpdate getAttr;
   inherit (lib.asserts) assertMsg;
@@ -85,7 +85,7 @@ inputs: {
     neovim = vimOptions.package;
     plugins = concatLists [builtStartPlugins builtOptPlugins];
     wrapperArgs = ["--set" "NVIM_APPNAME" "nvf"];
-    extraLuaFiles = [(pkgs.writeText "nvf-init.vim" vimOptions.builtConfigRC)];
+    initViml = vimOptions.builtConfigRC;
     extraBinPath = vimOptions.extraPackages;
 
     inherit (vimOptions) viAlias vimAlias withRuby withNodeJs withPython3;
