@@ -6,8 +6,8 @@ addition for certain options is the [**DAG
 type which is borrowed from home-manager's extended library. This type is most
 used for topologically sorting strings. The DAG type allows the attribute set
 entries to express dependency relations among themselves. This can, for
-example, be used to control the order of configuration sections in your
-`configRC` or `luaConfigRC`.
+example, be used to control the order of configuration sections in your 
+`luaConfigRC`.
 
 The below section, mostly taken from the [home-manager
 manual](https://raw.githubusercontent.com/nix-community/home-manager/master/docs/manual/writing-modules/types.md)
