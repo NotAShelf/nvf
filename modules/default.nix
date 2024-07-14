@@ -36,11 +36,11 @@ inputs: {
   buildPlug = {pname, ...} @ attrs: let
     src = getAttr ("plugin-" + pname) inputs;
   in
-    pkgs.runCommand pname {
-      inherit src;
-      version = src.shortRev or src.shortDirtyRev or "dirty";
-    }
-    // attrs
+    pkgs.runCommand pname ({
+        inherit src;
+        version = src.shortRev or src.shortDirtyRev or "dirty";
+      }
+      // attrs)
     ''
       mkdir -p $out
       cp -r . $out
@@ -98,7 +98,7 @@ inputs: {
 
   # Wrap the user's desired (unwrapped) Neovim package with arguments that'll be used to
   # generate a wrapped Neovim package.
-  neovim-wrapped = inputs.neovim-wrapper.legacyPackages.${pkgs.stdenv.system}.neovimWrapper {
+  neovim-wrapped = inputs.mnw.lib.wrap pkgs {
     neovim = vimOptions.package;
     plugins = concatLists [builtStartPlugins builtOptPlugins];
     appName = "nvf";

@@ -67,6 +67,21 @@
         "type": "github"
       }
     },
+    "mnw": {
+      "locked": {
+        "lastModified": 1720927281,
+        "narHash": "sha256-4Z2FtCuL0lT+sM2gb1JMcXOUkeYrWeYZjjs1HuVTlOs=",
+        "owner": "Gerg-L",
+        "repo": "mnw",
+        "rev": "302b18ddb8498aa9a7e0c01f7026e49d545e6898",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Gerg-L",
+        "repo": "mnw",
+        "type": "github"
+      }
+    },
     "naersk": {
       "inputs": {
         "nixpkgs": [
@@ -85,26 +100,6 @@
       "original": {
         "owner": "nix-community",
         "repo": "naersk",
-        "type": "github"
-      }
-    },
-    "neovim-wrapper": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1720909720,
-        "narHash": "sha256-ei4ap9Y076Livf7HNi0DeCG3FNfuKfnrmjqMkF4UbLs=",
-        "owner": "Gerg-L",
-        "repo": "neovim-wrapper",
-        "rev": "bdcac428162888855b84fb703b29db76c1de6e73",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Gerg-L",
-        "repo": "neovim-wrapper",
         "type": "github"
       }
     },
@@ -1800,7 +1795,7 @@
       "inputs": {
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
-        "neovim-wrapper": "neovim-wrapper",
+        "mnw": "mnw",
         "nil": "nil",
         "nixpkgs": "nixpkgs",
         "nmd": "nmd",
