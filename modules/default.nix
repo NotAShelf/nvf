@@ -98,7 +98,7 @@ inputs: {
 
   # Wrap the user's desired (unwrapped) Neovim package with arguments that'll be used to
   # generate a wrapped Neovim package.
-  neovim-wrapped = inputs.neovim-wrapper.legacyPackages.${pkgs.stdenv.system}.neovimWrapper {
+  neovim-wrapped = inputs.mnw.lib.wrap pkgs {
     neovim = vimOptions.package;
     plugins = concatLists [builtStartPlugins builtOptPlugins];
     appName = "nvf";
