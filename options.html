@@ -3253,7 +3253,7 @@ attribute set of (submodule)</p>
 <p>Plugin Package.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-null or package or one of “alpha-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc”, “cellular-automaton”, “chatgpt”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “cmp-vsnip”, “codewindow-nvim”, “comment-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools”, “fidget-nvim”, “flutter-tools”, “gesture-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “highlight-undo”, “hop-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline”, “leap-nvim”, “lsp-lines”, “lsp-signature”, “lspkind”, “lspsaga”, “lualine”, “mind-nvim”, “minimap-vim”, “modes-nvim”, “neocord”, “neodev-nvim”, “noice-nvim”, “none-ls”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-code-action-menu”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lspconfig”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip”, “nvim-nio”, “nvim-notify”, “nvim-session-manager”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-web-devicons”, “obsidian-nvim”, “onedark”, “orgmode-nvim”, “oxocarbon”, “plenary-nvim”, “project-nvim”, “registers”, “rose-pine”, “rust-tools”, “scrollbar-nvim”, “smartcolumn”, “sqls-nvim”, “tabular”, “telescope”, “todo-comments”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “vim-vsnip”, “which-key”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”</p>
+null or package or one of “alpha-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc”, “cellular-automaton”, “chatgpt”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “cmp-vsnip”, “codewindow-nvim”, “comment-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools”, “fidget-nvim”, “flutter-tools”, “gesture-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “highlight-undo”, “hop-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline”, “leap-nvim”, “lsp-lines”, “lsp-signature”, “lspkind”, “lspsaga”, “lualine”, “mind-nvim”, “minimap-vim”, “modes-nvim”, “neo-tree-nvim”, “neocord”, “neodev-nvim”, “noice-nvim”, “none-ls”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-code-action-menu”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lspconfig”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip”, “nvim-nio”, “nvim-notify”, “nvim-session-manager”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-web-devicons”, “obsidian-nvim”, “onedark”, “orgmode-nvim”, “oxocarbon”, “plenary-nvim”, “project-nvim”, “registers”, “rose-pine”, “rust-tools”, “scrollbar-nvim”, “smartcolumn”, “sqls-nvim”, “tabular”, “telescope”, “todo-comments”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “vim-vsnip”, “which-key”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”</p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -3311,6 +3311,477 @@ strings concatenated with “\n”</p>
 <tr><td>
 <code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/wrapper/build/options.nix" target="_top">
 &lt;nvf/modules/wrapper/build/options.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.filetree.neo-tree.enable"></a><a class="term" href="options.html#opt-vim.filetree.neo-tree.enable"><code class="option">vim.filetree.neo-tree.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable filetree via neo-tree.nvim.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/filetree/neo-tree/neo-tree.nix" target="_top">
+&lt;nvf/modules/plugins/filetree/neo-tree/neo-tree.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.filetree.neo-tree.setupOpts"></a><a class="term" href="options.html#opt-vim.filetree.neo-tree.setupOpts"><code class="option">vim.filetree.neo-tree.setupOpts</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Option table to pass into the setup function of neo-tree</p><p>You can pass in any additional options even if they’re
+not listed in the docs</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+attribute set of anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/filetree/neo-tree/neo-tree.nix" target="_top">
+&lt;nvf/modules/plugins/filetree/neo-tree/neo-tree.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.filetree.neo-tree.setupOpts.enable_cursor_hijack"></a><a class="term" href="options.html#opt-vim.filetree.neo-tree.setupOpts.enable_cursor_hijack"><code class="option">vim.filetree.neo-tree.setupOpts.enable_cursor_hijack</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable cursor hijacking.</p><p>If enabled neotree will keep the cursor on the first letter of the filename when moving in the tree
+.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/filetree/neo-tree/neo-tree.nix" target="_top">
+&lt;nvf/modules/plugins/filetree/neo-tree/neo-tree.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.filetree.neo-tree.setupOpts.enable_diagnostics"></a><a class="term" href="options.html#opt-vim.filetree.neo-tree.setupOpts.enable_diagnostics"><code class="option">vim.filetree.neo-tree.setupOpts.enable_diagnostics</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable diagnostics.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/filetree/neo-tree/neo-tree.nix" target="_top">
+&lt;nvf/modules/plugins/filetree/neo-tree/neo-tree.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.filetree.neo-tree.setupOpts.enable_git_status"></a><a class="term" href="options.html#opt-vim.filetree.neo-tree.setupOpts.enable_git_status"><code class="option">vim.filetree.neo-tree.setupOpts.enable_git_status</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable git status.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/filetree/neo-tree/neo-tree.nix" target="_top">
+&lt;nvf/modules/plugins/filetree/neo-tree/neo-tree.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.filetree.neo-tree.setupOpts.enable_modified_markers"></a><a class="term" href="options.html#opt-vim.filetree.neo-tree.setupOpts.enable_modified_markers"><code class="option">vim.filetree.neo-tree.setupOpts.enable_modified_markers</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable markers for files with unsaved changes…</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/filetree/neo-tree/neo-tree.nix" target="_top">
+&lt;nvf/modules/plugins/filetree/neo-tree/neo-tree.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.filetree.neo-tree.setupOpts.enable_opened_markers"></a><a class="term" href="options.html#opt-vim.filetree.neo-tree.setupOpts.enable_opened_markers"><code class="option">vim.filetree.neo-tree.setupOpts.enable_opened_markers</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable tracking of opened files.</p><p>Required for <code class="literal">components.name.highlight_opened_files</code>
+.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/filetree/neo-tree/neo-tree.nix" target="_top">
+&lt;nvf/modules/plugins/filetree/neo-tree/neo-tree.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.filetree.neo-tree.setupOpts.enable_refresh_on_write"></a><a class="term" href="options.html#opt-vim.filetree.neo-tree.setupOpts.enable_refresh_on_write"><code class="option">vim.filetree.neo-tree.setupOpts.enable_refresh_on_write</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Refresh the tree when a file is written.</p><p>Only used if <code class="literal">use_libuv_file_watcher</code> is false.
+.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/filetree/neo-tree/neo-tree.nix" target="_top">
+&lt;nvf/modules/plugins/filetree/neo-tree/neo-tree.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.filetree.neo-tree.setupOpts.add_blank_line_at_top"></a><a class="term" href="options.html#opt-vim.filetree.neo-tree.setupOpts.add_blank_line_at_top"><code class="option">vim.filetree.neo-tree.setupOpts.add_blank_line_at_top</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to add a blank line at the top of the tree</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/filetree/neo-tree/neo-tree.nix" target="_top">
+&lt;nvf/modules/plugins/filetree/neo-tree/neo-tree.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.filetree.neo-tree.setupOpts.auto_clean_after_session_restore"></a><a class="term" href="options.html#opt-vim.filetree.neo-tree.setupOpts.auto_clean_after_session_restore"><code class="option">vim.filetree.neo-tree.setupOpts.auto_clean_after_session_restore</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to automatically clean up broken neo-tree buffers
+saved in sessions</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/filetree/neo-tree/neo-tree.nix" target="_top">
+&lt;nvf/modules/plugins/filetree/neo-tree/neo-tree.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.filetree.neo-tree.setupOpts.default_source"></a><a class="term" href="options.html#opt-vim.filetree.neo-tree.setupOpts.default_source"><code class="option">vim.filetree.neo-tree.setupOpts.default_source</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>You can choose a specific source.</p><p><code class="literal">last</code> here which indicates the last used source</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;filesystem&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/filetree/neo-tree/neo-tree.nix" target="_top">
+&lt;nvf/modules/plugins/filetree/neo-tree/neo-tree.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.filetree.neo-tree.setupOpts.git_status_async"></a><a class="term" href="options.html#opt-vim.filetree.neo-tree.setupOpts.git_status_async"><code class="option">vim.filetree.neo-tree.setupOpts.git_status_async</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable async git status.</p><p>This will make the git status check async and will not block the UI.
+.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/filetree/neo-tree/neo-tree.nix" target="_top">
+&lt;nvf/modules/plugins/filetree/neo-tree/neo-tree.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.filetree.neo-tree.setupOpts.hide_root_node"></a><a class="term" href="options.html#opt-vim.filetree.neo-tree.setupOpts.hide_root_node"><code class="option">vim.filetree.neo-tree.setupOpts.hide_root_node</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to hide the root node of the tree</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/filetree/neo-tree/neo-tree.nix" target="_top">
+&lt;nvf/modules/plugins/filetree/neo-tree/neo-tree.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.filetree.neo-tree.setupOpts.log_level"></a><a class="term" href="options.html#opt-vim.filetree.neo-tree.setupOpts.log_level"><code class="option">vim.filetree.neo-tree.setupOpts.log_level</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Log level for the plugin.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+one of “trace”, “debug”, “info”, “warn”, “error”, “fatal”</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;info&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/filetree/neo-tree/neo-tree.nix" target="_top">
+&lt;nvf/modules/plugins/filetree/neo-tree/neo-tree.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.filetree.neo-tree.setupOpts.log_to_file"></a><a class="term" href="options.html#opt-vim.filetree.neo-tree.setupOpts.log_to_file"><code class="option">vim.filetree.neo-tree.setupOpts.log_to_file</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Must be either a boolean or a path to your log file.</p><p>Use :NeoTreeLogs to show the file</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">/tmp/neo-tree.log</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/filetree/neo-tree/neo-tree.nix" target="_top">
+&lt;nvf/modules/plugins/filetree/neo-tree/neo-tree.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.filetree.neo-tree.setupOpts.open_files_do_not_replace_types"></a><a class="term" href="options.html#opt-vim.filetree.neo-tree.setupOpts.open_files_do_not_replace_types"><code class="option">vim.filetree.neo-tree.setupOpts.open_files_do_not_replace_types</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>A list of filetypes that should not be replaced when opening a file</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
+  &quot;terminal&quot;
+  &quot;Trouble&quot;
+  &quot;qf&quot;
+  &quot;edgy&quot;
+]
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/filetree/neo-tree/neo-tree.nix" target="_top">
+&lt;nvf/modules/plugins/filetree/neo-tree/neo-tree.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.filetree.neo-tree.setupOpts.open_files_in_last_window"></a><a class="term" href="options.html#opt-vim.filetree.neo-tree.setupOpts.open_files_in_last_window"><code class="option">vim.filetree.neo-tree.setupOpts.open_files_in_last_window</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to open files in the last window</p><p>If disabled, neo-tree will open files in top left window</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/filetree/neo-tree/neo-tree.nix" target="_top">
+&lt;nvf/modules/plugins/filetree/neo-tree/neo-tree.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.filetree.neo-tree.setupOpts.retain_hidden_root_indent"></a><a class="term" href="options.html#opt-vim.filetree.neo-tree.setupOpts.retain_hidden_root_indent"><code class="option">vim.filetree.neo-tree.setupOpts.retain_hidden_root_indent</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to retain the indent of the hidden root node</p><p>IF the root node is hidden, keep the indentation anyhow.
+This is needed if you use expanders because they render in the indent.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/filetree/neo-tree/neo-tree.nix" target="_top">
+&lt;nvf/modules/plugins/filetree/neo-tree/neo-tree.nix&gt;
 </a></code>
 </td></tr>
 </table>
@@ -18557,7 +19028,7 @@ the wrapper during the build process.</p><p>To avoid overriding packages and dep
 are recommended to use this option or <code class="option">vim.extraPlugins</code> option.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-list of (null or package or one of “alpha-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc”, “cellular-automaton”, “chatgpt”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “cmp-vsnip”, “codewindow-nvim”, “comment-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools”, “fidget-nvim”, “flutter-tools”, “gesture-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “highlight-undo”, “hop-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline”, “leap-nvim”, “lsp-lines”, “lsp-signature”, “lspkind”, “lspsaga”, “lualine”, “mind-nvim”, “minimap-vim”, “modes-nvim”, “neocord”, “neodev-nvim”, “noice-nvim”, “none-ls”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-code-action-menu”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lspconfig”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip”, “nvim-nio”, “nvim-notify”, “nvim-session-manager”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-web-devicons”, “obsidian-nvim”, “onedark”, “orgmode-nvim”, “oxocarbon”, “plenary-nvim”, “project-nvim”, “registers”, “rose-pine”, “rust-tools”, “scrollbar-nvim”, “smartcolumn”, “sqls-nvim”, “tabular”, “telescope”, “todo-comments”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “vim-vsnip”, “which-key”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
+list of (null or package or one of “alpha-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc”, “cellular-automaton”, “chatgpt”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “cmp-vsnip”, “codewindow-nvim”, “comment-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools”, “fidget-nvim”, “flutter-tools”, “gesture-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “highlight-undo”, “hop-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline”, “leap-nvim”, “lsp-lines”, “lsp-signature”, “lspkind”, “lspsaga”, “lualine”, “mind-nvim”, “minimap-vim”, “modes-nvim”, “neo-tree-nvim”, “neocord”, “neodev-nvim”, “noice-nvim”, “none-ls”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-code-action-menu”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lspconfig”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip”, “nvim-nio”, “nvim-notify”, “nvim-session-manager”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-web-devicons”, “obsidian-nvim”, “onedark”, “orgmode-nvim”, “oxocarbon”, “plenary-nvim”, “project-nvim”, “registers”, “rose-pine”, “rust-tools”, “scrollbar-nvim”, “smartcolumn”, “sqls-nvim”, “tabular”, “telescope”, “todo-comments”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “vim-vsnip”, “which-key”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">[ ]</code></p>
@@ -20009,7 +20480,7 @@ using the <a class="link" href="options.html#opt-vim.extraPlugins"  ><code class
 option.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-list of (null or package or one of “alpha-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc”, “cellular-automaton”, “chatgpt”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “cmp-vsnip”, “codewindow-nvim”, “comment-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools”, “fidget-nvim”, “flutter-tools”, “gesture-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “highlight-undo”, “hop-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline”, “leap-nvim”, “lsp-lines”, “lsp-signature”, “lspkind”, “lspsaga”, “lualine”, “mind-nvim”, “minimap-vim”, “modes-nvim”, “neocord”, “neodev-nvim”, “noice-nvim”, “none-ls”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-code-action-menu”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lspconfig”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip”, “nvim-nio”, “nvim-notify”, “nvim-session-manager”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-web-devicons”, “obsidian-nvim”, “onedark”, “orgmode-nvim”, “oxocarbon”, “plenary-nvim”, “project-nvim”, “registers”, “rose-pine”, “rust-tools”, “scrollbar-nvim”, “smartcolumn”, “sqls-nvim”, “tabular”, “telescope”, “todo-comments”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “vim-vsnip”, “which-key”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
+list of (null or package or one of “alpha-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc”, “cellular-automaton”, “chatgpt”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “cmp-vsnip”, “codewindow-nvim”, “comment-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools”, “fidget-nvim”, “flutter-tools”, “gesture-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “highlight-undo”, “hop-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline”, “leap-nvim”, “lsp-lines”, “lsp-signature”, “lspkind”, “lspsaga”, “lualine”, “mind-nvim”, “minimap-vim”, “modes-nvim”, “neo-tree-nvim”, “neocord”, “neodev-nvim”, “noice-nvim”, “none-ls”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-code-action-menu”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lspconfig”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip”, “nvim-nio”, “nvim-notify”, “nvim-session-manager”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-web-devicons”, “obsidian-nvim”, “onedark”, “orgmode-nvim”, “oxocarbon”, “plenary-nvim”, “project-nvim”, “registers”, “rose-pine”, “rust-tools”, “scrollbar-nvim”, “smartcolumn”, “sqls-nvim”, “tabular”, “telescope”, “todo-comments”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “vim-vsnip”, “which-key”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
 
 <p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
   &quot;plenary-nvim&quot;
