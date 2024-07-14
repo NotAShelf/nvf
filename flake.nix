@@ -81,10 +81,7 @@
     systems.url = "github:nix-systems/default";
 
     # Alternate neovim-wrapper
-    neovim-wrapper = {
-      url = "github:Gerg-L/neovim-wrapper";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    mnw.url = "github:Gerg-L/mnw";
 
     # For generating documentation website
     nmd = {
