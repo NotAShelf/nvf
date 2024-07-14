@@ -36,11 +36,11 @@ inputs: {
   buildPlug = {pname, ...} @ attrs: let
     src = getAttr ("plugin-" + pname) inputs;
   in
-    pkgs.runCommand pname {
-      inherit src;
-      version = src.shortRev or src.shortDirtyRev or "dirty";
-    }
-    // attrs
+    pkgs.runCommand pname ({
+        inherit src;
+        version = src.shortRev or src.shortDirtyRev or "dirty";
+      }
+      // attrs)
     ''
       mkdir -p $out
       cp -r . $out
