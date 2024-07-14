@@ -95,11 +95,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1720906640,
-        "narHash": "sha256-hQ++e9r03DPy9UByZ3aSweRn74EUx3HuoBTaUzYdE0E=",
+        "lastModified": 1720909720,
+        "narHash": "sha256-ei4ap9Y076Livf7HNi0DeCG3FNfuKfnrmjqMkF4UbLs=",
         "owner": "Gerg-L",
         "repo": "neovim-wrapper",
-        "rev": "be1a9ec41230708ac72cabb1c5f4492f4f01f6d1",
+        "rev": "bdcac428162888855b84fb703b29db76c1de6e73",
         "type": "github"
       },
       "original": {
