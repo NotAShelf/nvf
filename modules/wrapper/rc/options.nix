@@ -120,7 +120,7 @@ in {
       description = ''
         An attribute set containing global variable values
         for storing vim variables as early as possible. If
-        populated, this soption will set vim variables in the
+        populated, this option will set vim variables in the
         built luaConfigRC as the first item.
 
         E.g. {foo = "bar"} will set `vim.g.foo` to "bar" where
