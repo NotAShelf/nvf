@@ -134,9 +134,8 @@ in {
     vim = {
       luaConfigRC = {
         globalsScript = concatLines globalsScript;
-        # basic comes after globalsScript,
-        # but it's defined modules/neovim/init/basic.nix
-        pluginConfigs = entryAfter ["basic"] pluginConfigs;
+        # basic, theme
+        pluginConfigs = entryAfter ["theme"] pluginConfigs;
         extraPluginConfigs = entryAfter ["pluginConfigs"] extraPluginConfigs;
         mappings = entryAfter ["extraPluginConfigs"] mappings;
       };
