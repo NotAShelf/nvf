@@ -69,6 +69,10 @@ Release notes for release 0.7
     yourself by adding `vim.opt.listchars:append({ eol = '<char>' })` to your
     lua configuration
 
+- Make the entire configuration lua based. This comes with a few breaking changes:
+  - `vim.configRC` has been removed, migrate your entries to lua code, and add them to `vim.luaConfigRC` instead
+  - `vim.luaScriptRC` is now the top-level DAG, and the internal `vim.pluginRC` has been introduced for setting up internal plugins. See the "DAG entries in nvf" manual page for more information.
+
 [NotAShelf](https://github.com/notashelf):
 
 [ts-error-translator.nvim]: https://github.com/dmmulroy/ts-error-translator.nvim
