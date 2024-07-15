@@ -3,13 +3,19 @@
   lib,
   ...
 }: let
+  inherit (lib.modules) mkRemovedOptionModule;
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
   inherit (lib.strings) optionalString;
   inherit (lib.types) str attrs lines listOf either path bool;
   inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.lua) listToLuaTable;
+
   cfg = config.vim;
 in {
+  imports = [
+    (mkRemovedOptionModule ["vim" "configRC"] "Migrate your configRC sections to lua, and add them to luaConfigRC instead.")
+  ];
+
   options.vim = {
     enableLuaLoader = mkEnableOption ''
       the experimental Lua module loader to speed up the start up process
