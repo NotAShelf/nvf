@@ -5,7 +5,7 @@
 }: let
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
   inherit (lib.strings) optionalString;
-  inherit (lib.types) str oneOf attrs lines listOf either path bool;
+  inherit (lib.types) str attrs lines listOf either path bool;
   inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.lua) listToLuaTable;
   cfg = config.vim;
@@ -130,6 +130,13 @@ in {
       '';
     };
 
+    pluginRC = mkOption {
+      internal = true;
+      type = either (dagOf lines) str;
+      default = {};
+      description = "The internal DAG used to configure plugins";
+    };
+
     luaConfigPre = mkOption {
       type = str;
       default = ''
@@ -190,7 +197,7 @@ in {
     };
 
     luaConfigRC = mkOption {
-      type = oneOf [(dagOf lines) str];
+      type = either (dagOf lines) str;
       default = {};
       description = ''
         Lua configuration, either as a string or a DAG.

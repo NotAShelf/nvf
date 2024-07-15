@@ -11,7 +11,7 @@ in {
   config = mkIf cfg.enable {
     vim.startPlugins = [pkgs.vimPlugins.vim-wakatime];
 
-    vim.luaConfigRC.vim-wakatime = mkIf (cfg.cli-package != null) ''
+    vim.pluginRC.vim-wakatime = mkIf (cfg.cli-package != null) ''
       vim.g.wakatime_CLIPath = "${cfg.cli-package}"
     '';
   };

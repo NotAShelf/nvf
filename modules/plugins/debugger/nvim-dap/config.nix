@@ -18,7 +18,7 @@ in {
     (mkIf cfg.enable {
       vim.startPlugins = ["nvim-dap"];
 
-      vim.luaConfigRC =
+      vim.pluginRC =
         {
           # TODO customizable keymaps
           nvim-dap = entryAnywhere ''
@@ -51,7 +51,7 @@ in {
     (mkIf (cfg.enable && cfg.ui.enable) {
       vim.startPlugins = ["nvim-dap-ui" "nvim-nio"];
 
-      vim.luaConfigRC.nvim-dap-ui = entryAfter ["nvim-dap"] (''
+      vim.pluginRC.nvim-dap-ui = entryAfter ["nvim-dap"] (''
           local dapui = require("dapui")
           dapui.setup()
         ''

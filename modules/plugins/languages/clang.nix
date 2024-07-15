@@ -141,7 +141,7 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.cHeader {
-      vim.luaConfigRC.c-header = entryAfter ["basic"] "vim.g.c_syntax_for_h = 1";
+      vim.pluginRC.c-header = entryAfter ["basic"] "vim.g.c_syntax_for_h = 1";
     })
 
     (mkIf cfg.treesitter.enable {

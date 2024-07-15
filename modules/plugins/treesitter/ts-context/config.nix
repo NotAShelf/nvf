@@ -16,7 +16,7 @@ in {
 
       # set up treesitter-context after Treesitter. The ordering
       # should not matter, but there is no harm in doing this
-      luaConfigRC.treesitter-context = entryAfter ["treesitter"] ''
+      pluginRC.treesitter-context = entryAfter ["treesitter"] ''
         require("treesitter-context").setup(${toLuaObject cfg.setupOpts})
       '';
     };

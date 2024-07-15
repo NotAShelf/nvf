@@ -18,7 +18,7 @@ in {
         "nvim-surround"
       ];
 
-      luaConfigRC.surround = entryAnywhere ''
+      pluginRC.surround = entryAnywhere ''
         require('nvim-surround').setup()
       '';
 

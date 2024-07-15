@@ -176,7 +176,7 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
-      vim.luaConfigRC.nix = ''
+      vim.pluginRC.nix = ''
         vim.api.nvim_create_autocmd("FileType", {
           pattern = "nix",
           callback = function(opts)

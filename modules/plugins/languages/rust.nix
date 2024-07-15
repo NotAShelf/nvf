@@ -102,7 +102,7 @@ in {
         startPlugins = ["crates-nvim"];
         lsp.null-ls.enable = mkIf cfg.crates.codeActions true;
         autocomplete.sources = {"crates" = "[Crates]";};
-        luaConfigRC.rust-crates = entryAnywhere ''
+        pluginRC.rust-crates = entryAnywhere ''
           require('crates').setup {
             null_ls = {
               enabled = ${boolToString cfg.crates.codeActions},

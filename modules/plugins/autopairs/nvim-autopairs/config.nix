@@ -12,7 +12,7 @@ in {
   config = mkIf cfg.enable {
     vim.startPlugins = ["nvim-autopairs"];
 
-    vim.luaConfigRC.autopairs = entryAnywhere ''
+    vim.pluginRC.autopairs = entryAnywhere ''
       require("nvim-autopairs").setup({ map_cr = ${boolToString (!config.vim.autocomplete.enable)} })
     '';
   };

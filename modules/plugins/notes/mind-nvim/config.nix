@@ -25,7 +25,7 @@ in {
         "<leader>o" = "+Notes";
       };
 
-      luaConfigRC.mind-nvim = entryAnywhere ''
+      pluginRC.mind-nvim = entryAnywhere ''
         require'mind'.setup()
       '';
     };

@@ -41,7 +41,7 @@ in {
       (mkBinding cfg.mappings.toggleSelectedBlock "<Plug>(comment_toggle_blockwise_visual)" mappings.toggleSelectedBlock.description)
     ];
 
-    vim.luaConfigRC.comment-nvim = entryAnywhere ''
+    vim.pluginRC.comment-nvim = entryAnywhere ''
       require('Comment').setup({
         mappings = { basic = false, extra = false, },
       })

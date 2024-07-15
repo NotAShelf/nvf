@@ -24,7 +24,7 @@ in {
         (mkIf config.vim.lsp.trouble.enable (mkBinding cfg.mappings.trouble ":TodoTrouble<CR>" mappings.trouble.description))
       ];
 
-      luaConfigRC.todo-comments = ''
+      pluginRC.todo-comments = ''
         require('todo-comments').setup(${toLuaObject cfg.setupOpts})
       '';
     };

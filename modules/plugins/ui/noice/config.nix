@@ -23,7 +23,7 @@ in {
 
       treesitter.grammars = optionals tscfg.addDefaultGrammars defaultGrammars;
 
-      luaConfigRC.noice-nvim = entryAnywhere ''
+      pluginRC.noice-nvim = entryAnywhere ''
         require("noice").setup(${toLuaObject cfg.setupOpts})
       '';
     };

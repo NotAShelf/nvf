@@ -37,7 +37,7 @@ in {
       };
 
       # For some reason treesitter highlighting does not work on start if this is set before syntax on
-      luaConfigRC.treesitter-fold = mkIf cfg.fold (entryBefore ["basic"] ''
+      pluginRC.treesitter-fold = mkIf cfg.fold (entryBefore ["basic"] ''
         -- This is required by treesitter-context to handle folds
         vim.o.foldmethod = "expr"
         vim.o.foldexpr = "nvim_treesitter#foldexpr()"
@@ -48,7 +48,7 @@ in {
         vim.o.foldenable = false
       '');
 
-      luaConfigRC.treesitter = entryAfter ["basic"] ''
+      pluginRC.treesitter = entryAfter ["basic"] ''
         require('nvim-treesitter.configs').setup {
           -- Disable imperative treesitter options that would attempt to fetch
           -- grammars into the read-only Nix store. To add additional grammars here

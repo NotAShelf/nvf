@@ -86,6 +86,18 @@ in {
       mapAttrsFlatten (name: value: "vim.g.${name} = ${toLuaObject value}")
       (filterNonNull cfg.globals);
 
+    extraPluginConfigs = resolveDag {
+      name = "extra plugin configs";
+      dag = mapAttrs (_: value: entryAfter value.after value.setup) cfg.extraPlugins;
+      mapResult = result: concatLines (map mkLuarcSection result);
+    };
+
+    pluginConfigs = resolveDag {
+      name = "plugin configs";
+      dag = cfg.pluginRC;
+      mapResult = result: concatLines (map mkLuarcSection result);
+    };
+
     toLuaBindings = mode: maps:
       map (value: ''
         vim.keymap.set(${toLuaObject mode}, ${toLuaObject value.key}, ${toLuaObject value.action}, ${toLuaObject value.config})
@@ -103,12 +115,6 @@ in {
     lmap = toLuaBindings "l" config.vim.maps.lang;
     omap = toLuaBindings "o" config.vim.maps.operator;
     icmap = toLuaBindings "ic" config.vim.maps.insertCommand;
-
-    extraPluginConfigs = resolveDag {
-      name = "extra plugins config";
-      dag = mapAttrs (_: value: entryAfter value.after value.setup) cfg.extraPlugins;
-      mapResult = result: concatLines (map mkLuarcSection result);
-    };
 
     maps = [
       nmap
@@ -128,6 +134,11 @@ in {
     vim = {
       luaConfigRC = {
         globalsScript = concatLines globalsScript;
+        # basic comes after globalsScript,
+        # but it's defined modules/neovim/init/basic.nix
+        pluginConfigs = entryAfter ["basic"] pluginConfigs;
+        extraPluginConfigs = entryAfter ["pluginConfigs"] extraPluginConfigs;
+        mappings = entryAfter ["extraPluginConfigs"] mappings;
       };
 
       builtLuaConfigRC = let
@@ -145,11 +156,7 @@ in {
           mapResult = result:
             concatLines [
               cfg.luaConfigPre
-
               (concatMapStringsSep "\n" mkLuarcSection result)
-              extraPluginConfigs
-              mappings
-
               cfg.luaConfigPost
             ];
         };

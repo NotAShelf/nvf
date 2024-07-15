@@ -14,7 +14,7 @@ in {
       "dressing-nvim"
     ];
 
-    vim.luaConfigRC.icon-picker = entryAnywhere ''
+    vim.pluginRC.icon-picker = entryAnywhere ''
       require("icon-picker").setup({
         disable_legacy_commands = true
       })

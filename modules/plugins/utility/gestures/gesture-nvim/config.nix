@@ -25,7 +25,7 @@ in {
       })
     ];
 
-    vim.luaConfigRC.gesture-nvim = entryAnywhere ''
+    vim.pluginRC.gesture-nvim = entryAnywhere ''
       vim.opt.mouse = "a"
 
       local gesture = require("gesture")

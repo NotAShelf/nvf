@@ -78,7 +78,7 @@ in {
       };
     };
 
-    vim.luaConfigRC.breadcrumbs = entryAfter ["lspconfig"] ''
+    vim.pluginRC.breadcrumbs = entryAfter ["lspconfig"] ''
 
       ${optionalString (cfg.source == "nvim-navic") ''
         local navic = require("nvim-navic")
