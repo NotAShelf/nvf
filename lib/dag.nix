@@ -8,10 +8,10 @@
 #  - the addition of the function `entryBefore` indicating a "wanted
 #    by" relationship.
 {lib}: let
-  inherit (builtins) isAttrs attrValues attrNames elem all head tail length;
+  inherit (builtins) isAttrs attrValues attrNames elem all head tail length toJSON isString;
   inherit (lib.attrsets) filterAttrs mapAttrs;
   inherit (lib.lists) toposort;
-  inherit (lib.nvim.dag) empty isEntry entryBetween entryAfter entriesBetween;
+  inherit (lib.nvim.dag) empty isEntry entryBetween entryAfter entriesBetween entryAnywhere topoSort;
 in {
   empty = {};
 
@@ -146,4 +146,23 @@ in {
     -- SECTION: ${section.name}
     ${section.data}
   '';
+
+  resolveDag = {
+    name,
+    dag,
+    mapResult,
+  }: let
+    # When the value is a string, default it to dag.entryAnywhere
+    finalDag = mapAttrs (_: value:
+      if isString value
+      then entryAnywhere value
+      else value)
+    dag;
+    sortedDag = topoSort finalDag;
+    result =
+      if sortedDag ? result
+      then mapResult sortedDag.result
+      else abort ("Dependency cycle in ${name}: " + toJSON sortedDag);
+  in
+    result;
 }

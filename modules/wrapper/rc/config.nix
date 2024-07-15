@@ -3,15 +3,15 @@
   lib,
   ...
 }: let
-  inherit (builtins) map mapAttrs toJSON filter;
+  inherit (builtins) map mapAttrs filter;
   inherit (lib.options) mkOption;
   inherit (lib.attrsets) filterAttrs getAttrs attrValues attrNames;
-  inherit (lib.strings) isString concatLines concatMapStringsSep;
+  inherit (lib.strings) concatLines concatMapStringsSep;
   inherit (lib.misc) mapAttrsFlatten;
   inherit (lib.trivial) showWarnings;
   inherit (lib.types) str nullOr;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.dag) entryAnywhere entryAfter topoSort mkLuarcSection;
+  inherit (lib.nvim.dag) entryAfter mkLuarcSection resolveDag;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.config) mkBool;
 
@@ -103,25 +103,6 @@ in {
     lmap = toLuaBindings "l" config.vim.maps.lang;
     omap = toLuaBindings "o" config.vim.maps.operator;
     icmap = toLuaBindings "ic" config.vim.maps.insertCommand;
-
-    resolveDag = {
-      name,
-      dag,
-      mapResult,
-    }: let
-      # When the value is a string, default it to dag.entryAnywhere
-      finalDag = mapAttrs (_: value:
-        if isString value
-        then entryAnywhere value
-        else value)
-      dag;
-      sortedDag = topoSort finalDag;
-      result =
-        if sortedDag ? result
-        then mapResult sortedDag.result
-        else abort ("Dependency cycle in ${name}: " + toJSON sortedDag);
-    in
-      result;
 
     extraPluginConfigs = resolveDag {
       name = "extra plugins config";
