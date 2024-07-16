@@ -5,7 +5,7 @@
 }: let
   inherit (lib.options) mkOption literalExpression;
   inherit (lib.strings) optionalString;
-  inherit (lib.types) enum bool str int ;
+  inherit (lib.types) enum bool str int;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
 
