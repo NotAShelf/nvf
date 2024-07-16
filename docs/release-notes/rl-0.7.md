@@ -2,6 +2,16 @@
 
 Release notes for release 0.7
 
+## Breaking Changes and Migration Guide {#sec-breaking-changes-and-migration-guide-0-7}
+
+In v0.7 we are removing `vim.configRC` in favor of making `vim.luaConfigRC` the top-level DAG, and thereby making the entire configuration lua based.
+
+_Why?_ because Neovim is supposed to be mainly lua based. Also, vimscript is slow.
+
+This comes with a few breaking changes:
+- `vim.configRC` has been removed, which means that you have to convert all of your custom vimscript-based configuration to lua. As for how to do that, you will have to consult the Neovim documentation and your search engine.
+- After doing that, you might not be able to use the same entry names in `vim.luaConfigRC`, because those have also slightly changed. See the new [DAG entries in nvf](/index.xhtml#ch-dag-entries) manual page for more details.
+
 ## Changelog {#sec-release-0.7-changelog}
 
 [ItsSorae](https://github.com/ItsSorae):
