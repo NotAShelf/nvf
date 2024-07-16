@@ -13,7 +13,7 @@ entries in nvf:
 3. `basic` - used to set basic configuration options
 4. `theme` - used to set up the theme, which has to be done before other plugins
 5. `pluginConfigs` - the result of the nested `vim.pluginRC` (internal option,
-   see the [Custom Plugins](./custom-plugins.md) page for adding your own
+   see the [Custom Plugins](/index.xhtml#ch-custom-plugins) page for adding your own
    plugins) DAG, used to set up internal plugins
 6. `extraPluginConfigs` - the result of `vim.extraPlugins`, which is not a
    direct DAG, but is converted to, and resolved as one internally
