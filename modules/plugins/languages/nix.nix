@@ -11,7 +11,6 @@
   inherit (lib.strings) optionalString;
   inherit (lib.types) enum either listOf package str;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
-  inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.languages) diagnosticsToLua;
 
@@ -180,7 +179,7 @@ in {
         vim.api.nvim_create_autocmd("FileType", {
           pattern = "nix",
           callback = function(opts)
-            bo = vim.bo[opts.buf]
+            local bo = vim.bo[opts.buf]
             bo.tabstop = 2
             bo.shiftwidth = 2
             bo.softtabstop = 2
