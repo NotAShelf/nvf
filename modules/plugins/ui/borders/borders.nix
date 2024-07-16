@@ -24,7 +24,6 @@ in {
       example = ["╔" "═" "╗" "║" "╝" "═" "╚" "║"];
     };
 
-    # TODO: make per-plugin borders configurable
     plugins = let
       mkPluginStyleOption = name: {
         enable = mkEnableOption "borders for the ${name} plugin" // {default = cfg.enable;};
