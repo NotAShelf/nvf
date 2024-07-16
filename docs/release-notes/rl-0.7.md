@@ -25,6 +25,8 @@ Release notes for release 0.7
   [vim.ui.smartcolumn.setupOpts.custom_colorcolumn](#opt-vim.ui.smartcolumn.setupOpts.custom_colorcolumn)
   using the wrong type `int` instead of the expected type `string`.
 
+- Fix unused src and version attributes in `buildPlug`.
+
 [horriblename](https://github.com/horriblename):
 
 - Fix broken treesitter-context keybinds in visual mode
