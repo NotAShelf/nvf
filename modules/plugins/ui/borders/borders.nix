@@ -4,22 +4,24 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.lists) optionals;
-  inherit (lib.types) enum either listOf str;
+  inherit (lib.nvim.types) borderType;
 
   cfg = config.vim.ui.borders;
-
-  defaultStyles = ["none" "single" "double" "rounded"];
 in {
   options.vim.ui.borders = {
     enable = mkEnableOption "visible borders for most windows";
 
     globalStyle = mkOption {
-      type = either (enum defaultStyles) (listOf str);
+      type = borderType;
       default = "rounded";
       description = ''
         The global border style to use.
+
+        If a list is given, it should have a length of eight or any divisor of
+        eight. The array will specify the eight chars building up the border in
+        a clockwise fashion starting with the top-left corner.
       '';
+      example = ["╔" "═" "╗" "║" "╝" "═" "╚" "║"];
     };
 
     # TODO: make per-plugin borders configurable
@@ -28,7 +30,7 @@ in {
         enable = mkEnableOption "borders for the ${name} plugin" // {default = cfg.enable;};
 
         style = mkOption {
-          type = either (enum (defaultStyles ++ optionals (name != "which-key") ["shadow"])) (listOf str);
+          type = borderType;
           default = cfg.globalStyle;
           description = "The border style to use for the ${name} plugin";
         };

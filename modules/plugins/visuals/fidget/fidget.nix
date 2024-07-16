@@ -6,8 +6,8 @@
   inherit (lib.modules) mkRemovedOptionModule mkRenamedOptionModule;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.strings) toUpper;
-  inherit (lib.types) int float bool str enum listOf attrsOf oneOf nullOr submodule either;
-  inherit (lib.nvim.types) mkPluginSetupOption luaInline;
+  inherit (lib.types) int float bool str enum listOf attrsOf oneOf nullOr submodule;
+  inherit (lib.nvim.types) mkPluginSetupOption luaInline borderType;
   inherit (lib.generators) mkLuaInline;
 in {
   imports = [
@@ -453,7 +453,7 @@ in {
           };
           border = mkOption {
             description = "Border style of the notification window";
-            type = either (enum ["none" "single" "double" "rounded" "solid" "shadow"]) (listOf str);
+            type = borderType;
             default =
               if config.vim.ui.borders.enable
               then config.vim.ui.borders.globalStyle

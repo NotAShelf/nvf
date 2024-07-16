@@ -51,8 +51,12 @@
       };
     };
   };
+
+  borderPresets = ["none" "single" "double" "rounded" "solid" "shadow"];
 in {
   inherit extraPluginType fromInputs pluginType;
+
+  borderType = either (enum borderPresets) (listOf str);
 
   pluginsOpt = {
     description,
