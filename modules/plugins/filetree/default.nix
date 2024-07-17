@@ -1,5 +1,6 @@
 {
   imports = [
     ./nvimtree
+    ./neo-tree
   ];
 }

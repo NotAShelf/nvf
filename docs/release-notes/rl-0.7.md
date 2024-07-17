@@ -21,8 +21,11 @@ Release notes for release 0.7
   group for `Normal`, `NormalFloat`, `LineNr`, `SignColumn` and optionally
   `NvimTreeNormal` to `none`.
 
-- Fix [vim.ui.smartcolumn.setupOpts.custom_colorcolumn](#opt-vim.ui.smartcolumn.setupOpts.custom_colorcolumn)
+- Fix
+  [vim.ui.smartcolumn.setupOpts.custom_colorcolumn](#opt-vim.ui.smartcolumn.setupOpts.custom_colorcolumn)
   using the wrong type `int` instead of the expected type `string`.
+
+- Fix unused src and version attributes in `buildPlug`.
 
 [horriblename](https://github.com/horriblename):
 
@@ -49,20 +52,31 @@ Release notes for release 0.7
 
 - Add rustfmt as the default formatter for Rust.
 
-- Enabled the terminal integration of catppuccin for theming Neovim's built-in terminal (this also affects toggleterm).
+- Enabled the terminal integration of catppuccin for theming Neovim's built-in
+  terminal (this also affects toggleterm).
 
 - Migrate bufferline to setupOpts for more customizability
 
 - Use `clangd` as the default language server for C languages
 
-- Expose `lib.nvim.types.pluginType`, which for example allows the user to create abstractions for adding plugins
+- Expose `lib.nvim.types.pluginType`, which for example allows the user to
+  create abstractions for adding plugins
 
-- Migrate indent-blankline to setupOpts for more customizability. While the plugin's options can now be found under `indentBlankline.setupOpts`, the previous iteration of the module also included out of place/broken options, which have been removed for the time being. These are:
+- Migrate indent-blankline to setupOpts for more customizability. While the
+  plugin's options can now be found under `indentBlankline.setupOpts`, the
+  previous iteration of the module also included out of place/broken options,
+  which have been removed for the time being. These are:
   - `listChar` - this was already unused
-  - `fillChar` - this had nothing to do with the plugin, please configure it yourself by adding `vim.opt.listchars:append({ space = '<char>' })` to your lua configuration
-  - `eolChar`  - this also had nothing to do with the plugin, please configure it yourself by adding `vim.opt.listchars:append({ eol = '<char>' })` to your lua configuration
+  - `fillChar` - this had nothing to do with the plugin, please configure it
+    yourself by adding `vim.opt.listchars:append({ space = '<char>' })` to your
+    lua configuration
+  - `eolChar` - this also had nothing to do with the plugin, please configure it
+    yourself by adding `vim.opt.listchars:append({ eol = '<char>' })` to your
+    lua configuration
 
 [NotAShelf](https://github.com/notashelf):
+
+[ts-error-translator.nvim]: https://github.com/dmmulroy/ts-error-translator.nvim
 
 - Add `deno fmt` as the default Markdown formatter. This will be enabled
   automatically if you have autoformatting enabled, but can be disabled manually
@@ -81,7 +95,9 @@ Release notes for release 0.7
 - Clean up Lualine module to reduce theme dependency on Catppuccin, and fixed
   blending issues in component separators.
 
-- Add
-  [ts-error-translator.nvim](https://github.com/dmmulroy/ts-error-translator.nvim)
-  extension of the TS language module, under
-  `vim.languages.ts.extensions.ts-error-translator`
+- Add [ts-ereror-translator.nvim] extension of the TS language module, under
+  `vim.languages.ts.extensions.ts-error-translator` to aid with Typescript
+  development.
+
+- Add [neo-tree.nvim] as an alternative file-tree plugin. It will be available
+  under `vim.filetree.neo-tree`, similar to nvimtree.

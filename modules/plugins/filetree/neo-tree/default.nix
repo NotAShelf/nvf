@@ -1,6 +1,6 @@
 {
   imports = [
     ./config.nix
-    ./nvimtree.nix
+    ./neo-tree.nix
   ];
 }
