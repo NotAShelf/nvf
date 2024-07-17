@@ -56,7 +56,7 @@
 in {
   inherit extraPluginType fromInputs pluginType;
 
-  borderType = either (enum borderPresets) (listOf str);
+  borderType = either (enum borderPresets) (listOf (either str (listOf str)));
 
   pluginsOpt = {
     description,

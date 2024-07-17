@@ -19,7 +19,9 @@ in {
 
         If a list is given, it should have a length of eight or any divisor of
         eight. The array will specify the eight chars building up the border in
-        a clockwise fashion starting with the top-left corner.
+        a clockwise fashion starting with the top-left corner. You can specify
+        a different highlight group for each character by passing a
+        [char, "YourHighlightGroup"] instead
       '';
       example = ["╔" "═" "╗" "║" "╝" "═" "╚" "║"];
     };
