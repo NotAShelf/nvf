@@ -13,7 +13,13 @@
   cfg = config.vim;
 in {
   imports = [
-    (mkRemovedOptionModule ["vim" "configRC"] "Migrate your configRC sections to lua, and add them to luaConfigRC instead. See the v0.7 release notes for more information.")
+    (mkRemovedOptionModule ["vim" "configRC"] ''
+      Please migrate your configRC sections to Neovim's Lua format, and
+      add them to luaConfigRC.
+
+      See the v0.7 release notes for more information on how to migrate
+      your existing configurations.
+    '')
   ];
 
   options.vim = {
