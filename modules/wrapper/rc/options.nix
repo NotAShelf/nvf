@@ -137,10 +137,9 @@ in {
     };
 
     pluginRC = mkOption {
-      internal = true;
       type = either (dagOf lines) str;
       default = {};
-      description = "The internal DAG used to configure plugins";
+      description = "The DAG used to configure plugins. If a string is passed, entryAnywhere is automatically applied.";
     };
 
     luaConfigPre = mkOption {
