@@ -11,7 +11,7 @@
   inherit (lib.trivial) showWarnings;
   inherit (lib.types) str nullOr;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.dag) entryAfter mkLuarcSection resolveDag;
+  inherit (lib.nvim.dag) entryAfter mkLuarcSection resolveDag entryAnywhere;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.config) mkBool;
 
@@ -133,7 +133,7 @@ in {
   in {
     vim = {
       luaConfigRC = {
-        globalsScript = concatLines globalsScript;
+        globalsScript = entryAnywhere (concatLines globalsScript);
         # basic, theme
         pluginConfigs = entryAfter ["theme"] pluginConfigs;
         extraPluginConfigs = entryAfter ["pluginConfigs"] extraPluginConfigs;
