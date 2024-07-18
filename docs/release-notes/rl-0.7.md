@@ -44,6 +44,11 @@ This comes with a few breaking changes:
   longer filtered and thus should be used instead.
 - Add dap-go for better dap configurations
 - Make noice.nvim customizable
+- Switch from [rust-tools.nvim](https://github.com/simrat39/rust-tools.nvim)
+  to the more feature-packed [rustacean.nvim](https://github.com/mrcjkb/rustaceanvim.
+  This switch entails a whole bunch of new features and options, so you are
+  recommended to go through rustacean.nvim's README to take a closer look at
+  its features and usage.
 
 [jacekpoz](https://github.com/jacekpoz):
 
