@@ -14,7 +14,7 @@ in {
       "project-nvim"
     ];
 
-    vim.luaConfigRC.project-nvim = entryAnywhere ''
+    vim.pluginRC.project-nvim = entryAnywhere ''
       require('project_nvim').setup(${toLuaObject cfg.setupOpts})
     '';
   };

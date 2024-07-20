@@ -25,7 +25,7 @@ in {
       "<leader>pm" = "+Preview Markdown";
     };
 
-    vim.luaConfigRC.glow = entryAnywhere ''
+    vim.pluginRC.glow = entryAnywhere ''
       require('glow').setup({
         glow_path = "${pkgs.glow}/bin/glow"
       });

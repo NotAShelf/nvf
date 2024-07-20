@@ -69,7 +69,7 @@ in {
           "<leader>g" = "+Gitsigns";
         };
 
-        luaConfigRC.gitsigns = entryAnywhere ''
+        pluginRC.gitsigns = entryAnywhere ''
           require('gitsigns').setup{}
         '';
       };

@@ -2,6 +2,28 @@
 
 Release notes for release 0.7
 
+## Breaking Changes and Migration Guide {#sec-breaking-changes-and-migration-guide-0-7}
+
+In v0.7 we are removing `vim.configRC` in favor of making `vim.luaConfigRC` the
+top-level DAG, and thereby making the entire configuration Lua based. This
+change introduces a few breaking changes:
+
+[DAG entries in nvf manual]: /index.xhtml#ch-dag-entries
+
+- `vim.configRC` has been removed, which means that you have to convert all of
+  your custom vimscript-based configuration to Lua. As for how to do that, you
+  will have to consult the Neovim documentation and your search engine.
+- After migrating your Vimscript-based configuration to Lua, you might not be
+  able to use the same entry names in `vim.luaConfigRC`, because those have also
+  slightly changed. See the new [DAG entries in nvf manual] for more details.
+
+**Why?**
+
+Neovim being an aggressive refactor of Vim, is designed to be mainly Lua based;
+making good use of its extensive Lua API. Additionally, Vimscript is slow and
+brings unnecessary performance overhead while working with different
+configuration formats.
+
 ## Changelog {#sec-release-0.7-changelog}
 
 [ItsSorae](https://github.com/ItsSorae):
@@ -12,8 +34,8 @@ Release notes for release 0.7
 [frothymarrow](https://github.com/frothymarrow):
 
 - Modified type for
-  [vim.visuals.fidget-nvim.setupOpts.progress.display.overrides](#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides)
-  from `anything` to a `submodule` for better type checking.
+  [](#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides) from
+  `anything` to a `submodule` for better type checking.
 
 - Fix null `vim.lsp.mappings` generating an error and not being filtered out.
 
@@ -21,30 +43,34 @@ Release notes for release 0.7
   group for `Normal`, `NormalFloat`, `LineNr`, `SignColumn` and optionally
   `NvimTreeNormal` to `none`.
 
-- Fix
-  [vim.ui.smartcolumn.setupOpts.custom_colorcolumn](#opt-vim.ui.smartcolumn.setupOpts.custom_colorcolumn)
-  using the wrong type `int` instead of the expected type `string`.
+- Fix [](#opt-vim.ui.smartcolumn.setupOpts.custom_colorcolumn) using the wrong
+  type `int` instead of the expected type `string`.
 
 - Fix unused src and version attributes in `buildPlug`.
 
 [horriblename](https://github.com/horriblename):
 
 - Fix broken treesitter-context keybinds in visual mode
-- Deprecate use of `__empty` to define empty tables in lua. Empty attrset are no
+- Deprecate use of `__empty` to define empty tables in Lua. Empty attrset are no
   longer filtered and thus should be used instead.
 - Add dap-go for better dap configurations
 - Make noice.nvim customizable
-- Switch from [rust-tools.nvim](https://github.com/simrat39/rust-tools.nvim)
-  to the more feature-packed [rustacean.nvim](https://github.com/mrcjkb/rustaceanvim.
-  This switch entails a whole bunch of new features and options, so you are
-  recommended to go through rustacean.nvim's README to take a closer look at
-  its features and usage.
+
+[rust-tools.nvim]: https://github.com/simrat39/rust-tools.nvim
+[rustaceanvim]: https://github.com/mrcjkb/rustaceanvim
+
+- Switch from [rust-tools.nvim] to the more feature-packed [rustaceanvim]. This
+  switch entails a whole bunch of new features and options, so you are
+  recommended to go through rustacean.nvim's README to take a closer look at its
+  features and usage
 
 [jacekpoz](https://github.com/jacekpoz):
 
-- Add [ocaml-lsp](https://github.com/ocaml/ocaml-lsp) support.
+[ocaml-lsp]: https://github.com/ocaml/ocaml-lsp
 
-- Fix Emac typo
+- Add [ocaml-lsp] support
+
+- Fix "Emac" typo
 
 [diniamo](https://github.com/diniamo):
 
@@ -66,6 +92,7 @@ Release notes for release 0.7
   plugin's options can now be found under `indentBlankline.setupOpts`, the
   previous iteration of the module also included out of place/broken options,
   which have been removed for the time being. These are:
+
   - `listChar` - this was already unused
   - `fillChar` - this had nothing to do with the plugin, please configure it
     yourself by adding `vim.opt.listchars:append({ space = '<char>' })` to your
@@ -74,9 +101,22 @@ Release notes for release 0.7
     yourself by adding `vim.opt.listchars:append({ eol = '<char>' })` to your
     lua configuration
 
+[Neovim documentation on `vim.cmd`]: https://neovim.io/doc/user/lua.html#vim.cmd()
+
+- Make Neovim's configuration file entirely Lua based. This comes with a few
+  breaking changes:
+  - `vim.configRC` has been removed. You will need to migrate your entries to
+    Neovim-compliant Lua code, and add them to `vim.luaConfigRC` instead.
+    Existing vimscript configurations may be preserved in `vim.cmd` functions.
+    Please see [Neovim documentation on `vim.cmd`]
+  - `vim.luaScriptRC` is now the top-level DAG, and the internal `vim.pluginRC`
+    has been introduced for setting up internal plugins. See the "DAG entries in
+    nvf" manual page for more information.
+
 [NotAShelf](https://github.com/notashelf):
 
 [ts-error-translator.nvim]: https://github.com/dmmulroy/ts-error-translator.nvim
+[credo]: https://github.com/rrrene/credo
 
 - Add `deno fmt` as the default Markdown formatter. This will be enabled
   automatically if you have autoformatting enabled, but can be disabled manually
@@ -87,8 +127,8 @@ Release notes for release 0.7
 
 - Refactor `programs.languages.elixir` to use lspconfig and none-ls for LSP and
   formatter setups respectively. Diagnostics support is considered, and may be
-  added once the [credo](https://github.com/rrrene/credo) linter has been added
-  to nixpkgs. A pull request is currently open.
+  added once the [credo] linter has been added to nixpkgs. A pull request is
+  currently open.
 
 - Remove vim-tidal and friends.
 

@@ -39,7 +39,7 @@ in {
         "<leader>bsi" = "BufferLineSortById";
       };
 
-      luaConfigRC.nvimBufferline = entryAnywhere ''
+      pluginRC.nvimBufferline = entryAnywhere ''
         require("bufferline").setup(${toLuaObject cfg.setupOpts})
       '';
     };

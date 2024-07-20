@@ -13,7 +13,7 @@ in {
     vim = {
       startPlugins = ["nvim-notify"];
 
-      luaConfigRC.nvim-notify = entryAnywhere ''
+      pluginRC.nvim-notify = entryAnywhere ''
         require('notify').setup(${toLuaObject cfg.setupOpts})
 
         -- required to fix offset_encoding errors

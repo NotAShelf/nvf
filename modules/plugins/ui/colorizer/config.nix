@@ -14,7 +14,7 @@ in {
       "nvim-colorizer-lua"
     ];
 
-    vim.luaConfigRC.colorizer = entryAnywhere ''
+    vim.pluginRC.colorizer = entryAnywhere ''
       require('colorizer').setup(${toLuaObject cfg.setupOpts})
     '';
   };

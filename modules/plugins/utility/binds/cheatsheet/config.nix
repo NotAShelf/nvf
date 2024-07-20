@@ -11,7 +11,7 @@ in {
   config = mkIf cfg.enable {
     vim.startPlugins = ["cheatsheet-nvim"];
 
-    vim.luaConfigRC.cheaetsheet-nvim = entryAnywhere ''
+    vim.pluginRC.cheaetsheet-nvim = entryAnywhere ''
       require('cheatsheet').setup({})
     '';
   };

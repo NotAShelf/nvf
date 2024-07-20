@@ -22,7 +22,7 @@ in {
         # since it will hook into LSPs to receive information
         lsp.enable = true;
 
-        luaConfigRC = {
+        pluginRC = {
           # early setup for null-ls
           null_ls-setup = entryAnywhere ''
             local null_ls = require("null-ls")
@@ -46,7 +46,7 @@ in {
       };
     }
     {
-      vim.luaConfigRC = mapAttrs (_: v: (entryBetween ["null_ls"] ["null_ls-setup"] v)) cfg.null-ls.sources;
+      vim.pluginRC = mapAttrs (_: v: (entryBetween ["null_ls"] ["null_ls-setup"] v)) cfg.null-ls.sources;
     }
   ]);
 }

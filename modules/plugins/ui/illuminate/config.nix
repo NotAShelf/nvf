@@ -11,7 +11,7 @@ in {
   config = mkIf cfg.enable {
     vim.startPlugins = ["vim-illuminate"];
 
-    vim.luaConfigRC.vim-illuminate = entryAnywhere ''
+    vim.pluginRC.vim-illuminate = entryAnywhere ''
         require('illuminate').configure({
           filetypes_denylist = {
           'dirvish',

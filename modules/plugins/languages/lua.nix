@@ -61,7 +61,7 @@ in {
 
       (mkIf cfg.lsp.neodev.enable {
         vim.startPlugins = ["neodev-nvim"];
-        vim.luaConfigRC.neodev = entryBefore ["lua-lsp"] ''
+        vim.pluginRC.neodev = entryBefore ["lua-lsp"] ''
           require("neodev").setup({})
         '';
       })

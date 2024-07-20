@@ -12,7 +12,7 @@ in {
   config = mkIf cfg.enable {
     vim.startPlugins = ["neocord"];
 
-    vim.luaConfigRC.neocord = entryAnywhere ''
+    vim.pluginRC.neocord = entryAnywhere ''
       -- Description of each option can be found in https://github.com/IogaMaster/neocord#lua
       require("neocord").setup(${toLuaObject cfg.setupOpts})
     '';

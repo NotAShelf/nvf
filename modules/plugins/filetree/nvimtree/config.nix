@@ -29,7 +29,7 @@ in {
       "<leader>t" = "+NvimTree";
     };
 
-    vim.luaConfigRC.nvimtreelua = entryAnywhere ''
+    vim.pluginRC.nvimtreelua = entryAnywhere ''
       ${
         optionalString cfg.setupOpts.disable_netrw ''
           -- disable netrew completely

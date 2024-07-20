@@ -34,7 +34,7 @@ in {
         "copilot-cmp"
       ];
 
-    vim.luaConfigRC.copilot = entryAnywhere ''
+    vim.pluginRC.copilot = entryAnywhere ''
       require("copilot").setup(${toLuaObject cfg.setupOpts})
 
       ${lib.optionalString cfg.cmp.enable ''

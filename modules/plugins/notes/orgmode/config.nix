@@ -21,7 +21,7 @@ in {
           "<leader>o" = "+Notes";
         };
 
-        luaConfigRC.orgmode = entryAnywhere ''
+        pluginRC.orgmode = entryAnywhere ''
           -- Treesitter configuration
           require('nvim-treesitter.configs').setup {
 

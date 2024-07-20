@@ -102,7 +102,7 @@ in {
     (mkIf cfg.dap.enable {
       vim = {
         startPlugins = ["nvim-dap-go"];
-        luaConfigRC.nvim-dap-go = entryAfter ["nvim-dap"] ''
+        pluginRC.nvim-dap-go = entryAfter ["nvim-dap"] ''
           require('dap-go').setup {
             delve = {
               path = '${getExe cfg.dap.package}',

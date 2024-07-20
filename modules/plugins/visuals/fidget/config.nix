@@ -12,7 +12,7 @@ in {
   config = mkIf cfg.enable {
     vim.startPlugins = ["fidget-nvim"];
 
-    vim.luaConfigRC.fidget-nvim = entryAnywhere ''
+    vim.pluginRC.fidget-nvim = entryAnywhere ''
       require'fidget'.setup(${toLuaObject cfg.setupOpts})
     '';
   };

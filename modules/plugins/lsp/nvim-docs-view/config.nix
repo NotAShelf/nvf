@@ -19,7 +19,7 @@ in {
       lsp.enable = true;
       startPlugins = ["nvim-docs-view"];
 
-      luaConfigRC.nvim-docs-view = entryAnywhere ''
+      pluginRC.nvim-docs-view = entryAnywhere ''
         require("docs-view").setup ${toLuaObject cfg.setupOpts}
       '';
 

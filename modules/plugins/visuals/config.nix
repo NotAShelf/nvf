@@ -14,14 +14,14 @@ in {
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.indentBlankline.enable {
       vim.startPlugins = ["indent-blankline"];
-      vim.luaConfigRC.indent-blankline = entryAnywhere ''
+      vim.pluginRC.indent-blankline = entryAnywhere ''
         require("ibl").setup(${toLuaObject cfg.indentBlankline.setupOpts})
       '';
     })
 
     (mkIf cfg.cursorline.enable {
       vim.startPlugins = ["nvim-cursorline"];
-      vim.luaConfigRC.cursorline = entryAnywhere ''
+      vim.pluginRC.cursorline = entryAnywhere ''
         require('nvim-cursorline').setup {
           cursorline = {
             timeout = ${toString cfg.cursorline.lineTimeout},
@@ -37,7 +37,7 @@ in {
 
     (mkIf cfg.scrollBar.enable {
       vim.startPlugins = ["scrollbar-nvim"];
-      vim.luaConfigRC.scrollBar = entryAnywhere ''
+      vim.pluginRC.scrollBar = entryAnywhere ''
         require('scrollbar').setup{
             excluded_filetypes = {
               'prompt',
@@ -56,7 +56,7 @@ in {
 
     (mkIf cfg.smoothScroll.enable {
       vim.startPlugins = ["cinnamon-nvim"];
-      vim.luaConfigRC.smoothScroll = entryAnywhere ''
+      vim.pluginRC.smoothScroll = entryAnywhere ''
         require('cinnamon').setup()
       '';
     })
@@ -66,7 +66,7 @@ in {
 
       vim.maps.normal = mkBinding cfg.cellularAutomaton.mappings.makeItRain "<cmd>CellularAutomaton make_it_rain<CR>" "Make it rain";
 
-      vim.luaConfigRC.cellularAUtomaton = entryAnywhere ''
+      vim.pluginRC.cellularAUtomaton = entryAnywhere ''
         local config = {
               fps = 50,
               name = 'slide',
@@ -94,7 +94,7 @@ in {
 
     (mkIf cfg.highlight-undo.enable {
       vim.startPlugins = ["highlight-undo"];
-      vim.luaConfigRC.highlight-undo = entryAnywhere ''
+      vim.pluginRC.highlight-undo = entryAnywhere ''
         require('highlight-undo').setup({
           duration = ${toString cfg.highlight-undo.duration},
           highlight_for_count = ${boolToString cfg.highlight-undo.highlightForCount},

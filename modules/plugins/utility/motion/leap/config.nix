@@ -37,7 +37,7 @@ in {
       (mkBinding cfg.mappings.leapFromWindow "<Plug>(leap-from-window)" "Leap from window")
     ];
 
-    vim.luaConfigRC.leap-nvim = entryAnywhere ''
+    vim.pluginRC.leap-nvim = entryAnywhere ''
       require('leap').opts = {
         max_phase_one_targets = nil,
         highlight_unlabeled_phase_one_targets = false,

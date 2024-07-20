@@ -36,7 +36,7 @@ in {
           grammars = [cfg.treesitter.package];
         };
 
-        luaConfigRC.html-autotag = mkIf cfg.treesitter.autotagHtml (entryAnywhere ''
+        pluginRC.html-autotag = mkIf cfg.treesitter.autotagHtml (entryAnywhere ''
           require('nvim-ts-autotag').setup()
         '');
       };

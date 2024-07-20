@@ -7,10 +7,10 @@
   inherit (lib.attrsets) attrNames;
   inherit (lib.types) bool lines enum;
   inherit (lib.modules) mkIf;
-  inherit (lib.nvim.dag) entryBefore;
+  inherit (lib.nvim.dag) entryAfter;
 
   cfg = config.vim.theme;
-  supported_themes = import ./supported_themes.nix {
+  supportedThemes = import ./supported-themes.nix {
     inherit lib config;
   };
 in {
@@ -21,12 +21,12 @@ in {
     };
 
     name = mkOption {
-      type = enum (attrNames supported_themes);
-      description = "Supported themes can be found in `supported_themes.nix`";
+      type = enum (attrNames supportedThemes);
+      description = "Supported themes can be found in `supportedThemes.nix`";
     };
 
     style = mkOption {
-      type = enum supported_themes.${cfg.name}.styles;
+      type = enum supportedThemes.${cfg.name}.styles;
       description = "Specific style for theme if it supports it";
     };
 
@@ -45,11 +45,9 @@ in {
   config = mkIf cfg.enable {
     vim = {
       startPlugins = [cfg.name];
-      configRC.theme = entryBefore ["luaScript"] ''
-        lua << EOF
+      luaConfigRC.theme = entryAfter ["basic"] ''
         ${cfg.extraConfig}
-        ${supported_themes.${cfg.name}.setup (with cfg; {inherit style transparent;})}
-        EOF
+        ${supportedThemes.${cfg.name}.setup {inherit (cfg) style transparent;}}
       '';
     };
   };
