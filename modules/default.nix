@@ -108,13 +108,13 @@ inputs: {
 
   # Additional helper scripts for printing and displaying nvf configuration
   # in your commandline.
-  printConfig = pkgs.writeShellScriptBin "print-nvf-config" ''
+  printConfig = pkgs.writers.writeDashBin "print-nvf-config" ''
     cat << EOF
       ${vimOptions.builtLuaConfigRC}
     EOF
   '';
 
-  printConfigPath = pkgs.writeShellScriptBin "print-nvf-config-path" ''
+  printConfigPath = pkgs.writers.writeDashBin "print-nvf-config-path" ''
     realpath ${pkgs.writeTextFile {
       name = "nvf-init.lua";
       text = vimOptions.builtLuaConfigRC;
