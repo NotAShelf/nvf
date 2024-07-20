@@ -23,7 +23,7 @@ in {
 
           maps.normal = mkBinding cfg.mappings.open "<Cmd>execute v:count . \"ToggleTerm\"<CR>" "Toggle terminal";
 
-          luaConfigRC.toggleterm = entryAnywhere ''
+          pluginRC.toggleterm = entryAnywhere ''
             require("toggleterm").setup(${toLuaObject cfg.setupOpts})
           '';
         };
@@ -35,7 +35,7 @@ in {
         vim.startPlugins = optionals (cfg.lazygit.package != null) [
           cfg.lazygit.package
         ];
-        vim.luaConfigRC.toggleterm-lazygit = entryAfter ["toggleterm"] ''
+        vim.pluginRC.toggleterm-lazygit = entryAfter ["toggleterm"] ''
           local terminal = require 'toggleterm.terminal'
           local lazygit = terminal.Terminal:new({
             cmd = '${

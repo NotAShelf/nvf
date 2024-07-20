@@ -19,7 +19,7 @@ in {
 
     vim.maps.normal = mkSetBinding mappings.hop "<cmd> HopPattern<CR>";
 
-    vim.luaConfigRC.hop-nvim = entryAnywhere ''
+    vim.pluginRC.hop-nvim = entryAnywhere ''
       require('hop').setup()
     '';
   };

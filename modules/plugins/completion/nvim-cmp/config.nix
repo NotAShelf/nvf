@@ -186,7 +186,7 @@ in {
 
     # TODO: alternative snippet engines to vsnip
     # https://github.com/hrsh7th/nvim-cmp/blob/main/doc/cmp.txt#L82
-    vim.luaConfigRC.completion = mkIf (cfg.type == "nvim-cmp") (dagPlacement ''
+    vim.pluginRC.completion = mkIf (cfg.type == "nvim-cmp") (dagPlacement ''
       local nvim_cmp_menu_map = function(entry, vim_item)
         -- name for each source
         vim_item.menu = ({

@@ -28,7 +28,7 @@ in {
         # TODO: load_current_dir_session
       ];
 
-      luaConfigRC.nvim-session-manager = entryAnywhere ''
+      pluginRC.nvim-session-manager = entryAnywhere ''
         local Path = require('plenary.path')
         local sm = require('session_manager.config')
         require('session_manager').setup(${toLuaObject cfg.setupOpts})

@@ -35,7 +35,7 @@ in {
       vim = {
         startPlugins = ["lualine"];
 
-        luaConfigRC.lualine = entryAnywhere ''
+        pluginRC.lualine = entryAnywhere ''
           local lualine = require('lualine')
           lualine.setup ${toLuaObject cfg.setupOpts}
         '';

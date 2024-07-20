@@ -192,7 +192,7 @@ in {
 
     (mkIf cfg.extensions."ts-error-translator".enable {
       vim.startPlugins = ["ts-error-translator"];
-      vim.luaConfigRC.ts-error-translator = entryAnywhere ''
+      vim.pluginRC.ts-error-translator = entryAnywhere ''
         require("ts-error-translator").setup(${toLuaObject cfg.extensions.ts-error-translator.setupOpts})
       '';
     })

@@ -32,7 +32,7 @@ in {
         "<leader>lw" = "Workspace";
       };
 
-      luaConfigRC.trouble = entryAnywhere ''
+      pluginRC.trouble = entryAnywhere ''
         -- Enable trouble diagnostics viewer
         require("trouble").setup {}
       '';

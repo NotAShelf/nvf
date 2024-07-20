@@ -13,7 +13,7 @@ in {
       "ccc"
     ];
 
-    vim.luaConfigRC.ccc = entryAnywhere ''
+    vim.pluginRC.ccc = entryAnywhere ''
       local ccc = require("ccc")
       ccc.setup {
       	highlighter = {

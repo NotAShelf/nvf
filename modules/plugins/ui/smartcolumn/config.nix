@@ -13,7 +13,7 @@ in {
     vim = {
       startPlugins = ["smartcolumn"];
 
-      luaConfigRC.smartcolumn = entryAnywhere ''
+      pluginRC.smartcolumn = entryAnywhere ''
         require("smartcolumn").setup(${toLuaObject cfg.setupOpts})
       '';
     };

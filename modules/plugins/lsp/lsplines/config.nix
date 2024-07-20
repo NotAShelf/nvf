@@ -10,7 +10,7 @@
 in {
   config = mkIf (cfg.enable && cfg.lsplines.enable) {
     vim.startPlugins = ["lsp-lines"];
-    vim.luaConfigRC.lsplines = entryAfter ["lspconfig"] ''
+    vim.pluginRC.lsplines = entryAfter ["lspconfig"] ''
       require("lsp_lines").setup()
 
       vim.diagnostic.config({

@@ -14,7 +14,7 @@ in {
       # vim-dirtytalk doesn't have any setup
       # but we would like to append programming to spelllang
       # as soon as possible while the plugin is enabled
-      luaConfigRC.vim-dirtytalk = entryAfter ["basic"] ''
+      pluginRC.vim-dirtytalk = entryAfter ["basic"] ''
         -- append programming to spelllang
         vim.opt.spelllang:append("programming")
       '';

@@ -1,16 +1,38 @@
 # Configuring {#sec-configuring-plugins}
 
 Just making the plugin to your Neovim configuration available might not always
-be enough. In that case, you can write custom vimscript or lua config, using
-either `config.vim.configRC` or `config.vim.luaConfigRC` respectively. Both of
-these options are attribute sets, and you need to give the configuration you're
-adding some name, like this:
+be enough. In that case, you can write custom lua config using either
+`config.vim.extraPlugins` (which has the `setup` field) or
+`config.vim.luaConfigRC`. The first option uses an attribute set, which maps DAG
+section names to a custom type, which has the fields `package`, `after`,
+`setup`. They allow you to set the package of the plugin, the sections its setup
+code should be after (note that the `extraPlugins` option has its own DAG
+scope), and the its setup code respectively. For example:
+
+```nix
+config.vim.extraPlugins = with pkgs.vimPlugins; {
+  aerial = {
+    package = aerial-nvim;
+    setup = "require('aerial').setup {}";
+  };
+
+  harpoon = {
+    package = harpoon;
+    setup = "require('harpoon').setup {}";
+    after = ["aerial"]; # place harpoon configuration after aerial
+  };
+}
+```
+
+The second option also uses an attribute set, but this one is resolved as a DAG
+directly. The attribute names denote the section names, and the values lua code.
+For example:
 
 ```nix
 {
-  # this will create an "aquarium" section in your init.vim with the contents of your custom config
+  # this will create an "aquarium" section in your init.lua with the contents of your custom config
   # which will be *appended* to the rest of your configuration, inside your init.vim
-  config.vim.configRC.aquarium = "colorscheme aquiarum";
+  config.vim.luaConfigRC.aquarium = "vim.cmd('colorscheme aquiarum')";
 }
 ```
 

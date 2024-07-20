@@ -14,7 +14,7 @@ in {
       "modes-nvim"
     ];
 
-    vim.luaConfigRC.modes-nvim = entryAnywhere ''
+    vim.pluginRC.modes-nvim = entryAnywhere ''
       require('modes').setup(${toLuaObject cfg.setupOpts})
     '';
   };

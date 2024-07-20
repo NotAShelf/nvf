@@ -140,7 +140,7 @@ in {
         then ["flutter-tools-patched"]
         else ["flutter-tools"];
 
-      vim.luaConfigRC.flutter-tools = entryAnywhere ''
+      vim.pluginRC.flutter-tools = entryAnywhere ''
         require('flutter-tools').setup {
           lsp = {
             color = { -- show the derived colours for dart variables

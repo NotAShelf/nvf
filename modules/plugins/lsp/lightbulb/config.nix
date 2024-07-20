@@ -12,7 +12,7 @@ in {
     vim = {
       startPlugins = ["nvim-lightbulb"];
 
-      luaConfigRC.lightbulb = entryAnywhere ''
+      pluginRC.lightbulb = entryAnywhere ''
         vim.api.nvim_command('autocmd CursorHold,CursorHoldI * lua require\'nvim-lightbulb\'.update_lightbulb()')
 
         -- Enable trouble diagnostics viewer
