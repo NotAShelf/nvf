@@ -25,7 +25,8 @@
 
       flake = {
         lib = {
-          inherit (lib) nvim neovimConfiguration;
+          inherit (lib) nvim;
+          inherit (lib.nvim) neovimConfiguration;
         };
 
         homeManagerModules = {
@@ -164,8 +165,8 @@
       flake = false;
     };
 
-    plugin-rust-tools = {
-      url = "github:simrat39/rust-tools.nvim";
+    plugin-rustaceanvim = {
+      url = "github:mrcjkb/rustaceanvim";
       flake = false;
     };
 

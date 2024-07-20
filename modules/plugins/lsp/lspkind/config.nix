@@ -10,7 +10,7 @@
 in {
   config = mkIf (cfg.enable && cfg.lspkind.enable) {
     vim.startPlugins = ["lspkind"];
-    vim.luaConfigRC.lspkind = entryAnywhere ''
+    vim.pluginRC.lspkind = entryAnywhere ''
       local lspkind = require'lspkind'
       local lspkind_opts = {
         mode = '${cfg.lspkind.mode}'

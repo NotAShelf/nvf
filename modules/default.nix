@@ -98,8 +98,9 @@ inputs: {
     neovim = vimOptions.package;
     plugins = concatLists [builtStartPlugins builtOptPlugins];
     appName = "nvf";
-    initViml = vimOptions.builtConfigRC;
     extraBinPath = vimOptions.extraPackages;
+    initLua = vimOptions.builtLuaConfigRC;
+    luaFiles = vimOptions.extraLuaFiles;
 
     inherit (vimOptions) viAlias vimAlias withRuby withNodeJs withPython3;
     inherit extraLuaPackages extraPython3Packages;

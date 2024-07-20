@@ -20,7 +20,7 @@ in {
         "neo-tree-nvim"
       ];
 
-      luaConfigRC.neo-tree = entryAnywhere ''
+      pluginRC.neo-tree = entryAnywhere ''
         require("neo-tree").setup(${toLuaObject cfg.setupOpts})
       '';
     };

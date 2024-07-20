@@ -31,7 +31,7 @@ in {
         "<leader>m" = "+Minimap";
       };
 
-      luaConfigRC.codewindow = entryAnywhere ''
+      pluginRC.codewindow = entryAnywhere ''
         local codewindow = require('codewindow')
         codewindow.setup({
           exclude_filetypes = { 'NvimTree', 'orgagenda', 'Alpha'},

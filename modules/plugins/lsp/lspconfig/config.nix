@@ -18,7 +18,7 @@ in {
 
         startPlugins = ["nvim-lspconfig"];
 
-        luaConfigRC.lspconfig = entryAfter ["lsp-setup"] ''
+        pluginRC.lspconfig = entryAfter ["lsp-setup"] ''
           local lspconfig = require('lspconfig')
 
           ${
@@ -30,7 +30,7 @@ in {
       };
     }
     {
-      vim.luaConfigRC = mapAttrs (_: v: (entryAfter ["lspconfig"] v)) cfg.lspconfig.sources;
+      vim.pluginRC = mapAttrs (_: v: (entryAfter ["lspconfig"] v)) cfg.lspconfig.sources;
     }
   ]);
 }

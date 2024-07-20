@@ -13,7 +13,7 @@ in {
   config = mkIf cfg.enable {
     vim.startPlugins = ["which-key"];
 
-    vim.luaConfigRC.whichkey = entryAnywhere ''
+    vim.pluginRC.whichkey = entryAnywhere ''
       local wk = require("which-key")
       wk.setup ({
         key_labels = {

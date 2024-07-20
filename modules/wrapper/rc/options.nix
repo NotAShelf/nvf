@@ -3,13 +3,25 @@
   lib,
   ...
 }: let
+  inherit (lib.modules) mkRemovedOptionModule;
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
   inherit (lib.strings) optionalString;
-  inherit (lib.types) str oneOf attrs lines listOf either path bool;
+  inherit (lib.types) str attrs lines listOf either path bool;
   inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.lua) listToLuaTable;
+
   cfg = config.vim;
 in {
+  imports = [
+    (mkRemovedOptionModule ["vim" "configRC"] ''
+      Please migrate your configRC sections to Neovim's Lua format, and
+      add them to luaConfigRC.
+
+      See the v0.7 release notes for more information on how to migrate
+      your existing configurations.
+    '')
+  ];
+
   options.vim = {
     enableLuaLoader = mkEnableOption ''
       the experimental Lua module loader to speed up the start up process
@@ -120,35 +132,20 @@ in {
       description = ''
         An attribute set containing global variable values
         for storing vim variables as early as possible. If
-        populated, this soption will set vim variables in the
-        built configRC as the first item.
+        populated, this option will set vim variables in the
+        built luaConfigRC as the first item.
 
-        E.g. {foo = "bar"} will set `g:foo` to "bar" where
+        E.g. {foo = "bar"} will set `vim.g.foo` to "bar" where
         the type of `bar` in the resulting vimscript will be
         infered from the type of the value in the `{name = value}`
         pair.
       '';
     };
 
-    configRC = mkOption {
-      type = oneOf [(dagOf lines) str];
+    pluginRC = mkOption {
+      type = either (dagOf lines) str;
       default = {};
-      description = ''
-        Contents of vimrc, either as a string or a DAG.
-
-        If this option is passed as a DAG, it will be resolved
-        according to the DAG resolution rules (e.g. entryBefore
-        or entryAfter) as per the **nvf** extended library.
-      '';
-
-      example = literalMD ''
-        ```vim
-        " Set the tab size to 4 spaces
-        set tabstop=4
-        set shiftwidth=4
-        set expandtab
-        ```
-      '';
+      description = "The DAG used to configure plugins. If a string is passed, entryAnywhere is automatically applied.";
     };
 
     luaConfigPre = mkOption {
@@ -211,7 +208,7 @@ in {
     };
 
     luaConfigRC = mkOption {
-      type = oneOf [(dagOf lines) str];
+      type = either (dagOf lines) str;
       default = {};
       description = ''
         Lua configuration, either as a string or a DAG.
@@ -245,10 +242,10 @@ in {
       '';
     };
 
-    builtConfigRC = mkOption {
+    builtLuaConfigRC = mkOption {
       internal = true;
       type = lines;
-      description = "The built config for neovim after resolving the DAG";
+      description = "The built lua config for neovim after resolving the DAG";
     };
   };
 }

@@ -19,7 +19,7 @@ in {
         "magick"
       ];
 
-      luaConfigRC.image-nvim = entryAnywhere ''
+      pluginRC.image-nvim = entryAnywhere ''
         require("image").setup(
           ${toLuaObject cfg.setupOpts}
         )

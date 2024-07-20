@@ -24,7 +24,7 @@ in {
         "<leader>c" = "+CodeAction";
       };
 
-      luaConfigRC.code-action-menu = entryAnywhere ''
+      pluginRC.code-action-menu = entryAnywhere ''
         -- border configuration
         vim.g.code_action_menu_window_border = ${toLuaObject config.vim.ui.borders.plugins.code-action-menu.style}
 

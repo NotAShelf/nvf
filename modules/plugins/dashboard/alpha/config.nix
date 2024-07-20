@@ -16,7 +16,7 @@ in {
 
     # the entire credit for this dashboard configuration to https://github.com/Rishabh672003
     # honestly, excellent work
-    vim.luaConfigRC.alpha = entryAnywhere ''
+    vim.pluginRC.alpha = entryAnywhere ''
       local alpha = require("alpha")
       local plenary_path = require("plenary.path")
       local dashboard = require("alpha.themes.dashboard")

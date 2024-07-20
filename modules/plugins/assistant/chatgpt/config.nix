@@ -33,7 +33,7 @@ in {
       startPlugins = [
         "chatgpt"
       ];
-      luaConfigRC.chagpt = entryAnywhere ''
+      pluginRC.chagpt = entryAnywhere ''
         require("chatgpt").setup(${toLuaObject cfg.setupOpts})
       '';
       maps.normal = mkMerge [

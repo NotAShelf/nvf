@@ -22,7 +22,7 @@ in {
         "<leader>o" = "+Notes";
       };
 
-      luaConfigRC.obsidian = entryAnywhere ''
+      pluginRC.obsidian = entryAnywhere ''
         require("obsidian").setup(${toLuaObject cfg.setupOpts})
       '';
     };

@@ -113,7 +113,7 @@ in {
 
     (mkIf cfg.elixir-tools.enable {
       vim.startPlugins = ["elixir-tools"];
-      vim.luaConfigRC.elixir-tools = entryAnywhere ''
+      vim.pluginRC.elixir-tools = entryAnywhere ''
         local elixir-tools = require("elixir")
         local elixirls = require("elixir-tools.elixirls")
 

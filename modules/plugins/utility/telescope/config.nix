@@ -65,7 +65,7 @@ in {
       "<leader>fvc" = "Commits";
     };
 
-    vim.luaConfigRC.telescope = entryAnywhere ''
+    vim.pluginRC.telescope = entryAnywhere ''
       local telescope = require('telescope')
       telescope.setup(${toLuaObject cfg.setupOpts})
 

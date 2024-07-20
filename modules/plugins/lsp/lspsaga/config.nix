@@ -41,7 +41,7 @@ in {
         ];
       };
 
-      luaConfigRC.lspsaga = entryAnywhere ''
+      pluginRC.lspsaga = entryAnywhere ''
         require('lspsaga').init_lsp_saga({
           ${optionalString config.vim.ui.borders.plugins.lspsaga.enable ''
           border_style = '${config.vim.ui.borders.plugins.lspsaga.style}',

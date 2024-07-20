@@ -13,7 +13,7 @@ in {
       "dashboard-nvim"
     ];
 
-    vim.luaConfigRC.dashboard-nvim = entryAnywhere ''
+    vim.pluginRC.dashboard-nvim = entryAnywhere ''
       require("dashboard").setup{}
     '';
   };
