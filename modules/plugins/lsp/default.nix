@@ -10,12 +10,14 @@
 
     # lsp plugins
     ./lspsaga
-    ./nvim-code-action-menu
     ./trouble
     ./lsp-signature
     ./lightbulb
     ./lspkind
     ./lsplines
     ./nvim-docs-view
+
+    # Code Actions
+    ./code-actions
   ];
 }
