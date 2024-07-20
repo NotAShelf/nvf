@@ -105,10 +105,30 @@ inputs: {
     inherit (vimOptions) viAlias vimAlias withRuby withNodeJs withPython3;
     inherit extraLuaPackages extraPython3Packages;
   };
+
+  # Additional helper scripts for printing and displaying nvf configuration
+  # in your commandline.
+  printConfig = pkgs.writers.writeDashBin "print-nvf-config" ''
+    cat << EOF
+      ${vimOptions.builtLuaConfigRC}
+    EOF
+  '';
+
+  printConfigPath = pkgs.writers.writeDashBin "print-nvf-config-path" ''
+    realpath ${pkgs.writeTextFile {
+      name = "nvf-init.lua";
+      text = vimOptions.builtLuaConfigRC;
+    }}
+  '';
 in {
   inherit (module) options config;
   inherit (module._module.args) pkgs;
 
-  # expose wrapped neovim-package
-  neovim = neovim-wrapped;
+  # Expose wrapped neovim-package for userspace
+  # or module consumption.
+  neovim = pkgs.symlinkJoin {
+    name = "nvf-with-helpers";
+    paths = [neovim-wrapped printConfig printConfigPath];
+    postBuild = "echo helpers added";
+  };
 }
