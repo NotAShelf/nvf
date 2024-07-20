@@ -1737,38 +1737,6 @@ null or string</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.configRC"></a><a class="term" href="options.html#opt-vim.configRC"><code class="option">vim.configRC</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Contents of vimrc, either as a string or a DAG.</p><p>If this option is passed as a DAG, it will be resolved
-according to the DAG resolution rules (e.g. entryBefore
-or entryAfter) as per the <span class="strong"><strong>nvf</strong></span> extended library.</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-(DAG of strings concatenated with “\n”) or string</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">{ }</code></p>
-
-<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting vim">&quot; Set the tab size to 4 spaces
-set tabstop=4
-set shiftwidth=4
-set expandtab
-</code></pre>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_top">
-&lt;nvf/modules/wrapper/rc/options.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
  <a id="opt-vim.cursorlineOpt"></a><a class="term" href="options.html#opt-vim.cursorlineOpt"><code class="option">vim.cursorlineOpt</code>
   </a>
  </span>
@@ -7877,8 +7845,8 @@ boolean</p>
 <dd>
 <p>An attribute set containing global variable values
 for storing vim variables as early as possible. If
-populated, this soption will set vim variables in the
-built configRC as the first item.</p><p>E.g. {foo = “bar”} will set <code class="literal">g:foo</code> to “bar” where
+populated, this option will set vim variables in the
+built luaConfigRC as the first item.</p><p>E.g. {foo = “bar”} will set <code class="literal">vim.g.foo</code> to “bar” where
 the type of <code class="literal">bar</code> in the resulting vimscript will be
 infered from the type of the value in the <code class="literal">{name = value}</code>
 pair.</p>
@@ -13507,13 +13475,13 @@ package</p>
  </span>
 </dt>
 <dd>
-<p>The leader key to be used internally</p>
+<p>The leader key used for <code class="literal">&lt;leader&gt;</code> mappings</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-null or string</p>
+string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">null</code></p>
+<code class="literal">&quot; &quot;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -15380,30 +15348,6 @@ list of string</p>
 <tr><td>
 <code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/wrapper/build/options.nix" target="_top">
 &lt;nvf/modules/wrapper/build/options.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="opt-vim.mapLeaderSpace"></a><a class="term" href="options.html#opt-vim.mapLeaderSpace"><code class="option">vim.mapLeaderSpace</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Map the space key to leader key</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-boolean</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">true</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/neovim/init/basic.nix" target="_top">
-&lt;nvf/modules/neovim/init/basic.nix&gt;
 </a></code>
 </td></tr>
 </table>
@@ -19043,6 +18987,30 @@ list of (null or package or one of “alpha-nvim”, “bufdelete-nvim”, “ca
 <tr><td>
 <code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/wrapper/build/options.nix" target="_top">
 &lt;nvf/modules/wrapper/build/options.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.pluginRC"></a><a class="term" href="options.html#opt-vim.pluginRC"><code class="option">vim.pluginRC</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The DAG used to configure plugins. If a string is passed, entryAnywhere is automatically applied.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+(DAG of strings concatenated with “\n”) or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_top">
+&lt;nvf/modules/wrapper/rc/options.nix&gt;
 </a></code>
 </td></tr>
 </table>
@@ -24504,7 +24472,7 @@ strings concatenated with “\n”</p>
  </span>
 </dt>
 <dd>
-<p>Supported themes can be found in <code class="literal">supported_themes.nix</code></p>
+<p>Supported themes can be found in <code class="literal">supportedThemes.nix</code></p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 one of “catppuccin”, “dracula”, “gruvbox”, “onedark”, “oxocarbon”, “rose-pine”, “tokyonight”</p>
