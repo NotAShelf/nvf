@@ -130,5 +130,10 @@ in {
     name = "nvf-with-helpers";
     paths = [neovim-wrapped printConfig printConfigPath];
     postBuild = "echo helpers added";
+
+    meta = {
+      description = "Wrapped version of Neovim with additional helper scripts";
+      mainProgram = "nvim";
+    };
   };
 }
