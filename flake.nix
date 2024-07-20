@@ -25,7 +25,8 @@
 
       flake = {
         lib = {
-          inherit (lib) nvim neovimConfiguration;
+          inherit (lib) nvim;
+          inherit (lib.nvim) neovimConfiguration;
         };
 
         homeManagerModules = {
