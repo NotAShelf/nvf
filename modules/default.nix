@@ -36,11 +36,19 @@ inputs: {
   buildPlug = {pname, ...} @ attrs: let
     src = getAttr ("plugin-" + pname) inputs;
   in
-    pkgs.runCommand "${pname}-${src.shortRev or src.shortDirtyRev or "dirty"}" attrs
-    ''
-      mkdir -p $out
-      cp -r ${src}/. $out
-    '';
+    pkgs.stdenvNoCC.mkDerivation ({
+        inherit src;
+        version = src.shortRev or src.shortDirtyRev or "dirty";
+        installPhase = ''
+          runHook preInstall
+
+          mkdir -p $out
+          cp -r . $out
+
+          runHook postInstall
+        '';
+      }
+      // attrs);
 
   noBuildPlug = {pname, ...} @ attrs: let
     input = getAttr ("plugin-" + pname) inputs;
