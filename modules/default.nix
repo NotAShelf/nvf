@@ -36,11 +36,19 @@ inputs: {
   buildPlug = {pname, ...} @ attrs: let
     src = getAttr ("plugin-" + pname) inputs;
   in
-    pkgs.runCommand "${pname}-${src.shortRev or src.shortDirtyRev or "dirty"}" attrs
-    ''
-      mkdir -p $out
-      cp -r ${src}/. $out
-    '';
+    pkgs.stdenvNoCC.mkDerivation ({
+        inherit src;
+        version = src.shortRev or src.shortDirtyRev or "dirty";
+        installPhase = ''
+          runHook preInstall
+
+          mkdir -p $out
+          cp -r . $out
+
+          runHook postInstall
+        '';
+      }
+      // attrs);
 
   noBuildPlug = {pname, ...} @ attrs: let
     input = getAttr ("plugin-" + pname) inputs;
@@ -105,10 +113,35 @@ inputs: {
     inherit (vimOptions) viAlias vimAlias withRuby withNodeJs withPython3;
     inherit extraLuaPackages extraPython3Packages;
   };
+
+  # Additional helper scripts for printing and displaying nvf configuration
+  # in your commandline.
+  printConfig = pkgs.writers.writeDashBin "print-nvf-config" ''
+    cat << EOF
+      ${vimOptions.builtLuaConfigRC}
+    EOF
+  '';
+
+  printConfigPath = pkgs.writers.writeDashBin "print-nvf-config-path" ''
+    realpath ${pkgs.writeTextFile {
+      name = "nvf-init.lua";
+      text = vimOptions.builtLuaConfigRC;
+    }}
+  '';
 in {
   inherit (module) options config;
   inherit (module._module.args) pkgs;
 
-  # expose wrapped neovim-package
-  neovim = neovim-wrapped;
+  # Expose wrapped neovim-package for userspace
+  # or module consumption.
+  neovim = pkgs.symlinkJoin {
+    name = "nvf-with-helpers";
+    paths = [neovim-wrapped printConfig printConfigPath];
+    postBuild = "echo helpers added";
+
+    meta = {
+      description = "Wrapped version of Neovim with additional helper scripts";
+      mainProgram = "nvim";
+    };
+  };
 }
