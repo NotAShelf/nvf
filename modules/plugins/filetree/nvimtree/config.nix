@@ -16,8 +16,6 @@
   inherit (self.options.vim.filetree.nvimTree) mappings;
 in {
   config = mkIf cfg.enable {
-    vim.startPlugins = ["nvim-tree-lua"];
-
     vim.maps.normal = mkMerge [
       (mkBinding cfg.mappings.toggle ":NvimTreeToggle<cr>" mappings.toggle.description)
       (mkBinding cfg.mappings.refresh ":NvimTreeRefresh<cr>" mappings.refresh.description)
@@ -29,6 +27,17 @@ in {
       "<leader>t" = "+NvimTree";
     };
 
+    vim.lazy = {
+      plugins = {
+        nvim-tree-lua = {
+          package = "nvim-tree-lua";
+          setupModule = "nvim-tree";
+          inherit (cfg) setupOpts;
+          cmd = ["NvimTreeClipboard" "NvimTreeClose" "NvimTreeCollapse" "NvimTreeCollapseKeepBuffers" "NvimTreeFindFile" "NvimTreeFindFileToggle" "NvimTreeFocus" "NvimTreeHiTest" "NvimTreeOpen" "NvimTreeRefresh" "NvimTreeResize" "NvimTreeToggle"];
+        };
+      };
+    };
+
     vim.pluginRC.nvimtreelua = entryAnywhere ''
       ${
         optionalString cfg.setupOpts.disable_netrw ''
@@ -37,8 +46,6 @@ in {
           vim.g.loaded_netrwPlugin = 1
         ''
       }
-
-      require'nvim-tree'.setup(${toLuaObject cfg.setupOpts})
 
       ${
         optionalString cfg.openOnSetup ''
