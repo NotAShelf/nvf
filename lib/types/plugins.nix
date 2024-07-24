@@ -65,9 +65,26 @@
       #   type=  str;
       # }
 
+      # Non-lz.n options
+
       package = mkOption {
         type = pluginType;
+        description = "Plugin package";
       };
+
+      setupModule = mkOption {
+        type = nullOr str;
+        description = "Lua module to run setup function on.";
+        default = null;
+      };
+
+      setupOpts = mkOption {
+        type = submodule {freeformType = attrsOf anything;};
+        description = "Options to pass to the setup function";
+        default = {};
+      };
+
+      # lz.n options
 
       before = mkOption {
         type = nullOr luaInline;
