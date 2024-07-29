@@ -155,11 +155,7 @@ in {
           -- The following list is generated from `vim.additionalRuntimePaths`
           -- and is used to append additional runtime paths to the
           -- `runtimepath` option.
-          local additionalRuntimePaths = ${listToLuaTable cfg.additionalRuntimePaths};
-
-          for _, path in ipairs(additionalRuntimePaths) do
-            vim.opt.runtimepath:append(path)
-          end
+          vim.opt.runtimepath:append(${listToLuaTable cfg.additionalRuntimePaths})
         ''}
 
         ${optionalString cfg.disableDefaultRuntimePaths ''
