@@ -6,7 +6,7 @@
   inherit (lib.options) mkOption;
   inherit (lib.attrsets) attrNames mapAttrs' filterAttrs nameValuePair;
   inherit (lib.strings) hasPrefix removePrefix;
-  inherit (lib.types) submodule either package enum str lines attrsOf anything listOf nullOr oneOf;
+  inherit (lib.types) submodule either package enum str lines attrsOf anything listOf nullOr oneOf bool;
   # Get the names of all flake inputs that start with the given prefix.
   fromInputs = {
     inputs,
@@ -54,6 +54,64 @@
   luaInline = lib.mkOptionType {
     name = "luaInline";
     check = x: lib.nvim.lua.isLuaInline x;
+  };
+
+  lznKeysSpec = submodule {
+    apply = x:
+      x
+      // {
+        "@1" = x.lhs;
+        "@2" = x.rhs;
+      };
+
+    options = {
+      desc = mkOption {
+        description = "Description of the key map";
+        type = nullOr str;
+        default = null;
+      };
+
+      noremap = mkOption {
+        description = "TBD";
+        type = bool;
+        default = false;
+      };
+
+      expr = mkOption {
+        description = "TBD";
+        type = bool;
+        default = false;
+      };
+
+      nowait = mkOption {
+        description = "TBD";
+        type = bool;
+        default = false;
+      };
+
+      ft = mkOption {
+        description = "TBD";
+        type = nullOr (listOf str);
+        default = null;
+      };
+
+      lhs = mkOption {
+        type = str;
+        description = "Key to bind to";
+      };
+
+      rhs = mkOption {
+        type = nullOr str;
+        default = null;
+        description = "Action to trigger";
+      };
+
+      mode = mkOption {
+        description = "Modes to bind in";
+        type = listOf str;
+        default = ["n"];
+      };
+    };
   };
 
   lznPluginTableType = attrsOf lznPluginType;
@@ -135,7 +193,7 @@
       keys = mkOption {
         description = "Lazy-load on key mapping";
         default = null;
-        type = nullOr (either str (listOf str)); # TODO: support lz.n.KeysSpec
+        type = nullOr (oneOf [str (listOf str) lznKeysSpec]); # TODO: support lz.n.KeysSpec
       };
 
       # TODO: enabled, beforeAll, colorscheme, priority, load
