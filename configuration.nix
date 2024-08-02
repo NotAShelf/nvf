@@ -17,11 +17,16 @@ isMaximal: {
       lspkind.enable = false;
       lightbulb.enable = true;
       lspsaga.enable = false;
-      nvimCodeActionMenu.enable = isMaximal;
       trouble.enable = true;
       lspSignature.enable = true;
       lsplines.enable = isMaximal;
       nvim-docs-view.enable = isMaximal;
+
+      # Code Actions
+      code-actions = {
+        enable = true;
+        fastaction-nvim.enable = true;
+      };
     };
 
     debugger = {

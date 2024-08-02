@@ -138,6 +138,11 @@
       flake = false;
     };
 
+    plugin-fastaction-nvim = {
+      url = "github:Chaitanyabsprip/fastaction.nvim";
+      flake = false;
+    };
+
     plugin-lsp-signature = {
       url = "github:ray-x/lsp_signature.nvim";
       flake = false;
