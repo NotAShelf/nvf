@@ -109,7 +109,7 @@
       mode = mkOption {
         description = "Modes to bind in";
         type = listOf str;
-        default = ["n"];
+        default = ["n" "x" "s" "o"];
       };
     };
   };
@@ -193,7 +193,7 @@
       keys = mkOption {
         description = "Lazy-load on key mapping";
         default = null;
-        type = nullOr (oneOf [str (listOf str) lznKeysSpec]); # TODO: support lz.n.KeysSpec
+        type = nullOr (oneOf [str (listOf lznKeysSpec) (listOf str)]); # TODO: support lz.n.KeysSpec
       };
 
       # TODO: enabled, beforeAll, colorscheme, priority, load
