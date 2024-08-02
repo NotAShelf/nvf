@@ -62,7 +62,7 @@ configuration formats.
   recommended to go through rustacean.nvim's README to take a closer look at its
   features and usage
 
-[jacekpoz](https://github.com/jacekpoz):
+[jacekpoz](https://jacekpoz.pl):
 
 [ocaml-lsp]: https://github.com/ocaml/ocaml-lsp
 [new-file-template.nvim]: https://github.com/otavioschwanck/new-file-template.nvim
