@@ -36,6 +36,9 @@ in {
         type = attrsOf (listOf str);
         default = {};
         description = "Disable specific regexp for the default templates. Example: { ruby = [ \".*\" ]; }";
+        example = {
+          ruby = [".*"];
+        };
       };
 
       suffixAsFiletype = mkOption {
