@@ -108,6 +108,11 @@
       flake = false;
     };
 
+    plugin-lzn-auto-require = {
+      url = "github:horriblename/lzn-auto-require";
+      flake = false;
+    };
+
     # LSP plugins
     plugin-nvim-lspconfig = {
       url = "github:neovim/nvim-lspconfig";
