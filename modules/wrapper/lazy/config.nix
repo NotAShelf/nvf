@@ -12,8 +12,23 @@
   inherit (lib.nvim.dag) entryAnywhere;
   cfg = config.vim.lazy;
 
+  toLuzLznKeySpec = {
+    desc,
+    noremap,
+    expr,
+    nowait,
+    ft,
+    lhs,
+    rhs,
+    mode,
+  }: {
+    "@1" = lhs;
+    "@2" = rhs;
+    inherit desc noremap expr nowait ft mode;
+  };
+
   toLuaLznSpec = name: spec:
-    (removeAttrs spec ["package" "setupModule" "setupOpts"])
+    (removeAttrs spec ["package" "setupModule" "setupOpts" "keys"])
     // {
       "@1" = name;
       after = mkLuaInline ''
@@ -25,6 +40,7 @@
           ${optionalString (spec.after != null) spec.after}
         end
       '';
+      keys = map toLuzLznKeySpec spec.keys;
     };
   lznSpecs = mapAttrsToList toLuaLznSpec cfg.plugins;
 in {
