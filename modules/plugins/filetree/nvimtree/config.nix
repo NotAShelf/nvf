@@ -49,6 +49,7 @@ in {
 
       ${
         optionalString cfg.openOnSetup ''
+          require('lz.n').trigger_load("nvim-tree-lua")
           -- autostart behaviour
           -- Open on startup has been deprecated
           -- see https://github.com/nvim-tree/nvim-tree.lua/wiki/Open-At-Startup

@@ -9,7 +9,7 @@
   inherit (lib.generators) mkLuaInline;
   inherit (lib.strings) optionalString;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.dag) entryBefore;
   cfg = config.vim.lazy;
 
   toLuzLznKeySpec = {
@@ -52,7 +52,7 @@ in {
 
     optPlugins = mapAttrsToList (_: plugin: plugin.package) cfg.plugins;
 
-    luaConfigRC.lzn-load = entryAnywhere ''
+    luaConfigRC.lzn-load = entryBefore ["pluginConfigs"] ''
       require('lz.n').load(${toLuaObject lznSpecs})
     '';
   };
