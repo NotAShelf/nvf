@@ -40,15 +40,21 @@
             end
           ''
         else null;
-      after = mkLuaInline ''
-        function()
-          ${
-          optionalString (spec.setupModule != null)
-          "require(${toJSON spec.setupModule}).setup(${toLuaObject spec.setupOpts})"
-        }
-          ${optionalString (spec.after != null) spec.after}
-        end
-      '';
+
+      after =
+        if spec.setupModule == null && spec.after == null
+        then null
+        else
+          mkLuaInline ''
+            function()
+              ${
+              optionalString (spec.setupModule != null)
+              "require(${toJSON spec.setupModule}).setup(${toLuaObject spec.setupOpts})"
+            }
+              ${optionalString (spec.after != null) spec.after}
+            end
+          '';
+
       keys =
         if typeOf spec.keys == "list" && length spec.keys > 0 && typeOf (head spec.keys) == "set"
         then map toLuzLznKeySpec spec.keys
