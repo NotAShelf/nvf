@@ -63,7 +63,7 @@
   lznSpecs = mapAttrsToList toLuaLznSpec cfg.plugins;
 in {
   config.vim = mkIf cfg.enable {
-    startPlugins = ["lz-n"];
+    startPlugins = ["lz-n" "lzn-auto-require"];
 
     optPlugins = mapAttrsToList (_: plugin: plugin.package) cfg.plugins;
 
