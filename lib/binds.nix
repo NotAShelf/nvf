@@ -67,6 +67,10 @@
       mkLuaBinding binding.value action binding.description;
 
     pushDownDefault = attr: mapAttrs (_: mkDefault) attr;
+
+    mkLznBinding = mode: lhs: rhs: desc: {
+      inherit mode lhs rhs desc;
+    };
   };
 in
   binds
