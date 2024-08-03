@@ -58,13 +58,6 @@
   };
 
   lznKeysSpec = submodule {
-    apply = x:
-      x
-      // {
-        "@1" = x.lhs;
-        "@2" = x.rhs;
-      };
-
     options = {
       desc = mkOption {
         description = "Description of the key map";
