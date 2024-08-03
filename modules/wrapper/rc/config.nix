@@ -5,7 +5,7 @@
 }: let
   inherit (builtins) map mapAttrs filter removeAttrs attrNames;
   inherit (lib.attrsets) mapAttrsToList filterAttrs attrsToList;
-  inherit (lib.strings) concatLines concatMapStringsSep;
+  inherit (lib.strings) concatLines concatMapStringsSep optionalString;
   inherit (lib.trivial) showWarnings;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryAfter mkLuarcSection resolveDag entryAnywhere;
@@ -86,6 +86,8 @@ in {
         pluginConfigs = entryAfter ["optionsScript"] pluginConfigs;
         extraPluginConfigs = entryAfter ["pluginConfigs"] extraPluginConfigs;
         mappings = entryAfter ["extraPluginConfigs"] keymaps;
+        # FIXME: put this somewhere less stupid
+        footer = entryAfter ["mappings"] (optionalString config.vim.lazy.enable "require('lzn-auto-require.loader').register_loader()");
       };
 
       builtLuaConfigRC = let
