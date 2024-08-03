@@ -71,6 +71,24 @@
     mkLznBinding = mode: lhs: rhs: desc: {
       inherit mode lhs rhs desc;
     };
+
+    # Usage:
+    #
+    # ```
+    # vim.lazy.plugins = {
+    #   telescope = {
+    #     # ...
+    #     keys = builtins.filter ({lhs, ...}: lhs != null) [
+    #       mkSetLznBinding mapping ":Telescope<CR>"
+    #     ];
+    #   }
+    # }
+    # ```
+    mkSetLznBinding = binding: action: {
+      lhs = binding.value;
+      rhs = action;
+      desc = binding.description;
+    };
   };
 in
   binds
