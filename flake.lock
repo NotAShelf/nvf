@@ -828,6 +828,22 @@
         "type": "github"
       }
     },
+    "plugin-lzn-auto-require": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722716302,
+        "narHash": "sha256-YehBjQ4m3i0yEnts7HhWW78N6g40hblfcl94d7l9aN4=",
+        "owner": "horriblename",
+        "repo": "lzn-auto-require",
+        "rev": "57567c9db26a3b5b143ae91f35143c34706e8881",
+        "type": "github"
+      },
+      "original": {
+        "owner": "horriblename",
+        "repo": "lzn-auto-require",
+        "type": "github"
+      }
+    },
     "plugin-mind-nvim": {
       "flake": false,
       "locked": {
@@ -1859,6 +1875,7 @@
         "plugin-lspsaga": "plugin-lspsaga",
         "plugin-lualine": "plugin-lualine",
         "plugin-lz-n": "plugin-lz-n",
+        "plugin-lzn-auto-require": "plugin-lzn-auto-require",
         "plugin-mind-nvim": "plugin-mind-nvim",
         "plugin-minimap-vim": "plugin-minimap-vim",
         "plugin-modes-nvim": "plugin-modes-nvim",
