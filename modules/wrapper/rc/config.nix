@@ -6,7 +6,7 @@
   inherit (builtins) map mapAttrs filter;
   inherit (lib.options) mkOption;
   inherit (lib.attrsets) filterAttrs getAttrs attrValues attrNames;
-  inherit (lib.strings) concatLines concatMapStringsSep;
+  inherit (lib.strings) concatLines concatMapStringsSep optionalString;
   inherit (lib.misc) mapAttrsFlatten;
   inherit (lib.trivial) showWarnings;
   inherit (lib.types) str nullOr;
@@ -138,6 +138,8 @@ in {
         pluginConfigs = entryAfter ["theme"] pluginConfigs;
         extraPluginConfigs = entryAfter ["pluginConfigs"] extraPluginConfigs;
         mappings = entryAfter ["extraPluginConfigs"] mappings;
+        # FIXME: put this somewhere less stupid
+        footer = entryAfter ["mappings"] (optionalString config.vim.lazy.enable "require('lzn-auto-require.loader').register_loader()");
       };
 
       builtLuaConfigRC = let
