@@ -186,7 +186,12 @@
       keys = mkOption {
         description = "Lazy-load on key mapping";
         default = null;
-        type = nullOr (oneOf [str (listOf lznKeysSpec) (listOf str)]); # TODO: support lz.n.KeysSpec
+        type = nullOr (oneOf [str (listOf lznKeysSpec) (listOf str)]);
+        example = ''
+          keys = [
+            {lhs = "<leader>s"; rhs = ":NvimTreeToggle<cr>"; desc = "Toggle NvimTree"}
+          ]
+        '';
       };
 
       # TODO: enabled, beforeAll, colorscheme, priority, load
