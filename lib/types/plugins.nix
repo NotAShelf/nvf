@@ -138,14 +138,14 @@
       # lz.n options
 
       before = mkOption {
-        type = nullOr luaInline;
-        description = "Code to run before plugin is loaded";
+        type = nullOr str;
+        description = "Lua code to run before plugin is loaded. This will be wrapped in a function.";
         default = null;
       };
 
       after = mkOption {
-        type = nullOr luaInline;
-        description = "Code to run after plugin is loaded";
+        type = nullOr str;
+        description = "Lua code to run after plugin is loaded. This will be wrapped in a function.";
         default = null;
       };
 
