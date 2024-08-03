@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (builtins) toJSON;
+  inherit (builtins) toJSON typeOf head length;
   inherit (lib.modules) mkIf;
   inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.generators) mkLuaInline;
@@ -40,7 +40,10 @@
           ${optionalString (spec.after != null) spec.after}
         end
       '';
-      keys = map toLuzLznKeySpec spec.keys;
+      keys =
+        if typeOf spec.keys == "list" && length spec.keys > 0 && typeOf (head spec.keys) == "set"
+        then map toLuzLznKeySpec spec.keys
+        else spec.keys;
     };
   lznSpecs = mapAttrsToList toLuaLznSpec cfg.plugins;
 in {
