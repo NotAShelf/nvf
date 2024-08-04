@@ -95,9 +95,9 @@
       };
 
       rhs = mkOption {
-        type = nullOr str;
+        type = nullOr (either str luaInline);
         default = null;
-        description = "Action to trigger";
+        description = "Action to trigger. luaInline code will be wrapped in a function.";
       };
 
       mode = mkOption {
