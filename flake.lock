@@ -843,6 +843,38 @@
         "type": "github"
       }
     },
+    "plugin-lz-n": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1719989949,
+        "narHash": "sha256-oHwmlLgdJJDz5+gs1KLAa2MHQAadM/JYmHGfep9yl28=",
+        "owner": "nvim-neorocks",
+        "repo": "lz.n",
+        "rev": "4c790ba2c3789f580aa019712bbe3112f85e73a0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-neorocks",
+        "repo": "lz.n",
+        "type": "github"
+      }
+    },
+    "plugin-lzn-auto-require": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722727896,
+        "narHash": "sha256-h7Dx3zBkUYamQY6lcuQrwAMgBpPqskLnA6WsbefHzMU=",
+        "owner": "horriblename",
+        "repo": "lzn-auto-require",
+        "rev": "c6b47e148a1ff9709e802f68c2c8b558a9a8de9b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "horriblename",
+        "repo": "lzn-auto-require",
+        "type": "github"
+      }
+    },
     "plugin-mind-nvim": {
       "flake": false,
       "locked": {
@@ -1856,6 +1888,8 @@
         "plugin-lspkind": "plugin-lspkind",
         "plugin-lspsaga": "plugin-lspsaga",
         "plugin-lualine": "plugin-lualine",
+        "plugin-lz-n": "plugin-lz-n",
+        "plugin-lzn-auto-require": "plugin-lzn-auto-require",
         "plugin-mind-nvim": "plugin-mind-nvim",
         "plugin-minimap-vim": "plugin-minimap-vim",
         "plugin-modes-nvim": "plugin-modes-nvim",
