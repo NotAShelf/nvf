@@ -862,11 +862,11 @@
     "plugin-lzn-auto-require": {
       "flake": false,
       "locked": {
-        "lastModified": 1722716302,
-        "narHash": "sha256-YehBjQ4m3i0yEnts7HhWW78N6g40hblfcl94d7l9aN4=",
+        "lastModified": 1722727896,
+        "narHash": "sha256-h7Dx3zBkUYamQY6lcuQrwAMgBpPqskLnA6WsbefHzMU=",
         "owner": "horriblename",
         "repo": "lzn-auto-require",
-        "rev": "57567c9db26a3b5b143ae91f35143c34706e8881",
+        "rev": "c6b47e148a1ff9709e802f68c2c8b558a9a8de9b",
         "type": "github"
       },
       "original": {
