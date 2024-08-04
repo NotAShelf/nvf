@@ -96,6 +96,7 @@
       rhs = mkOption {
         type = nullOr (either str luaInline);
         default = null;
+        # FIXME: use a separate flag to indicate lua instead of luaInline
         description = "Action to trigger. luaInline code will be wrapped in a function.";
       };
 
