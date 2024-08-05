@@ -23,6 +23,13 @@ in {
   ];
 
   options.vim = {
+    byteCompileLua = mkOption {
+      type = bool;
+      default = true;
+      example = false;
+      description = "Enable the pre-compilation of lua files using LuaJIT.";
+    };
+
     enableLuaLoader = mkEnableOption ''
       the experimental Lua module loader to speed up the start up process
 

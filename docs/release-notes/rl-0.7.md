@@ -99,6 +99,8 @@ configuration formats.
     yourself by adding `vim.opt.listchars:append({ eol = '<char>' })` to your
     lua configuration
 
+- Pre-compile lua files using LuaJIT for performance. Can be disabled with `vim.byteCompileLua = false`.
+
 [Neovim documentation on `vim.cmd`]: https://neovim.io/doc/user/lua.html#vim.cmd()
 
 - Make Neovim's configuration file entirely Lua based. This comes with a few

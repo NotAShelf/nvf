@@ -7,11 +7,10 @@ inputs: {
   extraModules ? [],
 }: let
   inherit (pkgs) vimPlugins;
-  inherit (pkgs.vimUtils) buildVimPlugin;
   inherit (lib.strings) isString toString;
   inherit (lib.lists) filter map concatLists;
   inherit (lib.attrsets) recursiveUpdate getAttr;
-  inherit (lib.asserts) assertMsg;
+  inherit (builtins) baseNameOf;
 
   # import modules.nix with `check`, `pkgs` and `lib` as arguments
   # check can be disabled while calling this file is called
@@ -100,6 +99,16 @@ inputs: {
   extraLuaPackages = ps: map (x: ps.${x}) vimOptions.luaPackages;
   extraPython3Packages = ps: map (x: ps.${x}) vimOptions.python3Packages;
 
+  luaConfig =
+    if vimOptions.byteCompileLua
+    then pkgs.runCommandLocal "init.lua" {text = vimOptions.builtLuaConfigRC;} "echo -n \"$text\" | ${pkgs.luajit}/bin/luajit -bd -- - $out"
+    else pkgs.writeText "init.lua" vimOptions.builtLuaConfigRC;
+
+  extraLuaFiles =
+    if vimOptions.byteCompileLua
+    then map (file: pkgs.runCommandLocal (baseNameOf file) {} "${pkgs.luajit}/bin/luajit -bd -- ${file} $out") vimOptions.extraLuaFiles
+    else vimOptions.extraLuaFiles;
+
   # Wrap the user's desired (unwrapped) Neovim package with arguments that'll be used to
   # generate a wrapped Neovim package.
   neovim-wrapped = inputs.mnw.lib.wrap pkgs {
@@ -107,8 +116,9 @@ inputs: {
     plugins = concatLists [builtStartPlugins builtOptPlugins];
     appName = "nvf";
     extraBinPath = vimOptions.extraPackages;
-    initLua = vimOptions.builtLuaConfigRC;
-    luaFiles = vimOptions.extraLuaFiles;
+    # initLua = vimOptions.builtLuaConfigRC;
+    # luaFiles = vimOptions.extraLuaFiles;
+    luaFiles = [luaConfig] ++ extraLuaFiles;
 
     inherit (vimOptions) viAlias vimAlias withRuby withNodeJs withPython3;
     inherit extraLuaPackages extraPython3Packages;
