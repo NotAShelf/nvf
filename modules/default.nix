@@ -36,8 +36,16 @@ inputs: {
     src = getAttr ("plugin-" + pname) inputs;
   in
     pkgs.stdenvNoCC.mkDerivation ({
-        inherit src;
         version = src.shortRev or src.shortDirtyRev or "dirty";
+
+        inherit src;
+
+        buildPhase = lib.optionalString vimOptions.byteCompileLua ''
+          runHook preBuild
+          find . -type f -name '*.lua' -exec luajit -bd -- {} {} \;
+          runHook postBuild
+        '';
+
         installPhase = ''
           runHook preInstall
 
@@ -48,15 +56,6 @@ inputs: {
         '';
       }
       // attrs);
-
-  noBuildPlug = {pname, ...} @ attrs: let
-    input = getAttr ("plugin-" + pname) inputs;
-  in
-    {
-      version = input.shortRev or input.shortDirtyRev or "dirty";
-      outPath = getAttr ("plugin-" + pname) inputs;
-    }
-    // attrs;
 
   buildTreesitterPlug = grammars: vimPlugins.nvim-treesitter.withPlugins (_: grammars);
 
@@ -77,7 +76,7 @@ inputs: {
                 patches = [../patches/flutter-tools.patch];
               }
             )
-          else noBuildPlug {pname = plug;}
+          else buildPlug {pname = plug;}
         )
       else plug
     ))
