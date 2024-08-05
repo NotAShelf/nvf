@@ -101,7 +101,7 @@ inputs: {
 
   luaConfig =
     if vimOptions.byteCompileLua
-    then pkgs.runCommandLocal "init.lua" {text = vimOptions.builtLuaConfigRC;} "echo -n \"$text\" | ${pkgs.luajit}/bin/luajit -bd -- - $out"
+    then pkgs.runCommandLocal "init.lua" {text = vimOptions.builtLuaConfigRC;} "${pkgs.luajit}/bin/luajit -bd -- - $out <<< \"$text\""
     else pkgs.writeText "init.lua" vimOptions.builtLuaConfigRC;
 
   extraLuaFiles =
