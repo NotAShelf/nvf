@@ -27,7 +27,7 @@
       Thus, it will not be wrapped in `""`.
     '';
 
-    silent = mkBool false "Whether this mapping should be silent. Equivalent to adding <silent> to a map.";
+    silent = mkBool true "Whether this mapping should be silent. Equivalent to adding <silent> to a map.";
     nowait = mkBool false "Whether to wait for extra input on ambiguous mappings. Equivalent to adding <nowait> to a map.";
     script = mkBool false "Equivalent to adding <script> to a map.";
     expr = mkBool false "Means that the action is actually an expression. Equivalent to adding <expr> to a map.";
