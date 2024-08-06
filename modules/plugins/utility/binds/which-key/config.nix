@@ -25,7 +25,7 @@ in {
 
         ${optionalString config.vim.ui.borders.plugins.which-key.enable ''
         window = {
-          border = "${config.vim.ui.borders.plugins.which-key.style}",
+          border = ${toLuaObject config.vim.ui.borders.plugins.which-key.style},
         },
       ''}
       })

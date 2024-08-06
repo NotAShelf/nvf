@@ -53,6 +53,7 @@ configuration formats.
   longer filtered and thus should be used instead.
 - Add dap-go for better dap configurations
 - Make noice.nvim customizable
+- Standardize border style options and add custom borders
 
 [rust-tools.nvim]: https://github.com/simrat39/rust-tools.nvim
 [rustaceanvim]: https://github.com/mrcjkb/rustaceanvim
