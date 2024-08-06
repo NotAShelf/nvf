@@ -1,12 +1,11 @@
 {
   imports = [
-    ./noice
-    ./modes
-    ./notifications
-    ./smartcolumn
+    ./breadcrumbs
     ./colorizer
     ./illuminate
-    ./breadcrumbs
-    ./borders
+    ./modes
+    ./noice
+    ./notifications
+    ./smartcolumn
   ];
 }
