@@ -10,7 +10,11 @@ in {
     enable = mkOption {
       type = bool;
       default = false;
-      description = "new-file-template.nvim: Automatically insert a template on new files in neovim. To add custom templates add a directory containing `lua/templates/*.lua` to `vim.additionalRuntimePaths`.";
+      description = ''
+        new-file-template.nvim: Automatically insert a template on new files in neovim.
+        To add custom templates add a directory containing `lua/templates/*.lua` to `vim.additionalRuntimePaths`.
+        More documentation on the templates available at https://github.com/otavioschwanck/new-file-template.nvim?tab=readme-ov-file#creating-new-templates
+      '';
     };
 
     setupOpts = mkPluginSetupOption "nvim-file-template.nvim" {
