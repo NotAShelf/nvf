@@ -115,8 +115,6 @@ inputs: {
     plugins = concatLists [builtStartPlugins builtOptPlugins];
     appName = "nvf";
     extraBinPath = vimOptions.extraPackages;
-    # initLua = vimOptions.builtLuaConfigRC;
-    # luaFiles = vimOptions.extraLuaFiles;
     luaFiles = [luaConfig] ++ extraLuaFiles;
 
     inherit (vimOptions) viAlias vimAlias withRuby withNodeJs withPython3;
