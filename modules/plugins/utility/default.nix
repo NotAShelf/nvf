@@ -4,6 +4,7 @@
     ./ccc
     ./gestures
     ./motion
+    ./new-file-template
     ./telescope
     ./icon-picker
     ./images

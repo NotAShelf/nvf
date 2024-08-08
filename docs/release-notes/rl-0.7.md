@@ -62,13 +62,16 @@ configuration formats.
   recommended to go through rustacean.nvim's README to take a closer look at its
   features and usage
 
-[jacekpoz](https://github.com/jacekpoz):
+[jacekpoz](https://jacekpoz.pl):
 
 [ocaml-lsp]: https://github.com/ocaml/ocaml-lsp
+[new-file-template.nvim]: https://github.com/otavioschwanck/new-file-template.nvim
 
 - Add [ocaml-lsp] support
 
 - Fix "Emac" typo
+
+- Add [new-file-template.nvim] to automatically fill new file contents using templates.
 
 [diniamo](https://github.com/diniamo):
 
