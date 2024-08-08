@@ -39,7 +39,7 @@ in {
       disableSpecific = mkOption {
         type = attrsOf (listOf str);
         default = {};
-        description = "Disable specific regexp for the default templates. Example: { ruby = [ \".*\" ]; }";
+        description = "Disable specific regexp for the default templates.";
         example = "{ ruby = [\".*\"]; }";
       };
 
