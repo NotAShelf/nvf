@@ -33,7 +33,7 @@ in {
       disableFiletype = mkOption {
         type = listOf str;
         default = [];
-        description = "Disable templates for specific filetypes (only disables default templates, user templates will still work)";
+        description = "Disable default templates for specific filetypes";
       };
 
       disableSpecific = mkOption {
