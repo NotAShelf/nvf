@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}: let
+{lib, ...}: let
   inherit (lib.options) mkOption;
   inherit (lib.types) attrsOf bool listOf str;
   inherit (lib.nvim.types) mkPluginSetupOption;
