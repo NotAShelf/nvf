@@ -9,7 +9,7 @@ inputs: {
   inherit (pkgs) vimPlugins;
   inherit (lib.strings) isString toString;
   inherit (lib.lists) filter map concatLists;
-  inherit (lib.attrsets) recursiveUpdate getAttr;
+  inherit (lib.attrsets) recursiveUpdate;
   inherit (builtins) baseNameOf;
 
   # import modules.nix with `check`, `pkgs` and `lib` as arguments
@@ -32,8 +32,8 @@ inputs: {
   # build a vim plugin with the given name and arguments
   # if the plugin is nvim-treesitter, warn the user to use buildTreesitterPlug
   # instead
-  buildPlug = {pname, ...} @ attrs: let
-    src = getAttr ("plugin-" + pname) inputs;
+  buildPlug = attrs: let
+    src = inputs."plugin-${attrs.pname}";
   in
     pkgs.stdenvNoCC.mkDerivation ({
         version = src.shortRev or src.shortDirtyRev or "dirty";
@@ -59,30 +59,25 @@ inputs: {
 
   buildTreesitterPlug = grammars: vimPlugins.nvim-treesitter.withPlugins (_: grammars);
 
+  pluginBuilders = {
+    nvim-treesitter = buildTreesitterPlug vimOptions.treesitter.grammars;
+    flutter-tools-patched =
+      buildPlug
+      {
+        pname = "flutter-tools";
+        patches = [../patches/flutter-tools.patch];
+      };
+  };
+
   buildConfigPlugins = plugins:
     map
-    (plug: (
-      if (isString plug)
-      then
-        (
-          if (plug == "nvim-treesitter")
-          then (buildTreesitterPlug vimOptions.treesitter.grammars)
-          else if (plug == "flutter-tools-patched")
-          then
-            (
-              buildPlug
-              {
-                pname = "flutter-tools";
-                patches = [../patches/flutter-tools.patch];
-              }
-            )
-          else buildPlug {pname = plug;}
-        )
-      else plug
-    ))
-    (filter
-      (f: f != null)
-      plugins);
+    (
+      plug:
+        if (isString plug)
+        then pluginBuilders.${plug} or (buildPlug {pname = plug;})
+        else plug
+    )
+    (filter (f: f != null) plugins);
 
   # built (or "normalized") plugins that are modified
   builtStartPlugins = buildConfigPlugins vimOptions.startPlugins;
