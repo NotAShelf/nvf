@@ -40,6 +40,13 @@ inputs: {
 
         inherit src;
 
+        nativeBuildInputs = with pkgs.vimUtils; [
+          vimCommandCheckHook
+          vimGenDocHook
+          neovimRequireCheckHook
+        ];
+        passthru.vimPlugin = true;
+
         buildPhase = lib.optionalString vimOptions.byteCompileLua ''
           runHook preBuild
           find . -type f -name '*.lua' -exec luajit -bd -- {} {} \;
