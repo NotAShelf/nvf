@@ -102,6 +102,8 @@ configuration formats.
     yourself by adding `vim.opt.listchars:append({ eol = '<char>' })` to your
     lua configuration
 
+- Pre-compile lua files using LuaJIT for performance. Can be disabled with `vim.byteCompileLua = false`.
+
 [Neovim documentation on `vim.cmd`]: https://neovim.io/doc/user/lua.html#vim.cmd()
 
 - Make Neovim's configuration file entirely Lua based. This comes with a few
@@ -143,10 +145,10 @@ configuration formats.
 - Add [neo-tree.nvim] as an alternative file-tree plugin. It will be available
   under `vim.filetree.neo-tree`, similar to nvimtree.
 
-- Add `print-nvf-config` & `print-nvf-config-path` helper scripts to Neovim
+- Add `nvf-print-config` & `nvf-print-config-path` helper scripts to Neovim
   closure. Both of those scripts have been automatically added to your PATH upon
   using neovimConfig or `programs.nvf.enable`.
-  - `print-nvf-config` will display your `init.lua`, in full.
-  - `print-nvf-config-path` will display the path to _a clone_ of your
+  - `nvf-print-config` will display your `init.lua`, in full.
+  - `nvf-print-config-path` will display the path to _a clone_ of your
     `init.lua`. This is not the path used by the Neovim wrapper, but an
     identical clone.
