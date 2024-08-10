@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (builtins) map mapAttrs filter;
+  inherit (builtins) map mapAttrs filter removeAttrs attrNames;
   inherit (lib.attrsets) mapAttrsToList filterAttrs attrsToList;
   inherit (lib.strings) concatLines concatMapStringsSep;
   inherit (lib.trivial) showWarnings;
@@ -45,7 +45,35 @@ in {
       value,
     }: "vim.keymap.set(${toLuaObject value.mode}, ${toLuaObject name}, ${toLuaObject (getAction value)}, ${toLuaObject (getOpts value)})";
 
-    keymaps = concatLines (map toLuaKeymap (attrsToList (filterNonNull cfg.maps)));
+    namedModes = {
+      "normal" = ["n"];
+      "insert" = ["i"];
+      "select" = ["s"];
+      "visual" = ["v"];
+      "terminal" = ["t"];
+      "normalVisualOp" = ["n" "v" "o"];
+      "visualOnly" = ["n" "x"];
+      "operator" = ["o"];
+      "insertCommand" = ["i" "c"];
+      "lang" = ["l"];
+      "command" = ["c"];
+    };
+
+    maps =
+      removeAttrs cfg.maps (attrNames namedModes)
+      // mapAttrs (_: legacyMap: legacyMap // {mode = namedModes.normal;}) cfg.maps.normal
+      // mapAttrs (_: legacyMap: legacyMap // {mode = namedModes.insert;}) cfg.maps.insert
+      // mapAttrs (_: legacyMap: legacyMap // {mode = namedModes.select;}) cfg.maps.select
+      // mapAttrs (_: legacyMap: legacyMap // {mode = namedModes.visual;}) cfg.maps.visual
+      // mapAttrs (_: legacyMap: legacyMap // {mode = namedModes.terminal;}) cfg.maps.terminal
+      // mapAttrs (_: legacyMap: legacyMap // {mode = namedModes.normalVisualOp;}) cfg.maps.normalVisualOp
+      // mapAttrs (_: legacyMap: legacyMap // {mode = namedModes.visualOnly;}) cfg.maps.visualOnly
+      // mapAttrs (_: legacyMap: legacyMap // {mode = namedModes.operator;}) cfg.maps.operator
+      // mapAttrs (_: legacyMap: legacyMap // {mode = namedModes.insertCommand;}) cfg.maps.insertCommand
+      // mapAttrs (_: legacyMap: legacyMap // {mode = namedModes.lang;}) cfg.maps.lang
+      // mapAttrs (_: legacyMap: legacyMap // {mode = namedModes.command;}) cfg.maps.command;
+
+    keymaps = concatLines (map toLuaKeymap (attrsToList (filterNonNull maps)));
   in {
     vim = {
       luaConfigRC = {
