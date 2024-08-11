@@ -63,13 +63,16 @@ configuration formats.
   recommended to go through rustacean.nvim's README to take a closer look at its
   features and usage
 
-[jacekpoz](https://github.com/jacekpoz):
+[jacekpoz](https://jacekpoz.pl):
 
 [ocaml-lsp]: https://github.com/ocaml/ocaml-lsp
+[new-file-template.nvim]: https://github.com/otavioschwanck/new-file-template.nvim
 
 - Add [ocaml-lsp] support
 
 - Fix "Emac" typo
+
+- Add [new-file-template.nvim] to automatically fill new file contents using templates.
 
 [diniamo](https://github.com/diniamo):
 
@@ -141,10 +144,10 @@ configuration formats.
 - Add [neo-tree.nvim] as an alternative file-tree plugin. It will be available
   under `vim.filetree.neo-tree`, similar to nvimtree.
 
-- Add `print-nvf-config` & `print-nvf-config-path` helper scripts to Neovim
+- Add `nvf-print-config` & `nvf-print-config-path` helper scripts to Neovim
   closure. Both of those scripts have been automatically added to your PATH upon
   using neovimConfig or `programs.nvf.enable`.
-  - `print-nvf-config` will display your `init.lua`, in full.
-  - `print-nvf-config-path` will display the path to _a clone_ of your
+  - `nvf-print-config` will display your `init.lua`, in full.
+  - `nvf-print-config-path` will display the path to _a clone_ of your
     `init.lua`. This is not the path used by the Neovim wrapper, but an
     identical clone.

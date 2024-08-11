@@ -7,11 +7,9 @@ inputs: {
   extraModules ? [],
 }: let
   inherit (pkgs) vimPlugins;
-  inherit (pkgs.vimUtils) buildVimPlugin;
   inherit (lib.strings) isString toString;
   inherit (lib.lists) filter map concatLists;
-  inherit (lib.attrsets) recursiveUpdate getAttr;
-  inherit (lib.asserts) assertMsg;
+  inherit (lib.attrsets) recursiveUpdate;
 
   # import modules.nix with `check`, `pkgs` and `lib` as arguments
   # check can be disabled while calling this file is called
@@ -33,12 +31,21 @@ inputs: {
   # build a vim plugin with the given name and arguments
   # if the plugin is nvim-treesitter, warn the user to use buildTreesitterPlug
   # instead
-  buildPlug = {pname, ...} @ attrs: let
-    src = getAttr ("plugin-" + pname) inputs;
+  buildPlug = attrs: let
+    src = inputs."plugin-${attrs.pname}";
   in
     pkgs.stdenvNoCC.mkDerivation ({
-        inherit src;
         version = src.shortRev or src.shortDirtyRev or "dirty";
+
+        inherit src;
+
+        nativeBuildInputs = with pkgs.vimUtils; [
+          vimCommandCheckHook
+          vimGenDocHook
+          neovimRequireCheckHook
+        ];
+        passthru.vimPlugin = true;
+
         installPhase = ''
           runHook preInstall
 
@@ -50,41 +57,27 @@ inputs: {
       }
       // attrs);
 
-  noBuildPlug = {pname, ...} @ attrs: let
-    input = getAttr ("plugin-" + pname) inputs;
-  in
-    {
-      version = input.shortRev or input.shortDirtyRev or "dirty";
-      outPath = getAttr ("plugin-" + pname) inputs;
-    }
-    // attrs;
-
   buildTreesitterPlug = grammars: vimPlugins.nvim-treesitter.withPlugins (_: grammars);
+
+  pluginBuilders = {
+    nvim-treesitter = buildTreesitterPlug vimOptions.treesitter.grammars;
+    flutter-tools-patched =
+      buildPlug
+      {
+        pname = "flutter-tools";
+        patches = [../patches/flutter-tools.patch];
+      };
+  };
 
   buildConfigPlugins = plugins:
     map
-    (plug: (
-      if (isString plug)
-      then
-        (
-          if (plug == "nvim-treesitter")
-          then (buildTreesitterPlug vimOptions.treesitter.grammars)
-          else if (plug == "flutter-tools-patched")
-          then
-            (
-              buildPlug
-              {
-                pname = "flutter-tools";
-                patches = [../patches/flutter-tools.patch];
-              }
-            )
-          else noBuildPlug {pname = plug;}
-        )
-      else plug
-    ))
-    (filter
-      (f: f != null)
-      plugins);
+    (
+      plug:
+        if (isString plug)
+        then pluginBuilders.${plug} or (buildPlug {pname = plug;})
+        else plug
+    )
+    (filter (f: f != null) plugins);
 
   # built (or "normalized") plugins that are modified
   builtStartPlugins = buildConfigPlugins vimOptions.startPlugins;
@@ -114,20 +107,11 @@ inputs: {
     inherit extraLuaPackages extraPython3Packages;
   };
 
+  dummyInit = pkgs.writeText "nvf-init.lua" vimOptions.builtLuaConfigRC;
   # Additional helper scripts for printing and displaying nvf configuration
   # in your commandline.
-  printConfig = pkgs.writers.writeDashBin "print-nvf-config" ''
-    cat << EOF
-      ${vimOptions.builtLuaConfigRC}
-    EOF
-  '';
-
-  printConfigPath = pkgs.writers.writeDashBin "print-nvf-config-path" ''
-    realpath ${pkgs.writeTextFile {
-      name = "nvf-init.lua";
-      text = vimOptions.builtLuaConfigRC;
-    }}
-  '';
+  printConfig = pkgs.writers.writeDashBin "nvf-print-config" "cat ${dummyInit}";
+  printConfigPath = pkgs.writers.writeDashBin "nvf-print-config-path" "echo -n ${dummyInit}";
 in {
   inherit (module) options config;
   inherit (module._module.args) pkgs;
@@ -137,7 +121,7 @@ in {
   neovim = pkgs.symlinkJoin {
     name = "nvf-with-helpers";
     paths = [neovim-wrapped printConfig printConfigPath];
-    postBuild = "echo helpers added";
+    postBuild = "echo Helpers added";
 
     meta = {
       description = "Wrapped version of Neovim with additional helper scripts";

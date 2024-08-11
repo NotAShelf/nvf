@@ -628,8 +628,14 @@
     };
 
     plugin-nvim-nio = {
-      # (required nvim-dap-ui)
+      # (required by nvim-dap-ui)
       url = "github:nvim-neotest/nvim-nio";
+      flake = false;
+    };
+
+    plugin-new-file-template-nvim = {
+      # (required by new-file-template.nvim)
+      url = "github:otavioschwanck/new-file-template.nvim";
       flake = false;
     };
   };
