@@ -87,7 +87,7 @@ inputs: {
   }) (buildConfigPlugins vimOptions.optPlugins);
 
   # additional Lua and Python3 packages, mapped to their respective functions
-  # to conform to the format makeNeovimConfig expects. end user should
+  # to conform to the format mnw expects. end user should
   # only ever need to pass a list of packages, which are modified
   # here
   extraLuaPackages = ps: map (x: ps.${x}) vimOptions.luaPackages;
