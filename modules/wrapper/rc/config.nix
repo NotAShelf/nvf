@@ -5,9 +5,8 @@
 }: let
   inherit (builtins) map mapAttrs filter;
   inherit (lib.options) mkOption;
-  inherit (lib.attrsets) filterAttrs getAttrs attrValues attrNames;
+  inherit (lib.attrsets) mapAttrsToList filterAttrs getAttrs attrValues attrNames;
   inherit (lib.strings) concatLines concatMapStringsSep;
-  inherit (lib.misc) mapAttrsFlatten;
   inherit (lib.trivial) showWarnings;
   inherit (lib.types) str nullOr;
   inherit (lib.generators) mkLuaInline;
@@ -83,7 +82,7 @@ in {
   config = let
     filterNonNull = attrs: filterAttrs (_: value: value != null) attrs;
     globalsScript =
-      mapAttrsFlatten (name: value: "vim.g.${name} = ${toLuaObject value}")
+      mapAttrsToList (name: value: "vim.g.${name} = ${toLuaObject value}")
       (filterNonNull cfg.globals);
 
     extraPluginConfigs = resolveDag {
