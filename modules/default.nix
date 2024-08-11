@@ -9,24 +9,31 @@ inputs: {
   inherit (pkgs) vimPlugins;
   inherit (lib.strings) isString toString;
   inherit (lib.lists) filter map concatLists;
-  inherit (lib.attrsets) recursiveUpdate;
 
   # import modules.nix with `check`, `pkgs` and `lib` as arguments
   # check can be disabled while calling this file is called
   # to avoid checking in all modules
-  nvimModules = import ./modules.nix {
-    inherit pkgs check lib;
-  };
+  nvimModules = import ./modules.nix {inherit pkgs check lib;};
 
   # evaluate the extended library with the modules
   # optionally with any additional modules passed by the user
   module = lib.evalModules {
-    specialArgs = recursiveUpdate {modulesPath = toString ./.;} extraSpecialArgs;
+    specialArgs = extraSpecialArgs // {modulesPath = toString ./.;};
     modules = concatLists [[configuration] nvimModules extraModules];
   };
 
   # alias to the internal configuration
   vimOptions = module.config.vim;
+
+  noBuildPlug = {pname, ...} @ attrs: let
+    src = inputs."plugin-${attrs.pname}";
+  in
+    {
+      version = src.shortRev or src.shortDirtyRev or "dirty";
+      outPath = src;
+      passthru.vimPlugin = false;
+    }
+    // attrs;
 
   # build a vim plugin with the given name and arguments
   # if the plugin is nvim-treesitter, warn the user to use buildTreesitterPlug
@@ -34,50 +41,31 @@ inputs: {
   buildPlug = attrs: let
     src = inputs."plugin-${attrs.pname}";
   in
-    pkgs.stdenvNoCC.mkDerivation ({
+    pkgs.vimUtils.buildVimPlugin (
+      {
         version = src.shortRev or src.shortDirtyRev or "dirty";
-
         inherit src;
-
-        nativeBuildInputs = with pkgs.vimUtils; [
-          vimCommandCheckHook
-          vimGenDocHook
-          neovimRequireCheckHook
-        ];
-        passthru.vimPlugin = true;
-
-        installPhase = ''
-          runHook preInstall
-
-          mkdir -p $out
-          cp -r . $out
-
-          runHook postInstall
-        '';
       }
-      // attrs);
+      // attrs
+    );
 
   buildTreesitterPlug = grammars: vimPlugins.nvim-treesitter.withPlugins (_: grammars);
 
   pluginBuilders = {
     nvim-treesitter = buildTreesitterPlug vimOptions.treesitter.grammars;
-    flutter-tools-patched =
-      buildPlug
-      {
-        pname = "flutter-tools";
-        patches = [../patches/flutter-tools.patch];
-      };
+    flutter-tools-patched = buildPlug {
+      pname = "flutter-tools";
+      patches = [../patches/flutter-tools.patch];
+    };
   };
 
   buildConfigPlugins = plugins:
-    map
-    (
+    map (
       plug:
         if (isString plug)
-        then pluginBuilders.${plug} or (buildPlug {pname = plug;})
+        then pluginBuilders.${plug} or (noBuildPlug {pname = plug;})
         else plug
-    )
-    (filter (f: f != null) plugins);
+    ) (filter (f: f != null) plugins);
 
   # built (or "normalized") plugins that are modified
   builtStartPlugins = buildConfigPlugins vimOptions.startPlugins;
@@ -97,7 +85,7 @@ inputs: {
   # generate a wrapped Neovim package.
   neovim-wrapped = inputs.mnw.lib.wrap pkgs {
     neovim = vimOptions.package;
-    plugins = concatLists [builtStartPlugins builtOptPlugins];
+    plugins = builtStartPlugins ++ builtOptPlugins;
     appName = "nvf";
     extraBinPath = vimOptions.extraPackages;
     initLua = vimOptions.builtLuaConfigRC;
