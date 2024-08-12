@@ -4,7 +4,7 @@ Release notes for release 0.7
 
 ## Breaking Changes and Migration Guide {#sec-breaking-changes-and-migration-guide-0-7}
 
-### `vim.configRC` removed
+### `vim.configRC` removed {#sec-vim-configrc-removed}
 
 In v0.7 we are removing `vim.configRC` in favor of making `vim.luaConfigRC` the
 top-level DAG, and thereby making the entire configuration Lua based. This
@@ -26,7 +26,7 @@ making good use of its extensive Lua API. Additionally, Vimscript is slow and
 brings unnecessary performance overhead while working with different
 configuration formats.
 
-### `vim.maps` rewrite
+### `vim.maps` rewrite {#sec-vim-maps-rewrite}
 
 Instead of specifying map modes using submodules (eg.: `vim.maps.normal`), a new
 `mode` option has mode has been introduced. It can be either a string, or a list
