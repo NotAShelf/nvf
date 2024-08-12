@@ -28,15 +28,18 @@
   };
 
   mapType = submodule {
-    mode = mkOption {
-      type = either str (listOf str);
-      description = ''
-        The short-name of the mode to set the keymapping for. Passing an empty string is the equivalent of `:map`.
+    options =
+      mapConfigOptions
+      // {
+        mode = mkOption {
+          type = either str (listOf str);
+          description = ''
+            The short-name of the mode to set the keymapping for. Passing an empty string is the equivalent of `:map`.
 
-        See `:help map-modes` for a list of modes.
-      '';
-    };
-    inherit (mapConfigOptions) desc action lua silent nowait script expr unique noremap;
+            See `:help map-modes` for a list of modes.
+          '';
+        };
+      };
   };
 
   # legacy stuff
