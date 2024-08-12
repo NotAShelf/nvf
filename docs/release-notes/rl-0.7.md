@@ -4,8 +4,6 @@ Release notes for release 0.7
 
 ## Breaking Changes and Migration Guide {#sec-breaking-changes-and-migration-guide-0-7}
 
-### `vim.configRC` removed
-
 In v0.7 we are removing `vim.configRC` in favor of making `vim.luaConfigRC` the
 top-level DAG, and thereby making the entire configuration Lua based. This
 change introduces a few breaking changes:
@@ -25,28 +23,6 @@ Neovim being an aggressive refactor of Vim, is designed to be mainly Lua based;
 making good use of its extensive Lua API. Additionally, Vimscript is slow and
 brings unnecessary performance overhead while working with different
 configuration formats.
-
-### `vim.maps` rewrite
-
-Instead of specifying map modes using submodules (eg.: `vim.maps.normal`), a new
-`mode` option has mode has been introduced. It can be either a string, or a list
-of strings, where a string represents the short-name of the map mode(s), that
-the mapping should be set for. See `:help map-modes` for more information.
-
-For example:
-
-```nix
-vim.maps.normal."<leader>m" = { ... };
-```
-
-has to be replaced by
-
-```nix
-vim.maps."<leader>m" = {
-  mode = "n";
-  ...
-};
-```
 
 ## Changelog {#sec-release-0.7-changelog}
 
@@ -137,8 +113,6 @@ vim.maps."<leader>m" = {
   - `vim.luaScriptRC` is now the top-level DAG, and the internal `vim.pluginRC`
     has been introduced for setting up internal plugins. See the "DAG entries in
     nvf" manual page for more information.
-
-- Rewrite `vim.maps`, see the breaking changes section above.
 
 [NotAShelf](https://github.com/notashelf):
 
