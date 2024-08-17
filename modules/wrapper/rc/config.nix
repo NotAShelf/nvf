@@ -37,7 +37,7 @@ in {
       else keymap.action;
 
     getOpts = keymap: {
-      inherit (keymap) silent nowait script expr unique noremap;
+      inherit (keymap) desc silent nowait script expr unique noremap;
     };
 
     toLuaKeymap = {
