@@ -831,11 +831,11 @@
     "plugin-lzn-auto-require": {
       "flake": false,
       "locked": {
-        "lastModified": 1722727896,
-        "narHash": "sha256-h7Dx3zBkUYamQY6lcuQrwAMgBpPqskLnA6WsbefHzMU=",
+        "lastModified": 1723928740,
+        "narHash": "sha256-CMWy+btqUaXUWSO4jZYDfBcNiYMFyRb8jtIdi072WP8=",
         "owner": "horriblename",
         "repo": "lzn-auto-require",
-        "rev": "c6b47e148a1ff9709e802f68c2c8b558a9a8de9b",
+        "rev": "1b9f6527e32bf196ce239f7a8b9a54d342605511",
         "type": "github"
       },
       "original": {
