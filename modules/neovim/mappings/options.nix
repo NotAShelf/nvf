@@ -44,23 +44,7 @@
 
   # legacy stuff
   mapOption = submodule {
-    options =
-      mapConfigOptions
-      // {
-        action = mkOption {
-          type = str;
-          description = "The action to execute.";
-        };
-
-        lua = mkOption {
-          type = bool;
-          description = ''
-            If true, `action` is considered to be lua code.
-            Thus, it will not be wrapped in `""`.
-          '';
-          default = false;
-        };
-      };
+    options = mapConfigOptions;
   };
 
   mapOptions = mode:
