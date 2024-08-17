@@ -6,7 +6,7 @@
   inherit (lib.options) mkOption;
   inherit (lib.attrsets) attrNames mapAttrs' filterAttrs nameValuePair;
   inherit (lib.strings) hasPrefix removePrefix;
-  inherit (lib.types) submodule either package enum str lines attrsOf anything listOf nullOr oneOf bool;
+  inherit (lib.types) submodule either package enum str lines attrsOf anything listOf nullOr oneOf bool int;
   # Get the names of all flake inputs that start with the given prefix.
   fromInputs = {
     inputs,
@@ -139,6 +139,18 @@
 
       # lz.n options
 
+      enabled = mkOption {
+        type = nullOr (either bool str);
+        description = "When false, or if the lua function returns false, this plugin will not be included in the spec";
+        default = null;
+      };
+
+      beforeAll = mkOption {
+        type = nullOr str;
+        description = "Lua code to run before any plugins are loaded. This will be wrapped in a function.";
+        default = null;
+      };
+
       before = mkOption {
         type = nullOr str;
         description = "Lua code to run before plugin is loaded. This will be wrapped in a function.";
@@ -196,7 +208,27 @@
         '';
       };
 
-      # TODO: enabled, beforeAll, colorscheme, priority, load
+      colorscheme = mkOption {
+        description = "Lazy-load on colorscheme.";
+        type = nullOr (either str (listOf str));
+        default = null;
+      };
+
+      priority = mkOption {
+        type = nullOr int;
+        description = "Only useful for stat plugins (not lazy-loaded) to force loading certain plugins first.";
+        default = null;
+      };
+
+      load = mkOption {
+        type = nullOr str;
+        default = null;
+        description = ''
+          Lua code to override the `vim.g.lz_n.load()` function for a single plugin.
+
+          This will be wrapped in a function
+        '';
+      };
     };
   };
 in {
