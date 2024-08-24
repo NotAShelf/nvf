@@ -138,7 +138,19 @@
         type = nullOr (oneOf [str (listOf lznKeysSpec) (listOf str)]);
         example = ''
           keys = [
-            {lhs = "<leader>s"; rhs = ":NvimTreeToggle<cr>"; desc = "Toggle NvimTree"}
+            {
+              mode = "n";
+              key = "<leader>s";
+              action = ":DapStepOver<cr>";
+              desc = "DAP Step Over";
+            }
+            {
+              mode = ["n", "x"];
+              key = "<leader>dc";
+              action = "function() require('dap').continue() end";
+              lua = true;
+              desc = "DAP Continue";
+            }
           ]
         '';
       };
