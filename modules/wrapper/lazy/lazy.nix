@@ -2,39 +2,10 @@
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) enum listOf submodule nullOr str bool int attrsOf anything either oneOf;
   inherit (lib.nvim.types) pluginType;
+  inherit (lib.nvim.config) mkBool;
 
   lznKeysSpec = submodule {
     options = {
-      desc = mkOption {
-        description = "Description of the key map";
-        type = nullOr str;
-        default = null;
-      };
-
-      noremap = mkOption {
-        description = "TBD";
-        type = bool;
-        default = false;
-      };
-
-      expr = mkOption {
-        description = "TBD";
-        type = bool;
-        default = false;
-      };
-
-      nowait = mkOption {
-        description = "TBD";
-        type = bool;
-        default = false;
-      };
-
-      ft = mkOption {
-        description = "TBD";
-        type = nullOr (listOf str);
-        default = null;
-      };
-
       key = mkOption {
         type = str;
         description = "Key to bind to";
@@ -45,11 +16,21 @@
         default = null;
         description = "Action to trigger.";
       };
+      lua = mkBool false ''
+        If true, `action` is considered to be lua code.
+        Thus, it will not be wrapped in `""`.
+      '';
 
-      lua = mkOption {
-        type = bool;
-        default = false;
-        description = "If true the action is treated as a lua function instead of a vim command.";
+      desc = mkOption {
+        description = "Description of the key map";
+        type = nullOr str;
+        default = null;
+      };
+
+      ft = mkOption {
+        description = "TBD";
+        type = nullOr (listOf str);
+        default = null;
       };
 
       mode = mkOption {
@@ -57,6 +38,10 @@
         type = listOf str;
         default = ["n" "x" "s" "o"];
       };
+
+      noremap = mkBool true "Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.";
+      expr = mkBool false "Means that the action is actually an expression. Equivalent to adding <expr> to a map.";
+      nowait = mkBool false "Whether to wait for extra input on ambiguous mappings. Equivalent to adding <nowait> to a map.";
     };
   };
 
