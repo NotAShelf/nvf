@@ -89,16 +89,21 @@
         default = null;
       };
 
-      lhs = mkOption {
+      key = mkOption {
         type = str;
         description = "Key to bind to";
       };
 
-      rhs = mkOption {
-        type = nullOr (either str luaInline);
+      action = mkOption {
+        type = nullOr str;
         default = null;
-        # FIXME: use a separate flag to indicate lua instead of luaInline
-        description = "Action to trigger. luaInline code will be wrapped in a function.";
+        description = "Action to trigger.";
+      };
+
+      lua = mkOption {
+        type = bool;
+        default = false;
+        description = "If true the action is treated as a lua function instead of a vim command.";
       };
 
       mode = mkOption {

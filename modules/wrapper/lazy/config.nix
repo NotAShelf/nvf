@@ -18,12 +18,16 @@
     expr,
     nowait,
     ft,
-    lhs,
-    rhs,
+    key,
+    action,
+    lua,
     mode,
   }: {
-    "@1" = lhs;
-    "@2" = rhs;
+    "@1" = key;
+    "@2" =
+      if lua
+      then mkLuaInline action
+      else action;
     inherit desc noremap expr nowait ft mode;
   };
 
