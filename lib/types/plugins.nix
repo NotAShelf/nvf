@@ -7,6 +7,7 @@
   inherit (lib.attrsets) attrNames mapAttrs' filterAttrs nameValuePair;
   inherit (lib.strings) hasPrefix removePrefix;
   inherit (lib.types) submodule either package enum str lines attrsOf anything listOf nullOr oneOf bool int;
+
   # Get the names of all flake inputs that start with the given prefix.
   fromInputs = {
     inputs,
@@ -237,7 +238,7 @@
     };
   };
 in {
-  inherit extraPluginType fromInputs pluginType luaInline lznPluginType lznPluginTableType;
+  inherit extraPluginType fromInputs pluginType;
 
   borderType = either (enum borderPresets) (listOf (either str (listOf str)));
 
@@ -250,6 +251,11 @@ in {
       inherit example description default;
       type = pluginsType;
     };
+
+  luaInline = lib.mkOptionType {
+    name = "luaInline";
+    check = x: lib.nvim.lua.isLuaInline x;
+  };
 
   /*
   opts is a attrset of options, example:
