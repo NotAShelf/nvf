@@ -173,7 +173,7 @@ in {
             dap = {
               adapter = {
                 type = "executable",
-                command = "${cfg.dap.package}/bin/lldb-vscode",
+                command = "${cfg.dap.package}/bin/lldb-dap",
                 name = "rustacean_lldb",
               },
             },
