@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (builtins) toJSON typeOf head length;
+  inherit (builtins) toJSON typeOf head length tryEval;
   inherit (lib.modules) mkIf;
   inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.generators) mkLuaInline;
@@ -31,7 +31,14 @@
     inherit desc noremap expr nowait ft mode;
   };
 
-  toLuaLznSpec = name: spec:
+  toLuaLznSpec = spec: let
+    name =
+      if typeOf spec.package == "string"
+      then spec.package
+      else if (spec.package ? pname && (tryEval spec.package.pname).success)
+      then spec.package.pname
+      else spec.package.name;
+  in
     (removeAttrs spec ["package" "setupModule" "setupOpts" "keys"])
     // {
       "@1" = name;
@@ -64,12 +71,12 @@
         then map toLuzLznKeySpec spec.keys
         else spec.keys;
     };
-  lznSpecs = mapAttrsToList toLuaLznSpec cfg.plugins;
+  lznSpecs = map toLuaLznSpec cfg.plugins;
 in {
   config.vim = mkIf cfg.enable {
     startPlugins = ["lz-n" "lzn-auto-require"];
 
-    optPlugins = mapAttrsToList (_: plugin: plugin.package) cfg.plugins;
+    optPlugins = map (plugin: plugin.package) cfg.plugins;
 
     luaConfigRC.lzn-load = entryBefore ["pluginConfigs"] ''
       require('lz.n').load(${toLuaObject lznSpecs})

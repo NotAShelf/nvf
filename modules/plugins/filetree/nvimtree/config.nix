@@ -21,8 +21,8 @@ in {
     };
 
     vim.lazy = {
-      plugins = {
-        nvim-tree-lua = {
+      plugins = [
+        {
           package = "nvim-tree-lua";
           setupModule = "nvim-tree";
           inherit (cfg) setupOpts;
@@ -34,8 +34,8 @@ in {
             (mkLznBinding ["n"] cfg.mappings.findFile ":NvimTreeFindFile<cr>" mappings.findFile.description)
             (mkLznBinding ["n"] cfg.mappings.focus ":NvimTreeFocus<cr>" mappings.focus.description)
           ];
-        };
-      };
+        }
+      ];
     };
 
     vim.pluginRC.nvimtreelua = entryAnywhere ''

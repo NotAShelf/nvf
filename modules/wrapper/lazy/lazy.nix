@@ -1,7 +1,7 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) enum;
-  inherit (lib.nvim.types) lznPluginTableType;
+  inherit (lib.types) enum listOf;
+  inherit (lib.nvim.types) lznPluginType;
 in {
   options.vim.lazy = {
     enable = mkEnableOption "plugin lazy-loading" // {default = true;};
@@ -12,17 +12,17 @@ in {
     };
 
     plugins = mkOption {
-      default = {};
-      type = lznPluginTableType;
+      default = [];
+      type = listOf lznPluginType;
       description = "list of plugins to lazy load";
       example = ''
-        {
-          toggleterm-nvim = {
+        [
+          {
             package = "toggleterm-nvim";
             after = lib.generators.mkLuaInline "function() require('toggleterm').setup{} end";
             cmd = ["ToggleTerm"];
-          };
-        }
+          }
+        ]
       '';
     };
   };
