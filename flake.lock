@@ -815,11 +815,11 @@
     "plugin-lz-n": {
       "flake": false,
       "locked": {
-        "lastModified": 1719989949,
-        "narHash": "sha256-oHwmlLgdJJDz5+gs1KLAa2MHQAadM/JYmHGfep9yl28=",
+        "lastModified": 1724402266,
+        "narHash": "sha256-JLCJPiRUt0RFDR/WYZMjkm/keaDo+QNwTII2GyiDAhk=",
         "owner": "nvim-neorocks",
         "repo": "lz.n",
-        "rev": "4c790ba2c3789f580aa019712bbe3112f85e73a0",
+        "rev": "fc67ba432830f499c0afadd35f2942c8620aaf1a",
         "type": "github"
       },
       "original": {
@@ -831,11 +831,11 @@
     "plugin-lzn-auto-require": {
       "flake": false,
       "locked": {
-        "lastModified": 1723928740,
-        "narHash": "sha256-CMWy+btqUaXUWSO4jZYDfBcNiYMFyRb8jtIdi072WP8=",
+        "lastModified": 1724239920,
+        "narHash": "sha256-wNtja4vbfzgVwVh8fw6cfTHxcxPOqr6z4nl5Fjj2d0I=",
         "owner": "horriblename",
         "repo": "lzn-auto-require",
-        "rev": "1b9f6527e32bf196ce239f7a8b9a54d342605511",
+        "rev": "c74fa9be2203438aab7fd132310abdb181426c66",
         "type": "github"
       },
       "original": {
