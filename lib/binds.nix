@@ -3,7 +3,6 @@
   inherit (lib.modules) mkIf mkDefault;
   inherit (lib.types) nullOr str;
   inherit (lib.attrsets) isAttrs mapAttrs;
-  inherit (lib.generators) mkLuaInline;
 
   binds = rec {
     mkLuaBinding = key: action: desc:
@@ -69,19 +68,20 @@
 
     pushDownDefault = attr: mapAttrs (_: mkDefault) attr;
 
-    mkLznBinding = mode: lhs: rhs: desc: {
-      inherit mode lhs rhs desc;
+    mkLznBinding = mode: key: action: desc: {
+      inherit mode desc key action;
     };
 
     mkSetLznBinding = binding: action: {
-      lhs = binding.value;
-      rhs = action;
+      inherit action;
+      key = binding.value;
       desc = binding.description;
     };
 
     mkSetLuaLznBinding = binding: action: {
-      lhs = binding.value;
-      rhs = mkLuaInline "function() ${action} end";
+      inherit action;
+      key = binding.value;
+      lua = true;
       desc = binding.description;
     };
   };
