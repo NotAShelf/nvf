@@ -11,7 +11,7 @@ entries in nvf:
    inserted before the rest of the DAG
 2. `globalsScript` - used to set globals defined in `vim.globals`
 3. `basic` - used to set basic configuration options
-4. `theme` (this is simply placed between `basic` and `pluginConfigs`, so surrounding entries don't depend on it) - used to set up the theme, which has to be done before other plugins
+4. `theme` (this is simply placed before `pluginConfigs`, meaning that surrounding entries don't depend on it) - used to set up the theme, which has to be done before other plugins
 5. `pluginConfigs` - the result of the nested `vim.pluginRC` (internal option,
    see the [Custom Plugins](/index.xhtml#ch-custom-plugins) page for adding your own
    plugins) DAG, used to set up internal plugins
