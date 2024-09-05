@@ -7,7 +7,7 @@
   inherit (lib.attrsets) attrNames;
   inherit (lib.types) bool lines enum;
   inherit (lib.modules) mkIf;
-  inherit (lib.nvim.dag) entryAfter;
+  inherit (lib.nvim.dag) entryBefore;
 
   cfg = config.vim.theme;
   supportedThemes = import ./supported-themes.nix {
@@ -45,7 +45,7 @@ in {
   config = mkIf cfg.enable {
     vim = {
       startPlugins = [cfg.name];
-      luaConfigRC.theme = entryAfter ["basic"] ''
+      luaConfigRC.theme = entryBefore ["pluginConfigs"] ''
         ${cfg.extraConfig}
         ${supportedThemes.${cfg.name}.setup {inherit (cfg) style transparent;}}
       '';
