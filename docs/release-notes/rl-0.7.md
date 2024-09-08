@@ -150,3 +150,9 @@ configuration formats.
   - `nvf-print-config-path` will display the path to _a clone_ of your
     `init.lua`. This is not the path used by the Neovim wrapper, but an
     identical clone.
+
+[ppenguin](https://github.com/ppenguin):
+
+- Telescope:
+  - Fixed `project-nvim` command and keybinding
+  - Added default ikeybind/command for `Telescope resume` (`<leader>fr`)
