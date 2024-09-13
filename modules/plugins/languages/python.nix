@@ -30,6 +30,21 @@
         }
       '';
     };
+
+    basedpyright = {
+      package = pkgs.basedpyright;
+      lspConfig = ''
+        lspconfig.basedpyright.setup{
+          capabilities = capabilities;
+          on_attach = default_on_attach;
+          cmd = ${
+          if isList cfg.lsp.package
+          then expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/basedpyright-langserver", "--stdio"}''
+        }
+        }
+      '';
+    };
   };
 
   defaultFormat = "black";
@@ -61,11 +76,12 @@
     black-and-isort = {
       package = pkgs.writeShellApplication {
         name = "black";
+        runtimeInputs = [pkgs.black pkgs.isort];
         text = ''
           black --quiet - "$@" | isort --profile black -
         '';
-        runtimeInputs = [pkgs.black pkgs.isort];
       };
+
       nullConfig = ''
         table.insert(
           ls_sources,
