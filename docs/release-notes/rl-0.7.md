@@ -71,7 +71,8 @@ configuration formats.
 
 - Fix "Emac" typo
 
-- Add [new-file-template.nvim] to automatically fill new file contents using templates.
+- Add [new-file-template.nvim] to automatically fill new file contents using
+  templates.
 
 [diniamo](https://github.com/diniamo):
 
@@ -146,10 +147,21 @@ configuration formats.
 - Add `nvf-print-config` & `nvf-print-config-path` helper scripts to Neovim
   closure. Both of those scripts have been automatically added to your PATH upon
   using neovimConfig or `programs.nvf.enable`.
+
   - `nvf-print-config` will display your `init.lua`, in full.
   - `nvf-print-config-path` will display the path to _a clone_ of your
     `init.lua`. This is not the path used by the Neovim wrapper, but an
     identical clone.
+
+- Add `vim.ui.breadcrumbs.lualine` to allow fine-tuning breadcrumbs behaviour on
+  Lualine. Only `vim.ui.breadcrumbs.lualine.winbar` is supported for the time
+  being.
+  - [](#opt-vim.ui.breadcrumbs.lualine.winbar.enable) has been added to allow
+    controlling the default behaviour of the `nvim-navic` component on Lualine,
+    which used to occupy `winbar.lualine_c` as long as breadcrumbs are enabled.
+  - `vim.ui.breadcrumbs.alwaysRender` has been renamed to
+    [](#opt-vim.ui.breadcrumbs.lualine.winbar.alwaysRender) to be conform to the
+    new format.
 
 [ppenguin](https://github.com/ppenguin):
 
