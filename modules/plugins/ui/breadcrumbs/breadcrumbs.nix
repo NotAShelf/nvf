@@ -4,9 +4,9 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) nullOr listOf enum bool str int;
+  inherit (lib.types) nullOr listOf enum bool str int either;
   inherit (lib.modules) mkRenamedOptionModule;
-  inherit (lib.nvim.types) mkPluginSetupOption;
+  inherit (lib.nvim.types) mkPluginSetupOption borderType;
   mkSimpleIconOption = default:
     mkOption {
       inherit default;
@@ -240,8 +240,7 @@ in {
           # position = {}
 
           border = mkOption {
-            # TODO: let this type accept a custom string
-            type = enum ["single" "rounded" "double" "solid" "none"];
+            type = borderType;
             default = config.vim.ui.borders.globalStyle;
             description = "border style to use";
           };
@@ -264,8 +263,7 @@ in {
               */
 
               border = mkOption {
-                # TODO: let this type accept a custom string
-                type = nullOr (enum ["single" "rounded" "double" "solid" "none"]);
+                type = borderType;
                 default = config.vim.ui.borders.globalStyle;
                 description = "border style to use for the left section of Navbuddy UI";
               };
@@ -282,8 +280,7 @@ in {
               */
 
               border = mkOption {
-                # TODO: let this type accept a custom string
-                type = nullOr (enum ["single" "rounded" "double" "solid" "none"]);
+                type = borderType;
                 default = config.vim.ui.borders.globalStyle;
                 description = "border style to use for the middle section of Navbuddy UI";
               };
@@ -293,8 +290,7 @@ in {
             # there is no size option for the right section, it fills the remaining space
             right = {
               border = mkOption {
-                # TODO: let this type accept a custom string
-                type = nullOr (enum ["single" "rounded" "double" "solid" "none"]);
+                type = borderType;
                 default = config.vim.ui.borders.globalStyle;
                 description = "border style to use for the right section of Navbuddy UI";
               };
