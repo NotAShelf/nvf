@@ -31,6 +31,8 @@ in {
     (renameSetupOpt ["sourceBuffer" "scrolloff"] ["source_buffer" "scrolloff"])
     # TODO: every option under icon is renamed to first letter capitalized
     (renameSetupOpt ["icon"] ["icon"])
+
+    (mkRenamedOptionModule ["vim" "ui" "breadcrumbs" "alwaysRender"] ["vim" "ui" "breadcrumbs" "lualine" "winbar" "alwaysRender"])
   ];
 
   options.vim.ui.breadcrumbs = {
@@ -43,17 +45,43 @@ in {
       '';
     };
 
-    # maybe this should be an option to *disable* alwaysRender optionally but oh well
-    # too late
-    alwaysRender = mkOption {
-      type = bool;
-      default = true;
-      description = "Whether to always display the breadcrumbs component on winbar (always renders winbar)";
+    # Options for configuring Lualine integration of nvim-navic
+    lualine.winbar = {
+      enable = mkOption {
+        type = bool;
+        default = true; # for retaining previous behaviour
+        example = false;
+        description = ''
+          Whether to automatically configure a winbar component for
+          Lualine on the Winbar section.
+
+          ::: {.note}
+          This is **set to `true` by default**, which means nvim-navic
+          will occupy `winbar.lualine_c` for the breadcrumbs feature
+          unless this option is set to `false`.
+          :::
+        '';
+      };
+
+      alwaysRender = mkOption {
+        type = bool;
+        default = true;
+        example = false;
+        description = ''
+          Whether to always display the breadcrumbs component
+          on winbar.
+
+          ::: {.note}
+          This will pass `draw_empty` to the `nvim_navic` winbar
+          component, which causes the component to be drawn even
+          if it's empty
+          :::
+        '';
+      };
     };
 
     navbuddy = {
       enable = mkEnableOption "navbuddy LSP helper UI. Enabling this option automatically loads and enables nvim-navic";
-
       mappings = {
         close = mkOption {
           type = str;
