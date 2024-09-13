@@ -14,7 +14,7 @@
 
   cfg = config.vim.languages.python;
 
-  defaultServer = "pyright";
+  defaultServer = "basedpyright";
   servers = {
     pyright = {
       package = pkgs.pyright;
