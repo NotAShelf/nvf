@@ -25593,18 +25593,54 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.ui.breadcrumbs.alwaysRender"></a><a class="term" href="options.html#opt-vim.ui.breadcrumbs.alwaysRender"><code class="option">vim.ui.breadcrumbs.alwaysRender</code>
+ <a id="opt-vim.ui.breadcrumbs.lualine.winbar.enable"></a><a class="term" href="options.html#opt-vim.ui.breadcrumbs.lualine.winbar.enable"><code class="option">vim.ui.breadcrumbs.lualine.winbar.enable</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>Whether to always display the breadcrumbs component on winbar (always renders winbar)</p>
+<p>Whether to automatically configure a winbar component for
+Lualine on the Winbar section.</p><div class="note"><h3 class="title">Note</h3><p>This is <span class="strong"><strong>set to <code class="literal">true</code> by default</strong></span>, which means nvim-navic
+will occupy <code class="literal">winbar.lualine_c</code> for the breadcrumbs feature
+unless this option is set to <code class="literal">false</code>.</p></div>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/breadcrumbs/breadcrumbs.nix" target="_top">
+&lt;nvf/modules/plugins/ui/breadcrumbs/breadcrumbs.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.breadcrumbs.lualine.winbar.alwaysRender"></a><a class="term" href="options.html#opt-vim.ui.breadcrumbs.lualine.winbar.alwaysRender"><code class="option">vim.ui.breadcrumbs.lualine.winbar.alwaysRender</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to always display the breadcrumbs component
+on winbar.</p><div class="note"><h3 class="title">Note</h3><p>This will pass <code class="literal">draw_empty</code> to the <code class="literal">nvim_navic</code> winbar
+component, which causes the component to be drawn even
+if it’s empty</p></div>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">false</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
