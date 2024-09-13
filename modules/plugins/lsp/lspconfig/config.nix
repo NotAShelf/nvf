@@ -7,6 +7,7 @@
   inherit (lib.strings) optionalString;
   inherit (lib.attrsets) mapAttrs;
   inherit (lib.nvim.dag) entryAfter;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.lsp;
 in {
@@ -22,7 +23,7 @@ in {
 
           ${
             optionalString config.vim.ui.borders.enable ''
-              require('lspconfig.ui.windows').default_options.border = '${config.vim.ui.borders.globalStyle}'
+              require('lspconfig.ui.windows').default_options.border = ${toLuaObject config.vim.ui.borders.globalStyle}
             ''
           }
         '';

@@ -6,6 +6,7 @@
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.binds) mkSetBinding addDescriptionsToMappings pushDownDefault;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.lsp;
 
@@ -25,7 +26,7 @@ in {
 
       pluginRC.code-action-menu = entryAnywhere ''
         -- border configuration
-        vim.g.code_action_menu_window_border = '${config.vim.ui.borders.plugins.code-action-menu.style}'
+        vim.g.code_action_menu_window_border = ${toLuaObject config.vim.ui.borders.plugins.code-action-menu.style}
 
         -- show individual sections of the code action menu
         ${lib.optionalString cfg.nvimCodeActionMenu.show.details "vim.g.code_action_menu_show_details = true"}
