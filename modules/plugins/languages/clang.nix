@@ -57,7 +57,7 @@
       dapConfig = ''
         dap.adapters.lldb = {
           type = 'executable',
-          command = '${cfg.dap.package}/bin/lldb-vscode',
+          command = '${cfg.dap.package}/bin/lldb-dap',
           name = 'lldb'
         }
         dap.configurations.cpp = {

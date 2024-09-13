@@ -150,13 +150,13 @@
 in {
   options.vim.telescope = {
     mappings = {
-      findProjects = mkMappingOption "Find files [Telescope]" "<leader>fp";
-
+      findProjects = mkMappingOption "Find projects [Telescope]" "<leader>fp";
       findFiles = mkMappingOption "Find files [Telescope]" "<leader>ff";
       liveGrep = mkMappingOption "Live grep [Telescope]" "<leader>fg";
       buffers = mkMappingOption "Buffers [Telescope]" "<leader>fb";
       helpTags = mkMappingOption "Help tags [Telescope]" "<leader>fh";
       open = mkMappingOption "Open [Telescope]" "<leader>ft";
+      resume = mkMappingOption "Resume (previous search) [Telescope]" "<leader>fr";
 
       gitCommits = mkMappingOption "Git commits [Telescope]" "<leader>fvcw";
       gitBufferCommits = mkMappingOption "Git buffer commits [Telescope]" "<leader>fvcb";
