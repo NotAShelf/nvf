@@ -45,6 +45,21 @@
         }
       '';
     };
+
+    python-lsp-server = {
+      package = pkgs.python-lsp-server;
+      lspConfig = ''
+        lspconfig.pylsp.setup{
+          capabilities = capabilities;
+          on_attach = default_on_attach;
+          cmd = ${
+          if isList cfg.lsp.package
+          then expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/pylsp"}''
+        }
+        }
+      '';
+    };
   };
 
   defaultFormat = "black";
