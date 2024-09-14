@@ -25,6 +25,7 @@ in {
     ./ts.nix
     ./typst.nix
     ./zig.nix
+    ./nu.nix
   ];
 
   options.vim.languages = {
