@@ -162,13 +162,13 @@ in {
     };
 
     undoFile = {
-      enable = mkEnableOption "undofile for Neovim";
+      enable = mkEnableOption "undofile for persistent undo behaviour";
       path = mkOption {
         type = either str luaInline;
-        default = mkLuaInline "vim.fn.stdpath('state') .. '/nvf/undo'";
+        default = mkLuaInline "vim.fn.stdpath('state') .. '/undo'";
         defaultText = literalMD ''
           ```nix
-          mkLuaInline "vim.fn.stdpath('state') .. '/nvf/undo'"
+          mkLuaInline "vim.fn.stdpath('state') .. '/undo'"
           ```
         '';
         example = literalMD ''
@@ -176,7 +176,7 @@ in {
           mkLuaInline "os.getenv('XDG_DATA_HOME') .. '/nvf/undo'"
           ```
         '';
-        description = "Path to the file in which undo history will be saved";
+        description = "Path to the directory in which undo history will be stored";
       };
     };
   };

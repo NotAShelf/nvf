@@ -14,7 +14,7 @@
 
   cfg = config.vim.languages.python;
 
-  defaultServer = "pyright";
+  defaultServer = "basedpyright";
   servers = {
     pyright = {
       package = pkgs.pyright;
@@ -26,6 +26,36 @@
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/pyright-langserver", "--stdio"}''
+        }
+        }
+      '';
+    };
+
+    basedpyright = {
+      package = pkgs.basedpyright;
+      lspConfig = ''
+        lspconfig.basedpyright.setup{
+          capabilities = capabilities;
+          on_attach = default_on_attach;
+          cmd = ${
+          if isList cfg.lsp.package
+          then expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/basedpyright-langserver", "--stdio"}''
+        }
+        }
+      '';
+    };
+
+    python-lsp-server = {
+      package = pkgs.python-lsp-server;
+      lspConfig = ''
+        lspconfig.pylsp.setup{
+          capabilities = capabilities;
+          on_attach = default_on_attach;
+          cmd = ${
+          if isList cfg.lsp.package
+          then expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/pylsp"}''
         }
         }
       '';
@@ -61,11 +91,12 @@
     black-and-isort = {
       package = pkgs.writeShellApplication {
         name = "black";
+        runtimeInputs = [pkgs.black pkgs.isort];
         text = ''
           black --quiet - "$@" | isort --profile black -
         '';
-        runtimeInputs = [pkgs.black pkgs.isort];
       };
+
       nullConfig = ''
         table.insert(
           ls_sources,

@@ -53,6 +53,7 @@ configuration formats.
   longer filtered and thus should be used instead.
 - Add dap-go for better dap configurations
 - Make noice.nvim customizable
+- Standardize border style options and add custom borders
 
 [rust-tools.nvim]: https://github.com/simrat39/rust-tools.nvim
 [rustaceanvim]: https://github.com/mrcjkb/rustaceanvim
@@ -71,7 +72,8 @@ configuration formats.
 
 - Fix "Emac" typo
 
-- Add [new-file-template.nvim] to automatically fill new file contents using templates.
+- Add [new-file-template.nvim] to automatically fill new file contents using
+  templates.
 
 [diniamo](https://github.com/diniamo):
 
@@ -93,7 +95,6 @@ configuration formats.
   plugin's options can now be found under `indentBlankline.setupOpts`, the
   previous iteration of the module also included out of place/broken options,
   which have been removed for the time being. These are:
-
   - `listChar` - this was already unused
   - `fillChar` - this had nothing to do with the plugin, please configure it
     yourself by adding `vim.opt.listchars:append({ space = '<char>' })` to your
@@ -146,7 +147,31 @@ configuration formats.
 - Add `nvf-print-config` & `nvf-print-config-path` helper scripts to Neovim
   closure. Both of those scripts have been automatically added to your PATH upon
   using neovimConfig or `programs.nvf.enable`.
+
   - `nvf-print-config` will display your `init.lua`, in full.
   - `nvf-print-config-path` will display the path to _a clone_ of your
     `init.lua`. This is not the path used by the Neovim wrapper, but an
     identical clone.
+
+- Add `vim.ui.breadcrumbs.lualine` to allow fine-tuning breadcrumbs behaviour on
+  Lualine. Only `vim.ui.breadcrumbs.lualine.winbar` is supported for the time
+  being.
+
+  - [](#opt-vim.ui.breadcrumbs.lualine.winbar.enable) has been added to allow
+    controlling the default behaviour of the `nvim-navic` component on Lualine,
+    which used to occupy `winbar.lualine_c` as long as breadcrumbs are enabled.
+  - `vim.ui.breadcrumbs.alwaysRender` has been renamed to
+    [](#opt-vim.ui.breadcrumbs.lualine.winbar.alwaysRender) to be conform to the
+    new format.
+
+- Add [basedpyright](https://github.com/detachhead/basedpyright) as a Python LSP
+  server and make it default.
+
+- Add [python-lsp-server](https://github.com/python-lsp/python-lsp-server) as an
+  additional Python LSP server.
+
+[ppenguin](https://github.com/ppenguin):
+
+- Telescope:
+  - Fixed `project-nvim` command and keybinding
+  - Added default ikeybind/command for `Telescope resume` (`<leader>fr`)
