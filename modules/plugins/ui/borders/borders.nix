@@ -44,6 +44,7 @@ in {
       nvim-cmp = mkPluginStyleOption "nvim-cmp";
       lsp-signature = mkPluginStyleOption "lsp-signature";
       code-action-menu = mkPluginStyleOption "code-actions-menu";
+      fastaction = mkPluginStyleOption "fastaction";
     };
   };
 }
