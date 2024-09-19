@@ -16,8 +16,5 @@
     ./lspkind
     ./lsplines
     ./nvim-docs-view
-
-    # Code Actions
-    ./code-actions
   ];
 }

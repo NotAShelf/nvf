@@ -1,6 +1,6 @@
 {
   imports = [
-    ./config.nix
     ./fastaction-nvim.nix
+    ./config.nix
   ];
 }
