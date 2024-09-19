@@ -10,9 +10,9 @@ in {
 
     # 2024-07-20
     (mkRemovedOptionModule ["vim" "lsp" "nvimCodeActionMenu"] ''
-      nvimCodeActionMenu has been deprecated and archived upstream. As of 0.7, fastaction will be
-      available under `vim.ui.fastaction` as a replacement. Please take a look at the nvf manual
-      for more details.
+      nvimCodeActionMenu has been deprecated and removed upstream. As of 0.7, fastaction will be
+      available under `vim.ui.fastaction` as a replacement. Simply remove everything under
+      `vim.lsp.nvimCodeActionMenu`, and set `vim.ui.fastaction.enable` to `true`.
     '')
   ];
 }
