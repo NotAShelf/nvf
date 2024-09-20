@@ -3221,7 +3221,7 @@ attribute set of (submodule)</p>
 <p>Plugin Package.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-null or package or one of “alpha-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc”, “cellular-automaton”, “chatgpt”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “cmp-vsnip”, “codewindow-nvim”, “comment-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools”, “fidget-nvim”, “flutter-tools”, “gesture-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “highlight-undo”, “hop-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline”, “leap-nvim”, “lsp-lines”, “lsp-signature”, “lspkind”, “lspsaga”, “lualine”, “mind-nvim”, “minimap-vim”, “modes-nvim”, “neo-tree-nvim”, “neocord”, “neodev-nvim”, “new-file-template-nvim”, “noice-nvim”, “none-ls”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-code-action-menu”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lspconfig”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip”, “nvim-nio”, “nvim-notify”, “nvim-session-manager”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-web-devicons”, “obsidian-nvim”, “onedark”, “orgmode-nvim”, “oxocarbon”, “plenary-nvim”, “project-nvim”, “registers”, “rose-pine”, “rustaceanvim”, “scrollbar-nvim”, “smartcolumn”, “sqls-nvim”, “tabular”, “telescope”, “todo-comments”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “vim-vsnip”, “which-key”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”</p>
+null or package or one of “alpha-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc”, “cellular-automaton”, “chatgpt”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “cmp-vsnip”, “codewindow-nvim”, “comment-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools”, “gesture-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “highlight-undo”, “hop-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline”, “leap-nvim”, “lsp-lines”, “lsp-signature”, “lspkind”, “lspsaga”, “lualine”, “mind-nvim”, “minimap-vim”, “modes-nvim”, “neo-tree-nvim”, “neocord”, “neodev-nvim”, “new-file-template-nvim”, “noice-nvim”, “none-ls”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lspconfig”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip”, “nvim-nio”, “nvim-notify”, “nvim-session-manager”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-web-devicons”, “obsidian-nvim”, “onedark”, “orgmode-nvim”, “oxocarbon”, “plenary-nvim”, “project-nvim”, “registers”, “rose-pine”, “rustaceanvim”, “scrollbar-nvim”, “smartcolumn”, “sqls-nvim”, “tabular”, “telescope”, “todo-comments”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “vim-vsnip”, “which-key”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”</p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -14925,138 +14925,6 @@ signed integer</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.lsp.nvimCodeActionMenu.enable"></a><a class="term" href="options.html#opt-vim.lsp.nvimCodeActionMenu.enable"><code class="option">vim.lsp.nvimCodeActionMenu.enable</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Whether to enable nvim code action menu.</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-boolean</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">false</code></p>
-
-<p><span class="emphasis"><em>Example:</em></span>
-<code class="literal">true</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/lsp/nvim-code-action-menu/nvim-code-action-menu.nix" target="_top">
-&lt;nvf/modules/plugins/lsp/nvim-code-action-menu/nvim-code-action-menu.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="opt-vim.lsp.nvimCodeActionMenu.mappings.open"></a><a class="term" href="options.html#opt-vim.lsp.nvimCodeActionMenu.mappings.open"><code class="option">vim.lsp.nvimCodeActionMenu.mappings.open</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Open code action menu [nvim-code-action-menu]</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-null or string</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&quot;&lt;leader&gt;ca&quot;</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/lsp/nvim-code-action-menu/nvim-code-action-menu.nix" target="_top">
-&lt;nvf/modules/plugins/lsp/nvim-code-action-menu/nvim-code-action-menu.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="opt-vim.lsp.nvimCodeActionMenu.show.actionKind"></a><a class="term" href="options.html#opt-vim.lsp.nvimCodeActionMenu.show.actionKind"><code class="option">vim.lsp.nvimCodeActionMenu.show.actionKind</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Whether to enable Show action kind.</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-boolean</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">true</code></p>
-
-<p><span class="emphasis"><em>Example:</em></span>
-<code class="literal">true</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/lsp/nvim-code-action-menu/nvim-code-action-menu.nix" target="_top">
-&lt;nvf/modules/plugins/lsp/nvim-code-action-menu/nvim-code-action-menu.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="opt-vim.lsp.nvimCodeActionMenu.show.details"></a><a class="term" href="options.html#opt-vim.lsp.nvimCodeActionMenu.show.details"><code class="option">vim.lsp.nvimCodeActionMenu.show.details</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Whether to enable Show details.</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-boolean</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">true</code></p>
-
-<p><span class="emphasis"><em>Example:</em></span>
-<code class="literal">true</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/lsp/nvim-code-action-menu/nvim-code-action-menu.nix" target="_top">
-&lt;nvf/modules/plugins/lsp/nvim-code-action-menu/nvim-code-action-menu.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="opt-vim.lsp.nvimCodeActionMenu.show.diff"></a><a class="term" href="options.html#opt-vim.lsp.nvimCodeActionMenu.show.diff"><code class="option">vim.lsp.nvimCodeActionMenu.show.diff</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Whether to enable Show diff.</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-boolean</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">true</code></p>
-
-<p><span class="emphasis"><em>Example:</em></span>
-<code class="literal">true</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/lsp/nvim-code-action-menu/nvim-code-action-menu.nix" target="_top">
-&lt;nvf/modules/plugins/lsp/nvim-code-action-menu/nvim-code-action-menu.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
  <a id="opt-vim.lsp.trouble.enable"></a><a class="term" href="options.html#opt-vim.lsp.trouble.enable"><code class="option">vim.lsp.trouble.enable</code>
   </a>
  </span>
@@ -18972,7 +18840,7 @@ the wrapper during the build process.</p><p>To avoid overriding packages and dep
 are recommended to use this option or <code class="option">vim.extraPlugins</code> option.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-list of (null or package or one of “alpha-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc”, “cellular-automaton”, “chatgpt”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “cmp-vsnip”, “codewindow-nvim”, “comment-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools”, “fidget-nvim”, “flutter-tools”, “gesture-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “highlight-undo”, “hop-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline”, “leap-nvim”, “lsp-lines”, “lsp-signature”, “lspkind”, “lspsaga”, “lualine”, “mind-nvim”, “minimap-vim”, “modes-nvim”, “neo-tree-nvim”, “neocord”, “neodev-nvim”, “new-file-template-nvim”, “noice-nvim”, “none-ls”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-code-action-menu”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lspconfig”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip”, “nvim-nio”, “nvim-notify”, “nvim-session-manager”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-web-devicons”, “obsidian-nvim”, “onedark”, “orgmode-nvim”, “oxocarbon”, “plenary-nvim”, “project-nvim”, “registers”, “rose-pine”, “rustaceanvim”, “scrollbar-nvim”, “smartcolumn”, “sqls-nvim”, “tabular”, “telescope”, “todo-comments”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “vim-vsnip”, “which-key”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
+list of (null or package or one of “alpha-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc”, “cellular-automaton”, “chatgpt”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “cmp-vsnip”, “codewindow-nvim”, “comment-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools”, “gesture-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “highlight-undo”, “hop-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline”, “leap-nvim”, “lsp-lines”, “lsp-signature”, “lspkind”, “lspsaga”, “lualine”, “mind-nvim”, “minimap-vim”, “modes-nvim”, “neo-tree-nvim”, “neocord”, “neodev-nvim”, “new-file-template-nvim”, “noice-nvim”, “none-ls”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lspconfig”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip”, “nvim-nio”, “nvim-notify”, “nvim-session-manager”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-web-devicons”, “obsidian-nvim”, “onedark”, “orgmode-nvim”, “oxocarbon”, “plenary-nvim”, “project-nvim”, “registers”, “rose-pine”, “rustaceanvim”, “scrollbar-nvim”, “smartcolumn”, “sqls-nvim”, “tabular”, “telescope”, “todo-comments”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “vim-vsnip”, “which-key”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">[ ]</code></p>
@@ -20448,7 +20316,7 @@ using the <a class="link" href="options.html#opt-vim.extraPlugins"  ><code class
 option.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-list of (null or package or one of “alpha-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc”, “cellular-automaton”, “chatgpt”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “cmp-vsnip”, “codewindow-nvim”, “comment-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools”, “fidget-nvim”, “flutter-tools”, “gesture-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “highlight-undo”, “hop-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline”, “leap-nvim”, “lsp-lines”, “lsp-signature”, “lspkind”, “lspsaga”, “lualine”, “mind-nvim”, “minimap-vim”, “modes-nvim”, “neo-tree-nvim”, “neocord”, “neodev-nvim”, “new-file-template-nvim”, “noice-nvim”, “none-ls”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-code-action-menu”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lspconfig”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip”, “nvim-nio”, “nvim-notify”, “nvim-session-manager”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-web-devicons”, “obsidian-nvim”, “onedark”, “orgmode-nvim”, “oxocarbon”, “plenary-nvim”, “project-nvim”, “registers”, “rose-pine”, “rustaceanvim”, “scrollbar-nvim”, “smartcolumn”, “sqls-nvim”, “tabular”, “telescope”, “todo-comments”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “vim-vsnip”, “which-key”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
+list of (null or package or one of “alpha-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc”, “cellular-automaton”, “chatgpt”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “cmp-vsnip”, “codewindow-nvim”, “comment-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools”, “gesture-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “highlight-undo”, “hop-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline”, “leap-nvim”, “lsp-lines”, “lsp-signature”, “lspkind”, “lspsaga”, “lualine”, “mind-nvim”, “minimap-vim”, “modes-nvim”, “neo-tree-nvim”, “neocord”, “neodev-nvim”, “new-file-template-nvim”, “noice-nvim”, “none-ls”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lspconfig”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip”, “nvim-nio”, “nvim-notify”, “nvim-session-manager”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-web-devicons”, “obsidian-nvim”, “onedark”, “orgmode-nvim”, “oxocarbon”, “plenary-nvim”, “project-nvim”, “registers”, “rose-pine”, “rustaceanvim”, “scrollbar-nvim”, “smartcolumn”, “sqls-nvim”, “tabular”, “telescope”, “todo-comments”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “vim-vsnip”, “which-key”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
 
 <p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
   &quot;plenary-nvim&quot;
@@ -25311,12 +25179,12 @@ one of “none”, “single”, “double”, “rounded”, “solid”, “sh
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.ui.borders.plugins.code-action-menu.enable"></a><a class="term" href="options.html#opt-vim.ui.borders.plugins.code-action-menu.enable"><code class="option">vim.ui.borders.plugins.code-action-menu.enable</code>
+ <a id="opt-vim.ui.borders.plugins.fastaction.enable"></a><a class="term" href="options.html#opt-vim.ui.borders.plugins.fastaction.enable"><code class="option">vim.ui.borders.plugins.fastaction.enable</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>Whether to enable borders for the code-actions-menu plugin.</p>
+<p>Whether to enable borders for the fastaction plugin.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -25338,12 +25206,12 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.ui.borders.plugins.code-action-menu.style"></a><a class="term" href="options.html#opt-vim.ui.borders.plugins.code-action-menu.style"><code class="option">vim.ui.borders.plugins.code-action-menu.style</code>
+ <a id="opt-vim.ui.borders.plugins.fastaction.style"></a><a class="term" href="options.html#opt-vim.ui.borders.plugins.fastaction.style"><code class="option">vim.ui.borders.plugins.fastaction.style</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>The border style to use for the code-actions-menu plugin</p>
+<p>The border style to use for the fastaction plugin</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 one of “none”, “single”, “double”, “rounded”, “solid”, “shadow” or list of (string or list of string)</p>
@@ -28063,6 +27931,58 @@ null or string</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.ui.fastaction.enable"></a><a class="term" href="options.html#opt-vim.ui.fastaction.enable"><code class="option">vim.ui.fastaction.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable overriding vim.ui.select with fastaction.nvim.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/fastaction/fastaction-nvim.nix" target="_top">
+&lt;nvf/modules/plugins/ui/fastaction/fastaction-nvim.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.fastaction.setupOpts"></a><a class="term" href="options.html#opt-vim.ui.fastaction.setupOpts"><code class="option">vim.ui.fastaction.setupOpts</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Option table to pass into the setup function of fastaction</p><p>You can pass in any additional options even if they’re
+not listed in the docs</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+attribute set of anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/fastaction/fastaction-nvim.nix" target="_top">
+&lt;nvf/modules/plugins/ui/fastaction/fastaction-nvim.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.ui.illuminate.enable"></a><a class="term" href="options.html#opt-vim.ui.illuminate.enable"><code class="option">vim.ui.illuminate.enable</code>
   </a>
  </span>
@@ -28952,6 +28872,60 @@ list of string</p>
 <tr><td>
 <code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/plugins/ui/smartcolumn/smartcolumn.nix" target="_top">
 &lt;nvf/modules/plugins/ui/smartcolumn/smartcolumn.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.undoFile.enable"></a><a class="term" href="options.html#opt-vim.undoFile.enable"><code class="option">vim.undoFile.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable undofile for persistent undo behaviour.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/neovim/init/basic.nix" target="_top">
+&lt;nvf/modules/neovim/init/basic.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.undoFile.path"></a><a class="term" href="options.html#opt-vim.undoFile.path"><code class="option">vim.undoFile.path</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Path to the directory in which undo history will be stored</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string or (luaInline)</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting nix">mkLuaInline &quot;vim.fn.stdpath(&#x27;state&#x27;) .. &#x27;/undo&#x27;&quot;
+</code></pre>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting nix">mkLuaInline &quot;os.getenv(&#x27;XDG_DATA_HOME&#x27;) .. &#x27;/nvf/undo&#x27;&quot;
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/notashelf/nvf/blob/main/modules/neovim/init/basic.nix" target="_top">
+&lt;nvf/modules/neovim/init/basic.nix&gt;
 </a></code>
 </td></tr>
 </table>
