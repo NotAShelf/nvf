@@ -60,6 +60,7 @@ isMaximal: {
       python.enable = isMaximal;
       dart.enable = isMaximal;
       bash.enable = isMaximal;
+      r.enable = isMaximal;
       tailwind.enable = isMaximal;
       typst.enable = isMaximal;
       clang = {
