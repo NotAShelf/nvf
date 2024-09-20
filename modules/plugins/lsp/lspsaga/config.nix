@@ -36,7 +36,7 @@ in {
           (mkSetLuaBinding mappings.nextDiagnostic "require('lspsaga.diagnostic').navigate('next')")
           (mkSetLuaBinding mappings.previousDiagnostic "require('lspsaga.diagnostic').navigate('prev')")
 
-          (mkIf (!cfg.nvimCodeActionMenu.enable) (mkSetLuaBinding mappings.codeAction "require('lspsaga.codeaction').code_action"))
+          (mkSetLuaBinding mappings.codeAction "require('lspsaga.codeaction').code_action")
           (mkIf (!cfg.lspSignature.enable) (mkSetLuaBinding mappings.signatureHelp "require('lspsaga.signaturehelp').signature_help"))
         ];
       };
