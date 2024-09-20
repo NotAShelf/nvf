@@ -17,7 +17,6 @@ isMaximal: {
       lspkind.enable = false;
       lightbulb.enable = true;
       lspsaga.enable = false;
-      nvimCodeActionMenu.enable = isMaximal;
       trouble.enable = true;
       lspSignature.enable = true;
       lsplines.enable = isMaximal;
@@ -204,6 +203,7 @@ isMaximal: {
           go = ["90" "130"];
         };
       };
+      fastaction.enable = true;
     };
 
     assistant = {

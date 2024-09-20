@@ -1,7 +1,7 @@
 # Custom Plugins {#ch-custom-plugins}
 
 **nvf**, by default, exposes a wide variety of plugins as module options
-for your convience and bundles necessary dependencies into **nvf**'s runtime.
+for your convenience and bundles necessary dependencies into **nvf**'s runtime.
 In case a plugin is not available in **nvf**, you may consider making a pull
 request to **nvf** to include it as a module or you may add it to your
 configuration locally.

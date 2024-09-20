@@ -11,7 +11,7 @@
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.statusline.lualine;
-  breadcrumbsCfg = config.vim.ui.breadcrumbs;
+  bCfg = config.vim.ui.breadcrumbs;
 in {
   config = mkMerge [
     # TODO: move into nvim-tree file
@@ -20,13 +20,14 @@ in {
         extensions = ["nvim-tree"];
       };
     })
-    (mkIf (breadcrumbsCfg.enable && breadcrumbsCfg.source == "nvim-navic") {
+
+    (mkIf (bCfg.enable && bCfg.lualine.winbar.enable && bCfg.source == "nvim-navic") {
       vim.statusline.lualine.setupOpts = {
         # TODO: rewrite in new syntax
         winbar.lualine_c = mkDefault [
           [
             "navic"
-            (mkLuaInline "draw_empty = ${boolToString config.vim.ui.breadcrumbs.alwaysRender}")
+            (mkLuaInline "draw_empty = ${boolToString bCfg.lualine.winbar.alwaysRender}")
           ]
         ];
       };
@@ -34,7 +35,6 @@ in {
     (mkIf cfg.enable {
       vim = {
         startPlugins = ["lualine"];
-
         pluginRC.lualine = entryAnywhere ''
           local lualine = require('lualine')
           lualine.setup ${toLuaObject cfg.setupOpts}

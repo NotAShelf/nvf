@@ -4,31 +4,34 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.lists) optionals;
-  inherit (lib.types) enum;
+  inherit (lib.nvim.types) borderType;
 
   cfg = config.vim.ui.borders;
-
-  defaultStyles = ["none" "single" "double" "rounded"];
 in {
   options.vim.ui.borders = {
     enable = mkEnableOption "visible borders for most windows";
 
     globalStyle = mkOption {
-      type = enum defaultStyles;
+      type = borderType;
       default = "rounded";
       description = ''
         The global border style to use.
+
+        If a list is given, it should have a length of eight or any divisor of
+        eight. The array will specify the eight chars building up the border in
+        a clockwise fashion starting with the top-left corner. You can specify
+        a different highlight group for each character by passing a
+        [char, "YourHighlightGroup"] instead
       '';
+      example = ["╔" "═" "╗" "║" "╝" "═" "╚" "║"];
     };
 
-    # TODO: make per-plugin borders configurable
     plugins = let
       mkPluginStyleOption = name: {
         enable = mkEnableOption "borders for the ${name} plugin" // {default = cfg.enable;};
 
         style = mkOption {
-          type = enum (defaultStyles ++ optionals (name != "which-key") ["shadow"]);
+          type = borderType;
           default = cfg.globalStyle;
           description = "The border style to use for the ${name} plugin";
         };
@@ -40,7 +43,7 @@ in {
       lspsaga = mkPluginStyleOption "lspsaga";
       nvim-cmp = mkPluginStyleOption "nvim-cmp";
       lsp-signature = mkPluginStyleOption "lsp-signature";
-      code-action-menu = mkPluginStyleOption "code-actions-menu";
+      fastaction = mkPluginStyleOption "fastaction";
     };
   };
 }

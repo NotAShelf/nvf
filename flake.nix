@@ -133,8 +133,8 @@
       flake = false;
     };
 
-    plugin-nvim-code-action-menu = {
-      url = "github:weilbith/nvim-code-action-menu";
+    plugin-fastaction-nvim = {
+      url = "github:Chaitanyabsprip/fastaction.nvim";
       flake = false;
     };
 
