@@ -3,7 +3,6 @@
   lib,
 }: {
   pkgs,
-  check ? true,
   extraSpecialArgs ? {},
   modules ? [],
   # deprecated
@@ -17,7 +16,7 @@
   # import modules.nix with `check`, `pkgs` and `lib` as arguments
   # check can be disabled while calling this file is called
   # to avoid checking in all modules
-  nvimModules = import ./modules.nix {inherit pkgs check lib;};
+  nvimModules = import ./modules.nix {inherit pkgs lib;};
 
   # evaluate the extended library with the modules
   # optionally with any additional modules passed by the user

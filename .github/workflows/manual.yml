@@ -1,4 +1,5 @@
 name: "Build and deploy documentation"
+
 on:
   workflow_dispatch:
   push:
@@ -7,6 +8,7 @@ on:
     paths:
       # build the manuals only when docs directory is updated
       - docs/**
+      - modules/**
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -20,23 +22,34 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  check_date:
+    runs-on: ubuntu-latest
+    name: Check latest commit
+    outputs:
+      should_run: ${{ steps.should_run.outputs.should_run }}
+    steps:
+      - uses: actions/checkout@v4.1.7
+      - name: print latest_commit
+        run: echo ${{ github.sha }}
+
+      - id: should_run
+        continue-on-error: true
+        name: check latest commit is less than a day
+        if: ${{ github.event_name == 'schedule' }}
+        run: test -z $(git rev-list --after="24 hours" ${{ github.sha }}) && echo "::set-output name=should_run::false"
+
   publish:
+    needs: check_date
+    if: ${{ needs.check_date.outputs.should_run != 'false' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+      - uses: actions/checkout@v4.1.7
+      - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
-
-      - name: Build
-        run: |
-          nix build '.#docs'
+      - run: |
+          nix build .#docs
           cp -r result/share/doc/nvf public
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
+      - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
