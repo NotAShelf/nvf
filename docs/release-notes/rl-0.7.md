@@ -108,6 +108,7 @@ everyone.
   plugin's options can now be found under `indentBlankline.setupOpts`, the
   previous iteration of the module also included out of place/broken options,
   which have been removed for the time being. These are:
+
   - `listChar` - this was already unused
   - `fillChar` - this had nothing to do with the plugin, please configure it
     yourself by adding `vim.opt.listchars:append({ space = '<char>' })` to your
@@ -191,3 +192,7 @@ everyone.
 - Telescope:
   - Fixed `project-nvim` command and keybinding
   - Added default ikeybind/command for `Telescope resume` (`<leader>fr`)
+
+[Soliprem](https://github.com/Soliprem)
+
+- Add LSP and Treesitter support for R under `vim.languages.R`.
