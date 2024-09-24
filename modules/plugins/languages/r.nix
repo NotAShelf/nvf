@@ -10,6 +10,7 @@
   inherit (lib.lists) isList;
   inherit (lib.types) enum either listOf package str;
   inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.r;
 
@@ -42,11 +43,7 @@ in {
 
     treesitter = {
       enable = mkEnableOption "R treesitter" // {default = config.vim.languages.enableTreesitter;};
-      package = mkOption {
-        description = "R treesitter grammar to use";
-        type = package;
-        default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.r;
-      };
+      package = mkGrammarOption pkgs "r";
     };
 
     lsp = {
