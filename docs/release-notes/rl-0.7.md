@@ -195,6 +195,4 @@ everyone.
 
 [Soliprem](https://github.com/Soliprem)
 
-- R:
-  - Added LSP
-  - Added Treesitter
+- Add LSP and Treesitter support for R under `vim.languages.R`.
