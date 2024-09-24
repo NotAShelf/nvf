@@ -8,5 +8,6 @@
     ./illuminate
     ./breadcrumbs
     ./borders
+    ./fastaction
   ];
 }

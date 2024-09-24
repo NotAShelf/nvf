@@ -3,11 +3,13 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption literalExpression;
+  inherit (lib.options) mkOption mkEnableOption literalExpression literalMD;
   inherit (lib.strings) optionalString;
-  inherit (lib.types) enum bool str int;
+  inherit (lib.types) enum bool str int either;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.nvim.types) luaInline;
 
   cfg = config.vim;
 in {
@@ -158,112 +160,138 @@ in {
       default = "sensitive";
       description = "Set the case sensitivity of search";
     };
+
+    undoFile = {
+      enable = mkEnableOption "undofile for persistent undo behaviour";
+      path = mkOption {
+        type = either str luaInline;
+        default = mkLuaInline "vim.fn.stdpath('state') .. '/undo'";
+        defaultText = literalMD ''
+          ```nix
+          mkLuaInline "vim.fn.stdpath('state') .. '/undo'"
+          ```
+        '';
+        example = literalMD ''
+          ```nix
+          mkLuaInline "os.getenv('XDG_DATA_HOME') .. '/nvf/undo'"
+          ```
+        '';
+        description = "Path to the directory in which undo history will be stored";
+      };
+    };
   };
 
-  config.vim.luaConfigRC.basic = entryAfter ["globalsScript"] ''
-    -- Settings that are set for everything
-    vim.o.encoding = "utf-8"
-    vim.o.hidden = true
-    vim.opt.shortmess:append("c")
-    vim.o.expandtab = true
-    vim.o.mouse = ${toLuaObject cfg.mouseSupport}
-    vim.o.tabstop = ${toLuaObject cfg.tabWidth}
-    vim.o.shiftwidth = ${toLuaObject cfg.tabWidth}
-    vim.o.softtabstop = ${toLuaObject cfg.tabWidth}
-    vim.o.cmdheight = ${toLuaObject cfg.cmdHeight}
-    vim.o.updatetime = ${toLuaObject cfg.updateTime}
-    vim.o.tm = ${toLuaObject cfg.mapTimeout}
-    vim.o.cursorlineopt = ${toLuaObject cfg.cursorlineOpt}
-    vim.o.scrolloff = ${toLuaObject cfg.scrollOffset}
-    vim.g.mapleader = ${toLuaObject cfg.leaderKey}
-    vim.g.maplocalleader = ${toLuaObject cfg.leaderKey}
+  config = {
+    vim.luaConfigRC.basic = entryAfter ["globalsScript"] ''
+      -- Settings that are set for everything
+      vim.o.encoding = "utf-8"
+      vim.o.hidden = true
+      vim.opt.shortmess:append("c")
+      vim.o.expandtab = true
+      vim.o.mouse = ${toLuaObject cfg.mouseSupport}
+      vim.o.tabstop = ${toLuaObject cfg.tabWidth}
+      vim.o.shiftwidth = ${toLuaObject cfg.tabWidth}
+      vim.o.softtabstop = ${toLuaObject cfg.tabWidth}
+      vim.o.cmdheight = ${toLuaObject cfg.cmdHeight}
+      vim.o.updatetime = ${toLuaObject cfg.updateTime}
+      vim.o.tm = ${toLuaObject cfg.mapTimeout}
+      vim.o.cursorlineopt = ${toLuaObject cfg.cursorlineOpt}
+      vim.o.scrolloff = ${toLuaObject cfg.scrollOffset}
+      vim.g.mapleader = ${toLuaObject cfg.leaderKey}
+      vim.g.maplocalleader = ${toLuaObject cfg.leaderKey}
 
-    ${optionalString cfg.splitBelow ''
-      vim.o.splitbelow = true
-    ''}
+      ${optionalString cfg.undoFile.enable ''
+        vim.o.undofile = true
+        vim.o.undodir = ${toLuaObject cfg.undoFile.path}
+      ''}
 
-    ${optionalString cfg.splitRight ''
-      vim.o.splitright = true
-    ''}
+      ${optionalString cfg.splitBelow ''
+        vim.o.splitbelow = true
+      ''}
 
-    ${optionalString cfg.showSignColumn ''
-      vim.o.signcolumn = "yes"
-    ''}
+      ${optionalString cfg.splitRight ''
+        vim.o.splitright = true
+      ''}
 
-    ${optionalString cfg.autoIndent ''
-      vim.o.autoindent = true
-    ''}
+      ${optionalString cfg.showSignColumn ''
+        vim.o.signcolumn = "yes"
+      ''}
 
-    ${optionalString cfg.preventJunkFiles ''
-      vim.o.swapfile = false
-      vim.o.backup = false
-      vim.o.writebackup = false
-    ''}
+      ${optionalString cfg.autoIndent ''
+        vim.o.autoindent = true
+      ''}
 
-    ${optionalString (cfg.bell == "none") ''
-      vim.o.errorbells = false
-      vim.o.visualbell = false
-    ''}
+      ${optionalString cfg.preventJunkFiles ''
+        vim.o.swapfile = false
+        vim.o.backup = false
+        vim.o.writebackup = false
+      ''}
 
-    ${optionalString (cfg.bell == "on") ''
-      vim.o.visualbell = false
-    ''}
+      ${optionalString (cfg.bell == "none") ''
+        vim.o.errorbells = false
+        vim.o.visualbell = false
+      ''}
 
-    ${optionalString (cfg.bell == "visual") ''
-      vim.o.errorbells = false
-    ''}
+      ${optionalString (cfg.bell == "on") ''
+        vim.o.visualbell = false
+      ''}
 
-    ${optionalString (cfg.lineNumberMode == "relative") ''
-      vim.o.relativenumber = true
-    ''}
+      ${optionalString (cfg.bell == "visual") ''
+        vim.o.errorbells = false
+      ''}
 
-    ${optionalString (cfg.lineNumberMode == "number") ''
-      vim.o.number = true
-    ''}
+      ${optionalString (cfg.lineNumberMode == "relative") ''
+        vim.o.relativenumber = true
+      ''}
 
-    ${optionalString (cfg.lineNumberMode == "relNumber") ''
-      vim.o.number = true
-      vim.o.relativenumber = true
-    ''}
+      ${optionalString (cfg.lineNumberMode == "number") ''
+        vim.o.number = true
+      ''}
 
-    ${optionalString cfg.useSystemClipboard ''
-      vim.opt.clipboard:append("unnamedplus")
-    ''}
+      ${optionalString (cfg.lineNumberMode == "relNumber") ''
+        vim.o.number = true
+        vim.o.relativenumber = true
+      ''}
 
-    ${optionalString cfg.syntaxHighlighting ''
-      vim.cmd("syntax on")
-    ''}
+      ${optionalString cfg.useSystemClipboard ''
+        vim.opt.clipboard:append("unnamedplus")
+      ''}
 
-    ${optionalString (!cfg.wordWrap) ''
-      vim.o.wrap = false
-    ''}
+      ${optionalString cfg.syntaxHighlighting ''
+        vim.cmd("syntax on")
+      ''}
 
-    ${optionalString cfg.hideSearchHighlight ''
-      vim.o.hlsearch = false
-      vim.o.incsearch = true
-    ''}
+      ${optionalString (!cfg.wordWrap) ''
+        vim.o.wrap = false
+      ''}
 
-    ${optionalString cfg.colourTerm ''
-      vim.o.termguicolors = true
-    ''}
+      ${optionalString cfg.hideSearchHighlight ''
+        vim.o.hlsearch = false
+        vim.o.incsearch = true
+      ''}
 
-    ${optionalString (!cfg.enableEditorconfig) ''
-      vim.g.editorconfig = false
-    ''}
+      ${optionalString cfg.colourTerm ''
+        vim.o.termguicolors = true
+      ''}
 
-    ${optionalString (cfg.searchCase == "ignore") ''
-      vim.o.smartcase = false
-      vim.o.ignorecase = true
-    ''}
+      ${optionalString (!cfg.enableEditorconfig) ''
+        vim.g.editorconfig = false
+      ''}
 
-    ${optionalString (cfg.searchCase == "smart") ''
-      vim.o.smartcase = true
-      vim.o.ignorecase = true
-    ''}
+      ${optionalString (cfg.searchCase == "ignore") ''
+        vim.o.smartcase = false
+        vim.o.ignorecase = true
+      ''}
 
-    ${optionalString (cfg.searchCase == "sensitive") ''
-      vim.o.smartcase = false
-      vim.o.ignorecase = false
-    ''}
-  '';
+      ${optionalString (cfg.searchCase == "smart") ''
+        vim.o.smartcase = true
+        vim.o.ignorecase = true
+      ''}
+
+      ${optionalString (cfg.searchCase == "sensitive") ''
+        vim.o.smartcase = false
+        vim.o.ignorecase = false
+      ''}
+    '';
+  };
 }

@@ -78,8 +78,8 @@ in {
     vim = {
       luaConfigRC = {
         globalsScript = entryAnywhere (concatLines globalsScript);
-        # basic, theme
-        pluginConfigs = entryAfter ["theme"] pluginConfigs;
+        # basic
+        pluginConfigs = entryAfter ["basic"] pluginConfigs;
         extraPluginConfigs = entryAfter ["pluginConfigs"] extraPluginConfigs;
         mappings = entryAfter ["extraPluginConfigs"] keymaps;
       };

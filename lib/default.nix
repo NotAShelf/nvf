@@ -11,5 +11,5 @@
   languages = import ./languages.nix {inherit lib;};
   lists = import ./lists.nix {inherit lib;};
   lua = import ./lua.nix {inherit lib;};
-  neovimConfiguration = import ./configuration.nix {inherit inputs lib;};
+  neovimConfiguration = import ../modules {inherit inputs lib;};
 }

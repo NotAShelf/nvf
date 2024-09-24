@@ -67,7 +67,6 @@ in {
             formatOnSave = true;
             lightbulb.enable = true;
             lspsaga.enable = false;
-            nvimCodeActionMenu.enable = true;
             trouble.enable = true;
             lspSignature.enable = true;
             rust.enable = false;
