@@ -90,10 +90,7 @@
       flake = false;
     };
 
-    # TODO: get zig from the zig overlay instead of nixpkgs
-    zig.url = "github:mitchellh/zig-overlay";
-
-    # Langauge server (use master instead of nixpkgs)
+    # Language servers (use master instead of nixpkgs)
     rnix-lsp.url = "github:nix-community/rnix-lsp";
     nil = {
       url = "github:oxalica/nil";
@@ -133,8 +130,8 @@
       flake = false;
     };
 
-    plugin-nvim-code-action-menu = {
-      url = "github:weilbith/nvim-code-action-menu";
+    plugin-fastaction-nvim = {
+      url = "github:Chaitanyabsprip/fastaction.nvim";
       flake = false;
     };
 
@@ -159,7 +156,7 @@
       flake = false;
     };
 
-    # language support
+    # Language support
     plugin-sqls-nvim = {
       url = "github:nanotee/sqls.nvim";
       flake = false;

@@ -4,11 +4,10 @@
   # build inputs
   nixos-render-docs,
   documentation-highlighter,
+  path,
   # nrd configuration
-  manpageUrls,
-  revision,
-  options,
-  outputPath ? "share/doc/nvf",
+  release,
+  optionsJSON,
 }:
 stdenvNoCC.mkDerivation {
   name = "nvf-manual";
@@ -20,9 +19,11 @@ stdenvNoCC.mkDerivation {
   nativeBuildInputs = [nixos-render-docs];
 
   buildPhase = ''
-    mkdir -p out/{highlightjs,media}
+    dest="$out/share/doc/nvf"
+    mkdir -p "$(dirname "$dest")"
+    mkdir -p $dest/{highlightjs,media}
 
-    cp -vt out/highlightjs \
+    cp -vt $dest/highlightjs \
       ${documentation-highlighter}/highlight.pack.js \
       ${documentation-highlighter}/LICENSE \
       ${documentation-highlighter}/mono-blue.css \
@@ -31,38 +32,32 @@ stdenvNoCC.mkDerivation {
     substituteInPlace ./options.md \
       --subst-var-by \
         OPTIONS_JSON \
-        ${options.nvf}/share/doc/nixos/options.json
+        ${optionsJSON}/share/doc/nixos/options.json
 
     substituteInPlace ./manual.md \
       --subst-var-by \
         NVF_VERSION \
-        ${revision}
+        ${release}
 
     # copy stylesheet
-    cp ${./static/style.css} out/style.css
+    cp ${./static/style.css} "$dest/style.css"
 
     # copy release notes
     cp -vr ${./release-notes} release-notes
 
     # generate manual from
     nixos-render-docs manual html \
-      --manpage-urls ${manpageUrls} \
-      --revision ${lib.trivial.revisionWithDefault revision} \
+      --manpage-urls ${path + "/doc/manpage-urls.json"} \
+      --revision ${lib.trivial.revisionWithDefault release} \
       --stylesheet style.css \
       --script highlightjs/highlight.pack.js \
       --script highlightjs/loader.js \
       --toc-depth 2 \
       --section-toc-depth 1 \
       manual.md \
-      out/index.xhtml
-  '';
+      "$dest/index.xhtml"
 
-  installPhase = ''
-    dest="$out/${outputPath}"
-    mkdir -p "$(dirname "$dest")"
-    mv out "$dest"
-
-    mkdir -p $out/nix-support/
-    echo "doc manual $dest index.html" >> $out/nix-support/hydra-build-products
+      mkdir -p $out/nix-support/
+      echo "doc manual $dest index.html" >> $out/nix-support/hydra-build-products
   '';
 }

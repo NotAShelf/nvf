@@ -4,6 +4,8 @@ Release notes for release 0.7
 
 ## Breaking Changes and Migration Guide {#sec-breaking-changes-and-migration-guide-0-7}
 
+### `vim.configRC` removed {#sec-vim-configrc-removed}
+
 In v0.7 we are removing `vim.configRC` in favor of making `vim.luaConfigRC` the
 top-level DAG, and thereby making the entire configuration Lua based. This
 change introduces a few breaking changes:
@@ -23,6 +25,17 @@ Neovim being an aggressive refactor of Vim, is designed to be mainly Lua based;
 making good use of its extensive Lua API. Additionally, Vimscript is slow and
 brings unnecessary performance overhead while working with different
 configuration formats.
+
+### `vim.lsp.nvimCodeActionMenu` removed in favor of `vim.ui.fastaction` {#sec-nvim-code-action-menu-deprecation}
+
+The nvim-code-action-menu plugin has been archived and broken for a long time,
+so it's being replaced with a young, but better alternative called
+fastaction.nvim. Simply remove everything set under
+`vim.lsp.nvimCodeActionMenu`, and set `vim.ui.fastaction.enable` to `true`.
+
+Note that we are looking to add more alternatives in the future like
+dressing.nvim and actions-preview.nvim, in case fastaction doesn't work for
+everyone.
 
 ## Changelog {#sec-release-0.7-changelog}
 
@@ -102,6 +115,9 @@ configuration formats.
   - `eolChar` - this also had nothing to do with the plugin, please configure it
     yourself by adding `vim.opt.listchars:append({ eol = '<char>' })` to your
     lua configuration
+
+- Replace `vim.lsp.nvimCodeActionMenu` with `vim.ui.fastaction`, see the
+  breaking changes section above for more details
 
 [Neovim documentation on `vim.cmd`]: https://neovim.io/doc/user/lua.html#vim.cmd()
 

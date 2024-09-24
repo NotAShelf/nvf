@@ -8,6 +8,7 @@
     docs = import ../docs {inherit pkgs inputs lib;};
   in {
     packages = {
+      inherit (docs.manual) htmlOpenTool;
       # Documentation
       docs = docs.manual.html;
       docs-html = docs.manual.html;
