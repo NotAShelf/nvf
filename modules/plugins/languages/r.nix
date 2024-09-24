@@ -6,10 +6,9 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
-  inherit (lib.types) enum either listOf package str bool;
+  inherit (lib.types) enum either listOf package str;
   inherit (lib.nvim.lua) expToLua;
 
   cfg = config.vim.languages.r;
