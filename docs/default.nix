@@ -100,11 +100,9 @@ in {
   # TODO: Use `hmOptionsDocs.optionsJSON` directly once upstream
   # `nixosOptionsDoc` is more customizable.
   options.json =
-    pkgs.runCommand "options.json"
-    {
+    pkgs.runCommand "options.json" {
       meta.description = "List of nvf options in JSON format";
-    }
-    ''
+    } ''
       mkdir -p $out/{share/doc,nix-support}
       cp -a ${nvimModuleDocs.optionsJSON}/share/doc/nixos $out/share/doc/nvf
       substitute \
@@ -117,15 +115,13 @@ in {
 
   # Generate the `man home-configuration.nix` package
   manPages =
-    pkgs.runCommand "nvf-reference-manpage"
-    {
+    pkgs.runCommand "nvf-reference-manpage" {
       nativeBuildInputs = [
         pkgs.buildPackages.installShellFiles
         pkgs.nixos-render-docs
       ];
       allowedReferences = ["out"];
-    }
-    ''
+    } ''
       # Generate manpages.
       mkdir -p $out/share/man/{man5,man1}
 
