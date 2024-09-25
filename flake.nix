@@ -565,6 +565,11 @@
       flake = false;
     };
 
+    plugin-edgy-nvim = {
+      url = "github:folke/edgy.nvim";
+      flake = false;
+    };
+
     # Assistant
     plugin-chatgpt = {
       url = "github:jackMort/ChatGPT.nvim";

@@ -5,6 +5,7 @@
     ./notifications
     ./smartcolumn
     ./colorizer
+    ./edgy-nvim
     ./illuminate
     ./breadcrumbs
     ./borders
