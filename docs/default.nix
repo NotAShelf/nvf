@@ -74,7 +74,7 @@
                   (lib.removePrefix (toString ../.))
                   (lib.removePrefix "/")
                   (x: {
-                    url = "https://github.com/NotAShelf/nvf/blob/main/${decl}";
+                    url = "https://github.com/NotAShelf/nvf/blob/main/${x}";
                     name = "<nvf/${x}>";
                   })
                 ]
