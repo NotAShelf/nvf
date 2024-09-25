@@ -58,12 +58,7 @@
       "deprecations.nix"
     ];
   in
-    concatLists [
-      neovim
-      plugins
-      wrapper
-      extra
-    ];
+    concatLists [neovim plugins wrapper extra];
 in
   allModules
   ++ [
