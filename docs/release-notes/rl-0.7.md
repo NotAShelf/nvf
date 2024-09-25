@@ -136,6 +136,7 @@ everyone.
 
 [ts-error-translator.nvim]: https://github.com/dmmulroy/ts-error-translator.nvim
 [credo]: https://github.com/rrrene/credo
+[edgy.nvim]: https://github.com/folke/edgy.nvim
 
 - Add `deno fmt` as the default Markdown formatter. This will be enabled
   automatically if you have autoformatting enabled, but can be disabled manually
@@ -186,6 +187,10 @@ everyone.
 
 - Add [python-lsp-server](https://github.com/python-lsp/python-lsp-server) as an
   additional Python LSP server.
+
+- Add support for [edgy.nvim]. This can be enabled with
+  [](#opt-vim.ui.edgy-nvim.enable). Support for `edgy.nvim` should be considered
+  **experimental** as it conflicts with other plugins that modify the UI.
 
 [ppenguin](https://github.com/ppenguin):
 
