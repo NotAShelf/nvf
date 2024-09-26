@@ -17,6 +17,7 @@ in {
     ./ocaml.nix
     ./php.nix
     ./python.nix
+    ./r.nix
     ./rust.nix
     ./sql.nix
     ./svelte.nix
