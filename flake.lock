@@ -396,6 +396,22 @@
         "type": "github"
       }
     },
+    "plugin-conform-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1726168403,
+        "narHash": "sha256-AWgG+16Bh/xu50pU78mKIcQy9MKzWF1YKdbEt5jX0WQ=",
+        "owner": "stevearc",
+        "repo": "conform.nvim",
+        "rev": "1a99fdc1d3aa9ccdf3021e67982a679a8c5c740c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "stevearc",
+        "repo": "conform.nvim",
+        "type": "github"
+      }
+    },
     "plugin-copilot-cmp": {
       "flake": false,
       "locked": {
@@ -1133,6 +1149,22 @@
         "type": "github"
       }
     },
+    "plugin-nvim-lint": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1727002360,
+        "narHash": "sha256-mg3IqNfIeWimasYEHilqv4Yx67hTHBubq19nLTNrjLk=",
+        "owner": "mfussenegger",
+        "repo": "nvim-lint",
+        "rev": "968a35d54b3a4c1ce66609cf80b14d4ae44fe77f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mfussenegger",
+        "repo": "nvim-lint",
+        "type": "github"
+      }
+    },
     "plugin-nvim-lspconfig": {
       "flake": false,
       "locked": {
@@ -1800,6 +1832,7 @@
         "plugin-cmp-vsnip": "plugin-cmp-vsnip",
         "plugin-codewindow-nvim": "plugin-codewindow-nvim",
         "plugin-comment-nvim": "plugin-comment-nvim",
+        "plugin-conform-nvim": "plugin-conform-nvim",
         "plugin-copilot-cmp": "plugin-copilot-cmp",
         "plugin-copilot-lua": "plugin-copilot-lua",
         "plugin-crates-nvim": "plugin-crates-nvim",
@@ -1846,6 +1879,7 @@
         "plugin-nvim-dap-ui": "plugin-nvim-dap-ui",
         "plugin-nvim-docs-view": "plugin-nvim-docs-view",
         "plugin-nvim-lightbulb": "plugin-nvim-lightbulb",
+        "plugin-nvim-lint": "plugin-nvim-lint",
         "plugin-nvim-lspconfig": "plugin-nvim-lspconfig",
         "plugin-nvim-navbuddy": "plugin-nvim-navbuddy",
         "plugin-nvim-navic": "plugin-nvim-navic",
