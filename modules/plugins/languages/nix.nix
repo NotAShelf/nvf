@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
+  inherit (lib) concatStringsSep;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
@@ -62,10 +63,10 @@
                 command = {"${cfg.format.package}/bin/alejandra", "--quiet"},
               },
             ''}
-          ${optionalString (cfg.format.type == "nixpkgs-fmt")
+          ${optionalString (cfg.format.type == "nixfmt")
             ''
               formatting = {
-                command = {"${cfg.format.package}/bin/nixpkgs-fmt"},
+                command = {"${cfg.format.package}/bin/nixfmt"},
               },
             ''}
             },
@@ -90,10 +91,19 @@
       '';
     };
 
-    nixpkgs-fmt = {
-      package = pkgs.nixpkgs-fmt;
-      # Never need to use null-ls for nixpkgs-fmt
+    nixfmt = {
+      package = pkgs.nixfmt-rfc-style;
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.nixfmt.with({
+            command = "${cfg.format.package}/bin/nixfmt"
+          })
+        )
+      '';
     };
+
+    nixpkgs-fmt = null; # removed
   };
 
   defaultDiagnosticsProvider = ["statix" "deadnix"];
@@ -175,6 +185,12 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
+      assertions = [
+        {
+          assertion = cfg.format.type != "nixpkgs-fmt";
+          message = "nixpkgs-fmt has been archived upstream. Please use one of the following instead: ${concatStringsSep ", " (attrNames formats)}";
+        }
+      ];
       vim.pluginRC.nix = ''
         vim.api.nvim_create_autocmd("FileType", {
           pattern = "nix",

@@ -72,6 +72,15 @@ one type, you can simply change
 - `vim.autocomplete.*` -> `vim.autocomplete.nvim-cmp.*`
 - `vim.autopairs.enable` -> `vim.autopairs.nvim-autopairs.enable`
 
+### `nixpkgs-fmt` removed in favor of `nixfmt` {#sec-nixpkgs-fmt-deprecation}
+
+`nixpkgs-fmt` has been archived for a while, and it's finally being removed in
+favor of nixfmt (more information can be found
+[here](https://github.com/nix-community/nixpkgs-fmt?tab=readme-ov-file#nixpkgs-fmt---nix-code-formatter-for-nixpkgs).
+
+To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
+`nixfmt`.
+
 ## Changelog {#sec-release-0.7-changelog}
 
 [ItsSorae](https://github.com/ItsSorae):
@@ -289,3 +298,4 @@ one type, you can simply change
 [nezia1](https://github.com/nezia1):
 
 - Add [biome](https://github.com/biomejs/biome) support for Typescript, CSS and Svelte. Enable them via [](#opt-vim.languages.ts.format.type), [](#opt-vim.languages.css.format.type) and [](#opt-vim.languages.svelte.format.type) respectively.
+- Replace [nixpkgs-fmt](https://github.com/nix-community/nixpkgs-fmt) with [nixfmt](https://github.com/NixOS/nixfmt) (nixfmt-rfc-style).
