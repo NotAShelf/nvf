@@ -196,3 +196,7 @@ everyone.
 [Soliprem](https://github.com/Soliprem)
 
 - Add LSP and Treesitter support for R under `vim.languages.R`.
+
+[nezia1](https://github.com/nezia1):
+
+- Replace [nixpkgs-fmt](https://github.com/nix-community/nixpkgs-fmt) with [nixfmt](https://github.com/NixOS/nixfmt) (nixfmt-rfc-style).
