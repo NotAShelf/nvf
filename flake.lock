@@ -508,6 +508,22 @@
         "type": "github"
       }
     },
+    "plugin-edgy-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1725089082,
+        "narHash": "sha256-KP8lA+HU3xtX5gOigROva65bf7YH+12EVPM185riJTk=",
+        "owner": "folke",
+        "repo": "edgy.nvim",
+        "rev": "7e8dedc39abebe40c289b8012cc89b11c69aa7a0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "edgy.nvim",
+        "type": "github"
+      }
+    },
     "plugin-elixir-tools": {
       "flake": false,
       "locked": {
@@ -1807,6 +1823,7 @@
         "plugin-diffview-nvim": "plugin-diffview-nvim",
         "plugin-dracula": "plugin-dracula",
         "plugin-dressing-nvim": "plugin-dressing-nvim",
+        "plugin-edgy-nvim": "plugin-edgy-nvim",
         "plugin-elixir-tools": "plugin-elixir-tools",
         "plugin-fastaction-nvim": "plugin-fastaction-nvim",
         "plugin-fidget-nvim": "plugin-fidget-nvim",

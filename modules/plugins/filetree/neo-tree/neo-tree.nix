@@ -129,7 +129,7 @@ in {
         description = ''
           Must be either a boolean or a path to your log file.
 
-          Use :NeoTreeLogs to show the file
+          Use `:NeoTreeLogs` to show the file
         '';
       };
 
@@ -143,6 +143,7 @@ in {
         '';
       };
 
+      # https://github.com/folke/edgy.nvim/discussions/4
       open_files_do_not_replace_types = mkOption {
         type = listOf str;
         default = ["terminal" "Trouble" "qf" "edgy"];
