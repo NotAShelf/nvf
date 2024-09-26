@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.types) attrs;
+  inherit (lib.types) attrs enum;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   options.vim.formatter.conform-nvim = {
@@ -27,6 +27,34 @@ in {
         type = attrs;
         default = {lsp_format = "fallback";};
         description = "Default values when calling `conform.format()`";
+      };
+
+      format_on_save = mkOption {
+        type = attrs;
+        default = {
+          lsp_format = "fallback";
+          timeout_ms = 500;
+        };
+        description = ''
+          Table that will be passed to `conform.format()`. If this
+          is set, Conform will run the formatter on save.
+        '';
+      };
+
+      format_after_save = mkOption {
+        type = attrs;
+        default = {lsp_format = "fallback";};
+        description = ''
+          Table that will be passed to `conform.format()`. If this
+          is set, Conform will run the formatter asynchronously after
+          save.
+        '';
+      };
+
+      log_level = mkOption {
+        type = enum ["vim.log.levels.ERROR" "vim.log.levels.WARN" "vim.log.levels.INFO" "vim.log.levels.DEBUG"];
+        default = "vim.log.levels.ERROR"; # TODO: make this luaInline
+        description = "Logging level for conform-nvim";
       };
     };
   };
