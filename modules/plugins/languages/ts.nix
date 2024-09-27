@@ -226,7 +226,7 @@ in {
         {
           assertion = cfg.lsp.enable -> cfg.lsp.server != "tsserver";
           message = ''
-            As of a recent lspconfig update, he `tsserver` configuration has been renamed
+            As of a recent lspconfig update, the `tsserver` configuration has been renamed
             to `ts_ls` to match upstream behaviour of `lspconfig`, and the name `tsserver`
             is no longer considered valid by nvf. Please set `vim.languages.ts.lsp.server`
             to `"ts_ls"` instead of to `${cfg.lsp.server}`
