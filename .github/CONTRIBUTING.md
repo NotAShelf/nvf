@@ -16,7 +16,7 @@ If you have any questions regarding those files, feel free to open an issue or [
 
 ## Contributing
 
-The contribution process is mostly documented in the [pull request template](.github/pull_request_template.md). You will find a checklist of items to complete before submitting a pull request. Please make sure you complete it before submitting a pull request. If you are unsure about any of the items, please ask.
+The contribution process is mostly documented in the [pull request template](pull_request_template.md). You will find a checklist of items to complete before submitting a pull request. Please make sure you complete it before submitting a pull request. If you are unsure about any of the items, please ask.
 
 ### Guidelines
 
