@@ -5,6 +5,7 @@
 }: let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.dag) entryAnywhere;
+<<<<<<< HEAD
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.binds) addDescriptionsToMappings mkSetBinding;
 
@@ -26,13 +27,33 @@ in {
     vim = {
       startPlugins = ["otter-nvim"];
 
+=======
+  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetBinding;
+
+  cfg = config.vim.lsp;
+
+  self = import ./otter.nix {inherit lib;};
+  mappingDefinitions = self.options.vim.lsp.otter.mappings;
+  mappings = addDescriptionsToMappings cfg.otter.mappings mappingDefinitions;
+in {
+  config = mkIf (cfg.enable && cfg.otter.enable) {
+    vim = {
+      startPlugins = ["otter"];
+
+>>>>>>> d61aba1 (created otter file)
       maps.normal = mkMerge [
         (mkSetBinding mappings.toggle "<cmd>lua require'otter'.activate()<CR>")
       ];
 
+<<<<<<< HEAD
       pluginRC.otter-nvim = entryAnywhere ''
         -- Enable otter diagnostics viewer
         require("otter").setup({${toLuaObject cfg.otter-nvim.setupOpts}})
+=======
+      pluginRC.otter = entryAnywhere ''
+        -- Enable otter diagnostics viewer
+        require("otter").setup {}
+>>>>>>> d61aba1 (created otter file)
       '';
     };
   };
