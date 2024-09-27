@@ -64,7 +64,7 @@ in {
   inherit (lib.nvim.binds) mkMappingOption;
 in {
   options.vim.lsp = {
-    trouble = {
+    otter = {
       enable = mkEnableOption "Otter LSP Injector";
 
       mappings = {
