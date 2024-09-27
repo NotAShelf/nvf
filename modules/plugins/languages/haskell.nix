@@ -6,6 +6,8 @@
 }: let
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.lists) isList;
+  inherit (lib.nvim.lua) expToLua;
   inherit (lib.types) package;
   inherit (lib.nvim.types) mkGrammarOption;
 
@@ -41,7 +43,11 @@ in {
         lspconfig.haskell_ls.setup {
           capabilities = capabilities,
           on_attach=default_on_attach,
-          cmd = "${cfg.lsp.package}/bin/haskell-language-server",
+          cmd = ${
+          if isList cfg.lsp.package
+          then expToLua cfg.lsp.package
+          else ''{" "${cfg.lsp.package}/bin/haskell-language-server", "}''
+        },
         }
       '';
     })
