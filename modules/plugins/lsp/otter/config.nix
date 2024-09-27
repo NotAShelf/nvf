@@ -15,7 +15,7 @@
 in {
   config = mkIf (cfg.enable && cfg.otter.enable) {
     vim = {
-      startPlugins = ["otter"];
+      startPlugins = ["otter-nvim"];
 
       maps.normal = mkMerge [
         (mkSetBinding mappings.toggle "<cmd>lua require'otter'.activate()<CR>")
@@ -23,7 +23,7 @@ in {
 
       pluginRC.otter = entryAnywhere ''
         -- Enable otter diagnostics viewer
-        require("otter-nvim").setup()
+        require("otter").setup()
       '';
     };
   };

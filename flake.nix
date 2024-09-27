@@ -156,8 +156,8 @@
       flake = false;
     };
 
-    plugin-otter = {
-      url = "https://github.com/jmbuhr/otter.nvim";
+    plugin-otter-nvim = {
+      url = "github:jmbuhr/otter.nvim";
       flake = false;
     };
 
