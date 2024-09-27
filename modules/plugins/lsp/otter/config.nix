@@ -10,10 +10,10 @@
   cfg = config.vim.lsp;
 
   self = import ./otter.nix {inherit lib;};
-  mappingDefinitions = self.options.vim.lsp.otter.mappings;
-  mappings = addDescriptionsToMappings cfg.otter.mappings mappingDefinitions;
+  mappingDefinitions = self.options.vim.lsp.otter-nvim.mappings;
+  mappings = addDescriptionsToMappings cfg.otter-nvim.mappings mappingDefinitions;
 in {
-  config = mkIf (cfg.enable && cfg.otter.enable) {
+  config = mkIf (cfg.enable && cfg.otter-nvim.enable) {
     assertions = [
       {
         assertion = !config.vim.utility.ccc.enable;
@@ -29,7 +29,7 @@ in {
         (mkSetBinding mappings.toggle "<cmd>lua require'otter'.activate()<CR>")
       ];
 
-      pluginRC.otter = entryAnywhere ''
+      pluginRC.otter-nvim = entryAnywhere ''
         -- Enable otter diagnostics viewer
         require("otter").setup()
       '';
