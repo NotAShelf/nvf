@@ -6,7 +6,7 @@ in {
     otter = {
       enable = mkEnableOption "Otter LSP Injector";
       mappings = {
-        toggle = mkMappingOption "Activate LSP on Cursor Position [otter]" "<leader>oa";
+        toggle = mkMappingOption "Activate LSP on Cursor Position [otter]" "<leader>lo";
       };
     };
   };
