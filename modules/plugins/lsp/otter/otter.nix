@@ -66,7 +66,6 @@ in {
   options.vim.lsp = {
     otter = {
       enable = mkEnableOption "Otter LSP Injector";
-
       mappings = {
         toggle = mkMappingOption "Activate LSP on Cursor Position [otter]" "<leader>oa";
 >>>>>>> d61aba1 (created otter file)
