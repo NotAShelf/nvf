@@ -9,6 +9,7 @@ in {
     ./elixir.nix
     ./go.nix
     ./haskell.nix
+    ./kotlin.nix
     ./html.nix
     ./java.nix
     ./lua.nix

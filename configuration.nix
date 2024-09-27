@@ -51,6 +51,7 @@ isMaximal: {
       css.enable = isMaximal;
       sql.enable = isMaximal;
       java.enable = isMaximal;
+      kotlin.enable = isMaximal;
       ts.enable = isMaximal;
       svelte.enable = isMaximal;
       go.enable = isMaximal;

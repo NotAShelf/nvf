@@ -20,7 +20,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Haskell LSP support (haskell-language-server)" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Haskell LSP support (haskell-language-server)" // {default = true;};
 
       package = mkOption {
         description = "haskell_ls package";
@@ -41,7 +41,7 @@ in {
         lspconfig.haskell_ls.setup {
           capabilities = capabilities,
           on_attach=default_on_attach,
-          cmd = "${cfg.lsp.package}/bin/haskell-language-server-wrapper",
+          cmd = "${cfg.lsp.package}/bin/haskell-language-server",
         }
       '';
     })
