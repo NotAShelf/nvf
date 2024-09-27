@@ -198,3 +198,6 @@ everyone.
 - R:
   - Added LSP
   - Added Treesitter
+- Otter:
+  - Added support
+  - Configured assert to prevent conflict with ccc
