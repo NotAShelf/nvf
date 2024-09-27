@@ -27,7 +27,7 @@ in {
       package = mkOption {
         description = "haskell_ls package";
         type = package;
-        default = pkgs.haskellPackages.haskell-language-server;
+        default = pkgs.haskell-language-server;
       };
     };
   };
@@ -39,14 +39,14 @@ in {
 
     (mkIf cfg.lsp.enable {
       vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.haskell-ls = ''
-        lspconfig.haskell_ls.setup {
+      vim.lsp.lspconfig.sources.hls = ''
+        lspconfig.hls.setup {
           capabilities = capabilities,
           on_attach=default_on_attach,
           cmd = ${
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else ''{" "${cfg.lsp.package}/bin/haskell-language-server", "}''
+          else ''{"${cfg.lsp.package}/bin/haskell-language-server-wrapper", "--lsp"}''
         },
         }
       '';
