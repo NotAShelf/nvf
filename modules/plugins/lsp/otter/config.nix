@@ -5,6 +5,7 @@
 }: let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.binds) addDescriptionsToMappings mkSetBinding;
 
   cfg = config.vim.lsp;
@@ -31,7 +32,7 @@ in {
 
       pluginRC.otter-nvim = entryAnywhere ''
         -- Enable otter diagnostics viewer
-        require("otter").setup()
+        require("otter").setup({${toLuaObject cfg.otter-nvim.setupOpts}})
       '';
     };
   };
