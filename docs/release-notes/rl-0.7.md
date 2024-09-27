@@ -195,9 +195,6 @@ everyone.
 
 [Soliprem](https://github.com/Soliprem)
 
-- R:
-  - Added LSP
-  - Added Treesitter
-- Otter:
-  - Added support
-  - Configured assert to prevent conflict with ccc
+- Add LSP and Treesitter support for R under `vim.languages.R`.
+- Add Otter support under `vim.lsp.otter` and an assert to prevent conflict with
+  ccc
