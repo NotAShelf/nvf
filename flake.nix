@@ -156,6 +156,11 @@
       flake = false;
     };
 
+    plugin-otter = {
+      url = "https://github.com/jmbuhr/otter.nvim";
+      flake = false;
+    };
+
     # Language support
     plugin-sqls-nvim = {
       url = "github:nanotee/sqls.nvim";

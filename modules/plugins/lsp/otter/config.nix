@@ -23,7 +23,7 @@ in {
 
       pluginRC.otter = entryAnywhere ''
         -- Enable otter diagnostics viewer
-        require("otter").setup {}
+        require("otter-nvim").setup()
       '';
     };
   };

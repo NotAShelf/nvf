@@ -1373,6 +1373,18 @@
         "type": "github"
       }
     },
+    "plugin-otter": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-BvEhaaP13ZVfzdMcmEii8QbVBZnUMZNrBcyCF0vyiW4=",
+        "type": "file",
+        "url": "https://github.com/jmbuhr/otter.nvim"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/jmbuhr/otter.nvim"
+      }
+    },
     "plugin-oxocarbon": {
       "flake": false,
       "locked": {
@@ -1861,6 +1873,7 @@
         "plugin-obsidian-nvim": "plugin-obsidian-nvim",
         "plugin-onedark": "plugin-onedark",
         "plugin-orgmode-nvim": "plugin-orgmode-nvim",
+        "plugin-otter": "plugin-otter",
         "plugin-oxocarbon": "plugin-oxocarbon",
         "plugin-plenary-nvim": "plugin-plenary-nvim",
         "plugin-project-nvim": "plugin-project-nvim",
