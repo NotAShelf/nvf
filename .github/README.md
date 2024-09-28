@@ -43,6 +43,7 @@
 
 <div align="center"><p>
 
+[Features]: #features
 [Get Started]: #get-started
 [Documentation]: #documentation
 [Help]: #help
@@ -50,6 +51,7 @@
 [FAQ]: #faq
 [Credits]: #credits
 
+**[<kbd><br> Features <br></kbd>][Features]**
 **[<kbd><br> Get Started <br></kbd>][Get Started]**
 **[<kbd><br> Documentation <br></kbd>][Documentation]**
 **[<kbd><br> Help <br></kbd>][Help]**
@@ -59,6 +61,19 @@
 </p></div>
 
 ---
+
+## Features
+
+- **Reproducible**: Your configuration will behave the same anywhere. No
+  surprises, promise!
+- **Portable**: nvf depends _solely_ on your Nix store, and nothing else. No
+  more global binaries! Works on all platforms, without hassle.
+- **Customizable**: There are _almost no defaults_ to annoy you. nvf is fully
+  customizable through the Nix module system.
+- **Well-documented**: Documentation is priority. You will never face
+  undocumented, obscure behaviour.
+- **Idiomatic**: nvf does things _the right way_. The codebase is, and will,
+  remain maintainable.
 
 ## Get Started
 
@@ -106,7 +121,7 @@ The _recommended_ way of installing **nvf** is using either the NixOS or the
 Home-Manager module, though it is completely possible and no less supported to
 install **nvf** as a standalone package, or a flake output.
 
-See the [**nvf** Manual] for detailed and up-to-date installation guides,
+See the [**nvf** manual] for detailed and up-to-date installation guides,
 configurations, available options, release notes and more. Tips for installing
 userspace plugins is also contained in the documentation.
 
