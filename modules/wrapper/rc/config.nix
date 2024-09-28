@@ -80,14 +80,11 @@
       maps);
 in {
   config = let
-    filterNonNull = attrs: filterAttrs (_: value: value != null) attrs;
     globalsScript =
-      mapAttrsToList (name: value: "vim.g.${name} = ${toLuaObject value}")
-      (filterNonNull cfg.globals);
+      mapAttrsToList (name: value: "vim.g.${name} = ${toLuaObject value}") cfg.globals;
 
     optionsScript =
-      mapAttrsToList (name: value: "vim.o.${name} = ${toLuaObject value}")
-      (filterNonNull cfg.options);
+      mapAttrsToList (name: value: "vim.o.${name} = ${toLuaObject value}") cfg.options;
 
     extraPluginConfigs = resolveDag {
       name = "extra plugin configs";
