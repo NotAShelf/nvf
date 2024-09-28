@@ -129,6 +129,7 @@ in {
     globals = mkOption {
       type = attrs;
       default = {};
+      example = {"some_variable" = 42;};
       description = ''
         An attribute set containing global variable values
         for storing vim variables as early as possible. If
@@ -136,10 +137,10 @@ in {
         built luaConfigRC as the first item.
 
         ::: {.note}
-        `{foo = "bar";}` will set `vim.g.foo` to "bar" where
+        `{foo = "bar";}` will set `vim.g.foo` to "bar", where
         the type of `bar` in the resulting Lua value will be
-        infered from the type of the value in the `{name = value;}`
-        pair.
+        inferred from the type of the value in the `{name = value;}`
+        pair passed to the option.
         :::
       '';
     };
@@ -147,6 +148,7 @@ in {
     options = mkOption {
       type = attrs;
       default = {};
+      example = {visualbell = true;};
       description = ''
         An attribute set containing vim options to be set
         as early as possible. If populated, this option will
@@ -154,10 +156,10 @@ in {
         and before `pluginConfigs` DAG entries.
 
         ::: {.note}
-        `{foo = "bar"}` will set `vim.o.foo` to "bar" where
+        `{foo = "bar";}` will set `vim.o.foo` to "bar", where
         the type of `bar` in the resulting Lua value will be
-        infered from the type of the value in the `{name = value}`
-        pair.
+        inferred from the type of the value in the`{name = value;}`
+        pair passed to the option.
         :::
       '';
     };
