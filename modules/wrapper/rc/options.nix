@@ -135,10 +135,30 @@ in {
         populated, this option will set vim variables in the
         built luaConfigRC as the first item.
 
-        E.g. {foo = "bar"} will set `vim.g.foo` to "bar" where
-        the type of `bar` in the resulting vimscript will be
+        ::: {.note}
+        `{foo = "bar";}` will set `vim.g.foo` to "bar" where
+        the type of `bar` in the resulting Lua value will be
+        infered from the type of the value in the `{name = value;}`
+        pair.
+        :::
+      '';
+    };
+
+    options = mkOption {
+      type = attrs;
+      default = {};
+      description = ''
+        An attribute set containing vim options to be set
+        as early as possible. If populated, this option will
+        set vim options in the built luaConfigRC after `basic`
+        and before `pluginConfigs` DAG entries.
+
+        ::: {.note}
+        `{foo = "bar"}` will set `vim.o.foo` to "bar" where
+        the type of `bar` in the resulting Lua value will be
         infered from the type of the value in the `{name = value}`
         pair.
+        :::
       '';
     };
 

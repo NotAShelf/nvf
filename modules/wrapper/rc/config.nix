@@ -85,6 +85,10 @@ in {
       mapAttrsToList (name: value: "vim.g.${name} = ${toLuaObject value}")
       (filterNonNull cfg.globals);
 
+    optionsScript =
+      mapAttrsToList (name: value: "vim.o.${name} = ${toLuaObject value}")
+      (filterNonNull cfg.options);
+
     extraPluginConfigs = resolveDag {
       name = "extra plugin configs";
       dag = mapAttrs (_: value: entryAfter value.after value.setup) cfg.extraPlugins;
@@ -132,9 +136,12 @@ in {
   in {
     vim = {
       luaConfigRC = {
+        # `vim.g` and `vim.o`
         globalsScript = entryAnywhere (concatLines globalsScript);
-        # basic
-        pluginConfigs = entryAfter ["basic"] pluginConfigs;
+        optionsScript = entryAfter ["basic"] (concatLines optionsScript);
+
+        # Basic
+        pluginConfigs = entryAfter ["optionsScript"] pluginConfigs;
         extraPluginConfigs = entryAfter ["pluginConfigs"] extraPluginConfigs;
         mappings = entryAfter ["extraPluginConfigs"] mappings;
       };
