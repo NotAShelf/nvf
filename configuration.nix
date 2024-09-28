@@ -19,6 +19,7 @@ isMaximal: {
       lspsaga.enable = false;
       trouble.enable = true;
       lspSignature.enable = true;
+      otter-nvim.enable = isMaximal;
       lsplines.enable = isMaximal;
       nvim-docs-view.enable = isMaximal;
     };
@@ -155,7 +156,7 @@ isMaximal: {
     };
 
     utility = {
-      ccc.enable = isMaximal;
+      ccc.enable = false;
       vim-wakatime.enable = false;
       icon-picker.enable = isMaximal;
       surround.enable = isMaximal;
