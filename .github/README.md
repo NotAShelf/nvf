@@ -64,24 +64,28 @@
 
 ## Features
 
-- **Reproducible**: Your configuration will behave the same anywhere. No
+- **Reproducible**: Your configuration will behave the same _anywhere_. No
   surprises, promise!
 - **Portable**: nvf depends _solely_ on your Nix store, and nothing else. No
   more global binaries! Works on all platforms, without hassle.
 - **Customizable**: There are _almost no defaults_ to annoy you. nvf is fully
   customizable through the Nix module system.
-- **Well-documented**: Documentation is priority. You will never face
+- **Well-documented**: Documentation is priority. You will _never_ face
   undocumented, obscure behaviour.
-- **Idiomatic**: nvf does things _the right way_. The codebase is, and will,
-  remain maintainable.
+- **Idiomatic**: nvf does things ✨ _the right way_ ✨ - the codebase is, and
+  will, remain maintainable for myself and any contributors.
 
 ## Get Started
+
+[nvf manual]: https://notashelf.github.io/nvf/
+[issue tracker]: https://github.com/NotAShelf/nvf/issues
 
 If you are not sold on the concepts of **nvf**, and would like to try out the
 default configuration before even _thinking about_ installing it, you may run
 the following in order to take **nvf** out for a spin.
 
 ```bash
+# Run the default package
 nix run github:notashelf/nvf
 ```
 
@@ -98,6 +102,7 @@ It is as simple as changing the target output to get a different configuration.
 For example, to get a configuration with large language coverage, run:
 
 ```bash
+# Run the maximal package
 nix run github:notashelf/nvf#maximal
 ```
 
@@ -105,17 +110,15 @@ Similar instructions will apply for `nix profile install`. However, you are
 recommended to instead use the module system as described in the manual.
 
 > [!NOTE]
-> The `maximal` configuration is _massive_ and will take a while to build. To
-> get a feel for the configuration, use the default `nix` configuration. Should
-> you choose to try out the `maximal` configuration, using the binary cache as
-> described in the manual is _strongly_ recommended.
+> The `maximal` configuration is quite large, and might take a while to build.
+> To get a feel for the configuration, use the default `nix` configuration.
+> Should you choose to try out the `maximal` configuration, using the binary
+> cache as described in the manual is _strongly_ recommended.
 
 If you are convinced, proceed to the next section to view the installation
 instructions.
 
 ## Documentation
-
-[nvf manual]: https://notashelf.github.io/nvf/
 
 The _recommended_ way of installing **nvf** is using either the NixOS or the
 Home-Manager module, though it is completely possible and no less supported to
@@ -124,8 +127,6 @@ install **nvf** as a standalone package, or a flake output.
 See the [**nvf** manual] for detailed and up-to-date installation guides,
 configurations, available options, release notes and more. Tips for installing
 userspace plugins is also contained in the documentation.
-
-[issue tracker]: https://github.com/NotAShelf/nvf/issues
 
 Please create an issue on the [issue tracker] if you find the documentation
 lacking or confusing. Any improvements to the documentation through pull
@@ -148,6 +149,8 @@ fix.
 ## FAQ
 
 [appropriate issue template]: https://github.com/NotAShelf/nvf/issues/new/choose
+[list of branches]: https://github.com/NotAShelf/nvf/branches
+[list of open pull requests]: https://github.com/NotAShelf/nvf/pulls
 
 **Q**: What platforms are supported?
 <br/> **A**: nvf actively supports Linux and Darwin platforms using standalone
@@ -164,12 +167,13 @@ addition. As mentioned before, PRs adding new features are also welcome.
 plugin configurations! Please see the documentation on how you may do this.
 
 **Q**: Main branch is awfully silent, is the project dead?
-<br/> **A**: No! Sometimes we branch out (e.g. v0.6) to avoid breaking userspace
-and work in a separate branch until we make sure the new additions are
-implemented in the most comfortable way available to the end user. If you have
+<br/> **A**: No! Sometimes we branch out (e.g. `v0.6`) to avoid breaking
+userspace and work in a separate branch until we make sure the new additions are
+implemented in the most comfortable way possible for the end user. If you have
 not noticed any activity on the main branch, consider taking a look at the
-[list of branches](https://github.com/NotAShelf/nvf/branches=) or the
-[list of open pull requests](https://github.com/NotAShelf/nvf)
+[list of branches] or the [list of open pull requests]. You may also consider
+_testing_ those release branches to get access to new features ahead of time and
+better prepare to breaking changes.
 
 ## Credits
 
@@ -224,7 +228,7 @@ has been made available under the [**MIT License**](LICENSE). However, all
 assets and documentation are published under the
 [**CC BY License**](https://github.com/NotAShelf/nvf/blob/main/.github/assets/LICENSE).
 
-<h6>Yeah this includes the logo work too, stop stealing artwork that is not yours!</h6>
+<h6 align="center">Yes, this includes the logo work too. Stop taking artwork that is not yours!</h6>
 
 ---
 
