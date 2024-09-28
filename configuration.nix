@@ -115,6 +115,7 @@ isMaximal: {
     filetree = {
       nvimTree = {
         enable = true;
+        openOnSetup = false;
       };
     };
 
