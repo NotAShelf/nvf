@@ -13,8 +13,8 @@
       inherit inputs;
       specialArgs = {inherit lib;};
     } {
-      # provide overridable systems
-      # https://github.com/nix-systems/nix-systems
+      # Allow users to bring their own systems.
+      # «https://github.com/nix-systems/nix-systems»
       systems = import inputs.systems;
       imports = [
         ./flake/apps.nix
@@ -62,13 +62,27 @@
         pkgs,
         ...
       }: {
-        formatter = pkgs.alejandra;
         devShells = {
           default = self'.devShells.lsp;
           nvim-nix = pkgs.mkShell {packages = [config.packages.nix];};
           lsp = pkgs.mkShell {
             packages = with pkgs; [nil statix deadnix alejandra];
           };
+        };
+
+        # Provide the default formatter. `nix fmt` in project root
+        # will format available files with the correct formatter.
+        # P.S: Please do not format with nixfmt! It messes with many
+        # syntax elements and results in unreadable code.
+        formatter = pkgs.alejandra;
+
+        # Check if codebase is properly formatted.
+        # This can be initiated with `nix build .#checks.<system>.nix-fmt`
+        # or with `nix flake check`
+        checks = {
+          nix-fmt = pkgs.runCommand "nix-fmt-check" {nativeBuildInputs = [pkgs.alejandra];} ''
+            alejandra --check ${self} < /dev/null | tee $out
+          '';
         };
       };
     };
