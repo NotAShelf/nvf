@@ -815,11 +815,11 @@
     "plugin-lz-n": {
       "flake": false,
       "locked": {
-        "lastModified": 1724402266,
-        "narHash": "sha256-JLCJPiRUt0RFDR/WYZMjkm/keaDo+QNwTII2GyiDAhk=",
+        "lastModified": 1727574854,
+        "narHash": "sha256-qDWNleR2NHFkiEKE/+LNVOBRwEeskMC4dWTl5BTyZuE=",
         "owner": "nvim-neorocks",
         "repo": "lz.n",
-        "rev": "fc67ba432830f499c0afadd35f2942c8620aaf1a",
+        "rev": "470173e3cbef763c6d1b918f3f129b67db75e1f8",
         "type": "github"
       },
       "original": {
