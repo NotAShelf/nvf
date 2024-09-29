@@ -20941,7 +20941,7 @@ list of string</p>
         local buf_ft = vim.api.nvim_get_option_value(&#x27;filetype&#x27;, {})
     
         -- List of buffer types to exclude
-        local excluded_buf_ft = {&quot;toggleterm&quot;, &quot;NvimTree&quot;, &quot;TelescopePrompt&quot;}
+        local excluded_buf_ft = {&quot;toggleterm&quot;, &quot;NvimTree&quot;, &quot;neo-tree&quot;, &quot;TelescopePrompt&quot;}
     
         -- Check if the current buffer type is in the excluded list
         for _, excluded_type in ipairs(excluded_buf_ft) do
