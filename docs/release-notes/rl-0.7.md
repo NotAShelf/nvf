@@ -212,6 +212,12 @@ everyone.
 - Add [python-lsp-server](https://github.com/python-lsp/python-lsp-server) as an
   additional Python LSP server.
 
+- Add [](#opt-vim.options) to set `vim.o` values in in your nvf configuration
+  without using additional Lua. See option documentation for more details.
+
+- Add [](#opt-vim.dashboard.dashboard-nvim.setupOpts) to allow user
+  configuration for [dashboard.nvim](https://github.com/nvimdev/dashboard-nvim)
+
 [ppenguin](https://github.com/ppenguin):
 
 - Telescope:
@@ -221,3 +227,5 @@ everyone.
 [Soliprem](https://github.com/Soliprem)
 
 - Add LSP and Treesitter support for R under `vim.languages.R`.
+- Add Otter support under `vim.lsp.otter` and an assert to prevent conflict with
+  ccc

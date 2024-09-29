@@ -14,10 +14,11 @@
   cfg = config.vim;
 in {
   config = let
-    filterNonNull = filterAttrs (_: value: value != null);
     globalsScript =
-      mapAttrsToList (name: value: "vim.g.${name} = ${toLuaObject value}")
-      (filterNonNull cfg.globals);
+      mapAttrsToList (name: value: "vim.g.${name} = ${toLuaObject value}") cfg.globals;
+
+    optionsScript =
+      mapAttrsToList (name: value: "vim.o.${name} = ${toLuaObject value}") cfg.options;
 
     extraPluginConfigs = resolveDag {
       name = "extra plugin configs";
@@ -77,9 +78,12 @@ in {
   in {
     vim = {
       luaConfigRC = {
+        # `vim.g` and `vim.o`
         globalsScript = entryAnywhere (concatLines globalsScript);
-        # basic
-        pluginConfigs = entryAfter ["basic"] pluginConfigs;
+        optionsScript = entryAfter ["basic"] (concatLines optionsScript);
+
+        # Basic
+        pluginConfigs = entryAfter ["optionsScript"] pluginConfigs;
         extraPluginConfigs = entryAfter ["pluginConfigs"] extraPluginConfigs;
         mappings = entryAfter ["extraPluginConfigs"] keymaps;
       };
