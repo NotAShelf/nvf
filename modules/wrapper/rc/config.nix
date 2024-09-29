@@ -74,7 +74,7 @@ in {
       // mapAttrs (_: legacyMap: legacyMap // {mode = namedModes.lang;}) cfg.maps.lang
       // mapAttrs (_: legacyMap: legacyMap // {mode = namedModes.command;}) cfg.maps.command;
 
-    keymaps = concatLines (map toLuaKeymap (attrsToList (filterNonNull maps)));
+    keymaps = concatLines (map toLuaKeymap (attrsToList (filterAttrs (_: value: value != null) maps)));
   in {
     vim = {
       luaConfigRC = {
