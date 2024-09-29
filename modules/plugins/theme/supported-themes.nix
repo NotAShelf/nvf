@@ -4,7 +4,15 @@
 }: let
   inherit (lib.strings) optionalString;
   inherit (lib.trivial) boolToString warnIf;
+  inherit (lib.nvim.lua) toLuaObject;
+  cfg = config.vim.theme;
 in {
+  base16 = {
+    setup = {base16-colors, ...}: ''
+      -- Base-16 theme
+      require('base16-colorscheme').setup(${toLuaObject cfg.base16-colors})
+    '';
+  };
   onedark = {
     setup = {style ? "dark", ...}: ''
       -- OneDark theme
@@ -20,6 +28,7 @@ in {
     setup = {
       style ? "night",
       transparent,
+      ...
     }: ''
       require('tokyonight').setup {
         transparent = ${boolToString transparent};
@@ -42,6 +51,7 @@ in {
     setup = {
       style ? "mocha",
       transparent ? false,
+      ...
     }: ''
       -- Catppuccin theme
       require('catppuccin').setup {

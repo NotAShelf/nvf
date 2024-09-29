@@ -349,6 +349,11 @@
     };
 
     # Themes
+    plugin-base16 = {
+      url = "github:rrethy/base16-nvim";
+      flake = false;
+    };
+
     plugin-tokyonight = {
       url = "github:folke/tokyonight.nvim";
       flake = false;

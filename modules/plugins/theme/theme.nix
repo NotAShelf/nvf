@@ -13,13 +13,16 @@
   supportedThemes = import ./supported-themes.nix {
     inherit lib config;
   };
+  base16-colors = import ./base16-colors.nix {
+    inherit lib;
+  };
 in {
   options.vim.theme = {
     enable = mkOption {
       type = bool;
       description = "Enable theming";
     };
-
+    inherit base16-colors;
     name = mkOption {
       type = enum (attrNames supportedThemes);
       description = "Supported themes can be found in `supportedThemes.nix`";
@@ -29,7 +32,6 @@ in {
       type = enum supportedThemes.${cfg.name}.styles;
       description = "Specific style for theme if it supports it";
     };
-
     transparent = mkOption {
       type = bool;
       default = false;
@@ -45,10 +47,12 @@ in {
   config = mkIf cfg.enable {
     vim = {
       startPlugins = [cfg.name];
-      luaConfigRC.theme = entryBefore ["pluginConfigs"] ''
-        ${cfg.extraConfig}
-        ${supportedThemes.${cfg.name}.setup {inherit (cfg) style transparent;}}
-      '';
+      luaConfigRC = {
+        theme = entryBefore ["pluginConfigs"] ''
+          ${cfg.extraConfig}
+          ${supportedThemes.${cfg.name}.setup {inherit (cfg) style transparent base16-colors;}}
+        '';
+      };
     };
   };
 }
