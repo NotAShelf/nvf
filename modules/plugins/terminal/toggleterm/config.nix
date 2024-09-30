@@ -4,55 +4,45 @@
   ...
 }: let
   inherit (builtins) toJSON;
-  inherit (lib.lists) optionals;
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.strings) optionalString;
+  inherit (lib.modules) mkIf;
   inherit (lib.meta) getExe;
-  inherit (lib.nvim.binds) mkBinding;
-  inherit (lib.nvim.dag) entryAnywhere entryAfter;
-  inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.nvim.binds) mkLznBinding;
 
   cfg = config.vim.terminal.toggleterm;
 in {
-  config = mkMerge [
-    (
-      mkIf cfg.enable {
-        vim = {
-          startPlugins = [
-            "toggleterm-nvim"
+  config = mkIf cfg.enable {
+    vim = {
+      lazy.plugins = [
+        {
+          package = "toggleterm-nvim";
+          cmd = ["ToggleTerm" "ToggleTermSendCurrentLine" "ToggleTermSendVisualLines" "ToggleTermSendVisualSelection" "ToggleTermSetName" "ToggleTermToggleAll"];
+          keys = [
+            (mkLznBinding ["n"] cfg.mappings.open "<Cmd>execute v:count . \"ToggleTerm\"<CR>" "Toggle terminal")
+            {key = cfg.lazygit.mappings.open;}
           ];
 
-          maps.normal = mkBinding cfg.mappings.open "<Cmd>execute v:count . \"ToggleTerm\"<CR>" "Toggle terminal";
+          setupModule = "toggleterm";
+          inherit (cfg) setupOpts;
+          after = optionalString cfg.lazygit.enable ''
+            local terminal = require 'toggleterm.terminal'
+            local lazygit = terminal.Terminal:new({
+              cmd = '${
+              if (cfg.lazygit.package != null)
+              then getExe cfg.lazygit.package
+              else "lazygit"
+            }',
+              direction = '${cfg.lazygit.direction}',
+              hidden = true,
+              on_open = function(term)
+                vim.cmd("startinsert!")
+              end
+            })
 
-          pluginRC.toggleterm = entryAnywhere ''
-            require("toggleterm").setup(${toLuaObject cfg.setupOpts})
+            vim.keymap.set('n', ${toJSON cfg.lazygit.mappings.open}, function() lazygit:toggle() end, {silent = true, noremap = true, desc = 'Open lazygit [toggleterm]'})
           '';
-        };
-      }
-    )
-    (
-      mkIf (cfg.enable && cfg.lazygit.enable)
-      {
-        vim.startPlugins = optionals (cfg.lazygit.package != null) [
-          cfg.lazygit.package
-        ];
-        vim.pluginRC.toggleterm-lazygit = entryAfter ["toggleterm"] ''
-          local terminal = require 'toggleterm.terminal'
-          local lazygit = terminal.Terminal:new({
-            cmd = '${
-            if (cfg.lazygit.package != null)
-            then getExe cfg.lazygit.package
-            else "lazygit"
-          }',
-            direction = '${cfg.lazygit.direction}',
-            hidden = true,
-            on_open = function(term)
-              vim.cmd("startinsert!")
-            end
-          })
-
-          vim.keymap.set('n', ${toJSON cfg.lazygit.mappings.open}, function() lazygit:toggle() end, {silent = true, noremap = true, desc = 'Open lazygit [toggleterm]'})
-        '';
-      }
-    )
-  ];
+        }
+      ];
+    };
+  };
 }
