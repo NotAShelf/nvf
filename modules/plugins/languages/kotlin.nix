@@ -12,6 +12,21 @@
   inherit (lib.nvim.lua) expToLua;
 
   cfg = config.vim.languages.kotlin;
+
+  # Creating a version of the LSP with access to the kotlin binary.
+  # This is necessary for the LSP to load the standard library
+  kotlinLspWithRuntime = pkgs.symlinkJoin {
+    name = "kotlin-language-server-with-runtime";
+    paths = [
+      pkgs.kotlin-language-server
+      pkgs.kotlin
+    ];
+    buildInputs = [pkgs.makeWrapper];
+    postBuild = ''
+      wrapProgram $out/bin/kotlin-language-server \
+        --prefix PATH : ${pkgs.lib.makeBinPath [pkgs.kotlin]}
+    '';
+  };
 in {
   options.vim.languages.kotlin = {
     enable = mkEnableOption "kotlin/HCL support";
@@ -22,12 +37,12 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "kotlin LSP support (kotlin-ls)" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "kotlin LSP support (kotlin_language_server)" // {default = config.vim.languages.enableLSP;};
 
       package = mkOption {
-        description = "kotlin-ls package";
+        description = "kotlin_language_server package with Kotlin runtime";
         type = package;
-        default = pkgs.kotlin-language-server;
+        default = kotlinLspWithRuntime;
       };
     };
   };
@@ -39,10 +54,15 @@ in {
 
     (mkIf cfg.lsp.enable {
       vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.kotlin-ls = ''
-        lspconfig.kotlinls.setup {
+      vim.lsp.lspconfig.sources.kotlin_language_server = ''
+        lspconfig.kotlin_language_server.setup {
           capabilities = capabilities,
+          root_dir = lspconfig.util.root_pattern("main.kt", ".git"),
           on_attach=default_on_attach,
+          init_options = {
+          -- speeds up the startup time for the LSP
+            storagePath = "vim.fn.stdpath('state') .. '/kotlin'",
+          },
           cmd = ${
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
