@@ -1,10 +1,13 @@
 {lib, ...}: let
   inherit (lib.options) mkEnableOption;
   inherit (lib.nvim.binds) mkMappingOption;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   options.vim.lsp = {
     trouble = {
       enable = mkEnableOption "trouble diagnostics viewer";
+
+      setupOpts = mkPluginSetupOption "Telescope" {};
 
       mappings = {
         toggle = mkMappingOption "Toggle trouble [trouble]" "<leader>xx";
