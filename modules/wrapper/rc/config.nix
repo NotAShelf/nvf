@@ -87,7 +87,7 @@ in {
         extraPluginConfigs = entryAfter ["pluginConfigs"] extraPluginConfigs;
         mappings = entryAfter ["extraPluginConfigs"] keymaps;
         # FIXME: put this somewhere less stupid
-        footer = entryAfter ["mappings"] (optionalString config.vim.lazy.enable "require('lzn-auto-require.loader').register_loader()");
+        footer = entryAfter ["mappings"] (optionalString config.vim.lazy.enable "require('lzn-auto-require').enable()");
       };
 
       builtLuaConfigRC = let

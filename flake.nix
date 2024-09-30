@@ -120,7 +120,7 @@
     };
 
     plugin-lzn-auto-require = {
-      url = "github:horriblename/lzn-auto-require";
+      url = "github:horriblename/lzn-auto-require/require-rewrite";
       flake = false;
     };
 
