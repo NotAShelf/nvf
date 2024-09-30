@@ -62,7 +62,6 @@ isMaximal: {
       dart.enable = isMaximal;
       bash.enable = isMaximal;
       r.enable = isMaximal;
-      haskell.enable = isMaximal;
       tailwind.enable = isMaximal;
       typst.enable = isMaximal;
       clang = {
