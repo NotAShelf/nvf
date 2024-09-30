@@ -6,7 +6,7 @@
   inherit (lib.strings) optionalString;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.attrsets) mapAttrs;
-  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetLuaBinding;
+  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetLuaBinding mkSetLuaLznBinding;
   inherit (lib.nvim.dag) entryAnywhere entryAfter;
 
   cfg = config.vim.debugger.nvim-dap;
@@ -49,24 +49,33 @@ in {
       ];
     })
     (mkIf (cfg.enable && cfg.ui.enable) {
-      vim.startPlugins = ["nvim-dap-ui" "nvim-nio"];
+      vim.startPlugins = ["nvim-nio"];
 
-      vim.pluginRC.nvim-dap-ui = entryAfter ["nvim-dap"] (''
-          local dapui = require("dapui")
-          dapui.setup()
-        ''
-        + optionalString cfg.ui.autoStart ''
+      vim.lazy.plugins = [
+        {
+          package = "nvim-dap-ui";
+          setupModule = "dapui";
+          setupOpts = {};
+
+          keys = [
+            (mkSetLuaLznBinding mappings.toggleDapUI "function() require('dapui').toggle() end")
+          ];
+        }
+      ];
+
+      vim.pluginRC.nvim-dap-ui = entryAfter ["nvim-dap"] (
+        optionalString cfg.ui.autoStart ''
           dap.listeners.after.event_initialized["dapui_config"] = function()
-            dapui.open()
+            require("dapui").open()
           end
           dap.listeners.before.event_terminated["dapui_config"] = function()
-            dapui.close()
+            require("dapui").close()
           end
           dap.listeners.before.event_exited["dapui_config"] = function()
-            dapui.close()
+            require("dapui").close()
           end
-        '');
-      vim.maps.normal = mkSetLuaBinding mappings.toggleDapUI "require('dapui').toggle";
+        ''
+      );
     })
   ];
 }
