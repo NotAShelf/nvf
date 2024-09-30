@@ -5,10 +5,9 @@
   ...
 }: let
   inherit (lib.strings) optionalString;
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.binds) mkBinding;
+  inherit (lib.modules) mkIf;
+  inherit (lib.nvim.binds) mkLznBinding;
   inherit (lib.nvim.dag) entryAnywhere;
-  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.binds) pushDownDefault;
 
   cfg = config.vim.filetree.nvimTree;
@@ -16,18 +15,24 @@
   inherit (self.options.vim.filetree.nvimTree) mappings;
 in {
   config = mkIf cfg.enable {
-    vim.startPlugins = ["nvim-tree-lua"];
-
-    vim.maps.normal = mkMerge [
-      (mkBinding cfg.mappings.toggle ":NvimTreeToggle<cr>" mappings.toggle.description)
-      (mkBinding cfg.mappings.refresh ":NvimTreeRefresh<cr>" mappings.refresh.description)
-      (mkBinding cfg.mappings.findFile ":NvimTreeFindFile<cr>" mappings.findFile.description)
-      (mkBinding cfg.mappings.focus ":NvimTreeFocus<cr>" mappings.focus.description)
-    ];
-
     vim.binds.whichKey.register = pushDownDefault {
       "<leader>t" = "+NvimTree";
     };
+
+    vim.lazy.plugins = [
+      {
+        package = "nvim-tree-lua";
+        setupModule = "nvim-tree";
+        inherit (cfg) setupOpts;
+        cmd = ["NvimTreeClipboard" "NvimTreeClose" "NvimTreeCollapse" "NvimTreeCollapseKeepBuffers" "NvimTreeFindFile" "NvimTreeFindFileToggle" "NvimTreeFocus" "NvimTreeHiTest" "NvimTreeOpen" "NvimTreeRefresh" "NvimTreeResize" "NvimTreeToggle"];
+        keys = [
+          (mkLznBinding ["n"] cfg.mappings.toggle ":NvimTreeToggle<cr>" mappings.toggle.description)
+          (mkLznBinding ["n"] cfg.mappings.refresh ":NvimTreeRefresh<cr>" mappings.refresh.description)
+          (mkLznBinding ["n"] cfg.mappings.findFile ":NvimTreeFindFile<cr>" mappings.findFile.description)
+          (mkLznBinding ["n"] cfg.mappings.focus ":NvimTreeFocus<cr>" mappings.focus.description)
+        ];
+      }
+    ];
 
     vim.pluginRC.nvimtreelua = entryAnywhere ''
       ${
@@ -38,10 +43,9 @@ in {
         ''
       }
 
-      require'nvim-tree'.setup(${toLuaObject cfg.setupOpts})
-
       ${
         optionalString cfg.openOnSetup ''
+          ${optionalString config.vim.lazy.enable ''require('lz.n').trigger_load("nvim-tree-lua")''}
           -- autostart behaviour
           -- Open on startup has been deprecated
           -- see https://github.com/nvim-tree/nvim-tree.lua/wiki/Open-At-Startup
