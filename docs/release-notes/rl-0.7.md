@@ -193,6 +193,10 @@ everyone.
 - Add [](#opt-vim.dashboard.dashboard-nvim.setupOpts) to allow user
   configuration for [dashboard.nvim](https://github.com/nvimdev/dashboard-nvim)
 
+- Update `lualine.nvim` input and add missing themes:
+  - Adds `ayu`, `gruvbox_dark`, `iceberg`, `moonfly`, `onedark`,
+    `powerline_dark` and `solarized_light` themes.
+
 [ppenguin](https://github.com/ppenguin):
 
 - Telescope:
