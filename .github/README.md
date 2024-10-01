@@ -124,9 +124,15 @@ The _recommended_ way of installing **nvf** is using either the NixOS or the
 Home-Manager module, though it is completely possible and no less supported to
 install **nvf** as a standalone package, or a flake output.
 
-See the [**nvf** manual] for detailed and up-to-date installation guides,
+See the rendered [nvf manual] for detailed and up-to-date installation guides,
 configurations, available options, release notes and more. Tips for installing
 userspace plugins is also contained in the documentation.
+
+> [!TIP]
+> While using NixOS or Home-Manager modules,
+> `programs.nvf.enableManpages = true;` will allow you to view option
+> documentation from the comfort of your terminal via `man 5 nvf`. The more you
+> know.
 
 Please create an issue on the [issue tracker] if you find the documentation
 lacking or confusing. Any improvements to the documentation through pull
