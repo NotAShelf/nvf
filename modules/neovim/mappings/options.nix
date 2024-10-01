@@ -31,6 +31,12 @@
     options =
       mapConfigOptions
       // {
+        key = mkOption {
+          type = str;
+          description = ''
+            Key that triggers this keybind.
+          '';
+        };
         mode = mkOption {
           type = either str (listOf str);
           description = ''
@@ -38,52 +44,59 @@
 
             See `:help map-modes` for a list of modes.
           '';
+          example = ''"nvc" for normal, visual and command mode'';
         };
       };
   };
 
   # legacy stuff
-  mapOption = submodule {
+  legacyMapOption = submodule {
     options = mapConfigOptions;
   };
 
   mapOptions = mode:
     mkOption {
       description = "Mappings for ${mode} mode";
-      type = attrsOf mapOption;
+      type = attrsOf legacyMapOption;
       default = {};
     };
 in {
   options.vim = {
-    maps = mkOption {
-      type = submodule {
-        freeformType = attrsOf mapType;
-        options = {
-          normal = mapOptions "normal";
-          insert = mapOptions "insert";
-          select = mapOptions "select";
-          visual = mapOptions "visual and select";
-          terminal = mapOptions "terminal";
-          normalVisualOp = mapOptions "normal, visual, select and operator-pending (same as plain 'map')";
-
-          visualOnly = mapOptions "visual only";
-          operator = mapOptions "operator-pending";
-          insertCommand = mapOptions "insert and command-line";
-          lang = mapOptions "insert, command-line and lang-arg";
-          command = mapOptions "command-line";
-        };
-      };
-      default = {};
+    keymaps = mkOption {
+      type = listOf mapType;
       description = "Custom keybindings.";
       example = ''
-        maps = {
-          "<leader>m" = {
+        vim.keymaps = [
+          {
+            key = "<leader>m";
             mode = "n";
             silent = true;
-            action = "<cmd>make<CR>";
-          }; # Same as nnoremap <leader>m <silent> <cmd>make<CR>
-        };
+            action = ":make<CR>";
+          }
+          {
+            key = "<leader>l";
+            mode = ["n" "x"];
+            silent = true;
+            action = "<cmd>cnext<CR>";
+          }
+        ];
       '';
+      default = {};
+    };
+
+    maps = {
+      normal = mapOptions "normal";
+      insert = mapOptions "insert";
+      select = mapOptions "select";
+      visual = mapOptions "visual and select";
+      terminal = mapOptions "terminal";
+      normalVisualOp = mapOptions "normal, visual, select and operator-pending (same as plain 'map')";
+
+      visualOnly = mapOptions "visual only";
+      operator = mapOptions "operator-pending";
+      insertCommand = mapOptions "insert and command-line";
+      lang = mapOptions "insert, command-line and lang-arg";
+      command = mapOptions "command-line";
     };
   };
 }
