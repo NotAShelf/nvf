@@ -19,6 +19,7 @@ in {
     ./python.nix
     ./r.nix
     ./rust.nix
+    ./scala.nix
     ./sql.nix
     ./svelte.nix
     ./tailwind.nix

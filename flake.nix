@@ -206,6 +206,11 @@
       flake = false;
     };
 
+    plugin-nvim-metals = {
+      url = "github:scalameta/nvim-metals";
+      flake = false;
+    };
+
     # Copying/Registers
     plugin-registers = {
       url = "github:tversteeg/registers.nvim";
