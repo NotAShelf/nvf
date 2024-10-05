@@ -78,7 +78,7 @@ in {
           notify = true, -- nvim-notify
           which_key = true,
           navic = {
-            enabled = false,
+            enabled = true,
             custom_bg = "NONE", -- "lualine" will set background to mantle
           },
         },
