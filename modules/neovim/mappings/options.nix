@@ -44,7 +44,7 @@
 
             See `:help map-modes` for a list of modes.
           '';
-          example = ''"nvc" for normal, visual and command mode'';
+          example = ''`["n" "v" "c"]` for normal, visual and command mode'';
         };
       };
   };
