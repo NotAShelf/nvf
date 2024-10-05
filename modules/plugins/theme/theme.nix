@@ -37,7 +37,11 @@ in {
     };
     name = mkOption {
       type = enum (attrNames supportedThemes);
-      description = "Supported themes can be found in `supportedThemes.nix`";
+      description = ''
+        Supported themes can be found in `supportedThemes.nix`.
+        Setting the theme to "base16" enables base16 theming and
+        requires all of the colors in `vim.theme.base16-colors` to be set.
+      '';
     };
     base16-colors = base16Options;
 
