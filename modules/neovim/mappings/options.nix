@@ -1,6 +1,6 @@
 {lib, ...}: let
   inherit (lib.options) mkOption;
-  inherit (lib.types) either str listOf attrsOf nullOr submodule bool;
+  inherit (lib.types) either str listOf attrsOf nullOr submodule;
   inherit (lib.nvim.config) mkBool;
 
   mapConfigOptions = {
@@ -33,9 +33,7 @@
       // {
         key = mkOption {
           type = str;
-          description = ''
-            Key that triggers this keybind.
-          '';
+          description = "The key that triggers this keybind.";
         };
         mode = mkOption {
           type = either str (listOf str);
@@ -49,15 +47,12 @@
       };
   };
 
-  # legacy stuff
-  legacyMapOption = submodule {
-    options = mapConfigOptions;
-  };
-
-  mapOptions = mode:
+  legacyMapOption = mode:
     mkOption {
       description = "Mappings for ${mode} mode";
-      type = attrsOf legacyMapOption;
+      type = attrsOf (submodule {
+        options = mapConfigOptions;
+      });
       default = {};
     };
 in {
@@ -85,18 +80,18 @@ in {
     };
 
     maps = {
-      normal = mapOptions "normal";
-      insert = mapOptions "insert";
-      select = mapOptions "select";
-      visual = mapOptions "visual and select";
-      terminal = mapOptions "terminal";
-      normalVisualOp = mapOptions "normal, visual, select and operator-pending (same as plain 'map')";
+      normal = legacyMapOption "normal";
+      insert = legacyMapOption "insert";
+      select = legacyMapOption "select";
+      visual = legacyMapOption "visual and select";
+      terminal = legacyMapOption "terminal";
+      normalVisualOp = legacyMapOption "normal, visual, select and operator-pending (same as plain 'map')";
 
-      visualOnly = mapOptions "visual only";
-      operator = mapOptions "operator-pending";
-      insertCommand = mapOptions "insert and command-line";
-      lang = mapOptions "insert, command-line and lang-arg";
-      command = mapOptions "command-line";
+      visualOnly = legacyMapOption "visual only";
+      operator = legacyMapOption "operator-pending";
+      insertCommand = legacyMapOption "insert and command-line";
+      lang = legacyMapOption "insert, command-line and lang-arg";
+      command = legacyMapOption "command-line";
     };
   };
 }
