@@ -1,8 +1,9 @@
 {lib}: let
   inherit (lib) isStringLike showOption showFiles getFiles mergeOneOption mergeEqualOption mkOptionType;
+  inherit (lib.strings) isString;
   inherit (lib.types) anything attrsOf;
   inherit (lib.nvim.types) anythingConcatLists;
-  inherit (builtins) typeOf isAttrs any head concatLists stringLength;
+  inherit (builtins) typeOf isAttrs any head concatLists stringLength match;
 in {
   # HACK: Does this break anything in our case?
   # A modified version of the nixpkgs anything type that concatenates lists
@@ -57,5 +58,12 @@ in {
     descriptionClass = "noun";
     check = value: stringLength value < 2;
     merge = mergeEqualOption;
+  };
+
+  hexColor = mkOptionType {
+    name = "hex-color";
+    descriptionClass = "noun";
+    description = "RGB color in hex format";
+    check = v: isString v && (match "#?[0-9a-fA-F]{6}" v) != null;
   };
 }

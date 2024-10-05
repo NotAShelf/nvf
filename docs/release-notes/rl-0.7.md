@@ -229,3 +229,8 @@ everyone.
 - Add LSP and Treesitter support for R under `vim.languages.R`.
 - Add Otter support under `vim.lsp.otter` and an assert to prevent conflict with
   ccc
+
+[Bloxx12](https://github.com/Bloxx12)
+
+- Add support for [base16 theming](https://github.com/RRethy/base16-nvim) under
+  `vim.theme`
