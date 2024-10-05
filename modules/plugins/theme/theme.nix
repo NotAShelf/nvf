@@ -3,9 +3,8 @@
   lib,
   ...
 }: let
-  inherit (builtins) listToAttrs;
   inherit (lib.options) mkOption;
-  inherit (lib.attrsets) attrNames;
+  inherit (lib.attrsets) attrNames listToAttrs;
   inherit (lib.strings) hasPrefix;
   inherit (lib.types) bool lines enum;
   inherit (lib.modules) mkIf;
@@ -19,16 +18,17 @@
 
   numbers = ["0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "A" "B" "C" "D" "E" "F"];
   base16Options = listToAttrs (map (n: {
-    name = "base0${n}";
-    value = mkOption {
-      description = "The base0${n} color to use";
-      type = hexColor;
-      apply = v:
-        if hasPrefix "#" v
-        then v
-        else "#${v}";
-    };
-  }) numbers);
+      name = "base0${n}";
+      value = mkOption {
+        description = "The base0${n} color to use";
+        type = hexColor;
+        apply = v:
+          if hasPrefix "#" v
+          then v
+          else "#${v}";
+      };
+    })
+    numbers);
 in {
   options.vim.theme = {
     enable = mkOption {
@@ -39,7 +39,7 @@ in {
       type = enum (attrNames supportedThemes);
       description = "Supported themes can be found in `supportedThemes.nix`";
     };
-    base16-colors = generateBase16Options;
+    base16-colors = base16Options;
 
     style = mkOption {
       type = enum supportedThemes.${cfg.name}.styles;
