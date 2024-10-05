@@ -15,10 +15,16 @@ this comment.
 Please check all that apply. As before, this section is not a hard requirement but checklists with more checked
 items are likely to be merged faster. You may save some time in maintainer review by performing self-reviews here
 before submitting your pull request.
+
+If your pull request includes any change or unexpected behaviour not covered below, please do make sure to include
+it above in your description.
 -->
 
 [editorconfig]: https://editorconfig.org
+[changelog]: https://github.com/NotAShelf/nvf/tree/main/docs/release-notes
 
+- [ ] I have updated the [changelog] as per my changes.
+- [ ] I have tested, and self-reviewed my code.
 - Style and consistency
   - [ ] I ran **Alejandra** to format my code (`nix fmt`).
   - [ ] My code conforms to the [editorconfig] configuration of the project.
@@ -42,3 +48,10 @@ If your changes touch upon a portion of the codebase that you do not understand 
 the maintainers on your changes. In most cases, making an issue before creating your PR will help you avoid duplicate
 efforts in the long run.
 -->
+
+---
+
+Add a :+1: [reaction] to [pull requests you find important].
+
+[reaction]: https://github.blog/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/
+[pull requests you find important]: https://github.com/NixOS/nixpkgs/pulls?q=is%3Aopen+sort%3Areactions-%2B1-desc
