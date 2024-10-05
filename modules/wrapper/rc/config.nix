@@ -43,9 +43,7 @@ in {
 
     toLuaKeymap = bind: "vim.keymap.set(${toLuaObject bind.mode}, ${toLuaObject bind.key}, ${toLuaObject (getAction bind)}, ${toLuaObject (getOpts bind)})";
 
-    maps = concatLines (map toLuaKeymap cfg.keymaps);
-
-    keymaps = maps;
+    keymaps = concatLines (map toLuaKeymap cfg.keymaps);
   in {
     vim = {
       luaConfigRC = {
