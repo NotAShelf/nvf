@@ -1,6 +1,6 @@
 {lib}: let
   inherit (lib) isStringLike showOption showFiles getFiles mergeOneOption mergeEqualOption mkOptionType;
-  inherit (lib.strings) isString hasPrefix;
+  inherit (lib.strings) isString;
   inherit (lib.types) anything attrsOf;
   inherit (lib.nvim.types) anythingConcatLists;
   inherit (builtins) typeOf isAttrs any head concatLists stringLength match;

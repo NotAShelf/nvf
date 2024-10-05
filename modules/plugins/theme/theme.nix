@@ -3,30 +3,43 @@
   lib,
   ...
 }: let
+  inherit (builtins) listToAttrs;
   inherit (lib.options) mkOption;
   inherit (lib.attrsets) attrNames;
+  inherit (lib.strings) hasPrefix;
   inherit (lib.types) bool lines enum;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.dag) entryBefore;
+  inherit (lib.nvim.types) hexColor;
 
   cfg = config.vim.theme;
   supportedThemes = import ./supported-themes.nix {
     inherit lib config;
   };
-  base16-colors = import ./base16-colors.nix {
-    inherit lib;
-  };
+
+  numbers = lib.stringToCharacters "0123456789ABCDEF";
+  generateBase16Options = listToAttrs (map (i: {
+      name = "base0${i}";
+      value = mkOption {
+        type = hexColor;
+        apply = v:
+          if hasPrefix "#" v
+          then v
+          else "#${v}";
+      };
+    })
+    numbers);
 in {
   options.vim.theme = {
     enable = mkOption {
       type = bool;
       description = "Enable theming";
     };
-    inherit base16-colors;
     name = mkOption {
       type = enum (attrNames supportedThemes);
       description = "Supported themes can be found in `supportedThemes.nix`";
     };
+    base16-colors = generateBase16Options;
 
     style = mkOption {
       type = enum supportedThemes.${cfg.name}.styles;
