@@ -26,8 +26,8 @@ in {
     setupOpts = {
       inherit (cfg) transparent;
     };
-    setup = {style ? "night", ...}: ''
-      vim.cmd[[colorscheme tokyonight-${style}]]
+    setup = _: ''
+      vim.cmd[[colorscheme tokyonight-${cfg.style ? "night"}]]
     '';
     styles = ["day" "night" "storm" "moon"];
   };
