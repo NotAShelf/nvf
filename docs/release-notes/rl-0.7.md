@@ -150,6 +150,8 @@ everyone.
 - Replace `vim.lsp.nvimCodeActionMenu` with `vim.ui.fastaction`, see the
   breaking changes section above for more details
 
+- Add a `setupOpts` option to nvim-surround, which allows modifying options that aren't defined in nvf. Move the alternate nvim-surround keybinds to use `setupOpts`.
+
 [Neovim documentation on `vim.cmd`]: https://neovim.io/doc/user/lua.html#vim.cmd()
 
 - Make Neovim's configuration file entirely Lua based. This comes with a few

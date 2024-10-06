@@ -3,42 +3,29 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetBinding;
+  inherit (lib.modules) mkIf;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.utility.surround;
-  self = import ./surround.nix {inherit lib config;};
-  mappingDefinitions = self.options.vim.utility.surround.mappings;
-  mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = [
-        "nvim-surround"
-      ];
+      startPlugins = ["nvim-surround"];
+      pluginRC.surround = entryAnywhere "require('nvim-surround').setup(${toLuaObject cfg.setupOpts})";
 
-      pluginRC.surround = entryAnywhere ''
-        require('nvim-surround').setup()
-      '';
-
-      maps = {
-        insert = mkMerge [
-          (mkIf (mappings.insert != null) (mkSetBinding mappings.insert "<Plug>(nvim-surround-insert)"))
-          (mkIf (mappings.insertLine != null) (mkSetBinding mappings.insertLine "<Plug>(nvim-surround-insert-line)"))
-        ];
-        normal = mkMerge [
-          (mkIf (mappings.normal != null) (mkSetBinding mappings.normal "<Plug>(nvim-surround-normal)"))
-          (mkIf (mappings.normalCur != null) (mkSetBinding mappings.normalCur "<Plug>(nvim-surround-normal-cur)"))
-          (mkIf (mappings.normalLine != null) (mkSetBinding mappings.normalLine "<Plug>(nvim-surround-normal-line)"))
-          (mkIf (mappings.normalCurLine != null) (mkSetBinding mappings.normalCurLine "<Plug>(nvim-surround-normal-cur-line)"))
-          (mkIf (mappings.delete != null) (mkSetBinding mappings.delete "<Plug>(nvim-surround-delete)"))
-          (mkIf (mappings.change != null) (mkSetBinding mappings.change "<Plug>(nvim-surround-change)"))
-        ];
-        visualOnly = mkMerge [
-          (mkIf (mappings.visual != null) (mkSetBinding mappings.visual "<Plug>(nvim-surround-visual)"))
-          (mkIf (mappings.visualLine != null) (mkSetBinding mappings.visualLine "<Plug>(nvim-surround-visual-line)"))
-        ];
+      utility.surround.setupOpts.keymaps = mkIf cfg.useVendoredKeybindings {
+        insert = "<C-g>z";
+        insert_line = "<C-g>Z";
+        normal = "gz";
+        normal_cur = "gZ";
+        normal_line = "gzz";
+        normal_cur_line = "gZZ";
+        visual = "gz";
+        visual_line = "gZ";
+        delete = "gzd";
+        change = "gzr";
+        change_line = "gZR";
       };
     };
   };
