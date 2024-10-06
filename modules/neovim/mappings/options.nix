@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib.options) mkOption;
+  inherit (lib.options) mkOption literalMD;
   inherit (lib.types) either str listOf attrsOf nullOr submodule;
   inherit (lib.nvim.config) mkBool;
 
@@ -42,7 +42,7 @@
 
             See `:help map-modes` for a list of modes.
           '';
-          example = ''`["n" "v" "c"]` for normal, visual and command mode'';
+          example = literalMD ''`["n" "v" "c"]` for normal, visual and command mode'';
         };
       };
   };
