@@ -4,8 +4,6 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.nvim.dag) entryAnywhere;
-  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.filetree.neo-tree;
 in {
@@ -20,11 +18,17 @@ in {
         "neo-tree-nvim"
       ];
 
-      visuals.nvimWebDevicons.enable = true;
+      lazy.plugins = [
+        {
+          package = "neo-tree-nvim";
+          setupModule = "neo-tree";
+          inherit (cfg) setupOpts;
 
-      pluginRC.neo-tree = entryAnywhere ''
-        require("neo-tree").setup(${toLuaObject cfg.setupOpts})
-      '';
+          cmd = ["Neotree"];
+        }
+      ];
+
+      visuals.nvimWebDevicons.enable = true;
     };
   };
 }
