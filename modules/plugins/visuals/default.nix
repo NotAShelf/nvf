@@ -1,6 +1,7 @@
 {
   imports = [
     ./fidget
+    ./indent-blankline
     ./nvim-cursorline
     ./nvim-scrollbar
     ./nvim-web-devicons

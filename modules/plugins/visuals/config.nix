@@ -12,13 +12,6 @@
   cfg = config.vim.visuals;
 in {
   config = mkIf cfg.enable (mkMerge [
-    (mkIf cfg.indentBlankline.enable {
-      vim.startPlugins = ["indent-blankline"];
-      vim.pluginRC.indent-blankline = entryAnywhere ''
-        require("ibl").setup(${toLuaObject cfg.indentBlankline.setupOpts})
-      '';
-    })
-
     (mkIf cfg.smoothScroll.enable {
       vim.startPlugins = ["cinnamon-nvim"];
       vim.pluginRC.smoothScroll = entryAnywhere ''
