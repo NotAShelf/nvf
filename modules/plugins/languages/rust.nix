@@ -3,13 +3,12 @@
   pkgs,
   lib,
   ...
-}: let
-  inherit (builtins) attrNames;
+}: let inherit (builtins) attrNames;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.strings) optionalString;
   inherit (lib.trivial) boolToString;
-  inherit (lib.lists) isList optionals;
+  inherit (lib.lists) isList;
   inherit (lib.types) bool package str listOf either enum;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.lua) expToLua;
@@ -101,7 +100,7 @@ in {
       vim = {
         startPlugins = ["crates-nvim"];
         lsp.null-ls.enable = mkIf cfg.crates.codeActions true;
-        autocomplete.sources = {"crates" = "[Crates]";};
+        autocomplete.nvim-cmp.sources = {crates = "[Crates]";};
         pluginRC.rust-crates = entryAnywhere ''
           require('crates').setup {
             null_ls = {
