@@ -7,7 +7,11 @@ in {
     enable = mkOption {
       type = bool;
       default = false;
-      description = "nvim-surround: add/change/delete surrounding delimiter pairs with ease. Note that the default mappings deviate from upstreeam to avoid conflicts with nvim-leap.";
+      description = ''
+        nvim-surround: add/change/delete surrounding delimiter pairs with ease.
+        Note that the default mappings deviate from upstreeam to avoid conflicts
+        with nvim-leap.
+      '';
     };
     setupOpts = mkPluginSetupOption "nvim-surround" {};
 
