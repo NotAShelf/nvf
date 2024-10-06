@@ -1,6 +1,6 @@
 {lib, ...}: let
   inherit (lib.options) mkOption;
-  inherit (lib.types) either str listOf attrsOf nullOr submodule bool;
+  inherit (lib.types) either str listOf attrsOf nullOr submodule;
   inherit (lib.nvim.config) mkBool;
 
   mapConfigOptions = {
@@ -31,6 +31,10 @@
     options =
       mapConfigOptions
       // {
+        key = mkOption {
+          type = str;
+          description = "The key that triggers this keybind.";
+        };
         mode = mkOption {
           type = either str (listOf str);
           description = ''
@@ -38,52 +42,56 @@
 
             See `:help map-modes` for a list of modes.
           '';
+          example = ''`["n" "v" "c"]` for normal, visual and command mode'';
         };
       };
   };
 
-  # legacy stuff
-  mapOption = submodule {
-    options = mapConfigOptions;
-  };
-
-  mapOptions = mode:
+  legacyMapOption = mode:
     mkOption {
       description = "Mappings for ${mode} mode";
-      type = attrsOf mapOption;
+      type = attrsOf (submodule {
+        options = mapConfigOptions;
+      });
       default = {};
     };
 in {
   options.vim = {
-    maps = mkOption {
-      type = submodule {
-        freeformType = attrsOf mapType;
-        options = {
-          normal = mapOptions "normal";
-          insert = mapOptions "insert";
-          select = mapOptions "select";
-          visual = mapOptions "visual and select";
-          terminal = mapOptions "terminal";
-          normalVisualOp = mapOptions "normal, visual, select and operator-pending (same as plain 'map')";
-
-          visualOnly = mapOptions "visual only";
-          operator = mapOptions "operator-pending";
-          insertCommand = mapOptions "insert and command-line";
-          lang = mapOptions "insert, command-line and lang-arg";
-          command = mapOptions "command-line";
-        };
-      };
-      default = {};
+    keymaps = mkOption {
+      type = listOf mapType;
       description = "Custom keybindings.";
       example = ''
-        maps = {
-          "<leader>m" = {
+        vim.keymaps = [
+          {
+            key = "<leader>m";
             mode = "n";
             silent = true;
-            action = "<cmd>make<CR>";
-          }; # Same as nnoremap <leader>m <silent> <cmd>make<CR>
-        };
+            action = ":make<CR>";
+          }
+          {
+            key = "<leader>l";
+            mode = ["n" "x"];
+            silent = true;
+            action = "<cmd>cnext<CR>";
+          }
+        ];
       '';
+      default = {};
+    };
+
+    maps = {
+      normal = legacyMapOption "normal";
+      insert = legacyMapOption "insert";
+      select = legacyMapOption "select";
+      visual = legacyMapOption "visual and select";
+      terminal = legacyMapOption "terminal";
+      normalVisualOp = legacyMapOption "normal, visual, select and operator-pending (same as plain 'map')";
+
+      visualOnly = legacyMapOption "visual only";
+      operator = legacyMapOption "operator-pending";
+      insertCommand = legacyMapOption "insert and command-line";
+      lang = legacyMapOption "insert, command-line and lang-arg";
+      command = legacyMapOption "command-line";
     };
   };
 }

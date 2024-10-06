@@ -28,10 +28,10 @@ configuration formats.
 
 ### `vim.maps` rewrite {#sec-vim-maps-rewrite}
 
-Instead of specifying map modes using submodules (eg.: `vim.maps.normal`), a new
-`mode` option has mode has been introduced. It can be either a string, or a list
-of strings, where a string represents the short-name of the map mode(s), that
-the mapping should be set for. See `:help map-modes` for more information.
+Instead of specifying map modes using submodules (eg.: `vim.maps.normal`), a new `vim.keymaps`
+submodule with support for a `mode` option has been introduced. It can be either a string, or a
+list of strings, where a string represents the short-name of the map mode(s), that the mapping
+should be set for. See `:help map-modes` for more information.
 
 For example:
 
@@ -42,10 +42,13 @@ vim.maps.normal."<leader>m" = { ... };
 has to be replaced by
 
 ```nix
-vim.maps."<leader>m" = {
-  mode = "n";
+vim.keymaps = [
+  {
+    key = "<leader>m";
+    mode = "n";
+  }
   ...
-};
+];
 ```
 
 ### `vim.lsp.nvimCodeActionMenu` removed in favor of `vim.ui.fastaction` {#sec-nvim-code-action-menu-deprecation}
