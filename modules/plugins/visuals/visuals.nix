@@ -5,20 +5,11 @@
 }: let
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) int bool str;
-  inherit (lib.nvim.binds) mkMappingOption;
 
   cfg = config.vim.visuals;
 in {
   options.vim.visuals = {
     enable = mkEnableOption "Visual enhancements.";
-
-    cellularAutomaton = {
-      enable = mkEnableOption "cellular automaton [cellular-automaton]";
-
-      mappings = {
-        makeItRain = mkMappingOption "Make it rain [cellular-automaton]" "<leader>fml";
-      };
-    };
 
     highlight-undo = {
       enable = mkEnableOption "highlight undo [highlight-undo]";

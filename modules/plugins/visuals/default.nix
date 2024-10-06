@@ -1,5 +1,6 @@
 {
   imports = [
+    ./cellular-automaton
     ./cinnamon-nvim
     ./fidget-nvim
     ./indent-blankline
