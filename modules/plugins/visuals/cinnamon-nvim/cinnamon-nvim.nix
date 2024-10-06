@@ -1,7 +1,7 @@
 {lib, ...}: let
   inherit (lib.modules) mkRemovedOptionModule;
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) submodule attrs;
+  inherit (lib.types) submodule attrs attrsOf;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   imports = [
@@ -26,12 +26,9 @@ in {
         description = "Scroll options";
       };
 
-      keymaps = mkOption {
-        description = "Keymap options for Cinnamon. Please see documentation before enablg";
-        type = submodule {
-          basic = mkEnableOption "basic animation keymaps";
-          extra = mkEnableOption "extra animation keymaps";
-        };
+      keymaps = {
+        basic = mkEnableOption "basic animation keymaps";
+        extra = mkEnableOption "extra animation keymaps";
       };
     };
   };
