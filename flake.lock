@@ -1278,6 +1278,22 @@
         "type": "github"
       }
     },
+    "plugin-nvim-scrollbar": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1717406282,
+        "narHash": "sha256-Y5qCD2pjfs9fodH9Y1waefVuj/m33kx4ExMmAa/qoP4=",
+        "owner": "petertriho",
+        "repo": "nvim-scrollbar",
+        "rev": "d09f14aa16c9f2748e77008f9da7b1f76e4e7b85",
+        "type": "github"
+      },
+      "original": {
+        "owner": "petertriho",
+        "repo": "nvim-scrollbar",
+        "type": "github"
+      }
+    },
     "plugin-nvim-session-manager": {
       "flake": false,
       "locked": {
@@ -1531,22 +1547,6 @@
       "original": {
         "owner": "mrcjkb",
         "repo": "rustaceanvim",
-        "type": "github"
-      }
-    },
-    "plugin-scrollbar-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1684886154,
-        "narHash": "sha256-zLBexSxQCn9HPY04a9w/UCJP1F5ShI2X12I9xE9H0cM=",
-        "owner": "petertriho",
-        "repo": "nvim-scrollbar",
-        "rev": "35f99d559041c7c0eff3a41f9093581ceea534e8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "petertriho",
-        "repo": "nvim-scrollbar",
         "type": "github"
       }
     },
@@ -1920,6 +1920,7 @@
         "plugin-nvim-neoclip": "plugin-nvim-neoclip",
         "plugin-nvim-nio": "plugin-nvim-nio",
         "plugin-nvim-notify": "plugin-nvim-notify",
+        "plugin-nvim-scrollbar": "plugin-nvim-scrollbar",
         "plugin-nvim-session-manager": "plugin-nvim-session-manager",
         "plugin-nvim-surround": "plugin-nvim-surround",
         "plugin-nvim-tree-lua": "plugin-nvim-tree-lua",
@@ -1936,7 +1937,6 @@
         "plugin-registers": "plugin-registers",
         "plugin-rose-pine": "plugin-rose-pine",
         "plugin-rustaceanvim": "plugin-rustaceanvim",
-        "plugin-scrollbar-nvim": "plugin-scrollbar-nvim",
         "plugin-smartcolumn": "plugin-smartcolumn",
         "plugin-sqls-nvim": "plugin-sqls-nvim",
         "plugin-tabular": "plugin-tabular",

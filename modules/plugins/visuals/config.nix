@@ -19,23 +19,6 @@ in {
       '';
     })
 
-    (mkIf cfg.scrollBar.enable {
-      vim.startPlugins = ["scrollbar-nvim"];
-      vim.pluginRC.scrollBar = entryAnywhere ''
-        require('scrollbar').setup{
-            excluded_filetypes = {
-              'prompt',
-              'TelescopePrompt',
-              'noice',
-              'NvimTree',
-              'alpha',
-              'notify',
-              'Navbuddy'
-            },
-          }
-      '';
-    })
-
     (mkIf cfg.smoothScroll.enable {
       vim.startPlugins = ["cinnamon-nvim"];
       vim.pluginRC.smoothScroll = entryAnywhere ''
