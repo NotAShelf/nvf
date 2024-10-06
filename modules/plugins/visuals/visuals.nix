@@ -3,16 +3,14 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (lib.types) int bool str nullOr either listOf attrsOf;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.types) int bool str;
   inherit (lib.nvim.binds) mkMappingOption;
 
   cfg = config.vim.visuals;
 in {
   options.vim.visuals = {
     enable = mkEnableOption "Visual enhancements.";
-
-    smoothScroll.enable = mkEnableOption "smooth scrolling [cinnamon-nvim]";
 
     cellularAutomaton = {
       enable = mkEnableOption "cellular automaton [cellular-automaton]";

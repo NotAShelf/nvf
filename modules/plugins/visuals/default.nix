@@ -1,6 +1,7 @@
 {
   imports = [
-    ./fidget
+    ./cinnamon-nvim
+    ./fidget-nvim
     ./indent-blankline
     ./nvim-cursorline
     ./nvim-scrollbar
