@@ -12,8 +12,6 @@ in {
   options.vim.visuals = {
     enable = mkEnableOption "Visual enhancements.";
 
-    nvimWebDevicons.enable = mkEnableOption "dev icons. Required for certain plugins [nvim-web-devicons].";
-
     scrollBar.enable = mkEnableOption "scrollbar [scrollbar.nvim]";
 
     smoothScroll.enable = mkEnableOption "smooth scrolling [cinnamon-nvim]";

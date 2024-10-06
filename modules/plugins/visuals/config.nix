@@ -31,10 +31,6 @@ in {
       '';
     })
 
-    (mkIf cfg.nvimWebDevicons.enable {
-      vim.startPlugins = ["nvim-web-devicons"];
-    })
-
     (mkIf cfg.scrollBar.enable {
       vim.startPlugins = ["scrollbar-nvim"];
       vim.pluginRC.scrollBar = entryAnywhere ''
