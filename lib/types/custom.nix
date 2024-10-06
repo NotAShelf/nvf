@@ -1,7 +1,7 @@
 {lib}: let
-  inherit (lib) isStringLike showOption showFiles getFiles mergeOneOption mergeEqualOption mkOptionType;
-  inherit (lib.strings) isString;
-  inherit (lib.types) anything attrsOf;
+  inherit (lib.options) showOption showFiles getFiles mergeOneOption mergeEqualOption;
+  inherit (lib.strings) isString isStringLike;
+  inherit (lib.types) anything attrsOf listOf mkOptionType;
   inherit (lib.nvim.types) anythingConcatLists;
   inherit (builtins) typeOf isAttrs any head concatLists stringLength match;
 in {
@@ -51,6 +51,8 @@ in {
         # otherwise only allow equal values
         (mergeFunctions.${commonType} or mergeEqualOption) loc defs;
     };
+
+  mergelessListOf = elemType: listOf elemType // {merge = mergeEqualOption;};
 
   char = mkOptionType {
     name = "char";

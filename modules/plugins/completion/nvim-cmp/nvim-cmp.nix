@@ -4,11 +4,12 @@
   ...
 }: let
   inherit (lib.options) mkEnableOption mkOption literalExpression literalMD;
-  inherit (lib.types) str attrsOf nullOr;
+  inherit (lib.types) str attrsOf nullOr either;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.binds) mkMappingOption;
-  inherit (lib.nvim.types) mkPluginSetupOption luaInline;
+  inherit (lib.nvim.types) mkPluginSetupOption luaInline mergelessListOf;
   inherit (lib.nvim.lua) toLuaObject;
+  inherit (builtins) isString;
 
   cfg = config.vim.autocomplete.nvim-cmp;
 in {
@@ -23,6 +24,32 @@ in {
 
           See `:help completeopt` for the complete list.
         '';
+      };
+
+      sorting.comparators = mkOption {
+        type = mergelessListOf (either str luaInline);
+        default = [
+          "offset"
+          "exact"
+          "score"
+          "kind"
+          "length"
+          "sort_text"
+        ];
+        description = ''
+          The comparator functions used for sorting completions.
+
+          You can either pass a valid inline lua function
+          (see `:help cmp-config.sorting.comparators`),
+          or a string, in which case the builtin comparator with that name will
+          be used.
+        '';
+        apply = map (
+          c:
+            if isString c
+            then mkLuaInline ("cmp.config.compare." + c)
+            else c
+        );
       };
     };
 
@@ -53,8 +80,9 @@ in {
         ```
       '';
       description = ''
-        The function used to customize the completion menu entires.
-        This is outside of `setupOpts` because of internal reasons.
+        The function used to customize the completion menu entires. This is
+        outside of `setupOpts` because of internal reasons, make sure to use
+        this one, instead of its `setupOpts` equivalent.
 
         See `:help cmp-config.formatting.format`.
       '';
