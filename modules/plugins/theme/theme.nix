@@ -10,12 +10,11 @@
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.dag) entryBefore;
   inherit (lib.nvim.types) hexColor;
-
+  inherit (lib.nvim.lua) toLuaObject;
   cfg = config.vim.theme;
   supportedThemes = import ./supported-themes.nix {
     inherit lib config;
   };
-
   numbers = ["0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "A" "B" "C" "D" "E" "F"];
   base16Options = listToAttrs (map (n: {
       name = "base0${n}";
@@ -62,11 +61,19 @@ in {
   };
 
   config = mkIf cfg.enable {
-    vim = {
+    vim = let
+      name' =
+        if cfg.name == "base16"
+        then "base16-colorscheme"
+        else cfg.name;
+    in {
       startPlugins = [cfg.name];
       luaConfigRC.theme = entryBefore ["pluginConfigs"] ''
-        ${cfg.extraConfig}
-        ${supportedThemes.${cfg.name}.setup {inherit (cfg) style transparent base16-colors;}}
+         ${cfg.extraConfig}
+
+        require(${name'}).setup(${toLuaObject supportedThemes.${cfg.name}.setupOpts})
+
+        ${supportedThemes.${cfg.name}.setup}
       '';
     };
   };
