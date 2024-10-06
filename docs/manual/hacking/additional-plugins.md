@@ -124,3 +124,62 @@ vim.your-plugin.setupOpts = {
   '';
 }
 ```
+
+## Lazy plugins {#sec-lazy-plugins}
+
+If your plugin can be lazy-loaded, you should use `vim.lazy.plugins` to add your plugin. Lazy
+plugins are managed by `lz.n`.
+
+```nix
+# in modules/.../your-plugin/config.nix
+{lib, config, ...}:
+let
+  cfg = config.vim.your-plugin;
+in {
+  vim.lazy.plugins = [
+    {
+      # instead of vim.startPlugins, use this:
+      package = "your-plugin";
+
+      # if your plugin uses the `require('your-plugin').setup{...}` pattern
+      setupModule = "your-plugin";
+      inherit (cfg) setupOpts;
+
+      # events that trigger this plugin to be loaded
+      events = ["DirChanged"];
+      cmd = ["YourPluginCommand"];
+
+      # keymaps
+      keys = [
+        # we'll cover this in detail in the keymaps section
+        {
+          key = "<leader>d";
+          mode = "n";
+          action = ":YourPluginCommand";
+        }
+      ]
+    }
+  ];
+}
+```
+
+This results in the lua code:
+```lua
+require('lz.n').load({
+  {
+    "name-of-your-plugin",
+    after = function()
+      require('your-plugin').setup({--[[ your setupOpts ]]})
+    end,
+
+    events = {"DirChanged"},
+    cmd = {"YourPluginCommand"},
+    keys = {
+      {"<leader>d", ":YourPluginCommand", mode = {"n"}},
+    },
+  }
+})
+```
+
+A full list of options can be found
+[here](https://notashelf.github.io/nvf/options.html#opt-vim.lazy.plugins
