@@ -114,12 +114,12 @@ in {
     (mkIf cfg.elixir-tools.enable {
       vim.startPlugins = ["elixir-tools"];
       vim.pluginRC.elixir-tools = entryAnywhere ''
-        local elixir-tools = require("elixir")
-        local elixirls = require("elixir-tools.elixirls")
+        local elixir = require("elixir")
+        local elixirls = require("elixir.elixirls")
 
         -- disable imperative insstallations of various
         -- elixir related tools installed by elixir-tools
-        elixir-tools.setup {
+        elixir.setup {
           nextls = {
             enable = false -- defaults to false
           },

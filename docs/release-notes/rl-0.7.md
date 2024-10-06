@@ -28,10 +28,10 @@ configuration formats.
 
 ### `vim.maps` rewrite {#sec-vim-maps-rewrite}
 
-Instead of specifying map modes using submodules (eg.: `vim.maps.normal`), a new
-`mode` option has mode has been introduced. It can be either a string, or a list
-of strings, where a string represents the short-name of the map mode(s), that
-the mapping should be set for. See `:help map-modes` for more information.
+Instead of specifying map modes using submodules (eg.: `vim.maps.normal`), a new `vim.keymaps`
+submodule with support for a `mode` option has been introduced. It can be either a string, or a
+list of strings, where a string represents the short-name of the map mode(s), that the mapping
+should be set for. See `:help map-modes` for more information.
 
 For example:
 
@@ -42,10 +42,13 @@ vim.maps.normal."<leader>m" = { ... };
 has to be replaced by
 
 ```nix
-vim.maps."<leader>m" = {
-  mode = "n";
+vim.keymaps = [
+  {
+    key = "<leader>m";
+    mode = "n";
+  }
   ...
-};
+];
 ```
 
 ### `vim.lsp.nvimCodeActionMenu` removed in favor of `vim.ui.fastaction` {#sec-nvim-code-action-menu-deprecation}
@@ -112,7 +115,8 @@ everyone.
 - Add [new-file-template.nvim] to automatically fill new file contents using
   templates
 
-- Make [neo-tree.nvim] display file icons properly by enabling `visuals.nvimWebDevicons`
+- Make [neo-tree.nvim] display file icons properly by enabling
+  `visuals.nvimWebDevicons`
 
 [diniamo](https://github.com/diniamo):
 
@@ -145,6 +149,8 @@ everyone.
 
 - Replace `vim.lsp.nvimCodeActionMenu` with `vim.ui.fastaction`, see the
   breaking changes section above for more details
+
+- Add a `setupOpts` option to nvim-surround, which allows modifying options that aren't defined in nvf. Move the alternate nvim-surround keybinds to use `setupOpts`.
 
 [Neovim documentation on `vim.cmd`]: https://neovim.io/doc/user/lua.html#vim.cmd()
 
@@ -231,13 +237,15 @@ everyone.
   - Fixed `project-nvim` command and keybinding
   - Added default ikeybind/command for `Telescope resume` (`<leader>fr`)
 
-[Soliprem](https://github.com/Soliprem)
+[Soliprem](https://github.com/Soliprem):
 
 - Add LSP and Treesitter support for R under `vim.languages.R`.
 - Add Otter support under `vim.lsp.otter` and an assert to prevent conflict with
   ccc
-
+  
 [Bloxx12](https://github.com/Bloxx12)
 
 - Add support for [base16 theming](https://github.com/RRethy/base16-nvim) under
   `vim.theme`
+- Fix internal breakage in `elixir-tools` setup.
+
