@@ -19,18 +19,6 @@ in {
       '';
     })
 
-    (mkIf cfg.cursorline.enable {
-      vim.startPlugins = ["nvim-cursorline"];
-      vim.pluginRC.cursorline = entryAnywhere ''
-        require('nvim-cursorline').setup {
-          cursorline = {
-            timeout = ${toString cfg.cursorline.lineTimeout},
-            number = ${boolToString (!cfg.cursorline.lineNumbersOnly)},
-          }
-        }
-      '';
-    })
-
     (mkIf cfg.scrollBar.enable {
       vim.startPlugins = ["scrollbar-nvim"];
       vim.pluginRC.scrollBar = entryAnywhere ''

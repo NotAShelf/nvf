@@ -24,22 +24,6 @@ in {
       };
     };
 
-    cursorline = {
-      enable = mkEnableOption "line hightlighting on the cursor [nvim-cursorline]";
-
-      lineTimeout = mkOption {
-        type = int;
-        description = "Time in milliseconds for cursorline to appear";
-        default = 0;
-      };
-
-      lineNumbersOnly = mkOption {
-        type = bool;
-        description = "Hightlight only in the presence of line numbers";
-        default = true;
-      };
-    };
-
     indentBlankline = {
       enable = mkEnableOption "indentation guides [indent-blankline]";
 

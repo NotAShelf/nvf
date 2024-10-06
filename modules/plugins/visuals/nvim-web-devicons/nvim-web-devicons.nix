@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib.modules) mkRenamedOptionModule;
-  inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) nullOr attrsOf attrs enum;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
