@@ -7,12 +7,12 @@
   inherit (lib.strings) optionalString;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.binds) addDescriptionsToMappings;
-  inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (builtins) attrNames;
 
   cfg = config.vim.autocomplete.nvim-cmp;
-  vsnipEnable = config.vim.snippets.vsnip.enable;
+  luasnipEnable = config.vim.snippets.luasnip.enable;
 
   self = import ./nvim-cmp.nix {inherit lib config;};
   mappingDefinitions = self.options.vim.autocomplete.nvim-cmp.mappings;
@@ -32,8 +32,6 @@ in {
         path = "[Path]";
       };
 
-      autopairs.nvim-autopairs.setupOpts.map_cr = false;
-
       autocomplete.nvim-cmp.setupOpts = {
         sources = map (s: {name = s;}) (attrNames cfg.sources);
 
@@ -46,133 +44,74 @@ in {
         formatting.format = cfg.format;
       };
 
-      pluginRC.nvim-cmp = mkIf cfg.enable (entryAnywhere ''
+      pluginRC.nvim-cmp = mkIf cfg.enable (entryAfter ["autopairs"] ''
+        local luasnip = require("luasnip")
         local cmp = require("cmp")
         cmp.setup(${toLuaObject cfg.setupOpts})
-
-        ${
-          optionalString config.vim.autopairs.nvim-autopairs.enable
-          ''
-            cmp.event:on('confirm_done', require("nvim-autopairs.completion.cmp").on_confirm_done({ map_char = { text = "" } }))
-          ''
-        }
       '');
 
-      keymaps = [
-        {
-          mode = ["i" "c"];
-          key = mappings.complete.value;
-          lua = true;
-          action = "require('cmp').complete";
-          desc = mappings.complete.description;
-        }
+      # `cmp` and `luasnip` are defined above, in the `nvim-cmp` section
+      autocomplete.nvim-cmp.setupOpts.mapping = {
+        ${mappings.complete.value} = mkLuaInline "cmp.mapping.complete()";
+        ${mappings.close.value} = mkLuaInline "cmp.mapping.abort()";
+        ${mappings.scrollDocsUp.value} = mkLuaInline "cmp.mapping.scroll_docs(-4)";
+        ${mappings.scrollDocsDown.value} = mkLuaInline "cmp.mapping.scroll_docs(4)";
 
-        {
-          mode = "i";
-          key = mappings.confirm.value;
-          lua = true;
-          action = let
-            defaultKeys =
-              if config.vim.autopairs.nvim-autopairs.enable
-              then "require('nvim-autopairs').autopairs_cr()"
-              else "vim.api.nvim_replace_termcodes(${toLuaObject mappings.confirm.value}, true, false, true)";
-          in ''
-            function()
-              if not require('cmp').confirm({ select = true }) then
-                vim.fn.feedkeys(${defaultKeys}, 'n')
-              end
-            end
-          '';
-          desc = mappings.confirm.description;
-        }
-
-        {
-          mode = ["i" "s"];
-          key = mappings.next.value;
-          lua = true;
-          action = ''
-            function()
-              local has_words_before = function()
-                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-                return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-              end
-
-              local cmp = require('cmp')
-
-              local feedkey = function(key, mode)
-                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-              end
-
-              if cmp.visible() then
-                cmp.select_next_item()
+        ${mappings.confirm.value} = mkLuaInline ''
+          cmp.mapping(function(fallback)
+            if cmp.visible() then
               ${
-              optionalString vsnipEnable
-              ''
-                elseif vim.fn['vsnip#available'](1) == 1 then
-                  feedkey("<Plug>(vsnip-expand-or-jump)", "")
-              ''
-            }
-              elseif has_words_before() then
-                cmp.complete()
+            if luasnipEnable
+            then ''
+              if luasnip.expandable() then
+                luasnip.expand()
               else
-                vim.fn.feedkeys(vim.api.nvim_replace_termcodes(${toLuaObject mappings.next.value}, true, false, true), 'n')
+                cmp.confirm({ select = true })
               end
+            ''
+            else "cmp.confirm({ select = true })"
+          }
+            else
+                fallback()
             end
-          '';
-          desc = mappings.next.description;
-        }
+          end)
+        '';
 
-        {
-          mode = ["i" "s"];
-          key = mappings.previous.value;
-          lua = true;
-          action = ''
-            function()
-              local cmp = require('cmp')
-
-              local feedkey = function(key, mode)
-                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-              end
-
-              if cmp.visible() then
-                cmp.select_prev_item()
-              ${
-              optionalString vsnipEnable
-              ''
-                elseif vim.fn['vsnip#available'](-1) == 1 then
-                  feedkeys("<Plug>(vsnip-jump-prev)", "")
-              ''
-            }
-              end
+        ${mappings.next.value} = mkLuaInline ''
+          cmp.mapping(function(fallback)
+            local has_words_before = function()
+              local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+              return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
             end
-          '';
-          desc = mappings.previous.description;
-        }
 
-        {
-          mode = ["i" "c"];
-          key = mappings.close.value;
-          lua = true;
-          action = "require('cmp').mapping.abort()";
-          desc = mappings.close.description;
-        }
+            if cmp.visible() then
+              cmp.select_next_item()
+              ${optionalString luasnipEnable ''
+            elseif luasnip.locally_jumpable(1) then
+              luasnip.jump(1)
+          ''}
+            elseif has_words_before() then
+              cmp.complete()
+            else
+              fallback()
+            end
+          end)
+        '';
 
-        {
-          mode = ["i" "c"];
-          key = mappings.scrollDocsUp.value;
-          lua = true;
-          action = "require('cmp').mapping.scroll_docs(-4)";
-          desc = mappings.scrollDocsUp.description;
-        }
-
-        {
-          mode = ["i" "c"];
-          key = mappings.scrollDocsDown.value;
-          lua = true;
-          action = "require('cmp').mapping.scroll_docs(4)";
-          desc = mappings.scrollDocsDown.description;
-        }
-      ];
+        ${mappings.previous.value} = mkLuaInline ''
+          cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+              ${optionalString luasnipEnable ''
+            elseif luasnip.locally_jumpable(-1) then
+              luasnip.jump(-1)
+          ''}
+            else
+              fallback()
+            end
+          end)
+        '';
+      };
     };
   };
 }

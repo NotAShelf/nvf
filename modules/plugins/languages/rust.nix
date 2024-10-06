@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: let inherit (builtins) attrNames;
+}: let
+  inherit (builtins) attrNames;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.strings) optionalString;
