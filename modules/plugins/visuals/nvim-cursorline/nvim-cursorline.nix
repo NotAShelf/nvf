@@ -5,15 +5,16 @@
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   imports = [
-    (mkRenamedOptionModule ["vim" "visuals" "cursorline" "lineTimeout"] ["vim" "visuals" "cursorline" "setupOpts" "line_timeout"])
-    (mkRemovedOptionModule ["vim" "visuals" "cursorline" "lineNumbersOnly"] ''
-      `vim.visuals.cursorline.lineNumbersOnly` has been removed. Use `vim.visuals.cursorline.number` instead.
+    (mkRenamedOptionModule ["vim" "visuals" "cursorline"] ["vim" "visuals" "nvim-cursorline"])
+    (mkRenamedOptionModule ["vim" "visuals" "nvim-cursorline" "lineTimeout"] ["vim" "visuals" "nvim-cursorline" "setupOpts" "line_timeout"])
+    (mkRemovedOptionModule ["vim" "visuals" "nvim-cursorline" "lineNumbersOnly"] ''
+      `vim.visuals.nvim-cursorline.lineNumbersOnly` has been removed. Use `vim.visuals.nvim-cursorline.number` instead.
     '')
   ];
 
-  options.vim.visuals.cursorline = {
+  options.vim.visuals.nvim-cursorline = {
     enable = mkEnableOption "cursor word and line highlighting [nvim-cursorline]";
-    setupOpts = mkPluginSetupOption "cursorline" {
+    setupOpts = mkPluginSetupOption "nvim-cursorline" {
       cursorline = {
         enable = mkEnableOption "cursor line highlighting";
         timeout = mkOption {
