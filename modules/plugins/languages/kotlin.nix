@@ -31,31 +31,6 @@
     '';
   };
 
-  defaultFormat = "ktlint";
-  formats = {
-    ktlint = {
-      package = pkgs.ktlint;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.ktlint.with({
-            command = "${cfg.format.package}/bin/ktlint",
-          })
-        )
-      '';
-    };
-    ktfmt = {
-      package = pkgs.ktfmt;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.ktlint.with({
-            command = "${cfg.format.package}/bin/ktfmt",
-          })
-        )
-      '';
-    };
-  };
   defaultDiagnosticsProvider = ["ktlint"];
   diagnosticsProviders = {
     ktlint = {
@@ -89,22 +64,6 @@ in {
       };
     };
 
-    format = {
-      enable = mkEnableOption "Kotlin document formatting" // {default = config.vim.languages.enableFormat;};
-
-      type = mkOption {
-        description = "Kotlin formatter to use";
-        type = enum (attrNames formats);
-        default = defaultFormat;
-      };
-
-      package = mkOption {
-        description = "Kotlin formatter package";
-        type = package;
-        default = formats.${cfg.format.type}.package;
-      };
-    };
-
     extraDiagnostics = {
       enable = mkEnableOption "extra Kotlin diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
 
@@ -120,11 +79,6 @@ in {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.package];
     })
-
-    # (mkIf cfg.format.enable {
-    #   vim.lsp.null-ls.enable = true;
-    #   vim.lsp.null-ls.sources.kotlin-format = formats.${cfg.format.type}.nullConfig;
-    # })
 
     (mkIf cfg.extraDiagnostics.enable {
       vim.lsp.null-ls.enable = true;
