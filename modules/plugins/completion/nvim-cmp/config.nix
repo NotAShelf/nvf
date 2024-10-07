@@ -44,7 +44,7 @@ in {
         formatting.format = cfg.format;
       };
 
-      pluginRC.nvim-cmp = mkIf cfg.enable (entryAfter ["autopairs"] ''
+      pluginRC.nvim-cmp = mkIf cfg.enable (entryAfter ["autopairs" "luasnip"] ''
         local luasnip = require("luasnip")
         local cmp = require("cmp")
         cmp.setup(${toLuaObject cfg.setupOpts})
