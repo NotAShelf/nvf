@@ -237,6 +237,7 @@ everyone.
   - Fixed `project-nvim` command and keybinding
   - Added default ikeybind/command for `Telescope resume` (`<leader>fr`)
 
+<<<<<<< HEAD
 [Soliprem](https://github.com/Soliprem):
 
 - Add LSP and Treesitter support for R under `vim.languages.R`.
@@ -249,3 +250,10 @@ everyone.
   `vim.theme`
 - Fix internal breakage in `elixir-tools` setup.
 
+=======
+[Soliprem](https://github.com/Soliprem)
+
+- R:
+  - Added LSP
+  - Added Treesitter
+>>>>>>> 27c045b (added changelog entry)
