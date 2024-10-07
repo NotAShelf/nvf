@@ -8,8 +8,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.languages) diagnosticsToLua;
-  inherit (lib.types) package enum;
-  inherit (lib.attrsets) attrNames;
+  inherit (lib.types) package;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
   inherit (lib.lists) isList;
   inherit (lib.nvim.lua) expToLua;
@@ -98,7 +97,7 @@ in {
           on_attach=default_on_attach,
           init_options = {
           -- speeds up the startup time for the LSP
-            storagePath = "vim.fn.stdpath('state') .. '/kotlin'",
+            storagePath = vim.fn.stdpath('state') .. '/kotlin',
           },
           cmd = ${
           if isList cfg.lsp.package
