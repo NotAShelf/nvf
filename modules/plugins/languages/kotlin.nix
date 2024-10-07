@@ -6,9 +6,11 @@
 }: let
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.meta) getExe;
+  inherit (lib.nvim.languages) diagnosticsToLua;
   inherit (lib.types) package enum;
   inherit (lib.attrsets) attrNames;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics;
   inherit (lib.lists) isList;
   inherit (lib.nvim.lua) expToLua;
 
@@ -32,11 +34,11 @@
   defaultFormat = "ktlint";
   formats = {
     ktlint = {
-      package = pkgs.kitlint;
+      package = pkgs.ktlint;
       nullConfig = ''
         table.insert(
           ls_sources,
-          null_ls.builtins.formatting.kotlinfmt.with({
+          null_ls.builtins.formatting.ktlint.with({
             command = "${cfg.format.package}/bin/ktlint",
           })
         )
@@ -47,8 +49,22 @@
       nullConfig = ''
         table.insert(
           ls_sources,
-          null_ls.builtins.formatting.kotlinfmt.with({
+          null_ls.builtins.formatting.ktlint.with({
             command = "${cfg.format.package}/bin/ktfmt",
+          })
+        )
+      '';
+    };
+  };
+  defaultDiagnosticsProvider = ["ktlint"];
+  diagnosticsProviders = {
+    ktlint = {
+      package = pkgs.ktlint;
+      nullConfig = pkg: ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.diagnostics.ktlint.with({
+            command = "${getExe pkg}",
           })
         )
       '';
@@ -72,6 +88,7 @@ in {
         default = kotlinLspWithRuntime;
       };
     };
+
     format = {
       enable = mkEnableOption "Kotlin document formatting" // {default = config.vim.languages.enableFormat;};
 
@@ -87,11 +104,35 @@ in {
         default = formats.${cfg.format.type}.package;
       };
     };
+
+    extraDiagnostics = {
+      enable = mkEnableOption "extra Kotlin diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+
+      types = diagnostics {
+        langDesc = "Kotlin";
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
+      };
+    };
   };
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.package];
+    })
+
+    # (mkIf cfg.format.enable {
+    #   vim.lsp.null-ls.enable = true;
+    #   vim.lsp.null-ls.sources.kotlin-format = formats.${cfg.format.type}.nullConfig;
+    # })
+
+    (mkIf cfg.extraDiagnostics.enable {
+      vim.lsp.null-ls.enable = true;
+      vim.lsp.null-ls.sources = diagnosticsToLua {
+        lang = "ts";
+        config = cfg.extraDiagnostics.types;
+        inherit diagnosticsProviders;
+      };
     })
 
     (mkIf cfg.lsp.enable {
