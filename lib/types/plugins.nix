@@ -97,7 +97,7 @@ in {
 
       default = {};
       type = submodule {
-        freeformType = attrsOf anything;
+        freeformType = anything;
         options = opts;
       };
     };
