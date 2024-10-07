@@ -60,7 +60,11 @@ in {
       luaConfigRC.theme = entryBefore ["pluginConfigs"] ''
          ${cfg.extraConfig}
 
-        require('${name'}').setup(${toLuaObject cfg.setupOpts})
+        ${
+          if name' != "oxocarbon"
+          then "require('${name'}').setup(${toLuaObject cfg.setupOpts})"
+          else ""
+        }
 
         ${supportedThemes.${cfg.name}.setup}
       '';

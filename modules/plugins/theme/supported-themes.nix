@@ -128,7 +128,7 @@ in {
   };
 
   oxocarbon = {
-    setupOpts = mkPluginSetupOption "oxocarbon" {};
+    setupOpts = {};
     setup = ''
        require('oxocarbon')
        vim.opt.background = "${cfg.style}"
@@ -177,8 +177,8 @@ in {
         default = "";
       };
       # TODO: fix these
-      palette_overrides = mkLuaInline "{}";
-      overrides = mkLuaInline "{}";
+      # palette_overrides = mkLuaInline "{}";
+      # overrides = mkLuaInline "{}";
       dim_inactive = mkEnableOption "dim_inactive";
     };
     setup = ''
