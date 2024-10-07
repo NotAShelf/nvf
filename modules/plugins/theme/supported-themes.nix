@@ -2,9 +2,10 @@
   config,
   lib,
 }: let
-  inherit (lib.strings) optionalString;
+  inherit (lib.strings) hasPrefix optionalString;
   inherit (lib.attrsets) listToAttrs;
   inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.types) bool str;
   inherit (lib.nvim.types) hexColor mkPluginSetupOption;
   cfg = config.vim.theme;
@@ -17,7 +18,10 @@
       value = mkOption {
         description = "The base0${n} color to use";
         type = hexColor;
-        default = cfg.base16-colors."base0${n}";
+        apply = v:
+          if hasPrefix "#" v
+          then v
+          else "#${v}";
       };
     })
     numbers);
@@ -37,7 +41,7 @@ in {
     };
     setup = ''
       -- OneDark theme
-            require('onedark').load()
+      require('onedark').load()
     '';
     styles = ["dark" "darker" "cool" "deep" "warm" "warmer"];
   };
@@ -174,8 +178,8 @@ in {
         default = "";
       };
       # TODO: fix these
-      # palette_overrides = mkOption{};
-      # overrides = {};
+      palette_overrides = mkLuaInline "{}";
+      overrides = mkLuaInline "{}";
       dim_inactive = mkEnableOption "dim_inactive";
     };
     setup = ''
