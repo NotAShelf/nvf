@@ -5,7 +5,7 @@
 }: let
   inherit (lib.options) mkOption;
   inherit (lib.attrsets) attrNames listToAttrs;
-  inherit (lib.strings) hasPrefix;
+  inherit (lib.strings) elemAt hasPrefix;
   inherit (lib.types) bool lines enum;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.dag) entryBefore;
@@ -42,10 +42,12 @@ in {
         requires all of the colors in {option}`vim.theme.base16-colors` to be set.
       '';
     };
+    themes = supportedThemes;
     base16-colors = base16Options;
 
     style = mkOption {
       type = enum supportedThemes.${cfg.name}.styles;
+      default = elemAt supportedThemes.${cfg.name}.styles 0;
       description = "Specific style for theme if it supports it";
     };
     transparent = mkOption {
@@ -71,7 +73,7 @@ in {
       luaConfigRC.theme = entryBefore ["pluginConfigs"] ''
          ${cfg.extraConfig}
 
-        require(${name'}).setup(${toLuaObject supportedThemes.${cfg.name}.setupOpts})
+        require('${name'}').setup(${toLuaObject cfg.themes.${cfg.name}.setupOpts})
 
         ${supportedThemes.${cfg.name}.setup}
       '';

@@ -3,24 +3,35 @@
   lib,
 }: let
   inherit (lib.strings) optionalString;
+  inherit (lib.attrsets) listToAttrs;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) bool str;
-  inherit (lib.nvim.types) mkPluginSetupOption;
+  inherit (lib.nvim.types) hexColor mkPluginSetupOption;
   cfg = config.vim.theme;
 
   mkEnableOption' = name: mkEnableOption name // {default = true;};
-  # mkEnableOption' = name: mkEnableOption name;
+
+  numbers = ["0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "A" "B" "C" "D" "E" "F"];
+  base16Options = listToAttrs (map (n: {
+      name = "base0${n}";
+      value = mkOption {
+        description = "The base0${n} color to use";
+        type = hexColor;
+        default = cfg.base16-colors."base0${n}";
+      };
+    })
+    numbers);
 in {
   base16 = {
-    setupOpts = mkPluginSetupOption "base16" {
-      inherit (cfg) base16-colors;
-    };
+    setupOpts = mkPluginSetupOption "base16" base16Options;
+    setup = "";
   };
+
   onedark = {
     setupOpts = mkPluginSetupOption "onedark" {
       style = mkOption {
         type = str;
-        default = "dark";
+        default = cfg.style;
         internal = true;
       };
     };
@@ -40,9 +51,9 @@ in {
       };
     };
     setup = ''
-      vim.cmd[[colorscheme tokyonight-${cfg.style ? "night"}]]
+      vim.cmd[[colorscheme tokyonight-${cfg.style}]]
     '';
-    styles = ["day" "night" "storm" "moon"];
+    styles = ["night" "day" "storm" "moon"];
   };
 
   dracula = {
@@ -60,15 +71,14 @@ in {
 
   catppuccin = {
     setupOpts = mkPluginSetupOption "catppuccin" {
-      # flavour = cfg.style ? "mocha";
       flavour = mkOption {
         type = str;
-        default = cfg.style ? "mocha";
-        internal = true;
+        default = cfg.style;
+        # internal = true;
       };
       transparent_background = mkOption {
         type = bool;
-        default = cfg.transparency;
+        default = cfg.transparent;
         internal = true;
       };
       term_colors = mkEnableOption' "term_colors";
@@ -77,7 +87,7 @@ in {
           enabled = mkEnableOption' "enabled";
           transparent_panel = mkOption {
             type = bool;
-            default = cfg.transparency;
+            default = cfg.transparent;
           };
           show_root = mkEnableOption' "show_root";
         };
@@ -96,7 +106,7 @@ in {
         # nvim-notify
         notify = mkEnableOption' "notify";
         which_key = mkEnableOption' "which_key";
-        navic = mkOption {
+        navic = {
           enabled = mkEnableOption' "enabled";
           # lualine will set backgound to mantle
           custom_bg = mkOption {
@@ -106,19 +116,19 @@ in {
         };
       };
     };
-    setup = _: ''
+    setup = ''
       -- Catppuccin theme
       -- setup must be called before loading
       vim.cmd.colorscheme "catppuccin"
     '';
-    styles = ["latte" "frappe" "macchiato" "mocha"];
+    styles = ["mocha" "latte" "frappe" "macchiato"];
   };
 
   oxocarbon = {
     setupOpts = mkPluginSetupOption "oxocarbon" {};
     setup = ''
        require('oxocarbon')
-       vim.opt.background = "${cfg.style ? "dark"}"
+       vim.opt.background = "${cfg.style}"
        vim.cmd.colorscheme = "oxocarbon"
       ${optionalString cfg.transparent ''
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -135,7 +145,12 @@ in {
 
   gruvbox = {
     setupOpts = mkPluginSetupOption "gruvbox" {
-      transparent_mode = cfg.transparent;
+      transparent_mode = mkOption {
+        type = bool;
+        default = cfg.transparent;
+        internal = true;
+      };
+      # transparent_mode = cfg.transparent;
       # add neovim terminal colors
       terminal_colors = mkEnableOption' "terminal_colors";
       undercurl = mkEnableOption' "undercurls";
@@ -154,14 +169,18 @@ in {
       invert_tabline = mkEnableOption "invert_tabline";
       invert_intend_guides = mkEnableOption "invert_intend_guides";
       inverse = mkEnableOption' "inverse";
-      contrast = "";
-      palette_overrides = {};
-      overrides = {};
+      contrast = mkOption {
+        type = str;
+        default = "";
+      };
+      # TODO: fix these
+      # palette_overrides = mkOption{};
+      # overrides = {};
       dim_inactive = mkEnableOption "dim_inactive";
     };
     setup = ''
       -- Gruvbox theme
-      vim.o.background = "${cfg.style ? "dark"}"
+      vim.o.background = "${cfg.style}"
       vim.cmd("colorscheme gruvbox")
     '';
     styles = ["dark" "light"];
@@ -170,7 +189,7 @@ in {
     setupOpts = mkPluginSetupOption "rose-pine" {
       dark_variant = mkOption {
         type = str;
-        style = cfg.style ? "main";
+        default = cfg.style;
         internal = true;
       };
       dim_inactive_windows = mkEnableOption "dim_inactive_windows";
