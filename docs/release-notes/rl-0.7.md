@@ -28,10 +28,11 @@ configuration formats.
 
 ### `vim.maps` rewrite {#sec-vim-maps-rewrite}
 
-Instead of specifying map modes using submodules (eg.: `vim.maps.normal`), a new `vim.keymaps`
-submodule with support for a `mode` option has been introduced. It can be either a string, or a
-list of strings, where a string represents the short-name of the map mode(s), that the mapping
-should be set for. See `:help map-modes` for more information.
+Instead of specifying map modes using submodules (eg.: `vim.maps.normal`), a new
+`vim.keymaps` submodule with support for a `mode` option has been introduced. It
+can be either a string, or a list of strings, where a string represents the
+short-name of the map mode(s), that the mapping should be set for. See
+`:help map-modes` for more information.
 
 For example:
 
@@ -61,7 +62,6 @@ fastaction.nvim. Simply remove everything set under
 Note that we are looking to add more alternatives in the future like
 dressing.nvim and actions-preview.nvim, in case fastaction doesn't work for
 everyone.
-
 
 ## Changelog {#sec-release-0.7-changelog}
 
@@ -150,12 +150,15 @@ everyone.
 - Replace `vim.lsp.nvimCodeActionMenu` with `vim.ui.fastaction`, see the
   breaking changes section above for more details
 
-- Add a `setupOpts` option to nvim-surround, which allows modifying options that aren't defined in nvf. Move the alternate nvim-surround keybinds to use `setupOpts`.
+- Add a `setupOpts` option to nvim-surround, which allows modifying options that
+  aren't defined in nvf. Move the alternate nvim-surround keybinds to use
+  `setupOpts`.
 
 [Neovim documentation on `vim.cmd`]: https://neovim.io/doc/user/lua.html#vim.cmd()
 
 - Make Neovim's configuration file entirely Lua based. This comes with a few
   breaking changes:
+
   - `vim.configRC` has been removed. You will need to migrate your entries to
     Neovim-compliant Lua code, and add them to `vim.luaConfigRC` instead.
     Existing vimscript configurations may be preserved in `vim.cmd` functions.
@@ -237,23 +240,14 @@ everyone.
   - Fixed `project-nvim` command and keybinding
   - Added default ikeybind/command for `Telescope resume` (`<leader>fr`)
 
-<<<<<<< HEAD
 [Soliprem](https://github.com/Soliprem):
 
 - Add LSP and Treesitter support for R under `vim.languages.R`.
 - Add Otter support under `vim.lsp.otter` and an assert to prevent conflict with
   ccc
-  
+
 [Bloxx12](https://github.com/Bloxx12)
 
 - Add support for [base16 theming](https://github.com/RRethy/base16-nvim) under
   `vim.theme`
 - Fix internal breakage in `elixir-tools` setup.
-
-=======
-[Soliprem](https://github.com/Soliprem)
-
-- R:
-  - Added LSP
-  - Added Treesitter
->>>>>>> 27c045b (added changelog entry)
