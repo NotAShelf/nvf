@@ -52,7 +52,15 @@ in {
         (mergeFunctions.${commonType} or mergeEqualOption) loc defs;
     };
 
-  mergelessListOf = elemType: listOf elemType // {merge = mergeEqualOption;};
+  mergelessListOf = elemType: let
+    super = listOf elemType;
+  in
+    super
+    // {
+      name = "mergelessListOf";
+      description = "mergeless ${super.description}";
+      merge = mergeEqualOption;
+    };
 
   char = mkOptionType {
     name = "char";
