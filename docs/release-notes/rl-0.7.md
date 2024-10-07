@@ -245,7 +245,8 @@ everyone.
 - Add LSP and Treesitter support for R under `vim.languages.R`.
 - Add Otter support under `vim.lsp.otter` and an assert to prevent conflict with
   ccc
-- Add LSP and Treesitter support for Kotlin under `vim.languages.kotlin`
+- Add LSP, diagnostics, formatter and Treesitter support for Kotlin under
+  `vim.languages.kotlin`
 
 [Bloxx12](https://github.com/Bloxx12)
 
