@@ -10,12 +10,16 @@
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.dag) entryBefore;
   inherit (lib.nvim.lua) toLuaObject;
+
   cfg = config.vim.theme;
   supportedThemes = import ./supported-themes.nix {
     inherit lib config;
   };
 in {
   options.vim.theme = {
+    themes = supportedThemes;
+    inherit (supportedThemes.${cfg.name}) setupOpts;
+
     enable = mkOption {
       type = bool;
       description = "Enable theming";
@@ -28,9 +32,6 @@ in {
         requires all of the colors in {option}`vim.theme.base16-colors` to be set.
       '';
     };
-    setupOpts = cfg.themes.${cfg.name}.setupOpts;
-    themes = supportedThemes;
-
     style = mkOption {
       type = enum supportedThemes.${cfg.name}.styles;
       default = elemAt supportedThemes.${cfg.name}.styles 0;
@@ -59,7 +60,7 @@ in {
       luaConfigRC.theme = entryBefore ["pluginConfigs"] ''
          ${cfg.extraConfig}
 
-        require('${name'}').setup(${toLuaObject cfg.themes.${cfg.name}.setupOpts})
+        require('${name'}').setup(${toLuaObject cfg.setupOpts})
 
         ${supportedThemes.${cfg.name}.setup}
       '';
