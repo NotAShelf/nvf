@@ -76,6 +76,8 @@ everyone.
   recommended to go through rustacean.nvim's README to take a closer look at its
   features and usage
 
+- Enable lua for maximal config.
+
 [jacekpoz](https://jacekpoz.pl):
 
 [ocaml-lsp]: https://github.com/ocaml/ocaml-lsp
