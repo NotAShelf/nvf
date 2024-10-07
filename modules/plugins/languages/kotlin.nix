@@ -6,7 +6,8 @@
 }: let
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) package;
+  inherit (lib.types) package enum;
+  inherit (lib.attrsets) attrNames;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.lists) isList;
   inherit (lib.nvim.lua) expToLua;
@@ -27,6 +28,33 @@
         --prefix PATH : ${pkgs.lib.makeBinPath [pkgs.kotlin]}
     '';
   };
+
+  defaultFormat = "ktlint";
+  formats = {
+    ktlint = {
+      package = pkgs.kitlint;
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.typstfmt.with({
+            command = "${cfg.format.package}/bin/ktlint",
+          })
+        )
+      '';
+    };
+    # https://github.com/Enter-tainer/typstyle
+    ktfmt = {
+      package = pkgs.ktfmt;
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.typstfmt.with({
+            command = "${cfg.format.package}/bin/ktfmt",
+          })
+        )
+      '';
+    };
+  };
 in {
   options.vim.languages.kotlin = {
     enable = mkEnableOption "Kotlin/HCL support";
@@ -43,6 +71,21 @@ in {
         description = "kotlin_language_server package with Kotlin runtime";
         type = package;
         default = kotlinLspWithRuntime;
+      };
+    };
+    format = {
+      enable = mkEnableOption "Typst document formatting" // {default = config.vim.languages.enableFormat;};
+
+      type = mkOption {
+        description = "Kotlin formatter to use";
+        type = enum (attrNames formats);
+        default = defaultFormat;
+      };
+
+      package = mkOption {
+        description = "Kotlin formatter package";
+        type = package;
+        default = formats.${cfg.format.type}.package;
       };
     };
   };
