@@ -36,19 +36,18 @@
       nullConfig = ''
         table.insert(
           ls_sources,
-          null_ls.builtins.formatting.typstfmt.with({
+          null_ls.builtins.formatting.kotlinfmt.with({
             command = "${cfg.format.package}/bin/ktlint",
           })
         )
       '';
     };
-    # https://github.com/Enter-tainer/typstyle
     ktfmt = {
       package = pkgs.ktfmt;
       nullConfig = ''
         table.insert(
           ls_sources,
-          null_ls.builtins.formatting.typstfmt.with({
+          null_ls.builtins.formatting.kotlinfmt.with({
             command = "${cfg.format.package}/bin/ktfmt",
           })
         )
@@ -74,7 +73,7 @@ in {
       };
     };
     format = {
-      enable = mkEnableOption "Typst document formatting" // {default = config.vim.languages.enableFormat;};
+      enable = mkEnableOption "Kotlin document formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
         description = "Kotlin formatter to use";
