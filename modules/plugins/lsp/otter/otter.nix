@@ -58,7 +58,7 @@ in {
             (eg. in Org files) When true, otter handles these cases fully.
           '';
         };
-        toggle = mkMappingOption "Activate LSP on Cursor Position [otter]" "<leader>lo";
+        # toggle = mkMappingOption "Activate LSP on Cursor Position [otter]" "<leader>lo";
       };
     };
   };
