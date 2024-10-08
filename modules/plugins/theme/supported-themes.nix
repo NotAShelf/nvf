@@ -3,9 +3,8 @@
   lib,
 }: let
   inherit (lib.strings) hasPrefix optionalString;
-  inherit (lib.attrsets) listToAttrs;
+  inherit (lib.attrsets) genAttrs listToAttrs;
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.generators) mkLuaInline;
   inherit (lib.types) bool str;
   inherit (lib.nvim.types) hexColor mkPluginSetupOption;
   cfg = config.vim.theme;
@@ -85,39 +84,41 @@ in {
         internal = true;
       };
       term_colors = mkEnableOption' "term_colors";
-      integrations = {
-        nvimtree = {
-          enabled = mkEnableOption' "enabled";
-          transparent_panel = mkOption {
-            type = bool;
-            default = cfg.transparent;
+      integrations =
+        {
+          nvimtree = {
+            enabled = mkEnableOption' "enabled";
+            transparent_panel = mkOption {
+              type = bool;
+              default = cfg.transparent;
+            };
+            show_root = mkEnableOption' "show_root";
           };
-          show_root = mkEnableOption' "show_root";
-        };
 
-        hop = mkEnableOption' "hop";
-        gitsigns = mkEnableOption' "gitsigns";
-        telescope = mkEnableOption' "telescope";
-        treesitter = mkEnableOption' "treesitter";
-        treesitter_context = mkEnableOption' "treesitter_context";
-        ts_rainbow = mkEnableOption' "ts_rainbow";
-        fidget = mkEnableOption' "fidget";
-        alpha = mkEnableOption' "alpha";
-        leap = mkEnableOption' "leap";
-        markdown = mkEnableOption' "markdown";
-        noice = mkEnableOption' "noice";
-        # nvim-notify
-        notify = mkEnableOption' "notify";
-        which_key = mkEnableOption' "which_key";
-        navic = {
-          enabled = mkEnableOption' "enabled";
-          # lualine will set backgound to mantle
-          custom_bg = mkOption {
-            type = str;
-            default = "NONE";
+          navic = {
+            enabled = mkEnableOption' "enabled";
+            # lualine will set backgound to mantle
+            custom_bg = mkOption {
+              type = str;
+              default = "NONE";
+            };
           };
-        };
-      };
+        }
+        // genAttrs [
+          "hop"
+          "gitsigns"
+          "telescope"
+          "treesitter"
+          "treesitter_context"
+          "ts_rainbow"
+          "fidget"
+          "alpha"
+          "leap"
+          "markdown"
+          "noice"
+          "notify"
+          "which_key"
+        ] (name: mkEnableOption' name);
     };
     setup = ''
       -- Catppuccin theme
@@ -147,40 +148,43 @@ in {
   };
 
   gruvbox = {
-    setupOpts = mkPluginSetupOption "gruvbox" {
-      transparent_mode = mkOption {
-        type = bool;
-        default = cfg.transparent;
-        internal = true;
-      };
-      # transparent_mode = cfg.transparent;
-      # add neovim terminal colors
-      terminal_colors = mkEnableOption' "terminal_colors";
-      undercurl = mkEnableOption' "undercurls";
-      underline = mkEnableOption' "underline";
-      bold = mkEnableOption' "bold";
-      italic = {
-        strings = mkEnableOption' "strings";
-        emphasis = mkEnableOption' "emphasis";
-        comments = mkEnableOption' "comments";
-        operators = mkEnableOption "operators";
-        folds = mkEnableOption' "folds";
-      };
-      strikethrough = mkEnableOption' "strikethrough";
-      invert_selection = mkEnableOption "invert_selection";
-      invert_signs = mkEnableOption "invert_signs";
-      invert_tabline = mkEnableOption "invert_tabline";
-      invert_intend_guides = mkEnableOption "invert_intend_guides";
-      inverse = mkEnableOption' "inverse";
-      contrast = mkOption {
-        type = str;
-        default = "";
-      };
-      # TODO: fix these
-      # palette_overrides = mkLuaInline "{}";
-      # overrides = mkLuaInline "{}";
-      dim_inactive = mkEnableOption "dim_inactive";
-    };
+    setupOpts =
+      mkPluginSetupOption "gruvbox" {
+        transparent_mode = mkOption {
+          type = bool;
+          default = cfg.transparent;
+          internal = true;
+        };
+        italic = {
+          strings = mkEnableOption' "strings";
+          emphasis = mkEnableOption' "emphasis";
+          comments = mkEnableOption' "comments";
+          operators = mkEnableOption "operators";
+          folds = mkEnableOption' "folds";
+        };
+        contrast = mkOption {
+          type = str;
+          default = "";
+        };
+        # TODO: fix these
+        # palette_overrides = mkLuaInline "{}";
+        # overrides = mkLuaInline "{}";
+      }
+      // genAttrs [
+        "terminal_colors"
+        "undercurls"
+        "underline"
+        "bold"
+        "strikethrough"
+        "inverse"
+      ] (name: mkEnableOption' name)
+      // genAttrs [
+        "invert_selection"
+        "invert_signs"
+        "invert_tabline"
+        "invert_intend_guides"
+        "dim_inactive"
+      ] (name: mkEnableOption name);
     setup = ''
       -- Gruvbox theme
       vim.o.background = "${cfg.style}"

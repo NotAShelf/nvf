@@ -17,7 +17,6 @@
   };
 in {
   options.vim.theme = {
-    themes = supportedThemes;
     inherit (supportedThemes.${cfg.name}) setupOpts;
 
     enable = mkOption {
