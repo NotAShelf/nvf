@@ -2,105 +2,139 @@
   config,
   lib,
 }: let
-  inherit (lib.strings) optionalString;
-  inherit (lib.trivial) boolToString warnIf;
-  inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.strings) hasPrefix optionalString;
+  inherit (lib.attrsets) genAttrs listToAttrs mergeAttrsList;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.types) bool str;
+  inherit (lib.nvim.types) hexColor mkPluginSetupOption;
+  cfg = config.vim.theme;
+
+  mkEnableOption' = name: mkEnableOption name // {default = true;};
+  numbers = ["0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "A" "B" "C" "D" "E" "F"];
+  base16Options = listToAttrs (map (n: {
+      name = "base0${n}";
+      value = mkOption {
+        description = "The base0${n} color to use";
+        type = hexColor;
+        apply = v:
+          if hasPrefix "#" v
+          then v
+          else "#${v}";
+      };
+    })
+    numbers);
 in {
   base16 = {
-    setup = {base16-colors, ...}: ''
-      -- Base16 theme
-      require('base16-colorscheme').setup(${toLuaObject base16-colors})
-    '';
+    setupOpts = mkPluginSetupOption "base16" base16Options;
+    setup = "";
   };
+
   onedark = {
-    setup = {style ? "dark", ...}: ''
+    setupOpts = mkPluginSetupOption "onedark" {
+      style = mkOption {
+        type = str;
+        default = cfg.style;
+        internal = true;
+      };
+    };
+    setup = ''
       -- OneDark theme
-      require('onedark').setup {
-        style = "${style}"
-      }
       require('onedark').load()
     '';
     styles = ["dark" "darker" "cool" "deep" "warm" "warmer"];
   };
 
   tokyonight = {
-    setup = {
-      style ? "night",
-      transparent,
-      ...
-    }: ''
-      require('tokyonight').setup {
-        transparent = ${boolToString transparent};
-      }
-      vim.cmd[[colorscheme tokyonight-${style}]]
+    setupOpts = mkPluginSetupOption "tokyonight" {
+      transparent = mkOption {
+        type = bool;
+        default = cfg.transparent;
+        internal = true;
+      };
+    };
+    setup = ''
+      vim.cmd[[colorscheme tokyonight-${cfg.style}]]
     '';
-    styles = ["day" "night" "storm" "moon"];
+    styles = ["night" "day" "storm" "moon"];
   };
 
   dracula = {
-    setup = {transparent, ...}: ''
-      require('dracula').setup({
-        transparent_bg = ${boolToString transparent},
-      });
+    setupOpts = mkPluginSetupOption "dracula" {
+      transparent_bg = mkOption {
+        type = bool;
+        default = cfg.transparent;
+        internal = true;
+      };
+    };
+    setup = ''
       require('dracula').load();
     '';
   };
 
   catppuccin = {
-    setup = {
-      style ? "mocha",
-      transparent ? false,
-      ...
-    }: ''
-      -- Catppuccin theme
-      require('catppuccin').setup {
-        flavour = "${style}",
-        transparent_background = ${boolToString transparent},
-        term_colors = true,
-        integrations = {
-      	  nvimtree = {
-      		  enabled = true,
-      		  transparent_panel = ${boolToString transparent},
-      		  show_root = true,
-      	  },
+    setupOpts = mkPluginSetupOption "catppuccin" {
+      flavour = mkOption {
+        type = str;
+        default = cfg.style;
+        # internal = true;
+      };
+      transparent_background = mkOption {
+        type = bool;
+        default = cfg.transparent;
+        internal = true;
+      };
+      term_colors = mkEnableOption' "term_colors";
+      integrations =
+        {
+          nvimtree = {
+            enabled = mkEnableOption' "enabled";
+            transparent_panel = mkOption {
+              type = bool;
+              default = cfg.transparent;
+            };
+            show_root = mkEnableOption' "show_root";
+          };
 
-          hop = true,
-      	  gitsigns = true,
-      	  telescope = true,
-      	  treesitter = true,
-          treesitter_context = true,
-      	  ts_rainbow = true,
-          fidget = true,
-          alpha = true,
-          leap = true,
-          markdown = true,
-          noice = true,
-          notify = true, -- nvim-notify
-          which_key = true,
           navic = {
-            enabled = true,
-            custom_bg = "NONE", -- "lualine" will set background to mantle
-          },
-        },
-      }
+            enabled = mkEnableOption' "enabled";
+            # lualine will set backgound to mantle
+            custom_bg = mkOption {
+              type = str;
+              default = "NONE";
+            };
+          };
+        }
+        // genAttrs [
+          "hop"
+          "gitsigns"
+          "telescope"
+          "treesitter"
+          "treesitter_context"
+          "ts_rainbow"
+          "fidget"
+          "alpha"
+          "leap"
+          "markdown"
+          "noice"
+          "notify"
+          "which_key"
+        ] (name: mkEnableOption' name);
+    };
+    setup = ''
+      -- Catppuccin theme
       -- setup must be called before loading
       vim.cmd.colorscheme "catppuccin"
     '';
-    styles = ["latte" "frappe" "macchiato" "mocha"];
+    styles = ["mocha" "latte" "frappe" "macchiato"];
   };
 
   oxocarbon = {
-    setup = {
-      style ? "dark",
-      transparent ? false,
-    }: let
-      style' =
-        warnIf (style == "light") "oxocarbon: light theme is not well-supported" style;
-    in ''
+    setupOpts = {};
+    setup = ''
        require('oxocarbon')
-       vim.opt.background = "${style'}"
+       vim.opt.background = "${cfg.style}"
        vim.cmd.colorscheme = "oxocarbon"
-      ${optionalString transparent ''
+      ${optionalString cfg.transparent ''
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
         vim.api.nvim_set_hl(0, "LineNr", { bg = "none" })
@@ -114,62 +148,84 @@ in {
   };
 
   gruvbox = {
-    setup = {
-      style ? "dark",
-      transparent ? false,
-    }: ''
+    setupOpts =
+      mkPluginSetupOption "gruvbox" {
+        transparent_mode = mkOption {
+          type = bool;
+          default = cfg.transparent;
+          internal = true;
+        };
+        italic =
+          {
+            operators = mkEnableOption "operators";
+          }
+          // genAttrs [
+            "strings"
+            "emphasis"
+            "comments"
+            "folds"
+          ] (name: mkEnableOption' name);
+
+        contrast = mkOption {
+          type = str;
+          default = "";
+        };
+        # TODO: fix these
+        # palette_overrides = mkLuaInline "{}";
+        # overrides = mkLuaInline "{}";
+      }
+      // mergeAttrsList [
+        (genAttrs [
+          "terminal_colors"
+          "undercurls"
+          "underline"
+          "bold"
+          "strikethrough"
+          "inverse"
+        ] (name: mkEnableOption' name))
+        (genAttrs [
+          "invert_selection"
+          "invert_signs"
+          "invert_tabline"
+          "invert_intend_guides"
+          "dim_inactive"
+        ] (name: mkEnableOption name))
+      ];
+    setup = ''
       -- Gruvbox theme
-      require("gruvbox").setup({
-        terminal_colors = true, -- add neovim terminal colors
-        undercurl = true,
-        underline = true,
-        bold = true,
-        italic = {
-        strings = true,
-        emphasis = true,
-        comments = true,
-        operators = false,
-        folds = true,
-        },
-        strikethrough = true,
-        invert_selection = false,
-        invert_signs = false,
-        invert_tabline = false,
-        invert_intend_guides = false,
-        inverse = true,
-        contrast = "",
-        palette_overrides = {},
-        overrides = {},
-        dim_inactive = false,
-        transparent_mode = ${boolToString transparent},
-      })
-      vim.o.background = "${style}"
+      vim.o.background = "${cfg.style}"
       vim.cmd("colorscheme gruvbox")
     '';
     styles = ["dark" "light"];
   };
   rose-pine = {
-    setup = {
-      style ? "main",
-      transparent ? false,
-    }: ''
-      require("rose-pine").setup({
-        dark_variant = "${style}", -- main, moon, or dawn
-        dim_inactive_windows = false,
-        extend_background_behind_borders = true,
+    setupOpts = mkPluginSetupOption "rose-pine" {
+      dark_variant = mkOption {
+        type = str;
+        default = cfg.style;
+        internal = true;
+      };
+      dim_inactive_windows = mkEnableOption "dim_inactive_windows";
+      extend_background_behind_borders = mkEnableOption' "extend_background_behind_borders";
 
-        enable = {
-          terminal = true,
-          migrations = true,
-        },
+      enable = {
+        terminal = mkEnableOption' "terminal";
+        migrations = mkEnableOption' "migrations";
+      };
 
-        styles = {
-          bold = false,
-          italic = false, -- I would like to add more options for this
-          transparency = ${boolToString transparent},
-        },
-      })
+      styles = {
+        bold = mkEnableOption "bold";
+        # I would like to add more options for this
+        italic = mkEnableOption "italic";
+        transparency = mkOption {
+          type = bool;
+          default = cfg.transparent;
+          internal = true;
+        };
+      };
+    };
 
+    setup = ''
       vim.cmd("colorscheme rose-pine")
     '';
     styles = ["main" "moon" "dawn"];
