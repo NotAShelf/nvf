@@ -8,7 +8,7 @@ in {
   ];
 
   options.vim.autopairs.nvim-autopairs = {
-    enable = mkEnableOption "autopairs" // {default = false;};
+    enable = mkEnableOption "autopairs";
     setupOpts = mkPluginSetupOption "nvim-autopairs" {};
   };
 }

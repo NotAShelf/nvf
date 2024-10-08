@@ -4,7 +4,7 @@
   inherit (lib.nvim.types) pluginType;
 in {
   options.vim.snippets.luasnip = {
-    enable = mkEnableOption "luasnip" // {default = false;};
+    enable = mkEnableOption "luasnip";
     providers = mkOption {
       type = listOf pluginType;
       default = ["friendly-snippets"];

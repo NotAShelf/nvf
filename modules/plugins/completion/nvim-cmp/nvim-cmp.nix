@@ -14,7 +14,7 @@
   cfg = config.vim.autocomplete.nvim-cmp;
 in {
   options.vim.autocomplete.nvim-cmp = {
-    enable = mkEnableOption "nvim-cmp" // {default = false;};
+    enable = mkEnableOption "nvim-cmp";
     setupOpts = mkPluginSetupOption "the autocomplete plugin" {
       completion.completeopt = mkOption {
         type = str;
