@@ -12,7 +12,7 @@ in {
         The snippet provider packages.
 
         ::: {.note}
-        These are simply appended to `vim.startPlugins`.
+        These are simply appended to {option} `vim.startPlugins`.
         :::
       '';
       example = literalExpression "[\"vimPlugins.vim-snippets\"]";
