@@ -12,7 +12,9 @@ in {
   config = mkIf cfg.enable {
     vim = {
       startPlugins = ["nvim-autopairs"];
-      pluginRC.autopairs = entryAnywhere "require('nvim-autopairs').setup(${toLuaObject cfg.setupOpts})";
+      pluginRC.autopairs = entryAnywhere ''
+        require('nvim-autopairs').setup(${toLuaObject cfg.setupOpts})
+      '';
     };
   };
 }
