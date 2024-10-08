@@ -31,6 +31,9 @@ in {
       vim.autocomplete.type has been removed in favor of per-plugin modules.
       You can enable nvim-cmp with vim.autocomplete.nvim-cmp.enable instead.
     '')
+    (mkRemovedOptionModule ["vim" "snippets" "vsnip" "enable"] ''
+      vim.snippets.vsnip.enable has been removed in favor of the more modern luasnip.
+    '')
     (mkRenamedOptionModule ["vim" "lsp" "lspkind" "mode"] ["vim" "lsp" "lspkind" "setupOpts" "mode"])
   ];
 }
