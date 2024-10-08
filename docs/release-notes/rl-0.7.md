@@ -166,7 +166,7 @@ everyone.
     friendly-snippets for bundled snippets. [](#opt-vim.snippets.luasnip.enable)
     can be used to toggle Luasnip.
   - Add sorting function options for completion sources under
-    [](#opt-vim.autocomplete.nvim-cmp.sorting.comparators)
+    [](#opt-vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators)
 
 [Neovim documentation on `vim.cmd`]: https://neovim.io/doc/user/lua.html#vim.cmd()
 
