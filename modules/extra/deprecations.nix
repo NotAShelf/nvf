@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib.modules) mkRemovedOptionModule;
+  inherit (lib.modules) mkRemovedOptionModule mkRenamedOptionModule;
 in {
   imports = [
     # 2024-06-06
@@ -14,5 +14,23 @@ in {
       available under `vim.ui.fastaction` as a replacement. Simply remove everything under
       `vim.lsp.nvimCodeActionMenu`, and set `vim.ui.fastaction.enable` to `true`.
     '')
+
+    (mkRemovedOptionModule ["vim" "autopairs" "enable"] ''
+      vim.autopairs.enable has been removed in favor of per-plugin modules.
+      You can enable nvim-autopairs with vim.autopairs.nvim-autopairs.enable instead.
+    '')
+    (mkRemovedOptionModule ["vim" "autopairs" "type"] ''
+      vim.autopairs.type has been removed in favor of per-plugin modules.
+      You can enable nvim-autopairs with vim.autopairs.nvim-autopairs.enable instead.
+    '')
+    (mkRemovedOptionModule ["vim" "autocomplete" "enable"] ''
+      vim.autocomplete.enable has been removed in favor of per-plugin modules.
+      You can enable nvim-cmp with vim.autocomplete.nvim-cmp.enable instead.
+    '')
+    (mkRemovedOptionModule ["vim" "autocomplete" "type"] ''
+      vim.autocomplete.type has been removed in favor of per-plugin modules.
+      You can enable nvim-cmp with vim.autocomplete.nvim-cmp.enable instead.
+    '')
+    (mkRenamedOptionModule ["vim" "lsp" "lspkind" "mode"] ["vim" "lsp" "lspkind" "setupOpts" "mode"])
   ];
 }
