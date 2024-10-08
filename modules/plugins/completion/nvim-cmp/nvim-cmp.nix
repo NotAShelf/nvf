@@ -81,8 +81,8 @@ in {
       '';
       description = ''
         The function used to customize the completion menu entires. This is
-        outside of `setupOpts` because of internal reasons, make sure to use
-        this one, instead of its `setupOpts` equivalent.
+        outside of `setupOpts` to allow for an easier integration with
+        lspkind.nvim.
 
         See `:help cmp-config.formatting.format`.
       '';
