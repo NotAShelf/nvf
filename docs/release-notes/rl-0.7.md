@@ -75,7 +75,7 @@ everyone.
   switch entails a whole bunch of new features and options, so you are
   recommended to go through rustacean.nvim's README to take a closer look at its
   features and usage
-  
+
 [jacekpoz](https://jacekpoz.pl):
 
 [ocaml-lsp]: https://github.com/ocaml/ocaml-lsp
