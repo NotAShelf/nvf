@@ -3,7 +3,7 @@
   lib,
 }: let
   inherit (lib.strings) hasPrefix optionalString;
-  inherit (lib.attrsets) genAttrs listToAttrs;
+  inherit (lib.attrsets) genAttrs listToAttrs mergeAttrsList;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) bool str;
   inherit (lib.nvim.types) hexColor mkPluginSetupOption;
@@ -174,21 +174,23 @@ in {
         # palette_overrides = mkLuaInline "{}";
         # overrides = mkLuaInline "{}";
       }
-      // genAttrs [
-        "terminal_colors"
-        "undercurls"
-        "underline"
-        "bold"
-        "strikethrough"
-        "inverse"
-      ] (name: mkEnableOption' name)
-      // genAttrs [
-        "invert_selection"
-        "invert_signs"
-        "invert_tabline"
-        "invert_intend_guides"
-        "dim_inactive"
-      ] (name: mkEnableOption name);
+      // mergeAttrsList [
+        (genAttrs [
+          "terminal_colors"
+          "undercurls"
+          "underline"
+          "bold"
+          "strikethrough"
+          "inverse"
+        ] (name: mkEnableOption' name))
+        (genAttrs [
+          "invert_selection"
+          "invert_signs"
+          "invert_tabline"
+          "invert_intend_guides"
+          "dim_inactive"
+        ] (name: mkEnableOption name))
+      ];
     setup = ''
       -- Gruvbox theme
       vim.o.background = "${cfg.style}"
