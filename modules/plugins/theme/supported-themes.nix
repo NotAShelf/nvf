@@ -155,13 +155,17 @@ in {
           default = cfg.transparent;
           internal = true;
         };
-        italic = {
-          strings = mkEnableOption' "strings";
-          emphasis = mkEnableOption' "emphasis";
-          comments = mkEnableOption' "comments";
-          operators = mkEnableOption "operators";
-          folds = mkEnableOption' "folds";
-        };
+        italic =
+          {
+            operators = mkEnableOption "operators";
+          }
+          // genAttrs [
+            "strings"
+            "emphasis"
+            "comments"
+            "folds"
+          ] (name: mkEnableOption' name);
+
         contrast = mkOption {
           type = str;
           default = "";
