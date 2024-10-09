@@ -1,21 +1,14 @@
 {lib, ...}: let
   inherit (lib) mkRemovedOptionModule;
-  inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) enum;
+  inherit (lib.options) mkEnableOption;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   imports = [
     (mkRemovedOptionModule ["vim" "autopairs" "nvim-compe"] "nvim-compe is deprecated and no longer suported.")
   ];
 
-  options.vim = {
-    autopairs = {
-      enable = mkEnableOption "autopairs" // {default = false;};
-
-      type = mkOption {
-        type = enum ["nvim-autopairs"];
-        default = "nvim-autopairs";
-        description = "Set the autopairs type. Options: nvim-autopairs [nvim-autopairs]";
-      };
-    };
+  options.vim.autopairs.nvim-autopairs = {
+    enable = mkEnableOption "autopairs";
+    setupOpts = mkPluginSetupOption "nvim-autopairs" {};
   };
 }

@@ -7,37 +7,26 @@ section contains a general overview to how you may utilize said functions.
 
 ## Custom Key Mappings Support for a Plugin {#sec-custom-key-mappings}
 
-To set a mapping, you should define it in `vim.maps.<<mode>>`.
-The available modes are:
-
-- normal
-- insert
-- select
-- visual
-- terminal
-- normalVisualOp
-- visualOnly
-- operator
-- insertCommand
-- lang
-- command
+To set a mapping, you should define it in `vim.keymaps`.
 
 An example, simple keybinding, can look like this:
 
 ```nix
 {
-  vim.maps.normal = {
-    "<leader>wq" = {
+  vim.keymaps = [
+    {
+      key = "<leader>wq";
+      mode = ["n"];
       action = ":wq<CR>";
       silent = true;
       desc = "Save file and quit";
-    };
-  };
+    }
+  ];
 }
 ```
 
 There are many settings available in the options. Please refer to the
-[documentation](https://notashelf.github.io/nvf/options.html#opt-vim.maps.command._name_.action)
+[documentation](https://notashelf.github.io/nvf/options.html#opt-vim.keymaps)
 to see a list of them.
 
 **nvf** provides a list of helper commands, so that you don't have to write the

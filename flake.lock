@@ -316,6 +316,22 @@
         "type": "github"
       }
     },
+    "plugin-cmp-luasnip": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696878902,
+        "narHash": "sha256-nUJJl2zyK/oSwz5RzI9j3gf9zpDfCImCYbPbVsyXgz8=",
+        "owner": "saadparwaiz1",
+        "repo": "cmp_luasnip",
+        "rev": "05a9ab28b53f71d1aece421ef32fee2cb857a843",
+        "type": "github"
+      },
+      "original": {
+        "owner": "saadparwaiz1",
+        "repo": "cmp_luasnip",
+        "type": "github"
+      }
+    },
     "plugin-cmp-nvim-lsp": {
       "flake": false,
       "locked": {
@@ -361,22 +377,6 @@
       "original": {
         "owner": "ray-x",
         "repo": "cmp-treesitter",
-        "type": "github"
-      }
-    },
-    "plugin-cmp-vsnip": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1669100283,
-        "narHash": "sha256-2mkN03noOr5vBvRbSb35xZKorSH+8savQNZtgM9+QcM=",
-        "owner": "hrsh7th",
-        "repo": "cmp-vsnip",
-        "rev": "989a8a73c44e926199bfd05fa7a516d51f2d2752",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hrsh7th",
-        "repo": "cmp-vsnip",
         "type": "github"
       }
     },
@@ -585,6 +585,22 @@
       "original": {
         "owner": "akinsho",
         "repo": "flutter-tools.nvim",
+        "type": "github"
+      }
+    },
+    "plugin-friendly-snippets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1727061933,
+        "narHash": "sha256-yTsuV5unoujY0mhLINssYYBWCeefe+nJaxQHJKm7hlk=",
+        "owner": "rafamadriz",
+        "repo": "friendly-snippets",
+        "rev": "00ba9dd3df89509f95437b8d595553707c46d5ea",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rafamadriz",
+        "repo": "friendly-snippets",
         "type": "github"
       }
     },
@@ -858,6 +874,19 @@
         "owner": "horriblename",
         "ref": "require-rewrite",
         "repo": "lzn-auto-require",
+    "plugin-luasnip": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1726165831,
+        "narHash": "sha256-nkaa1NGOI28Et2QitQB+Spv+J42QVdHE1oywteLcJJw=",
+        "owner": "L3MON4D3",
+        "repo": "LuaSnip",
+        "rev": "e808bee352d1a6fcf902ca1a71cee76e60e24071",
+        "type": "github"
+      },
+      "original": {
+        "owner": "L3MON4D3",
+        "repo": "LuaSnip",
         "type": "github"
       }
     },
@@ -1790,22 +1819,6 @@
         "type": "github"
       }
     },
-    "plugin-vim-vsnip": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1704937299,
-        "narHash": "sha256-gvm6z4pgSULBVPukewRyjwxZ0vZgreQWbG/0kOB1QBo=",
-        "owner": "hrsh7th",
-        "repo": "vim-vsnip",
-        "rev": "02a8e79295c9733434aab4e0e2b8c4b7cea9f3a9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hrsh7th",
-        "repo": "vim-vsnip",
-        "type": "github"
-      }
-    },
     "plugin-which-key": {
       "flake": false,
       "locked": {
@@ -1860,10 +1873,10 @@
         "plugin-cheatsheet-nvim": "plugin-cheatsheet-nvim",
         "plugin-cinnamon-nvim": "plugin-cinnamon-nvim",
         "plugin-cmp-buffer": "plugin-cmp-buffer",
+        "plugin-cmp-luasnip": "plugin-cmp-luasnip",
         "plugin-cmp-nvim-lsp": "plugin-cmp-nvim-lsp",
         "plugin-cmp-path": "plugin-cmp-path",
         "plugin-cmp-treesitter": "plugin-cmp-treesitter",
-        "plugin-cmp-vsnip": "plugin-cmp-vsnip",
         "plugin-codewindow-nvim": "plugin-codewindow-nvim",
         "plugin-comment-nvim": "plugin-comment-nvim",
         "plugin-copilot-cmp": "plugin-copilot-cmp",
@@ -1877,6 +1890,7 @@
         "plugin-fastaction-nvim": "plugin-fastaction-nvim",
         "plugin-fidget-nvim": "plugin-fidget-nvim",
         "plugin-flutter-tools": "plugin-flutter-tools",
+        "plugin-friendly-snippets": "plugin-friendly-snippets",
         "plugin-gesture-nvim": "plugin-gesture-nvim",
         "plugin-gitsigns-nvim": "plugin-gitsigns-nvim",
         "plugin-glow-nvim": "plugin-glow-nvim",
@@ -1894,6 +1908,7 @@
         "plugin-lualine": "plugin-lualine",
         "plugin-lz-n": "plugin-lz-n",
         "plugin-lzn-auto-require": "plugin-lzn-auto-require",
+        "plugin-luasnip": "plugin-luasnip",
         "plugin-mind-nvim": "plugin-mind-nvim",
         "plugin-minimap-vim": "plugin-minimap-vim",
         "plugin-modes-nvim": "plugin-modes-nvim",
@@ -1952,7 +1967,6 @@
         "plugin-vim-markdown": "plugin-vim-markdown",
         "plugin-vim-repeat": "plugin-vim-repeat",
         "plugin-vim-startify": "plugin-vim-startify",
-        "plugin-vim-vsnip": "plugin-vim-vsnip",
         "plugin-which-key": "plugin-which-key",
         "rnix-lsp": "rnix-lsp",
         "systems": "systems_2"
