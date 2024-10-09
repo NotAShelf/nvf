@@ -34,6 +34,8 @@ in {
         "copilot-cmp"
       ];
 
+    vim.autocomplete.nvim-cmp.sources = {copilot = "[Copilot]";};
+
     vim.pluginRC.copilot = entryAnywhere ''
       require("copilot").setup(${toLuaObject cfg.setupOpts})
 
