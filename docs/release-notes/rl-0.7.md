@@ -154,6 +154,20 @@ everyone.
   aren't defined in nvf. Move the alternate nvim-surround keybinds to use
   `setupOpts`.
 
+- Remove `autopairs.type`, and rename `autopairs.enable` to
+  `autopairs.nvim-autopairs.enable`. The new
+  [](#opt-vim.autopairs.nvim-autopairs.enable) supports `setupOpts` format by
+  default.
+
+- Refactor of `nvim-cmp` and completion related modules
+  - Remove `autocomplete.type` in favor of per-plugin enable options such as
+    [](#opt-vim.autocomplete.nvim-cmp.enable).
+  - Deprecate legacy Vimsnip in favor of Luasnip, and integrate
+    friendly-snippets for bundled snippets. [](#opt-vim.snippets.luasnip.enable)
+    can be used to toggle Luasnip.
+  - Add sorting function options for completion sources under
+    [](#opt-vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators)
+
 [Neovim documentation on `vim.cmd`]: https://neovim.io/doc/user/lua.html#vim.cmd()
 
 - Make Neovim's configuration file entirely Lua based. This comes with a few
