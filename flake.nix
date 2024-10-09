@@ -636,6 +636,26 @@
       flake = false;
     };
 
+    plugin-lua-utils-nvim = {
+      url = "github:nvim-neorg/lua-utils.nvim";
+      flake = false;
+    };
+
+    plugin-pathlib-nvim = {
+      url = "github:pysan3/pathlib.nvim";
+      flake = false;
+    };
+
+    plugin-neorg = {
+      url = "github:nvim-neorg/neorg";
+      flake = false;
+    };
+
+    plugin-neorg-telescope = {
+      url = "github:nvim-neorg/neorg-telescope";
+      flake = false;
+    };
+
     plugin-nui-nvim = {
       # (required by noice.nvim)
       url = "github:MunifTanjim/nui.nvim";

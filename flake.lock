@@ -812,6 +812,22 @@
         "type": "github"
       }
     },
+    "plugin-lua-utils-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1708177208,
+        "narHash": "sha256-9ildzQEMkXKZ3LHq+khGFgRQFxlIXQclQ7QU3fcU1C4=",
+        "owner": "nvim-neorg",
+        "repo": "lua-utils.nvim",
+        "rev": "e565749421f4bbb5d2e85e37c3cef9d56553d8bd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-neorg",
+        "repo": "lua-utils.nvim",
+        "type": "github"
+      }
+    },
     "plugin-lualine": {
       "flake": false,
       "locked": {
@@ -921,6 +937,38 @@
       "original": {
         "owner": "folke",
         "repo": "neodev.nvim",
+        "type": "github"
+      }
+    },
+    "plugin-neorg": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1727821831,
+        "narHash": "sha256-yfWQ6yKytu1jkWUtRZTVICslUWej6jVYv7frmSB7/6Q=",
+        "owner": "nvim-neorg",
+        "repo": "neorg",
+        "rev": "afc9a37bf021acb0853e95714c4c6436e1588286",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-neorg",
+        "repo": "neorg",
+        "type": "github"
+      }
+    },
+    "plugin-neorg-telescope": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722358034,
+        "narHash": "sha256-ei4uUqpIQjGKzu5ryu0Hlmis9TS9FJsYnjt4J4QdWlw=",
+        "owner": "nvim-neorg",
+        "repo": "neorg-telescope",
+        "rev": "ddb2556644cae922699a239bbb0fe16e25b084b7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-neorg",
+        "repo": "neorg-telescope",
         "type": "github"
       }
     },
@@ -1421,6 +1469,22 @@
         "type": "github"
       }
     },
+    "plugin-pathlib-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1724943804,
+        "narHash": "sha256-YhCJeNKlcjgg3q51UWFhuIEPzNueC8YTpeuPPJDndvw=",
+        "owner": "pysan3",
+        "repo": "pathlib.nvim",
+        "rev": "57e5598af6fe253761c1b48e0b59b7cd6699e2c1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pysan3",
+        "repo": "pathlib.nvim",
+        "type": "github"
+      }
+    },
     "plugin-plenary-nvim": {
       "flake": false,
       "locked": {
@@ -1858,6 +1922,7 @@
         "plugin-lsp-signature": "plugin-lsp-signature",
         "plugin-lspkind": "plugin-lspkind",
         "plugin-lspsaga": "plugin-lspsaga",
+        "plugin-lua-utils-nvim": "plugin-lua-utils-nvim",
         "plugin-lualine": "plugin-lualine",
         "plugin-mind-nvim": "plugin-mind-nvim",
         "plugin-minimap-vim": "plugin-minimap-vim",
@@ -1865,6 +1930,8 @@
         "plugin-neo-tree-nvim": "plugin-neo-tree-nvim",
         "plugin-neocord": "plugin-neocord",
         "plugin-neodev-nvim": "plugin-neodev-nvim",
+        "plugin-neorg": "plugin-neorg",
+        "plugin-neorg-telescope": "plugin-neorg-telescope",
         "plugin-new-file-template-nvim": "plugin-new-file-template-nvim",
         "plugin-noice-nvim": "plugin-noice-nvim",
         "plugin-none-ls": "plugin-none-ls",
@@ -1896,6 +1963,7 @@
         "plugin-orgmode-nvim": "plugin-orgmode-nvim",
         "plugin-otter-nvim": "plugin-otter-nvim",
         "plugin-oxocarbon": "plugin-oxocarbon",
+        "plugin-pathlib-nvim": "plugin-pathlib-nvim",
         "plugin-plenary-nvim": "plugin-plenary-nvim",
         "plugin-project-nvim": "plugin-project-nvim",
         "plugin-registers": "plugin-registers",
