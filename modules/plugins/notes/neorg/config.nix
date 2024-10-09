@@ -41,7 +41,11 @@ in {
             },
           }
 
-          require('neorg').setup(${toLuaObject cfg.setupOpts})
+          require('neorg').setup{
+          ${cfg.setupOpts}
+          }
+
+          vim.wo.conceallevel = 2
         '';
       };
     }
