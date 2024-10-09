@@ -4,10 +4,11 @@
   ...
 }: let
   inherit (lib.options) mkOption;
-  inherit (lib.attrsets) attrNames listToAttrs;
+  inherit (lib.attrsets) attrNames;
   inherit (lib.strings) hasPrefix;
   inherit (lib.types) bool lines enum;
   inherit (lib.modules) mkIf;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.dag) entryBefore;
   inherit (lib.nvim.types) hexColor;
 
@@ -17,7 +18,8 @@
   };
 
   numbers = ["0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "A" "B" "C" "D" "E" "F"];
-  base16Options = listToAttrs (map (n: {
+  base16Options =
+    mapListToAttrs (n: {
       name = "base0${n}";
       value = mkOption {
         description = "The base0${n} color to use";
@@ -28,7 +30,7 @@
           else "#${v}";
       };
     })
-    numbers);
+    numbers;
 in {
   options.vim.theme = {
     enable = mkOption {
