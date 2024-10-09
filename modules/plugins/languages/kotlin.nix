@@ -82,7 +82,7 @@ in {
     (mkIf cfg.extraDiagnostics.enable {
       vim.lsp.null-ls.enable = true;
       vim.lsp.null-ls.sources = diagnosticsToLua {
-        lang = "ts";
+        lang = "kotlin";
         config = cfg.extraDiagnostics.types;
         inherit diagnosticsProviders;
       };
