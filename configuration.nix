@@ -173,7 +173,7 @@ isMaximal: {
 
     notes = {
       obsidian.enable = false; # FIXME: neovim fails to build if obsidian is enabled
-      neorg.enable = true;
+      neorg.enable = false;
       orgmode.enable = false;
       mind-nvim.enable = isMaximal;
       todo-comments.enable = true;
