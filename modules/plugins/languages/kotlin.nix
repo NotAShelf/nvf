@@ -23,11 +23,6 @@
       pkgs.kotlin-language-server
       pkgs.kotlin
     ];
-    buildInputs = [pkgs.makeWrapper];
-    postBuild = ''
-      wrapProgram $out/bin/kotlin-language-server \
-        --prefix PATH : ${pkgs.lib.makeBinPath [pkgs.kotlin]}
-    '';
   };
 
   defaultDiagnosticsProvider = ["ktlint"];
