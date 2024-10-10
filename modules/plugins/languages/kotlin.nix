@@ -15,9 +15,6 @@
 
   cfg = config.vim.languages.kotlin;
 
-  # Creating a version of the LSP with access to the kotlin binary.
-  # This is necessary for the LSP to load the standard library
-
   defaultDiagnosticsProvider = ["ktlint"];
   diagnosticsProviders = {
     ktlint = {
@@ -49,12 +46,12 @@ in {
         type = package;
         example = literalExpression ''
           pkgs.symlinkJoin {
-              name = "Kotlin-LSP-Wrapped";
+              name = "kotlin-language-server-wrapped";
               paths = [pkgs.kotlin-language-server];
               nativeBuildInputs = [pkgs.makeWrapper];
               postBuild = '''
                 wrapProgram $out/bin/kotlin-language-server \
-                  --prefix PATH : ${pkgs.lib.makeBinPath [pkgs.kotlin]}
+                  --prefix PATH : ''${pkgs.kotlin}/bin
               ''';
             };
         '';
