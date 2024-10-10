@@ -844,6 +844,22 @@
         "type": "github"
       }
     },
+    "plugin-luasnip": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1726165831,
+        "narHash": "sha256-nkaa1NGOI28Et2QitQB+Spv+J42QVdHE1oywteLcJJw=",
+        "owner": "L3MON4D3",
+        "repo": "LuaSnip",
+        "rev": "e808bee352d1a6fcf902ca1a71cee76e60e24071",
+        "type": "github"
+      },
+      "original": {
+        "owner": "L3MON4D3",
+        "repo": "LuaSnip",
+        "type": "github"
+      }
+    },
     "plugin-lz-n": {
       "flake": false,
       "locked": {
@@ -874,19 +890,6 @@
         "owner": "horriblename",
         "ref": "require-rewrite",
         "repo": "lzn-auto-require",
-    "plugin-luasnip": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1726165831,
-        "narHash": "sha256-nkaa1NGOI28Et2QitQB+Spv+J42QVdHE1oywteLcJJw=",
-        "owner": "L3MON4D3",
-        "repo": "LuaSnip",
-        "rev": "e808bee352d1a6fcf902ca1a71cee76e60e24071",
-        "type": "github"
-      },
-      "original": {
-        "owner": "L3MON4D3",
-        "repo": "LuaSnip",
         "type": "github"
       }
     },
@@ -1906,9 +1909,9 @@
         "plugin-lspkind": "plugin-lspkind",
         "plugin-lspsaga": "plugin-lspsaga",
         "plugin-lualine": "plugin-lualine",
+        "plugin-luasnip": "plugin-luasnip",
         "plugin-lz-n": "plugin-lz-n",
         "plugin-lzn-auto-require": "plugin-lzn-auto-require",
-        "plugin-luasnip": "plugin-luasnip",
         "plugin-mind-nvim": "plugin-mind-nvim",
         "plugin-minimap-vim": "plugin-minimap-vim",
         "plugin-modes-nvim": "plugin-modes-nvim",
