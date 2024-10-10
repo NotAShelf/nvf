@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.languages) diagnosticsToLua;
@@ -17,13 +17,6 @@
 
   # Creating a version of the LSP with access to the kotlin binary.
   # This is necessary for the LSP to load the standard library
-  kotlinLspWithRuntime = pkgs.symlinkJoin {
-    name = "kotlin-language-server-with-runtime";
-    paths = [
-      pkgs.kotlin-language-server
-      pkgs.kotlin
-    ];
-  };
 
   defaultDiagnosticsProvider = ["ktlint"];
   diagnosticsProviders = {
@@ -54,7 +47,18 @@ in {
       package = mkOption {
         description = "kotlin_language_server package with Kotlin runtime";
         type = package;
-        default = kotlinLspWithRuntime;
+        example = literalExpression ''
+          pkgs.symlinkJoin {
+              name = "Kotlin-LSP-Wrapped";
+              paths = [pkgs.kotlin-language-server];
+              nativeBuildInputs = [pkgs.makeWrapper];
+              postBuild = '''
+                wrapProgram $out/bin/kotlin-language-server \
+                  --prefix PATH : ${pkgs.lib.makeBinPath [pkgs.kotlin]}
+              ''';
+            };
+        '';
+        default = pkgs.kotlin-language-server;
       };
     };
 
