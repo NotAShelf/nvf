@@ -73,6 +73,7 @@ isMaximal: {
         enable = isMaximal;
         crates.enable = isMaximal;
       };
+      nu.enable = isMaximal;
     };
 
     visuals = {
