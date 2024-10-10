@@ -9,8 +9,7 @@
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.lib) luaInline;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption luaInline;
   inherit (lib.options) mkOption mkEnableOption mkPackageOption;
   inherit (lib.strings) optionalString;
   inherit (lib.types) attrsOf anything bool;
