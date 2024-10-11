@@ -249,3 +249,7 @@ everyone.
   `vim.theme`
 - Fix internal breakage in `elixir-tools` setup.
 
+
+[ksonj](https://github.com/ksonj):
+
+- Add LSP support for Scala via [nvim-metals](https://github.com/scalameta/nvim-metals)
