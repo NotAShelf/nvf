@@ -69,6 +69,7 @@ isMaximal: {
         lsp.server = "clangd";
       };
 
+      scala.enable = isMaximal;
       rust = {
         enable = isMaximal;
         crates.enable = isMaximal;
