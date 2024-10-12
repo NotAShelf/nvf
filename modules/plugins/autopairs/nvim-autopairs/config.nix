@@ -4,16 +4,17 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.trivial) boolToString;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) toLuaObject;
 
-  cfg = config.vim.autopairs;
+  cfg = config.vim.autopairs.nvim-autopairs;
 in {
   config = mkIf cfg.enable {
-    vim.startPlugins = ["nvim-autopairs"];
-
-    vim.pluginRC.autopairs = entryAnywhere ''
-      require("nvim-autopairs").setup({ map_cr = ${boolToString (!config.vim.autocomplete.enable)} })
-    '';
+    vim = {
+      startPlugins = ["nvim-autopairs"];
+      pluginRC.autopairs = entryAnywhere ''
+        require('nvim-autopairs').setup(${toLuaObject cfg.setupOpts})
+      '';
+    };
   };
 }

@@ -8,6 +8,7 @@ in {
     ./css.nix
     ./elixir.nix
     ./go.nix
+    ./kotlin.nix
     ./html.nix
     ./java.nix
     ./lua.nix

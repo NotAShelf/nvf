@@ -1,6 +1,6 @@
 {
   imports = [
+    ./luasnip.nix
     ./config.nix
-    ./nvim-cmp.nix
   ];
 }
