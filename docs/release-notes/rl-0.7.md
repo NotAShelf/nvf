@@ -264,6 +264,7 @@ everyone.
   ccc
 - Add LSP, diagnostics, formatter and Treesitter support for Kotlin under
   `vim.languages.kotlin`
+- changed default keybinds for leap.nvim to avoid altering expected behavior
 
 [Bloxx12](https://github.com/Bloxx12)
 
