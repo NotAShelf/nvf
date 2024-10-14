@@ -3,8 +3,8 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.binds) mkBinding pushDownDefault;
+  inherit (lib.modules) mkIf mkMerge mkDefault;
+  inherit (lib.nvim.binds) mkBinding;
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.utility.motion.leap;
