@@ -9,22 +9,22 @@ in {
       leapForwardTo = mkOption {
         type = nullOr str;
         description = "Leap forward to";
-        default = "<leader>ss";
+        default = "s";
       };
       leapBackwardTo = mkOption {
         type = nullOr str;
         description = "Leap backward to";
-        default = "<leader>sS";
+        default = "S";
       };
       leapForwardTill = mkOption {
         type = nullOr str;
         description = "Leap forward till";
-        default = "<leader>sx";
+        default = "x";
       };
       leapBackwardTill = mkOption {
         type = nullOr str;
         description = "Leap backward till";
-        default = "<leader>sX";
+        default = "X";
       };
       leapFromWindow = mkOption {
         type = nullOr str;
