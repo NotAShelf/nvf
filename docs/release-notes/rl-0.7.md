@@ -242,6 +242,7 @@ everyone.
 - Add LSP and Treesitter support for R under `vim.languages.R`.
 - Add Otter support under `vim.lsp.otter` and an assert to prevent conflict with
   ccc
+- changed default keybinds for leap.nvim to avoid altering expected behavior
   
 [Bloxx12](https://github.com/Bloxx12)
 
