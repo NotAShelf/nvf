@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.binds) mkBinding;
+  inherit (lib.nvim.binds) mkBinding pushDownDefault;
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.utility.motion.leap;
@@ -36,6 +36,10 @@ in {
       (mkBinding cfg.mappings.leapBackwardTill "<Plug>(leap-backward-till)" "Leap backward till")
       (mkBinding cfg.mappings.leapFromWindow "<Plug>(leap-from-window)" "Leap from window")
     ];
+
+    vim.binds.whichKey.register = pushDownDefault {
+      "<leader>s" = "+Leap";
+    };
 
     vim.pluginRC.leap-nvim = entryAnywhere ''
       require('leap').opts = {
