@@ -55,6 +55,7 @@ isMaximal: {
       ts.enable = isMaximal;
       svelte.enable = isMaximal;
       go.enable = isMaximal;
+      lua.enable = isMaximal;
       elixir.enable = isMaximal;
       zig.enable = isMaximal;
       ocaml.enable = isMaximal;
