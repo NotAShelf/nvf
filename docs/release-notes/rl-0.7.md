@@ -104,7 +104,7 @@ everyone.
 
 - Add [lz.n] support and lazy-load some builtin plugins.
 
-[lz.n]: https://github.com/mrcjkb/rustaceanvim
+[lz.n]: https://github.com/mrcjkb/lz.n
 
 [jacekpoz](https://jacekpoz.pl):
 
