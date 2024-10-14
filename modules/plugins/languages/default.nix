@@ -8,6 +8,7 @@ in {
     ./css.nix
     ./elixir.nix
     ./go.nix
+    ./kotlin.nix
     ./html.nix
     ./java.nix
     ./lua.nix
@@ -19,6 +20,7 @@ in {
     ./python.nix
     ./r.nix
     ./rust.nix
+    ./scala.nix
     ./sql.nix
     ./svelte.nix
     ./tailwind.nix

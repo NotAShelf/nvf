@@ -45,10 +45,10 @@ in {
 
         completion = {
           nvim_cmp = mkOption {
-            # if using nvim-cmp, otherwise set to false
+            # If using nvim-cmp, otherwise set to false
             type = bool;
             description = "If using nvim-cmp, otherwise set to false";
-            default = config.vim.autocomplete.type == "nvim-cmp";
+            default = config.vim.autocomplete.nvim-cmp.enable;
           };
         };
       };

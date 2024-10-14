@@ -51,9 +51,11 @@ isMaximal: {
       css.enable = isMaximal;
       sql.enable = isMaximal;
       java.enable = isMaximal;
+      kotlin.enable = isMaximal;
       ts.enable = isMaximal;
       svelte.enable = isMaximal;
       go.enable = isMaximal;
+      lua.enable = isMaximal;
       elixir.enable = isMaximal;
       zig.enable = isMaximal;
       ocaml.enable = isMaximal;
@@ -68,6 +70,7 @@ isMaximal: {
         lsp.server = "clangd";
       };
 
+      scala.enable = isMaximal;
       rust = {
         enable = isMaximal;
         crates.enable = isMaximal;
@@ -105,12 +108,10 @@ isMaximal: {
       transparent = false;
     };
 
-    autopairs.enable = true;
+    autopairs.nvim-autopairs.enable = true;
 
-    autocomplete = {
-      enable = true;
-      type = "nvim-cmp";
-    };
+    autocomplete.nvim-cmp.enable = true;
+    snippets.luasnip.enable = true;
 
     filetree = {
       nvimTree = {
