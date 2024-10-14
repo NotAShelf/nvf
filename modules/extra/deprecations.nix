@@ -35,5 +35,19 @@ in {
       vim.snippets.vsnip.enable has been removed in favor of the more modern luasnip.
     '')
     (mkRenamedOptionModule ["vim" "lsp" "lspkind" "mode"] ["vim" "lsp" "lspkind" "setupOpts" "mode"])
+
+    # 2024-10-14
+    (mkRemovedOptionModule ["vim" "configRC"] ''
+      Please migrate your configRC sections to Neovim's Lua format, and
+      add them to `vim.luaConfigRC`.
+
+      See the v0.7 release notes for more information on why and how to
+      migrate your existing configurations to the new format.
+    '')
+
+    (mkRemovedOptionModule ["vim" "disableDefaultRuntimePaths"] ''
+      Nvf now uses $NVIM_APP_NAME so there is no longer the problem of
+      (accidental) leaking of user configuration.
+    '')
   ];
 }

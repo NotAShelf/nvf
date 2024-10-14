@@ -93,6 +93,9 @@ everyone.
 - Add dap-go for better dap configurations
 - Make noice.nvim customizable
 - Standardize border style options and add custom borders
+- Remove `vim.disableDefaultRuntimePaths` in wrapper options.
+  - As nvf uses `$NVIM_APP_NAME` as of recent changes, we can safely assume any
+    configuration in `$XDG_CONFIG_HOME/nvf` is intentional.
 
 [rust-tools.nvim]: https://github.com/simrat39/rust-tools.nvim
 [rustaceanvim]: https://github.com/mrcjkb/rustaceanvim
@@ -270,4 +273,5 @@ everyone.
 
 [ksonj](https://github.com/ksonj):
 
-- Add LSP support for Scala via [nvim-metals](https://github.com/scalameta/nvim-metals)
+- Add LSP support for Scala via
+  [nvim-metals](https://github.com/scalameta/nvim-metals)
