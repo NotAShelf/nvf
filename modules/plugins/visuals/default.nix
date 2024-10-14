@@ -1,7 +1,19 @@
-{...}: {
+{lib, ...}: let
+  inherit (lib.modules) mkRemovedOptionModule;
+in {
   imports = [
-    ./config.nix
-    ./visuals.nix
-    ./fidget
+    (mkRemovedOptionModule ["vim" "visuals" "enable"] ''
+      As top-level toggles are being deprecated, you are encouraged
+      to handle plugin toggles under individual options.
+    '')
+
+    ./cellular-automaton
+    ./cinnamon-nvim
+    ./fidget-nvim
+    ./highlight-undo
+    ./indent-blankline
+    ./nvim-cursorline
+    ./nvim-scrollbar
+    ./nvim-web-devicons
   ];
 }

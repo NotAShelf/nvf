@@ -75,20 +75,17 @@ isMaximal: {
     };
 
     visuals = {
-      enable = true;
-      nvimWebDevicons.enable = true;
-      scrollBar.enable = isMaximal;
-      smoothScroll.enable = true;
-      cellularAutomaton.enable = false;
+      nvim-scrollbar.enable = isMaximal;
+      nvim-web-devicons.enable = true;
+      nvim-cursorline.enable = true;
+      cinnamon-nvim.enable = true;
       fidget-nvim.enable = true;
+
       highlight-undo.enable = true;
+      indent-blankline.enable = true;
 
-      indentBlankline.enable = true;
-
-      cursorline = {
-        enable = true;
-        lineTimeout = 0;
-      };
+      # Fun
+      cellular-automaton.enable = false;
     };
 
     statusline = {
