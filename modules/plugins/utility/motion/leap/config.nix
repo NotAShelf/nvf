@@ -37,9 +37,7 @@ in {
       (mkBinding cfg.mappings.leapFromWindow "<Plug>(leap-from-window)" "Leap from window")
     ];
 
-    vim.binds.whichKey.register = pushDownDefault {
-      "<leader>s" = "+Leap";
-    };
+    vim.binds.whichKey.register."<leader>s" = mkDefault "+Leap";
 
     vim.pluginRC.leap-nvim = entryAnywhere ''
       require('leap').opts = {
