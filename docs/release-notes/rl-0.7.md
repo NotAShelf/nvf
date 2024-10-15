@@ -65,6 +65,10 @@ everyone.
 
 ## Changelog {#sec-release-0.7-changelog}
 
+[nezia1](https://github.com/nezia1):
+
+- Replace [nixpkgs-fmt](https://github.com/nix-community/nixpkgs-fmt) with [nixfmt](https://github.com/NixOS/nixfmt) (nixfmt-rfc-style). 
+
 [ItsSorae](https://github.com/ItsSorae):
 
 - Add support for [typst](https://typst.app/) under `vim.languages.typst` This
