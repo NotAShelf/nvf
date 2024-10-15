@@ -262,6 +262,7 @@ everyone.
 - Add LSP and Treesitter support for R under `vim.languages.R`.
 - Add Otter support under `vim.lsp.otter` and an assert to prevent conflict with
   ccc
+- Add Neorg support under `vim.notes.neorg`
 - Add LSP, diagnostics, formatter and Treesitter support for Kotlin under
   `vim.languages.kotlin`
 - changed default keybinds for leap.nvim to avoid altering expected behavior
@@ -276,3 +277,4 @@ everyone.
 
 - Add LSP support for Scala via
   [nvim-metals](https://github.com/scalameta/nvim-metals)
+
