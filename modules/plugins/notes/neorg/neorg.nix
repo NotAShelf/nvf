@@ -9,7 +9,9 @@
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
 in {
   options.vim.notes.neorg = {
-    enable = mkEnableOption "neorg: Neovim plugin for Neorg";
+    enable = mkEnableOption ''
+      Neorg: An intuitive note-taking and organization tool with a structured nested syntax.
+    '';
 
     setupOpts = mkPluginSetupOption "Neorg" {
       load = {
@@ -18,7 +20,7 @@ in {
 
           type = submodule {
             options = {
-              enable = mkEnableOption "A wrapper to interface with several different completion engines.";
+              enable = mkEnableOption "Wrapper to interface with several different completion engines.";
               config = {
                 disable = mkOption {
                   type = listOf str;
