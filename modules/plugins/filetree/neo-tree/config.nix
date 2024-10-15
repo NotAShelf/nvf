@@ -14,8 +14,6 @@ in {
         "plenary-nvim" # commons library
         "image-nvim" # optional for image previews
         "nui-nvim" # ui library
-        # neotree
-        "neo-tree-nvim"
       ];
 
       lazy.plugins = [
