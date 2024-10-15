@@ -17,14 +17,23 @@ in {
       load = {
         "core.defaults" = mkOption {
           default = {};
+          description = ''
+            all of the most important modules that any user would want to have a "just works" experience
+          '';
 
           type = submodule {
             options = {
-              enable = mkEnableOption "wrapper to interface with several different completion engines.";
+              enable = mkEnableOption ''
+            all of the most important modules that any user would want to have a "just works" experience
+            '';
               config = {
                 disable = mkOption {
+                  description = ''
+                    list of modules from to be disabled from core.defaults
+                  '';
                   type = listOf str;
                   default = [];
+                  example = ["core.autocommands" "core.itero"];
                 };
               };
             };
