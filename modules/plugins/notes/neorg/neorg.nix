@@ -20,7 +20,7 @@ in {
 
           type = submodule {
             options = {
-              enable = mkEnableOption "Wrapper to interface with several different completion engines.";
+              enable = mkEnableOption "wrapper to interface with several different completion engines.";
               config = {
                 disable = mkOption {
                   type = listOf str;
