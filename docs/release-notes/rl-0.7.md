@@ -277,3 +277,4 @@ everyone.
 
 - Add LSP support for Scala via
   [nvim-metals](https://github.com/scalameta/nvim-metals)
+
