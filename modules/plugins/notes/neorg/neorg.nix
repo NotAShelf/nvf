@@ -24,8 +24,8 @@ in {
           type = submodule {
             options = {
               enable = mkEnableOption ''
-            all of the most important modules that any user would want to have a "just works" experience
-            '';
+                all of the most important modules that any user would want to have a "just works" experience
+              '';
               config = {
                 disable = mkOption {
                   description = ''
