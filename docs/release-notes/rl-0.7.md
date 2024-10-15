@@ -93,6 +93,9 @@ everyone.
 - Add dap-go for better dap configurations
 - Make noice.nvim customizable
 - Standardize border style options and add custom borders
+- Remove `vim.disableDefaultRuntimePaths` in wrapper options.
+  - As nvf uses `$NVIM_APP_NAME` as of recent changes, we can safely assume any
+    configuration in `$XDG_CONFIG_HOME/nvf` is intentional.
 
 [rust-tools.nvim]: https://github.com/simrat39/rust-tools.nvim
 [rustaceanvim]: https://github.com/mrcjkb/rustaceanvim
@@ -153,6 +156,20 @@ everyone.
 - Add a `setupOpts` option to nvim-surround, which allows modifying options that
   aren't defined in nvf. Move the alternate nvim-surround keybinds to use
   `setupOpts`.
+
+- Remove `autopairs.type`, and rename `autopairs.enable` to
+  `autopairs.nvim-autopairs.enable`. The new
+  [](#opt-vim.autopairs.nvim-autopairs.enable) supports `setupOpts` format by
+  default.
+
+- Refactor of `nvim-cmp` and completion related modules
+  - Remove `autocomplete.type` in favor of per-plugin enable options such as
+    [](#opt-vim.autocomplete.nvim-cmp.enable).
+  - Deprecate legacy Vimsnip in favor of Luasnip, and integrate
+    friendly-snippets for bundled snippets. [](#opt-vim.snippets.luasnip.enable)
+    can be used to toggle Luasnip.
+  - Add sorting function options for completion sources under
+    [](#opt-vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators)
 
 [Neovim documentation on `vim.cmd`]: https://neovim.io/doc/user/lua.html#vim.cmd()
 
@@ -246,9 +263,17 @@ everyone.
 - Add Otter support under `vim.lsp.otter` and an assert to prevent conflict with
   ccc
 - Add Neorg support under `vim.notes.neorg`
+- Add LSP, diagnostics, formatter and Treesitter support for Kotlin under
+  `vim.languages.kotlin`
+- changed default keybinds for leap.nvim to avoid altering expected behavior
 
 [Bloxx12](https://github.com/Bloxx12)
 
 - Add support for [base16 theming](https://github.com/RRethy/base16-nvim) under
   `vim.theme`
 - Fix internal breakage in `elixir-tools` setup.
+
+[ksonj](https://github.com/ksonj):
+
+- Add LSP support for Scala via
+  [nvim-metals](https://github.com/scalameta/nvim-metals)

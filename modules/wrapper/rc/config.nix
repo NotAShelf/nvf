@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (builtins) map mapAttrs filter;
-  inherit (lib.attrsets) mapAttrsToList filterAttrs;
+  inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.strings) concatLines concatMapStringsSep;
   inherit (lib.trivial) showWarnings;
   inherit (lib.generators) mkLuaInline;
