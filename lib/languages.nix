@@ -2,8 +2,8 @@
 {lib}: let
   inherit (builtins) isString getAttr;
   inherit (lib.options) mkOption;
-  inherit (lib.attrsets) listToAttrs;
   inherit (lib.types) bool;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 in {
   # A wrapper around `mkOption` to create a boolean option that is
   # used for Language Server modules.
@@ -21,19 +21,19 @@ in {
     config,
     diagnosticsProviders,
   }:
-    listToAttrs
-    (map (v: let
-        type =
-          if isString v
-          then v
-          else getAttr v.type;
-        package =
-          if isString v
-          then diagnosticsProviders.${type}.package
-          else v.package;
-      in {
-        name = "${lang}-diagnostics-${type}";
-        value = diagnosticsProviders.${type}.nullConfig package;
-      })
-      config);
+    mapListToAttrs
+    (v: let
+      type =
+        if isString v
+        then v
+        else getAttr v.type;
+      package =
+        if isString v
+        then diagnosticsProviders.${type}.package
+        else v.package;
+    in {
+      name = "${lang}-diagnostics-${type}";
+      value = diagnosticsProviders.${type}.nullConfig package;
+    })
+    config;
 }

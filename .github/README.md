@@ -33,10 +33,9 @@
 
 <div align="center">
   <a>
-    A highly modular, configurable, extensible and easy to use Neovim configuration 
-    framework in Nix. Designed for flexibility and ease of use, this flake 
-    allows you to easily configure your Neovim instance with a few lines of 
-    Nix code.
+    nvf is a highly modular, configurable, extensible and easy to use Neovim configuration
+    in Nix. Designed for flexibility and ease of use, nvf allows you to easily configure
+    your fully featured Neovim instance with a few lines of Nix.
   </a>
 </div>
 
@@ -44,6 +43,7 @@
 
 <div align="center"><p>
 
+[Features]: #features
 [Get Started]: #get-started
 [Documentation]: #documentation
 [Help]: #help
@@ -51,119 +51,156 @@
 [FAQ]: #faq
 [Credits]: #credits
 
-**[<kbd> <br> Get Started <br> </kbd>][Get Started]**
-**[<kbd> <br> Documentation <br> </kbd>][Documentation]**
-**[<kbd> <br> Help <br> </kbd>][Help]**
-**[<kbd> <br> Contribute <br> </kbd>][Contribute]**
-**[<kbd> <br> FAQ <br> </kbd>][Faq]**
-**[<kbd> <br> Credits <br> </kbd>][Credits]**
+**[<kbd><br> Features <br></kbd>][Features]**
+**[<kbd><br> Get Started <br></kbd>][Get Started]**
+**[<kbd><br> Documentation <br></kbd>][Documentation]**
+**[<kbd><br> Help <br></kbd>][Help]**
+**[<kbd><br> Contribute <br></kbd>][Contribute]**
+**[<kbd><br> FAQ <br></kbd>][Faq]** **[<kbd><br> Credits <br></kbd>][Credits]**
 
 </p></div>
 
 ---
 
+## Features
+
+- **Reproducible**: Your configuration will behave the same _anywhere_. No
+  surprises, promise!
+- **Portable**: nvf depends _solely_ on your Nix store, and nothing else. No
+  more global binaries! Works on all platforms, without hassle.
+- **Customizable**: There are _almost no defaults_ to annoy you. nvf is fully
+  customizable through the Nix module system.
+- **Well-documented**: Documentation is priority. You will _never_ face
+  undocumented, obscure behaviour.
+- **Idiomatic**: nvf does things ✨ _the right way_ ✨ - the codebase is, and
+  will, remain maintainable for myself and any contributors.
+
 ## Get Started
 
-### Using `nix` CLI
+[nvf manual]: https://notashelf.github.io/nvf/
+[issue tracker]: https://github.com/NotAShelf/nvf/issues
 
-If you would like to try out the configuration before even thinking about
-installing it, you can run the following command
+If you are not sold on the concepts of **nvf**, and would like to try out the
+default configuration before even _thinking about_ installing it, you may run
+the following in order to take **nvf** out for a spin.
 
-```console
+```bash
+# Run the default package
 nix run github:notashelf/nvf
 ```
 
-This will get you a feel for the base configuration and UI design.
-The flake exposes `#nix` as the default package, providing minimal
-language support and various utilities.You may also use `#nix`,
-`#tidal` or `#maximal` to get try out different configurations.
+This will get you a feel for the base configuration and UI design. Though, none
+of the configuration options are final as **nvf** is designed to be modular and
+configurable.
 
-It is as simple as changing the target output to get a different
-configuration. For example, to get a configuration with `tidal` support, run:
+> [!TIP]
+> The flake exposes `#nix` as the default package, providing minimal language
+> support and various utilities. You may also use the `#nix` or `#maximal`
+> packages provided by the this flake to get try out different configurations.
 
-```console
-nix run github:notashelf/nvf#tidal
+It is as simple as changing the target output to get a different configuration.
+For example, to get a configuration with large language coverage, run:
+
+```bash
+# Run the maximal package
+nix run github:notashelf/nvf#maximal
 ```
 
 Similar instructions will apply for `nix profile install`. However, you are
 recommended to instead use the module system as described in the manual.
 
-> [!NOTE]  
-> The `maximal` configuration is _massive_ and will take a while to build.
-> To get a feel for the configuration, use the default `nix` or `tidal`
-> configurations. Should you choose to try out the `maximal` configuration,
-> using the binary cache as described in the manual is _strongly_ recommended.
+> [!NOTE]
+> The `maximal` configuration is quite large, and might take a while to build.
+> To get a feel for the configuration, use the default `nix` configuration.
+> Should you choose to try out the `maximal` configuration, using the binary
+> cache as described in the manual is _strongly_ recommended.
+
+If you are convinced, proceed to the next section to view the installation
+instructions.
 
 ## Documentation
 
-See the [**nvf** Manual](https://notashelf.github.io/nvf/) for
-detailed installation guides, configurations, available options, release notes
-and more. Tips for installing userspace plugins is also contained in the
-documentation.
+The _recommended_ way of installing **nvf** is using either the NixOS or the
+Home-Manager module, though it is completely possible and no less supported to
+install **nvf** as a standalone package, or a flake output.
 
-If you want to dive right into trying **nvf** you can get a fully
-featured configuration with `nix` language support by running:
+See the rendered [nvf manual] for detailed and up-to-date installation guides,
+configurations, available options, release notes and more. Tips for installing
+userspace plugins is also contained in the documentation.
 
-```console
-nix run github:notashelf/nvf#nix
-```
+> [!TIP]
+> While using NixOS or Home-Manager modules,
+> `programs.nvf.enableManpages = true;` will allow you to view option
+> documentation from the comfort of your terminal via `man 5 nvf`. The more you
+> know.
 
-[Issues]: https://github.com/NotAShelf/nvf/issues
-
-Please create an issue on the [issue tracker](issues) if you find
-the documentation lacking or confusing. I also appreciate any contributions
-to the documentation.
+Please create an issue on the [issue tracker] if you find the documentation
+lacking or confusing. Any improvements to the documentation through pull
+requests are also welcome, and appreciated.
 
 ## Help
 
-You can create an issue on the [issue tracker](issues) to ask questions
-or report bugs. I am not yet on spaces like matrix or IRC, so please use the issue
-tracker for now.
+You can create an issue on the [issue tracker] to ask questions or report bugs.
+I am not yet on spaces like matrix or IRC, so please use the issue tracker for
+now.
 
 ## Contributing
 
 I am always looking for new ways to help improve this flake. If you would like
 to contribute, please read the [contributing guide](CONTRIBUTING.md) before
-submitting a pull request. You can also create an issue on the
-[issue tracker](issues) before submitting a pull request if you would
-like to discuss a feature or bug fix.
+submitting a pull request. You can also create an issue on the [issue tracker]
+before submitting a pull request if you would like to discuss a feature or bug
+fix.
 
 ## FAQ
 
+[appropriate issue template]: https://github.com/NotAShelf/nvf/issues/new/choose
+[list of branches]: https://github.com/NotAShelf/nvf/branches
+[list of open pull requests]: https://github.com/NotAShelf/nvf/pulls
+
+**Q**: What platforms are supported?
+<br/> **A**: nvf actively supports Linux and Darwin platforms using standalone
+Nix, NixOS or Home-Manager. Please take a look at the
+
 **Q**: Can you add _X_?
-<br/>
-**A**: Maybe! It is not one of our goals to support each and every Neovim
-plugin, however, I am always open to new modules and plugin setup additions
-to **nvf**. Use the [appropritate issue template](issues/new/choose) and I will
-consider a module addition.
+<br/> **A**: Maybe! It is not one of our goals to support each and every Neovim
+plugin, however, I am always open to new modules and plugin setup additions to
+**nvf**. Use the [appropriate issue template] and I will consider a module
+addition. As mentioned before, PRs adding new features are also welcome.
 
 **Q**: A plugin I need is not available in **nvf**. What to do?
-<br/>
-**A**: **nvf** exposes several APIs for you to be able to add your own
-plugin configurations! Please see the documentation on how you may do
-this.
+<br/> **A**: **nvf** exposes several APIs for you to be able to add your own
+plugin configurations! Please see the documentation on how you may do this.
 
 **Q**: Main branch is awfully silent, is the project dead?
-<br/>
-**A**: No! Sometimes we branch out (e.g. v0.6) to avoid breaking userspace
-and work in a separate branch until we make sure the new additions are
-implemented in the most comfortable way available to the end user. If you have
-not noticed any activity on the main branch, consider taking a look at the [list
-of branches](https://github.com/NotAShelf/nvf/branches=) or the [list of open
-pull requests](https://github.com/NotAShelf/nvf)
+<br/> **A**: No! Sometimes we branch out (e.g. `v0.6`) to avoid breaking
+userspace and work in a separate branch until we make sure the new additions are
+implemented in the most comfortable way possible for the end user. If you have
+not noticed any activity on the main branch, consider taking a look at the
+[list of branches] or the [list of open pull requests]. You may also consider
+_testing_ those release branches to get access to new features ahead of time and
+better prepare to breaking changes.
 
 ## Credits
 
 ### Contributors
 
-Special thanks to
+Special, heart-felt thanks to
 
 - [@fufexan](https://github.com/fufexan) - For the transition to flake-parts
-- [@FlafyDev](https://github.com/FlafyDev) - For getting the home-manager to work
-- [@n3oney](https://github.com/n3oney) - For making custom keybinds finally possible
-- [@horriblename](https://github.com/horriblename) - For actively implementing planned features and quality of life updates
+- [@FlafyDev](https://github.com/FlafyDev) - For getting the home-manager to
+  work
+- [@n3oney](https://github.com/n3oney) - For making custom keybinds finally
+  possible
+- [@horriblename](https://github.com/horriblename) - For actively implementing
+  planned features and quality of life updates
 - [@Yavko](https://github.com/Yavko) - For the amazing **nvf** logo
-- [@FrothyMarrow](https://github.com/FrothyMarrow) - For seeing mistakes that I could not
+- [@FrothyMarrow](https://github.com/FrothyMarrow) - For seeing mistakes that I
+  could not
+- [@Diniamo](https://github.com/Diniamo) - For actively submitting PRs, pull
+  requests and overall assistence
+- [@Gerg-l](https://github.com/gerg-l) - For the modern Neovim wrapper, mnw and
+  occasional code improvements
 
 and everyone who has submitted issues or pull requests!
 
@@ -172,10 +209,18 @@ and everyone who has submitted issues or pull requests!
 This configuration borrows from and is based on a few other configurations,
 including:
 
-- [@jordanisaacs's](https://github.com/jordanisaacs) [neovim-flake](https://github.com/jordanisaacs/neovim-flake) that this flake is originally based on.
-- [@sioodmy's](https://github.com/sioodmy) [dotfiles](https://github.com/sioodmy/dotfiles) that inspired the design choices.
-- [@wiltaylor's](https://github.com/wiltaylor) [neovim-flake](https://github.com/wiltaylor/neovim-flake) for plugin and design ideas.
-- [@gvolpe's](https://github.com/gvolpe) [neovim-flake](https://github.com/gvolpe/neovim-flake) for plugin, design and nix concepts.
+- [@jordanisaacs's](https://github.com/jordanisaacs)
+  [neovim-flake](https://github.com/jordanisaacs/neovim-flake) that this flake
+  is originally based on.
+- [@sioodmy's](https://github.com/sioodmy)
+  [dotfiles](https://github.com/sioodmy/dotfiles) that inspired the design
+  choices.
+- [@wiltaylor's](https://github.com/wiltaylor)
+  [neovim-flake](https://github.com/wiltaylor/neovim-flake) for plugin and
+  design ideas.
+- [@gvolpe's](https://github.com/gvolpe)
+  [neovim-flake](https://github.com/gvolpe/neovim-flake) for plugin, design and
+  nix concepts.
 
 I am grateful for their previous work and inspiration, and I wholeheartedly
 recommend checking their work out.
@@ -183,10 +228,13 @@ recommend checking their work out.
 
 ## License
 
-Following the license of the [original neovim-flake](https://github.com/jordanisaacs/neovim-flake),
-**nvf** has been made available under the [**MIT License**](LICENSE). However, all assets
-and documentation are published under the 
+Following the license of the
+[original neovim-flake](https://github.com/jordanisaacs/neovim-flake), **nvf**
+has been made available under the [**MIT License**](LICENSE). However, all
+assets and documentation are published under the
 [**CC BY License**](https://github.com/NotAShelf/nvf/blob/main/.github/assets/LICENSE).
+
+<h6 align="center">Yes, this includes the logo work too. Stop taking artwork that is not yours!</h6>
 
 ---
 

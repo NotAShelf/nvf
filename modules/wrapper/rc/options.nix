@@ -3,27 +3,18 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkRemovedOptionModule;
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
   inherit (lib.strings) optionalString;
-  inherit (lib.types) str attrs lines listOf either path bool;
+  inherit (lib.types) str attrs lines listOf either path;
   inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.lua) listToLuaTable;
 
   cfg = config.vim;
 in {
-  imports = [
-    (mkRemovedOptionModule ["vim" "configRC"] ''
-      Please migrate your configRC sections to Neovim's Lua format, and
-      add them to luaConfigRC.
-
-      See the v0.7 release notes for more information on how to migrate
-      your existing configurations.
-    '')
-  ];
-
   options.vim = {
     enableLuaLoader = mkEnableOption ''
+      [{option}`official documentation`]: https://neovim.io/doc/user/lua.html#vim.loader.enable()
+
       the experimental Lua module loader to speed up the start up process
 
       If `true`, this will enable the experimental Lua module loader which:
@@ -32,29 +23,11 @@ in {
         - adds the libs loader
         - removes the default Neovim loader
 
+      ::: {.note}
       This is disabled by default. Before setting this option, please
-      take a look at the [{option}`official documentation`](https://neovim.io/doc/user/lua.html#vim.loader.enable()).
+      take a look at the [{option}`official documentation`].
+      :::
     '';
-
-    disableDefaultRuntimePaths = mkOption {
-      type = bool;
-      default = true;
-      example = false;
-      description = ''
-        Disables the default runtime paths that are set by Neovim
-        when it starts up. This is useful when you want to have
-        full control over the runtime paths that are set by Neovim.
-
-        ::: {.note}
-        To avoid leaking imperative user configuration into your
-        configuration, this is enabled by default. If you wish
-        to load configuration from user configuration directories
-        (e.g. {file}`$HOME/.config/nvim`, {file}`$HOME/.config/nvim/after`
-        and {file}`$HOME/.local/share/nvim/site`) you may set this
-        option to true.
-        :::
-      '';
-    };
 
     additionalRuntimePaths = mkOption {
       type = listOf (either path str);
@@ -129,16 +102,38 @@ in {
     globals = mkOption {
       type = attrs;
       default = {};
+      example = {"some_variable" = 42;};
       description = ''
         An attribute set containing global variable values
         for storing vim variables as early as possible. If
         populated, this option will set vim variables in the
         built luaConfigRC as the first item.
 
-        E.g. {foo = "bar"} will set `vim.g.foo` to "bar" where
-        the type of `bar` in the resulting vimscript will be
-        infered from the type of the value in the `{name = value}`
-        pair.
+        ::: {.note}
+        `{foo = "bar";}` will set `vim.g.foo` to "bar", where
+        the type of `bar` in the resulting Lua value will be
+        inferred from the type of the value in the `{name = value;}`
+        pair passed to the option.
+        :::
+      '';
+    };
+
+    options = mkOption {
+      type = attrs;
+      default = {};
+      example = {visualbell = true;};
+      description = ''
+        An attribute set containing vim options to be set
+        as early as possible. If populated, this option will
+        set vim options in the built luaConfigRC after `basic`
+        and before `pluginConfigs` DAG entries.
+
+        ::: {.note}
+        `{foo = "bar";}` will set `vim.o.foo` to "bar", where
+        the type of `bar` in the resulting Lua value will be
+        inferred from the type of the value in the`{name = value;}`
+        pair passed to the option.
+        :::
       '';
     };
 
@@ -156,21 +151,6 @@ in {
           -- and is used to append additional runtime paths to the
           -- `runtimepath` option.
           vim.opt.runtimepath:append(${listToLuaTable cfg.additionalRuntimePaths})
-        ''}
-
-        ${optionalString cfg.disableDefaultRuntimePaths ''
-          -- Remove default user runtime paths from the
-          -- `runtimepath` option to avoid leaking user configuration
-          -- into the final neovim wrapper
-          local defaultRuntimePaths = {
-            vim.fn.stdpath('config'),              -- $HOME/.config/nvim
-            vim.fn.stdpath('config') .. "/after",  -- $HOME/.config/nvim/after
-            vim.fn.stdpath('data') .. "/site",     -- $HOME/.local/share/nvim/site
-          }
-
-          for _, path in ipairs(defaultRuntimePaths) do
-            vim.opt.runtimepath:remove(path)
-          end
         ''}
 
         ${optionalString cfg.enableLuaLoader "vim.loader.enable()"}

@@ -19,6 +19,7 @@ isMaximal: {
       lspsaga.enable = false;
       trouble.enable = true;
       lspSignature.enable = true;
+      otter-nvim.enable = isMaximal;
       lsplines.enable = isMaximal;
       nvim-docs-view.enable = isMaximal;
     };
@@ -50,9 +51,11 @@ isMaximal: {
       css.enable = isMaximal;
       sql.enable = isMaximal;
       java.enable = isMaximal;
+      kotlin.enable = isMaximal;
       ts.enable = isMaximal;
       svelte.enable = isMaximal;
       go.enable = isMaximal;
+      lua.enable = isMaximal;
       elixir.enable = isMaximal;
       zig.enable = isMaximal;
       ocaml.enable = isMaximal;
@@ -67,6 +70,7 @@ isMaximal: {
         lsp.server = "clangd";
       };
 
+      scala.enable = isMaximal;
       rust = {
         enable = isMaximal;
         crates.enable = isMaximal;
@@ -104,12 +108,10 @@ isMaximal: {
       transparent = false;
     };
 
-    autopairs.enable = true;
+    autopairs.nvim-autopairs.enable = true;
 
-    autocomplete = {
-      enable = true;
-      type = "nvim-cmp";
-    };
+    autocomplete.nvim-cmp.enable = true;
+    snippets.luasnip.enable = true;
 
     filetree = {
       nvimTree = {
@@ -155,7 +157,7 @@ isMaximal: {
     };
 
     utility = {
-      ccc.enable = isMaximal;
+      ccc.enable = false;
       vim-wakatime.enable = false;
       icon-picker.enable = isMaximal;
       surround.enable = isMaximal;
@@ -172,6 +174,7 @@ isMaximal: {
 
     notes = {
       obsidian.enable = false; # FIXME: neovim fails to build if obsidian is enabled
+      neorg.enable = false;
       orgmode.enable = false;
       mind-nvim.enable = isMaximal;
       todo-comments.enable = true;

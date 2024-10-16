@@ -26,6 +26,32 @@ making good use of its extensive Lua API. Additionally, Vimscript is slow and
 brings unnecessary performance overhead while working with different
 configuration formats.
 
+### `vim.maps` rewrite {#sec-vim-maps-rewrite}
+
+Instead of specifying map modes using submodules (eg.: `vim.maps.normal`), a new
+`vim.keymaps` submodule with support for a `mode` option has been introduced. It
+can be either a string, or a list of strings, where a string represents the
+short-name of the map mode(s), that the mapping should be set for. See
+`:help map-modes` for more information.
+
+For example:
+
+```nix
+vim.maps.normal."<leader>m" = { ... };
+```
+
+has to be replaced by
+
+```nix
+vim.keymaps = [
+  {
+    key = "<leader>m";
+    mode = "n";
+  }
+  ...
+];
+```
+
 ### `vim.lsp.nvimCodeActionMenu` removed in favor of `vim.ui.fastaction` {#sec-nvim-code-action-menu-deprecation}
 
 The nvim-code-action-menu plugin has been archived and broken for a long time,
@@ -67,6 +93,9 @@ everyone.
 - Add dap-go for better dap configurations
 - Make noice.nvim customizable
 - Standardize border style options and add custom borders
+- Remove `vim.disableDefaultRuntimePaths` in wrapper options.
+  - As nvf uses `$NVIM_APP_NAME` as of recent changes, we can safely assume any
+    configuration in `$XDG_CONFIG_HOME/nvf` is intentional.
 
 [rust-tools.nvim]: https://github.com/simrat39/rust-tools.nvim
 [rustaceanvim]: https://github.com/mrcjkb/rustaceanvim
@@ -80,13 +109,17 @@ everyone.
 
 [ocaml-lsp]: https://github.com/ocaml/ocaml-lsp
 [new-file-template.nvim]: https://github.com/otavioschwanck/new-file-template.nvim
+[neo-tree.nvim]: https://github.com/nvim-neo-tree/neo-tree.nvim
 
 - Add [ocaml-lsp] support
 
 - Fix "Emac" typo
 
 - Add [new-file-template.nvim] to automatically fill new file contents using
-  templates.
+  templates
+
+- Make [neo-tree.nvim] display file icons properly by enabling
+  `visuals.nvimWebDevicons`
 
 [diniamo](https://github.com/diniamo):
 
@@ -120,10 +153,29 @@ everyone.
 - Replace `vim.lsp.nvimCodeActionMenu` with `vim.ui.fastaction`, see the
   breaking changes section above for more details
 
+- Add a `setupOpts` option to nvim-surround, which allows modifying options that
+  aren't defined in nvf. Move the alternate nvim-surround keybinds to use
+  `setupOpts`.
+
+- Remove `autopairs.type`, and rename `autopairs.enable` to
+  `autopairs.nvim-autopairs.enable`. The new
+  [](#opt-vim.autopairs.nvim-autopairs.enable) supports `setupOpts` format by
+  default.
+
+- Refactor of `nvim-cmp` and completion related modules
+  - Remove `autocomplete.type` in favor of per-plugin enable options such as
+    [](#opt-vim.autocomplete.nvim-cmp.enable).
+  - Deprecate legacy Vimsnip in favor of Luasnip, and integrate
+    friendly-snippets for bundled snippets. [](#opt-vim.snippets.luasnip.enable)
+    can be used to toggle Luasnip.
+  - Add sorting function options for completion sources under
+    [](#opt-vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators)
+
 [Neovim documentation on `vim.cmd`]: https://neovim.io/doc/user/lua.html#vim.cmd()
 
 - Make Neovim's configuration file entirely Lua based. This comes with a few
   breaking changes:
+
   - `vim.configRC` has been removed. You will need to migrate your entries to
     Neovim-compliant Lua code, and add them to `vim.luaConfigRC` instead.
     Existing vimscript configurations may be preserved in `vim.cmd` functions.
@@ -131,6 +183,8 @@ everyone.
   - `vim.luaScriptRC` is now the top-level DAG, and the internal `vim.pluginRC`
     has been introduced for setting up internal plugins. See the "DAG entries in
     nvf" manual page for more information.
+
+- Rewrite `vim.maps`, see the breaking changes section above.
 
 [NotAShelf](https://github.com/notashelf):
 
@@ -187,12 +241,40 @@ everyone.
 - Add [python-lsp-server](https://github.com/python-lsp/python-lsp-server) as an
   additional Python LSP server.
 
+- Add [](#opt-vim.options) to set `vim.o` values in in your nvf configuration
+  without using additional Lua. See option documentation for more details.
+
+- Add [](#opt-vim.dashboard.dashboard-nvim.setupOpts) to allow user
+  configuration for [dashboard.nvim](https://github.com/nvimdev/dashboard-nvim)
+
+- Update `lualine.nvim` input and add missing themes:
+  - Adds `ayu`, `gruvbox_dark`, `iceberg`, `moonfly`, `onedark`,
+    `powerline_dark` and `solarized_light` themes.
+
 [ppenguin](https://github.com/ppenguin):
 
 - Telescope:
   - Fixed `project-nvim` command and keybinding
   - Added default ikeybind/command for `Telescope resume` (`<leader>fr`)
 
-[Soliprem](https://github.com/Soliprem)
+[Soliprem](https://github.com/Soliprem):
 
 - Add LSP and Treesitter support for R under `vim.languages.R`.
+- Add Otter support under `vim.lsp.otter` and an assert to prevent conflict with
+  ccc
+- Add Neorg support under `vim.notes.neorg`
+- Add LSP, diagnostics, formatter and Treesitter support for Kotlin under
+  `vim.languages.kotlin`
+- changed default keybinds for leap.nvim to avoid altering expected behavior
+
+[Bloxx12](https://github.com/Bloxx12)
+
+- Add support for [base16 theming](https://github.com/RRethy/base16-nvim) under
+  `vim.theme`
+- Fix internal breakage in `elixir-tools` setup.
+
+[ksonj](https://github.com/ksonj):
+
+- Add LSP support for Scala via
+  [nvim-metals](https://github.com/scalameta/nvim-metals)
+

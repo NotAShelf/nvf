@@ -13,6 +13,7 @@
     ./trouble
     ./lsp-signature
     ./lightbulb
+    ./otter
     ./lspkind
     ./lsplines
     ./nvim-docs-view

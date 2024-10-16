@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf mkMerge mkDefault;
   inherit (lib.nvim.binds) mkBinding;
   inherit (lib.nvim.dag) entryAnywhere;
 
@@ -36,6 +36,8 @@ in {
       (mkBinding cfg.mappings.leapBackwardTill "<Plug>(leap-backward-till)" "Leap backward till")
       (mkBinding cfg.mappings.leapFromWindow "<Plug>(leap-from-window)" "Leap from window")
     ];
+
+    vim.binds.whichKey.register."<leader>s" = mkDefault "+Leap";
 
     vim.pluginRC.leap-nvim = entryAnywhere ''
       require('leap').opts = {

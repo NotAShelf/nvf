@@ -12,9 +12,7 @@
   inherit (self.options.vim.comments.comment-nvim) mappings;
 in {
   config = mkIf cfg.enable {
-    vim.startPlugins = [
-      "comment-nvim"
-    ];
+    vim.startPlugins = ["comment-nvim"];
 
     vim.maps.normal = mkMerge [
       (mkBinding cfg.mappings.toggleOpLeaderLine "<Plug>(comment_toggle_linewise)" mappings.toggleOpLeaderLine.description)
@@ -36,7 +34,7 @@ in {
         mappings.toggleCurrentBlock.description)
     ];
 
-    vim.maps.visualOnly = mkMerge [
+    vim.maps.visual = mkMerge [
       (mkBinding cfg.mappings.toggleSelectedLine "<Plug>(comment_toggle_linewise_visual)" mappings.toggleSelectedLine.description)
       (mkBinding cfg.mappings.toggleSelectedBlock "<Plug>(comment_toggle_blockwise_visual)" mappings.toggleSelectedBlock.description)
     ];

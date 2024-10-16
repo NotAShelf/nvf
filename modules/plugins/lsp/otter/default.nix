@@ -1,6 +1,6 @@
 {
   imports = [
+    ./otter.nix
     ./config.nix
-    ./nvim-cmp.nix
   ];
 }

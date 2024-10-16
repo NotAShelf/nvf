@@ -17,29 +17,36 @@
     "ayu_dark"
     "ayu_light"
     "ayu_mirage"
+    "ayu"
     "codedark"
     "dracula"
     "everforest"
     "gruvbox"
+    "gruvbox_dark"
     "gruvbox_light"
     "gruvbox_material"
     "horizon"
     "iceberg_dark"
     "iceberg_light"
+    "iceberg"
     "jellybeans"
     "material"
     "modus_vivendi"
     "molokai"
+    "moonfly"
     "nightfly"
     "nord"
     "oceanicnext"
+    "onedark"
     "onelight"
     "palenight"
     "papercolor_dark"
     "papercolor_light"
+    "powerline_dark"
     "powerline"
     "seoul256"
     "solarized_dark"
+    "solarized_light"
     "tomorrow"
     "wombat"
   ];
@@ -224,7 +231,7 @@ in {
                 local buf_ft = vim.api.nvim_get_option_value('filetype', {})
 
                 -- List of buffer types to exclude
-                local excluded_buf_ft = {"toggleterm", "NvimTree", "TelescopePrompt"}
+                local excluded_buf_ft = {"toggleterm", "NvimTree", "neo-tree", "TelescopePrompt"}
 
                 -- Check if the current buffer type is in the excluded list
                 for _, excluded_type in ipairs(excluded_buf_ft) do

@@ -20,6 +20,8 @@ in {
         "neo-tree-nvim"
       ];
 
+      visuals.nvimWebDevicons.enable = true;
+
       pluginRC.neo-tree = entryAnywhere ''
         require("neo-tree").setup(${toLuaObject cfg.setupOpts})
       '';

@@ -13,8 +13,8 @@
       inherit inputs;
       specialArgs = {inherit lib;};
     } {
-      # provide overridable systems
-      # https://github.com/nix-systems/nix-systems
+      # Allow users to bring their own systems.
+      # «https://github.com/nix-systems/nix-systems»
       systems = import inputs.systems;
       imports = [
         ./flake/apps.nix
@@ -62,13 +62,27 @@
         pkgs,
         ...
       }: {
-        formatter = pkgs.alejandra;
         devShells = {
           default = self'.devShells.lsp;
           nvim-nix = pkgs.mkShell {packages = [config.packages.nix];};
           lsp = pkgs.mkShell {
             packages = with pkgs; [nil statix deadnix alejandra];
           };
+        };
+
+        # Provide the default formatter. `nix fmt` in project root
+        # will format available files with the correct formatter.
+        # P.S: Please do not format with nixfmt! It messes with many
+        # syntax elements and results in unreadable code.
+        formatter = pkgs.alejandra;
+
+        # Check if codebase is properly formatted.
+        # This can be initiated with `nix build .#checks.<system>.nix-fmt`
+        # or with `nix flake check`
+        checks = {
+          nix-fmt = pkgs.runCommand "nix-fmt-check" {nativeBuildInputs = [pkgs.alejandra];} ''
+            alejandra --check ${self} < /dev/null | tee $out
+          '';
         };
       };
     };
@@ -156,6 +170,11 @@
       flake = false;
     };
 
+    plugin-otter-nvim = {
+      url = "github:jmbuhr/otter.nvim";
+      flake = false;
+    };
+
     # Language support
     plugin-sqls-nvim = {
       url = "github:nanotee/sqls.nvim";
@@ -184,6 +203,11 @@
 
     plugin-ts-error-translator = {
       url = "github:dmmulroy/ts-error-translator.nvim";
+      flake = false;
+    };
+
+    plugin-nvim-metals = {
+      url = "github:scalameta/nvim-metals";
       flake = false;
     };
 
@@ -270,11 +294,6 @@
       flake = false;
     };
 
-    plugin-cmp-vsnip = {
-      url = "github:hrsh7th/cmp-vsnip";
-      flake = false;
-    };
-
     plugin-cmp-path = {
       url = "github:hrsh7th/cmp-path";
       flake = false;
@@ -285,9 +304,19 @@
       flake = false;
     };
 
+    plugin-cmp-luasnip = {
+      url = "github:saadparwaiz1/cmp_luasnip";
+      flake = false;
+    };
+
     # snippets
-    plugin-vim-vsnip = {
-      url = "github:hrsh7th/vim-vsnip";
+    plugin-luasnip = {
+      url = "github:L3MON4D3/LuaSnip";
+      flake = false;
+    };
+
+    plugin-friendly-snippets = {
+      url = "github:rafamadriz/friendly-snippets";
       flake = false;
     };
 
@@ -342,6 +371,11 @@
     };
 
     # Themes
+    plugin-base16 = {
+      url = "github:rrethy/base16-nvim";
+      flake = false;
+    };
+
     plugin-tokyonight = {
       url = "github:folke/tokyonight.nvim";
       flake = false;
@@ -621,6 +655,26 @@
     plugin-tabular = {
       # (required by vim-markdown)
       url = "github:godlygeek/tabular";
+      flake = false;
+    };
+
+    plugin-lua-utils-nvim = {
+      url = "github:nvim-neorg/lua-utils.nvim";
+      flake = false;
+    };
+
+    plugin-pathlib-nvim = {
+      url = "github:pysan3/pathlib.nvim";
+      flake = false;
+    };
+
+    plugin-neorg = {
+      url = "github:nvim-neorg/neorg";
+      flake = false;
+    };
+
+    plugin-neorg-telescope = {
+      url = "github:nvim-neorg/neorg-telescope";
       flake = false;
     };
 
