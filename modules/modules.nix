@@ -24,6 +24,7 @@
       "dashboard"
       "debugger"
       "filetree"
+      "formatter"
       "git"
       "languages"
       "lsp"
