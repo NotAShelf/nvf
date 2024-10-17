@@ -16,15 +16,13 @@ in {
         "nui-nvim" # ui library
       ];
 
-      lazy.plugins = [
-        {
-          package = "neo-tree-nvim";
-          setupModule = "neo-tree";
-          inherit (cfg) setupOpts;
+      lazy.plugins.neo-tree-nvim = {
+        package = "neo-tree-nvim";
+        setupModule = "neo-tree";
+        inherit (cfg) setupOpts;
 
-          cmd = ["Neotree"];
-        }
-      ];
+        cmd = ["Neotree"];
+      };
 
       visuals.nvimWebDevicons.enable = true;
     };

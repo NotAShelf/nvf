@@ -30,26 +30,24 @@ in {
       startPlugins = ["nvim-surround"];
       pluginRC.surround = entryAnywhere "require('nvim-surround').setup(${toLuaObject cfg.setupOpts})";
 
-      lazy.plugins = [
-        {
-          package = "nvim-surround";
-          setupModule = "nvim-surround";
-          inherit (cfg) setupOpts;
+      lazy.plugins.nvim-surround = {
+        package = "nvim-surround";
+        setupModule = "nvim-surround";
+        inherit (cfg) setupOpts;
 
-          keys =
-            map (mkLznKey ["i"]) (with vendoredKeybinds; [insert insert_line])
-            ++ map (mkLznKey ["x"]) (with vendoredKeybinds; [visual visual_line])
-            ++ map (mkLznKey ["n"]) (with vendoredKeybinds; [
-              normal
-              normal_cur
-              normal_line
-              normal_cur_line
-              delete
-              change
-              change_line
-            ]);
-        }
-      ];
+        keys =
+          map (mkLznKey ["i"]) (with vendoredKeybinds; [insert insert_line])
+          ++ map (mkLznKey ["x"]) (with vendoredKeybinds; [visual visual_line])
+          ++ map (mkLznKey ["n"]) (with vendoredKeybinds; [
+            normal
+            normal_cur
+            normal_line
+            normal_cur_line
+            delete
+            change
+            change_line
+          ]);
+      };
 
       utility.surround.setupOpts.keymaps = mkIf cfg.useVendoredKeybindings vendoredKeybinds;
     };

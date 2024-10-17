@@ -14,23 +14,21 @@
 in {
   config = mkIf (cfg.enable && cfg.trouble.enable) {
     vim = {
-      lazy.plugins = [
-        {
-          package = "trouble";
-          setupModule = "trouble";
-          inherit (cfg.trouble) setupOpts;
+      lazy.plugins.trouble = {
+        package = "trouble";
+        setupModule = "trouble";
+        inherit (cfg.trouble) setupOpts;
 
-          cmd = "Trouble";
-          keys = [
-            (mkSetLznBinding mappings.toggle "<cmd>TroubleToggle<CR>")
-            (mkSetLznBinding mappings.workspaceDiagnostics "<cmd>TroubleToggle workspace_diagnostics<CR>")
-            (mkSetLznBinding mappings.documentDiagnostics "<cmd>TroubleToggle document_diagnostics<CR>")
-            (mkSetLznBinding mappings.lspReferences "<cmd>TroubleToggle lsp_references<CR>")
-            (mkSetLznBinding mappings.quickfix "<cmd>TroubleToggle quickfix<CR>")
-            (mkSetLznBinding mappings.locList "<cmd>TroubleToggle loclist<CR>")
-          ];
-        }
-      ];
+        cmd = "Trouble";
+        keys = [
+          (mkSetLznBinding mappings.toggle "<cmd>TroubleToggle<CR>")
+          (mkSetLznBinding mappings.workspaceDiagnostics "<cmd>TroubleToggle workspace_diagnostics<CR>")
+          (mkSetLznBinding mappings.documentDiagnostics "<cmd>TroubleToggle document_diagnostics<CR>")
+          (mkSetLznBinding mappings.lspReferences "<cmd>TroubleToggle lsp_references<CR>")
+          (mkSetLznBinding mappings.quickfix "<cmd>TroubleToggle quickfix<CR>")
+          (mkSetLznBinding mappings.locList "<cmd>TroubleToggle loclist<CR>")
+        ];
+      };
 
       binds.whichKey.register = pushDownDefault {
         "<leader>l" = "Trouble";

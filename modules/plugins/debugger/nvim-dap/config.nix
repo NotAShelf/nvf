@@ -54,17 +54,15 @@ in {
       vim = {
         startPlugins = ["nvim-nio"];
 
-        lazy.plugins = [
-          {
-            package = "nvim-dap-ui";
-            setupModule = "dapui";
-            setupOpts = {};
+        lazy.plugins.nvim-dap-ui = {
+          package = "nvim-dap-ui";
+          setupModule = "dapui";
+          setupOpts = {};
 
-            keys = [
-              (mkSetLuaLznBinding mappings.toggleDapUI "function() require('dapui').toggle() end")
-            ];
-          }
-        ];
+          keys = [
+            (mkSetLuaLznBinding mappings.toggleDapUI "function() require('dapui').toggle() end")
+          ];
+        };
 
         pluginRC.nvim-dap-ui = entryAfter ["nvim-dap"] (
           optionalString cfg.ui.autoStart ''
