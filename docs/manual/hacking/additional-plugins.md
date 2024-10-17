@@ -136,30 +136,29 @@ plugins are managed by `lz.n`.
 let
   cfg = config.vim.your-plugin;
 in {
-  vim.lazy.plugins = [
-    {
-      # instead of vim.startPlugins, use this:
-      package = "your-plugin";
+  vim.lazy.plugins.your-plugin = {
+    # instead of vim.startPlugins, use this:
+    package = "your-plugin";
 
-      # if your plugin uses the `require('your-plugin').setup{...}` pattern
-      setupModule = "your-plugin";
-      inherit (cfg) setupOpts;
+    # if your plugin uses the `require('your-plugin').setup{...}` pattern
+    setupModule = "your-plugin";
+    inherit (cfg) setupOpts;
 
-      # events that trigger this plugin to be loaded
-      events = ["DirChanged"];
-      cmd = ["YourPluginCommand"];
+    # events that trigger this plugin to be loaded
+    events = ["DirChanged"];
+    cmd = ["YourPluginCommand"];
 
-      # keymaps
-      keys = [
-        # we'll cover this in detail in the keymaps section
-        {
-          key = "<leader>d";
-          mode = "n";
-          action = ":YourPluginCommand";
-        }
-      ]
-    }
-  ];
+    # keymaps
+    keys = [
+      # we'll cover this in detail in the keymaps section
+      {
+        key = "<leader>d";
+        mode = "n";
+        action = ":YourPluginCommand";
+      }
+    ];
+  };
+;
 }
 ```
 
