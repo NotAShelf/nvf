@@ -4,6 +4,7 @@
   ...
 }: let
   inherit (builtins) toJSON typeOf head length tryEval filter concatLists concatStringsSep;
+  inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.strings) optionalString;
@@ -21,14 +22,7 @@
         else keySpec.action;
     };
 
-  toLuaLznSpec = spec: let
-    name =
-      if typeOf spec.package == "string"
-      then spec.package
-      else if (spec.package ? pname && (tryEval spec.package.pname).success)
-      then spec.package.pname
-      else spec.package.name;
-  in
+  toLuaLznSpec = name: spec:
     (removeAttrs spec ["package" "setupModule" "setupOpts" "keys"])
     // {
       "@1" = name;
@@ -62,9 +56,9 @@
         # empty list or str or (listOf str)
         else spec.keys;
     };
-  lznSpecs = map toLuaLznSpec cfg.plugins;
+  lznSpecs = mapAttrsToList toLuaLznSpec cfg.plugins;
 
-  specToNotLazyConfig = spec: ''
+  specToNotLazyConfig = _: spec: ''
     do
       ${optionalString (spec.before != null) spec.before}
       ${optionalString (spec.setupModule != null)
@@ -73,20 +67,20 @@
     end
   '';
 
-  specToKeymaps = spec:
+  specToKeymaps = _: spec:
     if typeOf spec.keys == "list"
     then map (x: removeAttrs x ["ft"]) (filter (lznKey: lznKey.action != null && lznKey.ft == null) spec.keys)
     else if spec.keys == null || typeOf spec.keys == "string"
     then []
     else [spec.keys];
 
-  notLazyConfig = concatStringsSep "\n" (map specToNotLazyConfig cfg.plugins);
+  notLazyConfig = concatStringsSep "\n" (mapAttrsToList specToNotLazyConfig cfg.plugins);
 in {
   config.vim = mkMerge [
     (mkIf cfg.enable {
       startPlugins = ["lz-n" "lzn-auto-require"];
 
-      optPlugins = map (plugin: plugin.package) cfg.plugins;
+      optPlugins = mapAttrsToList (_: plugin: plugin.package) cfg.plugins;
 
       luaConfigRC.lzn-load = entryBefore ["pluginConfigs"] ''
         require('lz.n').load(${toLuaObject lznSpecs})
@@ -94,12 +88,12 @@ in {
     })
     (
       mkIf (!cfg.enable) {
-        startPlugins = map (plugin: plugin.package) cfg.plugins;
+        startPlugins = mapAttrsToList (_: plugin: plugin.package) cfg.plugins;
         luaConfigPre =
           concatStringsSep "\n"
-          (filter (x: x != null) (map (spec: spec.beforeAll) cfg.plugins));
+          (filter (x: x != null) (mapAttrsToList (_: spec: spec.beforeAll) cfg.plugins));
         luaConfigRC.unlazy = entryAfter ["pluginConfigs"] notLazyConfig;
-        keymaps = concatLists (map specToKeymaps cfg.plugins);
+        keymaps = concatLists (mapAttrsToList specToKeymaps cfg.plugins);
       }
     )
   ];

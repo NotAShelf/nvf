@@ -188,19 +188,29 @@ in {
 
     plugins = mkOption {
       default = [];
-      type = listOf lznPluginType;
-      description = "list of plugins to lazy load";
+      type = attrsOf lznPluginType;
+      description = ''
+        Plugins to lazy load.
+
+        The attribute key is used as the plugin name: for the default `vim.g.lz_n.load`
+        function this should be either the `package.pname` or `package.name`.
+      '';
       example = ''
-        [
-          {
+        {
+          toggleterm-nvim = {
             package = "toggleterm-nvim";
             setupModule = "toggleterm";
             setupOpts = cfg.setupOpts;
 
             after = "require('toggleterm').do_something()";
             cmd = ["ToggleTerm"];
-          }
-        ]
+          };
+
+          $${pkgs.vimPlugins.vim-bbye.pname} = {
+            package = pkgs.vimPlugins.vim-bbye;
+            cmd = ["Bdelete" "Bwipeout"];
+          };
+        }
       '';
     };
   };
