@@ -11,9 +11,7 @@
   inherit (self.options.vim.comments.comment-nvim) mappings;
 in {
   config = mkIf cfg.enable {
-    vim.startPlugins = [
-      "comment-nvim"
-    ];
+    vim.startPlugins = ["comment-nvim"];
 
     vim.lazy.plugins.comment-nvim = {
       package = "comment-nvim";
@@ -22,7 +20,6 @@ in {
       keys = [
         (mkLznBinding ["n"] cfg.mappings.toggleOpLeaderLine "<Plug>(comment_toggle_linewise)" mappings.toggleOpLeaderLine.description)
         (mkLznBinding ["n"] cfg.mappings.toggleOpLeaderBlock "<Plug>(comment_toggle_blockwise)" mappings.toggleOpLeaderBlock.description)
-
         (mkLznExprBinding ["n"] cfg.mappings.toggleCurrentLine ''
             function()
               return vim.api.nvim_get_vvar('count') == 0 and '<Plug>(comment_toggle_linewise_current)'

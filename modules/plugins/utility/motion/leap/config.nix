@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkDefault;
   inherit (lib.nvim.binds) mkLznBinding;
 
   cfg = config.vim.utility.motion.leap;
@@ -54,6 +54,8 @@ in {
           }
         '';
       };
+
+      binds.whichKey.register."<leader>s" = mkDefault "+Leap";
     };
   };
 }

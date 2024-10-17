@@ -63,6 +63,14 @@ Note that we are looking to add more alternatives in the future like
 dressing.nvim and actions-preview.nvim, in case fastaction doesn't work for
 everyone.
 
+### `type` based modules removed {#sec-type-based-modules-removed}
+
+As part of the autocompletion rewrite, modules that used to use a `type` option
+have been replaced by per-plugin modules instead. Since both modules only had
+one type, you can simply change
+- `vim.autocomplete.*` -> `vim.autocomplete.nvim-cmp.*`
+- `vim.autopairs.enable` -> `vim.autopairs.nvim-autopairs.enable`
+
 ## Changelog {#sec-release-0.7-changelog}
 
 [ItsSorae](https://github.com/ItsSorae):
@@ -93,6 +101,9 @@ everyone.
 - Add dap-go for better dap configurations
 - Make noice.nvim customizable
 - Standardize border style options and add custom borders
+- Remove `vim.disableDefaultRuntimePaths` in wrapper options.
+  - As nvf uses `$NVIM_APP_NAME` as of recent changes, we can safely assume any
+    configuration in `$XDG_CONFIG_HOME/nvf` is intentional.
 
 [rust-tools.nvim]: https://github.com/simrat39/rust-tools.nvim
 [rustaceanvim]: https://github.com/mrcjkb/rustaceanvim
@@ -263,9 +274,19 @@ everyone.
 - Add LSP and Treesitter support for R under `vim.languages.R`.
 - Add Otter support under `vim.lsp.otter` and an assert to prevent conflict with
   ccc
+- Add Neorg support under `vim.notes.neorg`
+- Add LSP, diagnostics, formatter and Treesitter support for Kotlin under
+  `vim.languages.kotlin`
+- changed default keybinds for leap.nvim to avoid altering expected behavior
 
 [Bloxx12](https://github.com/Bloxx12)
 
 - Add support for [base16 theming](https://github.com/RRethy/base16-nvim) under
   `vim.theme`
 - Fix internal breakage in `elixir-tools` setup.
+
+[ksonj](https://github.com/ksonj):
+
+- Add LSP support for Scala via
+  [nvim-metals](https://github.com/scalameta/nvim-metals)
+
