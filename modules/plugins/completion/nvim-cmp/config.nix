@@ -6,17 +6,13 @@
   inherit (lib.modules) mkIf;
   inherit (lib.strings) optionalString;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.binds) addDescriptionsToMappings;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (builtins) attrNames;
 
   cfg = config.vim.autocomplete.nvim-cmp;
   luasnipEnable = config.vim.snippets.luasnip.enable;
-
-  self = import ./nvim-cmp.nix {inherit lib config;};
-  mappingDefinitions = self.options.vim.autocomplete.nvim-cmp.mappings;
-  mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
+  inherit (cfg) mappings;
 in {
   config = mkIf cfg.enable {
     vim = {
@@ -45,39 +41,20 @@ in {
       };
 
       pluginRC.nvim-cmp = mkIf cfg.enable (entryAfter ["autopairs" "luasnip"] ''
-        local luasnip = require("luasnip")
+        ${optionalString luasnipEnable "local luasnip = require('luasnip')"}
         local cmp = require("cmp")
         cmp.setup(${toLuaObject cfg.setupOpts})
       '');
 
       # `cmp` and `luasnip` are defined above, in the `nvim-cmp` section
       autocomplete.nvim-cmp.setupOpts.mapping = {
-        ${mappings.complete.value} = mkLuaInline "cmp.mapping.complete()";
-        ${mappings.close.value} = mkLuaInline "cmp.mapping.abort()";
-        ${mappings.scrollDocsUp.value} = mkLuaInline "cmp.mapping.scroll_docs(-4)";
-        ${mappings.scrollDocsDown.value} = mkLuaInline "cmp.mapping.scroll_docs(4)";
+        ${mappings.complete} = mkLuaInline "cmp.mapping.complete()";
+        ${mappings.close} = mkLuaInline "cmp.mapping.abort()";
+        ${mappings.scrollDocsUp} = mkLuaInline "cmp.mapping.scroll_docs(-4)";
+        ${mappings.scrollDocsDown} = mkLuaInline "cmp.mapping.scroll_docs(4)";
+        ${mappings.confirm} = mkLuaInline "cmp.mapping.confirm({ select = true })";
 
-        ${mappings.confirm.value} = mkLuaInline ''
-          cmp.mapping(function(fallback)
-            if cmp.visible() then
-              ${
-            if luasnipEnable
-            then ''
-              if luasnip.expandable() then
-                luasnip.expand()
-              else
-                cmp.confirm({ select = true })
-              end
-            ''
-            else "cmp.confirm({ select = true })"
-          }
-            else
-                fallback()
-            end
-          end)
-        '';
-
-        ${mappings.next.value} = mkLuaInline ''
+        ${mappings.next} = mkLuaInline ''
           cmp.mapping(function(fallback)
             local has_words_before = function()
               local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -98,7 +75,7 @@ in {
           end)
         '';
 
-        ${mappings.previous.value} = mkLuaInline ''
+        ${mappings.previous} = mkLuaInline ''
           cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
