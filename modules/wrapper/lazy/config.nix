@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (builtins) toJSON typeOf head length tryEval filter concatLists concatStringsSep;
+  inherit (builtins) toJSON typeOf head length filter concatLists concatStringsSep;
   inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.generators) mkLuaInline;
@@ -86,15 +86,13 @@ in {
         require('lz.n').load(${toLuaObject lznSpecs})
       '';
     })
-    (
-      mkIf (!cfg.enable) {
-        startPlugins = mapAttrsToList (_: plugin: plugin.package) cfg.plugins;
-        luaConfigPre =
-          concatStringsSep "\n"
-          (filter (x: x != null) (mapAttrsToList (_: spec: spec.beforeAll) cfg.plugins));
-        luaConfigRC.unlazy = entryAfter ["pluginConfigs"] notLazyConfig;
-        keymaps = concatLists (mapAttrsToList specToKeymaps cfg.plugins);
-      }
-    )
+    (mkIf (!cfg.enable) {
+      startPlugins = mapAttrsToList (_: plugin: plugin.package) cfg.plugins;
+      luaConfigPre =
+        concatStringsSep "\n"
+        (filter (x: x != null) (mapAttrsToList (_: spec: spec.beforeAll) cfg.plugins));
+      luaConfigRC.unlazy = entryAfter ["pluginConfigs"] notLazyConfig;
+      keymaps = concatLists (mapAttrsToList specToKeymaps cfg.plugins);
+    })
   ];
 }
