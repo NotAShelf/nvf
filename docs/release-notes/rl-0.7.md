@@ -63,6 +63,14 @@ Note that we are looking to add more alternatives in the future like
 dressing.nvim and actions-preview.nvim, in case fastaction doesn't work for
 everyone.
 
+### `type` based modules removed {#sec-type-based-modules-removed}
+
+As part of the autocompletion rewrite, modules that used to use a `type` option
+have been replaced by per-plugin modules instead. Since both modules only had
+one type, you can simply change
+- `vim.autocomplete.*` -> `vim.autocomplete.nvim-cmp.*`
+- `vim.autopairs.enable` -> `vim.autopairs.nvim-autopairs.enable`
+
 ## Changelog {#sec-release-0.7-changelog}
 
 [ItsSorae](https://github.com/ItsSorae):
