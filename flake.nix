@@ -206,6 +206,11 @@
       flake = false;
     };
 
+    plugin-nvim-metals = {
+      url = "github:scalameta/nvim-metals";
+      flake = false;
+    };
+
     # Copying/Registers
     plugin-registers = {
       url = "github:tversteeg/registers.nvim";
@@ -277,11 +282,6 @@
       flake = false;
     };
 
-    plugin-cmp-vsnip = {
-      url = "github:hrsh7th/cmp-vsnip";
-      flake = false;
-    };
-
     plugin-cmp-path = {
       url = "github:hrsh7th/cmp-path";
       flake = false;
@@ -292,9 +292,19 @@
       flake = false;
     };
 
+    plugin-cmp-luasnip = {
+      url = "github:saadparwaiz1/cmp_luasnip";
+      flake = false;
+    };
+
     # snippets
-    plugin-vim-vsnip = {
-      url = "github:hrsh7th/vim-vsnip";
+    plugin-luasnip = {
+      url = "github:L3MON4D3/LuaSnip";
+      flake = false;
+    };
+
+    plugin-friendly-snippets = {
+      url = "github:rafamadriz/friendly-snippets";
       flake = false;
     };
 
@@ -349,6 +359,11 @@
     };
 
     # Themes
+    plugin-base16 = {
+      url = "github:rrethy/base16-nvim";
+      flake = false;
+    };
+
     plugin-tokyonight = {
       url = "github:folke/tokyonight.nvim";
       flake = false;
@@ -628,6 +643,26 @@
     plugin-tabular = {
       # (required by vim-markdown)
       url = "github:godlygeek/tabular";
+      flake = false;
+    };
+
+    plugin-lua-utils-nvim = {
+      url = "github:nvim-neorg/lua-utils.nvim";
+      flake = false;
+    };
+
+    plugin-pathlib-nvim = {
+      url = "github:pysan3/pathlib.nvim";
+      flake = false;
+    };
+
+    plugin-neorg = {
+      url = "github:nvim-neorg/neorg";
+      flake = false;
+    };
+
+    plugin-neorg-telescope = {
+      url = "github:nvim-neorg/neorg-telescope";
       flake = false;
     };
 

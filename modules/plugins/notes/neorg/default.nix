@@ -1,6 +1,6 @@
 {
   imports = [
+    ./neorg.nix
     ./config.nix
-    ./nvim-cmp.nix
   ];
 }

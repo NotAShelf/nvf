@@ -21,7 +21,7 @@ in {
             mkBool true "override the lsp markdown formatter with Noice";
 
           "cmp.entry.get_documentation" =
-            mkBool (config.vim.autocomplete.type == "nvim-cmp") "override cmp documentation with Noice";
+            mkBool config.vim.autocomplete.nvim-cmp.enable "override cmp documentation with Noice";
         };
 
         signature = {

@@ -11,7 +11,7 @@
   inherit (lib.nvim.binds) addDescriptionsToMappings;
 
   cfg = config.vim.lsp;
-  usingNvimCmp = config.vim.autocomplete.enable && config.vim.autocomplete.type == "nvim-cmp";
+  usingNvimCmp = config.vim.autocomplete.nvim-cmp.enable;
   self = import ./module.nix {inherit config lib pkgs;};
 
   mappingDefinitions = self.options.vim.lsp.mappings;
@@ -25,7 +25,7 @@ in {
     vim = {
       startPlugins = optional usingNvimCmp "cmp-nvim-lsp";
 
-      autocomplete.sources = {"nvim_lsp" = "[LSP]";};
+      autocomplete.nvim-cmp.sources = {nvim_lsp = "[LSP]";};
 
       pluginRC.lsp-setup = ''
         vim.g.formatsave = ${boolToString cfg.formatOnSave};
