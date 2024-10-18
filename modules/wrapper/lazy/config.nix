@@ -86,6 +86,7 @@ in {
         require('lz.n').load(${toLuaObject lznSpecs})
       '';
     })
+    
     (mkIf (!cfg.enable) {
       startPlugins = mapAttrsToList (_: plugin: plugin.package) cfg.plugins;
       luaConfigPre =
