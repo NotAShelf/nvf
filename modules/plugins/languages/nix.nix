@@ -27,12 +27,12 @@
   servers = {
     rnix = {
       package = pkgs.rnix-lsp;
-      internalFormatter = cfg.format.type == "nixpkgs-fmt";
+      internalFormatter = cfg.format.type == "nixfmt";
       lspConfig = ''
         lspconfig.rnix.setup{
           capabilities = capabilities,
         ${
-          if (cfg.format.enable && cfg.format.type == "nixpkgs-fmt")
+          if (cfg.format.enable && cfg.format.type == "nixfmt")
           then useFormat
           else noFormat
         },
@@ -62,10 +62,10 @@
                 command = {"${cfg.format.package}/bin/alejandra", "--quiet"},
               },
             ''}
-          ${optionalString (cfg.format.type == "nixpkgs-fmt")
+          ${optionalString (cfg.format.type == "nixfmt")
             ''
               formatting = {
-                command = {"${cfg.format.package}/bin/nixpkgs-fmt"},
+                command = {"${cfg.format.package}/bin/nixfmt"},
               },
             ''}
             },
@@ -90,9 +90,9 @@
       '';
     };
 
-    nixpkgs-fmt = {
-      package = pkgs.nixpkgs-fmt;
-      # Never need to use null-ls for nixpkgs-fmt
+    nixfmt = {
+      package = pkgs.nixfmt-rfc-style;
+      # Never need to use null-ls for nixfmt
     };
   };
 
@@ -175,6 +175,12 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
+      assertions = [
+        {
+          assertion = cfg.format.type != "nixpkgs-fmt";
+          message = "nixpkgs-fmt has been deprecated.";
+        }
+      ];
       vim.pluginRC.nix = ''
         vim.api.nvim_create_autocmd("FileType", {
           pattern = "nix",
