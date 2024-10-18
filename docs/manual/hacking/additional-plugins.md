@@ -171,7 +171,7 @@ require('lz.n').load({
       require('your-plugin').setup({--[[ your setupOpts ]]})
     end,
 
-    events = {"DirChanged"},
+    event = {"DirChanged"},
     cmd = {"YourPluginCommand"},
     keys = {
       {"<leader>d", ":YourPluginCommand", mode = {"n"}},
