@@ -145,7 +145,7 @@ in {
     inherit (cfg) setupOpts;
 
     # events that trigger this plugin to be loaded
-    events = ["DirChanged"];
+    event = ["DirChanged"];
     cmd = ["YourPluginCommand"];
 
     # keymaps
