@@ -127,7 +127,7 @@ vim.your-plugin.setupOpts = {
 
 ## Lazy plugins {#sec-lazy-plugins}
 
-If your plugin can be lazy-loaded, you should use `vim.lazy.plugins` to add your plugin. Lazy
+If the plugin can be lazy-loaded, `vim.lazy.plugins` should be used to add it. Lazy
 plugins are managed by `lz.n`.
 
 ```nix
