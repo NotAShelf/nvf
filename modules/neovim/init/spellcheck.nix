@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib.modules) mkIf mkRenamedOptionModule;
-  inherit (lib.options) mkOption mkEnableOption literalExpression literalMarkdown;
+  inherit (lib.options) mkOption mkEnableOption literalExpression literalMD;
   inherit (lib.strings) concatStringsSep;
   inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.types) listOf str attrsOf;
@@ -37,8 +37,8 @@ in {
     extraSpellFiles = mkOption {
       type = attrsOf (listOf str);
       default = {"en.utf-8" = ["nvf" "word_you_want_to_add"];};
-      example = literalExpression {"en.utf-8" = ["nvf" "word_you_want_to_add"];};
-      description = literalMarkdown ''
+      example = literalExpression ''{"en.utf-8" = ["nvf" "word_you_want_to_add"];}'';
+      description = ''
         Additional words to be used for spellchecking. The names of each key
         will be used as the language code for the spell file. E.g:
 
@@ -51,13 +51,13 @@ in {
         after all spell directories provided by plugins and those placed in
         {file}`$XDG_CONFIG_HOME/nvf/spell`.
 
-        :::warning
+        ::: {.warning}
         The attribute keys must be in `"<name>.<encoding>"` format for Neovim to
         compile your spellfiles without mangling the resulting file names. Please
         make sure that you enter the correct value, as nvf does not do any kind of
         internal checking. Please see `:help mkspell` for more details.
 
-        # Example
+        Example:
 
         ```nix
         # "en" is the name, and "utf-8" is the encoding. For most use cases, utf-8
