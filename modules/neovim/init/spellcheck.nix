@@ -35,7 +35,7 @@ in {
 
     extraSpellFiles = mkOption {
       type = attrsOf (listOf str);
-      default = {"en.utf-8" = ["nvf" "word_you_want_to_add"];};
+      default = {};
       example = literalExpression ''{"en.utf-8" = ["nvf" "word_you_want_to_add"];}'';
       description = ''
         Additional words to be used for spellchecking. The names of each key will be
@@ -46,15 +46,13 @@ in {
         ```
 
         will result in `en.utf-8.add.spl` being added to Neovim's runtime in the
-        `after/spell` <directory. Spellwords added in `after/spell` will be loaded
-        after all spell directories provided by plugins and those placed in
-        {file}`$XDG_CONFIG_HOME/nvf/spell`.
+        {file}`spell` directory.
 
         ::: {.warning}
         The attribute keys must be in `"<name>.<encoding>"` format for Neovim to
         compile your spellfiles without mangling the resulting file names. Please
         make sure that you enter the correct value, as nvf does not do any kind of
-        internal checking. Please see `:help mkspell` for more details.
+        internal checking. Please see {command}`:help mkspell` for more details.
 
         Example:
 
@@ -63,7 +61,7 @@ in {
         # will be enough, however, you may change it to any encoding format Neovim
         # accepts, e.g., utf-16.
         "en.utf-8" = ["nvf" "word_you_want_to_add"];
-        => $out/after/spell/en-utf-8.add.spl
+        => $out/spell/en-utf-8.add.spl
         ```
         :::
       '';
@@ -76,8 +74,10 @@ in {
       description = ''
         A list of filetypes for which spellchecking will be disabled.
 
+        ::: {.tip}
         You may use {command}`:echo &filetype` in Neovim to find out the
         filetype for a specific buffer.
+        :::
       '';
     };
 
@@ -110,7 +110,7 @@ in {
           pkgs.runCommandLocal "nvf-compile-spellfiles" {
             nativeBuildInputs = [config.vim.package];
           } ''
-            mkdir -p $out/after/spell
+            mkdir -p $out/spell
 
             spellfilesJoined=$(find -L ${spellfilesJoined}/spell -type f)
             for spellfile in $spellfilesJoined; do
@@ -120,13 +120,13 @@ in {
               local name=$(basename $spellfile "$extension")
               echo "Compiling spellfile: $spellfile"
               nvim --headless --clean \
-                --cmd "mkspell $out/after/spell/"$name".add.spl $spellfile" -Es -n
-
-              ls -lah $out/after/spell
+                --cmd "mkspell $out/spell/"$name".add.spl $spellfile" -Es -n
             done
           '';
       in
         mkIf (cfg.extraSpellFiles != {}) [
+          # If .outPath is missing, additionalRuntimePaths receives the *function*
+          # instead of a path, causing errors.
           compileJoinedSpellfiles.outPath
         ];
 
