@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib.modules) mkIf mkRenamedOptionModule;
-  inherit (lib.options) mkOption mkEnableOption literalExpression literalMD;
+  inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.strings) concatStringsSep;
   inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.types) listOf str attrsOf;
@@ -27,10 +27,9 @@ in {
       description = ''
         A list of languages that should be used for spellchecking.
 
-        To add your own language files, you may place your `spell`
-        directory in either {file}`~/.config/nvim` or the
-        [additionalRuntimePaths](#opt-vim.additionalRuntimePaths)
-        directory provided by nvf.
+        To add your own language files, you may place your `spell` directory in either
+        {file}`$XDG_CONFIG_HOME/nvf` or in a path that is included in the
+        [additionalRuntimePaths](#opt-vim.additionalRuntimePaths) list provided by nvf.
       '';
     };
 
@@ -39,15 +38,15 @@ in {
       default = {"en.utf-8" = ["nvf" "word_you_want_to_add"];};
       example = literalExpression ''{"en.utf-8" = ["nvf" "word_you_want_to_add"];}'';
       description = ''
-        Additional words to be used for spellchecking. The names of each key
-        will be used as the language code for the spell file. E.g:
+        Additional words to be used for spellchecking. The names of each key will be
+        used as the language code for the spell file. For example
 
         ```nix
         "en.utf-8" = [ ... ];
         ```
 
-        will result in `en.utf-8.add.spl` being added to Neovim's runtime
-        in the `after/spell` <directory. Spellwords added here will be loaded
+        will result in `en.utf-8.add.spl` being added to Neovim's runtime in the
+        `after/spell` <directory. Spellwords added in `after/spell` will be loaded
         after all spell directories provided by plugins and those placed in
         {file}`$XDG_CONFIG_HOME/nvf/spell`.
 
@@ -108,7 +107,7 @@ in {
         };
 
         compileJoinedSpellfiles =
-          pkgs.runCommand "nvf-compile-spellfiles" {
+          pkgs.runCommandLocal "nvf-compile-spellfiles" {
             nativeBuildInputs = [config.vim.package];
           } ''
             mkdir -p $out/after/spell
@@ -126,9 +125,10 @@ in {
               ls -lah $out/after/spell
             done
           '';
-      in [
-        compileJoinedSpellfiles.outPath
-      ];
+      in
+        mkIf (cfg.extraSpellFiles != {}) [
+          compileJoinedSpellfiles.outPath
+        ];
 
       luaConfigRC.spellcheck = entryAfter ["basic"] ''
         vim.opt.spell = true
