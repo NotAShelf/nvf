@@ -879,11 +879,11 @@
     "plugin-lz-n": {
       "flake": false,
       "locked": {
-        "lastModified": 1727574854,
-        "narHash": "sha256-qDWNleR2NHFkiEKE/+LNVOBRwEeskMC4dWTl5BTyZuE=",
+        "lastModified": 1729525284,
+        "narHash": "sha256-fk+ejqcqqOQz3q4D3VB2Q+U/6wCpCDk1tiDMp2YrPNE=",
         "owner": "nvim-neorocks",
         "repo": "lz.n",
-        "rev": "470173e3cbef763c6d1b918f3f129b67db75e1f8",
+        "rev": "ffd9991400ba7137f4fa8560ff50bccd7f8fb3ee",
         "type": "github"
       },
       "original": {
