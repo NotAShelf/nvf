@@ -6,7 +6,6 @@
   inherit (lib.modules) mkIf;
   inherit (lib.strings) optionalString;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (builtins) attrNames;
 
@@ -16,78 +15,92 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = [
-        "nvim-cmp"
-        "cmp-buffer"
-        "cmp-path"
-      ];
+      lazy.plugins = {
+        # cmp sources are loaded via lzn-auto-require as long as it is defined
+        # in cmp sources
+        cmp-buffer = {
+          package = "cmp-buffer";
+          lazy = true;
+        };
+        cmp-path = {
+          package = "cmp-path";
+          lazy = true;
+        };
+        nvim-cmp = {
+          package = "nvim-cmp";
+          after = ''
+            ${optionalString luasnipEnable "local luasnip = require('luasnip')"}
+            local cmp = require("cmp")
+            cmp.setup(${toLuaObject cfg.setupOpts})
+          '';
 
-      autocomplete.nvim-cmp.sources = {
-        nvim-cmp = null;
-        buffer = "[Buffer]";
-        path = "[Path]";
+          event = ["InsertEnter" "CmdlineEnter"];
+          lazy = true;
+        };
       };
 
-      autocomplete.nvim-cmp.setupOpts = {
-        sources = map (s: {name = s;}) (attrNames cfg.sources);
-
-        # TODO: try to get nvim-cmp to follow global border style
-        window = mkIf config.vim.ui.borders.enable {
-          completion = mkLuaInline "cmp.config.window.bordered()";
-          documentation = mkLuaInline "cmp.config.window.bordered()";
+      autocomplete.nvim-cmp = {
+        sources = {
+          nvim-cmp = null;
+          buffer = "[Buffer]";
+          path = "[Path]";
         };
 
-        formatting.format = cfg.format;
-      };
+        setupOpts = {
+          sources = map (s: {name = s;}) (attrNames cfg.sources);
 
-      pluginRC.nvim-cmp = mkIf cfg.enable (entryAfter ["autopairs" "luasnip"] ''
-        ${optionalString luasnipEnable "local luasnip = require('luasnip')"}
-        local cmp = require("cmp")
-        cmp.setup(${toLuaObject cfg.setupOpts})
-      '');
+          # TODO: try to get nvim-cmp to follow global border style
+          window = mkIf config.vim.ui.borders.enable {
+            completion = mkLuaInline "cmp.config.window.bordered()";
+            documentation = mkLuaInline "cmp.config.window.bordered()";
+          };
 
-      # `cmp` and `luasnip` are defined above, in the `nvim-cmp` section
-      autocomplete.nvim-cmp.setupOpts.mapping = {
-        ${mappings.complete} = mkLuaInline "cmp.mapping.complete()";
-        ${mappings.close} = mkLuaInline "cmp.mapping.abort()";
-        ${mappings.scrollDocsUp} = mkLuaInline "cmp.mapping.scroll_docs(-4)";
-        ${mappings.scrollDocsDown} = mkLuaInline "cmp.mapping.scroll_docs(4)";
-        ${mappings.confirm} = mkLuaInline "cmp.mapping.confirm({ select = true })";
+          formatting.format = cfg.format;
+        };
 
-        ${mappings.next} = mkLuaInline ''
-          cmp.mapping(function(fallback)
-            local has_words_before = function()
-              local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-              return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-            end
+        # `cmp` and `luasnip` are defined above, in the `nvim-cmp` section
+        setupOpts.mapping = {
+          ${mappings.complete} = mkLuaInline "cmp.mapping.complete()";
+          ${mappings.close} = mkLuaInline "cmp.mapping.abort()";
+          ${mappings.scrollDocsUp} = mkLuaInline "cmp.mapping.scroll_docs(-4)";
+          ${mappings.scrollDocsDown} = mkLuaInline "cmp.mapping.scroll_docs(4)";
+          ${mappings.confirm} = mkLuaInline "cmp.mapping.confirm({ select = true })";
 
-            if cmp.visible() then
-              cmp.select_next_item()
-              ${optionalString luasnipEnable ''
-            elseif luasnip.locally_jumpable(1) then
-              luasnip.jump(1)
-          ''}
-            elseif has_words_before() then
-              cmp.complete()
-            else
-              fallback()
-            end
-          end)
-        '';
+          ${mappings.next} = mkLuaInline ''
+            cmp.mapping(function(fallback)
+              local has_words_before = function()
+                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+                return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+              end
 
-        ${mappings.previous} = mkLuaInline ''
-          cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-              ${optionalString luasnipEnable ''
-            elseif luasnip.locally_jumpable(-1) then
-              luasnip.jump(-1)
-          ''}
-            else
-              fallback()
-            end
-          end)
-        '';
+              if cmp.visible() then
+                cmp.select_next_item()
+                ${optionalString luasnipEnable ''
+              elseif luasnip.locally_jumpable(1) then
+                luasnip.jump(1)
+            ''}
+              elseif has_words_before() then
+                cmp.complete()
+              else
+                fallback()
+              end
+            end)
+          '';
+
+          ${mappings.previous} = mkLuaInline ''
+            cmp.mapping(function(fallback)
+              if cmp.visible() then
+                cmp.select_prev_item()
+                ${optionalString luasnipEnable ''
+              elseif luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
+            ''}
+              else
+                fallback()
+              end
+            end)
+          '';
+        };
       };
     };
   };
