@@ -1,6 +1,6 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) enum listOf submodule nullOr str bool int attrsOf anything either oneOf;
+  inherit (lib.types) enum listOf submodule nullOr str bool int attrsOf anything either oneOf lines;
   inherit (lib.nvim.types) pluginType;
   inherit (lib.nvim.config) mkBool;
 
@@ -76,19 +76,19 @@
       };
 
       beforeAll = mkOption {
-        type = nullOr str;
+        type = nullOr lines;
         description = "Lua code to run before any plugins are loaded. This will be wrapped in a function.";
         default = null;
       };
 
       before = mkOption {
-        type = nullOr str;
+        type = nullOr lines;
         description = "Lua code to run before plugin is loaded. This will be wrapped in a function.";
         default = null;
       };
 
       after = mkOption {
-        type = nullOr str;
+        type = nullOr lines;
         description = ''
           Lua code to run after plugin is loaded. This will be wrapped in a function.
 
@@ -169,12 +169,12 @@
       };
 
       load = mkOption {
-        type = nullOr str;
+        type = nullOr lines;
         default = null;
         description = ''
           Lua code to override the `vim.g.lz_n.load()` function for a single plugin.
 
-          This will be wrapped in a function
+          This will be wrapped in a function.
         '';
       };
     };
