@@ -160,6 +160,8 @@
         default = null;
       };
 
+      lazy = mkBool false "Lazy-load manually, e.g. using `trigger_load`.";
+
       priority = mkOption {
         type = nullOr int;
         description = "Only useful for stat plugins (not lazy-loaded) to force loading certain plugins first.";
