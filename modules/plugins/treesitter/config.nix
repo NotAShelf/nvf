@@ -21,6 +21,17 @@ in {
     vim = {
       startPlugins = ["nvim-treesitter"] ++ optional usingNvimCmp "cmp-treesitter";
 
+      lazy.plugins = {
+        cmp-treesitter = mkIf usingNvimCmp {
+          package = "cmp-treesitter";
+          after = ''
+            local path = vim.fn.globpath(vim.o.packpath, 'pack/*/opt/cmp-treesitter')
+            require("rtp_nvim").source_after_plugin_dir(path)
+          '';
+        };
+        nvim-cmp.after = mkIf cfg.cmp.enable "require('lz.n').trigger_load('cmp-treesitter')";
+      };
+
       autocomplete.nvim-cmp.sources = {treesitter = "[Treesitter]";};
       treesitter.grammars = optionals cfg.addDefaultGrammars cfg.defaultGrammars;
 

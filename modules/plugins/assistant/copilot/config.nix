@@ -5,6 +5,7 @@
 }: let
   inherit (builtins) toJSON;
   inherit (lib.modules) mkIf;
+  inherit (lib.strings) optionalString;
 
   cfg = config.vim.assistant.copilot;
 
@@ -59,7 +60,14 @@ in {
         copilot-cmp = mkIf cfg.cmp.enable {
           package = "copilot-cmp";
           lazy = true;
+          after = optionalString config.vim.lazy.enable ''
+            local path = vim.fn.globpath(vim.o.packpath, 'pack/*/opt/copilot-cmp')
+            require("rtp_nvim").source_after_plugin_dir(path)
+            require("lz.n").trigger_load("copilot-lua")
+          '';
         };
+
+        nvim-cmp.after = mkIf cfg.cmp.enable "require('lz.n').trigger_load('copilot-cmp')";
       };
 
       autocomplete.nvim-cmp.sources = {copilot = "[Copilot]";};

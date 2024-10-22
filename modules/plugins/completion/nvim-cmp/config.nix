@@ -15,23 +15,39 @@
 in {
   config = mkIf cfg.enable {
     vim = {
+      startPlugins = ["rtp-nvim"];
       lazy.plugins = {
         # cmp sources are loaded via lzn-auto-require as long as it is defined
         # in cmp sources
         cmp-buffer = {
           package = "cmp-buffer";
           lazy = true;
+          after = ''
+            local path = vim.fn.globpath(vim.o.packpath, 'pack/*/opt/cmp-buffer')
+            require("rtp_nvim").source_after_plugin_dir(path)
+          '';
         };
         cmp-path = {
           package = "cmp-path";
           lazy = true;
+          after = ''
+            local path = vim.fn.globpath(vim.o.packpath, 'pack/*/opt/cmp-path')
+            require("rtp_nvim").source_after_plugin_dir(path)
+          '';
         };
         nvim-cmp = {
           package = "nvim-cmp";
           after = ''
             ${optionalString luasnipEnable "local luasnip = require('luasnip')"}
+                require("lz.n").trigger_load("cmp-path")
             local cmp = require("cmp")
             cmp.setup(${toLuaObject cfg.setupOpts})
+
+            ${
+              optionalString config.vim.lazy.enable ''
+                require("lz.n").trigger_load("cmp-buffer")
+              ''
+            }
           '';
 
           event = ["InsertEnter" "CmdlineEnter"];
