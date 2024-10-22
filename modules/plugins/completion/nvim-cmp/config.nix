@@ -51,7 +51,6 @@ in {
           '';
 
           event = ["InsertEnter" "CmdlineEnter"];
-          lazy = true;
         };
       };
 

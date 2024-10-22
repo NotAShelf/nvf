@@ -19,7 +19,7 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = ["nvim-treesitter"] ++ optional usingNvimCmp "cmp-treesitter";
+      startPlugins = ["nvim-treesitter"];
 
       lazy.plugins = {
         cmp-treesitter = mkIf usingNvimCmp {
@@ -29,7 +29,7 @@ in {
             require("rtp_nvim").source_after_plugin_dir(path)
           '';
         };
-        nvim-cmp.after = mkIf cfg.cmp.enable "require('lz.n').trigger_load('cmp-treesitter')";
+        nvim-cmp.after = mkIf usingNvimCmp "require('lz.n').trigger_load('cmp-treesitter')";
       };
 
       autocomplete.nvim-cmp.sources = {treesitter = "[Treesitter]";};
