@@ -68,6 +68,7 @@ everyone.
 As part of the autocompletion rewrite, modules that used to use a `type` option
 have been replaced by per-plugin modules instead. Since both modules only had
 one type, you can simply change
+
 - `vim.autocomplete.*` -> `vim.autocomplete.nvim-cmp.*`
 - `vim.autopairs.enable` -> `vim.autopairs.nvim-autopairs.enable`
 
@@ -220,8 +221,7 @@ one type, you can simply change
   `vim.languages.ts.extensions.ts-error-translator` to aid with Typescript
   development.
 
-- Add [neo-tree.nvim] as an alternative file-tree plugin. It will be available
-  under `vim.filetree.neo-tree`, similar to nvimtree.
+- Add [neo-tree.nvim] as an alternative file-tree plugin. It will be available under `vim.filetree.neo-tree`, similar to nvimtree.
 
 - Add `nvf-print-config` & `nvf-print-config-path` helper scripts to Neovim
   closure. Both of those scripts have been automatically added to your PATH upon
@@ -286,3 +286,6 @@ one type, you can simply change
 - Add LSP support for Scala via
   [nvim-metals](https://github.com/scalameta/nvim-metals)
 
+[nezia1](https://github.com/nezia1):
+
+- Add [biome](https://github.com/biomejs/biome) support for Typescript, CSS and Svelte. Enable them via [](#opt-vim.languages.ts.format.type), [](#opt-vim.languages.css.format.type) and [](#opt-vim.languages.svelte.format.type) respectively.
