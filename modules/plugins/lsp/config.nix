@@ -23,7 +23,17 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = optional usingNvimCmp "cmp-nvim-lsp";
+      lazy.plugins = {
+        cmp-nvim-lsp = {
+          package = "cmp-nvim-lsp";
+          lazy = true;
+          after = ''
+            local path = vim.fn.globpath(vim.o.packpath, 'pack/*/opt/cmp-treesitter')
+            require("rtp_nvim").source_after_plugin_dir(path)
+          '';
+        };
+        nvim-cmp.after = mkIf usingNvimCmp "require('lz.n').trigger_load('cmp-nvim-lsp')";
+      };
 
       autocomplete.nvim-cmp.sources = {nvim_lsp = "[LSP]";};
 

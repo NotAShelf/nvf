@@ -50,6 +50,7 @@
       "build"
       "rc"
       "warnings"
+      "lazy"
     ];
 
     # Extra modules, such as deprecation warnings
