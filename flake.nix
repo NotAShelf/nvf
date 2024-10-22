@@ -124,6 +124,11 @@
       flake = false;
     };
 
+    plugin-rtp-nvim = {
+      url = "github:nvim-neorocks/rtp.nvim";
+      flake = false;
+    };
+
     # LSP plugins
     plugin-nvim-lspconfig = {
       url = "github:neovim/nvim-lspconfig";
