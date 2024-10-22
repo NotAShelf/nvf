@@ -92,7 +92,7 @@
         description = ''
           Lua code to run after plugin is loaded. This will be wrapped in a function.
 
-          If [](#opt-vim.lazy.plugins._.setupModule) is provided, the setup will be ran before `after`.
+          If [](#opt-vim.lazy.plugins._name_.setupModule) is provided, the setup will be ran before `after`.
         '';
         default = null;
       };
