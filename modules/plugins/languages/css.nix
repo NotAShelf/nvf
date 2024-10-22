@@ -63,6 +63,18 @@
         )
       '';
     };
+
+    biome = {
+      package = pkgs.biome;
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.biome.with({
+            command = "${cfg.format.package}/bin/biome",
+          })
+        )
+      '';
+    };
   };
 in {
   options.vim.languages.css = {
