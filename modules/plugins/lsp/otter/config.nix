@@ -32,7 +32,7 @@ in {
 
       pluginRC.otter-nvim = entryAnywhere ''
         -- Enable otter diagnostics viewer
-        require("otter").setup({${toLuaObject cfg.otter-nvim.setupOpts}})
+        require("otter").setup(${toLuaObject cfg.otter-nvim.setupOpts})
       '';
     };
   };
