@@ -12,7 +12,7 @@ in {
   config = mkIf cfg.enable (mkMerge [
     {
       vim = {
-        startPlugins = [ "otter-nvim" "quarto-nvim" ];
+        startPlugins = ["otter-nvim" "quarto-nvim"];
 
         pluginRC.quarto-nvim = entryAnywhere ''
           require('quarto').setup(${toLuaObject cfg.setupOpts})
