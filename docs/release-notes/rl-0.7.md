@@ -262,6 +262,7 @@ everyone.
 - Add LSP and Treesitter support for R under `vim.languages.R`.
 - Add Otter support under `vim.lsp.otter` and an assert to prevent conflict with
   ccc
+- Fixed typo in Otter's setupOpts
 - Add Neorg support under `vim.notes.neorg`
 - Add LSP, diagnostics, formatter and Treesitter support for Kotlin under
   `vim.languages.kotlin`
