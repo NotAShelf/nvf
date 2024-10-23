@@ -1,5 +1,5 @@
 {
   imports = [
-    ./vsnip
+    ./luasnip
   ];
 }

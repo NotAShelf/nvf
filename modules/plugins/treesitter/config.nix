@@ -11,7 +11,7 @@
   inherit (lib.nvim.dag) entryBefore entryAfter;
 
   cfg = config.vim.treesitter;
-  usingNvimCmp = config.vim.autocomplete.enable && config.vim.autocomplete.type == "nvim-cmp";
+  usingNvimCmp = config.vim.autocomplete.nvim-cmp.enable;
 
   self = import ./treesitter.nix {inherit pkgs lib;};
   mappingDefinitions = self.options.vim.treesitter.mappings;
@@ -21,7 +21,7 @@ in {
     vim = {
       startPlugins = ["nvim-treesitter"] ++ optional usingNvimCmp "cmp-treesitter";
 
-      autocomplete.sources = {"treesitter" = "[Treesitter]";};
+      autocomplete.nvim-cmp.sources = {treesitter = "[Treesitter]";};
       treesitter.grammars = optionals cfg.addDefaultGrammars cfg.defaultGrammars;
 
       maps = {

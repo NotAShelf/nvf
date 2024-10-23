@@ -10,6 +10,7 @@
   dag = import ./dag.nix {inherit lib;};
   languages = import ./languages.nix {inherit lib;};
   lists = import ./lists.nix {inherit lib;};
+  attrsets = import ./attrsets.nix {inherit lib;};
   lua = import ./lua.nix {inherit lib;};
   neovimConfiguration = import ../modules {inherit inputs lib;};
 }
