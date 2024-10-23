@@ -1565,6 +1565,22 @@
         "type": "github"
       }
     },
+    "plugin-quarto-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1728470501,
+        "narHash": "sha256-JeRiyEPpCrFaNhlrS+CH8j2Sv8c9BnL8XoSG9aTnVVU=",
+        "owner": "quarto-dev",
+        "repo": "quarto-nvim",
+        "rev": "23083a0152799ca7263ac9ae53d768d4dd93d24e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "quarto-dev",
+        "repo": "quarto-nvim",
+        "type": "github"
+      }
+    },
     "plugin-registers": {
       "flake": false,
       "locked": {
@@ -2001,6 +2017,7 @@
         "plugin-pathlib-nvim": "plugin-pathlib-nvim",
         "plugin-plenary-nvim": "plugin-plenary-nvim",
         "plugin-project-nvim": "plugin-project-nvim",
+        "plugin-quarto-nvim": "plugin-quarto-nvim",
         "plugin-registers": "plugin-registers",
         "plugin-rose-pine": "plugin-rose-pine",
         "plugin-rustaceanvim": "plugin-rustaceanvim",
