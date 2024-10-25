@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) optional optionals;
+  inherit (lib.lists) optionals;
   inherit (lib.nvim.binds) mkSetBinding addDescriptionsToMappings;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryBefore entryAfter;
@@ -32,7 +32,11 @@ in {
         nvim-cmp.after = mkIf usingNvimCmp "require('lz.n').trigger_load('cmp-treesitter')";
       };
 
-      autocomplete.nvim-cmp.sources = {treesitter = "[Treesitter]";};
+      autocomplete.nvim-cmp = {
+        sources = {treesitter = "[Treesitter]";};
+        sourcePlugins = ["cmp-treesitter"];
+      };
+
       treesitter.grammars = optionals cfg.addDefaultGrammars cfg.defaultGrammars;
 
       maps = {

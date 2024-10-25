@@ -56,21 +56,12 @@ in {
             (mkLuaKeymap ["i"] cfg.mappings.suggestion.prev "function() require('copilot.suggestion').prev() end" "[copilot] previous suggestion" {})
           ];
         };
-
-        copilot-cmp = mkIf cfg.cmp.enable {
-          package = "copilot-cmp";
-          lazy = true;
-          after = optionalString config.vim.lazy.enable ''
-            local path = vim.fn.globpath(vim.o.packpath, 'pack/*/opt/copilot-cmp')
-            require("rtp_nvim").source_after_plugin_dir(path)
-            require("lz.n").trigger_load("copilot-lua")
-          '';
-        };
-
-        nvim-cmp.after = mkIf cfg.cmp.enable "require('lz.n').trigger_load('copilot-cmp')";
       };
 
-      autocomplete.nvim-cmp.sources = {copilot = "[Copilot]";};
+      autocomplete.nvim-cmp = {
+        sources = {copilot = "[Copilot]";};
+        sourcePlugins = ["copilot-cmp"];
+      };
 
       # Disable plugin handled keymaps.
       # Setting it here so that it doesn't show up in user docs

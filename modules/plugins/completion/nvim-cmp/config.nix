@@ -3,56 +3,57 @@
   config,
   ...
 }: let
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (lib.strings) optionalString;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (builtins) attrNames;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (builtins) attrNames typeOf tryEval concatStringsSep;
 
   cfg = config.vim.autocomplete.nvim-cmp;
   luasnipEnable = config.vim.snippets.luasnip.enable;
+  getPluginName = plugin:
+    if typeOf plugin == "string"
+    then plugin
+    else if (plugin ? pname && (tryEval plugin.pname).success)
+    then plugin.pname
+    else plugin.name;
   inherit (cfg) mappings;
 in {
   config = mkIf cfg.enable {
     vim = {
       startPlugins = ["rtp-nvim"];
-      lazy.plugins = {
-        # cmp sources are loaded via lzn-auto-require as long as it is defined
-        # in cmp sources
-        cmp-buffer = {
-          package = "cmp-buffer";
-          lazy = true;
-          after = ''
-            local path = vim.fn.globpath(vim.o.packpath, 'pack/*/opt/cmp-buffer')
-            require("rtp_nvim").source_after_plugin_dir(path)
-          '';
-        };
-        cmp-path = {
-          package = "cmp-path";
-          lazy = true;
-          after = ''
-            local path = vim.fn.globpath(vim.o.packpath, 'pack/*/opt/cmp-path')
-            require("rtp_nvim").source_after_plugin_dir(path)
-          '';
-        };
-        nvim-cmp = {
-          package = "nvim-cmp";
-          after = ''
-            ${optionalString luasnipEnable "local luasnip = require('luasnip')"}
-                require("lz.n").trigger_load("cmp-path")
-            local cmp = require("cmp")
-            cmp.setup(${toLuaObject cfg.setupOpts})
+      lazy.plugins = mkMerge [
+        (mapListToAttrs (package: {
+            name = getPluginName package;
+            value = {
+              inherit package;
+              lazy = true;
+              after = ''
+                local path = vim.fn.globpath(vim.o.packpath, 'pack/*/opt/${getPluginName package}')
+                require("rtp_nvim").source_after_plugin_dir(path)
+              '';
+            };
+          })
+          cfg.sourcePlugins)
+        {
+          nvim-cmp = {
+            package = "nvim-cmp";
+            after = ''
+              ${optionalString luasnipEnable "local luasnip = require('luasnip')"}
+                  require("lz.n").trigger_load("cmp-path")
+              local cmp = require("cmp")
+              cmp.setup(${toLuaObject cfg.setupOpts})
 
-            ${
-              optionalString config.vim.lazy.enable ''
-                require("lz.n").trigger_load("cmp-buffer")
-              ''
-            }
-          '';
+              ${concatStringsSep "\n" (map
+                (package: "require('lz.n').trigger_load(${toLuaObject (getPluginName package)})")
+                cfg.sourcePlugins)}
+            '';
 
-          event = ["InsertEnter" "CmdlineEnter"];
-        };
-      };
+            event = ["InsertEnter" "CmdlineEnter"];
+          };
+        }
+      ];
 
       autocomplete.nvim-cmp = {
         sources = {
@@ -60,6 +61,8 @@ in {
           buffer = "[Buffer]";
           path = "[Path]";
         };
+
+        sourcePlugins = ["cmp-buffer" "cmp-path"];
 
         setupOpts = {
           sources = map (s: {name = s;}) (attrNames cfg.sources);

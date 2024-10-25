@@ -1,6 +1,6 @@
 {
+  options,
   config,
-  pkgs,
   lib,
   ...
 }: let
@@ -11,8 +11,7 @@
   inherit (lib.nvim.binds) pushDownDefault mkSetLznBinding;
 
   cfg = config.vim.telescope;
-  self = import ./telescope.nix {inherit pkgs lib;};
-  mappingDefinitions = self.options.vim.telescope.mappings;
+  mappingDefinitions = options.vim.telescope.mappings;
 
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
 in {

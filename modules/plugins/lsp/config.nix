@@ -5,7 +5,6 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.lists) optional;
   inherit (lib.strings) optionalString;
   inherit (lib.trivial) boolToString;
   inherit (lib.nvim.binds) addDescriptionsToMappings;
@@ -23,19 +22,10 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      lazy.plugins = {
-        cmp-nvim-lsp = {
-          package = "cmp-nvim-lsp";
-          lazy = true;
-          after = ''
-            local path = vim.fn.globpath(vim.o.packpath, 'pack/*/opt/cmp-treesitter')
-            require("rtp_nvim").source_after_plugin_dir(path)
-          '';
-        };
-        nvim-cmp.after = mkIf usingNvimCmp "require('lz.n').trigger_load('cmp-nvim-lsp')";
+      autocomplete.nvim-cmp = {
+        sources = {nvim_lsp = "[LSP]";};
+        sourcePlugins = ["cmp-nvim-lsp"];
       };
-
-      autocomplete.nvim-cmp.sources = {nvim_lsp = "[LSP]";};
 
       pluginRC.lsp-setup = ''
         vim.g.formatsave = ${boolToString cfg.formatOnSave};
@@ -126,7 +116,7 @@ in {
         end
 
         local capabilities = vim.lsp.protocol.make_client_capabilities()
-        ${optionalString usingNvimCmp "capabilities = require('cmp_nvim_lsp').default_capabilities()"}
+        -- ${optionalString usingNvimCmp "capabilities = require('cmp_nvim_lsp').default_capabilities()"}
       '';
     };
   };
