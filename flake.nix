@@ -211,6 +211,16 @@
       flake = false;
     };
 
+    plugin-omnisharp-extended = {
+      url = "github:Hoffs/omnisharp-extended-lsp.nvim";
+      flake = false;
+    };
+
+    plugin-csharpls-extended = {
+      url = "github:Decodetalkers/csharpls-extended-lsp.nvim";
+      flake = false;
+    };
+
     # Copying/Registers
     plugin-registers = {
       url = "github:tversteeg/registers.nvim";

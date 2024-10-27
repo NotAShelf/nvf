@@ -75,6 +75,7 @@ isMaximal: {
         enable = isMaximal;
         crates.enable = isMaximal;
       };
+      csharp.enable = isMaximal;
     };
 
     visuals = {

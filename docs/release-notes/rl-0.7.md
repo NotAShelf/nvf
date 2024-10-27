@@ -189,6 +189,9 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
   - Add sorting function options for completion sources under
     [](#opt-vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators)
 
+- Add C# support under `vim.languages.csharp`, with support for both
+  omnisharp-roslyn and csharp-language-server.
+
 [Neovim documentation on `vim.cmd`]: https://neovim.io/doc/user/lua.html#vim.cmd()
 
 - Make Neovim's configuration file entirely Lua based. This comes with a few
@@ -230,7 +233,8 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
   `vim.languages.ts.extensions.ts-error-translator` to aid with Typescript
   development.
 
-- Add [neo-tree.nvim] as an alternative file-tree plugin. It will be available under `vim.filetree.neo-tree`, similar to nvimtree.
+- Add [neo-tree.nvim] as an alternative file-tree plugin. It will be available
+  under `vim.filetree.neo-tree`, similar to nvimtree.
 
 - Add `nvf-print-config` & `nvf-print-config-path` helper scripts to Neovim
   closure. Both of those scripts have been automatically added to your PATH upon
@@ -298,5 +302,9 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
 
 [nezia1](https://github.com/nezia1):
 
-- Add [biome](https://github.com/biomejs/biome) support for Typescript, CSS and Svelte. Enable them via [](#opt-vim.languages.ts.format.type), [](#opt-vim.languages.css.format.type) and [](#opt-vim.languages.svelte.format.type) respectively.
-- Replace [nixpkgs-fmt](https://github.com/nix-community/nixpkgs-fmt) with [nixfmt](https://github.com/NixOS/nixfmt) (nixfmt-rfc-style).
+- Add [biome](https://github.com/biomejs/biome) support for Typescript, CSS and
+  Svelte. Enable them via [](#opt-vim.languages.ts.format.type),
+  [](#opt-vim.languages.css.format.type) and
+  [](#opt-vim.languages.svelte.format.type) respectively.
+- Replace [nixpkgs-fmt](https://github.com/nix-community/nixpkgs-fmt) with
+  [nixfmt](https://github.com/NixOS/nixfmt) (nixfmt-rfc-style).
