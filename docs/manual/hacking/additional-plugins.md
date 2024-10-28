@@ -162,7 +162,7 @@ in {
 }
 ```
 
-This results in the lua code:
+This results in the following lua code:
 ```lua
 require('lz.n').load({
   {
