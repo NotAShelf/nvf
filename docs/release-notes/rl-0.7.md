@@ -185,6 +185,7 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
   default.
 
 - Refactor of `nvim-cmp` and completion related modules
+
   - Remove `autocomplete.type` in favor of per-plugin enable options such as
     [](#opt-vim.autocomplete.nvim-cmp.enable).
   - Deprecate legacy Vimsnip in favor of Luasnip, and integrate
@@ -277,8 +278,12 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
   configuration for [dashboard.nvim](https://github.com/nvimdev/dashboard-nvim)
 
 - Update `lualine.nvim` input and add missing themes:
+
   - Adds `ayu`, `gruvbox_dark`, `iceberg`, `moonfly`, `onedark`,
     `powerline_dark` and `solarized_light` themes.
+
+- Add [](#opt-vim.spellcheck.extraSpellWords) to allow adding arbitrary
+  spellfiles to Neovim's runtime with ease.
 
 [ppenguin](https://github.com/ppenguin):
 
