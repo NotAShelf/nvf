@@ -15,9 +15,11 @@ entries in nvf:
 5. `theme` (this is simply placed before `pluginConfigs`, meaning that
    surrounding entries don't depend on it) - used to set up the theme, which has
    to be done before other plugins
-6. `pluginConfigs` - the result of the nested `vim.pluginRC` (internal option,
+6. `lazyConfigs` - `lz.n` and `lzn-auto-require` configs. If `vim.lazy.enable`
+   is false, this will contain each plugin's config instead.
+7. `pluginConfigs` - the result of the nested `vim.pluginRC` (internal option,
    see the [Custom Plugins](/index.xhtml#ch-custom-plugins) page for adding your
    own plugins) DAG, used to set up internal plugins
-7. `extraPluginConfigs` - the result of `vim.extraPlugins`, which is not a
+8. `extraPluginConfigs` - the result of `vim.extraPlugins`, which is not a
    direct DAG, but is converted to, and resolved as one internally
-8. `mappings` - the result of `vim.maps`
+9. `mappings` - the result of `vim.maps`
