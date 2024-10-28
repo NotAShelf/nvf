@@ -58,6 +58,8 @@
     };
   lznSpecs = mapAttrsToList toLuaLznSpec cfg.plugins;
 
+  pluginPackages = mapAttrsToList (_: plugin: plugin.package) cfg.plugins;
+
   specToNotLazyConfig = _: spec: ''
     do
       ${optionalString (spec.before != null) spec.before}
@@ -80,7 +82,7 @@ in {
     (mkIf cfg.enable {
       startPlugins = ["lz-n" "lzn-auto-require"];
 
-      optPlugins = mapAttrsToList (_: plugin: plugin.package) cfg.plugins;
+      optPlugins = pluginPackages;
 
       luaConfigRC.lzn-load = entryBefore ["pluginConfigs"] ''
         require('lz.n').load(${toLuaObject lznSpecs})
@@ -88,7 +90,7 @@ in {
     })
 
     (mkIf (!cfg.enable) {
-      startPlugins = mapAttrsToList (_: plugin: plugin.package) cfg.plugins;
+      startPlugins = pluginPackages;
       luaConfigPre =
         concatStringsSep "\n"
         (filter (x: x != null) (mapAttrsToList (_: spec: spec.beforeAll) cfg.plugins));
