@@ -98,30 +98,30 @@ in {
   config = mkIf cfg.enable {
     vim = {
       additionalRuntimePaths = let
-        spellfilesJoined = pkgs.symlinkJoin {
-          name = "nvf-spellfiles-joined";
-          paths = mapAttrsToList (name: value: pkgs.writeTextDir "spell/${name}.add" (concatLines value)) cfg.extraSpellWords;
-          postBuild = ''
-            echo "Spellfiles joined"
-          '';
-        };
-
         compileJoinedSpellfiles =
           pkgs.runCommandLocal "nvf-compile-spellfiles" {
             # Use the same version of Neovim as the user's configuration
             nativeBuildInputs = [config.vim.package];
-          } ''
-            mkdir -p "$out/spell"
 
-            spellfilesJoined=$(find -L "${spellfilesJoined}/spell" -type f)
-            for spellfile in $spellfilesJoined; do
-                # Hacky way to ensure that the mangled extensions are omitted from the
-                # joined spellfiles. E.g.
-                local name=$(basename "$spellfile" ".add")
-                echo "Compiling spellfile: $spellfile"
-                nvim --headless --clean \
-                    --cmd "mkspell $out/spell/$name.add.spl $spellfile" -Es -n
+            spellfilesJoined = pkgs.symlinkJoin {
+              name = "nvf-spellfiles-joined";
+              paths = mapAttrsToList (name: value: pkgs.writeTextDir "spell/${name}.add" (concatLines value)) cfg.extraSpellWords;
+              postBuild = "echo Spellfiles joined";
+            };
+          } ''
+            # Fail on unset variables and non-zero exit codes
+            # this might be the only way to trace when `nvim --headless`
+            # fails in batch mode
+            set -eu
+
+            mkdir -p "$out/spell"
+            for spellfile in "$spellfilesJoined"/spell/*.add; do
+              name="$(basename "$spellfile" ".add")"
+              echo "Compiling spellfile: $spellfile"
+              nvim --headless --clean \
+                --cmd "mkspell $out/spell/$name.add.spl $spellfile" -Es -n
             done
+
           '';
       in
         mkIf (cfg.extraSpellWords != {}) [
