@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  options,
   ...
 }: let
   inherit (lib.modules) mkIf;
@@ -8,8 +9,7 @@
 
   cfg = config.vim.lsp;
 
-  self = import ./trouble.nix {inherit lib;};
-  mappingDefinitions = self.options.vim.lsp.trouble.mappings;
+  mappingDefinitions = options.vim.lsp.trouble.mappings;
   mappings = addDescriptionsToMappings cfg.trouble.mappings mappingDefinitions;
 in {
   config = mkIf (cfg.enable && cfg.trouble.enable) {
