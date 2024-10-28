@@ -52,11 +52,10 @@ in {
         optionsScript = entryAfter ["basic"] (concatLines optionsScript);
 
         # Basic
-        pluginConfigs = entryAfter ["optionsScript"] pluginConfigs;
+        lazyConfigs = entryAfter ["optionsScript"] cfg.lazy.builtLazyConfig;
+        pluginConfigs = entryAfter ["lazyConfigs"] pluginConfigs;
         extraPluginConfigs = entryAfter ["pluginConfigs"] extraPluginConfigs;
         mappings = entryAfter ["extraPluginConfigs"] keymaps;
-        # FIXME: put this somewhere less stupid
-        footer = entryAfter ["mappings"] (optionalString config.vim.lazy.enable "require('lzn-auto-require').enable()");
       };
 
       builtLuaConfigRC = let

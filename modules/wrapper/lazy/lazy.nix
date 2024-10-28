@@ -181,7 +181,7 @@
   };
 in {
   options.vim.lazy = {
-    enable = mkEnableOption "plugin lazy-loading" // {default = true;};
+    enable = mkEnableOption "plugin lazy-loading via lz.n and lzn-auto-require" // {default = true;};
     loader = mkOption {
       description = "Lazy loader to use";
       type = enum ["lz.n"];
@@ -213,6 +213,24 @@ in {
             cmd = ["Bdelete" "Bwipeout"];
           };
         }
+      '';
+    };
+
+    enableLznAutoRequire = mkOption {
+      description = ''
+        Enable lzn-auto-require. Since builtin plugins rely on this, only turn
+        off for debugging.
+      '';
+      type = bool;
+      default = true;
+    };
+
+    builtLazyConfig = mkOption {
+      internal = true;
+      type = lines;
+      description = ''
+        The built config for lz.n, or if `vim.lazy.enable` is false, the
+        individual plugin configs.
       '';
     };
   };

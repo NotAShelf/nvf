@@ -76,7 +76,13 @@
     then []
     else [spec.keys];
 
-  notLazyConfig = concatStringsSep "\n" (mapAttrsToList specToNotLazyConfig cfg.plugins);
+  notLazyConfig =
+    concatStringsSep "\n"
+    (mapAttrsToList specToNotLazyConfig cfg.plugins);
+
+  beforeAllJoined =
+    concatStringsSep "\n"
+    (filter (x: x != null) (mapAttrsToList (_: spec: spec.beforeAll) cfg.plugins));
 in {
   config.vim = mkMerge [
     (mkIf cfg.enable {
@@ -84,17 +90,18 @@ in {
 
       optPlugins = pluginPackages;
 
-      luaConfigRC.lzn-load = entryBefore ["pluginConfigs"] ''
+      lazy.builtLazyConfig = ''
         require('lz.n').load(${toLuaObject lznSpecs})
+        ${optionalString cfg.enableLznAutoRequire "require('lzn-auto-require').enable()"}
       '';
     })
 
     (mkIf (!cfg.enable) {
       startPlugins = pluginPackages;
-      luaConfigPre =
-        concatStringsSep "\n"
-        (filter (x: x != null) (mapAttrsToList (_: spec: spec.beforeAll) cfg.plugins));
-      luaConfigRC.unlazy = entryAfter ["pluginConfigs"] notLazyConfig;
+      lazy.builtLazyConfig = ''
+        ${beforeAllJoined}
+        ${notLazyConfig}
+      '';
       keymaps = concatLists (mapAttrsToList specToKeymaps cfg.plugins);
     })
   ];
