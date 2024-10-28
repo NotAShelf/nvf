@@ -57,7 +57,7 @@ in {
         lazy.plugins.nvim-dap-ui = {
           package = "nvim-dap-ui";
           setupModule = "dapui";
-          setupOpts = {};
+          inherit (cfg.ui) setupOpts;
 
           keys = [
             (mkSetLuaLznBinding mappings.toggleDapUI "function() require('dapui').toggle() end")

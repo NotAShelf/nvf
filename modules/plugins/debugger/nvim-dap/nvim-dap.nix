@@ -2,12 +2,16 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) bool attrsOf str;
   inherit (lib.nvim.binds) mkMappingOption;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   options.vim.debugger.nvim-dap = {
     enable = mkEnableOption "debugging via nvim-dap";
 
     ui = {
       enable = mkEnableOption "UI extension for nvim-dap";
+
+      setupOpts = mkPluginSetupOption "nvim-dap-ui" {};
+
       autoStart = mkOption {
         type = bool;
         default = true;
