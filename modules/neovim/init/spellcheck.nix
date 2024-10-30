@@ -64,6 +64,11 @@ in {
         => $out/spell/en-utf-8.add.spl
         ```
         :::
+
+        Note that while adding a new language, you will still need to add the name of
+        the language (e.g. "en") to the {option}`vim.spellcheck.languages` list by name
+        in order to enable spellchecking for the language. By default only `"en"` is in
+        the list.
       '';
     };
 
@@ -81,18 +86,16 @@ in {
       '';
     };
 
-    /*
-    # FIXME: This needs to be revisited. It tries to install
-    # the spellfile to an user directory, but it cannot do so
-    # as we sanitize runtime paths.
     programmingWordlist.enable = mkEnableOption ''
       vim-dirtytalk, a wordlist for programmers containing
       common programming terms.
 
-      Setting this value as `true` has the same effect
-      as setting {option}`vim.spellCheck.enable`
+      ::: {.note}
+      Enabling this option will unconditionally set
+      {option}`vim.spellcheck.enable` to true as vim-dirtytalk
+      depends on spellchecking having been set up.
+      :::
     '';
-    */
   };
 
   config = mkIf cfg.enable {
@@ -136,7 +139,9 @@ in {
 
         -- Disable spellchecking for certain filetypes
         -- as configured by `vim.spellcheck.ignoredFiletypes`
+        vim.api.nvim_create_augroup("nvf_autocmds", {clear = false})
         vim.api.nvim_create_autocmd({ "FileType" }, {
+          group = "nvf_autocmds",
           pattern = ${listToLuaTable cfg.ignoredFiletypes},
           callback = function()
             vim.opt_local.spell = false
