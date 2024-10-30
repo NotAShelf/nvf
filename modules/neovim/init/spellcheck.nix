@@ -64,6 +64,11 @@ in {
         => $out/spell/en-utf-8.add.spl
         ```
         :::
+
+        Note that while adding a new language, you will still need to add the name of
+        the language (e.g. "en") to the {option}`vim.spellcheck.languages` list by name
+        in order to enable spellchecking for the language. By default only `"en"` is in
+        the list.
       '';
     };
 
