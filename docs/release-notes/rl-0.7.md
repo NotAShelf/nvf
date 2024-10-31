@@ -192,6 +192,10 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
 - Add C# support under `vim.languages.csharp`, with support for both
   omnisharp-roslyn and csharp-language-server.
 
+- Add Julia support under `vim.languages.julia`. Note that the entirety of Julia
+  is bundled with nvf, if you enable the module, since there is no way to
+  provide only the LSP server.
+
 [Neovim documentation on `vim.cmd`]: https://neovim.io/doc/user/lua.html#vim.cmd()
 
 - Make Neovim's configuration file entirely Lua based. This comes with a few

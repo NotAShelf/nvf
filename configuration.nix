@@ -65,17 +65,14 @@ isMaximal: {
       r.enable = isMaximal;
       tailwind.enable = isMaximal;
       typst.enable = isMaximal;
-      clang = {
-        enable = isMaximal;
-        lsp.server = "clangd";
-      };
-
+      clang.enable = isMaximal;
       scala.enable = isMaximal;
       rust = {
         enable = isMaximal;
         crates.enable = isMaximal;
       };
       csharp.enable = isMaximal;
+      julia.enable = isMaximal;
     };
 
     visuals = {
