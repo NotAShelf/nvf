@@ -3,12 +3,12 @@
   lib,
   ...
 }: let
-  inherit (builtins) toJSON;
   inherit (lib.strings) optionalString;
   inherit (lib.lists) optional;
   inherit (lib.modules) mkIf;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.binds) mkLznBinding;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.terminal.toggleterm;
   lazygitMapDesc = "Open lazygit [toggleterm]";
@@ -42,7 +42,7 @@ in {
             end
           })
 
-          vim.keymap.set('n', ${toJSON cfg.lazygit.mappings.open}, function() lazygit:toggle() end, {silent = true, noremap = true, desc = '${lazygitMapDesc}'})
+          vim.keymap.set('n', ${toLuaObject cfg.lazygit.mappings.open}, function() lazygit:toggle() end, {silent = true, noremap = true, desc = '${lazygitMapDesc}'})
         '';
       };
     };
