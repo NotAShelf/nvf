@@ -4,12 +4,42 @@
   lib,
   ...
 }: let
+  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) package;
+  inherit (lib.types) package bool enum;
   inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.hcl;
+
+  defaultServer = "terraform-ls";
+  servers = {
+    terraform-ls = rec {
+      package = pkgs.terraform-ls;
+      lspConfig = ''
+        lspconfig.terraformls.setup {
+          capabilities = capabilities,
+          on_attach=default_on_attach,
+          cmd = {"${lib.getExe package}", "serve"},
+        }
+      '';
+    };
+  };
+
+  defaultFormat = "hclfmt";
+  formats = {
+    hclfmt = rec {
+      package = pkgs.hclfmt;
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.hclfmt.with({
+            command = "${lib.getExe package}",
+          })
+        )
+      '';
+    };
+  };
 in {
   options.vim.languages.hcl = {
     enable = mkEnableOption "HCL support";
@@ -21,17 +51,33 @@ in {
 
     lsp = {
       enable = mkEnableOption "HCL LSP support (terraform-ls)" // {default = config.vim.languages.enableLSP;};
-      # TODO: it would be cooler to use vscode-extensions.hashicorp.hcl probably, shouldn't be too hard
-      # TODO: formatter, suppied by above or ...
-      # FIXME: or should we somehow integrate this:
-      #` https://git.mzte.de/nvim-plugins/null-ls.nvim/commit/e1fb7e2b2e4400835e23b9603a19813be119852b ??
+      # TODO: (maybe, is it better?) it would be cooler to use vscode-extensions.hashicorp.hcl probably, shouldn't be too hard
       package = mkOption {
-        description = "HCL ls package (terraform-ls)";
+        description = "HCL language server package (terraform-ls)";
         type = package;
-        default = pkgs.terraform-ls;
+        default = servers.${defaultServer}.package;
+      };
+    };
+
+    format = {
+      enable = mkOption {
+        description = "Enable HCL formatting";
+        type = bool;
+        default = config.vim.languages.enableFormat;
+      };
+      type = mkOption {
+        description = "HCL formatter to use";
+        type = enum (attrNames formats);
+        default = defaultFormat;
+      };
+      package = mkOption {
+        description = "HCL formatter package";
+        type = package;
+        default = formats.${cfg.format.type}.package;
       };
     };
   };
+
   config = mkIf cfg.enable (mkMerge [
     {
       vim.pluginRC.hcl = ''
@@ -58,14 +104,13 @@ in {
     (mkIf cfg.lsp.enable {
       vim.lsp.lspconfig.enable = true;
       vim.lsp.lspconfig.sources = lib.optionalAttrs (! config.vim.languages.terraform.lsp.enable) {
-        terraform-ls = ''
-          lspconfig.terraformls.setup {
-            capabilities = capabilities,
-            on_attach=default_on_attach,
-            cmd = {"${cfg.lsp.package}/bin/terraform-ls", "serve"},
-          }
-        '';
+        terraform-ls = servers.${cfg.lsp.server}.lspConfig;
       };
+    })
+
+    (mkIf cfg.format.enable {
+      vim.lsp.null-ls.enable = true;
+      vim.lsp.null-ls.sources.hcl-format = formats.${cfg.format.type}.nullConfig;
     })
   ]);
 }
