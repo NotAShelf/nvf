@@ -8,19 +8,6 @@
   inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.utility.surround;
-  vendoredKeybinds = {
-    insert = "<C-g>z";
-    insert_line = "<C-g>Z";
-    normal = "gz";
-    normal_cur = "gZ";
-    normal_line = "gzz";
-    normal_cur_line = "gZZ";
-    visual = "gz";
-    visual_line = "gZ";
-    delete = "gzd";
-    change = "gzr";
-    change_line = "gZR";
-  };
   mkLznKey = mode: key: {
     inherit key mode;
   };
@@ -36,20 +23,33 @@ in {
         inherit (cfg) setupOpts;
 
         keys =
-          map (mkLznKey ["i"]) (with vendoredKeybinds; [insert insert_line])
-          ++ map (mkLznKey ["x"]) (with vendoredKeybinds; [visual visual_line])
-          ++ map (mkLznKey ["n"]) (with vendoredKeybinds; [
-            normal
-            normal_cur
-            normal_line
-            normal_cur_line
-            delete
-            change
-            change_line
-          ]);
+          [
+            (mkLznKey ["i"] cfg.setupOpts.keymaps.insert)
+            (mkLznKey ["i"] cfg.setupOpts.keymaps.insert_line)
+            (mkLznKey ["x"] cfg.setupOpts.keymaps.visual)
+            (mkLznKey ["x"] cfg.setupOpts.keymaps.visual_line)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.normal)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.normal_cur)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.normal_line)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.normal_cur_line)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.delete)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.change)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.change_line)
+          ]
+          ++ map (mkLznKey ["n" "i" "v"]) [
+            "<Plug>(nvim-surround-insert)"
+            "<Plug>(nvim-surround-insert-line)"
+            "<Plug>(nvim-surround-normal)"
+            "<Plug>(nvim-surround-normal-cur)"
+            "<Plug>(nvim-surround-normal-line)"
+            "<Plug>(nvim-surround-normal-cur-line)"
+            "<Plug>(nvim-surround-visual)"
+            "<Plug>(nvim-surround-visual-line)"
+            "<Plug>(nvim-surround-delete)"
+            "<Plug>(nvim-surround-change)"
+            "<Plug>(nvim-surround-change-line)"
+          ];
       };
-
-      utility.surround.setupOpts.keymaps = mkIf cfg.useVendoredKeybindings vendoredKeybinds;
     };
   };
 }
