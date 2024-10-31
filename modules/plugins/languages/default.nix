@@ -29,6 +29,7 @@ in {
     ./typst.nix
     ./zig.nix
     ./csharp.nix
+    ./julia.nix
   ];
 
   options.vim.languages = {
