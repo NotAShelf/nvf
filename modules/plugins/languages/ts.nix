@@ -17,12 +17,12 @@
 
   cfg = config.vim.languages.ts;
 
-  defaultServer = "tsserver";
+  defaultServer = "ts_ls";
   servers = {
-    tsserver = {
+    ts_ls = {
       package = pkgs.typescript-language-server;
       lspConfig = ''
-        lspconfig.tsserver.setup {
+        lspconfig.ts_ls.setup {
           capabilities = capabilities;
           on_attach = attach_keymaps,
           cmd = ${
@@ -49,6 +49,24 @@
         }
       '';
     };
+
+    # Here for backwards compatibility. Still consider tsserver a valid
+    # configuration in the enum, but assert if it's set to *properly*
+    # redirect the user to the correct server.
+    tsserver = {
+      package = pkgs.typescript-language-server;
+      lspConfig = ''
+        lspconfig.ts_ls.setup {
+          capabilities = capabilities;
+          on_attach = attach_keymaps,
+          cmd = ${
+          if isList cfg.lsp.package
+          then expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/typescript-language-server", "--stdio"}''
+        }
+        }
+      '';
+    };
   };
 
   # TODO: specify packages
@@ -65,6 +83,7 @@
         )
       '';
     };
+
     prettierd = {
       package = pkgs.prettierd;
       nullConfig = ''
@@ -72,6 +91,18 @@
           ls_sources,
           null_ls.builtins.formatting.prettier.with({
             command = "${cfg.format.package}/bin/prettierd",
+          })
+        )
+      '';
+    };
+
+    biome = {
+      package = pkgs.biome;
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.biome.with({
+            command = "${cfg.format.package}/bin/biome",
           })
         )
       '';
@@ -94,6 +125,7 @@
     };
   };
 in {
+  _file = ./ts.nix;
   options.vim.languages.ts = {
     enable = mkEnableOption "Typescript/Javascript language support";
 
@@ -190,11 +222,32 @@ in {
       };
     })
 
+    # Extensions
     (mkIf cfg.extensions."ts-error-translator".enable {
       vim.startPlugins = ["ts-error-translator"];
       vim.pluginRC.ts-error-translator = entryAnywhere ''
         require("ts-error-translator").setup(${toLuaObject cfg.extensions.ts-error-translator.setupOpts})
       '';
     })
+
+    # Warn the user if they have set the default server name to tsserver to match upstream (us)
+    # The name "tsserver" has been deprecated in lspconfig, and now should be called ts_ls. This
+    # is a purely cosmetic change, but emits a warning if not accounted for.
+    {
+      assertions = [
+        {
+          assertion = cfg.lsp.enable -> cfg.lsp.server != "tsserver";
+          message = ''
+            As of a recent lspconfig update, the `tsserver` configuration has been renamed
+            to `ts_ls` to match upstream behaviour of `lspconfig`, and the name `tsserver`
+            is no longer considered valid by nvf. Please set `vim.languages.ts.lsp.server`
+            to `"ts_ls"` instead of to `${cfg.lsp.server}`
+
+            Please see <https://github.com/neovim/nvim-lspconfig/pull/3232> for more details
+            about this change.
+          '';
+        }
+      ];
+    }
   ]);
 }

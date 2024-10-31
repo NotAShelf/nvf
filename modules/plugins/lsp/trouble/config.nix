@@ -1,41 +1,39 @@
 {
   config,
   lib,
+  options,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.dag) entryAnywhere;
-  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetBinding pushDownDefault;
+  inherit (lib.modules) mkIf;
+  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetLznBinding pushDownDefault;
 
   cfg = config.vim.lsp;
 
-  self = import ./trouble.nix {inherit lib;};
-  mappingDefinitions = self.options.vim.lsp.trouble.mappings;
+  mappingDefinitions = options.vim.lsp.trouble.mappings;
   mappings = addDescriptionsToMappings cfg.trouble.mappings mappingDefinitions;
 in {
   config = mkIf (cfg.enable && cfg.trouble.enable) {
     vim = {
-      startPlugins = ["trouble"];
+      lazy.plugins.trouble = {
+        package = "trouble";
+        setupModule = "trouble";
+        inherit (cfg.trouble) setupOpts;
 
-      maps.normal = mkMerge [
-        (mkSetBinding mappings.toggle "<cmd>TroubleToggle<CR>")
-        (mkSetBinding mappings.workspaceDiagnostics "<cmd>TroubleToggle workspace_diagnostics<CR>")
-        (mkSetBinding mappings.documentDiagnostics "<cmd>TroubleToggle document_diagnostics<CR>")
-        (mkSetBinding mappings.lspReferences "<cmd>TroubleToggle lsp_references<CR>")
-        (mkSetBinding mappings.quickfix "<cmd>TroubleToggle quickfix<CR>")
-        (mkSetBinding mappings.locList "<cmd>TroubleToggle loclist<CR>")
-      ];
-
-      binds.whichKey.register = pushDownDefault {
-        "<leader>l" = "Trouble";
-        "<leader>x" = "+Trouble";
-        "<leader>lw" = "Workspace";
+        cmd = "Trouble";
+        keys = [
+          (mkSetLznBinding "n" mappings.workspaceDiagnostics "<cmd>Trouble toggle diagnostics<CR>")
+          (mkSetLznBinding "n" mappings.documentDiagnostics "<cmd>Trouble toggle diagnostics filter.buf=0<CR>")
+          (mkSetLznBinding "n" mappings.lspReferences "<cmd>Trouble toggle lsp_references<CR>")
+          (mkSetLznBinding "n" mappings.quickfix "<cmd>Trouble toggle quickfix<CR>")
+          (mkSetLznBinding "n" mappings.locList "<cmd>Trouble toggle loclist<CR>")
+          (mkSetLznBinding "n" mappings.symbols "<cmd>Trouble toggle symbols<CR>")
+        ];
       };
 
-      pluginRC.trouble = entryAnywhere ''
-        -- Enable trouble diagnostics viewer
-        require("trouble").setup {}
-      '';
+      binds.whichKey.register = pushDownDefault {
+        "<leader>x" = "+Trouble";
+        "<leader>lw" = "+Workspace";
+      };
     };
   };
 }

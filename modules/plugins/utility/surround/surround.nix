@@ -3,88 +3,65 @@
   config,
   ...
 }: let
-  inherit (lib.modules) mkIf mkDefault;
   inherit (lib.options) mkOption;
-  inherit (lib.types) bool nullOr str;
+  inherit (lib.types) bool str;
+  inherit (lib.nvim.types) mkPluginSetupOption;
+
+  cfg = config.vim.utility.surround;
+  vendoredKeybinds = {
+    insert = "<C-g>z";
+    insert_line = "<C-g>Z";
+    normal = "gz";
+    normal_cur = "gZ";
+    normal_line = "gzz";
+    normal_cur_line = "gZZ";
+    visual = "gz";
+    visual_line = "gZ";
+    delete = "gzd";
+    change = "gzr";
+    change_line = "gZR";
+  };
+
+  mkKeymapOption = name: default:
+    mkOption {
+      description = "keymap for ${name}";
+      type = str;
+      default =
+        if cfg.useVendoredKeybindings
+        then vendoredKeybinds.${name}
+        else default;
+    };
 in {
   options.vim.utility.surround = {
     enable = mkOption {
       type = bool;
       default = false;
-      description = "nvim-surround: add/change/delete surrounding delimiter pairs with ease. Note that the default mappings deviate from upstreeam to avoid conflicts with nvim-leap.";
+      description = ''
+        nvim-surround: add/change/delete surrounding delimiter pairs with ease.
+        Note that the default mappings deviate from upstreeam to avoid conflicts
+        with nvim-leap.
+      '';
     };
+    setupOpts = mkPluginSetupOption "nvim-surround" {
+      keymaps = {
+        insert = mkKeymapOption "insert" "<C-g>s";
+        insert_line = mkKeymapOption "insert_line" "<C-g>S";
+        normal = mkKeymapOption "normal" "ys";
+        normal_cur = mkKeymapOption "normal_cur" "yss";
+        normal_line = mkKeymapOption "normal_line" "yS";
+        normal_cur_line = mkKeymapOption "normal_cur_line" "ySS";
+        visual = mkKeymapOption "visual" "S";
+        visual_line = mkKeymapOption "visual_line" "gS";
+        delete = mkKeymapOption "delete" "ds";
+        change = mkKeymapOption "change" "cs";
+        change_line = mkKeymapOption "change_line" "cS";
+      };
+    };
+
     useVendoredKeybindings = mkOption {
       type = bool;
       default = true;
       description = "Use alternative set of keybindings that avoids conflicts with other popular plugins, e.g. nvim-leap";
     };
-    mappings = {
-      insert = mkOption {
-        type = nullOr str;
-        default = "<C-g>z";
-        description = "Add surround character around the cursor";
-      };
-      insertLine = mkOption {
-        type = nullOr str;
-        default = "<C-g>Z";
-        description = "Add surround character around the cursor on new lines";
-      };
-      normal = mkOption {
-        type = nullOr str;
-        default = "gz";
-        description = "Surround motion with character";
-      };
-      normalCur = mkOption {
-        type = nullOr str;
-        default = "gZ";
-        description = "Surround motion with character on new lines";
-      };
-      normalLine = mkOption {
-        type = nullOr str;
-        default = "gzz";
-        description = "Surround line with character";
-      };
-      normalCurLine = mkOption {
-        type = nullOr str;
-        default = "gZZ";
-        description = "Surround line with character on new lines";
-      };
-      visual = mkOption {
-        type = nullOr str;
-        default = "gz";
-        description = "Surround selection with character";
-      };
-      visualLine = mkOption {
-        type = nullOr str;
-        default = "gZ";
-        description = "Surround selection with character on new lines";
-      };
-      delete = mkOption {
-        type = nullOr str;
-        default = "gzd";
-        description = "Delete surrounding character";
-      };
-      change = mkOption {
-        type = nullOr str;
-        default = "gzr";
-        description = "Change surrounding character";
-      };
-    };
-  };
-  config.vim.utility.surround = let
-    cfg = config.vim.utility.surround;
-  in {
-    mappings = mkIf (! cfg.useVendoredKeybindings) (mkDefault {
-      insert = null;
-      insertLine = null;
-      normal = null;
-      normalCur = null;
-      normalLine = null;
-      normalCurLine = null;
-      visual = null;
-      visualLine = null;
-      delete = null;
-      change = null;
-    });
   };
 }

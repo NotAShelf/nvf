@@ -1,12 +1,32 @@
 # Configuring {#sec-configuring-plugins}
 
-Just making the plugin to your Neovim configuration available might not always
-be enough. In that case, you can write custom lua config using either
-`config.vim.extraPlugins` (which has the `setup` field) or
-`config.vim.luaConfigRC`. The first option uses an attribute set, which maps DAG
-section names to a custom type, which has the fields `package`, `after`,
-`setup`. They allow you to set the package of the plugin, the sections its setup
-code should be after (note that the `extraPlugins` option has its own DAG
+Just making the plugin to your Neovim configuration available might not always be enough. In that
+case, you can write custom lua config using either `config.vim.lazy.plugins.*.setupOpts`
+`config.vim.extraPlugins.*.setup` or `config.vim.luaConfigRC`. 
+
+The first option uses an extended version of `lz.n`'s PluginSpec. `setupModule` and `setupOpt` can
+be used if the plugin uses a `require('module').setup(...)` pattern. Otherwise, the `before` and
+`after` hooks should do what you need.
+
+```nix
+{
+  config.vim.lazy.plugins = {
+    aerial.nvim = {
+    # ^^^^^^^^^ this name should match the package.pname or package.name
+      package = aerial-nvim;
+
+      setupModule = "aerial";
+      setupOpts = {option_name = false;};
+
+      after = "print('aerial loaded')";
+    };
+  };
+}
+```
+
+The second option uses an attribute set, which maps DAG section names to a custom type, which has
+the fields `package`, `after`, `setup`. They allow you to set the package of the plugin, the
+sections its setup code should be after (note that the `extraPlugins` option has its own DAG
 scope), and the its setup code respectively. For example:
 
 ```nix
@@ -24,7 +44,7 @@ config.vim.extraPlugins = with pkgs.vimPlugins; {
 }
 ```
 
-The second option also uses an attribute set, but this one is resolved as a DAG
+The third option also uses an attribute set, but this one is resolved as a DAG
 directly. The attribute names denote the section names, and the values lua code.
 For example:
 

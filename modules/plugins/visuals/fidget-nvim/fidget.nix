@@ -12,8 +12,11 @@
 in {
   imports = [
     (mkRenamedOptionModule ["vim" "visuals" "fidget-nvim" "align" "bottom"] ["vim" "visuals" "fidget-nvim" "setupOpts" "notification" "window" "align"])
-    (mkRemovedOptionModule ["vim" "visuals" "fidget-nvim" "align" "right"]
-      "Option `vim.fidget-nvim.align.right` has been removed and does not have an equivalent replacement in rewritten fidget.nvim configuration.")
+    (mkRemovedOptionModule ["vim" "visuals" "fidget-nvim" "align" "right"] ''
+      Option `vim.fidget-nvim.align.right` has been removed and does not have an
+      equivalent replacement in rewritten fidget.nvim configuration. Please remove
+      it from your configuration.
+    '')
   ];
 
   options.vim.visuals.fidget-nvim = {

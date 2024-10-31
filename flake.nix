@@ -13,14 +13,15 @@
       inherit inputs;
       specialArgs = {inherit lib;};
     } {
-      # provide overridable systems
-      # https://github.com/nix-systems/nix-systems
+      # Allow users to bring their own systems.
+      # «https://github.com/nix-systems/nix-systems»
       systems = import inputs.systems;
       imports = [
         ./flake/apps.nix
         ./flake/legacyPackages.nix
         ./flake/overlays.nix
         ./flake/packages.nix
+        ./flake/develop.nix
       ];
 
       flake = {
@@ -56,19 +57,20 @@
         };
       };
 
-      perSystem = {
-        self',
-        config,
-        pkgs,
-        ...
-      }: {
+      perSystem = {pkgs, ...}: {
+        # Provide the default formatter. `nix fmt` in project root
+        # will format available files with the correct formatter.
+        # P.S: Please do not format with nixfmt! It messes with many
+        # syntax elements and results in unreadable code.
         formatter = pkgs.alejandra;
-        devShells = {
-          default = self'.devShells.lsp;
-          nvim-nix = pkgs.mkShell {packages = [config.packages.nix];};
-          lsp = pkgs.mkShell {
-            packages = with pkgs; [nil statix deadnix alejandra];
-          };
+
+        # Check if codebase is properly formatted.
+        # This can be initiated with `nix build .#checks.<system>.nix-fmt`
+        # or with `nix flake check`
+        checks = {
+          nix-fmt = pkgs.runCommand "nix-fmt-check" {nativeBuildInputs = [pkgs.alejandra];} ''
+            alejandra --check ${self} < /dev/null | tee $out
+          '';
         };
       };
     };
@@ -90,10 +92,7 @@
       flake = false;
     };
 
-    # TODO: get zig from the zig overlay instead of nixpkgs
-    zig.url = "github:mitchellh/zig-overlay";
-
-    # Langauge server (use master instead of nixpkgs)
+    # Language servers (use master instead of nixpkgs)
     rnix-lsp.url = "github:nix-community/rnix-lsp";
     nil = {
       url = "github:oxalica/nil";
@@ -102,6 +101,22 @@
     };
 
     ## Plugins
+    # Lazy loading
+    plugin-lz-n = {
+      url = "github:nvim-neorocks/lz.n";
+      flake = false;
+    };
+
+    plugin-lzn-auto-require = {
+      url = "github:horriblename/lzn-auto-require/require-rewrite";
+      flake = false;
+    };
+
+    plugin-rtp-nvim = {
+      url = "github:nvim-neorocks/rtp.nvim";
+      flake = false;
+    };
+
     # LSP plugins
     plugin-nvim-lspconfig = {
       url = "github:neovim/nvim-lspconfig";
@@ -159,7 +174,12 @@
       flake = false;
     };
 
-    # language support
+    plugin-otter-nvim = {
+      url = "github:jmbuhr/otter.nvim";
+      flake = false;
+    };
+
+    # Language support
     plugin-sqls-nvim = {
       url = "github:nanotee/sqls.nvim";
       flake = false;
@@ -187,6 +207,21 @@
 
     plugin-ts-error-translator = {
       url = "github:dmmulroy/ts-error-translator.nvim";
+      flake = false;
+    };
+
+    plugin-nvim-metals = {
+      url = "github:scalameta/nvim-metals";
+      flake = false;
+    };
+
+    plugin-omnisharp-extended = {
+      url = "github:Hoffs/omnisharp-extended-lsp.nvim";
+      flake = false;
+    };
+
+    plugin-csharpls-extended = {
+      url = "github:Decodetalkers/csharpls-extended-lsp.nvim";
       flake = false;
     };
 
@@ -261,11 +296,6 @@
       flake = false;
     };
 
-    plugin-cmp-vsnip = {
-      url = "github:hrsh7th/cmp-vsnip";
-      flake = false;
-    };
-
     plugin-cmp-path = {
       url = "github:hrsh7th/cmp-path";
       flake = false;
@@ -276,9 +306,19 @@
       flake = false;
     };
 
+    plugin-cmp-luasnip = {
+      url = "github:saadparwaiz1/cmp_luasnip";
+      flake = false;
+    };
+
     # snippets
-    plugin-vim-vsnip = {
-      url = "github:hrsh7th/vim-vsnip";
+    plugin-luasnip = {
+      url = "github:L3MON4D3/LuaSnip";
+      flake = false;
+    };
+
+    plugin-friendly-snippets = {
+      url = "github:rafamadriz/friendly-snippets";
       flake = false;
     };
 
@@ -333,6 +373,11 @@
     };
 
     # Themes
+    plugin-base16 = {
+      url = "github:rrethy/base16-nvim";
+      flake = false;
+    };
+
     plugin-tokyonight = {
       url = "github:folke/tokyonight.nvim";
       flake = false;
@@ -386,7 +431,7 @@
       flake = false;
     };
 
-    plugin-scrollbar-nvim = {
+    plugin-nvim-scrollbar = {
       url = "github:petertriho/nvim-scrollbar";
       flake = false;
     };
@@ -408,6 +453,11 @@
 
     plugin-nvim-web-devicons = {
       url = "github:nvim-tree/nvim-web-devicons";
+      flake = false;
+    };
+
+    plugin-tiny-devicons-auto-colors = {
+      url = "github:rachartier/tiny-devicons-auto-colors.nvim";
       flake = false;
     };
 
@@ -506,6 +556,11 @@
 
     plugin-image-nvim = {
       url = "github:3rd/image.nvim";
+      flake = false;
+    };
+
+    plugin-precognition-nvim = {
+      url = "github:tris203/precognition.nvim";
       flake = false;
     };
 
@@ -612,6 +667,26 @@
     plugin-tabular = {
       # (required by vim-markdown)
       url = "github:godlygeek/tabular";
+      flake = false;
+    };
+
+    plugin-lua-utils-nvim = {
+      url = "github:nvim-neorg/lua-utils.nvim";
+      flake = false;
+    };
+
+    plugin-pathlib-nvim = {
+      url = "github:pysan3/pathlib.nvim";
+      flake = false;
+    };
+
+    plugin-neorg = {
+      url = "github:nvim-neorg/neorg";
+      flake = false;
+    };
+
+    plugin-neorg-telescope = {
+      url = "github:nvim-neorg/neorg-telescope";
       flake = false;
     };
 

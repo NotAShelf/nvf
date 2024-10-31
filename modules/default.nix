@@ -1,10 +1,13 @@
-inputs: {
-  configuration,
-  pkgs,
+{
+  inputs,
   lib,
-  check ? true,
+}: {
+  pkgs,
   extraSpecialArgs ? {},
+  modules ? [],
+  # deprecated
   extraModules ? [],
+  configuration ? {},
 }: let
   inherit (pkgs) vimPlugins;
   inherit (lib.strings) isString toString;
@@ -13,13 +16,25 @@ inputs: {
   # import modules.nix with `check`, `pkgs` and `lib` as arguments
   # check can be disabled while calling this file is called
   # to avoid checking in all modules
-  nvimModules = import ./modules.nix {inherit pkgs check lib;};
+  nvimModules = import ./modules.nix {inherit pkgs lib;};
 
   # evaluate the extended library with the modules
   # optionally with any additional modules passed by the user
   module = lib.evalModules {
     specialArgs = extraSpecialArgs // {modulesPath = toString ./.;};
-    modules = concatLists [[configuration] nvimModules extraModules];
+    modules = concatLists [
+      nvimModules
+      modules
+      (lib.optional (configuration != {}) (lib.warn ''
+          nvf: passing 'configuration' to lib.neovimConfiguration is deprecated.
+        ''
+        configuration))
+
+      (lib.optionals (extraModules != []) (lib.warn ''
+          nvf: passing 'extraModules' to lib.neovimConfiguration is deprecated, use 'modules' instead.
+        ''
+        extraModules))
+    ];
   };
 
   # alias to the internal configuration
@@ -69,10 +84,7 @@ inputs: {
 
   # built (or "normalized") plugins that are modified
   builtStartPlugins = buildConfigPlugins vimOptions.startPlugins;
-  builtOptPlugins = map (package: {
-    plugin = package;
-    optional = true;
-  }) (buildConfigPlugins vimOptions.optPlugins);
+  builtOptPlugins = map (package: package // {optional = true;}) (buildConfigPlugins vimOptions.optPlugins);
 
   # additional Lua and Python3 packages, mapped to their respective functions
   # to conform to the format mnw expects. end user should
@@ -111,9 +123,15 @@ in {
     paths = [neovim-wrapped printConfig printConfigPath];
     postBuild = "echo Helpers added";
 
-    meta = {
-      description = "Wrapped version of Neovim with additional helper scripts";
-      mainProgram = "nvim";
-    };
+    # Allow evaluating vimOptions, i.e., config.vim from the packages' passthru
+    # attribute. For example, packages.x86_64-linux.neovim.passthru.neovimConfig
+    # will return the configuration in full.
+    passthru.neovimConfig = vimOptions;
+
+    meta =
+      neovim-wrapped.meta
+      // {
+        description = "Wrapped Neovim package with helper scripts to print the config (path)";
+      };
   };
 }

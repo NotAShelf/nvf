@@ -2,13 +2,9 @@
   writeShellScriptBin,
   makeDesktopItem,
   symlinkJoin,
-}: {
   html,
-  pathName ? "nvf",
-  projectName ? pathName,
-  name ? "${pathName}-help",
 }: let
-  helpScript = writeShellScriptBin name ''
+  helpScript = writeShellScriptBin "nvf-help" ''
     set -euo pipefail
 
     if [[ ! -v BROWSER || -z $BROWSER ]]; then
@@ -24,20 +20,23 @@
       echo "$0: unable to start a web browser; please set \$BROWSER"
       exit 1
     else
-      exec "$BROWSER" "${html}/share/doc/${pathName}/index.xhtml"
+      exec "$BROWSER" "${html}/share/doc/nvf/index.xhtml"
     fi
   '';
 
   desktopItem = makeDesktopItem {
-    name = "${pathName}-manual";
-    desktopName = "${projectName} Manual";
-    genericName = "View ${projectName} documentation in a web browser";
+    name = "nvf-manual";
+    desktopName = "nvf Manual";
+    genericName = "View nvf documentation in a web browser";
     icon = "nix-snowflake";
-    exec = "${helpScript}/bin/${name}";
+    exec = "${helpScript}/bin/nvf-help";
     categories = ["System"];
   };
 in
   symlinkJoin {
-    inherit name;
-    paths = [helpScript desktopItem];
+    name = "nvf-help";
+    paths = [
+      helpScript
+      desktopItem
+    ];
   }

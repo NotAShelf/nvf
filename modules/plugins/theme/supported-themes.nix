@@ -4,7 +4,14 @@
 }: let
   inherit (lib.strings) optionalString;
   inherit (lib.trivial) boolToString warnIf;
+  inherit (lib.nvim.lua) toLuaObject;
 in {
+  base16 = {
+    setup = {base16-colors, ...}: ''
+      -- Base16 theme
+      require('base16-colorscheme').setup(${toLuaObject base16-colors})
+    '';
+  };
   onedark = {
     setup = {style ? "dark", ...}: ''
       -- OneDark theme
@@ -20,6 +27,7 @@ in {
     setup = {
       style ? "night",
       transparent,
+      ...
     }: ''
       require('tokyonight').setup {
         transparent = ${boolToString transparent};
@@ -42,6 +50,7 @@ in {
     setup = {
       style ? "mocha",
       transparent ? false,
+      ...
     }: ''
       -- Catppuccin theme
       require('catppuccin').setup {
@@ -69,7 +78,7 @@ in {
           notify = true, -- nvim-notify
           which_key = true,
           navic = {
-            enabled = false,
+            enabled = true,
             custom_bg = "NONE", -- "lualine" will set background to mantle
           },
         },
@@ -84,6 +93,7 @@ in {
     setup = {
       style ? "dark",
       transparent ? false,
+      ...
     }: let
       style' =
         warnIf (style == "light") "oxocarbon: light theme is not well-supported" style;
@@ -108,6 +118,7 @@ in {
     setup = {
       style ? "dark",
       transparent ? false,
+      ...
     }: ''
       -- Gruvbox theme
       require("gruvbox").setup({
@@ -143,6 +154,7 @@ in {
     setup = {
       style ? "main",
       transparent ? false,
+      ...
     }: ''
       require("rose-pine").setup({
         dark_variant = "${style}", -- main, moon, or dawn

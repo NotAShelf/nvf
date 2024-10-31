@@ -19,6 +19,7 @@ isMaximal: {
       lspsaga.enable = false;
       trouble.enable = true;
       lspSignature.enable = true;
+      otter-nvim.enable = isMaximal;
       lsplines.enable = isMaximal;
       nvim-docs-view.enable = isMaximal;
     };
@@ -45,48 +46,50 @@ isMaximal: {
 
       nix.enable = true;
 
+      # Assembly is not common, and the asm LSP is a major hit-or-miss
+      assembly.enable = false;
       markdown.enable = isMaximal;
       html.enable = isMaximal;
       css.enable = isMaximal;
       sql.enable = isMaximal;
       java.enable = isMaximal;
+      kotlin.enable = isMaximal;
       ts.enable = isMaximal;
       svelte.enable = isMaximal;
       go.enable = isMaximal;
+      lua.enable = isMaximal;
       elixir.enable = isMaximal;
       zig.enable = isMaximal;
       ocaml.enable = isMaximal;
       python.enable = isMaximal;
       dart.enable = isMaximal;
       bash.enable = isMaximal;
+      r.enable = isMaximal;
       tailwind.enable = isMaximal;
       typst.enable = isMaximal;
-      clang = {
-        enable = isMaximal;
-        lsp.server = "clangd";
-      };
-
+      clang.enable = isMaximal;
+      scala.enable = isMaximal;
       rust = {
         enable = isMaximal;
         crates.enable = isMaximal;
       };
+      csharp.enable = isMaximal;
+      julia.enable = isMaximal;
+      vala.enable = isMaximal;
     };
 
     visuals = {
-      enable = true;
-      nvimWebDevicons.enable = true;
-      scrollBar.enable = isMaximal;
-      smoothScroll.enable = true;
-      cellularAutomaton.enable = false;
+      nvim-scrollbar.enable = isMaximal;
+      nvim-web-devicons.enable = true;
+      nvim-cursorline.enable = true;
+      cinnamon-nvim.enable = true;
       fidget-nvim.enable = true;
+
       highlight-undo.enable = true;
+      indent-blankline.enable = true;
 
-      indentBlankline.enable = true;
-
-      cursorline = {
-        enable = true;
-        lineTimeout = 0;
-      };
+      # Fun
+      cellular-automaton.enable = false;
     };
 
     statusline = {
@@ -103,15 +106,13 @@ isMaximal: {
       transparent = false;
     };
 
-    autopairs.enable = true;
+    autopairs.nvim-autopairs.enable = true;
 
-    autocomplete = {
-      enable = true;
-      type = "nvim-cmp";
-    };
+    autocomplete.nvim-cmp.enable = true;
+    snippets.luasnip.enable = true;
 
     filetree = {
-      nvimTree = {
+      neo-tree = {
         enable = true;
       };
     };
@@ -154,7 +155,7 @@ isMaximal: {
     };
 
     utility = {
-      ccc.enable = isMaximal;
+      ccc.enable = false;
       vim-wakatime.enable = false;
       icon-picker.enable = isMaximal;
       surround.enable = isMaximal;
@@ -162,6 +163,7 @@ isMaximal: {
       motion = {
         hop.enable = true;
         leap.enable = true;
+        precognition.enable = isMaximal;
       };
 
       images = {
@@ -171,6 +173,7 @@ isMaximal: {
 
     notes = {
       obsidian.enable = false; # FIXME: neovim fails to build if obsidian is enabled
+      neorg.enable = false;
       orgmode.enable = false;
       mind-nvim.enable = isMaximal;
       todo-comments.enable = true;
