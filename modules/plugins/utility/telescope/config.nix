@@ -23,7 +23,6 @@ in {
         package = "telescope";
         setupModule = "telescope";
         inherit (cfg) setupOpts;
-        # FIXME: how do I deal with extensions? set all as deps?
         after = ''
           local telescope = require("telescope")
           ${optionalString config.vim.ui.noice.enable "telescope.load_extension('noice')"}
