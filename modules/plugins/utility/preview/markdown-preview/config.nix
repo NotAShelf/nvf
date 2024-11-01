@@ -4,8 +4,9 @@
   lib,
   ...
 }: let
-  inherit (lib.strings) concatMapStringsSep;
+  inherit (lib.strings) stringLength concatMapStringsSep;
   inherit (lib.modules) mkIf;
+
   cfg = config.vim.utility.preview.markdownPreview;
 in {
   config = mkIf cfg.enable {
@@ -18,8 +19,8 @@ in {
       mkdp_filetypes = [(concatMapStringsSep ", " (x: "'" + x + "'") cfg.filetypes)];
       mkdp_command_for_global = cfg.alwaysAllowPreview;
       mkdp_open_to_the_world = cfg.broadcastServer;
-      mkdp_open_ip = cfg.customIP;
-      mkdp_port = cfg.customPort;
+      mkdp_open_ip = mkIf (stringLength cfg.customIP > 0) cfg.customIP;
+      mkdp_port = mkIf (stringLength cfg.customPort > 0) cfg.customPort;
     };
   };
 }
