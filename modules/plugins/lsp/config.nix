@@ -117,7 +117,7 @@ in {
 
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         ${optionalString usingNvimCmp ''
-          -- TODO: copied from cmp-nvim-lsp. If we ever lazy load lspconfig we
+          -- HACK: copied from cmp-nvim-lsp. If we ever lazy load lspconfig we
           -- should re-evaluate whether we can just use `default_capabilities`
           capabilities = {
             textDocument = {
