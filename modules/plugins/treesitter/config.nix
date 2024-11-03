@@ -11,7 +11,6 @@
   inherit (lib.nvim.dag) entryBefore entryAfter;
 
   cfg = config.vim.treesitter;
-  usingNvimCmp = config.vim.autocomplete.nvim-cmp.enable;
 
   self = import ./treesitter.nix {inherit pkgs lib;};
   mappingDefinitions = self.options.vim.treesitter.mappings;
@@ -20,17 +19,6 @@ in {
   config = mkIf cfg.enable {
     vim = {
       startPlugins = ["nvim-treesitter"];
-
-      lazy.plugins = {
-        cmp-treesitter = mkIf usingNvimCmp {
-          package = "cmp-treesitter";
-          after = ''
-            local path = vim.fn.globpath(vim.o.packpath, 'pack/*/opt/cmp-treesitter')
-            require("rtp_nvim").source_after_plugin_dir(path)
-          '';
-        };
-        nvim-cmp.after = mkIf usingNvimCmp "require('lz.n').trigger_load('cmp-treesitter')";
-      };
 
       autocomplete.nvim-cmp = {
         sources = {treesitter = "[Treesitter]";};
