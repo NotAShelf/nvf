@@ -11,8 +11,6 @@
   inherit (self.options.vim.comments.comment-nvim) mappings;
 in {
   config = mkIf cfg.enable {
-    vim.startPlugins = ["comment-nvim"];
-
     vim.lazy.plugins.comment-nvim = {
       package = "comment-nvim";
       setupModule = "Comment";
