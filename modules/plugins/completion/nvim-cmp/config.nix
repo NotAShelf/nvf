@@ -41,13 +41,13 @@ in {
             package = "nvim-cmp";
             after = ''
               ${optionalString luasnipEnable "local luasnip = require('luasnip')"}
-                  require("lz.n").trigger_load("cmp-path")
               local cmp = require("cmp")
               cmp.setup(${toLuaObject cfg.setupOpts})
 
-              ${concatStringsSep "\n" (map
-                (package: "require('lz.n').trigger_load(${toLuaObject (getPluginName package)})")
-                cfg.sourcePlugins)}
+              ${optionalString config.vim.lazy.enable
+                (concatStringsSep "\n" (map
+                  (package: "require('lz.n').trigger_load(${toLuaObject (getPluginName package)})")
+                  cfg.sourcePlugins))}
             '';
 
             event = ["InsertEnter" "CmdlineEnter"];
