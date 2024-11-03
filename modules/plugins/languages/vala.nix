@@ -17,10 +17,15 @@
   defaultServer = "vala_ls";
   servers = {
     vala_ls = {
-      package = pkgs.writeShellScriptBin "vala-language-server-wrapper" ''
-        export PATH="${lib.makeBinPath [pkgs.uncrustify]}:$PATH"
-        exec ${pkgs.vala-language-server}/bin/vala-language-server "$@"
-      '';
+      package = pkgs.symlinkJoin {
+        name = "vala-language-server-wrapper";
+        paths = [pkgs.vala-language-server];
+        buildInputs = [pkgs.makeBinaryWrapper];
+        postBuild = ''
+          wrapProgram $out/bin/vala-language-server \
+            --prefix PATH : ${pkgs.uncrustify}/bin
+        '';
+      };
       internalFormatter = true;
       lspConfig = ''
         lspconfig.vala_ls.setup {
@@ -29,7 +34,7 @@
           cmd = ${
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/vala-language-server-wrapper"}''
+          else ''{"${cfg.lsp.package}/bin/vala-language-server"}''
         },
         }
       '';
@@ -54,7 +59,6 @@ in {
 
       package = mkOption {
         description = "Vala LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.vala-language-server]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
