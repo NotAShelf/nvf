@@ -14,6 +14,7 @@ in {
     ./lua.nix
     ./markdown.nix
     ./nim.nix
+    ./vala.nix
     ./nix.nix
     ./ocaml.nix
     ./php.nix

@@ -292,6 +292,7 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
 - Add LSP, diagnostics, formatter and Treesitter support for Kotlin under
   `vim.languages.kotlin`
 - changed default keybinds for leap.nvim to avoid altering expected behavior
+- Add LSP, formatter and Treesitter support for Vala under `vim.languages.vala`
 
 [Bloxx12](https://github.com/Bloxx12)
 
