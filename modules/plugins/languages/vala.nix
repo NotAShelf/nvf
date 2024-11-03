@@ -7,11 +7,10 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.meta) getExe;
-  inherit (lib.nvim.languages) diagnosticsToLua;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.lua) expToLua;
 
   cfg = config.vim.languages.vala;
@@ -19,8 +18,10 @@
   defaultServer = "vala_ls";
   servers = {
     vala_ls = {
-      package = pkgs.vala-language-server;
-      runtimeInputs = pkgs.uncrustify;
+      package = pkgs.writeShellScriptBin "vala-language-server-wrapper" ''
+        export PATH="${lib.makeBinPath [pkgs.uncrustify]}:$PATH"
+        exec ${pkgs.vala-language-server}/bin/vala-language-server "$@"
+      '';
       internalFormatter = true;
       lspConfig = ''
         lspconfig.vala_ls.setup {
@@ -29,24 +30,9 @@
           cmd = ${
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/vala-language-server"}''
+          else ''{"${cfg.lsp.package}/bin/vala-language-server-wrapper"}''
         },
         }
-      '';
-    };
-  };
-
-  defaultDiagnosticsProvider = ["vala-lint"];
-  diagnosticsProviders = {
-    vala-lint = {
-      package = pkgs.vala-lint;
-      nullConfig = pkg: ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.diagnostics.vala_lint.with({
-            command = "${getExe pkg}",
-          })
-        )
       '';
     };
   };
@@ -74,30 +60,12 @@ in {
         default = servers.${cfg.lsp.server}.package;
       };
     };
-
-    extraDiagnostics = {
-      enable = mkEnableOption "extra Vala diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
-      types = diagnostics {
-        langDesc = "Vala";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
-      };
-    };
   };
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.package];
-    })
-
-    (mkIf cfg.extraDiagnostics.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources = diagnosticsToLua {
-        lang = "Vala";
-        config = cfg.extraDiagnostics.types;
-        inherit diagnosticsProviders;
-      };
     })
 
     (mkIf cfg.lsp.enable {
