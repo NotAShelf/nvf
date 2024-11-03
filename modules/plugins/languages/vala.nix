@@ -20,6 +20,8 @@
   servers = {
     vala_ls = {
       package = pkgs.vala-language-server;
+      runtimeInputs = pkgs.uncrustify;
+      internalFormatter = true;
       lspConfig = ''
         lspconfig.vala_ls.setup {
           capabilities = capabilities;
@@ -41,7 +43,7 @@
       nullConfig = pkg: ''
         table.insert(
           ls_sources,
-          null_ls.builtins.diagnostics.eslint_d.with({
+          null_ls.builtins.diagnostics.vala_lint.with({
             command = "${getExe pkg}",
           })
         )
@@ -54,13 +56,11 @@ in {
 
     treesitter = {
       enable = mkEnableOption "Vala treesitter" // {default = config.vim.languages.enableTreesitter;};
-
       package = mkGrammarOption pkgs "vala";
     };
 
     lsp = {
       enable = mkEnableOption "Vala LSP support" // {default = config.vim.languages.enableLSP;};
-
       server = mkOption {
         description = "Vala LSP server to use";
         type = enum (attrNames servers);
@@ -69,7 +69,7 @@ in {
 
       package = mkOption {
         description = "Vala LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
+        example = ''[lib.getExe pkgs.vala-language-server]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
@@ -77,7 +77,6 @@ in {
 
     extraDiagnostics = {
       enable = mkEnableOption "extra Vala diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
-
       types = diagnostics {
         langDesc = "Vala";
         inherit diagnosticsProviders;
