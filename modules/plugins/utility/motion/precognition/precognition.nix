@@ -1,22 +1,19 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) attrsOf listOf str bool int submodule;
-in
-{
+in {
   options.vim.utility.motion.precognition = rec {
     enable = mkEnableOption "precognition.nvim plugin";
 
     startVisible = mkOption {
       type = bool;
-      description =  "Whether to start 'precognition' automatically.";
+      description = "Whether to start 'precognition' automatically.";
       default = true;
     };
 
     showBlankVirtLine = mkOption {
       type = bool;
-      description =  "Whether to show a blank virtual line when no movements are shown.";
+      description = "Whether to show a blank virtual line when no movements are shown.";
       default = true;
     };
 
@@ -26,9 +23,9 @@ in
       example = literalExpression ''
         { link = "Comment"; }
         # or
-        { foreground = "#0000FF", background = "#000000" };
+        { foreground = "#0000FF"; background = "#000000"; };
       '';
-      default = { link = "Comment"; };
+      default = {link = "Comment";};
       description = "The highlight for the virtual text.";
     };
 
@@ -53,7 +50,7 @@ in
 
     disabled_fts = mkOption {
       type = listOf str;
-      default = [ "startify" ];
+      default = ["startify"];
       example = literalExpression ''[ "startify" ]'';
     };
 
