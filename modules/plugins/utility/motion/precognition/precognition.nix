@@ -3,7 +3,6 @@
 let
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) attrsOf listOf str bool int submodule;
-
 in
 {
   options.vim.utility.motion.precognition = rec {
@@ -29,7 +28,7 @@ in
         # or
         { foreground = "#0000FF", background = "#000000" };
       '';
-      default = { link =  "Comment"; };
+      default = { link = "Comment"; };
       description = "The highlight for the virtual text.";
     };
 
@@ -41,9 +40,10 @@ in
             description = "The easier-to-read depiction of the motion.";
           };
           prio = {
-            type = str;
+            type = int;
             description = "The priority of the hint.";
-            example = str;
+            example = 10;
+            default = 1;
           };
         };
       });
