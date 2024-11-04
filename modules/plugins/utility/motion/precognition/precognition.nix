@@ -26,12 +26,22 @@ in {
         { foreground = "#0000FF"; background = "#000000"; };
       '';
       default = {link = "Comment";};
-      description = "The highlight for the virtual text.";
+      description = ''
+        The highlight for the virtual text.
+
+        To find more about this option, please see
+        [the documentation](https://github.com/tris203/precognition.nvim).
+      '';
     };
 
     hints = mkOption {
       default = {};
-      description = "What motions display and at what priority.";
+      description = ''
+        What motions display and at what priority.";
+
+        To find more about this option, please see
+        [the documentation](https://github.com/tris203/precognition.nvim).
+      '';
       type = attrsOf (submodule {
         options = {
           text = mkOption {
@@ -49,12 +59,19 @@ in {
     };
 
     gutterHints = hints //
-      { description = "What motions display and at what priority. Only appears in gutters."; };
+      {
+        description = ''
+          What motions display and at what priority. Only appears in gutters.
+
+          To find more about this option, please see
+          [the documentation](https://github.com/tris203/precognition.nvim).
+        '';
+      };
 
     disabled_fts = mkOption {
       type = listOf str;
       default = ["startify"];
-      example = literalExpression ''[ "startify" ]'';
+      example = literalExpression ''["startify"]'';
     };
   };
 }
