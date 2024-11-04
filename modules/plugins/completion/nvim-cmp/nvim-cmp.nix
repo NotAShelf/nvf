@@ -29,6 +29,8 @@ in {
       sorting.comparators = mkOption {
         type = mergelessListOf (either str luaInline);
         default = [
+          (mkLuaInline "deprio(kinds.Text)")
+          (mkLuaInline "deprio(kinds.Snippet)")
           "offset"
           "exact"
           "score"
@@ -43,6 +45,12 @@ in {
           (see `:help cmp-config.sorting.comparators`),
           or a string, in which case the builtin comparator with that name will
           be used.
+
+          A `deprio` function and a `kinds`
+          (`require("cmp.types").lsp.CompletionItemKind`) variable is provided
+          above `setupOpts`. By passing a type to the funcion, the returned
+          function will be a comparator that always ranks the specified kind the
+          lowest.
         '';
         apply = map (
           c:

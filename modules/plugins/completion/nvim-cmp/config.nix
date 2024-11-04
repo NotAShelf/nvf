@@ -42,6 +42,20 @@ in {
             after = ''
               ${optionalString luasnipEnable "local luasnip = require('luasnip')"}
               local cmp = require("cmp")
+
+              local kinds = require("cmp.types").lsp.CompletionItemKind
+              local deprio = function(kind)
+                return function(e1, e2)
+                  if e1:get_kind() == kind then
+                    return false
+                  end
+                  if e2:get_kind() == kind then
+                    return true
+                  end
+                  return nil
+                end
+              end
+
               cmp.setup(${toLuaObject cfg.setupOpts})
 
               ${optionalString config.vim.lazy.enable
