@@ -14,6 +14,7 @@ in {
     ./lua.nix
     ./markdown.nix
     ./nim.nix
+    ./vala.nix
     ./nix.nix
     ./ocaml.nix
     ./php.nix
@@ -28,6 +29,8 @@ in {
     ./ts.nix
     ./typst.nix
     ./zig.nix
+    ./csharp.nix
+    ./julia.nix
   ];
 
   options.vim.languages = {

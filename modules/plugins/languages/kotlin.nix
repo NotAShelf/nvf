@@ -8,7 +8,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.languages) diagnosticsToLua;
-  inherit (lib.types) package;
+  inherit (lib.types) either package listOf str;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
   inherit (lib.lists) isList;
   inherit (lib.nvim.lua) expToLua;
@@ -43,17 +43,17 @@ in {
 
       package = mkOption {
         description = "kotlin_language_server package with Kotlin runtime";
-        type = package;
+        type = either package (listOf str);
         example = literalExpression ''
           pkgs.symlinkJoin {
-              name = "kotlin-language-server-wrapped";
-              paths = [pkgs.kotlin-language-server];
-              nativeBuildInputs = [pkgs.makeWrapper];
-              postBuild = '''
-                wrapProgram $out/bin/kotlin-language-server \
-                  --prefix PATH : ''${pkgs.kotlin}/bin
-              ''';
-            };
+            name = "kotlin-language-server-wrapped";
+            paths = [pkgs.kotlin-language-server];
+            nativeBuildInputs = [pkgs.makeBinaryWrapper];
+            postBuild = '''
+              wrapProgram $out/bin/kotlin-language-server \
+                --prefix PATH : ''${pkgs.kotlin}/bin
+            ''';
+          };
         '';
         default = pkgs.kotlin-language-server;
       };

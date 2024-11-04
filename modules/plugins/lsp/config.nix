@@ -17,7 +17,7 @@
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
   mkBinding = binding: action:
     if binding.value != null
-    then "vim.api.nvim_buf_set_keymap(bufnr, 'n', '${binding.value}', '<cmd>lua ${action}<CR>', {noremap=true, silent=true, desc='${binding.description}'})"
+    then "vim.keymap.set('n', '${binding.value}', ${action}, {buffer=bufnr, noremap=true, silent=true, desc='${binding.description}'})"
     else "";
 in {
   config = mkIf cfg.enable {
@@ -31,26 +31,26 @@ in {
         vim.g.formatsave = ${boolToString cfg.formatOnSave};
 
         local attach_keymaps = function(client, bufnr)
-          ${mkBinding mappings.goToDeclaration "vim.lsp.buf.declaration()"}
-          ${mkBinding mappings.goToDefinition "vim.lsp.buf.definition()"}
-          ${mkBinding mappings.goToType "vim.lsp.buf.type_definition()"}
-          ${mkBinding mappings.listImplementations "vim.lsp.buf.implementation()"}
-          ${mkBinding mappings.listReferences "vim.lsp.buf.references()"}
-          ${mkBinding mappings.nextDiagnostic "vim.diagnostic.goto_next()"}
-          ${mkBinding mappings.previousDiagnostic "vim.diagnostic.goto_prev()"}
-          ${mkBinding mappings.openDiagnosticFloat "vim.diagnostic.open_float()"}
-          ${mkBinding mappings.documentHighlight "vim.lsp.buf.document_highlight()"}
-          ${mkBinding mappings.listDocumentSymbols "vim.lsp.buf.document_symbol()"}
-          ${mkBinding mappings.addWorkspaceFolder "vim.lsp.buf.add_workspace_folder()"}
-          ${mkBinding mappings.removeWorkspaceFolder "vim.lsp.buf.remove_workspace_folder()"}
-          ${mkBinding mappings.listWorkspaceFolders "print(vim.inspect(vim.lsp.buf.list_workspace_folders()))"}
-          ${mkBinding mappings.listWorkspaceSymbols "vim.lsp.buf.workspace_symbol()"}
-          ${mkBinding mappings.hover "vim.lsp.buf.hover()"}
-          ${mkBinding mappings.signatureHelp "vim.lsp.buf.signature_help()"}
-          ${mkBinding mappings.renameSymbol "vim.lsp.buf.rename()"}
-          ${mkBinding mappings.codeAction "vim.lsp.buf.code_action()"}
-          ${mkBinding mappings.format "vim.lsp.buf.format()"}
-          ${mkBinding mappings.toggleFormatOnSave "vim.b.disableFormatSave = not vim.b.disableFormatSave"}
+          ${mkBinding mappings.goToDeclaration "vim.lsp.buf.declaration"}
+          ${mkBinding mappings.goToDefinition "vim.lsp.buf.definition"}
+          ${mkBinding mappings.goToType "vim.lsp.buf.type_definition"}
+          ${mkBinding mappings.listImplementations "vim.lsp.buf.implementation"}
+          ${mkBinding mappings.listReferences "vim.lsp.buf.references"}
+          ${mkBinding mappings.nextDiagnostic "vim.diagnostic.goto_next"}
+          ${mkBinding mappings.previousDiagnostic "vim.diagnostic.goto_prev"}
+          ${mkBinding mappings.openDiagnosticFloat "vim.diagnostic.open_float"}
+          ${mkBinding mappings.documentHighlight "vim.lsp.buf.document_highlight"}
+          ${mkBinding mappings.listDocumentSymbols "vim.lsp.buf.document_symbol"}
+          ${mkBinding mappings.addWorkspaceFolder "vim.lsp.buf.add_workspace_folder"}
+          ${mkBinding mappings.removeWorkspaceFolder "vim.lsp.buf.remove_workspace_folder"}
+          ${mkBinding mappings.listWorkspaceFolders "function() vim.notify(vim.inspect(vim.lsp.buf.list_workspace_folders())) end"}
+          ${mkBinding mappings.listWorkspaceSymbols "vim.lsp.buf.workspace_symbol"}
+          ${mkBinding mappings.hover "vim.lsp.buf.hover"}
+          ${mkBinding mappings.signatureHelp "vim.lsp.buf.signature_help"}
+          ${mkBinding mappings.renameSymbol "vim.lsp.buf.rename"}
+          ${mkBinding mappings.codeAction "vim.lsp.buf.code_action"}
+          ${mkBinding mappings.format "vim.lsp.buf.format"}
+          ${mkBinding mappings.toggleFormatOnSave "function() vim.b.disableFormatSave = not vim.b.disableFormatSave end"}
         end
 
         -- Enable formatting

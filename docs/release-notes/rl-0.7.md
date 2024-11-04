@@ -68,8 +68,18 @@ everyone.
 As part of the autocompletion rewrite, modules that used to use a `type` option
 have been replaced by per-plugin modules instead. Since both modules only had
 one type, you can simply change
+
 - `vim.autocomplete.*` -> `vim.autocomplete.nvim-cmp.*`
 - `vim.autopairs.enable` -> `vim.autopairs.nvim-autopairs.enable`
+
+### `nixpkgs-fmt` removed in favor of `nixfmt` {#sec-nixpkgs-fmt-deprecation}
+
+`nixpkgs-fmt` has been archived for a while, and it's finally being removed in
+favor of nixfmt (more information can be found
+[here](https://github.com/nix-community/nixpkgs-fmt?tab=readme-ov-file#nixpkgs-fmt---nix-code-formatter-for-nixpkgs).
+
+To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
+`nixfmt`.
 
 ## Changelog {#sec-release-0.7-changelog}
 
@@ -183,6 +193,13 @@ one type, you can simply change
   - Add sorting function options for completion sources under
     [](#opt-vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators)
 
+- Add C# support under `vim.languages.csharp`, with support for both
+  omnisharp-roslyn and csharp-language-server.
+
+- Add Julia support under `vim.languages.julia`. Note that the entirety of Julia
+  is bundled with nvf, if you enable the module, since there is no way to
+  provide only the LSP server.
+
 [Neovim documentation on `vim.cmd`]: https://neovim.io/doc/user/lua.html#vim.cmd()
 
 - Make Neovim's configuration file entirely Lua based. This comes with a few
@@ -274,10 +291,12 @@ one type, you can simply change
 - Add LSP and Treesitter support for R under `vim.languages.R`.
 - Add Otter support under `vim.lsp.otter` and an assert to prevent conflict with
   ccc
+- Fixed typo in Otter's setupOpts
 - Add Neorg support under `vim.notes.neorg`
 - Add LSP, diagnostics, formatter and Treesitter support for Kotlin under
   `vim.languages.kotlin`
 - changed default keybinds for leap.nvim to avoid altering expected behavior
+- Add LSP, formatter and Treesitter support for Vala under `vim.languages.vala`
 
 [Bloxx12](https://github.com/Bloxx12)
 
@@ -290,3 +309,11 @@ one type, you can simply change
 - Add LSP support for Scala via
   [nvim-metals](https://github.com/scalameta/nvim-metals)
 
+[nezia1](https://github.com/nezia1):
+
+- Add [biome](https://github.com/biomejs/biome) support for Typescript, CSS and
+  Svelte. Enable them via [](#opt-vim.languages.ts.format.type),
+  [](#opt-vim.languages.css.format.type) and
+  [](#opt-vim.languages.svelte.format.type) respectively.
+- Replace [nixpkgs-fmt](https://github.com/nix-community/nixpkgs-fmt) with
+  [nixfmt](https://github.com/NixOS/nixfmt) (nixfmt-rfc-style).
