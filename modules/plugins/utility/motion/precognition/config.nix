@@ -19,7 +19,7 @@ in {
 
       vim.pluginRC.precognition-nvim = entryAnywhere ''
         require("precognition").setup({
-             startVisible = ${toString  cfg.startVisible},
+             startVisible = ${toString cfg.startVisible},
              showBlankVirtLine = ${toString cfg.showBlankVirtLine},
              highlightColor = (${toLuaObject cfg.highlightColor}), --{ link = "Comment" },
              hints = (${toLuaObject cfg.hints}),

@@ -168,20 +168,20 @@ isMaximal: {
 
         precognition = {
           enable = true;
-          startVisible =  true;
+          startVisible = true;
           showBlankVirtLine = true;
 
           # highlightColor - automatically set by theme
-          disabled_fts = [ "startify" "alpha" "dashboard" ];
+          disabled_fts = ["startify" "alpha" "dashboard"];
           gutterHints = {
             gg = {
-              text =  "gg";
+              text = "gg";
               prio = 2;
             };
           };
           hints = {
             Caret = {
-              text =  "^";
+              text = "^";
               prio = 10;
             };
           };
