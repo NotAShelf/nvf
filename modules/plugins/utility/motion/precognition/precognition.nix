@@ -53,16 +53,5 @@ in {
       default = ["startify"];
       example = literalExpression ''[ "startify" ]'';
     };
-
-    mappings = {
-      # enable = mkOption {
-      # };
-      #
-      # disable = mkOption {
-      # };
-      #
-      # toggle =  mkOption {
-      # };
-    };
   };
 }
