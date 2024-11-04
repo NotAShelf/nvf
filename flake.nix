@@ -525,6 +525,11 @@
       flake = false;
     };
 
+    plugin-precognition-nvim = {
+      url = "github:tris203/precognition.nvim";
+      flake = false;
+    };
+
     # Note-taking
     plugin-obsidian-nvim = {
       url = "github:epwalsh/obsidian.nvim";
