@@ -20,6 +20,7 @@ custom plugins that you might have added to your configuration.
 
 ```{=include=} sections
 custom-plugins/configuring.md
-custom-plugins/new-method.md
-custom-plugins/old-method.md
+custom-plugins/lazy-method.md
+custom-plugins/non-lazy-method.md
+custom-plugins/legacy-method.md
 ```

@@ -123,6 +123,10 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
   recommended to go through rustacean.nvim's README to take a closer look at its
   features and usage
 
+- Add [lz.n] support and lazy-load some builtin plugins.
+
+[lz.n]: https://github.com/mrcjkb/lz.n
+
 [jacekpoz](https://jacekpoz.pl):
 
 [ocaml-lsp]: https://github.com/ocaml/ocaml-lsp

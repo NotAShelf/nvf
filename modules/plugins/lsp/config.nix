@@ -5,7 +5,6 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.lists) optional;
   inherit (lib.strings) optionalString;
   inherit (lib.trivial) boolToString;
   inherit (lib.nvim.binds) addDescriptionsToMappings;
@@ -23,9 +22,10 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = optional usingNvimCmp "cmp-nvim-lsp";
-
-      autocomplete.nvim-cmp.sources = {nvim_lsp = "[LSP]";};
+      autocomplete.nvim-cmp = {
+        sources = {nvim_lsp = "[LSP]";};
+        sourcePlugins = ["cmp-nvim-lsp"];
+      };
 
       pluginRC.lsp-setup = ''
         vim.g.formatsave = ${boolToString cfg.formatOnSave};
@@ -116,7 +116,60 @@ in {
         end
 
         local capabilities = vim.lsp.protocol.make_client_capabilities()
-        ${optionalString usingNvimCmp "capabilities = require('cmp_nvim_lsp').default_capabilities()"}
+        ${optionalString usingNvimCmp ''
+          -- HACK: copied from cmp-nvim-lsp. If we ever lazy load lspconfig we
+          -- should re-evaluate whether we can just use `default_capabilities`
+          capabilities = {
+            textDocument = {
+              completion = {
+                dynamicRegistration = false,
+                completionItem = {
+                  snippetSupport = true,
+                  commitCharactersSupport = true,
+                  deprecatedSupport = true,
+                  preselectSupport = true,
+                  tagSupport = {
+                    valueSet = {
+                      1, -- Deprecated
+                    }
+                  },
+                  insertReplaceSupport = true,
+                  resolveSupport = {
+                    properties = {
+                      "documentation",
+                      "detail",
+                      "additionalTextEdits",
+                      "sortText",
+                      "filterText",
+                      "insertText",
+                      "textEdit",
+                      "insertTextFormat",
+                      "insertTextMode",
+                    },
+                  },
+                  insertTextModeSupport = {
+                    valueSet = {
+                      1, -- asIs
+                      2, -- adjustIndentation
+                    }
+                  },
+                  labelDetailsSupport = true,
+                },
+                contextSupport = true,
+                insertTextMode = 1,
+                completionList = {
+                  itemDefaults = {
+                    'commitCharacters',
+                    'editRange',
+                    'insertTextFormat',
+                    'insertTextMode',
+                    'data',
+                  }
+                }
+              },
+            },
+          }
+        ''}
       '';
     };
   };

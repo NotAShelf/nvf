@@ -892,6 +892,39 @@
         "type": "github"
       }
     },
+    "plugin-lz-n": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1729525284,
+        "narHash": "sha256-fk+ejqcqqOQz3q4D3VB2Q+U/6wCpCDk1tiDMp2YrPNE=",
+        "owner": "nvim-neorocks",
+        "repo": "lz.n",
+        "rev": "ffd9991400ba7137f4fa8560ff50bccd7f8fb3ee",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-neorocks",
+        "repo": "lz.n",
+        "type": "github"
+      }
+    },
+    "plugin-lzn-auto-require": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1727636949,
+        "narHash": "sha256-BAOzN+XOrFAJwHmsF8JtZ2EyjP9283FD/I2TbFqGSEw=",
+        "owner": "horriblename",
+        "repo": "lzn-auto-require",
+        "rev": "55ecd60831dac8c01d6f3dcb63a30a63a1690eb8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "horriblename",
+        "ref": "require-rewrite",
+        "repo": "lzn-auto-require",
+        "type": "github"
+      }
+    },
     "plugin-mind-nvim": {
       "flake": false,
       "locked": {
@@ -1629,6 +1662,22 @@
         "type": "github"
       }
     },
+    "plugin-rtp-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1724409589,
+        "narHash": "sha256-lmJbiD7I7MTEEpukESs67uAmLyn+p66hrUKLbEHp0Kw=",
+        "owner": "nvim-neorocks",
+        "repo": "rtp.nvim",
+        "rev": "494ddfc888bb466555d90ace731856de1320fe45",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-neorocks",
+        "repo": "rtp.nvim",
+        "type": "github"
+      }
+    },
     "plugin-rustaceanvim": {
       "flake": false,
       "locked": {
@@ -1991,6 +2040,8 @@
         "plugin-lua-utils-nvim": "plugin-lua-utils-nvim",
         "plugin-lualine": "plugin-lualine",
         "plugin-luasnip": "plugin-luasnip",
+        "plugin-lz-n": "plugin-lz-n",
+        "plugin-lzn-auto-require": "plugin-lzn-auto-require",
         "plugin-mind-nvim": "plugin-mind-nvim",
         "plugin-minimap-vim": "plugin-minimap-vim",
         "plugin-modes-nvim": "plugin-modes-nvim",
@@ -2037,6 +2088,7 @@
         "plugin-project-nvim": "plugin-project-nvim",
         "plugin-registers": "plugin-registers",
         "plugin-rose-pine": "plugin-rose-pine",
+        "plugin-rtp-nvim": "plugin-rtp-nvim",
         "plugin-rustaceanvim": "plugin-rustaceanvim",
         "plugin-scrollbar-nvim": "plugin-scrollbar-nvim",
         "plugin-smartcolumn": "plugin-smartcolumn",

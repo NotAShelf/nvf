@@ -1,4 +1,4 @@
-# Old Method {#sec-old-method}
+# Legacy Method {#sec-legacy-method}
 
 Prior to version 0.5, the method of adding new plugins was adding the plugin
 package to `vim.startPlugins` and add its configuration as a DAG under one of

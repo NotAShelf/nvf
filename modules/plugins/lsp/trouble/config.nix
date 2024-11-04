@@ -1,41 +1,40 @@
 {
   config,
   lib,
+  options,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.dag) entryAnywhere;
-  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetBinding pushDownDefault;
+  inherit (lib.modules) mkIf;
+  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetLznBinding pushDownDefault;
 
   cfg = config.vim.lsp;
 
-  self = import ./trouble.nix {inherit lib;};
-  mappingDefinitions = self.options.vim.lsp.trouble.mappings;
+  mappingDefinitions = options.vim.lsp.trouble.mappings;
   mappings = addDescriptionsToMappings cfg.trouble.mappings mappingDefinitions;
 in {
   config = mkIf (cfg.enable && cfg.trouble.enable) {
     vim = {
-      startPlugins = ["trouble"];
+      lazy.plugins.trouble = {
+        package = "trouble";
+        setupModule = "trouble";
+        inherit (cfg.trouble) setupOpts;
 
-      maps.normal = mkMerge [
-        (mkSetBinding mappings.toggle "<cmd>TroubleToggle<CR>")
-        (mkSetBinding mappings.workspaceDiagnostics "<cmd>TroubleToggle workspace_diagnostics<CR>")
-        (mkSetBinding mappings.documentDiagnostics "<cmd>TroubleToggle document_diagnostics<CR>")
-        (mkSetBinding mappings.lspReferences "<cmd>TroubleToggle lsp_references<CR>")
-        (mkSetBinding mappings.quickfix "<cmd>TroubleToggle quickfix<CR>")
-        (mkSetBinding mappings.locList "<cmd>TroubleToggle loclist<CR>")
-      ];
+        cmd = "Trouble";
+        keys = [
+          (mkSetLznBinding mappings.toggle "<cmd>TroubleToggle<CR>")
+          (mkSetLznBinding mappings.workspaceDiagnostics "<cmd>TroubleToggle workspace_diagnostics<CR>")
+          (mkSetLznBinding mappings.documentDiagnostics "<cmd>TroubleToggle document_diagnostics<CR>")
+          (mkSetLznBinding mappings.lspReferences "<cmd>TroubleToggle lsp_references<CR>")
+          (mkSetLznBinding mappings.quickfix "<cmd>TroubleToggle quickfix<CR>")
+          (mkSetLznBinding mappings.locList "<cmd>TroubleToggle loclist<CR>")
+        ];
+      };
 
       binds.whichKey.register = pushDownDefault {
         "<leader>l" = "Trouble";
         "<leader>x" = "+Trouble";
         "<leader>lw" = "Workspace";
       };
-
-      pluginRC.trouble = entryAnywhere ''
-        -- Enable trouble diagnostics viewer
-        require("trouble").setup {}
-      '';
     };
   };
 }

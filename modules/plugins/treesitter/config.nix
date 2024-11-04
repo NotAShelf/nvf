@@ -5,13 +5,12 @@
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) optional optionals;
+  inherit (lib.lists) optionals;
   inherit (lib.nvim.binds) mkSetBinding addDescriptionsToMappings;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryBefore entryAfter;
 
   cfg = config.vim.treesitter;
-  usingNvimCmp = config.vim.autocomplete.nvim-cmp.enable;
 
   self = import ./treesitter.nix {inherit pkgs lib;};
   mappingDefinitions = self.options.vim.treesitter.mappings;
@@ -19,9 +18,13 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = ["nvim-treesitter"] ++ optional usingNvimCmp "cmp-treesitter";
+      startPlugins = ["nvim-treesitter"];
 
-      autocomplete.nvim-cmp.sources = {treesitter = "[Treesitter]";};
+      autocomplete.nvim-cmp = {
+        sources = {treesitter = "[Treesitter]";};
+        sourcePlugins = ["cmp-treesitter"];
+      };
+
       treesitter.grammars = optionals cfg.addDefaultGrammars cfg.defaultGrammars;
 
       maps = {

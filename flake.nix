@@ -113,6 +113,22 @@
     };
 
     ## Plugins
+    # Lazy loading
+    plugin-lz-n = {
+      url = "github:nvim-neorocks/lz.n";
+      flake = false;
+    };
+
+    plugin-lzn-auto-require = {
+      url = "github:horriblename/lzn-auto-require/require-rewrite";
+      flake = false;
+    };
+
+    plugin-rtp-nvim = {
+      url = "github:nvim-neorocks/rtp.nvim";
+      flake = false;
+    };
+
     # LSP plugins
     plugin-nvim-lspconfig = {
       url = "github:neovim/nvim-lspconfig";

@@ -1,4 +1,4 @@
-# New Method {#sec-new-method}
+# Non-lazy Method {#sec-non-lazy-method}
 
 As of version **0.5**, we have a more extensive API for configuring plugins,
 under `vim.extraPlugins`. Instead of using DAGs exposed by the library, you may

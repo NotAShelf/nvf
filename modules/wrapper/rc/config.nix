@@ -5,7 +5,7 @@
 }: let
   inherit (builtins) map mapAttrs filter;
   inherit (lib.attrsets) mapAttrsToList;
-  inherit (lib.strings) concatLines concatMapStringsSep;
+  inherit (lib.strings) concatLines concatMapStringsSep optionalString;
   inherit (lib.trivial) showWarnings;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryAfter mkLuarcSection resolveDag entryAnywhere;
@@ -52,7 +52,8 @@ in {
         optionsScript = entryAfter ["basic"] (concatLines optionsScript);
 
         # Basic
-        pluginConfigs = entryAfter ["optionsScript"] pluginConfigs;
+        lazyConfigs = entryAfter ["optionsScript"] cfg.lazy.builtLazyConfig;
+        pluginConfigs = entryAfter ["lazyConfigs"] pluginConfigs;
         extraPluginConfigs = entryAfter ["pluginConfigs"] extraPluginConfigs;
         mappings = entryAfter ["extraPluginConfigs"] keymaps;
       };

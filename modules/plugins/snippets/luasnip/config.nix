@@ -9,9 +9,18 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = ["luasnip" "cmp-luasnip"] ++ cfg.providers;
-      autocomplete.nvim-cmp.sources = {luasnip = "[LuaSnip]";};
-      pluginRC.luasnip = cfg.loaders;
+      lazy.plugins = {
+        luasnip = {
+          package = "luasnip";
+          lazy = true;
+          after = cfg.loaders;
+        };
+      };
+      startPlugins = cfg.providers;
+      autocomplete.nvim-cmp = {
+        sources = {luasnip = "[LuaSnip]";};
+        sourcePlugins = ["cmp-luasnip"];
+      };
     };
   };
 }

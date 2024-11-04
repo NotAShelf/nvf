@@ -8,24 +8,47 @@
   inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.utility.surround;
+  mkLznKey = mode: key: {
+    inherit key mode;
+  };
 in {
   config = mkIf cfg.enable {
     vim = {
       startPlugins = ["nvim-surround"];
       pluginRC.surround = entryAnywhere "require('nvim-surround').setup(${toLuaObject cfg.setupOpts})";
 
-      utility.surround.setupOpts.keymaps = mkIf cfg.useVendoredKeybindings {
-        insert = "<C-g>z";
-        insert_line = "<C-g>Z";
-        normal = "gz";
-        normal_cur = "gZ";
-        normal_line = "gzz";
-        normal_cur_line = "gZZ";
-        visual = "gz";
-        visual_line = "gZ";
-        delete = "gzd";
-        change = "gzr";
-        change_line = "gZR";
+      lazy.plugins.nvim-surround = {
+        package = "nvim-surround";
+        setupModule = "nvim-surround";
+        inherit (cfg) setupOpts;
+
+        keys =
+          [
+            (mkLznKey ["i"] cfg.setupOpts.keymaps.insert)
+            (mkLznKey ["i"] cfg.setupOpts.keymaps.insert_line)
+            (mkLznKey ["x"] cfg.setupOpts.keymaps.visual)
+            (mkLznKey ["x"] cfg.setupOpts.keymaps.visual_line)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.normal)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.normal_cur)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.normal_line)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.normal_cur_line)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.delete)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.change)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.change_line)
+          ]
+          ++ map (mkLznKey ["n" "i" "v"]) [
+            "<Plug>(nvim-surround-insert)"
+            "<Plug>(nvim-surround-insert-line)"
+            "<Plug>(nvim-surround-normal)"
+            "<Plug>(nvim-surround-normal-cur)"
+            "<Plug>(nvim-surround-normal-line)"
+            "<Plug>(nvim-surround-normal-cur-line)"
+            "<Plug>(nvim-surround-visual)"
+            "<Plug>(nvim-surround-visual-line)"
+            "<Plug>(nvim-surround-delete)"
+            "<Plug>(nvim-surround-change)"
+            "<Plug>(nvim-surround-change-line)"
+          ];
       };
     };
   };
