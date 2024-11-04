@@ -29,14 +29,16 @@ in {
       description = "The highlight for the virtual text.";
     };
 
-    hints = {
+    hints = mkOption {
+      default = {};
+      description = "What motions display and at what priority.";
       type = attrsOf (submodule {
         options = {
           text = mkOption {
             type = str;
             description = "The easier-to-read depiction of the motion.";
           };
-          prio = {
+          prio = mkOption {
             type = int;
             description = "The priority of the hint.";
             example = 10;
