@@ -48,7 +48,8 @@ in {
       });
     };
 
-    gutterHints = hints;
+    gutterHints = hints //
+      { description = "What motions display and at what priority. Only appears in gutters."; };
 
     disabled_fts = mkOption {
       type = listOf str;
