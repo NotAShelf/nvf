@@ -216,3 +216,7 @@ everyone.
 [Bloxx12](https://github.com/Bloxx12):
 
 - Fix internal breakage in `elixir-tools` setup.
+
+[Nowaaru](https://github.com/Nowaaru):
+
+- Add `precognition-nvim`.
