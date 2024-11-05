@@ -1,5 +1,4 @@
-{lib, ...}:
-let
+{lib, ...}: let
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) attrsOf listOf str bool int submodule;
   inherit (lib.nvim.types) mkPluginSetupOption;
@@ -42,13 +41,12 @@ in {
 
       highlightColor = mkOption {
         type = attrsOf str;
-
+        default = {link = "Comment";};
         example = literalExpression ''
           { link = "Comment"; }
           # or
           { foreground = "#0000FF"; background = "#000000"; };
         '';
-        default = {link = "Comment";};
         description = ''
           The highlight for the virtual text.
         '';
