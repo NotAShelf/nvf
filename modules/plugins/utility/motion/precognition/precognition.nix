@@ -28,9 +28,6 @@ in {
       default = {link = "Comment";};
       description = ''
         The highlight for the virtual text.
-
-        To find more about this option, please see
-        [the documentation](https://github.com/tris203/precognition.nvim).
       '';
     };
 
@@ -38,9 +35,6 @@ in {
       default = {};
       description = ''
         What motions display and at what priority.";
-
-        To find more about this option, please see
-        [the documentation](https://github.com/tris203/precognition.nvim).
       '';
       type = attrsOf (submodule {
         options = {
@@ -63,9 +57,6 @@ in {
       // {
         description = ''
           What motions display and at what priority. Only appears in gutters.
-
-          To find more about this option, please see
-          [the documentation](https://github.com/tris203/precognition.nvim).
         '';
       };
 
