@@ -59,6 +59,7 @@ in {
 
       disabled_fts = mkOption {
         type = listOf str;
+        description = "Filetypes that automatically disable 'precognition.'";
         default = ["startify"];
         example = literalExpression ''["startify"]'';
       };
