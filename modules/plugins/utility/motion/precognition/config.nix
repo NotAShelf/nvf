@@ -10,10 +10,11 @@ in {
   config =
     mkIf cfg.enable
     {
-      vim.startPlugins = ["precognition-nvim"];
-
-      vim.luaConfigRC.precognition = lib.nvim.dag.entryAnywhere ''
-        require('precognition').setup(${lib.nvim.lua.toLuaObject cfg.setupOpts})
-      '';
+      vim = {
+        startPlugins = ["precognition-nvim"];
+        luaConfigRC.precognition = lib.nvim.dag.entryAnywhere ''
+          require('precognition').setup(${lib.nvim.lua.toLuaObject cfg.setupOpts})
+        '';
+      };
     };
 }
