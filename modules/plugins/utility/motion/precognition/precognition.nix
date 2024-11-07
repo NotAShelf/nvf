@@ -11,11 +11,11 @@
         options = {
           text = mkOption {
             type = str;
-            description = "The easier-to-read depiction of the motion.";
+            description = "The easier-to-read depiction of the motion";
           };
           prio = mkOption {
             type = int;
-            description = "The priority of the hint.";
+            description = "The priority of the hint";
             example = 10;
             default = 1;
           };
@@ -29,13 +29,13 @@ in {
     setupOpts = mkPluginSetupOption "precognition.nvim" {
       startVisible = mkOption {
         type = bool;
-        description = "Whether to start 'precognition' automatically.";
+        description = "Whether to start 'precognition' automatically";
         default = true;
       };
 
       showBlankVirtLine = mkOption {
         type = bool;
-        description = "Whether to show a blank virtual line when no movements are shown.";
+        description = "Whether to show a blank virtual line when no movements are shown";
         default = true;
       };
 
@@ -48,11 +48,11 @@ in {
           { foreground = "#0000FF"; background = "#000000"; };
         '';
         description = ''
-          The highlight for the virtual text.
+          The highlight for the virtual text
         '';
       };
 
-      hints = mkHintType "What motions display and at what priority.";
+      hints = mkHintType "What motions display and at what priority";
 
       gutterHints = mkHintType ''
         What motions display and at what priority. Only appears in gutters
@@ -60,7 +60,8 @@ in {
 
       disabled_fts = mkOption {
         type = listOf str;
-        description = "Filetypes that automatically disable 'precognition.'";
+        description = "Filetypes that automatically disable 'precognition'";
+
         default = ["startify"];
         example = literalExpression ''["startify"]'';
       };
