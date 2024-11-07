@@ -165,29 +165,7 @@ isMaximal: {
       motion = {
         hop.enable = true;
         leap.enable = true;
-
-        precognition = {
-          enable = true;
-          setupOpts = {
-            startVisible = true;
-            showBlankVirtLine = true;
-
-            # highlightColor - automatically set by theme
-            disabled_fts = ["startify" "alpha" "dashboard"];
-            gutterHints = {
-              gg = {
-                text = "gg";
-                prio = 2;
-              };
-            };
-            hints = {
-              Caret = {
-                text = "^";
-                prio = 10;
-              };
-            };
-          };
-        };
+        precognition.enable = isMaximal;
       };
 
       images = {
