@@ -54,8 +54,9 @@ in {
 
       hints = mkHintType "What motions display and at what priority.";
 
-      gutterHints =
-        mkHintType "What motions display and at what priority. Only appears in gutters.";
+      gutterHints = mkHintType ''
+        What motions display and at what priority. Only appears in gutters
+      '';
 
       disabled_fts = mkOption {
         type = listOf str;

@@ -10,9 +10,7 @@ in {
   config =
     mkIf cfg.enable
     {
-      vim.startPlugins = [
-        "precognition-nvim"
-      ];
+      vim.startPlugins = [ "precognition-nvim" ];
 
       vim.luaConfigRC.precognition = lib.nvim.dag.entryAnywhere ''
         require('precognition').setup(${lib.nvim.lua.toLuaObject cfg.setupOpts})
