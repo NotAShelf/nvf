@@ -58,8 +58,10 @@ An example flake that exposes your custom Neovim configuration might look like
 
 <!-- TODO: mention the built-in flake template here when it is added -->
 
-The next two chapters will detail specific usage of standalone nvf
-configurations on NixOS and Home-Manager.
+The above setup will allow to set up nvf as a standalone flake, which you can
+build independently from your system configuration while also possibly sharing
+it with others. The next two chapters will detail specific usage of such a setup
+for a package output in the context of NixOS or Home-Manager installation.
 
 ```{=include=} chapters
 standalone/nixos.md
