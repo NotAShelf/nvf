@@ -1390,6 +1390,22 @@
         "type": "github"
       }
     },
+    "plugin-nvim-scrollbar": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1729162132,
+        "narHash": "sha256-/nB7eP2Rz/A9zMXrNEH4FReo6eZS0C/SEGvKhxV7AUA=",
+        "owner": "petertriho",
+        "repo": "nvim-scrollbar",
+        "rev": "6994eb9f73d5fdc36ee2c8717940e8c853e51a49",
+        "type": "github"
+      },
+      "original": {
+        "owner": "petertriho",
+        "repo": "nvim-scrollbar",
+        "type": "github"
+      }
+    },
     "plugin-nvim-session-manager": {
       "flake": false,
       "locked": {
@@ -1707,22 +1723,6 @@
       "original": {
         "owner": "mrcjkb",
         "repo": "rustaceanvim",
-        "type": "github"
-      }
-    },
-    "plugin-scrollbar-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1684886154,
-        "narHash": "sha256-zLBexSxQCn9HPY04a9w/UCJP1F5ShI2X12I9xE9H0cM=",
-        "owner": "petertriho",
-        "repo": "nvim-scrollbar",
-        "rev": "35f99d559041c7c0eff3a41f9093581ceea534e8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "petertriho",
-        "repo": "nvim-scrollbar",
         "type": "github"
       }
     },
@@ -2087,6 +2087,7 @@
         "plugin-nvim-neoclip": "plugin-nvim-neoclip",
         "plugin-nvim-nio": "plugin-nvim-nio",
         "plugin-nvim-notify": "plugin-nvim-notify",
+        "plugin-nvim-scrollbar": "plugin-nvim-scrollbar",
         "plugin-nvim-session-manager": "plugin-nvim-session-manager",
         "plugin-nvim-surround": "plugin-nvim-surround",
         "plugin-nvim-tree-lua": "plugin-nvim-tree-lua",
@@ -2107,7 +2108,6 @@
         "plugin-rose-pine": "plugin-rose-pine",
         "plugin-rtp-nvim": "plugin-rtp-nvim",
         "plugin-rustaceanvim": "plugin-rustaceanvim",
-        "plugin-scrollbar-nvim": "plugin-scrollbar-nvim",
         "plugin-smartcolumn": "plugin-smartcolumn",
         "plugin-sqls-nvim": "plugin-sqls-nvim",
         "plugin-tabular": "plugin-tabular",

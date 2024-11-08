@@ -443,7 +443,7 @@
       flake = false;
     };
 
-    plugin-scrollbar-nvim = {
+    plugin-nvim-scrollbar = {
       url = "github:petertriho/nvim-scrollbar";
       flake = false;
     };
