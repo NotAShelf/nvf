@@ -25,6 +25,15 @@
     (removeAttrs spec ["package" "setupModule" "setupOpts" "keys"])
     // {
       "@1" = name;
+      beforeAll =
+        if spec.beforeAll != null
+        then
+          mkLuaInline ''
+            function()
+              ${spec.beforeAll}
+            end
+          ''
+        else null;
       before =
         if spec.before != null
         then
