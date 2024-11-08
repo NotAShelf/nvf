@@ -14,6 +14,38 @@
 
   cfg = config.vim.languages.typst;
 
+  defaultServer = "tinymist";
+  servers = {
+    typst-lsp = {
+      package = pkgs.typst-lsp;
+      lspConfig = ''
+        lspconfig.typst_lsp.setup {
+          capabilities = capabilities,
+          on_attach = default_on_attach,
+          cmd = ${
+          if isList cfg.lsp.package
+          then expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/typst-lsp"}''
+        },
+        }
+      '';
+    };
+    tinymist = {
+      package = pkgs.tinymist;
+      lspConfig = ''
+        lspconfig.tinymist.setup {
+          capabilities = capabilities,
+          on_attach = default_on_attach,
+          cmd = ${
+          if isList cfg.lsp.package
+          then expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/tinymist"}''
+        },
+        }
+      '';
+    };
+  };
+
   defaultFormat = "typstfmt";
   formats = {
     typstfmt = {
@@ -52,11 +84,17 @@ in {
     lsp = {
       enable = mkEnableOption "Typst LSP support (typst-lsp)" // {default = config.vim.languages.enableLSP;};
 
+      server = mkOption {
+        description = "Typst LSP server to use";
+        type = enum (attrNames servers);
+        default = defaultServer;
+      };
+
       package = mkOption {
         description = "typst-lsp package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
         type = either package (listOf str);
-        default = pkgs.typst-lsp;
+        default = servers.${cfg.lsp.server}.package;
       };
     };
 
@@ -82,19 +120,14 @@ in {
       vim.treesitter.grammars = [cfg.treesitter.package];
     })
 
+    (mkIf cfg.format.enable {
+      vim.lsp.null-ls.enable = true;
+      vim.lsp.null-ls.sources.typst-format = formats.${cfg.format.type}.nullConfig;
+    })
+
     (mkIf cfg.lsp.enable {
       vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.typst-lsp = ''
-        lspconfig.typst_lsp.setup {
-          capabilities = capabilities,
-          on_attach=default_on_attach,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/typst-lsp"}''
-        },
-        }
-      '';
+      vim.lsp.lspconfig.sources.typst-lsp = servers.${cfg.lsp.server}.lspConfig;
     })
   ]);
 }
