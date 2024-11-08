@@ -123,6 +123,11 @@ in {
     paths = [neovim-wrapped printConfig printConfigPath];
     postBuild = "echo Helpers added";
 
+    # Allow evaluating vimOptions, i.e., config.vim from the packages' passthru
+    # attribute. For example, packages.x86_64-linux.neovim.passthru.neovimConfig
+    # will return the configuration in full.
+    passthru.neovimConfig = vimOptions;
+
     meta = {
       description = "Wrapped version of Neovim with additional helper scripts";
       mainProgram = "nvim";

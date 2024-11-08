@@ -285,6 +285,9 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
 - Add [](#opt-vim.spellcheck.extraSpellWords) to allow adding arbitrary
   spellfiles to Neovim's runtime with ease.
 
+- Add combined nvf configuration (`config.vim`) into the final package's
+  passthru as `passthru.neovimConfiguration` for easier debugging.
+
 [ppenguin](https://github.com/ppenguin):
 
 - Telescope:
@@ -302,7 +305,8 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
   `vim.languages.kotlin`
 - changed default keybinds for leap.nvim to avoid altering expected behavior
 - Add LSP, formatter and Treesitter support for Vala under `vim.languages.vala`
-- Add [Tinymist](https://github.com/Myriad-Dreamin/tinymist] as a formatter for the Typst language module.
+- Add [Tinymist](https://github.com/Myriad-Dreamin/tinymist] as a formatter for
+  the Typst language module.
 
 [Bloxx12](https://github.com/Bloxx12)
 
@@ -327,4 +331,3 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
 [Nowaaru](https://github.com/Nowaaru):
 
 - Add `precognition-nvim`.
-
