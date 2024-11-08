@@ -15,9 +15,13 @@ in {
   config = mkIf cfg.enable {
     vim = {
       startPlugins = [
-        (assert config.vim.visuals.nvimWebDevicons.enable; "nvim-bufferline-lua")
+        "nvim-bufferline-lua"
         "bufdelete-nvim"
       ];
+
+      # Soft-dependency for bufferline.
+      # Recommended by upstream, so enabled here.
+      visuals.nvim-web-devicons.enable = true;
 
       maps.normal = mkMerge [
         (mkLuaBinding cfg.mappings.closeCurrent "require(\"bufdelete\").bufdelete" mappings.closeCurrent.description)
