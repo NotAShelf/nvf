@@ -16,7 +16,7 @@ in {
     enable = mkEnableOption "Neovim dev icons [nvim-web-devicons]";
 
     setupOpts = mkPluginSetupOption "nvim-web-devicons" {
-      color_icons = mkEnableOption "different highlight colors per icon";
+      color_icons = mkEnableOption "different highlight colors per icon" // {default = true;};
       variant = mkOption {
         type = nullOr (enum ["light" "dark"]);
         default = null;
