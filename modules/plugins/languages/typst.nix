@@ -21,7 +21,7 @@
       lspConfig = ''
         lspconfig.typst_lsp.setup {
           capabilities = capabilities,
-          on_attach=default_on_attach,
+          on_attach = default_on_attach,
           cmd = ${
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
