@@ -19,7 +19,7 @@
       docs-html-wrapped = pkgs.writeScriptBin "docs-html-wrapped" ''
         #!${pkgs.stdenv.shell}
         # use xdg-open to open the docs in the browser
-        ${pkgs.xdg_utils}/bin/xdg-open ${docs.manual.html}
+        ${pkgs.xdg-utils}/bin/xdg-open ${docs.manual.html}
       '';
 
       # Exposed neovim configurations
@@ -29,10 +29,10 @@
 
       # Published docker images
       docker-nix = let
-        inherit (pkgs) bash gitFull buildEnv dockerTools;
+        inherit (pkgs) bash gitFull buildEnv;
         inherit (config.legacyPackages) neovim-nix;
       in
-        dockerTools.buildImage {
+        pkgs.dockerTools.buildImage {
           name = "nvf";
           tag = "latest";
 
