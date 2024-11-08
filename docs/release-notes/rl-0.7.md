@@ -302,6 +302,7 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
   `vim.languages.kotlin`
 - changed default keybinds for leap.nvim to avoid altering expected behavior
 - Add LSP, formatter and Treesitter support for Vala under `vim.languages.vala`
+- added tinymist to Typst, enabled typst formatters
 
 [Bloxx12](https://github.com/Bloxx12)
 
