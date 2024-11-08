@@ -4,6 +4,7 @@
   # build inputs
   nixos-render-docs,
   documentation-highlighter,
+  dart-sass,
   path,
   # nrd configuration
   release,
@@ -18,7 +19,9 @@ in
       path = lib.sourceFilesBySuffices ./manual [".md" ".md.in"];
     };
 
+    strictDependencies = true;
     nativeBuildInputs = [nixos-render-docs];
+    buildInputs = [dart-sass];
 
     postPatch = ''
       ln -s ${optionsJSON}/share/doc/nixos/options.json ./config-options.json
@@ -36,6 +39,7 @@ in
         ${documentation-highlighter}/mono-blue.css \
         ${documentation-highlighter}/loader.js
 
+      # Copy anchor scripts to the script directory in document root.
       cp -vt $dest/script \
         ${./static/script}/anchor-min.js \
         ${./static/script}/anchor-use.js
@@ -44,14 +48,15 @@ in
         --subst-var-by OPTIONS_JSON ./config-options.json
 
       substituteInPlace ./manual.md \
-        --subst-var-by NVF_VERSION ${manual-release} \
-        --subst-var-by NVF_SRC "https://github.com/nvf/blob/${manual-release}"
+        --subst-var-by NVF_VERSION ${manual-release}
 
-      # copy stylesheet
-      cp ${./static/style.css} "$dest/style.css"
+      substituteInPlace ./hacking/additional-plugins.md \
+        --subst-var-by NVF_REPO "https://github.com/nvf/blob/${manual-release}"
 
+      # Compile and copy stylesheet to the project root.
+      sass ${./static/style.css} "$dest/style.css"
 
-      # copy release notes
+      # Move release notes
       cp -vr ${./release-notes} release-notes
 
       # Generate final manual from a set of parameters. Explanation of the CLI flags are
@@ -79,6 +84,7 @@ in
         manual.md \
         "$dest/index.xhtml"
 
+        # Hydra support. Probably not necessary.
         mkdir -p $out/nix-support/
         echo "doc manual $dest index.html" >> $out/nix-support/hydra-build-products
     '';
