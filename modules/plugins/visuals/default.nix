@@ -3,8 +3,8 @@
 in {
   imports = [
     (mkRemovedOptionModule ["vim" "visuals" "enable"] ''
-      As top-level toggles are being deprecated, you are encouraged
-      to handle plugin toggles under individual options.
+      As top-level toggles are being deprecated, you are encouraged to handle plugin
+      toggles under individual options.
     '')
 
     ./cellular-automaton
