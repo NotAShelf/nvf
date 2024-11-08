@@ -322,3 +322,8 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
   [](#opt-vim.languages.svelte.format.type) respectively.
 - Replace [nixpkgs-fmt](https://github.com/nix-community/nixpkgs-fmt) with
   [nixfmt](https://github.com/NixOS/nixfmt) (nixfmt-rfc-style).
+
+[Nowaaru](https://github.com/Nowaaru):
+
+- Add `precognition-nvim`.
+
