@@ -189,7 +189,7 @@ in {
     };
 
     plugins = mkOption {
-      default = [];
+      default = {};
       type = attrsOf lznPluginType;
       description = ''
         Plugins to lazy load.
