@@ -24,7 +24,7 @@ in {
         cmd = ["Neotree"];
       };
 
-      visuals.nvimWebDevicons.enable = true;
+      visuals.nvim-web-devicons.enable = true;
     };
   };
 }
