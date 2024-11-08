@@ -51,7 +51,7 @@ in
         --subst-var-by NVF_VERSION ${manual-release}
 
       substituteInPlace ./hacking/additional-plugins.md \
-        --subst-var-by NVF_REPO "https://github.com/nvf/blob/${manual-release}"
+        --subst-var-by NVF_REPO "https://github.com/notashelf/nvf/blob/${manual-release}"
 
       # Compile and copy stylesheet to the project root.
       sass ${./static/style.css} "$dest/style.css"

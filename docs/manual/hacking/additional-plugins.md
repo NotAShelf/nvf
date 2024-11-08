@@ -1,10 +1,9 @@
 # Adding Plugins {#sec-additional-plugins}
 
-To add a new Neovim plugin, first add the source url in the inputs section of `flake.nix`
-with the prefix `plugin-`
+To add a new Neovim plugin, first add the source url in the inputs section of
+`flake.nix` with the prefix `plugin-`
 
 ```nix
-
 {
   inputs = {
     # ...
@@ -17,13 +16,18 @@ with the prefix `plugin-`
 }
 ```
 
+Prepending `plugin-` to the name of the input will allow nvf to automatically
+discover inputs that are marked as plugins, and make them available in
+`vim.startPlugins` or other areas that require a very specific plugin type as it
+is defined in `@NVF_REPO@/lib/types/plugins.nix`
+
 The addition of the `plugin-` prefix will allow **nvf** to autodiscover the
 input from the flake inputs automatically, allowing you to refer to it in areas
 that require a very specific plugin type as defined in `lib/types/plugins.nix`
 
 You can now reference this plugin using its string name, the plugin will be
-built with the name and source URL from the flake input, allowing you to
-refer to it as a **string**.
+built with the name and source URL from the flake input, allowing you to refer
+to it as a **string**.
 
 ```nix
 config.vim.startPlugins = ["neodev-nvim"];
@@ -33,11 +37,11 @@ config.vim.startPlugins = ["neodev-nvim"];
 
 Most plugins is initialized with a call to `require('plugin').setup({...})`.
 
-We use a special function that lets you easily add support for such setup options in a modular way:
-`mkPluginSetupOption`.
+We use a special function that lets you easily add support for such setup
+options in a modular way: `mkPluginSetupOption`.
 
-Once you have added the source of the plugin as shown above, you can define the setup options like
-this:
+Once you have added the source of the plugin as shown above, you can define the
+setup options like this:
 
 ```nix
 # in modules/.../your-plugin/your-plugin.nix
@@ -86,7 +90,8 @@ require('plugin-name').setup({
 })
 ```
 
-Now users can set any of the pre-defined option field, and can also add their own fields!
+Now users can set any of the pre-defined option field, and can also add their
+own fields!
 
 ```nix
 # in user's config
@@ -110,8 +115,8 @@ As you've seen above, `toLuaObject` is used to convert our nix attrSet
 1. nix `null` converts to lua `nil`
 2. number and strings convert to their lua counterparts
 3. nix attrSet/list convert into lua tables
-4. you can write raw lua code using `lib.generators.mkLuaInline`. This
-   function is part of nixpkgs.
+4. you can write raw lua code using `lib.generators.mkLuaInline`. This function
+   is part of nixpkgs.
 
 Example:
 
@@ -127,8 +132,8 @@ vim.your-plugin.setupOpts = {
 
 ## Lazy plugins {#sec-lazy-plugins}
 
-If the plugin can be lazy-loaded, `vim.lazy.plugins` should be used to add it. Lazy
-plugins are managed by `lz.n`.
+If the plugin can be lazy-loaded, `vim.lazy.plugins` should be used to add it.
+Lazy plugins are managed by `lz.n`.
 
 ```nix
 # in modules/.../your-plugin/config.nix
@@ -163,6 +168,7 @@ in {
 ```
 
 This results in the following lua code:
+
 ```lua
 require('lz.n').load({
   {
