@@ -46,7 +46,8 @@ isMaximal: {
 
       nix.enable = true;
 
-      assembly.enable = isMaximal;
+      # Assembly is not common, and the asm LSP is a major hit-or-miss
+      assembly.enable = false;
       markdown.enable = isMaximal;
       html.enable = isMaximal;
       css.enable = isMaximal;
