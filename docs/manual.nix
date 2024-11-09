@@ -1,6 +1,8 @@
 {
   lib,
   stdenvNoCC,
+  fetchzip,
+  runCommandLocal,
   # build inputs
   nixos-render-docs,
   documentation-highlighter,
@@ -11,6 +13,25 @@
   optionsJSON,
 } @ args: let
   manual-release = args.release or "unstable";
+
+  scss-reset = fetchzip {
+    url = "https://github.com/Frontend-Layers/scss-reset/archive/refs/tags/1.4.2.zip";
+    hash = "sha256-cif5Sx8Ca5vxdw/mNAgpulLH15TwmzyJFNM7JURpoaE=";
+  };
+
+  compileStylesheet = runCommandLocal "compile-nvf-stylesheet" {} ''
+    mkdir -p $out
+
+    tmpfile=$(mktemp -d)
+    trap "rm -r $tmpfile" EXIT
+
+    ln -s "${scss-reset}/build" "$tmpfile/scss-reset"
+
+    ${dart-sass}/bin/sass --load-path "$tmpfile" \
+      ${./static/style.scss} "$out/style.css"
+
+    echo "Generated styles"
+  '';
 in
   stdenvNoCC.mkDerivation {
     name = "nvf-manual";
@@ -21,7 +42,6 @@ in
 
     strictDependencies = true;
     nativeBuildInputs = [nixos-render-docs];
-    buildInputs = [dart-sass];
 
     postPatch = ''
       ln -s ${optionsJSON}/share/doc/nixos/options.json ./config-options.json
@@ -40,7 +60,7 @@ in
         ${documentation-highlighter}/loader.js
 
       # Copy anchor scripts to the script directory in document root.
-      cp -vt $dest/script \
+      cp -vt "$dest"/script \
         ${./static/script}/anchor-min.js \
         ${./static/script}/anchor-use.js
 
@@ -53,8 +73,9 @@ in
       substituteInPlace ./hacking/additional-plugins.md \
         --subst-var-by NVF_REPO "https://github.com/notashelf/nvf/blob/${manual-release}"
 
-      # Compile and copy stylesheet to the project root.
-      sass ${./static/style.css} "$dest/style.css"
+      # Move compiled stylesheet
+      cp -vt $dest \
+        ${compileStylesheet}/style.css
 
       # Move release notes
       cp -vr ${./release-notes} release-notes
@@ -74,9 +95,9 @@ in
       nixos-render-docs manual html \
         --manpage-urls ${path + "/doc/manpage-urls.json"} \
         --revision ${lib.trivial.revisionWithDefault manual-release} \
-        --stylesheet style.css \
-        --script highlightjs/highlight.pack.js \
-        --script highlightjs/loader.js \
+        --stylesheet "$dest"/style.css \
+        --script ./highlightjs/highlight.pack.js \
+        --script ./highlightjs/loader.js \
         --script script/anchor-use.js \
         --script script/anchor-min.js \
         --toc-depth 2 \
