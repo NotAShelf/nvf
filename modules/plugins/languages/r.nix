@@ -15,7 +15,38 @@
   cfg = config.vim.languages.r;
 
   r-with-languageserver = pkgs.rWrapper.override {
-    packages = with pkgs.rPackages; [languageserver];
+    packages = [pkgs.rPackages.languageserver];
+  };
+
+  defaultFormat = "format_r";
+  formats = {
+    styler = {
+      package = pkgs.rWrapper.override {
+        packages = [pkgs.rPackages.styler];
+      };
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.styler.with({
+            command = "${cfg.format.package}/bin/R",
+          })
+        )
+      '';
+    };
+
+    format_r = {
+      package = pkgs.rWrapper.override {
+        packages = [pkgs.rPackages.formatR];
+      };
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.format_r.with({
+            command = "${cfg.format.package}/bin/R",
+          })
+        )
+      '';
+    };
   };
 
   defaultServer = "r_language_server";
@@ -62,12 +93,33 @@ in {
         default = servers.${cfg.lsp.server}.package;
       };
     };
+
+    format = {
+      enable = mkEnableOption "R formatting" // {default = config.vim.languages.enableFormat;};
+
+      type = mkOption {
+        type = enum (attrNames formats);
+        default = defaultFormat;
+        description = "R formatter to use";
+      };
+
+      package = mkOption {
+        type = package;
+        default = formats.${cfg.format.type}.package;
+        description = "R formatter package";
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.package];
+    })
+
+    (mkIf cfg.format.enable {
+      vim.lsp.null-ls.enable = true;
+      vim.lsp.null-ls.sources.r-format = formats.${cfg.format.type}.nullConfig;
     })
 
     (mkIf cfg.lsp.enable {
