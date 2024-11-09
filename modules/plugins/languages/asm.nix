@@ -23,9 +23,9 @@ in {
       enable = mkEnableOption "Assembly LSP support (asm-lsp)" // {default = config.vim.languages.enableLSP;};
 
       package = mkOption {
-        description = "asm-lsp package";
         type = package;
         default = pkgs.asm-lsp;
+        description = "asm-lsp package";
       };
     };
   };
