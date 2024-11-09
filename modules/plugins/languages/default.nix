@@ -2,6 +2,7 @@
   inherit (lib.nvim.languages) mkEnable;
 in {
   imports = [
+    ./asm.nix
     ./bash.nix
     ./dart.nix
     ./clang.nix
