@@ -46,6 +46,7 @@ isMaximal: {
 
       nix.enable = true;
 
+      assembly.enable = isMaximal;
       markdown.enable = isMaximal;
       html.enable = isMaximal;
       css.enable = isMaximal;
