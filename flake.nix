@@ -468,6 +468,11 @@
       flake = false;
     };
 
+    plugin-tiny-devicons-auto-colors = {
+      url = "github:rachartier/tiny-devicons-auto-colors.nvim";
+      flake = false;
+    };
+
     plugin-gitsigns-nvim = {
       url = "github:lewis6991/gitsigns.nvim";
       flake = false;

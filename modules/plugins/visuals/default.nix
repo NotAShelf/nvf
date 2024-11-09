@@ -15,5 +15,6 @@ in {
     ./nvim-cursorline
     ./nvim-scrollbar
     ./nvim-web-devicons
+    ./tiny-devicons-auto-colors
   ];
 }
