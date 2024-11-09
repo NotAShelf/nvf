@@ -186,6 +186,10 @@
       flake = false;
     };
 
+    plugin-quarto-nvim = {
+      url = "github:quarto-dev/quarto-nvim";
+      flake = false;
+    };
     plugin-otter-nvim = {
       url = "github:jmbuhr/otter.nvim";
       flake = false;
