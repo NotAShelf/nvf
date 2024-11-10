@@ -50,6 +50,16 @@
             end
           '';
 
+      load =
+        if spec.load != null
+        then
+          mkLuaInline ''
+            funcion()
+              ${spec.load}
+            end
+          ''
+        else null;
+
       keys =
         if typeOf spec.keys == "list" && length spec.keys > 0 && typeOf (head spec.keys) == "set"
         then map toLuaLznKeySpec (filter (keySpec: keySpec.key != null) spec.keys)
