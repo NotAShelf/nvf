@@ -128,9 +128,10 @@ in {
     # will return the configuration in full.
     passthru.neovimConfig = vimOptions;
 
-    meta = {
-      description = "Wrapped version of Neovim with additional helper scripts";
-      mainProgram = "nvim";
-    };
+    meta =
+      neovim-wrapped.meta
+      // {
+        description = "Wrapped Neovim package with helper scripts to print the config (path)";
+      };
   };
 }
