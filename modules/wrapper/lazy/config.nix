@@ -9,7 +9,6 @@
   inherit (lib.generators) mkLuaInline;
   inherit (lib.strings) optionalString;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.dag) entryBefore entryAfter;
   cfg = config.vim.lazy;
 
   toLuaLznKeySpec = keySpec:
