@@ -6,7 +6,7 @@ As of version **0.7**, we exposed an API for configuring lazy-loaded plugins via
 ```nix
 {
   config.vim.lazy.plugins = {
-    aerial = {
+    "aerial.nvim" = {
       package = pkgs.vimPlugins.aerial-nvim;
       setupModule = "aerial";
       setupOpts = {
