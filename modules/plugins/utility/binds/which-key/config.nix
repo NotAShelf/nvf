@@ -5,9 +5,12 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.attrsets) mapAttrsToList;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.binds.whichKey;
+  register = mapAttrsToList (n: v: mkLuaInline "{ '${n}', desc = '${v}' }") cfg.register;
 in {
   config = mkIf cfg.enable {
     vim = {
@@ -16,7 +19,7 @@ in {
       pluginRC.whichkey = entryAnywhere ''
         local wk = require("which-key")
         wk.setup (${toLuaObject cfg.setupOpts})
-        wk.register(${toLuaObject cfg.register})
+        wk.add(${toLuaObject register})
       '';
     };
   };

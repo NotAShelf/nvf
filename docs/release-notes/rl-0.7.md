@@ -309,6 +309,7 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
 - Add [Tinymist](https://github.com/Myriad-Dreamin/tinymist] as a formatter for
   the Typst language module.
 - Add LSP and Treesitter support for Assembly under `vim.languages.assembly`
+- Move [which-key](https://github.com/folke/which-key.nvim) to the new spec
 
 [Bloxx12](https://github.com/Bloxx12)
 
