@@ -3,11 +3,12 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption mkEnableOption literalExpression literalMD;
+  inherit (lib.options) mkOption mkEnableOption literalMD;
   inherit (lib.strings) optionalString;
   inherit (lib.types) enum bool str int either;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryAfter;
+  inherit (lib.nvim.binds) pushDownDefault;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) luaInline;
 
@@ -73,7 +74,7 @@ in {
     lineNumberMode = mkOption {
       type = enum ["relative" "number" "relNumber" "none"];
       default = "relNumber";
-      example = literalExpression "none";
+      example = "none";
       description = "How line numbers are displayed.";
     };
 
@@ -122,7 +123,7 @@ in {
     mapTimeout = mkOption {
       type = int;
       default = 500;
-      description = "Timeout in ms that neovim will wait for mapped action to complete";
+      description = "Timeout in ms that Neovim will wait for mapped action to complete";
     };
 
     splitBelow = mkOption {
@@ -175,42 +176,48 @@ in {
     };
   };
 
-  config = {
-    vim.luaConfigRC.basic = entryAfter ["globalsScript"] ''
+  config.vim = {
+    # Set options that were previously interpolated in 'luaConfigRC.basic' as vim.options (vim.o)
+    # and 'vim.globals' (vim.g). Future options, if possible, should be added here instead of the
+    # luaConfigRC section below.
+    options = pushDownDefault {
+      encoding = "utf-8";
+      hidden = true;
+      expandtab = true;
+      mouse = cfg.mouseSupport;
+      tabstop = cfg.tabWidth;
+      shiftwidth = cfg.tabWidth;
+      softtabstop = cfg.tabWidth;
+      cmdheight = cfg.cmdHeight;
+      updatetime = cfg.updateTime;
+      tm = cfg.mapTimeout;
+      cursorlineopt = cfg.cursorlineOpt;
+      splitbelow = cfg.splitBelow;
+      splitright = cfg.splitRight;
+      autoindent = cfg.autoIndent;
+      termguicolors = cfg.colourTerm;
+      wrap = cfg.wordWrap;
+    };
+
+    globals = pushDownDefault {
+      mapleader = cfg.leaderKey;
+      maplocalleader = cfg.leaderKey;
+      editorconfig = cfg.enableEditorconfig;
+    };
+
+    # Options that are more difficult to set through 'vim.options'. Fear not, though
+    # as the Lua DAG is still as powerful as it could be.
+    luaConfigRC.basic = entryAfter ["globalsScript"] ''
       -- Settings that are set for everything
-      vim.o.encoding = "utf-8"
-      vim.o.hidden = true
       vim.opt.shortmess:append("c")
-      vim.o.expandtab = true
-      vim.o.mouse = ${toLuaObject cfg.mouseSupport}
-      vim.o.tabstop = ${toLuaObject cfg.tabWidth}
-      vim.o.shiftwidth = ${toLuaObject cfg.tabWidth}
-      vim.o.softtabstop = ${toLuaObject cfg.tabWidth}
-      vim.o.cmdheight = ${toLuaObject cfg.cmdHeight}
-      vim.o.updatetime = ${toLuaObject cfg.updateTime}
-      vim.o.tm = ${toLuaObject cfg.mapTimeout}
-      vim.o.cursorlineopt = ${toLuaObject cfg.cursorlineOpt}
-      vim.o.scrolloff = ${toLuaObject cfg.scrollOffset}
 
       ${optionalString cfg.undoFile.enable ''
         vim.o.undofile = true
         vim.o.undodir = ${toLuaObject cfg.undoFile.path}
       ''}
 
-      ${optionalString cfg.splitBelow ''
-        vim.o.splitbelow = true
-      ''}
-
-      ${optionalString cfg.splitRight ''
-        vim.o.splitright = true
-      ''}
-
       ${optionalString cfg.showSignColumn ''
         vim.o.signcolumn = "yes"
-      ''}
-
-      ${optionalString cfg.autoIndent ''
-        vim.o.autoindent = true
       ''}
 
       ${optionalString cfg.preventJunkFiles ''
@@ -253,21 +260,9 @@ in {
         vim.cmd("syntax on")
       ''}
 
-      ${optionalString (!cfg.wordWrap) ''
-        vim.o.wrap = false
-      ''}
-
       ${optionalString cfg.hideSearchHighlight ''
         vim.o.hlsearch = false
         vim.o.incsearch = true
-      ''}
-
-      ${optionalString cfg.colourTerm ''
-        vim.o.termguicolors = true
-      ''}
-
-      ${optionalString (!cfg.enableEditorconfig) ''
-        vim.g.editorconfig = false
       ''}
 
       ${optionalString (cfg.searchCase == "ignore") ''
