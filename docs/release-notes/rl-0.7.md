@@ -220,6 +220,7 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
 
 [ts-error-translator.nvim]: https://github.com/dmmulroy/ts-error-translator.nvim
 [credo]: https://github.com/rrrene/credo
+[tiny-devicons-auto-colors]: https://github.com/rachartier/tiny-devicons-auto-colors.nvim
 
 - Add `deno fmt` as the default Markdown formatter. This will be enabled
   automatically if you have autoformatting enabled, but can be disabled manually
@@ -287,6 +288,9 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
 
 - Add combined nvf configuration (`config.vim`) into the final package's
   passthru as `passthru.neovimConfiguration` for easier debugging.
+
+- Add support for [tiny-devicons-auto-colors] under
+  `vim.visuals.tiny-devicons-auto-colors`
 
 [ppenguin](https://github.com/ppenguin):
 
