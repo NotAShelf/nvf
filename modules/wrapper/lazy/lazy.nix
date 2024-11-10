@@ -62,7 +62,7 @@
       };
 
       setupOpts = mkOption {
-        type = submodule {freeformType = attrsOf anything;};
+        type = attrsOf anything;
         description = "Options to pass to the setup function";
         default = {};
       };
