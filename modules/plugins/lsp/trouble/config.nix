@@ -21,19 +21,18 @@ in {
 
         cmd = "Trouble";
         keys = [
-          (mkSetLznBinding "n" mappings.toggle "<cmd>TroubleToggle<CR>")
-          (mkSetLznBinding "n" mappings.workspaceDiagnostics "<cmd>TroubleToggle workspace_diagnostics<CR>")
-          (mkSetLznBinding "n" mappings.documentDiagnostics "<cmd>TroubleToggle document_diagnostics<CR>")
-          (mkSetLznBinding "n" mappings.lspReferences "<cmd>TroubleToggle lsp_references<CR>")
-          (mkSetLznBinding "n" mappings.quickfix "<cmd>TroubleToggle quickfix<CR>")
-          (mkSetLznBinding "n" mappings.locList "<cmd>TroubleToggle loclist<CR>")
+          (mkSetLznBinding "n" mappings.workspaceDiagnostics "<cmd>Trouble toggle diagnostics<CR>")
+          (mkSetLznBinding "n" mappings.documentDiagnostics "<cmd>Trouble toggle diagnostics filter.buf=0<CR>")
+          (mkSetLznBinding "n" mappings.lspReferences "<cmd>Trouble toggle lsp_references<CR>")
+          (mkSetLznBinding "n" mappings.quickfix "<cmd>Trouble toggle quickfix<CR>")
+          (mkSetLznBinding "n" mappings.locList "<cmd>Trouble toggle loclist<CR>")
+          (mkSetLznBinding "n" mappings.symbols "<cmd>Trouble toggle symbols<CR>")
         ];
       };
 
       binds.whichKey.register = pushDownDefault {
-        "<leader>l" = "Trouble";
         "<leader>x" = "+Trouble";
-        "<leader>lw" = "Workspace";
+        "<leader>lw" = "+Workspace";
       };
     };
   };
