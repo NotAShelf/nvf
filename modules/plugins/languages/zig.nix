@@ -4,12 +4,32 @@
   lib,
   ...
 }: let
+  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
-  inherit (lib.types) either listOf package str;
+  inherit (lib.types) either listOf package str enum;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.types) mkGrammarOption;
+
+  defaultServer = "zls";
+  servers = {
+    zls = {
+      package = pkgs.zls;
+      internalFormatter = true;
+      lspConfig = ''
+        lspconfig.zls.setup {
+          capabilities = capabilities,
+          on_attach = default_on_attach,
+          cmd = ${
+          if isList cfg.lsp.package
+          then expToLua cfg.lsp.package
+          else "{'${cfg.lsp.package}/bin/zls'}"
+        }
+        }
+      '';
+    };
+  };
 
   cfg = config.vim.languages.zig;
 in {
@@ -22,19 +42,18 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Zig LSP support (zls)" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Zig LSP support" // {default = config.vim.languages.enableLSP;};
+
+      server = mkOption {
+        type = enum (attrNames servers);
+        default = defaultServer;
+        description = "Zig LSP server to use";
+      };
 
       package = mkOption {
         description = "ZLS package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
         type = either package (listOf str);
         default = pkgs.zls;
-      };
-
-      zigPackage = mkOption {
-        description = "Zig package used by ZLS";
-        type = package;
-        default = pkgs.zig;
       };
     };
   };
@@ -46,23 +65,7 @@ in {
 
     (mkIf cfg.lsp.enable {
       vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.zig-lsp = ''
-        lspconfig.zls.setup {
-          capabilities = capabilities,
-          on_attach=default_on_attach,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/zls"}''
-        },
-          settings = {
-            ["zls"] = {
-              zig_exe_path = "${cfg.lsp.zigPackage}/bin/zig",
-              zig_lib_path = "${cfg.lsp.zigPackage}/lib/zig",
-            }
-          }
-        }
-      '';
+      vim.lsp.lspconfig.sources.zig-lsp = servers.${cfg.lsp.server}.lspConfig;
     })
   ]);
 }
