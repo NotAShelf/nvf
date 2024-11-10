@@ -35,6 +35,7 @@
 
       mode = mkOption {
         type = either str (listOf str);
+        example = ["n" "x" "o"];
         description = "Modes to bind in";
       };
 
