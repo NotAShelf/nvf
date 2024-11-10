@@ -36,7 +36,6 @@
       mode = mkOption {
         description = "Modes to bind in";
         type = either str (listOf str);
-        default = ["n" "x" "s" "o"];
       };
 
       silent = mkBool true "Whether this mapping should be silent. Equivalent to adding <silent> to a map.";
