@@ -12,7 +12,7 @@ be used if the plugin uses a `require('module').setup(...)` pattern. Otherwise, 
 {
   config.vim.lazy.plugins = {
     aerial.nvim = {
-      # ^^^^^^^^^ this name should match the package.pname or package.name
+    # ^^^^^^^^^ this name should match the package.pname or package.name
       package = aerial-nvim;
 
       setupModule = "aerial";
