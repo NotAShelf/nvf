@@ -9,10 +9,14 @@
     # inputs is used to get the original standard library, and to pass inputs to the plugin autodiscovery function
     lib = import ./lib/stdlib-extended.nix inputs;
   in
-    flake-parts.lib.mkFlake {
+    flake-parts.lib.mkFlake
+    {
       inherit inputs;
-      specialArgs = {inherit lib;};
-    } {
+      specialArgs = {
+        inherit lib;
+      };
+    }
+    {
       # Allow users to bring their own systems.
       # «https://github.com/nix-systems/nix-systems»
       systems = import inputs.systems;
@@ -66,7 +70,12 @@
           default = self'.devShells.lsp;
           nvim-nix = pkgs.mkShell {packages = [config.packages.nix];};
           lsp = pkgs.mkShell {
-            packages = with pkgs; [nil statix deadnix alejandra];
+            packages = with pkgs; [
+              nil
+              statix
+              deadnix
+              alejandra
+            ];
           };
         };
 
@@ -110,6 +119,10 @@
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
+    };
+    nixd = {
+      url = "github:nix-community/nixd";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     ## Plugins
