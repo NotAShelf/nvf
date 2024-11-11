@@ -9,8 +9,7 @@
     # inputs is used to get the original standard library, and to pass inputs to the plugin autodiscovery function
     lib = import ./lib/stdlib-extended.nix inputs;
   in
-    flake-parts.lib.mkFlake
-    {
+    flake-parts.lib.mkFlake {
       inherit inputs;
       specialArgs = {
         inherit lib;
