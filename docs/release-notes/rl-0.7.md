@@ -220,3 +220,7 @@ everyone.
 [Nowaaru](https://github.com/Nowaaru):
 
 - Add `precognition-nvim`.
+
+[Elias-Ainsworth](https://github.com/Elias-Ainsworth)
+
+- Add [nixd](https://github.com/nix-community/nixd) to supported LSP servers.
