@@ -22,6 +22,7 @@ in {
           [(mkLznBinding ["n"] cfg.mappings.open "<Cmd>execute v:count . \"ToggleTerm\"<CR>" "Toggle terminal")]
           ++ optional cfg.lazygit.enable {
             key = cfg.lazygit.mappings.open;
+            mode = "n";
             desc = lazygitMapDesc;
           };
 

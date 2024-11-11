@@ -60,7 +60,7 @@ in {
           inherit (cfg.ui) setupOpts;
 
           keys = [
-            (mkSetLuaLznBinding mappings.toggleDapUI "function() require('dapui').toggle() end")
+            (mkSetLuaLznBinding "n" mappings.toggleDapUI "function() require('dapui').toggle() end")
           ];
         };
 

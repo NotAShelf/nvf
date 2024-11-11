@@ -79,14 +79,14 @@
       expr = true;
     };
 
-    mkSetLznBinding = binding: action: {
-      inherit action;
+    mkSetLznBinding = mode: binding: action: {
+      inherit action mode;
       key = binding.value;
       desc = binding.description;
     };
 
-    mkSetLuaLznBinding = binding: action: {
-      inherit action;
+    mkSetLuaLznBinding = mode: binding: action: {
+      inherit action mode;
       key = binding.value;
       lua = true;
       desc = binding.description;

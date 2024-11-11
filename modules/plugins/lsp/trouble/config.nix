@@ -21,12 +21,12 @@ in {
 
         cmd = "Trouble";
         keys = [
-          (mkSetLznBinding mappings.toggle "<cmd>TroubleToggle<CR>")
-          (mkSetLznBinding mappings.workspaceDiagnostics "<cmd>TroubleToggle workspace_diagnostics<CR>")
-          (mkSetLznBinding mappings.documentDiagnostics "<cmd>TroubleToggle document_diagnostics<CR>")
-          (mkSetLznBinding mappings.lspReferences "<cmd>TroubleToggle lsp_references<CR>")
-          (mkSetLznBinding mappings.quickfix "<cmd>TroubleToggle quickfix<CR>")
-          (mkSetLznBinding mappings.locList "<cmd>TroubleToggle loclist<CR>")
+          (mkSetLznBinding "n" mappings.toggle "<cmd>TroubleToggle<CR>")
+          (mkSetLznBinding "n" mappings.workspaceDiagnostics "<cmd>TroubleToggle workspace_diagnostics<CR>")
+          (mkSetLznBinding "n" mappings.documentDiagnostics "<cmd>TroubleToggle document_diagnostics<CR>")
+          (mkSetLznBinding "n" mappings.lspReferences "<cmd>TroubleToggle lsp_references<CR>")
+          (mkSetLznBinding "n" mappings.quickfix "<cmd>TroubleToggle quickfix<CR>")
+          (mkSetLznBinding "n" mappings.locList "<cmd>TroubleToggle loclist<CR>")
         ];
       };
 
