@@ -74,6 +74,23 @@
         }
       '';
     };
+
+    nixd = {
+      package = pkgs.nixd;
+      internalFormatter = cfg.format.type == "nixpkgs-fmt";
+      lspConfig = ''
+        lspconfig.nixd.setup{
+          capabilities = capabilities,
+          on_attach = default_on_attach,
+        ${
+          if (cfg.format.enable && cfg.format.type == "nixpkgs-fmt")
+          then useFormat
+          else noFormat
+        },
+          cmd = ${packageToCmd cfg.lsp.package "nixd"},
+        }
+      '';
+    };
   };
 
   defaultFormat = "alejandra";
