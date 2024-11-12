@@ -11,6 +11,7 @@
         (_: _: {
           rnix-lsp = inputs'.rnix-lsp.defaultPackage;
           nil = inputs'.nil.packages.default;
+          nixd = inputs'.nixd.packages.default;
         })
       ];
     };
