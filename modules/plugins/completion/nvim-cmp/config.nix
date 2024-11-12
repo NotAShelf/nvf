@@ -3,12 +3,25 @@
   config,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf mkMerge mkDefault;
   inherit (lib.strings) optionalString;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (builtins) attrNames typeOf tryEval concatStringsSep;
+
+  borders = config.vim.ui.borders.plugins.nvim-cmp;
+  # From https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/window.lua
+  # This way users can still override the options
+  windowOpts = {
+    border = borders.style;
+    winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None";
+    zindex = 1001;
+    scrolloff = 0;
+    col_offset = 0;
+    side_padding = 1;
+    scrollbar = true;
+  };
 
   cfg = config.vim.autocomplete.nvim-cmp;
   luasnipEnable = config.vim.snippets.luasnip.enable;
@@ -81,10 +94,9 @@ in {
         setupOpts = {
           sources = map (s: {name = s;}) (attrNames cfg.sources);
 
-          # TODO: try to get nvim-cmp to follow global border style
-          window = mkIf config.vim.ui.borders.enable {
-            completion = mkLuaInline "cmp.config.window.bordered()";
-            documentation = mkLuaInline "cmp.config.window.bordered()";
+          window = mkIf borders.enable {
+            completion = mkDefault windowOpts;
+            documentation = mkDefault windowOpts;
           };
 
           formatting.format = cfg.format;
