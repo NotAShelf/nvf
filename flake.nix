@@ -21,6 +21,7 @@
         ./flake/legacyPackages.nix
         ./flake/overlays.nix
         ./flake/packages.nix
+        ./flake/develop.nix
       ];
 
       flake = {
@@ -56,20 +57,7 @@
         };
       };
 
-      perSystem = {
-        self',
-        config,
-        pkgs,
-        ...
-      }: {
-        devShells = {
-          default = self'.devShells.lsp;
-          nvim-nix = pkgs.mkShell {packages = [config.packages.nix];};
-          lsp = pkgs.mkShell {
-            packages = with pkgs; [nil statix deadnix alejandra];
-          };
-        };
-
+      perSystem = {pkgs, ...}: {
         # Provide the default formatter. `nix fmt` in project root
         # will format available files with the correct formatter.
         # P.S: Please do not format with nixfmt! It messes with many
