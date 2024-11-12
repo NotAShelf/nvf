@@ -14,13 +14,13 @@
 
   defaultServer = "terraform-ls";
   servers = {
-    terraform-ls = rec {
+    terraform-ls = {
       package = pkgs.terraform-ls;
       lspConfig = ''
         lspconfig.terraformls.setup {
           capabilities = capabilities,
           on_attach=default_on_attach,
-          cmd = {"${lib.getExe package}", "serve"},
+          cmd = {"${lib.getExe cfg.lsp.package}", "serve"},
         }
       '';
     };
@@ -28,13 +28,13 @@
 
   defaultFormat = "hclfmt";
   formats = {
-    hclfmt = rec {
+    hclfmt = {
       package = pkgs.hclfmt;
       nullConfig = ''
         table.insert(
           ls_sources,
           null_ls.builtins.formatting.hclfmt.with({
-            command = "${lib.getExe package}",
+            command = "${lib.getExe cfg.format.package}",
           })
         )
       '';
@@ -53,33 +53,34 @@ in {
       enable = mkEnableOption "HCL LSP support (terraform-ls)" // {default = config.vim.languages.enableLSP;};
       # TODO: (maybe, is it better?) it would be cooler to use vscode-extensions.hashicorp.hcl probably, shouldn't be too hard
       package = mkOption {
-        description = "HCL language server package (terraform-ls)";
         type = package;
         default = servers.${defaultServer}.package;
+        description = "HCL language server package (terraform-ls)";
       };
     };
 
     format = {
       enable = mkOption {
-        description = "Enable HCL formatting";
         type = bool;
         default = config.vim.languages.enableFormat;
+        description = "Enable HCL formatting";
       };
       type = mkOption {
-        description = "HCL formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "HCL formatter to use";
       };
       package = mkOption {
-        description = "HCL formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "HCL formatter package";
       };
     };
   };
 
   config = mkIf cfg.enable (mkMerge [
     {
+      # hcl style official: https://developer.hashicorp.com/terraform/language/style#code-formatting
       vim.pluginRC.hcl = ''
         vim.api.nvim_create_autocmd("FileType", {
           pattern = "hcl",
