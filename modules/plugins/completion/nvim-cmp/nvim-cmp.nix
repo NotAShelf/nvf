@@ -72,7 +72,7 @@ in {
     };
 
     format = mkOption {
-      type = luaInline;
+      type = nullOr luaInline;
       default = mkLuaInline ''
         function(entry, vim_item)
           vim_item.menu = (${toLuaObject cfg.sources})[entry.source.name]
