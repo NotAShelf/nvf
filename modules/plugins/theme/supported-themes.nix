@@ -93,6 +93,7 @@ in {
     setup = {
       style ? "dark",
       transparent ? false,
+      ...
     }: let
       style' =
         warnIf (style == "light") "oxocarbon: light theme is not well-supported" style;
@@ -117,6 +118,7 @@ in {
     setup = {
       style ? "dark",
       transparent ? false,
+      ...
     }: ''
       -- Gruvbox theme
       require("gruvbox").setup({
@@ -152,6 +154,7 @@ in {
     setup = {
       style ? "main",
       transparent ? false,
+      ...
     }: ''
       require("rose-pine").setup({
         dark_variant = "${style}", -- main, moon, or dawn
