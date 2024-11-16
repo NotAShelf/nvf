@@ -54,5 +54,10 @@ in {
       Nvf now uses $NVIM_APP_NAME so there is no longer the problem of
       (accidental) leaking of user configuration.
     '')
+
+    (mkRemovedOptionModule ["vim" "lsp" "trouble" "mappings" "toggle"] ''
+      With Trouble having so many different modes, and breaking changes
+      upstream, it no longer makes sense, nor works, to toggle only Trouble.
+    '')
   ];
 }
