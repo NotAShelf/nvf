@@ -7,7 +7,7 @@
   inherit (lib.lists) optional;
   inherit (lib.modules) mkIf;
   inherit (lib.meta) getExe;
-  inherit (lib.nvim.binds) mkLznBinding;
+  inherit (lib.nvim.binds) mkKeymap;
   inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.terminal.toggleterm;
@@ -19,7 +19,7 @@ in {
         package = "toggleterm-nvim";
         cmd = ["ToggleTerm" "ToggleTermSendCurrentLine" "ToggleTermSendVisualLines" "ToggleTermSendVisualSelection" "ToggleTermSetName" "ToggleTermToggleAll"];
         keys =
-          [(mkLznBinding ["n"] cfg.mappings.open "<Cmd>execute v:count . \"ToggleTerm\"<CR>" "Toggle terminal")]
+          [(mkKeymap "n" cfg.mappings.open "<Cmd>execute v:count . \"ToggleTerm\"<CR>" {desc = "Toggle terminal";})]
           ++ optional cfg.lazygit.enable {
             key = cfg.lazygit.mappings.open;
             mode = "n";
