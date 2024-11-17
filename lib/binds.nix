@@ -91,6 +91,8 @@
       lua = true;
       desc = binding.description;
     };
+
+    mkKeymap = mode: key: action: opt: opt // {inherit mode key action;};
   };
 in
   binds
