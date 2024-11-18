@@ -35,6 +35,7 @@
       lspConfig = ''
         lspconfig.tinymist.setup {
           capabilities = capabilities,
+          single_file_support = true,
           on_attach = default_on_attach,
           cmd = ${
           if isList cfg.lsp.package
