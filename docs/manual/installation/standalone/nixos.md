@@ -1,6 +1,6 @@
 # Standalone Installation on NixOS {#ch-standalone-nixos}
 
-Your built Neoevim configuration can be exposed as a flake output to make it
+Your built Neovim configuration can be exposed as a flake output to make it
 easier to share across machines, repositories and so on. Or it can be added to
 your system packages to make it available across your system.
 
