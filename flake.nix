@@ -242,6 +242,12 @@
       flake = false;
     };
 
+    # Runners
+    plugin-run-nvim = {
+      url = "github:diniamo/run.nvim";
+      flake = false;
+    };
+
     # Debuggers
     plugin-nvim-dap = {
       url = "github:mfussenegger/nvim-dap";

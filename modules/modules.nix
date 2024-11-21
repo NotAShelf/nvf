@@ -31,6 +31,7 @@
       "notes"
       "projects"
       "rich-presence"
+      "runner"
       "session"
       "snippets"
       # "spellcheck" # FIXME: see neovim/init/spellcheck.nix

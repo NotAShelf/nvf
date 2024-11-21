@@ -201,6 +201,8 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
   is bundled with nvf, if you enable the module, since there is no way to
   provide only the LSP server.
 
+- Add [`run.nvim`](https://github.com/diniamo/run.nvim) support for running code using cached commands.
+
 [Neovim documentation on `vim.cmd`]: https://neovim.io/doc/user/lua.html#vim.cmd()
 
 - Make Neovim's configuration file entirely Lua based. This comes with a few
