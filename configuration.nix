@@ -112,7 +112,7 @@ isMaximal: {
     snippets.luasnip.enable = true;
 
     filetree = {
-      nvimTree = {
+      neo-tree = {
         enable = true;
       };
     };
