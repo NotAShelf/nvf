@@ -40,13 +40,13 @@ in {
           cmd = ["Copilot" "CopilotAuth" "CopilotDetach" "CopilotPanel" "CopilotStop"];
           keys = [
             (mkLuaKeymap ["n"] cfg.mappings.panel.accept (wrapPanelBinding ''require("copilot.panel").accept'' cfg.mappings.panel.accept) "[copilot] Accept suggestion" {})
-            (mkLuaKeymap ["n"] cfg.mappings.panel.jumpNext (wrapPanelBinding "require(\"copilot.panel\").jump_next" cfg.mappings.panel.jumpNext) "[copilot] Accept suggestion" {})
-            (mkLuaKeymap ["n"] cfg.mappings.panel.jumpPrev (wrapPanelBinding "require(\"copilot.panel\").jump_prev" cfg.mappings.panel.jumpPrev) "[copilot] Accept suggestion" {})
-            (mkLuaKeymap ["n"] cfg.mappings.panel.refresh (wrapPanelBinding "require(\"copilot.panel\").refresh" cfg.mappings.panel.refresh) "[copilot] Accept suggestion" {})
+            (mkLuaKeymap ["n"] cfg.mappings.panel.jumpNext (wrapPanelBinding "require(\"copilot.panel\").jump_next" cfg.mappings.panel.jumpNext) "[copilot] Next panel suggestion" {})
+            (mkLuaKeymap ["n"] cfg.mappings.panel.jumpPrev (wrapPanelBinding "require(\"copilot.panel\").jump_prev" cfg.mappings.panel.jumpPrev) "[copilot] Previous panel suggestion" {})
+            (mkLuaKeymap ["n"] cfg.mappings.panel.refresh (wrapPanelBinding "require(\"copilot.panel\").refresh" cfg.mappings.panel.refresh) "[copilot] Refresh suggestion" {})
             (mkLuaKeymap ["n"] cfg.mappings.panel.open (wrapPanelBinding ''
                 function() require("copilot.panel").open({ position = "${cfg.setupOpts.panel.layout.position}", ratio = ${toString cfg.setupOpts.panel.layout.ratio}, }) end
               ''
-              cfg.mappings.panel.open) "[copilot] Accept suggestion" {})
+              cfg.mappings.panel.open) "[copilot] Open Panel" {})
 
             (mkLuaKeymap ["i"] cfg.mappings.suggestion.accept "function() require('copilot.suggestion').accept() end" "[copilot] Accept suggestion" {})
             (mkLuaKeymap ["i"] cfg.mappings.suggestion.acceptLine "function() require('copilot.suggestion').accept_line() end" "[copilot] Accept suggestion (line)" {})
