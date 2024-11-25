@@ -11,5 +11,5 @@ as posssible.
 
 If it is not a new module, but a change to an existing one, then make sure the
 module you have changed is enabled in the maximal configuration by editing
-`configuration.nix`, and then run it with `nix run .#maximal -Lv`. Same procedure
-as adding a new module will apply here.
+`configuration.nix`, and then run it with `nix run .#maximal -Lv`. Same
+procedure as adding a new module will apply here.

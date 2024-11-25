@@ -2,9 +2,9 @@
 
 Language specific support means there is a combination of language specific
 plugins, `treesitter` support, `nvim-lspconfig` language servers, and `null-ls`
-integration. This gets you capabilities ranging from autocompletion to formatting
-to diagnostics. The following languages have sections under the `vim.languages`
-attribute.
+integration. This gets you capabilities ranging from autocompletion to
+formatting to diagnostics. The following languages have sections under the
+`vim.languages` attribute.
 
 - Rust: [vim.languages.rust.enable](#opt-vim.languages.rust.enable)
 - Nix: [vim.languages.nix.enable](#opt-vim.languages.nix.enable)
@@ -20,8 +20,8 @@ attribute.
 - Lua: [vim.languages.lua.enable](#opt-vim.languages.lua.enable)
 - PHP: [vim.languages.php.enable](#opt-vim.languages.php.enable)
 
-Adding support for more languages, and improving support for existing ones are great places
-where you can contribute with a PR.
+Adding support for more languages, and improving support for existing ones are
+great places where you can contribute with a PR.
 
 ```{=include=} sections
 languages/lsp.md
