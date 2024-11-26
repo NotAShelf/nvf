@@ -1,2 +1,2 @@
 
-default.extend-ignore-words-re = ["(?i)(noice)", "befores", "annote"]
+default.extend-ignore-words-re = ["(?i)(noice)", "befores", "annote", "viw"]
