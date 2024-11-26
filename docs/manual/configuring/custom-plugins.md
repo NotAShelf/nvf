@@ -11,11 +11,11 @@ configuration locally.
 There are multiple ways of adding custom plugins to your **nvf** configuration.
 
 You can use custom plugins, before they are implemented in the flake. To add a
-plugin to the runtime, you need to add it to the `vim.startPlugins` list in your
-configuration.
+plugin to the runtime, you need to add it to the [](#opt-vim.startPlugins) list
+in your configuration.
 
 Adding a plugin to `startPlugins` will not allow you to configure the plugin
-that you have adeed, but **nvf** provides multiple way of configuring any custom
+that you have added, but **nvf** provides multiple way of configuring any custom
 plugins that you might have added to your configuration.
 
 ```{=include=} sections
