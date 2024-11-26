@@ -12,7 +12,7 @@ in {
         migration is required.
 
         Please see neocord documentation and options page on the **nvf** manual
-        for mor einformation
+        for more information
       '')
     ]
     ++ (map

@@ -93,10 +93,10 @@ the commit followed by the description:
 ```
 languages/ruby: init module
 
-Adds a language module for Ruby, adds appropriate formatters and Treesitter grammers
+Adds a language module for Ruby, adds appropriate formatters and Treesitter grammars
 ```
 
-Long description can be ommitted if the change is too simple to warrant it. A
+Long description can be omitted if the change is too simple to warrant it. A
 minor fix in spelling or a formatting change does not warrant long description,
 however, a module addition or removal does as you would like to provide the
 relevant context, i.e. the reasoning behind it, for your commit.

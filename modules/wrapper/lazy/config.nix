@@ -62,7 +62,7 @@
         if spec.load != null
         then
           mkLuaInline ''
-            funcion()
+            function()
               ${spec.load}
             end
           ''

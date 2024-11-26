@@ -11,7 +11,7 @@ your formatting according to its own config (usually `.eslintrc.js`).
 
 The issue there is your formatting is made via prettierd.
 
-This results in auto-formating relying on your prettier config, while your
+This results in auto-formatting relying on your prettier config, while your
 eslint config diagnoses formatting
 [which it's not supposed to](https://prettier.io/docs/en/comparison.html))
 

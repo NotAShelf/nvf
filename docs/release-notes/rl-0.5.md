@@ -61,9 +61,9 @@ Release notes for release 0.5
 - LSP navigation helper with nvim-navbuddy, depends on nvim-navic (automatically
   enabled if navic is enabled)
 
-- Addeed nvim-navic integration for catppuccin theme
+- Added nvim-navic integration for Catppuccin theme
 
-- Fixed mismatching zig language description
+- Fixed mismatching Zig language description
 
 - Added support for `statix` and `deadnix` through
   [](#opt-vim.languages.nix.extraDiagnostics.types)
@@ -79,9 +79,9 @@ Release notes for release 0.5
 
 - Added bash LSP and formatter support
 
-- Disabled Lualine LSP status indicator for toggleterm buffer
+- Disabled Lualine LSP status indicator for Toggleterm buffer
 
-- Added `nvim-docs-view`, a plugin to display lsp hover documentation in a side
+- Added `nvim-docs-view`, a plugin to display LSP hover documentation in a side
   panel
 
 - Switched to `nixosOptionsDoc` in option documentation. To quote home-manager
@@ -107,7 +107,7 @@ Release notes for release 0.5
 
 - Removed redundant "Enable ..." in `mkEnableOption` descriptions
 
-- Add options to modify LSP key bindings and add proper whichkey descriptions
+- Add options to modify LSP key bindings and add proper which-key descriptions
 
 - Changed type of `statusline.lualine.activeSection` and
   `statusline.lualine.inactiveSection` from `attrsOf str` to

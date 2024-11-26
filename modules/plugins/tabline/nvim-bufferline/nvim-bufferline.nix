@@ -101,7 +101,7 @@ in {
               The indicatotor icon to use for the current buffer.
 
               ::: {.warning}
-              This **must** be ommitted while style is not `icon`
+              This **must** be omitted while style is not `icon`
               :::
             '';
           };
@@ -338,7 +338,7 @@ in {
           description = "Whether or not the move command \"wraps\" at the first or last position";
         };
 
-        seperator_style = mkOption {
+        separator_style = mkOption {
           type = either (enum ["thick" "thin" "slope" "slant"]) (listOf str);
           default = [" " " "];
           description = ''

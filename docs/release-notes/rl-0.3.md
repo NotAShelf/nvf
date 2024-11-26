@@ -21,7 +21,7 @@ soon.
 
 - which-key section titles have been fixed. This is to be changed once again in
   a possible keybind rewrite, but now it should display the correct titles
-  instad of `+prefix`
+  instead of `+prefix`
 
 - Most of `presence.nvim`'s options have been made fully configurable through
   your configuration file.

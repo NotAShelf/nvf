@@ -48,7 +48,7 @@ in {
 
           A `deprio` function and a `kinds`
           (`require("cmp.types").lsp.CompletionItemKind`) variable is provided
-          above `setupOpts`. By passing a type to the funcion, the returned
+          above `setupOpts`. By passing a type to the function, the returned
           function will be a comparator that always ranks the specified kind the
           lowest.
         '';
@@ -88,7 +88,7 @@ in {
         ```
       '';
       description = ''
-        The function used to customize the completion menu entires. This is
+        The function used to customize the completion menu entries. This is
         outside of `setupOpts` to allow for an easier integration with
         lspkind.nvim.
 
