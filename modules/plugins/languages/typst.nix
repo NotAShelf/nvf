@@ -22,7 +22,7 @@
         lspconfig.typst_lsp.setup {
           capabilities = capabilities,
           on_attach = function(client, bufnr)
-            -- Disable semantic tokens if the issue persists
+            -- Disable semantic tokens as a workaround for a semantic token error when using non-english characters
             client.server_capabilities.semanticTokensProvider = nil
           end,
           cmd = ${
@@ -40,7 +40,7 @@
           capabilities = capabilities,
           single_file_support = true,
           on_attach = function(client, bufnr)
-            -- Disable semantic tokens if the issue persists
+            -- Disable semantic tokens as a workaround for a semantic token error when using non-english characters
             client.server_capabilities.semanticTokensProvider = nil
           end,
           cmd = ${
