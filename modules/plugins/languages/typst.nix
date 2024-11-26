@@ -21,7 +21,10 @@
       lspConfig = ''
         lspconfig.typst_lsp.setup {
           capabilities = capabilities,
-          on_attach = default_on_attach,
+          on_attach = function(client, bufnr)
+            -- Disable semantic tokens if the issue persists
+            client.server_capabilities.semanticTokensProvider = nil
+          end,
           cmd = ${
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
@@ -36,7 +39,10 @@
         lspconfig.tinymist.setup {
           capabilities = capabilities,
           single_file_support = true,
-          on_attach = default_on_attach,
+          on_attach = function(client, bufnr)
+            -- Disable semantic tokens if the issue persists
+            client.server_capabilities.semanticTokensProvider = nil
+          end,
           cmd = ${
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
