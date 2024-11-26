@@ -173,7 +173,7 @@
         description = ''
           Lua code to override the `vim.g.lz_n.load()` function for a single plugin.
 
-          This will be wrapped in a function.
+          This will be wrapped in a `function(name) ... end`.
         '';
       };
     };
