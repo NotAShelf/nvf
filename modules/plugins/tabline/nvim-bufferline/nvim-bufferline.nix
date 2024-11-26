@@ -49,7 +49,7 @@ in {
           type = bool;
           default = true;
           description = ''
-            Whether or not to allow highlight groups to be overriden.
+            Whether or not to allow highlight groups to be overridden.
 
             While false, bufferline.nvim sets highlights as default.
           '';
@@ -336,17 +336,6 @@ in {
           type = bool;
           default = false;
           description = "Whether or not the move command \"wraps\" at the first or last position";
-        };
-
-        separator_style = mkOption {
-          type = either (enum ["thick" "thin" "slope" "slant"]) (listOf str);
-          default = [" " " "];
-          description = ''
-            Style of the buffer separator.
-
-            Can be either one of the suspported values, or a list containing
-            **at most** two elements for `focused` and `unfocused` respectively.
-          '';
         };
 
         separator_style = mkOption {

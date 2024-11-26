@@ -89,7 +89,7 @@ in {
       };
 
       package = mkOption {
-        description = "lldb pacakge";
+        description = "lldb package";
         type = package;
         default = pkgs.lldb;
       };
