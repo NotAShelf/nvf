@@ -66,8 +66,8 @@
   lznPluginType = submodule {
     options = {
       package = mkOption {
-        type = pluginType;
-        description = "Plugin package";
+        type = nullOr pluginType;
+        description = "Plugin package. If null, a custom load function must be provided";
       };
 
       setupModule = mkOption {

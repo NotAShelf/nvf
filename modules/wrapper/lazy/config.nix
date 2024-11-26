@@ -76,7 +76,7 @@
     };
   lznSpecs = mapAttrsToList toLuaLznSpec cfg.plugins;
 
-  pluginPackages = mapAttrsToList (_: plugin: plugin.package) cfg.plugins;
+  pluginPackages = filter (x: x != null) (mapAttrsToList (_: plugin: plugin.package) cfg.plugins);
 
   specToNotLazyConfig = _: spec: ''
     do
