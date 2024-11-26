@@ -67,7 +67,11 @@
     options = {
       package = mkOption {
         type = nullOr pluginType;
-        description = "Plugin package. If null, a custom load function must be provided";
+        description = ''
+          Plugin package.
+
+          If null, a custom load function must be provided
+        '';
       };
 
       setupModule = mkOption {
