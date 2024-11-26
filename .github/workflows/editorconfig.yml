@@ -15,7 +15,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh api \
-            repos/notashelf/neovim-flake/pulls/${{github.event.number}}/files --paginate \
+            repos/notashelf/nvf/pulls/${{github.event.number}}/files --paginate \
             | jq '.[] | select(.status != "removed") | .filename' \
             > "$HOME/changed_files"
 
