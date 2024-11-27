@@ -9,6 +9,7 @@ in {
     ./css.nix
     ./elixir.nix
     ./go.nix
+    ./hcl.nix
     ./kotlin.nix
     ./html.nix
     ./java.nix

@@ -297,6 +297,7 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
 - Telescope:
   - Fixed `project-nvim` command and keybinding
   - Added default ikeybind/command for `Telescope resume` (`<leader>fr`)
+- Add `hcl` lsp/formatter (not the same as `terraform`, which is not useful for e.g. `nomad` config files).
 
 [Soliprem](https://github.com/Soliprem):
 
