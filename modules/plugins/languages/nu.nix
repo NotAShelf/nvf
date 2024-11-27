@@ -2,14 +2,13 @@
   lib,
   pkgs,
   config,
-  pkgsPath,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption mkPackageOption;
+  inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) str either package listOf enum;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.lua) expToLua;
-  inherit (pkgs) fetchFromGitHub;
+  inherit (lib.nvim.types) mkGrammarOption;
   inherit (builtins) attrNames isList;
 
   defaultServer = "nushell";
@@ -30,18 +29,10 @@
     };
   };
 
-  # FIX: uncomment formatting parts, once https://github.com/NixOS/nixpkgs/pull/341647 makes it into nixos-unstable
   # defaultFormat = "nufmt";
   # formats = {
   #   nufmt = {
-  #     package = pkgs.nufmt.overrideAttrs {
-  #       src = fetchFromGitHub {
-  #         owner = "nushell";
-  #         repo = "nufmt";
-  #         rev = "63549df4406216cce7e744576b1ee8fcaba9a30a";
-  #         hash = "sha256-Y7LvsCuirhYPjuQSF0w7me8vYrV39i4OhVvyI3XskpE=";
-  #       };
-  #     };
+  #     package = pkgs.nufmt;
   #     nullConfig = ''
   #       table.insert(
   #         ls_sources,
@@ -68,21 +59,7 @@ in {
 
     treesitter = {
       enable = mkEnableOption "Nu treesitter" // {default = config.vim.languages.enableTreesitter;};
-      package = mkOption {
-        description = "The Nu treesitter package to use.";
-        type = package;
-        default = pkgs.callPackage (pkgsPath + /pkgs/development/tools/parsing/tree-sitter/grammar.nix) {} {
-          language = "nu";
-          inherit (pkgs.tree-sitter) version;
-          src = fetchFromGitHub {
-            owner = "nushell";
-            repo = "tree-sitter-nu";
-            rev = "0bb9a602d9bc94b66fab96ce51d46a5a227ab76c";
-            hash = "sha256-A5GiOpITOv3H0wytCv6t43buQ8IzxEXrk3gTlOrO0K0=";
-          };
-        };
-        defaultText = "See code";
-      };
+      package = mkGrammarOption pkgs "nu";
     };
 
     lsp = {
