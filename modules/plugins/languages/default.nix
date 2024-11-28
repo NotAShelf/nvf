@@ -33,6 +33,7 @@ in {
     ./zig.nix
     ./csharp.nix
     ./julia.nix
+    ./nu.nix
   ];
 
   options.vim.languages = {
