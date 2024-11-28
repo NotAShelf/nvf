@@ -315,6 +315,7 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
   the Typst language module.
 - Add LSP and Treesitter support for Assembly under `vim.languages.assembly`
 - Move [which-key](https://github.com/folke/which-key.nvim) to the new spec
+- Add LSP and Treesitter support for Nushell under `vim.languages.nu`
 
 [Bloxx12](https://github.com/Bloxx12)
 
