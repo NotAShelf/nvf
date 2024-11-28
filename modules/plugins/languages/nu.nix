@@ -71,10 +71,10 @@ in {
       };
 
       package = mkOption {
-        description = "Nu LSP server package, or the command to run as a list of strings";
-        example = ''[(lib.getExe pkgs.nushell) "--lsp"]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+        example = ''[(lib.getExe pkgs.nushell) "--lsp"]'';
+        description = "Nu LSP server package, or the command to run as a list of strings"; 
       };
     };
 
