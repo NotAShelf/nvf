@@ -29,29 +29,6 @@
     };
   };
 
-  # defaultFormat = "nufmt";
-  # formats = {
-  #   nufmt = {
-  #     package = pkgs.nufmt;
-  #     nullConfig = ''
-  #       table.insert(
-  #         ls_sources,
-  #         {
-  #           name = "nufmt",
-  #           method = null_methods.internal.FORMATTING,
-  #           filetypes = { "nu" },
-  #           generator_opts = {
-  #             command = "${cfg.format.package}/bin/nufmt",
-  #             args = { "--stdin" },
-  #             to_stdin = true
-  #           },
-  #           factory = null_helpers.formatter_factory
-  #         }
-  #       )
-  #     '';
-  #   };
-  # };
-
   cfg = config.vim.languages.nu;
 in {
   options.vim.languages.nu = {
@@ -78,20 +55,6 @@ in {
       };
     };
 
-    # format = {
-    #   enable = mkEnableOption "Nu formatting" // {default = config.vim.languages.enableFormat;};
-    #
-    #   type = mkOption {
-    #     description = "Nu formatter to use";
-    #     type = enum (attrNames formats);
-    #     default = defaultFormat;
-    #   };
-    #   package = mkOption {
-    #     description = "Nu formatter package";
-    #     type = package;
-    #     default = formats.${cfg.format.type}.package;
-    #   };
-    # };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -104,10 +67,5 @@ in {
       vim.lsp.lspconfig.enable = true;
       vim.lsp.lspconfig.sources.nu-lsp = servers.${cfg.lsp.server}.lspConfig;
     })
-
-    # (mkIf cfg.format.enable {
-    #   vim.lsp.null-ls.enable = true;
-    #   vim.lsp.null-ls.sources.nu-format = formats.${cfg.format.type}.nullConfig;
-    # })
   ]);
 }
