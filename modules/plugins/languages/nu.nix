@@ -5,11 +5,11 @@
   ...
 }: let
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) str either package listOf enum;
+  inherit (lib.types) str either package listOf;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (builtins) attrNames isList;
+  inherit (builtins) isList;
 
   defaultServer = "nushell";
   servers = {
@@ -51,10 +51,9 @@ in {
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
         example = ''[(lib.getExe pkgs.nushell) "--lsp"]'';
-        description = "Nu LSP server package, or the command to run as a list of strings"; 
+        description = "Nu LSP server package, or the command to run as a list of strings";
       };
     };
-
   };
 
   config = mkIf cfg.enable (mkMerge [
