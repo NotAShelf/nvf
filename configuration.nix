@@ -76,7 +76,7 @@ isMaximal: {
       csharp.enable = isMaximal;
       julia.enable = isMaximal;
       vala.enable = isMaximal;
-      nu.enable = isMaximal;
+      nu.enable = false;
     };
 
     visuals = {
