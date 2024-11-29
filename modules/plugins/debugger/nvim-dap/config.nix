@@ -59,7 +59,7 @@ in {
           inherit (cfg.ui) setupOpts;
 
           keys = [
-            (mkKeymap "n" cfg.mappings.toggleDapUI "function() require('dapui').toggle() end" {desc = mappings.toggleDapUI.descritpion;})
+            (mkKeymap "n" cfg.mappings.toggleDapUI "function() require('dapui').toggle() end" {desc = mappings.toggleDapUI.description;})
           ];
         };
 
