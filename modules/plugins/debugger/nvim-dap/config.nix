@@ -28,7 +28,7 @@ in {
           }
           // mapAttrs (_: v: (entryAfter ["nvim-dap"] v)) cfg.sources;
 
-        maps.normal = mkMerge [
+        keymaps = [
           (mkKeymap "n" cfg.mappings.continue "require('dap').continue" {desc = mappings.continue.description;})
           (mkKeymap "n" cfg.mappings.restart "require('dap').restart" {desc = mappings.restart.description;})
           (mkKeymap "n" cfg.mappings.terminate "require('dap').terminate" {desc = mappings.terminate.description;})
