@@ -297,6 +297,7 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
 - Telescope:
   - Fixed `project-nvim` command and keybinding
   - Added default ikeybind/command for `Telescope resume` (`<leader>fr`)
+- Add `hcl` lsp/formatter (not the same as `terraform`, which is not useful for e.g. `nomad` config files).
 
 [Soliprem](https://github.com/Soliprem):
 
@@ -314,6 +315,7 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
   the Typst language module.
 - Add LSP and Treesitter support for Assembly under `vim.languages.assembly`
 - Move [which-key](https://github.com/folke/which-key.nvim) to the new spec
+- Add LSP and Treesitter support for Nushell under `vim.languages.nu`
 
 [Bloxx12](https://github.com/Bloxx12)
 
