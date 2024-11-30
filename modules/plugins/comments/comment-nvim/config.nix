@@ -36,8 +36,8 @@ in {
             expr = true;
             desc = mappings.toggleCurrentBlock.description;
           })
-        (mkKeymap ["x"] cfg.mappings.toggleSelectedLine "<Plug>(comment_toggle_linewise_visual)" {desc = mappings.toggleSelectedLine.description;})
-        (mkKeymap ["x"] cfg.mappings.toggleSelectedBlock "<Plug>(comment_toggle_blockwise_visual)" {desc = mappings.toggleSelectedBlock.description;})
+        (mkKeymap "x" cfg.mappings.toggleSelectedLine "<Plug>(comment_toggle_linewise_visual)" {desc = mappings.toggleSelectedLine.description;})
+        (mkKeymap "x" cfg.mappings.toggleSelectedBlock "<Plug>(comment_toggle_blockwise_visual)" {desc = mappings.toggleSelectedBlock.description;})
       ];
     };
   };
