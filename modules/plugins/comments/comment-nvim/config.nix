@@ -16,9 +16,9 @@ in {
       setupModule = "Comment";
       inherit (cfg) setupOpts;
       keys = [
-        (mkKeymap ["n"] cfg.mappings.toggleOpLeaderLine "<Plug>(comment_toggle_linewise)" {desc = mappings.toggleOpLeaderLine.description;})
-        (mkKeymap ["n"] cfg.mappings.toggleOpLeaderBlock "<Plug>(comment_toggle_blockwise)" {desc = mappings.toggleOpLeaderBlock.description;})
-        (mkKeymap ["n"] cfg.mappings.toggleCurrentLine ''
+        (mkKeymap "n" cfg.mappings.toggleOpLeaderLine "<Plug>(comment_toggle_linewise)" {desc = mappings.toggleOpLeaderLine.description;})
+        (mkKeymap "n" cfg.mappings.toggleOpLeaderBlock "<Plug>(comment_toggle_blockwise)" {desc = mappings.toggleOpLeaderBlock.description;})
+        (mkKeymap "n" cfg.mappings.toggleCurrentLine ''
             function()
               return vim.api.nvim_get_vvar('count') == 0 and '<Plug>(comment_toggle_linewise_current)'
                       or '<Plug>(comment_toggle_linewise_count)'
