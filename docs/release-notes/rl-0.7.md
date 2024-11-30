@@ -81,6 +81,16 @@ favor of nixfmt (more information can be found
 To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
 `nixfmt`.
 
+### leader changes {#sec-leader-changes}
+
+This has been deprecated in favor of using the more generic `vim.globals` (you
+can use `vim.globals.mapleader` to change this instead).
+
+Rust specific keymaps now use `maplocalleader` instead of `localleader` by
+default. This is to avoid conflicts with other modules. You can change
+`maplocalleader` with `vim.globals.maplocalleader`, but it's recommended to set
+it to something other than `mapleader` to avoid conflicts.
+
 ## Changelog {#sec-release-0.7-changelog}
 
 [ItsSorae](https://github.com/ItsSorae):
@@ -201,7 +211,8 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
   is bundled with nvf, if you enable the module, since there is no way to
   provide only the LSP server.
 
-- Add [`run.nvim`](https://github.com/diniamo/run.nvim) support for running code using cached commands.
+- Add [`run.nvim`](https://github.com/diniamo/run.nvim) support for running code
+  using cached commands.
 
 [Neovim documentation on `vim.cmd`]: https://neovim.io/doc/user/lua.html#vim.cmd()
 
