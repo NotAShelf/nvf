@@ -11,6 +11,7 @@ in {
     ./go.nix
     ./hcl.nix
     ./kotlin.nix
+    ./haskell.nix
     ./html.nix
     ./java.nix
     ./lua.nix
