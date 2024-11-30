@@ -5,7 +5,7 @@
 }: let
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
   inherit (lib.strings) optionalString;
-  inherit (lib.types) str attrs lines listOf either path;
+  inherit (lib.types) str attrs lines listOf either path submodule anything;
   inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.lua) listToLuaTable;
 
@@ -100,10 +100,21 @@ in {
     };
 
     globals = mkOption {
-      type = attrs;
-      default = {
-        mapleader = " ";
-        maplocalleader = ",";
+      default = {};
+      type = submodule {
+        freeformType = anything;
+        options = {
+          mapleader = mkOption {
+            type = str;
+            default = " ";
+            description = "The key used for <leader> mappings";
+          };
+          maplocalleader = mkOption {
+            type = str;
+            default = ",";
+            description = "The key used for <localleader> mappings";
+          };
+        };
       };
       example = {"some_variable" = 42;};
       description = ''
