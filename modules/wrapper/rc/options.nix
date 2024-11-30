@@ -101,7 +101,10 @@ in {
 
     globals = mkOption {
       type = attrs;
-      default = {};
+      default = {
+        mapleader = " ";
+        maplocalleader = ",";
+      };
       example = {"some_variable" = 42;};
       description = ''
         An attribute set containing global variable values
