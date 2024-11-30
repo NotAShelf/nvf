@@ -134,7 +134,7 @@
         default = ["absolute"];
       };
       set_env = mkOption {
-        description = "Set an envrionment for term_previewer";
+        description = "Set an environment for term_previewer";
         type = attrsOf str;
         default = {
           COLORTERM = "truecolor";

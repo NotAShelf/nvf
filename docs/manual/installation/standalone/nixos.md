@@ -1,12 +1,12 @@
 # Standalone Installation on NixOS {#ch-standalone-nixos}
 
-Your built Neoevim configuration can be exposed as a flake output to make it
+Your built Neovim configuration can be exposed as a flake output to make it
 easier to share across machines, repositories and so on. Or it can be added to
 your system packages to make it available across your system.
 
 The following is an example installation of `nvf` as a standalone package with
 the default theme enabled. You may use other options inside `config.vim` in
-`configModule`, but this example will not cover that.
+`configModule`, but this example will not cover that extensively.
 
 ```nix
 {
@@ -30,21 +30,19 @@ the default theme enabled. You may use other options inside `config.vim` in
     };
 
     customNeovim = nvf.lib.neovimConfiguration {
-      modules = [configModule];
       inherit pkgs;
+      modules = [configModule];
     };
   in {
-    # this will make the package available as a flake input
+    # This will make the package available as a flake output under 'packages'
     packages.${system}.my-neovim = customNeovim.neovim;
 
-    # this is an example nixosConfiguration using the built neovim package
+    # Example nixosConfiguration using the configured Neovim package
     nixosConfigurations = {
       yourHostName = nixpkgs.lib.nixosSystem {
         # ...
         modules = [
-          ./configuration.nix # or whatever your configuration is
-
-          # this will make wrapped neovim available in your system packages
+          # This will make wrapped neovim available in your system packages
           {environment.systemPackages = [customNeovim.neovim];}
         ];
         # ...

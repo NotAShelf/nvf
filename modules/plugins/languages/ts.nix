@@ -181,8 +181,10 @@ in {
     extensions = {
       ts-error-translator = {
         enable = mkEnableOption ''
-          Typescript error translation with
-          [ts-error-translator.nvim](github.com/dmmulroy/ts-error-translator.nvim)
+          [ts-error-translator.nvim]: https://github.com/dmmulroy/ts-error-translator.nvim
+
+          Typescript error translation with [ts-error-translator.nvim]
+
         '';
 
         setupOpts = mkPluginSetupOption "ts-error-translator" {

@@ -105,7 +105,7 @@ in {
       autosave_ignore_buftypes = mkOption {
         type = types.listOf types.str;
         default = [];
-        description = "All buffers of these bufer types will be closed before the session is saved";
+        description = "All buffers of these buffer types will be closed before the session is saved";
       };
 
       autosave_only_in_session = mkOption {

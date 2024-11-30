@@ -302,7 +302,7 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
 [Soliprem](https://github.com/Soliprem):
 
 - Add LSP and Treesitter support for R under `vim.languages.R`.
-  - Add formatter suppoort for R, with styler and formatR as options
+  - Add formatter support for R, with styler and formatR as options
 - Add Otter support under `vim.lsp.otter` and an assert to prevent conflict with
   ccc
 - Fixed typo in Otter's setupOpts

@@ -26,7 +26,7 @@ in {
     };
 
     mappings = {
-      continue = mkMappingOption "Contiue" "<leader>dc";
+      continue = mkMappingOption "Continue" "<leader>dc";
       restart = mkMappingOption "Restart" "<leader>dR";
       terminate = mkMappingOption "Terminate" "<leader>dq";
       runLast = mkMappingOption "Re-run Last Debug Session" "<leader>d.";

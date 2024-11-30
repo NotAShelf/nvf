@@ -1,6 +1,6 @@
 # Legacy Method {#sec-legacy-method}
 
-Prior to version 0.5, the method of adding new plugins was adding the plugin
+Prior to version v0.5, the method of adding new plugins was adding the plugin
 package to `vim.startPlugins` and add its configuration as a DAG under one of
 `vim.configRC` or `vim.luaConfigRC`. Users who have not yet updated to 0.5, or
 prefer a more hands-on approach may use the old method where the load order of
@@ -8,13 +8,14 @@ the plugins is determined by DAGs.
 
 ## Adding plugins {#sec-adding-plugins}
 
-To add a plugin to **nvf**'s runtime, you may add it
+To add a plugin not available in nvf as a module to your configuration, you may
+add it to [](#opt-vim.startPlugins) in order to make it available to Neovim at
+runtime.
 
 ```nix
 {pkgs, ...}: {
-  # add a package from nixpkgs to startPlugins
-  vim.startPlugins = [
-    pkgs.vimPlugins.aerial-nvim  ];
+  # Add a Neovim plugin from Nixpkgs to the runtime.
+  vim.startPlugins = [pkgs.vimPlugins.aerial-nvim];
 }
 ```
 
@@ -23,7 +24,9 @@ provide configuration as a DAG using the **nvf** extended library.
 
 ```nix
 {inputs, ...}: let
-  # assuming you have an input called nvf pointing at the nvf repository
+  # This assumes you have an input called 'nvf' in your flake inputs
+  # and 'inputs' in your specialArgs. In the case you have passed 'nvf'
+  # to specialArgs, the 'inputs' prefix may be omitted.
   inherit (inputs.nvf.lib.nvim.dag) entryAnywhere;
 in {
   vim.luaConfigRC.aerial-nvim= entryAnywhere ''

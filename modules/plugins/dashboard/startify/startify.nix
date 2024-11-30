@@ -101,7 +101,7 @@ in {
 
     customIndices = mkOption {
       default = [];
-      description = "Specify a list of default charecters to use instead of numbers";
+      description = "Specify a list of default characters to use instead of numbers";
       type = listOf str;
     };
 

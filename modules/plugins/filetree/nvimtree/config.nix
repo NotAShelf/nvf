@@ -46,7 +46,7 @@ in {
         ${optionalString (config.vim.lazy.enable && cfg.setupOpts.hijack_netrw && !cfg.openOnSetup) ''
           vim.api.nvim_create_autocmd("BufEnter", {
             group = vim.api.nvim_create_augroup("load_nvim_tree", {}),
-            desc = "Loads nvim-tree when openning a directory",
+            desc = "Loads nvim-tree when opening a directory",
             callback = function(args)
               local stats = vim.uv.fs_stat(args.file)
 

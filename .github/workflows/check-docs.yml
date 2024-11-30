@@ -19,19 +19,12 @@ jobs:
           - docs-manpages
           - docs-json
     steps:
-      - uses: easimon/maximize-build-space@v10
-        with:
-          overprovision-lvm: true
-          remove-android: true
-          remove-dotnet: true
-          remove-haskell: true
-
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
 
-      - uses: actions/checkout@v4
-        name: Checkout
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Set default git branch (to reduce log spam)
         run: git config --global init.defaultBranch main
@@ -49,3 +42,16 @@ jobs:
         with:
           name: "${{ matrix.package }}"
           path: result/share/doc/nvf
+  flake-docs-linkcheck:
+    name: Validate hyperlinks in documentation sources
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build documentation packages
+        run: nix build .#docs-linkcheck -Lv

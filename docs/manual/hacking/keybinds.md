@@ -1,9 +1,10 @@
 # Keybinds {#sec-keybinds}
 
 As of 0.4, there exists an API for writing your own keybinds and a couple of
-useful utility functions are available in the [extended standard
-library](https://github.com/NotAShelf/nvf/tree/main/lib). The following
-section contains a general overview to how you may utilize said functions.
+useful utility functions are available in the
+[extended standard library](https://github.com/NotAShelf/nvf/tree/main/lib). The
+following section contains a general overview to how you may utilize said
+functions.
 
 ## Custom Key Mappings Support for a Plugin {#sec-custom-key-mappings}
 
@@ -26,18 +27,18 @@ An example, simple keybinding, can look like this:
 ```
 
 There are many settings available in the options. Please refer to the
-[documentation](https://notashelf.github.io/nvf/options.html#opt-vim.keymaps)
-to see a list of them.
+[documentation](https://notashelf.github.io/nvf/options.html#opt-vim.keymaps) to
+see a list of them.
 
 **nvf** provides a list of helper commands, so that you don't have to write the
 mapping attribute sets every time:
 
-- `mkBinding = key: action: desc:` - makes a basic binding, with `silent` set
-  to true.
+- `mkBinding = key: action: desc:` - makes a basic binding, with `silent` set to
+  true.
 - `mkExprBinding = key: action: desc:` - makes an expression binding, with
   `lua`, `silent`, and `expr` set to true.
-- `mkLuaBinding = key: action: desc:` - makes an expression binding, with
-  `lua`, and `silent` set to true.
+- `mkLuaBinding = key: action: desc:` - makes an expression binding, with `lua`,
+  and `silent` set to true.
 
 Do note that the Lua in these bindings is actual Lua, and not pasted into a
 `:lua` command. Therefore, you should either pass in a function like
@@ -57,7 +58,8 @@ attribute sets:
 - `{ someKey = "some_value" }`
 - `{ someKey = { description = "Some Description"; }; }`
 
-and merges them into `{ someKey = { value = "some_value"; description = "Some Description"; }; }`
+and merges them into
+`{ someKey = { value = "some_value"; description = "Some Description"; }; }`
 
 ```nix
 addDescriptionsToMappings = actualMappings: mappingDefinitions:
@@ -67,8 +69,8 @@ This function can be used in combination with the same `mkBinding` functions as
 above, except they only take two arguments - `binding` and `action`, and have
 different names:
 
-- `mkSetBinding = binding: action:` - makes a basic binding, with `silent`
-  set to true.
+- `mkSetBinding = binding: action:` - makes a basic binding, with `silent` set
+  to true.
 - `mkSetExprBinding = binding: action:` - makes an expression binding, with
   `lua`, `silent`, and `expr` set to true.
 - `mkSetLuaBinding = binding: action:` - makes an expression binding, with
@@ -79,7 +81,10 @@ usage should look something like this:
 
 ```nix
 # plugindefinition.nix
-{lib, ...}: with lib; {
+{lib, ...}: let
+  inherit (lib.options) mkEnableOption;
+  inherit (lib.nvim.binds) mkMappingOption;
+in {
   options.vim.plugin = {
     enable = mkEnableOption "Enable plugin";
 
@@ -109,9 +114,10 @@ usage should look something like this:
   pkgs,
   lib,
   ...
-}:
-  with lib;
-  with builtins; let
+}: let
+    inherit (lib.modules) mkIf mkMerge;
+    inherit (lib.nvim.binds) mkSetBinding;
+
     cfg = config.vim.plugin;
     self = import ./plugindefinition.nix {inherit lib;};
     mappingDefinitions = self.options.vim.plugin;
@@ -157,11 +163,12 @@ in {
     # ...
   };
 }
-
 ```
 
 ::: {.note}
+
 If you have come across a plugin that has an API that doesn't seem to easily
 allow custom keybindings, don't be scared to implement a draft PR. We'll help
 you get it done.
+
 :::

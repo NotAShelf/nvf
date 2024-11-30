@@ -92,7 +92,7 @@ in {
 
         ::: {.warning}
         All paths passed to this option must be valid. If Neovim cannot
-        resolve the path you are attempting to sourcee, then your configuration
+        resolve the path you are attempting to source, then your configuration
         will error, and Neovim will not start. Please ensure that all paths
         are correct before using this option.
         :::
