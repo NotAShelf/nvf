@@ -1710,6 +1710,22 @@
         "type": "github"
       }
     },
+    "plugin-run-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1732918526,
+        "narHash": "sha256-kiszNmZZDXG8tAPMQKuGJDCkqCMzsWT7BkCvkVsH2lA=",
+        "owner": "diniamo",
+        "repo": "run.nvim",
+        "rev": "d867466e01b8fa4e54a589b9ef446cf43fb966de",
+        "type": "github"
+      },
+      "original": {
+        "owner": "diniamo",
+        "repo": "run.nvim",
+        "type": "github"
+      }
+    },
     "plugin-rustaceanvim": {
       "flake": false,
       "locked": {
@@ -2123,6 +2139,7 @@
         "plugin-registers": "plugin-registers",
         "plugin-rose-pine": "plugin-rose-pine",
         "plugin-rtp-nvim": "plugin-rtp-nvim",
+        "plugin-run-nvim": "plugin-run-nvim",
         "plugin-rustaceanvim": "plugin-rustaceanvim",
         "plugin-smartcolumn": "plugin-smartcolumn",
         "plugin-sqls-nvim": "plugin-sqls-nvim",

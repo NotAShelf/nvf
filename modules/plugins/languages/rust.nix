@@ -145,13 +145,13 @@ in {
               on_attach = function(client, bufnr)
                 default_on_attach(client, bufnr)
                 local opts = { noremap=true, silent=true, buffer = bufnr }
-                vim.keymap.set("n", "<leader>rr", ":RustLsp runnables<CR>", opts)
-                vim.keymap.set("n", "<leader>rp", ":RustLsp parentModule<CR>", opts)
-                vim.keymap.set("n", "<leader>rm", ":RustLsp expandMacro<CR>", opts)
-                vim.keymap.set("n", "<leader>rc", ":RustLsp openCargo", opts)
-                vim.keymap.set("n", "<leader>rg", ":RustLsp crateGraph x11", opts)
+                vim.keymap.set("n", "<localleader>rr", ":RustLsp runnables<CR>", opts)
+                vim.keymap.set("n", "<localleader>rp", ":RustLsp parentModule<CR>", opts)
+                vim.keymap.set("n", "<localleader>rm", ":RustLsp expandMacro<CR>", opts)
+                vim.keymap.set("n", "<localleader>rc", ":RustLsp openCargo", opts)
+                vim.keymap.set("n", "<localleader>rg", ":RustLsp crateGraph x11", opts)
                 ${optionalString cfg.dap.enable ''
-              vim.keymap.set("n", "<leader>rd", ":RustLsp debuggables<cr>", opts)
+              vim.keymap.set("n", "<localleader>rd", ":RustLsp debuggables<cr>", opts)
               vim.keymap.set(
                "n", "${config.vim.debugger.nvim-dap.mappings.continue}",
                function()
