@@ -137,6 +137,8 @@ it to something other than `mapleader` to avoid conflicts.
 
 [lz.n]: https://github.com/mrcjkb/lz.n
 
+- Add simpler helper functions for making keymaps
+
 [jacekpoz](https://jacekpoz.pl):
 
 [ocaml-lsp]: https://github.com/ocaml/ocaml-lsp
