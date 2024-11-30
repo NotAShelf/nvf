@@ -81,15 +81,12 @@ favor of nixfmt (more information can be found
 To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
 `nixfmt`.
 
-### leader changes {#sec-leader-changes}
+### Rust keymap changes {#sec-leader-changes}
 
-This has been deprecated in favor of using the more generic `vim.globals` (you
-can use `vim.globals.mapleader` to change this instead).
-
-Rust specific keymaps now use `maplocalleader` instead of `localleader` by
+Rust specific keymaps now use `maplocalleader` instead of `vim.leaderKey` by
 default. This is to avoid conflicts with other modules. You can change
 `maplocalleader` with `vim.globals.maplocalleader`, but it's recommended to set
-it to something other than `mapleader` to avoid conflicts.
+it to something other than `vim.leaderKey` to avoid conflicts.
 
 ## Changelog {#sec-release-0.7-changelog}
 
@@ -310,7 +307,8 @@ it to something other than `mapleader` to avoid conflicts.
 - Telescope:
   - Fixed `project-nvim` command and keybinding
   - Added default ikeybind/command for `Telescope resume` (`<leader>fr`)
-- Add `hcl` lsp/formatter (not the same as `terraform`, which is not useful for e.g. `nomad` config files).
+- Add `hcl` lsp/formatter (not the same as `terraform`, which is not useful for
+  e.g. `nomad` config files).
 
 [Soliprem](https://github.com/Soliprem):
 

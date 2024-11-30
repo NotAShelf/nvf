@@ -14,6 +14,12 @@
   cfg = config.vim;
 in {
   options.vim = {
+    leaderKey = mkOption {
+      type = str;
+      default = " ";
+      description = "The leader key used for `<leader>` mappings";
+    };
+
     colourTerm = mkOption {
       type = bool;
       default = true;
@@ -191,6 +197,8 @@ in {
       vim.o.tm = ${toLuaObject cfg.mapTimeout}
       vim.o.cursorlineopt = ${toLuaObject cfg.cursorlineOpt}
       vim.o.scrolloff = ${toLuaObject cfg.scrollOffset}
+      vim.g.mapleader = ${toLuaObject cfg.leaderKey}
+      vim.g.maplocalleader = ${toLuaObject cfg.leaderKey}
 
       ${optionalString cfg.undoFile.enable ''
         vim.o.undofile = true

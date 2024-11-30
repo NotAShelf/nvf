@@ -59,10 +59,5 @@ in {
       With Trouble having so many different modes, and breaking changes
       upstream, it no longer makes sense, nor works, to toggle only Trouble.
     '')
-    # 2024-11-30
-    (mkRemovedOptionModule ["vim" "leaderKey"] ''
-      This has been deprecated in favor of using the more generic `vim.globals`
-      (you can use `vim.globals.mapleader` to change this instead).
-    '')
   ];
 }
