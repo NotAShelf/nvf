@@ -91,6 +91,30 @@ default. This is to avoid conflicts with other modules. You can change
 `maplocalleader` with `vim.globals.maplocalleader`, but it's recommended to set
 it to something other than `mapleader` to avoid conflicts.
 
+### `vim.*` changes {#sec-vim-opt-changes}
+
+Inline with the [leader changes](#sec-leader-changes), we have removed some
+options that were under `vim` as convenient shorthands for `vim.o.*` options.
+
+::: {.warning}
+
+As v0.7 features the addition of [](#opt-vim.options), those options are now
+considered as deprecated. You should migrate to the appropriate options in the
+`vim.options` submodule.
+
+:::
+
+The changes are, in no particular order:
+
+- `colourTerm`, `mouseSupport`, `cmdHeight`, `updateTime`, `mapTime`,
+  `cursorlineOpt`, `splitBelow`, `splitRight`, `autoIndent` and `wordWrap` have
+  been mapped to their [](#opt-vim.options) equivalents. Please see the module
+  definition for the updated options.
+
+- `tabWidth` has been **removed** as it lead to confusing behaviour. You can
+  replicate the same functionality by setting `shiftwidth`, `tabstop` and
+  `softtabstop` under `vim.options` as you see fit.
+
 ## Changelog {#sec-release-0.7-changelog}
 
 [ItsSorae](https://github.com/ItsSorae):
@@ -133,9 +157,9 @@ it to something other than `mapleader` to avoid conflicts.
   recommended to go through rustacean.nvim's README to take a closer look at its
   features and usage
 
-- Add [lz.n] support and lazy-load some builtin plugins.
-
 [lz.n]: https://github.com/mrcjkb/lz.n
+
+- Add [lz.n] support and lazy-load some builtin plugins.
 
 [jacekpoz](https://jacekpoz.pl):
 
@@ -300,17 +324,22 @@ it to something other than `mapleader` to avoid conflicts.
   spellfiles to Neovim's runtime with ease.
 
 - Add combined nvf configuration (`config.vim`) into the final package's
-  passthru as `passthru.neovimConfiguration` for easier debugging.
+  `passthru` as `passthru.neovimConfiguration` for easier debugging.
 
 - Add support for [tiny-devicons-auto-colors] under
   `vim.visuals.tiny-devicons-auto-colors`
+
+- Move options that used to set `vim.o` values (e.g. `vim.wordWrap`) into
+  `vim.options` as default values. Some are left as they don't have a direct
+  equivalent, but expect a switch eventually.
 
 [ppenguin](https://github.com/ppenguin):
 
 - Telescope:
   - Fixed `project-nvim` command and keybinding
   - Added default ikeybind/command for `Telescope resume` (`<leader>fr`)
-- Add `hcl` lsp/formatter (not the same as `terraform`, which is not useful for e.g. `nomad` config files).
+- Add `hcl` lsp/formatter (not the same as `terraform`, which is not useful for
+  e.g. `nomad` config files).
 
 [Soliprem](https://github.com/Soliprem):
 
