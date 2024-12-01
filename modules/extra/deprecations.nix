@@ -3,7 +3,7 @@
   inherit (lib.lists) concatLists;
   inherit (lib.nvim.config) batchRenameOptions;
 
-  migrationTable = {
+  renamedVimOpts = batchRenameOptions ["vim"] ["vim" "options"] {
     colourTerm = "termguicolors";
     mouseSupport = "mouse";
     cmdHeight = "cmdheight";
@@ -15,8 +15,6 @@
     autoIndent = "autoindent";
     wordWrap = "wrap";
   };
-
-  renamedVimOpts = batchRenameOptions ["vim"] ["vim" "options"] migrationTable;
 in {
   imports = concatLists [
     [

@@ -49,7 +49,7 @@ absence.
 - Made Copilot's Node package configurable. It is recommended to keep as
   default, but providing a different NodeJS version is now possible.
 
-- Added [](#opt-vim.cursorlineOpt) for configuring Neovim's cursorlineOpt.
+- Added `vim.cursorlineOpt` for configuring Neovim's `vim.o.cursorlineopt`.
 
 - Added `filetree.nvimTreeLua.view.cursorline`, default false, to enable
   cursorline in nvimtre.
