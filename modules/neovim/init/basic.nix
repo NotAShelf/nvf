@@ -200,8 +200,6 @@ in {
     };
 
     globals = pushDownDefault {
-      mapleader = cfg.leaderKey;
-      maplocalleader = cfg.leaderKey;
       editorconfig = cfg.enableEditorconfig;
     };
 

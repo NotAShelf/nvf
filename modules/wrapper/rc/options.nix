@@ -5,7 +5,7 @@
 }: let
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
   inherit (lib.strings) optionalString;
-  inherit (lib.types) str attrs lines listOf either path submodule anything;
+  inherit (lib.types) str attrsOf lines listOf either path submodule anything;
   inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.lua) listToLuaTable;
 
@@ -102,7 +102,7 @@ in {
     globals = mkOption {
       default = {};
       type = submodule {
-        freeformType = anything;
+        freeformType = attrsOf anything;
         options = {
           mapleader = mkOption {
             type = str;
@@ -116,6 +116,7 @@ in {
           };
         };
       };
+
       example = {"some_variable" = 42;};
       description = ''
         An attribute set containing global variable values
@@ -133,8 +134,12 @@ in {
     };
 
     options = mkOption {
-      type = attrs;
       default = {};
+      type = submodule {
+        freeformType = attrsOf anything;
+        options = {};
+      };
+
       example = {visualbell = true;};
       description = ''
         An attribute set containing vim options to be set
