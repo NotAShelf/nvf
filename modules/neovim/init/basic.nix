@@ -15,12 +15,6 @@
   cfg = config.vim;
 in {
   options.vim = {
-    colourTerm = mkOption {
-      type = bool;
-      default = true;
-      description = "Set terminal up for 256 colours";
-    };
-
     disableArrows = mkOption {
       type = bool;
       default = false;
@@ -39,12 +33,6 @@ in {
       description = "Start scrolling this number of lines from the top or bottom of the page.";
     };
 
-    wordWrap = mkOption {
-      type = bool;
-      default = true;
-      description = "Enable word wrapping.";
-    };
-
     syntaxHighlighting = mkOption {
       type = bool;
       default = !config.vim.treesitter.highlight.enable;
@@ -55,20 +43,6 @@ in {
       type = bool;
       default = false;
       description = "Make use of the clipboard for default yank and paste operations. Don't use * and +";
-    };
-
-    mouseSupport = mkOption {
-      type = enum ["a" "n" "v" "i" "c"];
-      default = "a";
-      description = ''
-        Set modes for mouse support.
-
-        * a - all
-        * n - normal
-        * v - visual
-        * i - insert
-        * c - command
-      '';
     };
 
     lineNumberMode = mkOption {
@@ -84,30 +58,6 @@ in {
       description = "Prevent swapfile and backupfile from being created";
     };
 
-    tabWidth = mkOption {
-      type = int;
-      default = 4;
-      description = "Set the width of tabs";
-    };
-
-    autoIndent = mkOption {
-      type = bool;
-      default = true;
-      description = "Enable auto indent";
-    };
-
-    cmdHeight = mkOption {
-      type = int;
-      default = 1;
-      description = "Height of the command pane";
-    };
-
-    updateTime = mkOption {
-      type = int;
-      default = 300;
-      description = "The number of milliseconds till Cursor Hold event is fired";
-    };
-
     showSignColumn = mkOption {
       type = bool;
       default = true;
@@ -120,34 +70,10 @@ in {
       description = "Set how bells are handled. Options: on, visual or none";
     };
 
-    mapTimeout = mkOption {
-      type = int;
-      default = 500;
-      description = "Timeout in ms that Neovim will wait for mapped action to complete";
-    };
-
-    splitBelow = mkOption {
-      type = bool;
-      default = true;
-      description = "New splits will open below instead of on top";
-    };
-
-    splitRight = mkOption {
-      type = bool;
-      default = true;
-      description = "New splits will open to the right";
-    };
-
     enableEditorconfig = mkOption {
       type = bool;
       default = true;
       description = "Follow editorconfig rules in current directory";
-    };
-
-    cursorlineOpt = mkOption {
-      type = enum ["line" "screenline" "number" "both"];
-      default = "line";
-      description = "Highlight the text line of the cursor with CursorLine hl-CursorLine";
     };
 
     searchCase = mkOption {
@@ -184,19 +110,6 @@ in {
       encoding = "utf-8";
       hidden = true;
       expandtab = true;
-      mouse = cfg.mouseSupport;
-      tabstop = cfg.tabWidth;
-      shiftwidth = cfg.tabWidth;
-      softtabstop = cfg.tabWidth;
-      cmdheight = cfg.cmdHeight;
-      updatetime = cfg.updateTime;
-      tm = cfg.mapTimeout;
-      cursorlineopt = cfg.cursorlineOpt;
-      splitbelow = cfg.splitBelow;
-      splitright = cfg.splitRight;
-      autoindent = cfg.autoIndent;
-      termguicolors = cfg.colourTerm;
-      wrap = cfg.wordWrap;
     };
 
     globals = pushDownDefault {

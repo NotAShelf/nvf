@@ -5,7 +5,7 @@
 }: let
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
   inherit (lib.strings) optionalString;
-  inherit (lib.types) str attrsOf lines listOf either path submodule anything;
+  inherit (lib.types) str bool int enum attrsOf lines listOf either path submodule anything;
   inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.lua) listToLuaTable;
 
@@ -107,12 +107,13 @@ in {
           mapleader = mkOption {
             type = str;
             default = " ";
-            description = "The key used for <leader> mappings";
+            description = "The key used for `<leader>` mappings";
           };
+
           maplocalleader = mkOption {
             type = str;
             default = ",";
-            description = "The key used for <localleader> mappings";
+            description = "The key used for `<localleader>` mappings";
           };
         };
       };
@@ -137,7 +138,75 @@ in {
       default = {};
       type = submodule {
         freeformType = attrsOf anything;
-        options = {};
+        options = {
+          termguicolors = mkOption {
+            type = bool;
+            default = true;
+            description = "Set terminal up for 256 colours";
+          };
+
+          mouse = mkOption {
+            type = enum ["a" "n" "v" "i" "c"];
+            default = "a";
+            description = ''
+              Set modes for mouse support.
+
+              * a - all
+              * n - normal
+              * v - visual
+              * i - insert
+              * c - command
+            '';
+          };
+
+          cmdheight = mkOption {
+            type = int;
+            default = 1;
+            description = "Height of the command pane";
+          };
+
+          updatetime = mkOption {
+            type = int;
+            default = 300;
+            description = "The number of milliseconds till Cursor Hold event is fired";
+          };
+
+          tm = mkOption {
+            type = int;
+            default = 500;
+            description = "Timeout in ms that Neovim will wait for mapped action to complete";
+          };
+
+          cursorlineopt = mkOption {
+            type = enum ["line" "screenline" "number" "both"];
+            default = "line";
+            description = "Highlight the text line of the cursor with CursorLine hl-CursorLine";
+          };
+
+          splitbelow = mkOption {
+            type = bool;
+            default = true;
+            description = "New splits will open below instead of on top";
+          };
+
+          splitright = mkOption {
+            type = bool;
+            default = true;
+            description = "New splits will open to the right";
+          };
+
+          autoindent = mkOption {
+            type = bool;
+            default = true;
+            description = "Enable auto indent";
+          };
+
+          wrap = mkOption {
+            type = bool;
+            default = true;
+            description = "Enable word wrapping.";
+          };
+        };
       };
 
       example = {visualbell = true;};
