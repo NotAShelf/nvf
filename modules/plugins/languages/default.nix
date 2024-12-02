@@ -3,6 +3,7 @@
 in {
   imports = [
     ./asm.nix
+    ./astro.nix
     ./bash.nix
     ./dart.nix
     ./clang.nix
