@@ -19,7 +19,7 @@
   defaultServer = "astro";
   servers = {
     astro = {
-      package = pkgs.nodePackages.astro-language-server;
+      package = pkgs.astro-language-server;
       lspConfig = ''
         lspconfig.astro.setup {
           capabilities = capabilities;
