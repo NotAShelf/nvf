@@ -160,6 +160,7 @@ The changes are, in no particular order:
 [lz.n]: https://github.com/mrcjkb/lz.n
 
 - Add [lz.n] support and lazy-load some builtin plugins.
+- Add simpler helper functions for making keymaps
 
 [jacekpoz](https://jacekpoz.pl):
 

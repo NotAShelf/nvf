@@ -1,4 +1,5 @@
 {
+  options,
   config,
   lib,
   ...
@@ -6,13 +7,11 @@
   inherit (lib.strings) optionalString;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.attrsets) mapAttrs;
-  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetLuaBinding mkSetLuaLznBinding;
+  inherit (lib.nvim.binds) mkKeymap;
   inherit (lib.nvim.dag) entryAnywhere entryAfter;
 
   cfg = config.vim.debugger.nvim-dap;
-  self = import ./nvim-dap.nix {inherit lib;};
-  mappingDefinitions = self.options.vim.debugger.nvim-dap.mappings;
-  mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
+  inherit (options.vim.debugger.nvim-dap) mappings;
 in {
   config = mkMerge [
     (mkIf cfg.enable {
@@ -29,24 +28,24 @@ in {
           }
           // mapAttrs (_: v: (entryAfter ["nvim-dap"] v)) cfg.sources;
 
-        maps.normal = mkMerge [
-          (mkSetLuaBinding mappings.continue "require('dap').continue")
-          (mkSetLuaBinding mappings.restart "require('dap').restart")
-          (mkSetLuaBinding mappings.terminate "require('dap').terminate")
-          (mkSetLuaBinding mappings.runLast "require('dap').run_last")
+        keymaps = [
+          (mkKeymap "n" cfg.mappings.continue "require('dap').continue" {desc = mappings.continue.description;})
+          (mkKeymap "n" cfg.mappings.restart "require('dap').restart" {desc = mappings.restart.description;})
+          (mkKeymap "n" cfg.mappings.terminate "require('dap').terminate" {desc = mappings.terminate.description;})
+          (mkKeymap "n" cfg.mappings.runLast "require('dap').run_last" {desc = mappings.runLast.description;})
 
-          (mkSetLuaBinding mappings.toggleRepl "require('dap').repl.toggle")
-          (mkSetLuaBinding mappings.hover "require('dap.ui.widgets').hover")
-          (mkSetLuaBinding mappings.toggleBreakpoint "require('dap').toggle_breakpoint")
+          (mkKeymap "n" cfg.mappings.toggleRepl "require('dap').repl.toggle" {desc = mappings.toggleRepl.description;})
+          (mkKeymap "n" cfg.mappings.hover "require('dap.ui.widgets').hover" {desc = mappings.hover.description;})
+          (mkKeymap "n" cfg.mappings.toggleBreakpoint "require('dap').toggle_breakpoint" {desc = mappings.toggleBreakpoint.description;})
 
-          (mkSetLuaBinding mappings.runToCursor "require('dap').run_to_cursor")
-          (mkSetLuaBinding mappings.stepInto "require('dap').step_into")
-          (mkSetLuaBinding mappings.stepOut "require('dap').step_out")
-          (mkSetLuaBinding mappings.stepOver "require('dap').step_over")
-          (mkSetLuaBinding mappings.stepBack "require('dap').step_back")
+          (mkKeymap "n" cfg.mappings.runToCursor "require('dap').run_to_cursor" {desc = mappings.runToCursor.description;})
+          (mkKeymap "n" cfg.mappings.stepInto "require('dap').step_into" {desc = mappings.stepInto.description;})
+          (mkKeymap "n" cfg.mappings.stepOut "require('dap').step_out" {desc = mappings.stepOut.description;})
+          (mkKeymap "n" cfg.mappings.stepOver "require('dap').step_over" {desc = mappings.stepOver.description;})
+          (mkKeymap "n" cfg.mappings.stepBack "require('dap').step_back" {desc = mappings.stepBack.description;})
 
-          (mkSetLuaBinding mappings.goUp "require('dap').up")
-          (mkSetLuaBinding mappings.goDown "require('dap').down")
+          (mkKeymap "n" cfg.mappings.goUp "require('dap').up" {desc = mappings.goUp.description;})
+          (mkKeymap "n" cfg.mappings.goDown "require('dap').down" {desc = mappings.goDown.description;})
         ];
       };
     })
@@ -60,7 +59,7 @@ in {
           inherit (cfg.ui) setupOpts;
 
           keys = [
-            (mkSetLuaLznBinding "n" mappings.toggleDapUI "function() require('dapui').toggle() end")
+            (mkKeymap "n" cfg.mappings.toggleDapUI "function() require('dapui').toggle() end" {desc = mappings.toggleDapUI.description;})
           ];
         };
 

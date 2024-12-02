@@ -30,53 +30,12 @@ There are many settings available in the options. Please refer to the
 [documentation](https://notashelf.github.io/nvf/options.html#opt-vim.keymaps) to
 see a list of them.
 
-**nvf** provides a list of helper commands, so that you don't have to write the
+**nvf** provides a helper function, so that you don't have to write the
 mapping attribute sets every time:
 
-- `mkBinding = key: action: desc:` - makes a basic binding, with `silent` set to
-  true.
-- `mkExprBinding = key: action: desc:` - makes an expression binding, with
-  `lua`, `silent`, and `expr` set to true.
-- `mkLuaBinding = key: action: desc:` - makes an expression binding, with `lua`,
-  and `silent` set to true.
+- `mkKeymap`, which mimics neovim's `vim.keymap.set` function
 
-Do note that the Lua in these bindings is actual Lua, and not pasted into a
-`:lua` command. Therefore, you should either pass in a function like
-`require('someplugin').some_function`, without actually calling it, or you
-should define your own functions, for example
-
-```lua
-function()
-  require('someplugin').some_function()
-end
-```
-
-Additionally, to not have to repeat the descriptions, there's another utility
-function with its own set of functions: Utility function that takes two
-attribute sets:
-
-- `{ someKey = "some_value" }`
-- `{ someKey = { description = "Some Description"; }; }`
-
-and merges them into
-`{ someKey = { value = "some_value"; description = "Some Description"; }; }`
-
-```nix
-addDescriptionsToMappings = actualMappings: mappingDefinitions:
-```
-
-This function can be used in combination with the same `mkBinding` functions as
-above, except they only take two arguments - `binding` and `action`, and have
-different names:
-
-- `mkSetBinding = binding: action:` - makes a basic binding, with `silent` set
-  to true.
-- `mkSetExprBinding = binding: action:` - makes an expression binding, with
-  `lua`, `silent`, and `expr` set to true.
-- `mkSetLuaBinding = binding: action:` - makes an expression binding, with
-  `lua`, and `silent` set to true.
-
-You can read the source code of some modules to see them in action, but their
+You can read the source code of some modules to see them in action, but the
 usage should look something like this:
 
 ```nix
@@ -90,20 +49,13 @@ in {
 
     # Mappings should always be inside an attrset called mappings
     mappings = {
-      # mkMappingOption is a helper function from lib,
-      # that takes a description (which will also appear in which-key),
-      # and a default mapping (which can be null)
-      toggleCurrentLine = mkMappingOption "Toggle current line comment" "gcc";
-      toggleCurrentBlock = mkMappingOption "Toggle current block comment" "gbc";
-
-      toggleOpLeaderLine = mkMappingOption "Toggle line comment" "gc";
-      toggleOpLeaderBlock = mkMappingOption "Toggle block comment" "gb";
-
-      toggleSelectedLine = mkMappingOption "Toggle selected comment" "gc";
-      toggleSelectedBlock = mkMappingOption "Toggle selected block" "gb";
+      workspaceDiagnostics = mkMappingOption "Workspace diagnostics [trouble]" "<leader>lwd";
+      documentDiagnostics = mkMappingOption "Document diagnostics [trouble]" "<leader>ld";
+      lspReferences = mkMappingOption "LSP References [trouble]" "<leader>lr";
+      quickfix = mkMappingOption "QuickFix [trouble]" "<leader>xq";
+      locList = mkMappingOption "LOCList [trouble]" "<leader>xl";
+      symbols = mkMappingOption "Symbols [trouble]" "<leader>xs";
     };
-
-  };
 }
 ```
 
@@ -111,56 +63,27 @@ in {
 # config.nix
 {
   config,
-  pkgs,
   lib,
+  options,
   ...
 }: let
-    inherit (lib.modules) mkIf mkMerge;
-    inherit (lib.nvim.binds) mkSetBinding;
+  inherit (lib.modules) mkIf;
+  inherit (lib.nvim.binds) mkKeymap;
 
-    cfg = config.vim.plugin;
-    self = import ./plugindefinition.nix {inherit lib;};
-    mappingDefinitions = self.options.vim.plugin;
+  cfg = config.vim.plugin;
 
-    # addDescriptionsToMappings is a helper function from lib,
-    # that merges mapping values and their descriptions
-    # into one nice attribute set
-    mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
+  keys = cfg.mappings;
+  inherit (options.vim.lsp.trouble) mappings;
 in {
-  config = mkIf (cfg.enable) {
-    # ...
-    vim.maps.normal = mkMerge [
-      # mkSetBinding is another helper function from lib,
-      # that actually adds the mapping with a description.
-      (mkSetBinding mappings.findFiles "<cmd> Telescope find_files<CR>")
-      (mkSetBinding mappings.liveGrep "<cmd> Telescope live_grep<CR>")
-      (mkSetBinding mappings.buffers "<cmd> Telescope buffers<CR>")
-      (mkSetBinding mappings.helpTags "<cmd> Telescope help_tags<CR>")
-      (mkSetBinding mappings.open "<cmd> Telescope<CR>")
-
-      (mkSetBinding mappings.gitCommits "<cmd> Telescope git_commits<CR>")
-      (mkSetBinding mappings.gitBufferCommits "<cmd> Telescope git_bcommits<CR>")
-      (mkSetBinding mappings.gitBranches "<cmd> Telescope git_branches<CR>")
-      (mkSetBinding mappings.gitStatus "<cmd> Telescope git_status<CR>")
-      (mkSetBinding mappings.gitStash "<cmd> Telescope git_stash<CR>")
-
-      (mkIf config.vim.lsp.enable (mkMerge [
-        (mkSetBinding mappings.lspDocumentSymbols "<cmd> Telescope lsp_document_symbols<CR>")
-        (mkSetBinding mappings.lspWorkspaceSymbols "<cmd> Telescope lsp_workspace_symbols<CR>")
-
-        (mkSetBinding mappings.lspReferences "<cmd> Telescope lsp_references<CR>")
-        (mkSetBinding mappings.lspImplementations "<cmd> Telescope lsp_implementations<CR>")
-        (mkSetBinding mappings.lspDefinitions "<cmd> Telescope lsp_definitions<CR>")
-        (mkSetBinding mappings.lspTypeDefinitions "<cmd> Telescope lsp_type_definitions<CR>")
-        (mkSetBinding mappings.diagnostics "<cmd> Telescope diagnostics<CR>")
-      ]))
-
-      (
-        mkIf config.vim.treesitter.enable
-        (mkSetBinding mappings.treesitter "<cmd> Telescope treesitter<CR>")
-      )
+  config = mkIf cfg.enable {
+    vim.keymaps = [
+      (mkKeymap "n" keys.workspaceDiagnostics "<cmd>Trouble toggle diagnostics<CR>" {desc = mappings.workspaceDiagnostics.description;})
+      (mkKeymap "n" keys.documentDiagnostics "<cmd>Trouble toggle diagnostics filter.buf=0<CR>" {desc = mappings.documentDiagnostics.description;})
+      (mkKeymap "n" keys.lspReferences "<cmd>Trouble toggle lsp_references<CR>" {desc = mappings.lspReferences.description;})
+      (mkKeymap "n" keys.quickfix "<cmd>Trouble toggle quickfix<CR>" {desc = mappings.quickfix.description;})
+      (mkKeymap "n" keys.locList "<cmd>Trouble toggle loclist<CR>" {desc = mappings.locList.description;})
+      (mkKeymap "n" keys.symbols "<cmd>Trouble toggle symbols<CR>" {desc = mappings.symbols.description;})
     ];
-    # ...
   };
 }
 ```

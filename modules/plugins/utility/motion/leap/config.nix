@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib.modules) mkIf mkDefault;
-  inherit (lib.nvim.binds) mkLznBinding;
+  inherit (lib.nvim.binds) mkKeymap;
 
   cfg = config.vim.utility.motion.leap;
 in {
@@ -14,11 +14,11 @@ in {
       lazy.plugins.leap-nvim = {
         package = "leap-nvim";
         keys = [
-          (mkLznBinding ["n" "o" "x"] cfg.mappings.leapForwardTo "<Plug>(leap-forward-to)" "Leap forward to")
-          (mkLznBinding ["n" "o" "x"] cfg.mappings.leapBackwardTo "<Plug>(leap-backward-to)" "Leap backward to")
-          (mkLznBinding ["n" "o" "x"] cfg.mappings.leapForwardTill "<Plug>(leap-forward-till)" "Leap forward till")
-          (mkLznBinding ["n" "o" "x"] cfg.mappings.leapBackwardTill "<Plug>(leap-backward-till)" "Leap backward till")
-          (mkLznBinding ["n" "o" "x"] cfg.mappings.leapFromWindow "<Plug>(leap-from-window)" "Leap from window")
+          (mkKeymap ["n" "o" "x"] cfg.mappings.leapForwardTo "<Plug>(leap-forward-to)" {desc = "Leap forward to";})
+          (mkKeymap ["n" "o" "x"] cfg.mappings.leapBackwardTo "<Plug>(leap-backward-to)" {desc = "Leap backward to";})
+          (mkKeymap ["n" "o" "x"] cfg.mappings.leapForwardTill "<Plug>(leap-forward-till)" {desc = "Leap forward till";})
+          (mkKeymap ["n" "o" "x"] cfg.mappings.leapBackwardTill "<Plug>(leap-backward-till)" {desc = "Leap backward till";})
+          (mkKeymap ["n" "o" "x"] cfg.mappings.leapFromWindow "<Plug>(leap-from-window)" {desc = "Leap from window";})
         ];
 
         after = ''
