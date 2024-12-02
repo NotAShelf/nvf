@@ -3,23 +3,18 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption mkEnableOption literalExpression literalMD;
+  inherit (lib.options) mkOption mkEnableOption literalMD;
   inherit (lib.strings) optionalString;
   inherit (lib.types) enum bool str int either;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryAfter;
+  inherit (lib.nvim.binds) pushDownDefault;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) luaInline;
 
   cfg = config.vim;
 in {
   options.vim = {
-    colourTerm = mkOption {
-      type = bool;
-      default = true;
-      description = "Set terminal up for 256 colours";
-    };
-
     disableArrows = mkOption {
       type = bool;
       default = false;
@@ -38,12 +33,6 @@ in {
       description = "Start scrolling this number of lines from the top or bottom of the page.";
     };
 
-    wordWrap = mkOption {
-      type = bool;
-      default = true;
-      description = "Enable word wrapping.";
-    };
-
     syntaxHighlighting = mkOption {
       type = bool;
       default = !config.vim.treesitter.highlight.enable;
@@ -56,24 +45,10 @@ in {
       description = "Make use of the clipboard for default yank and paste operations. Don't use * and +";
     };
 
-    mouseSupport = mkOption {
-      type = enum ["a" "n" "v" "i" "c"];
-      default = "a";
-      description = ''
-        Set modes for mouse support.
-
-        * a - all
-        * n - normal
-        * v - visual
-        * i - insert
-        * c - command
-      '';
-    };
-
     lineNumberMode = mkOption {
       type = enum ["relative" "number" "relNumber" "none"];
       default = "relNumber";
-      example = literalExpression "none";
+      example = "none";
       description = "How line numbers are displayed.";
     };
 
@@ -81,30 +56,6 @@ in {
       type = bool;
       default = false;
       description = "Prevent swapfile and backupfile from being created";
-    };
-
-    tabWidth = mkOption {
-      type = int;
-      default = 4;
-      description = "Set the width of tabs";
-    };
-
-    autoIndent = mkOption {
-      type = bool;
-      default = true;
-      description = "Enable auto indent";
-    };
-
-    cmdHeight = mkOption {
-      type = int;
-      default = 1;
-      description = "Height of the command pane";
-    };
-
-    updateTime = mkOption {
-      type = int;
-      default = 300;
-      description = "The number of milliseconds till Cursor Hold event is fired";
     };
 
     showSignColumn = mkOption {
@@ -119,34 +70,10 @@ in {
       description = "Set how bells are handled. Options: on, visual or none";
     };
 
-    mapTimeout = mkOption {
-      type = int;
-      default = 500;
-      description = "Timeout in ms that neovim will wait for mapped action to complete";
-    };
-
-    splitBelow = mkOption {
-      type = bool;
-      default = true;
-      description = "New splits will open below instead of on top";
-    };
-
-    splitRight = mkOption {
-      type = bool;
-      default = true;
-      description = "New splits will open to the right";
-    };
-
     enableEditorconfig = mkOption {
       type = bool;
       default = true;
       description = "Follow editorconfig rules in current directory";
-    };
-
-    cursorlineOpt = mkOption {
-      type = enum ["line" "screenline" "number" "both"];
-      default = "line";
-      description = "Highlight the text line of the cursor with CursorLine hl-CursorLine";
     };
 
     searchCase = mkOption {
@@ -175,42 +102,33 @@ in {
     };
   };
 
-  config = {
-    vim.luaConfigRC.basic = entryAfter ["globalsScript"] ''
+  config.vim = {
+    # Set options that were previously interpolated in 'luaConfigRC.basic' as vim.options (vim.o)
+    # and 'vim.globals' (vim.g). Future options, if possible, should be added here instead of the
+    # luaConfigRC section below.
+    options = pushDownDefault {
+      encoding = "utf-8";
+      hidden = true;
+      expandtab = true;
+    };
+
+    globals = pushDownDefault {
+      editorconfig = cfg.enableEditorconfig;
+    };
+
+    # Options that are more difficult to set through 'vim.options'. Fear not, though
+    # as the Lua DAG is still as powerful as it could be.
+    luaConfigRC.basic = entryAfter ["globalsScript"] ''
       -- Settings that are set for everything
-      vim.o.encoding = "utf-8"
-      vim.o.hidden = true
       vim.opt.shortmess:append("c")
-      vim.o.expandtab = true
-      vim.o.mouse = ${toLuaObject cfg.mouseSupport}
-      vim.o.tabstop = ${toLuaObject cfg.tabWidth}
-      vim.o.shiftwidth = ${toLuaObject cfg.tabWidth}
-      vim.o.softtabstop = ${toLuaObject cfg.tabWidth}
-      vim.o.cmdheight = ${toLuaObject cfg.cmdHeight}
-      vim.o.updatetime = ${toLuaObject cfg.updateTime}
-      vim.o.tm = ${toLuaObject cfg.mapTimeout}
-      vim.o.cursorlineopt = ${toLuaObject cfg.cursorlineOpt}
-      vim.o.scrolloff = ${toLuaObject cfg.scrollOffset}
 
       ${optionalString cfg.undoFile.enable ''
         vim.o.undofile = true
         vim.o.undodir = ${toLuaObject cfg.undoFile.path}
       ''}
 
-      ${optionalString cfg.splitBelow ''
-        vim.o.splitbelow = true
-      ''}
-
-      ${optionalString cfg.splitRight ''
-        vim.o.splitright = true
-      ''}
-
       ${optionalString cfg.showSignColumn ''
         vim.o.signcolumn = "yes"
-      ''}
-
-      ${optionalString cfg.autoIndent ''
-        vim.o.autoindent = true
       ''}
 
       ${optionalString cfg.preventJunkFiles ''
@@ -253,21 +171,9 @@ in {
         vim.cmd("syntax on")
       ''}
 
-      ${optionalString (!cfg.wordWrap) ''
-        vim.o.wrap = false
-      ''}
-
       ${optionalString cfg.hideSearchHighlight ''
         vim.o.hlsearch = false
         vim.o.incsearch = true
-      ''}
-
-      ${optionalString cfg.colourTerm ''
-        vim.o.termguicolors = true
-      ''}
-
-      ${optionalString (!cfg.enableEditorconfig) ''
-        vim.g.editorconfig = false
       ''}
 
       ${optionalString (cfg.searchCase == "ignore") ''
