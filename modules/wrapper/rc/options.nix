@@ -121,6 +121,21 @@ in {
             default = ",";
             description = "The key used for `<localleader>` mappings";
           };
+
+          editorconfig = mkOption {
+            type = bool;
+            default = true;
+            description = ''
+              Whether to enable EditorConfig integration in Neovim.
+
+              This defaults to true as it is enabled by default in stock
+              Neovim, setting this option to false disables EditorConfig
+              integration entirely.
+
+              See [Neovim documentation](https://neovim.io/doc/user/editorconfig.html)
+              for more details on configuring EditorConfig behaviour.
+            '';
+          };
         };
       };
 

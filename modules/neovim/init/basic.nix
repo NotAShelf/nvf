@@ -70,12 +70,6 @@ in {
       description = "Set how bells are handled. Options: on, visual or none";
     };
 
-    enableEditorconfig = mkOption {
-      type = bool;
-      default = true;
-      description = "Follow editorconfig rules in current directory";
-    };
-
     searchCase = mkOption {
       type = enum ["ignore" "smart" "sensitive"];
       default = "sensitive";
@@ -110,10 +104,6 @@ in {
       encoding = "utf-8";
       hidden = true;
       expandtab = true;
-    };
-
-    globals = pushDownDefault {
-      editorconfig = cfg.enableEditorconfig;
     };
 
     # Options that are more difficult to set through 'vim.options'. Fear not, though

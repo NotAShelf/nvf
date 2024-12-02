@@ -84,9 +84,12 @@ in {
         `tabstop` and `shiftwidth` manually in `vim.options` or per-filetype in a
         `ftplugin` directory added to your runtime path.
       '')
+
+      # 2024-12-02
+      (mkRenamedOptionModule ["vim" "enableEditorconfig"] ["vim" "globals" "editorconfig"])
     ]
 
-    # 2024-12-1
+    # 2024-12-01
     # Migrated via batchRenameOptions. Further batch renames must be below this line.
     renamedVimOpts
   ];

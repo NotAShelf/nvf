@@ -28,11 +28,11 @@ configuration formats.
 
 ### `vim.maps` rewrite {#sec-vim-maps-rewrite}
 
-Instead of specifying map modes using submodules (eg.: `vim.maps.normal`), a new
-`vim.keymaps` submodule with support for a `mode` option has been introduced. It
-can be either a string, or a list of strings, where a string represents the
-short-name of the map mode(s), that the mapping should be set for. See
-`:help map-modes` for more information.
+Instead of specifying map modes using submodules (e.g.: `vim.maps.normal`), a
+new `vim.keymaps` submodule with support for a `mode` option has been
+introduced. It can be either a string, or a list of strings, where a string
+represents the short-name of the map mode(s), that the mapping should be set
+for. See `:help map-modes` for more information.
 
 For example:
 
@@ -333,6 +333,9 @@ The changes are, in no particular order:
 - Move options that used to set `vim.o` values (e.g. `vim.wordWrap`) into
   `vim.options` as default values. Some are left as they don't have a direct
   equivalent, but expect a switch eventually.
+
+- Deprecated `vim.enableEditorconfig` in favor of
+  [](#opt-vim.globals.editorconfig).
 
 [ppenguin](https://github.com/ppenguin):
 
