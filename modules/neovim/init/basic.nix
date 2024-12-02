@@ -58,12 +58,6 @@ in {
       description = "Prevent swapfile and backupfile from being created";
     };
 
-    showSignColumn = mkOption {
-      type = bool;
-      default = true;
-      description = "Show the sign column";
-    };
-
     bell = mkOption {
       type = enum ["none" "visual" "on"];
       default = "none";
@@ -109,16 +103,12 @@ in {
     # Options that are more difficult to set through 'vim.options'. Fear not, though
     # as the Lua DAG is still as powerful as it could be.
     luaConfigRC.basic = entryAfter ["globalsScript"] ''
-      -- Settings that are set for everything
-      vim.opt.shortmess:append("c")
+       -- Settings that are set for everything
+       vim.opt.shortmess:append("c")
 
-      ${optionalString cfg.undoFile.enable ''
+       ${optionalString cfg.undoFile.enable ''
         vim.o.undofile = true
         vim.o.undodir = ${toLuaObject cfg.undoFile.path}
-      ''}
-
-      ${optionalString cfg.showSignColumn ''
-        vim.o.signcolumn = "yes"
       ''}
 
       ${optionalString cfg.preventJunkFiles ''
@@ -127,56 +117,56 @@ in {
         vim.o.writebackup = false
       ''}
 
-      ${optionalString (cfg.bell == "none") ''
+       ${optionalString (cfg.bell == "none") ''
         vim.o.errorbells = false
         vim.o.visualbell = false
       ''}
 
-      ${optionalString (cfg.bell == "on") ''
+       ${optionalString (cfg.bell == "on") ''
         vim.o.visualbell = false
       ''}
 
-      ${optionalString (cfg.bell == "visual") ''
+       ${optionalString (cfg.bell == "visual") ''
         vim.o.errorbells = false
       ''}
 
-      ${optionalString (cfg.lineNumberMode == "relative") ''
+       ${optionalString (cfg.lineNumberMode == "relative") ''
         vim.o.relativenumber = true
       ''}
 
-      ${optionalString (cfg.lineNumberMode == "number") ''
+       ${optionalString (cfg.lineNumberMode == "number") ''
         vim.o.number = true
       ''}
 
-      ${optionalString (cfg.lineNumberMode == "relNumber") ''
+       ${optionalString (cfg.lineNumberMode == "relNumber") ''
         vim.o.number = true
         vim.o.relativenumber = true
       ''}
 
-      ${optionalString cfg.useSystemClipboard ''
+       ${optionalString cfg.useSystemClipboard ''
         vim.opt.clipboard:append("unnamedplus")
       ''}
 
-      ${optionalString cfg.syntaxHighlighting ''
+       ${optionalString cfg.syntaxHighlighting ''
         vim.cmd("syntax on")
       ''}
 
-      ${optionalString cfg.hideSearchHighlight ''
+       ${optionalString cfg.hideSearchHighlight ''
         vim.o.hlsearch = false
         vim.o.incsearch = true
       ''}
 
-      ${optionalString (cfg.searchCase == "ignore") ''
+       ${optionalString (cfg.searchCase == "ignore") ''
         vim.o.smartcase = false
         vim.o.ignorecase = true
       ''}
 
-      ${optionalString (cfg.searchCase == "smart") ''
+       ${optionalString (cfg.searchCase == "smart") ''
         vim.o.smartcase = true
         vim.o.ignorecase = true
       ''}
 
-      ${optionalString (cfg.searchCase == "sensitive") ''
+       ${optionalString (cfg.searchCase == "sensitive") ''
         vim.o.smartcase = false
         vim.o.ignorecase = false
       ''}
