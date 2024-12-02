@@ -77,7 +77,9 @@ configure **nvf**.
 ```
 
 ::: {.note}
+
 **nvf** exposes a lot of options, most of which are not referenced in the
-installation sections of the manual. You may find all avaliable options
-in the [appendix](https://notashelf.github.io/nvf/options)
+installation sections of the manual. You may find all available options in the
+[appendix](https://notashelf.github.io/nvf/options)
+
 :::

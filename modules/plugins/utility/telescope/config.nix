@@ -5,15 +5,14 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.nvim.binds) addDescriptionsToMappings;
   inherit (lib.strings) optionalString;
   inherit (lib.lists) optionals;
-  inherit (lib.nvim.binds) pushDownDefault mkSetLznBinding;
+  inherit (lib.nvim.binds) pushDownDefault mkKeymap;
 
   cfg = config.vim.telescope;
-  mappingDefinitions = options.vim.telescope.mappings;
 
-  mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
+  keys = cfg.mappings;
+  inherit (options.vim.telescope) mappings;
 in {
   config = mkIf cfg.enable {
     vim = {
@@ -34,38 +33,35 @@ in {
 
         keys =
           [
-            (mkSetLznBinding mappings.findFiles "<cmd> Telescope find_files<CR>")
-            (mkSetLznBinding mappings.liveGrep "<cmd> Telescope live_grep<CR>")
-            (mkSetLznBinding mappings.buffers "<cmd> Telescope buffers<CR>")
-            (mkSetLznBinding mappings.helpTags "<cmd> Telescope help_tags<CR>")
-            (mkSetLznBinding mappings.open "<cmd> Telescope<CR>")
+            (mkKeymap "n" keys.findFiles "<cmd>Telescope find_files<CR>" {desc = mappings.findFiles.description;})
+            (mkKeymap "n" keys.liveGrep "<cmd>Telescope live_grep<CR>" {desc = mappings.liveGrep.description;})
+            (mkKeymap "n" keys.buffers "<cmd>Telescope buffers<CR>" {desc = mappings.buffers.description;})
+            (mkKeymap "n" keys.helpTags "<cmd>Telescope help_tags<CR>" {desc = mappings.helpTags.description;})
+            (mkKeymap "n" keys.open "<cmd>Telescope<CR>" {desc = mappings.open.description;})
+            (mkKeymap "n" keys.resume "<cmd>Telescope resume<CR>" {desc = mappings.resume.description;})
 
-            (mkSetLznBinding mappings.gitCommits "<cmd> Telescope git_commits<CR>")
-            (mkSetLznBinding mappings.gitBufferCommits "<cmd> Telescope git_bcommits<CR>")
-            (mkSetLznBinding mappings.gitBranches "<cmd> Telescope git_branches<CR>")
-            (mkSetLznBinding mappings.gitStatus "<cmd> Telescope git_status<CR>")
-            (mkSetLznBinding mappings.gitStash "<cmd> Telescope git_stash<CR>")
+            (mkKeymap "n" keys.gitCommits "<cmd>Telescope git_commits<CR>" {desc = mappings.gitCommits.description;})
+            (mkKeymap "n" keys.gitBufferCommits "<cmd>Telescope git_bcommits<CR>" {desc = mappings.gitBufferCommits.description;})
+            (mkKeymap "n" keys.gitBranches "<cmd>Telescope git_branches<CR>" {desc = mappings.gitBranches.description;})
+            (mkKeymap "n" keys.gitStatus "<cmd>Telescope git_status<CR>" {desc = mappings.gitStatus.description;})
+            (mkKeymap "n" keys.gitStash "<cmd>Telescope git_stash<CR>" {desc = mappings.gitStash.description;})
           ]
           ++ (optionals config.vim.lsp.enable [
-            (mkSetLznBinding mappings.lspDocumentSymbols "<cmd> Telescope lsp_document_symbols<CR>")
-            (mkSetLznBinding mappings.lspWorkspaceSymbols "<cmd> Telescope lsp_workspace_symbols<CR>")
+            (mkKeymap "n" keys.lspDocumentSymbols "<cmd>Telescope lsp_document_symbols<CR>" {desc = mappings.lspDocumentSymbols.description;})
+            (mkKeymap "n" keys.lspWorkspaceSymbols "<cmd>Telescope lsp_workspace_symbols<CR>" {desc = mappings.lspWorkspaceSymbols.description;})
 
-            (mkSetLznBinding mappings.lspReferences "<cmd> Telescope lsp_references<CR>")
-            (mkSetLznBinding mappings.lspImplementations "<cmd> Telescope lsp_implementations<CR>")
-            (mkSetLznBinding mappings.lspDefinitions "<cmd> Telescope lsp_definitions<CR>")
-            (mkSetLznBinding mappings.lspTypeDefinitions "<cmd> Telescope lsp_type_definitions<CR>")
-            (mkSetLznBinding mappings.diagnostics "<cmd> Telescope diagnostics<CR>")
+            (mkKeymap "n" keys.lspReferences "<cmd>Telescope lsp_references<CR>" {desc = mappings.lspReferences.description;})
+            (mkKeymap "n" keys.lspImplementations "<cmd>Telescope lsp_implementations<CR>" {desc = mappings.lspImplementations.description;})
+            (mkKeymap "n" keys.lspDefinitions "<cmd>Telescope lsp_definitions<CR>" {desc = mappings.lspDefinitions.description;})
+            (mkKeymap "n" keys.lspTypeDefinitions "<cmd>Telescope lsp_type_definitions<CR>" {desc = mappings.lspTypeDefinitions.description;})
+            (mkKeymap "n" keys.diagnostics "<cmd>Telescope diagnostics<CR>" {desc = mappings.diagnostics.description;})
           ])
-          ++ (
-            optionals config.vim.treesitter.enable [
-              (mkSetLznBinding mappings.treesitter "<cmd> Telescope treesitter<CR>")
-            ]
-          )
-          ++ (
-            optionals config.vim.projects.project-nvim.enable [
-              (mkSetLznBinding mappings.findProjects "<cmd Telescope projects<CR>")
-            ]
-          );
+          ++ optionals config.vim.treesitter.enable [
+            (mkKeymap "n" keys.treesitter "<cmd>Telescope treesitter<CR>" {desc = mappings.treesitter.description;})
+          ]
+          ++ optionals config.vim.projects.project-nvim.enable [
+            (mkKeymap "n" keys.findProjects "<cmd>Telescope projects<CR>" {desc = mappings.findProjects.description;})
+          ];
       };
 
       binds.whichKey.register = pushDownDefault {

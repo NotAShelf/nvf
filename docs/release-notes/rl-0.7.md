@@ -81,6 +81,40 @@ favor of nixfmt (more information can be found
 To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
 `nixfmt`.
 
+### leader changes {#sec-leader-changes}
+
+This has been deprecated in favor of using the more generic `vim.globals` (you
+can use `vim.globals.mapleader` to change this instead).
+
+Rust specific keymaps now use `maplocalleader` instead of `localleader` by
+default. This is to avoid conflicts with other modules. You can change
+`maplocalleader` with `vim.globals.maplocalleader`, but it's recommended to set
+it to something other than `mapleader` to avoid conflicts.
+
+### `vim.*` changes {#sec-vim-opt-changes}
+
+Inline with the [leader changes](#sec-leader-changes), we have removed some
+options that were under `vim` as convenient shorthands for `vim.o.*` options.
+
+::: {.warning}
+
+As v0.7 features the addition of [](#opt-vim.options), those options are now
+considered as deprecated. You should migrate to the appropriate options in the
+`vim.options` submodule.
+
+:::
+
+The changes are, in no particular order:
+
+- `colourTerm`, `mouseSupport`, `cmdHeight`, `updateTime`, `mapTime`,
+  `cursorlineOpt`, `splitBelow`, `splitRight`, `autoIndent` and `wordWrap` have
+  been mapped to their [](#opt-vim.options) equivalents. Please see the module
+  definition for the updated options.
+
+- `tabWidth` has been **removed** as it lead to confusing behaviour. You can
+  replicate the same functionality by setting `shiftwidth`, `tabstop` and
+  `softtabstop` under `vim.options` as you see fit.
+
 ## Changelog {#sec-release-0.7-changelog}
 
 [ItsSorae](https://github.com/ItsSorae):
@@ -123,9 +157,10 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
   recommended to go through rustacean.nvim's README to take a closer look at its
   features and usage
 
-- Add [lz.n] support and lazy-load some builtin plugins.
-
 [lz.n]: https://github.com/mrcjkb/lz.n
+
+- Add [lz.n] support and lazy-load some builtin plugins.
+- Add simpler helper functions for making keymaps
 
 [jacekpoz](https://jacekpoz.pl):
 
@@ -200,6 +235,9 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
 - Add Julia support under `vim.languages.julia`. Note that the entirety of Julia
   is bundled with nvf, if you enable the module, since there is no way to
   provide only the LSP server.
+
+- Add [`run.nvim`](https://github.com/diniamo/run.nvim) support for running code
+  using cached commands.
 
 [Neovim documentation on `vim.cmd`]: https://neovim.io/doc/user/lua.html#vim.cmd()
 
@@ -287,21 +325,27 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
   spellfiles to Neovim's runtime with ease.
 
 - Add combined nvf configuration (`config.vim`) into the final package's
-  passthru as `passthru.neovimConfiguration` for easier debugging.
+  `passthru` as `passthru.neovimConfiguration` for easier debugging.
 
 - Add support for [tiny-devicons-auto-colors] under
   `vim.visuals.tiny-devicons-auto-colors`
+
+- Move options that used to set `vim.o` values (e.g. `vim.wordWrap`) into
+  `vim.options` as default values. Some are left as they don't have a direct
+  equivalent, but expect a switch eventually.
 
 [ppenguin](https://github.com/ppenguin):
 
 - Telescope:
   - Fixed `project-nvim` command and keybinding
   - Added default ikeybind/command for `Telescope resume` (`<leader>fr`)
+- Add `hcl` lsp/formatter (not the same as `terraform`, which is not useful for
+  e.g. `nomad` config files).
 
 [Soliprem](https://github.com/Soliprem):
 
 - Add LSP and Treesitter support for R under `vim.languages.R`.
-  - Add formatter suppoort for R, with styler and formatR as options
+  - Add formatter support for R, with styler and formatR as options
 - Add Otter support under `vim.lsp.otter` and an assert to prevent conflict with
   ccc
 - Fixed typo in Otter's setupOpts
@@ -314,6 +358,7 @@ To migrate to `nixfmt`, simply change `vim.languages.nix.format.type` to
   the Typst language module.
 - Add LSP and Treesitter support for Assembly under `vim.languages.assembly`
 - Move [which-key](https://github.com/folke/which-key.nvim) to the new spec
+- Add LSP and Treesitter support for Nushell under `vim.languages.nu`
 
 [Bloxx12](https://github.com/Bloxx12)
 

@@ -22,21 +22,21 @@
       '';
 
       desc = mkOption {
-        description = "Description of the key map";
         type = nullOr str;
         default = null;
+        description = "Description of the key map";
       };
 
       ft = mkOption {
-        description = "TBD";
         type = nullOr (listOf str);
         default = null;
+        description = "TBD";
       };
 
       mode = mkOption {
-        description = "Modes to bind in";
         type = either str (listOf str);
-        default = ["n" "x" "s" "o"];
+        example = ["n" "x" "o"];
+        description = "Modes to bind in";
       };
 
       silent = mkBool true "Whether this mapping should be silent. Equivalent to adding <silent> to a map.";
@@ -48,93 +48,95 @@
     };
   };
 
+  lznEvent = submodule {
+    options = {
+      event = mkOption {
+        type = nullOr (either str (listOf str));
+        example = "BufEnter";
+        description = "Exact event name";
+      };
+      pattern = mkOption {
+        type = nullOr (either str (listOf str));
+        example = "BufEnter *.lua";
+        description = "Event pattern";
+      };
+    };
+  };
+
   lznPluginType = submodule {
     options = {
       package = mkOption {
-        type = pluginType;
-        description = "Plugin package";
+        type = nullOr pluginType;
+        description = ''
+          Plugin package.
+
+          If null, a custom load function must be provided
+        '';
       };
 
       setupModule = mkOption {
         type = nullOr str;
-        description = "Lua module to run setup function on.";
         default = null;
+        description = "Lua module to run setup function on.";
       };
 
       setupOpts = mkOption {
         type = attrsOf anything;
-        description = "Options to pass to the setup function";
         default = {};
+        description = "Options to pass to the setup function";
       };
 
       # lz.n options
 
       enabled = mkOption {
         type = nullOr (either bool str);
-        description = "When false, or if the lua function returns false, this plugin will not be included in the spec";
         default = null;
+        description = "When false, or if the lua function returns false, this plugin will not be included in the spec";
       };
 
       beforeAll = mkOption {
         type = nullOr lines;
-        description = "Lua code to run before any plugins are loaded. This will be wrapped in a function.";
         default = null;
+        description = "Lua code to run before any plugins are loaded. This will be wrapped in a function.";
       };
 
       before = mkOption {
         type = nullOr lines;
-        description = "Lua code to run before plugin is loaded. This will be wrapped in a function.";
         default = null;
+        description = "Lua code to run before plugin is loaded. This will be wrapped in a function.";
       };
 
       after = mkOption {
         type = nullOr lines;
+        default = null;
         description = ''
           Lua code to run after plugin is loaded. This will be wrapped in a function.
 
           If [](#opt-vim.lazy.plugins._name_.setupModule) is provided, the setup will be ran before `after`.
         '';
-        default = null;
       };
 
       event = mkOption {
-        description = "Lazy-load on event";
+        type = nullOr (oneOf [str (listOf str) lznEvent]);
         default = null;
-        type = let
-          event = submodule {
-            options = {
-              event = mkOption {
-                type = nullOr (either str (listOf str));
-                description = "Exact event name";
-                example = "BufEnter";
-              };
-              pattern = mkOption {
-                type = nullOr (either str (listOf str));
-                description = "Event pattern";
-                example = "BufEnter *.lua";
-              };
-            };
-          };
-        in
-          nullOr (oneOf [str (listOf str) event]);
+        description = "Lazy-load on event";
       };
 
       cmd = mkOption {
-        description = "Lazy-load on command";
-        default = null;
         type = nullOr (either str (listOf str));
+        default = null;
+        description = "Lazy-load on command";
       };
 
       ft = mkOption {
-        description = "Lazy-load on filetype";
-        default = null;
         type = nullOr (either str (listOf str));
+        default = null;
+        description = "Lazy-load on filetype";
       };
 
       keys = mkOption {
-        description = "Lazy-load on key mapping";
-        default = null;
         type = nullOr (oneOf [str (listOf lznKeysSpec) (listOf str)]);
+        default = null;
         example = ''
           keys = [
             {
@@ -152,20 +154,21 @@
             }
           ]
         '';
+        description = "Lazy-load on key mapping";
       };
 
       colorscheme = mkOption {
-        description = "Lazy-load on colorscheme.";
         type = nullOr (either str (listOf str));
         default = null;
+        description = "Lazy-load on colorscheme.";
       };
 
       lazy = mkBool false "Lazy-load manually, e.g. using `trigger_load`.";
 
       priority = mkOption {
         type = nullOr int;
-        description = "Only useful for stat plugins (not lazy-loaded) to force loading certain plugins first.";
         default = null;
+        description = "Only useful for stat plugins (not lazy-loaded) to force loading certain plugins first.";
       };
 
       load = mkOption {
@@ -174,7 +177,7 @@
         description = ''
           Lua code to override the `vim.g.lz_n.load()` function for a single plugin.
 
-          This will be wrapped in a function.
+          This will be wrapped in a `function(name) ... end`.
         '';
       };
     };
@@ -183,20 +186,14 @@ in {
   options.vim.lazy = {
     enable = mkEnableOption "plugin lazy-loading via lz.n and lzn-auto-require" // {default = true;};
     loader = mkOption {
-      description = "Lazy loader to use";
       type = enum ["lz.n"];
       default = "lz.n";
+      description = "Lazy loader to use";
     };
 
     plugins = mkOption {
-      default = {};
       type = attrsOf lznPluginType;
-      description = ''
-        Plugins to lazy load.
-
-        The attribute key is used as the plugin name: for the default `vim.g.lz_n.load`
-        function this should be either the `package.pname` or `package.name`.
-      '';
+      default = {};
       example = ''
         {
           toggleterm-nvim = {
@@ -214,15 +211,21 @@ in {
           };
         }
       '';
+      description = ''
+        Plugins to lazy load.
+
+        The attribute key is used as the plugin name: for the default `vim.g.lz_n.load`
+        function this should be either the `package.pname` or `package.name`.
+      '';
     };
 
     enableLznAutoRequire = mkOption {
+      type = bool;
+      default = true;
       description = ''
         Enable lzn-auto-require. Since builtin plugins rely on this, only turn
         off for debugging.
       '';
-      type = bool;
-      default = true;
     };
 
     builtLazyConfig = mkOption {

@@ -4,7 +4,7 @@
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   imports = [
-    (mkRemovedOptionModule ["vim" "autopairs" "nvim-compe"] "nvim-compe is deprecated and no longer suported.")
+    (mkRemovedOptionModule ["vim" "autopairs" "nvim-compe"] "nvim-compe is deprecated and no longer supported.")
   ];
 
   options.vim.autopairs.nvim-autopairs = {

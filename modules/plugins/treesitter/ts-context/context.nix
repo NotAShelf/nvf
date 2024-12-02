@@ -10,7 +10,7 @@
     multilineThreshold = "multiline_threshold";
     trimScope = "trim_scope";
     mode = "mode";
-    seperator = "separator";
+    separator = "separator";
     zindex = "z_index";
   };
 

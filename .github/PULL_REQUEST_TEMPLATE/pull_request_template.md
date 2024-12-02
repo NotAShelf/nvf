@@ -6,7 +6,7 @@ or dependency in this section.
 
 If your pull request aims to fix an open issue or a please bug, please also link the relevant issue
 below this line. You may attach an issue to your pull request with `Fixes #<issue number>` outside
-this comment.
+this comment, and it will be closed when your pull request is merged.
 -->
 
 ## Sanity Checking
@@ -23,20 +23,20 @@ it above in your description.
 [editorconfig]: https://editorconfig.org
 [changelog]: https://github.com/NotAShelf/nvf/tree/main/docs/release-notes
 
-- [ ] I have updated the [changelog] as per my changes.
-- [ ] I have tested, and self-reviewed my code.
+- [ ] I have updated the [changelog] as per my changes
+- [ ] I have tested, and self-reviewed my code
 - Style and consistency
-  - [ ] I ran **Alejandra** to format my code (`nix fmt`).
-  - [ ] My code conforms to the [editorconfig] configuration of the project.
-  - [ ] My changes are consistent with the rest of the codebase.
+  - [ ] I ran **Alejandra** to format my code (`nix fmt`)
+  - [ ] My code conforms to the [editorconfig] configuration of the project
+  - [ ] My changes are consistent with the rest of the codebase
 - If new changes are particularly complex:
   - [ ] My code includes comments in particularly complex areas
-  - [ ] I have added a section in the manual.
-  - [ ] _(For breaking changes)_ I have included a migration guide.
+  - [ ] I have added a section in the manual
+  - [ ] _(For breaking changes)_ I have included a migration guide
 - Package(s) built:
   - [ ] `.#nix` (default package)
   - [ ] `.#maximal`
-  - [ ] `.#docs-html`
+  - [ ] `.#docs-html` (manual, must build)
 - Tested on platform(s)
   - [ ] `x86_64-linux`
   - [ ] `aarch64-linux`

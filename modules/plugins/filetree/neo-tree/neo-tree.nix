@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib.types) bool str int submodule enum either listOf;
+  inherit (lib.types) bool str enum either listOf;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
@@ -149,6 +149,14 @@ in {
         description = ''
           A list of filetypes that should not be replaced when opening a file
         '';
+      };
+
+      filesystem = {
+        hijack_netrw_behavior = mkOption {
+          type = enum ["disabled" "open_default" "open_current"];
+          default = "open_default";
+          description = "Hijack Netrw behavior";
+        };
       };
     };
   };

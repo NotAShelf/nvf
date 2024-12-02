@@ -5,12 +5,11 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetLznBinding pushDownDefault;
+  inherit (lib.nvim.binds) mkKeymap pushDownDefault;
 
   cfg = config.vim.lsp;
 
-  mappingDefinitions = options.vim.lsp.trouble.mappings;
-  mappings = addDescriptionsToMappings cfg.trouble.mappings mappingDefinitions;
+  inherit (options.vim.lsp.trouble) mappings;
 in {
   config = mkIf (cfg.enable && cfg.trouble.enable) {
     vim = {
@@ -21,19 +20,18 @@ in {
 
         cmd = "Trouble";
         keys = [
-          (mkSetLznBinding mappings.toggle "<cmd>TroubleToggle<CR>")
-          (mkSetLznBinding mappings.workspaceDiagnostics "<cmd>TroubleToggle workspace_diagnostics<CR>")
-          (mkSetLznBinding mappings.documentDiagnostics "<cmd>TroubleToggle document_diagnostics<CR>")
-          (mkSetLznBinding mappings.lspReferences "<cmd>TroubleToggle lsp_references<CR>")
-          (mkSetLznBinding mappings.quickfix "<cmd>TroubleToggle quickfix<CR>")
-          (mkSetLznBinding mappings.locList "<cmd>TroubleToggle loclist<CR>")
+          (mkKeymap "n" cfg.trouble.mappings.workspaceDiagnostics "<cmd>Trouble toggle diagnostics<CR>" {desc = mappings.workspaceDiagnostics.description;})
+          (mkKeymap "n" cfg.trouble.mappings.documentDiagnostics "<cmd>Trouble toggle diagnostics filter.buf=0<CR>" {desc = mappings.documentDiagnostics.description;})
+          (mkKeymap "n" cfg.trouble.mappings.lspReferences "<cmd>Trouble toggle lsp_references<CR>" {desc = mappings.lspReferences.description;})
+          (mkKeymap "n" cfg.trouble.mappings.quickfix "<cmd>Trouble toggle quickfix<CR>" {desc = mappings.quickfix.description;})
+          (mkKeymap "n" cfg.trouble.mappings.locList "<cmd>Trouble toggle loclist<CR>" {desc = mappings.locList.description;})
+          (mkKeymap "n" cfg.trouble.mappings.symbols "<cmd>Trouble toggle symbols<CR>" {desc = mappings.symbols.description;})
         ];
       };
 
       binds.whichKey.register = pushDownDefault {
-        "<leader>l" = "Trouble";
         "<leader>x" = "+Trouble";
-        "<leader>lw" = "Workspace";
+        "<leader>lw" = "+Workspace";
       };
     };
   };

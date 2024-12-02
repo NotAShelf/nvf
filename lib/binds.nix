@@ -68,29 +68,7 @@
 
     pushDownDefault = attr: mapAttrs (_: mkDefault) attr;
 
-    mkLznBinding = mode: key: action: desc: {
-      inherit mode desc key action;
-    };
-
-    mkLznExprBinding = mode: key: action: desc: {
-      inherit mode desc key action;
-      lua = true;
-      silent = true;
-      expr = true;
-    };
-
-    mkSetLznBinding = binding: action: {
-      inherit action;
-      key = binding.value;
-      desc = binding.description;
-    };
-
-    mkSetLuaLznBinding = binding: action: {
-      inherit action;
-      key = binding.value;
-      lua = true;
-      desc = binding.description;
-    };
+    mkKeymap = mode: key: action: opt: opt // {inherit mode key action;};
   };
 in
   binds

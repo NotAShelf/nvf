@@ -1,3 +1,5 @@
+@use "scss-reset/reset";
+
 :root {
 	--nmd-color0: #0a3e68;
 	--nmd-color1: #268598;
@@ -31,8 +33,6 @@ $color-blue-600: #2563eb;
 $color-blue-700: #1d4ed8;
 $color-blue-800: #1e40af;
 $color-blue-900: #1e3a8a;
-
-@use "scss-reset/reset";
 
 @mixin boxed {
 	background: $color-gray-50;

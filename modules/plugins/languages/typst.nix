@@ -21,7 +21,10 @@
       lspConfig = ''
         lspconfig.typst_lsp.setup {
           capabilities = capabilities,
-          on_attach = default_on_attach,
+          on_attach = function(client, bufnr)
+            -- Disable semantic tokens as a workaround for a semantic token error when using non-english characters
+            client.server_capabilities.semanticTokensProvider = nil
+          end,
           cmd = ${
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
@@ -35,7 +38,11 @@
       lspConfig = ''
         lspconfig.tinymist.setup {
           capabilities = capabilities,
-          on_attach = default_on_attach,
+          single_file_support = true,
+          on_attach = function(client, bufnr)
+            -- Disable semantic tokens as a workaround for a semantic token error when using non-english characters
+            client.server_capabilities.semanticTokensProvider = nil
+          end,
           cmd = ${
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package

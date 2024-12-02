@@ -1,12 +1,13 @@
 # Configuring {#sec-configuring-plugins}
 
-Just making the plugin to your Neovim configuration available might not always be enough. In that
-case, you can write custom lua config using either `config.vim.lazy.plugins.*.setupOpts`
-`config.vim.extraPlugins.*.setup` or `config.vim.luaConfigRC`. 
+Just making the plugin to your Neovim configuration available might not always
+be enough. In that case, you can write custom lua config using either
+`config.vim.lazy.plugins.*.setupOpts` `config.vim.extraPlugins.*.setup` or
+`config.vim.luaConfigRC`.
 
-The first option uses an extended version of `lz.n`'s PluginSpec. `setupModule` and `setupOpt` can
-be used if the plugin uses a `require('module').setup(...)` pattern. Otherwise, the `before` and
-`after` hooks should do what you need.
+The first option uses an extended version of `lz.n`'s PluginSpec. `setupModule`
+and `setupOpt` can be used if the plugin uses a `require('module').setup(...)`
+pattern. Otherwise, the `before` and `after` hooks should do what you need.
 
 ```nix
 {
@@ -24,10 +25,11 @@ be used if the plugin uses a `require('module').setup(...)` pattern. Otherwise, 
 }
 ```
 
-The second option uses an attribute set, which maps DAG section names to a custom type, which has
-the fields `package`, `after`, `setup`. They allow you to set the package of the plugin, the
-sections its setup code should be after (note that the `extraPlugins` option has its own DAG
-scope), and the its setup code respectively. For example:
+The second option uses an attribute set, which maps DAG section names to a
+custom type, which has the fields `package`, `after`, `setup`. They allow you to
+set the package of the plugin, the sections its setup code should be after (note
+that the `extraPlugins` option has its own DAG scope), and the its setup code
+respectively. For example:
 
 ```nix
 config.vim.extraPlugins = with pkgs.vimPlugins; {
@@ -56,13 +58,17 @@ For example:
 }
 ```
 
-:::{.note}
-If your configuration needs to be put in a specific place in the config, you
-can use functions from `inputs.nvf.lib.nvim.dag` to order it. Refer to
-https://github.com/nix-community/home-manager/blob/master/modules/lib/dag.nix
+<!-- deno-fmt-ignore-start -->
+
+::: {.note}
+One of the greatest strengths of nvf is the ability to order
+snippets of configuration via the DAG system. It will allow specifying positions
+of individual sections of configuration as needed. nvf provides helper functions
+in the extended library, usually under `inputs.nvf.lib.nvim.dag` that you may
+use.
+
+Please refer to the [DAG section](/index.xhtml#ch-dag-entries) in the nvf manual
 to find out more about the DAG system.
 :::
 
-If you successfully made your plugin work, please feel free to create a PR to
-add it to **nvf** or open an issue with your findings so that we can make it
-available for everyone easily.
+<!-- deno-fmt-ignore-end -->

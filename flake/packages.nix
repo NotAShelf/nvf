@@ -14,6 +14,20 @@
       docs-html = docs.manual.html;
       docs-manpages = docs.manPages;
       docs-json = docs.options.json;
+      docs-linkcheck = let
+        site = config.packages.docs;
+      in
+        pkgs.testers.lycheeLinkCheck {
+          inherit site;
+          remap = {
+            "https://notashelf.github.io/nvf/" = site;
+          };
+          extraConfig = {
+            exclude = [];
+            include_mail = true;
+            include_verbatim = true;
+          };
+        };
 
       # Build and open the built manual in your system browser
       docs-html-wrapped = pkgs.writeScriptBin "docs-html-wrapped" ''

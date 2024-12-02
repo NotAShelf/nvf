@@ -76,6 +76,7 @@ isMaximal: {
       csharp.enable = isMaximal;
       julia.enable = isMaximal;
       vala.enable = isMaximal;
+      nu.enable = false;
     };
 
     visuals = {
@@ -112,7 +113,7 @@ isMaximal: {
     snippets.luasnip.enable = true;
 
     filetree = {
-      nvimTree = {
+      neo-tree = {
         enable = true;
       };
     };

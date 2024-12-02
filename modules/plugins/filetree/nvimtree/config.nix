@@ -6,7 +6,7 @@
 }: let
   inherit (lib.strings) optionalString;
   inherit (lib.modules) mkIf;
-  inherit (lib.nvim.binds) mkLznBinding;
+  inherit (lib.nvim.binds) mkKeymap;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.binds) pushDownDefault;
 
@@ -24,16 +24,17 @@ in {
         package = "nvim-tree-lua";
         setupModule = "nvim-tree";
         inherit (cfg) setupOpts;
+
         cmd = ["NvimTreeClipboard" "NvimTreeClose" "NvimTreeCollapse" "NvimTreeCollapseKeepBuffers" "NvimTreeFindFile" "NvimTreeFindFileToggle" "NvimTreeFocus" "NvimTreeHiTest" "NvimTreeOpen" "NvimTreeRefresh" "NvimTreeResize" "NvimTreeToggle"];
         keys = [
-          (mkLznBinding ["n"] cfg.mappings.toggle ":NvimTreeToggle<cr>" mappings.toggle.description)
-          (mkLznBinding ["n"] cfg.mappings.refresh ":NvimTreeRefresh<cr>" mappings.refresh.description)
-          (mkLznBinding ["n"] cfg.mappings.findFile ":NvimTreeFindFile<cr>" mappings.findFile.description)
-          (mkLznBinding ["n"] cfg.mappings.focus ":NvimTreeFocus<cr>" mappings.focus.description)
+          (mkKeymap "n" cfg.mappings.toggle ":NvimTreeToggle<cr>" {desc = mappings.toggle.description;})
+          (mkKeymap "n" cfg.mappings.refresh ":NvimTreeRefresh<cr>" {desc = mappings.refresh.description;})
+          (mkKeymap "n" cfg.mappings.findFile ":NvimTreeFindFile<cr>" {desc = mappings.findFile.description;})
+          (mkKeymap "n" cfg.mappings.focus ":NvimTreeFocus<cr>" {desc = mappings.focus.description;})
         ];
       };
 
-      pluginRC.nvimtreelua = entryAnywhere ''
+      pluginRC.nvim-tree = entryAnywhere ''
         ${
           optionalString cfg.setupOpts.disable_netrw ''
             -- disable netrew completely
@@ -41,6 +42,24 @@ in {
             vim.g.loaded_netrwPlugin = 1
           ''
         }
+
+        ${optionalString (config.vim.lazy.enable && cfg.setupOpts.hijack_netrw && !cfg.openOnSetup) ''
+          vim.api.nvim_create_autocmd("BufEnter", {
+            group = vim.api.nvim_create_augroup("load_nvim_tree", {}),
+            desc = "Loads nvim-tree when opening a directory",
+            callback = function(args)
+              local stats = vim.uv.fs_stat(args.file)
+
+              if not stats or stats.type ~= "directory" then
+                return
+              end
+
+              require("lz.n").trigger_load("nvim-tree-lua")
+
+              return true
+            end,
+          })
+        ''}
 
         ${
           optionalString cfg.openOnSetup ''

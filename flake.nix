@@ -21,6 +21,7 @@
         ./flake/legacyPackages.nix
         ./flake/overlays.nix
         ./flake/packages.nix
+        ./flake/develop.nix
       ];
 
       flake = {
@@ -30,46 +31,29 @@
         };
 
         homeManagerModules = {
+          nvf = import ./flake/modules/home-manager.nix self.packages lib;
+          default = self.homeManagerModules.nvf;
           neovim-flake =
             lib.warn ''
-              homeManagerModules.neovim-flake has been deprecated.
-              Plese use the homeManagerModules.nvf instead
+              'homeManagerModules.neovim-flake' has been deprecated, and will be removed
+              in a future release. Please use 'homeManagerModules.nvf' instead.
             ''
             self.homeManagerModules.nvf;
-
-          nvf = import ./flake/modules/home-manager.nix self.packages lib;
-
-          default = self.homeManagerModules.nvf;
         };
 
         nixosModules = {
+          nvf = import ./flake/modules/nixos.nix self.packages lib;
+          default = self.nixosModules.nvf;
           neovim-flake =
             lib.warn ''
-              nixosModules.neovim-flake has been deprecated.
-              Please use the nixosModules.nvf instead
+              'nixosModules.neovim-flake' has been deprecated, and will be removed
+              in a future release. Please use 'nixosModules.nvf' instead.
             ''
             self.nixosModules.nvf;
-
-          nvf = import ./flake/modules/nixos.nix self.packages lib;
-
-          default = self.nixosModules.nvf;
         };
       };
 
-      perSystem = {
-        self',
-        config,
-        pkgs,
-        ...
-      }: {
-        devShells = {
-          default = self'.devShells.lsp;
-          nvim-nix = pkgs.mkShell {packages = [config.packages.nix];};
-          lsp = pkgs.mkShell {
-            packages = with pkgs; [nil statix deadnix alejandra];
-          };
-        };
-
+      perSystem = {pkgs, ...}: {
         # Provide the default formatter. `nix fmt` in project root
         # will format available files with the correct formatter.
         # P.S: Please do not format with nixfmt! It messes with many
@@ -251,6 +235,12 @@
     # Telescope
     plugin-telescope = {
       url = "github:nvim-telescope/telescope.nvim";
+      flake = false;
+    };
+
+    # Runners
+    plugin-run-nvim = {
+      url = "github:diniamo/run.nvim";
       flake = false;
     };
 

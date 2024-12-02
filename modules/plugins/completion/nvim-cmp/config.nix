@@ -10,6 +10,8 @@
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (builtins) attrNames typeOf tryEval concatStringsSep;
 
+  borders = config.vim.ui.borders.plugins.nvim-cmp;
+
   cfg = config.vim.autocomplete.nvim-cmp;
   luasnipEnable = config.vim.snippets.luasnip.enable;
   getPluginName = plugin:
@@ -81,10 +83,9 @@ in {
         setupOpts = {
           sources = map (s: {name = s;}) (attrNames cfg.sources);
 
-          # TODO: try to get nvim-cmp to follow global border style
-          window = mkIf config.vim.ui.borders.enable {
-            completion = mkLuaInline "cmp.config.window.bordered()";
-            documentation = mkLuaInline "cmp.config.window.bordered()";
+          window = mkIf borders.enable {
+            completion.border = borders.style;
+            documentation.border = borders.style;
           };
 
           formatting.format = cfg.format;

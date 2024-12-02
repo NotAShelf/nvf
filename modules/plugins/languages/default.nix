@@ -9,6 +9,7 @@ in {
     ./css.nix
     ./elixir.nix
     ./go.nix
+    ./hcl.nix
     ./kotlin.nix
     ./html.nix
     ./java.nix
@@ -32,6 +33,7 @@ in {
     ./zig.nix
     ./csharp.nix
     ./julia.nix
+    ./nu.nix
   ];
 
   options.vim.languages = {
