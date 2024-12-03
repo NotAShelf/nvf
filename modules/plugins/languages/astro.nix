@@ -98,7 +98,7 @@ in {
 
       package = mkOption {
         description = "Astro LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
+        example = ''[lib.getExe pkgs.astro-language-server "--minify" "--stdio"]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
