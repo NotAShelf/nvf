@@ -10,6 +10,7 @@
   inherit (lib.lists) isList;
   inherit (lib.types) enum either listOf package str;
   inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.gleam;
 
@@ -18,7 +19,7 @@
     gleam = {
       package = pkgs.gleam;
       lspConfig = ''
-        lspconfig.basedpyright.setup{
+        lspconfig.gleam.setup{
           capabilities = capabilities,
           on_attach = default_on_attach,
           cmd = ${
@@ -36,11 +37,7 @@ in {
 
     treesitter = {
       enable = mkEnableOption "Gleam treesitter" // {default = config.vim.languages.enableTreesitter;};
-      package = mkOption {
-        type = package;
-        default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.gleam;
-        description = "Gleam treesitter grammar to use";
-      };
+      package = mkGrammarOption pkgs "gleam";
     };
 
     lsp = {
