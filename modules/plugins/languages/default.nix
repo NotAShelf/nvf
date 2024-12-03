@@ -8,6 +8,7 @@ in {
     ./clang.nix
     ./css.nix
     ./elixir.nix
+    ./gleam.nix
     ./go.nix
     ./hcl.nix
     ./kotlin.nix
