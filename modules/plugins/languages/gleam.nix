@@ -52,7 +52,7 @@ in {
       package = mkOption {
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
-        description = "gleam LSP server package, or the command to run as a list of strings";
+        description = "Gleam LSP server package, or the command to run as a list of strings";
       };
     };
   };
