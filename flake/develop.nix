@@ -18,8 +18,7 @@
     # testing, but make sure to discard the changes before creating a pull
     # request.
     packages.dev = let
-      configuration = {
-      };
+      configuration = {};
 
       customNeovim = lib.nvim.neovimConfiguration {
         inherit pkgs;
