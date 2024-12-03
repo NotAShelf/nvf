@@ -77,7 +77,7 @@ in {
               -- buffer is a real file on the disk
               local real_file = vim.fn.filereadable(data.file) == 1
 
-              -- buffer is a directory 
+              -- buffer is a directory
                 local directory = vim.fn.isdirectory(data.file) == 1
 
               -- buffer is a [No Name]
