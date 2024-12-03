@@ -64,7 +64,7 @@ isMaximal: {
       python.enable = isMaximal;
       dart.enable = isMaximal;
       bash.enable = isMaximal;
-      gleam.enable = true;
+      gleam.enable = false;
       r.enable = isMaximal;
       tailwind.enable = isMaximal;
       typst.enable = isMaximal;
