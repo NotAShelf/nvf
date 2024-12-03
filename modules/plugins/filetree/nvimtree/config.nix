@@ -94,7 +94,7 @@ in {
               -- skip ignored filetypes
               if vim.tbl_contains(IGNORED_FT, filetype) then
                 return
-              end 
+              end
 
               -- cd if buffer is a directory
               if directory then
