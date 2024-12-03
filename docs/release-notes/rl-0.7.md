@@ -383,3 +383,7 @@ The changes are, in no particular order:
 [Nowaaru](https://github.com/Nowaaru):
 
 - Add `precognition-nvim`.
+
+[DamitusThyYeeticus123](https://github.com/DamitusThyYeetus123):
+
+- Add support for [Astro](https://astro.build/) language server.
