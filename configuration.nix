@@ -48,7 +48,7 @@ isMaximal: {
 
       # Assembly is not common, and the asm LSP is a major hit-or-miss
       assembly.enable = false;
-      astro.enable = isMaximal;
+      astro.enable = false;
       markdown.enable = isMaximal;
       html.enable = isMaximal;
       css.enable = isMaximal;
