@@ -3,11 +3,13 @@
 in {
   imports = [
     ./asm.nix
+    ./astro.nix
     ./bash.nix
     ./dart.nix
     ./clang.nix
     ./css.nix
     ./elixir.nix
+    ./gleam.nix
     ./go.nix
     ./hcl.nix
     ./kotlin.nix

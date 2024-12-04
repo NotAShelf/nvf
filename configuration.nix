@@ -48,6 +48,7 @@ isMaximal: {
 
       # Assembly is not common, and the asm LSP is a major hit-or-miss
       assembly.enable = false;
+      astro.enable = false;
       markdown.enable = isMaximal;
       html.enable = isMaximal;
       css.enable = isMaximal;
@@ -64,6 +65,7 @@ isMaximal: {
       python.enable = isMaximal;
       dart.enable = isMaximal;
       bash.enable = isMaximal;
+      gleam.enable = false;
       r.enable = isMaximal;
       tailwind.enable = isMaximal;
       typst.enable = isMaximal;

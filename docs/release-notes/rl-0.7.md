@@ -359,6 +359,7 @@ The changes are, in no particular order:
 - Add LSP and Treesitter support for Assembly under `vim.languages.assembly`
 - Move [which-key](https://github.com/folke/which-key.nvim) to the new spec
 - Add LSP and Treesitter support for Nushell under `vim.languages.nu`
+- Add LSP and Treesitter support for Gleam under `vim.languages.gleam`
 
 [Bloxx12](https://github.com/Bloxx12)
 
@@ -383,3 +384,7 @@ The changes are, in no particular order:
 [Nowaaru](https://github.com/Nowaaru):
 
 - Add `precognition-nvim`.
+
+[DamitusThyYeeticus123](https://github.com/DamitusThyYeetus123):
+
+- Add support for [Astro](https://astro.build/) language server.

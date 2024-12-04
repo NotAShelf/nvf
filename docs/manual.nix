@@ -95,9 +95,9 @@ in
       nixos-render-docs manual html \
         --manpage-urls ${path + "/doc/manpage-urls.json"} \
         --revision ${lib.trivial.revisionWithDefault manual-release} \
-        --stylesheet "$dest"/style.css \
-        --script ./highlightjs/highlight.pack.js \
-        --script ./highlightjs/loader.js \
+        --stylesheet style.css \
+        --script highlightjs/highlight.pack.js \
+        --script highlightjs/loader.js \
         --script script/anchor-use.js \
         --script script/anchor-min.js \
         --toc-depth 2 \
