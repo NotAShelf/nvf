@@ -3,42 +3,52 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetBinding;
+  inherit (lib.modules) mkIf;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.utility.surround;
-  self = import ./surround.nix {inherit lib config;};
-  mappingDefinitions = self.options.vim.utility.surround.mappings;
-  mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
+  mkLznKey = mode: key: {
+    inherit key mode;
+  };
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = [
-        "nvim-surround"
-      ];
+      startPlugins = ["nvim-surround"];
+      pluginRC.surround = entryAnywhere "require('nvim-surround').setup(${toLuaObject cfg.setupOpts})";
 
-      pluginRC.surround = entryAnywhere ''
-        require('nvim-surround').setup()
-      '';
+      lazy.plugins.nvim-surround = {
+        package = "nvim-surround";
+        setupModule = "nvim-surround";
+        inherit (cfg) setupOpts;
 
-      maps = {
-        insert = mkMerge [
-          (mkIf (mappings.insert != null) (mkSetBinding mappings.insert "<Plug>(nvim-surround-insert)"))
-          (mkIf (mappings.insertLine != null) (mkSetBinding mappings.insertLine "<Plug>(nvim-surround-insert-line)"))
-        ];
-        normal = mkMerge [
-          (mkIf (mappings.normal != null) (mkSetBinding mappings.normal "<Plug>(nvim-surround-normal)"))
-          (mkIf (mappings.normalCur != null) (mkSetBinding mappings.normalCur "<Plug>(nvim-surround-normal-cur)"))
-          (mkIf (mappings.normalLine != null) (mkSetBinding mappings.normalLine "<Plug>(nvim-surround-normal-line)"))
-          (mkIf (mappings.normalCurLine != null) (mkSetBinding mappings.normalCurLine "<Plug>(nvim-surround-normal-cur-line)"))
-          (mkIf (mappings.delete != null) (mkSetBinding mappings.delete "<Plug>(nvim-surround-delete)"))
-          (mkIf (mappings.change != null) (mkSetBinding mappings.change "<Plug>(nvim-surround-change)"))
-        ];
-        visualOnly = mkMerge [
-          (mkIf (mappings.visual != null) (mkSetBinding mappings.visual "<Plug>(nvim-surround-visual)"))
-          (mkIf (mappings.visualLine != null) (mkSetBinding mappings.visualLine "<Plug>(nvim-surround-visual-line)"))
-        ];
+        keys =
+          [
+            (mkLznKey ["i"] cfg.setupOpts.keymaps.insert)
+            (mkLznKey ["i"] cfg.setupOpts.keymaps.insert_line)
+            (mkLznKey ["x"] cfg.setupOpts.keymaps.visual)
+            (mkLznKey ["x"] cfg.setupOpts.keymaps.visual_line)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.normal)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.normal_cur)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.normal_line)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.normal_cur_line)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.delete)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.change)
+            (mkLznKey ["n"] cfg.setupOpts.keymaps.change_line)
+          ]
+          ++ map (mkLznKey ["n" "i" "v"]) [
+            "<Plug>(nvim-surround-insert)"
+            "<Plug>(nvim-surround-insert-line)"
+            "<Plug>(nvim-surround-normal)"
+            "<Plug>(nvim-surround-normal-cur)"
+            "<Plug>(nvim-surround-normal-line)"
+            "<Plug>(nvim-surround-normal-cur-line)"
+            "<Plug>(nvim-surround-visual)"
+            "<Plug>(nvim-surround-visual-line)"
+            "<Plug>(nvim-surround-delete)"
+            "<Plug>(nvim-surround-change)"
+            "<Plug>(nvim-surround-change-line)"
+          ];
       };
     };
   };

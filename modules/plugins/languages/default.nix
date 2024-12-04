@@ -2,23 +2,30 @@
   inherit (lib.nvim.languages) mkEnable;
 in {
   imports = [
+    ./asm.nix
+    ./astro.nix
     ./bash.nix
     ./dart.nix
     ./clang.nix
     ./css.nix
     ./elixir.nix
+    ./gleam.nix
     ./go.nix
+    ./hcl.nix
+    ./kotlin.nix
     ./html.nix
     ./java.nix
     ./lua.nix
     ./markdown.nix
     ./nim.nix
+    ./vala.nix
     ./nix.nix
     ./ocaml.nix
     ./php.nix
     ./python.nix
     ./r.nix
     ./rust.nix
+    ./scala.nix
     ./sql.nix
     ./svelte.nix
     ./tailwind.nix
@@ -26,6 +33,9 @@ in {
     ./ts.nix
     ./typst.nix
     ./zig.nix
+    ./csharp.nix
+    ./julia.nix
+    ./nu.nix
   ];
 
   options.vim.languages = {

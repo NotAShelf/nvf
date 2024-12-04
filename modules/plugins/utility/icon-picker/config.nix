@@ -4,20 +4,20 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.utility.icon-picker;
 in {
   config = mkIf cfg.enable {
-    vim.startPlugins = [
-      "icon-picker-nvim"
-      "dressing-nvim"
-    ];
+    vim.startPlugins = ["dressing-nvim"];
 
-    vim.pluginRC.icon-picker = entryAnywhere ''
-      require("icon-picker").setup({
-        disable_legacy_commands = true
-      })
-    '';
+    vim.lazy.plugins.icon-picker-nvim = {
+      package = "icon-picker-nvim";
+      setupModule = "icon-picker";
+      setupOpts = {
+        disable_legacy_commands = true;
+      };
+
+      cmd = ["IconPickerInsert" "IconPickerNormal" "IconPickerYank"];
+    };
   };
 }

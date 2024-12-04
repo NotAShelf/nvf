@@ -1,41 +1,38 @@
 {
   config,
   lib,
+  options,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.dag) entryAnywhere;
-  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetBinding pushDownDefault;
+  inherit (lib.modules) mkIf;
+  inherit (lib.nvim.binds) mkKeymap pushDownDefault;
 
   cfg = config.vim.lsp;
 
-  self = import ./trouble.nix {inherit lib;};
-  mappingDefinitions = self.options.vim.lsp.trouble.mappings;
-  mappings = addDescriptionsToMappings cfg.trouble.mappings mappingDefinitions;
+  inherit (options.vim.lsp.trouble) mappings;
 in {
   config = mkIf (cfg.enable && cfg.trouble.enable) {
     vim = {
-      startPlugins = ["trouble"];
+      lazy.plugins.trouble = {
+        package = "trouble";
+        setupModule = "trouble";
+        inherit (cfg.trouble) setupOpts;
 
-      maps.normal = mkMerge [
-        (mkSetBinding mappings.toggle "<cmd>TroubleToggle<CR>")
-        (mkSetBinding mappings.workspaceDiagnostics "<cmd>TroubleToggle workspace_diagnostics<CR>")
-        (mkSetBinding mappings.documentDiagnostics "<cmd>TroubleToggle document_diagnostics<CR>")
-        (mkSetBinding mappings.lspReferences "<cmd>TroubleToggle lsp_references<CR>")
-        (mkSetBinding mappings.quickfix "<cmd>TroubleToggle quickfix<CR>")
-        (mkSetBinding mappings.locList "<cmd>TroubleToggle loclist<CR>")
-      ];
-
-      binds.whichKey.register = pushDownDefault {
-        "<leader>l" = "Trouble";
-        "<leader>x" = "+Trouble";
-        "<leader>lw" = "Workspace";
+        cmd = "Trouble";
+        keys = [
+          (mkKeymap "n" cfg.trouble.mappings.workspaceDiagnostics "<cmd>Trouble toggle diagnostics<CR>" {desc = mappings.workspaceDiagnostics.description;})
+          (mkKeymap "n" cfg.trouble.mappings.documentDiagnostics "<cmd>Trouble toggle diagnostics filter.buf=0<CR>" {desc = mappings.documentDiagnostics.description;})
+          (mkKeymap "n" cfg.trouble.mappings.lspReferences "<cmd>Trouble toggle lsp_references<CR>" {desc = mappings.lspReferences.description;})
+          (mkKeymap "n" cfg.trouble.mappings.quickfix "<cmd>Trouble toggle quickfix<CR>" {desc = mappings.quickfix.description;})
+          (mkKeymap "n" cfg.trouble.mappings.locList "<cmd>Trouble toggle loclist<CR>" {desc = mappings.locList.description;})
+          (mkKeymap "n" cfg.trouble.mappings.symbols "<cmd>Trouble toggle symbols<CR>" {desc = mappings.symbols.description;})
+        ];
       };
 
-      pluginRC.trouble = entryAnywhere ''
-        -- Enable trouble diagnostics viewer
-        require("trouble").setup {}
-      '';
+      binds.whichKey.register = pushDownDefault {
+        "<leader>x" = "+Trouble";
+        "<leader>lw" = "+Workspace";
+      };
     };
   };
 }

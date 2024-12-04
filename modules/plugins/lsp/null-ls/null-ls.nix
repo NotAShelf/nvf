@@ -22,7 +22,7 @@ in {
     default_timeout = mkOption {
       type = int;
       default = 5000;
-      description = "Default timeout value, in miliseconds";
+      description = "Default timeout value, in milliseconds";
     };
 
     sources = mkOption {

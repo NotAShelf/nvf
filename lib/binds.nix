@@ -67,6 +67,8 @@
       mkLuaBinding binding.value action binding.description;
 
     pushDownDefault = attr: mapAttrs (_: mkDefault) attr;
+
+    mkKeymap = mode: key: action: opt: opt // {inherit mode key action;};
   };
 in
   binds

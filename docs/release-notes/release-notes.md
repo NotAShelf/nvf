@@ -1,7 +1,7 @@
 # Release Notes {#ch-release-notes}
 
-This section lists the release notes for tagged version of **nvf** and
-the current main current main branch
+This section lists the release notes for tagged version of **nvf** and the
+current main current main branch
 
 ```{=include=} chapters
 rl-0.1.md

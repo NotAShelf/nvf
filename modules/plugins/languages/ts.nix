@@ -95,6 +95,18 @@
         )
       '';
     };
+
+    biome = {
+      package = pkgs.biome;
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.biome.with({
+            command = "${cfg.format.package}/bin/biome",
+          })
+        )
+      '';
+    };
   };
 
   # TODO: specify packages
@@ -169,8 +181,10 @@ in {
     extensions = {
       ts-error-translator = {
         enable = mkEnableOption ''
-          Typescript error translation with
-          [ts-error-translator.nvim](github.com/dmmulroy/ts-error-translator.nvim)
+          [ts-error-translator.nvim]: https://github.com/dmmulroy/ts-error-translator.nvim
+
+          Typescript error translation with [ts-error-translator.nvim]
+
         '';
 
         setupOpts = mkPluginSetupOption "ts-error-translator" {

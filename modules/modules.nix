@@ -31,6 +31,7 @@
       "notes"
       "projects"
       "rich-presence"
+      "runner"
       "session"
       "snippets"
       # "spellcheck" # FIXME: see neovim/init/spellcheck.nix
@@ -50,6 +51,7 @@
       "build"
       "rc"
       "warnings"
+      "lazy"
     ];
 
     # Extra modules, such as deprecation warnings

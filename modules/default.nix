@@ -84,10 +84,7 @@
 
   # built (or "normalized") plugins that are modified
   builtStartPlugins = buildConfigPlugins vimOptions.startPlugins;
-  builtOptPlugins = map (package: {
-    plugin = package;
-    optional = true;
-  }) (buildConfigPlugins vimOptions.optPlugins);
+  builtOptPlugins = map (package: package // {optional = true;}) (buildConfigPlugins vimOptions.optPlugins);
 
   # additional Lua and Python3 packages, mapped to their respective functions
   # to conform to the format mnw expects. end user should
@@ -126,9 +123,15 @@ in {
     paths = [neovim-wrapped printConfig printConfigPath];
     postBuild = "echo Helpers added";
 
-    meta = {
-      description = "Wrapped version of Neovim with additional helper scripts";
-      mainProgram = "nvim";
-    };
+    # Allow evaluating vimOptions, i.e., config.vim from the packages' passthru
+    # attribute. For example, packages.x86_64-linux.neovim.passthru.neovimConfig
+    # will return the configuration in full.
+    passthru.neovimConfig = vimOptions;
+
+    meta =
+      neovim-wrapped.meta
+      // {
+        description = "Wrapped Neovim package with helper scripts to print the config (path)";
+      };
   };
 }

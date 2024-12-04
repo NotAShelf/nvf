@@ -2,12 +2,16 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) bool attrsOf str;
   inherit (lib.nvim.binds) mkMappingOption;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   options.vim.debugger.nvim-dap = {
     enable = mkEnableOption "debugging via nvim-dap";
 
     ui = {
       enable = mkEnableOption "UI extension for nvim-dap";
+
+      setupOpts = mkPluginSetupOption "nvim-dap-ui" {};
+
       autoStart = mkOption {
         type = bool;
         default = true;
@@ -22,7 +26,7 @@ in {
     };
 
     mappings = {
-      continue = mkMappingOption "Contiue" "<leader>dc";
+      continue = mkMappingOption "Continue" "<leader>dc";
       restart = mkMappingOption "Restart" "<leader>dR";
       terminate = mkMappingOption "Terminate" "<leader>dq";
       runLast = mkMappingOption "Re-run Last Debug Session" "<leader>d.";

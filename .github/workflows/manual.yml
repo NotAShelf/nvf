@@ -47,7 +47,7 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - run: |
-          nix build .#docs
+          nix build .#docs -Lv
           cp -r result/share/doc/nvf public
       - uses: peaceiris/actions-gh-pages@v4
         with:

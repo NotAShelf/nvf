@@ -14,12 +14,26 @@
       docs-html = docs.manual.html;
       docs-manpages = docs.manPages;
       docs-json = docs.options.json;
+      docs-linkcheck = let
+        site = config.packages.docs;
+      in
+        pkgs.testers.lycheeLinkCheck {
+          inherit site;
+          remap = {
+            "https://notashelf.github.io/nvf/" = site;
+          };
+          extraConfig = {
+            exclude = [];
+            include_mail = true;
+            include_verbatim = true;
+          };
+        };
 
       # Build and open the built manual in your system browser
       docs-html-wrapped = pkgs.writeScriptBin "docs-html-wrapped" ''
         #!${pkgs.stdenv.shell}
         # use xdg-open to open the docs in the browser
-        ${pkgs.xdg_utils}/bin/xdg-open ${docs.manual.html}
+        ${pkgs.xdg-utils}/bin/xdg-open ${docs.manual.html}
       '';
 
       # Exposed neovim configurations
@@ -29,10 +43,10 @@
 
       # Published docker images
       docker-nix = let
-        inherit (pkgs) bash gitFull buildEnv dockerTools;
+        inherit (pkgs) bash gitFull buildEnv;
         inherit (config.legacyPackages) neovim-nix;
       in
-        dockerTools.buildImage {
+        pkgs.dockerTools.buildImage {
           name = "nvf";
           tag = "latest";
 
