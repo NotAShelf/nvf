@@ -32,7 +32,7 @@
       mapConfigOptions
       // {
         key = mkOption {
-          type = str;
+          type = nullOr str;
           description = "The key that triggers this keybind.";
         };
         mode = mkOption {
