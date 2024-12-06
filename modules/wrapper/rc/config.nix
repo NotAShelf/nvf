@@ -5,7 +5,7 @@
 }: let
   inherit (builtins) map mapAttrs filter;
   inherit (lib.attrsets) mapAttrsToList;
-  inherit (lib.strings) concatLines concatMapStringsSep optionalString;
+  inherit (lib.strings) concatLines concatMapStringsSep;
   inherit (lib.trivial) showWarnings;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryAfter mkLuarcSection resolveDag entryAnywhere;
@@ -43,7 +43,7 @@ in {
 
     toLuaKeymap = bind: "vim.keymap.set(${toLuaObject bind.mode}, ${toLuaObject bind.key}, ${toLuaObject (getAction bind)}, ${toLuaObject (getOpts bind)})";
 
-    keymaps = concatLines (map toLuaKeymap cfg.keymaps);
+    keymaps = concatLines (map toLuaKeymap (filter (x: x.key != null) cfg.keymaps));
   in {
     vim = {
       luaConfigRC = {
