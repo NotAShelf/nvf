@@ -76,7 +76,7 @@ isMaximal: {
         crates.enable = isMaximal;
       };
       csharp.enable = isMaximal;
-      julia.enable = isMaximal;
+      julia.enable = false;
       vala.enable = isMaximal;
       nu.enable = false;
     };
