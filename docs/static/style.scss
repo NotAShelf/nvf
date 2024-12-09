@@ -233,6 +233,24 @@ li {
 	}
 }
 
+#search-bar {
+	position: sticky;
+	top: 0;
+	background: white;
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+	z-index: 1000;
+}
+#search-input {
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+.hidden {
+	display: none;
+}
+
 div.titlepage {
 	margin: 40px 0;
 
