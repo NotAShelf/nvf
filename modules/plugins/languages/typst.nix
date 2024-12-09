@@ -7,10 +7,13 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
-  inherit (lib.types) enum either listOf package str;
+  inherit (lib.types) nullOr enum either attrsOf listOf package str;
   inherit (lib.attrsets) attrNames;
-  inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.generators) mkLuaInline;
+  inherit (lib.meta) getExe;
+  inherit (lib.nvim.lua) expToLua toLuaObject;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.languages.typst;
 
@@ -33,6 +36,7 @@
         }
       '';
     };
+
     tinymist = {
       package = pkgs.tinymist;
       lspConfig = ''
@@ -120,6 +124,50 @@ in {
         default = formats.${cfg.format.type}.package;
       };
     };
+
+    extensions = {
+      typst-preview-nvim = {
+        enable =
+          mkEnableOption ''
+            [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
+
+            Low latency typst preview for Neovim via [typst-preview.nvim]
+          ''
+          // {default = true;};
+
+        setupOpts = mkPluginSetupOption "typst-preview-nvim" {
+          open_cmd = mkOption {
+            type = nullOr str;
+            default = null;
+            example = "firefox %s -P typst-preview --class typst-preview";
+            description = ''
+              Custom format string to open the output link provided with `%s`
+            '';
+          };
+
+          dependencies_bin = mkOption {
+            type = attrsOf str;
+            default = {
+              "tinymist" = getExe servers.tinymist.package;
+              "websocat" = getExe pkgs.websocat;
+            };
+
+            description = ''
+              Provide the path to binaries for dependencies. Setting this
+              to a non-null value will skip the download of the binary by
+              the plugin.
+            '';
+          };
+
+          extra_args = mkOption {
+            type = nullOr (listOf str);
+            default = null;
+            example = ["--input=ver=draft" "--ignore-system-fonts"];
+            description = "A list of extra arguments (or `null`) to be passed to previewer";
+          };
+        };
+      };
+    };
   };
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
@@ -135,6 +183,14 @@ in {
     (mkIf cfg.lsp.enable {
       vim.lsp.lspconfig.enable = true;
       vim.lsp.lspconfig.sources.typst-lsp = servers.${cfg.lsp.server}.lspConfig;
+    })
+
+    # Extensions
+    (mkIf cfg.extensions.typst-preview-nvim.enable {
+      vim.startPlugins = ["typst-preview-nvim"];
+      vim.pluginRC.typst-preview-nvim = entryAnywhere ''
+        require("typst-preview").setup(${toLuaObject cfg.extensions.typst-preview-nvim.setupOpts})
+      '';
     })
   ]);
 }
