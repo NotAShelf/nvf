@@ -69,7 +69,7 @@
 [Home-Manager module]: https://notashelf.github.io/nvf/index.xhtml#ch-standalone-hm
 
 - **Simple**: One language to rule them all! Use Nix to configure everything,
-  with additional Lua Support
+  with optional Lua support for robust configurability!
 - **Reproducible**: Your configuration will behave the same _anywhere_. No
   surprises, promise!
 - **Portable**: nvf depends _solely_ on your Nix store, and nothing else. No
@@ -77,8 +77,9 @@
   - Options to install [standalone], [NixOS module] or [Home-Manager module].
 - **Customizable**: There are _almost no defaults_ to annoy you. nvf is fully
   customizable through the Nix module system.
-- Not comfortable with a full-nix config or want to bring your Lua config? You
-  can do just that, no unnecessary restrictions.
+  - Not comfortable with a full-nix config or want to bring your Lua config? You
+    can do just that, no unnecessary restrictions.
+  - Lazyloading? We got it! Lazyload both internal and external plugins at will.
 - **Well-documented**: Documentation is priority. You will _never_ face
   undocumented, obscure behaviour.
 - **Idiomatic**: nvf does things ✨ _the right way_ ✨ - the codebase is, and

@@ -12,22 +12,28 @@
   cfg = config.vim;
 in {
   options.vim = {
-    enableLuaLoader = mkEnableOption ''
-      [{option}`official documentation`]: https://neovim.io/doc/user/lua.html#vim.loader.enable()
+    enableLuaLoader = mkOption {
+      type = bool;
+      default = false;
+      example = true;
+      description = ''
+        [{option}`official documentation`]: https://neovim.io/doc/user/lua.html#vim.loader.enable()
 
-      the experimental Lua module loader to speed up the start up process
+        the experimental Lua module loader to speed up the start up process
 
-      If `true`, this will enable the experimental Lua module loader which:
-        - overrides loadfile
-        - adds the lua loader using the byte-compilation cache
-        - adds the libs loader
-        - removes the default Neovim loader
+        If `true`, this will enable the experimental Lua module loader which:
+          - overrides loadfile
+          - adds the lua loader using the byte-compilation cache
+          - adds the libs loader
+          - removes the default Neovim loader
 
-      ::: {.note}
-      This is disabled by default. Before setting this option, please
-      take a look at the [{option}`official documentation`].
-      :::
-    '';
+        ::: {.note}
+        The Lua module loader is *disabled* by default. Before setting this option, please
+        take a look at the [{option}`official documentation`]. This option may be enabled by
+        default in the future.
+        :::
+      '';
+    };
 
     additionalRuntimePaths = mkOption {
       type = listOf (either path str);

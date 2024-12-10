@@ -206,6 +206,11 @@
       flake = false;
     };
 
+    plugin-typst-preview-nvim = {
+      url = "github:chomosuke/typst-preview.nvim";
+      flake = false;
+    };
+
     plugin-nvim-metals = {
       url = "github:scalameta/nvim-metals";
       flake = false;
