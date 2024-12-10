@@ -1,3 +1,7 @@
+# This is the sample configuration for nvf, aiming to give you a feel of the default options
+# while certain plugins are enabled. While it may act as one, this is not an overview of nvf's
+# module options. To find a complete overview of nvf's options and examples, visit the manual.
+# https://notashelf.github.io/nvf/options.html
 isMaximal: {
   config.vim = {
     viAlias = true;
@@ -31,11 +35,53 @@ isMaximal: {
       };
     };
 
+    # This section does not include a comprehensive list of available language modules.
+    # To list all available language module options, please visit the nvf manual.
     languages = {
       enableLSP = true;
       enableFormat = true;
       enableTreesitter = true;
       enableExtraDiagnostics = true;
+
+      # Languages that will be supported in default and maximal configurations.
+      nix.enable = true;
+      markdown.enable = true;
+
+      # Languages that are enabled in the maximal configuration.
+      bash.enable = isMaximal;
+      clang.enable = isMaximal;
+      css.enable = isMaximal;
+      html.enable = isMaximal;
+      sql.enable = isMaximal;
+      java.enable = isMaximal;
+      kotlin.enable = isMaximal;
+      ts.enable = isMaximal;
+      go.enable = isMaximal;
+      lua.enable = isMaximal;
+      zig.enable = isMaximal;
+      python.enable = isMaximal;
+      typst.enable = isMaximal;
+      rust = {
+        enable = isMaximal;
+        crates.enable = isMaximal;
+      };
+
+      # Language modules that are not as common.
+      assembly.enable = false;
+      astro.enable = false;
+      nu.enable = false;
+      csharp.enable = false;
+      julia.enable = false;
+      vala.enable = false;
+      scala.enable = false;
+      r.enable = false;
+      gleam.enable = false;
+      dart.enable = false;
+      ocaml.enable = false;
+      elixir.enable = false;
+
+      tailwind.enable = false;
+      svelte.enable = false;
 
       # Nim LSP is broken on Darwin and therefore
       # should be disabled by default. Users may still enable
@@ -43,42 +89,6 @@ isMaximal: {
       # that.
       # See: <https://github.com/PMunch/nimlsp/issues/178#issue-2128106096>
       nim.enable = false;
-
-      nix.enable = true;
-
-      # Assembly is not common, and the asm LSP is a major hit-or-miss
-      assembly.enable = false;
-      astro.enable = false;
-      markdown.enable = isMaximal;
-      html.enable = isMaximal;
-      css.enable = isMaximal;
-      sql.enable = isMaximal;
-      java.enable = isMaximal;
-      kotlin.enable = isMaximal;
-      ts.enable = isMaximal;
-      svelte.enable = isMaximal;
-      go.enable = isMaximal;
-      lua.enable = isMaximal;
-      elixir.enable = isMaximal;
-      zig.enable = isMaximal;
-      ocaml.enable = isMaximal;
-      python.enable = isMaximal;
-      dart.enable = isMaximal;
-      bash.enable = isMaximal;
-      gleam.enable = false;
-      r.enable = isMaximal;
-      tailwind.enable = isMaximal;
-      typst.enable = isMaximal;
-      clang.enable = isMaximal;
-      scala.enable = isMaximal;
-      rust = {
-        enable = isMaximal;
-        crates.enable = isMaximal;
-      };
-      csharp.enable = isMaximal;
-      julia.enable = isMaximal;
-      vala.enable = isMaximal;
-      nu.enable = false;
     };
 
     visuals = {

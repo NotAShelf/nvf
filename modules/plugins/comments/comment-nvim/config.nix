@@ -24,6 +24,7 @@ in {
                       or '<Plug>(comment_toggle_linewise_count)'
             end
           '' {
+            lua = true;
             expr = true;
             desc = mappings.toggleCurrentLine.description;
           })
@@ -33,6 +34,7 @@ in {
                       or '<Plug>(comment_toggle_blockwise_count)'
             end
           '' {
+            lua = true;
             expr = true;
             desc = mappings.toggleCurrentBlock.description;
           })

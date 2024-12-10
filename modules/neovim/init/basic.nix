@@ -58,22 +58,10 @@ in {
       description = "Prevent swapfile and backupfile from being created";
     };
 
-    showSignColumn = mkOption {
-      type = bool;
-      default = true;
-      description = "Show the sign column";
-    };
-
     bell = mkOption {
       type = enum ["none" "visual" "on"];
       default = "none";
       description = "Set how bells are handled. Options: on, visual or none";
-    };
-
-    enableEditorconfig = mkOption {
-      type = bool;
-      default = true;
-      description = "Follow editorconfig rules in current directory";
     };
 
     searchCase = mkOption {
@@ -107,13 +95,15 @@ in {
     # and 'vim.globals' (vim.g). Future options, if possible, should be added here instead of the
     # luaConfigRC section below.
     options = pushDownDefault {
+      # Options that are always set, with a lower priority
       encoding = "utf-8";
       hidden = true;
       expandtab = true;
-    };
 
-    globals = pushDownDefault {
-      editorconfig = cfg.enableEditorconfig;
+      # Junkfile Behaviour
+      swapfile = !cfg.preventJunkFiles;
+      backup = !cfg.preventJunkFiles;
+      writebackup = !cfg.preventJunkFiles;
     };
 
     # Options that are more difficult to set through 'vim.options'. Fear not, though
@@ -125,16 +115,6 @@ in {
       ${optionalString cfg.undoFile.enable ''
         vim.o.undofile = true
         vim.o.undodir = ${toLuaObject cfg.undoFile.path}
-      ''}
-
-      ${optionalString cfg.showSignColumn ''
-        vim.o.signcolumn = "yes"
-      ''}
-
-      ${optionalString cfg.preventJunkFiles ''
-        vim.o.swapfile = false
-        vim.o.backup = false
-        vim.o.writebackup = false
       ''}
 
       ${optionalString (cfg.bell == "none") ''

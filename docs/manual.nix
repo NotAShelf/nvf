@@ -62,7 +62,8 @@ in
       # Copy anchor scripts to the script directory in document root.
       cp -vt "$dest"/script \
         ${./static/script}/anchor-min.js \
-        ${./static/script}/anchor-use.js
+        ${./static/script}/anchor-use.js \
+        ${./static/script}/search.js
 
       substituteInPlace ./options.md \
         --subst-var-by OPTIONS_JSON ./config-options.json
@@ -95,11 +96,12 @@ in
       nixos-render-docs manual html \
         --manpage-urls ${path + "/doc/manpage-urls.json"} \
         --revision ${lib.trivial.revisionWithDefault manual-release} \
-        --stylesheet "$dest"/style.css \
-        --script ./highlightjs/highlight.pack.js \
-        --script ./highlightjs/loader.js \
+        --stylesheet style.css \
+        --script highlightjs/highlight.pack.js \
+        --script highlightjs/loader.js \
         --script script/anchor-use.js \
         --script script/anchor-min.js \
+        --script script/search.js \
         --toc-depth 2 \
         --section-toc-depth 1 \
         manual.md \

@@ -6,6 +6,7 @@
   inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) int bool str nullOr either listOf attrsOf;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 
   cfg = config.vim.visuals;
 in {
@@ -15,7 +16,7 @@ in {
 
   options.vim.visuals.indent-blankline = {
     enable = mkEnableOption "indentation guides [indent-blankline]";
-    setupOpts = {
+    setupOpts = mkPluginSetupOption "indent-blankline" {
       debounce = mkOption {
         type = int;
         description = "Debounce time in milliseconds";

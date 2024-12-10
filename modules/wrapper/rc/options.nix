@@ -6,28 +6,36 @@
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
   inherit (lib.strings) optionalString;
   inherit (lib.types) str bool int enum attrsOf lines listOf either path submodule anything;
+  inherit (lib.trivial) isBool;
+  inherit (lib.nvim.languages) toVimBool;
   inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.lua) listToLuaTable;
 
   cfg = config.vim;
 in {
   options.vim = {
-    enableLuaLoader = mkEnableOption ''
-      [{option}`official documentation`]: https://neovim.io/doc/user/lua.html#vim.loader.enable()
+    enableLuaLoader = mkOption {
+      type = bool;
+      default = false;
+      example = true;
+      description = ''
+        [{option}`official documentation`]: https://neovim.io/doc/user/lua.html#vim.loader.enable()
 
-      the experimental Lua module loader to speed up the start up process
+        the experimental Lua module loader to speed up the start up process
 
-      If `true`, this will enable the experimental Lua module loader which:
-        - overrides loadfile
-        - adds the lua loader using the byte-compilation cache
-        - adds the libs loader
-        - removes the default Neovim loader
+        If `true`, this will enable the experimental Lua module loader which:
+          - overrides loadfile
+          - adds the lua loader using the byte-compilation cache
+          - adds the libs loader
+          - removes the default Neovim loader
 
-      ::: {.note}
-      This is disabled by default. Before setting this option, please
-      take a look at the [{option}`official documentation`].
-      :::
-    '';
+        ::: {.note}
+        The Lua module loader is *disabled* by default. Before setting this option, please
+        take a look at the [{option}`official documentation`]. This option may be enabled by
+        default in the future.
+        :::
+      '';
+    };
 
     additionalRuntimePaths = mkOption {
       type = listOf (either path str);
@@ -114,6 +122,21 @@ in {
             type = str;
             default = ",";
             description = "The key used for `<localleader>` mappings";
+          };
+
+          editorconfig = mkOption {
+            type = bool;
+            default = true;
+            description = ''
+              Whether to enable EditorConfig integration in Neovim.
+
+              This defaults to true as it is enabled by default in stock
+              Neovim, setting this option to false disables EditorConfig
+              integration entirely.
+
+              See [Neovim documentation](https://neovim.io/doc/user/editorconfig.html)
+              for more details on configuring EditorConfig behaviour.
+            '';
           };
         };
       };
@@ -205,6 +228,16 @@ in {
             type = bool;
             default = true;
             description = "Enable word wrapping.";
+          };
+
+          signcolumn = mkOption {
+            type = either str bool;
+            default = true;
+            apply = x:
+              if isBool x
+              then toVimBool x # convert to a yes/no str
+              else x;
+            description = "Show the sign column";
           };
         };
       };
