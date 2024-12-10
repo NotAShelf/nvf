@@ -6,3 +6,5 @@
 
 - Add [typst-preview.nvim] under
   `languages.typst.extensions.typst-preview-nvim`.
+
+- Add a search widget to the options page in the nvf manual.
