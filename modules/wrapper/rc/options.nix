@@ -6,6 +6,7 @@
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
   inherit (lib.strings) optionalString;
   inherit (lib.types) str bool int enum attrsOf lines listOf either path submodule anything;
+  inherit (lib.trivial) isBool;
   inherit (lib.nvim.languages) toVimBool;
   inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.lua) listToLuaTable;
@@ -230,9 +231,12 @@ in {
           };
 
           signcolumn = mkOption {
-            type = bool;
+            type = either str bool;
             default = true;
-            apply = x: toVimBool x; # convert to a yes/no str
+            apply = x:
+              if isBool x
+              then toVimBool x # convert to a yes/no str
+              else x;
             description = "Show the sign column";
           };
         };
