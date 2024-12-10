@@ -1,14 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.location.pathname.endsWith("options.html")) return;
 
-  const searchBar = document.createDocumentFragment();
   const searchDiv = document.createElement("div");
   searchDiv.id = "search-bar";
   searchDiv.innerHTML = `
     <input type="text" id="search-input" placeholder="Search options by ID..." />
     <div id="search-results"></div>
   `;
-  searchBar.appendChild(searchDiv);
   document.body.prepend(searchDiv);
 
   const dtElements = Array.from(document.querySelectorAll("dt"));
@@ -22,18 +20,27 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  const dtElementsData = dtElements.map((dt, index) => ({
+    element: dt,
+    id: dtOptionIds[index],
+    ddElement: ddElements[index],
+  }));
+
   let debounceTimeout;
   document.getElementById("search-input").addEventListener("input", (event) => {
     clearTimeout(debounceTimeout);
     debounceTimeout = setTimeout(() => {
       const query = event.target.value.toLowerCase();
-      dtElements.forEach((dt, index) => {
-        const isMatch = dtOptionIds[index].includes(query);
 
-        if (dt.classList.contains("hidden") !== !isMatch) {
-          dt.classList.toggle("hidden", !isMatch);
-          ddElements[index]?.classList.toggle("hidden", !isMatch);
-        }
+      requestAnimationFrame(() => {
+        const fragment = document.createDocumentFragment();
+        dtElementsData.forEach(({ element, id, ddElement }) => {
+          const isMatch = id.includes(query);
+          if (element.classList.contains("hidden") !== !isMatch) {
+            element.classList.toggle("hidden", !isMatch);
+            ddElement?.classList.toggle("hidden", !isMatch);
+          }
+        });
       });
     }, 200);
   });
