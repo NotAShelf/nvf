@@ -168,19 +168,19 @@ fix.
 
 ## Frequently Asked Questions
 
-[appropriate issue template]: https://github.com/NotAShelf/nvf/issues/new/choose
+[issue template]: https://github.com/NotAShelf/nvf/issues/new/choose
 [list of branches]: https://github.com/NotAShelf/nvf/branches
 [list of open pull requests]: https://github.com/NotAShelf/nvf/pulls
 
 **Q**: What platforms are supported?
-<br/> **A**: nvf actively supports Linux and Darwin platforms using standalone
-Nix, NixOS or Home-Manager. Please take a look at the [nvf manual] for available
-installation instructions.
+<br/> **A**: nvf actively supports **Linux and Darwin** platforms using
+standalone Nix, NixOS or Home-Manager. Please take a look at the [nvf manual]
+for available installation instructions.
 
 **Q**: Can you add _X_?
 <br/> **A**: Maybe! It is not one of our goals to support each and every Neovim
 plugin, however, I am always open to new modules and plugin setup additions to
-**nvf**. Use the [appropriate issue template] and I will consider a module
+**nvf**. Use the appropriate [issue template] and I will consider a module
 addition. As mentioned before, pull requests to add new features are also
 welcome.
 
@@ -196,6 +196,13 @@ not noticed any activity on the main branch, consider taking a look at the
 [list of branches] or the [list of open pull requests]. You may also consider
 _testing_ those release branches to get access to new features ahead of time and
 better prepare to breaking changes.
+
+**Q**: Will you support non-flake installations?
+<br/> **A**: Quite possibly. **nvf** started as "neovim-flake", which does mean
+it is and will remain flakes-first but we might consider non-flakes
+compatibility. Though keep in mind that **nvf** under non-flake environments
+would lose customizability of plugin inputs, which is one of our primary
+features.
 
 ## Credits
 
