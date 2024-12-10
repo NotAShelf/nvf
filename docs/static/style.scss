@@ -189,14 +189,16 @@ th {
 
 dt {
 	margin: 1.2rem 0 0.8rem;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 42px;
 }
-
 dd {
 	margin-left: 2rem;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
 }
 
-div.book {
-}
+div.book {}
 
 ul {
 	@include margined;
@@ -238,11 +240,12 @@ li {
 	top: 0;
 	background: white;
 	padding: 10px;
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid $color-gray-200;
 	z-index: 1000;
 	@media (prefers-color-scheme: dark) {
 		background: $color-gray-900;
 		color: $color-gray-50;
+		border-bottom: 1px solid black;
 	}
 }
 

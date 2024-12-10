@@ -26,21 +26,32 @@ document.addEventListener("DOMContentLoaded", () => {
     ddElement: ddElements[index],
   }));
 
+  const hiddenClass = "hidden";
+  const hiddenStyle = document.createElement("style");
+  hiddenStyle.innerHTML = `.${hiddenClass} { display: none; }`;
+  document.head.appendChild(hiddenStyle);
+
   let debounceTimeout;
   document.getElementById("search-input").addEventListener("input", (event) => {
     clearTimeout(debounceTimeout);
     debounceTimeout = setTimeout(() => {
       const query = event.target.value.toLowerCase();
 
+      const matches = [];
+      const nonMatches = [];
+
+      dtElementsData.forEach(({ element, id, ddElement }) => {
+        const isMatch = id.includes(query);
+        if (isMatch) {
+          matches.push(element, ddElement);
+        } else {
+          nonMatches.push(element, ddElement);
+        }
+      });
+
       requestAnimationFrame(() => {
-        const fragment = document.createDocumentFragment();
-        dtElementsData.forEach(({ element, id, ddElement }) => {
-          const isMatch = id.includes(query);
-          if (element.classList.contains("hidden") !== !isMatch) {
-            element.classList.toggle("hidden", !isMatch);
-            ddElement?.classList.toggle("hidden", !isMatch);
-          }
-        });
+        matches.forEach((el) => el?.classList.remove(hiddenClass));
+        nonMatches.forEach((el) => el?.classList.add(hiddenClass));
       });
     }, 200);
   });
