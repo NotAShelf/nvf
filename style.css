@@ -437,10 +437,14 @@ th:last-child {
 
 dt {
   margin: 1.2rem 0 0.8rem;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 42px;
 }
 
 dd {
   margin-left: 2rem;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
 }
 
 ul {
@@ -492,6 +496,35 @@ li:last-child {
 .navheader a,
 .navfooter a {
   text-decoration: none;
+}
+
+#search-bar {
+  position: sticky;
+  top: 0;
+  background: white;
+  padding: 10px;
+  border-bottom: 1px solid #e5e7eb;
+  z-index: 1000;
+}
+@media (prefers-color-scheme: dark) {
+  #search-bar {
+    background: #111827;
+    color: #f9fafb;
+    border-bottom: 1px solid black;
+  }
+}
+
+#search-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: inherit;
+  color: inherit;
+}
+
+.hidden {
+  display: none;
 }
 
 div.titlepage {

@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <title>Appendix B. Neovim Flake Configuration Options</title>
 <link rel="stylesheet" type="text/css" href="style.css" />
-<script src="highlightjs/highlight.pack.js" type="text/javascript"></script><script src="highlightjs/loader.js" type="text/javascript"></script><script src="script/anchor-use.js" type="text/javascript"></script><script src="script/anchor-min.js" type="text/javascript"></script>
+<script src="highlightjs/highlight.pack.js" type="text/javascript"></script><script src="highlightjs/loader.js" type="text/javascript"></script><script src="script/anchor-use.js" type="text/javascript"></script><script src="script/anchor-min.js" type="text/javascript"></script><script src="script/search.js" type="text/javascript"></script>
  <meta name="generator" content="nixos-render-docs" />
  <link rel="home" href="index.xhtml" title="nvf manual" />
  <link rel="up" href="index.xhtml" title="nvf manual" /><link rel="prev" href="quirks.html" title="Appendix A. Known Issues and Quirks" /><link rel="next" href="release-notes.html" title="Appendix C. Release Notes" />
@@ -103,8 +103,9 @@ boolean</p>
  </span>
 </dt>
 <dd>
-<p>Whether to enable [<code class="option">official documentation</code>]: https://neovim.io/doc/user/lua.html#vim.loader.enable()</p><p>the experimental Lua module loader to speed up the start up process</p><p>If <code class="literal">true</code>, this will enable the experimental Lua module loader which:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>overrides loadfile</p></li><li class="listitem"><p>adds the lua loader using the byte-compilation cache</p></li><li class="listitem"><p>adds the libs loader</p></li><li class="listitem"><p>removes the default Neovim loader</p></li></ul></div><div class="note"><h3 class="title">Note</h3><p>This is disabled by default. Before setting this option, please
-take a look at the [<code class="option">official documentation</code>].</p></div><p>.</p>
+<p>the experimental Lua module loader to speed up the start up process</p><p>If <code class="literal">true</code>, this will enable the experimental Lua module loader which:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>overrides loadfile</p></li><li class="listitem"><p>adds the lua loader using the byte-compilation cache</p></li><li class="listitem"><p>adds the libs loader</p></li><li class="listitem"><p>removes the default Neovim loader</p></li></ul></div><div class="note"><h3 class="title">Note</h3><p>The Lua module loader is <span class="emphasis"><em>disabled</em></span> by default. Before setting this option, please
+take a look at the <a class="link" href="https://neovim.io/doc/user/lua.html#vim.loader.enable()"  target="_top"><code class="option">official documentation</code></a>. This option may be enabled by
+default in the future.</p></div>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
