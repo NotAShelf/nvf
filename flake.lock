@@ -1902,6 +1902,22 @@
         "type": "github"
       }
     },
+    "plugin-typst-preview-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1733120663,
+        "narHash": "sha256-uYMZ2PONiiI3UDvCgNvyy4+jhzmUDbAyxX0phKxELXw=",
+        "owner": "chomosuke",
+        "repo": "typst-preview.nvim",
+        "rev": "0cb5f5627312f50ce089f785ec42b55a85f30ce7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chomosuke",
+        "repo": "typst-preview.nvim",
+        "type": "github"
+      }
+    },
     "plugin-vim-dirtytalk": {
       "flake": false,
       "locked": {
@@ -2151,6 +2167,7 @@
         "plugin-tokyonight": "plugin-tokyonight",
         "plugin-trouble": "plugin-trouble",
         "plugin-ts-error-translator": "plugin-ts-error-translator",
+        "plugin-typst-preview-nvim": "plugin-typst-preview-nvim",
         "plugin-vim-dirtytalk": "plugin-vim-dirtytalk",
         "plugin-vim-fugitive": "plugin-vim-fugitive",
         "plugin-vim-illuminate": "plugin-vim-illuminate",
