@@ -240,13 +240,19 @@ li {
 	padding: 10px;
 	border-bottom: 1px solid #ccc;
 	z-index: 1000;
+	@media (prefers-color-scheme: dark) {
+		background: $color-gray-900;
+		color: $color-gray-50;
+	}
 }
+
 #search-input {
 	width: 100%;
 	padding: 8px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 }
+
 .hidden {
 	display: none;
 }
