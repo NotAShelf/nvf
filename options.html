@@ -8063,13 +8063,11 @@ boolean</p>
  </span>
 </dt>
 <dd>
-<p>An attribute set containing global variable values
-for storing vim variables as early as possible. If
-populated, this option will set vim variables in the
-built luaConfigRC as the first item.</p><div class="note"><h3 class="title">Note</h3><p><code class="literal">{foo = &quot;bar&quot;;}</code> will set <code class="literal">vim.g.foo</code> to “bar”, where
-the type of <code class="literal">bar</code> in the resulting Lua value will be
-inferred from the type of the value in the <code class="literal">{name = value;}</code>
-pair passed to the option.</p></div>
+<p>A freeform attribute set containing global variable values for setting vim
+variables as early as possible. If populated, this option will set vim variables
+in the built <code class="option">luaConfigRC</code> as the first item.</p><div class="note"><h3 class="title">Note</h3><p><code class="literal">{foo = &quot;bar&quot;;}</code> will set <code class="literal">vim.g.foo</code> to “bar”, where the type of <code class="literal">bar</code> in the
+resulting Lua value will be inferred from the type of the value in the
+<code class="literal">{name = value;}</code> pair passed to the option.</p></div>
 
 <p><span class="emphasis"><em>Type:</em></span>
 attribute set of anything</p>
@@ -22573,13 +22571,11 @@ list of (null or package or one of “alpha-nvim”, “base16”, “bufdelete-
  </span>
 </dt>
 <dd>
-<p>An attribute set containing vim options to be set
-as early as possible. If populated, this option will
-set vim options in the built luaConfigRC after <code class="literal">basic</code>
-and before <code class="literal">pluginConfigs</code> DAG entries.</p><div class="note"><h3 class="title">Note</h3><p><code class="literal">{foo = &quot;bar&quot;;}</code> will set <code class="literal">vim.o.foo</code> to “bar”, where
-the type of <code class="literal">bar</code> in the resulting Lua value will be
-inferred from the type of the value in the<code class="literal">{name = value;}</code>
-pair passed to the option.</p></div>
+<p>A freeform attribute set containing vim options to be set as early as possible.
+If populated, this option will set vim options in the built <code class="option">luaConfigRC</code>
+after <code class="literal">basic</code> and before <code class="literal">pluginConfigs</code> DAG entries.</p><div class="note"><h3 class="title">Note</h3><p><code class="literal">{foo = &quot;bar&quot;;}</code> will set <code class="literal">vim.o.foo</code> to “bar”, where the type of <code class="literal">bar</code> in the
+resulting Lua value will be inferred from the type of the value in the
+<code class="literal">{name = value;}</code> pair passed to the option.</p></div>
 
 <p><span class="emphasis"><em>Type:</em></span>
 attribute set of anything</p>
@@ -22699,6 +22695,31 @@ one of “a”, “n”, “v”, “i”, “c”</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.options.shiftwidth"></a><a class="term" href="options.html#opt-vim.options.shiftwidth"><code class="option">vim.options.shiftwidth</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Number of spaces to use for each step of (auto)indent. Used for
+<code class="option">cindent</code>, <code class="literal">&gt;&gt;</code>, <code class="literal">&lt;&lt;</code>, etc.</p><p>When zero the <code class="option">tabstop</code> value will be used.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+signed integer</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">8</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_top">
+&lt;nvf/modules/wrapper/rc/options.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.options.splitbelow"></a><a class="term" href="options.html#opt-vim.options.splitbelow"><code class="option">vim.options.splitbelow</code>
   </a>
  </span>
@@ -22735,6 +22756,31 @@ boolean</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_top">
+&lt;nvf/modules/wrapper/rc/options.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.options.tabstop"></a><a class="term" href="options.html#opt-vim.options.tabstop"><code class="option">vim.options.tabstop</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Number of spaces that a <code class="literal">&lt;Tab&gt;</code> in the file counts for. Also see
+the <span class="command"><strong>:retab</strong></span> command, and the <code class="option">softtabstop</code> option.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+signed integer</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">8</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
