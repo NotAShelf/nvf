@@ -67,6 +67,7 @@ isMaximal: {
       bash.enable = isMaximal;
       gleam.enable = false;
       r.enable = isMaximal;
+      haskell.enable = isMaximal;
       tailwind.enable = isMaximal;
       typst.enable = isMaximal;
       clang.enable = isMaximal;
