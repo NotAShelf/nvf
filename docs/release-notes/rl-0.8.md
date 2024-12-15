@@ -8,3 +8,10 @@
   `languages.typst.extensions.typst-preview-nvim`.
 
 - Add a search widget to the options page in the nvf manual.
+
+[amadaluzia](https://github.com/amadaluzia):
+
+[haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim
+
+- Add Haskell support under
+  `languages.haskell` using [haskell-tools.nvim]
