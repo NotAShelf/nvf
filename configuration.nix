@@ -79,6 +79,7 @@ isMaximal: {
       dart.enable = false;
       ocaml.enable = false;
       elixir.enable = false;
+      haskell.enable = false;
 
       tailwind.enable = false;
       svelte.enable = false;
