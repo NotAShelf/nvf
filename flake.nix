@@ -720,5 +720,10 @@
       url = "github:otavioschwanck/new-file-template.nvim";
       flake = false;
     };
+
+    plugin-haskell-tools-nvim = {
+      url = "github:mrcjkb/haskell-tools.nvim";
+      flake = false;
+    };
   };
 }
