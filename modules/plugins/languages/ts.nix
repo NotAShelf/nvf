@@ -22,10 +22,16 @@
     ts_ls = {
       package = pkgs.typescript-language-server;
       lspConfig = ''
-        lspconfig.ts_ls.setup {
-          capabilities = capabilities;
-          on_attach = attach_keymaps,
-          cmd = ${
+
+         lspconfig.ts_ls.setup {
+           capabilities = capabilities;
+           on_attach = (
+            function (client, bufnr)
+              attach_keymaps(client, bufnr);
+              client.server_capabilities.documentFormattingProvider = false;
+            end
+            ) ,
+           cmd = ${
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/typescript-language-server", "--stdio"}''
@@ -79,6 +85,7 @@
           ls_sources,
           null_ls.builtins.formatting.prettier.with({
             command = "${cfg.format.package}/bin/prettier",
+            filetypes = { "typescript" },
           })
         )
       '';
