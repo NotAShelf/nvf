@@ -13,7 +13,7 @@
   inherit (lib.types) bool package str listOf either enum;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.dag) entryAfter entryAnywhere;
 
   cfg = config.vim.languages.rust;
 
@@ -127,7 +127,7 @@ in {
       vim = {
         startPlugins = ["rustaceanvim"];
 
-        luaConfigRC.rustaceanvim = entryAnywhere ''
+        pluginRC.rustaceanvim = entryAfter ["lsp-setup"] ''
           vim.g.rustaceanvim = {
           ${optionalString cfg.lsp.enable ''
             -- LSP
