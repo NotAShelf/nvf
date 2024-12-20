@@ -684,6 +684,22 @@
         "type": "github"
       }
     },
+    "plugin-haskell-tools-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1734222260,
+        "narHash": "sha256-gZVN9ADPO5wFOaf19FydCneb7aKTT9K1vcLoBURPEjk=",
+        "owner": "mrcjkb",
+        "repo": "haskell-tools.nvim",
+        "rev": "943b77b68a79d3991523ba4d373063c9355c6f55",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mrcjkb",
+        "repo": "haskell-tools.nvim",
+        "type": "github"
+      }
+    },
     "plugin-highlight-undo": {
       "flake": false,
       "locked": {
@@ -2091,6 +2107,7 @@
         "plugin-gitsigns-nvim": "plugin-gitsigns-nvim",
         "plugin-glow-nvim": "plugin-glow-nvim",
         "plugin-gruvbox": "plugin-gruvbox",
+        "plugin-haskell-tools-nvim": "plugin-haskell-tools-nvim",
         "plugin-highlight-undo": "plugin-highlight-undo",
         "plugin-hop-nvim": "plugin-hop-nvim",
         "plugin-icon-picker-nvim": "plugin-icon-picker-nvim",
