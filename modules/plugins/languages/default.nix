@@ -14,6 +14,7 @@ in {
     ./hcl.nix
     ./kotlin.nix
     ./html.nix
+    ./haskell.nix
     ./java.nix
     ./lua.nix
     ./markdown.nix
