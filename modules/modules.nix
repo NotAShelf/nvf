@@ -60,11 +60,12 @@
       "deprecations.nix"
     ];
   in
-    concatLists [neovim plugins wrapper extra];
+    concatLists [neovim plugins wrapper extra [./build]];
 in
   allModules
   ++ [
     {
+      _file = ./modules.nix;
       _module.args = {
         baseModules = allModules;
         pkgsPath = mkDefault pkgs.path;
