@@ -13,5 +13,4 @@
 
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim
 
-- Add Haskell support under
-  `languages.haskell` using [haskell-tools.nvim]
+- Add Haskell support under `vim.languages.haskell` using [haskell-tools.nvim]
