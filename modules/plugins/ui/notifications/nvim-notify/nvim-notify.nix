@@ -28,7 +28,7 @@ in {
       };
 
       stages = mkOption {
-        type = enum ["fade_in_slide_out" "fade_in" "slide_out" "none"];
+        type = enum ["fade_in_slide_out" "fade" "slide" "static"];
         default = "fade_in_slide_out";
         description = "The stages of the notification";
       };
@@ -41,7 +41,7 @@ in {
 
       background_colour = mkOption {
         type = str;
-        default = "#000000";
+        default = "NotifyBackground";
         description = "The background colour of the notification";
       };
 
