@@ -1,5 +1,5 @@
 # Home Manager module
-packages: lib: {
+packages: lib: inputs: {
   config,
   pkgs,
   ...
@@ -8,15 +8,26 @@ packages: lib: {
   inherit (lib.modules) mkIf mkAliasOptionModule;
   inherit (lib.lists) optional;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.types) attrsOf anything bool;
+  inherit (lib.types) attrsOf anything bool submoduleWith;
   inherit (lib.nvim) neovimConfiguration;
   inherit (lib.nvim.types) anythingConcatLists;
 
   cfg = config.programs.nvf;
 
-  neovimConfigured = neovimConfiguration {
-    inherit pkgs;
-    modules = [cfg.settings];
+  # neovimConfigured = neovimConfiguration {
+  #   inherit pkgs;
+  #   modules = [cfg.settings];
+  # };
+
+  nvfModule = submoduleWith {
+    description = "Nvf module";
+    class = "nvf";
+    specialArgs = {
+      inherit pkgs lib inputs;
+    };
+    modules = [
+      {imports = import ../../modules/modules.nix {inherit pkgs lib;};}
+    ];
   };
 in {
   imports = [
@@ -55,7 +66,7 @@ in {
     };
 
     settings = mkOption {
-      type = attrsOf anythingConcatLists;
+      type = nvfModule;
       default = {};
       description = "Attribute set of nvf preferences.";
       example = literalExpression ''
@@ -78,7 +89,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    programs.nvf.finalPackage = neovimConfigured.neovim;
+    programs.nvf.finalPackage = config.programs.nvf.settings.vim.build.finalPackage;
 
     home = {
       sessionVariables = mkIf cfg.defaultEditor {EDITOR = "nvim";};
