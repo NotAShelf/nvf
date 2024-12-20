@@ -97,7 +97,7 @@
       keys =
         if typeOf spec.keys == "list" && length spec.keys > 0 && typeOf (head spec.keys) == "set"
         then map toLuaLznKeySpec (filter (keySpec: keySpec.key != null) spec.keys)
-        # empty list or str or (listOf str)
+        # empty list, str, (listOf str), luaInline or (listOf luaInline)
         else spec.keys;
     };
   lznSpecs = mapAttrsToList toLuaLznSpec cfg.plugins;

@@ -1,7 +1,7 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) enum listOf submodule nullOr str bool int attrsOf anything either oneOf lines;
-  inherit (lib.nvim.types) pluginType;
+  inherit (lib.nvim.types) pluginType luaInline;
   inherit (lib.nvim.config) mkBool;
 
   lznKeysSpec = submodule {
@@ -135,7 +135,7 @@
       };
 
       keys = mkOption {
-        type = nullOr (oneOf [str (listOf lznKeysSpec) (listOf str)]);
+        type = nullOr (oneOf [(listOf lznKeysSpec) str (listOf str) luaInline (listOf luaInline)]);
         default = null;
         example = ''
           keys = [
