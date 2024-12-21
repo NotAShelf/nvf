@@ -12,48 +12,47 @@
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.types) mkGrammarOption;
 
-  defaultServer = "zls";
+  defaultServer = "ols";
   servers = {
-    zls = {
-      package = pkgs.zls;
-      internalFormatter = true;
+    ols = {
+      package = pkgs.ols;
       lspConfig = ''
-        lspconfig.zls.setup {
+        lspconfig.ols.setup {
           capabilities = capabilities,
           on_attach = default_on_attach,
           cmd = ${
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else "{'${cfg.lsp.package}/bin/zls'}"
+          else "{'${cfg.lsp.package}/bin/ols'}"
         }
         }
       '';
     };
   };
 
-  cfg = config.vim.languages.zig;
+  cfg = config.vim.languages.odin;
 in {
-  options.vim.languages.zig = {
-    enable = mkEnableOption "Zig language support";
+  options.vim.languages.odin = {
+    enable = mkEnableOption "Odin language support";
 
     treesitter = {
-      enable = mkEnableOption "Zig treesitter" // {default = config.vim.languages.enableTreesitter;};
-      package = mkGrammarOption pkgs "zig";
+      enable = mkEnableOption "Odin treesitter" // {default = config.vim.languages.enableTreesitter;};
+      package = mkGrammarOption pkgs "odin";
     };
 
     lsp = {
-      enable = mkEnableOption "Zig LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Odin LSP support" // {default = config.vim.languages.enableLSP;};
 
       server = mkOption {
         type = enum (attrNames servers);
         default = defaultServer;
-        description = "Zig LSP server to use";
+        description = "Odin LSP server to use";
       };
 
       package = mkOption {
-        description = "ZLS package, or the command to run as a list of strings";
+        description = "Ols package, or the command to run as a list of strings";
         type = either package (listOf str);
-        default = pkgs.zls;
+        default = pkgs.ols;
       };
     };
   };
@@ -66,7 +65,7 @@ in {
 
     (mkIf cfg.lsp.enable {
       vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.zig-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.lspconfig.sources.odin-lsp = servers.${cfg.lsp.server}.lspConfig;
     })
   ]);
 }
