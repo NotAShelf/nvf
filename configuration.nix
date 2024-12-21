@@ -74,6 +74,7 @@ isMaximal: {
       julia.enable = false;
       vala.enable = false;
       scala.enable = false;
+      solidity.enable = false;
       r.enable = false;
       gleam.enable = false;
       dart.enable = false;

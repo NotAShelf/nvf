@@ -14,6 +14,7 @@
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim
 
 - Add Haskell support under `vim.languages.haskell` using [haskell-tools.nvim].
+- Add Solidity support under `vim.languages.solidity`.
 
 [diniamo](https://github.com/diniamo):
 

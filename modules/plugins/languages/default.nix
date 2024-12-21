@@ -27,6 +27,7 @@ in {
     ./r.nix
     ./rust.nix
     ./scala.nix
+    ./solidity.nix
     ./sql.nix
     ./svelte.nix
     ./tailwind.nix
