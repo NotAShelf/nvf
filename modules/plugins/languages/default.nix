@@ -37,6 +37,7 @@ in {
     ./csharp.nix
     ./julia.nix
     ./nu.nix
+    ./odin.nix
   ];
 
   options.vim.languages = {
