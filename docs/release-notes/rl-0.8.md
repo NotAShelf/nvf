@@ -13,4 +13,8 @@
 
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim
 
-- Add Haskell support under `vim.languages.haskell` using [haskell-tools.nvim]
+- Add Haskell support under `vim.languages.haskell` using [haskell-tools.nvim].
+
+[diniamo](https://github.com/diniamo):
+
+- Add Odin support under `vim.languages.odin`.
