@@ -13282,6 +13282,159 @@ package</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.languages.odin.enable"></a><a class="term" href="options.html#opt-vim.languages.odin.enable"><code class="option">vim.languages.odin.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Odin language support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/odin.nix" target="_top">
+&lt;nvf/modules/plugins/languages/odin.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.odin.lsp.enable"></a><a class="term" href="options.html#opt-vim.languages.odin.lsp.enable"><code class="option">vim.languages.odin.lsp.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Odin LSP support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/odin.nix" target="_top">
+&lt;nvf/modules/plugins/languages/odin.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.odin.lsp.package"></a><a class="term" href="options.html#opt-vim.languages.odin.lsp.package"><code class="option">vim.languages.odin.lsp.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Ols package, or the command to run as a list of strings</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package or list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation ols-0-unstable-2024-10-27&gt;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/odin.nix" target="_top">
+&lt;nvf/modules/plugins/languages/odin.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.odin.lsp.server"></a><a class="term" href="options.html#opt-vim.languages.odin.lsp.server"><code class="option">vim.languages.odin.lsp.server</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Odin LSP server to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+value “ols” (singular enum)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;ols&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/odin.nix" target="_top">
+&lt;nvf/modules/plugins/languages/odin.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.odin.treesitter.enable"></a><a class="term" href="options.html#opt-vim.languages.odin.treesitter.enable"><code class="option">vim.languages.odin.treesitter.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Odin treesitter.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/odin.nix" target="_top">
+&lt;nvf/modules/plugins/languages/odin.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.odin.treesitter.package"></a><a class="term" href="options.html#opt-vim.languages.odin.treesitter.package"><code class="option">vim.languages.odin.treesitter.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The odin treesitter package to use.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">pkgs.vimPlugins.nvim-treesitter.builtGrammars.odin</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/odin.nix" target="_top">
+&lt;nvf/modules/plugins/languages/odin.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.languages.php.enable"></a><a class="term" href="options.html#opt-vim.languages.php.enable"><code class="option">vim.languages.php.enable</code>
   </a>
  </span>
