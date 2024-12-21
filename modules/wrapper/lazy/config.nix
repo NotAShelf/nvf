@@ -76,6 +76,7 @@
         else
           mkLuaInline ''
             function()
+              ${optionalString (spec.beforeSetup != null) spec.beforeSetup}
               ${
               optionalString (spec.setupModule != null)
               "require(${toJSON spec.setupModule}).setup(${toLuaObject spec.setupOpts})"
