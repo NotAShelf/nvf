@@ -48,6 +48,7 @@
     # The neovim wrapper, used to build a wrapped neovim package
     # using the configuration passed in `neovim` and `plugins` modules.
     wrapper = map (p: ./wrapper + "/${p}") [
+      "build"
       "environment"
       "rc"
       "warnings"
