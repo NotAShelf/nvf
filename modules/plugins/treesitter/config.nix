@@ -20,7 +20,8 @@ in {
     vim = {
       startPlugins = ["nvim-treesitter"];
 
-      autocomplete = {
+      # cmp-treesitter doesn't work on blink.cmp
+      autocomplete = mkIf config.vim.autocomplete.nvim-cmp.enable {
         nvim-cmp.sources = {treesitter = "[Treesitter]";};
         sourcePlugins = ["cmp-treesitter"];
       };
