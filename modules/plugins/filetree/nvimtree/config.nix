@@ -78,7 +78,7 @@ in {
               local real_file = vim.fn.filereadable(data.file) == 1
 
               -- buffer is a directory
-                local directory = vim.fn.isdirectory(data.file) == 1
+              local directory = vim.fn.isdirectory(data.file) == 1
 
               -- buffer is a [No Name]
                 local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
