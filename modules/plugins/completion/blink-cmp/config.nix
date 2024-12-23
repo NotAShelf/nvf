@@ -46,7 +46,7 @@ in {
 
       blink-cmp.setupOpts = {
         sources = {
-          default = mkDefault (attrNames autocompleteCfg.nvim-cmp.sources);
+          default = ["lsp" "path" "snippets" "buffer"] ++ (attrNames autocompleteCfg.nvim-cmp.sources);
           providers =
             mapAttrs (name: _: {
               inherit name;
