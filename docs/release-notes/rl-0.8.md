@@ -18,3 +18,6 @@
 [diniamo](https://github.com/diniamo):
 
 - Add Odin support under `vim.languages.odin`.
+
+- Disable the built-in format-on-save feature of zls. Use `vim.lsp.formatOnSave`
+  instead.
