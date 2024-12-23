@@ -5,7 +5,9 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.generators) mkLuaInline;
+
   cfg = config.vim.autocomplete.blink-cmp;
+  inherit (cfg) mappings;
 in {
   vim = mkIf cfg.enable {
     lazy.plugins.blink-cmp = {
@@ -34,6 +36,35 @@ in {
             end
           '';
           jump = mkLuaInline "function(direction) require('luasnip').jump(direction) end";
+        };
+
+        keymap = {
+          ${mappings.complete} = ["show" "fallback"];
+          ${mappings.close} = ["hide" "fallback"];
+          ${mappings.scrollDocsUp} = ["scroll_documentation_up" "fallback"];
+          ${mappings.scrollDocsDown} = ["scroll_documentation_down" "fallback"];
+          ${mappings.confirm} = ["accept" "fallback"];
+
+          ${mappings.next} = [
+            "select_next"
+            "snippet_forward"
+            (mkLuaInline ''
+              function(cmp)
+                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+                has_words_before = col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+
+                if has_words_before then
+                  return cmp.show()
+                end
+              end
+            '')
+            "fallback"
+          ];
+          ${mappings.previous} = [
+            "select_prev"
+            "snippet_backward"
+            "fallback"
+          ];
         };
       };
     };
