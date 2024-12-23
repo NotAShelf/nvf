@@ -1,8 +1,9 @@
 {lib, ...}: let
   inherit (lib.options) mkEnableOption mkOption literalMD;
-  inherit (lib.types) listOf str either attrsOf submodule enum anything;
+  inherit (lib.types) listOf str either attrsOf submodule enum anything int;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   inherit (lib.nvim.binds) mkMappingOption;
+  inherit (lib.nvim.config) mkBool;
 
   keymapType = submodule {
     freeformType = attrsOf (listOf (either str luaInline));
@@ -31,14 +32,25 @@ in {
       sources = {
         default = mkOption {
           type = listOf str;
-          description = "Default list of sources to enable for completion.";
           default = ["lsp" "path" "snippets" "buffer"];
+          description = "Default list of sources to enable for completion.";
         };
 
         providers = mkOption {
           type = attrsOf providerType;
-          description = "Providers";
           default = {};
+          description = "Providers";
+        };
+      };
+
+      completion = {
+        documentation = {
+          auto_show = mkBool true "Show documentation whenever an item is selected";
+          auto_show_delay_ms = mkOption {
+            type = int;
+            default = 200;
+            description = "Delay before auto show triggers";
+          };
         };
       };
 
