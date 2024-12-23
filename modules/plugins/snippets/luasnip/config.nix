@@ -17,8 +17,8 @@ in {
         };
       };
       startPlugins = cfg.providers;
-      autocomplete.nvim-cmp = {
-        sources = {luasnip = "[LuaSnip]";};
+      autocomplete = {
+        nvim-cmp.sources = {luasnip = "[LuaSnip]";};
         sourcePlugins = ["cmp-luasnip"];
       };
     };
