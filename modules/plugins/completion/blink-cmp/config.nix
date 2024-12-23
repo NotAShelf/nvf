@@ -14,7 +14,9 @@ in {
       package = "blink-cmp";
       setupModule = "blink.cmp";
       inherit (cfg) setupOpts;
-      event = ["InsertEnter" "CmdlineEnter"];
+      # TODO: lazy disabled until lspconfig is lazy loaded
+      #
+      # event = ["InsertEnter" "CmdlineEnter"];
     };
 
     autocomplete = {
