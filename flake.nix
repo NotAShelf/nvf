@@ -206,6 +206,11 @@
       flake = false;
     };
 
+    plugin-typst-preview-nvim = {
+      url = "github:chomosuke/typst-preview.nvim";
+      flake = false;
+    };
+
     plugin-nvim-metals = {
       url = "github:scalameta/nvim-metals";
       flake = false;
@@ -713,6 +718,11 @@
     plugin-new-file-template-nvim = {
       # (required by new-file-template.nvim)
       url = "github:otavioschwanck/new-file-template.nvim";
+      flake = false;
+    };
+
+    plugin-haskell-tools-nvim = {
+      url = "github:mrcjkb/haskell-tools.nvim";
       flake = false;
     };
   };
