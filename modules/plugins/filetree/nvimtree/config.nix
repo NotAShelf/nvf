@@ -77,6 +77,9 @@ in {
               -- buffer is a real file on the disk
               local real_file = vim.fn.filereadable(data.file) == 1
 
+              -- buffer is a directory
+              local directory = vim.fn.isdirectory(data.file) == 1
+
               -- buffer is a [No Name]
                 local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
 
@@ -84,7 +87,7 @@ in {
               local filetype = vim.bo[data.buf].ft
 
               -- only files please
-              if not real_file and not no_name then
+              if not real_file and not directory and not no_name then
                 return
               end
 
@@ -93,6 +96,10 @@ in {
                 return
               end
 
+              -- cd if buffer is a directory
+              if directory then
+                vim.cmd.cd(data.file)
+              end
               -- open the tree but don't focus it
               require("nvim-tree.api").tree.toggle({ focus = false })
             end
