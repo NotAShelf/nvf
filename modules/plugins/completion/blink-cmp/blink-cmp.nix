@@ -1,6 +1,6 @@
 {lib, ...}: let
   inherit (lib.options) mkEnableOption mkOption literalMD;
-  inherit (lib.types) listOf str either attrsOf submodule enum;
+  inherit (lib.types) listOf str either attrsOf submodule enum anything;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   inherit (lib.nvim.binds) mkMappingOption;
 
@@ -14,6 +14,16 @@
       };
     };
   };
+
+  providerType = submodule {
+    freeformType = anything;
+    options = {
+      module = mkOption {
+        type = str;
+        description = "module of the provider";
+      };
+    };
+  };
 in {
   options.vim.autocomplete.blink-cmp = {
     enable = mkEnableOption "blink.cmp";
@@ -23,6 +33,12 @@ in {
           type = listOf str;
           description = "Default list of sources to enable for completion.";
           default = ["lsp" "path" "snippets" "buffer"];
+        };
+
+        providers = mkOption {
+          type = attrsOf providerType;
+          description = "Providers";
+          default = {};
         };
       };
 
