@@ -3,11 +3,10 @@
   config,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf;
   inherit (lib.strings) optionalString;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (builtins) attrNames typeOf tryEval concatStringsSep;
 
   borders = config.vim.ui.borders.plugins.nvim-cmp;
@@ -24,52 +23,39 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = ["rtp-nvim"];
-      lazy.plugins = mkMerge [
-        (mapListToAttrs (package: {
-            name = getPluginName package;
-            value = {
-              inherit package;
-              lazy = true;
-              after = ''
-                local path = vim.fn.globpath(vim.o.packpath, 'pack/*/opt/${getPluginName package}')
-                require("rtp_nvim").source_after_plugin_dir(path)
-              '';
-            };
-          })
-          cfg.sourcePlugins)
-        {
-          nvim-cmp = {
-            package = "nvim-cmp";
-            after = ''
-              ${optionalString luasnipEnable "local luasnip = require('luasnip')"}
-              local cmp = require("cmp")
+      autocomplete.enableSharedCmpSources = true;
 
-              local kinds = require("cmp.types").lsp.CompletionItemKind
-              local deprio = function(kind)
-                return function(e1, e2)
-                  if e1:get_kind() == kind then
-                    return false
-                  end
-                  if e2:get_kind() == kind then
-                    return true
-                  end
-                  return nil
+      lazy.plugins = {
+        nvim-cmp = {
+          package = "nvim-cmp";
+          after = ''
+            ${optionalString luasnipEnable "local luasnip = require('luasnip')"}
+            local cmp = require("cmp")
+
+            local kinds = require("cmp.types").lsp.CompletionItemKind
+            local deprio = function(kind)
+              return function(e1, e2)
+                if e1:get_kind() == kind then
+                  return false
                 end
+                if e2:get_kind() == kind then
+                  return true
+                end
+                return nil
               end
+            end
 
-              cmp.setup(${toLuaObject cfg.setupOpts})
+            cmp.setup(${toLuaObject cfg.setupOpts})
 
-              ${optionalString config.vim.lazy.enable
-                (concatStringsSep "\n" (map
-                  (package: "require('lz.n').trigger_load(${toLuaObject (getPluginName package)})")
-                  cfg.sourcePlugins))}
-            '';
+            ${optionalString config.vim.lazy.enable
+              (concatStringsSep "\n" (map
+                (package: "require('lz.n').trigger_load(${toLuaObject (getPluginName package)})")
+                cfg.sourcePlugins))}
+          '';
 
-            event = ["InsertEnter" "CmdlineEnter"];
-          };
-        }
-      ];
+          event = ["InsertEnter" "CmdlineEnter"];
+        };
+      };
 
       autocomplete.nvim-cmp = {
         sources = {
