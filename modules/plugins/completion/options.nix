@@ -6,7 +6,7 @@ in {
   options.vim.autocomplete = {
     enableSharedCmpSources = mkEnableOption "cmp sources shared by nvim-cmp and blink.cmp";
 
-    cmpSourcePlugins = mkOption {
+    sourcePlugins = mkOption {
       type = listOf pluginType;
       default = [];
       description = "List of cmp source plugins.";

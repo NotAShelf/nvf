@@ -48,7 +48,7 @@ in {
             # If using nvim-cmp, otherwise set to false
             type = bool;
             description = "If using nvim-cmp, otherwise set to false";
-            default = config.vim.autocomplete.nvim-cmp.enable;
+            default = config.vim.autocomplete.enableSharedCmpSources;
           };
         };
       };

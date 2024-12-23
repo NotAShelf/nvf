@@ -20,8 +20,8 @@ in {
     vim = {
       startPlugins = ["nvim-treesitter"];
 
-      autocomplete.nvim-cmp = {
-        sources = {treesitter = "[Treesitter]";};
+      autocomplete = {
+        nvim-cmp.sources = {treesitter = "[Treesitter]";};
         sourcePlugins = ["cmp-treesitter"];
       };
 
