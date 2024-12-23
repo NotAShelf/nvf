@@ -3,26 +3,57 @@
   config,
   ...
 }: let
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkDefault;
+  inherit (lib.strings) optionalString;
   inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.lua) toLuaObject;
+  inherit (builtins) concatStringsSep typeOf tryEval attrNames mapAttrs;
 
   cfg = config.vim.autocomplete.blink-cmp;
+  autocompleteCfg = config.vim.autocomplete;
   inherit (cfg) mappings;
+
+  getPluginName = plugin:
+    if typeOf plugin == "string"
+    then plugin
+    else if (plugin ? pname && (tryEval plugin.pname).success)
+    then plugin.pname
+    else plugin.name;
 in {
   vim = mkIf cfg.enable {
-    lazy.plugins.blink-cmp = {
-      package = "blink-cmp";
-      setupModule = "blink.cmp";
-      inherit (cfg) setupOpts;
-      # TODO: lazy disabled until lspconfig is lazy loaded
-      #
-      # event = ["InsertEnter" "CmdlineEnter"];
+    startPlugins = ["blink-compat"];
+    lazy.plugins = {
+      blink-cmp = {
+        package = "blink-cmp";
+        setupModule = "blink.cmp";
+        inherit (cfg) setupOpts;
+
+        # TODO: lazy disabled until lspconfig is lazy loaded
+        #
+        # event = ["InsertEnter" "CmdlineEnter"];
+
+        after = ''
+          ${optionalString config.vim.lazy.enable
+            (concatStringsSep "\n" (map
+              (package: "require('lz.n').trigger_load(${toLuaObject (getPluginName package)})")
+              autocompleteCfg.sourcePlugins))}
+        '';
+      };
     };
 
     autocomplete = {
       enableSharedCmpSources = true;
 
       blink-cmp.setupOpts = {
+        sources = {
+          default = mkDefault (attrNames autocompleteCfg.nvim-cmp.sources);
+          providers =
+            mapAttrs (name: _: {
+              inherit name;
+              module = "blink.compat.source";
+            })
+            autocompleteCfg.nvim-cmp.sources;
+        };
         snippets = mkIf config.vim.snippets.luasnip.enable {
           expand = mkLuaInline ''
             function(snippet)
