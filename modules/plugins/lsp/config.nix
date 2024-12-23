@@ -173,7 +173,7 @@ in {
         ''}
 
         ${optionalString usingBlinkCmp ''
-          -- TODO
+          capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
         ''}
       '';
     };
