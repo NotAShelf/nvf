@@ -188,6 +188,22 @@
         "type": "github"
       }
     },
+    "plugin-blink-cmp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1734880418,
+        "narHash": "sha256-jR9fvo+I51DKYQb+N3nFvQ50N+lvYzfFaQtrn7cxDu4=",
+        "owner": "saghen",
+        "repo": "blink.cmp",
+        "rev": "f93af0f486ada13e8c34f42c911788b9232b811f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "saghen",
+        "repo": "blink.cmp",
+        "type": "github"
+      }
+    },
     "plugin-bufdelete-nvim": {
       "flake": false,
       "locked": {
@@ -2076,6 +2092,7 @@
         "nmd": "nmd",
         "plugin-alpha-nvim": "plugin-alpha-nvim",
         "plugin-base16": "plugin-base16",
+        "plugin-blink-cmp": "plugin-blink-cmp",
         "plugin-bufdelete-nvim": "plugin-bufdelete-nvim",
         "plugin-catppuccin": "plugin-catppuccin",
         "plugin-ccc": "plugin-ccc",
