@@ -16,7 +16,7 @@ in {
       pluginRC.nvim-notify = entryAnywhere ''
         local notify = require("notify")
         notify.setup(${toLuaObject cfg.setupOpts})
-        vim.notify = notify
+        vim.notify = notify.notify
       '';
     };
   };
