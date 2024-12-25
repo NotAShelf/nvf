@@ -1729,11 +1729,11 @@
     "plugin-run-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1734816675,
-        "narHash": "sha256-Wuk5HG+vHXAbifzp5YB5V/FxBhBRNWLeypkRczpXbvQ=",
+        "lastModified": 1735130195,
+        "narHash": "sha256-OaOSYyXSNCl9kJJVKhy0L4M06CQFc0NtZ8+AIgKBPik=",
         "owner": "diniamo",
         "repo": "run.nvim",
-        "rev": "6cd971afdce6443d7a070dcc23af51da1cc932f9",
+        "rev": "5888f31c5faf4776e598c0665470f5445510c59e",
         "type": "github"
       },
       "original": {

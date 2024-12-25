@@ -20,17 +20,9 @@ in {
         cmd = "Run";
 
         keys = [
-          (mkKeymap "n" cfg.mappings.run "<cmd>Run<CR>" {desc = mappings.run.description;})
-          (mkKeymap "n" cfg.mappings.runOverride "<cmd>Run!<CR>" {desc = mappings.runOverride.description;})
-          (mkKeymap "n" cfg.mappings.runCommand ''
-              function()
-                local input = vim.fn.input("Run command: ")
-                if input ~= "" then require("run").run(input, false) end
-              end
-            '' {
-              desc = mappings.run.description;
-              lua = true;
-            })
+          (mkKeymap "n" cfg.mappings.run "<cmd>Run<cr>" {desc = mappings.run.description;})
+          (mkKeymap "n" cfg.mappings.runOverride "<cmd>Run!<cr>" {desc = mappings.runOverride.description;})
+          (mkKeymap "n" cfg.mappings.runCommand "<cmd>RunPrompt<cr>" {desc = mappings.run.description;})
         ];
       };
 
