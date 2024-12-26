@@ -36,6 +36,12 @@ in {
           description = "Default list of sources to enable for completion.";
         };
 
+        cmdline = mkOption {
+          type = listOf str;
+          default = [];
+          description = "List of sources to enable for cmdline";
+        };
+
         providers = mkOption {
           type = attrsOf providerType;
           default = {};
