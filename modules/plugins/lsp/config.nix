@@ -173,7 +173,7 @@ in {
         ''}
 
         ${optionalString usingBlinkCmp ''
-          capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+          capabilities = require('blink.cmp').get_lsp_capabilities()
         ''}
       '';
     };
