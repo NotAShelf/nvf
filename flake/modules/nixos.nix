@@ -18,9 +18,7 @@ packages: lib: inputs: {
     specialArgs = {
       inherit pkgs lib inputs;
     };
-    modules = [
-      {imports = import ../../modules/modules.nix {inherit pkgs lib;};}
-    ];
+    modules = import ../../modules/modules.nix {inherit pkgs lib;};
   };
 in {
   imports = [
