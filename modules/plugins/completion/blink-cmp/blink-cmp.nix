@@ -1,6 +1,6 @@
 {lib, ...}: let
   inherit (lib.options) mkEnableOption mkOption literalMD;
-  inherit (lib.types) listOf str either attrsOf submodule enum anything int;
+  inherit (lib.types) listOf str either attrsOf submodule enum anything int nullOr;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.config) mkBool;
@@ -37,9 +37,9 @@ in {
         };
 
         cmdline = mkOption {
-          type = listOf str;
+          type = nullOr (listOf str);
           default = [];
-          description = "List of sources to enable for cmdline";
+          description = "List of sources to enable for cmdline. Null means use default source list.";
         };
 
         providers = mkOption {
