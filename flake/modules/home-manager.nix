@@ -1,9 +1,13 @@
 # Home Manager module
-packages: lib: inputs: {
+{
+  self,
+  lib,
+}: {
   config,
   pkgs,
   ...
 }: let
+  inherit (self) packages inputs;
   inherit (lib) maintainers;
   inherit (lib.modules) mkIf mkAliasOptionModule;
   inherit (lib.lists) optional;

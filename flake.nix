@@ -31,7 +31,7 @@
         };
 
         homeManagerModules = {
-          nvf = import ./flake/modules/home-manager.nix self.packages lib inputs;
+          nvf = import ./flake/modules/home-manager.nix {inherit lib self;};
           default = self.homeManagerModules.nvf;
           neovim-flake =
             lib.warn ''
