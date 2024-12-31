@@ -488,6 +488,11 @@
       flake = false;
     };
 
+    plugin-render-markdown-nvim = {
+      url = "github:MeanderingProgrammer/render-markdown.nvim";
+      flake = false;
+    };
+
     # Minimap
     plugin-minimap-vim = {
       url = "github:wfxr/minimap.vim";
