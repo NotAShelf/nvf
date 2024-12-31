@@ -3,11 +3,15 @@
 [NotAShelf](https://github.com/notashelf):
 
 [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
+[render-markdown.nvim]: https://github.com/MeanderingProgrammer/render-markdown.nvim
 
 - Add [typst-preview.nvim] under
   `languages.typst.extensions.typst-preview-nvim`.
 
 - Add a search widget to the options page in the nvf manual.
+
+- Add [render-markdown.nvim] under
+  `languages.markdown.extensions.render-markdown-nvim`
 
 [amadaluzia](https://github.com/amadaluzia):
 
