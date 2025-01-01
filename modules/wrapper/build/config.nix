@@ -45,6 +45,11 @@
       pname = "flutter-tools";
       patches = [../patches/flutter-tools.patch];
     };
+    blink-cmp = pkgs.callPackage ../../../flake/packages/blink-cmp.nix {
+      src = inputs.plugin-blink-cmp;
+      # TODO: extract into helper func
+      version = inputs.plugin-blink-cmp.shortRev or inputs.plugin-blink-cmp.shortDirtyRev or "dirty";
+    };
   };
 
   buildConfigPlugins = plugins:
