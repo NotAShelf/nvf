@@ -58,8 +58,8 @@ in {
         };
       };
 
-      autocomplete.nvim-cmp = {
-        sources = {copilot = "[Copilot]";};
+      autocomplete = {
+        nvim-cmp.sources = {copilot = "[Copilot]";};
         sourcePlugins = ["copilot-cmp"];
       };
 

@@ -1,22 +1,28 @@
 # NixOS module
-packages: lib: {
+{
+  self,
+  lib,
+}: {
   config,
   pkgs,
   ...
 }: let
+  inherit (self) inputs packages;
   inherit (lib) maintainers;
   inherit (lib.modules) mkIf mkOverride mkAliasOptionModule;
   inherit (lib.lists) optional;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.types) attrsOf anything bool;
-  inherit (lib.nvim) neovimConfiguration;
-  inherit (lib.nvim.types) anythingConcatLists;
+  inherit (lib.types) anything bool submoduleWith;
 
   cfg = config.programs.nvf;
 
-  neovimConfigured = neovimConfiguration {
-    inherit pkgs;
-    modules = [cfg.settings];
+  nvfModule = submoduleWith {
+    description = "Nvf module";
+    class = "nvf";
+    specialArgs = {
+      inherit pkgs lib inputs;
+    };
+    modules = import ../../modules/modules.nix {inherit pkgs lib;};
   };
 in {
   imports = [
@@ -55,7 +61,7 @@ in {
     };
 
     settings = mkOption {
-      type = attrsOf anythingConcatLists;
+      type = nvfModule;
       default = {};
       description = "Attribute set of nvf preferences.";
       example = literalExpression ''
@@ -78,7 +84,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    programs.nvf.finalPackage = neovimConfigured.neovim;
+    programs.nvf.finalPackage = cfg.settings.vim.build.finalPackage;
 
     environment = {
       variables.EDITOR = mkIf cfg.defaultEditor (mkOverride 900 "nvim");

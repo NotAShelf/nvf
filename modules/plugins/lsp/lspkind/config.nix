@@ -8,11 +8,12 @@
   inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.lsp.lspkind;
+  inherit (config.vim) autocomplete;
 in {
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = config.vim.autocomplete.nvim-cmp.enable;
+        assertion = autocomplete.nvim-cmp.enable || autocomplete.blink-cmp.enable;
         message = ''
           While lspkind supports Neovim's native lsp upstream, using that over
           nvim-cmp isn't recommended, nor supported by nvf.

@@ -31,7 +31,7 @@
         };
 
         homeManagerModules = {
-          nvf = import ./flake/modules/home-manager.nix self.packages lib;
+          nvf = import ./flake/modules/home-manager.nix {inherit lib self;};
           default = self.homeManagerModules.nvf;
           neovim-flake =
             lib.warn ''
@@ -42,7 +42,7 @@
         };
 
         nixosModules = {
-          nvf = import ./flake/modules/nixos.nix self.packages lib;
+          nvf = import ./flake/modules/nixos.nix {inherit lib self;};
           default = self.nixosModules.nvf;
           neovim-flake =
             lib.warn ''
@@ -285,6 +285,16 @@
     # Statuslines
     plugin-lualine = {
       url = "github:hoob3rt/lualine.nvim";
+      flake = false;
+    };
+
+    plugin-blink-cmp = {
+      url = "github:saghen/blink.cmp";
+      flake = false;
+    };
+
+    plugin-blink-compat = {
+      url = "github:saghen/blink.compat";
       flake = false;
     };
 

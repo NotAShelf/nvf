@@ -6,6 +6,7 @@
     ...
   }: let
     docs = import ../docs {inherit pkgs inputs lib;};
+    pluginVersion = src: src.shortRev or src.shortDirtyRev or "dirty";
   in {
     packages = {
       inherit (docs.manual) htmlOpenTool;
@@ -66,6 +67,12 @@
             Volumes = {"/home/neovim/demo" = {};};
           };
         };
+
+      # Plugins that need compiling
+      blink-cmp = pkgs.callPackage ./packages/blink-cmp.nix {
+        src = inputs.plugin-blink-cmp;
+        version = pluginVersion inputs.plugin-blink-cmp;
+      };
     };
   };
 }
