@@ -9,30 +9,35 @@
   inherit (pkgs) vimPlugins;
   inherit (lib.strings) isString;
   inherit (lib.lists) filter map;
+  inherit (builtins) path;
 
   # alias to the internal configuration
   vimOptions = config.vim;
 
-  noBuildPlug = {pname, ...} @ attrs: let
-    src = inputs."plugin-${attrs.pname}";
-  in
-    {
-      version = src.shortRev or src.shortDirtyRev or "dirty";
-      outPath = src;
-      passthru.vimPlugin = false;
-    }
-    // attrs;
+  noBuildPlug = pname: let
+    input = inputs."plugin-${pname}";
+    version = input.shortRev or input.shortDirtyRev or "dirty";
+  in {
+    # vim.lazy.plugins relies on pname, so we only set that here
+    # version isn't needed for anything, but inherit it anyway for correctness
+    inherit pname version;
+    outPath = path {
+      name = "${pname}-0-unstable-${version}";
+      path = input.outPath;
+    };
+    passthru.vimPlugin = false;
+  };
 
   # build a vim plugin with the given name and arguments
   # if the plugin is nvim-treesitter, warn the user to use buildTreesitterPlug
   # instead
   buildPlug = attrs: let
-    src = inputs."plugin-${attrs.pname}";
+    input = inputs."plugin-${attrs.pname}";
   in
     pkgs.vimUtils.buildVimPlugin (
       {
-        version = src.shortRev or src.shortDirtyRev or "dirty";
-        inherit src;
+        version = input.shortRev or input.shortDirtyRev or "dirty";
+        src = input.outPath;
       }
       // attrs
     );
@@ -51,7 +56,7 @@
     map (
       plug:
         if (isString plug)
-        then pluginBuilders.${plug} or (noBuildPlug {pname = plug;})
+        then pluginBuilders.${plug} or (noBuildPlug plug)
         else plug
     ) (filter (f: f != null) plugins);
 
