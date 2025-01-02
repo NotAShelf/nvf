@@ -92,7 +92,7 @@ in {
                 cmd = ${
                 if isList cfg.dap.package
                 then expToLua cfg.dap.package
-                else ''${cfg.dap.package}/bin/haskell-debug-adapter''
+                else ''{"${cfg.dap.package}/bin/haskell-debug-adapter"}''
               },
               },
             ''}

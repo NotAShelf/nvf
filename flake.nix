@@ -31,7 +31,7 @@
         };
 
         homeManagerModules = {
-          nvf = import ./flake/modules/home-manager.nix self.packages lib;
+          nvf = import ./flake/modules/home-manager.nix {inherit lib self;};
           default = self.homeManagerModules.nvf;
           neovim-flake =
             lib.warn ''
@@ -42,7 +42,7 @@
         };
 
         nixosModules = {
-          nvf = import ./flake/modules/nixos.nix self.packages lib;
+          nvf = import ./flake/modules/nixos.nix {inherit lib self;};
           default = self.nixosModules.nvf;
           neovim-flake =
             lib.warn ''
@@ -485,6 +485,11 @@
 
     plugin-highlight-undo = {
       url = "github:tzachar/highlight-undo.nvim";
+      flake = false;
+    };
+
+    plugin-render-markdown-nvim = {
+      url = "github:MeanderingProgrammer/render-markdown.nvim";
       flake = false;
     };
 

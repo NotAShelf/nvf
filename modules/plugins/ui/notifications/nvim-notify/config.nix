@@ -14,17 +14,9 @@ in {
       startPlugins = ["nvim-notify"];
 
       pluginRC.nvim-notify = entryAnywhere ''
-        require('notify').setup(${toLuaObject cfg.setupOpts})
-
-        -- required to fix offset_encoding errors
-        local notify = vim.notify
-        vim.notify = function(msg, ...)
-          if msg:match("warning: multiple different client offset_encodings") then
-            return
-          end
-
-          notify(msg, ...)
-        end
+        local notify = require("notify")
+        notify.setup(${toLuaObject cfg.setupOpts})
+        vim.notify = notify.notify
       '';
     };
   };
