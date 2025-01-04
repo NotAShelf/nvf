@@ -11,6 +11,7 @@ try-it-out.md
 default-configs.md
 installation.md
 configuring.md
+tips.md
 ```
 
 ```{=include=} chapters
