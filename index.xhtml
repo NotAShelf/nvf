@@ -253,13 +253,12 @@ on your needs.</p><p>To use it, we first add the input flake.</p><pre><code clas
     nvf.url = &quot;github:notashelf/nvf&quot;;
   };
 
-  outputs = { nixpkgs, nvf, ... }: let
-  system = &quot;x86_64-linux&quot;; in {
+  outputs = { nixpkgs, nvf, ... }: {
     # ↓ this is your host output in the flake schema
-    nixosConfigurations.&quot;yourUsername»&quot; = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.&quot;your-hostname&quot; = nixpkgs.lib.nixosSystem {
       modules = [
         nvf.nixosModules.default # &lt;- this imports the NixOS module that provides the options
-        ./configuration.nix # &lt;- your host entrypoint
+        ./configuration.nix # &lt;- your host entrypoint, `programs.nvf.*` may be defined here
       ];
     };
   };
@@ -313,12 +312,15 @@ depending on your needs.</p><p>To use it, we first add the input flake.</p><pre>
   };
 
   outputs = { nixpkgs, home-manager, nvf, ... }: let
-  system = &quot;x86_64-linux&quot;; in {
+    system = &quot;x86_64-linux&quot;;
+    pkgs = nixpkgs.legacyPackages.${system};
+  in {
     # ↓ this is your home output in the flake schema, expected by home-manager
-    &quot;your-username@your-hostname&quot; = home-manager.lib.homeManagerConfiguration
+    &quot;your-username@your-hostname&quot; = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
       modules = [
         nvf.homeManagerModules.default # &lt;- this imports the home-manager module that provides the options
-        ./home.nix # &lt;- your home entrypoint
+        ./home.nix # &lt;- your home entrypoint, `programs.nvf.*` may be defined here
       ];
     };
   };
