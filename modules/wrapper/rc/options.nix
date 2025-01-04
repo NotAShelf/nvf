@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
+  inherit (lib.options) mkOption literalMD literalExpression;
   inherit (lib.strings) optionalString;
   inherit (lib.types) str bool int enum attrsOf lines listOf either path submodule anything;
   inherit (lib.trivial) isBool;
@@ -19,7 +19,7 @@ in {
       default = false;
       example = true;
       description = ''
-        [{option}`official documentation`]: https://neovim.io/doc/user/lua.html#vim.loader.enable()
+        [official documentation]: https://neovim.io/doc/user/lua.html#vim.loader.enable()
 
         the experimental Lua module loader to speed up the start up process
 
@@ -31,7 +31,7 @@ in {
 
         ::: {.note}
         The Lua module loader is *disabled* by default. Before setting this option, please
-        take a look at the [{option}`official documentation`]. This option may be enabled by
+        take a look at the {option}`[official documentation]`. This option may be enabled by
         default in the future.
         :::
       '';
@@ -83,7 +83,7 @@ in {
           ./nvim/my-lua-file.lua
 
           # source type path - pure and reproducible
-          (builtins.source {
+          (builtins.path {
             path = ./nvim/my-lua-file.lua;
             name = "my-lua-file";
           })
@@ -274,7 +274,11 @@ in {
           vim.opt.runtimepath:append(${listToLuaTable cfg.additionalRuntimePaths})
         ''}
 
-        ${optionalString cfg.enableLuaLoader "vim.loader.enable()"}
+        ${optionalString cfg.enableLuaLoader ''
+          if vim.loader then
+            vim.loader.enable()
+          end
+        ''}
       '';
 
       defaultText = literalMD ''
@@ -284,7 +288,7 @@ in {
         if [](#opt-vim.enableLuaLoader) is set to true.
       '';
 
-      example = literalExpression ''"$${builtins.readFile ./my-lua-config-pre.lua}"'';
+      example = literalExpression ''''${builtins.readFile ./my-lua-config-pre.lua}'';
 
       description = ''
         Verbatim lua code that will be inserted **before**
