@@ -44,12 +44,15 @@ Followed by importing the home-manager module somewhere in your configuration.
   };
 
   outputs = { nixpkgs, home-manager, nvf, ... }: let
-  system = "x86_64-linux"; in {
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
+  in {
     # ↓ this is your home output in the flake schema, expected by home-manager
-    "your-username@your-hostname" = home-manager.lib.homeManagerConfiguration
+    "your-username@your-hostname" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
       modules = [
         nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
-        ./home.nix # <- your home entrypoint
+        ./home.nix # <- your home entrypoint, `programs.nvf.*` may be defined here
       ];
     };
   };
