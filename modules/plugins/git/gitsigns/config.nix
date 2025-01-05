@@ -7,6 +7,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.binds) addDescriptionsToMappings mkSetExprBinding mkSetLuaBinding pushDownDefault;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.git.gitsigns;
 
@@ -70,7 +71,7 @@ in {
         };
 
         pluginRC.gitsigns = entryAnywhere ''
-          require('gitsigns').setup{}
+          require('gitsigns').setup(${toLuaObject cfg.setupOpts})
         '';
       };
     }
