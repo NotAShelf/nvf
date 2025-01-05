@@ -551,6 +551,22 @@
         "type": "github"
       }
     },
+    "plugin-feline-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1731467236,
+        "narHash": "sha256-/TqgHJo2ej/V5bubTdTlf5S+EZmSpU5F2Mdi0SHCD30=",
+        "owner": "freddiehaddad",
+        "repo": "feline.nvim",
+        "rev": "9f1313f61a75ec5ebe805fedd46bdc130c420963",
+        "type": "github"
+      },
+      "original": {
+        "owner": "freddiehaddad",
+        "repo": "feline.nvim",
+        "type": "github"
+      }
+    },
     "plugin-fidget-nvim": {
       "flake": false,
       "locked": {
@@ -2108,6 +2124,7 @@
         "plugin-dressing-nvim": "plugin-dressing-nvim",
         "plugin-elixir-tools": "plugin-elixir-tools",
         "plugin-fastaction-nvim": "plugin-fastaction-nvim",
+        "plugin-feline-nvim": "plugin-feline-nvim",
         "plugin-fidget-nvim": "plugin-fidget-nvim",
         "plugin-flutter-tools": "plugin-flutter-tools",
         "plugin-friendly-snippets": "plugin-friendly-snippets",
