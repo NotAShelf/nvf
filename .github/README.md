@@ -206,6 +206,16 @@ features.
 
 ## Credits
 
+### Co-Maintainers
+
+Alongside myself, nvf is developed by those talented folk:
+
+- [**@horriblename**](https://github.com/horriblename) - For actively
+  implementing planned features and quality of life updates.
+- [**@Diniamo**](https://github.com/Diniamo)
+  ([Liberapay](https://en.liberapay.com/diniamo/)) - For actively submitting
+  pull requests, issues and assistance with maintenance of nvf.
+
 ### Contributors
 
 [mnw]: https://github.com/gerg-l/mnw
@@ -213,21 +223,19 @@ features.
 nvf would not be what it is today without the awesome people below. Special,
 heart-felt thanks to
 
-- [@fufexan](https://github.com/fufexan) - For the transition to flake-parts and
-  invaluable Nix assistance.
-- [@FlafyDev](https://github.com/FlafyDev) - For getting home-manager module to
-  work and Nix assistance.
-- [@n3oney](https://github.com/n3oney) - For making custom keybinds finally
+- [**@fufexan**](https://github.com/fufexan) - For the transition to flake-parts
+  and invaluable Nix assistance.
+- [**@FlafyDev**](https://github.com/FlafyDev) - For getting Home-Manager module
+  to work and Nix assistance.
+- [**@n3oney**](https://github.com/n3oney) - For making custom keybinds finally
   possible, and other module additions.
-- [@horriblename](https://github.com/horriblename) - For actively implementing
-  planned features and quality of life updates.
-- [@Yavko](https://github.com/Yavko) - For the amazing **nvf** logo
-- [@FrothyMarrow](https://github.com/FrothyMarrow) - For seeing mistakes that I
-  could not.
-- [@Diniamo](https://github.com/Diniamo) - For actively submitting pull
-  requests, issues and assistance with maintenance of nvf.
-- [@Gerg-l](https://github.com/gerg-l) - For the modern Neovim wrapper, [mnw],
-  and occasional code improvements.
+- [**@Yavko**](https://github.com/Yavko) - For the amazing **nvf** logo
+- [**@FrothyMarrow**](https://github.com/FrothyMarrow) - For seeing mistakes
+  that I could not.
+- [**@Gerg-l**](https://github.com/gerg-l) 🐸 - For the modern Neovim wrapper,
+  [mnw], and occasional code improvements.
+- [**@Soliprem**](https://github.com/soliprem) - Rigorously implementing missing
+  features and excellent work on new language modules.
 
 and everyone who has submitted issues or pull requests!
 
