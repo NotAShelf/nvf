@@ -28,3 +28,9 @@
 
 - Disable the built-in format-on-save feature of zls. Use `vim.lsp.formatOnSave`
   instead.
+
+[horriblename](https://github.com/horriblename):
+
+[aerial.nvim](https://github.com/stevearc/aerial.nvim)
+
+- Add [aerial.nvim]
