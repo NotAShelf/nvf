@@ -730,5 +730,10 @@
       url = "github:mrcjkb/haskell-tools.nvim";
       flake = false;
     };
+
+    plugin-aerial-nvim = {
+      url = "github:stevearc/aerial.nvim";
+      flake = false;
+    };
   };
 }
