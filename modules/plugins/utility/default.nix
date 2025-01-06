@@ -1,5 +1,6 @@
 {
   imports = [
+    ./outline
     ./binds
     ./ccc
     ./gestures
