@@ -13,6 +13,9 @@
 - Add [render-markdown.nvim] under
   `languages.markdown.extensions.render-markdown-nvim`
 
+- Implement [](#opt-vim.git.gitsigns.setupOpts) for user-specified setup table
+  in gitsigns configuration.
+
 [amadaluzia](https://github.com/amadaluzia):
 
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim
