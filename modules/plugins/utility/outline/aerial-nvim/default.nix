@@ -1,6 +1,6 @@
 {
   imports = [
-    ./options.nix
+    ./aerial-nvim.nix
     ./config.nix
   ];
 }

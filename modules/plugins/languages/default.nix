@@ -14,6 +14,7 @@ in {
     ./hcl.nix
     ./kotlin.nix
     ./html.nix
+    ./haskell.nix
     ./java.nix
     ./lua.nix
     ./markdown.nix
@@ -36,6 +37,7 @@ in {
     ./csharp.nix
     ./julia.nix
     ./nu.nix
+    ./odin.nix
   ];
 
   options.vim.languages = {

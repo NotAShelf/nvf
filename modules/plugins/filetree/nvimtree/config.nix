@@ -1,7 +1,7 @@
 {
+  options,
   config,
   lib,
-  pkgs,
   ...
 }: let
   inherit (lib.strings) optionalString;
@@ -11,8 +11,7 @@
   inherit (lib.nvim.binds) pushDownDefault;
 
   cfg = config.vim.filetree.nvimTree;
-  self = import ./nvimtree.nix {inherit pkgs lib;};
-  inherit (self.options.vim.filetree.nvimTree) mappings;
+  inherit (options.vim.filetree.nvimTree) mappings;
 in {
   config = mkIf cfg.enable {
     vim = {
@@ -77,6 +76,9 @@ in {
               -- buffer is a real file on the disk
               local real_file = vim.fn.filereadable(data.file) == 1
 
+              -- buffer is a directory
+              local directory = vim.fn.isdirectory(data.file) == 1
+
               -- buffer is a [No Name]
                 local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
 
@@ -84,7 +86,7 @@ in {
               local filetype = vim.bo[data.buf].ft
 
               -- only files please
-              if not real_file and not no_name then
+              if not real_file and not directory and not no_name then
                 return
               end
 
@@ -93,6 +95,10 @@ in {
                 return
               end
 
+              -- cd if buffer is a directory
+              if directory then
+                vim.cmd.cd(data.file)
+              end
               -- open the tree but don't focus it
               require("nvim-tree.api").tree.toggle({ focus = false })
             end

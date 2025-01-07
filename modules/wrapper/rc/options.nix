@@ -143,16 +143,14 @@ in {
 
       example = {"some_variable" = 42;};
       description = ''
-        An attribute set containing global variable values
-        for storing vim variables as early as possible. If
-        populated, this option will set vim variables in the
-        built luaConfigRC as the first item.
+        A freeform attribute set containing global variable values for setting vim
+        variables as early as possible. If populated, this option will set vim variables
+        in the built {option}`luaConfigRC` as the first item.
 
         ::: {.note}
-        `{foo = "bar";}` will set `vim.g.foo` to "bar", where
-        the type of `bar` in the resulting Lua value will be
-        inferred from the type of the value in the `{name = value;}`
-        pair passed to the option.
+        `{foo = "bar";}` will set `vim.g.foo` to "bar", where the type of `bar` in the
+        resulting Lua value will be inferred from the type of the value in the
+        `{name = value;}` pair passed to the option.
         :::
       '';
     };
@@ -237,23 +235,40 @@ in {
               if isBool x
               then toVimBool x # convert to a yes/no str
               else x;
-            description = "Show the sign column";
+            description = "Show the sign column"
+
+          tabstop = mkOption {
+            type = int;
+            default = 8; # Neovim default
+            description = ''
+              Number of spaces that a `<Tab>` in the file counts for. Also see
+              the {command}`:retab` command, and the {option}`softtabstop` option.
+            '';
+          };
+
+          shiftwidth = mkOption {
+            type = int;
+            default = 8; # Neovim default
+            description = ''
+              Number of spaces to use for each step of (auto)indent. Used for
+              {option}`cindent`, `>>`, `<<`, etc.
+
+              When zero the {option}`tabstop` value will be used.
+            '';
           };
         };
       };
 
       example = {visualbell = true;};
       description = ''
-        An attribute set containing vim options to be set
-        as early as possible. If populated, this option will
-        set vim options in the built luaConfigRC after `basic`
-        and before `pluginConfigs` DAG entries.
+        A freeform attribute set containing vim options to be set as early as possible.
+        If populated, this option will set vim options in the built {option}`luaConfigRC`
+        after `basic` and before `pluginConfigs` DAG entries.
 
         ::: {.note}
-        `{foo = "bar";}` will set `vim.o.foo` to "bar", where
-        the type of `bar` in the resulting Lua value will be
-        inferred from the type of the value in the`{name = value;}`
-        pair passed to the option.
+        `{foo = "bar";}` will set `vim.o.foo` to "bar", where the type of `bar` in the
+        resulting Lua value will be inferred from the type of the value in the
+        `{name = value;}` pair passed to the option.
         :::
       '';
     };

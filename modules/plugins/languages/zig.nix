@@ -6,7 +6,7 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf mkMerge mkDefault;
   inherit (lib.lists) isList;
   inherit (lib.types) either listOf package str enum;
   inherit (lib.nvim.lua) expToLua;
@@ -57,15 +57,25 @@ in {
       };
     };
   };
+
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      vim.treesitter = {
+        enable = true;
+        grammars = [cfg.treesitter.package];
+      };
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.zig-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim = {
+        lsp.lspconfig = {
+          enable = true;
+          sources.zig-lsp = servers.${cfg.lsp.server}.lspConfig;
+        };
+
+        # nvf handles autosaving already
+        globals.zig_fmt_autosave = mkDefault 0;
+      };
     })
   ]);
 }

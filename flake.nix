@@ -31,7 +31,7 @@
         };
 
         homeManagerModules = {
-          nvf = import ./flake/modules/home-manager.nix self.packages lib;
+          nvf = import ./flake/modules/home-manager.nix {inherit lib self;};
           default = self.homeManagerModules.nvf;
           neovim-flake =
             lib.warn ''
@@ -42,7 +42,7 @@
         };
 
         nixosModules = {
-          nvf = import ./flake/modules/nixos.nix self.packages lib;
+          nvf = import ./flake/modules/nixos.nix {inherit lib self;};
           default = self.nixosModules.nvf;
           neovim-flake =
             lib.warn ''
@@ -488,6 +488,11 @@
       flake = false;
     };
 
+    plugin-render-markdown-nvim = {
+      url = "github:MeanderingProgrammer/render-markdown.nvim";
+      flake = false;
+    };
+
     # Minimap
     plugin-minimap-vim = {
       url = "github:wfxr/minimap.vim";
@@ -718,6 +723,16 @@
     plugin-new-file-template-nvim = {
       # (required by new-file-template.nvim)
       url = "github:otavioschwanck/new-file-template.nvim";
+      flake = false;
+    };
+
+    plugin-haskell-tools-nvim = {
+      url = "github:mrcjkb/haskell-tools.nvim";
+      flake = false;
+    };
+
+    plugin-aerial-nvim = {
+      url = "github:stevearc/aerial.nvim";
       flake = false;
     };
   };

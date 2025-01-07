@@ -74,6 +74,15 @@
         '';
       };
 
+      beforeSetup = mkOption {
+        type = nullOr lines;
+        default = null;
+        description = ''
+          Lua code to run after the plugin is loaded, but before the setup
+          function is called.
+        '';
+      };
+
       setupModule = mkOption {
         type = nullOr str;
         default = null;

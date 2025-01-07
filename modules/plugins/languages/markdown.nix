@@ -4,13 +4,14 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames concatLists;
+  inherit (builtins) attrNames;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.lists) isList;
+  inherit (lib.lists) isList concatLists;
   inherit (lib.types) bool enum either package listOf str;
-  inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.lua) expToLua toLuaObject;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.languages.markdown;
   defaultServer = "marksman";
@@ -98,6 +99,29 @@ in {
         description = "Extra filetypes to format with the Markdown formatter";
       };
     };
+
+    extensions = {
+      render-markdown-nvim = {
+        enable =
+          mkEnableOption ""
+          // {
+            description = ''
+              [render-markdown.nvim]: https://github.com/MeanderingProgrammer/render-markdown.nvim
+
+              Inline Markdown rendering with [render-markdown.nvim]
+
+            '';
+          };
+
+        setupOpts = mkPluginSetupOption "render-markdown" {
+          auto_override_publish_diagnostics = mkOption {
+            description = "Automatically override the publish_diagnostics handler";
+            type = bool;
+            default = true;
+          };
+        };
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -114,6 +138,14 @@ in {
     (mkIf cfg.format.enable {
       vim.lsp.null-ls.enable = true;
       vim.lsp.null-ls.sources.markdown-format = formats.${cfg.format.type}.nullConfig;
+    })
+
+    # Extensions
+    (mkIf cfg.extensions.render-markdown-nvim.enable {
+      vim.startPlugins = ["render-markdown-nvim"];
+      vim.pluginRC.render-markdown-nvim = entryAnywhere ''
+        require("render-markdown").setup(${toLuaObject cfg.extensions.render-markdown-nvim.setupOpts})
+      '';
     })
   ]);
 }
