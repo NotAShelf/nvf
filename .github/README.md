@@ -210,11 +210,15 @@ features.
 
 Alongside myself, nvf is developed by those talented folk:
 
-- [**@horriblename**](https://github.com/horriblename) - For actively
-  implementing planned features and quality of life updates.
+- [**@horriblename**](https://github.com/horriblename)
+  ([Liberapay](https://liberapay.com/horriblename/))- For actively implementing
+  planned features and quality of life updates.
 - [**@Diniamo**](https://github.com/Diniamo)
   ([Liberapay](https://en.liberapay.com/diniamo/)) - For actively submitting
   pull requests, issues and assistance with maintenance of nvf.
+
+Please do remember to extend your thanks (financially or otherwise) if this
+project has been helpful to you.
 
 ### Contributors
 
@@ -245,17 +249,17 @@ This configuration borrows from and is based on a few other configurations,
 including:
 
 - [@jordanisaacs's](https://github.com/jordanisaacs)
-  [neovim-flake](https://github.com/jordanisaacs/neovim-flake) that this flake
-  is originally based on.
-- [@sioodmy's](https://github.com/sioodmy)
-  [dotfiles](https://github.com/sioodmy/dotfiles) that inspired the design
-  choices for UI and plugin defaults.
+  [**neovim-flake**](https://github.com/jordanisaacs/neovim-flake) that this
+  flake is originally based on.
 - [@wiltaylor's](https://github.com/wiltaylor)
   [neovim-flake](https://github.com/wiltaylor/neovim-flake) for plugin and
   design ideas.
 - [@gvolpe's](https://github.com/gvolpe)
   [neovim-flake](https://github.com/gvolpe/neovim-flake) for plugin, design and
   nix concepts.
+- [@sioodmy's](https://github.com/sioodmy)
+  [dotfiles](https://github.com/sioodmy/dotfiles) that inspired the design
+  choices for UI and plugin defaults.
 
 I am grateful for their previous work and inspiration, and I wholeheartedly
 recommend checking their work out.
@@ -263,12 +267,12 @@ recommend checking their work out.
 
 ## License
 
-Following the license of the
-[original neovim-flake](https://github.com/jordanisaacs/neovim-flake), nvf has
-been made available under the [**MIT License**](LICENSE). However, all assets
-and documentation are published under the
+Following the license of
+[the original neovim-flake](https://github.com/jordanisaacs/neovim-flake), nvf
+has been made available under the [**MIT License**](LICENSE). However, all
+assets and documentation are published under the
 [**CC BY License**](https://github.com/NotAShelf/nvf/blob/main/.github/assets/LICENSE)
-under explicit permission by the artist.
+under explicit permission by the author or authors.
 
 <h6 align="center">Yes, this includes the logo work too. Stop taking artwork that is not yours!</h6>
 
