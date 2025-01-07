@@ -235,7 +235,8 @@ in {
               if isBool x
               then toVimBool x # convert to a yes/no str
               else x;
-            description = "Show the sign column"
+            description = "Show the sign column";
+          };
 
           tabstop = mkOption {
             type = int;
