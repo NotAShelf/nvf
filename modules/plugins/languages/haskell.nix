@@ -71,7 +71,7 @@ in {
                 cmd = ${
                 if isList cfg.lsp.package
                 then expToLua cfg.lsp.package
-                else ''{"${cfg.lsp.package}/bin/haskell-language-server-wrapper"}''
+                else ''{"${cfg.lsp.package}/bin/haskell-language-server-wrapper", "--lsp"}''
               },
                 on_attach = function(client, bufnr, ht)
                   default_on_attach(client, bufnr, ht)
