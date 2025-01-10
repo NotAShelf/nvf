@@ -167,16 +167,25 @@ in {
           };
 
           mouse = mkOption {
-            type = enum ["a" "n" "v" "i" "c"];
-            default = "a";
+            type = str;
+            default = "nvi";
+            example = "a";
             description = ''
               Set modes for mouse support.
 
-              * a - all
               * n - normal
               * v - visual
               * i - insert
-              * c - command
+              * c - command-line
+              * h - all modes when editing a help file
+              * a - all modes
+              * r - for hit-enter and more-prompt prompt
+
+              [neovim documentation]: https://neovim.io/doc/user/options.html#'mouse'"
+
+              This option takes a string to ensure proper conversion to the corresponding Lua type.
+              As such, we do not check the value passed to this option. Please ensure that any value
+              that is set here is a valid value as per [neovim documentation].
             '';
           };
 
