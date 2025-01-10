@@ -21,8 +21,10 @@
   warning you that it is invalid. Do keep in mind that this value is no longer
   checked, so you will be responsible for ensuring its validity.
 
-- Deprecated `vim.enableEditorconfig` in favor of
+- Deprecate `vim.enableEditorconfig` in favor of
   [](#opt-vim.globals.editorconfig).
+
+- Deprecate rnix-lsp as it has been abandoned and archived upstream.
 
 [amadaluzia](https://github.com/amadaluzia):
 
@@ -47,5 +49,5 @@
 
 [LilleAila](https://github.com/LilleAila):
 
-- Remove `vim.notes.obsidian.setupOpts.dir`, which was set by default. 
-  Fixes issue with setting the workspace directory.
+- Remove `vim.notes.obsidian.setupOpts.dir`, which was set by default. Fixes
+  issue with setting the workspace directory.
