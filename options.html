@@ -74,37 +74,13 @@ lazy attribute set of raw value</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.enableEditorconfig"></a><a class="term" href="options.html#opt-vim.enableEditorconfig"><code class="option">vim.enableEditorconfig</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Follow editorconfig rules in current directory</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-boolean</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">true</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/basic.nix" target="_top">
-&lt;nvf/modules/neovim/init/basic.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
  <a id="opt-vim.enableLuaLoader"></a><a class="term" href="options.html#opt-vim.enableLuaLoader"><code class="option">vim.enableLuaLoader</code>
   </a>
  </span>
 </dt>
 <dd>
 <p>the experimental Lua module loader to speed up the start up process</p><p>If <code class="literal">true</code>, this will enable the experimental Lua module loader which:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>overrides loadfile</p></li><li class="listitem"><p>adds the lua loader using the byte-compilation cache</p></li><li class="listitem"><p>adds the libs loader</p></li><li class="listitem"><p>removes the default Neovim loader</p></li></ul></div><div class="note"><h3 class="title">Note</h3><p>The Lua module loader is <span class="emphasis"><em>disabled</em></span> by default. Before setting this option, please
-take a look at the <a class="link" href="https://neovim.io/doc/user/lua.html#vim.loader.enable()"  target="_top"><code class="option">official documentation</code></a>. This option may be enabled by
+take a look at the <code class="option">[official documentation]</code>. This option may be enabled by
 default in the future.</p></div>
 
 <p><span class="emphasis"><em>Type:</em></span>
@@ -3343,7 +3319,7 @@ list of (path or string)</p>
   ./nvim/my-lua-file.lua
 
   # source type path - pure and reproducible
-  (builtins.source {
+  (builtins.path {
     path = ./nvim/my-lua-file.lua;
     name = &quot;my-lua-file&quot;;
   })
@@ -8125,6 +8101,33 @@ attribute set of anything</p>
   some_variable = 42;
 }
 </code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_top">
+&lt;nvf/modules/wrapper/rc/options.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.globals.editorconfig"></a><a class="term" href="options.html#opt-vim.globals.editorconfig"><code class="option">vim.globals.editorconfig</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable EditorConfig integration in Neovim.</p><p>This defaults to true as it is enabled by default in stock
+Neovim, setting this option to false disables EditorConfig
+integration entirely.</p><p>See <a class="link" href="https://neovim.io/doc/user/editorconfig.html"  target="_top">Neovim documentation</a>
+for more details on configuring EditorConfig behaviour.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -19234,7 +19237,7 @@ to the <code class="literal">runtimepath</code> and enable the experimental Lua 
 if <a class="xref" href="options.html#opt-vim.enableLuaLoader"  ><code class="option">vim.enableLuaLoader</code></a> is set to true.</p>
 
 <p><span class="emphasis"><em>Example:</em></span>
-<code class="literal">&quot;$${builtins.readFile ./my-lua-config-pre.lua}&quot;</code></p>
+<code class="literal">${builtins.readFile ./my-lua-config-pre.lua}</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -23159,12 +23162,17 @@ one of “line”, “screenline”, “number”, “both”</p>
  </span>
 </dt>
 <dd>
-<p>Set modes for mouse support.</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>a - all</p></li><li class="listitem"><p>n - normal</p></li><li class="listitem"><p>v - visual</p></li><li class="listitem"><p>i - insert</p></li><li class="listitem"><p>c - command</p></li></ul></div>
+<p>Set modes for mouse support.</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>n - normal</p></li><li class="listitem"><p>v - visual</p></li><li class="listitem"><p>i - insert</p></li><li class="listitem"><p>c - command-line</p></li><li class="listitem"><p>h - all modes when editing a help file</p></li><li class="listitem"><p>a - all modes</p></li><li class="listitem"><p>r - for hit-enter and more-prompt prompt</p></li></ul></div><p>This option takes a string to ensure proper conversion to the corresponding Lua type.
+As such, we do not check the value passed to this option. Please ensure that any value
+that is set here is a valid value as per <a class="link" href="https://neovim.io/doc/user/options.html#&#x27;mouse&#x27;%22"  target="_top">neovim documentation</a>.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-one of “a”, “n”, “v”, “i”, “c”</p>
+string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;nvi&quot;</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;a&quot;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
@@ -23191,6 +23199,30 @@ signed integer</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">8</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_top">
+&lt;nvf/modules/wrapper/rc/options.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.options.signcolumn"></a><a class="term" href="options.html#opt-vim.options.signcolumn"><code class="option">vim.options.signcolumn</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Show the sign column</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -24746,30 +24778,6 @@ boolean</p>
 <tr><td>
 <code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/session/nvim-session-manager/nvim-session-manager.nix" target="_top">
 &lt;nvf/modules/plugins/session/nvim-session-manager/nvim-session-manager.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="opt-vim.showSignColumn"></a><a class="term" href="options.html#opt-vim.showSignColumn"><code class="option">vim.showSignColumn</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Show the sign column</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-boolean</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">true</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/basic.nix" target="_top">
-&lt;nvf/modules/neovim/init/basic.nix&gt;
 </a></code>
 </td></tr>
 </table>
