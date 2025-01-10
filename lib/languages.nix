@@ -5,13 +5,6 @@
   inherit (lib.types) bool;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 in {
-  # Converts a boolean to a yes/no string. This is used in lots of
-  # configuration formats, and is not covered by `toLuaObject`
-  toVimBool = bool:
-    if bool
-    then "yes"
-    else "no";
-
   diagnosticsToLua = {
     lang,
     config,

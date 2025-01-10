@@ -6,7 +6,7 @@
 }: let
   inherit (lib.modules) mkIf mkRenamedOptionModule;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.strings) concatLines;
+  inherit (lib.strings) concatLines concatStringsSep optionalString;
   inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.types) listOf str attrsOf;
   inherit (lib.nvim.lua) listToLuaTable;
@@ -134,10 +134,17 @@ in {
 
       options = {
         spell = true;
-        spelllang = cfg.languages;
+
+        # Workaround for Neovim's spelllang setup. It can be
+        #  - a string, e.g., "en"
+        #  - multiple strings, separated with commas, e.g., "en,de"
+        # toLuaObject cannot generate the correct type here, unless we take a string here.
+        spelllang = concatStringsSep "," cfg.languages;
       };
 
-      luaConfigRC.spellcheck = entryAfter ["basic"] ''
+      # Register an autocommand to disable spellchecking in buffers with given filetypes.
+      # If the list is empty, the autocommand does not need to be registered.
+      luaConfigRC.spellcheck = entryAfter ["basic"] (optionalString (cfg.ignoredFiletypes != []) ''
         -- Disable spellchecking for certain filetypes
         -- as configured by `vim.spellcheck.ignoredFiletypes`
         vim.api.nvim_create_augroup("nvf_autocmds", {clear = false})
@@ -148,7 +155,7 @@ in {
             vim.opt_local.spell = false
           end,
         })
-      '';
+      '');
     };
   };
 }

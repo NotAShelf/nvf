@@ -28,7 +28,7 @@ configuration formats.
 
 ### `vim.maps` rewrite {#sec-vim-maps-rewrite}
 
-Instead of specifying map modes using submodules (e.g.: `vim.maps.normal`), a
+Instead of specifying map modes using submodules (e.g., `vim.maps.normal`), a
 new `vim.keymaps` submodule with support for a `mode` option has been
 introduced. It can be either a string, or a list of strings, where a string
 represents the short-name of the map mode(s), that the mapping should be set

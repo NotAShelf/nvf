@@ -6,8 +6,6 @@
   inherit (lib.options) mkOption literalMD literalExpression;
   inherit (lib.strings) optionalString;
   inherit (lib.types) str bool int enum attrsOf lines listOf either path submodule anything;
-  inherit (lib.trivial) isBool;
-  inherit (lib.nvim.languages) toVimBool;
   inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.lua) listToLuaTable;
 
@@ -238,13 +236,10 @@ in {
           };
 
           signcolumn = mkOption {
-            type = either str bool;
-            default = true;
-            apply = x:
-              if isBool x
-              then toVimBool x # convert to a yes/no str
-              else x;
-            description = "Show the sign column";
+            type = str;
+            default = "yes";
+            example = "no";
+            description = "Whether to show the sign column";
           };
 
           tabstop = mkOption {
@@ -313,7 +308,7 @@ in {
         if [](#opt-vim.enableLuaLoader) is set to true.
       '';
 
-      example = literalExpression ''''${builtins.readFile ./my-lua-config-pre.lua}'';
+      example = literalExpression "\${builtins.readFile ./my-lua-config-pre.lua}";
 
       description = ''
         Verbatim lua code that will be inserted **before**
@@ -357,7 +352,7 @@ in {
     luaConfigPost = mkOption {
       type = str;
       default = "";
-      example = literalExpression ''"$${builtins.readFile ./my-lua-config-post.lua}"'';
+      example = literalExpression "\${builtins.readFile ./my-lua-config-post.lua}";
       description = ''
         Verbatim lua code that will be inserted **after**
         the result of the `luaConfigRc` DAG has been resolved
