@@ -6,6 +6,7 @@
   inherit (lib.options) mkEnableOption;
   inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.nvim.binds) mkMappingOption;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   imports = [
     (mkRenamedOptionModule ["vim" "git" "gitsigns" "codeActions" "vim" "gitsigns" "codeActions"] ["vim" "git" "gitsigns" "codeActions" "enable"])
@@ -13,6 +14,7 @@ in {
 
   options.vim.git.gitsigns = {
     enable = mkEnableOption "gitsigns" // {default = config.vim.git.enable;};
+    setupOpts = mkPluginSetupOption "gitsigns" {};
 
     codeActions.enable = mkEnableOption "gitsigns codeactions through null-ls";
 

@@ -10,12 +10,18 @@ To use it, we first add the input flake.
 ```nix
 {
   inputs = {
+    # Optional, if you intend to follow nvf's obsidian-nvim input
+    # you must also add it as a flake input.
     obsidian-nvim.url = "github:epwalsh/obsidian.nvim";
+
+    # Required, nvf works best and only directly supports flakes
     nvf = {
       url = "github:notashelf/nvf";
-      # you can override input nixpkgs
+      # You can override the input nixpkgs to follow your system's
+      # instance of nixpkgs. This is safe to do as nvf does not depend
+      # on a binary cache.
       inputs.nixpkgs.follows = "nixpkgs";
-      # you can also override individual plugins
+      # Optionally, you can also override individual plugins
       # for example:
       inputs.obsidian-nvim.follows = "obsidian-nvim"; # <- this will use the obsidian-nvim from your inputs
     };
@@ -27,8 +33,8 @@ Followed by importing the home-manager module somewhere in your configuration.
 
 ```nix
 {
-  # assuming nvf is in your inputs and inputs is in the argset
-  # see example below
+  # Assuming "nvf" is in your inputs and inputs is in the argument set.
+  # See example installation below
   imports = [ inputs.nvf.homeManagerModules.default ];
 }
 ```
@@ -44,12 +50,15 @@ Followed by importing the home-manager module somewhere in your configuration.
   };
 
   outputs = { nixpkgs, home-manager, nvf, ... }: let
-  system = "x86_64-linux"; in {
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
+  in {
     # ↓ this is your home output in the flake schema, expected by home-manager
-    "your-username@your-hostname" = home-manager.lib.homeManagerConfiguration
+    "your-username@your-hostname" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
       modules = [
         nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
-        ./home.nix # <- your home entrypoint
+        ./home.nix # <- your home entrypoint, `programs.nvf.*` may be defined here
       ];
     };
   };

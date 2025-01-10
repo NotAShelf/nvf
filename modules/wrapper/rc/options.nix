@@ -3,9 +3,11 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
+  inherit (lib.options) mkOption literalMD literalExpression;
   inherit (lib.strings) optionalString;
   inherit (lib.types) str bool int enum attrsOf lines listOf either path submodule anything;
+  inherit (lib.trivial) isBool;
+  inherit (lib.nvim.languages) toVimBool;
   inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.lua) listToLuaTable;
 
@@ -17,7 +19,7 @@ in {
       default = false;
       example = true;
       description = ''
-        [{option}`official documentation`]: https://neovim.io/doc/user/lua.html#vim.loader.enable()
+        [official documentation]: https://neovim.io/doc/user/lua.html#vim.loader.enable()
 
         the experimental Lua module loader to speed up the start up process
 
@@ -29,7 +31,7 @@ in {
 
         ::: {.note}
         The Lua module loader is *disabled* by default. Before setting this option, please
-        take a look at the [{option}`official documentation`]. This option may be enabled by
+        take a look at the {option}`[official documentation]`. This option may be enabled by
         default in the future.
         :::
       '';
@@ -81,7 +83,7 @@ in {
           ./nvim/my-lua-file.lua
 
           # source type path - pure and reproducible
-          (builtins.source {
+          (builtins.path {
             path = ./nvim/my-lua-file.lua;
             name = "my-lua-file";
           })
@@ -121,6 +123,21 @@ in {
             default = ",";
             description = "The key used for `<localleader>` mappings";
           };
+
+          editorconfig = mkOption {
+            type = bool;
+            default = true;
+            description = ''
+              Whether to enable EditorConfig integration in Neovim.
+
+              This defaults to true as it is enabled by default in stock
+              Neovim, setting this option to false disables EditorConfig
+              integration entirely.
+
+              See [Neovim documentation](https://neovim.io/doc/user/editorconfig.html)
+              for more details on configuring EditorConfig behaviour.
+            '';
+          };
         };
       };
 
@@ -150,16 +167,25 @@ in {
           };
 
           mouse = mkOption {
-            type = enum ["a" "n" "v" "i" "c"];
-            default = "a";
+            type = str;
+            default = "nvi";
+            example = "a";
             description = ''
               Set modes for mouse support.
 
-              * a - all
               * n - normal
               * v - visual
               * i - insert
-              * c - command
+              * c - command-line
+              * h - all modes when editing a help file
+              * a - all modes
+              * r - for hit-enter and more-prompt prompt
+
+              [neovim documentation]: https://neovim.io/doc/user/options.html#'mouse'"
+
+              This option takes a string to ensure proper conversion to the corresponding Lua type.
+              As such, we do not check the value passed to this option. Please ensure that any value
+              that is set here is a valid value as per [neovim documentation].
             '';
           };
 
@@ -209,6 +235,16 @@ in {
             type = bool;
             default = true;
             description = "Enable word wrapping.";
+          };
+
+          signcolumn = mkOption {
+            type = either str bool;
+            default = true;
+            apply = x:
+              if isBool x
+              then toVimBool x # convert to a yes/no str
+              else x;
+            description = "Show the sign column";
           };
 
           tabstop = mkOption {
@@ -263,7 +299,11 @@ in {
           vim.opt.runtimepath:append(${listToLuaTable cfg.additionalRuntimePaths})
         ''}
 
-        ${optionalString cfg.enableLuaLoader "vim.loader.enable()"}
+        ${optionalString cfg.enableLuaLoader ''
+          if vim.loader then
+            vim.loader.enable()
+          end
+        ''}
       '';
 
       defaultText = literalMD ''
@@ -273,7 +313,7 @@ in {
         if [](#opt-vim.enableLuaLoader) is set to true.
       '';
 
-      example = literalExpression ''"$${builtins.readFile ./my-lua-config-pre.lua}"'';
+      example = literalExpression ''''${builtins.readFile ./my-lua-config-pre.lua}'';
 
       description = ''
         Verbatim lua code that will be inserted **before**

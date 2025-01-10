@@ -1,7 +1,7 @@
 {
+  options,
   config,
   lib,
-  pkgs,
   ...
 }: let
   inherit (lib.strings) optionalString;
@@ -11,8 +11,7 @@
   inherit (lib.nvim.binds) pushDownDefault;
 
   cfg = config.vim.filetree.nvimTree;
-  self = import ./nvimtree.nix {inherit pkgs lib;};
-  inherit (self.options.vim.filetree.nvimTree) mappings;
+  inherit (options.vim.filetree.nvimTree) mappings;
 in {
   config = mkIf cfg.enable {
     vim = {

@@ -5,6 +5,7 @@
 }: let
   inherit (lib.options) mkOption mkEnableOption literalMD;
   inherit (lib.strings) optionalString;
+  inherit (lib.attrsets) optionalAttrs;
   inherit (lib.types) enum bool str int either;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryAfter;
@@ -58,22 +59,10 @@ in {
       description = "Prevent swapfile and backupfile from being created";
     };
 
-    showSignColumn = mkOption {
-      type = bool;
-      default = true;
-      description = "Show the sign column";
-    };
-
     bell = mkOption {
       type = enum ["none" "visual" "on"];
       default = "none";
       description = "Set how bells are handled. Options: on, visual or none";
-    };
-
-    enableEditorconfig = mkOption {
-      type = bool;
-      default = true;
-      description = "Follow editorconfig rules in current directory";
     };
 
     searchCase = mkOption {
@@ -106,63 +95,55 @@ in {
     # Set options that were previously interpolated in 'luaConfigRC.basic' as vim.options (vim.o)
     # and 'vim.globals' (vim.g). Future options, if possible, should be added here instead of the
     # luaConfigRC section below.
-    options = pushDownDefault {
-      encoding = "utf-8";
-      hidden = true;
-      expandtab = true;
-    };
+    options = pushDownDefault (lib.mergeAttrsList [
+      {
+        # Options that are always set, with a lower priority
+        encoding = "utf-8";
+        hidden = true;
+        expandtab = true;
 
-    globals = pushDownDefault {
-      editorconfig = cfg.enableEditorconfig;
-    };
+        # Junkfile Behaviour
+        swapfile = !cfg.preventJunkFiles;
+        backup = !cfg.preventJunkFiles;
+        writebackup = !cfg.preventJunkFiles;
+      }
 
-    # Options that are more difficult to set through 'vim.options'. Fear not, though
-    # as the Lua DAG is still as powerful as it could be.
+      (optionalAttrs cfg.undoFile.enable {
+        undofile = true;
+        undodir = cfg.undoFile.path;
+      })
+
+      (optionalAttrs (cfg.bell == "none") {
+        errorbells = false;
+        visualbell = false;
+      })
+
+      (optionalAttrs (cfg.bell == "on") {
+        visualbell = false;
+      })
+
+      (optionalAttrs (cfg.bell == "visual") {
+        visualbell = false;
+      })
+
+      (optionalAttrs (cfg.lineNumberMode == "relative") {
+        relativenumber = true;
+      })
+
+      (optionalAttrs (cfg.lineNumberMode == "number") {
+        number = true;
+      })
+
+      (optionalAttrs (cfg.lineNumberMode == "relNumber") {
+        number = true;
+        relativenumber = true;
+      })
+    ]);
+
+    # Options that are more difficult to set through 'vim.options'. Namely, appending values
+    # to pre-set Neovim options. Fear not, though as the Lua DAG is still as powerful as it
+    # could be.
     luaConfigRC.basic = entryAfter ["globalsScript"] ''
-      -- Settings that are set for everything
-      vim.opt.shortmess:append("c")
-
-      ${optionalString cfg.undoFile.enable ''
-        vim.o.undofile = true
-        vim.o.undodir = ${toLuaObject cfg.undoFile.path}
-      ''}
-
-      ${optionalString cfg.showSignColumn ''
-        vim.o.signcolumn = "yes"
-      ''}
-
-      ${optionalString cfg.preventJunkFiles ''
-        vim.o.swapfile = false
-        vim.o.backup = false
-        vim.o.writebackup = false
-      ''}
-
-      ${optionalString (cfg.bell == "none") ''
-        vim.o.errorbells = false
-        vim.o.visualbell = false
-      ''}
-
-      ${optionalString (cfg.bell == "on") ''
-        vim.o.visualbell = false
-      ''}
-
-      ${optionalString (cfg.bell == "visual") ''
-        vim.o.errorbells = false
-      ''}
-
-      ${optionalString (cfg.lineNumberMode == "relative") ''
-        vim.o.relativenumber = true
-      ''}
-
-      ${optionalString (cfg.lineNumberMode == "number") ''
-        vim.o.number = true
-      ''}
-
-      ${optionalString (cfg.lineNumberMode == "relNumber") ''
-        vim.o.number = true
-        vim.o.relativenumber = true
-      ''}
-
       ${optionalString cfg.useSystemClipboard ''
         vim.opt.clipboard:append("unnamedplus")
       ''}

@@ -22,6 +22,12 @@ in {
         package = "telescope";
         setupModule = "telescope";
         inherit (cfg) setupOpts;
+
+        # HACK: workaround until https://github.com/NotAShelf/nvf/issues/535 gets resolved
+        before = ''
+          vim.g.loaded_telescope = nil
+        '';
+
         after = ''
           local telescope = require("telescope")
           ${optionalString config.vim.ui.noice.enable "telescope.load_extension('noice')"}

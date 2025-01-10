@@ -124,7 +124,6 @@ in {
               nvim --headless --clean \
                 --cmd "mkspell $out/spell/$name.add.spl $spellfile" -Es -n
             done
-
           '';
       in
         mkIf (cfg.extraSpellWords != {}) [
@@ -133,10 +132,12 @@ in {
           compileJoinedSpellfiles.outPath
         ];
 
-      luaConfigRC.spellcheck = entryAfter ["basic"] ''
-        vim.opt.spell = true
-        vim.opt.spelllang = ${listToLuaTable cfg.languages}
+      options = {
+        spell = true;
+        spelllang = cfg.languages;
+      };
 
+      luaConfigRC.spellcheck = entryAfter ["basic"] ''
         -- Disable spellchecking for certain filetypes
         -- as configured by `vim.spellcheck.ignoredFiletypes`
         vim.api.nvim_create_augroup("nvf_autocmds", {clear = false})

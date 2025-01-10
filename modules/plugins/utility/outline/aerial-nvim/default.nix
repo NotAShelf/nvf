@@ -1,6 +1,6 @@
 {
   imports = [
-    ./gesture-nvim.nix
+    ./aerial-nvim.nix
     ./config.nix
   ];
 }

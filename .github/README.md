@@ -206,6 +206,20 @@ features.
 
 ## Credits
 
+### Co-Maintainers
+
+Alongside myself, nvf is developed by those talented folk:
+
+- [**@horriblename**](https://github.com/horriblename)
+  ([Liberapay](https://liberapay.com/horriblename/))- For actively implementing
+  planned features and quality of life updates.
+- [**@Diniamo**](https://github.com/Diniamo)
+  ([Liberapay](https://en.liberapay.com/diniamo/)) - For actively submitting
+  pull requests, issues and assistance with maintenance of nvf.
+
+Please do remember to extend your thanks (financially or otherwise) if this
+project has been helpful to you.
+
 ### Contributors
 
 [mnw]: https://github.com/gerg-l/mnw
@@ -213,21 +227,19 @@ features.
 nvf would not be what it is today without the awesome people below. Special,
 heart-felt thanks to
 
-- [@fufexan](https://github.com/fufexan) - For the transition to flake-parts and
-  invaluable Nix assistance.
-- [@FlafyDev](https://github.com/FlafyDev) - For getting home-manager module to
-  work and Nix assistance.
-- [@n3oney](https://github.com/n3oney) - For making custom keybinds finally
+- [**@fufexan**](https://github.com/fufexan) - For the transition to flake-parts
+  and invaluable Nix assistance.
+- [**@FlafyDev**](https://github.com/FlafyDev) - For getting Home-Manager module
+  to work and Nix assistance.
+- [**@n3oney**](https://github.com/n3oney) - For making custom keybinds finally
   possible, and other module additions.
-- [@horriblename](https://github.com/horriblename) - For actively implementing
-  planned features and quality of life updates.
-- [@Yavko](https://github.com/Yavko) - For the amazing **nvf** logo
-- [@FrothyMarrow](https://github.com/FrothyMarrow) - For seeing mistakes that I
-  could not.
-- [@Diniamo](https://github.com/Diniamo) - For actively submitting pull
-  requests, issues and assistance with maintenance of nvf.
-- [@Gerg-l](https://github.com/gerg-l) - For the modern Neovim wrapper, [mnw],
-  and occasional code improvements.
+- [**@Yavko**](https://github.com/Yavko) - For the amazing **nvf** logo
+- [**@FrothyMarrow**](https://github.com/FrothyMarrow) - For seeing mistakes
+  that I could not.
+- [**@Gerg-l**](https://github.com/gerg-l) 🐸 - For the modern Neovim wrapper,
+  [mnw], and occasional code improvements.
+- [**@Soliprem**](https://github.com/soliprem) - Rigorously implementing missing
+  features and excellent work on new language modules.
 
 and everyone who has submitted issues or pull requests!
 
@@ -237,17 +249,17 @@ This configuration borrows from and is based on a few other configurations,
 including:
 
 - [@jordanisaacs's](https://github.com/jordanisaacs)
-  [neovim-flake](https://github.com/jordanisaacs/neovim-flake) that this flake
-  is originally based on.
-- [@sioodmy's](https://github.com/sioodmy)
-  [dotfiles](https://github.com/sioodmy/dotfiles) that inspired the design
-  choices for UI and plugin defaults.
+  [**neovim-flake**](https://github.com/jordanisaacs/neovim-flake) that this
+  flake is originally based on.
 - [@wiltaylor's](https://github.com/wiltaylor)
   [neovim-flake](https://github.com/wiltaylor/neovim-flake) for plugin and
   design ideas.
 - [@gvolpe's](https://github.com/gvolpe)
   [neovim-flake](https://github.com/gvolpe/neovim-flake) for plugin, design and
   nix concepts.
+- [@sioodmy's](https://github.com/sioodmy)
+  [dotfiles](https://github.com/sioodmy/dotfiles) that inspired the design
+  choices for UI and plugin defaults.
 
 I am grateful for their previous work and inspiration, and I wholeheartedly
 recommend checking their work out.
@@ -255,12 +267,12 @@ recommend checking their work out.
 
 ## License
 
-Following the license of the
-[original neovim-flake](https://github.com/jordanisaacs/neovim-flake), nvf has
-been made available under the [**MIT License**](LICENSE). However, all assets
-and documentation are published under the
+Following the license of
+[the original neovim-flake](https://github.com/jordanisaacs/neovim-flake), nvf
+has been made available under the [**MIT License**](LICENSE). However, all
+assets and documentation are published under the
 [**CC BY License**](https://github.com/NotAShelf/nvf/blob/main/.github/assets/LICENSE)
-under explicit permission by the artist.
+under explicit permission by the author or authors.
 
 <h6 align="center">Yes, this includes the logo work too. Stop taking artwork that is not yours!</h6>
 

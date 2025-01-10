@@ -26,22 +26,6 @@
     then expToLua package
     else ''{"${package}/bin/${defaultCmd}"}'';
   servers = {
-    rnix = {
-      package = pkgs.rnix-lsp;
-      internalFormatter = cfg.format.type == "nixpkgs-fmt";
-      lspConfig = ''
-        lspconfig.rnix.setup{
-          capabilities = capabilities,
-        ${
-          if (cfg.format.enable && cfg.format.type == "nixpkgs-fmt")
-          then useFormat
-          else noFormat
-        },
-          cmd = ${packageToCmd cfg.lsp.package "rnix-lsp"},
-        }
-      '';
-    };
-
     nil = {
       package = pkgs.nil;
       internalFormatter = true;
@@ -165,6 +149,7 @@ in {
         type = enum (attrNames formats);
         default = defaultFormat;
       };
+
       package = mkOption {
         description = "Nix formatter package";
         type = package;
@@ -188,7 +173,18 @@ in {
       assertions = [
         {
           assertion = cfg.format.type != "nixpkgs-fmt";
-          message = "nixpkgs-fmt has been archived upstream. Please use one of the following instead: ${concatStringsSep ", " (attrNames formats)}";
+          message = ''
+            nixpkgs-fmt has been archived upstream. Please use one of the following available formatters:
+            ${concatStringsSep ", " (attrNames formats)}
+          '';
+        }
+
+        {
+          assertion = cfg.lsp.server != "rnix";
+          message = ''
+            rnix-lsp has been archived upstream. Please use one of the following available language servers:
+            ${concatStringsSep ", " (attrNames servers)}
+          '';
         }
       ];
       vim.pluginRC.nix = ''

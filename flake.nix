@@ -89,7 +89,6 @@
     };
 
     # Language servers (use master instead of nixpkgs)
-    rnix-lsp.url = "github:nix-community/rnix-lsp";
     nil = {
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -720,6 +719,16 @@
       flake = false;
     };
 
+    plugin-promise-async = {
+      url = "github:kevinhwang91/promise-async";
+      flake = false;
+    };
+
+    plugin-nvim-ufo = {
+      url = "github:kevinhwang91/nvim-ufo";
+      flake = false;
+    };
+
     plugin-new-file-template-nvim = {
       # (required by new-file-template.nvim)
       url = "github:otavioschwanck/new-file-template.nvim";
@@ -728,6 +737,11 @@
 
     plugin-haskell-tools-nvim = {
       url = "github:mrcjkb/haskell-tools.nvim";
+      flake = false;
+    };
+
+    plugin-aerial-nvim = {
+      url = "github:stevearc/aerial.nvim";
       flake = false;
     };
   };
