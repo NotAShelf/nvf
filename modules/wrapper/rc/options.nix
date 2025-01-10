@@ -6,8 +6,6 @@
   inherit (lib.options) mkOption literalMD literalExpression;
   inherit (lib.strings) optionalString;
   inherit (lib.types) str bool int enum attrsOf lines listOf either path submodule anything;
-  inherit (lib.trivial) isBool;
-  inherit (lib.nvim.languages) toVimBool;
   inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.lua) listToLuaTable;
 
