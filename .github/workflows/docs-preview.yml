@@ -164,6 +164,19 @@ jobs:
     needs: cleanup
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Double check preview directory deletion
+        run: |
+          # Check if the preview directory exists, and delete it if it does
+          if [ -d "docs-preview-${{ github.event.pull_request.number }}" ]; then
+            echo "Something went wrong, preview directory is not deleted."
+            exit 1
+          else
+            echo "Preview directory has been deleted successfully, proceeding."
+          fi
+
       - name: Post cleanup verification
         uses: peter-evans/create-or-update-comment@v4
         with:
