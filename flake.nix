@@ -89,7 +89,6 @@
     };
 
     # Language servers (use master instead of nixpkgs)
-    rnix-lsp.url = "github:nix-community/rnix-lsp";
     nil = {
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
