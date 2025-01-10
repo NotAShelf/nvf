@@ -39,6 +39,5 @@
 
 [LilleAila](https://github.com/LilleAila):
 
-[obsidian.nvim](https://github.com/epwalsh/obsidian.nvim)
-
-- Remove `vim.notes.obsidian.setupOpts.dir`. Fixes issue with setting the workspace directory.
+- Remove `vim.notes.obsidian.setupOpts.dir`, which was set by default. 
+  Fixes issue with setting the workspace directory.
