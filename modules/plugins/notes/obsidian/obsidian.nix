@@ -24,12 +24,6 @@ in {
       enable = mkEnableOption "complementary neovim plugins for Obsidian editor";
 
       setupOpts = mkPluginSetupOption "Obsidian.nvim" {
-        dir = mkOption {
-          type = str;
-          default = "~/my-vault";
-          description = "Obsidian vault directory";
-        };
-
         daily_notes = {
           folder = mkOption {
             type = nullOr str;

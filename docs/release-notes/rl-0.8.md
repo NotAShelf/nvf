@@ -44,3 +44,8 @@
 
 - Add [aerial.nvim]
 - Add [nvim-ufo]
+
+[LilleAila](https://github.com/LilleAila):
+
+- Remove `vim.notes.obsidian.setupOpts.dir`, which was set by default. 
+  Fixes issue with setting the workspace directory.
