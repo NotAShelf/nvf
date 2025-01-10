@@ -19200,7 +19200,7 @@ string</p>
 <code class="literal">&quot;&quot;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
-<code class="literal">&quot;$${builtins.readFile ./my-lua-config-post.lua}&quot;</code></p>
+<code class="literal">${builtins.readFile ./my-lua-config-post.lua}</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -23192,13 +23192,16 @@ signed integer</p>
  </span>
 </dt>
 <dd>
-<p>Show the sign column</p>
+<p>Whether to show the sign column</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-string or boolean</p>
+string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">true</code></p>
+<code class="literal">&quot;yes&quot;</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&quot;no&quot;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
