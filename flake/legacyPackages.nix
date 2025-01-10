@@ -8,8 +8,10 @@
       inherit system;
       overlays = [
         inputs.self.overlays.default
+
         (_: _: {
-          rnix-lsp = inputs'.rnix-lsp.defaultPackage;
+          # Build nil from source to get most recent
+          # features as they are added.
           nil = inputs'.nil.packages.default;
         })
       ];

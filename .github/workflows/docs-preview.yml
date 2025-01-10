@@ -1,0 +1,185 @@
+name: Build and Preview Manual
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    paths:
+      - ".github/workflows/docs-preview.yml"
+      - "modules/**"
+      - "docs/**"
+
+# Defining permissions here passes it to all workflows.
+# https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set default git branch (to reduce log spam)
+        run: git config --global init.defaultBranch main
+
+      - name: Build documentation packages
+        run: nix build .#docs-html --print-build-logs
+
+      - name: Deploy to GitHub Pages preview
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          BRANCH_NAME="gh-pages"
+          PREVIEW_DIR="docs-preview-${PR_NUMBER}"
+
+          # Clone the gh-pages branch and move to the preview subdirectory
+          git clone --single-branch --branch $BRANCH_NAME https://github.com/${{ github.repository }} gh-pages
+          cd gh-pages
+
+          mkdir -p $PREVIEW_DIR
+
+          # Copy the build files to the preview subdirectory
+          cp -rvf ../result/share/doc/nvf/* ./$PREVIEW_DIR
+
+          # Configure git to use the GitHub Actions token for authentication
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+          # Set the GitHub token for authentication
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
+          # Add and commit the changes
+          git add --all
+          git commit -m "Deploy PR #${PR_NUMBER} preview" || echo "No changes to commit"
+          git push --force origin $BRANCH_NAME
+
+  comment-url:
+    needs: build-preview
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare Environment
+        id: prelude
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          URL="https://${{ github.repository_owner }}.github.io/nvf/docs-preview-${PR_NUMBER}/"
+
+          # Propagate non-interpolatable environment vars
+          echo "URL=$URL" >> "$GITHUB_OUTPUT"
+          echo "REV=$GITHUB_SHA" >> "$GITHUB_OUTPUT"
+          echo "ACTOR=$GITHUB_ACTOR" >> "$GITHUB_OUTPUT"
+          echo "REF=$GITHUB_HEAD_REF" >> "$GITHUB_OUTPUT"
+          echo "RUNS=$GITHUB_RUN_NUMBER" >> "$GITHUB_OUTPUT"
+
+          echo "Live Preview URL: $URL"
+          echo "Rev: $GITHUB_SHA"
+          echo "Actor: $GITHUB_ACTOR"
+          echo "Ref: "$GITHUB_HEAD_REF"
+          echo "Reruns: "$GITHUB_RUN_NUMBER"
+
+          echo "### :rocket: Live Preview Deployed " >> "$GITHUB_STEP_SUMMARY"
+          echo "Preview can be found at ${URL}" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Find Comment
+        uses: peter-evans/find-comment@v3
+        id: fc
+        with:
+          comment-author: "github-actions[bot]"
+          issue-number: ${{ github.event.pull_request.number }}
+          body-includes: "Live preview deployed"
+
+      - name: Post live preview comment
+        uses: peter-evans/create-or-update-comment@v4
+        env:
+          COMMENT_ID: ${{ steps.fc.outputs.comment-id }}
+          URL: ${{ steps.prelude.outputs.URL }}
+          GITHUB_SHA: ${{ steps.prelude.outputs.REV }}
+          ACTOR: ${{ steps.prelude.outputs.ACTOR }}
+          REF: ${{ steps.prelude.outputs.REF }}
+          RUNS: ${{ steps.prelude.outputs.RUNS }}
+        with:
+          comment-id: ${{ env.COMMENT_ID }}
+          issue-number: ${{ github.event.pull_request.number }} # issue number also applies to pull requests
+          edit-mode: replace # replace previous body
+          body: |
+            ### :rocket: Live preview deployed from ${{ env.GITHUB_SHA }}
+
+            View it [here](${{ env.URL }}):
+
+            <details>
+              <summary><strong>Debug Information</strong></summary>
+              <p>Triggered by: ${{ env.ACTOR }}</p>
+              <p><code>HEAD</code> at: ${{ env.REF }}</p>
+              <p>Reruns: ${{ env.RUNS }}</p>
+            </details>
+
+  cleanup:
+    if: ${{ github.event.pull_request.merged == true || github.event.pull_request.state == 'closed' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Delete preview for closed/merged PR
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          BRANCH_NAME="gh-pages"
+          PREVIEW_DIR="docs-preview-${PR_NUMBER}"
+
+          # Clone the gh-pages branch
+          git clone --single-branch --branch $BRANCH_NAME https://github.com/${{ github.repository }} gh-pages
+          cd gh-pages
+
+          # Check if the preview directory exists, and delete it if it does
+          if [ -d "$PREVIEW_DIR" ]; then
+            echo "Deleting preview directory $PREVIEW_DIR"
+            rm -rf $PREVIEW_DIR
+          else
+            echo "Preview directory $PREVIEW_DIR does not exist. Skipping deletion."
+          fi
+
+          # Configure git to use the GitHub Actions token for authentication
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+          # Set the GitHub token for authentication
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
+          # Add and commit the changes (only if there's something to delete)
+          git add .
+          git diff --quiet || git commit -m "Remove preview for PR #${PR_NUMBER}"
+          git push origin $BRANCH_NAME
+
+  cleanup-comment:
+    needs: cleanup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Double check preview directory deletion
+        run: |
+          # Check if the preview directory exists, and delete it if it does
+          if [ -d "docs-preview-${{ github.event.pull_request.number }}" ]; then
+            echo "Something went wrong, preview directory is not deleted."
+            exit 1
+          else
+            echo "Preview directory has been deleted successfully, proceeding."
+          fi
+
+      - name: Post cleanup verification
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ✅ Preview has been deleted successfully!
