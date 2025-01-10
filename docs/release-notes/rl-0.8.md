@@ -21,6 +21,9 @@
   warning you that it is invalid. Do keep in mind that this value is no longer
   checked, so you will be responsible for ensuring its validity.
 
+- Deprecated `vim.enableEditorconfig` in favor of
+  [](#opt-vim.globals.editorconfig).
+
 [amadaluzia](https://github.com/amadaluzia):
 
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim

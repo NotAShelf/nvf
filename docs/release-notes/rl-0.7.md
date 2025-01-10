@@ -334,9 +334,6 @@ The changes are, in no particular order:
   `vim.options` as default values. Some are left as they don't have a direct
   equivalent, but expect a switch eventually.
 
-- Deprecated `vim.enableEditorconfig` in favor of
-  [](#opt-vim.globals.editorconfig).
-
 [ppenguin](https://github.com/ppenguin):
 
 - Telescope:
