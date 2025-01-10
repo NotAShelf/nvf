@@ -13,7 +13,7 @@ isMaximal: {
     };
 
     spellcheck = {
-      enable = isMaximal;
+      enable = true;
     };
 
     lsp = {
