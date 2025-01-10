@@ -2,6 +2,7 @@
   imports = [
     ./noice
     ./modes
+    ./nvim-ufo
     ./notifications
     ./smartcolumn
     ./colorizer

@@ -32,5 +32,7 @@
 [horriblename](https://github.com/horriblename):
 
 [aerial.nvim](https://github.com/stevearc/aerial.nvim)
+[nvim-ufo](https://github.com/kevinhwang91/nvim-ufo)
 
 - Add [aerial.nvim]
+- Add [nvim-ufo]
