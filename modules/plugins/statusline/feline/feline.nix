@@ -5,7 +5,7 @@
 }: let
   inherit (builtins) elem;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.types) str listOf attrsOf anything either submodule;
+  inherit (lib.types) str listOf attrs attrsOf anything either submodule;
   inherit (lib.lists) optional;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) mkPluginSetupOption;
@@ -77,9 +77,9 @@ in {
       };
 
       separators = mkOption {
-        type = listOf str;
-        default = [];
-        example = ["slant_right_2"];
+        type = attrsOf str;
+        default = {};
+        example = {vertical_bar = "┃";};
         description = ''
           A table containing custom Feline separator prests.
 
@@ -119,10 +119,24 @@ in {
           mode using `require('feline.providers.vi_mode').get_mode_color()`.
 
           See `:help feline-vi-mode` for more details on vi mode.
-
-
-
         '';
+      };
+
+      # TODO:
+
+      # - add examples for each one of those components. The option types are necessary, but confusing.
+      components = {
+        active = mkOption {
+          type = listOf (listOf (attrsOf anything));
+          default = [];
+          description = "List of components to display for buffers feline will render as 'active'";
+        };
+
+        inactive = mkOption {
+          type = listOf (listOf (attrsOf anything));
+          default = [];
+          description = "List of components to display for buffers feline will render as 'inactive'";
+        };
       };
     };
   };
