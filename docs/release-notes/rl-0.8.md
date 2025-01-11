@@ -37,6 +37,12 @@
 
 - Add Haskell support under `vim.languages.haskell` using [haskell-tools.nvim].
 
+[horriblename](https://github.com/horriblename):
+
+[blink.cmp]: https://github.com/saghen/blink.cmp
+
+- Add [blink.cmp] support
+
 [diniamo](https://github.com/diniamo):
 
 - Add Odin support under `vim.languages.odin`.
