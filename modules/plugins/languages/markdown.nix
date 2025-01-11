@@ -46,6 +46,18 @@
         )
       '';
     };
+    prettierd = {
+      package = pkgs.prettierd;
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.prettierd.with({
+            filetypes = ${expToLua (concatLists [cfg.format.extraFiletypes ["markdown"]])},
+            command = "${cfg.format.package}/bin/prettierd",
+          })
+        )
+      '';
+    };
   };
 in {
   options.vim.languages.markdown = {
