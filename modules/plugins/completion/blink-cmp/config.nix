@@ -42,6 +42,7 @@ in {
     };
 
     autocomplete = {
+      enableSharedCmpSources = true;
       blink-cmp.setupOpts = {
         sources = {
           default = ["lsp" "path" "snippets" "buffer"] ++ (attrNames cmpCfg.sources);
