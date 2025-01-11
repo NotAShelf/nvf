@@ -294,6 +294,16 @@
       flake = false;
     };
 
+    plugin-blink-cmp = {
+      url = "github:saghen/blink.cmp";
+      flake = false;
+    };
+
+    plugin-blink-compat = {
+      url = "github:saghen/blink.compat";
+      flake = false;
+    };
+
     plugin-nvim-cmp = {
       url = "github:hrsh7th/nvim-cmp";
       flake = false;
