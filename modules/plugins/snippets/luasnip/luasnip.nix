@@ -33,6 +33,8 @@ in {
       '';
     };
 
-    setupOpts = mkPluginSetupOption "LuaSnip" {};
+    setupOpts = mkPluginSetupOption "LuaSnip" {
+      enable_autosnippets = mkEnableOption "autosnippets";
+    };
   };
 }
