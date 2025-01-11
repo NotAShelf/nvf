@@ -1,7 +1,7 @@
 {lib, ...}: let
   inherit (lib.options) mkEnableOption mkOption literalExpression literalMD;
   inherit (lib.types) listOf lines;
-  inherit (lib.nvim.types) pluginType;
+  inherit (lib.nvim.types) pluginType mkPluginSetupOption;
 in {
   options.vim.snippets.luasnip = {
     enable = mkEnableOption "luasnip";
@@ -32,5 +32,7 @@ in {
         ```
       '';
     };
+
+    setupOpts = mkPluginSetupOption "LuaSnip" {};
   };
 }

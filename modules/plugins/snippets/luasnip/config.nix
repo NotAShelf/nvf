@@ -9,12 +9,12 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      lazy.plugins = {
-        luasnip = {
-          package = "luasnip";
-          lazy = true;
-          after = cfg.loaders;
-        };
+      lazy.plugins.luasnip = {
+        package = "luasnip";
+        event = "BufEnter";
+        after = cfg.loaders;
+        setupModule = "luasnip";
+        inherit (cfg) setupOpts;
       };
       startPlugins = cfg.providers;
       autocomplete.nvim-cmp = {
