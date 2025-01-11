@@ -52,3 +52,7 @@
 - Remove `vim.notes.obsidian.setupOpts.dir`, which was set by default. Fixes
   issue with setting the workspace directory.
 - Add `"prettierd"` as a formatter option in `vim.languages.markdown.format.type`.
+
+[kaktu5](https://github.com/kaktu5):
+
+- Add WGSL support under `vim.languages.wgsl`.
