@@ -17,7 +17,7 @@ in {
         };
       };
       startPlugins = cfg.providers;
-      autocomplete.nvim-cmp = {
+      autocomplete.nvim-cmp = mkIf config.vim.autocomplete.nvim-cmp.enable {
         sources = {luasnip = "[LuaSnip]";};
         sourcePlugins = ["cmp-luasnip"];
       };
