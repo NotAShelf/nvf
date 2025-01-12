@@ -11,12 +11,12 @@ in {
     vim = {
       lazy.plugins.luasnip = {
         package = "luasnip";
-        
+
         lazy = true;
-        
+
         setupModule = "luasnip";
         inherit (cfg) setupOpts;
-        
+
         after = cfg.loaders;
       };
       startPlugins = cfg.providers;
