@@ -11,10 +11,13 @@ in {
     vim = {
       lazy.plugins.luasnip = {
         package = "luasnip";
+        
         lazy = true;
-        after = cfg.loaders;
+        
         setupModule = "luasnip";
         inherit (cfg) setupOpts;
+        
+        after = cfg.loaders;
       };
       startPlugins = cfg.providers;
       autocomplete.nvim-cmp = {
