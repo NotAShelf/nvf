@@ -53,3 +53,7 @@
   issue with setting the workspace directory.
 - Add `vim.snippets.luasnip.setupOpts`, which was previously missing.
 - Add `"prettierd"` as a formatter option in `vim.languages.markdown.format.type`.
+
+[kaktu5](https://github.com/kaktu5):
+
+- Add WGSL support under `vim.languages.wgsl`.
