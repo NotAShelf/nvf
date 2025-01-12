@@ -6,11 +6,13 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
-  inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.types) enum either listOf package str nullOr attrsOf;
+  inherit (lib.nvim.lua) expToLua toLuaObject;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
+  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.languages.r;
 
@@ -74,7 +76,12 @@ in {
 
     treesitter = {
       enable = mkEnableOption "R treesitter" // {default = config.vim.languages.enableTreesitter;};
-      package = mkGrammarOption pkgs "r";
+      rPackage = mkGrammarOption pkgs "r";
+      rnowebPackage = mkGrammarOption pkgs "rnoweb";
+      mdPackage = mkGrammarOption pkgs "markdown";
+      mdInlinePackage = mkGrammarOption pkgs "markdown-inline";
+      yamlPackage = mkGrammarOption pkgs "yaml";
+      csvPackage = mkGrammarOption pkgs "csv";
     };
 
     lsp = {
@@ -109,14 +116,28 @@ in {
         description = "R formatter package";
       };
     };
+
+    extensions = {
+      R-nvim = {
+        enable =
+          mkEnableOption ''
+            [R.nvim]: https://github.com/R-Nvim/R.nvim
+
+            R.nvim adds R support to Neovim, including:
+
+              - Communication with R via Neovim's built-in terminal or tmux
+              - A built-in object explorer and autocompletions built from your R environment
+              - Keyboard shortcuts for common inserts like <- and |>
+              - Quarto/R Markdown support
+          ''
+          // {default = true;};
+
+        setupOpts = mkPluginSetupOption "R-nvim" {};
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
-    (mkIf cfg.treesitter.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
-    })
-
     (mkIf cfg.format.enable {
       vim.lsp.null-ls.enable = true;
       vim.lsp.null-ls.sources.r-format = formats.${cfg.format.type}.nullConfig;
@@ -125,6 +146,25 @@ in {
     (mkIf cfg.lsp.enable {
       vim.lsp.lspconfig.enable = true;
       vim.lsp.lspconfig.sources.r-lsp = servers.${cfg.lsp.server}.lspConfig;
+    })
+
+    (mkIf cfg.treesitter.enable {
+      vim.treesitter.enable = true;
+      vim.treesitter.grammars = [
+        cfg.treesitter.rPackage
+        cfg.treesitter.rnowebPackage
+        cfg.treesitter.mdPackage
+        cfg.treesitter.mdInlinePackage
+        cfg.treesitter.yamlPackage
+        cfg.treesitter.csvPackage
+      ];
+    })
+
+    (mkIf cfg.extensions.R-nvim.enable {
+      vim.startPlugins = ["R-nvim"];
+      vim.pluginRC.R-nvim= entryAnywhere ''
+        require("r").setup(${toLuaObject cfg.extensions.R-nvim.setupOpts})
+      '';
     })
   ]);
 }
