@@ -80,6 +80,7 @@ isMaximal: {
       ocaml.enable = false;
       elixir.enable = false;
       haskell.enable = false;
+      ruby.enable = false;
 
       tailwind.enable = false;
       svelte.enable = false;
