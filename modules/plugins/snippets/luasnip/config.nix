@@ -11,7 +11,7 @@ in {
     vim = {
       lazy.plugins.luasnip = {
         package = "luasnip";
-        event = "BufEnter";
+        lazy = true;
         after = cfg.loaders;
         setupModule = "luasnip";
         inherit (cfg) setupOpts;

@@ -52,4 +52,3 @@
 - Remove `vim.notes.obsidian.setupOpts.dir`, which was set by default. Fixes
   issue with setting the workspace directory.
 - Add `vim.snippets.luasnip.setupOpts`, which was previously missing.
-- Add a trigger event for luasnip lazy-loading
