@@ -51,4 +51,5 @@
 
 - Remove `vim.notes.obsidian.setupOpts.dir`, which was set by default. Fixes
   issue with setting the workspace directory.
+- Add `vim.snippets.luasnip.setupOpts`, which was previously missing.
 - Add `"prettierd"` as a formatter option in `vim.languages.markdown.format.type`.
