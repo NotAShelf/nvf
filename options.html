@@ -16600,6 +16600,162 @@ package</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.languages.wgsl.enable"></a><a class="term" href="options.html#opt-vim.languages.wgsl.enable"><code class="option">vim.languages.wgsl.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable WGSL language support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/wgsl.nix" target="_top">
+&lt;nvf/modules/plugins/languages/wgsl.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.wgsl.lsp.enable"></a><a class="term" href="options.html#opt-vim.languages.wgsl.lsp.enable"><code class="option">vim.languages.wgsl.lsp.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable WGSL LSP support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/wgsl.nix" target="_top">
+&lt;nvf/modules/plugins/languages/wgsl.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.wgsl.lsp.package"></a><a class="term" href="options.html#opt-vim.languages.wgsl.lsp.package"><code class="option">vim.languages.wgsl.lsp.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>wgsl-analyzer package, or the command to run as a list of strings</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package or list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation wgsl-analyzer-0.8.1&gt;</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">[(lib.getExe pkgs.wgsl-analyzer)]</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/wgsl.nix" target="_top">
+&lt;nvf/modules/plugins/languages/wgsl.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.wgsl.lsp.server"></a><a class="term" href="options.html#opt-vim.languages.wgsl.lsp.server"><code class="option">vim.languages.wgsl.lsp.server</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>WGSL LSP server to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+value “wgsl-analyzer” (singular enum)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;wgsl-analyzer&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/wgsl.nix" target="_top">
+&lt;nvf/modules/plugins/languages/wgsl.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.wgsl.treesitter.enable"></a><a class="term" href="options.html#opt-vim.languages.wgsl.treesitter.enable"><code class="option">vim.languages.wgsl.treesitter.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable WGSL treesitter.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/wgsl.nix" target="_top">
+&lt;nvf/modules/plugins/languages/wgsl.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.wgsl.treesitter.package"></a><a class="term" href="options.html#opt-vim.languages.wgsl.treesitter.package"><code class="option">vim.languages.wgsl.treesitter.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The wgsl treesitter package to use.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">pkgs.vimPlugins.nvim-treesitter.builtGrammars.wgsl</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/wgsl.nix" target="_top">
+&lt;nvf/modules/plugins/languages/wgsl.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.languages.zig.enable"></a><a class="term" href="options.html#opt-vim.languages.zig.enable"><code class="option">vim.languages.zig.enable</code>
   </a>
  </span>
