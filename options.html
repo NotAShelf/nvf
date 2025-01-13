@@ -14254,6 +14254,287 @@ package</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.languages.ruby.enable"></a><a class="term" href="options.html#opt-vim.languages.ruby.enable"><code class="option">vim.languages.ruby.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Ruby language support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/ruby.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ruby.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ruby.extraDiagnostics.enable"></a><a class="term" href="options.html#opt-vim.languages.ruby.extraDiagnostics.enable"><code class="option">vim.languages.ruby.extraDiagnostics.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Ruby extra diagnostics support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/ruby.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ruby.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ruby.extraDiagnostics.types"></a><a class="term" href="options.html#opt-vim.languages.ruby.extraDiagnostics.types"><code class="option">vim.languages.ruby.extraDiagnostics.types</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>List of Ruby diagnostics to enable</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+list of (value “rubocop” (singular enum) or (submodule))</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
+  &quot;rubocop&quot;
+]
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/ruby.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ruby.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ruby.format.enable"></a><a class="term" href="options.html#opt-vim.languages.ruby.format.enable"><code class="option">vim.languages.ruby.format.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Ruby formatter support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/ruby.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ruby.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ruby.format.package"></a><a class="term" href="options.html#opt-vim.languages.ruby.format.package"><code class="option">vim.languages.ruby.format.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Ruby formatter package</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation ruby3.3-rubocop-1.65.1&gt;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/ruby.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ruby.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ruby.format.type"></a><a class="term" href="options.html#opt-vim.languages.ruby.format.type"><code class="option">vim.languages.ruby.format.type</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Ruby formatter to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+value “rubocop” (singular enum)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;rubocop&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/ruby.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ruby.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ruby.lsp.enable"></a><a class="term" href="options.html#opt-vim.languages.ruby.lsp.enable"><code class="option">vim.languages.ruby.lsp.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Ruby LSP support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/ruby.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ruby.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ruby.lsp.package"></a><a class="term" href="options.html#opt-vim.languages.ruby.lsp.package"><code class="option">vim.languages.ruby.lsp.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Ruby LSP server package, or the command to run as a list of strings</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package or list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation ruby3.3-solargraph-0.50.0&gt;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/ruby.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ruby.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ruby.lsp.server"></a><a class="term" href="options.html#opt-vim.languages.ruby.lsp.server"><code class="option">vim.languages.ruby.lsp.server</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Ruby LSP server to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+value “rubyserver” (singular enum)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;rubyserver&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/ruby.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ruby.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ruby.treesitter.enable"></a><a class="term" href="options.html#opt-vim.languages.ruby.treesitter.enable"><code class="option">vim.languages.ruby.treesitter.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Ruby treesitter.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/ruby.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ruby.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.ruby.treesitter.package"></a><a class="term" href="options.html#opt-vim.languages.ruby.treesitter.package"><code class="option">vim.languages.ruby.treesitter.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The ruby treesitter package to use.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">pkgs.vimPlugins.nvim-treesitter.builtGrammars.ruby</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/ruby.nix" target="_top">
+&lt;nvf/modules/plugins/languages/ruby.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.languages.rust.enable"></a><a class="term" href="options.html#opt-vim.languages.rust.enable"><code class="option">vim.languages.rust.enable</code>
   </a>
  </span>
