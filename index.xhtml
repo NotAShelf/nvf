@@ -708,12 +708,9 @@ to double check your changes before making your pull request in order to avoid
 “faulty” code slipping by.</p><p>If you are uncertain how these rules affect the change you would like to make
 then feel free to start a discussion in the
 <a class="link" href="https://github.com/NotAShelf/nvf/discussions"  target="_top">discussions tab</a> ideally (but not
-necessarily) before you start developing.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-guidelines-documentation" class="title" style="clear: both">Adding Documentation   </h2>  </div> </div></div><p>Most, if not all, changes warrant changes to the documentation. Module options
-should be documented with
-<a class="link" href="https://nixos.org/manual/nixpkgs/unstable/#sec-contributing-markup"  target="_top">Nixpkgs-flavoured Markdown</a>,
-albeit with exceptions.</p><p>::: {.note} As of <span class="strong"><strong>v0.5</strong></span>, <span class="strong"><strong>nvf</strong></span> is itself documented using full markdown in
-both module options and the manual. With <span class="strong"><strong>v0.6</strong></span>, this manual has also been
-converted to markdown in full. :::</p><p>The HTML version of this manual containing both the module option descriptions
+necessarily) before you start developing.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-guidelines-documentation" class="title" style="clear: both">Adding Documentation   </h2>  </div> </div></div><p>Almost all changes warrant updates to the documentation: at the very least, you
+must update the changelog. Both the manual and module options use
+<a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/doc/README.md#syntax"  target="_top">Nixpkgs Flavoured Markdown</a>.</p><p>The HTML version of this manual containing both the module option descriptions
 and the documentation of <span class="strong"><strong>nvf</strong></span> (such as this page) can be generated and opened
 by typing the following in a shell within a clone of the <span class="strong"><strong>nvf</strong></span> Git repository:</p><pre><code class="programlisting console">$ nix build .#docs-html
 $ xdg-open $PWD/result/share/doc/nvf/index.html
@@ -763,10 +760,9 @@ description if you wish.</p><p>In case of nested modules, i.e <code class="liter
 to contain the parent as well - for example <code class="literal">languages/java: some major change</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-guidelines-code-style" class="title" style="clear: both">Code Style   </h2>  </div> </div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-code-style-treewide" class="title" >Treewide   </h3>  </div> </div></div><p>Keep lines at a reasonable width, ideally 80 characters or less. This also
 applies to string literals and module descriptions and documentation.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-code-style-nix" class="title" >Nix   </h3>  </div> </div></div><p><span class="strong"><strong>nvf</strong></span> is formatted by the
-<a class="link" href="https://github.com/kamadorueda/alejandra"  target="_top">alejandra</a> tool and the formatting is
-checked in the pull request and push workflows. Run the <code class="literal">nix fmt</code> command inside
-the project repository before submitting your pull request.</p><p>While Alejandra is mostly opinionated on how code looks after formatting,
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-code-style-nix" class="title" >Nix   </h3>  </div> </div></div><p><span class="strong"><strong>nvf</strong></span> is formatted by the <a class="link" href="https://github.com/kamadorueda/alejandra"  target="_top">alejandra</a> tool and the formatting is checked in
+the pull request and push workflows. Run the <code class="literal">nix fmt</code> command inside the
+project repository before submitting your pull request.</p><p>While Alejandra is mostly opinionated on how code looks after formatting,
 certain changes are done at the user’s discretion based on how the original code
 was structured.</p><p>Please use one line code for attribute sets that contain only one subset. For
 example:</p><pre><code class="programlisting nix"># parent modules should always be unfolded
@@ -777,10 +773,14 @@ module = {
     # same as parent modules, unfold submodules
     subModule = {
         # this is an option that contains more than one nested value
+        # Note: try to be careful about the ordering of `mkOption` arguments.
+        # General rule of thumb is to order from least to most likely to change.
+        # This is, for most cases, type &lt; default &lt; description.
+        # Example, if present, would be between default and description
         someOtherValue = mkOption {
             type = lib.types.bool;
-            description = &quot;Some other description&quot;;
             default = true;
+            description = &quot;Some other description&quot;;
         };
     };
 }
