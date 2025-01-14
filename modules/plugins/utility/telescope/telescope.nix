@@ -1,12 +1,15 @@
 {
+  config,
   pkgs,
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) int str listOf float bool either enum submodule attrsOf anything package;
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
+
+  cfg = config.vim.telescope;
   setupOptions = {
     defaults = {
       vimgrep_arguments = mkOption {
@@ -33,7 +36,7 @@
         type = either (listOf str) luaInline;
         default = ["${pkgs.fd}/bin/fd"];
         description = ''
-          Command to use for finding files. If using an executable from `PATH` then you must
+          Command to use for finding files. If using an executable from {env}`PATH` then you must
           make sure that the package is available in [](#opt-vim.extraPackages).
         '';
       };
@@ -90,17 +93,20 @@
                 type = str;
                 default = "top";
               };
+
               preview_width = mkOption {
                 description = "";
                 type = float;
                 default = 0.55;
               };
+
               results_width = mkOption {
                 description = "";
                 type = float;
                 default = 0.8;
               };
             };
+
             vertical = {
               mirror = mkOption {
                 description = "";
@@ -108,16 +114,19 @@
                 default = false;
               };
             };
+
             width = mkOption {
               description = "";
               type = float;
               default = 0.8;
             };
+
             height = mkOption {
               description = "";
               type = float;
               default = 0.8;
             };
+
             preview_cutoff = mkOption {
               description = "";
               type = int;
@@ -162,6 +171,12 @@
         default = 0;
         description = "pseudo-transparency of keymap hints floating window";
       };
+
+      extensions = mkOption {
+        type = attrsOf anything;
+        default = builtins.foldl' (acc: x: acc // (x.setup or {})) {} cfg.extensions;
+        description = "Attribute set containing per-extension settings for Telescope";
+      };
     };
   };
 
@@ -176,6 +191,13 @@
         type = listOf (either str package);
         default = [];
         description = "Package or packages providing the Telescope extension to be loaded.";
+      };
+
+      setup = mkOption {
+        type = attrsOf anything;
+        default = {};
+        example = {fzf = {fuzzy = true;};};
+        description = "Named attribute set to be inserted into Telescope's extensions table.";
       };
     };
   };
@@ -210,10 +232,24 @@ in {
     enable = mkEnableOption "telescope.nvim: multi-purpose search and picker utility";
 
     setupOpts = mkPluginSetupOption "Telescope" setupOptions;
+
     extensions = mkOption {
       type = listOf (attrsOf (submodule extensionOpts));
       default = [];
-      description = "TODO";
+      example = literalExpression ''
+        [
+          {
+            name = "fzf";
+            packages = [pkgs.vimPlugins.telescope-fzf-native-nvim];
+            setup = {fzf = {fuzzy = true;};};
+          }
+        ]
+      '';
+      description = ''
+        Individual extension configurations containing **name**, **packages** and **setup**
+        fields to resolve dependencies, handle `load_extension` calls and add the `setup`
+        table into the `extensions` portion of Telescope's setup table.
+      '';
     };
   };
 }
