@@ -1,18 +1,17 @@
 {
   imports = [
-    ./outline
     ./binds
     ./ccc
+    ./diffview
     ./gestures
-    ./motion
-    ./new-file-template
-    ./telescope
     ./icon-picker
     ./images
-    ./telescope
-    ./diffview
-    ./wakatime
-    ./surround
+    ./motion
+    ./new-file-template
+    ./outline
     ./preview
+    ./surround
+    ./telescope
+    ./wakatime
   ];
 }
