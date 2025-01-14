@@ -4,16 +4,12 @@
   ...
 }: let
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) int str listOf float bool either enum submodule attrsOf;
+  inherit (lib.types) int str listOf float bool either enum submodule attrsOf anything package;
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   setupOptions = {
     defaults = {
       vimgrep_arguments = mkOption {
-        description = ''
-          Defines the command that will be used for `live_grep` and `grep_string` pickers.
-          Make sure that color is set to `never` because telescope does not yet interpret color codes.
-        '';
         type = listOf str;
         default = [
           "${pkgs.ripgrep}/bin/rg"
@@ -26,53 +22,65 @@
           "--hidden"
           "--no-ignore"
         ];
+
+        description = ''
+          Defines the command that will be used for `live_grep` and `grep_string` pickers.
+          Make sure that color is set to `never` because telescope does not yet interpret color codes.
+        '';
       };
+
       pickers.find_command = mkOption {
-        description = "cmd to use for finding files";
         type = either (listOf str) luaInline;
         default = ["${pkgs.fd}/bin/fd"];
+        description = ''
+          Command to use for finding files. If using an executable from `PATH` then you must
+          make sure that the package is available in [](#opt-vim.extraPackages).
+        '';
       };
+
       prompt_prefix = mkOption {
-        description = "Shown in front of Telescope's prompt";
         type = str;
         default = "     ";
+        description = "Shown in front of Telescope's prompt";
       };
+
       selection_caret = mkOption {
+        type = str;
+        default = "  ";
         description = "Character(s) to show in front of the current selection";
-        type = str;
-        default = "  ";
       };
+
       entry_prefix = mkOption {
-        description = "Prefix in front of each result entry. Current selection not included.";
         type = str;
         default = "  ";
+        description = "Prefix in front of each result entry. Current selection not included.";
       };
+
       initial_mode = mkOption {
-        description = "Determines in which mode telescope starts.";
         type = enum ["insert" "normal"];
         default = "insert";
+        description = "Determines in which mode telescope starts.";
       };
+
       selection_strategy = mkOption {
-        description = "Determines how the cursor acts after each sort iteration.";
         type = enum ["reset" "follow" "row" "closest" "none"];
         default = "reset";
+        description = "Determines how the cursor acts after each sort iteration.";
       };
+
       sorting_strategy = mkOption {
-        description = ''Determines the direction "better" results are sorted towards.'';
         type = enum ["descending" "ascending"];
         default = "ascending";
+        description = ''Determines the direction "better" results are sorted towards.'';
       };
+
       layout_strategy = mkOption {
-        description = "Determines the default layout of Telescope pickers. See `:help telescope.layout`.";
         type = str;
         default = "horizontal";
+        description = "Determines the default layout of Telescope pickers. See `:help telescope.layout`.";
       };
+
       layout_config = mkOption {
-        description = ''
-          Determines the default configuration values for layout strategies.
-          See telescope.layout for details of the configurations options for
-          each strategy.
-        '';
         default = {};
         type = submodule {
           options = {
@@ -117,33 +125,57 @@
             };
           };
         };
+
+        description = ''
+          Determines the default configuration values for layout strategies.
+          See `telescope.layout` for details of the configurations options for
+          each strategy.
+        '';
       };
+
       file_ignore_patterns = mkOption {
-        description = "A table of lua regex that define the files that should be ignored.";
         type = listOf str;
         default = ["node_modules" ".git/" "dist/" "build/" "target/" "result/"];
+        description = "A table of lua regex that define the files that should be ignored.";
       };
+
       color_devicons = mkOption {
-        description = "Boolean if devicons should be enabled or not.";
         type = bool;
         default = true;
+        description = "Boolean if devicons should be enabled or not.";
       };
+
       path_display = mkOption {
-        description = "Determines how file paths are displayed.";
         type = listOf (enum ["hidden" "tail" "absolute" "smart" "shorten" "truncate"]);
         default = ["absolute"];
+        description = "Determines how file paths are displayed.";
       };
+
       set_env = mkOption {
-        description = "Set an environment for term_previewer";
         type = attrsOf str;
-        default = {
-          COLORTERM = "truecolor";
-        };
+        default = {COLORTERM = "truecolor";};
+        description = "Set an environment for term_previewer";
       };
+
       winblend = mkOption {
-        description = "pseudo-transparency of keymap hints floating window";
         type = int;
         default = 0;
+        description = "pseudo-transparency of keymap hints floating window";
+      };
+    };
+  };
+
+  extensionOpts = {
+    options = {
+      name = mkOption {
+        type = str;
+        description = "Name of the extension, will be used to load it with a `require`";
+      };
+
+      packages = mkOption {
+        type = listOf (either str package);
+        default = [];
+        description = "Package or packages providing the Telescope extension to be loaded.";
       };
     };
   };
@@ -178,5 +210,10 @@ in {
     enable = mkEnableOption "telescope.nvim: multi-purpose search and picker utility";
 
     setupOpts = mkPluginSetupOption "Telescope" setupOptions;
+    extensions = mkOption {
+      type = listOf (attrsOf (submodule extensionOpts));
+      default = [];
+      description = "TODO";
+    };
   };
 }
