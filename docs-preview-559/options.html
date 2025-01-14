@@ -28098,13 +28098,25 @@ boolean</p>
  </span>
 </dt>
 <dd>
-<p>TODO</p>
+<p>Individual extension configurations containing <span class="strong"><strong>name</strong></span>, <span class="strong"><strong>packages</strong></span> and <span class="strong"><strong>setup</strong></span>
+fields to resolve dependencies, handle <code class="literal">load_extension</code> calls and add the <code class="literal">setup</code>
+table into the <code class="literal">extensions</code> portion of Telescope’s setup table.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 list of attribute set of (submodule)</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">[ ]</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">[
+  {
+    name = &quot;fzf&quot;;
+    packages = [pkgs.vimPlugins.telescope-fzf-native-nvim];
+    setup = {fzf = {fuzzy = true;};};
+  }
+]
+
+</code></pre>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -28150,6 +28162,37 @@ list of (string or package)</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_top">
+&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.telescope.extensions._._name_.setup"></a><a class="term" href="options.html#opt-vim.telescope.extensions._._name_.setup"><code class="option">vim.telescope.extensions.*.&lt;name&gt;.setup</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Named attribute set to be inserted into Telescope’s extensions table.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+attribute set of anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">{
+  fzf = {
+    fuzzy = true;
+  };
+}
+</code></pre>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -28715,6 +28758,30 @@ string</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.telescope.setupOpts.defaults.extensions"></a><a class="term" href="options.html#opt-vim.telescope.setupOpts.defaults.extensions"><code class="option">vim.telescope.setupOpts.defaults.extensions</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Attribute set containing per-extension settings for Telescope</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+attribute set of anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_top">
+&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.telescope.setupOpts.defaults.file_ignore_patterns"></a><a class="term" href="options.html#opt-vim.telescope.setupOpts.defaults.file_ignore_patterns"><code class="option">vim.telescope.setupOpts.defaults.file_ignore_patterns</code>
   </a>
  </span>
@@ -29005,7 +29072,7 @@ list of (one of “hidden”, “tail”, “absolute”, “smart”, “shorte
  </span>
 </dt>
 <dd>
-<p>Command to use for finding files. If using an executable from <code class="literal">PATH</code> then you must
+<p>Command to use for finding files. If using an executable from <code class="envar">PATH</code> then you must
 make sure that the package is available in <a class="xref" href="options.html#opt-vim.extraPackages"  ><code class="option">vim.extraPackages</code></a>.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
