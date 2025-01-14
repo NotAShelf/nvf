@@ -287,6 +287,12 @@
       flake = false;
     };
 
+    plugin-feline-nvim = {
+      url = "github:freddiehaddad/feline.nvim";
+      flake = false;
+    };
+
+    # Completion
     plugin-nvim-cmp = {
       url = "github:hrsh7th/nvim-cmp";
       flake = false;
