@@ -14,14 +14,11 @@ necessarily) before you start developing.
 
 ## Adding Documentation {#sec-guidelines-documentation}
 
-Most, if not all, changes warrant changes to the documentation. Module options
-should be documented with
-[Nixpkgs-flavoured Markdown](https://nixos.org/manual/nixpkgs/unstable/#sec-contributing-markup),
-albeit with exceptions.
+[Nixpkgs Flavoured Markdown]: https://github.com/NixOS/nixpkgs/blob/master/doc/README.md#syntax
 
-::: {.note} As of **v0.5**, **nvf** is itself documented using full markdown in
-both module options and the manual. With **v0.6**, this manual has also been
-converted to markdown in full. :::
+Almost all changes warrant updates to the documentation: at the very least, you
+must update the changelog. Both the manual and module options use
+[Nixpkgs Flavoured Markdown].
 
 The HTML version of this manual containing both the module option descriptions
 and the documentation of **nvf** (such as this page) can be generated and opened
@@ -117,10 +114,11 @@ applies to string literals and module descriptions and documentation.
 
 ### Nix {#sec-code-style-nix}
 
-**nvf** is formatted by the
-[alejandra](https://github.com/kamadorueda/alejandra) tool and the formatting is
-checked in the pull request and push workflows. Run the `nix fmt` command inside
-the project repository before submitting your pull request.
+[alejandra]: https://github.com/kamadorueda/alejandra
+
+**nvf** is formatted by the [alejandra] tool and the formatting is checked in
+the pull request and push workflows. Run the `nix fmt` command inside the
+project repository before submitting your pull request.
 
 While Alejandra is mostly opinionated on how code looks after formatting,
 certain changes are done at the user's discretion based on how the original code
@@ -138,10 +136,14 @@ module = {
     # same as parent modules, unfold submodules
     subModule = {
         # this is an option that contains more than one nested value
+        # Note: try to be careful about the ordering of `mkOption` arguments.
+        # General rule of thumb is to order from least to most likely to change.
+        # This is, for most cases, type < default < description.
+        # Example, if present, would be between default and description
         someOtherValue = mkOption {
             type = lib.types.bool;
-            description = "Some other description";
             default = true;
+            description = "Some other description";
         };
     };
 }

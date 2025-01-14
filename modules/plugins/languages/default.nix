@@ -38,6 +38,8 @@ in {
     ./julia.nix
     ./nu.nix
     ./odin.nix
+    ./wgsl.nix
+    ./ruby.nix
   ];
 
   options.vim.languages = {
