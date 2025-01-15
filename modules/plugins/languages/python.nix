@@ -106,6 +106,24 @@
         )
       '';
     };
+
+    ruff = {
+      package = pkgs.writeShellApplication {
+        name = "ruff";
+        runtimeInputs = [pkgs.ruff];
+        text = ''
+          ruff format -
+        '';
+      };
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.ruff.with({
+            command = "${cfg.format.package}/bin/ruff",
+          })
+        )
+      '';
+    };
   };
 
   defaultDebugger = "debugpy";
