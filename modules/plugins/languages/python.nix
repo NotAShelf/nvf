@@ -109,7 +109,7 @@
 
     ruff = {
       package = pkgs.writeShellApplication {
-        name =  "ruff";
+        name = "ruff";
         runtimeInputs = [pkgs.ruff];
         text = ''
           ruff format -
