@@ -10,6 +10,16 @@
   cfg = config.vim.lsp;
 in {
   config = mkIf (cfg.enable && cfg.lspSignature.enable) {
+    assertions = [
+      {
+        assertion = !config.vim.autocomplete.blink-cmp.enable;
+        message = ''
+          lsp-signature does not work with blink.cmp. Please use blink.cmp's builtin signature feature:
+
+          vim.autocomplete.blink-cmp.setupOpts.signature.enabled = true;
+        '';
+      }
+    ];
     vim = {
       startPlugins = [
         "lsp-signature"
