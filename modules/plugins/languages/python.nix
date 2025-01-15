@@ -106,6 +106,18 @@
         )
       '';
     };
+
+    ruff = {
+      package = pkgs.ruff;
+      nullConfig = ''
+        table.insert(
+          ls_sources,
+          null_ls.builtins.formatting.ruff.with({
+            command = "${cfg.format.package}/bin/ruff",
+          })
+        )
+      '';
+    };
   };
 
   defaultDebugger = "debugpy";
