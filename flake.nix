@@ -744,5 +744,11 @@
       url = "github:stevearc/aerial.nvim";
       flake = false;
     };
+
+    # Plugin collections
+    plugin-mini-nvim = {
+      url = "github:echasnovski/mini.nvim";
+      flake = false;
+    };
   };
 }

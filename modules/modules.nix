@@ -19,6 +19,7 @@
     plugins = map (p: ./plugins + "/${p}") [
       "assistant"
       "autopairs"
+      "collections"
       "comments"
       "completion"
       "dashboard"
