@@ -890,5 +890,10 @@
       url = "github:echasnovski/mini.pairs";
       flake = false;
     };
+
+    plugin-mini-pick = {
+      url = "github:echasnovski/mini.pick";
+      flake = false;
+    };
   };
 }

@@ -29,5 +29,6 @@
     ./notify
     ./operators
     ./pairs
+    ./pick
   ];
 }

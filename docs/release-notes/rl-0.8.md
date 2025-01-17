@@ -83,6 +83,7 @@
   - `mini.notify`
   - `mini.operators`
   - `mini.pairs`
+  - `mini.pick`
 
 [kaktu5](https://github.com/kaktu5):
 
