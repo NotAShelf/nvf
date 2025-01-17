@@ -62,6 +62,7 @@
   - `mini.bracketed`
   - `mini.bufremove`
   - `mini.clue`
+  - `mini.colors`
 
 [kaktu5](https://github.com/kaktu5):
 

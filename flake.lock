@@ -1064,6 +1064,22 @@
         "type": "github"
       }
     },
+    "plugin-mini-colors": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1730726192,
+        "narHash": "sha256-B2JahCUhKpYwOJrl+BhSp3UQFiyyMGJAYKGK+uMv3fk=",
+        "owner": "echasnovski",
+        "repo": "mini.colors",
+        "rev": "d64b1c0f520579d905f97208eca85329e664ab88",
+        "type": "github"
+      },
+      "original": {
+        "owner": "echasnovski",
+        "repo": "mini.colors",
+        "type": "github"
+      }
+    },
     "plugin-minimap-vim": {
       "flake": false,
       "locked": {
@@ -2268,6 +2284,7 @@
         "plugin-mini-bracketed": "plugin-mini-bracketed",
         "plugin-mini-bufremove": "plugin-mini-bufremove",
         "plugin-mini-clue": "plugin-mini-clue",
+        "plugin-mini-colors": "plugin-mini-colors",
         "plugin-minimap-vim": "plugin-minimap-vim",
         "plugin-modes-nvim": "plugin-modes-nvim",
         "plugin-neo-tree-nvim": "plugin-neo-tree-nvim",

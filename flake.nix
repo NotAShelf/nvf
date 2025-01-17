@@ -785,5 +785,10 @@
       url = "github:echasnovski/mini.clue";
       flake = false;
     };
+
+    plugin-mini-colors = {
+      url = "github:echasnovski/mini.colors";
+      flake = false;
+    };
   };
 }

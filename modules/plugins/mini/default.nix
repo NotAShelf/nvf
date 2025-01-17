@@ -8,5 +8,6 @@
     ./bracketed
     ./bufremove
     ./clue
+    ./colors
   ];
 }
