@@ -33,5 +33,6 @@
     ./sessions
     ./snippets
     ./splitjoin
+    ./starter
   ];
 }

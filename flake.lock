@@ -1464,6 +1464,22 @@
         "type": "github"
       }
     },
+    "plugin-mini-starter": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1736858747,
+        "narHash": "sha256-pJYkZUo+L3IeGCRdTipqTzMv+HatpNnyRxshaygKtIw=",
+        "owner": "echasnovski",
+        "repo": "mini.starter",
+        "rev": "4b257cfc93241e8c8cde3f9302d1616ad4e0d036",
+        "type": "github"
+      },
+      "original": {
+        "owner": "echasnovski",
+        "repo": "mini.starter",
+        "type": "github"
+      }
+    },
     "plugin-minimap-vim": {
       "flake": false,
       "locked": {
@@ -2693,6 +2709,7 @@
         "plugin-mini-sessions": "plugin-mini-sessions",
         "plugin-mini-snippets": "plugin-mini-snippets",
         "plugin-mini-splitjoin": "plugin-mini-splitjoin",
+        "plugin-mini-starter": "plugin-mini-starter",
         "plugin-minimap-vim": "plugin-minimap-vim",
         "plugin-modes-nvim": "plugin-modes-nvim",
         "plugin-neo-tree-nvim": "plugin-neo-tree-nvim",

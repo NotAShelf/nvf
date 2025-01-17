@@ -87,6 +87,7 @@
   - `mini.sessions`
   - `mini.snippets`
   - `mini.splitjoin`
+  - `mini.starter`
 
 [kaktu5](https://github.com/kaktu5):
 

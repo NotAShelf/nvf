@@ -910,5 +910,10 @@
       url = "github:echasnovski/mini.splitjoin";
       flake = false;
     };
+
+    plugin-mini-starter = {
+      url = "github:echasnovski/mini.starter";
+      flake = false;
+    };
   };
 }
