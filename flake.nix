@@ -920,5 +920,10 @@
       url = "github:echasnovski/mini.statusline";
       flake = false;
     };
+
+    plugin-mini-surround = {
+      url = "github:echasnovski/mini.surround";
+      flake = false;
+    };
   };
 }

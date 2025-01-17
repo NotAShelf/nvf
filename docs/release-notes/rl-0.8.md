@@ -89,6 +89,7 @@
   - `mini.splitjoin`
   - `mini.starter`
   - `mini.statusline`
+  - `mini.surround`
 
 [kaktu5](https://github.com/kaktu5):
 

@@ -35,5 +35,6 @@
     ./splitjoin
     ./starter
     ./statusline
+    ./surround
   ];
 }
