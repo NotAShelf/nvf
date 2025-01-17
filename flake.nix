@@ -845,5 +845,10 @@
       url = "github:echasnovski/mini.icons";
       flake = false;
     };
+
+    plugin-mini-indentscope = {
+      url = "github:echasnovski/mini.indentscope";
+      flake = false;
+    };
   };
 }

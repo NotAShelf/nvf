@@ -20,5 +20,6 @@
     ./hipatterns
     ./hues
     ./icons
+    ./indentscope
   ];
 }
