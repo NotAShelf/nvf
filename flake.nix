@@ -760,5 +760,10 @@
       url = "github:echasnovski/mini.animate";
       flake = false;
     };
+
+    plugin-mini-base16 = {
+      url = "github:echasnovski/mini.base16";
+      flake = false;
+    };
   };
 }
