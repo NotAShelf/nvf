@@ -19,5 +19,6 @@
     ./git
     ./hipatterns
     ./hues
+    ./icons
   ];
 }

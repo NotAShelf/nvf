@@ -840,5 +840,10 @@
       url = "github:echasnovski/mini.hues";
       flake = false;
     };
+
+    plugin-mini-icons = {
+      url = "github:echasnovski/mini.icons";
+      flake = false;
+    };
   };
 }

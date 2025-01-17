@@ -73,6 +73,7 @@
   - `mini.git`
   - `mini.hipatterns`
   - `mini.hues`
+  - `mini.icons`
 
 [kaktu5](https://github.com/kaktu5):
 
