@@ -58,6 +58,7 @@
   - `mini.align`
   - `mini.animate`
   - `mini.base16`
+  - `mini.basics`
 
 [kaktu5](https://github.com/kaktu5):
 

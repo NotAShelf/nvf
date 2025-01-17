@@ -765,5 +765,10 @@
       url = "github:echasnovski/mini.base16";
       flake = false;
     };
+
+    plugin-mini-basics = {
+      url = "github:echasnovski/mini.basics";
+      flake = false;
+    };
   };
 }
