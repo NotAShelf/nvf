@@ -37,5 +37,6 @@
     ./statusline
     ./surround
     ./tabline
+    ./test
   ];
 }

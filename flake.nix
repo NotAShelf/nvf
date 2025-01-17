@@ -930,5 +930,10 @@
       url = "github:echasnovski/mini.tabline";
       flake = false;
     };
+
+    plugin-mini-test = {
+      url = "github:echasnovski/mini.test";
+      flake = false;
+    };
   };
 }

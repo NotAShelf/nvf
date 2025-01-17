@@ -91,6 +91,7 @@
   - `mini.statusline`
   - `mini.surround`
   - `mini.tabline`
+  - `mini.test`
 
 [kaktu5](https://github.com/kaktu5):
 
