@@ -915,5 +915,10 @@
       url = "github:echasnovski/mini.starter";
       flake = false;
     };
+
+    plugin-mini-statusline = {
+      url = "github:echasnovski/mini.statusline";
+      flake = false;
+    };
   };
 }

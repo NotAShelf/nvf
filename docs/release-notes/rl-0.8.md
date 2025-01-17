@@ -88,6 +88,7 @@
   - `mini.snippets`
   - `mini.splitjoin`
   - `mini.starter`
+  - `mini.statusline`
 
 [kaktu5](https://github.com/kaktu5):
 

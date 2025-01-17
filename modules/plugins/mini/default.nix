@@ -34,5 +34,6 @@
     ./snippets
     ./splitjoin
     ./starter
+    ./statusline
   ];
 }
