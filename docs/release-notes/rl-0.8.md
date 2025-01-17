@@ -68,6 +68,7 @@
   - `mini.diff`
   - `mini.doc`
   - `mini.extra`
+  - `mini.files`
 
 [kaktu5](https://github.com/kaktu5):
 

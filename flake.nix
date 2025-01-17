@@ -815,5 +815,10 @@
       url = "github:echasnovski/mini.extra";
       flake = false;
     };
+
+    plugin-mini-files = {
+      url = "github:echasnovski/mini.files";
+      flake = false;
+    };
   };
 }

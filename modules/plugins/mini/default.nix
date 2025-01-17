@@ -14,5 +14,6 @@
     ./diff
     ./doc
     ./extra
+    ./files
   ];
 }
