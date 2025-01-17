@@ -55,6 +55,7 @@
 - Add `"prettierd"` as a formatter option in `vim.languages.markdown.format.type`.
 - Add the following plugins from [mini.nvim](https://github.com/echasnovski/mini.nvim)
   - `mini.ai`
+  - `mini.align`
 
 [kaktu5](https://github.com/kaktu5):
 

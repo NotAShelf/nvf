@@ -750,5 +750,10 @@
       url = "github:echasnovski/mini.ai";
       flake = false;
     };
+
+    plugin-mini-align = {
+      url = "github:echasnovski/mini.align";
+      flake = false;
+    };
   };
 }
