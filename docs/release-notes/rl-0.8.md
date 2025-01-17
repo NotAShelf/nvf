@@ -62,8 +62,10 @@
 [tomasguinzburg](https://github.com/tomasguinzburg):
 
 [solargraph]: https://github.com/castwide/solargraph
+[gbprod/nord.nvim]: https://github.com/gbprod/nord.nvim
 
 - Add Ruby support under `vim.languages.ruby` using [solargraph].
+- Add `nord` theme from [gbprod/nord.nvim].
 
 [thamenato](https://github.com/thamenato):
 

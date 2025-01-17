@@ -5,7 +5,7 @@
     self,
     ...
   } @ inputs: let
-    # call the extedended library with `inputs`
+    # call the extended library with `inputs`
     # inputs is used to get the original standard library, and to pass inputs to the plugin autodiscovery function
     lib = import ./lib/stdlib-extended.nix inputs;
   in
@@ -416,6 +416,11 @@
 
     plugin-rose-pine = {
       url = "github:rose-pine/neovim";
+      flake = false;
+    };
+
+    plugin-nord = {
+      url = "github:gbprod/nord.nvim";
       flake = false;
     };
 
