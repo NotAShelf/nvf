@@ -15,5 +15,6 @@
     ./doc
     ./extra
     ./files
+    ./fuzzy
   ];
 }

@@ -1176,6 +1176,22 @@
         "type": "github"
       }
     },
+    "plugin-mini-fuzzy": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1730726192,
+        "narHash": "sha256-XvDkDfwPcBxySuz58f2mpWTeo8EsOnMvZUcNI8HNZg8=",
+        "owner": "echasnovski",
+        "repo": "mini.fuzzy",
+        "rev": "faa5a6c0d29c28012c90bd011162963a58715428",
+        "type": "github"
+      },
+      "original": {
+        "owner": "echasnovski",
+        "repo": "mini.fuzzy",
+        "type": "github"
+      }
+    },
     "plugin-minimap-vim": {
       "flake": false,
       "locked": {
@@ -2387,6 +2403,7 @@
         "plugin-mini-doc": "plugin-mini-doc",
         "plugin-mini-extra": "plugin-mini-extra",
         "plugin-mini-files": "plugin-mini-files",
+        "plugin-mini-fuzzy": "plugin-mini-fuzzy",
         "plugin-minimap-vim": "plugin-minimap-vim",
         "plugin-modes-nvim": "plugin-modes-nvim",
         "plugin-neo-tree-nvim": "plugin-neo-tree-nvim",

@@ -69,6 +69,7 @@
   - `mini.doc`
   - `mini.extra`
   - `mini.files`
+  - `mini.fuzzy`
 
 [kaktu5](https://github.com/kaktu5):
 
