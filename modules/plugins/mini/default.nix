@@ -28,5 +28,6 @@
     ./move
     ./notify
     ./operators
+    ./pairs
   ];
 }

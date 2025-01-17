@@ -885,5 +885,10 @@
       url = "github:echasnovski/mini.operators";
       flake = false;
     };
+
+    plugin-mini-pairs = {
+      url = "github:echasnovski/mini.pairs";
+      flake = false;
+    };
   };
 }
