@@ -60,6 +60,7 @@
   - `mini.base16`
   - `mini.basics`
   - `mini.bracketed`
+  - `mini.bufremove`
 
 [kaktu5](https://github.com/kaktu5):
 

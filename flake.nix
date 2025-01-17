@@ -775,5 +775,10 @@
       url = "github:echasnovski/mini.bracketed";
       flake = false;
     };
+
+    plugin-mini-bufremove = {
+      url = "github:echasnovski/mini.bufremove";
+      flake = false;
+    };
   };
 }
