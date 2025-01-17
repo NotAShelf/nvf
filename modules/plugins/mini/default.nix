@@ -36,5 +36,6 @@
     ./starter
     ./statusline
     ./surround
+    ./tabline
   ];
 }

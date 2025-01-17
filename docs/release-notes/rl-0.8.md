@@ -90,6 +90,7 @@
   - `mini.starter`
   - `mini.statusline`
   - `mini.surround`
+  - `mini.tabline`
 
 [kaktu5](https://github.com/kaktu5):
 

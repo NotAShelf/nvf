@@ -1512,6 +1512,22 @@
         "type": "github"
       }
     },
+    "plugin-mini-tabline": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1729176541,
+        "narHash": "sha256-nucUqSN8w2xBnDp1dFBgRVVvfVoqZMdx7Zj78wdFAP0=",
+        "owner": "echasnovski",
+        "repo": "mini.tabline",
+        "rev": "06ef4ecaeca2e362c7d31113435d86d144b3cbbe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "echasnovski",
+        "repo": "mini.tabline",
+        "type": "github"
+      }
+    },
     "plugin-minimap-vim": {
       "flake": false,
       "locked": {
@@ -2744,6 +2760,7 @@
         "plugin-mini-starter": "plugin-mini-starter",
         "plugin-mini-statusline": "plugin-mini-statusline",
         "plugin-mini-surround": "plugin-mini-surround",
+        "plugin-mini-tabline": "plugin-mini-tabline",
         "plugin-minimap-vim": "plugin-minimap-vim",
         "plugin-modes-nvim": "plugin-modes-nvim",
         "plugin-neo-tree-nvim": "plugin-neo-tree-nvim",

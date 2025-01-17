@@ -925,5 +925,10 @@
       url = "github:echasnovski/mini.surround";
       flake = false;
     };
+
+    plugin-mini-tabline = {
+      url = "github:echasnovski/mini.tabline";
+      flake = false;
+    };
   };
 }
