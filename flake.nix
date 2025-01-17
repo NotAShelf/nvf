@@ -744,5 +744,11 @@
       url = "github:stevearc/aerial.nvim";
       flake = false;
     };
+
+    # Mini.nvim
+    plugin-mini-ai = {
+      url = "github:echasnovski/mini.ai";
+      flake = false;
+    };
   };
 }

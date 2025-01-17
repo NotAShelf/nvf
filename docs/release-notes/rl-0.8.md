@@ -53,6 +53,8 @@
   issue with setting the workspace directory.
 - Add `vim.snippets.luasnip.setupOpts`, which was previously missing.
 - Add `"prettierd"` as a formatter option in `vim.languages.markdown.format.type`.
+- Add the following plugins from [mini.nvim](https://github.com/echasnovski/mini.nvim)
+  - `mini.ai`
 
 [kaktu5](https://github.com/kaktu5):
 

@@ -27,6 +27,7 @@
       "git"
       "languages"
       "lsp"
+      "mini"
       "minimap"
       "notes"
       "projects"
