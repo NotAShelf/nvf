@@ -1097,6 +1097,22 @@
         "type": "github"
       }
     },
+    "plugin-nord": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1737019140,
+        "narHash": "sha256-ZhDS7Y90DKp+jkUqcoQRf/zHy4DVgSDQXrnl3sBYJXs=",
+        "owner": "gbprod",
+        "repo": "nord.nvim",
+        "rev": "b0f3ed242fd8e5bafa7231367821d46c6c835dd8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gbprod",
+        "repo": "nord.nvim",
+        "type": "github"
+      }
+    },
     "plugin-nui-nvim": {
       "flake": false,
       "locked": {
@@ -2142,6 +2158,7 @@
         "plugin-new-file-template-nvim": "plugin-new-file-template-nvim",
         "plugin-noice-nvim": "plugin-noice-nvim",
         "plugin-none-ls": "plugin-none-ls",
+        "plugin-nord": "plugin-nord",
         "plugin-nui-nvim": "plugin-nui-nvim",
         "plugin-nvim-autopairs": "plugin-nvim-autopairs",
         "plugin-nvim-bufferline-lua": "plugin-nvim-bufferline-lua",

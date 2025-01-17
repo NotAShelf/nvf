@@ -177,4 +177,14 @@ in {
     '';
     styles = ["main" "moon" "dawn"];
   };
+  nord = {
+    setup = {transparent ? false, ...}: ''
+      require("nord").setup({
+        transparent = ${boolToString transparent},
+        search = "vscode", -- [vim|vscode]
+      })
+
+      vim.cmd.colorscheme("nord")
+    '';
+  };
 }
