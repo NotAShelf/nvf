@@ -830,5 +830,10 @@
       url = "github:echasnovski/mini-git";
       flake = false;
     };
+
+    plugin-mini-hipatterns = {
+      url = "github:echasnovski/mini.hipatterns";
+      flake = false;
+    };
   };
 }

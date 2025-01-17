@@ -17,5 +17,6 @@
     ./files
     ./fuzzy
     ./git
+    ./hipatterns
   ];
 }

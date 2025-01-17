@@ -1208,6 +1208,22 @@
         "type": "github"
       }
     },
+    "plugin-mini-hipatterns": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1733141274,
+        "narHash": "sha256-zJ8OMzfcBh9NtSg2FHDjB5DFX9C2qZRo8t8lc097sCI=",
+        "owner": "echasnovski",
+        "repo": "mini.hipatterns",
+        "rev": "f34975103a38b3f608219a1324cdfc58ea660b8b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "echasnovski",
+        "repo": "mini.hipatterns",
+        "type": "github"
+      }
+    },
     "plugin-minimap-vim": {
       "flake": false,
       "locked": {
@@ -2421,6 +2437,7 @@
         "plugin-mini-files": "plugin-mini-files",
         "plugin-mini-fuzzy": "plugin-mini-fuzzy",
         "plugin-mini-git": "plugin-mini-git",
+        "plugin-mini-hipatterns": "plugin-mini-hipatterns",
         "plugin-minimap-vim": "plugin-minimap-vim",
         "plugin-modes-nvim": "plugin-modes-nvim",
         "plugin-neo-tree-nvim": "plugin-neo-tree-nvim",

@@ -71,6 +71,7 @@
   - `mini.files`
   - `mini.fuzzy`
   - `mini.git`
+  - `mini.hipatterns`
 
 [kaktu5](https://github.com/kaktu5):
 
