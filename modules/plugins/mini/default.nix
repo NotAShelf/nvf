@@ -5,5 +5,6 @@
     ./animate
     # ./base16 # NOTE: configured in theme/
     ./basics
+    ./bracketed
   ];
 }

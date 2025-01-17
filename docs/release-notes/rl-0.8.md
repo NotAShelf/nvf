@@ -59,6 +59,7 @@
   - `mini.animate`
   - `mini.base16`
   - `mini.basics`
+  - `mini.bracketed`
 
 [kaktu5](https://github.com/kaktu5):
 

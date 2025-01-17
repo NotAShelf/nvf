@@ -770,5 +770,10 @@
       url = "github:echasnovski/mini.basics";
       flake = false;
     };
+
+    plugin-mini-bracketed = {
+      url = "github:echasnovski/mini.bracketed";
+      flake = false;
+    };
   };
 }
