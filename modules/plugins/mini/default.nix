@@ -18,5 +18,6 @@
     ./fuzzy
     ./git
     ./hipatterns
+    ./hues
   ];
 }
