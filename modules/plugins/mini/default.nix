@@ -30,5 +30,6 @@
     ./operators
     ./pairs
     ./pick
+    ./sessions
   ];
 }

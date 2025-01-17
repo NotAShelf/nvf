@@ -895,5 +895,10 @@
       url = "github:echasnovski/mini.pick";
       flake = false;
     };
+
+    plugin-mini-sessions = {
+      url = "github:echasnovski/mini.sessions";
+      flake = false;
+    };
   };
 }

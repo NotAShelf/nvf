@@ -84,6 +84,7 @@
   - `mini.operators`
   - `mini.pairs`
   - `mini.pick`
+  - `mini.sessions`
 
 [kaktu5](https://github.com/kaktu5):
 
