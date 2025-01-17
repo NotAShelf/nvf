@@ -7,5 +7,6 @@
     ./basics
     ./bracketed
     ./bufremove
+    ./clue
   ];
 }

@@ -780,5 +780,10 @@
       url = "github:echasnovski/mini.bufremove";
       flake = false;
     };
+
+    plugin-mini-clue = {
+      url = "github:echasnovski/mini.clue";
+      flake = false;
+    };
   };
 }

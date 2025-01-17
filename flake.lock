@@ -1048,6 +1048,22 @@
         "type": "github"
       }
     },
+    "plugin-mini-clue": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1737130586,
+        "narHash": "sha256-/0DpZV/jXuhaqBz5j4JN3xmofATlwPMHNSm/uTXALg0=",
+        "owner": "echasnovski",
+        "repo": "mini.clue",
+        "rev": "63e42dad781b9ed4845d90ef1da8c52dfb6dce3f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "echasnovski",
+        "repo": "mini.clue",
+        "type": "github"
+      }
+    },
     "plugin-minimap-vim": {
       "flake": false,
       "locked": {
@@ -2251,6 +2267,7 @@
         "plugin-mini-basics": "plugin-mini-basics",
         "plugin-mini-bracketed": "plugin-mini-bracketed",
         "plugin-mini-bufremove": "plugin-mini-bufremove",
+        "plugin-mini-clue": "plugin-mini-clue",
         "plugin-minimap-vim": "plugin-minimap-vim",
         "plugin-modes-nvim": "plugin-modes-nvim",
         "plugin-neo-tree-nvim": "plugin-neo-tree-nvim",

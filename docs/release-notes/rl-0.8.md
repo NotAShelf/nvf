@@ -61,6 +61,7 @@
   - `mini.basics`
   - `mini.bracketed`
   - `mini.bufremove`
+  - `mini.clue`
 
 [kaktu5](https://github.com/kaktu5):
 
