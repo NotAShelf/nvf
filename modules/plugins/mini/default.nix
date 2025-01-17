@@ -24,5 +24,6 @@
     ./jump
     ./jump2d
     ./map
+    ./misc
   ];
 }

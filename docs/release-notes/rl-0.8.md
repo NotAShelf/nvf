@@ -78,6 +78,7 @@
   - `mini.jump`
   - `mini.jump2d`
   - `mini.map`
+  - `mini.misc`
 
 [kaktu5](https://github.com/kaktu5):
 

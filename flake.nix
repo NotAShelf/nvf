@@ -865,5 +865,10 @@
       url = "github:echasnovski/mini.map";
       flake = false;
     };
+
+    plugin-mini-misc = {
+      url = "github:echasnovski/mini.misc";
+      flake = false;
+    };
   };
 }
