@@ -46,6 +46,21 @@
       '';
     };
 
+    ruff = {
+      package = pkgs.ruff;
+      lspConfig = ''
+        lspconfig.ruff.setup{
+          capabilities = capabilities;
+          on_attach = default_on_attach;
+          cmd = ${
+          if isList cfg.lsp.package
+          then expToLua cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/ruff", "server"}''
+        }
+        }
+      '';
+    };
+
     python-lsp-server = {
       package = pkgs.python-lsp-server;
       lspConfig = ''
