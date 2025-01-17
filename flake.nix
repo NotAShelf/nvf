@@ -870,5 +870,10 @@
       url = "github:echasnovski/mini.misc";
       flake = false;
     };
+
+    plugin-mini-move = {
+      url = "github:echasnovski/mini.move";
+      flake = false;
+    };
   };
 }
