@@ -825,5 +825,10 @@
       url = "github:echasnovski/mini.fuzzy";
       flake = false;
     };
+
+    plugin-mini-git = {
+      url = "github:echasnovski/mini-git";
+      flake = false;
+    };
   };
 }

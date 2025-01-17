@@ -16,5 +16,6 @@
     ./extra
     ./files
     ./fuzzy
+    ./git
   ];
 }

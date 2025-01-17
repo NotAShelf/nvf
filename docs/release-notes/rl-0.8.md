@@ -70,6 +70,7 @@
   - `mini.extra`
   - `mini.files`
   - `mini.fuzzy`
+  - `mini.git`
 
 [kaktu5](https://github.com/kaktu5):
 
