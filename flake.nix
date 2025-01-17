@@ -935,5 +935,10 @@
       url = "github:echasnovski/mini.test";
       flake = false;
     };
+
+    plugin-mini-trailspace = {
+      url = "github:echasnovski/mini.trailspace";
+      flake = false;
+    };
   };
 }

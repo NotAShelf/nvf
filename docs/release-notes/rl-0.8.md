@@ -92,6 +92,7 @@
   - `mini.surround`
   - `mini.tabline`
   - `mini.test`
+  - `mini.trailspace`
 
 [kaktu5](https://github.com/kaktu5):
 

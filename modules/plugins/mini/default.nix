@@ -38,5 +38,6 @@
     ./surround
     ./tabline
     ./test
+    ./trailspace
   ];
 }
