@@ -900,5 +900,10 @@
       url = "github:echasnovski/mini.sessions";
       flake = false;
     };
+
+    plugin-mini-snippets = {
+      url = "github:echasnovski/mini.snippets";
+      flake = false;
+    };
   };
 }

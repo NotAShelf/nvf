@@ -31,5 +31,6 @@
     ./pairs
     ./pick
     ./sessions
+    ./snippets
   ];
 }
