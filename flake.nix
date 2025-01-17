@@ -755,5 +755,10 @@
       url = "github:echasnovski/mini.align";
       flake = false;
     };
+
+    plugin-mini-animate = {
+      url = "github:echasnovski/mini.animate";
+      flake = false;
+    };
   };
 }

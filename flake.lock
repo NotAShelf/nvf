@@ -968,6 +968,22 @@
         "type": "github"
       }
     },
+    "plugin-mini-animate": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1733078395,
+        "narHash": "sha256-ZePmJuHCCymTgaK46nSg5tRloxs+UKrVgVmT++rGKpc=",
+        "owner": "echasnovski",
+        "repo": "mini.animate",
+        "rev": "d14190ac3040116540889e2ebc25f488b195799e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "echasnovski",
+        "repo": "mini.animate",
+        "type": "github"
+      }
+    },
     "plugin-minimap-vim": {
       "flake": false,
       "locked": {
@@ -2166,6 +2182,7 @@
         "plugin-mind-nvim": "plugin-mind-nvim",
         "plugin-mini-ai": "plugin-mini-ai",
         "plugin-mini-align": "plugin-mini-align",
+        "plugin-mini-animate": "plugin-mini-animate",
         "plugin-minimap-vim": "plugin-minimap-vim",
         "plugin-modes-nvim": "plugin-modes-nvim",
         "plugin-neo-tree-nvim": "plugin-neo-tree-nvim",

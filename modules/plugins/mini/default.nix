@@ -2,5 +2,6 @@
   imports = [
     ./ai
     ./align
+    ./animate
   ];
 }

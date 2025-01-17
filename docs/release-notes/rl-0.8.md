@@ -56,6 +56,7 @@
 - Add the following plugins from [mini.nvim](https://github.com/echasnovski/mini.nvim)
   - `mini.ai`
   - `mini.align`
+  - `mini.animate`
 
 [kaktu5](https://github.com/kaktu5):
 
