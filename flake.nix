@@ -855,5 +855,10 @@
       url = "github:echasnovski/mini.jump";
       flake = false;
     };
+
+    plugin-mini-jump2d = {
+      url = "github:echasnovski/mini.jump2d";
+      flake = false;
+    };
   };
 }

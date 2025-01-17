@@ -22,5 +22,6 @@
     ./icons
     ./indentscope
     ./jump
+    ./jump2d
   ];
 }
