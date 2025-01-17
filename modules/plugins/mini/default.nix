@@ -27,5 +27,6 @@
     ./misc
     ./move
     ./notify
+    ./operators
   ];
 }

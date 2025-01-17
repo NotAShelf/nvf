@@ -880,5 +880,10 @@
       url = "github:echasnovski/mini.notify";
       flake = false;
     };
+
+    plugin-mini-operators = {
+      url = "github:echasnovski/mini.operators";
+      flake = false;
+    };
   };
 }

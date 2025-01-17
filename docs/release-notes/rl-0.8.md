@@ -81,6 +81,7 @@
   - `mini.misc`
   - `mini.move`
   - `mini.notify`
+  - `mini.operators`
 
 [kaktu5](https://github.com/kaktu5):
 
