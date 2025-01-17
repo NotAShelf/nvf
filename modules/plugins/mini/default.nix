@@ -26,5 +26,6 @@
     ./map
     ./misc
     ./move
+    ./notify
   ];
 }

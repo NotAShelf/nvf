@@ -875,5 +875,10 @@
       url = "github:echasnovski/mini.move";
       flake = false;
     };
+
+    plugin-mini-notify = {
+      url = "github:echasnovski/mini.notify";
+      flake = false;
+    };
   };
 }

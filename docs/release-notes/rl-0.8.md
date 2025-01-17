@@ -80,6 +80,7 @@
   - `mini.map`
   - `mini.misc`
   - `mini.move`
+  - `mini.notify`
 
 [kaktu5](https://github.com/kaktu5):
 
