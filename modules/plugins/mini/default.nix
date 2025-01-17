@@ -13,5 +13,6 @@
     ./completion
     ./diff
     ./doc
+    ./extra
   ];
 }
