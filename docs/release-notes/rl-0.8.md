@@ -65,6 +65,7 @@
   - `mini.colors`
   - `mini.comment`
   - `mini.completion`
+  - `mini.deps`
   - `mini.diff`
   - `mini.doc`
   - `mini.extra`
