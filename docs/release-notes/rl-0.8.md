@@ -41,8 +41,8 @@
 
 [horriblename](https://github.com/horriblename):
 
-[aerial.nvim](https://github.com/stevearc/aerial.nvim)
-[nvim-ufo](https://github.com/kevinhwang91/nvim-ufo)
+[aerial.nvim]: (https://github.com/stevearc/aerial.nvim)
+[nvim-ufo]: (https://github.com/kevinhwang91/nvim-ufo)
 
 - Add [aerial.nvim]
 - Add [nvim-ufo]
@@ -52,7 +52,8 @@
 - Remove `vim.notes.obsidian.setupOpts.dir`, which was set by default. Fixes
   issue with setting the workspace directory.
 - Add `vim.snippets.luasnip.setupOpts`, which was previously missing.
-- Add `"prettierd"` as a formatter option in `vim.languages.markdown.format.type`.
+- Add `"prettierd"` as a formatter option in
+  `vim.languages.markdown.format.type`.
 - Add the following plugins from [mini.nvim](https://github.com/echasnovski/mini.nvim)
   - `mini.ai`
   - `mini.align`
@@ -105,3 +106,9 @@
 [solargraph]: https://github.com/castwide/solargraph
 
 - Add Ruby support under `vim.languages.ruby` using [solargraph].
+
+[thamenato](https://github.com/thamenato):
+
+[ruff]: (https://github.com/astral-sh/ruff)
+
+- Add [ruff] as a formatter option in `vim.languages.python.format.type`.
