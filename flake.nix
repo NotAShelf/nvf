@@ -805,5 +805,10 @@
       url = "github:echasnovski/mini.diff";
       flake = false;
     };
+
+    plugin-mini-doc = {
+      url = "github:echasnovski/mini.doc";
+      flake = false;
+    };
   };
 }

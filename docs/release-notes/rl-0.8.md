@@ -66,6 +66,7 @@
   - `mini.comment`
   - `mini.completion`
   - `mini.diff`
+  - `mini.doc`
 
 [kaktu5](https://github.com/kaktu5):
 

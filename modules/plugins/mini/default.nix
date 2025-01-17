@@ -12,5 +12,6 @@
     ./comment
     ./completion
     ./diff
+    ./doc
   ];
 }
