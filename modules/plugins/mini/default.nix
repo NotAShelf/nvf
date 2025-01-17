@@ -11,5 +11,6 @@
     ./colors
     ./comment
     ./completion
+    ./diff
   ];
 }

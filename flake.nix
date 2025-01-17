@@ -800,5 +800,10 @@
       url = "github:echasnovski/mini.completion";
       flake = false;
     };
+
+    plugin-mini-diff = {
+      url = "github:echasnovski/mini.diff";
+      flake = false;
+    };
   };
 }

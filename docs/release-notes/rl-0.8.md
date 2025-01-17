@@ -65,6 +65,7 @@
   - `mini.colors`
   - `mini.comment`
   - `mini.completion`
+  - `mini.diff`
 
 [kaktu5](https://github.com/kaktu5):
 
