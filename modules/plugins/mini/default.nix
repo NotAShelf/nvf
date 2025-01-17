@@ -21,5 +21,6 @@
     ./hues
     ./icons
     ./indentscope
+    ./jump
   ];
 }

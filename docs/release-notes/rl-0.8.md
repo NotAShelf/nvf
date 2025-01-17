@@ -75,6 +75,7 @@
   - `mini.hues`
   - `mini.icons`
   - `mini.indentscope`
+  - `mini.jump`
 
 [kaktu5](https://github.com/kaktu5):
 

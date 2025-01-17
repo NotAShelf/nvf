@@ -850,5 +850,10 @@
       url = "github:echasnovski/mini.indentscope";
       flake = false;
     };
+
+    plugin-mini-jump = {
+      url = "github:echasnovski/mini.jump";
+      flake = false;
+    };
   };
 }
