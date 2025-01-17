@@ -32,5 +32,6 @@
     ./pick
     ./sessions
     ./snippets
+    ./splitjoin
   ];
 }

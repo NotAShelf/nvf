@@ -905,5 +905,10 @@
       url = "github:echasnovski/mini.snippets";
       flake = false;
     };
+
+    plugin-mini-splitjoin = {
+      url = "github:echasnovski/mini.splitjoin";
+      flake = false;
+    };
   };
 }

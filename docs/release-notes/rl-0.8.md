@@ -86,6 +86,7 @@
   - `mini.pick`
   - `mini.sessions`
   - `mini.snippets`
+  - `mini.splitjoin`
 
 [kaktu5](https://github.com/kaktu5):
 
