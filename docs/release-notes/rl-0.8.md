@@ -77,6 +77,7 @@
   - `mini.indentscope`
   - `mini.jump`
   - `mini.jump2d`
+  - `mini.map`
 
 [kaktu5](https://github.com/kaktu5):
 

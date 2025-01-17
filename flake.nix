@@ -860,5 +860,10 @@
       url = "github:echasnovski/mini.jump2d";
       flake = false;
     };
+
+    plugin-mini-map = {
+      url = "github:echasnovski/mini.map";
+      flake = false;
+    };
   };
 }

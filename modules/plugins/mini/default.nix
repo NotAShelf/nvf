@@ -23,5 +23,6 @@
     ./indentscope
     ./jump
     ./jump2d
+    ./map
   ];
 }
