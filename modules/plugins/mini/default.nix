@@ -39,5 +39,6 @@
     ./tabline
     ./test
     ./trailspace
+    ./visits
   ];
 }

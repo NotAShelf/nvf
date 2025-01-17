@@ -93,6 +93,7 @@
   - `mini.tabline`
   - `mini.test`
   - `mini.trailspace`
+  - `mini.visits`
 
 [kaktu5](https://github.com/kaktu5):
 

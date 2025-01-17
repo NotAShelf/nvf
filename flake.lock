@@ -1560,6 +1560,22 @@
         "type": "github"
       }
     },
+    "plugin-mini-visits": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1737036221,
+        "narHash": "sha256-Q+m1gZ5Obu6Zzo87Djt6VCX76ZjdOiLb0j771jP8uQE=",
+        "owner": "echasnovski",
+        "repo": "mini.visits",
+        "rev": "90f20ba6ab7d3d7cb984fffddd82f5f6c7a6bea7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "echasnovski",
+        "repo": "mini.visits",
+        "type": "github"
+      }
+    },
     "plugin-minimap-vim": {
       "flake": false,
       "locked": {
@@ -2795,6 +2811,7 @@
         "plugin-mini-tabline": "plugin-mini-tabline",
         "plugin-mini-test": "plugin-mini-test",
         "plugin-mini-trailspace": "plugin-mini-trailspace",
+        "plugin-mini-visits": "plugin-mini-visits",
         "plugin-minimap-vim": "plugin-minimap-vim",
         "plugin-modes-nvim": "plugin-modes-nvim",
         "plugin-neo-tree-nvim": "plugin-neo-tree-nvim",

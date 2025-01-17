@@ -940,5 +940,10 @@
       url = "github:echasnovski/mini.trailspace";
       flake = false;
     };
+
+    plugin-mini-visits = {
+      url = "github:echasnovski/mini.visits";
+      flake = false;
+    };
   };
 }
