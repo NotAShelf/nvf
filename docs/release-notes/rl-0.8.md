@@ -63,6 +63,7 @@
   - `mini.bufremove`
   - `mini.clue`
   - `mini.colors`
+  - `mini.comment`
 
 [kaktu5](https://github.com/kaktu5):
 

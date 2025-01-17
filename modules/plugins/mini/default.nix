@@ -9,5 +9,6 @@
     ./bufremove
     ./clue
     ./colors
+    ./comment
   ];
 }

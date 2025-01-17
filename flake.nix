@@ -790,5 +790,10 @@
       url = "github:echasnovski/mini.colors";
       flake = false;
     };
+
+    plugin-mini-comment = {
+      url = "github:echasnovski/mini.comment";
+      flake = false;
+    };
   };
 }
