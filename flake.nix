@@ -795,5 +795,10 @@
       url = "github:echasnovski/mini.comment";
       flake = false;
     };
+
+    plugin-mini-completion = {
+      url = "github:echasnovski/mini.completion";
+      flake = false;
+    };
   };
 }

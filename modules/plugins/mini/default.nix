@@ -10,5 +10,6 @@
     ./clue
     ./colors
     ./comment
+    ./completion
   ];
 }

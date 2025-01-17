@@ -64,6 +64,7 @@
   - `mini.clue`
   - `mini.colors`
   - `mini.comment`
+  - `mini.completion`
 
 [kaktu5](https://github.com/kaktu5):
 
