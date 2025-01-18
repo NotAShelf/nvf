@@ -380,7 +380,7 @@
 
     # Themes
     plugin-base16 = {
-      url = "github:rrethy/base16-nvim";
+      url = "github:echasnovski/mini.base16";
       flake = false;
     };
 
