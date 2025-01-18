@@ -11,6 +11,6 @@ in {
     package = "fzf-lua";
     cmd = ["FzfLua"];
     setupModule = "fzf-lua";
-    inherit (cfg) setupOpts;
+    setupOpts = cfg.setupOpts // {"@1" = cfg.profile;};
   };
 }
