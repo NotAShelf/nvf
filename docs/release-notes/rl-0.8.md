@@ -26,6 +26,11 @@
 
 - Deprecate rnix-lsp as it has been abandoned and archived upstream.
 
+- Hardcoded indentation values for the Nix language module have been removed. To
+  replicate previous behaviour, you must either consolidate Nix indentation in
+  your Editorconfig configuration, or use an autocommand to set indentation
+  values for buffers with the Nix filetype.
+
 [amadaluzia](https://github.com/amadaluzia):
 
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim
@@ -104,8 +109,10 @@
 [tomasguinzburg](https://github.com/tomasguinzburg):
 
 [solargraph]: https://github.com/castwide/solargraph
+[gbprod/nord.nvim]: https://github.com/gbprod/nord.nvim
 
 - Add Ruby support under `vim.languages.ruby` using [solargraph].
+- Add `nord` theme from [gbprod/nord.nvim].
 
 [thamenato](https://github.com/thamenato):
 
