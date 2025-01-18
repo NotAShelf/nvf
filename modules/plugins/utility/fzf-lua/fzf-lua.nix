@@ -31,7 +31,7 @@ in {
         "border-fused"
       ];
       default = "default";
-      description = "The configuration profile ot use";
+      description = "The configuration profile to use";
     };
   };
 }
