@@ -26,6 +26,11 @@
 
 - Deprecate rnix-lsp as it has been abandoned and archived upstream.
 
+- Hardcoded indentation values for the Nix language module have been removed. To
+  replicate previous behaviour, you must either consolidate Nix indentation in
+  your Editorconfig configuration, or use an autocommand to set indentation
+  values for buffers with the Nix filetype.
+
 [amadaluzia](https://github.com/amadaluzia):
 
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim
