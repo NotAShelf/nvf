@@ -287,9 +287,9 @@ in
                       forwardSearchAfter = ${toString build.forwardSearchAfter},
                       onSave = ${toString build.onSave},
                       useFileList = ${toString build.useFileList},
-                      auxDirectory = "${toString build.auxDirectroy}",
-                      logDirectory = "${toString build.logDirectroy}",
-                      pdfDirectory = "${toString build.pdfDirectroy}",
+                      auxDirectory = "${toString build.auxDirectory}",
+                      logDirectory = "${toString build.logDirectory}",
+                      pdfDirectory = "${toString build.pdfDirectory}",
                       ${if build.filename != null then ''filename = "${build.filename}",'' else ""}
                     },
                     forwardSearch = {
