@@ -4,6 +4,7 @@
 
 [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
 [render-markdown.nvim]: https://github.com/MeanderingProgrammer/render-markdown.nvim
+[yanky.nvim]: https://github.com/gbprod/yanky.nvim
 
 - Add [typst-preview.nvim] under
   `languages.typst.extensions.typst-preview-nvim`.
@@ -30,6 +31,15 @@
   replicate previous behaviour, you must either consolidate Nix indentation in
   your Editorconfig configuration, or use an autocommand to set indentation
   values for buffers with the Nix filetype.
+
+- Add [](#opt-vim.lsp.lightbulb.autocmd.enable) for manually managing the
+  previously managed lightbulb autocommand.
+
+  - A warning will occur if [](#opt-vim.lsp.lightbulb.autocmd.enable) and
+    `vim.lsp.lightbulb.setupOpts.autocmd.enabled` are both set at the same time.
+    Pick only one.
+
+- Add [yanky.nvim] to available plugins, under `vim.utility.yanky-nvim`.
 
 [amadaluzia](https://github.com/amadaluzia):
 
@@ -59,7 +69,8 @@
 - Add `vim.snippets.luasnip.setupOpts`, which was previously missing.
 - Add `"prettierd"` as a formatter option in
   `vim.languages.markdown.format.type`.
-- Add the following plugins from [mini.nvim](https://github.com/echasnovski/mini.nvim)
+- Add the following plugins from
+  [mini.nvim](https://github.com/echasnovski/mini.nvim)
   - `mini.ai`
   - `mini.align`
   - `mini.animate`
@@ -102,6 +113,9 @@
   - `mini.trailspace`
   - `mini.visits`
 - Add [fzf-lua](https://github.com/ibhagwan/fzf-lua) in `vim.fzf-lua`
+- Add [rainbow-delimiters](https://github.com/HiPhish/rainbow-delimiters.nvim)
+  in `vim.visuals.rainbow-delimiters`
+- Add options to define highlights under [](#opt-vim.highlight)
 
 [kaktu5](https://github.com/kaktu5):
 
@@ -120,3 +134,8 @@
 [ruff]: (https://github.com/astral-sh/ruff)
 
 - Add [ruff] as a formatter option in `vim.languages.python.format.type`.
+
+[ARCIII](https://github.com/ArmandoCIII):
+
+- Add `vim.languages.zig.dap` support through pkgs.lldb dap adapter. Code
+  Inspiration from `vim.languages.clang.dap` implementation.

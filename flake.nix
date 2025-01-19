@@ -17,6 +17,8 @@
       # «https://github.com/nix-systems/nix-systems»
       systems = import inputs.systems;
       imports = [
+        ./flake/templates
+
         ./flake/apps.nix
         ./flake/legacyPackages.nix
         ./flake/overlays.nix
@@ -502,6 +504,11 @@
       flake = false;
     };
 
+    plugin-rainbow-delimiters = {
+      url = "github:HiPhish/rainbow-delimiters.nvim";
+      flake = false;
+    };
+
     # Minimap
     plugin-minimap-vim = {
       url = "github:wfxr/minimap.vim";
@@ -585,6 +592,11 @@
       flake = false;
     };
 
+    plugin-yanky-nvim = {
+      url = "github:gbprod/yanky.nvim";
+      flake = false;
+    };
+
     # Note-taking
     plugin-obsidian-nvim = {
       url = "github:epwalsh/obsidian.nvim";
@@ -635,7 +647,7 @@
     };
 
     plugin-nvim-colorizer-lua = {
-      url = "github:NvChad/nvim-colorizer.lua";
+      url = "github:catgoose/nvim-colorizer.lua";
       flake = false;
     };
 

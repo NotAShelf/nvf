@@ -1,19 +1,19 @@
 {
   imports = [
-    ./outline
     ./binds
     ./ccc
+    ./diffview
+    ./fzf-lua
     ./gestures
-    ./motion
-    ./new-file-template
-    ./telescope
     ./icon-picker
     ./images
-    ./telescope
-    ./diffview
-    ./wakatime
-    ./surround
+    ./motion
+    ./new-file-template
+    ./outline
     ./preview
-    ./fzf-lua
+    ./surround
+    ./telescope
+    ./wakatime
+    ./yanky-nvim
   ];
 }
