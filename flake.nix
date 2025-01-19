@@ -236,9 +236,14 @@
       flake = false;
     };
 
-    # Telescope
+    # Pickers
     plugin-telescope = {
       url = "github:nvim-telescope/telescope.nvim";
+      flake = false;
+    };
+
+    plugin-fzf-lua = {
+      url = "github:ibhagwan/fzf-lua";
       flake = false;
     };
 

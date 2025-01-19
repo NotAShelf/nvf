@@ -14,5 +14,6 @@
     ./wakatime
     ./surround
     ./preview
+    ./fzf-lua
   ];
 }
