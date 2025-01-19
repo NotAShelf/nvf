@@ -102,6 +102,7 @@
   - `mini.trailspace`
   - `mini.visits`
 - Add [fzf-lua](https://github.com/ibhagwan/fzf-lua) in `vim.fzf-lua`
+- Add options to define highlights under `vim.highlight`
 
 [kaktu5](https://github.com/kaktu5):
 
