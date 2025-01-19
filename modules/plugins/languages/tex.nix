@@ -20,8 +20,8 @@
 }:
 let
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.modules) mkIf mkMerge listOf;
-  inherit (lib.types) package str bool;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.types) package str bool listOf;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (builtins) any attrValues;
 
