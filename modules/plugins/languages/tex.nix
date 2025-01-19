@@ -279,6 +279,9 @@ in
 
             stringToLua =
               string: nullOnEmpty: if string == "" then if nullOnEmpty then "null" else "" else ''"${string}"'';
+
+            boolToLua =
+              boolean: if boolean then "true" else "false";
           in
           (mkIf tl.enable {
             vim.lsp.lspconfig.sources.texlab = ''
@@ -288,9 +291,9 @@ in
                     build = {
                       executable = "${build.package}/bin/${build.executable}",
                       args = ${listToLua build.args false},
-                      forwardSearchAfter = ${toString build.forwardSearchAfter},
-                      onSave = ${toString build.onSave},
-                      useFileList = ${toString build.useFileList},
+                      forwardSearchAfter = ${boolToLua build.forwardSearchAfter},
+                      onSave = ${boolToLua build.onSave},
+                      useFileList = ${boolToLua build.useFileList},
                       auxDirectory = ${stringToLua build.auxDirectory true},
                       logDirectory = ${stringToLua build.logDirectory true},
                       pdfDirectory = ${stringToLua build.pdfDirectory true},
