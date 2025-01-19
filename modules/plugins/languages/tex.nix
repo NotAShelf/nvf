@@ -297,7 +297,7 @@ in
                       auxDirectory = ${stringToLua build.auxDirectory true},
                       logDirectory = ${stringToLua build.logDirectory true},
                       pdfDirectory = ${stringToLua build.pdfDirectory true},
-                      ${if build.filename != null then ''filename = "${build.filename}",'' else ""}
+                      filename = ${stringToLua build.filename true},
                     },
                     forwardSearch = {
                       executable = "${tl.forwardSearch.package}/bin/${tl.forwardSearch.executable}",
