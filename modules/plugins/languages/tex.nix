@@ -152,7 +152,7 @@ in
           };
           filename = mkOption {
             type = str;
-            default = null;
+            default = "";
             description = ''
               Allows overriding the default file name of the build artifact. This setting is used to find the correct PDF file to open during forward search.
             '';
@@ -269,12 +269,16 @@ in
               ;
             tl = cfg.lsp.texlab;
             build = tl.build;
+
             listToLua =
               list: nullOnEmpty:
               if length list == 0 then
                 if nullOnEmpty then "null" else "{ }"
               else
                 "{ ${concatStringsSep ", " (map (x: ''"${toString x}"'') list)} }";
+
+            stringToLua =
+              string: nullOnEmpty: if string == "" then if nullOnEmpty then "null" else "" else ''"${string}"'';
           in
           (mkIf tl.enable {
             vim.lsp.lspconfig.sources.texlab = ''
@@ -287,9 +291,9 @@ in
                       forwardSearchAfter = ${toString build.forwardSearchAfter},
                       onSave = ${toString build.onSave},
                       useFileList = ${toString build.useFileList},
-                      auxDirectory = "${toString build.auxDirectory}",
-                      logDirectory = "${toString build.logDirectory}",
-                      pdfDirectory = "${toString build.pdfDirectory}",
+                      auxDirectory = ${stringToLua build.auxDirectory true},
+                      logDirectory = ${stringToLua build.logDirectory true},
+                      pdfDirectory = ${stringToLua build.pdfDirectory true},
                       ${if build.filename != null then ''filename = "${build.filename}",'' else ""}
                     },
                     forwardSearch = {
