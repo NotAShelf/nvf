@@ -101,6 +101,7 @@
   - `mini.test`
   - `mini.trailspace`
   - `mini.visits`
+- Add [fzf-lua](https://github.com/ibhagwan/fzf-lua) in `vim.fzf-lua`
 
 [kaktu5](https://github.com/kaktu5):
 
