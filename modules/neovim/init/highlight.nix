@@ -3,11 +3,11 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption literalExpression;
+  inherit (lib.options) mkOption;
   inherit (lib.types) nullOr attrsOf listOf submodule bool ints str enum;
-  inherit (lib.strings) hasPrefix concatStringsSep;
+  inherit (lib.strings) hasPrefix concatLines;
   inherit (lib.attrsets) mapAttrsToList;
-  inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.dag) entryBetween;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) hexColor;
 
@@ -15,18 +15,18 @@
     mkOption {
       type = nullOr hexColor;
       default = null;
+      example = "#ebdbb2";
       description = ''
         The ${target} color to use. Written as color name or hex "#RRGGBB".
       '';
-      example = "#ebdbb2";
     };
 
   mkBoolOption = name:
     mkOption {
       type = nullOr bool;
       default = null;
-      description = ''Whether to enable ${name}'';
       example = false;
+      description = "Whether to enable ${name}";
     };
 
   cfg = config.vim.highlight;
@@ -98,14 +98,14 @@ in {
       };
     });
     default = {};
-    description = "Custom highlight to apply";
-    example = literalExpression ''
+    example = ''
       {
         SignColumn = {
           bg = "#282828";
         };
       }
     '';
+    description = "Custom highlights to apply";
   };
 
   config = {
@@ -116,6 +116,6 @@ in {
         )
         cfg;
     in
-      entryAnywhere (concatStringsSep "\n" highlights);
+      entryBetween ["lazyConfigs" "pluginConfigs" "extraPluginConfigs"] ["theme"] (concatLines highlights);
   };
 }
