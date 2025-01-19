@@ -21,7 +21,12 @@
 let
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) package str bool listOf;
+  inherit (lib.types)
+    package
+    str
+    bool
+    listOf
+    ;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (builtins) any attrValues;
 
@@ -256,18 +261,16 @@ in
         # Texlab
         (
           let
+            inherit (builtins)
+              length
+              concatStringsSep
+              map
+              toString
+              ;
             tl = cfg.lsp.texlab;
             build = tl.build;
             listToLua =
               list: nullOnEmpty:
-              let
-                inherit (builtins)
-                  length
-                  concatStringsSep
-                  map
-                  toString
-                  ;
-              in
               if length list == 0 then
                 if nullOnEmpty then "null" else "{ }"
               else
@@ -281,12 +284,12 @@ in
                     build = {
                       executable = "${build.package}/bin/${build.executable}",
                       args = ${listToLua build.args false},
-                      forwardSearchAfter = ${build.forwardSearchAfter},
-                      onSave = ${build.onSave},
-                      useFileList = ${build.useFileList},
-                      auxDirectory = "${build.auxDirectroy}",
-                      logDirectory = "${build.logDirectroy}",
-                      pdfDirectory = "${build.pdfDirectroy}",
+                      forwardSearchAfter = ${toString build.forwardSearchAfter},
+                      onSave = ${toString build.onSave},
+                      useFileList = ${toString build.useFileList},
+                      auxDirectory = "${toString build.auxDirectroy}",
+                      logDirectory = "${toString build.logDirectroy}",
+                      pdfDirectory = "${toString build.pdfDirectroy}",
                       ${if build.filename != null then ''filename = "${build.filename}",'' else ""}
                     },
                     forwardSearch = {
