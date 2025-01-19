@@ -16,18 +16,19 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types)
+  inherit
+    (lib.types)
     bool
     listOf
     package
     str
     ;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (builtins)
+  inherit
+    (builtins)
     any
     attrValues
     concatStringsSep
@@ -37,23 +38,18 @@ let
     ;
 
   cfg = config.vim.languages.tex;
-in
-{
+in {
   options.vim.languages.tex = {
     enable = mkEnableOption "Tex support";
 
     # Treesitter options for latex and bibtex flavours of tex.
     treesitter = {
       latex = {
-        enable = mkEnableOption "Latex treesitter" // {
-          default = config.vim.languages.enableTreesitter;
-        };
+        enable = mkEnableOption "Latex treesitter" // { default = config.vim.languages.enableTreesitter; };
         package = mkGrammarOption pkgs "latex";
       };
       bibtex = {
-        enable = mkEnableOption "Bibtex treesitter" // {
-          default = config.vim.languages.enableTreesitter;
-        };
+        enable = mkEnableOption "Bibtex treesitter" // { default = config.vim.languages.enableTreesitter; };
         package = mkGrammarOption pkgs "bibtex";
       };
     };
@@ -66,9 +62,7 @@ in
     # Each lsp group must have an enable option of its own.
     lsp = {
       texlab = {
-        enable = mkEnableOption "Tex LSP support (texlab)" // {
-          default = config.vim.languages.enableLSP;
-        };
+        enable = mkEnableOption "Tex LSP support (texlab)" // { default = config.vim.languages.enableLSP; };
 
         package = mkOption {
           type = package;
@@ -286,18 +280,16 @@ in
     # Treesitter
     (mkIf cfg.treesitter.latex.enable {
       vim.treesitter.enable = true;
-      vim.treesitter.grammars = [ cfg.treesitter.latex.package ];
+      vim.treesitter.grammars = [cfg.treesitter.latex.package];
     })
     (mkIf cfg.treesitter.bibtex.enable {
       vim.treesitter.enable = true;
-      vim.treesitter.grammars = [ cfg.treesitter.bibtex.package ];
+      vim.treesitter.grammars = [cfg.treesitter.bibtex.package];
     })
 
     # LSP
     (mkIf (any (x: x.enable) (attrValues cfg.lsp)) (
-      {
-        vim.lsp.lspconfig.enable = true; # Enable lspconfig when any of the lsps are enabled
-      }
+      { vim.lsp.lspconfig.enable = true; } # Enable lspconfig when any of the lsps are enabled
       // (mkMerge [
         # Texlab
         (
@@ -305,19 +297,28 @@ in
             tl = cfg.lsp.texlab;
             build = tl.build;
 
-            listToLua =
-              list: nullOnEmpty:
-              if length list == 0 then
-                if nullOnEmpty then "null" else "{ }"
-              else
-                "{ ${concatStringsSep ", " (map (x: ''"${toString x}"'') list)} }";
+            listToLua = list: nullOnEmpty:
+              if length list == 0
+              then
+                if nullOnEmpty
+                then "null"
+                else "{ }"
+              else "{ ${concatStringsSep ", " (map (x: ''"${toString x}"'') list)} }";
 
-            stringToLua =
-              string: nullOnEmpty: if string == "" then if nullOnEmpty then "null" else "" else ''"${string}"'';
+            stringToLua = string: nullOnEmpty:
+              if string == ""
+              then
+                if nullOnEmpty
+                then "null"
+                else ""
+              else ''"${string}"'';
 
-            boolToLua = boolean: if boolean then "true" else "false";
-          in
-          (mkIf tl.enable {
+            boolToLua = boolean:
+              if boolean
+              then "true"
+              else "false";
+
+          in (mkIf tl.enable {
             vim.lsp.lspconfig.sources.texlab = ''
               lspconfig.texlab.setup {
                 cmd = { "${tl.package}/bin/texlab" },
