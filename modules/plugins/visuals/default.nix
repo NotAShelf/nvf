@@ -15,6 +15,7 @@ in {
     ./nvim-cursorline
     ./nvim-scrollbar
     ./nvim-web-devicons
+    ./rainbow-delimiters
     ./tiny-devicons-auto-colors
   ];
 }
