@@ -280,12 +280,12 @@ in
             stringToLua =
               string: nullOnEmpty: if string == "" then if nullOnEmpty then "null" else "" else ''"${string}"'';
 
-            boolToLua =
-              boolean: if boolean then "true" else "false";
+            boolToLua = boolean: if boolean then "true" else "false";
           in
           (mkIf tl.enable {
             vim.lsp.lspconfig.sources.texlab = ''
               lspconfig.texlab.setup {
+                cmd = { "${tl.package}/bin/texlab" },
                 settings = {
                   texlab = {
                     build = {
