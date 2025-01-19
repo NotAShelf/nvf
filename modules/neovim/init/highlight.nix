@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib.options) mkOption literalExpression;
-  inherit (lib.types) nullOr attrsOf listOf submodule bool ints str;
+  inherit (lib.types) nullOr attrsOf listOf submodule bool ints str enum;
   inherit (lib.strings) hasPrefix concatStringsSep;
   inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.nvim.dag) entryAnywhere;
@@ -75,7 +75,22 @@ in {
           description = "The cterm background color to use";
         };
         cterm = mkOption {
-          type = nullOr (listOf str);
+          type = nullOr (listOf (enum [
+            "bold"
+            "underline"
+            "undercurl"
+            "underdouble"
+            "underdotted"
+            "underdashed"
+            "strikethrough"
+            "reverse"
+            "inverse"
+            "italic"
+            "standout"
+            "altfont"
+            "nocombine"
+            "NONE"
+          ]));
           default = null;
           description = "The cterm arguments to use. See :h highlight-args";
         };
