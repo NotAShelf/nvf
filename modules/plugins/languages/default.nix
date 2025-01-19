@@ -46,6 +46,7 @@ in {
     ./tailwind.nix
     ./terraform.nix
     ./toml.nix
+    ./tex.nix
     ./ts.nix
     ./typst.nix
     ./zig.nix
