@@ -12,21 +12,13 @@ in {
     enable = mkEnableOption "mini.hues";
     setupOpts = mkPluginSetupOption "mini.hues" {
       background = mkOption {
-        description = "The background color to use";
+        description = "The hex color for the background color of the color scheme, prefixed with #";
         type = hexColor;
-        apply = v:
-          if hasPrefix "#" v
-          then v
-          else "#${v}";
       };
 
       foreground = mkOption {
-        description = "The foreground color to use";
+        description = "The hex color for the foreground color of the color scheme, prefixed with #";
         type = hexColor;
-        apply = v:
-          if hasPrefix "#" v
-          then v
-          else "#${v}";
       };
     };
   };
