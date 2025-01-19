@@ -59,6 +59,48 @@
 - Add `vim.snippets.luasnip.setupOpts`, which was previously missing.
 - Add `"prettierd"` as a formatter option in
   `vim.languages.markdown.format.type`.
+- Add the following plugins from [mini.nvim](https://github.com/echasnovski/mini.nvim)
+  - `mini.ai`
+  - `mini.align`
+  - `mini.animate`
+  - `mini.base16`
+  - `mini.basics`
+  - `mini.bracketed`
+  - `mini.bufremove`
+  - `mini.clue`
+  - `mini.colors`
+  - `mini.comment`
+  - `mini.completion`
+  - `mini.deps`
+  - `mini.diff`
+  - `mini.doc`
+  - `mini.extra`
+  - `mini.files`
+  - `mini.fuzzy`
+  - `mini.git`
+  - `mini.hipatterns`
+  - `mini.hues`
+  - `mini.icons`
+  - `mini.indentscope`
+  - `mini.jump`
+  - `mini.jump2d`
+  - `mini.map`
+  - `mini.misc`
+  - `mini.move`
+  - `mini.notify`
+  - `mini.operators`
+  - `mini.pairs`
+  - `mini.pick`
+  - `mini.sessions`
+  - `mini.snippets`
+  - `mini.splitjoin`
+  - `mini.starter`
+  - `mini.statusline`
+  - `mini.surround`
+  - `mini.tabline`
+  - `mini.test`
+  - `mini.trailspace`
+  - `mini.visits`
 - Add [fzf-lua](https://github.com/ibhagwan/fzf-lua) in `vim.fzf-lua`
 
 [kaktu5](https://github.com/kaktu5):

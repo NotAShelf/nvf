@@ -754,5 +754,206 @@
       url = "github:stevearc/aerial.nvim";
       flake = false;
     };
+
+    # Mini.nvim
+    plugin-mini-ai = {
+      url = "github:echasnovski/mini.ai";
+      flake = false;
+    };
+
+    plugin-mini-align = {
+      url = "github:echasnovski/mini.align";
+      flake = false;
+    };
+
+    plugin-mini-animate = {
+      url = "github:echasnovski/mini.animate";
+      flake = false;
+    };
+
+    plugin-mini-base16 = {
+      url = "github:echasnovski/mini.base16";
+      flake = false;
+    };
+
+    plugin-mini-basics = {
+      url = "github:echasnovski/mini.basics";
+      flake = false;
+    };
+
+    plugin-mini-bracketed = {
+      url = "github:echasnovski/mini.bracketed";
+      flake = false;
+    };
+
+    plugin-mini-bufremove = {
+      url = "github:echasnovski/mini.bufremove";
+      flake = false;
+    };
+
+    plugin-mini-clue = {
+      url = "github:echasnovski/mini.clue";
+      flake = false;
+    };
+
+    plugin-mini-colors = {
+      url = "github:echasnovski/mini.colors";
+      flake = false;
+    };
+
+    plugin-mini-comment = {
+      url = "github:echasnovski/mini.comment";
+      flake = false;
+    };
+
+    plugin-mini-completion = {
+      url = "github:echasnovski/mini.completion";
+      flake = false;
+    };
+
+    plugin-mini-diff = {
+      url = "github:echasnovski/mini.diff";
+      flake = false;
+    };
+
+    plugin-mini-doc = {
+      url = "github:echasnovski/mini.doc";
+      flake = false;
+    };
+
+    plugin-mini-extra = {
+      url = "github:echasnovski/mini.extra";
+      flake = false;
+    };
+
+    plugin-mini-files = {
+      url = "github:echasnovski/mini.files";
+      flake = false;
+    };
+
+    plugin-mini-fuzzy = {
+      url = "github:echasnovski/mini.fuzzy";
+      flake = false;
+    };
+
+    plugin-mini-git = {
+      url = "github:echasnovski/mini-git";
+      flake = false;
+    };
+
+    plugin-mini-hipatterns = {
+      url = "github:echasnovski/mini.hipatterns";
+      flake = false;
+    };
+
+    plugin-mini-hues = {
+      url = "github:echasnovski/mini.hues";
+      flake = false;
+    };
+
+    plugin-mini-icons = {
+      url = "github:echasnovski/mini.icons";
+      flake = false;
+    };
+
+    plugin-mini-indentscope = {
+      url = "github:echasnovski/mini.indentscope";
+      flake = false;
+    };
+
+    plugin-mini-jump = {
+      url = "github:echasnovski/mini.jump";
+      flake = false;
+    };
+
+    plugin-mini-jump2d = {
+      url = "github:echasnovski/mini.jump2d";
+      flake = false;
+    };
+
+    plugin-mini-map = {
+      url = "github:echasnovski/mini.map";
+      flake = false;
+    };
+
+    plugin-mini-misc = {
+      url = "github:echasnovski/mini.misc";
+      flake = false;
+    };
+
+    plugin-mini-move = {
+      url = "github:echasnovski/mini.move";
+      flake = false;
+    };
+
+    plugin-mini-notify = {
+      url = "github:echasnovski/mini.notify";
+      flake = false;
+    };
+
+    plugin-mini-operators = {
+      url = "github:echasnovski/mini.operators";
+      flake = false;
+    };
+
+    plugin-mini-pairs = {
+      url = "github:echasnovski/mini.pairs";
+      flake = false;
+    };
+
+    plugin-mini-pick = {
+      url = "github:echasnovski/mini.pick";
+      flake = false;
+    };
+
+    plugin-mini-sessions = {
+      url = "github:echasnovski/mini.sessions";
+      flake = false;
+    };
+
+    plugin-mini-snippets = {
+      url = "github:echasnovski/mini.snippets";
+      flake = false;
+    };
+
+    plugin-mini-splitjoin = {
+      url = "github:echasnovski/mini.splitjoin";
+      flake = false;
+    };
+
+    plugin-mini-starter = {
+      url = "github:echasnovski/mini.starter";
+      flake = false;
+    };
+
+    plugin-mini-statusline = {
+      url = "github:echasnovski/mini.statusline";
+      flake = false;
+    };
+
+    plugin-mini-surround = {
+      url = "github:echasnovski/mini.surround";
+      flake = false;
+    };
+
+    plugin-mini-tabline = {
+      url = "github:echasnovski/mini.tabline";
+      flake = false;
+    };
+
+    plugin-mini-test = {
+      url = "github:echasnovski/mini.test";
+      flake = false;
+    };
+
+    plugin-mini-trailspace = {
+      url = "github:echasnovski/mini.trailspace";
+      flake = false;
+    };
+
+    plugin-mini-visits = {
+      url = "github:echasnovski/mini.visits";
+      flake = false;
+    };
   };
 }
