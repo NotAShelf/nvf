@@ -98,13 +98,11 @@ in {
       };
     });
     default = {};
-    example = ''
-      {
-        SignColumn = {
-          bg = "#282828";
-        };
-      }
-    '';
+    example = {
+      SignColumn = {
+        bg = "#282828";
+      };
+    };
     description = "Custom highlights to apply";
   };
 
