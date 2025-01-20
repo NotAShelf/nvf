@@ -92,7 +92,7 @@ in {
             "NONE"
           ]));
           default = null;
-          description = "The cterm arguments to use. See :h highlight-args";
+          description = "The cterm arguments to use. See ':h highlight-args'";
         };
         force = mkBoolOption "force update";
       };
