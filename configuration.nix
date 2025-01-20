@@ -62,7 +62,7 @@ isMaximal: {
       python = {
         enable = true;
         format.type = "ruff";
-        lsp.servers = ["ruff" "basedpyright"];
+        lsp.server = ["ruff" "basedpyright"];
       };
       typst.enable = isMaximal;
       rust = {
