@@ -61,10 +61,7 @@
         "flutter-tools.dev_tools"
       ];
     };
-    blink-cmp = pkgs.callPackage ./packages/blink-cmp.nix {
-      src = inputs.plugin-blink-cmp;
-      version = inputs.plugin-blink-cmp.shortRev or inputs.plugin-blink-cmp.shortDirtyRev or "dirty";
-    };
+    inherit (pkgs) blink-cmp;
   };
 
   buildConfigPlugins = plugins:
