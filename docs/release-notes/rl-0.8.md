@@ -126,6 +126,7 @@
 
 [QuiNzX](https://github.com/QuiNzX):
 
-[ruff]: (https://github.com/astral-sh/ruff)
+[ruff lsp]: (https://github.com/astral-sh/ruff)
 
-- Add ruff as lsp alongside other lsp servers. Under `vim.languages.python.lsp`.
+- Add ruff as lsp alongside other lsp servers in a list as an option. Under
+  `vim.languages.python.lsp.server`.
