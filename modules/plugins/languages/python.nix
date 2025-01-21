@@ -15,7 +15,7 @@
   cfg = config.vim.languages.python;
 
   defaultServer = ["basedpyright"];
-  server = {
+  servers = {
     pyright = {
       package = pkgs.pyright;
       lspConfig = ''
@@ -221,7 +221,7 @@ in {
 
       server = mkOption {
         description = "Python LSP server to use";
-        type = listOf (enum (attrNames server));
+        type = listOf (enum (attrNames servers));
         default = defaultServer;
       };
 
@@ -229,7 +229,7 @@ in {
         description = "python LSP server package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
         type = lib.types.attrsOf (either package (listOf str));
-        default = lib.genAttrs cfg.lsp.server (name: server.${name}.package);
+        default = lib.genAttrs cfg.lsp.server (name: servers.${name}.package);
       };
     };
 
@@ -286,7 +286,7 @@ in {
       vim.lsp.lspconfig.sources =
         lib.genAttrs
         cfg.lsp.server
-        (name: server.${name}.lspConfig);
+        (name: servers.${name}.lspConfig);
     })
 
     (mkIf cfg.format.enable {
