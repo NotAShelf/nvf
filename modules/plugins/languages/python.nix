@@ -70,7 +70,7 @@
           cmd = ${
           if isList cfg.lsp.package.pylsp
           then expToLua cfg.lsp.package.pylsp
-          else ''{"${cfg.lsp.package}/bin/pylsp"}''
+          else ''{"${cfg.lsp.package.pylsp}/bin/pylsp"}''
         }
         }
       '';
