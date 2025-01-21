@@ -59,7 +59,8 @@
 - Add `vim.snippets.luasnip.setupOpts`, which was previously missing.
 - Add `"prettierd"` as a formatter option in
   `vim.languages.markdown.format.type`.
-- Add the following plugins from [mini.nvim](https://github.com/echasnovski/mini.nvim)
+- Add the following plugins from
+  [mini.nvim](https://github.com/echasnovski/mini.nvim)
   - `mini.ai`
   - `mini.align`
   - `mini.animate`
@@ -102,7 +103,8 @@
   - `mini.trailspace`
   - `mini.visits`
 - Add [fzf-lua](https://github.com/ibhagwan/fzf-lua) in `vim.fzf-lua`
-- Add [rainbow-delimiters](https://github.com/HiPhish/rainbow-delimiters.nvim) in `vim.visuals.rainbow-delimiters`
+- Add [rainbow-delimiters](https://github.com/HiPhish/rainbow-delimiters.nvim)
+  in `vim.visuals.rainbow-delimiters`
 
 [kaktu5](https://github.com/kaktu5):
 
@@ -121,3 +123,9 @@
 [ruff]: (https://github.com/astral-sh/ruff)
 
 - Add [ruff] as a formatter option in `vim.languages.python.format.type`.
+
+[QuiNzX](https://github.com/QuiNzX):
+
+[ruff]: (https://github.com/astral-sh/ruff)
+
+- Add ruff as lsp alongside other lsp servers. Under `vim.languages.python.lsp`.
