@@ -8312,6 +8312,586 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.highlight"></a><a class="term" href="options.html#opt-vim.highlight"><code class="option">vim.highlight</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Custom highlights to apply</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+attribute set of (submodule)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">{
+  SignColumn = {
+    bg = &quot;#282828&quot;;
+  };
+}
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.bg"></a><a class="term" href="options.html#opt-vim.highlight._name_.bg"><code class="option">vim.highlight.&lt;name&gt;.bg</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The background color to use. Written as color name or hex “#RRGGBB”.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or RGB color in hex format</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&quot;#ebdbb2&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.blend"></a><a class="term" href="options.html#opt-vim.highlight._name_.blend"><code class="option">vim.highlight.&lt;name&gt;.blend</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Blend as an integer between 0 and 100</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or integer between 0 and 100 (both inclusive)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.bold"></a><a class="term" href="options.html#opt-vim.highlight._name_.bold"><code class="option">vim.highlight.&lt;name&gt;.bold</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable bold</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.cterm"></a><a class="term" href="options.html#opt-vim.highlight._name_.cterm"><code class="option">vim.highlight.&lt;name&gt;.cterm</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The cterm arguments to use. See ‘:h highlight-args’</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or (list of (one of “bold”, “underline”, “undercurl”, “underdouble”, “underdotted”, “underdashed”, “strikethrough”, “reverse”, “inverse”, “italic”, “standout”, “altfont”, “nocombine”, “NONE”))</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.ctermbg"></a><a class="term" href="options.html#opt-vim.highlight._name_.ctermbg"><code class="option">vim.highlight.&lt;name&gt;.ctermbg</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The cterm background color to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.ctermfg"></a><a class="term" href="options.html#opt-vim.highlight._name_.ctermfg"><code class="option">vim.highlight.&lt;name&gt;.ctermfg</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The cterm foreground color to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.default"></a><a class="term" href="options.html#opt-vim.highlight._name_.default"><code class="option">vim.highlight.&lt;name&gt;.default</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Don’t override existing definition</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.fg"></a><a class="term" href="options.html#opt-vim.highlight._name_.fg"><code class="option">vim.highlight.&lt;name&gt;.fg</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The foreground color to use. Written as color name or hex “#RRGGBB”.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or RGB color in hex format</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&quot;#ebdbb2&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.force"></a><a class="term" href="options.html#opt-vim.highlight._name_.force"><code class="option">vim.highlight.&lt;name&gt;.force</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable force update</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.italic"></a><a class="term" href="options.html#opt-vim.highlight._name_.italic"><code class="option">vim.highlight.&lt;name&gt;.italic</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable italic</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.link"></a><a class="term" href="options.html#opt-vim.highlight._name_.link"><code class="option">vim.highlight.&lt;name&gt;.link</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The name of another highlight group to link to</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.nocombine"></a><a class="term" href="options.html#opt-vim.highlight._name_.nocombine"><code class="option">vim.highlight.&lt;name&gt;.nocombine</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable nocombine</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.reverse"></a><a class="term" href="options.html#opt-vim.highlight._name_.reverse"><code class="option">vim.highlight.&lt;name&gt;.reverse</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable reverse</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.sp"></a><a class="term" href="options.html#opt-vim.highlight._name_.sp"><code class="option">vim.highlight.&lt;name&gt;.sp</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The special color to use. Written as color name or hex “#RRGGBB”.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or RGB color in hex format</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&quot;#ebdbb2&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.standout"></a><a class="term" href="options.html#opt-vim.highlight._name_.standout"><code class="option">vim.highlight.&lt;name&gt;.standout</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable standout</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.strikethrough"></a><a class="term" href="options.html#opt-vim.highlight._name_.strikethrough"><code class="option">vim.highlight.&lt;name&gt;.strikethrough</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable strikethrough</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.undercurl"></a><a class="term" href="options.html#opt-vim.highlight._name_.undercurl"><code class="option">vim.highlight.&lt;name&gt;.undercurl</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable undercurl</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.underdashed"></a><a class="term" href="options.html#opt-vim.highlight._name_.underdashed"><code class="option">vim.highlight.&lt;name&gt;.underdashed</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable underdashed</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.underdotted"></a><a class="term" href="options.html#opt-vim.highlight._name_.underdotted"><code class="option">vim.highlight.&lt;name&gt;.underdotted</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable underdotted</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.underdouble"></a><a class="term" href="options.html#opt-vim.highlight._name_.underdouble"><code class="option">vim.highlight.&lt;name&gt;.underdouble</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable underdouble</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.highlight._name_.underline"></a><a class="term" href="options.html#opt-vim.highlight._name_.underline"><code class="option">vim.highlight.&lt;name&gt;.underline</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable underline</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/highlight.nix" target="_top">
+&lt;nvf/modules/neovim/init/highlight.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.keymaps"></a><a class="term" href="options.html#opt-vim.keymaps"><code class="option">vim.keymaps</code>
   </a>
  </span>
