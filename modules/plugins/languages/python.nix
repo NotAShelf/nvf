@@ -221,6 +221,10 @@ in {
 
       server = mkOption {
         description = "Python LSP server to use either as a single server or a list of servers";
+        example = ''
+          server = "basedpyright;
+          server = ["basedpyright" "ruff"];
+        '';
         type = either (enum (attrNames servers)) (listOf (enum (attrNames servers)));
         default = defaultServer;
       };
