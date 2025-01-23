@@ -14,7 +14,7 @@
 
   cfg = config.vim.languages.python;
 
-  defaultServer = ["basedpyright"];
+  defaultServer = "basedpyright";
   servers = {
     pyright = {
       package = pkgs.pyright;
@@ -220,8 +220,8 @@ in {
       enable = mkEnableOption "Python LSP support" // {default = config.vim.languages.enableLSP;};
 
       server = mkOption {
-        description = "Python LSP server to use";
-        type = listOf (enum (attrNames servers));
+        description = "Python LSP server to use either as a single server or a list of servers";
+        type = either (enum (attrNames servers)) (listOf (enum (attrNames servers)));
         default = defaultServer;
       };
 
@@ -229,7 +229,13 @@ in {
         description = "python LSP server package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
         type = lib.types.attrsOf (either package (listOf str));
-        default = lib.genAttrs cfg.lsp.server (name: servers.${name}.package);
+        default = let
+          serverList =
+            if isList cfg.lsp.server
+            then cfg.lsp.server
+            else [cfg.lsp.server];
+        in
+          lib.genAttrs serverList (name: servers.${name}.package);
       };
     };
 
@@ -283,10 +289,13 @@ in {
 
     (mkIf cfg.lsp.enable {
       vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources =
-        lib.genAttrs
-        cfg.lsp.server
-        (name: servers.${name}.lspConfig);
+      vim.lsp.lspconfig.sources = let
+        serverList =
+          if isList cfg.lsp.server
+          then cfg.lsp.server
+          else [cfg.lsp.server];
+      in
+        lib.genAttrs serverList (name: servers.${name}.lspConfig);
     })
 
     (mkIf cfg.format.enable {
