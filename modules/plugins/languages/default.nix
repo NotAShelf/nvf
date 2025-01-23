@@ -45,8 +45,8 @@ in {
     ./svelte.nix
     ./tailwind.nix
     ./terraform.nix
+    ./tex
     ./toml.nix
-    ./tex.nix
     ./ts.nix
     ./typst.nix
     ./zig.nix

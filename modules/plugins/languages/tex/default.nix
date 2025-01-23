@@ -142,20 +142,25 @@
     custom = buildConfig: buildConfig.custom.args;
   };
 in {
+
+  imports = [
+    ./treesitter.nix
+  ];
+
   options.vim.languages.tex = {
     enable = mkEnableOption "Tex support";
 
-    # Treesitter options for latex and bibtex flavours of tex.
-    treesitter = {
-      latex = {
-        enable = mkEnableTreesitterOption "Whether to enable Latex treesitter";
-        package = mkGrammarOption pkgs "latex";
-      };
-      bibtex = {
-        enable = mkEnableTreesitterOption "Whether to enable Bibtex treesitter";
-        package = mkGrammarOption pkgs "bibtex";
-      };
-    };
+    # # Treesitter options for latex and bibtex flavours of tex.
+    # treesitter = {
+    #   latex = {
+    #     enable = mkEnableTreesitterOption "Whether to enable Latex treesitter";
+    #     package = mkGrammarOption pkgs "latex";
+    #   };
+    #   bibtex = {
+    #     enable = mkEnableTreesitterOption "Whether to enable Bibtex treesitter";
+    #     package = mkGrammarOption pkgs "bibtex";
+    #   };
+    # };
 
     # LSP options
     # Because tex LSPs also including building/compiling tex, they have
@@ -485,15 +490,15 @@ in {
   };
 
   config = mkIf cfg.enable (mkMerge [
-    # Treesitter
-    (mkIf cfg.treesitter.latex.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.latex.package];
-    })
-    (mkIf cfg.treesitter.bibtex.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.bibtex.package];
-    })
+    # # Treesitter
+    # (mkIf cfg.treesitter.latex.enable {
+    #   vim.treesitter.enable = true;
+    #   vim.treesitter.grammars = [cfg.treesitter.latex.package];
+    # })
+    # (mkIf cfg.treesitter.bibtex.enable {
+    #   vim.treesitter.enable = true;
+    #   vim.treesitter.grammars = [cfg.treesitter.bibtex.package];
+    # })
 
     # LSP
     (mkIf (any (x: x.enable) (attrValues cfg.lsp)) (
