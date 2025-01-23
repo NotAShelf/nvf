@@ -103,6 +103,7 @@
   - `mini.visits`
 - Add [fzf-lua](https://github.com/ibhagwan/fzf-lua) in `vim.fzf-lua`
 - Add [rainbow-delimiters](https://github.com/HiPhish/rainbow-delimiters.nvim) in `vim.visuals.rainbow-delimiters`
+- Add options to define highlights under [](#opt-vim.highlight)
 
 [kaktu5](https://github.com/kaktu5):
 
