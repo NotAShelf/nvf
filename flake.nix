@@ -502,6 +502,11 @@
       flake = false;
     };
 
+    plugin-rainbow-delimiters = {
+      url = "github:HiPhish/rainbow-delimiters.nvim";
+      flake = false;
+    };
+
     # Minimap
     plugin-minimap-vim = {
       url = "github:wfxr/minimap.vim";
