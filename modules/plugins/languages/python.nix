@@ -229,13 +229,7 @@ in {
         description = "python LSP server package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
         type = lib.types.attrsOf (either package (listOf str));
-        default = let
-          serverList =
-            if isList cfg.lsp.server
-            then cfg.lsp.server
-            else [cfg.lsp.server];
-        in
-          lib.genAttrs serverList (name: servers.${name}.package);
+        default = lib.genAttrs (lib.toList cfg.lsp.server) (name: servers.${name}.package);
       };
     };
 
@@ -289,13 +283,7 @@ in {
 
     (mkIf cfg.lsp.enable {
       vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources = let
-        serverList =
-          if isList cfg.lsp.server
-          then cfg.lsp.server
-          else [cfg.lsp.server];
-      in
-        lib.genAttrs serverList (name: servers.${name}.lspConfig);
+      vim.lsp.lspconfig.sources = lib.genAttrs (lib.toList cfg.lsp.server) (name: servers.${name}.lspConfig);
     })
 
     (mkIf cfg.format.enable {
