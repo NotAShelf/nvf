@@ -22,7 +22,11 @@
   inherit
     (lib.types)
     bool
+    either
+    enum
+    ints
     listOf
+    oneOf
     package
     str
     ;
@@ -30,14 +34,113 @@
   inherit
     (builtins)
     any
+    attrNames
     attrValues
+    concatLists
     concatStringsSep
+    elem
+    elemAt
+    filter
+    hasAttr
+    isAttrs
     length
     map
+    throw
     toString
     ;
 
   cfg = config.vim.languages.tex;
+
+  # --- Enable Options ---
+  mkEnableDefaultOption = default: description: (mkOption {
+    type = bool;
+    default = default;
+    example = !default;
+    description = description;
+  });
+  mkEnableTreesitterOption = mkEnableDefaultOption config.vim.languages.enableTreesitter;
+  mkEnableLspOption = mkEnableDefaultOption config.vim.languages.enableLSP;
+
+  # --- Arg Collation Functions --
+  collateArgs.lsp.texlab.build = {
+    tectonic = buildConfig: let
+      selfConfig = buildConfig.tectonic;
+    in (
+      # Base args
+      [
+        "-X"
+        "compile"
+        "%f"
+      ]
+      # Flags
+      ++ (
+        if selfConfig.keepIntermediates
+        then ["--keep-intermediates"]
+        else []
+      )
+      ++ (
+        if selfConfig.keepLogs
+        then ["--keep-logs"]
+        else []
+      )
+      ++ (
+        if selfConfig.onlyCached
+        then ["--only-cached"]
+        else []
+      )
+      ++ (
+        if selfConfig.synctex
+        then ["--synctex"]
+        else []
+      )
+      ++ (
+        if selfConfig.untrustedInput
+        then ["--untrusted"]
+        else []
+      )
+      # Options
+      ++ (
+        if selfConfig.reruns > 0
+        then ["--reruns" "${toString selfConfig.reruns}"]
+        else []
+      )
+      ++ (
+        if selfConfig.bundle != ""
+        then ["--bundle" "${toString selfConfig.bundle}"]
+        else []
+      )
+      ++ (
+        if selfConfig.webBundle != ""
+        then ["--web-bundle" "${toString selfConfig.webBundle}"]
+        else []
+      )
+      ++ (
+        if selfConfig.outfmt != ""
+        then ["--outfmt" "${toString selfConfig.outfmt}"]
+        else []
+      )
+      ++ (concatLists (map (x: ["--hide" x]) selfConfig.hidePaths))
+      ++ (
+        if selfConfig.format != ""
+        then ["--format" "${toString selfConfig.format}"]
+        else []
+      )
+      ++ (
+        if selfConfig.color != ""
+        then ["--color" "${toString selfConfig.color}"]
+        else []
+      )
+      # Still options but these are not defined by builder specific options but
+      # instead synchronize options between the global build options and builder
+      # specific options
+      ++ (
+        if !(elem buildConfig.pdfDirectory ["." ""])
+        then ["--outdir" "${buildConfig.pdfDirectory}"]
+        else []
+      )
+    );
+    custom = buildConfig: buildConfig.custom.args;
+  };
 in {
   options.vim.languages.tex = {
     enable = mkEnableOption "Tex support";
@@ -45,11 +148,11 @@ in {
     # Treesitter options for latex and bibtex flavours of tex.
     treesitter = {
       latex = {
-        enable = mkEnableOption "Latex treesitter" // { default = config.vim.languages.enableTreesitter; };
+        enable = mkEnableTreesitterOption "Whether to enable Latex treesitter";
         package = mkGrammarOption pkgs "latex";
       };
       bibtex = {
-        enable = mkEnableOption "Bibtex treesitter" // { default = config.vim.languages.enableTreesitter; };
+        enable = mkEnableTreesitterOption "Whether to enable Bibtex treesitter";
         package = mkGrammarOption pkgs "bibtex";
       };
     };
@@ -62,7 +165,7 @@ in {
     # Each lsp group must have an enable option of its own.
     lsp = {
       texlab = {
-        enable = mkEnableOption "Tex LSP support (texlab)" // { default = config.vim.languages.enableLSP; };
+        enable = mkEnableLspOption "Whether to enable Tex LSP support (texlab)";
 
         package = mkOption {
           type = package;
@@ -71,36 +174,141 @@ in {
         };
 
         build = {
-          package = mkOption {
-            type = package;
-            default = pkgs.tectonic;
-            description = "build/compiler package";
-          };
-          executable = mkOption {
-            type = str;
-            default = "tectonic";
-            description = "The executable name from the build package that will be used to build/compile the tex.";
-          };
-          args = mkOption {
-            type = listOf str;
-            default = [
-              "-X"
-              "compile"
-              "%f"
-              "--synctex"
-              "--keep-logs"
-              "--keep-intermediates"
-            ];
-            description = ''
-              Defines additional arguments that are passed to the configured LaTeX build tool.
-              Note that flags and their arguments need to be separate elements in this array.
-              To pass the arguments -foo bar to a build tool, args needs to be ["-foo" "bar"].
-              The placeholder `%f` will be replaced by the server.
+          tectonic = {
+            enable = mkEnableDefaultOption true "Whether to enable Tex Compilation Via Tectonic";
 
-              Placeholders:
-                - `%f`: The path of the TeX file to compile.
+            package = mkOption {
+              type = package;
+              default = pkgs.tectonic;
+              description = "tectonic package";
+            };
+
+            executable = mkOption {
+              type = str;
+              default = "tectonic";
+              description = "The executable name from the build package that will be used to build/compile the tex.";
+            };
+
+            # -- Flags --
+            keepIntermediates = mkEnableDefaultOption false ''
+              Keep the intermediate files generated during processing.
+
+              If texlab is reporting build errors when there shouldn't be, disable this option.
             '';
+            keepLogs = mkEnableDefaultOption true ''
+              Keep the log files generated during processing.
+
+              Without the keepLogs flag, texlab won't be able to report compilation warnings.
+            '';
+            onlyCached = mkEnableDefaultOption false "Use only resource files cached locally";
+            synctex = mkEnableDefaultOption true "Generate SyncTeX data";
+            untrustedInput = mkEnableDefaultOption false "Input is untrusted -- disable all known-insecure features";
+
+            # -- Options --
+            reruns = mkOption {
+              type = ints.unsigned;
+              default = 0;
+              example = 2;
+              description = "Rerun the TeX engine exactly this many times after the first";
+            };
+
+            bundle = mkOption {
+              type = str;
+              default = "";
+              description = "Use this directory or Zip-format bundle file to find resource files instead of the default";
+            };
+
+            webBundle = mkOption {
+              type = str;
+              default = "";
+              description = "Use this URL to find resource files instead of the default";
+            };
+
+            outfmt = mkOption {
+              type = enum [
+                "pdf"
+                "html"
+                "xdv"
+                "aux"
+                "fmt"
+                ""
+              ];
+              default = "";
+              description = "The kind of output to generate";
+            };
+
+            hidePaths = mkOption {
+              type = listOf str;
+              default = [];
+              example = [
+                "./secrets.tex"
+                "./passwords.tex"
+              ];
+              description = "Tell the engine that no file at <hide_path> exists, if it tries to read it.";
+            };
+
+            format = mkOption {
+              type = str;
+              default = "";
+              description = "The name of the \"format\" file used to initialize the TeX engine";
+            };
+
+            color = mkOption {
+              type = enum [
+                "always"
+                "auto"
+                "never"
+                ""
+              ];
+              default = "";
+              example = "always";
+              description = "Enable/disable colorful log output";
+            };
+
+            extraOptions = {
+              type = listOf str;
+              default = [];
+              description = ''
+                Add extra command line options to include in the tectonic build command.
+                Extra options added here will not overwrite the options set in as nvf options.
+              '';
+            };
           };
+
+          custom = {
+            enable = mkEnableDefaultOption false "Whether to enable using a custom build package";
+            package = mkOption {
+              type = package;
+              default = pkgs.tectonic;
+              description = "build/compiler package";
+            };
+            executable = mkOption {
+              type = str;
+              default = "tectonic";
+              description = "The executable name from the build package that will be used to build/compile the tex.";
+            };
+            args = mkOption {
+              type = listOf str;
+              default = [
+                "-X"
+                "compile"
+                "%f"
+                "--synctex"
+                "--keep-logs"
+                "--keep-intermediates"
+              ];
+              description = ''
+                Defines additional arguments that are passed to the configured LaTeX build tool.
+                Note that flags and their arguments need to be separate elements in this array.
+                To pass the arguments -foo bar to a build tool, args needs to be ["-foo" "bar"].
+                The placeholder `%f` will be replaced by the server.
+
+                Placeholders:
+                  - `%f`: The path of the TeX file to compile.
+              '';
+            };
+          };
+
           forwardSearchAfter = mkOption {
             type = bool;
             default = false;
@@ -289,9 +497,11 @@ in {
 
     # LSP
     (mkIf (any (x: x.enable) (attrValues cfg.lsp)) (
-      { vim.lsp.lspconfig.enable = true; } # Enable lspconfig when any of the lsps are enabled
+      {
+        vim.lsp.lspconfig.enable = true;
+      } # Enable lspconfig when any of the lsps are enabled
       // (mkMerge [
-        # Texlab
+        # ----- Texlab -----
         (
           let
             tl = cfg.lsp.texlab;
@@ -318,23 +528,73 @@ in {
               then "true"
               else "false";
 
+            # -- Build --
+            buildConfig = let
+              # This function will sort through the builder options of ...texlab.build and count how many
+              # builders have been enabled and get the attrs of the last enabled builder.
+              getBuilder = {
+                enabledBuildersCount ? 0,
+                enabledBuilderName ? "",
+                index ? 0,
+                builderNamesList ? (
+                  filter (
+                    x: let
+                      y = tl.build.${x};
+                    in (isAttrs y && hasAttr "enable" y)
+                  ) (attrNames tl.build)
+                ),
+              }: let
+                currentBuilderName = elemAt builderNamesList index;
+                currentBuilder = tl.build.${currentBuilderName};
+                nextIndex = index + 1;
+                currentState = {
+                  enabledBuildersCount =
+                    if currentBuilder.enable
+                    then enabledBuildersCount + 1
+                    else enabledBuildersCount;
+                  enabledBuilderName =
+                    if currentBuilder.enable
+                    then currentBuilderName
+                    else enabledBuilderName;
+                };
+              in
+                if length builderNamesList > nextIndex
+                then
+                  getBuilder ({
+                      inherit builderNamesList;
+                      index = nextIndex;
+                    }
+                    // currentState)
+                else currentState;
+
+              getBuilderResults = getBuilder {};
+              builder = tl.build.${getBuilderResults.enabledBuilderName};
+              builderArgs = collateArgs.lsp.texlab.build.${getBuilderResults.enabledBuilderName} tl.build;
+            in
+              if getBuilderResults.enabledBuildersCount == 0
+              then ""
+              else if getBuilderResults.enabledBuildersCount > 1
+              then throw "Texlab does not support having more than 1 builders enabled!"
+              else ''
+                build = {
+                        executable = "${builder.package}/bin/${builder.executable}",
+                        args = ${listToLua builderArgs false},
+                        forwardSearchAfter = ${boolToLua build.forwardSearchAfter},
+                        onSave = ${boolToLua build.onSave},
+                        useFileList = ${boolToLua build.useFileList},
+                        auxDirectory = ${stringToLua build.auxDirectory true},
+                        logDirectory = ${stringToLua build.logDirectory true},
+                        pdfDirectory = ${stringToLua build.pdfDirectory true},
+                        filename = ${stringToLua build.filename true},
+                      },
+              '';
           in (mkIf tl.enable {
             vim.lsp.lspconfig.sources.texlab = ''
               lspconfig.texlab.setup {
                 cmd = { "${tl.package}/bin/texlab" },
                 settings = {
                   texlab = {
-                    build = {
-                      executable = "${build.package}/bin/${build.executable}",
-                      args = ${listToLua build.args false},
-                      forwardSearchAfter = ${boolToLua build.forwardSearchAfter},
-                      onSave = ${boolToLua build.onSave},
-                      useFileList = ${boolToLua build.useFileList},
-                      auxDirectory = ${stringToLua build.auxDirectory true},
-                      logDirectory = ${stringToLua build.logDirectory true},
-                      pdfDirectory = ${stringToLua build.pdfDirectory true},
-                      filename = ${stringToLua build.filename true},
-                    },
+                    ${buildConfig}
                     forwardSearch = {
                       executable = "${tl.forwardSearch.package}/bin/${tl.forwardSearch.executable}",
                       args = ${listToLua tl.forwardSearch.args true}
