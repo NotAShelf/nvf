@@ -59,10 +59,7 @@ isMaximal: {
       go.enable = isMaximal;
       lua.enable = isMaximal;
       zig.enable = isMaximal;
-      python = {
-        enable = true;
-        lsp.server = ["basedpyright" "ruff"];
-      };
+      python.enable = isMaximal;
       typst.enable = isMaximal;
       rust = {
         enable = isMaximal;
