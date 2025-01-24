@@ -12,6 +12,7 @@ in {
   imports = [
     ./treesitter.nix
     ./lsp
+    ./build
   ];
 
   options.vim.languages.tex = {
