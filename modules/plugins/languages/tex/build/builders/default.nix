@@ -13,7 +13,7 @@ let
 in
 {
   imports = [
-    # ./custom.nix
+    ./latexmk.nix
     ./tectonic.nix
   ];
 
