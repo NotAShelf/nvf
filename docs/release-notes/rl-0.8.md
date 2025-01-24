@@ -122,3 +122,8 @@
 [ruff]: (https://github.com/astral-sh/ruff)
 
 - Add [ruff] as a formatter option in `vim.languages.python.format.type`.
+
+[ARCIII](https://github.com/ArmandoCIII):
+
+- Add `vim.languages.zig.dap` support through pkgs.lldb dap adapter.
+  Code Inspiration from `vim.languages.clang.dap` implementation.
