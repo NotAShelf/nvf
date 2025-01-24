@@ -211,7 +211,7 @@ in {
       name = "tectonic";
       args = collateArgs cfg.build;
       package = cfg.build.builders.tectonic.package;
-      executable = cfg.build.builders.tectonic.package;
+      executable = cfg.build.builders.tectonic.executable;
     };
   };
 }
