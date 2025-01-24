@@ -1,46 +1,12 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }: let
   inherit (lib.options) mkOption;
-  inherit (lib.modules) mkIf;
-  inherit
-    (lib.types)
-    bool
-    enum
-    ints
-    listOf
-    package
-    str
-    ;
-  inherit
-    (builtins)
-    attrNames
-    concatLists
-    concatStringsSep
-    elem
-    elemAt
-    filter
-    hasAttr
-    isAttrs
-    length
-    map
-    throw
-    toString
-    ;
+  inherit (lib.types) bool str;
 
   cfg = config.vim.languages.tex;
-
-  # --- Enable Options ---
-  mkEnableDefaultOption = default: description: (mkOption {
-    type = bool;
-    default = default;
-    example = !default;
-    description = description;
-  });
-  mkEnableLspOption = mkEnableDefaultOption config.vim.languages.enableLSP;
 in {
   imports = [
     ./builders

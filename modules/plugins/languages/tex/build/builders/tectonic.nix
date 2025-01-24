@@ -15,21 +15,7 @@
     package
     str
     ;
-  inherit
-    (builtins)
-    attrNames
-    concatLists
-    concatStringsSep
-    elem
-    elemAt
-    filter
-    hasAttr
-    isAttrs
-    length
-    map
-    throw
-    toString
-    ;
+  inherit (builtins) concatLists elem map toString;
 
   cfg = config.vim.languages.tex;
 
@@ -40,7 +26,6 @@
     example = !default;
     description = description;
   });
-  mkEnableLspOption = mkEnableDefaultOption config.vim.languages.enableLSP;
 
   # --- Arg Collation Functions --
   collateArgs = buildConfig: let
@@ -226,6 +211,7 @@ in {
       name = "tectonic";
       args = collateArgs cfg.build;
       package = cfg.build.builders.tectonic.package;
+      executable = cfg.build.builders.tectonic.package;
     };
   };
 }
