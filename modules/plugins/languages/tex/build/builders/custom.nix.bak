@@ -6,7 +6,8 @@
 }: let
   inherit (lib.options) mkOption;
   inherit (lib.modules) mkIf;
-  inherit (lib.types) bool listOf package str ;
+  inherit (lib.types) bool listOf package str;
+  inherit (lib) mkDefault;
 
   cfg = config.vim.languages.tex;
 
@@ -56,10 +57,10 @@ in {
 
   config = mkIf (cfg.enable && cfg.build.builders.custom.enable) {
     vim.languages.tex.build.builder = {
-      name = "custom";
-      args = collateArgs cfg.build;
-      package = cfg.build.builders.custom.package;
-      executable = cfg.build.builders.custom.executable;
+      name = mkDefault "custom";
+      args = mkDefault (collateArgs cfg.build);
+      package = mkDefault (cfg.build.builders.custom.package);
+      executable = mkDefault (cfg.build.builders.custom.executable);
     };
   };
 }
