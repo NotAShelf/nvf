@@ -1,28 +1,36 @@
+# TODO:
+# - Add Texlab LSP settings:
+#   - chktex
+#   - diagnosticsDelay
+#   - diagnostics
+#   - symbols
+#   - formatterLineLength
+#   - bibtexFormatter
+#   - latexFormatter
+#   - latexindent
+#   - completion
+#   - inlayHints
+#   - experimental
 {
   config,
   pkgs,
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.options) mkOption;
+  inherit (lib.modules) mkIf;
   inherit
     (lib.types)
     bool
-    either
     enum
     ints
     listOf
-    oneOf
     package
     str
     ;
-  inherit (lib.nvim.types) mkGrammarOption;
   inherit
     (builtins)
-    any
     attrNames
-    attrValues
     concatLists
     concatStringsSep
     elem
