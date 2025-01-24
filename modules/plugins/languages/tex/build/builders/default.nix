@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   lib,
   ...
 }:
@@ -12,30 +13,57 @@ let
 in
 {
   imports = [
-    ./custom.nix
+    # ./custom.nix
     ./tectonic.nix
   ];
 
   options.vim.languages.tex.build.builder = {
     name = mkOption {
       type = enum (attrNames cfg.build.builders);
-      default = "tectonic";
-      description = "The tex builder to use";
+      default = "latexmk";
+      description = ''
+        The tex builder to use.
+
+        This is just the default custom option. By setting any of the
+        builders to true, this will be overwritten by that builder's
+        parameters.
+      '';
     };
     args = mkOption {
       type = listOf str;
-      default = [];
-      description = "The list of args to pass to the builder";
+      default = [
+        "-pdf"
+        "%f"
+      ];
+      description = ''
+        The list of args to pass to the builder.
+
+        This is just the default custom option. By setting any of the
+        builders to true, this will be overwritten by that builder's
+        parameters.
+      '';
     };
     package = mkOption {
       type = package;
-      default = cfg.build.builders.tectonic.package;
-      description = "The tex builder package to use";
+      default = (pkgs.texlive.withPackages (ps: [ ps.latexmk ]));
+      description = ''
+        The tex builder package to use.
+
+        This is just the default custom option. By setting any of the
+        builders to true, this will be overwritten by that builder's
+        parameters.
+      '';
     };
     executable = mkOption {
       type = str;
-      default = cfg.build.builders.tectonic.executable;
-      description = "The tex builder executable to use";
+      default = "latexmk";
+      description = ''
+        The tex builder executable to use.
+
+        This is just the default custom option. By setting any of the
+        builders to true, this will be overwritten by that builder's
+        parameters.
+      '';
     };
   };
 }
