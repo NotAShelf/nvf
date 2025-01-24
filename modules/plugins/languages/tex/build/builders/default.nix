@@ -1,35 +1,12 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }:
 let
-  inherit (lib.options) mkOption mkEnableOption;
-  inherit
-    (lib.types)
-    bool
-    enum
-    ints
-    listOf
-    package
-    str
-    ;
-  inherit
-    (builtins)
-    attrNames
-    concatLists
-    concatStringsSep
-    elem
-    elemAt
-    filter
-    hasAttr
-    isAttrs
-    length
-    map
-    throw
-    toString
-    ;
+  inherit (lib.options) mkOption;
+  inherit (lib.types) enum listOf package str;
+  inherit (builtins) attrNames;
 
   cfg = config.vim.languages.tex;
 in

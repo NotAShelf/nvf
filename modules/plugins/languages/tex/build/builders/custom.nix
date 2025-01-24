@@ -6,30 +6,7 @@
 }: let
   inherit (lib.options) mkOption;
   inherit (lib.modules) mkIf;
-  inherit
-    (lib.types)
-    bool
-    enum
-    ints
-    listOf
-    package
-    str
-    ;
-  inherit
-    (builtins)
-    attrNames
-    concatLists
-    concatStringsSep
-    elem
-    elemAt
-    filter
-    hasAttr
-    isAttrs
-    length
-    map
-    throw
-    toString
-    ;
+  inherit (lib.types) bool listOf package str ;
 
   cfg = config.vim.languages.tex;
 
@@ -81,6 +58,8 @@ in {
     vim.languages.tex.build.builder = {
       name = "custom";
       args = collateArgs cfg.build;
+      package = cfg.build.builders.custom.package;
+      executable = cfg.build.builders.custom.executable;
     };
   };
 }
