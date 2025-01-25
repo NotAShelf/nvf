@@ -1,5 +1,5 @@
 .Dd January 1, 1980
-.Dt nvf 1
+.Dt NVF 1
 .Os nvf
 .\" disable hyphenation
 .nh
@@ -7,27 +7,46 @@
 .ad l
 .\" enable line breaks after slashes
 .cflags 4 /
+
 .Sh NAME
 .Nm nvf
-.Nd A highly modular, extensible and distro-agnostic Neovim configuration framework for Nix/NixOS.
-.
+.Nd A modular, extensible, and distro-agnostic Neovim configuration framework for Nix/NixOS.
+
+.Sh DESCRIPTION
+.Nm nvf
+is a highly modular, configurable, extensible, and easy-to-use Neovim configuration in Nix.
+Designed for flexibility and ease of use, nvf allows you to easily configure your fully featured
+Neovim instance with a few lines of Nix.
+
+.Sh COMMANDS
+The following commands are bundled with nvf to allow easier debugging of your configuration.
+
+.Bl -tag -width Ds
+.It Nm nvf-print-config
+Outputs the full configuration of the current `nvf` setup. This command is useful for debugging
+or inspecting the applied configuration.
+.Pp
+.It Nm nvf-print-config-path
+Prints the file path to the configuration file currently in use. This command is helpful for locating
+the source configuration file for troubleshooting or easily sharing it via online paste utilities.
+.El
+
 .Sh BUGS
 .Pp
-Please report any bugs that you might encounter on the
-\m[blue]\fBproject issue tracker\fR\m[]\&.
+Please report any bugs on the project issue tracker:
+.Lk https://github.com/notashelf/nvf/issues
 
 .Sh SEE ALSO
 .Pp
-\fBnvf\fR(5)
+.Fn nvf 5
 
 .Sh AUTHOR
 .Pp
-\fBnvf contributors\fR
+.Fn nvf contributors
 .RS 4
-Author.
+Primary contributors and maintainers of the project.
 .RE
 
 .Sh COPYRIGHT
-.br
-Copyright \(co 2023\(en2024 nvf contributors
-.br
+.Pp
+Copyright (c) 2023–2025 nvf contributors.
