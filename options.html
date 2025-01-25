@@ -18571,6 +18571,85 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.lsp.lightbulb.autocmd.enable"></a><a class="term" href="options.html#opt-vim.lsp.lightbulb.autocmd.enable"><code class="option">vim.lsp.lightbulb.autocmd.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable updating lightbulb glyph automatically.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/lightbulb/lightbulb.nix" target="_top">
+&lt;nvf/modules/plugins/lsp/lightbulb/lightbulb.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.lsp.lightbulb.autocmd.events"></a><a class="term" href="options.html#opt-vim.lsp.lightbulb.autocmd.events"><code class="option">vim.lsp.lightbulb.autocmd.events</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Events on which to update nvim-lightbulb glyphs</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
+  &quot;CursorHold&quot;
+  &quot;CursorHoldI&quot;
+]
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/lightbulb/lightbulb.nix" target="_top">
+&lt;nvf/modules/plugins/lsp/lightbulb/lightbulb.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.lsp.lightbulb.autocmd.pattern"></a><a class="term" href="options.html#opt-vim.lsp.lightbulb.autocmd.pattern"><code class="option">vim.lsp.lightbulb.autocmd.pattern</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>File patterns or buffer names to match, determining which files or buffers trigger
+glyph updates.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string or (luaInline)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;*&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/lightbulb/lightbulb.nix" target="_top">
+&lt;nvf/modules/plugins/lsp/lightbulb/lightbulb.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.lsp.lightbulb.setupOpts"></a><a class="term" href="options.html#opt-vim.lsp.lightbulb.setupOpts"><code class="option">vim.lsp.lightbulb.setupOpts</code>
   </a>
  </span>
