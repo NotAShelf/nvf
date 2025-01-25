@@ -8,9 +8,11 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge mkDefault;
   inherit (lib.lists) isList;
-  inherit (lib.types) either listOf package str enum;
+  inherit (lib.types) bool either listOf package str enum;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.types) mkGrammarOption;
+
+  cfg = config.vim.languages.zig;
 
   defaultServer = "zls";
   servers = {
@@ -31,7 +33,35 @@
     };
   };
 
-  cfg = config.vim.languages.zig;
+  # TODO: dap.adapter.lldb is duplicated when enabling the
+  # vim.languages.clang.dap module. This does not cause
+  # breakage... but could be cleaner.
+  defaultDebugger = "lldb-vscode";
+  debuggers = {
+    lldb-vscode = {
+      package = pkgs.lldb;
+      dapConfig = ''
+        dap.adapters.lldb = {
+          type = 'executable',
+          command = '${cfg.dap.package}/bin/lldb-dap',
+          name = 'lldb'
+        }
+        dap.configurations.zig = {
+          {
+            name = 'Launch',
+            type = 'lldb',
+            request = 'launch',
+            program = function()
+              return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+            end,
+            cwd = "''${workspaceFolder}",
+            stopOnEntry = false,
+            args = {},
+          },
+        }
+      '';
+    };
+  };
 in {
   options.vim.languages.zig = {
     enable = mkEnableOption "Zig language support";
@@ -56,6 +86,26 @@ in {
         default = pkgs.zls;
       };
     };
+
+    dap = {
+      enable = mkOption {
+        type = bool;
+        default = config.vim.languages.enableDAP;
+        description = "Enable Zig Debug Adapter";
+      };
+
+      debugger = mkOption {
+        type = enum (attrNames debuggers);
+        default = defaultDebugger;
+        description = "Zig debugger to use";
+      };
+
+      package = mkOption {
+        type = package;
+        default = debuggers.${cfg.dap.debugger}.package;
+        description = "Zig debugger package.";
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -75,6 +125,13 @@ in {
 
         # nvf handles autosaving already
         globals.zig_fmt_autosave = mkDefault 0;
+      };
+    })
+
+    (mkIf cfg.dap.enable {
+      vim = {
+        debugger.nvim-dap.enable = true;
+        debugger.nvim-dap.sources.zig-debugger = debuggers.${cfg.dap.debugger}.dapConfig;
       };
     })
   ]);
