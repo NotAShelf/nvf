@@ -89,19 +89,21 @@ in {
 
     dap = {
       enable = mkOption {
-        description = "Enable Zig Debug Adapter";
         type = bool;
         default = config.vim.languages.enableDAP;
+        description = "Enable Zig Debug Adapter";
       };
+
       debugger = mkOption {
-        description = "Zig debugger to use";
         type = enum (attrNames debuggers);
         default = defaultDebugger;
+        description = "Zig debugger to use";
       };
+
       package = mkOption {
-        description = "Zig debugger package.";
         type = package;
         default = debuggers.${cfg.dap.debugger}.package;
+        description = "Zig debugger package.";
       };
     };
   };
