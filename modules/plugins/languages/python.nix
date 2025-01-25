@@ -8,9 +8,10 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
-  inherit (lib.types) enum either listOf package str bool;
+  inherit (lib.lists) isList toList;
+  inherit (lib.types) enum either listOf package str bool attrsOf;
   inherit (lib.nvim.lua) expToLua;
+  inherit (lib) genAttrs;
 
   cfg = config.vim.languages.python;
 
@@ -232,8 +233,8 @@ in {
       package = mkOption {
         description = "python LSP server package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = lib.types.attrsOf (either package (listOf str));
-        default = lib.genAttrs (lib.toList cfg.lsp.server) (name: servers.${name}.package);
+        type = attrsOf (either package (listOf str));
+        default = genAttrs (toList cfg.lsp.server) (name: servers.${name}.package);
       };
     };
 
@@ -287,7 +288,7 @@ in {
 
     (mkIf cfg.lsp.enable {
       vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources = lib.genAttrs (lib.toList cfg.lsp.server) (name: servers.${name}.lspConfig);
+      vim.lsp.lspconfig.sources = genAttrs (toList cfg.lsp.server) (name: servers.${name}.lspConfig);
     })
 
     (mkIf cfg.format.enable {
