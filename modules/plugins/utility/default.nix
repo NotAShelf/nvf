@@ -13,5 +13,8 @@
     ./surround
     ./telescope
     ./wakatime
+    ./surround
+    ./preview
+    ./fzf-lua
   ];
 }

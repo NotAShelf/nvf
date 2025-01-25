@@ -1,0 +1,44 @@
+{
+  imports = [
+    ./ai
+    ./align
+    ./animate
+    # ./base16 # NOTE: configured in theme/
+    ./basics
+    ./bracketed
+    ./bufremove
+    ./clue
+    ./colors
+    ./comment
+    ./completion
+    ./diff
+    ./doc
+    ./extra
+    ./files
+    ./fuzzy
+    ./git
+    ./hipatterns
+    ./hues
+    ./icons
+    ./indentscope
+    ./jump
+    ./jump2d
+    ./map
+    ./misc
+    ./move
+    ./notify
+    ./operators
+    ./pairs
+    ./pick
+    ./sessions
+    ./snippets
+    ./splitjoin
+    ./starter
+    ./statusline
+    ./surround
+    ./tabline
+    ./test
+    ./trailspace
+    ./visits
+  ];
+}

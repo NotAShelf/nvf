@@ -26,6 +26,17 @@
 
 - Deprecate rnix-lsp as it has been abandoned and archived upstream.
 
+- Hardcoded indentation values for the Nix language module have been removed. To
+  replicate previous behaviour, you must either consolidate Nix indentation in
+  your Editorconfig configuration, or use an autocommand to set indentation
+  values for buffers with the Nix filetype.
+
+- Add [](#opt-vim.lsp.lightbulb.autocmd.enable) for manually managing the
+  previously managed lightbulb autocommand.
+  - A warning will occur if [](#opt-vim.lsp.lightbulb.autocmd.enable) and
+    `vim.lsp.lightbulb.setupOpts.autocmd.enabled` are both set at the same time.
+    Pick only one.
+
 [amadaluzia](https://github.com/amadaluzia):
 
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim
@@ -41,8 +52,8 @@
 
 [horriblename](https://github.com/horriblename):
 
-[aerial.nvim](https://github.com/stevearc/aerial.nvim)
-[nvim-ufo](https://github.com/kevinhwang91/nvim-ufo)
+[aerial.nvim]: (https://github.com/stevearc/aerial.nvim)
+[nvim-ufo]: (https://github.com/kevinhwang91/nvim-ufo)
 
 - Add [aerial.nvim]
 - Add [nvim-ufo]
@@ -52,7 +63,55 @@
 - Remove `vim.notes.obsidian.setupOpts.dir`, which was set by default. Fixes
   issue with setting the workspace directory.
 - Add `vim.snippets.luasnip.setupOpts`, which was previously missing.
-- Add `"prettierd"` as a formatter option in `vim.languages.markdown.format.type`.
+- Add `"prettierd"` as a formatter option in
+  `vim.languages.markdown.format.type`.
+- Add the following plugins from
+  [mini.nvim](https://github.com/echasnovski/mini.nvim)
+  - `mini.ai`
+  - `mini.align`
+  - `mini.animate`
+  - `mini.base16`
+  - `mini.basics`
+  - `mini.bracketed`
+  - `mini.bufremove`
+  - `mini.clue`
+  - `mini.colors`
+  - `mini.comment`
+  - `mini.completion`
+  - `mini.deps`
+  - `mini.diff`
+  - `mini.doc`
+  - `mini.extra`
+  - `mini.files`
+  - `mini.fuzzy`
+  - `mini.git`
+  - `mini.hipatterns`
+  - `mini.hues`
+  - `mini.icons`
+  - `mini.indentscope`
+  - `mini.jump`
+  - `mini.jump2d`
+  - `mini.map`
+  - `mini.misc`
+  - `mini.move`
+  - `mini.notify`
+  - `mini.operators`
+  - `mini.pairs`
+  - `mini.pick`
+  - `mini.sessions`
+  - `mini.snippets`
+  - `mini.splitjoin`
+  - `mini.starter`
+  - `mini.statusline`
+  - `mini.surround`
+  - `mini.tabline`
+  - `mini.test`
+  - `mini.trailspace`
+  - `mini.visits`
+- Add [fzf-lua](https://github.com/ibhagwan/fzf-lua) in `vim.fzf-lua`
+- Add [rainbow-delimiters](https://github.com/HiPhish/rainbow-delimiters.nvim)
+  in `vim.visuals.rainbow-delimiters`
+- Add options to define highlights under [](#opt-vim.highlight)
 
 [kaktu5](https://github.com/kaktu5):
 
@@ -61,5 +120,18 @@
 [tomasguinzburg](https://github.com/tomasguinzburg):
 
 [solargraph]: https://github.com/castwide/solargraph
+[gbprod/nord.nvim]: https://github.com/gbprod/nord.nvim
 
 - Add Ruby support under `vim.languages.ruby` using [solargraph].
+- Add `nord` theme from [gbprod/nord.nvim].
+
+[thamenato](https://github.com/thamenato):
+
+[ruff]: (https://github.com/astral-sh/ruff)
+
+- Add [ruff] as a formatter option in `vim.languages.python.format.type`.
+
+[ARCIII](https://github.com/ArmandoCIII):
+
+- Add `vim.languages.zig.dap` support through pkgs.lldb dap adapter. Code
+  Inspiration from `vim.languages.clang.dap` implementation.

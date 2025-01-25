@@ -55,8 +55,14 @@ in {
 
     preventJunkFiles = mkOption {
       type = bool;
-      default = false;
-      description = "Prevent swapfile and backupfile from being created";
+      default = true;
+      example = false;
+      description = ''
+        Prevent swapfile and backupfile from being created.
+
+        `false` is the default Neovim behaviour. If you wish to create
+        backup and swapfiles, set this option to `false`.
+      '';
     };
 
     bell = mkOption {

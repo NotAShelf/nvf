@@ -12,6 +12,14 @@ in {
       require('base16-colorscheme').setup(${toLuaObject base16-colors})
     '';
   };
+  mini-base16 = {
+    setup = {base16-colors, ...}: ''
+      -- Base16 theme
+      require('mini.base16').setup({
+        palette = ${toLuaObject base16-colors}
+      })
+    '';
+  };
   onedark = {
     setup = {style ? "dark", ...}: ''
       -- OneDark theme
@@ -176,5 +184,15 @@ in {
       vim.cmd("colorscheme rose-pine")
     '';
     styles = ["main" "moon" "dawn"];
+  };
+  nord = {
+    setup = {transparent ? false, ...}: ''
+      require("nord").setup({
+        transparent = ${boolToString transparent},
+        search = "vscode", -- [vim|vscode]
+      })
+
+      vim.cmd.colorscheme("nord")
+    '';
   };
 }

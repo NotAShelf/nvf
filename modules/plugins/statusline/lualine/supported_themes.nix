@@ -4,4 +4,5 @@
   "catppuccin"
   "oxocarbon"
   "gruvbox"
+  "nord"
 ]
