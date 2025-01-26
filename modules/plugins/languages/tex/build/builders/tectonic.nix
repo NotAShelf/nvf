@@ -11,18 +11,11 @@
   template = import ./builderTemplate.nix;
 
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) bool enum ints listOf package str;
+  inherit (lib.types) enum ints listOf package str;
+  inherit (lib.nvim.config) mkBool;
   inherit (builtins) concatLists elem map toString;
 
   cfg = config.vim.languages.tex;
-
-  # --- Enable Options ---
-  mkEnableDefaultOption = default: description: (mkOption {
-    type = bool;
-    default = default;
-    example = !default;
-    description = description;
-  });
 in (
   template {
     inherit name moduleInheritencePackage;
@@ -43,26 +36,30 @@ in (
       };
 
       # -- Flags --
-      keepIntermediates = mkEnableDefaultOption false ''
+      keepIntermediates = mkBool false ''
         Keep the intermediate files generated during processing.
 
         If texlab is reporting build errors when there shouldn't be, disable this option.
       '';
-      keepLogs = mkEnableDefaultOption true ''
+      keepLogs = mkBool true ''
         Keep the log files generated during processing.
 
         Without the keepLogs flag, texlab won't be able to report compilation warnings.
       '';
-      onlyCached = mkEnableDefaultOption false "Use only resource files cached locally";
-      synctex = mkEnableDefaultOption true "Generate SyncTeX data";
-      untrustedInput = mkEnableDefaultOption false "Input is untrusted -- disable all known-insecure features";
+      onlyCached = mkBool false "Use only resource files cached locally";
+      synctex = mkBool true "Generate SyncTeX data";
+      untrustedInput = mkBool false "Input is untrusted -- disable all known-insecure features";
 
       # -- Options --
       reruns = mkOption {
         type = ints.unsigned;
         default = 0;
         example = 2;
-        description = "Rerun the TeX engine exactly this many times after the first";
+        description = ''
+          Rerun the TeX engine exactly this many times after the first.
+
+          Setting this value to 0 will diable setting this option.
+        '';
       };
 
       bundle = mkOption {
