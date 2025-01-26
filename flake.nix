@@ -590,6 +590,11 @@
       flake = false;
     };
 
+    plugin-yanky-nvim = {
+      url = "github:gbprod/yanky.nvim";
+      flake = false;
+    };
+
     # Note-taking
     plugin-obsidian-nvim = {
       url = "github:epwalsh/obsidian.nvim";
