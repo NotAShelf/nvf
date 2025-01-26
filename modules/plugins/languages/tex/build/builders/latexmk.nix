@@ -1,6 +1,5 @@
 # TODO: I need testing.
 {
-  config,
   pkgs,
   lib,
   ...
@@ -13,16 +12,6 @@
 
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) bool package str;
-
-  cfg = config.vim.languages.tex;
-
-  # --- Enable Options ---
-  mkEnableDefaultOption = default: description: (mkOption {
-    type = bool;
-    default = default;
-    example = !default;
-    description = description;
-  });
 in (
   template {
     inherit name moduleInheritencePackage;

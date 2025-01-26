@@ -19,13 +19,7 @@
 }: let
   inherit (lib.options) mkOption;
   inherit (lib.modules) mkIf;
-  inherit
-    (lib.types)
-    bool
-    listOf
-    package
-    str
-    ;
+  inherit (lib.types) listOf package str;
   inherit
     (builtins)
     attrNames
@@ -39,20 +33,14 @@
     throw
     toString
     ;
+  inherit (lib.nvim.config) mkBool;
 
   cfg = config.vim.languages.tex;
 
   # --- Enable Options ---
-  mkEnableDefaultOption = default: description: (mkOption {
-    type = bool;
-    default = default;
-    example = !default;
-    description = description;
-  });
-  mkEnableLspOption = mkEnableDefaultOption config.vim.languages.enableLSP;
 in {
   options.vim.languages.tex.lsp.texlab = {
-    enable = mkEnableLspOption "Whether to enable Tex LSP support (texlab)";
+    enable = mkBool config.vim.languages.enableLSP "Whether to enable Tex LSP support (texlab)";
 
     package = mkOption {
       type = package;
@@ -61,11 +49,7 @@ in {
     };
 
     forwardSearch = {
-      enable = mkOption {
-        type = bool;
-        default = false;
-        example = true;
-        description = ''
+      enable = mkBool false ''
           Whether to enable forward search.
 
           Enable this option if you want to have the compiled document appear in your chosen PDF viewer.
@@ -73,7 +57,6 @@ in {
           For some options see [here](https://github.com/latex-lsp/texlab/wiki/Previewing).
           Note this is not all the options, but can act as a guide to help you allong with custom configs.
         '';
-      };
       package = mkOption {
         type = package;
         default = pkgs.okular;
