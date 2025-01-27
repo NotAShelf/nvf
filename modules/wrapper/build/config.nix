@@ -61,6 +61,7 @@
         "flutter-tools.dev_tools"
       ];
     };
+    inherit (pkgs) blink-cmp;
   };
 
   buildConfigPlugins = plugins:

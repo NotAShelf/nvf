@@ -7,6 +7,8 @@
   inherit (lib.types) bool str nullOr;
   inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.nvim.types) mkPluginSetupOption;
+
+  autocompleteCfg = config.vim.autocomplete;
 in {
   imports = let
     renamedSetupOption = oldPath: newPath:
@@ -42,7 +44,7 @@ in {
             # If using nvim-cmp, otherwise set to false
             type = bool;
             description = "If using nvim-cmp, otherwise set to false";
-            default = config.vim.autocomplete.nvim-cmp.enable;
+            default = autocompleteCfg.nvim-cmp.enable || autocompleteCfg.blink-cmp.enable;
           };
         };
       };
