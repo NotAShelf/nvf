@@ -2,7 +2,6 @@
 # - Add Texlab LSP settings:
 #   - chktex
 #   - symbols
-#   - experimental
 {
   config,
   pkgs,
@@ -36,6 +35,7 @@ in {
         For some options see [here](https://github.com/latex-lsp/texlab/wiki/Previewing).
         Note this is not all the options, but can act as a guide to help you allong with custom configs.
       '';
+
       package = mkOption {
         type = package;
         default = pkgs.okular;
@@ -44,6 +44,7 @@ in {
           This viewer needs to support Synctex.
         '';
       };
+
       executable = mkOption {
         type = str;
         default = "okular";
@@ -51,6 +52,7 @@ in {
           Defines the executable of the PDF previewer. The previewer needs to support SyncTeX.
         '';
       };
+
       args = mkOption {
         type = listOf str;
         default = [
@@ -75,6 +77,7 @@ in {
         default = 300;
         description = "Delay in milliseconds before reporting diagnostics.";
       };
+
       allowedPatterns = mkOption {
         type = listOf str;
         default = [];
@@ -88,6 +91,7 @@ in {
           Afterwards, the results are filtered with the ignored patterns.
         '';
       };
+
       ignoredPatterns = mkOption {
         type = listOf str;
         default = [];
@@ -110,10 +114,12 @@ in {
           By default the configuration inside the project root directory is used.
         '';
       };
+
       modifyLineBreaks = mkBool false ''
         Modifies linebreaks before, during, and at the end of code blocks when formatting with latexindent.
         This corresponds to the --modifylinebreaks flag of latexindent.
       '';
+
       replacement = mkOption {
         type = nullOr (enum ["-r" "-rv" "-rr"]);
         default = null;
@@ -142,11 +148,100 @@ in {
 
     inlayHints = {
       labelDefinitions = mkBool true "When enabled, the server will return inlay hints for `\\label-like` commands.";
+
       labelReferences = mkBool true "When enabled, the server will return inlay hints for `\\ref``-like commands.";
+
       maxLength = mkOption {
         type = nullOr ints.positive;
         default = null;
         description = "When set, the server will truncate the text of the inlay hints to the specified length.";
+      };
+    };
+
+    experimental = {
+      followPackageLinks = mkBool false "If set to true, dependencies of custom packages are resolved and included in the dependency graph.";
+
+      mathEnvironments = mkOption {
+        type = listOf str;
+        default = [];
+        description = "Allows extending the list of environments which the server considers as math environments (for example `align*` or `equation`).";
+      };
+
+      enumEnvironments = mkOption {
+        type = listOf str;
+        default = [];
+        description = "Allows extending the list of environments which the server considers as enumeration environments (for example `enumerate` or `itemize`).";
+      };
+
+      verbatimEnvironments = mkOption {
+        type = listOf str;
+        default = [];
+        description = ''
+          Allows extending the list of environments which the server considers as verbatim environments (for example `minted` or `lstlisting`).
+          This can be used to suppress diagnostics from environments that do not contain LaTeX code.
+        '';
+      };
+
+      citationCommands = mkOption {
+        type = listOf str;
+        default = [];
+        description = ''
+          Allows extending the list of commands which the server considers as citation commands (for example `\cite`).
+
+          Hint: Additional commands need to be written without a leading `\` (e. g. `foo` instead of `\foo`).
+        '';
+      };
+      labelDefinitionCommands = mkOption {
+        type = listOf str;
+        default = [];
+        description = ''
+          Allows extending the list of `\label`-like commands.
+
+          Hint: Additional commands need to be written without a leading `\` (e. g. `foo` instead of `\foo`).
+        '';
+      };
+
+      labelReferenceCommands = mkOption {
+        type = listOf str;
+        default = [];
+        description = ''
+          Allows extending the list of `\ref`-like commands.
+
+          Hint: Additional commands need to be written without a leading `\` (e. g. `foo` instead of `\foo`).
+        '';
+      };
+
+      labelReferenceRangeCommands = mkOption {
+        type = listOf str;
+        default = [];
+        description = ''
+          Allows extending the list of `\crefrange`-like commands.
+
+          Hint: Additional commands need to be written without a leading `\` (e. g. `foo` instead of `\foo`).
+        '';
+      };
+
+      labelDefinitionPrefixes = mkOption {
+        type = listOf (listOf str);
+        default = [];
+        description = ''
+          Allows associating a label definition command with a custom prefix. Consider,
+          ```
+          \newcommand{\thm}[1]{\label{thm:#1}}
+          \thm{foo}
+          ```
+          Then setting `texlab.experimental.labelDefinitionPrefixes` to `[["thm", "thm:"]]` and adding "thm"
+          to `texlab.experimental.labelDefinitionCommands` will make the server recognize the `thm:foo` label.
+        '';
+      };
+
+      labelReferencePrefixes = mkOption {
+        type = listOf (listOf str);
+        default = [];
+        description = ''
+          Allows associating a label reference command with a custom prefix.
+          See `texlab.experimental.labelDefinitionPrefixes` for more details.
+        '';
       };
     };
 
@@ -234,6 +329,9 @@ in {
 
           # -- Inlay Hints --
           inlayHints = texlabCfg.inlayHints;
+
+          # -- Experimental --
+          experimental = texlabCfg.experimental;
         }
         #
         # -- Forward Search --
