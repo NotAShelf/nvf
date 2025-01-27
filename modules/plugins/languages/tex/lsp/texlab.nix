@@ -1,8 +1,6 @@
 # TODO:
 # - Add Texlab LSP settings:
 #   - chktex
-#   - diagnosticsDelay
-#   - diagnostics
 #   - symbols
 #   - formatterLineLength
 #   - bibtexFormatter
@@ -19,7 +17,7 @@
 }: let
   inherit (lib.options) mkOption;
   inherit (lib.modules) mkIf;
-  inherit (lib.types) listOf package str attrs;
+  inherit (lib.types) listOf package str attrs ints;
   inherit
     (builtins)
     attrNames
@@ -90,6 +88,37 @@ in {
       };
     };
 
+    diagnostics = {
+      delay = mkOption {
+        type = ints.positive;
+        default = 300;
+        description = "Delay in milliseconds before reporting diagnostics.";
+      };
+      allowedPatterns = mkOption {
+        type = listOf str;
+        default = [];
+        description = ''
+          A list of regular expressions used to filter the list of reported diagnostics.
+          If specified, only diagnostics that match at least one of the specified patterns are sent to the client.
+
+          See also texlab.diagnostics.ignoredPatterns.
+
+          Hint: If both allowedPatterns and ignoredPatterns are set, then allowed patterns are applied first.
+          Afterwards, the results are filtered with the ignored patterns.
+        '';
+      };
+      ignoredPatterns = mkOption {
+        type = listOf str;
+        default = [];
+        description = ''
+          A list of regular expressions used to filter the list of reported diagnostics.
+          If specified, only diagnostics that match none of the specified patterns are sent to the client.
+
+          See also texlab.diagnostics.allowedPatterns.
+        '';
+      };
+    };
+
     extraLuaSettings = mkOption {
       type = attrs;
       default = {};
@@ -125,7 +154,15 @@ in {
 
       # Create texlab settings section
       setupConfig.settings.texlab = (
-        {}
+        # -- General Settings --
+        # -- Diagnostics --
+        {
+          diagnosticsDelay = texlabCfg.diagnostics.delay;
+          diagnostics = {
+            allowedPatterns = texlabCfg.diagnostics.allowedPatterns;
+            ignoredPatterns = texlabCfg.diagnostics.ignoredPatterns;
+          };
+        }
         # -- Forward Search --
         // (
           if texlabCfg.forwardSearch.enable
