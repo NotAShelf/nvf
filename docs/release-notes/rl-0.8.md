@@ -4,6 +4,7 @@
 
 [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
 [render-markdown.nvim]: https://github.com/MeanderingProgrammer/render-markdown.nvim
+[yanky.nvim]: https://github.com/gbprod/yanky.nvim
 
 - Add [typst-preview.nvim] under
   `languages.typst.extensions.typst-preview-nvim`.
@@ -33,9 +34,12 @@
 
 - Add [](#opt-vim.lsp.lightbulb.autocmd.enable) for manually managing the
   previously managed lightbulb autocommand.
+
   - A warning will occur if [](#opt-vim.lsp.lightbulb.autocmd.enable) and
     `vim.lsp.lightbulb.setupOpts.autocmd.enabled` are both set at the same time.
     Pick only one.
+
+- Add [yanky.nvim] to available plugins, under `vim.utility.yanky-nvim`.
 
 [amadaluzia](https://github.com/amadaluzia):
 
