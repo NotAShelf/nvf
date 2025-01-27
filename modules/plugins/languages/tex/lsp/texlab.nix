@@ -2,7 +2,6 @@
 # - Add Texlab LSP settings:
 #   - chktex
 #   - symbols
-#   - completion
 #   - inlayHints
 #   - experimental
 {
@@ -130,6 +129,18 @@ in {
       };
     };
 
+    completion.matcher = mkOption {
+      type = str;
+      default = "fuzzy-ignore-case";
+      description = ''
+        Modifies the algorithm used to filter the completion items returned to the client. Possibles values are:
+          - fuzzy: Fuzzy string matching (case sensitive)
+          - fuzzy-ignore-case: Fuzzy string matching (case insensitive)
+          - prefix: Filter out items that do not start with the search text (case sensitive)
+          - prefix-ignore-case: Filter out items that do not start with the search text (case insensitive)
+      '';
+    };
+
     formatterLineLength = mkOption {
       type = ints.positive;
       default = 80;
@@ -212,6 +223,10 @@ in {
             modifyLineBreaks = texlabCfg.latexindent.modifyLineBreaks;
             replacement = texlabCfg.latexindent.replacement;
           };
+        }
+        # -- Completion --
+        // {
+          completion.matcher = texlabCfg.completion.matcher;
         }
         # -- Forward Search --
         // (
