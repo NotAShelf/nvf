@@ -2,7 +2,6 @@
 # - Add Texlab LSP settings:
 #   - chktex
 #   - symbols
-#   - latexindent
 #   - completion
 #   - inlayHints
 #   - experimental
@@ -14,7 +13,7 @@
 }: let
   inherit (lib.options) mkOption;
   inherit (lib.modules) mkIf;
-  inherit (lib.types) listOf package str attrs ints enum;
+  inherit (lib.types) listOf package str attrs ints enum either path nullOr;
   inherit (lib.nvim.config) mkBool;
 
   cfg = config.vim.languages.tex;
@@ -103,6 +102,34 @@ in {
       };
     };
 
+    latexindent = {
+      local = mkOption {
+        type = nullOr (either str path);
+        default = null;
+        description = ''
+          Defines the path of a file containing the latexindent configuration.
+          This corresponds to the --local=file.yaml flag of latexindent.
+          By default the configuration inside the project root directory is used.
+        '';
+      };
+      modifyLineBreaks = mkBool false ''
+        Modifies linebreaks before, during, and at the end of code blocks when formatting with latexindent.
+        This corresponds to the --modifylinebreaks flag of latexindent.
+      '';
+      replacement = mkOption {
+        type = nullOr (enum ["-r" "-rv" "-rr"]);
+        default = null;
+        description = ''
+          Defines an additional replacement flag that is added when calling latexindent. This can be one of the following:
+            - "-r"
+            - "-rv"
+            - "-rr"
+            - null
+          By default no replacement flag is passed.
+        '';
+      };
+    };
+
     formatterLineLength = mkOption {
       type = ints.positive;
       default = 80;
@@ -176,6 +203,14 @@ in {
           diagnostics = {
             allowedPatterns = texlabCfg.diagnostics.allowedPatterns;
             ignoredPatterns = texlabCfg.diagnostics.ignoredPatterns;
+          };
+        }
+        # -- Latex Indent --
+        // {
+          latexindent = {
+            local = texlabCfg.latexindent.local;
+            modifyLineBreaks = texlabCfg.latexindent.modifyLineBreaks;
+            replacement = texlabCfg.latexindent.replacement;
           };
         }
         # -- Forward Search --
