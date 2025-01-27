@@ -3,15 +3,14 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   inherit (lib.options) mkOption;
   inherit (lib.types) enum listOf package str;
-  inherit (builtins) attrNames;
+  inherit (lib.nvim.config) mkBool;
+  inherit (builtins) attrNames filter isAttrs hasAttr elemAt length;
 
   cfg = config.vim.languages.tex;
-in
-{
+in {
   imports = [
     ./latexmk.nix
     ./tectonic.nix
@@ -27,6 +26,8 @@ in
         This is just the default custom option. By setting any of the
         builders to true, this will be overwritten by that builder's
         parameters.
+        Setting this parameter to the name of a declared builder will
+        not automatically enable that builder.
       '';
     };
     args = mkOption {
@@ -45,7 +46,7 @@ in
     };
     package = mkOption {
       type = package;
-      default = (pkgs.texlive.withPackages (ps: [ ps.latexmk ]));
+      default = pkgs.texlive.withPackages (ps: [ps.latexmk]);
       description = ''
         The tex builder package to use.
 
@@ -67,4 +68,3 @@ in
     };
   };
 }
-

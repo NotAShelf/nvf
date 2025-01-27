@@ -19,7 +19,7 @@
 }: let
   inherit (lib.options) mkOption;
   inherit (lib.modules) mkIf;
-  inherit (lib.types) listOf package str;
+  inherit (lib.types) listOf package str attrs;
   inherit
     (builtins)
     attrNames
@@ -36,8 +36,8 @@
   inherit (lib.nvim.config) mkBool;
 
   cfg = config.vim.languages.tex;
-
-  # --- Enable Options ---
+  texlabCfg = cfg.lsp.texlab;
+  builderCfg = cfg.build.builder;
 in {
   options.vim.languages.tex.lsp.texlab = {
     enable = mkBool config.vim.languages.enableLSP "Whether to enable Tex LSP support (texlab)";
@@ -50,13 +50,13 @@ in {
 
     forwardSearch = {
       enable = mkBool false ''
-          Whether to enable forward search.
+        Whether to enable forward search.
 
-          Enable this option if you want to have the compiled document appear in your chosen PDF viewer.
+        Enable this option if you want to have the compiled document appear in your chosen PDF viewer.
 
-          For some options see [here](https://github.com/latex-lsp/texlab/wiki/Previewing).
-          Note this is not all the options, but can act as a guide to help you allong with custom configs.
-        '';
+        For some options see [here](https://github.com/latex-lsp/texlab/wiki/Previewing).
+        Note this is not all the options, but can act as a guide to help you allong with custom configs.
+      '';
       package = mkOption {
         type = package;
         default = pkgs.okular;
@@ -91,11 +91,11 @@ in {
     };
 
     extraLuaSettings = mkOption {
-      type = str;
-      default = "";
-      example = ''
-        formatterLineLength = 80,
-      '';
+      type = attrs;
+      default = {};
+      example = {
+        formatterLineLength = 80;
+      };
       description = ''
         For any options that do not have options provided through nvf this can be used to add them.
         Options already declared in nvf config will NOT be overridden.
@@ -119,97 +119,47 @@ in {
 
   config = mkIf (cfg.enable && (cfg.lsp.texlab.enable)) (
     let
-      tl = cfg.lsp.texlab;
-      builder = cfg.build.builder;
+      # ----- Setup Config -----
+      # Command to start the LSP
+      setupConfig.cmd = ["${texlabCfg.package}/bin/texlab"];
 
-      listToLua = list: nullOnEmpty:
-        if length list == 0
-        then
-          if nullOnEmpty
-          then "null"
-          else "{ }"
-        else "{ ${concatStringsSep ", " (map (x: ''"${toString x}"'') list)} }";
-
-      stringToLua = string: nullOnEmpty:
-        if string == ""
-        then
-          if nullOnEmpty
-          then "null"
-          else ""
-        else ''"${string}"'';
-
-      boolToLua = boolean:
-        if boolean
-        then "true"
-        else "false";
-
-      # -- Build --
-      buildConfig = let
-        # This function will sort through the builder options and count how many
-        # builders have been enabled.
-        getEnabledBuildersCount = {
-          enabledBuildersCount ? 0,
-          index ? 0,
-          builderNamesList ? (
-            filter (
-              x: let
-                y = cfg.build.builders.${x};
-              in (isAttrs y && hasAttr "enable" y)
-            ) (attrNames cfg.build.builders)
-          ),
-        }: let
-          currentBuilderName = elemAt builderNamesList index;
-          currentBuilder = cfg.build.builders.${currentBuilderName};
-          nextIndex = index + 1;
-          newEnabledBuildersCount =
-            if currentBuilder.enable
-            then enabledBuildersCount + 1
-            else enabledBuildersCount;
-        in
-          if length builderNamesList > nextIndex
-          then
-            getEnabledBuildersCount {
-              inherit builderNamesList;
-              enabledBuildersCount = newEnabledBuildersCount;
-              index = nextIndex;
-            }
-          else newEnabledBuildersCount;
-
-        enabledBuildersCount = getEnabledBuildersCount {};
-      in
-        if enabledBuildersCount == 0
-        then ""
-        else if enabledBuildersCount > 1
-        then throw "Texlab does not support having more than 1 builders enabled!"
-        else ''
-          build = {
-                  executable = "${builder.package}/bin/${builder.executable}",
-                  args = ${listToLua builder.args false},
-                  forwardSearchAfter = ${boolToLua cfg.build.forwardSearchAfter},
-                  onSave = ${boolToLua cfg.build.onSave},
-                  useFileList = ${boolToLua cfg.build.useFileList},
-                  auxDirectory = ${stringToLua cfg.build.auxDirectory true},
-                  logDirectory = ${stringToLua cfg.build.logDirectory true},
-                  pdfDirectory = ${stringToLua cfg.build.pdfDirectory true},
-                  filename = ${stringToLua cfg.build.filename true},
-                },
-        '';
-    in {
-      vim.lsp.lspconfig.sources.texlab = ''
-        lspconfig.texlab.setup {
-          cmd = { "${tl.package}/bin/texlab" },
-          settings = {
-            texlab = {
-              ${buildConfig}
-              forwardSearch = {
-                executable = "${tl.forwardSearch.package}/bin/${tl.forwardSearch.executable}",
-                args = ${listToLua tl.forwardSearch.args true}
-              },
-              ${tl.extraLuaSettings}
-            }
+      # Create texlab settings section
+      setupConfig.settings.texlab = (
+        {}
+        # -- Forward Search --
+        // (
+          if texlabCfg.forwardSearch.enable
+          then {
+            forwardSearch = {
+              executable = "${texlabCfg.forwardSearch.package}/bin/${texlabCfg.forwardSearch.executable}";
+              args = texlabCfg.forwardSearch.args;
+            };
           }
-        }
-      '';
+          else {}
+        )
+        # -- Build --
+        // (
+          if cfg.build.enable
+          then {
+            build = {
+              executable = "${builderCfg.package}/bin/${builderCfg.executable}";
+              args = builderCfg.args;
+              forwardSearchAfter = cfg.build.forwardSearchAfter;
+              onSave = cfg.build.onSave;
+              useFileList = cfg.build.useFileList;
+              auxDirectory = cfg.build.auxDirectory;
+              logDirectory = cfg.build.logDirectory;
+              pdfDirectory = cfg.build.pdfDirectory;
+              filename = cfg.build.filename;
+            };
+          }
+          else {}
+        )
+        # -- Extra --
+        // texlabCfg.extraLuaSettings
+      );
+    in {
+      vim.lsp.lspconfig.sources.texlab = "lspconfig.texlab.setup(${lib.nvim.lua.toLuaObject setupConfig})";
     }
   );
 }
