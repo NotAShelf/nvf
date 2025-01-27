@@ -751,7 +751,7 @@
 
     plugin-new-file-template-nvim = {
       # (required by new-file-template.nvim)
-      url = "github:otavioschwanck/new-file-template.nvim";
+      url = "github:isaacST08/new-file-template.nvim?rev=dc3a58b1f490c86075c96670b9eb81370c2f2ca1";
       flake = false;
     };
 
