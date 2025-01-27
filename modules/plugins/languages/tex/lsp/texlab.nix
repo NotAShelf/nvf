@@ -2,7 +2,6 @@
 # - Add Texlab LSP settings:
 #   - chktex
 #   - symbols
-#   - inlayHints
 #   - experimental
 {
   config,
@@ -141,6 +140,16 @@ in {
       '';
     };
 
+    inlayHints = {
+      labelDefinitions = mkBool true "When enabled, the server will return inlay hints for `\\label-like` commands.";
+      labelReferences = mkBool true "When enabled, the server will return inlay hints for `\\ref``-like commands.";
+      maxLength = mkOption {
+        type = nullOr ints.positive;
+        default = null;
+        description = "When set, the server will truncate the text of the inlay hints to the specified length.";
+      };
+    };
+
     formatterLineLength = mkOption {
       type = ints.positive;
       default = 80;
@@ -202,32 +211,31 @@ in {
 
       # Create texlab settings section
       setupConfig.settings.texlab = (
-        # -- General Settings --
         {
+          # -- General Settings --
           formatterLineLength = texlabCfg.formatterLineLength;
+
+          # -- Formatters --
           bibtexFormatter = texlabCfg.bibtexFormatter;
           latexFormatter = texlabCfg.latexFormatter;
-        }
-        # -- Diagnostics --
-        // {
+
+          # -- Diagnostics --
           diagnosticsDelay = texlabCfg.diagnostics.delay;
           diagnostics = {
             allowedPatterns = texlabCfg.diagnostics.allowedPatterns;
             ignoredPatterns = texlabCfg.diagnostics.ignoredPatterns;
           };
-        }
-        # -- Latex Indent --
-        // {
-          latexindent = {
-            local = texlabCfg.latexindent.local;
-            modifyLineBreaks = texlabCfg.latexindent.modifyLineBreaks;
-            replacement = texlabCfg.latexindent.replacement;
-          };
-        }
-        # -- Completion --
-        // {
+
+          # -- Latex Indent --
+          latexindent = texlabCfg.latexindent;
+
+          # -- Completion --
           completion.matcher = texlabCfg.completion.matcher;
+
+          # -- Inlay Hints --
+          inlayHints = texlabCfg.inlayHints;
         }
+        #
         # -- Forward Search --
         // (
           if texlabCfg.forwardSearch.enable
@@ -239,6 +247,7 @@ in {
           }
           else {}
         )
+        #
         # -- Build --
         // (
           if cfg.build.enable
@@ -257,7 +266,8 @@ in {
           }
           else {}
         )
-        # -- Extra --
+        #
+        # -- Extra Settings --
         // texlabCfg.extraLuaSettings
       );
     in {
