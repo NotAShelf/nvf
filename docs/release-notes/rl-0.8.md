@@ -135,3 +135,9 @@
 
 - Add `vim.languages.zig.dap` support through pkgs.lldb dap adapter. Code
   Inspiration from `vim.languages.clang.dap` implementation.
+
+PartyWumpus:
+
+[typst-concealer]: https://github.com/PartyWumpus/typst-concealer
+
+- Add inline typst concealing support under `vim.languages.typst` using [typst-concealer].

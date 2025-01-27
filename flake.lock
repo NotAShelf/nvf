@@ -2636,11 +2636,11 @@
     "plugin-typst-concealer": {
       "flake": false,
       "locked": {
-        "lastModified": 1737944956,
-        "narHash": "sha256-YCkxM1xqY3gTrKVzRFI4fedOzhEeIq/dnYya/MST6Qo=",
+        "lastModified": 1737954973,
+        "narHash": "sha256-DV5RNMAdSePc5T3XAAGAbY5LB1G5tapQxtJEhT8DtDY=",
         "owner": "PartyWumpus",
         "repo": "typst-concealer",
-        "rev": "e3d5bc44dc4ea9d68f3cee271eee1a75ff7d59e9",
+        "rev": "e7ff35c359a7c8cf375cb02a97b23e76bd9bbe57",
         "type": "github"
       },
       "original": {
