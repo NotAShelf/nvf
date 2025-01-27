@@ -135,6 +135,11 @@
 
 - Add [ruff] as a formatter option in `vim.languages.python.format.type`.
 
+[QuiNzX](https://github.com/QuiNzX):
+
+- Add ruff as lsp alongside other lsp servers in a list as an option. Under
+  `vim.languages.python.lsp.server`.
+
 [ARCIII](https://github.com/ArmandoCIII):
 
 - Add `vim.languages.zig.dap` support through pkgs.lldb dap adapter. Code
