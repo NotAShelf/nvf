@@ -2,9 +2,6 @@
 # - Add Texlab LSP settings:
 #   - chktex
 #   - symbols
-#   - formatterLineLength
-#   - bibtexFormatter
-#   - latexFormatter
 #   - latexindent
 #   - completion
 #   - inlayHints
@@ -17,20 +14,7 @@
 }: let
   inherit (lib.options) mkOption;
   inherit (lib.modules) mkIf;
-  inherit (lib.types) listOf package str attrs ints;
-  inherit
-    (builtins)
-    attrNames
-    concatStringsSep
-    elemAt
-    filter
-    hasAttr
-    isAttrs
-    length
-    map
-    throw
-    toString
-    ;
+  inherit (lib.types) listOf package str attrs ints enum;
   inherit (lib.nvim.config) mkBool;
 
   cfg = config.vim.languages.tex;
@@ -119,11 +103,37 @@ in {
       };
     };
 
+    formatterLineLength = mkOption {
+      type = ints.positive;
+      default = 80;
+      description = "Defines the maximum amount of characters per line (0 = disable) when formatting BibTeX files.";
+    };
+
+    bibtexFormatter = mkOption {
+      type = enum ["texlab" "latexindent"];
+      default = "texlab";
+      description = ''
+        Defines the formatter to use for BibTeX formatting.
+        Possible values are either texlab or latexindent.
+      '';
+    };
+
+    latexFormatter = mkOption {
+      type = enum ["texlab" "latexindent"];
+      default = "latexindent";
+      description = ''
+        Defines the formatter to use for LaTeX formatting.
+        Possible values are either texlab or latexindent.
+        Note that texlab is not implemented yet.
+      '';
+    };
+
     extraLuaSettings = mkOption {
       type = attrs;
       default = {};
       example = {
-        formatterLineLength = 80;
+        foo = "bar";
+        baz = 314;
       };
       description = ''
         For any options that do not have options provided through nvf this can be used to add them.
@@ -155,8 +165,13 @@ in {
       # Create texlab settings section
       setupConfig.settings.texlab = (
         # -- General Settings --
-        # -- Diagnostics --
         {
+          formatterLineLength = texlabCfg.formatterLineLength;
+          bibtexFormatter = texlabCfg.bibtexFormatter;
+          latexFormatter = texlabCfg.latexFormatter;
+        }
+        # -- Diagnostics --
+        // {
           diagnosticsDelay = texlabCfg.diagnostics.delay;
           diagnostics = {
             allowedPatterns = texlabCfg.diagnostics.allowedPatterns;
