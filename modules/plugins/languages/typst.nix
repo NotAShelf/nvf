@@ -7,7 +7,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
-  inherit (lib.types) nullOr enum either attrsOf listOf package str;
+  inherit (lib.types) nullOr enum either attrsOf listOf package str bool int;
   inherit (lib.attrsets) attrNames;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.meta) getExe;
@@ -167,6 +167,48 @@ in {
           };
         };
       };
+      typst-concealer = {
+        enable =
+          mkEnableOption ''
+            [typst-concealer]: https://github.com/PartyWumpus/typst-concealer
+
+            Inline typst preview for Neovim via [typst-concealer]
+          ''
+          // {default = false;};
+
+        setupOpts = mkPluginSetupOption "typst-concealer" {
+          do_diagnostics = mkOption {
+            type = nullOr bool;
+            description = ''Should typst-concealer provide diagnostics on error?'';
+            default = !cfg.lsp.enable;
+          };
+          color = mkOption {
+            type = nullOr str;
+            description = ''What color should typst-concealer render text/stroke with? (only applies when styling_type is "colorscheme")'';
+            default = null;
+          };
+          enabled_by_default = mkOption {
+            type = nullOr bool;
+            description = ''Should typst-concealer conceal newly opened buffers by default?'';
+            default = null;
+          };
+          styling_type = mkOption {
+            type = nullOr (enum ["simple" "none" "colorscheme"]);
+            description = ''What kind of styling should typst-concealer apply to your typst?'';
+            default = null;
+          };
+          ppi = mkOption {
+            type = nullOr int;
+            description = ''What PPI should typst render at. Plugin default is 300, typst's normal default is 144.'';
+            default = null;
+          };
+          typst_location = mkOption {
+            type = str;
+            default = getExe pkgs.typst;
+            description = ''Where should typst-concealer look for your typst binary?'';
+          };
+        };
+      };
     };
   };
   config = mkIf cfg.enable (mkMerge [
@@ -190,6 +232,13 @@ in {
       vim.startPlugins = ["typst-preview-nvim"];
       vim.pluginRC.typst-preview-nvim = entryAnywhere ''
         require("typst-preview").setup(${toLuaObject cfg.extensions.typst-preview-nvim.setupOpts})
+      '';
+    })
+
+    (mkIf cfg.extensions.typst-concealer.enable {
+      vim.startPlugins = ["typst-concealer"];
+      vim.pluginRC.typst-concealer = entryAnywhere ''
+        require("typst-concealer").setup(${toLuaObject cfg.extensions.typst-concealer.setupOpts})
       '';
     })
   ]);
