@@ -173,8 +173,7 @@ in {
             [typst-concealer]: https://github.com/PartyWumpus/typst-concealer
 
             Inline typst preview for Neovim via [typst-concealer]
-          ''
-          // {default = false;};
+          '';
 
         setupOpts = mkPluginSetupOption "typst-concealer" {
           do_diagnostics = mkOption {
