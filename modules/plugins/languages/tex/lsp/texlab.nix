@@ -6,7 +6,7 @@
 }: let
   inherit (lib.options) mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) listOf package str attrs ints enum either path nullOr submodule;
+  inherit (lib.types) attrs either enum ints listOf nullOr package path str submodule;
   inherit (lib.nvim.config) mkBool;
   inherit (builtins) isString map;
 
@@ -50,7 +50,12 @@ in {
     };
 
     completion.matcher = mkOption {
-      type = enum ["fuzzy" "fuzzy-ignore-case" "prefix" "prefix-ignore-case"];
+      type = enum [
+        "fuzzy"
+        "fuzzy-ignore-case"
+        "prefix"
+        "prefix-ignore-case"
+      ];
       default = "fuzzy-ignore-case";
       description = ''
         Modifies the algorithm used to filter the completion items returned to the client. Possibles values are:
@@ -127,6 +132,7 @@ in {
           Hint: Additional commands need to be written without a leading `\` (e. g. `foo` instead of `\foo`).
         '';
       };
+
       labelDefinitionCommands = mkOption {
         type = listOf str;
         default = [];
@@ -281,7 +287,7 @@ in {
     };
 
     inlayHints = {
-      labelDefinitions = mkBool true "When enabled, the server will return inlay hints for `\\label-like` commands.";
+      labelDefinitions = mkBool true "When enabled, the server will return inlay hints for `\\label`-like commands.";
 
       labelReferences = mkBool true "When enabled, the server will return inlay hints for `\\ref``-like commands.";
 
@@ -472,8 +478,8 @@ in {
           if texlabCfg.forwardSearch.enable
           then {
             forwardSearch = {
+              inherit (texlabCfg.forwardSearch) args;
               executable = "${texlabCfg.forwardSearch.package}/bin/${texlabCfg.forwardSearch.executable}";
-              args = texlabCfg.forwardSearch.args;
             };
           }
           else {}
