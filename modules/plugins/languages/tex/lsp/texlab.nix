@@ -135,7 +135,7 @@ in {
     };
 
     completion.matcher = mkOption {
-      type = str;
+      type = enum ["fuzzy" "fuzzy-ignore-case" "prefix" "prefix-ignore-case"];
       default = "fuzzy-ignore-case";
       description = ''
         Modifies the algorithm used to filter the completion items returned to the client. Possibles values are:
