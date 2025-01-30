@@ -1,6 +1,5 @@
 # TODO:
 # - Add Texlab LSP settings:
-#   - chktex
 #   - symbols
 {
   config,
@@ -9,7 +8,7 @@
   ...
 }: let
   inherit (lib.options) mkOption;
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) listOf package str attrs ints enum either path nullOr;
   inherit (lib.nvim.config) mkBool;
 
@@ -100,6 +99,32 @@ in {
           If specified, only diagnostics that match none of the specified patterns are sent to the client.
 
           See also texlab.diagnostics.allowedPatterns.
+        '';
+      };
+    };
+
+    chktex = {
+      enable = mkBool false "Whether to enable linting via chktex";
+
+      package = mkOption {
+        type = package;
+        default = pkgs.texlive.withPackages (ps: [ps.chktex]);
+        description = ''
+          The chktex package to use.
+          Must have the `chktex` executable.
+        '';
+      };
+
+      onOpenAndSave = mkBool false "Lint using chktex after opening and saving a file.";
+
+      onEdit = mkBool false "Lint using chktex after editing a file.";
+
+      additionalArgs = mkOption {
+        type = listOf str;
+        default = [];
+        description = ''
+          Additional command line arguments that are passed to chktex after editing a file.
+          Don't redefine the `-I` and `-f` flags as they are set by the server.
         '';
       };
     };
@@ -298,7 +323,7 @@ in {
     };
   };
 
-  config = mkIf (cfg.enable && (cfg.lsp.texlab.enable)) (
+  config = mkIf cfg.enable (
     let
       # ----- Setup Config -----
       # Command to start the LSP
@@ -346,6 +371,17 @@ in {
           else {}
         )
         #
+        # -- Chktex --
+        // (
+          if texlabCfg.chktex.enable
+          then {
+            chktex = {
+              inherit (texlabCfg.chktex) onOpenAndSave onEdit additionalArgs;
+            };
+          }
+          else {}
+        )
+        #
         # -- Build --
         // (
           if cfg.build.enable
@@ -368,8 +404,14 @@ in {
         # -- Extra Settings --
         // texlabCfg.extraLuaSettings
       );
-    in {
-      vim.lsp.lspconfig.sources.texlab = "lspconfig.texlab.setup(${lib.nvim.lua.toLuaObject setupConfig})";
-    }
+    in (mkMerge [
+      (mkIf texlabCfg.enable {
+        vim.lsp.lspconfig.sources.texlab = "lspconfig.texlab.setup(${lib.nvim.lua.toLuaObject setupConfig})";
+      })
+
+      (mkIf texlabCfg.chktex.enable {
+        vim.extraPackages = [texlabCfg.chktex.package];
+      })
+    ])
   );
 }
