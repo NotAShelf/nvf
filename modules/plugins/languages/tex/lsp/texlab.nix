@@ -1,6 +1,3 @@
-# TODO:
-# - Add Texlab LSP settings:
-#   - symbols
 {
   config,
   pkgs,
@@ -9,8 +6,9 @@
 }: let
   inherit (lib.options) mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) listOf package str attrs ints enum either path nullOr;
+  inherit (lib.types) listOf package str attrs ints enum either path nullOr submodule;
   inherit (lib.nvim.config) mkBool;
+  inherit (builtins) isString map;
 
   cfg = config.vim.languages.tex;
   texlabCfg = cfg.lsp.texlab;
@@ -125,6 +123,86 @@ in {
         description = ''
           Additional command line arguments that are passed to chktex after editing a file.
           Don't redefine the `-I` and `-f` flags as they are set by the server.
+        '';
+      };
+    };
+
+    symbols = {
+      enable = mkBool false "Whether to enable setting symbols config.";
+
+      allowedPatterns = mkOption {
+        type = listOf str;
+        default = [];
+        description = ''
+          A list of regular expressions used to filter the list of reported document symbols.
+          If specified, only symbols that match at least one of the specified patterns are sent to the client.
+          Symbols are filtered recursively so nested symbols can still be sent to the client even though the
+          parent node is removed from the results.
+
+          See also `texlab.symbols.ignoredPatterns`.
+
+          Hint: If both allowedPatterns and ignoredPatterns are set, then allowed patterns are applied first.
+          Afterwards, the results are filtered with the ignored patterns.
+        '';
+      };
+
+      ignoredPatterns = mkOption {
+        type = listOf str;
+        default = [];
+        description = ''
+          A list of regular expressions used to filter the list of reported document symbols.
+          If specified, only symbols that match none of the specified patterns are sent to the client.
+
+          See also `texlab.symbols.allowedPatterns`.
+        '';
+      };
+
+      customEnvironments = mkOption {
+        type = listOf (submodule {
+          options = {
+            name = mkOption {
+              type = str;
+              description = "The name of the environment.";
+            };
+            displayName = mkOption {
+              type = nullOr str;
+              default = null;
+              description = "The name shown in the document symbols. Defaults to the value of `name`.";
+            };
+            label = mkBool false ''
+              If set, the server will try to match a label to environment and append its number.
+            '';
+          };
+        });
+        default = [];
+        example = [
+          {
+            name = "foo";
+            displayName = "bar";
+            label = false;
+          }
+        ];
+        description = ''
+          A list of objects that allows extending the list of environments that are part of the document symbols.
+
+          See also texlab.symbols.allowedPatterns.
+
+          Type: listOf submodule:
+            - name:
+              - type: str
+              - description: The name of the environment.
+              - required
+            - displayName:
+              - type: nullOr str
+              - description: The name shown in the document symbols.
+              - default: <name>
+            - label:
+              - type: boolean
+              - description: If set, the server will try to match a label to environment and append its number.
+              - default: false
+
+          Note: This functionallity may not be working, please follow https://github.com/latex-lsp/texlab/pull/1311
+          for status updates.
         '';
       };
     };
@@ -377,6 +455,27 @@ in {
           then {
             chktex = {
               inherit (texlabCfg.chktex) onOpenAndSave onEdit additionalArgs;
+            };
+          }
+          else {}
+        )
+        #
+        # -- Symbols --
+        // (
+          if texlabCfg.symbols.enable
+          then {
+            symbols = {
+              inherit (texlabCfg.symbols) allowedPatterns ignoredPatterns;
+
+              customEnvironments =
+                map (x: {
+                  inherit (x) name label;
+                  displayName =
+                    if isString x.displayName
+                    then x.displayName
+                    else x.name;
+                })
+                texlabCfg.symbols.customEnvironments;
             };
           }
           else {}
