@@ -645,7 +645,7 @@
     };
 
     plugin-nvim-colorizer-lua = {
-      url = "github:NvChad/nvim-colorizer.lua";
+      url = "github:catgoose/nvim-colorizer.lua";
       flake = false;
     };
 
