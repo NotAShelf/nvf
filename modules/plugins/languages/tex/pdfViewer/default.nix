@@ -10,7 +10,7 @@
   inherit (builtins) filter isAttrs hasAttr attrNames length elemAt;
 
   cfg = config.vim.languages.tex;
-  viewersCfg = cfg.pdfViewer.viewers;
+  viewerCfg = cfg.pdfViewer;
 
   enabledPdfViewersInfo = let
     # This function will sort through the pdf viewer options and count how many
@@ -23,7 +23,7 @@
       pdfViewerNamesList ? (
         filter (
           x: let
-            y = viewersCfg.${x};
+            y = viewerCfg.${x};
           in (
             isAttrs y
             && hasAttr "enable" y
@@ -31,7 +31,7 @@
             && hasAttr "executable" y
             && hasAttr "args" y
           )
-        ) (attrNames viewersCfg)
+        ) (attrNames viewerCfg)
       ),
       currentEnabledPdfViewerName ? defaultPdfViewerName,
     }: let
@@ -39,7 +39,7 @@
       currentPdfViewerName = elemAt pdfViewerNamesList index;
 
       # Get the current pdf viewer object
-      currentPdfViewer = viewersCfg.${currentPdfViewerName};
+      currentPdfViewer = viewerCfg.${currentPdfViewerName};
 
       # Get the index that will be used for the next iteration
       nextIndex = index + 1;
@@ -79,10 +79,14 @@
       };
   in (getEnabledPdfViewersInfo {});
 
-  enabledPdfViewerCfg = viewersCfg.${enabledPdfViewersInfo.enabledViewerName};
+  enabledPdfViewerCfg = viewerCfg.${enabledPdfViewersInfo.enabledViewerName};
 in {
   imports = [
-    ./viewers
+    ./custom.nix
+    ./okular.nix
+    ./sioyek.nix
+    ./qpdfview.nix
+    ./zathura.nix
   ];
 
   options.vim.languages.tex.pdfViewer = {
