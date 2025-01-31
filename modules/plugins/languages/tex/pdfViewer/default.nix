@@ -1,17 +1,13 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   defaultPdfViewerName = "okular";
 
-  inherit (lib) mkOverride;
   inherit (lib.options) mkOption;
-  inherit (lib.modules) mkIf;
   inherit (lib.types) str package listOf;
   inherit (builtins) filter isAttrs hasAttr attrNames length elemAt;
-  inherit (lib.nvim.config) mkBool;
 
   cfg = config.vim.languages.tex;
   viewersCfg = cfg.pdfViewer.viewers;
@@ -52,7 +48,10 @@
       # this viewer is enabled, otherwise leave it as is.
       newEnabledPdfViewersCount =
         if currentPdfViewer.enable
-        then enabledPdfViewersCount + 1
+        then
+          if enabledPdfViewersCount > 0
+          then throw "nvf-tex-language does not support having more than 1 pdf viewer enabled!"
+          else enabledPdfViewersCount + 1
         else enabledPdfViewersCount;
 
       # If this pdf viewer is enabled, set is as the enabled viewer.
@@ -81,30 +80,22 @@
   in (getEnabledPdfViewersInfo {});
 
   enabledPdfViewerCfg = viewersCfg.${enabledPdfViewersInfo.enabledViewerName};
-
 in {
   imports = [
     ./viewers
   ];
 
   options.vim.languages.tex.pdfViewer = {
-    enable =
-      mkBool (
-        if enabledPdfViewersInfo.count > 1
-        then throw "nvf-tex-language does not support having more than 1 pdf viewer enabled!"
-        else (enabledPdfViewersInfo.count == 1)
-      ) ''
-        Whether to enable configuring the pdf viewer.
-
-        By enabling any of the pdfViewers, this option will be automatically set.
-        If you enable more than one pdf viewer then an error will be thrown.
-      '';
-
     name = mkOption {
       type = str;
       default = enabledPdfViewerCfg.name;
       description = ''
-        TODO
+        The name of the pdf viewer to use.
+
+        This value will be automatically set when any of the viewers are enabled.
+
+        Setting this option option manually is not recommended but can be used for some very technical nix-ing.
+        If you wish to use a custom viewer, please use the `custom` entry provided under `viewers`.
       '';
     };
 
@@ -112,7 +103,12 @@ in {
       type = package;
       default = enabledPdfViewerCfg.package;
       description = ''
-        The package to set to use a custom viewer.
+        The package of the pdf viewer to use.
+
+        This value will be automatically set when any of the viewers are enabled.
+
+        Setting this option option manually is not recommended but can be used for some very technical nix-ing.
+        If you wish to use a custom viewer, please use the `custom` entry provided under `viewers`.
       '';
     };
 
@@ -120,7 +116,12 @@ in {
       type = str;
       default = enabledPdfViewerCfg.executable;
       description = ''
-        TODO
+        The executable for the pdf viewer to use.
+
+        This value will be automatically set when any of the viewers are enabled.
+
+        Setting this option option manually is not recommended but can be used for some very technical nix-ing.
+        If you wish to use a custom viewer, please use the `custom` entry provided under `viewers`.
       '';
     };
 
@@ -128,14 +129,13 @@ in {
       type = listOf str;
       default = enabledPdfViewerCfg.args;
       description = ''
-        TODO
+        The command line arguments to use when calling the pdf viewer command.
+
+        This value will be automatically set when any of the viewers are enabled.
+
+        Setting this option option manually is not recommended but can be used for some very technical nix-ing.
+        If you wish to use a custom viewer, please use the `custom` entry provided under `viewers`.
       '';
     };
-  };
-
-  # If the pdf viewer has been enabled, but none of the individual viewers have been enabled,
-  # then enable the default viewer.
-  config = mkIf (cfg.enable && cfg.pdfViewer.enable && enabledPdfViewersInfo.count == 0) {
-    vim.languages.tex.pdfViewer.viewers.${defaultPdfViewerName}.enable = mkOverride 75 true;
   };
 }
