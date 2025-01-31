@@ -226,30 +226,33 @@ in {
 
       package = mkOption {
         type = package;
-        default = pkgs.okular;
+        default = cfg.pdfViewer.package;
         description = ''
           The package to use as your PDF viewer.
           This viewer needs to support Synctex.
+
+          By default it is set to the package of the pdfViewer option.
         '';
       };
 
       executable = mkOption {
         type = str;
-        default = "okular";
+        default = cfg.pdfViewer.executable;
         description = ''
           Defines the executable of the PDF previewer. The previewer needs to support SyncTeX.
+
+          By default it is set to the executable of the pdfViewer option.
         '';
       };
 
       args = mkOption {
         type = listOf str;
-        default = [
-          "--unique"
-          "file:%p#src:%l%f"
-        ];
+        default = cfg.pdfViewer.args;
         description = ''
           Defines additional arguments that are passed to the configured previewer to perform the forward search.
           The placeholders %f, %p, %l will be replaced by the server.
+
+          By default it is set to the args of the pdfViewer option.
 
           Placeholders:
             - %f: The path of the current TeX file.

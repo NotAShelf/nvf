@@ -21,7 +21,7 @@
   # when the view command is called.
   # This is a function that will take in the cfg of its own pdf viewer.
   # i.e. it will be called as "args cfg.pdfViewer.viewers.${name}"
-  args,
+  argsFunction,
   ...
 }: let
   # Inherit the necessary variables available to any module.
@@ -59,10 +59,11 @@ in {
   # Check that the language, overall pdf viewing, and this pdf viewer have been enabled before making any
   # config.
   config = mkIf (cfg.enable && viewerCfg.enable) {
+    # vim.languages.tex.pdfViewer.viewers.${name} = {
     vim.languages.tex.pdfViewer = {
       inherit name;
       inherit (viewerCfg) package executable;
-      args = args viewerCfg;
+      args = argsFunction viewerCfg;
     };
   };
 }

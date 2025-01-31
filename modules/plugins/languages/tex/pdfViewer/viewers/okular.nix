@@ -32,11 +32,11 @@ in (
 
       args = mkOption {
         type = listOf str;
-        default = [ "--unique" "file:%p#src:%l%f" ];
+        default = ["--unique" "file:%p#src:%l%f"];
         description = "Arguments to pass to the viewer.";
       };
     };
 
-    args = viewerCfg: ( viewerCfg.args );
+    argsFunction = viewerCfg: (viewerCfg.args);
   }
 )
