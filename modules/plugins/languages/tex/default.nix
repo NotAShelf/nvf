@@ -13,6 +13,7 @@ in {
     ./treesitter.nix
     ./lsp
     ./build
+    ./pdfViewer
   ];
 
   options.vim.languages.tex = {
