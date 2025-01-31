@@ -755,6 +755,11 @@
       flake = false;
     };
 
+    plugin-R-nvim = {
+      url = "github:R-nvim/R.nvim";
+      flake = false;
+    };
+
     plugin-haskell-tools-nvim = {
       url = "github:mrcjkb/haskell-tools.nvim";
       flake = false;
