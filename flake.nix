@@ -227,6 +227,18 @@
       flake = false;
     };
 
+    # Formatters
+    plugin-conform-nvim = {
+      url = "github:stevearc/conform.nvim";
+      flake = false;
+    };
+
+    # Diagnostics
+    plugin-nvim-lint = {
+      url = "github:mfussenegger/nvim-lint";
+      flake = false;
+    };
+
     # Copying/Registers
     plugin-registers = {
       url = "github:tversteeg/registers.nvim";
