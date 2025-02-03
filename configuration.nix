@@ -1,6 +1,7 @@
 # This is the sample configuration for nvf, aiming to give you a feel of the default options
-# while certain plugins are enabled. While it may act as one, this is not an overview of nvf's
-# module options. To find a complete overview of nvf's options and examples, visit the manual.
+# while certain plugins are enabled. While it may partially act as one, this is *not* quite
+# an overview of nvf's module options. To find a complete and curated list of nvf module
+# options, examples, instruction tutorials and more; please visit the online manual.
 # https://notashelf.github.io/nvf/options.html
 isMaximal: {
   config.vim = {
