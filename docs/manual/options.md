@@ -1,4 +1,4 @@
-# Neovim Flake Configuration Options {#ch-options}
+# nvf Configuration Options {#ch-options}
 
 Below are the module options provided by nvf, in no particular order. Most
 options will include useful comments, warnings or setup tips on how a module
