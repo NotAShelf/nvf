@@ -210,6 +210,11 @@
       flake = false;
     };
 
+    plugin-typst-concealer = {
+      url = "github:PartyWumpus/typst-concealer";
+      flake = false;
+    };
+
     plugin-nvim-metals = {
       url = "github:scalameta/nvim-metals";
       flake = false;

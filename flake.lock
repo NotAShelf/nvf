@@ -2633,6 +2633,22 @@
         "type": "github"
       }
     },
+    "plugin-typst-concealer": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1737954973,
+        "narHash": "sha256-DV5RNMAdSePc5T3XAAGAbY5LB1G5tapQxtJEhT8DtDY=",
+        "owner": "PartyWumpus",
+        "repo": "typst-concealer",
+        "rev": "e7ff35c359a7c8cf375cb02a97b23e76bd9bbe57",
+        "type": "github"
+      },
+      "original": {
+        "owner": "PartyWumpus",
+        "repo": "typst-concealer",
+        "type": "github"
+      }
+    },
     "plugin-typst-preview-nvim": {
       "flake": false,
       "locked": {
@@ -2942,6 +2958,7 @@
         "plugin-tokyonight": "plugin-tokyonight",
         "plugin-trouble": "plugin-trouble",
         "plugin-ts-error-translator": "plugin-ts-error-translator",
+        "plugin-typst-concealer": "plugin-typst-concealer",
         "plugin-typst-preview-nvim": "plugin-typst-preview-nvim",
         "plugin-vim-dirtytalk": "plugin-vim-dirtytalk",
         "plugin-vim-fugitive": "plugin-vim-fugitive",
