@@ -17,3 +17,9 @@ nvf-print-config | bat --language=lua
 ```
 
 Alternatively, `cat` or `less` may also be used.
+
+## Accessing `neovimConfig` {#sec-accessing-config}
+
+It is also possible to access the configuration for the wrapped package. The
+_built_ Neovim package will contain a `neovimConfig` attribute in its
+`passthru`.
