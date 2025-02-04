@@ -142,5 +142,5 @@
 
 [jahanson](https://github.com/jahanson):
 
-- Added [visual-multi.nvim](https://github.com/mg979/vim-visual-multi) to
+- Add [visual-multi.nvim](https://github.com/mg979/vim-visual-multi) to
   available plugins, under `vim.utility.visual-multi`.
