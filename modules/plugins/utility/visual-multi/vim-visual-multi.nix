@@ -2,6 +2,6 @@
   inherit (lib.options) mkEnableOption;
 in {
   options.vim.utility.visual-multi = {
-    enable = mkEnableOption "visual-multi.nvim plugin (multiple cursors)";
+    enable = mkEnableOption "multiple cursors capability [visual-multi.nvim]";
   };
 }

@@ -139,3 +139,8 @@
 
 - Add `vim.languages.zig.dap` support through pkgs.lldb dap adapter. Code
   Inspiration from `vim.languages.clang.dap` implementation.
+
+[jahanson](https://github.com/jahanson):
+
+- Added [visual-multi.nvim](https://github.com/mg979/vim-visual-multi) to
+  available plugins, under `vim.utility.visual-multi`.
