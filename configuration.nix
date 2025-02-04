@@ -175,6 +175,7 @@ isMaximal: {
       icon-picker.enable = isMaximal;
       surround.enable = isMaximal;
       diffview-nvim.enable = true;
+      visual-multi.enable = isMaximal;
       yanky-nvim.enable = false;
       motion = {
         hop.enable = true;

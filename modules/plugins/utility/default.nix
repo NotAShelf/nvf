@@ -13,6 +13,7 @@
     ./preview
     ./surround
     ./telescope
+    ./visual-multi
     ./wakatime
     ./yanky-nvim
   ];
