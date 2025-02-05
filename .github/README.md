@@ -50,6 +50,7 @@
 [Contribute]: #contributing
 [FAQ]: #frequently-asked-questions
 [Credits]: #credits
+[License]: #license
 
 **[<kbd><br> Features <br></kbd>][Features]**
 **[<kbd><br> Get Started <br></kbd>][Get Started]**
@@ -70,6 +71,7 @@
 [release notes]: https://notashelf.github.io/nvf/release-notes.html
 [discussions tab]: https://github.com/notashelf/nvf/discussions
 [FAQ section]: #frequently-asked-questions
+[DAG]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
 
 - **Simple**: One language to rule them all! Use Nix to configure everything,
   with optional Lua support for robust configurability!
@@ -87,7 +89,10 @@
   - nvf exposes everything you need to avoid a vendor lock-in. Which means you
     can add new modules, plugins and so on without relying on us adding a module
     for them! Though, of course, feel free to request them.
-  - Use plugins from anywhere.
+  - Use plugins from anywhere. Inputs, npins, nixpkgs... You name it.
+  - nvf allows _ordering configuration bits_ using [DAG] (_Directed acyclic
+    graph_)s. It has never been easier to construct an editor configuration
+    deterministically!
 - **Well-documented**: Documentation is priority. You will _never_ face
   undocumented, obscure behaviour.
   - Changes, breaking or otherwise, will be communicated in the [release notes]
