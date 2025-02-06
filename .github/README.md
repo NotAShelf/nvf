@@ -86,18 +86,19 @@
     can do just that, no unnecessary restrictions.
   - Lazyloading 💤? We got it! Lazyload both internal and external plugins at
     will.
-  - nvf exposes everything you need to avoid a vendor lock-in. Which means you
-    can add new modules, plugins and so on without relying on us adding a module
-    for them! Though, of course, feel free to request them.
-  - Use plugins from anywhere. Inputs, npins, nixpkgs... You name it.
   - nvf allows _ordering configuration bits_ using [DAG] (_Directed acyclic
     graph_)s. It has never been easier to construct an editor configuration
     deterministically!
+  - nvf exposes everything you need to avoid a vendor lock-in. Which means you
+    can add new modules, plugins and so on without relying on us adding a module
+    for them! Though, of course, feel free to request them.
+    - Use plugins from anywhere. Inputs, npins, nixpkgs... You name it.
+    - Add your own modules, with ease. It's all built-in!
 - **Well-documented**: Documentation is priority. You will _never_ face
   undocumented, obscure behaviour.
   - Changes, breaking or otherwise, will be communicated in the [release notes]
-  - Refer to the [FAQ section] for answers to common questions. Your question
-    not there? Head to the to the [discussions tab]!
+  - Refer to the [FAQ section] for answers to common questions.
+    - Your question not there? Head to the to the [discussions tab]!
 - **Idiomatic**: nvf does things ✨ _the right way_ ✨ - the codebase is, and
   will, remain maintainable for myself and any contributors.
 - **Community-Led**: we would like nvf to be fully capable of accomplishing what
