@@ -19,7 +19,7 @@ in {
       startPlugins = ["plenary-nvim"];
 
       lazy.plugins.telescope = {
-        package = "telescope";
+        package = "telescope-nvim";
         setupModule = "telescope";
         inherit (cfg) setupOpts;
 

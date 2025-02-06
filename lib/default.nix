@@ -1,9 +1,10 @@
 {
+  self,
   inputs,
   lib,
   ...
 }: {
-  types = import ./types {inherit inputs lib;};
+  types = import ./types {inherit self inputs lib;};
 
   config = import ./config.nix {inherit lib;};
   binds = import ./binds.nix {inherit lib;};
@@ -12,5 +13,5 @@
   lists = import ./lists.nix {inherit lib;};
   attrsets = import ./attrsets.nix {inherit lib;};
   lua = import ./lua.nix {inherit lib;};
-  neovimConfiguration = import ../modules {inherit inputs lib;};
+  neovimConfiguration = import ../modules {inherit self inputs lib;};
 }

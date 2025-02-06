@@ -14,7 +14,7 @@ in {
   config = mkIf (cfg.enable && cfg.trouble.enable) {
     vim = {
       lazy.plugins.trouble = {
-        package = "trouble";
+        package = "trouble-nvim";
         setupModule = "trouble";
         inherit (cfg.trouble) setupOpts;
 

@@ -12,7 +12,7 @@ in {
   config = mkIf (cfg.enable && cfg.lspSignature.enable) {
     vim = {
       startPlugins = [
-        "lsp-signature"
+        "lsp-signature-nvim"
       ];
 
       lsp.lspSignature.setupOpts = {

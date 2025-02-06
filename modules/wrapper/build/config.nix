@@ -1,8 +1,9 @@
 {
+  self,
   inputs,
-  lib,
   config,
   pkgs,
+  lib,
   ...
 }
 : let
@@ -15,15 +16,15 @@
   vimOptions = config.vim;
 
   noBuildPlug = pname: let
-    input = inputs."plugin-${pname}";
-    version = input.shortRev or input.shortDirtyRev or "dirty";
+    pin = self.pins.${pname};
+    version = pin.revision or "dirty";
   in {
     # vim.lazy.plugins relies on pname, so we only set that here
     # version isn't needed for anything, but inherit it anyway for correctness
     inherit pname version;
     outPath = path {
       name = "${pname}-0-unstable-${version}";
-      path = input.outPath;
+      path = pin.outPath;
     };
     passthru.vimPlugin = false;
   };

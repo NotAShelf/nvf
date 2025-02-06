@@ -84,6 +84,21 @@
       "url": "https://github.com/famiu/bufdelete.nvim/archive/f6bcea78afb3060b198125256f897040538bcb81.tar.gz",
       "hash": "0xfzk3zgnxbwnr55n3lglsb8nmhnchpiqz9d152xr6j8d9z0sdcn"
     },
+    "catppuccin": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "catppuccin",
+        "repo": "nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "version": "v1.9.0",
+      "revision": "c9e205fe035d622b3c2d66ee42edf368c0c31fd5",
+      "url": "https://api.github.com/repos/catppuccin/nvim/tarball/v1.9.0",
+      "hash": "1y5f1fj672q8drr06q6w8yhwrqzp0265jb2gmr0ql8m3hd1v0sj0"
+    },
     "ccc.nvim": {
       "type": "Git",
       "repository": {
@@ -1265,18 +1280,6 @@
       "revision": "53e907ffe5eedebdca1cd503b00aa8692068ca46",
       "url": "https://github.com/MunifTanjim/nui.nvim/archive/53e907ffe5eedebdca1cd503b00aa8692068ca46.tar.gz",
       "hash": "1m4vlf9qcs01a8qrq3salcz966sp8cpf01gbrg8dbf255vzc8kp9"
-    },
-    "nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "catppuccin",
-        "repo": "nvim"
-      },
-      "branch": "main",
-      "revision": "f67b886d65a029f12ffa298701fb8f1efd89295d",
-      "url": "https://github.com/catppuccin/nvim/archive/f67b886d65a029f12ffa298701fb8f1efd89295d.tar.gz",
-      "hash": "0fwgsvlxvzz5r8jfmj1fp97cqv9b9h2f37fn4nhmim5lm6d0n14p"
     },
     "nvim-autopairs": {
       "type": "Git",
