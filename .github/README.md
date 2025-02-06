@@ -50,6 +50,7 @@
 [Contribute]: #contributing
 [FAQ]: #frequently-asked-questions
 [Credits]: #credits
+[License]: #license
 
 **[<kbd><br> Features <br></kbd>][Features]**
 **[<kbd><br> Get Started <br></kbd>][Get Started]**
@@ -67,6 +68,10 @@
 [standalone]: https://notashelf.github.io/nvf/index.xhtml#ch-standalone-installation
 [NixOS module]: https://notashelf.github.io/nvf/index.xhtml#ch-standalone-nixos
 [Home-Manager module]: https://notashelf.github.io/nvf/index.xhtml#ch-standalone-hm
+[release notes]: https://notashelf.github.io/nvf/release-notes.html
+[discussions tab]: https://github.com/notashelf/nvf/discussions
+[FAQ section]: #frequently-asked-questions
+[DAG]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
 
 - **Simple**: One language to rule them all! Use Nix to configure everything,
   with optional Lua support for robust configurability!
@@ -79,11 +84,31 @@
   customizable through the Nix module system.
   - Not comfortable with a full-nix config or want to bring your Lua config? You
     can do just that, no unnecessary restrictions.
-  - Lazyloading? We got it! Lazyload both internal and external plugins at will.
+  - Lazyloading 💤? We got it! Lazyload both internal and external plugins at
+    will.
+  - nvf allows _ordering configuration bits_ using [DAG] (_Directed acyclic
+    graph_)s. It has never been easier to construct an editor configuration
+    deterministically!
+  - nvf exposes everything you need to avoid a vendor lock-in. Which means you
+    can add new modules, plugins and so on without relying on us adding a module
+    for them! Though, of course, feel free to request them.
+    - Use plugins from anywhere. Inputs, npins, nixpkgs... You name it.
+    - Add your own modules, with ease. It's all built-in!
 - **Well-documented**: Documentation is priority. You will _never_ face
   undocumented, obscure behaviour.
+  - Changes, breaking or otherwise, will be communicated in the [release notes]
+  - Refer to the [FAQ section] for answers to common questions.
+    - Your question not there? Head to the to the [discussions tab]!
 - **Idiomatic**: nvf does things ✨ _the right way_ ✨ - the codebase is, and
   will, remain maintainable for myself and any contributors.
+- **Community-Led**: we would like nvf to be fully capable of accomplishing what
+  you really want it to do. If you have a use case that is not made possible by
+  nvf, please open an issue (or a pull request!)
+  - Your feedback is more than welcome! Feedback is what _drives_ nvf forward.
+    If you have anything to say, or ask, please let us know.
+  - Pull requests are _always_ welcome. If you think the project can benefit
+    from something you did locally, but are not quite sure how to upstream,
+    please feel free to contact us! We'll help you get it done.
 
 ## Get Started
 
@@ -173,36 +198,49 @@ fix.
 [list of open pull requests]: https://github.com/NotAShelf/nvf/pulls
 
 **Q**: What platforms are supported?
-<br/> **A**: nvf actively supports **Linux and Darwin** platforms using
-standalone Nix, NixOS or Home-Manager. Please take a look at the [nvf manual]
-for available installation instructions.
+
+**A**: nvf actively supports **Linux and Darwin** platforms using standalone
+Nix, NixOS or Home-Manager. Please take a look at the [nvf manual] for available
+installation instructions.
 
 **Q**: Can you add _X_?
-<br/> **A**: Maybe! It is not one of our goals to support each and every Neovim
+
+**A**: Maybe! It is not one of our goals to support each and every Neovim
 plugin, however, I am always open to new modules and plugin setup additions to
 **nvf**. Use the appropriate [issue template] and I will consider a module
 addition. As mentioned before, pull requests to add new features are also
 welcome.
 
 **Q**: A plugin I need is not available in **nvf**. What to do?
-<br/> **A**: **nvf** exposes several APIs for you to be able to add your own
-plugin configurations! Please see the documentation on how you may do this.
+
+**A**: **nvf** exposes several APIs for you to be able to add your own plugin
+configurations! Please see the documentation on how you may do this.
 
 **Q**: Main branch is awfully silent, is the project dead?
-<br/> **A**: No! Sometimes we branch out (e.g. `v0.6`) to avoid breaking
-userspace and work in a separate branch until we make sure the new additions are
-implemented in the most comfortable way possible for the end user. If you have
-not noticed any activity on the main branch, consider taking a look at the
+
+**A**: No! Sometimes we branch out (e.g. `v0.6`) to avoid breaking userspace and
+work in a separate branch until we make sure the new additions are implemented
+in the most comfortable way possible for the end user. If you have not noticed
+any activity on the main branch, consider taking a look at the
 [list of branches] or the [list of open pull requests]. You may also consider
 _testing_ those release branches to get access to new features ahead of time and
 better prepare to breaking changes.
 
 **Q**: Will you support non-flake installations?
-<br/> **A**: Quite possibly. **nvf** started as "neovim-flake", which does mean
-it is and will remain flakes-first but we might consider non-flakes
-compatibility. Though keep in mind that **nvf** under non-flake environments
-would lose customizability of plugin inputs, which is one of our primary
-features.
+
+**A**: Quite possibly. **nvf** started as "neovim-flake", which does mean it is
+and will remain flakes-first but we might consider non-flakes compatibility.
+Though keep in mind that **nvf** under non-flake environments would lose
+customizability of plugin inputs, which is one of our primary features.
+
+**Q**: I prefer working with Lua, can I use nvf as a plugin manager while I use
+an imperative path (e.g., `~/.config/nvim`) for my Neovim configuration instead
+of a configuration generated from Nix?
+
+**A**: Yes! Add `"~/.config.nvim"` to `vim.additionalRuntimePaths = [ ... ]` and
+any plugins you want to load to `vim.startPlugins`. This will load your
+configuration from `~/.config/nvim`. You may still use `vim.*` to modify
+Neovim's behaviour with Nix.
 
 ## Credits
 
@@ -245,7 +283,7 @@ and everyone who has submitted issues or pull requests!
 
 ### Inspiration
 
-This configuration borrows from and is based on a few other configurations,
+This configuration borrows from, and is based on a few other configurations,
 including:
 
 - [@jordanisaacs's](https://github.com/jordanisaacs)

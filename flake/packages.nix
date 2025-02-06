@@ -19,9 +19,11 @@
       in
         pkgs.testers.lycheeLinkCheck {
           inherit site;
+
           remap = {
             "https://notashelf.github.io/nvf/" = site;
           };
+
           extraConfig = {
             exclude = [];
             include_mail = true;
@@ -29,43 +31,39 @@
           };
         };
 
-      # Build and open the built manual in your system browser
-      docs-html-wrapped = pkgs.writeScriptBin "docs-html-wrapped" ''
-        #!${pkgs.stdenv.shell}
-        # use xdg-open to open the docs in the browser
-        ${pkgs.xdg-utils}/bin/xdg-open ${docs.manual.html}
-      '';
+      # Helper utility for building the HTML manual and opening it in the
+      # browser with $BROWSER or using xdg-open as a fallback tool.
+      # Adapted from Home-Manager, available under the MIT license.
+      docs-html-wrapped = let
+        xdg-open = lib.getExe' pkgs.xdg-utils "xdg-open";
+        docs-html = docs.manual.html + /share/doc/nvf;
+      in
+        pkgs.writeShellScriptBin "docs-html-wrapped" ''
+          set -euo pipefail
+
+          if [[ ! -v BROWSER || -z $BROWSER ]]; then
+            for candidate in xdg-open open w3m; do
+            BROWSER="$(type -P $candidate || true)"
+              if [[ -x $BROWSER ]]; then
+                break;
+              fi
+            done
+          fi
+
+          if [[ ! -v BROWSER || -z $BROWSER ]]; then
+            echo "$0: unable to start a web browser; please set \$BROWSER"
+            echo "$0: Trying xdg-open as a fallback"
+            ${xdg-open} ${docs-html}/index.xhtml
+          else
+            echo "\$BROWSER is set. Attempting to open manual"
+            exec "$BROWSER" "${docs-html}/index.xhtml"
+          fi
+        '';
 
       # Exposed neovim configurations
       nix = config.legacyPackages.neovim-nix;
       maximal = config.legacyPackages.neovim-maximal;
       default = config.legacyPackages.neovim-nix;
-
-      # Published docker images
-      docker-nix = let
-        inherit (pkgs) bash gitFull buildEnv;
-        inherit (config.legacyPackages) neovim-nix;
-      in
-        pkgs.dockerTools.buildImage {
-          name = "nvf";
-          tag = "latest";
-
-          copyToRoot = buildEnv {
-            name = "neovim-root";
-            pathsToLink = ["/bin"];
-            paths = [
-              neovim-nix
-              gitFull
-              bash
-            ];
-          };
-
-          config = {
-            Cmd = ["${neovim-nix}/bin/nvim"];
-            WorkingDir = "/home/neovim/demo";
-            Volumes = {"/home/neovim/demo" = {};};
-          };
-        };
     };
   };
 }
