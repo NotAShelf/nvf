@@ -87,11 +87,6 @@
                 type = float;
                 default = 0.55;
               };
-              results_width = mkOption {
-                description = "";
-                type = float;
-                default = 0.8;
-              };
             };
             vertical = {
               mirror = mkOption {
