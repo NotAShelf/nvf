@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.types) attrsOf anything list either;
+  inherit (lib.types) attrsOf anything listOf either;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
 
   cfg = config.vim.formatter.conform-nvim;
@@ -42,7 +42,7 @@ in {
       };
 
       formatters_by_ft = mkOption {
-        type = either (attrsOf list) luaInline;
+        type = either (attrsOf (listOf anything)) luaInline;
         default = {};
         example = {lua = ["stylua"];};
         description = ''
