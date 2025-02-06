@@ -139,3 +139,7 @@
 
 - Add `vim.languages.zig.dap` support through pkgs.lldb dap adapter. Code
   Inspiration from `vim.languages.clang.dap` implementation.
+
+[nezia1](https://github.com/nezia1)
+
+- Add support for [nixd](https://github.com/nix-community/nixd) language server.
