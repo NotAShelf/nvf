@@ -26,3 +26,6 @@ trim_trailing_whitespace = unset
 
 [*.lock]
 indent_size = unset
+
+[npins/sources.json]
+insert_final_newline = unset

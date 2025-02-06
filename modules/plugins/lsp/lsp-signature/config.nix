@@ -22,7 +22,7 @@ in {
     ];
     vim = {
       startPlugins = [
-        "lsp-signature"
+        "lsp-signature-nvim"
       ];
 
       lsp.lspSignature.setupOpts = {

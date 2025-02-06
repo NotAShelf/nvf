@@ -7,7 +7,7 @@
   } @ inputs: let
     # call the extended library with `inputs`
     # inputs is used to get the original standard library, and to pass inputs to the plugin autodiscovery function
-    lib = import ./lib/stdlib-extended.nix inputs;
+    lib = import ./lib/stdlib-extended.nix {inherit inputs self;};
   in
     flake-parts.lib.mkFlake {
       inherit inputs;
@@ -54,7 +54,7 @@
             self.nixosModules.nvf;
         };
 
-        pins = import ./npins;
+        inherit (lib.importJSON ./npins/sources.json) pins;
       };
 
       perSystem = {pkgs, ...}: {
@@ -97,6 +97,11 @@
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
+    };
+
+    blink-cmp = {
+      url = "github:saghen/blink.cmp";
+      flake = false;
     };
   };
 }

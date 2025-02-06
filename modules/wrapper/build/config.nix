@@ -1,29 +1,27 @@
 {
   inputs,
-  lib,
   config,
   pkgs,
+  lib,
   ...
-}
-: let
+}: let
   inherit (pkgs) vimPlugins;
   inherit (lib.strings) isString;
   inherit (lib.lists) filter map;
   inherit (builtins) path;
 
-  # alias to the internal configuration
-  vimOptions = config.vim;
+  getPin = name: ((pkgs.callPackages ../../../npins/sources.nix {}) // config.vim.pluginOverrides).${name};
 
   noBuildPlug = pname: let
-    input = inputs."plugin-${pname}";
-    version = input.shortRev or input.shortDirtyRev or "dirty";
+    pin = getPin pname;
+    version = pin.revision or "dirty";
   in {
     # vim.lazy.plugins relies on pname, so we only set that here
     # version isn't needed for anything, but inherit it anyway for correctness
     inherit pname version;
     outPath = path {
       name = "${pname}-0-unstable-${version}";
-      path = input.outPath;
+      path = pin.outPath;
     };
     passthru.vimPlugin = false;
   };
@@ -32,12 +30,12 @@
   # if the plugin is nvim-treesitter, warn the user to use buildTreesitterPlug
   # instead
   buildPlug = attrs: let
-    input = inputs."plugin-${attrs.pname}";
+    pin = getPin attrs.pname;
   in
     pkgs.vimUtils.buildVimPlugin (
       {
-        version = input.shortRev or input.shortDirtyRev or "dirty";
-        src = input.outPath;
+        version = pin.revision or "dirty";
+        src = pin.outPath;
       }
       // attrs
     );
@@ -45,7 +43,7 @@
   buildTreesitterPlug = grammars: vimPlugins.nvim-treesitter.withPlugins (_: grammars);
 
   pluginBuilders = {
-    nvim-treesitter = buildTreesitterPlug vimOptions.treesitter.grammars;
+    nvim-treesitter = buildTreesitterPlug config.vim.treesitter.grammars;
     flutter-tools-patched = buildPlug {
       pname = "flutter-tools";
       patches = [./patches/flutter-tools.patch];
@@ -65,39 +63,41 @@
   };
 
   buildConfigPlugins = plugins:
-    map (
-      plug:
-        if (isString plug)
-        then pluginBuilders.${plug} or (noBuildPlug plug)
-        else plug
-    ) (filter (f: f != null) plugins);
+    map (plug:
+      if (isString plug)
+      then pluginBuilders.${plug} or (noBuildPlug plug)
+      else plug) (
+      filter (f: f != null) plugins
+    );
 
   # built (or "normalized") plugins that are modified
-  builtStartPlugins = buildConfigPlugins vimOptions.startPlugins;
-  builtOptPlugins = map (package: package // {optional = true;}) (buildConfigPlugins vimOptions.optPlugins);
+  builtStartPlugins = buildConfigPlugins config.vim.startPlugins;
+  builtOptPlugins = map (package: package // {optional = true;}) (
+    buildConfigPlugins config.vim.optPlugins
+  );
 
   # additional Lua and Python3 packages, mapped to their respective functions
   # to conform to the format mnw expects. end user should
   # only ever need to pass a list of packages, which are modified
   # here
-  extraLuaPackages = ps: map (x: ps.${x}) vimOptions.luaPackages;
-  extraPython3Packages = ps: map (x: ps.${x}) vimOptions.python3Packages;
+  extraLuaPackages = ps: map (x: ps.${x}) config.vim.luaPackages;
+  extraPython3Packages = ps: map (x: ps.${x}) config.vim.python3Packages;
 
   # Wrap the user's desired (unwrapped) Neovim package with arguments that'll be used to
   # generate a wrapped Neovim package.
   neovim-wrapped = inputs.mnw.lib.wrap pkgs {
-    neovim = vimOptions.package;
+    neovim = config.vim.package;
     plugins = builtStartPlugins ++ builtOptPlugins;
     appName = "nvf";
-    extraBinPath = vimOptions.extraPackages;
-    initLua = vimOptions.builtLuaConfigRC;
-    luaFiles = vimOptions.extraLuaFiles;
+    extraBinPath = config.vim.extraPackages;
+    initLua = config.vim.builtLuaConfigRC;
+    luaFiles = config.vim.extraLuaFiles;
 
-    inherit (vimOptions) viAlias vimAlias withRuby withNodeJs withPython3;
+    inherit (config.vim) viAlias vimAlias withRuby withNodeJs withPython3;
     inherit extraLuaPackages extraPython3Packages;
   };
 
-  dummyInit = pkgs.writeText "nvf-init.lua" vimOptions.builtLuaConfigRC;
+  dummyInit = pkgs.writeText "nvf-init.lua" config.vim.builtLuaConfigRC;
   # Additional helper scripts for printing and displaying nvf configuration
   # in your commandline.
   printConfig = pkgs.writers.writeDashBin "nvf-print-config" "cat ${dummyInit}";
@@ -110,10 +110,10 @@
     paths = [neovim-wrapped printConfig printConfigPath];
     postBuild = "echo Helpers added";
 
-    # Allow evaluating vimOptions, i.e., config.vim from the packages' passthru
+    # Allow evaluating config.vim, i.e., config.vim from the packages' passthru
     # attribute. For example, packages.x86_64-linux.neovim.passthru.neovimConfig
     # will return the configuration in full.
-    passthru.neovimConfig = vimOptions;
+    passthru.neovimConfig = config.vim;
 
     meta =
       neovim-wrapped.meta

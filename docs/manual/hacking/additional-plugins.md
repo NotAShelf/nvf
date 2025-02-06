@@ -1,36 +1,25 @@
 # Adding Plugins {#sec-additional-plugins}
 
-To add a new Neovim plugin, first add the source url in the inputs section of
-`flake.nix` with the prefix `plugin-`
+To add a new Neovim plugin, use `npins`
+
+Use:
+
+`nix-shell -p npins` or `nix shell nixpkgs#npins`
+
+Then run:
+
+`npins --name <plugin name> github <owner> <repo> -b <branch>`
+
+Be sure to replace any non-alphanumeric characters with `-` for `--name`
+
+For example 
+
+`npins --name lazydev-nvim github folke laztdev.nvim -b main`
+
+You can now reference this plugin as a **string**.
 
 ```nix
-{
-  inputs = {
-    # ...
-    plugin-neodev-nvim = {
-      url = "github:folke/neodev.nvim";
-      flake = false;
-    };
-    # ...
-  };
-}
-```
-
-Prepending `plugin-` to the name of the input will allow nvf to automatically
-discover inputs that are marked as plugins, and make them available in
-`vim.startPlugins` or other areas that require a very specific plugin type as it
-is defined in `@NVF_REPO@/lib/types/plugins.nix`
-
-The addition of the `plugin-` prefix will allow **nvf** to autodiscover the
-input from the flake inputs automatically, allowing you to refer to it in areas
-that require a very specific plugin type as defined in `lib/types/plugins.nix`
-
-You can now reference this plugin using its string name, the plugin will be
-built with the name and source URL from the flake input, allowing you to refer
-to it as a **string**.
-
-```nix
-config.vim.startPlugins = ["neodev-nvim"];
+config.vim.startPlugins = ["lazydev-nvim"];
 ```
 
 ## Modular setup options {#sec-modular-setup-options}
