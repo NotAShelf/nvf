@@ -1,14 +1,21 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) attrsOf listOf str;
+  inherit (lib.types) attrsOf listOf str anything;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   options.vim.diagnostics.nvim-lint = {
     enable = mkEnableOption "asynchronous linter plugin for Neovim [nvim-lint]";
+
+    configuredLinters = mkOption {
+      type = attrsOf anything;
+      default = {};
+      description = "";
+    };
+
     setupOpts = mkPluginSetupOption "nvim-lint" {
       linters_by_ft = mkOption {
         type = attrsOf (listOf str);
-        default = {};
+        default = {markdown = ["value"];};
         example = {
           text = ["vale"];
           markdown = ["vale"];
