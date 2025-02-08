@@ -727,6 +727,22 @@
         "type": "github"
       }
     },
+    "plugin-hydra-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1735234935,
+        "narHash": "sha256-kgwkxeHcJfh0+I9cMix2M83Cp289sJX/BO81+VOp/sU=",
+        "owner": "nvimtools",
+        "repo": "hydra.nvim",
+        "rev": "983852960cd4e4e9a1b272df0bd1447495aae755",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvimtools",
+        "repo": "hydra.nvim",
+        "type": "github"
+      }
+    },
     "plugin-icon-picker-nvim": {
       "flake": false,
       "locked": {
@@ -1621,6 +1637,22 @@
       "original": {
         "owner": "mvllow",
         "repo": "modes.nvim",
+        "type": "github"
+      }
+    },
+    "plugin-multicursors-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1723130615,
+        "narHash": "sha256-t5FKPwRx1PsU6HboZPx2sMVjU46AKb0nMfoFMpqesss=",
+        "owner": "smoka7",
+        "repo": "multicursors.nvim",
+        "rev": "562809aaf203b4c65482a75199166d360f2b9298",
+        "type": "github"
+      },
+      "original": {
+        "owner": "smoka7",
+        "repo": "multicursors.nvim",
         "type": "github"
       }
     },
@@ -2823,6 +2855,7 @@
         "plugin-haskell-tools-nvim": "plugin-haskell-tools-nvim",
         "plugin-highlight-undo": "plugin-highlight-undo",
         "plugin-hop-nvim": "plugin-hop-nvim",
+        "plugin-hydra-nvim": "plugin-hydra-nvim",
         "plugin-icon-picker-nvim": "plugin-icon-picker-nvim",
         "plugin-image-nvim": "plugin-image-nvim",
         "plugin-indent-blankline": "plugin-indent-blankline",
@@ -2879,6 +2912,7 @@
         "plugin-mini-visits": "plugin-mini-visits",
         "plugin-minimap-vim": "plugin-minimap-vim",
         "plugin-modes-nvim": "plugin-modes-nvim",
+        "plugin-multicursors-nvim": "plugin-multicursors-nvim",
         "plugin-neo-tree-nvim": "plugin-neo-tree-nvim",
         "plugin-neocord": "plugin-neocord",
         "plugin-neodev-nvim": "plugin-neodev-nvim",

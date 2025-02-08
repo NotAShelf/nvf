@@ -181,6 +181,12 @@ isMaximal: {
         leap.enable = true;
         precognition.enable = isMaximal;
       };
+      multicursors = {
+        enable = true;
+        setupOpts = {
+          DEBUG_MODE = true;
+        };
+      };
 
       images = {
         image-nvim.enable = false;

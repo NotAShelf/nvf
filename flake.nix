@@ -965,5 +965,15 @@
       url = "github:echasnovski/mini.visits";
       flake = false;
     };
+
+    plugin-hydra-nvim = {
+      url = "github:nvimtools/hydra.nvim";
+      flake = false;
+    };
+
+    plugin-multicursors-nvim = {
+      url = "github:smoka7/multicursors.nvim";
+      flake = false;
+    };
   };
 }
