@@ -18,7 +18,7 @@
     showSignColumn = "signcolumn";
 
     # 2025-02-07
-    scrollOf = "scrolloff";
+    scrollOff = "scrolloff";
   };
 in {
   imports = concatLists [
