@@ -143,3 +143,8 @@
 [nezia1](https://github.com/nezia1)
 
 - Add support for [nixd](https://github.com/nix-community/nixd) language server.
+
+[jahanson](https://github.com/jahanson):
+
+- Add [multicursors.nvim](https://github.com/smoka7/multicursors.nvim) to
+  available plugins, under `vim.utility.multicursors`.
