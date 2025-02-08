@@ -17,6 +17,8 @@
       # «https://github.com/nix-systems/nix-systems»
       systems = import inputs.systems;
       imports = [
+        ./flake/templates
+
         ./flake/apps.nix
         ./flake/legacyPackages.nix
         ./flake/overlays.nix

@@ -27,34 +27,6 @@ in {
   config = {
     vim.keymaps = mkMerge [
       (
-        mkIf cfg.disableArrows [
-          {
-            key = "<up>";
-            mode = ["n" "i"];
-            action = "<nop>";
-            noremap = false;
-          }
-          {
-            key = "<down>";
-            mode = ["n" "i"];
-            action = "<nop>";
-            noremap = false;
-          }
-          {
-            key = "<left>";
-            mode = ["n" "i"];
-            action = "<nop>";
-            noremap = false;
-          }
-          {
-            key = "<right>";
-            mode = ["n" "i"];
-            action = "<nop>";
-            noremap = false;
-          }
-        ]
-      )
-      (
         pipe cfg.maps
         [
           (mapAttrsToList (
