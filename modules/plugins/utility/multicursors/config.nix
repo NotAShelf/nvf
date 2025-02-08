@@ -17,34 +17,7 @@ in {
       lazy.plugins.multicursors-nvim = {
         package = "multicursors-nvim";
         setupModule = "multicursors";
-        #inherit (cfg) setupOpts;
-        setupOpts = {
-          DEBUG_MODE = true;
-          create_commands = true;
-          updatetime = 50;
-          nowait = true;
-          mode_keys = {
-            append = "a";
-            change = "c";
-            extend = "e";
-            insert = "i";
-          };
-          hint_config = {
-            float_opts = {
-              border = "none";
-            };
-            position = "bottom";
-          };
-          generate_hints = {
-            normal = true;
-            insert = true;
-            extend = true;
-            config = {
-              column_count = null;
-              max_hint_length = 25;
-            };
-          };
-        };
+        inherit (cfg) setupOpts;
 
         event = ["DeferredUIEnter"];
         cmd = ["MCstart" "MCvisual" "MCclear" "MCpattern" "MCvisualPattern" "MCunderCursor"];
