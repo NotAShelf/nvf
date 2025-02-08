@@ -1,12 +1,11 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   inherit (lib.types) bool int str;
   inherit (lib.nvim.types) mkPluginSetupOption;
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.nvim.binds) mkMappingOption;
-  hintConfig = { lib, ... }: {
+  hintConfig = {lib, ...}: {
     options = {
       float_opts = mkOption {
+        description = "The options for the floating hint window";
         type = lib.types.submodule {
           options = {
             border = mkOption {
@@ -24,21 +23,25 @@ let
       };
     };
   };
-  generateHints = { lib, ... }: {
+  generateHints = {lib, ...}: {
     options = {
       normal = mkOption {
         type = lib.types.bool;
+        description = "Generate hints for the normal mode";
         default = true;
       };
       insert = mkOption {
         type = lib.types.bool;
+        description = "Generate hints for the insert mode";
         default = true;
       };
       extend = mkOption {
         type = lib.types.bool;
+        description = "Generate hints for the extend mode";
         default = true;
       };
       config = mkOption {
+        description = "The configuration for generating hints for multicursors.nvim";
         type = lib.types.submodule {
           options = {
             column_count = mkOption {
@@ -60,8 +63,7 @@ let
       };
     };
   };
-in
-{
+in {
   options.vim.utility.multicursors = {
     enable = mkEnableOption "multicursors.nvim plugin (vscode like multiple cursors)";
 
@@ -69,6 +71,7 @@ in
       DEBUG_MODE = mkOption {
         type = bool;
         default = false;
+        description = "Enable debug mode.";
       };
       create_commands = mkOption {
         type = bool;
@@ -82,6 +85,7 @@ in
       };
       nowait = mkOption {
         type = bool;
+        description = "Don't wait for the cursor to move before updating the cursor";
         default = true;
       };
       mode_keys = mkOption {

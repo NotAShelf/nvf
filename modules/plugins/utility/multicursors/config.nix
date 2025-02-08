@@ -1,15 +1,10 @@
 {
-  options,
   config,
   lib,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.binds) mkKeymap;
-  inherit (lib.nvim.binds) addDescriptionsToMappings; # mkSetLuaBinding;
+  inherit (lib.modules) mkIf;
   cfg = config.vim.utility.multicursors;
-  mappingDefinitions = options.vim.utility.multicursors.mappings;
-  mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
 in {
   config = mkIf cfg.enable {
     vim = {
