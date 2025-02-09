@@ -59,6 +59,40 @@
         }
       '';
     };
+
+    nixd = {
+      package = pkgs.nixd;
+      internalFormatter = true;
+      lspConfig = ''
+        lspconfig.nixd.setup{
+          capabilities = capabilities,
+        ${
+          if cfg.format.enable
+          then useFormat
+          else noFormat
+        },
+          cmd = ${packageToCmd cfg.lsp.package "nixd"},
+        ${optionalString cfg.format.enable ''
+          settings = {
+            nixd = {
+          ${optionalString (cfg.format.type == "alejandra")
+            ''
+              formatting = {
+                command = {"${cfg.format.package}/bin/alejandra", "--quiet"},
+              },
+            ''}
+          ${optionalString (cfg.format.type == "nixfmt")
+            ''
+              formatting = {
+                command = {"${cfg.format.package}/bin/nixfmt"},
+              },
+            ''}
+            },
+          },
+        ''}
+        }
+      '';
+    };
   };
 
   defaultFormat = "alejandra";
