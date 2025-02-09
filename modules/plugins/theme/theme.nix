@@ -5,34 +5,20 @@
 }: let
   inherit (lib.options) mkOption;
   inherit (lib.attrsets) attrNames;
-  inherit (lib.strings) hasPrefix;
+  inherit (lib.strings) elemAt;
   inherit (lib.types) bool lines enum;
   inherit (lib.modules) mkIf;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.dag) entryBefore;
-  inherit (lib.nvim.types) hexColor;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.theme;
   supportedThemes = import ./supported-themes.nix {
     inherit lib config;
   };
-
-  numbers = ["0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "A" "B" "C" "D" "E" "F"];
-  base16Options =
-    mapListToAttrs (n: {
-      name = "base0${n}";
-      value = mkOption {
-        description = "The base0${n} color to use";
-        type = hexColor;
-        apply = v:
-          if hasPrefix "#" v
-          then v
-          else "#${v}";
-      };
-    })
-    numbers;
 in {
   options.vim.theme = {
+    inherit (supportedThemes.${cfg.name}) setupOpts;
+
     enable = mkOption {
       type = bool;
       description = "Enable theming";
@@ -45,10 +31,9 @@ in {
         requires all of the colors in {option}`vim.theme.base16-colors` to be set.
       '';
     };
-    base16-colors = base16Options;
-
     style = mkOption {
       type = enum supportedThemes.${cfg.name}.styles;
+      default = elemAt supportedThemes.${cfg.name}.styles 0;
       description = "Specific style for theme if it supports it";
     };
     transparent = mkOption {
@@ -64,11 +49,23 @@ in {
   };
 
   config = mkIf cfg.enable {
-    vim = {
+    vim = let
+      name' =
+        if cfg.name == "base16"
+        then "mini.base16"
+        else cfg.name;
+    in {
       startPlugins = [cfg.name];
-      luaConfigRC.theme = entryBefore ["pluginConfigs" "lazyConfigs"] ''
-        ${cfg.extraConfig}
-        ${supportedThemes.${cfg.name}.setup {inherit (cfg) style transparent base16-colors;}}
+      luaConfigRC.theme = entryBefore ["pluginConfigs"] ''
+         ${cfg.extraConfig}
+
+        ${
+          if name' != "oxocarbon"
+          then "require('${name'}').setup(${toLuaObject cfg.setupOpts})"
+          else ""
+        }
+
+        ${supportedThemes.${cfg.name}.setup}
       '';
     };
   };
