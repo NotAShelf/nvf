@@ -11,6 +11,7 @@
 
   cfg = config.vim.lsp;
   usingNvimCmp = config.vim.autocomplete.nvim-cmp.enable;
+  usingBlinkCmp = config.vim.autocomplete.blink-cmp.enable;
   self = import ./module.nix {inherit config lib pkgs;};
 
   mappingDefinitions = self.options.vim.lsp.mappings;
@@ -22,7 +23,7 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      autocomplete.nvim-cmp = {
+      autocomplete.nvim-cmp = mkIf usingNvimCmp {
         sources = {nvim_lsp = "[LSP]";};
         sourcePlugins = ["cmp-nvim-lsp"];
       };
@@ -169,6 +170,10 @@ in {
               },
             },
           }
+        ''}
+
+        ${optionalString usingBlinkCmp ''
+          capabilities = require('blink.cmp').get_lsp_capabilities()
         ''}
       '';
     };
