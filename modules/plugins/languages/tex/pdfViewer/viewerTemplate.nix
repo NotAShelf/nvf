@@ -10,7 +10,7 @@
   #
   # Module attribute set. This is the attribute set that the module that is
   # defining a pdf viewer is passed as its input.
-  moduleInheritencePackage,
+  moduleInheritancePackage,
   #
   # These are the standard options for the pdf viewer just like creating any
   # other module. Some options are required and are described below but
@@ -25,7 +25,7 @@
   ...
 }: let
   # Inherit the necessary variables available to any module.
-  inherit (moduleInheritencePackage) lib config;
+  inherit (moduleInheritancePackage) lib config;
   #
   # Inherit other useful functions.
   inherit (lib.modules) mkIf;

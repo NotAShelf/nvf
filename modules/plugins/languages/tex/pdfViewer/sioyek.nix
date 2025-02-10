@@ -2,7 +2,7 @@
   pkgs,
   lib,
   ...
-} @ moduleInheritencePackage: let
+} @ moduleInheritancePackage: let
   # The name of the pdf viewer
   name = "sioyek";
 
@@ -13,7 +13,7 @@
   inherit (lib.types) package str listOf;
 in (
   template {
-    inherit name moduleInheritencePackage;
+    inherit name moduleInheritancePackage;
 
     options = {
       enable = mkEnableOption "enable sioyek as the pdf file previewer.";
