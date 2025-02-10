@@ -3,7 +3,7 @@
   pkgs,
   lib,
   ...
-} @ moduleInheritencePackage: let
+} @ moduleInheritancePackage: let
   # The name of the builder
   name = "latexmk";
 
@@ -14,14 +14,14 @@
   inherit (lib.types) bool package str;
 in (
   template {
-    inherit name moduleInheritencePackage;
+    inherit name moduleInheritancePackage;
 
     options = {
       enable = mkEnableOption "Whether to enable Tex Compilation Via latexmk";
 
       package = mkOption {
         type = package;
-        default = (pkgs.texlive.withPackages (ps: [ ps.latexmk ]));
+        default = pkgs.texlive.withPackages (ps: [ps.latexmk]);
         description = "latexmk package";
       };
 

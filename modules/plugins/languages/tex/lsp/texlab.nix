@@ -169,11 +169,11 @@ in {
         description = ''
           Allows associating a label definition command with a custom prefix. Consider,
           ```
-          \newcommand{\thm}[1]{\label{thm:#1}}
-          \thm{foo}
+          \newcommand{\theorem}[1]{\label{theorem:#1}}
+          \theorem{foo}
           ```
-          Then setting `texlab.experimental.labelDefinitionPrefixes` to `[["thm", "thm:"]]` and adding "thm"
-          to `texlab.experimental.labelDefinitionCommands` will make the server recognize the `thm:foo` label.
+          Then setting `texlab.experimental.labelDefinitionPrefixes` to `[["theorem", "theorem:"]]` and adding "theorem"
+          to `texlab.experimental.labelDefinitionCommands` will make the server recognize the `theorem:foo` label.
         '';
       };
 
@@ -221,7 +221,7 @@ in {
         Enable this option if you want to have the compiled document appear in your chosen PDF viewer.
 
         For some options see [here](https://github.com/latex-lsp/texlab/wiki/Previewing).
-        Note this is not all the options, but can act as a guide to help you allong with custom configs.
+        Note this is not all the options, but can act as a guide to help you along with custom configs.
       '';
 
       package = mkOption {
@@ -405,7 +405,7 @@ in {
               - description: If set, the server will try to match a label to environment and append its number.
               - default: false
 
-          Note: This functionallity may not be working, please follow https://github.com/latex-lsp/texlab/pull/1311
+          Note: This functionality may not be working, please follow https://github.com/latex-lsp/texlab/pull/1311
           for status updates.
         '';
       };

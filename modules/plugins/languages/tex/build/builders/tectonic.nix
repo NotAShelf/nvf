@@ -3,7 +3,7 @@
   pkgs,
   lib,
   ...
-} @ moduleInheritencePackage: let
+} @ moduleInheritancePackage: let
   # The name of the builder
   name = "tectonic";
 
@@ -18,7 +18,7 @@
   cfg = config.vim.languages.tex;
 in (
   template {
-    inherit name moduleInheritencePackage;
+    inherit name moduleInheritancePackage;
 
     options = {
       enable = mkEnableOption "Whether to enable Tex Compilation Via Tectonic";
@@ -58,7 +58,7 @@ in (
         description = ''
           Rerun the TeX engine exactly this many times after the first.
 
-          Setting this value to 0 will diable setting this option.
+          Setting this value to 0 will disable setting this option.
         '';
       };
 
