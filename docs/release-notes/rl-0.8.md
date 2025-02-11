@@ -149,3 +149,8 @@
 [nezia1](https://github.com/nezia1)
 
 - Add support for [nixd](https://github.com/nix-community/nixd) language server.
+
+[iynaix](https://github.com/iynaix)
+
+- Add lsp options support for [nixd](https://github.com/nix-community/nixd)
+  language server.
