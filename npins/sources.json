@@ -231,6 +231,18 @@
       "url": "https://github.com/numToStr/Comment.nvim/archive/e30b7f2008e52442154b66f7c519bfd2f1e32acb.tar.gz",
       "hash": "0dyz78j0kj3j99y5g8wncl7794g6z2qs05gfg9ddxaa4xswhyjc7"
     },
+    "conform-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "stevearc",
+        "repo": "conform.nvim"
+      },
+      "branch": "master",
+      "revision": "363243c03102a531a8203311d4f2ae704c620d9b",
+      "url": "https://github.com/stevearc/conform.nvim/archive/363243c03102a531a8203311d4f2ae704c620d9b.tar.gz",
+      "hash": "1lf7a5b30g37ys9f4z9gq68ymzfzsw7bwzqp1bb91cx9df1bdyck"
+    },
     "copilot-cmp": {
       "type": "Git",
       "repository": {
@@ -1405,6 +1417,18 @@
       "revision": "3ac0791be37ba9cc7939f1ad90ebc5e75abf4eea",
       "url": "https://github.com/kosayoda/nvim-lightbulb/archive/3ac0791be37ba9cc7939f1ad90ebc5e75abf4eea.tar.gz",
       "hash": "0qc1rl45ykh9552dx5fmhdg0ncfsk2vpcmj5i7hrmdzgkd2f0avg"
+    },
+    "nvim-lint": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mfussenegger",
+        "repo": "nvim-lint"
+      },
+      "branch": "master",
+      "revision": "6e9dd545a1af204c4022a8fcd99727ea41ffdcc8",
+      "url": "https://github.com/mfussenegger/nvim-lint/archive/6e9dd545a1af204c4022a8fcd99727ea41ffdcc8.tar.gz",
+      "hash": "0b318dahzf9kd043mjsa41rj44zfbs7k8i4bz0rqhcqipr19rwhk"
     },
     "nvim-lspconfig": {
       "type": "Git",
