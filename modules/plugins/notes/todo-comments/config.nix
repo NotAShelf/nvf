@@ -15,7 +15,7 @@ in {
   config = mkIf cfg.enable {
     vim = {
       startPlugins = [
-        "todo-comments"
+        "todo-comments-nvim"
       ];
 
       maps.normal = mkMerge [

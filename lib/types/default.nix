@@ -1,10 +1,6 @@
-{
-  inputs,
-  lib,
-  ...
-}: let
+{lib}: let
   typesDag = import ./dag.nix {inherit lib;};
-  typesPlugin = import ./plugins.nix {inherit inputs lib;};
+  typesPlugin = import ./plugins.nix {inherit lib;};
   typesLanguage = import ./languages.nix {inherit lib;};
   customTypes = import ./custom.nix {inherit lib;};
 in {

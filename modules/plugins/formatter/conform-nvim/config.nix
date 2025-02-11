@@ -7,14 +7,13 @@
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.lua) toLuaObject;
 
-  cfg = config.vim.ui.smartcolumn;
+  cfg = config.vim.formatter.conform-nvim;
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = ["smartcolumn-nvim"];
-
-      pluginRC.smartcolumn = entryAnywhere ''
-        require("smartcolumn").setup(${toLuaObject cfg.setupOpts})
+      startPlugins = ["conform-nvim"];
+      pluginRC.conform-nvim = entryAnywhere ''
+        require("conform").setup(${toLuaObject cfg.setupOpts})
       '';
     };
   };

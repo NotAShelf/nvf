@@ -14,8 +14,8 @@
           # features as they are added.
           nil = inputs'.nil.packages.default;
           blink-cmp = final.callPackage ./legacyPackages/blink-cmp.nix {
-            src = inputs.plugin-blink-cmp;
-            version = inputs.plugin-blink-cmp.shortRev or inputs.plugin-blink-cmp.shortDirtyRev or "dirty";
+            src = inputs.blink-cmp;
+            version = inputs.blink-cmp.shortRev or inputs.blink-cmp.shortDirtyRev or "dirty";
           };
         })
       ];
