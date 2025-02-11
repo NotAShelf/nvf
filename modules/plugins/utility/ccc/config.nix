@@ -9,9 +9,7 @@
   cfg = config.vim.utility.ccc;
 in {
   config = mkIf cfg.enable {
-    vim.startPlugins = [
-      "ccc"
-    ];
+    vim.startPlugins = ["ccc-nvim"];
 
     vim.pluginRC.ccc = entryAnywhere ''
       local ccc = require("ccc")
