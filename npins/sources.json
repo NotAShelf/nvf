@@ -1991,7 +1991,7 @@
       "url": "https://github.com/folke/which-key.nvim/archive/8ab96b38a2530eacba5be717f52e04601eb59326.tar.gz",
       "hash": "12wkl04apgag0p5njw8mczzlbxqf5h08k61qciwy10n4q1harzvz"
     },
-    "yanky.nvim": {
+    "yanky-nvim": {
       "type": "Git",
       "repository": {
         "type": "GitHub",
