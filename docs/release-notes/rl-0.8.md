@@ -115,9 +115,7 @@
   - `mini.statusline`
   - `mini.surround`
   - `mini.tabline`
-  - `mini.test`
-  - `mini.trailspace`
-  - `mini.visits`
+  - `mini.test` `mini.trailspace` `mini.visits`
 - Add [fzf-lua](https://github.com/ibhagwan/fzf-lua) in `vim.fzf-lua`
 - Add [rainbow-delimiters](https://github.com/HiPhish/rainbow-delimiters.nvim)
   in `vim.visuals.rainbow-delimiters`
@@ -149,3 +147,7 @@
 [nezia1](https://github.com/nezia1)
 
 - Add support for [nixd](https://github.com/nix-community/nixd) language server.
+
+[folospior](https://github.com/folospior)
+
+- Fix lspkind plugin name in regards to the npins change, which broke it
