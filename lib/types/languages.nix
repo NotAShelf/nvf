@@ -1,7 +1,7 @@
 {lib}: let
   inherit (lib.options) mkOption mkPackageOption;
   inherit (lib.attrsets) attrNames;
-  inherit (lib.types) listOf either enum submodule package;
+  inherit (lib.types) listOf either enum submodule package bool;
 
   diagnosticSubmodule = _: {
     options = {
@@ -33,6 +33,13 @@
       default = ["vimPlugins" "nvim-treesitter" "grammarPlugins" grammar];
       nullable = true;
     };
+
+  mkEnableTreesitterOption = config: language:
+    mkOption {
+      type = bool;
+      default = config.vim.languages.enableTreesitter;
+      description = "Whether to enable ${language} treesitter";
+    };
 in {
-  inherit diagnostics diagnosticSubmodule mkGrammarOption;
+  inherit diagnostics diagnosticSubmodule mkGrammarOption mkEnableTreesitterOption;
 }
