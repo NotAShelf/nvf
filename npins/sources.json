@@ -24,7 +24,7 @@
       "url": "https://github.com/goolord/alpha-nvim/archive/de72250e054e5e691b9736ee30db72c65d560771.tar.gz",
       "hash": "0c1jkhxamfn2md7m1r5b2wpxa26y90b98yzjwf68m3fymalvkn5h"
     },
-    "base16-nvim": {
+    "base16": {
       "type": "Git",
       "repository": {
         "type": "GitHub",
@@ -288,7 +288,7 @@
       "url": "https://github.com/sindrets/diffview.nvim/archive/4516612fe98ff56ae0415a259ff6361a89419b0a.tar.gz",
       "hash": "0brabpd02596hg98bml118bx6z2sly98kf1cr2p0xzybiinb4zs9"
     },
-    "dracula-nvim": {
+    "dracula": {
       "type": "Git",
       "repository": {
         "type": "GitHub",
@@ -420,7 +420,7 @@
       "url": "https://github.com/ellisonleao/glow.nvim/archive/238070a686c1da3bccccf1079700eb4b5e19aea4.tar.gz",
       "hash": "1j63y3hb03n5m4jig8576sxnb3jixxlr66m9xcs8vgfm5h0mrhqs"
     },
-    "gruvbox-nvim": {
+    "gruvbox": {
       "type": "Git",
       "repository": {
         "type": "GitHub",
@@ -1247,7 +1247,7 @@
       "url": "https://github.com/nvimtools/none-ls.nvim/archive/bb680d752cec37949faca7a1f509e2fe67ab418a.tar.gz",
       "hash": "11zgc86cjkv1vi183mplx3bsqa2x7ardk7ybyrp702xx5hmd882l"
     },
-    "nord-nvim": {
+    "nord": {
       "type": "Git",
       "repository": {
         "type": "GitHub",
@@ -1583,7 +1583,7 @@
       "url": "https://github.com/Hoffs/omnisharp-extended-lsp.nvim/archive/4916fa12e5b28d21a1f031f0bdd10aa15a75d85d.tar.gz",
       "hash": "0w2zbiz2sxblnmhnqp6f6n7d9g9cm40ksk66anl3s7qnqffvc3cl"
     },
-    "onedark-nvim": {
+    "onedark": {
       "type": "Git",
       "repository": {
         "type": "GitHub",
@@ -1619,7 +1619,7 @@
       "url": "https://github.com/jmbuhr/otter.nvim/archive/e8c662e1aefa8b483cfba6e00729a39a363dcecc.tar.gz",
       "hash": "0csl3ddm8782fw836adj4fp4h3fg2ygv7ik632llk55mp1q4dw1l"
     },
-    "oxocarbon-nvim": {
+    "oxocarbon": {
       "type": "Git",
       "repository": {
         "type": "GitHub",
@@ -1859,7 +1859,7 @@
       "url": "https://github.com/akinsho/toggleterm.nvim/archive/344fc1810292785b3d962ddac2de57669e1a7ff9.tar.gz",
       "hash": "0awj2kj3lam2j48bgld5wyb4m1v09gpxmzww35rgysq7wipliqx1"
     },
-    "tokyonight-nvim": {
+    "tokyonight": {
       "type": "Git",
       "repository": {
         "type": "GitHub",
