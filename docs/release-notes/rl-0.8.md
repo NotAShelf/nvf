@@ -149,3 +149,11 @@
 [nezia1](https://github.com/nezia1)
 
 - Add support for [nixd](https://github.com/nix-community/nixd) language server.
+
+[folospior](https://github.com/folospior)
+
+- Fix plugin name for lsp/lspkind.
+[iynaix](https://github.com/iynaix)
+
+- Add lsp options support for [nixd](https://github.com/nix-community/nixd)
+  language server.
