@@ -153,7 +153,12 @@
 [folospior](https://github.com/folospior)
 
 - Fix plugin name for lsp/lspkind.
+
 [iynaix](https://github.com/iynaix)
 
 - Add lsp options support for [nixd](https://github.com/nix-community/nixd)
   language server.
+
+[Mr-Helpful](https://github.com/Mr-Helpful)
+
+- Corrects pin names used for nvim themes
