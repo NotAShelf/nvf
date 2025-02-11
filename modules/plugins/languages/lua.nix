@@ -8,7 +8,6 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.lists) isList;
-  inherit (lib.strings) optionalString;
   inherit (lib.types) either listOf package str;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.lua) expToLua;
@@ -16,6 +15,12 @@
 
   cfg = config.vim.languages.lua;
 in {
+  imports = [
+    (lib.mkRemovedOptionModule ["vim" "languages" "lua" "lsp" "neodev"] ''
+      neodev has been replaced by lazydev
+    '')
+  ];
+
   options.vim.languages.lua = {
     enable = mkEnableOption "Lua language support";
     treesitter = {
@@ -32,7 +37,7 @@ in {
         default = pkgs.lua-language-server;
       };
 
-      neodev.enable = mkEnableOption "neodev.nvim integration, useful for neovim plugin developers";
+      lazydev.enable = mkEnableOption "lazydev.nvim integration, useful for neovim plugin developers";
     };
   };
 
@@ -49,7 +54,6 @@ in {
           lspconfig.lua_ls.setup {
             capabilities = capabilities;
             on_attach = default_on_attach;
-            ${optionalString cfg.lsp.neodev.enable "before_init = require('neodev.lsp').before_init;"}
             cmd = ${
             if isList cfg.lsp.package
             then expToLua cfg.lsp.package
@@ -59,10 +63,15 @@ in {
         '';
       })
 
-      (mkIf cfg.lsp.neodev.enable {
-        vim.startPlugins = ["neodev-nvim"];
-        vim.pluginRC.neodev = entryBefore ["lua-lsp"] ''
-          require("neodev").setup({})
+      (mkIf cfg.lsp.lazydev.enable {
+        vim.startPlugins = ["lazydev-nvim"];
+        vim.pluginRC.lazydev = entryBefore ["lua-lsp"] ''
+          require("lazydev").setup({
+            enabled = function(root_dir)
+              return not vim.uv.fs_stat(root_dir .. "/.luarc.json")
+            end,
+            library = { { path = "''${3rd}/luv/library", words = { "vim%.uv" } } },
+          })
         '';
       })
     ]))

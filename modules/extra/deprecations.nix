@@ -4,6 +4,7 @@
   inherit (lib.nvim.config) batchRenameOptions;
 
   renamedVimOpts = batchRenameOptions ["vim"] ["vim" "options"] {
+    # 2024-12-01
     colourTerm = "termguicolors";
     mouseSupport = "mouse";
     cmdHeight = "cmdheight";
@@ -15,6 +16,9 @@
     autoIndent = "autoindent";
     wordWrap = "wrap";
     showSignColumn = "signcolumn";
+
+    # 2025-02-07
+    scrollOff = "scrolloff";
   };
 in {
   imports = concatLists [
@@ -93,9 +97,15 @@ in {
 
       # 2024-12-02
       (mkRenamedOptionModule ["vim" "enableEditorconfig"] ["vim" "globals" "editorconfig"])
+
+      # 2025-02-06
+      (mkRemovedOptionModule ["vim" "disableArrows"] ''
+        Top-level convenience options are now in the process of being removed from nvf as
+        their behaviour was abstract, and confusing. Please use 'vim.options' or 'vim.luaConfigRC'
+        to replicate previous behaviour.
+      '')
     ]
 
-    # 2024-12-01
     # Migrated via batchRenameOptions. Further batch renames must be below this line.
     renamedVimOpts
   ];

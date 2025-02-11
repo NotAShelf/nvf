@@ -1,4 +1,5 @@
 {
+  self,
   inputs,
   lib,
 }: {
@@ -23,7 +24,7 @@
     specialArgs =
       extraSpecialArgs
       // {
-        inherit inputs;
+        inherit self inputs;
         modulesPath = toString ./.;
       };
     modules = concatLists [
