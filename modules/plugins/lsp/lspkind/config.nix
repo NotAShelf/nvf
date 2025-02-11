@@ -25,7 +25,7 @@ in {
     ];
 
     vim = {
-      startPlugins = ["lspkind"];
+      startPlugins = ["lspkind-nvim"];
 
       lsp.lspkind.setupOpts.before = config.vim.autocomplete.nvim-cmp.format;
       autocomplete = {
