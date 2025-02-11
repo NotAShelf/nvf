@@ -8,13 +8,13 @@ Use:
 
 Then run:
 
-`npins --name <plugin name> github <owner> <repo> -b <branch>`
+`npins add --name <plugin name> github <owner> <repo> -b <branch>`
 
 Be sure to replace any non-alphanumeric characters with `-` for `--name`
 
 For example 
 
-`npins --name lazydev-nvim github folke laztdev.nvim -b main`
+`npins add --name lazydev-nvim github folke lazydev.nvim -b main`
 
 You can now reference this plugin as a **string**.
 
