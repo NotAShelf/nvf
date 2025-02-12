@@ -14,7 +14,14 @@
   inherit (lib.options) mkOption mkEnableOption mkPackageOption;
   inherit (lib.types) enum ints listOf str nullOr;
   inherit (lib.nvim.config) mkBool;
-  inherit (builtins) concatLists elem map toString;
+  inherit (builtins) concatLists elem map toString attrNames filter isList;
+
+  notNull = x: x != null;
+  forceCheck = x: true;
+  toList = x:
+    if isList x
+    then x
+    else [x];
 
   cfg = config.vim.languages.tex;
 in (
@@ -148,31 +155,75 @@ in (
       };
     };
 
-    args = builderCfg: (
-      # Base args
-      [
-        "-X"
-        "compile"
-        "%f"
-      ]
-      # Flags
-      ++ (optionals builderCfg.keepIntermediates ["--keep-intermediates"])
-      ++ (optionals builderCfg.keepLogs ["--keep-logs"])
-      ++ (optionals builderCfg.onlyCached ["--only-cached"])
-      ++ (optionals builderCfg.synctex ["--synctex"])
-      ++ (optionals builderCfg.untrustedInput ["--untrusted"])
-      # Options
-      ++ (optionals (builderCfg.reruns > 0) ["--reruns" "${toString builderCfg.reruns}"])
-      ++ (optionals (builderCfg.bundle != null) ["--bundle" "${toString builderCfg.bundle}"])
-      ++ (optionals (builderCfg.webBundle != null) ["--web-bundle" "${toString builderCfg.webBundle}"])
-      ++ (optionals (builderCfg.outfmt != null) ["--outfmt" "${toString builderCfg.outfmt}"])
-      ++ (concatLists (map (x: ["--hide" x]) builderCfg.hidePaths))
-      ++ (optionals (builderCfg.format != null) ["--format" "${toString builderCfg.format}"])
-      ++ (optionals (builderCfg.color != null) ["--color" "${toString builderCfg.color}"])
-      # Still options but these are not defined by builder specific options but
-      # instead synchronize options between the global build options and builder
-      # specific options
-      ++ (optionals (!(elem cfg.build.pdfDirectory ["." ""])) ["--outdir" "${cfg.build.pdfDirectory}"])
-    );
+    # args = builderCfg: (
+    #   # Base args
+    #   [
+    #     "-X"
+    #     "compile"
+    #     "%f"
+    #   ]
+    #   # Flags
+    #   ++ (optionals builderCfg.keepIntermediates ["--keep-intermediates"])
+    #   ++ (optionals builderCfg.keepLogs ["--keep-logs"])
+    #   ++ (optionals builderCfg.onlyCached ["--only-cached"])
+    #   ++ (optionals builderCfg.synctex ["--synctex"])
+    #   ++ (optionals builderCfg.untrustedInput ["--untrusted"])
+    #   # Options
+    #   ++ (optionals (builderCfg.reruns > 0) ["--reruns" "${toString builderCfg.reruns}"])
+    #   ++ (optionals (builderCfg.bundle != null) ["--bundle" "${toString builderCfg.bundle}"])
+    #   ++ (optionals (builderCfg.webBundle != null) ["--web-bundle" "${toString builderCfg.webBundle}"])
+    #   ++ (optionals (builderCfg.outfmt != null) ["--outfmt" "${toString builderCfg.outfmt}"])
+    #   ++ (concatLists (map (x: ["--hide" x]) builderCfg.hidePaths))
+    #   ++ (optionals (builderCfg.format != null) ["--format" "${toString builderCfg.format}"])
+    #   ++ (optionals (builderCfg.color != null) ["--color" "${toString builderCfg.color}"])
+    #   # Still options but these are not defined by builder specific options but
+    #   # instead synchronize options between the global build options and builder
+    #   # specific options
+    #   ++ (optionals (!(elem cfg.build.pdfDirectory ["." ""])) ["--outdir" "${cfg.build.pdfDirectory}"])
+    # );
+
+    args = builderCfg: let
+      option = setCheck: flag: {inherit setCheck flag;};
+      args = {
+        baseArgs = ["-X" "compile" "%f"];
+
+        flags = {
+          keepIntermediates = "--keep-intermediates";
+          keepLogs = "--keep-logs";
+          onlyCached = "--only-cached";
+          synctex = "--synctex";
+          untrustedInput = "--untrusted";
+        };
+
+        options = {
+          reruns = option (x: x > 0) "--reruns";
+          bundle = option notNull "--bundle";
+          webBundle = option notNull "--web-bundle";
+          outfmt = option notNull "--outfmt";
+          format = option notNull "--format";
+          color = option notNull "--color";
+          hidePaths = option forceCheck "--hide";
+        };
+
+        externalOptions = concatLists [
+          (optionals (!(elem cfg.build.pdfDirectory ["." ""])) ["--outdir" "${cfg.build.pdfDirectory}"])
+        ];
+      };
+
+      flags = map (flag: args.flags.${flag}) (filter (flag: builderCfg.${flag}) (attrNames args.flags));
+      options = let
+        getOptionFlagsList = opt:
+          concatLists (
+            map
+            (y: [args.options."${opt}".flag "${toString y}"])
+            (toList builderCfg."${opt}")
+          );
+        processOption = opt:
+          optionals
+          (args.options."${opt}".setCheck builderCfg."${opt}")
+          (getOptionFlagsList opt);
+      in (concatLists (map processOption (attrNames args.options)));
+    in
+      concatLists (with args; [baseArgs flags options externalOptions]);
   }
 )
