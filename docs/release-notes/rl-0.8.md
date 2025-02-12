@@ -148,3 +148,5 @@
 
 - Add [multicursors.nvim](https://github.com/smoka7/multicursors.nvim) to
   available plugins, under `vim.utility.multicursors`.
+- Add [hydra.nvim](https://github.com/nvimtools/hydra.nvim) as dependency for
+  `multicursors.nvim` and lazy loads by default.
