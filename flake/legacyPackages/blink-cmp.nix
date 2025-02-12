@@ -10,16 +10,16 @@
     pname = "blink-fuzzy-lib";
     inherit version src;
 
-    env = {
-      # TODO: remove this if plugin stops using nightly rust
-      RUSTC_BOOTSTRAP = true;
-    };
+    # TODO: remove this if plugin stops using nightly rust
+    env.RUSTC_BOOTSTRAP = true;
+
     nativeBuildInputs = [git];
     cargoLock = {
       lockFile = "${src}/Cargo.lock";
       allowBuiltinFetchGit = true;
     };
   };
+
   libExt =
     if hostPlatform.isDarwin
     then "dylib"

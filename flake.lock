@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "blink-cmp": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1739129359,
-        "narHash": "sha256-nUrXXiJ7NRxS21H53U323lwEKdo08Y011l8XskXC/vw=",
-        "owner": "saghen",
-        "repo": "blink.cmp",
-        "rev": "b2485c76cb7877de6fe9c8670af59ba3d72fd74d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "saghen",
-        "repo": "blink.cmp",
-        "type": "github"
-      }
-    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -137,7 +121,6 @@
     },
     "root": {
       "inputs": {
-        "blink-cmp": "blink-cmp",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
         "mnw": "mnw",
