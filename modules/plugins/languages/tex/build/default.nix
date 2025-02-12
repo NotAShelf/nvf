@@ -61,7 +61,7 @@ in {
     onSave = mkBool false "Set this property to true if you want to compile the project after saving a file.";
 
     useFileList = mkBool false ''
-      When set to true, the server will use the .fls files produced by the TeX engine as an additional input for the project detection.
+      When set to `true`, the server will use the `.fls` files produced by the TeX engine as an additional input for the project detection.
 
       Note that enabling this property might have an impact on performance.
     '';
