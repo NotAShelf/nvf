@@ -29,7 +29,10 @@ in (
       executable = mkOption {
         type = str;
         default = "latexmk";
-        description = "The executable name from the build package that will be used to build/compile the tex.";
+        description = ''
+          The executable name from the build package that will be used to
+          build/compile the tex.
+        '';
       };
 
       # Flag options

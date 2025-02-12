@@ -6,8 +6,7 @@
 }: let
   inherit (lib.options) mkOption;
   inherit (lib.types) enum listOf package str;
-  inherit (lib.nvim.config) mkBool;
-  inherit (builtins) attrNames filter isAttrs hasAttr elemAt length;
+  inherit (builtins) attrNames;
 
   cfg = config.vim.languages.tex;
 in {

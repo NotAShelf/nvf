@@ -56,7 +56,8 @@ in {
       opts)
   options;
 
-  # Check that the language and this pdf viewer have been enabled before making any config.
+  # Check that the language and this pdf viewer have been enabled before making
+  # any config.
   config = mkIf (cfg.enable && viewerCfg.enable) {
     vim.languages.tex.pdfViewer = {
       inherit name;
