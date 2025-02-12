@@ -34,10 +34,10 @@
       nullable = true;
     };
 
-  mkEnableTreesitterOption = config: language:
+  mkEnableTreesitterOption = defaultCondition: language:
     mkOption {
       type = bool;
-      default = config.vim.languages.enableTreesitter;
+      default = defaultCondition;
       description = "Whether to enable ${language} treesitter";
     };
 in {
