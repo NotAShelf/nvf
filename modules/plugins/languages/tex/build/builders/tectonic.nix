@@ -10,6 +10,7 @@
   # The builder template
   template = import ./builderTemplate.nix;
 
+  inherit (lib) optionals;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) enum ints listOf package str;
   inherit (lib.nvim.config) mkBool;
@@ -133,71 +134,23 @@ in (
         "%f"
       ]
       # Flags
-      ++ (
-        if builderCfg.keepIntermediates
-        then ["--keep-intermediates"]
-        else []
-      )
-      ++ (
-        if builderCfg.keepLogs
-        then ["--keep-logs"]
-        else []
-      )
-      ++ (
-        if builderCfg.onlyCached
-        then ["--only-cached"]
-        else []
-      )
-      ++ (
-        if builderCfg.synctex
-        then ["--synctex"]
-        else []
-      )
-      ++ (
-        if builderCfg.untrustedInput
-        then ["--untrusted"]
-        else []
-      )
+      ++ (optionals builderCfg.keepIntermediates ["--keep-intermediates"])
+      ++ (optionals builderCfg.keepLogs ["--keep-logs"])
+      ++ (optionals builderCfg.onlyCached ["--only-cached"])
+      ++ (optionals builderCfg.synctex ["--synctex"])
+      ++ (optionals builderCfg.untrustedInput ["--untrusted"])
       # Options
-      ++ (
-        if builderCfg.reruns > 0
-        then ["--reruns" "${toString builderCfg.reruns}"]
-        else []
-      )
-      ++ (
-        if builderCfg.bundle != ""
-        then ["--bundle" "${toString builderCfg.bundle}"]
-        else []
-      )
-      ++ (
-        if builderCfg.webBundle != ""
-        then ["--web-bundle" "${toString builderCfg.webBundle}"]
-        else []
-      )
-      ++ (
-        if builderCfg.outfmt != ""
-        then ["--outfmt" "${toString builderCfg.outfmt}"]
-        else []
-      )
+      ++ (optionals (builderCfg.reruns > 0) ["--reruns" "${toString builderCfg.reruns}"])
+      ++ (optionals (builderCfg.bundle != "") ["--bundle" "${toString builderCfg.bundle}"])
+      ++ (optionals (builderCfg.webBundle != "") ["--web-bundle" "${toString builderCfg.webBundle}"])
+      ++ (optionals (builderCfg.outfmt != "") ["--outfmt" "${toString builderCfg.outfmt}"])
       ++ (concatLists (map (x: ["--hide" x]) builderCfg.hidePaths))
-      ++ (
-        if builderCfg.format != ""
-        then ["--format" "${toString builderCfg.format}"]
-        else []
-      )
-      ++ (
-        if builderCfg.color != ""
-        then ["--color" "${toString builderCfg.color}"]
-        else []
-      )
+      ++ (optionals (builderCfg.format != "") ["--format" "${toString builderCfg.format}"])
+      ++ (optionals (builderCfg.color != "") ["--color" "${toString builderCfg.color}"])
       # Still options but these are not defined by builder specific options but
       # instead synchronize options between the global build options and builder
       # specific options
-      ++ (
-        if !(elem cfg.build.pdfDirectory ["." ""])
-        then ["--outdir" "${cfg.build.pdfDirectory}"]
-        else []
-      )
+      ++ (optionals (!(elem cfg.build.pdfDirectory ["." ""])) ["--outdir" "${cfg.build.pdfDirectory}"])
     );
   }
 )

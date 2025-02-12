@@ -4,6 +4,7 @@
   ...
 }: let
   inherit (lib.options) mkOption;
+  inherit (lib.modules) mkIf;
   inherit (lib.types) str nullOr;
   inherit (builtins) filter isAttrs hasAttr attrNames length elemAt;
   inherit (lib.nvim.config) mkBool;
@@ -48,11 +49,7 @@ in {
 
   options.vim.languages.tex.build = {
     enable =
-      mkBool (
-        if enabledBuildersCount > 1
-        then throw "nvf-tex-language does not support having more than 1 builders enabled!"
-        else (enabledBuildersCount == 1)
-      ) ''
+      mkBool (enabledBuildersCount == 1) ''
         Whether to enable configuring the builder.
 
         By enabling any of the builders, this option will be automatically set.
@@ -106,8 +103,19 @@ in {
       type = nullOr str;
       default = null;
       description = ''
-        Allows overriding the default file name of the build artifact. This setting is used to find the correct PDF file to open during forward search.
+        Allows overriding the default file name of the build artifact.
+        This setting is used to find the correct PDF file to open during forward search.
       '';
     };
+  };
+
+
+  config = mkIf (enabledBuildersCount > 0) {
+    assertions = [
+      {
+        assertion = (enabledBuildersCount < 2);
+        message = "The nvf-tex-language implementation does not support having more than 1 builders enabled.";
+      }
+    ];
   };
 }

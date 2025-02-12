@@ -10,6 +10,7 @@
   # The builder template
   template = import ./builderTemplate.nix;
 
+  inherit (lib) optionals;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) bool package str;
 in (
@@ -42,11 +43,7 @@ in (
 
     args = builderCfg: (
       # Flags
-      (
-        if builderCfg.pdfOutput
-        then ["-pdf"]
-        else []
-      )
+      (optionals builderCfg.pdfOutput ["-pdf"])
       # Base args
       ++ [
         "-quiet"
