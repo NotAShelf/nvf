@@ -22,7 +22,7 @@ in (
     inherit name moduleInheritancePackage;
 
     options = {
-      enable = mkEnableOption "Whether to enable Tex Compilation Via Tectonic";
+      enable = mkEnableOption "Tex Compilation Via Tectonic";
 
       package = mkOption {
         type = package;
