@@ -44,6 +44,8 @@ in (
       };
     };
 
+    # Optional flags must come before the base args because of how the latexmk
+    # command works
     args = builderCfg: (
       # Flags
       (optionals builderCfg.pdfOutput ["-pdf"])
