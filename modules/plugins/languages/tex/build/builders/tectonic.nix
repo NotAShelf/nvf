@@ -81,8 +81,8 @@ in (
         type = nullOr str;
         default = null;
         description = ''
-          Use this directory or Zip-format bundle file to find resource files
-          instead of the default.
+          The directory or Zip-format bundle file to find resource files instead
+          of the default.
         '';
       };
 
