@@ -9,8 +9,8 @@
   # The viewer template
   template = import ./viewerTemplate.nix;
 
-  inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) package str listOf;
+  inherit (lib.options) mkOption mkEnableOption mkPackageOption;
+  inherit (lib.types) str listOf;
 in (
   template {
     inherit name moduleInheritancePackage;
@@ -18,11 +18,7 @@ in (
     options = {
       enable = mkEnableOption "enable qpdfview as the pdf file previewer.";
 
-      package = mkOption {
-        type = package;
-        default = pkgs.qpdfview;
-        description = "qpdfview package";
-      };
+      package = mkPackageOption pkgs "qpdfview" {};
 
       executable = mkOption {
         type = str;
@@ -32,7 +28,10 @@ in (
 
       args = mkOption {
         type = listOf str;
-        default = ["--unique" "%p#src:%f:%l:1"];
+        default = [
+          "--unique"
+          "%p#src:%f:%l:1"
+        ];
         description = "Arguments to pass to the viewer.";
       };
     };

@@ -9,8 +9,8 @@
   # The viewer template
   template = import ./viewerTemplate.nix;
 
-  inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) package str listOf;
+  inherit (lib.options) mkOption mkEnableOption mkPackageOption;
+  inherit (lib.types) str listOf;
 in (
   template {
     inherit name moduleInheritancePackage;
@@ -18,11 +18,7 @@ in (
     options = {
       enable = mkEnableOption "enable zathura as the pdf file previewer.";
 
-      package = mkOption {
-        type = package;
-        default = pkgs.zathura;
-        description = "zathura package";
-      };
+      package = mkPackageOption pkgs "zathura" {};
 
       executable = mkOption {
         type = str;
@@ -32,7 +28,11 @@ in (
 
       args = mkOption {
         type = listOf str;
-        default = ["--synctex-forward" "%l:1:%f" "%p"];
+        default = [
+          "--synctex-forward"
+          "%l:1:%f"
+          "%p"
+        ];
         description = "Arguments to pass to the viewer.";
       };
     };

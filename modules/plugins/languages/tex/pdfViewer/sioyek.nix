@@ -9,20 +9,16 @@
   # The viewer template
   template = import ./viewerTemplate.nix;
 
-  inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) package str listOf;
+  inherit (lib.options) mkOption mkEnableOption mkPackageOption;
+  inherit (lib.types) str listOf;
 in (
   template {
     inherit name moduleInheritancePackage;
 
     options = {
-      enable = mkEnableOption "enable sioyek as the pdf file previewer.";
+      enable = mkEnableOption "sioyek as the pdf file previewer.";
 
-      package = mkOption {
-        type = package;
-        default = pkgs.sioyek;
-        description = "sioyek package";
-      };
+      package = mkPackageOption pkgs "sioyek" {};
 
       executable = mkOption {
         type = str;
@@ -47,9 +43,9 @@ in (
         description = ''
           Arguments to pass to the viewer.
 
-          By default, this is the only viewer that supports the inverse search feature by
-          command line arguments and doesn't explicitly require extra tinkering else where
-          in your config.
+          By default, this is the only viewer that supports the inverse search
+          feature by command line arguments and doesn't explicitly require extra
+          tinkering else where in your config.
         '';
       };
     };
