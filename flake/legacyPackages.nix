@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  self,
+  ...
+}: {
   perSystem = {
     system,
     inputs',
@@ -9,14 +13,21 @@
       overlays = [
         inputs.self.overlays.default
 
-        (final: _: {
+        (final: prev: {
           # Build nil from source to get most recent
           # features as they are added.
           nil = inputs'.nil.packages.default;
-          blink-cmp = final.callPackage ./legacyPackages/blink-cmp.nix {
-            src = inputs.blink-cmp;
-            version = inputs.blink-cmp.shortRev or inputs.blink-cmp.shortDirtyRev or "dirty";
-          };
+          blink-cmp = let
+            pin = self.pins.blink-cmp;
+          in
+            final.callPackage ./legacyPackages/blink-cmp.nix {
+              inherit (pin) version;
+              src = prev.fetchFromGitHub {
+                inherit (pin.repository) owner repo;
+                rev = pin.revision;
+                sha256 = pin.hash;
+              };
+            };
         })
       ];
     };

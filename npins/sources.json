@@ -36,6 +36,21 @@
       "url": "https://github.com/rrethy/base16-nvim/archive/6ac181b5733518040a33017dde654059cd771b7c.tar.gz",
       "hash": "0q47jbh6abn2hql9ghi9ayx3l8pdrdcdrnf4qfk7cp0v1bl7y48r"
     },
+    "blink-cmp": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "saghen",
+        "repo": "blink.cmp"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "version": "v0.11.0",
+      "revision": "7a70199efe4e333a3693ba3e56ddbec3b9c9c330",
+      "url": "https://api.github.com/repos/saghen/blink.cmp/tarball/v0.11.0",
+      "hash": "1j3sj03i72iw5npwwksc7w7axv8z0nbgi11adkfng9ak73kn1gdq"
+    },
     "blink-compat": {
       "type": "Git",
       "repository": {

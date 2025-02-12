@@ -98,10 +98,5 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-
-    blink-cmp = {
-      url = "github:saghen/blink.cmp";
-      flake = false;
-    };
   };
 }
