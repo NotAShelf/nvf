@@ -1,5 +1,4 @@
 {lib, ...}: let
-  #inherit (lib) types;
   inherit (lib.options) mkEnableOption;
 in {
   options.vim.utility.hydra = {
