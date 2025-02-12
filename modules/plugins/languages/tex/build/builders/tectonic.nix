@@ -11,8 +11,8 @@
   template = import ./builderTemplate.nix;
 
   inherit (lib) optionals;
-  inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) enum ints listOf package str;
+  inherit (lib.options) mkOption mkEnableOption mkPackageOption;
+  inherit (lib.types) enum ints listOf str;
   inherit (lib.nvim.config) mkBool;
   inherit (builtins) concatLists elem map toString;
 
@@ -24,11 +24,7 @@ in (
     options = {
       enable = mkEnableOption "Tex Compilation Via Tectonic";
 
-      package = mkOption {
-        type = package;
-        default = pkgs.tectonic;
-        description = "tectonic package";
-      };
+      package = mkPackageOption pkgs "tectonic" {};
 
       executable = mkOption {
         type = str;
@@ -38,18 +34,18 @@ in (
 
       # -- Flags --
       keepIntermediates = mkBool false ''
-        Keep the intermediate files generated during processing.
+        Whether to keep the intermediate files generated during processing.
 
         If texlab is reporting build errors when there shouldn't be, disable this option.
       '';
       keepLogs = mkBool true ''
-        Keep the log files generated during processing.
+        Whether to keep the log files generated during processing.
 
         Without the keepLogs flag, texlab won't be able to report compilation warnings.
       '';
-      onlyCached = mkBool false "Use only resource files cached locally";
-      synctex = mkBool true "Generate SyncTeX data";
-      untrustedInput = mkBool false "Input is untrusted -- disable all known-insecure features";
+      onlyCached = mkBool false "Whether to use only resource files cached locally";
+      synctex = mkBool true "Whether to generate SyncTeX data";
+      untrustedInput = mkBool false "Whether to input is untrusted -- disable all known-insecure features";
 
       # -- Options --
       reruns = mkOption {
@@ -57,7 +53,9 @@ in (
         default = 0;
         example = 2;
         description = ''
-          Rerun the TeX engine exactly this many times after the first.
+          How many times to *rerun* the TeX build engine.
+          The build engine (if a builder is enabled) will always run at least
+          once.
 
           Setting this value to 0 will disable setting this option.
         '';
