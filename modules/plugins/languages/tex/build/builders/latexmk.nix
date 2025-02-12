@@ -18,7 +18,7 @@ in (
     inherit name moduleInheritancePackage;
 
     options = {
-      enable = mkEnableOption "Whether to enable Tex Compilation Via latexmk";
+      enable = mkEnableOption "Tex Compilation Via latexmk";
 
       package = mkOption {
         type = package;
