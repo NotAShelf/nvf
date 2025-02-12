@@ -26,7 +26,7 @@ in {
           default = false;
           example = true;
           description = ''
-            Whether to set the vim.g.tex_flavor (g:tex_flavor) option in your lua config.
+            Whether to set the `vim.g.tex_flavor` (`g:tex_flavor`) option in your Lua config.
 
             When opening a .tex file vim will try to automatically try to determine the file type from
             the three options: plaintex (for plain TeX), context (for ConTeXt), or tex (for LaTeX).
