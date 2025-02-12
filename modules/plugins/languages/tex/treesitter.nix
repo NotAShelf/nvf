@@ -5,17 +5,19 @@
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption mkEnableTreesitterOption;
+  inherit (lib.nvim.types) mkGrammarOption;
+
+  mkEnableTreesitterOption = lib.nvim.types.mkEnableTreesitterOption config.vim.languages.enableTreesitter;
 
   cfg = config.vim.languages.tex;
 in {
   options.vim.languages.tex.treesitter = {
     latex = {
-      enable = mkEnableTreesitterOption config "latex";
+      enable = mkEnableTreesitterOption "latex";
       package = mkGrammarOption pkgs "latex";
     };
     bibtex = {
-      enable = mkEnableTreesitterOption config "bibtex";
+      enable = mkEnableTreesitterOption "bibtex";
       package = mkGrammarOption pkgs "bibtex";
     };
   };
