@@ -5,9 +5,10 @@
 }: let
   defaultPdfViewerName = "okular";
 
+  inherit (builtins) filter isAttrs hasAttr attrNames length elemAt;
+  inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption;
   inherit (lib.types) str package listOf;
-  inherit (builtins) filter isAttrs hasAttr attrNames length elemAt;
 
   cfg = config.vim.languages.tex;
   viewerCfg = cfg.pdfViewer;
@@ -44,14 +45,11 @@
       # Get the index that will be used for the next iteration
       nextIndex = index + 1;
 
-      # Increment the count that is recording the number of enabled pdf viewers if
-      # this viewer is enabled, otherwise leave it as is.
+      # Increment the count that is recording the number of enabled pdf viewers
+      # if this viewer is enabled, otherwise leave it as is.
       newEnabledPdfViewersCount =
         if currentPdfViewer.enable
-        then
-          if enabledPdfViewersCount > 0
-          then throw "nvf-tex-language does not support having more than 1 pdf viewer enabled!"
-          else enabledPdfViewersCount + 1
+        then enabledPdfViewersCount + 1
         else enabledPdfViewersCount;
 
       # If this pdf viewer is enabled, set is as the enabled viewer.
@@ -84,8 +82,8 @@ in {
   imports = [
     ./custom.nix
     ./okular.nix
-    ./sioyek.nix
     ./qpdfview.nix
+    ./sioyek.nix
     ./zathura.nix
   ];
 
@@ -96,10 +94,12 @@ in {
       description = ''
         The name of the pdf viewer to use.
 
-        This value will be automatically set when any of the viewers are enabled.
+        This value will be automatically set when any of the viewers are
+        enabled.
 
-        Setting this option option manually is not recommended but can be used for some very technical nix-ing.
-        If you wish to use a custom viewer, please use the `custom` entry provided under `viewers`.
+        Setting this option option manually is not recommended but can be used
+        for some very technical nix-ing. If you wish to use a custom viewer,
+        please use the `custom` entry provided under `viewers`.
       '';
     };
 
@@ -109,10 +109,12 @@ in {
       description = ''
         The package of the pdf viewer to use.
 
-        This value will be automatically set when any of the viewers are enabled.
+        This value will be automatically set when any of the viewers are
+        enabled.
 
-        Setting this option option manually is not recommended but can be used for some very technical nix-ing.
-        If you wish to use a custom viewer, please use the `custom` entry provided under `viewers`.
+        Setting this option option manually is not recommended but can be used
+        for some very technical nix-ing. If you wish to use a custom viewer,
+        please use the `custom` entry provided under `viewers`.
       '';
     };
 
@@ -122,10 +124,12 @@ in {
       description = ''
         The executable for the pdf viewer to use.
 
-        This value will be automatically set when any of the viewers are enabled.
+        This value will be automatically set when any of the viewers are
+        enabled.
 
-        Setting this option option manually is not recommended but can be used for some very technical nix-ing.
-        If you wish to use a custom viewer, please use the `custom` entry provided under `viewers`.
+        Setting this option option manually is not recommended but can be used
+        for some very technical nix-ing. If you wish to use a custom viewer,
+        please use the `custom` entry provided under `viewers`.
       '';
     };
 
@@ -135,11 +139,25 @@ in {
       description = ''
         The command line arguments to use when calling the pdf viewer command.
 
-        This value will be automatically set when any of the viewers are enabled.
+        This value will be automatically set when any of the viewers are
+        enabled.
 
-        Setting this option option manually is not recommended but can be used for some very technical nix-ing.
-        If you wish to use a custom viewer, please use the `custom` entry provided under `viewers`.
+        Setting this option option manually is not recommended but can be used
+        for some very technical nix-ing. If you wish to use a custom viewer,
+        please use the `custom` entry provided under `viewers`.
       '';
     };
+  };
+
+  config = mkIf (enabledPdfViewersInfo.count > 0) {
+    assertions = [
+      {
+        assertion = enabledPdfViewersInfo.count < 2;
+        message = ''
+          The nvf-tex-language implementation does not support having more than
+          1 pdf viewers enabled.
+        '';
+      }
+    ];
   };
 }
