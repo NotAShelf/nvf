@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (builtins) isString map;
+  inherit (lib) optionalAttrs;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.config) mkBool;
   inherit (lib.options) mkOption mkPackageOption;
@@ -529,70 +530,54 @@ in {
         }
         #
         # -- Build --
-        // (
-          if cfg.build.enable
-          then {
-            build = {
-              inherit
-                (cfg.build)
-                onSave
-                useFileList
-                auxDirectory
-                logDirectory
-                pdfDirectory
-                filename
-                forwardSearchAfter
-                ;
-              inherit (builderCfg) args;
-              executable = "${builderCfg.package}/bin/${builderCfg.executable}";
-            };
-          }
-          else {}
-        )
+        // (optionalAttrs cfg.build.enable {
+          build = {
+            inherit
+              (cfg.build)
+              onSave
+              useFileList
+              auxDirectory
+              logDirectory
+              pdfDirectory
+              filename
+              forwardSearchAfter
+              ;
+            inherit (builderCfg) args;
+            executable = "${builderCfg.package}/bin/${builderCfg.executable}";
+          };
+        })
         #
         # -- Chktex --
-        // (
-          if texlabCfg.chktex.enable
-          then {
-            chktex = {
-              inherit (texlabCfg.chktex) onOpenAndSave onEdit additionalArgs;
-            };
-          }
-          else {}
-        )
+        // (optionalAttrs texlabCfg.chktex.enable {
+          chktex = {
+            inherit (texlabCfg.chktex) onOpenAndSave onEdit additionalArgs;
+          };
+        })
         #
         # -- Forward Search --
-        // (
-          if texlabCfg.forwardSearch.enable
-          then {
-            forwardSearch = {
-              inherit (texlabCfg.forwardSearch) args;
-              executable = "${texlabCfg.forwardSearch.package}/bin/${texlabCfg.forwardSearch.executable}";
-            };
-          }
-          else {}
-        )
+        // (optionalAttrs texlabCfg.forwardSearch.enable {
+          forwardSearch = {
+            inherit (texlabCfg.forwardSearch) args;
+            executable = "${texlabCfg.forwardSearch.package}/bin/${texlabCfg.forwardSearch.executable}";
+          };
+        })
         #
         # -- Symbols --
-        // (
-          if texlabCfg.symbols.enable
-          then {
-            symbols = {
-              inherit (texlabCfg.symbols) allowedPatterns ignoredPatterns;
+        // (optionalAttrs texlabCfg.symbols.enable {
+          symbols = {
+            inherit (texlabCfg.symbols) allowedPatterns ignoredPatterns;
 
-              customEnvironments =
-                map (x: {
-                  inherit (x) name label;
-                  displayName =
-                    if isString x.displayName
-                    then x.displayName
-                    else x.name;
-                })
-                texlabCfg.symbols.customEnvironments;
-            };
-          }
-          else {}
-        )
+            customEnvironments =
+              map (x: {
+                inherit (x) name label;
+                displayName =
+                  if isString x.displayName
+                  then x.displayName
+                  else x.name;
+              })
+              texlabCfg.symbols.customEnvironments;
+          };
+        })
         #
         # -- Extra Settings --
         // texlabCfg.extraLuaSettings
