@@ -47,6 +47,12 @@
 
 - Add Haskell support under `vim.languages.haskell` using [haskell-tools.nvim].
 
+[horriblename](https://github.com/horriblename):
+
+[blink.cmp]: https://github.com/saghen/blink.cmp
+
+- Add [blink.cmp] support
+
 [diniamo](https://github.com/diniamo):
 
 - Add Odin support under `vim.languages.odin`.
@@ -150,3 +156,15 @@
   available plugins, under `vim.utility.multicursors`.
 - Add [hydra.nvim](https://github.com/nvimtools/hydra.nvim) as dependency for
   `multicursors.nvim` and lazy loads by default.
+[folospior](https://github.com/folospior)
+
+- Fix plugin name for lsp/lspkind.
+
+[iynaix](https://github.com/iynaix)
+
+- Add lsp options support for [nixd](https://github.com/nix-community/nixd)
+  language server.
+
+[Mr-Helpful](https://github.com/Mr-Helpful)
+
+- Corrects pin names used for nvim themes

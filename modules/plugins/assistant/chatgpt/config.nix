@@ -30,17 +30,19 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = [
-        "chatgpt"
-      ];
+      startPlugins = ["chatgpt-nvim"];
+
       pluginRC.chagpt = entryAnywhere ''
         require("chatgpt").setup(${toLuaObject cfg.setupOpts})
       '';
-      maps.normal = mkMerge [
-        (mkSetBinding mappings.chatGpt "<cmd>ChatGPT<CR>")
-        maps
-      ];
-      maps.visual = maps;
+
+      maps = {
+        visual = maps;
+        normal = mkMerge [
+          (mkSetBinding mappings.chatGpt "<cmd>ChatGPT<CR>")
+          maps
+        ];
+      };
     };
   };
 }
