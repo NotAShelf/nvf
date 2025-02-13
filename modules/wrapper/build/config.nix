@@ -59,7 +59,7 @@
         "flutter-tools.dev_tools"
       ];
     };
-    inherit (pkgs) blink-cmp;
+    inherit (inputs.self.legacyPackages.${pkgs.stdenv.system}) blink-cmp;
   };
 
   buildConfigPlugins = plugins:
