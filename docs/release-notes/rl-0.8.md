@@ -162,3 +162,7 @@
 [Mr-Helpful](https://github.com/Mr-Helpful)
 
 - Corrects pin names used for nvim themes
+
+[Libadoxon](https://github.com/Libadoxon)
+
+- Add [git-conflict](https://github.com/akinsho/git-conflict.nvim) plugin for resolving git conflicts
