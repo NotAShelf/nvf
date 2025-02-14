@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
@@ -19,7 +18,7 @@ in {
   config = mkIf cfg.enable (mkMerge [
     {
       vim = {
-        startPlugins = [pkgs.vimPlugins.git-conflict-nvim];
+        startPlugins = ["git-conflict-nvim"];
 
         maps = {
           normal = mkMerge [
