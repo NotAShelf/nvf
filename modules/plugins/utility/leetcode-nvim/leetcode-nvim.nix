@@ -9,8 +9,8 @@ in {
       enable = mkEnableOption "complementary neovim plugin for leetcode.nvim";
 
       setupOpts = mkPluginSetupOption "leetcode-nvim" {
-        logging = mkEnableOption "Whether to log leetcode.nvim status notifications." // { default = true; };
-        image_support = mkEnableOption "Whether to render question description images using image.nvim (image-nvim must be enabled)." // { default = false; };
+        logging = mkEnableOption "logging for leetcode.nvim status notifications." // {default = true;};
+        image_support = mkEnableOption "question description images using image.nvim (image-nvim must be enabled).";
 
         lang = mkOption {
           type = enum [
@@ -46,18 +46,9 @@ in {
         };
 
         cn = {
-          enabled = mkEnableOption "Enable leetcode.cn instead of leetcode.com" // { default = false; };
-          translator = mkOption {
-            type = bool;
-            default = true;
-            description = "Enable translator";
-          };
-
-          translate_problems = mkOption {
-            type = bool;
-            default = true;
-            description = "Enable translation for problem questions";
-          };
+          enabled = mkEnableOption "leetcode.cn instead of leetcode.com";
+          translator = mkEnableOption "translator" // {default = true;};
+          translate_problems = mkEnableOption "translation for problem questions" // {default = true;};
         };
 
         storage = {
@@ -75,7 +66,7 @@ in {
         };
 
         plugins = {
-          non_standalone = mkEnableOption "To run leetcode.nvim in a non-standalone mode" // { default = false; };
+          non_standalone = mkEnableOption "leetcode.nvim in a non-standalone mode";
         };
       };
     };
