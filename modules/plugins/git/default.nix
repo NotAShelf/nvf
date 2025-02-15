@@ -4,6 +4,7 @@ in {
   imports = [
     ./gitsigns
     ./vim-fugitive
+    ./git-conflict
   ];
 
   options.vim.git = {
@@ -13,6 +14,7 @@ in {
       Enabling this option will enable the following plugins:
       * gitsigns
       * vim-fugitive
+      * git-conflict
     '';
   };
 }

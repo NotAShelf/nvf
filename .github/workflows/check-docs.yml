@@ -21,7 +21,6 @@ jobs:
     steps:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
-      - uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -42,13 +41,13 @@ jobs:
         with:
           name: "${{ matrix.package }}"
           path: result/share/doc/nvf
+
   flake-docs-linkcheck:
     name: Validate hyperlinks in documentation sources
     runs-on: ubuntu-latest
     steps:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
-      - uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Checkout
         uses: actions/checkout@v4
