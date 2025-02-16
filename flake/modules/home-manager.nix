@@ -19,7 +19,7 @@
   nvfModule = submoduleWith {
     description = "Nvf module";
     class = "nvf";
-    specialArgs = lib.trace (builtins.attrNames inputs) {
+    specialArgs = {
       inherit pkgs lib inputs;
     };
     modules = import ../../modules/modules.nix {inherit pkgs lib;};
