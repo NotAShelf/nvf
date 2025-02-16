@@ -1,13 +1,13 @@
 # Home Manager module
 {
-  self,
+  inputs,
   lib,
 }: {
   config,
   pkgs,
   ...
 }: let
-  inherit (self) packages inputs;
+  inherit (inputs.self) packages;
   inherit (lib) maintainers;
   inherit (lib.modules) mkIf mkAliasOptionModule;
   inherit (lib.lists) optional;
@@ -19,7 +19,7 @@
   nvfModule = submoduleWith {
     description = "Nvf module";
     class = "nvf";
-    specialArgs = {
+    specialArgs = lib.trace (builtins.attrNames inputs) {
       inherit pkgs lib inputs;
     };
     modules = import ../../modules/modules.nix {inherit pkgs lib;};
