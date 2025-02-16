@@ -143,8 +143,12 @@
 
 [ARCIII](https://github.com/ArmandoCIII):
 
+[leetcode.nvim]: https://github.com/kawre/leetcode.nvim
+
 - Add `vim.languages.zig.dap` support through pkgs.lldb dap adapter. Code
   Inspiration from `vim.languages.clang.dap` implementation.
+- Add [leetcode.nvim] plugin under `vim.utility.leetcode-nvim`.
+
 
 [nezia1](https://github.com/nezia1)
 

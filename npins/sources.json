@@ -567,6 +567,18 @@
       "url": "https://github.com/ggandor/leap.nvim/archive/c6bfb191f1161fbabace1f36f578a20ac6c7642c.tar.gz",
       "hash": "1dmy45czi3irjd5qb74yamjam4d1lvqsgfxgh4vaj740b19gyl1w"
     },
+    "leetcode-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "kawre",
+        "repo": "leetcode.nvim"
+      },
+      "branch": "master",
+      "revision": "db7e1cd6b9191b34b4c1f2f96e4e3949cde9f951",
+      "url": "https://github.com/kawre/leetcode.nvim/archive/db7e1cd6b9191b34b4c1f2f96e4e3949cde9f951.tar.gz",
+      "hash": "1d3lb7625b2qdzqm74mzrac66rxqc0qgjd3mb37l4v8wqyiyv6pp"
+    },
     "lsp-lines": {
       "type": "Git",
       "repository": {
