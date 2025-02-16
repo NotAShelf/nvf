@@ -44,7 +44,7 @@
         };
 
         nixosModules = {
-          nvf = import ./flake/modules/nixos.nix {inherit lib self;};
+          nvf = import ./flake/modules/nixos.nix {inherit lib inputs;};
           default = self.nixosModules.nvf;
           neovim-flake =
             lib.warn ''
