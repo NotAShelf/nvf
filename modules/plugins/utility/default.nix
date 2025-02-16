@@ -16,5 +16,6 @@
     ./wakatime
     ./yanky-nvim
     ./leetcode-nvim
+    ./nvim-surfers
   ];
 }

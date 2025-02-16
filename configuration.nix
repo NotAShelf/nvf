@@ -178,6 +178,7 @@ isMaximal: {
       diffview-nvim.enable = true;
       yanky-nvim.enable = false;
       leetcode-nvim.enable = isMaximal;
+      nvim-surfers.enable = false; # needs mplayer to be run
       motion = {
         hop.enable = true;
         leap.enable = true;

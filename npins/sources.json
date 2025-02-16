@@ -1550,6 +1550,18 @@
       "url": "https://github.com/petertriho/nvim-scrollbar/archive/6994eb9f73d5fdc36ee2c8717940e8c853e51a49.tar.gz",
       "hash": "0h01gcaqgjkb2392zl2jwvlsh5qmz10k9sy5rhyz1kwizmw7nw7y"
     },
+    "nvim-surfers": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "fpeterek",
+        "repo": "nvim-surfers"
+      },
+      "branch": "master",
+      "revision": "aaebf28849e2eadfebe02549dcb2cb20c7875b3d",
+      "url": "https://github.com/fpeterek/nvim-surfers/archive/aaebf28849e2eadfebe02549dcb2cb20c7875b3d.tar.gz",
+      "hash": "sha256-jKduxXhqKUadREeFtrOVYQCKlkJCzjHKnanx3TGucDA="
+    },
     "nvim-surround": {
       "type": "Git",
       "repository": {

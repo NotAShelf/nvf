@@ -44,8 +44,11 @@
 [amadaluzia](https://github.com/amadaluzia):
 
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim
+[nvim-surfers]: https://github.com/fpeterek/nvim-surfers
 
 - Add Haskell support under `vim.languages.haskell` using [haskell-tools.nvim].
+
+- Add [nvim-surfers] as an accessibility tool under `vim.utility.nvim-surfers`.
 
 [horriblename](https://github.com/horriblename):
 
