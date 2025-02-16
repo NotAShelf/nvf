@@ -7,11 +7,13 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.meta) getExe;
-  inherit (lib.lists) isList;
   inherit (lib.types) bool enum either listOf package str;
+  inherit (lib.lists) isList;
+  inherit (lib.meta) getExe;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.languages) lspOptions;
+  inherit (lib.nvim.lua) expToLua toLuaObject;
   inherit (lib.nvim.dag) entryAfter;
 
   cfg = config.vim.languages.go;
@@ -20,17 +22,16 @@
   servers = {
     gopls = {
       package = pkgs.gopls;
-      lspConfig = ''
-        lspconfig.gopls.setup {
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
+      options = {
+        capabilities = mkLuaInline "capabilities";
+        on_attach = mkLuaInline "default_on_attach";
+        filetypes = ["go" "gomod" "gowork" "gotmpl"];
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/gopls", "serve"}''
-        },
-        }
-      '';
+          else ["${getExe cfg.lsp.package}" "serve"];
+        single_file_support = true;
+      };
     };
   };
 
@@ -102,6 +103,17 @@ in {
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
+
+      options = mkOption {
+        type = lspOptions;
+        default = servers.${cfg.lsp.server}.options;
+        description = ''
+          LSP options for Go language support.
+
+          This option is freeform, you may add options that are not set by default
+          and they will be merged into the final table passed to lspconfig.
+        '';
+      };
     };
 
     format = {
@@ -148,8 +160,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.go-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.lspconfig = {
+        enable = true;
+        sources.go-lsp = ''
+          lspconfig.${toLuaObject cfg.lsp.server}.setup(${toLuaObject cfg.lsp.options})
+        '';
+      };
     })
 
     (mkIf cfg.format.enable {

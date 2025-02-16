@@ -5,48 +5,62 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.lists) isList;
-  inherit (lib.strings) optionalString;
-  inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) bool enum package either listOf str nullOr;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.types) bool enum package either listOf str;
+  inherit (lib.lists) isList;
+  inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.lua) expToLua toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.languages) lspOptions;
+
   inherit (lib.nvim.dag) entryAfter;
 
-  packageToCmd = package: defaultCmd:
-    if isList cfg.lsp.package
-    then expToLua cfg.lsp.package
-    else ''{ "${cfg.lsp.package}/bin/${defaultCmd}" }'';
-
   cfg = config.vim.languages.clang;
+
+  packageToCmd = package: defaultCmd:
+    if isList package
+    then expToLua package
+    else ''{ "${package}/bin/${defaultCmd}" }'';
 
   defaultServer = "clangd";
   servers = {
     ccls = {
       package = pkgs.ccls;
-      lspConfig = ''
-        lspconfig.ccls.setup{
-          capabilities = capabilities;
-          on_attach=default_on_attach;
-          cmd = ${packageToCmd cfg.lsp.package "ccls"};
-          ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.opts}"}
-        }
-      '';
+      options = {
+        capabilities = mkLuaInline "capabilities";
+        on_attach = mkLuaInline "default_on_attach";
+        filetypes = ["c" "cpp" "objc" "objcpp" "cuda"];
+        offset_encoding = "utf-32";
+        cmd =
+          if isList cfg.lsp.package
+          then expToLua cfg.lsp.package
+          else ["${packageToCmd cfg.lsp.package "ccls"}"];
+        single_file_support = false; # upstream default
+      };
     };
+
     clangd = {
       package = pkgs.clang-tools;
-      lspConfig = ''
-        local clangd_cap = capabilities
-        -- use same offsetEncoding as null-ls
-        clangd_cap.offsetEncoding = {"utf-16"}
-        lspconfig.clangd.setup{
-          capabilities = clangd_cap;
-          on_attach=default_on_attach;
-          cmd = ${packageToCmd cfg.lsp.package "clangd"};
-          ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.opts}"}
-        }
-      '';
+      options = {
+        capabilities = mkLuaInline ''
+          {
+            offsetEncoding = { "utf-8", "utf-16" },
+            textDocument = {
+            completion = {
+              editsNearCursor = true
+            }
+          }
+        '';
+        on_attach = mkLuaInline "default_on_attach";
+        filetypes = ["c" "cpp" "objc" "objcpp" "cuda" "proto"];
+        offset_encoding = "utf-32";
+        cmd =
+          if isList cfg.lsp.package
+          then expToLua cfg.lsp.package
+          else ["${packageToCmd cfg.lsp.package "clangd"}"];
+        single_file_support = false; # upstream default
+      };
     };
   };
 
@@ -60,6 +74,7 @@
           command = '${cfg.dap.package}/bin/lldb-dap',
           name = 'lldb'
         }
+
         dap.configurations.cpp = {
           {
             name = 'Launch',
@@ -98,10 +113,10 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "clang LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "C/C++ LSP support" // {default = config.vim.languages.enableLSP;};
 
       server = mkOption {
-        description = "The clang LSP server to use";
+        description = "The C/C++ LSP server to use";
         type = enum (attrNames servers);
         default = defaultServer;
       };
@@ -113,10 +128,15 @@ in {
         default = servers.${cfg.lsp.server}.package;
       };
 
-      opts = mkOption {
-        description = "Options to pass to clang LSP server";
-        type = nullOr str;
-        default = null;
+      options = mkOption {
+        type = lspOptions;
+        default = servers.${cfg.lsp.server}.options;
+        description = ''
+          LSP options for C/C++ language support.
+
+          This option is freeform, you may add options that are not set by default
+          and they will be merged into the final table passed to lspconfig.
+        '';
       };
     };
 
@@ -126,11 +146,13 @@ in {
         type = bool;
         default = config.vim.languages.enableDAP;
       };
+
       debugger = mkOption {
         description = "clang debugger to use";
         type = enum (attrNames debuggers);
         default = defaultDebugger;
       };
+
       package = mkOption {
         description = "clang debugger package.";
         type = package;
@@ -151,8 +173,9 @@ in {
 
     (mkIf cfg.lsp.enable {
       vim.lsp.lspconfig.enable = true;
-
-      vim.lsp.lspconfig.sources.clang-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.lspconfig.sources.clang-lsp = ''
+        lspconfig.${toLuaObject cfg.lsp.server}.setup(${toLuaObject cfg.lsp.options})
+      '';
     })
 
     (mkIf cfg.dap.enable {
