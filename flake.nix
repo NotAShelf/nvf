@@ -33,7 +33,7 @@
         };
 
         homeManagerModules = {
-          nvf = import ./flake/modules/home-manager.nix {inherit lib self;};
+          nvf = import ./flake/modules/home-manager.nix {inherit lib inputs;};
           default = self.homeManagerModules.nvf;
           neovim-flake =
             lib.warn ''
@@ -44,7 +44,7 @@
         };
 
         nixosModules = {
-          nvf = import ./flake/modules/nixos.nix {inherit lib self;};
+          nvf = import ./flake/modules/nixos.nix {inherit lib inputs;};
           default = self.nixosModules.nvf;
           neovim-flake =
             lib.warn ''
