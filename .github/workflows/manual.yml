@@ -45,7 +45,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4.1.7
       - uses: DeterminateSystems/nix-installer-action@main
-      - uses: DeterminateSystems/magic-nix-cache-action@main
       - run: |
           nix build .#docs -Lv
           cp -r result/share/doc/nvf public

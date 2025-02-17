@@ -231,6 +231,18 @@
       "url": "https://github.com/numToStr/Comment.nvim/archive/e30b7f2008e52442154b66f7c519bfd2f1e32acb.tar.gz",
       "hash": "0dyz78j0kj3j99y5g8wncl7794g6z2qs05gfg9ddxaa4xswhyjc7"
     },
+    "conform-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "stevearc",
+        "repo": "conform.nvim"
+      },
+      "branch": "master",
+      "revision": "363243c03102a531a8203311d4f2ae704c620d9b",
+      "url": "https://github.com/stevearc/conform.nvim/archive/363243c03102a531a8203311d4f2ae704c620d9b.tar.gz",
+      "hash": "1lf7a5b30g37ys9f4z9gq68ymzfzsw7bwzqp1bb91cx9df1bdyck"
+    },
     "copilot-cmp": {
       "type": "Git",
       "repository": {
@@ -411,6 +423,18 @@
       "url": "https://github.com/notomo/gesture.nvim/archive/dbd839bda337cb73911aeef06897eb29cb99f76f.tar.gz",
       "hash": "1cqiahc52xh113l8lgpz3k852vvqkv2srj9shdkyya76a2v2sf9d"
     },
+    "git-conflict-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "akinsho",
+        "repo": "git-conflict.nvim"
+      },
+      "branch": "main",
+      "revision": "a1badcd070d176172940eb55d9d59029dad1c5a6",
+      "url": "https://github.com/akinsho/git-conflict.nvim/archive/a1badcd070d176172940eb55d9d59029dad1c5a6.tar.gz",
+      "hash": "05rnwhm1fmg3yb7j2xc9nmw262jc687qxhwabn97qarrk2da0r0a"
+    },
     "gitsigns-nvim": {
       "type": "Git",
       "repository": {
@@ -542,6 +566,18 @@
       "revision": "c6bfb191f1161fbabace1f36f578a20ac6c7642c",
       "url": "https://github.com/ggandor/leap.nvim/archive/c6bfb191f1161fbabace1f36f578a20ac6c7642c.tar.gz",
       "hash": "1dmy45czi3irjd5qb74yamjam4d1lvqsgfxgh4vaj740b19gyl1w"
+    },
+    "leetcode-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "kawre",
+        "repo": "leetcode.nvim"
+      },
+      "branch": "master",
+      "revision": "db7e1cd6b9191b34b4c1f2f96e4e3949cde9f951",
+      "url": "https://github.com/kawre/leetcode.nvim/archive/db7e1cd6b9191b34b4c1f2f96e4e3949cde9f951.tar.gz",
+      "hash": "1d3lb7625b2qdzqm74mzrac66rxqc0qgjd3mb37l4v8wqyiyv6pp"
     },
     "lsp-lines": {
       "type": "Git",
@@ -1405,6 +1441,18 @@
       "revision": "3ac0791be37ba9cc7939f1ad90ebc5e75abf4eea",
       "url": "https://github.com/kosayoda/nvim-lightbulb/archive/3ac0791be37ba9cc7939f1ad90ebc5e75abf4eea.tar.gz",
       "hash": "0qc1rl45ykh9552dx5fmhdg0ncfsk2vpcmj5i7hrmdzgkd2f0avg"
+    },
+    "nvim-lint": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mfussenegger",
+        "repo": "nvim-lint"
+      },
+      "branch": "master",
+      "revision": "6e9dd545a1af204c4022a8fcd99727ea41ffdcc8",
+      "url": "https://github.com/mfussenegger/nvim-lint/archive/6e9dd545a1af204c4022a8fcd99727ea41ffdcc8.tar.gz",
+      "hash": "0b318dahzf9kd043mjsa41rj44zfbs7k8i4bz0rqhcqipr19rwhk"
     },
     "nvim-lspconfig": {
       "type": "Git",

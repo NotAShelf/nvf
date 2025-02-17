@@ -16,5 +16,6 @@
     ./telescope
     ./wakatime
     ./yanky-nvim
+    ./leetcode-nvim
   ];
 }
