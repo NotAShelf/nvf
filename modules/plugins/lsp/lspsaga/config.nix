@@ -16,7 +16,7 @@
 in {
   config = mkIf (cfg.enable && cfg.lspsaga.enable) {
     vim = {
-      startPlugins = ["lspsaga"];
+      startPlugins = ["lspsaga-nvim"];
 
       maps = {
         visual = mkSetLuaBinding mappings.codeAction "require('lspsaga.codeaction').range_code_action";
