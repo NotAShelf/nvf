@@ -10,7 +10,7 @@ in {
     vim = {
       startPlugins = [];
       lazy.plugins.hydra = {
-        package = "hydra-nvim";
+        package = "hydra.nvim";
         setupModule = "hydra";
         inherit (cfg) setupOpts;
 
