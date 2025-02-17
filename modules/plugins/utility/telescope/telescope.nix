@@ -228,7 +228,7 @@ in {
     setupOpts = mkPluginSetupOption "Telescope" setupOptions;
 
     extensions = mkOption {
-      type = listOf (attrsOf (submodule extensionOpts));
+      type = listOf (submodule extensionOpts);
       default = [];
       example = literalExpression ''
         [
