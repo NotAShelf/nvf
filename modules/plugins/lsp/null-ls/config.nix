@@ -14,7 +14,7 @@ in {
     {
       vim = {
         startPlugins = [
-          "none-ls"
+          "none-ls-nvim"
           "plenary-nvim"
         ];
 

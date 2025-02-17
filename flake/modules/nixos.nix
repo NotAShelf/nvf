@@ -1,13 +1,13 @@
 # NixOS module
 {
-  self,
+  inputs,
   lib,
 }: {
   config,
   pkgs,
   ...
 }: let
-  inherit (self) inputs packages;
+  inherit (inputs.self) packages;
   inherit (lib) maintainers;
   inherit (lib.modules) mkIf mkOverride mkAliasOptionModule;
   inherit (lib.lists) optional;

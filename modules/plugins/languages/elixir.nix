@@ -112,7 +112,7 @@ in {
     })
 
     (mkIf cfg.elixir-tools.enable {
-      vim.startPlugins = ["elixir-tools"];
+      vim.startPlugins = ["elixir-tools-nvim"];
       vim.pluginRC.elixir-tools = entryAnywhere ''
         local elixir = require("elixir")
         local elixirls = require("elixir.elixirls")

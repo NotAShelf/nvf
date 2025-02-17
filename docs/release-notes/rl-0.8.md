@@ -4,6 +4,7 @@
 
 [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
 [render-markdown.nvim]: https://github.com/MeanderingProgrammer/render-markdown.nvim
+[yanky.nvim]: https://github.com/gbprod/yanky.nvim
 
 - Add [typst-preview.nvim] under
   `languages.typst.extensions.typst-preview-nvim`.
@@ -33,15 +34,24 @@
 
 - Add [](#opt-vim.lsp.lightbulb.autocmd.enable) for manually managing the
   previously managed lightbulb autocommand.
+
   - A warning will occur if [](#opt-vim.lsp.lightbulb.autocmd.enable) and
     `vim.lsp.lightbulb.setupOpts.autocmd.enabled` are both set at the same time.
     Pick only one.
+
+- Add [yanky.nvim] to available plugins, under `vim.utility.yanky-nvim`.
 
 [amadaluzia](https://github.com/amadaluzia):
 
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim
 
 - Add Haskell support under `vim.languages.haskell` using [haskell-tools.nvim].
+
+[horriblename](https://github.com/horriblename):
+
+[blink.cmp]: https://github.com/saghen/blink.cmp
+
+- Add [blink.cmp] support
 
 [diniamo](https://github.com/diniamo):
 
@@ -133,5 +143,30 @@
 
 [ARCIII](https://github.com/ArmandoCIII):
 
+[leetcode.nvim]: https://github.com/kawre/leetcode.nvim
+
 - Add `vim.languages.zig.dap` support through pkgs.lldb dap adapter. Code
   Inspiration from `vim.languages.clang.dap` implementation.
+- Add [leetcode.nvim] plugin under `vim.utility.leetcode-nvim`.
+
+
+[nezia1](https://github.com/nezia1)
+
+- Add support for [nixd](https://github.com/nix-community/nixd) language server.
+
+[folospior](https://github.com/folospior)
+
+- Fix plugin name for lsp/lspkind.
+
+[iynaix](https://github.com/iynaix)
+
+- Add lsp options support for [nixd](https://github.com/nix-community/nixd)
+  language server.
+
+[Mr-Helpful](https://github.com/Mr-Helpful)
+
+- Corrects pin names used for nvim themes
+
+[Libadoxon](https://github.com/Libadoxon)
+
+- Add [git-conflict](https://github.com/akinsho/git-conflict.nvim) plugin for resolving git conflicts

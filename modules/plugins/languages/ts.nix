@@ -82,7 +82,7 @@
           ls_sources,
           null_ls.builtins.formatting.prettier.with({
             command = "${cfg.format.package}/bin/prettier",
-            filetypes = { "typescript" },
+            filetypes = { "typescript", "javascript" },
           })
         )
       '';
@@ -230,7 +230,7 @@ in {
 
     # Extensions
     (mkIf cfg.extensions."ts-error-translator".enable {
-      vim.startPlugins = ["ts-error-translator"];
+      vim.startPlugins = ["ts-error-translator-nvim"];
       vim.pluginRC.ts-error-translator = entryAnywhere ''
         require("ts-error-translator").setup(${toLuaObject cfg.extensions.ts-error-translator.setupOpts})
       '';

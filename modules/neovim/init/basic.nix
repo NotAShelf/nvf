@@ -16,12 +16,6 @@
   cfg = config.vim;
 in {
   options.vim = {
-    disableArrows = mkOption {
-      type = bool;
-      default = false;
-      description = "Set to prevent arrow keys from moving cursor";
-    };
-
     hideSearchHighlight = mkOption {
       type = bool;
       default = false;

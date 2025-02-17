@@ -3,6 +3,7 @@
     ./binds
     ./ccc
     ./diffview
+    ./fzf-lua
     ./gestures
     ./icon-picker
     ./images
@@ -13,8 +14,7 @@
     ./surround
     ./telescope
     ./wakatime
-    ./surround
-    ./preview
-    ./fzf-lua
+    ./yanky-nvim
+    ./leetcode-nvim
   ];
 }

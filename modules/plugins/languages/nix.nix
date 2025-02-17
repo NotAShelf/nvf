@@ -10,9 +10,9 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.strings) optionalString;
-  inherit (lib.types) enum either listOf package str;
+  inherit (lib.types) anything attrsOf enum either listOf nullOr package str;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) expToLua toLuaObject;
   inherit (lib.nvim.languages) diagnosticsToLua;
 
   cfg = config.vim.languages.nix;
@@ -53,6 +53,41 @@
                 command = {"${cfg.format.package}/bin/nixfmt"},
               },
             ''}
+            },
+          },
+        ''}
+        }
+      '';
+    };
+
+    nixd = {
+      package = pkgs.nixd;
+      internalFormatter = true;
+      lspConfig = ''
+        lspconfig.nixd.setup{
+          capabilities = capabilities,
+        ${
+          if cfg.format.enable
+          then useFormat
+          else noFormat
+        },
+          cmd = ${packageToCmd cfg.lsp.package "nixd"},
+        ${optionalString cfg.format.enable ''
+          settings = {
+            nixd = {
+          ${optionalString (cfg.format.type == "alejandra")
+            ''
+              formatting = {
+                command = {"${cfg.format.package}/bin/alejandra", "--quiet"},
+              },
+            ''}
+          ${optionalString (cfg.format.type == "nixfmt")
+            ''
+              formatting = {
+                command = {"${cfg.format.package}/bin/nixfmt"},
+              },
+            ''}
+          options = ${toLuaObject cfg.lsp.options},
             },
           },
         ''}
@@ -138,6 +173,12 @@ in {
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+      };
+
+      options = mkOption {
+        type = nullOr (attrsOf anything);
+        default = null;
+        description = "Options to pass to nixd LSP server";
       };
     };
 

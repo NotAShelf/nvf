@@ -11,7 +11,7 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = ["smartcolumn"];
+      startPlugins = ["smartcolumn-nvim"];
 
       pluginRC.smartcolumn = entryAnywhere ''
         require("smartcolumn").setup(${toLuaObject cfg.setupOpts})

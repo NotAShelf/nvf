@@ -15,7 +15,7 @@ in {
     vim = {
       startPlugins =
         [
-          "nvim-session-manager"
+          "neovim-session-manager"
           "plenary-nvim"
         ]
         ++ optionals cfg.usePicker ["dressing-nvim"];

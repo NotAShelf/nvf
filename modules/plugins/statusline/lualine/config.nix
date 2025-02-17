@@ -34,7 +34,7 @@ in {
     })
     (mkIf cfg.enable {
       vim = {
-        startPlugins = ["lualine"];
+        startPlugins = ["lualine-nvim"];
         pluginRC.lualine = entryAnywhere ''
           local lualine = require('lualine')
           lualine.setup ${toLuaObject cfg.setupOpts}

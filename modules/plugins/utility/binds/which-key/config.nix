@@ -14,7 +14,7 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = ["which-key"];
+      startPlugins = ["which-key-nvim"];
 
       pluginRC.whichkey = entryAnywhere ''
         local wk = require("which-key")

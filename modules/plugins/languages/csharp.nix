@@ -75,8 +75,8 @@
   };
 
   extraServerPlugins = {
-    omnisharp = ["omnisharp-extended"];
-    csharp_ls = ["csharpls-extended"];
+    omnisharp = ["omnisharp-extended-lsp-nvim"];
+    csharp_ls = ["csharpls-extended-lsp-nvim"];
   };
 
   cfg = config.vim.languages.csharp;

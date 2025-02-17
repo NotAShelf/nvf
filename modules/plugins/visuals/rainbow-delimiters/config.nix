@@ -9,7 +9,7 @@
   cfg = config.vim.visuals.rainbow-delimiters;
 in {
   vim = mkIf cfg.enable {
-    startPlugins = ["rainbow-delimiters"];
+    startPlugins = ["rainbow-delimiters-nvim"];
 
     pluginRC.rainbow-delimiters = entryAnywhere ''
       vim.g.rainbow_delimiters = ${toLuaObject cfg.setupOpts}
