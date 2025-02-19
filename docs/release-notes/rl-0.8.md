@@ -170,3 +170,4 @@
 [Libadoxon](https://github.com/Libadoxon)
 
 - Add [git-conflict](https://github.com/akinsho/git-conflict.nvim) plugin for resolving git conflicts
+- Add formatters for go: [gofmt](https://go.dev/blog/gofmt), [golines](https://github.com/segmentio/golines) and [gofumpt](https://github.com/mvdan/gofumpt)
