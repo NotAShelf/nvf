@@ -52,6 +52,14 @@
 
 - Add [yazi.nvim] as a companion plugin for Yazi, the terminal file manager.
 
+- Add [](#opt-vim.autocmds) and [](#opt-vim.augroups) to allow declaring
+  autocommands via Nix.
+
+- Fix plugin `setupOpts` for yanky.nvim and assert if shada is configured as a
+  backend while shada is disabled in Neovim options.
+
+- Add [yazi.nvim] as a companion plugin for Yazi, the terminal file manager.
+
 [amadaluzia](https://github.com/amadaluzia):
 
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim
