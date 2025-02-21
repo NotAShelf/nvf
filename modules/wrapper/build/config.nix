@@ -45,7 +45,7 @@
   pluginBuilders = {
     nvim-treesitter = buildTreesitterPlug config.vim.treesitter.grammars;
     flutter-tools-patched = buildPlug {
-      pname = "flutter-tools";
+      pname = "flutter-tools-nvim";
       patches = [./patches/flutter-tools.patch];
 
       # Disable failing require check hook checks
