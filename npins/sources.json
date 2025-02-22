@@ -507,6 +507,21 @@
       "url": "https://github.com/phaazon/hop.nvim/archive/1a1eceafe54b5081eae4cb91c723abd1d450f34b.tar.gz",
       "hash": "08h18cam2yr57qvfsnf1bra28vbl6013wlchnr5crb757xw8aysa"
     },
+    "hydra-nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvimtools",
+        "repo": "hydra.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "version": "v1.0.2",
+      "revision": "8578056a2226ed49fc608167edc143a87f75d809",
+      "url": "https://api.github.com/repos/nvimtools/hydra.nvim/tarball/v1.0.2",
+      "hash": "13f04pmqrfl65xx9bfkdak6ll57s94anaw7nqd0fm5hp50b7c6j3"
+    },
     "icon-picker-nvim": {
       "type": "Git",
       "repository": {
@@ -1201,6 +1216,21 @@
       "revision": "c7a4b1b383606832aab150902719bd5eb5cdb2b0",
       "url": "https://github.com/mvllow/modes.nvim/archive/c7a4b1b383606832aab150902719bd5eb5cdb2b0.tar.gz",
       "hash": "1hy3ghscf8hfmg487p9b8cwd0y8nsi8j24kq2ir3vhd82gqhl4ja"
+    },
+    "multicursors-nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "smoka7",
+        "repo": "multicursors.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "version": "v2.0.0",
+      "revision": "782820896b1691ed664e4c24f1cd9793dcb33dfb",
+      "url": "https://api.github.com/repos/smoka7/multicursors.nvim/tarball/v2.0.0",
+      "hash": "171aysqsyapw434xkibxv69p5fkwha4addkqfdssdm0wq9n9cm4q"
     },
     "neo-tree-nvim": {
       "type": "Git",

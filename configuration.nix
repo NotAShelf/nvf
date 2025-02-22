@@ -183,7 +183,7 @@ isMaximal: {
         leap.enable = true;
         precognition.enable = isMaximal;
       };
-
+      multicursors.enable = isMaximal;
       images = {
         image-nvim.enable = false;
       };

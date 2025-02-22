@@ -8,6 +8,7 @@
     ./icon-picker
     ./images
     ./motion
+    ./multicursors
     ./new-file-template
     ./outline
     ./preview

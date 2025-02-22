@@ -159,6 +159,12 @@
 
 - Add support for [nixd](https://github.com/nix-community/nixd) language server.
 
+[jahanson](https://github.com/jahanson):
+
+- Add [multicursors.nvim](https://github.com/smoka7/multicursors.nvim) to
+  available plugins, under `vim.utility.multicursors`.
+- Add [hydra.nvim](https://github.com/nvimtools/hydra.nvim) as dependency for
+  `multicursors.nvim` and lazy loads by default.
 [folospior](https://github.com/folospior)
 
 - Fix plugin name for lsp/lspkind.
