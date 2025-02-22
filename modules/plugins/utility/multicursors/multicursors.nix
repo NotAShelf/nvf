@@ -1,61 +1,69 @@
 {lib, ...}: let
-  inherit (lib.types) bool int str;
-  inherit (lib.nvim.types) mkPluginSetupOption;
   inherit (lib.options) mkOption mkEnableOption;
-  hintConfig = {lib, ...}: {
+  inherit (lib.types) attrsOf nullOr bool int str submodule;
+  inherit (lib.nvim.types) mkPluginSetupOption;
+
+  hintConfig = {
     options = {
       float_opts = mkOption {
         description = "The options for the floating hint window";
-        type = lib.types.submodule {
+        type = submodule {
           options = {
             border = mkOption {
-              type = lib.types.str;
+              type = str;
               default = "none";
               description = "The border style for the hint window";
             };
           };
         };
       };
+
       position = mkOption {
-        type = lib.types.str;
+        type = str;
         default = "bottom";
         description = "The position of the hint window";
       };
     };
   };
-  generateHints = {lib, ...}: {
+
+  generateHints = {
     options = {
       normal = mkOption {
-        type = lib.types.bool;
+        type = bool;
+        default = true;
         description = "Generate hints for the normal mode";
-        default = true;
       };
+
       insert = mkOption {
-        type = lib.types.bool;
+        type = bool;
+        default = true;
         description = "Generate hints for the insert mode";
-        default = true;
       };
+
       extend = mkOption {
-        type = lib.types.bool;
-        description = "Generate hints for the extend mode";
+        type = bool;
         default = true;
+        description = "Generate hints for the extend mode";
       };
+
       config = mkOption {
         description = "The configuration for generating hints for multicursors.nvim";
-        type = lib.types.submodule {
+        type = submodule {
           options = {
             column_count = mkOption {
-              type = lib.types.nullOr int;
-              description = "The number of columns to use for the hint window";
+              type = nullOr int;
               default = null;
+              description = "The number of columns to use for the hint window";
             };
+
             max_hint_length = mkOption {
               type = int;
-              description = "The maximum length of the hint";
               default = 25;
+              description = "The maximum length of the hint";
             };
           };
         };
+
         default = {
           column_count = null;
           max_hint_length = 25;
@@ -65,7 +73,7 @@
   };
 in {
   options.vim.utility.multicursors = {
-    enable = mkEnableOption "multicursors.nvim plugin (vscode like multiple cursors)";
+    enable = mkEnableOption "vscode like multiple cursors [multicursor.nvim]";
 
     setupOpts = mkPluginSetupOption "multicursors" {
       DEBUG_MODE = mkOption {
@@ -73,44 +81,47 @@ in {
         default = false;
         description = "Enable debug mode.";
       };
+
       create_commands = mkOption {
         type = bool;
         default = true;
         description = "Create Multicursor user commands";
       };
+
       updatetime = mkOption {
         type = int;
         default = 50;
         description = "The time in milliseconds to wait before updating the cursor in insert mode";
       };
+
       nowait = mkOption {
         type = bool;
-        description = "Don't wait for the cursor to move before updating the cursor";
         default = true;
+        description = "Don't wait for the cursor to move before updating the cursor";
       };
+
       mode_keys = mkOption {
-        type = lib.types.attrsOf str;
-        description = "The keys to use for each mode";
+        type = attrsOf str;
         default = {
           insert = "i";
           append = "a";
           change = "c";
           extend = "e";
         };
+        description = "The keys to use for each mode";
       };
+
       hint_config = mkOption {
-        type = lib.types.submodule hintConfig;
-        description = "The configuration for the hint window";
+        type = submodule hintConfig;
         default = {
-          float_opts = {
-            border = "none";
-          };
+          float_opts.border = "none";
           position = "bottom";
         };
+        description = "The configuration for the hint window";
       };
+
       generate_hints = mkOption {
-        type = lib.types.submodule generateHints;
-        description = "The configuration for generating hints";
+        type = submodule generateHints;
         default = {
           normal = true;
           insert = true;
@@ -120,6 +131,7 @@ in {
             max_hint_length = 25;
           };
         };
+        description = "The configuration for generating hints";
       };
     };
   };
