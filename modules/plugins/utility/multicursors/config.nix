@@ -9,7 +9,7 @@ in {
   config = mkIf cfg.enable {
     vim = {
       startPlugins = ["hydra-nvim"];
-      lazy.plugins."multicursors.nvim" = {
+      lazy.plugins."multicursors-nvim" = {
         package = "multicursors-nvim";
         setupModule = "multicursors";
         inherit (cfg) setupOpts;

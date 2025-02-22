@@ -1,5 +1,10 @@
 # Release 0.8 {#sec-release-0.8}
 
+## Breaking changes
+
+- `git-conflict` keybinds are now prefixed with `<leader>` to avoid conflicting
+  with builtins
+
 [NotAShelf](https://github.com/notashelf):
 
 [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
@@ -176,3 +181,4 @@
 [Libadoxon](https://github.com/Libadoxon)
 
 - Add [git-conflict](https://github.com/akinsho/git-conflict.nvim) plugin for resolving git conflicts
+- Add formatters for go: [gofmt](https://go.dev/blog/gofmt), [golines](https://github.com/segmentio/golines) and [gofumpt](https://github.com/mvdan/gofumpt)
