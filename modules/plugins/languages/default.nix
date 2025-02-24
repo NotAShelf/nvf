@@ -5,41 +5,42 @@ in {
     ./asm.nix
     ./astro.nix
     ./bash.nix
-    ./dart.nix
     ./clang.nix
+    ./csharp.nix
     ./css.nix
+    ./dart.nix
     ./elixir.nix
     ./gleam.nix
     ./go.nix
-    ./hcl.nix
-    ./kotlin.nix
-    ./html.nix
     ./haskell.nix
+    ./hcl.nix
+    ./html.nix
     ./java.nix
+    ./julia.nix
+    ./kotlin.nix
     ./lua.nix
     ./markdown.nix
     ./nim.nix
-    ./vala.nix
     ./nix.nix
+    ./nu.nix
     ./ocaml.nix
+    ./odin.nix
     ./php.nix
     ./python.nix
     ./r.nix
+    ./ruby.nix
     ./rust.nix
     ./scala.nix
     ./sql.nix
     ./svelte.nix
     ./tailwind.nix
     ./terraform.nix
+    ./tex
     ./ts.nix
     ./typst.nix
-    ./zig.nix
-    ./csharp.nix
-    ./julia.nix
-    ./nu.nix
-    ./odin.nix
+    ./vala.nix
     ./wgsl.nix
-    ./ruby.nix
+    ./zig.nix
   ];
 
   options.vim.languages = {

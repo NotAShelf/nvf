@@ -6,6 +6,6 @@
 in {
   inherit (typesDag) dagOf;
   inherit (typesPlugin) pluginsOpt extraPluginType mkPluginSetupOption luaInline pluginType borderType;
-  inherit (typesLanguage) diagnostics mkGrammarOption;
+  inherit (typesLanguage) diagnostics mkGrammarOption mkEnableTreesitterOption;
   inherit (customTypes) char hexColor mergelessListOf;
 }
