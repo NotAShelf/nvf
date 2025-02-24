@@ -7,6 +7,7 @@
     ./gestures
     ./icon-picker
     ./images
+    ./leetcode-nvim
     ./motion
     ./multicursors
     ./new-file-template
@@ -16,6 +17,6 @@
     ./telescope
     ./wakatime
     ./yanky-nvim
-    ./leetcode-nvim
+    ./yazi-nvim
   ];
 }
