@@ -10,6 +10,7 @@
 [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
 [render-markdown.nvim]: https://github.com/MeanderingProgrammer/render-markdown.nvim
 [yanky.nvim]: https://github.com/gbprod/yanky.nvim
+[yazi.nvim]: https://github.com/mikavilpas/yazi.nvim
 
 - Add [typst-preview.nvim] under
   `languages.typst.extensions.typst-preview-nvim`.
@@ -45,6 +46,11 @@
     Pick only one.
 
 - Add [yanky.nvim] to available plugins, under `vim.utility.yanky-nvim`.
+
+- Fix plugin `setupOpts` for yanky.nvim and assert if shada is configured as a
+  backend while shada is disabled in Neovim options.
+
+- Add [yazi.nvim] as a companion plugin for Yazi, the terminal file manager.
 
 [amadaluzia](https://github.com/amadaluzia):
 
@@ -154,7 +160,6 @@
   Inspiration from `vim.languages.clang.dap` implementation.
 - Add [leetcode.nvim] plugin under `vim.utility.leetcode-nvim`.
 
-
 [nezia1](https://github.com/nezia1)
 
 - Add support for [nixd](https://github.com/nix-community/nixd) language server.
@@ -165,7 +170,7 @@
   available plugins, under `vim.utility.multicursors`.
 - Add [hydra.nvim](https://github.com/nvimtools/hydra.nvim) as dependency for
   `multicursors.nvim` and lazy loads by default.
-[folospior](https://github.com/folospior)
+  [folospior](https://github.com/folospior)
 
 - Fix plugin name for lsp/lspkind.
 
@@ -180,5 +185,8 @@
 
 [Libadoxon](https://github.com/Libadoxon)
 
-- Add [git-conflict](https://github.com/akinsho/git-conflict.nvim) plugin for resolving git conflicts
-- Add formatters for go: [gofmt](https://go.dev/blog/gofmt), [golines](https://github.com/segmentio/golines) and [gofumpt](https://github.com/mvdan/gofumpt)
+- Add [git-conflict](https://github.com/akinsho/git-conflict.nvim) plugin for
+  resolving git conflicts
+- Add formatters for go: [gofmt](https://go.dev/blog/gofmt),
+  [golines](https://github.com/segmentio/golines) and
+  [gofumpt](https://github.com/mvdan/gofumpt)

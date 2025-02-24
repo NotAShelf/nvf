@@ -11,6 +11,7 @@
 
   cfg = config.vim.utility.yanky-nvim;
   usingSqlite = cfg.setupOpts.ring.storage == "sqlite";
+  usingShada = cfg.setupOpts.ring.storage == "shada";
 in {
   config = mkIf cfg.enable {
     vim = {
@@ -28,5 +29,15 @@ in {
         require("yanky").setup(${toLuaObject cfg.setupOpts});
       '';
     };
+
+    assertions = [
+      {
+        assertion = usingShada && ((config.vim.options.shada or "") == "");
+        message = ''
+          Yanky.nvim is configured to use 'shada' for the storage backend, but shada is disabled
+          in 'vim.options'. Please re-enable shada, or switch to a different backend.
+        '';
+      }
+    ];
   };
 }
