@@ -7,11 +7,13 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.types) enum either listOf package str bool;
   inherit (lib.lists) isList;
-  inherit (lib.types) enum either package listOf str bool;
-  inherit (lib.nvim.languages) diagnosticsToLua;
-  inherit (lib.nvim.types) diagnostics mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.meta) getExe;
+  inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.lua) expToLua toLuaObject;
+  inherit (lib.nvim.languages) diagnosticsToLua lspOptions;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics;
 
   cfg = config.vim.languages.bash;
 
@@ -19,17 +21,15 @@
   servers = {
     bash-ls = {
       package = pkgs.bash-language-server;
-      lspConfig = ''
-        lspconfig.bashls.setup{
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
+      options = {
+        capabilities = mkLuaInline "capabilities";
+        on_attach = mkLuaInline "default_on_attach";
+        filetypes = ["bash" "sh"];
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/bash-language-server",  "start"}''
-        };
-        }
-      '';
+          else ["${getExe cfg.lsp.package}" "start"];
+      };
     };
   };
 
@@ -87,6 +87,17 @@ in {
         type = either package (listOf str);
         default = pkgs.bash-language-server;
       };
+
+      options = mkOption {
+        type = lspOptions;
+        default = servers.${cfg.lsp.server}.options;
+        description = ''
+          LSP options for Bash language support.
+
+          This option is freeform, you may add options that are not set by default
+          and they will be merged into the final table passed to lspconfig.
+        '';
+      };
     };
 
     format = {
@@ -126,7 +137,9 @@ in {
 
     (mkIf cfg.lsp.enable {
       vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.bash-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.lspconfig.sources.bash-lsp = ''
+        lspconfig.("bashls").setup (${toLuaObject cfg.lsp.options})
+      '';
     })
 
     (mkIf cfg.format.enable {
