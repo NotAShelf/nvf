@@ -41687,14 +41687,39 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.utility.yanky-nvim.setupOpts"></a><a class="term" href="options.html#opt-vim.utility.yanky-nvim.setupOpts"><code class="option">vim.utility.yanky-nvim.setupOpts</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Option table to pass into the setup function of yanky-nvim</p><p>You can pass in any additional options even if they’re
+not listed in the docs</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/yanky-nvim/yanky-nvim.nix" target="_top">
+&lt;nvf/modules/plugins/utility/yanky-nvim/yanky-nvim.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.utility.yanky-nvim.setupOpts.ring.storage"></a><a class="term" href="options.html#opt-vim.utility.yanky-nvim.setupOpts.ring.storage"><code class="option">vim.utility.yanky-nvim.setupOpts.ring.storage</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>storage mode for ring values.</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>shada: this will save pesistantly using Neovim ShaDa feature.
-This means that history will be persisted between each session of Neovim.</p></li><li class="listitem"><p>memory: each Neovim instance will have his own history and it will be
-lost between sessions.</p></li><li class="listitem"><p>sqlite: more reliable than <code class="literal">shada</code>, requires <code class="literal">sqlite.lua</code> as a dependency.
+<p>storage mode for ring values.</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p><span class="strong"><strong>shada</strong></span>: this will save pesistantly using Neovim ShaDa feature.
+This means that history will be persisted between each session of Neovim.</p></li><li class="listitem"><p><span class="strong"><strong>memory</strong></span>: each Neovim instance will have his own history and it will be
+lost between sessions.</p></li><li class="listitem"><p><span class="strong"><strong>sqlite</strong></span>: more reliable than <code class="literal">shada</code>, requires <code class="literal">sqlite.lua</code> as a dependency.
 nvf will add this dependency to <code class="literal">PATH</code> automatically.</p></li></ul></div>
 
 <p><span class="emphasis"><em>Type:</em></span>
@@ -41711,6 +41736,155 @@ one of “shada”, “sqlite”, “memory”</p>
 <tr><td>
 <code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/yanky-nvim/yanky-nvim.nix" target="_top">
 &lt;nvf/modules/plugins/utility/yanky-nvim/yanky-nvim.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.yazi-nvim.enable"></a><a class="term" href="options.html#opt-vim.utility.yazi-nvim.enable"><code class="option">vim.utility.yazi-nvim.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable companion plugin for the yazi terminal file manager [yazi-nvim]
+.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/yazi-nvim/yazi-nvim.nix" target="_top">
+&lt;nvf/modules/plugins/utility/yazi-nvim/yazi-nvim.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.yazi-nvim.mappings.openYazi"></a><a class="term" href="options.html#opt-vim.utility.yazi-nvim.mappings.openYazi"><code class="option">vim.utility.yazi-nvim.mappings.openYazi</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Open yazi at the current file [yazi.nvim]</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;&lt;leader&gt;-&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/yazi-nvim/yazi-nvim.nix" target="_top">
+&lt;nvf/modules/plugins/utility/yazi-nvim/yazi-nvim.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.yazi-nvim.mappings.openYaziDir"></a><a class="term" href="options.html#opt-vim.utility.yazi-nvim.mappings.openYaziDir"><code class="option">vim.utility.yazi-nvim.mappings.openYaziDir</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Open the file manager in nvim’s working directory [yazi.nvim]</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;&lt;leader&gt;cw&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/yazi-nvim/yazi-nvim.nix" target="_top">
+&lt;nvf/modules/plugins/utility/yazi-nvim/yazi-nvim.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.yazi-nvim.mappings.yaziToggle"></a><a class="term" href="options.html#opt-vim.utility.yazi-nvim.mappings.yaziToggle"><code class="option">vim.utility.yazi-nvim.mappings.yaziToggle</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Resume the last yazi session [yazi.nvim]</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;&lt;c-up&gt;&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/yazi-nvim/yazi-nvim.nix" target="_top">
+&lt;nvf/modules/plugins/utility/yazi-nvim/yazi-nvim.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.yazi-nvim.setupOpts"></a><a class="term" href="options.html#opt-vim.utility.yazi-nvim.setupOpts"><code class="option">vim.utility.yazi-nvim.setupOpts</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Option table to pass into the setup function of yazi-nvim</p><p>You can pass in any additional options even if they’re
+not listed in the docs</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/yazi-nvim/yazi-nvim.nix" target="_top">
+&lt;nvf/modules/plugins/utility/yazi-nvim/yazi-nvim.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.yazi-nvim.setupOpts.open_for_directories"></a><a class="term" href="options.html#opt-vim.utility.yazi-nvim.setupOpts.open_for_directories"><code class="option">vim.utility.yazi-nvim.setupOpts.open_for_directories</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to open Yazi instead of netrw</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/yazi-nvim/yazi-nvim.nix" target="_top">
+&lt;nvf/modules/plugins/utility/yazi-nvim/yazi-nvim.nix&gt;
 </a></code>
 </td></tr>
 </table>
