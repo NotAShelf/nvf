@@ -172,7 +172,14 @@
         description = "Lazy-load on colorscheme.";
       };
 
-      lazy = mkBool false "Lazy-load manually, e.g. using `trigger_load`.";
+      lazy = mkOption {
+        type = nullOr bool;
+        default = null;
+        description = ''
+          Force enable/disable lazy-loading. `null` means only lazy-load if
+          a valid lazy-load condition is set e.g. `cmd`, `ft`, `keys` etc.
+        '';
+      };
 
       priority = mkOption {
         type = nullOr int;
