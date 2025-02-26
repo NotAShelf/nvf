@@ -8,6 +8,7 @@
     filterAttrs
     attrValues
     map
+    optional
     ;
   inherit (lib.modules) mkIf;
   inherit (lib.strings) optionalString;
@@ -30,7 +31,7 @@
   blinkSourcePlugins = map (definition: definition.package) (attrValues enabledBlinkSources);
 in {
   vim = mkIf cfg.enable {
-    startPlugins = ["blink-compat"] ++ blinkSourcePlugins;
+    startPlugins = ["blink-compat"] ++ blinkSourcePlugins ++ (optional cfg.friendly-snippets.enable "friendly-snippets");
     lazy.plugins = {
       blink-cmp = {
         package = "blink-cmp";
