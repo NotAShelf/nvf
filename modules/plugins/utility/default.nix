@@ -3,6 +3,7 @@
     ./binds
     ./ccc
     ./diffview
+    ./direnv
     ./fzf-lua
     ./gestures
     ./icon-picker

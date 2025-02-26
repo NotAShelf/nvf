@@ -204,3 +204,5 @@
   for automatic creation of parent directories when editing a nested file.
 - Add [nix-develop.nvim](https://github.com/figsoda/nix-develop.nvim) plugin
   for in-neovim `nix develop`, `nix shell` and more.
+- Add [direnv.vim](https://github.com/direnv/direnv.vim) plugin
+  for automatic syncing of nvim shell environment with direnv's.
