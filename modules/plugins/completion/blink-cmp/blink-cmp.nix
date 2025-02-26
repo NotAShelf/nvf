@@ -177,5 +177,7 @@ in {
           Attribute names must be source names used in {option}`vim.autocomplete.blink-cmp.setupOpts.sources.default`.
         '';
       };
+
+    friendly-snippets.enable = mkEnableOption "friendly-snippets for blink to source from automatically";
   };
 }

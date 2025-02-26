@@ -7,7 +7,7 @@
   inherit (lib.strings) optionalString;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.attrsets) attrValues filterAttrs;
-  inherit (lib.lists) map;
+  inherit (lib.lists) map optional;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (builtins) concatStringsSep typeOf tryEval attrNames mapAttrs;
 
@@ -26,7 +26,7 @@
   blinkSourcePlugins = map (definition: definition.package) (attrValues enabledBlinkSources);
 in {
   vim = mkIf cfg.enable {
-    startPlugins = ["blink-compat"] ++ blinkSourcePlugins;
+    startPlugins = ["blink-compat"] ++ blinkSourcePlugins ++ (optional cfg.friendly-snippets.enable "friendly-snippets");
     lazy.plugins = {
       blink-cmp = {
         package = "blink-cmp";
