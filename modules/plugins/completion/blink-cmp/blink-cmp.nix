@@ -1,8 +1,19 @@
 {lib, ...}: let
   inherit (lib.options) mkEnableOption mkOption literalMD;
-  inherit (lib.types) listOf str either attrsOf submodule enum anything int nullOr;
+  inherit
+    (lib.types)
+    listOf
+    str
+    either
+    attrsOf
+    submodule
+    enum
+    anything
+    int
+    nullOr
+    ;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) mkPluginSetupOption luaInline;
+  inherit (lib.nvim.types) mkPluginSetupOption luaInline pluginType;
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.config) mkBool;
 
@@ -116,5 +127,38 @@ in {
       scrollDocsUp = mkMappingOption "Scroll docs up [blink.cmp]" "<C-d>";
       scrollDocsDown = mkMappingOption "Scroll docs down [blink.cmp]" "<C-f>";
     };
+
+    sourcePlugins = let
+      sourcePluginType = submodule {
+        options = {
+          package = mkOption {
+            type = pluginType;
+            description = ''
+              Blink source plugin.
+
+              Will not function if any other plugin is provided.
+            '';
+          };
+          module = mkOption {
+            type = str;
+            description = ''
+              Value of {option}`vim.automcomplete.blink-cmp.setupOpts.sources.providers.<name>.module`.
+
+              Should be present in the source's documentation.
+            '';
+          };
+          enable = mkEnableOption "this source";
+        };
+      };
+    in
+      mkOption {
+        type = attrsOf sourcePluginType;
+        default = {};
+        description = ''
+          Source plugins used by blink.cmp.
+
+          Attribute names must be source names used in {option}`vim.autocomplete.blink-cmp.setupOpts.sources.default`.
+        '';
+      };
   };
 }

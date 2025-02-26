@@ -51,6 +51,18 @@
       "url": "https://api.github.com/repos/saghen/blink.cmp/tarball/v0.11.0",
       "hash": "1j3sj03i72iw5npwwksc7w7axv8z0nbgi11adkfng9ak73kn1gdq"
     },
+    "blink-cmp-spell": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ribru17",
+        "repo": "blink-cmp-spell"
+      },
+      "branch": "master",
+      "revision": "38d6797dea6f72baa6e8b3bfca6da96d8fcac64d",
+      "url": "https://github.com/ribru17/blink-cmp-spell/archive/38d6797dea6f72baa6e8b3bfca6da96d8fcac64d.tar.gz",
+      "hash": "19pnasa446iiapgsr3z2fpk0nnrzh8g5wrzrq8n0y4q0z6spc9f6"
+    },
     "blink-compat": {
       "type": "Git",
       "repository": {
@@ -62,6 +74,30 @@
       "revision": "3f39cba0a30a7e7d7c2f63605e88ede464c7d39d",
       "url": "https://github.com/saghen/blink.compat/archive/3f39cba0a30a7e7d7c2f63605e88ede464c7d39d.tar.gz",
       "hash": "1a970v4b73jimjq7cmf61yycbd5j2x0vr14c6gbpblcaxkqby4bv"
+    },
+    "blink-emoji-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "moyiz",
+        "repo": "blink-emoji.nvim"
+      },
+      "branch": "master",
+      "revision": "a77aebc092ebece1eed108f301452ae774d6b67a",
+      "url": "https://github.com/moyiz/blink-emoji.nvim/archive/a77aebc092ebece1eed108f301452ae774d6b67a.tar.gz",
+      "hash": "0n4qv2mk7zx910gnwf9ri2w5qxwx8szx99nqqzik4yyvl4axm41d"
+    },
+    "blink-ripgrep-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mikavilpas",
+        "repo": "blink-ripgrep.nvim"
+      },
+      "branch": "main",
+      "revision": "9bdbf9af7d78f20ab8a58430f11fdc1a65e9de4a",
+      "url": "https://github.com/mikavilpas/blink-ripgrep.nvim/archive/9bdbf9af7d78f20ab8a58430f11fdc1a65e9de4a.tar.gz",
+      "hash": "0c13iqxvsy739fgr1dllxsc99qjcqm34l5hxpgxj4rsj76a6zsm6"
     },
     "bufdelete-nvim": {
       "type": "Git",
