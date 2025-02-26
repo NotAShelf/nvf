@@ -12,6 +12,7 @@
     ./motion
     ./multicursors
     ./new-file-template
+    ./nix-develop
     ./outline
     ./preview
     ./surround
