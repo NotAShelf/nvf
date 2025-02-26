@@ -202,6 +202,8 @@
 - Add missing `yazi.nvim` dependency (`snacks.nvim`).
 - Add [mkdir.nvim](https://github.com/jghauser/mkdir.nvim) plugin
   for automatic creation of parent directories when editing a nested file.
+- Add [nix-develop.nvim](https://github.com/figsoda/nix-develop.nvim) plugin
+  for in-neovim `nix develop`, `nix shell` and more.
 
 [TheColorman](https://github.com/TheColorman)
 
