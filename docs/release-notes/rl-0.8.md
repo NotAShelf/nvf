@@ -206,6 +206,7 @@
   for in-neovim `nix develop`, `nix shell` and more.
 - Add [direnv.vim](https://github.com/direnv/direnv.vim) plugin
   for automatic syncing of nvim shell environment with direnv's.
+- Add [blink.cmp] source options and some default-disabled sources.
 
 [TheColorman](https://github.com/TheColorman)
 
