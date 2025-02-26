@@ -315,6 +315,18 @@
       "url": "https://github.com/sindrets/diffview.nvim/archive/4516612fe98ff56ae0415a259ff6361a89419b0a.tar.gz",
       "hash": "0brabpd02596hg98bml118bx6z2sly98kf1cr2p0xzybiinb4zs9"
     },
+    "direnv-vim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "direnv",
+        "repo": "direnv.vim"
+      },
+      "branch": "master",
+      "revision": "ab2a7e08dd630060cd81d7946739ac7442a4f269",
+      "url": "https://github.com/direnv/direnv.vim/archive/ab2a7e08dd630060cd81d7946739ac7442a4f269.tar.gz",
+      "hash": "1hhwfnaj9ibz17ggxvhzrkinghfy51fqfa0bs482z484jpvjc31g"
+    },
     "dracula": {
       "type": "Git",
       "repository": {
