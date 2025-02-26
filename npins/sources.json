@@ -1316,6 +1316,18 @@
       "url": "https://github.com/otavioschwanck/new-file-template.nvim/archive/6ac66669dbf2dc5cdee184a4fe76d22465ca67e8.tar.gz",
       "hash": "0c7378c3w6bniclp666rq15c28akb0sjy58ayva0wpyin4k26hl3"
     },
+    "nix-develop-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "figsoda",
+        "repo": "nix-develop.nvim"
+      },
+      "branch": "main",
+      "revision": "afea026f5c478c000a8af8de87f7b711676387ab",
+      "url": "https://github.com/figsoda/nix-develop.nvim/archive/afea026f5c478c000a8af8de87f7b711676387ab.tar.gz",
+      "hash": "0nwjgr19pzdxd7yygz380b388qcfbzp9svs916kh0zayzi9yxc2k"
+    },
     "noice-nvim": {
       "type": "Git",
       "repository": {
