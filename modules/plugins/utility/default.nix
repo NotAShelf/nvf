@@ -8,6 +8,7 @@
     ./icon-picker
     ./images
     ./leetcode-nvim
+    ./mkdir
     ./motion
     ./multicursors
     ./new-file-template

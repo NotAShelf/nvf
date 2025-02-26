@@ -1205,6 +1205,18 @@
       "url": "https://github.com/wfxr/minimap.vim/archive/395378137e6180762d5b963ca9ad5ac2db5d3283.tar.gz",
       "hash": "0pfzmlf36in086g83g3sdqdy57jyyh5nbh2lrfmpbr2sg401a7qr"
     },
+    "mkdir-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "jghauser",
+        "repo": "mkdir.nvim"
+      },
+      "branch": "main",
+      "revision": "c55d1dee4f099528a1853b28bb28caa802eba217",
+      "url": "https://github.com/jghauser/mkdir.nvim/archive/c55d1dee4f099528a1853b28bb28caa802eba217.tar.gz",
+      "hash": "0zpyvkbw7wfqdxfgidr7zfxqb5ldci4pflx50rsm1hbwai0ybv23"
+    },
     "modes-nvim": {
       "type": "Git",
       "repository": {

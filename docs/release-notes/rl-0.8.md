@@ -190,3 +190,8 @@
 - Add formatters for go: [gofmt](https://go.dev/blog/gofmt),
   [golines](https://github.com/segmentio/golines) and
   [gofumpt](https://github.com/mvdan/gofumpt)
+
+[alfarel](https://github.com/alfarelcynthesis):
+
+- Add [mkdir.nvim](https://github.com/jghauser/mkdir.nvim) plugin
+  for automatic creation of parent directories when editing a nested file.
