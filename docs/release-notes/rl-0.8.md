@@ -207,6 +207,9 @@
 - Add [direnv.vim](https://github.com/direnv/direnv.vim) plugin
   for automatic syncing of nvim shell environment with direnv's.
 - Add [blink.cmp] source options and some default-disabled sources.
+- Add [blink.cmp] option to add
+  [friendly-snippets](https://github.com/rafamadriz/friendly-snippets)
+  so blink.cmp can source snippets from it.
 
 [TheColorman](https://github.com/TheColorman)
 
