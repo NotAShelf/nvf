@@ -37,12 +37,6 @@ in {
           description = "Default list of sources to enable for completion.";
         };
 
-        cmdline = mkOption {
-          type = nullOr (listOf str);
-          default = [];
-          description = "List of sources to enable for cmdline. Null means use default source list.";
-        };
-
         providers = mkOption {
           type = attrsOf providerType;
           default = {};
@@ -60,6 +54,14 @@ in {
             Function to use when transforming the items before they're returned
             for all providers.
           '';
+        };
+      };
+
+      cmdline = {
+        sources = mkOption {
+          type = nullOr (listOf str);
+          default = [];
+          description = "List of sources to enable for cmdline. Null means use default source list.";
         };
       };
 
