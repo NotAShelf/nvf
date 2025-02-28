@@ -174,6 +174,8 @@
 
 - Fix plugin name for lsp/lspkind.
 
+- Move `vim-illuminate` to `setupOpts format`
+
 [iynaix](https://github.com/iynaix)
 
 - Add lsp options support for [nixd](https://github.com/nix-community/nixd)
