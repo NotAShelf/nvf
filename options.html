@@ -37711,7 +37711,8 @@ anything</p>
  </span>
 </dt>
 <dd>
-<p>Whether to enable automatically highlight other uses of the word under the cursor [vim-illuminate].</p>
+<p>Whether to enable automatically highlight other uses of the word under the cursor [vim-illuminate]
+.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -37721,6 +37722,60 @@ boolean</p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/ui/illuminate/illuminate.nix" target="_top">
+&lt;nvf/modules/plugins/ui/illuminate/illuminate.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.illuminate.setupOpts"></a><a class="term" href="options.html#opt-vim.ui.illuminate.setupOpts"><code class="option">vim.ui.illuminate.setupOpts</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Option table to pass into the setup function of vim-illuminate</p><p>You can pass in any additional options even if they’re
+not listed in the docs</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/ui/illuminate/illuminate.nix" target="_top">
+&lt;nvf/modules/plugins/ui/illuminate/illuminate.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.ui.illuminate.setupOpts.filetypes_denylist"></a><a class="term" href="options.html#opt-vim.ui.illuminate.setupOpts.filetypes_denylist"><code class="option">vim.ui.illuminate.setupOpts.filetypes_denylist</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Filetypes to not illuminate, this overrides <code class="literal">filetypes_allowlist</code></p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
+  &quot;dirvish&quot;
+  &quot;fugitive&quot;
+  &quot;NvimTree&quot;
+  &quot;TelescopePrompt&quot;
+]
+</code></pre>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
