@@ -2032,9 +2032,9 @@
         "repo": "vim-illuminate"
       },
       "branch": "master",
-      "revision": "b5713e6ca3f627b46968386d6d3f24d374d3cb17",
-      "url": "https://github.com/RRethy/vim-illuminate/archive/b5713e6ca3f627b46968386d6d3f24d374d3cb17.tar.gz",
-      "hash": "0l16qa2bm4nyimkcjlhajgcv8l9kyqqjpc55jxnny0gy6rycp40n"
+      "revision": "19cb21f513fc2b02f0c66be70107741e837516a1",
+      "url": "https://github.com/RRethy/vim-illuminate/archive/19cb21f513fc2b02f0c66be70107741e837516a1.tar.gz",
+      "hash": "1wfri17br6yqxnci43g69mvbckb7ajhj3c0mlcn1g0s7jkxz4acd"
     },
     "vim-markdown": {
       "type": "Git",
