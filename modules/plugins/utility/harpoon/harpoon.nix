@@ -4,29 +4,6 @@
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   inherit (lib.generators) mkLuaInline;
-  setupOptions = {
-    defaults = {
-      save_on_toggle = mkOption {
-        description = "any time the ui menu is closed then we will save the state back to the backing list, not to the fs";
-        type = bool;
-        default = false;
-      };
-      sync_on_ui_close = mkOption {
-        description = "any time the ui menu is closed then the state of the list will be sync'd back to the fs";
-        type = bool;
-        default = false;
-      };
-      key = mkOption {
-        description = "how the out list key is looked up. This can be useful when using worktrees and using git remote instead of file path";
-        type = luaInline;
-        default = mkLuaInline ''
-          function()
-            return vim.loop.cwd()
-          end
-        '';
-      };
-    };
-  };
 in {
   options.vim.navigation.harpoon = {
     mappings = {
@@ -38,8 +15,33 @@ in {
       file4 = mkMappingOption "Go to marked file 4 [Harpoon]" "<C-;>";
     };
 
-    enable = mkEnableOption "Harpoon: quick bookmarks on keybinds";
+    enable = mkEnableOption "Quick bookmarks on keybinds [Harpoon]";
 
-    setupOpts = mkPluginSetupOption "Harpoon" setupOptions;
+    setupOpts = mkPluginSetupOption "Harpoon" {
+      defaults = {
+        save_on_toggle = mkOption {
+          type = bool;
+          default = false;
+          description = ''            any time the ui menu is closed then we will save the
+                    state back to the backing list, not to the fs'';
+        };
+        sync_on_ui_close = mkOption {
+          type = bool;
+          default = false;
+          description = ''            any time the ui menu is closed then the state of the
+                    list will be sync'd back to the fs'';
+        };
+        key = mkOption {
+          type = luaInline;
+          default = mkLuaInline ''
+            function()
+              return vim.loop.cwd()
+            end
+          '';
+          description = ''            how the out list key is looked up. This can be useful
+                    when using worktrees and using git remote instead of file path'';
+        };
+      };
+    };
   };
 }

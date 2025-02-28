@@ -5,8 +5,6 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.lists) optionals;
-  inherit (lib.strings) concatStrings;
   inherit (lib.nvim.binds) pushDownDefault mkKeymap;
 
   cfg = config.vim.navigation.harpoon;
@@ -22,14 +20,6 @@ in {
         package = "harpoon";
         setupModule = "harpoon";
         inherit (cfg) setupOpts;
-
-        before = ''
-        '';
-
-        after = ''
-          local harpoon = require("harpoon")
-          harpoon.setup({})
-        '';
 
         cmd = ["Harpoon"];
 
