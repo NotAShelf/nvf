@@ -192,3 +192,7 @@
 - Add formatters for go: [gofmt](https://go.dev/blog/gofmt),
   [golines](https://github.com/segmentio/golines) and
   [gofumpt](https://github.com/mvdan/gofumpt)
+
+[UltraGhostie](https://github.com/UltraGhostie)
+
+- Add [harpoon](https://github.com/ThePrimeagen/harpoon) plugin for navigation
