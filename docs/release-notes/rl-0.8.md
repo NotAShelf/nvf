@@ -200,3 +200,7 @@
 [alfarel](https://github.com/alfarelcynthesis):
 
 - Add missing `yazi.nvim` dependency (`snacks.nvim`).
+
+[Butzist](https://github.com/butzist)
+
+- Add Helm chart support under `vim.languages.helm`.

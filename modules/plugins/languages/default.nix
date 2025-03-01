@@ -12,6 +12,7 @@ in {
     ./gleam.nix
     ./go.nix
     ./hcl.nix
+    ./helm.nix
     ./kotlin.nix
     ./html.nix
     ./haskell.nix
