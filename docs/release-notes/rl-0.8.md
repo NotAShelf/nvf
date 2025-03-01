@@ -192,3 +192,7 @@
 - Add formatters for go: [gofmt](https://go.dev/blog/gofmt),
   [golines](https://github.com/segmentio/golines) and
   [gofumpt](https://github.com/mvdan/gofumpt)
+
+[MaxMur](https://github.com/TheMaxMur)
+
+- Add YAML support under `vim.languages.yaml`.
