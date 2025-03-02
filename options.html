@@ -18758,6 +18758,159 @@ package</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.languages.yaml.enable"></a><a class="term" href="options.html#opt-vim.languages.yaml.enable"><code class="option">vim.languages.yaml.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable YAML language support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/yaml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/yaml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.yaml.lsp.enable"></a><a class="term" href="options.html#opt-vim.languages.yaml.lsp.enable"><code class="option">vim.languages.yaml.lsp.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable YAML LSP support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/yaml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/yaml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.yaml.lsp.package"></a><a class="term" href="options.html#opt-vim.languages.yaml.lsp.package"><code class="option">vim.languages.yaml.lsp.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>YAML LSP server package</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package or list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation yaml-language-server-1.15.0&gt;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/yaml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/yaml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.yaml.lsp.server"></a><a class="term" href="options.html#opt-vim.languages.yaml.lsp.server"><code class="option">vim.languages.yaml.lsp.server</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>YAML LSP server to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+value “yaml-language-server” (singular enum)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;yaml-language-server&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/yaml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/yaml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.yaml.treesitter.enable"></a><a class="term" href="options.html#opt-vim.languages.yaml.treesitter.enable"><code class="option">vim.languages.yaml.treesitter.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable YAML treesitter.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/yaml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/yaml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.yaml.treesitter.package"></a><a class="term" href="options.html#opt-vim.languages.yaml.treesitter.package"><code class="option">vim.languages.yaml.treesitter.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The yaml treesitter package to use.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">pkgs.vimPlugins.nvim-treesitter.builtGrammars.yaml</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/yaml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/yaml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.languages.zig.enable"></a><a class="term" href="options.html#opt-vim.languages.zig.enable"><code class="option">vim.languages.zig.enable</code>
   </a>
  </span>
