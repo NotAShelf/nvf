@@ -36,13 +36,13 @@ in {
     enable = mkEnableOption "YAML language support";
 
     treesitter = {
-      enable = mkEnableOption "YAML treesitter";
+      enable = mkEnableOption "YAML treesitter" // {default = config.vim.languages.enableTreesitter;};
 
       package = mkGrammarOption pkgs "yaml";
     };
 
     lsp = {
-      enable = mkEnableOption "YAML LSP support";
+      enable = mkEnableOption "YAML LSP support" // {default = config.vim.languages.enableLSP;};
 
       server = mkOption {
         type = enum (attrNames servers);
