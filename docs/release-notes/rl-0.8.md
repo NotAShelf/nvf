@@ -196,3 +196,7 @@
 [MaxMur](https://github.com/TheMaxMur)
 
 - Add YAML support under `vim.languages.yaml`.
+
+[alfarel](https://github.com/alfarelcynthesis):
+
+- Add missing `yazi.nvim` dependency (`snacks.nvim`).
