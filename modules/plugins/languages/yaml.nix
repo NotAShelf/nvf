@@ -20,8 +20,13 @@
       package = pkgs.nodePackages.yaml-language-server;
       lspConfig = ''
         lspconfig.yamlls.setup {
-          capabilities = capabilities;
-          on_attach = default_on_attach;
+          capabilities = capabilities,
+          on_attach = function(client, bufnr)
+            local filetype = vim.bo[bufnr].filetype
+            if filetype == "helm" then
+              client.stop()
+            end
+          end,
           cmd = ${
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package

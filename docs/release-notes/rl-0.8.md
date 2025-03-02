@@ -196,3 +196,7 @@
 [MaxMur](https://github.com/TheMaxMur)
 
 - Add YAML support under `vim.languages.yaml`.
+
+[Butzist](https://github.com/butzist)
+
+- Add Helm chart support under `vim.languages.helm`.
