@@ -3,6 +3,14 @@
   config,
   ...
 }: let
+  inherit
+    (lib)
+    filterAttrs
+    attrValues
+    map
+    mkDefault
+    optional
+    ;
   inherit (lib.modules) mkIf;
   inherit (lib.strings) optionalString;
   inherit (lib.generators) mkLuaInline;
@@ -19,9 +27,12 @@
     else if (plugin ? pname && (tryEval plugin.pname).success)
     then plugin.pname
     else plugin.name;
+
+  enabledBlinkSources = filterAttrs (_source: definition: definition.enable) cfg.sourcePlugins;
+  blinkSourcePlugins = map (definition: definition.package) (attrValues enabledBlinkSources);
 in {
   vim = mkIf cfg.enable {
-    startPlugins = ["blink-compat"];
+    startPlugins = ["blink-compat"] ++ blinkSourcePlugins ++ (optional cfg.friendly-snippets.enable "friendly-snippets");
     lazy.plugins = {
       blink-cmp = {
         package = "blink-cmp";
@@ -32,58 +43,98 @@ in {
         #
         # event = ["InsertEnter" "CmdlineEnter"];
 
-        after = ''
-          ${optionalString config.vim.lazy.enable
-            (concatStringsSep "\n" (map
-              (package: "require('lz.n').trigger_load(${toLuaObject (getPluginName package)})")
-              cmpCfg.sourcePlugins))}
-        '';
+        after =
+          # lua
+          ''
+            ${optionalString config.vim.lazy.enable
+              (concatStringsSep "\n" (map
+                (package: "require('lz.n').trigger_load(${toLuaObject (getPluginName package)})")
+                cmpCfg.sourcePlugins))}
+          '';
       };
     };
 
     autocomplete = {
       enableSharedCmpSources = true;
-      blink-cmp.setupOpts = {
-        sources = {
-          default = ["lsp" "path" "snippets" "buffer"] ++ (attrNames cmpCfg.sources);
-          providers =
-            mapAttrs (name: _: {
-              inherit name;
-              module = "blink.compat.source";
-            })
-            cmpCfg.sources;
+      blink-cmp = {
+        setupOpts = {
+          sources = {
+            default =
+              [
+                "lsp"
+                "path"
+                "snippets"
+                "buffer"
+              ]
+              ++ (attrNames cmpCfg.sources)
+              ++ (attrNames enabledBlinkSources);
+            providers =
+              mapAttrs (name: _: {
+                inherit name;
+                module = "blink.compat.source";
+              })
+              cmpCfg.sources
+              // (mapAttrs (name: definition: {
+                  inherit name;
+                  inherit (definition) module;
+                })
+                enabledBlinkSources);
+          };
+          snippets = mkIf config.vim.snippets.luasnip.enable {
+            preset = "luasnip";
+          };
+
+          keymap = {
+            ${mappings.complete} = ["show" "fallback"];
+            ${mappings.close} = ["hide" "fallback"];
+            ${mappings.scrollDocsUp} = ["scroll_documentation_up" "fallback"];
+            ${mappings.scrollDocsDown} = ["scroll_documentation_down" "fallback"];
+            ${mappings.confirm} = ["accept" "fallback"];
+
+            ${mappings.next} = [
+              "select_next"
+              "snippet_forward"
+              (mkLuaInline
+                # lua
+                ''
+                  function(cmp)
+                    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+                    has_words_before = col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+
+                    if has_words_before then
+                      return cmp.show()
+                    end
+                  end
+                '')
+              "fallback"
+            ];
+            ${mappings.previous} = [
+              "select_prev"
+              "snippet_backward"
+              "fallback"
+            ];
+          };
         };
-        snippets = mkIf config.vim.snippets.luasnip.enable {
-          preset = "luasnip";
-        };
 
-        keymap = {
-          ${mappings.complete} = ["show" "fallback"];
-          ${mappings.close} = ["hide" "fallback"];
-          ${mappings.scrollDocsUp} = ["scroll_documentation_up" "fallback"];
-          ${mappings.scrollDocsDown} = ["scroll_documentation_down" "fallback"];
-          ${mappings.confirm} = ["accept" "fallback"];
-
-          ${mappings.next} = [
-            "select_next"
-            "snippet_forward"
-            (mkLuaInline ''
-              function(cmp)
-                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-                has_words_before = col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-
-                if has_words_before then
-                  return cmp.show()
-                end
-              end
-            '')
-            "fallback"
-          ];
-          ${mappings.previous} = [
-            "select_prev"
-            "snippet_backward"
-            "fallback"
-          ];
+        # Provide default definitions for some simple source plugins.
+        # These are disabled by default, but allow a user to set
+        # `sourcePlugins.<name>.enable = true;` and have fully functioning sources.
+        sourcePlugins = {
+          # emoji completion after :
+          emoji = {
+            package = mkDefault "blink-emoji-nvim";
+            module = mkDefault "blink-emoji";
+          };
+          # spelling suggestions as completions
+          spell = {
+            package = mkDefault "blink-cmp-spell";
+            module = mkDefault "blink-cmp-spell";
+          };
+          # words from nearby files
+          ripgrep = {
+            package = mkDefault "blink-ripgrep-nvim";
+            module = mkDefault "blink-ripgrep";
+          };
         };
       };
     };
