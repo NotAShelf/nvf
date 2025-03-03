@@ -200,3 +200,8 @@
 [alfarel](https://github.com/alfarelcynthesis):
 
 - Add missing `yazi.nvim` dependency (`snacks.nvim`).
+
+[TheColorman](https://github.com/TheColorman)
+
+- Fix plugin `setupOpts` for `neovim-session-manager` having an invalid value
+  for `autoload_mode`.
