@@ -1,5 +1,6 @@
 {lib, ...}: let
   inherit (lib.types) nullOr str bool;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib) mkEnableOption mkOption types mkRenamedOptionModule;
 in {
   imports = let
@@ -68,6 +69,8 @@ in {
 
       autoload_mode = mkOption {
         type = types.enum ["Disabled" "CurrentDir" "LastSession"];
+        # variable `sm` referenced from ./config.nix
+        apply = value: mkLuaInline "sm.AutoloadMode.${value}";
         default = "LastSession";
         description = "Define what to do when Neovim is started without arguments. Possible values: Disabled, CurrentDir, LastSession";
       };
