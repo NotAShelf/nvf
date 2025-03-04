@@ -1892,6 +1892,18 @@
       "url": "https://github.com/m4xshen/smartcolumn.nvim/archive/92f3773af80d674f1eb61e112dca79e2fa449fd1.tar.gz",
       "hash": "0k1xnyvblshn4fhbxgl0i34j22n55xlwr09sdmb23l57br5rb07q"
     },
+    "snacks-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "folke",
+        "repo": "snacks.nvim"
+      },
+      "branch": "main",
+      "revision": "bc0630e43be5699bb94dadc302c0d21615421d93",
+      "url": "https://github.com/folke/snacks.nvim/archive/bc0630e43be5699bb94dadc302c0d21615421d93.tar.gz",
+      "hash": "0a5nw7xa33shag1h12gf930g3vcixbwk8dxv0ji4980ycskh238v"
+    },
     "sqls-nvim": {
       "type": "Git",
       "repository": {
