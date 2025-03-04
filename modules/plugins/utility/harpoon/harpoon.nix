@@ -22,14 +22,18 @@ in {
         save_on_toggle = mkOption {
           type = bool;
           default = false;
-          description = ''            Any time the ui menu is closed then we will save the
-                    state back to the backing list, not to the fs'';
+          description = ''
+            Any time the ui menu is closed then we will save the
+                      state back to the backing list, not to the fs
+          '';
         };
         sync_on_ui_close = mkOption {
           type = bool;
           default = false;
-          description = ''            Any time the ui menu is closed then the state of the
-                    list will be sync'd back to the fs'';
+          description = ''
+            Any time the ui menu is closed then the state of the
+                      list will be sync'd back to the fs
+          '';
         };
         key = mkOption {
           type = luaInline;
@@ -38,8 +42,10 @@ in {
               return vim.loop.cwd()
             end
           '';
-          description = ''            How the out list key is looked up. This can be useful
-                    when using worktrees and using git remote instead of file path'';
+          description = ''
+            How the out list key is looked up. This can be useful
+                      when using worktrees and using git remote instead of file path
+          '';
         };
       };
     };
