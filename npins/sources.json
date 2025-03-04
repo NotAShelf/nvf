@@ -471,6 +471,18 @@
       "url": "https://github.com/ellisonleao/gruvbox.nvim/archive/089b60e92aa0a1c6fa76ff527837cd35b6f5ac81.tar.gz",
       "hash": "0mr8q2xi4s2anibll8lhxax7q1akyg687bp5r58gckkhi04064q4"
     },
+    "harpoon": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ThePrimeagen",
+        "repo": "harpoon"
+      },
+      "branch": "harpoon2",
+      "revision": "ed1f853847ffd04b2b61c314865665e1dadf22c7",
+      "url": "https://github.com/ThePrimeagen/harpoon/archive/ed1f853847ffd04b2b61c314865665e1dadf22c7.tar.gz",
+      "hash": "1dcpdlna2lff9dlsh6i4v16qmn5r9279wdvn0ry3xg4abqwnzc9g"
+    },
     "haskell-tools-nvim": {
       "type": "Git",
       "repository": {

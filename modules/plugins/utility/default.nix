@@ -5,6 +5,7 @@
     ./diffview
     ./fzf-lua
     ./gestures
+    ./harpoon
     ./icon-picker
     ./images
     ./leetcode-nvim

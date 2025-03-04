@@ -193,6 +193,11 @@
   [golines](https://github.com/segmentio/golines) and
   [gofumpt](https://github.com/mvdan/gofumpt)
 
+
+[UltraGhostie](https://github.com/UltraGhostie)
+
+- Add [harpoon](https://github.com/ThePrimeagen/harpoon) plugin for navigation
+
 [MaxMur](https://github.com/TheMaxMur)
 
 - Add YAML support under `vim.languages.yaml`.
@@ -200,3 +205,4 @@
 [alfarel](https://github.com/alfarelcynthesis):
 
 - Add missing `yazi.nvim` dependency (`snacks.nvim`).
+
