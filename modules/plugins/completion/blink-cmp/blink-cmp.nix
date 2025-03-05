@@ -2,6 +2,8 @@
   inherit (lib.options) mkEnableOption mkOption literalMD;
   inherit (lib.types) listOf str either attrsOf submodule enum anything int nullOr;
   inherit (lib.generators) mkLuaInline;
+  inherit (lib.lists) map;
+  inherit (lib.modules) mkMerge;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline pluginType;
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.config) mkBool;
@@ -26,6 +28,14 @@
       };
     };
   };
+
+  builtinSources = [
+    "lsp"
+    "path"
+    "snippets"
+    "buffer"
+    "omni"
+  ];
 in {
   options.vim.autocomplete.blink-cmp = {
     enable = mkEnableOption "blink.cmp";
@@ -38,7 +48,16 @@ in {
         };
 
         providers = mkOption {
-          type = attrsOf providerType;
+          type = submodule {
+            freeformType = attrsOf providerType;
+            # generate built in sources' modules, so that they can be modified without erroring out
+            # while still requiring additional providers to have module set manually
+            # they shouldn't need to be modified, so set them in config, not options
+            config = mkMerge (map (source: {
+                ${source}.module = "blink.cmp.sources.${source}";
+              })
+              builtinSources);
+          };
           default = {};
           description = "Settings for completion providers";
         };
