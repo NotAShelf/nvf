@@ -2,7 +2,7 @@
   inherit (lib.options) mkEnableOption mkOption literalMD;
   inherit (lib.types) listOf str either attrsOf submodule enum anything int nullOr;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) mkPluginSetupOption luaInline;
+  inherit (lib.nvim.types) mkPluginSetupOption luaInline pluginType;
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.config) mkBool;
 
@@ -118,5 +118,66 @@ in {
       scrollDocsUp = mkMappingOption "Scroll docs up [blink.cmp]" "<C-d>";
       scrollDocsDown = mkMappingOption "Scroll docs down [blink.cmp]" "<C-f>";
     };
+
+    sourcePlugins = let
+      sourcePluginType = submodule {
+        options = {
+          package = mkOption {
+            type = pluginType;
+            description = ''
+              `blink-cmp` source plugin package.
+            '';
+          };
+          module = mkOption {
+            type = str;
+            description = ''
+              Value of {option}`vim.autocomplete.blink-cmp.setupOpts.sources.providers.<name>.module`.
+
+              Should be present in the source's documentation.
+            '';
+          };
+          enable = mkEnableOption "this source";
+        };
+      };
+    in
+      mkOption {
+        type = submodule {
+          freeformType = attrsOf sourcePluginType;
+          options = let
+            defaultSourcePluginOption = name: package: module: {
+              package = mkOption {
+                type = pluginType;
+                default = package;
+                description = ''
+                  `blink-cmp` ${name} source plugin package.
+                '';
+              };
+              module = mkOption {
+                type = str;
+                default = module;
+                description = ''
+                  Value of {option}`vim.autocomplete.blink-cmp.setupOpts.sources.providers.${name}.module`.
+                '';
+              };
+              enable = mkEnableOption "${name} source";
+            };
+          in {
+            # emoji completion after :
+            emoji = defaultSourcePluginOption "emoji" "blink-emoji-nvim" "blink-emoji";
+            # spelling suggestions as completions
+            spell = defaultSourcePluginOption "spell" "blink-cmp-spell" "blink-cmp-spell";
+            # words from nearby files
+            ripgrep = defaultSourcePluginOption "ripgrep" "blink-ripgrep-nvim" "blink-ripgrep";
+          };
+        };
+        default = {};
+        description = ''
+          `blink.cmp` sources.
+
+          Attribute names must be source names used in {option}`vim.autocomplete.blink-cmp.setupOpts.sources.default`.
+        '';
+      };
+
+    friendly-snippets.enable = mkEnableOption "friendly-snippets for blink to source from automatically";
   };
 }

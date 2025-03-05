@@ -51,6 +51,18 @@
       "url": "https://api.github.com/repos/saghen/blink.cmp/tarball/v0.12.4",
       "hash": "0jdifjifxjqa8r80wlqgkn5rm48wziap92340xz228nrgd0c9g69"
     },
+    "blink-cmp-spell": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ribru17",
+        "repo": "blink-cmp-spell"
+      },
+      "branch": "master",
+      "revision": "38d6797dea6f72baa6e8b3bfca6da96d8fcac64d",
+      "url": "https://github.com/ribru17/blink-cmp-spell/archive/38d6797dea6f72baa6e8b3bfca6da96d8fcac64d.tar.gz",
+      "hash": "19pnasa446iiapgsr3z2fpk0nnrzh8g5wrzrq8n0y4q0z6spc9f6"
+    },
     "blink-compat": {
       "type": "Git",
       "repository": {
@@ -62,6 +74,30 @@
       "revision": "4104671562c663d059d91a99da3780bead5bc467",
       "url": "https://github.com/saghen/blink.compat/archive/4104671562c663d059d91a99da3780bead5bc467.tar.gz",
       "hash": "0bsf8kg5s3m1xk9d4n0yl0h5xyk484hip3z8va547f6ibim9ccv4"
+    },
+    "blink-emoji-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "moyiz",
+        "repo": "blink-emoji.nvim"
+      },
+      "branch": "master",
+      "revision": "a77aebc092ebece1eed108f301452ae774d6b67a",
+      "url": "https://github.com/moyiz/blink-emoji.nvim/archive/a77aebc092ebece1eed108f301452ae774d6b67a.tar.gz",
+      "hash": "0n4qv2mk7zx910gnwf9ri2w5qxwx8szx99nqqzik4yyvl4axm41d"
+    },
+    "blink-ripgrep-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mikavilpas",
+        "repo": "blink-ripgrep.nvim"
+      },
+      "branch": "main",
+      "revision": "305e1ae5363f527abdfd71915a3fe1f42af52824",
+      "url": "https://github.com/mikavilpas/blink-ripgrep.nvim/archive/305e1ae5363f527abdfd71915a3fe1f42af52824.tar.gz",
+      "hash": "1hcfyicgf33dlr2hhgnhhzdcxxqw1v8v1yjfbnwvlcsgw0rhjl8w"
     },
     "bufdelete-nvim": {
       "type": "Git",
@@ -314,6 +350,18 @@
       "revision": "4516612fe98ff56ae0415a259ff6361a89419b0a",
       "url": "https://github.com/sindrets/diffview.nvim/archive/4516612fe98ff56ae0415a259ff6361a89419b0a.tar.gz",
       "hash": "0brabpd02596hg98bml118bx6z2sly98kf1cr2p0xzybiinb4zs9"
+    },
+    "direnv-vim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "direnv",
+        "repo": "direnv.vim"
+      },
+      "branch": "master",
+      "revision": "ab2a7e08dd630060cd81d7946739ac7442a4f269",
+      "url": "https://github.com/direnv/direnv.vim/archive/ab2a7e08dd630060cd81d7946739ac7442a4f269.tar.gz",
+      "hash": "1hhwfnaj9ibz17ggxvhzrkinghfy51fqfa0bs482z484jpvjc31g"
     },
     "dracula": {
       "type": "Git",
@@ -1217,6 +1265,18 @@
       "url": "https://github.com/wfxr/minimap.vim/archive/57287e2dd28fa3e63276a32d11c729df14741d54.tar.gz",
       "hash": "05k4cgcrz0gj92xy685bd4p6nh2jmaywc2f5sw1lap0v685h7n79"
     },
+    "mkdir-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "jghauser",
+        "repo": "mkdir.nvim"
+      },
+      "branch": "main",
+      "revision": "c55d1dee4f099528a1853b28bb28caa802eba217",
+      "url": "https://github.com/jghauser/mkdir.nvim/archive/c55d1dee4f099528a1853b28bb28caa802eba217.tar.gz",
+      "hash": "0zpyvkbw7wfqdxfgidr7zfxqb5ldci4pflx50rsm1hbwai0ybv23"
+    },
     "modes-nvim": {
       "type": "Git",
       "repository": {
@@ -1315,6 +1375,18 @@
       "revision": "6ac66669dbf2dc5cdee184a4fe76d22465ca67e8",
       "url": "https://github.com/otavioschwanck/new-file-template.nvim/archive/6ac66669dbf2dc5cdee184a4fe76d22465ca67e8.tar.gz",
       "hash": "0c7378c3w6bniclp666rq15c28akb0sjy58ayva0wpyin4k26hl3"
+    },
+    "nix-develop-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "figsoda",
+        "repo": "nix-develop.nvim"
+      },
+      "branch": "main",
+      "revision": "afea026f5c478c000a8af8de87f7b711676387ab",
+      "url": "https://github.com/figsoda/nix-develop.nvim/archive/afea026f5c478c000a8af8de87f7b711676387ab.tar.gz",
+      "hash": "0nwjgr19pzdxd7yygz380b388qcfbzp9svs916kh0zayzi9yxc2k"
     },
     "noice-nvim": {
       "type": "Git",
