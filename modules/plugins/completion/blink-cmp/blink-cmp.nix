@@ -21,8 +21,9 @@
     freeformType = anything;
     options = {
       module = mkOption {
-        type = str;
-        description = "module of the provider";
+        type = nullOr str;
+        default = null;
+        description = "Provider module.";
       };
     };
   };
@@ -38,9 +39,29 @@ in {
         };
 
         providers = mkOption {
-          type = attrsOf providerType;
+          type = submodule {
+            freeformType = attrsOf providerType;
+            options = let
+              builtInPluginOption = source: {
+                module = mkOption {
+                  type = str;
+                  default = "blink.cmp.sources.${source}";
+                  description = "Built in provider module.";
+                  readOnly = true;
+                };
+              };
+            in {
+              # generate built in sources' default modules, so they can be modified
+              # without needing to specify their modules
+              buffer = builtInPluginOption "buffer";
+              snippets = builtInPluginOption "snippets";
+              path = builtInPluginOption "path";
+              lsp = builtInPluginOption "lsp";
+              omni = builtInPluginOption "omni";
+            };
+          };
           default = {};
-          description = "Settings for completion providers";
+          description = "Settings for completion providers.";
         };
 
         transform_items = mkOption {
