@@ -1069,6 +1069,33 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.autocomplete.blink-cmp.friendly-snippets.enable"></a><a class="term" href="options.html#opt-vim.autocomplete.blink-cmp.friendly-snippets.enable"><code class="option">vim.autocomplete.blink-cmp.friendly-snippets.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable friendly-snippets for blink to source from automatically.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/completion/blink-cmp/blink-cmp.nix" target="_top">
+&lt;nvf/modules/plugins/completion/blink-cmp/blink-cmp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.autocomplete.blink-cmp.mappings.close"></a><a class="term" href="options.html#opt-vim.autocomplete.blink-cmp.mappings.close"><code class="option">vim.autocomplete.blink-cmp.mappings.close</code>
   </a>
  </span>
@@ -1524,6 +1551,297 @@ null or (luaInline)</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.autocomplete.blink-cmp.sourcePlugins"></a><a class="term" href="options.html#opt-vim.autocomplete.blink-cmp.sourcePlugins"><code class="option">vim.autocomplete.blink-cmp.sourcePlugins</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p><code class="literal">blink.cmp</code> sources.</p><p>Attribute names must be source names used in <code class="option">vim.autocomplete.blink-cmp.setupOpts.sources.default</code>.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+attribute set of (submodule)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/completion/blink-cmp/blink-cmp.nix" target="_top">
+&lt;nvf/modules/plugins/completion/blink-cmp/blink-cmp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocomplete.blink-cmp.sourcePlugins._name_.enable"></a><a class="term" href="options.html#opt-vim.autocomplete.blink-cmp.sourcePlugins._name_.enable"><code class="option">vim.autocomplete.blink-cmp.sourcePlugins.&lt;name&gt;.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable this source.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocomplete.blink-cmp.sourcePlugins._name_.package"></a><a class="term" href="options.html#opt-vim.autocomplete.blink-cmp.sourcePlugins._name_.package"><code class="option">vim.autocomplete.blink-cmp.sourcePlugins.&lt;name&gt;.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p><code class="literal">blink-cmp</code> source plugin package.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or package or one of “aerial-nvim”, “alpha-nvim”, “base16”, “blink-cmp”, “blink-cmp-spell”, “blink-compat”, “blink-emoji-nvim”, “blink-ripgrep-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc-nvim”, “cellular-automaton-nvim”, “chatgpt-nvim”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-luasnip”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “codewindow-nvim”, “comment-nvim”, “conform-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “csharpls-extended-lsp-nvim”, “dashboard-nvim”, “diffview-nvim”, “direnv-vim”, “dracula”, “dressing-nvim”, “elixir-tools-nvim”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools-nvim”, “friendly-snippets”, “fzf-lua”, “gesture-nvim”, “git-conflict-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “haskell-tools-nvim”, “highlight-undo-nvim”, “hop-nvim”, “hydra-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline-nvim”, “lazydev-nvim”, “leap-nvim”, “leetcode-nvim”, “lsp-lines”, “lsp-signature-nvim”, “lspkind-nvim”, “lspsaga-nvim”, “lua-utils-nvim”, “lualine-nvim”, “luasnip”, “lz-n”, “lzn-auto-require”, “mind-nvim”, “mini-ai”, “mini-align”, “mini-animate”, “mini-base16”, “mini-basics”, “mini-bracketed”, “mini-bufremove”, “mini-clue”, “mini-colors”, “mini-comment”, “mini-completion”, “mini-diff”, “mini-doc”, “mini-extra”, “mini-files”, “mini-fuzzy”, “mini-git”, “mini-hipatterns”, “mini-hues”, “mini-icons”, “mini-indentscope”, “mini-jump”, “mini-jump2d”, “mini-map”, “mini-misc”, “mini-move”, “mini-notify”, “mini-operators”, “mini-pairs”, “mini-pick”, “mini-sessions”, “mini-snippets”, “mini-splitjoin”, “mini-starter”, “mini-statusline”, “mini-surround”, “mini-tabline”, “mini-test”, “mini-trailspace”, “mini-visits”, “minimap-vim”, “mkdir-nvim”, “modes-nvim”, “multicursors-nvim”, “neo-tree-nvim”, “neocord”, “neorg”, “neorg-telescope”, “neovim-session-manager”, “new-file-template-nvim”, “nix-develop-nvim”, “noice-nvim”, “none-ls-nvim”, “nord”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lint”, “nvim-lspconfig”, “nvim-metals”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip-lua”, “nvim-nio”, “nvim-notify”, “nvim-scrollbar”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-ufo”, “nvim-web-devicons”, “obsidian-nvim”, “omnisharp-extended-lsp-nvim”, “onedark”, “orgmode”, “otter-nvim”, “oxocarbon”, “pathlib-nvim”, “plenary-nvim”, “precognition-nvim”, “project-nvim”, “promise-async”, “rainbow-delimiters-nvim”, “registers-nvim”, “render-markdown-nvim”, “rose-pine”, “rtp-nvim”, “run-nvim”, “rustaceanvim”, “smartcolumn-nvim”, “snacks-nvim”, “sqls-nvim”, “tabular”, “telescope”, “tiny-devicons-auto-colors-nvim”, “todo-comments-nvim”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator-nvim”, “typst-preview-nvim”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “which-key-nvim”, “yanky-nvim”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”</p>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocomplete.blink-cmp.sourcePlugins._name_.module"></a><a class="term" href="options.html#opt-vim.autocomplete.blink-cmp.sourcePlugins._name_.module"><code class="option">vim.autocomplete.blink-cmp.sourcePlugins.&lt;name&gt;.module</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Value of <code class="option">vim.autocomplete.blink-cmp.setupOpts.sources.providers.&lt;name&gt;.module</code>.</p><p>Should be present in the source’s documentation.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string</p>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocomplete.blink-cmp.sourcePlugins.emoji.enable"></a><a class="term" href="options.html#opt-vim.autocomplete.blink-cmp.sourcePlugins.emoji.enable"><code class="option">vim.autocomplete.blink-cmp.sourcePlugins.emoji.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable emoji source.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/completion/blink-cmp/blink-cmp.nix" target="_top">
+&lt;nvf/modules/plugins/completion/blink-cmp/blink-cmp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocomplete.blink-cmp.sourcePlugins.emoji.package"></a><a class="term" href="options.html#opt-vim.autocomplete.blink-cmp.sourcePlugins.emoji.package"><code class="option">vim.autocomplete.blink-cmp.sourcePlugins.emoji.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p><code class="literal">blink-cmp</code> emoji source plugin package.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or package or one of “aerial-nvim”, “alpha-nvim”, “base16”, “blink-cmp”, “blink-cmp-spell”, “blink-compat”, “blink-emoji-nvim”, “blink-ripgrep-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc-nvim”, “cellular-automaton-nvim”, “chatgpt-nvim”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-luasnip”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “codewindow-nvim”, “comment-nvim”, “conform-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “csharpls-extended-lsp-nvim”, “dashboard-nvim”, “diffview-nvim”, “direnv-vim”, “dracula”, “dressing-nvim”, “elixir-tools-nvim”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools-nvim”, “friendly-snippets”, “fzf-lua”, “gesture-nvim”, “git-conflict-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “haskell-tools-nvim”, “highlight-undo-nvim”, “hop-nvim”, “hydra-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline-nvim”, “lazydev-nvim”, “leap-nvim”, “leetcode-nvim”, “lsp-lines”, “lsp-signature-nvim”, “lspkind-nvim”, “lspsaga-nvim”, “lua-utils-nvim”, “lualine-nvim”, “luasnip”, “lz-n”, “lzn-auto-require”, “mind-nvim”, “mini-ai”, “mini-align”, “mini-animate”, “mini-base16”, “mini-basics”, “mini-bracketed”, “mini-bufremove”, “mini-clue”, “mini-colors”, “mini-comment”, “mini-completion”, “mini-diff”, “mini-doc”, “mini-extra”, “mini-files”, “mini-fuzzy”, “mini-git”, “mini-hipatterns”, “mini-hues”, “mini-icons”, “mini-indentscope”, “mini-jump”, “mini-jump2d”, “mini-map”, “mini-misc”, “mini-move”, “mini-notify”, “mini-operators”, “mini-pairs”, “mini-pick”, “mini-sessions”, “mini-snippets”, “mini-splitjoin”, “mini-starter”, “mini-statusline”, “mini-surround”, “mini-tabline”, “mini-test”, “mini-trailspace”, “mini-visits”, “minimap-vim”, “mkdir-nvim”, “modes-nvim”, “multicursors-nvim”, “neo-tree-nvim”, “neocord”, “neorg”, “neorg-telescope”, “neovim-session-manager”, “new-file-template-nvim”, “nix-develop-nvim”, “noice-nvim”, “none-ls-nvim”, “nord”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lint”, “nvim-lspconfig”, “nvim-metals”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip-lua”, “nvim-nio”, “nvim-notify”, “nvim-scrollbar”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-ufo”, “nvim-web-devicons”, “obsidian-nvim”, “omnisharp-extended-lsp-nvim”, “onedark”, “orgmode”, “otter-nvim”, “oxocarbon”, “pathlib-nvim”, “plenary-nvim”, “precognition-nvim”, “project-nvim”, “promise-async”, “rainbow-delimiters-nvim”, “registers-nvim”, “render-markdown-nvim”, “rose-pine”, “rtp-nvim”, “run-nvim”, “rustaceanvim”, “smartcolumn-nvim”, “snacks-nvim”, “sqls-nvim”, “tabular”, “telescope”, “tiny-devicons-auto-colors-nvim”, “todo-comments-nvim”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator-nvim”, “typst-preview-nvim”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “which-key-nvim”, “yanky-nvim”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;blink-emoji-nvim&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/completion/blink-cmp/blink-cmp.nix" target="_top">
+&lt;nvf/modules/plugins/completion/blink-cmp/blink-cmp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocomplete.blink-cmp.sourcePlugins.emoji.module"></a><a class="term" href="options.html#opt-vim.autocomplete.blink-cmp.sourcePlugins.emoji.module"><code class="option">vim.autocomplete.blink-cmp.sourcePlugins.emoji.module</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Value of <code class="option">vim.autocomplete.blink-cmp.setupOpts.sources.providers.emoji.module</code>.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;blink-emoji&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/completion/blink-cmp/blink-cmp.nix" target="_top">
+&lt;nvf/modules/plugins/completion/blink-cmp/blink-cmp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocomplete.blink-cmp.sourcePlugins.ripgrep.enable"></a><a class="term" href="options.html#opt-vim.autocomplete.blink-cmp.sourcePlugins.ripgrep.enable"><code class="option">vim.autocomplete.blink-cmp.sourcePlugins.ripgrep.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable ripgrep source.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/completion/blink-cmp/blink-cmp.nix" target="_top">
+&lt;nvf/modules/plugins/completion/blink-cmp/blink-cmp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocomplete.blink-cmp.sourcePlugins.ripgrep.package"></a><a class="term" href="options.html#opt-vim.autocomplete.blink-cmp.sourcePlugins.ripgrep.package"><code class="option">vim.autocomplete.blink-cmp.sourcePlugins.ripgrep.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p><code class="literal">blink-cmp</code> ripgrep source plugin package.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or package or one of “aerial-nvim”, “alpha-nvim”, “base16”, “blink-cmp”, “blink-cmp-spell”, “blink-compat”, “blink-emoji-nvim”, “blink-ripgrep-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc-nvim”, “cellular-automaton-nvim”, “chatgpt-nvim”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-luasnip”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “codewindow-nvim”, “comment-nvim”, “conform-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “csharpls-extended-lsp-nvim”, “dashboard-nvim”, “diffview-nvim”, “direnv-vim”, “dracula”, “dressing-nvim”, “elixir-tools-nvim”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools-nvim”, “friendly-snippets”, “fzf-lua”, “gesture-nvim”, “git-conflict-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “haskell-tools-nvim”, “highlight-undo-nvim”, “hop-nvim”, “hydra-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline-nvim”, “lazydev-nvim”, “leap-nvim”, “leetcode-nvim”, “lsp-lines”, “lsp-signature-nvim”, “lspkind-nvim”, “lspsaga-nvim”, “lua-utils-nvim”, “lualine-nvim”, “luasnip”, “lz-n”, “lzn-auto-require”, “mind-nvim”, “mini-ai”, “mini-align”, “mini-animate”, “mini-base16”, “mini-basics”, “mini-bracketed”, “mini-bufremove”, “mini-clue”, “mini-colors”, “mini-comment”, “mini-completion”, “mini-diff”, “mini-doc”, “mini-extra”, “mini-files”, “mini-fuzzy”, “mini-git”, “mini-hipatterns”, “mini-hues”, “mini-icons”, “mini-indentscope”, “mini-jump”, “mini-jump2d”, “mini-map”, “mini-misc”, “mini-move”, “mini-notify”, “mini-operators”, “mini-pairs”, “mini-pick”, “mini-sessions”, “mini-snippets”, “mini-splitjoin”, “mini-starter”, “mini-statusline”, “mini-surround”, “mini-tabline”, “mini-test”, “mini-trailspace”, “mini-visits”, “minimap-vim”, “mkdir-nvim”, “modes-nvim”, “multicursors-nvim”, “neo-tree-nvim”, “neocord”, “neorg”, “neorg-telescope”, “neovim-session-manager”, “new-file-template-nvim”, “nix-develop-nvim”, “noice-nvim”, “none-ls-nvim”, “nord”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lint”, “nvim-lspconfig”, “nvim-metals”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip-lua”, “nvim-nio”, “nvim-notify”, “nvim-scrollbar”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-ufo”, “nvim-web-devicons”, “obsidian-nvim”, “omnisharp-extended-lsp-nvim”, “onedark”, “orgmode”, “otter-nvim”, “oxocarbon”, “pathlib-nvim”, “plenary-nvim”, “precognition-nvim”, “project-nvim”, “promise-async”, “rainbow-delimiters-nvim”, “registers-nvim”, “render-markdown-nvim”, “rose-pine”, “rtp-nvim”, “run-nvim”, “rustaceanvim”, “smartcolumn-nvim”, “snacks-nvim”, “sqls-nvim”, “tabular”, “telescope”, “tiny-devicons-auto-colors-nvim”, “todo-comments-nvim”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator-nvim”, “typst-preview-nvim”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “which-key-nvim”, “yanky-nvim”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;blink-ripgrep-nvim&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/completion/blink-cmp/blink-cmp.nix" target="_top">
+&lt;nvf/modules/plugins/completion/blink-cmp/blink-cmp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocomplete.blink-cmp.sourcePlugins.ripgrep.module"></a><a class="term" href="options.html#opt-vim.autocomplete.blink-cmp.sourcePlugins.ripgrep.module"><code class="option">vim.autocomplete.blink-cmp.sourcePlugins.ripgrep.module</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Value of <code class="option">vim.autocomplete.blink-cmp.setupOpts.sources.providers.ripgrep.module</code>.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;blink-ripgrep&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/completion/blink-cmp/blink-cmp.nix" target="_top">
+&lt;nvf/modules/plugins/completion/blink-cmp/blink-cmp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocomplete.blink-cmp.sourcePlugins.spell.enable"></a><a class="term" href="options.html#opt-vim.autocomplete.blink-cmp.sourcePlugins.spell.enable"><code class="option">vim.autocomplete.blink-cmp.sourcePlugins.spell.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable spell source.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/completion/blink-cmp/blink-cmp.nix" target="_top">
+&lt;nvf/modules/plugins/completion/blink-cmp/blink-cmp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocomplete.blink-cmp.sourcePlugins.spell.package"></a><a class="term" href="options.html#opt-vim.autocomplete.blink-cmp.sourcePlugins.spell.package"><code class="option">vim.autocomplete.blink-cmp.sourcePlugins.spell.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p><code class="literal">blink-cmp</code> spell source plugin package.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or package or one of “aerial-nvim”, “alpha-nvim”, “base16”, “blink-cmp”, “blink-cmp-spell”, “blink-compat”, “blink-emoji-nvim”, “blink-ripgrep-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc-nvim”, “cellular-automaton-nvim”, “chatgpt-nvim”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-luasnip”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “codewindow-nvim”, “comment-nvim”, “conform-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “csharpls-extended-lsp-nvim”, “dashboard-nvim”, “diffview-nvim”, “direnv-vim”, “dracula”, “dressing-nvim”, “elixir-tools-nvim”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools-nvim”, “friendly-snippets”, “fzf-lua”, “gesture-nvim”, “git-conflict-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “haskell-tools-nvim”, “highlight-undo-nvim”, “hop-nvim”, “hydra-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline-nvim”, “lazydev-nvim”, “leap-nvim”, “leetcode-nvim”, “lsp-lines”, “lsp-signature-nvim”, “lspkind-nvim”, “lspsaga-nvim”, “lua-utils-nvim”, “lualine-nvim”, “luasnip”, “lz-n”, “lzn-auto-require”, “mind-nvim”, “mini-ai”, “mini-align”, “mini-animate”, “mini-base16”, “mini-basics”, “mini-bracketed”, “mini-bufremove”, “mini-clue”, “mini-colors”, “mini-comment”, “mini-completion”, “mini-diff”, “mini-doc”, “mini-extra”, “mini-files”, “mini-fuzzy”, “mini-git”, “mini-hipatterns”, “mini-hues”, “mini-icons”, “mini-indentscope”, “mini-jump”, “mini-jump2d”, “mini-map”, “mini-misc”, “mini-move”, “mini-notify”, “mini-operators”, “mini-pairs”, “mini-pick”, “mini-sessions”, “mini-snippets”, “mini-splitjoin”, “mini-starter”, “mini-statusline”, “mini-surround”, “mini-tabline”, “mini-test”, “mini-trailspace”, “mini-visits”, “minimap-vim”, “mkdir-nvim”, “modes-nvim”, “multicursors-nvim”, “neo-tree-nvim”, “neocord”, “neorg”, “neorg-telescope”, “neovim-session-manager”, “new-file-template-nvim”, “nix-develop-nvim”, “noice-nvim”, “none-ls-nvim”, “nord”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lint”, “nvim-lspconfig”, “nvim-metals”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip-lua”, “nvim-nio”, “nvim-notify”, “nvim-scrollbar”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-ufo”, “nvim-web-devicons”, “obsidian-nvim”, “omnisharp-extended-lsp-nvim”, “onedark”, “orgmode”, “otter-nvim”, “oxocarbon”, “pathlib-nvim”, “plenary-nvim”, “precognition-nvim”, “project-nvim”, “promise-async”, “rainbow-delimiters-nvim”, “registers-nvim”, “render-markdown-nvim”, “rose-pine”, “rtp-nvim”, “run-nvim”, “rustaceanvim”, “smartcolumn-nvim”, “snacks-nvim”, “sqls-nvim”, “tabular”, “telescope”, “tiny-devicons-auto-colors-nvim”, “todo-comments-nvim”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator-nvim”, “typst-preview-nvim”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “which-key-nvim”, “yanky-nvim”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;blink-cmp-spell&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/completion/blink-cmp/blink-cmp.nix" target="_top">
+&lt;nvf/modules/plugins/completion/blink-cmp/blink-cmp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocomplete.blink-cmp.sourcePlugins.spell.module"></a><a class="term" href="options.html#opt-vim.autocomplete.blink-cmp.sourcePlugins.spell.module"><code class="option">vim.autocomplete.blink-cmp.sourcePlugins.spell.module</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Value of <code class="option">vim.autocomplete.blink-cmp.setupOpts.sources.providers.spell.module</code>.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;blink-cmp-spell&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/completion/blink-cmp/blink-cmp.nix" target="_top">
+&lt;nvf/modules/plugins/completion/blink-cmp/blink-cmp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.autocomplete.nvim-cmp.enable"></a><a class="term" href="options.html#opt-vim.autocomplete.nvim-cmp.enable"><code class="option">vim.autocomplete.nvim-cmp.enable</code>
   </a>
  </span>
@@ -1851,7 +2169,7 @@ mergeless list of (string or (luaInline))</p>
 <p>List of source plugins used by nvim-cmp.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-list of (null or package or one of “aerial-nvim”, “alpha-nvim”, “base16”, “blink-cmp”, “blink-compat”, “bufdelete-nvim”, “catppuccin”, “ccc-nvim”, “cellular-automaton-nvim”, “chatgpt-nvim”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-luasnip”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “codewindow-nvim”, “comment-nvim”, “conform-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “csharpls-extended-lsp-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools-nvim”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools-nvim”, “friendly-snippets”, “fzf-lua”, “gesture-nvim”, “git-conflict-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “haskell-tools-nvim”, “highlight-undo-nvim”, “hop-nvim”, “hydra-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline-nvim”, “lazydev-nvim”, “leap-nvim”, “leetcode-nvim”, “lsp-lines”, “lsp-signature-nvim”, “lspkind-nvim”, “lspsaga-nvim”, “lua-utils-nvim”, “lualine-nvim”, “luasnip”, “lz-n”, “lzn-auto-require”, “mind-nvim”, “mini-ai”, “mini-align”, “mini-animate”, “mini-base16”, “mini-basics”, “mini-bracketed”, “mini-bufremove”, “mini-clue”, “mini-colors”, “mini-comment”, “mini-completion”, “mini-diff”, “mini-doc”, “mini-extra”, “mini-files”, “mini-fuzzy”, “mini-git”, “mini-hipatterns”, “mini-hues”, “mini-icons”, “mini-indentscope”, “mini-jump”, “mini-jump2d”, “mini-map”, “mini-misc”, “mini-move”, “mini-notify”, “mini-operators”, “mini-pairs”, “mini-pick”, “mini-sessions”, “mini-snippets”, “mini-splitjoin”, “mini-starter”, “mini-statusline”, “mini-surround”, “mini-tabline”, “mini-test”, “mini-trailspace”, “mini-visits”, “minimap-vim”, “modes-nvim”, “multicursors-nvim”, “neo-tree-nvim”, “neocord”, “neorg”, “neorg-telescope”, “neovim-session-manager”, “new-file-template-nvim”, “noice-nvim”, “none-ls-nvim”, “nord”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lint”, “nvim-lspconfig”, “nvim-metals”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip-lua”, “nvim-nio”, “nvim-notify”, “nvim-scrollbar”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-ufo”, “nvim-web-devicons”, “obsidian-nvim”, “omnisharp-extended-lsp-nvim”, “onedark”, “orgmode”, “otter-nvim”, “oxocarbon”, “pathlib-nvim”, “plenary-nvim”, “precognition-nvim”, “project-nvim”, “promise-async”, “rainbow-delimiters-nvim”, “registers-nvim”, “render-markdown-nvim”, “rose-pine”, “rtp-nvim”, “run-nvim”, “rustaceanvim”, “smartcolumn-nvim”, “snacks-nvim”, “sqls-nvim”, “tabular”, “telescope”, “tiny-devicons-auto-colors-nvim”, “todo-comments-nvim”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator-nvim”, “typst-preview-nvim”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “which-key-nvim”, “yanky-nvim”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
+list of (null or package or one of “aerial-nvim”, “alpha-nvim”, “base16”, “blink-cmp”, “blink-cmp-spell”, “blink-compat”, “blink-emoji-nvim”, “blink-ripgrep-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc-nvim”, “cellular-automaton-nvim”, “chatgpt-nvim”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-luasnip”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “codewindow-nvim”, “comment-nvim”, “conform-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “csharpls-extended-lsp-nvim”, “dashboard-nvim”, “diffview-nvim”, “direnv-vim”, “dracula”, “dressing-nvim”, “elixir-tools-nvim”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools-nvim”, “friendly-snippets”, “fzf-lua”, “gesture-nvim”, “git-conflict-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “haskell-tools-nvim”, “highlight-undo-nvim”, “hop-nvim”, “hydra-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline-nvim”, “lazydev-nvim”, “leap-nvim”, “leetcode-nvim”, “lsp-lines”, “lsp-signature-nvim”, “lspkind-nvim”, “lspsaga-nvim”, “lua-utils-nvim”, “lualine-nvim”, “luasnip”, “lz-n”, “lzn-auto-require”, “mind-nvim”, “mini-ai”, “mini-align”, “mini-animate”, “mini-base16”, “mini-basics”, “mini-bracketed”, “mini-bufremove”, “mini-clue”, “mini-colors”, “mini-comment”, “mini-completion”, “mini-diff”, “mini-doc”, “mini-extra”, “mini-files”, “mini-fuzzy”, “mini-git”, “mini-hipatterns”, “mini-hues”, “mini-icons”, “mini-indentscope”, “mini-jump”, “mini-jump2d”, “mini-map”, “mini-misc”, “mini-move”, “mini-notify”, “mini-operators”, “mini-pairs”, “mini-pick”, “mini-sessions”, “mini-snippets”, “mini-splitjoin”, “mini-starter”, “mini-statusline”, “mini-surround”, “mini-tabline”, “mini-test”, “mini-trailspace”, “mini-visits”, “minimap-vim”, “mkdir-nvim”, “modes-nvim”, “multicursors-nvim”, “neo-tree-nvim”, “neocord”, “neorg”, “neorg-telescope”, “neovim-session-manager”, “new-file-template-nvim”, “nix-develop-nvim”, “noice-nvim”, “none-ls-nvim”, “nord”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lint”, “nvim-lspconfig”, “nvim-metals”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip-lua”, “nvim-nio”, “nvim-notify”, “nvim-scrollbar”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-ufo”, “nvim-web-devicons”, “obsidian-nvim”, “omnisharp-extended-lsp-nvim”, “onedark”, “orgmode”, “otter-nvim”, “oxocarbon”, “pathlib-nvim”, “plenary-nvim”, “precognition-nvim”, “project-nvim”, “promise-async”, “rainbow-delimiters-nvim”, “registers-nvim”, “render-markdown-nvim”, “rose-pine”, “rtp-nvim”, “run-nvim”, “rustaceanvim”, “smartcolumn-nvim”, “snacks-nvim”, “sqls-nvim”, “tabular”, “telescope”, “tiny-devicons-auto-colors-nvim”, “todo-comments-nvim”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator-nvim”, “typst-preview-nvim”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “which-key-nvim”, “yanky-nvim”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">[ ]</code></p>
@@ -3991,7 +4309,7 @@ attribute set of (submodule)</p>
 <p>Plugin Package.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-null or package or one of “aerial-nvim”, “alpha-nvim”, “base16”, “blink-cmp”, “blink-compat”, “bufdelete-nvim”, “catppuccin”, “ccc-nvim”, “cellular-automaton-nvim”, “chatgpt-nvim”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-luasnip”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “codewindow-nvim”, “comment-nvim”, “conform-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “csharpls-extended-lsp-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools-nvim”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools-nvim”, “friendly-snippets”, “fzf-lua”, “gesture-nvim”, “git-conflict-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “haskell-tools-nvim”, “highlight-undo-nvim”, “hop-nvim”, “hydra-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline-nvim”, “lazydev-nvim”, “leap-nvim”, “leetcode-nvim”, “lsp-lines”, “lsp-signature-nvim”, “lspkind-nvim”, “lspsaga-nvim”, “lua-utils-nvim”, “lualine-nvim”, “luasnip”, “lz-n”, “lzn-auto-require”, “mind-nvim”, “mini-ai”, “mini-align”, “mini-animate”, “mini-base16”, “mini-basics”, “mini-bracketed”, “mini-bufremove”, “mini-clue”, “mini-colors”, “mini-comment”, “mini-completion”, “mini-diff”, “mini-doc”, “mini-extra”, “mini-files”, “mini-fuzzy”, “mini-git”, “mini-hipatterns”, “mini-hues”, “mini-icons”, “mini-indentscope”, “mini-jump”, “mini-jump2d”, “mini-map”, “mini-misc”, “mini-move”, “mini-notify”, “mini-operators”, “mini-pairs”, “mini-pick”, “mini-sessions”, “mini-snippets”, “mini-splitjoin”, “mini-starter”, “mini-statusline”, “mini-surround”, “mini-tabline”, “mini-test”, “mini-trailspace”, “mini-visits”, “minimap-vim”, “modes-nvim”, “multicursors-nvim”, “neo-tree-nvim”, “neocord”, “neorg”, “neorg-telescope”, “neovim-session-manager”, “new-file-template-nvim”, “noice-nvim”, “none-ls-nvim”, “nord”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lint”, “nvim-lspconfig”, “nvim-metals”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip-lua”, “nvim-nio”, “nvim-notify”, “nvim-scrollbar”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-ufo”, “nvim-web-devicons”, “obsidian-nvim”, “omnisharp-extended-lsp-nvim”, “onedark”, “orgmode”, “otter-nvim”, “oxocarbon”, “pathlib-nvim”, “plenary-nvim”, “precognition-nvim”, “project-nvim”, “promise-async”, “rainbow-delimiters-nvim”, “registers-nvim”, “render-markdown-nvim”, “rose-pine”, “rtp-nvim”, “run-nvim”, “rustaceanvim”, “smartcolumn-nvim”, “snacks-nvim”, “sqls-nvim”, “tabular”, “telescope”, “tiny-devicons-auto-colors-nvim”, “todo-comments-nvim”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator-nvim”, “typst-preview-nvim”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “which-key-nvim”, “yanky-nvim”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”</p>
+null or package or one of “aerial-nvim”, “alpha-nvim”, “base16”, “blink-cmp”, “blink-cmp-spell”, “blink-compat”, “blink-emoji-nvim”, “blink-ripgrep-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc-nvim”, “cellular-automaton-nvim”, “chatgpt-nvim”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-luasnip”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “codewindow-nvim”, “comment-nvim”, “conform-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “csharpls-extended-lsp-nvim”, “dashboard-nvim”, “diffview-nvim”, “direnv-vim”, “dracula”, “dressing-nvim”, “elixir-tools-nvim”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools-nvim”, “friendly-snippets”, “fzf-lua”, “gesture-nvim”, “git-conflict-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “haskell-tools-nvim”, “highlight-undo-nvim”, “hop-nvim”, “hydra-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline-nvim”, “lazydev-nvim”, “leap-nvim”, “leetcode-nvim”, “lsp-lines”, “lsp-signature-nvim”, “lspkind-nvim”, “lspsaga-nvim”, “lua-utils-nvim”, “lualine-nvim”, “luasnip”, “lz-n”, “lzn-auto-require”, “mind-nvim”, “mini-ai”, “mini-align”, “mini-animate”, “mini-base16”, “mini-basics”, “mini-bracketed”, “mini-bufremove”, “mini-clue”, “mini-colors”, “mini-comment”, “mini-completion”, “mini-diff”, “mini-doc”, “mini-extra”, “mini-files”, “mini-fuzzy”, “mini-git”, “mini-hipatterns”, “mini-hues”, “mini-icons”, “mini-indentscope”, “mini-jump”, “mini-jump2d”, “mini-map”, “mini-misc”, “mini-move”, “mini-notify”, “mini-operators”, “mini-pairs”, “mini-pick”, “mini-sessions”, “mini-snippets”, “mini-splitjoin”, “mini-starter”, “mini-statusline”, “mini-surround”, “mini-tabline”, “mini-test”, “mini-trailspace”, “mini-visits”, “minimap-vim”, “mkdir-nvim”, “modes-nvim”, “multicursors-nvim”, “neo-tree-nvim”, “neocord”, “neorg”, “neorg-telescope”, “neovim-session-manager”, “new-file-template-nvim”, “nix-develop-nvim”, “noice-nvim”, “none-ls-nvim”, “nord”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lint”, “nvim-lspconfig”, “nvim-metals”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip-lua”, “nvim-nio”, “nvim-notify”, “nvim-scrollbar”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-ufo”, “nvim-web-devicons”, “obsidian-nvim”, “omnisharp-extended-lsp-nvim”, “onedark”, “orgmode”, “otter-nvim”, “oxocarbon”, “pathlib-nvim”, “plenary-nvim”, “precognition-nvim”, “project-nvim”, “promise-async”, “rainbow-delimiters-nvim”, “registers-nvim”, “render-markdown-nvim”, “rose-pine”, “rtp-nvim”, “run-nvim”, “rustaceanvim”, “smartcolumn-nvim”, “snacks-nvim”, “sqls-nvim”, “tabular”, “telescope”, “tiny-devicons-auto-colors-nvim”, “todo-comments-nvim”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator-nvim”, “typst-preview-nvim”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “which-key-nvim”, “yanky-nvim”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”</p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -19288,7 +19606,7 @@ null or boolean or string</p>
 <p>Plugin package.</p><p>If null, a custom load function must be provided</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-null or null or package or one of “aerial-nvim”, “alpha-nvim”, “base16”, “blink-cmp”, “blink-compat”, “bufdelete-nvim”, “catppuccin”, “ccc-nvim”, “cellular-automaton-nvim”, “chatgpt-nvim”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-luasnip”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “codewindow-nvim”, “comment-nvim”, “conform-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “csharpls-extended-lsp-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools-nvim”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools-nvim”, “friendly-snippets”, “fzf-lua”, “gesture-nvim”, “git-conflict-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “haskell-tools-nvim”, “highlight-undo-nvim”, “hop-nvim”, “hydra-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline-nvim”, “lazydev-nvim”, “leap-nvim”, “leetcode-nvim”, “lsp-lines”, “lsp-signature-nvim”, “lspkind-nvim”, “lspsaga-nvim”, “lua-utils-nvim”, “lualine-nvim”, “luasnip”, “lz-n”, “lzn-auto-require”, “mind-nvim”, “mini-ai”, “mini-align”, “mini-animate”, “mini-base16”, “mini-basics”, “mini-bracketed”, “mini-bufremove”, “mini-clue”, “mini-colors”, “mini-comment”, “mini-completion”, “mini-diff”, “mini-doc”, “mini-extra”, “mini-files”, “mini-fuzzy”, “mini-git”, “mini-hipatterns”, “mini-hues”, “mini-icons”, “mini-indentscope”, “mini-jump”, “mini-jump2d”, “mini-map”, “mini-misc”, “mini-move”, “mini-notify”, “mini-operators”, “mini-pairs”, “mini-pick”, “mini-sessions”, “mini-snippets”, “mini-splitjoin”, “mini-starter”, “mini-statusline”, “mini-surround”, “mini-tabline”, “mini-test”, “mini-trailspace”, “mini-visits”, “minimap-vim”, “modes-nvim”, “multicursors-nvim”, “neo-tree-nvim”, “neocord”, “neorg”, “neorg-telescope”, “neovim-session-manager”, “new-file-template-nvim”, “noice-nvim”, “none-ls-nvim”, “nord”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lint”, “nvim-lspconfig”, “nvim-metals”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip-lua”, “nvim-nio”, “nvim-notify”, “nvim-scrollbar”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-ufo”, “nvim-web-devicons”, “obsidian-nvim”, “omnisharp-extended-lsp-nvim”, “onedark”, “orgmode”, “otter-nvim”, “oxocarbon”, “pathlib-nvim”, “plenary-nvim”, “precognition-nvim”, “project-nvim”, “promise-async”, “rainbow-delimiters-nvim”, “registers-nvim”, “render-markdown-nvim”, “rose-pine”, “rtp-nvim”, “run-nvim”, “rustaceanvim”, “smartcolumn-nvim”, “snacks-nvim”, “sqls-nvim”, “tabular”, “telescope”, “tiny-devicons-auto-colors-nvim”, “todo-comments-nvim”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator-nvim”, “typst-preview-nvim”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “which-key-nvim”, “yanky-nvim”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”</p>
+null or null or package or one of “aerial-nvim”, “alpha-nvim”, “base16”, “blink-cmp”, “blink-cmp-spell”, “blink-compat”, “blink-emoji-nvim”, “blink-ripgrep-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc-nvim”, “cellular-automaton-nvim”, “chatgpt-nvim”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-luasnip”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “codewindow-nvim”, “comment-nvim”, “conform-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “csharpls-extended-lsp-nvim”, “dashboard-nvim”, “diffview-nvim”, “direnv-vim”, “dracula”, “dressing-nvim”, “elixir-tools-nvim”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools-nvim”, “friendly-snippets”, “fzf-lua”, “gesture-nvim”, “git-conflict-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “haskell-tools-nvim”, “highlight-undo-nvim”, “hop-nvim”, “hydra-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline-nvim”, “lazydev-nvim”, “leap-nvim”, “leetcode-nvim”, “lsp-lines”, “lsp-signature-nvim”, “lspkind-nvim”, “lspsaga-nvim”, “lua-utils-nvim”, “lualine-nvim”, “luasnip”, “lz-n”, “lzn-auto-require”, “mind-nvim”, “mini-ai”, “mini-align”, “mini-animate”, “mini-base16”, “mini-basics”, “mini-bracketed”, “mini-bufremove”, “mini-clue”, “mini-colors”, “mini-comment”, “mini-completion”, “mini-diff”, “mini-doc”, “mini-extra”, “mini-files”, “mini-fuzzy”, “mini-git”, “mini-hipatterns”, “mini-hues”, “mini-icons”, “mini-indentscope”, “mini-jump”, “mini-jump2d”, “mini-map”, “mini-misc”, “mini-move”, “mini-notify”, “mini-operators”, “mini-pairs”, “mini-pick”, “mini-sessions”, “mini-snippets”, “mini-splitjoin”, “mini-starter”, “mini-statusline”, “mini-surround”, “mini-tabline”, “mini-test”, “mini-trailspace”, “mini-visits”, “minimap-vim”, “mkdir-nvim”, “modes-nvim”, “multicursors-nvim”, “neo-tree-nvim”, “neocord”, “neorg”, “neorg-telescope”, “neovim-session-manager”, “new-file-template-nvim”, “nix-develop-nvim”, “noice-nvim”, “none-ls-nvim”, “nord”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lint”, “nvim-lspconfig”, “nvim-metals”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip-lua”, “nvim-nio”, “nvim-notify”, “nvim-scrollbar”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-ufo”, “nvim-web-devicons”, “obsidian-nvim”, “omnisharp-extended-lsp-nvim”, “onedark”, “orgmode”, “otter-nvim”, “oxocarbon”, “pathlib-nvim”, “plenary-nvim”, “precognition-nvim”, “project-nvim”, “promise-async”, “rainbow-delimiters-nvim”, “registers-nvim”, “render-markdown-nvim”, “rose-pine”, “rtp-nvim”, “run-nvim”, “rustaceanvim”, “smartcolumn-nvim”, “snacks-nvim”, “sqls-nvim”, “tabular”, “telescope”, “tiny-devicons-auto-colors-nvim”, “todo-comments-nvim”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator-nvim”, “typst-preview-nvim”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “which-key-nvim”, “yanky-nvim”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”</p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -27827,7 +28145,7 @@ the wrapper during the build process.</p><p>To avoid overriding packages and dep
 are recommended to use this option or <code class="option">vim.extraPlugins</code> option.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-list of (null or package or one of “aerial-nvim”, “alpha-nvim”, “base16”, “blink-cmp”, “blink-compat”, “bufdelete-nvim”, “catppuccin”, “ccc-nvim”, “cellular-automaton-nvim”, “chatgpt-nvim”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-luasnip”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “codewindow-nvim”, “comment-nvim”, “conform-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “csharpls-extended-lsp-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools-nvim”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools-nvim”, “friendly-snippets”, “fzf-lua”, “gesture-nvim”, “git-conflict-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “haskell-tools-nvim”, “highlight-undo-nvim”, “hop-nvim”, “hydra-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline-nvim”, “lazydev-nvim”, “leap-nvim”, “leetcode-nvim”, “lsp-lines”, “lsp-signature-nvim”, “lspkind-nvim”, “lspsaga-nvim”, “lua-utils-nvim”, “lualine-nvim”, “luasnip”, “lz-n”, “lzn-auto-require”, “mind-nvim”, “mini-ai”, “mini-align”, “mini-animate”, “mini-base16”, “mini-basics”, “mini-bracketed”, “mini-bufremove”, “mini-clue”, “mini-colors”, “mini-comment”, “mini-completion”, “mini-diff”, “mini-doc”, “mini-extra”, “mini-files”, “mini-fuzzy”, “mini-git”, “mini-hipatterns”, “mini-hues”, “mini-icons”, “mini-indentscope”, “mini-jump”, “mini-jump2d”, “mini-map”, “mini-misc”, “mini-move”, “mini-notify”, “mini-operators”, “mini-pairs”, “mini-pick”, “mini-sessions”, “mini-snippets”, “mini-splitjoin”, “mini-starter”, “mini-statusline”, “mini-surround”, “mini-tabline”, “mini-test”, “mini-trailspace”, “mini-visits”, “minimap-vim”, “modes-nvim”, “multicursors-nvim”, “neo-tree-nvim”, “neocord”, “neorg”, “neorg-telescope”, “neovim-session-manager”, “new-file-template-nvim”, “noice-nvim”, “none-ls-nvim”, “nord”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lint”, “nvim-lspconfig”, “nvim-metals”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip-lua”, “nvim-nio”, “nvim-notify”, “nvim-scrollbar”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-ufo”, “nvim-web-devicons”, “obsidian-nvim”, “omnisharp-extended-lsp-nvim”, “onedark”, “orgmode”, “otter-nvim”, “oxocarbon”, “pathlib-nvim”, “plenary-nvim”, “precognition-nvim”, “project-nvim”, “promise-async”, “rainbow-delimiters-nvim”, “registers-nvim”, “render-markdown-nvim”, “rose-pine”, “rtp-nvim”, “run-nvim”, “rustaceanvim”, “smartcolumn-nvim”, “snacks-nvim”, “sqls-nvim”, “tabular”, “telescope”, “tiny-devicons-auto-colors-nvim”, “todo-comments-nvim”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator-nvim”, “typst-preview-nvim”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “which-key-nvim”, “yanky-nvim”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
+list of (null or package or one of “aerial-nvim”, “alpha-nvim”, “base16”, “blink-cmp”, “blink-cmp-spell”, “blink-compat”, “blink-emoji-nvim”, “blink-ripgrep-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc-nvim”, “cellular-automaton-nvim”, “chatgpt-nvim”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-luasnip”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “codewindow-nvim”, “comment-nvim”, “conform-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “csharpls-extended-lsp-nvim”, “dashboard-nvim”, “diffview-nvim”, “direnv-vim”, “dracula”, “dressing-nvim”, “elixir-tools-nvim”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools-nvim”, “friendly-snippets”, “fzf-lua”, “gesture-nvim”, “git-conflict-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “haskell-tools-nvim”, “highlight-undo-nvim”, “hop-nvim”, “hydra-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline-nvim”, “lazydev-nvim”, “leap-nvim”, “leetcode-nvim”, “lsp-lines”, “lsp-signature-nvim”, “lspkind-nvim”, “lspsaga-nvim”, “lua-utils-nvim”, “lualine-nvim”, “luasnip”, “lz-n”, “lzn-auto-require”, “mind-nvim”, “mini-ai”, “mini-align”, “mini-animate”, “mini-base16”, “mini-basics”, “mini-bracketed”, “mini-bufremove”, “mini-clue”, “mini-colors”, “mini-comment”, “mini-completion”, “mini-diff”, “mini-doc”, “mini-extra”, “mini-files”, “mini-fuzzy”, “mini-git”, “mini-hipatterns”, “mini-hues”, “mini-icons”, “mini-indentscope”, “mini-jump”, “mini-jump2d”, “mini-map”, “mini-misc”, “mini-move”, “mini-notify”, “mini-operators”, “mini-pairs”, “mini-pick”, “mini-sessions”, “mini-snippets”, “mini-splitjoin”, “mini-starter”, “mini-statusline”, “mini-surround”, “mini-tabline”, “mini-test”, “mini-trailspace”, “mini-visits”, “minimap-vim”, “mkdir-nvim”, “modes-nvim”, “multicursors-nvim”, “neo-tree-nvim”, “neocord”, “neorg”, “neorg-telescope”, “neovim-session-manager”, “new-file-template-nvim”, “nix-develop-nvim”, “noice-nvim”, “none-ls-nvim”, “nord”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lint”, “nvim-lspconfig”, “nvim-metals”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip-lua”, “nvim-nio”, “nvim-notify”, “nvim-scrollbar”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-ufo”, “nvim-web-devicons”, “obsidian-nvim”, “omnisharp-extended-lsp-nvim”, “onedark”, “orgmode”, “otter-nvim”, “oxocarbon”, “pathlib-nvim”, “plenary-nvim”, “precognition-nvim”, “project-nvim”, “promise-async”, “rainbow-delimiters-nvim”, “registers-nvim”, “render-markdown-nvim”, “rose-pine”, “rtp-nvim”, “run-nvim”, “rustaceanvim”, “smartcolumn-nvim”, “snacks-nvim”, “sqls-nvim”, “tabular”, “telescope”, “tiny-devicons-auto-colors-nvim”, “todo-comments-nvim”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator-nvim”, “typst-preview-nvim”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “which-key-nvim”, “yanky-nvim”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">[ ]</code></p>
@@ -29712,7 +30030,7 @@ strings concatenated with “\n”</p>
 <p>The snippet provider packages.</p><div class="note"><h3 class="title">Note</h3><p>These are simply appended to {option} <code class="literal">vim.startPlugins</code>.</p></div>
 
 <p><span class="emphasis"><em>Type:</em></span>
-list of (null or package or one of “aerial-nvim”, “alpha-nvim”, “base16”, “blink-cmp”, “blink-compat”, “bufdelete-nvim”, “catppuccin”, “ccc-nvim”, “cellular-automaton-nvim”, “chatgpt-nvim”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-luasnip”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “codewindow-nvim”, “comment-nvim”, “conform-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “csharpls-extended-lsp-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools-nvim”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools-nvim”, “friendly-snippets”, “fzf-lua”, “gesture-nvim”, “git-conflict-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “haskell-tools-nvim”, “highlight-undo-nvim”, “hop-nvim”, “hydra-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline-nvim”, “lazydev-nvim”, “leap-nvim”, “leetcode-nvim”, “lsp-lines”, “lsp-signature-nvim”, “lspkind-nvim”, “lspsaga-nvim”, “lua-utils-nvim”, “lualine-nvim”, “luasnip”, “lz-n”, “lzn-auto-require”, “mind-nvim”, “mini-ai”, “mini-align”, “mini-animate”, “mini-base16”, “mini-basics”, “mini-bracketed”, “mini-bufremove”, “mini-clue”, “mini-colors”, “mini-comment”, “mini-completion”, “mini-diff”, “mini-doc”, “mini-extra”, “mini-files”, “mini-fuzzy”, “mini-git”, “mini-hipatterns”, “mini-hues”, “mini-icons”, “mini-indentscope”, “mini-jump”, “mini-jump2d”, “mini-map”, “mini-misc”, “mini-move”, “mini-notify”, “mini-operators”, “mini-pairs”, “mini-pick”, “mini-sessions”, “mini-snippets”, “mini-splitjoin”, “mini-starter”, “mini-statusline”, “mini-surround”, “mini-tabline”, “mini-test”, “mini-trailspace”, “mini-visits”, “minimap-vim”, “modes-nvim”, “multicursors-nvim”, “neo-tree-nvim”, “neocord”, “neorg”, “neorg-telescope”, “neovim-session-manager”, “new-file-template-nvim”, “noice-nvim”, “none-ls-nvim”, “nord”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lint”, “nvim-lspconfig”, “nvim-metals”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip-lua”, “nvim-nio”, “nvim-notify”, “nvim-scrollbar”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-ufo”, “nvim-web-devicons”, “obsidian-nvim”, “omnisharp-extended-lsp-nvim”, “onedark”, “orgmode”, “otter-nvim”, “oxocarbon”, “pathlib-nvim”, “plenary-nvim”, “precognition-nvim”, “project-nvim”, “promise-async”, “rainbow-delimiters-nvim”, “registers-nvim”, “render-markdown-nvim”, “rose-pine”, “rtp-nvim”, “run-nvim”, “rustaceanvim”, “smartcolumn-nvim”, “snacks-nvim”, “sqls-nvim”, “tabular”, “telescope”, “tiny-devicons-auto-colors-nvim”, “todo-comments-nvim”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator-nvim”, “typst-preview-nvim”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “which-key-nvim”, “yanky-nvim”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
+list of (null or package or one of “aerial-nvim”, “alpha-nvim”, “base16”, “blink-cmp”, “blink-cmp-spell”, “blink-compat”, “blink-emoji-nvim”, “blink-ripgrep-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc-nvim”, “cellular-automaton-nvim”, “chatgpt-nvim”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-luasnip”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “codewindow-nvim”, “comment-nvim”, “conform-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “csharpls-extended-lsp-nvim”, “dashboard-nvim”, “diffview-nvim”, “direnv-vim”, “dracula”, “dressing-nvim”, “elixir-tools-nvim”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools-nvim”, “friendly-snippets”, “fzf-lua”, “gesture-nvim”, “git-conflict-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “haskell-tools-nvim”, “highlight-undo-nvim”, “hop-nvim”, “hydra-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline-nvim”, “lazydev-nvim”, “leap-nvim”, “leetcode-nvim”, “lsp-lines”, “lsp-signature-nvim”, “lspkind-nvim”, “lspsaga-nvim”, “lua-utils-nvim”, “lualine-nvim”, “luasnip”, “lz-n”, “lzn-auto-require”, “mind-nvim”, “mini-ai”, “mini-align”, “mini-animate”, “mini-base16”, “mini-basics”, “mini-bracketed”, “mini-bufremove”, “mini-clue”, “mini-colors”, “mini-comment”, “mini-completion”, “mini-diff”, “mini-doc”, “mini-extra”, “mini-files”, “mini-fuzzy”, “mini-git”, “mini-hipatterns”, “mini-hues”, “mini-icons”, “mini-indentscope”, “mini-jump”, “mini-jump2d”, “mini-map”, “mini-misc”, “mini-move”, “mini-notify”, “mini-operators”, “mini-pairs”, “mini-pick”, “mini-sessions”, “mini-snippets”, “mini-splitjoin”, “mini-starter”, “mini-statusline”, “mini-surround”, “mini-tabline”, “mini-test”, “mini-trailspace”, “mini-visits”, “minimap-vim”, “mkdir-nvim”, “modes-nvim”, “multicursors-nvim”, “neo-tree-nvim”, “neocord”, “neorg”, “neorg-telescope”, “neovim-session-manager”, “new-file-template-nvim”, “nix-develop-nvim”, “noice-nvim”, “none-ls-nvim”, “nord”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lint”, “nvim-lspconfig”, “nvim-metals”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip-lua”, “nvim-nio”, “nvim-notify”, “nvim-scrollbar”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-ufo”, “nvim-web-devicons”, “obsidian-nvim”, “omnisharp-extended-lsp-nvim”, “onedark”, “orgmode”, “otter-nvim”, “oxocarbon”, “pathlib-nvim”, “plenary-nvim”, “precognition-nvim”, “project-nvim”, “promise-async”, “rainbow-delimiters-nvim”, “registers-nvim”, “render-markdown-nvim”, “rose-pine”, “rtp-nvim”, “run-nvim”, “rustaceanvim”, “smartcolumn-nvim”, “snacks-nvim”, “sqls-nvim”, “tabular”, “telescope”, “tiny-devicons-auto-colors-nvim”, “todo-comments-nvim”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator-nvim”, “typst-preview-nvim”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “which-key-nvim”, “yanky-nvim”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
 
 <p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
   &quot;friendly-snippets&quot;
@@ -29955,7 +30273,7 @@ using the <a class="link" href="options.html#opt-vim.extraPlugins"  ><code class
 option.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-list of (null or package or one of “aerial-nvim”, “alpha-nvim”, “base16”, “blink-cmp”, “blink-compat”, “bufdelete-nvim”, “catppuccin”, “ccc-nvim”, “cellular-automaton-nvim”, “chatgpt-nvim”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-luasnip”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “codewindow-nvim”, “comment-nvim”, “conform-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “csharpls-extended-lsp-nvim”, “dashboard-nvim”, “diffview-nvim”, “dracula”, “dressing-nvim”, “elixir-tools-nvim”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools-nvim”, “friendly-snippets”, “fzf-lua”, “gesture-nvim”, “git-conflict-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “haskell-tools-nvim”, “highlight-undo-nvim”, “hop-nvim”, “hydra-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline-nvim”, “lazydev-nvim”, “leap-nvim”, “leetcode-nvim”, “lsp-lines”, “lsp-signature-nvim”, “lspkind-nvim”, “lspsaga-nvim”, “lua-utils-nvim”, “lualine-nvim”, “luasnip”, “lz-n”, “lzn-auto-require”, “mind-nvim”, “mini-ai”, “mini-align”, “mini-animate”, “mini-base16”, “mini-basics”, “mini-bracketed”, “mini-bufremove”, “mini-clue”, “mini-colors”, “mini-comment”, “mini-completion”, “mini-diff”, “mini-doc”, “mini-extra”, “mini-files”, “mini-fuzzy”, “mini-git”, “mini-hipatterns”, “mini-hues”, “mini-icons”, “mini-indentscope”, “mini-jump”, “mini-jump2d”, “mini-map”, “mini-misc”, “mini-move”, “mini-notify”, “mini-operators”, “mini-pairs”, “mini-pick”, “mini-sessions”, “mini-snippets”, “mini-splitjoin”, “mini-starter”, “mini-statusline”, “mini-surround”, “mini-tabline”, “mini-test”, “mini-trailspace”, “mini-visits”, “minimap-vim”, “modes-nvim”, “multicursors-nvim”, “neo-tree-nvim”, “neocord”, “neorg”, “neorg-telescope”, “neovim-session-manager”, “new-file-template-nvim”, “noice-nvim”, “none-ls-nvim”, “nord”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lint”, “nvim-lspconfig”, “nvim-metals”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip-lua”, “nvim-nio”, “nvim-notify”, “nvim-scrollbar”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-ufo”, “nvim-web-devicons”, “obsidian-nvim”, “omnisharp-extended-lsp-nvim”, “onedark”, “orgmode”, “otter-nvim”, “oxocarbon”, “pathlib-nvim”, “plenary-nvim”, “precognition-nvim”, “project-nvim”, “promise-async”, “rainbow-delimiters-nvim”, “registers-nvim”, “render-markdown-nvim”, “rose-pine”, “rtp-nvim”, “run-nvim”, “rustaceanvim”, “smartcolumn-nvim”, “snacks-nvim”, “sqls-nvim”, “tabular”, “telescope”, “tiny-devicons-auto-colors-nvim”, “todo-comments-nvim”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator-nvim”, “typst-preview-nvim”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “which-key-nvim”, “yanky-nvim”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
+list of (null or package or one of “aerial-nvim”, “alpha-nvim”, “base16”, “blink-cmp”, “blink-cmp-spell”, “blink-compat”, “blink-emoji-nvim”, “blink-ripgrep-nvim”, “bufdelete-nvim”, “catppuccin”, “ccc-nvim”, “cellular-automaton-nvim”, “chatgpt-nvim”, “cheatsheet-nvim”, “cinnamon-nvim”, “cmp-buffer”, “cmp-luasnip”, “cmp-nvim-lsp”, “cmp-path”, “cmp-treesitter”, “codewindow-nvim”, “comment-nvim”, “conform-nvim”, “copilot-cmp”, “copilot-lua”, “crates-nvim”, “csharpls-extended-lsp-nvim”, “dashboard-nvim”, “diffview-nvim”, “direnv-vim”, “dracula”, “dressing-nvim”, “elixir-tools-nvim”, “fastaction-nvim”, “fidget-nvim”, “flutter-tools-nvim”, “friendly-snippets”, “fzf-lua”, “gesture-nvim”, “git-conflict-nvim”, “gitsigns-nvim”, “glow-nvim”, “gruvbox”, “haskell-tools-nvim”, “highlight-undo-nvim”, “hop-nvim”, “hydra-nvim”, “icon-picker-nvim”, “image-nvim”, “indent-blankline-nvim”, “lazydev-nvim”, “leap-nvim”, “leetcode-nvim”, “lsp-lines”, “lsp-signature-nvim”, “lspkind-nvim”, “lspsaga-nvim”, “lua-utils-nvim”, “lualine-nvim”, “luasnip”, “lz-n”, “lzn-auto-require”, “mind-nvim”, “mini-ai”, “mini-align”, “mini-animate”, “mini-base16”, “mini-basics”, “mini-bracketed”, “mini-bufremove”, “mini-clue”, “mini-colors”, “mini-comment”, “mini-completion”, “mini-diff”, “mini-doc”, “mini-extra”, “mini-files”, “mini-fuzzy”, “mini-git”, “mini-hipatterns”, “mini-hues”, “mini-icons”, “mini-indentscope”, “mini-jump”, “mini-jump2d”, “mini-map”, “mini-misc”, “mini-move”, “mini-notify”, “mini-operators”, “mini-pairs”, “mini-pick”, “mini-sessions”, “mini-snippets”, “mini-splitjoin”, “mini-starter”, “mini-statusline”, “mini-surround”, “mini-tabline”, “mini-test”, “mini-trailspace”, “mini-visits”, “minimap-vim”, “mkdir-nvim”, “modes-nvim”, “multicursors-nvim”, “neo-tree-nvim”, “neocord”, “neorg”, “neorg-telescope”, “neovim-session-manager”, “new-file-template-nvim”, “nix-develop-nvim”, “noice-nvim”, “none-ls-nvim”, “nord”, “nui-nvim”, “nvim-autopairs”, “nvim-bufferline-lua”, “nvim-cmp”, “nvim-colorizer-lua”, “nvim-cursorline”, “nvim-dap”, “nvim-dap-go”, “nvim-dap-ui”, “nvim-docs-view”, “nvim-lightbulb”, “nvim-lint”, “nvim-lspconfig”, “nvim-metals”, “nvim-navbuddy”, “nvim-navic”, “nvim-neoclip-lua”, “nvim-nio”, “nvim-notify”, “nvim-scrollbar”, “nvim-surround”, “nvim-tree-lua”, “nvim-treesitter-context”, “nvim-ts-autotag”, “nvim-ufo”, “nvim-web-devicons”, “obsidian-nvim”, “omnisharp-extended-lsp-nvim”, “onedark”, “orgmode”, “otter-nvim”, “oxocarbon”, “pathlib-nvim”, “plenary-nvim”, “precognition-nvim”, “project-nvim”, “promise-async”, “rainbow-delimiters-nvim”, “registers-nvim”, “render-markdown-nvim”, “rose-pine”, “rtp-nvim”, “run-nvim”, “rustaceanvim”, “smartcolumn-nvim”, “snacks-nvim”, “sqls-nvim”, “tabular”, “telescope”, “tiny-devicons-auto-colors-nvim”, “todo-comments-nvim”, “toggleterm-nvim”, “tokyonight”, “trouble”, “ts-error-translator-nvim”, “typst-preview-nvim”, “vim-dirtytalk”, “vim-fugitive”, “vim-illuminate”, “vim-markdown”, “vim-repeat”, “vim-startify”, “which-key-nvim”, “yanky-nvim”, “nvim-treesitter”, “flutter-tools-patched”, “vim-repeat”)</p>
 
 <p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
   &quot;plenary-nvim&quot;
@@ -39117,6 +39435,33 @@ anything</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.utility.direnv.enable"></a><a class="term" href="options.html#opt-vim.utility.direnv.enable"><code class="option">vim.utility.direnv.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable syncing nvim shell environment with direnv’s using <code class="literal">direnv.vim</code>.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/direnv/direnv.nix" target="_top">
+&lt;nvf/modules/plugins/utility/direnv/direnv.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.utility.icon-picker.enable"></a><a class="term" href="options.html#opt-vim.utility.icon-picker.enable"><code class="option">vim.utility.icon-picker.enable</code>
   </a>
  </span>
@@ -40016,6 +40361,34 @@ luaInline</p>
 <tr><td>
 <code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/leetcode-nvim/leetcode-nvim.nix" target="_top">
 &lt;nvf/modules/plugins/utility/leetcode-nvim/leetcode-nvim.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.mkdir.enable"></a><a class="term" href="options.html#opt-vim.utility.mkdir.enable"><code class="option">vim.utility.mkdir.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable parent directory creation when editing a nested path that does not exist using <code class="literal">mkdir.nvim</code>
+.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/mkdir/mkdir.nix" target="_top">
+&lt;nvf/modules/plugins/utility/mkdir/mkdir.nix&gt;
 </a></code>
 </td></tr>
 </table>
@@ -41146,6 +41519,33 @@ boolean</p>
 <tr><td>
 <code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/new-file-template/new-file-template.nix" target="_top">
 &lt;nvf/modules/plugins/utility/new-file-template/new-file-template.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.utility.nix-develop.enable"></a><a class="term" href="options.html#opt-vim.utility.nix-develop.enable"><code class="option">vim.utility.nix-develop.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable in-neovim <code class="literal">nix develop</code>, <code class="literal">nix shell</code>, and more using <code class="literal">nix-develop.nvim</code>.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/nix-develop/nix-develop.nix" target="_top">
+&lt;nvf/modules/plugins/utility/nix-develop/nix-develop.nix&gt;
 </a></code>
 </td></tr>
 </table>
