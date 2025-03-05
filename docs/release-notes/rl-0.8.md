@@ -194,6 +194,12 @@
   [golines](https://github.com/segmentio/golines) and
   [gofumpt](https://github.com/mvdan/gofumpt).
 
+
+
+[UltraGhostie](https://github.com/UltraGhostie)
+
+- Add [harpoon](https://github.com/ThePrimeagen/harpoon) plugin for navigation
+
 [MaxMur](https://github.com/TheMaxMur):
 
 - Add YAML support under `vim.languages.yaml`.
@@ -201,6 +207,7 @@
 [alfarel](https://github.com/alfarelcynthesis):
 
 - Add missing `yazi.nvim` dependency (`snacks.nvim`).
+
 - Add [mkdir.nvim](https://github.com/jghauser/mkdir.nvim) plugin
   for automatic creation of parent directories when editing a nested file.
 - Add [nix-develop.nvim](https://github.com/figsoda/nix-develop.nvim) plugin
