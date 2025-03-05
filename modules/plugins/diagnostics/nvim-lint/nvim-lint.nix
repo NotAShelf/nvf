@@ -4,7 +4,7 @@
 in {
   options.vim.diagnostics.nvim-lint = {
     # TODO:remove internal
-    enable = mkEnableOption "asynchronous linter plugin for Neovim [nvim-lint]" // {internal = true;};
+    enable = mkEnableOption "asynchronous linter plugin for Neovim " // {internal = true;};
     linters_by_ft = mkOption {
       internal = true; # TODO: remove
       type = attrsOf (listOf str);
