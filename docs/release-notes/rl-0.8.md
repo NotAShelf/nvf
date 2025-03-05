@@ -211,6 +211,7 @@
 - Add [blink.cmp] option to add
   [friendly-snippets](https://github.com/rafamadriz/friendly-snippets)
   so blink.cmp can source snippets from it.
+- Fix [blink.cmp] breaking when built-in sources were modified.
 
 [TheColorman](https://github.com/TheColorman):
 
