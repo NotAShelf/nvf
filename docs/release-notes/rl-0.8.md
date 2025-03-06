@@ -194,8 +194,6 @@
   [golines](https://github.com/segmentio/golines) and
   [gofumpt](https://github.com/mvdan/gofumpt).
 
-
-
 [UltraGhostie](https://github.com/UltraGhostie)
 
 - Add [harpoon](https://github.com/ThePrimeagen/harpoon) plugin for navigation
@@ -208,16 +206,16 @@
 
 - Add missing `yazi.nvim` dependency (`snacks.nvim`).
 
-- Add [mkdir.nvim](https://github.com/jghauser/mkdir.nvim) plugin
-  for automatic creation of parent directories when editing a nested file.
-- Add [nix-develop.nvim](https://github.com/figsoda/nix-develop.nvim) plugin
-  for in-neovim `nix develop`, `nix shell` and more.
-- Add [direnv.vim](https://github.com/direnv/direnv.vim) plugin
-  for automatic syncing of nvim shell environment with direnv's.
+- Add [mkdir.nvim](https://github.com/jghauser/mkdir.nvim) plugin for automatic
+  creation of parent directories when editing a nested file.
+- Add [nix-develop.nvim](https://github.com/figsoda/nix-develop.nvim) plugin for
+  in-neovim `nix develop`, `nix shell` and more.
+- Add [direnv.vim](https://github.com/direnv/direnv.vim) plugin for automatic
+  syncing of nvim shell environment with direnv's.
 - Add [blink.cmp] source options and some default-disabled sources.
 - Add [blink.cmp] option to add
-  [friendly-snippets](https://github.com/rafamadriz/friendly-snippets)
-  so blink.cmp can source snippets from it.
+  [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) so
+  blink.cmp can source snippets from it.
 
 [TheColorman](https://github.com/TheColorman):
 
