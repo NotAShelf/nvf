@@ -221,3 +221,9 @@
 
 - Fix plugin `setupOpts` for `neovim-session-manager` having an invalid value
   for `autoload_mode`.
+
+[esdevries](https://github.com/esdevries):
+
+[projekt0n/github-nvim-theme]: https://github.com/projekt0n/github-nvim-theme
+
+- Add `github-nvim-theme` theme from [projekt0n/github-nvim-theme].

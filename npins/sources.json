@@ -483,6 +483,18 @@
       "url": "https://github.com/akinsho/git-conflict.nvim/archive/a1badcd070d176172940eb55d9d59029dad1c5a6.tar.gz",
       "hash": "05rnwhm1fmg3yb7j2xc9nmw262jc687qxhwabn97qarrk2da0r0a"
     },
+    "github": {
+      "type": "Git",
+      "repository": {
+        "type": "Github",
+        "owner": "projekt0n",
+        "repo": "github-nvim-theme"
+      },
+      "branch": "main",
+      "revision": "c106c9472154d6b2c74b74565616b877ae8ed31d",
+      "url": "https://github.com/projekt0n/github-nvim-theme/archive/c106c9472154d6b2c74b74565616b877ae8ed31d.tar.gz",
+      "hash": "/A4hkKTzjzeoR1SuwwklraAyI8oMkhxrwBBV9xb59PA="
+    },
     "gitsigns-nvim": {
       "type": "Git",
       "repository": {
