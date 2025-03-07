@@ -486,7 +486,7 @@
     "github": {
       "type": "Git",
       "repository": {
-        "type": "Github",
+        "type": "GitHub",
         "owner": "projekt0n",
         "repo": "github-nvim-theme"
       },
