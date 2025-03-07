@@ -62,6 +62,15 @@ in {
         description = "Options to pass to rust analyzer";
         type = str;
         default = "";
+        example = ''
+          ['rust-analyzer'] = {
+            cargo = {allFeature = true},
+            checkOnSave = true,
+            procMacro = {
+              enable = true,
+            },
+          },
+        '';
       };
     };
 
@@ -142,6 +151,9 @@ in {
               then expToLua cfg.lsp.package
               else ''{"${cfg.lsp.package}/bin/rust-analyzer"}''
             },
+              default_settings = {
+                ${cfg.lsp.opts}
+              },
               on_attach = function(client, bufnr)
                 default_on_attach(client, bufnr)
                 local opts = { noremap=true, silent=true, buffer = bufnr }
