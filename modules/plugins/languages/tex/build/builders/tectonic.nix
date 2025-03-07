@@ -143,7 +143,7 @@ in (
         description = "Enable/disable colorful log output";
       };
 
-      extraOptions = {
+      extraOptions = mkOption {
         type = listOf str;
         default = [];
         description = ''
