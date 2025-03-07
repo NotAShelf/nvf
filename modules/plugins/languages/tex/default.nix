@@ -47,7 +47,7 @@ in {
         flavor = mkOption {
           type = enum [
             "plaintex"
-            "contex"
+            "context"
             "tex"
           ];
           default = "plaintex";
