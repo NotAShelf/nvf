@@ -279,6 +279,21 @@
       "url": "https://github.com/stevearc/conform.nvim/archive/a6f5bdb78caa305496357d17e962bbc4c0b392e2.tar.gz",
       "hash": "1jkm8pbfnp2s9y70cc67pj2fa25a4jl1y4lx6y1k5i323f4lplhz"
     },
+    "copilot": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "github",
+        "repo": "copilot.vim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "version": "v1.43.0",
+      "revision": "5015939f131627a6a332c9e3ecad9a7cb4c2e549",
+      "url": "https://api.github.com/repos/github/copilot.vim/tarball/v1.43.0",
+      "hash": "198mymn0ad1kzqzs1rimrhq7z3nrami45fp3yqnwp15am8bxmwi0"
+    },
     "copilot-cmp": {
       "type": "Git",
       "repository": {
