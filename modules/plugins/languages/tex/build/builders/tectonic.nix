@@ -60,7 +60,7 @@ in (
       '';
       synctex = mkBool true "Whether to generate SyncTeX data";
       untrustedInput = mkBool false ''
-        Whether to diable all known-insecure features if the input is untrusted
+        Whether to disable all known-insecure features if the input is untrusted
       '';
 
       # -- Options --
