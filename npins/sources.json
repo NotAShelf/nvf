@@ -1804,9 +1804,9 @@
         "repo": "otter.nvim"
       },
       "branch": "main",
-      "revision": "21f042f4d1a9ff4788634ad76a10033eed13c7f2",
-      "url": "https://github.com/jmbuhr/otter.nvim/archive/21f042f4d1a9ff4788634ad76a10033eed13c7f2.tar.gz",
-      "hash": "1gi603ckyxljbhkg8jhwh2pf5kvgb676ykw3sv9gvi0c2s4fb55r"
+      "revision": "e37053d2c6a17463e705483122eee04d41e3d4af",
+      "url": "https://github.com/jmbuhr/otter.nvim/archive/e37053d2c6a17463e705483122eee04d41e3d4af.tar.gz",
+      "hash": "0sq7x2mcxl7z0j4s3a395fy0bzz13h4rxd03lp6674y6hsjxcm55"
     },
     "oxocarbon": {
       "type": "Git",

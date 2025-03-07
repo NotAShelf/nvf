@@ -18,8 +18,8 @@ in {
     warnings = [
       # TODO: remove warning when we update to nvim 0.11
       (mkIf config.vim.utility.ccc.enable ''
-        ccc and otter have conflict that will disappear with nvim 0.11.
-        In the meantime, otter handles it by throwing a warnign, but both plugins will work.
+        ccc and otter occasionally have small conflicts that will disappear with nvim 0.11.
+        In the meantime, otter handles it by throwing a warning, but both plugins will work.
       '')
     ];
     vim = {
