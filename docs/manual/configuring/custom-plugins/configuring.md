@@ -32,16 +32,18 @@ that the `extraPlugins` option has its own DAG scope), and the its setup code
 respectively. For example:
 
 ```nix
-config.vim.extraPlugins = with pkgs.vimPlugins; {
-  aerial = {
-    package = aerial-nvim;
-    setup = "require('aerial').setup {}";
-  };
+{pkgs, ...}: {
+  config.vim.extraPlugins = {
+    aerial = {
+      package = pkgs.vimPlugins.aerial-nvim;
+      setup = "require('aerial').setup {}";
+    };
 
-  harpoon = {
-    package = harpoon;
-    setup = "require('harpoon').setup {}";
-    after = ["aerial"]; # place harpoon configuration after aerial
+    harpoon = {
+      package = pkgs.vimPlugins.harpoon;
+      setup = "require('harpoon').setup {}";
+      after = ["aerial"]; # place harpoon configuration after aerial
+    };
   };
 }
 ```
