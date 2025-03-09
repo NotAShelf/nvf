@@ -195,4 +195,20 @@ in {
       vim.cmd.colorscheme("nord")
     '';
   };
+  github = {
+    setup = {
+      style ? "dark",
+      transparent ? false,
+      ...
+    }: ''
+      require('github-theme').setup({
+        options = {
+          transparent = ${boolToString transparent},
+        },
+      })
+
+      vim.cmd[[colorscheme github_${style}]]
+    '';
+    styles = ["dark" "light" "dark_dimmed" "dark_default" "light_default" "dark_high_contrast" "light_high_contrast" "dark_colorblind" "light_colorblind" "dark_tritanopia" "light_tritanopia"];
+  };
 }

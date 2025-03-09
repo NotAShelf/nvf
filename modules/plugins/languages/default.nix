@@ -39,6 +39,7 @@ in {
     ./nu.nix
     ./odin.nix
     ./wgsl.nix
+    ./yaml.nix
     ./ruby.nix
   ];
 

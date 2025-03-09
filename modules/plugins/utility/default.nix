@@ -3,14 +3,18 @@
     ./binds
     ./ccc
     ./diffview
+    ./direnv
     ./fzf-lua
     ./gestures
+    ./harpoon
     ./icon-picker
     ./images
     ./leetcode-nvim
+    ./mkdir
     ./motion
     ./multicursors
     ./new-file-template
+    ./nix-develop
     ./outline
     ./preview
     ./surround

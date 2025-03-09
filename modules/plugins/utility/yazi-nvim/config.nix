@@ -15,6 +15,7 @@
 in {
   config = mkIf cfg.enable {
     vim = {
+      startPlugins = ["snacks-nvim"];
       lazy.plugins."yazi.nvim" = {
         package = pkgs.vimPlugins.yazi-nvim;
         setupModule = "yazi";
