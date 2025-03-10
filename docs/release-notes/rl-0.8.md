@@ -5,6 +5,8 @@
 - `git-conflict` keybinds are now prefixed with `<leader>` to avoid conflicting
   with builtins.
 
+- `alpha` is now configured with nix, default config removed.
+
 [NotAShelf](https://github.com/notashelf):
 
 [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
@@ -227,3 +229,7 @@
 [projekt0n/github-nvim-theme]: https://github.com/projekt0n/github-nvim-theme
 
 - Add `github-nvim-theme` theme from [projekt0n/github-nvim-theme].
+
+[BANanaD3V](https://github.com/BANanaD3V):
+
+- `alpha` is now configured with nix.
