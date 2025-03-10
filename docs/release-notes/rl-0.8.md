@@ -241,3 +241,4 @@
 [BANanaD3V](https://github.com/BANanaD3V):
 
 - `alpha` is now configured with nix.
+- Add `markview-nvim` markdown renderer.
