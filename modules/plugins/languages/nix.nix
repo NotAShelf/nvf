@@ -121,8 +121,6 @@
         )
       '';
     };
-
-    nixpkgs-fmt = null; # removed
   };
 
   defaultDiagnosticsProvider = ["statix" "deadnix"];
@@ -219,7 +217,6 @@ in {
             ${concatStringsSep ", " (attrNames formats)}
           '';
         }
-
         {
           assertion = cfg.lsp.server != "rnix";
           message = ''
