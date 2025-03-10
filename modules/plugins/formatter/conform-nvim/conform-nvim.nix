@@ -9,7 +9,9 @@
   inherit (lib.nvim.lua) mkLuaInline;
 in {
   options.vim.formatter.conform-nvim = {
-    enable = mkEnableOption "lightweight yet powerful formatter plugin for Neovim [conform-nvim]";
+    # TODO: remove internal
+    enable = mkEnableOption "lightweight yet powerful formatter plugin for Neovim [conform-nvim]" // {internal = true;};
+    /*
     setupOpts = mkPluginSetupOption "conform.nvim" {
       formatters_by_ft = mkOption {
         type = attrs;
@@ -52,5 +54,6 @@ in {
         '';
       };
     };
+    */
   };
 }
