@@ -1015,6 +1015,379 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.augroups"></a><a class="term" href="options.html#opt-vim.augroups"><code class="option">vim.augroups</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>A list of Neovim autogroups, which are used to organize and manage related
+autocommands together. Groups allow multiple autocommands to be cleared
+or redefined collectively, preventing duplicate definitions.</p><p>Each autogroup consists of a name, a boolean indicating whether to clear
+existing autocommands, and a list of associated autocommands.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+list of (submodule)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">[ ]</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_top">
+&lt;nvf/modules/neovim/init/autocmds.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.augroups._.enable"></a><a class="term" href="options.html#opt-vim.augroups._.enable"><code class="option">vim.augroups.*.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable this autogroup</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_top">
+&lt;nvf/modules/neovim/init/autocmds.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.augroups._.clear"></a><a class="term" href="options.html#opt-vim.augroups._.clear"><code class="option">vim.augroups.*.clear</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to clear existing autocommands in this group before defining new ones.
+This helps avoid duplicate autocommands.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_top">
+&lt;nvf/modules/neovim/init/autocmds.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.augroups._.name"></a><a class="term" href="options.html#opt-vim.augroups._.name"><code class="option">vim.augroups.*.name</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The name of the autocommand group.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string</p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&quot;MyAutoCmdGroup&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_top">
+&lt;nvf/modules/neovim/init/autocmds.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocmds"></a><a class="term" href="options.html#opt-vim.autocmds"><code class="option">vim.autocmds</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>A list of Neovim autocommands to be registered.</p><p>Each entry defines an autocommand, specifying events, patterns, optional
+callbacks, commands, groups, and execution settings.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+list of (submodule)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">[ ]</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_top">
+&lt;nvf/modules/neovim/init/autocmds.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocmds._.enable"></a><a class="term" href="options.html#opt-vim.autocmds._.enable"><code class="option">vim.autocmds.*.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable this autocommand</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_top">
+&lt;nvf/modules/neovim/init/autocmds.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocmds._.callback"></a><a class="term" href="options.html#opt-vim.autocmds._.callback"><code class="option">vim.autocmds.*.callback</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The file pattern(s) that determine when the autocommand applies.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or (luaInline)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">mkLuaInline &#x27;&#x27;
+  function()
+      print(&quot;Saving a Lua file...&quot;)
+  end
+&#x27;&#x27;&#x27;
+
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_top">
+&lt;nvf/modules/neovim/init/autocmds.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocmds._.command"></a><a class="term" href="options.html#opt-vim.autocmds._.command"><code class="option">vim.autocmds.*.command</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Vim command string instead of a Lua function.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_top">
+&lt;nvf/modules/neovim/init/autocmds.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocmds._.desc"></a><a class="term" href="options.html#opt-vim.autocmds._.desc"><code class="option">vim.autocmds.*.desc</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>A description for the autocommand.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&quot;Notify when saving a Lua file&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_top">
+&lt;nvf/modules/neovim/init/autocmds.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocmds._.event"></a><a class="term" href="options.html#opt-vim.autocmds._.event"><code class="option">vim.autocmds.*.event</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The event(s) that trigger the autocommand.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or (list of string)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">[
+  &quot;BufRead&quot;
+  &quot;BufWritePre&quot;
+]
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_top">
+&lt;nvf/modules/neovim/init/autocmds.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocmds._.group"></a><a class="term" href="options.html#opt-vim.autocmds._.group"><code class="option">vim.autocmds.*.group</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>An optional autocommand group to manage related autocommands.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&quot;MyAutoCmdGroup&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_top">
+&lt;nvf/modules/neovim/init/autocmds.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocmds._.nested"></a><a class="term" href="options.html#opt-vim.autocmds._.nested"><code class="option">vim.autocmds.*.nested</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to allow nested autocommands to trigger.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_top">
+&lt;nvf/modules/neovim/init/autocmds.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocmds._.once"></a><a class="term" href="options.html#opt-vim.autocmds._.once"><code class="option">vim.autocmds.*.once</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether autocommand run only once.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_top">
+&lt;nvf/modules/neovim/init/autocmds.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.autocmds._.pattern"></a><a class="term" href="options.html#opt-vim.autocmds._.pattern"><code class="option">vim.autocmds.*.pattern</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The file pattern(s) that determine when the autocommand applies).</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or (list of string)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">[
+  &quot;*.lua&quot;
+  &quot;*.vim&quot;
+]
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_top">
+&lt;nvf/modules/neovim/init/autocmds.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.autocomplete.enableSharedCmpSources"></a><a class="term" href="options.html#opt-vim.autocomplete.enableSharedCmpSources"><code class="option">vim.autocomplete.enableSharedCmpSources</code>
   </a>
  </span>
