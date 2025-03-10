@@ -5,7 +5,15 @@
 }: let
   defaultPdfViewerName = "okular";
 
-  inherit (builtins) filter isAttrs hasAttr attrNames length elemAt;
+  inherit
+    (builtins)
+    filter
+    isAttrs
+    hasAttr
+    attrNames
+    length
+    elemAt
+    ;
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption;
   inherit (lib.types) str package listOf;
@@ -24,13 +32,9 @@
       pdfViewerNamesList ? (
         filter (
           x: let
-            y = viewerCfg.${x};
+            y = viewerCfg."${x}";
           in (
-            isAttrs y
-            && hasAttr "enable" y
-            && hasAttr "package" y
-            && hasAttr "executable" y
-            && hasAttr "args" y
+            isAttrs y && hasAttr "enable" y && hasAttr "package" y && hasAttr "executable" y && hasAttr "args" y
           )
         ) (attrNames viewerCfg)
       ),
@@ -40,7 +44,7 @@
       currentPdfViewerName = elemAt pdfViewerNamesList index;
 
       # Get the current pdf viewer object
-      currentPdfViewer = viewerCfg.${currentPdfViewerName};
+      currentPdfViewer = viewerCfg."${currentPdfViewerName}";
 
       # Get the index that will be used for the next iteration
       nextIndex = index + 1;
@@ -77,7 +81,7 @@
       };
   in (getEnabledPdfViewersInfo {});
 
-  enabledPdfViewerCfg = viewerCfg.${enabledPdfViewersInfo.enabledViewerName};
+  enabledPdfViewerCfg = viewerCfg."${enabledPdfViewersInfo.enabledViewerName}";
 in {
   imports = [
     ./custom.nix
