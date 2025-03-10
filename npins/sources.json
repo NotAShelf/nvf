@@ -773,6 +773,18 @@
       "url": "https://github.com/horriblename/lzn-auto-require/archive/ef746afb55467984ef3200d9709c8059ee0257d0.tar.gz",
       "hash": "1mgka1mmvpd2gfya898qdbbwrp5rpqds8manjs1s7g5x63xp6b98"
     },
+    "markview-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "OXY2DEV",
+        "repo": "markview.nvim"
+      },
+      "branch": "main",
+      "revision": "6c92a6455e97c954a4a419265a032fedd69846f6",
+      "url": "https://github.com/OXY2DEV/markview.nvim/archive/6c92a6455e97c954a4a419265a032fedd69846f6.tar.gz",
+      "hash": "01sw4iscnciyifpba4cwjb6fs95wrkk60xvqq67b8d5j8yb5449a"
+    },
     "mind-nvim": {
       "type": "Git",
       "repository": {
