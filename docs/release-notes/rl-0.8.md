@@ -159,8 +159,10 @@
 [thamenato](https://github.com/thamenato):
 
 [ruff]: (https://github.com/astral-sh/ruff)
+[cue]: (https://cuelang.org/)
 
 - Add [ruff] as a formatter option in `vim.languages.python.format.type`.
+- Add [cue] support under `vim.languages.cue`.
 
 [ARCIII](https://github.com/ArmandoCIII):
 
