@@ -5,6 +5,7 @@ in {
     ./asm.nix
     ./astro.nix
     ./bash.nix
+    ./cue.nix
     ./dart.nix
     ./clang.nix
     ./css.nix
