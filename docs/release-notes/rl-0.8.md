@@ -243,3 +243,7 @@
 [BANanaD3V](https://github.com/BANanaD3V):
 
 - `alpha` is now configured with nix.
+
+[Butzist](https://github.com/butzist)
+
+- Add Helm chart support under `vim.languages.helm`.
