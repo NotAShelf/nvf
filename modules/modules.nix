@@ -53,6 +53,7 @@
     wrapper = map (p: ./wrapper + "/${p}") [
       "build"
       "environment"
+      "healthcheck"
       "rc"
       "warnings"
       "lazy"
