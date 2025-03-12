@@ -1,5 +1,10 @@
 
-default.extend-ignore-words-re = ["(?i)(noice)", "befores", "annote", "viw"]
-files.extend-exclude = [
-"npins/sources.json"
+files.extend-exclude = ["npins/sources.json"]
+default.extend-ignore-words-re = [
+  "(?i)(noice)",
+  "befores",
+  "annote",
+  "viw",
+  "BA", # somehow "BANanaD3V" is valid, but BA is not...
 ]
+

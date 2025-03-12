@@ -5,6 +5,7 @@ in {
     ./asm.nix
     ./astro.nix
     ./bash.nix
+    ./cue.nix
     ./dart.nix
     ./clang.nix
     ./css.nix
@@ -39,6 +40,7 @@ in {
     ./nu.nix
     ./odin.nix
     ./wgsl.nix
+    ./yaml.nix
     ./ruby.nix
   ];
 

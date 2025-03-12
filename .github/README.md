@@ -237,7 +237,7 @@ customizability of plugin inputs, which is one of our primary features.
 an imperative path (e.g., `~/.config/nvim`) for my Neovim configuration instead
 of a configuration generated from Nix?
 
-**A**: Yes! Add `"~/.config.nvim"` to `vim.additionalRuntimePaths = [ ... ]` and
+**A**: Yes! Add `"~/.config/nvim"` to `vim.additionalRuntimePaths = [ ... ]` and
 any plugins you want to load to `vim.startPlugins`. This will load your
 configuration from `~/.config/nvim`. You may still use `vim.*` to modify
 Neovim's behaviour with Nix.
