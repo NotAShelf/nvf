@@ -241,3 +241,7 @@
 [BANanaD3V](https://github.com/BANanaD3V):
 
 - `alpha` is now configured with nix.
+
+[viicslen](https://github.com/viicslen):
+
+- Add `intelephense` language server suppor under `vim.languages.php.lsp.server`
