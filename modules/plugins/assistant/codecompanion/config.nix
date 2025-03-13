@@ -11,7 +11,6 @@ in {
     vim = {
       startPlugins = [
         "plenary-nvim"
-        "nvim-treesitter"
       ];
 
       lazy.plugins = {
@@ -21,6 +20,8 @@ in {
           inherit (cfg) setupOpts;
         };
       };
+
+      treesitter.enable = true;
     };
   };
 }

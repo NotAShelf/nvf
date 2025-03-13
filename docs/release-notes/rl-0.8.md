@@ -174,7 +174,7 @@
 - Add [leetcode.nvim] plugin under `vim.utility.leetcode-nvim`.
 - Add [codecompanion.nvim] plugin under `vim.assistant.codecompanion-nvim`.
 
-[nezia1](https://github.com/nezia1)
+[nezia1](https://github.com/nezia1):
 
 - Add support for [nixd](https://github.com/nix-community/nixd) language server.
 

@@ -12,12 +12,7 @@ in {
           send_code = mkEnableOption "code from being sent to the LLM.";
 
           log_level = mkOption {
-            type = enum [
-              "DEBUG"
-              "INFO"
-              "ERROR"
-              "TRACE"
-            ];
+            type = enum ["DEBUG" "INFO" "ERROR" "TRACE"];
             default = "ERROR";
             description = "Change the level of logging.";
           };
@@ -31,28 +26,30 @@ in {
 
         display = {
           diff = {
-            enabled = mkEnableOption "a diff to be created so you can see the changes made by the LLM." // {default = true;};
+            enabled =
+              mkEnableOption ""
+              // {
+                default = true;
+                description = "a diff view to see the changes made by the LLM.";
+              };
 
             close_chat_at = mkOption {
               type = int;
               default = 240;
-              description = "Close an open chat buffer if the total columns of your display are less than...";
+              description = ''
+                Close an open chat buffer if the
+                total columns of your display are less than...
+              '';
             };
 
             layout = mkOption {
-              type = enum [
-                "vertical"
-                "horizontal"
-              ];
+              type = enum ["vertical" "horizontal"];
               default = "vertical";
               description = "Type of split for default provider.";
             };
 
             provider = mkOption {
-              type = enum [
-                "default"
-                "mini_diff"
-              ];
+              type = enum ["default" "mini_diff"];
               default = "default";
               description = "The preferred kind of provider.";
             };
@@ -60,23 +57,43 @@ in {
 
           inline = {
             layout = mkOption {
-              type = enum [
-                "vertical"
-                "horizontal"
-                "buffer"
-              ];
+              type = enum ["vertical" "horizontal" "buffer"];
               default = "vertical";
               description = "Customize how output is created in new buffer.";
             };
           };
 
           chat = {
-            show_header_separator = mkEnableOption "show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin.";
-            show_references = mkEnableOption "show references (from slash commands and variables) in the chat buffer." // {default = true;};
-            show_settings = mkEnableOption "show LLM settings at the top of the chat buffer.";
-            show_token_count = mkEnableOption "show the token count for each response." // {default = true;};
-            start_in_insert_mode = mkEnableOption "open the chat buffer in insert mode.";
             auto_scroll = mkEnableOption "automatic page scrolling.";
+
+            show_settings = mkEnableOption ''
+              LLM settings to appear at the top of the chat buffer.
+            '';
+
+            start_in_insert_mode = mkEnableOption ''
+              opening the chat buffer in insert mode.
+            '';
+
+            show_header_separator = mkEnableOption ''
+              header separators in the chat buffer.
+
+              Set this to false if you're using an
+              external markdown formatting plugin.
+            '';
+
+            show_references =
+              mkEnableOption ""
+              // {
+                default = true;
+                description = "references in the chat buffer.";
+              };
+
+            show_token_count =
+              mkEnableOption ""
+              // {
+                default = true;
+                description = "the token count for each response.";
+              };
 
             intro_message = mkOption {
               type = str;
@@ -87,7 +104,10 @@ in {
             separator = mkOption {
               type = str;
               default = "─";
-              description = "The separator between the different messages in the chat buffer.";
+              description = ''
+                The separator between the
+                different messages in the chat buffer.
+              '';
             };
 
             icons = {
@@ -125,18 +145,27 @@ in {
             };
 
             provider = mkOption {
-              type = enum [
-                "default"
-                "telescope"
-                "mini_pick"
-              ];
+              type = enum ["default" "telescope" "mini_pick"];
               default = "default";
               description = "Provider used for the action palette.";
             };
 
             opts = {
-              show_default_actions = mkEnableOption "show the default actions in the action palette?" // {default = true;};
-              show_default_prompt_library = mkEnableOption "show the default prompt library in the action palette?" // {default = true;};
+              show_default_actions =
+                mkEnableOption ""
+                // {
+                  default = true;
+                  description = "showing default actions in the action palette.";
+                };
+
+              show_default_prompt_library =
+                mkEnableOption ""
+                // {
+                  default = true;
+                  description = ''
+                    showing default prompt library in the action palette.
+                  '';
+                };
             };
           };
         };
@@ -164,25 +193,38 @@ in {
             variables = mkOption {
               type = nullOr luaInline;
               default = null;
-              description = "Define your own variables to share specific content.";
+              description = ''
+                Define your own variables
+                to share specific content.
+              '';
             };
 
             slash_commands = mkOption {
               type = nullOr luaInline;
               default = null;
-              description = "Slash Commands (invoked with /) let you dynamically insert context into the chat buffer, such as file contents or date/time.";
+              description = ''
+                Slash Commands (invoked with /) let you dynamically
+                insert context into the chat buffer,
+                such as file contents or date/time.
+              '';
             };
 
             tools = mkOption {
               type = nullOr attrs;
               default = null;
-              description = "Tools perform specific tasks (e.g., running shell commands, editing buffers, etc.) when invoked by an LLM.";
+              description = ''
+                Configure tools to perform specific
+                tasks when invoked by an LLM.
+              '';
             };
 
             roles = mkOption {
               type = nullOr luaInline;
               default = null;
-              description = "The chat buffer places user and LLM responses under a H2 header. These can be customized in the configuration";
+              description = ''
+                The chat buffer places user and LLM responses under a H2 header.
+                These can be customized in the configuration.
+              '';
             };
           };
 
@@ -196,7 +238,10 @@ in {
             variables = mkOption {
               type = nullOr luaInline;
               default = null;
-              description = "Define your own variables to share specific content.";
+              description = ''
+                Define your own variables
+                to share specific content.
+              '';
             };
 
             keymaps = {
@@ -222,7 +267,10 @@ in {
         prompt_library = mkOption {
           type = nullOr attrs;
           default = null;
-          description = "A prompt library is a collection of prompts that can be used in the action palette.";
+          description = ''
+            A prompt library is a collection of prompts
+            that can be used in the action palette.
+          '';
         };
       };
     };
