@@ -7,11 +7,12 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.types) enum either listOf package str;
   inherit (lib.lists) isList;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.languages) diagnosticsToLua;
+  inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.lua) expToLua toLuaObject;
+  inherit (lib.nvim.languages) diagnosticsToLua lspOptions;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
 
   cfg = config.vim.languages.astro;
@@ -20,17 +21,16 @@
   servers = {
     astro = {
       package = pkgs.astro-language-server;
-      lspConfig = ''
-        lspconfig.astro.setup {
-          capabilities = capabilities;
-          on_attach = attach_keymaps,
-          cmd = ${
+      options = {
+        capabilities = mkLuaInline "capabilities";
+        on_attach = mkLuaInline "attach_keymaps";
+        filetypes = ["astro"];
+        init_options = {typescript = {};};
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/astro-ls", "--stdio"}''
-        }
-        }
-      '';
+          else ["${getExe cfg.lsp.package}" "--stdio"];
+      };
     };
   };
 
@@ -83,8 +83,7 @@ in {
 
     treesitter = {
       enable = mkEnableOption "Astro treesitter" // {default = config.vim.languages.enableTreesitter;};
-
-      astroPackage = mkGrammarOption pkgs "astro";
+      package = mkGrammarOption pkgs "astro";
     };
 
     lsp = {
@@ -94,6 +93,17 @@ in {
         description = "Astro LSP server to use";
         type = enum (attrNames servers);
         default = defaultServer;
+      };
+
+      options = mkOption {
+        type = lspOptions;
+        default = servers.${cfg.lsp.server}.options;
+        description = ''
+          LSP options for Astro language support.
+
+          This option is freeform, you may add options that are not set by default
+          and they will be merged into the final table passed to lspconfig.
+        '';
       };
 
       package = mkOption {
@@ -134,12 +144,14 @@ in {
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.astroPackage];
+      vim.treesitter.grammars = [cfg.treesitter.package];
     })
 
     (mkIf cfg.lsp.enable {
       vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.astro-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.lspconfig.sources.astro-lsp = ''
+        lspconfig.("astro").setup (${toLuaObject cfg.lsp.options})
+      '';
     })
 
     (mkIf cfg.format.enable {
