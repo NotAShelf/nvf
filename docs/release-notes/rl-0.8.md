@@ -159,8 +159,10 @@
 [thamenato](https://github.com/thamenato):
 
 [ruff]: (https://github.com/astral-sh/ruff)
+[cue]: (https://cuelang.org/)
 
 - Add [ruff] as a formatter option in `vim.languages.python.format.type`.
+- Add [cue] support under `vim.languages.cue`.
 
 [ARCIII](https://github.com/ArmandoCIII):
 
@@ -244,4 +246,9 @@
 
 [viicslen](https://github.com/viicslen):
 
-- Add `intelephense` language server suppor under `vim.languages.php.lsp.server`
+- Add `intelephense` language server support under
+  `vim.languages.php.lsp.server`
+
+[Butzist](https://github.com/butzist):
+
+- Add Helm chart support under `vim.languages.helm`.

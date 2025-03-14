@@ -5,6 +5,7 @@ in {
     ./asm.nix
     ./astro.nix
     ./bash.nix
+    ./cue.nix
     ./dart.nix
     ./clang.nix
     ./css.nix
@@ -12,6 +13,7 @@ in {
     ./gleam.nix
     ./go.nix
     ./hcl.nix
+    ./helm.nix
     ./kotlin.nix
     ./html.nix
     ./haskell.nix

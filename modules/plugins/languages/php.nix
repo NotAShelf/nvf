@@ -64,7 +64,7 @@
         }
       '';
     };
-    
+
     intelephense = {
       package = pkgs.intelephense;
       lspConfig = ''
@@ -72,15 +72,15 @@
           capabilities = capabilities,
           on_attach = default_on_attach,
           cmd = ${
-            if isList cfg.lsp.package
-            then expToLua cfg.lsp.package
-            else ''
-              {
-                "${getExe cfg.lsp.package}",
-                "--stdio"
-              },
-            ''
-          }
+          if isList cfg.lsp.package
+          then expToLua cfg.lsp.package
+          else ''
+            {
+              "${getExe cfg.lsp.package}",
+              "--stdio"
+            },
+          ''
+        }
         }
       '';
     };
