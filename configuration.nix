@@ -234,6 +234,7 @@ isMaximal: {
         enable = false;
         cmp.enable = isMaximal;
       };
+      codecompanion-nvim.enable = false;
     };
 
     session = {

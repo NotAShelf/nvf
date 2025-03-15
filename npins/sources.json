@@ -243,6 +243,18 @@
       "url": "https://github.com/ray-x/cmp-treesitter/archive/958fcfa0d8ce46d215e19cc3992c542f576c4123.tar.gz",
       "hash": "05as01c2f7i20zkzpqbq9n8ji9bcwd678ixmxnrz9vmz5zsj8q7i"
     },
+    "codecompanion-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "olimorris",
+        "repo": "codecompanion.nvim"
+      },
+      "branch": "main",
+      "revision": "dd81bd9176daba9ea507cd0457f662c0a15c001f",
+      "url": "https://github.com/olimorris/codecompanion.nvim/archive/dd81bd9176daba9ea507cd0457f662c0a15c001f.tar.gz",
+      "hash": "09a20q1hshp07nf9n8w4cxpa8s32vwyd4ya0gdnx5jp7g00dksrg"
+    },
     "codewindow-nvim": {
       "type": "Git",
       "repository": {
