@@ -246,6 +246,11 @@
 
 - `alpha` is now configured with nix.
 
-[Butzist](https://github.com/butzist)
+[viicslen](https://github.com/viicslen):
+
+- Add `intelephense` language server support under
+  `vim.languages.php.lsp.server`
+
+[Butzist](https://github.com/butzist):
 
 - Add Helm chart support under `vim.languages.helm`.
