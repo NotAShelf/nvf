@@ -5,6 +5,8 @@
 - `git-conflict` keybinds are now prefixed with `<leader>` to avoid conflicting
   with builtins.
 
+- `alpha` is now configured with nix, default config removed.
+
 [NotAShelf](https://github.com/notashelf):
 
 [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
@@ -46,6 +48,14 @@
     Pick only one.
 
 - Add [yanky.nvim] to available plugins, under `vim.utility.yanky-nvim`.
+
+- Fix plugin `setupOpts` for yanky.nvim and assert if shada is configured as a
+  backend while shada is disabled in Neovim options.
+
+- Add [yazi.nvim] as a companion plugin for Yazi, the terminal file manager.
+
+- Add [](#opt-vim.autocmds) and [](#opt-vim.augroups) to allow declaring
+  autocommands via Nix.
 
 - Fix plugin `setupOpts` for yanky.nvim and assert if shada is configured as a
   backend while shada is disabled in Neovim options.
@@ -149,16 +159,20 @@
 [thamenato](https://github.com/thamenato):
 
 [ruff]: (https://github.com/astral-sh/ruff)
+[cue]: (https://cuelang.org/)
 
 - Add [ruff] as a formatter option in `vim.languages.python.format.type`.
+- Add [cue] support under `vim.languages.cue`.
 
 [ARCIII](https://github.com/ArmandoCIII):
 
 [leetcode.nvim]: https://github.com/kawre/leetcode.nvim
+[codecompanion-nvim]: https://github.com/olimorris/codecompanion.nvim
 
 - Add `vim.languages.zig.dap` support through pkgs.lldb dap adapter. Code
   Inspiration from `vim.languages.clang.dap` implementation.
 - Add [leetcode.nvim] plugin under `vim.utility.leetcode-nvim`.
+- Add [codecompanion.nvim] plugin under `vim.assistant.codecompanion-nvim`.
 
 [nezia1](https://github.com/nezia1):
 
@@ -194,6 +208,10 @@
   [golines](https://github.com/segmentio/golines) and
   [gofumpt](https://github.com/mvdan/gofumpt).
 
+[UltraGhostie](https://github.com/UltraGhostie)
+
+- Add [harpoon](https://github.com/ThePrimeagen/harpoon) plugin for navigation
+
 [MaxMur](https://github.com/TheMaxMur):
 
 - Add YAML support under `vim.languages.yaml`.
@@ -201,18 +219,38 @@
 [alfarel](https://github.com/alfarelcynthesis):
 
 - Add missing `yazi.nvim` dependency (`snacks.nvim`).
-- Add [mkdir.nvim](https://github.com/jghauser/mkdir.nvim) plugin
-  for automatic creation of parent directories when editing a nested file.
-- Add [nix-develop.nvim](https://github.com/figsoda/nix-develop.nvim) plugin
-  for in-neovim `nix develop`, `nix shell` and more.
-- Add [direnv.vim](https://github.com/direnv/direnv.vim) plugin
-  for automatic syncing of nvim shell environment with direnv's.
+
+- Add [mkdir.nvim](https://github.com/jghauser/mkdir.nvim) plugin for automatic
+  creation of parent directories when editing a nested file.
+- Add [nix-develop.nvim](https://github.com/figsoda/nix-develop.nvim) plugin for
+  in-neovim `nix develop`, `nix shell` and more.
+- Add [direnv.vim](https://github.com/direnv/direnv.vim) plugin for automatic
+  syncing of nvim shell environment with direnv's.
 - Add [blink.cmp] source options and some default-disabled sources.
 - Add [blink.cmp] option to add
-  [friendly-snippets](https://github.com/rafamadriz/friendly-snippets)
-  so blink.cmp can source snippets from it.
+  [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) so
+  blink.cmp can source snippets from it.
 
 [TheColorman](https://github.com/TheColorman):
 
 - Fix plugin `setupOpts` for `neovim-session-manager` having an invalid value
   for `autoload_mode`.
+
+[esdevries](https://github.com/esdevries):
+
+[projekt0n/github-nvim-theme]: https://github.com/projekt0n/github-nvim-theme
+
+- Add `github-nvim-theme` theme from [projekt0n/github-nvim-theme].
+
+[BANanaD3V](https://github.com/BANanaD3V):
+
+- `alpha` is now configured with nix.
+
+[viicslen](https://github.com/viicslen):
+
+- Add `intelephense` language server support under
+  `vim.languages.php.lsp.server`
+
+[Butzist](https://github.com/butzist):
+
+- Add Helm chart support under `vim.languages.helm`.

@@ -243,6 +243,18 @@
       "url": "https://github.com/ray-x/cmp-treesitter/archive/958fcfa0d8ce46d215e19cc3992c542f576c4123.tar.gz",
       "hash": "05as01c2f7i20zkzpqbq9n8ji9bcwd678ixmxnrz9vmz5zsj8q7i"
     },
+    "codecompanion-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "olimorris",
+        "repo": "codecompanion.nvim"
+      },
+      "branch": "main",
+      "revision": "dd81bd9176daba9ea507cd0457f662c0a15c001f",
+      "url": "https://github.com/olimorris/codecompanion.nvim/archive/dd81bd9176daba9ea507cd0457f662c0a15c001f.tar.gz",
+      "hash": "09a20q1hshp07nf9n8w4cxpa8s32vwyd4ya0gdnx5jp7g00dksrg"
+    },
     "codewindow-nvim": {
       "type": "Git",
       "repository": {
@@ -483,6 +495,18 @@
       "url": "https://github.com/akinsho/git-conflict.nvim/archive/a1badcd070d176172940eb55d9d59029dad1c5a6.tar.gz",
       "hash": "05rnwhm1fmg3yb7j2xc9nmw262jc687qxhwabn97qarrk2da0r0a"
     },
+    "github": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "projekt0n",
+        "repo": "github-nvim-theme"
+      },
+      "branch": "main",
+      "revision": "c106c9472154d6b2c74b74565616b877ae8ed31d",
+      "url": "https://github.com/projekt0n/github-nvim-theme/archive/c106c9472154d6b2c74b74565616b877ae8ed31d.tar.gz",
+      "hash": "/A4hkKTzjzeoR1SuwwklraAyI8oMkhxrwBBV9xb59PA="
+    },
     "gitsigns-nvim": {
       "type": "Git",
       "repository": {
@@ -518,6 +542,18 @@
       "revision": "089b60e92aa0a1c6fa76ff527837cd35b6f5ac81",
       "url": "https://github.com/ellisonleao/gruvbox.nvim/archive/089b60e92aa0a1c6fa76ff527837cd35b6f5ac81.tar.gz",
       "hash": "0mr8q2xi4s2anibll8lhxax7q1akyg687bp5r58gckkhi04064q4"
+    },
+    "harpoon": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ThePrimeagen",
+        "repo": "harpoon"
+      },
+      "branch": "harpoon2",
+      "revision": "ed1f853847ffd04b2b61c314865665e1dadf22c7",
+      "url": "https://github.com/ThePrimeagen/harpoon/archive/ed1f853847ffd04b2b61c314865665e1dadf22c7.tar.gz",
+      "hash": "1dcpdlna2lff9dlsh6i4v16qmn5r9279wdvn0ry3xg4abqwnzc9g"
     },
     "haskell-tools-nvim": {
       "type": "Git",
@@ -1780,9 +1816,9 @@
         "repo": "otter.nvim"
       },
       "branch": "main",
-      "revision": "21f042f4d1a9ff4788634ad76a10033eed13c7f2",
-      "url": "https://github.com/jmbuhr/otter.nvim/archive/21f042f4d1a9ff4788634ad76a10033eed13c7f2.tar.gz",
-      "hash": "1gi603ckyxljbhkg8jhwh2pf5kvgb676ykw3sv9gvi0c2s4fb55r"
+      "revision": "e37053d2c6a17463e705483122eee04d41e3d4af",
+      "url": "https://github.com/jmbuhr/otter.nvim/archive/e37053d2c6a17463e705483122eee04d41e3d4af.tar.gz",
+      "hash": "0sq7x2mcxl7z0j4s3a395fy0bzz13h4rxd03lp6674y6hsjxcm55"
     },
     "oxocarbon": {
       "type": "Git",
