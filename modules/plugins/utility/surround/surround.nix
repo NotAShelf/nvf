@@ -42,7 +42,7 @@ in {
 
         ::: {.note}
         The default mappings deviate from upstream to avoid conflicts with nvim-leap.
-        You may change thsoe in your configuration if you do not use nvim-leap
+        You may change those in your configuration if you do not use nvim-leap
         :::
       '';
     };
