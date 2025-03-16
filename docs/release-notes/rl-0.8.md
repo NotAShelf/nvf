@@ -13,6 +13,7 @@
 [render-markdown.nvim]: https://github.com/MeanderingProgrammer/render-markdown.nvim
 [yanky.nvim]: https://github.com/gbprod/yanky.nvim
 [yazi.nvim]: https://github.com/mikavilpas/yazi.nvim
+[snacks.nvim]: https://github.com/folke/snacks.nvim
 
 - Add [typst-preview.nvim] under
   `languages.typst.extensions.typst-preview-nvim`.
@@ -61,6 +62,9 @@
   backend while shada is disabled in Neovim options.
 
 - Add [yazi.nvim] as a companion plugin for Yazi, the terminal file manager.
+
+- Add [snacks.nvim] under `vim.utility.snacks-nvim` as a general-purpose utility
+  plugin.
 
 [amadaluzia](https://github.com/amadaluzia):
 

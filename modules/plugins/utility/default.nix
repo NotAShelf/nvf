@@ -17,6 +17,7 @@
     ./nix-develop
     ./outline
     ./preview
+    ./snacks-nvim
     ./surround
     ./telescope
     ./wakatime
