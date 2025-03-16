@@ -21,8 +21,9 @@
     freeformType = anything;
     options = {
       module = mkOption {
-        type = str;
-        description = "module of the provider";
+        type = nullOr str;
+        default = null;
+        description = "Provider module.";
       };
     };
   };
@@ -40,7 +41,7 @@ in {
         providers = mkOption {
           type = attrsOf providerType;
           default = {};
-          description = "Settings for completion providers";
+          description = "Settings for completion providers.";
         };
 
         transform_items = mkOption {
