@@ -66,6 +66,9 @@
 - Add [snacks.nvim] under `vim.utility.snacks-nvim` as a general-purpose utility
   plugin.
 
+- Move LSPSaga to `setupOpts` format, allowing freeform configuration in
+  `vim.lsp.lspsaga.setupOpts`.
+
 [amadaluzia](https://github.com/amadaluzia):
 
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim

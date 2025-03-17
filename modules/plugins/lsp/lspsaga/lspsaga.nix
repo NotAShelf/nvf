@@ -1,9 +1,22 @@
-{lib, ...}: let
-  inherit (lib.options) mkEnableOption;
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.nvim.binds) mkMappingOption;
+  inherit (lib.nvim.types) borderType mkPluginSetupOption;
 in {
   options.vim.lsp.lspsaga = {
     enable = mkEnableOption "LSP Saga";
+
+    setupOpts = mkPluginSetupOption "lspsaga" {
+      border_style = mkOption {
+        type = borderType;
+        default = config.vim.ui.borders.globalStyle;
+        description = "Border type, see {command}`:help nvim_open_win`";
+      };
+    };
 
     mappings = {
       lspFinder = mkMappingOption "LSP Finder [LSPSaga]" "<leader>lf";

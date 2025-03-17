@@ -4,12 +4,12 @@
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.strings) optionalString;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.binds) addDescriptionsToMappings mkSetLuaBinding;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.lsp;
-  self = import ./lspsaga.nix {inherit lib;};
+  self = import ./lspsaga.nix {inherit config lib;};
 
   mappingDefinitions = self.options.vim.lsp.lspsaga.mappings;
   mappings = addDescriptionsToMappings cfg.lspsaga.mappings mappingDefinitions;
@@ -17,6 +17,10 @@ in {
   config = mkIf (cfg.enable && cfg.lspsaga.enable) {
     vim = {
       startPlugins = ["lspsaga-nvim"];
+
+      pluginRC.lspsaga = entryAnywhere ''
+        require('lspsaga').init_lsp_saga(${toLuaObject cfg.lspsaga.setupOpts})
+      '';
 
       maps = {
         visual = mkSetLuaBinding mappings.codeAction "require('lspsaga.codeaction').range_code_action";
@@ -40,14 +44,6 @@ in {
           (mkIf (!cfg.lspSignature.enable) (mkSetLuaBinding mappings.signatureHelp "require('lspsaga.signaturehelp').signature_help"))
         ];
       };
-
-      pluginRC.lspsaga = entryAnywhere ''
-        require('lspsaga').init_lsp_saga({
-          ${optionalString config.vim.ui.borders.plugins.lspsaga.enable ''
-          border_style = '${config.vim.ui.borders.plugins.lspsaga.style}',
-        ''}
-        })
-      '';
     };
   };
 }
