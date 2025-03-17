@@ -20,6 +20,7 @@
     ./snacks-nvim
     ./surround
     ./telescope
+    ./trim-nvim
     ./wakatime
     ./yanky-nvim
     ./yazi-nvim

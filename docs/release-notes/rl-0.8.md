@@ -211,6 +211,7 @@
 - Add formatters for go: [gofmt](https://go.dev/blog/gofmt),
   [golines](https://github.com/segmentio/golines) and
   [gofumpt](https://github.com/mvdan/gofumpt).
+- Add [trim-nvim](https://github.com/cappyzawa/trim.nvim) for removing trailing spaces and lines
 
 [UltraGhostie](https://github.com/UltraGhostie)
 
