@@ -5528,41 +5528,16 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.diagnostics.nvim-lint.setupOpts"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.setupOpts"><code class="option">vim.diagnostics.nvim-lint.setupOpts</code>
+ <a id="opt-vim.diagnostics.nvim-lint.linters_by_ft"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters_by_ft"><code class="option">vim.diagnostics.nvim-lint.linters_by_ft</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>Option table to pass into the setup function of nvim-lint</p><p>You can pass in any additional options even if they’re
-not listed in the docs</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-anything</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">{ }</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
-&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="opt-vim.diagnostics.nvim-lint.setupOpts.linters_by_ft"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.setupOpts.linters_by_ft"><code class="option">vim.diagnostics.nvim-lint.setupOpts.linters_by_ft</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Map of filetype to formatters. This option takes a set of
-<code class="literal">key = value</code> format where the <code class="literal">value</code> will be converted
-to its Lua equivalent. You are responsible for passing the
-correct Nix data types to generate a correct Lua value that
-conform is able to accept.</p>
+<p>Map of filetype to formatters. This option takes a set of <code class="literal">key = value</code>
+format where the <code class="literal">value</code> will be converted to its Lua equivalent
+through `toLuaObject. You are responsible for passing the correct Nix
+data types to generate a correct Lua value that conform is able to
+accept.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 attribute set of list of string</p>
