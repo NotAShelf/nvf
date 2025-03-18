@@ -2,10 +2,17 @@
 
 ## Breaking changes
 
+[Lspsaga documentation]: https://nvimdev.github.io/lspsaga/
+
 - `git-conflict` keybinds are now prefixed with `<leader>` to avoid conflicting
   with builtins.
 
 - `alpha` is now configured with nix, default config removed.
+
+- Lspsaga module no longer ships default keybindings. The keybind format has
+  been changed by upstream, and old keybindings do not have equivalents under
+  the new API they provide. Please manually set your keybinds according to
+  [Lspsaga documentation] following the new API.
 
 [NotAShelf](https://github.com/notashelf):
 
@@ -68,6 +75,8 @@
 
 - Move LSPSaga to `setupOpts` format, allowing freeform configuration in
   `vim.lsp.lspsaga.setupOpts`.
+
+- Lazyload Lspsaga and remove default keybindings for it.
 
 [amadaluzia](https://github.com/amadaluzia):
 
