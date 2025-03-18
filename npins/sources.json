@@ -717,13 +717,13 @@
       "type": "Git",
       "repository": {
         "type": "GitHub",
-        "owner": "tami5",
+        "owner": "nvimdev",
         "repo": "lspsaga.nvim"
       },
       "branch": "main",
-      "revision": "5faeec9f2508d2d49a66c0ac0d191096b4e3fa81",
-      "url": "https://github.com/tami5/lspsaga.nvim/archive/5faeec9f2508d2d49a66c0ac0d191096b4e3fa81.tar.gz",
-      "hash": "1bw71db69na2sriv9q167z9bgkir4nwny1bdfv9z606bmng4hhzc"
+      "revision": "6063935cf68de9aa6dd79f8e1caf5df0a9385de3",
+      "url": "https://github.com/nvimdev/lspsaga.nvim/archive/6063935cf68de9aa6dd79f8e1caf5df0a9385de3.tar.gz",
+      "hash": "1pqasjg2f2yd3ci8hyxfqqs7xnkmwdc411dlm6qg1agiv1h8v205"
     },
     "lua-utils-nvim": {
       "type": "Git",
