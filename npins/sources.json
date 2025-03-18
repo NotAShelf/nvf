@@ -717,13 +717,13 @@
       "type": "Git",
       "repository": {
         "type": "GitHub",
-        "owner": "tami5",
+        "owner": "nvimdev",
         "repo": "lspsaga.nvim"
       },
       "branch": "main",
-      "revision": "5faeec9f2508d2d49a66c0ac0d191096b4e3fa81",
-      "url": "https://github.com/tami5/lspsaga.nvim/archive/5faeec9f2508d2d49a66c0ac0d191096b4e3fa81.tar.gz",
-      "hash": "1bw71db69na2sriv9q167z9bgkir4nwny1bdfv9z606bmng4hhzc"
+      "revision": "6063935cf68de9aa6dd79f8e1caf5df0a9385de3",
+      "url": "https://github.com/nvimdev/lspsaga.nvim/archive/6063935cf68de9aa6dd79f8e1caf5df0a9385de3.tar.gz",
+      "hash": "1pqasjg2f2yd3ci8hyxfqqs7xnkmwdc411dlm6qg1agiv1h8v205"
     },
     "lua-utils-nvim": {
       "type": "Git",
@@ -1989,16 +1989,19 @@
       "hash": "0k1xnyvblshn4fhbxgl0i34j22n55xlwr09sdmb23l57br5rb07q"
     },
     "snacks-nvim": {
-      "type": "Git",
+      "type": "GitRelease",
       "repository": {
         "type": "GitHub",
         "owner": "folke",
         "repo": "snacks.nvim"
       },
-      "branch": "main",
-      "revision": "bc0630e43be5699bb94dadc302c0d21615421d93",
-      "url": "https://github.com/folke/snacks.nvim/archive/bc0630e43be5699bb94dadc302c0d21615421d93.tar.gz",
-      "hash": "0a5nw7xa33shag1h12gf930g3vcixbwk8dxv0ji4980ycskh238v"
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "version": "v2.22.0",
+      "revision": "5eac729fa290248acfe10916d92a5ed5e5c0f9ed",
+      "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/v2.22.0",
+      "hash": "1hbm4fnw51qdp0nz83fcxbvnxjq2k57a37w6dp0wz6wkcx7cwxw9"
     },
     "sqls-nvim": {
       "type": "Git",

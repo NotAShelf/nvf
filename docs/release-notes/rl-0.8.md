@@ -2,10 +2,17 @@
 
 ## Breaking changes
 
+[Lspsaga documentation]: https://nvimdev.github.io/lspsaga/
+
 - `git-conflict` keybinds are now prefixed with `<leader>` to avoid conflicting
   with builtins.
 
 - `alpha` is now configured with nix, default config removed.
+
+- Lspsaga module no longer ships default keybindings. The keybind format has
+  been changed by upstream, and old keybindings do not have equivalents under
+  the new API they provide. Please manually set your keybinds according to
+  [Lspsaga documentation] following the new API.
 
 [NotAShelf](https://github.com/notashelf):
 
@@ -13,6 +20,7 @@
 [render-markdown.nvim]: https://github.com/MeanderingProgrammer/render-markdown.nvim
 [yanky.nvim]: https://github.com/gbprod/yanky.nvim
 [yazi.nvim]: https://github.com/mikavilpas/yazi.nvim
+[snacks.nvim]: https://github.com/folke/snacks.nvim
 
 - Add [typst-preview.nvim] under
   `languages.typst.extensions.typst-preview-nvim`.
@@ -61,6 +69,14 @@
   backend while shada is disabled in Neovim options.
 
 - Add [yazi.nvim] as a companion plugin for Yazi, the terminal file manager.
+
+- Add [snacks.nvim] under `vim.utility.snacks-nvim` as a general-purpose utility
+  plugin.
+
+- Move LSPSaga to `setupOpts` format, allowing freeform configuration in
+  `vim.lsp.lspsaga.setupOpts`.
+
+- Lazyload Lspsaga and remove default keybindings for it.
 
 [amadaluzia](https://github.com/amadaluzia):
 
