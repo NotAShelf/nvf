@@ -180,6 +180,11 @@
 - Add [ruff] as a formatter option in `vim.languages.python.format.type`.
 - Add [cue] support under `vim.languages.cue`.
 
+[QuiNzX](https://github.com/QuiNzX):
+
+- Add ruff as lsp alongside other lsp servers in a list as an option. Under
+  `vim.languages.python.lsp.server`.
+
 [ARCIII](https://github.com/ArmandoCIII):
 
 [leetcode.nvim]: https://github.com/kawre/leetcode.nvim
