@@ -13,7 +13,7 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = ["cellular-automaton"];
+      startPlugins = ["cellular-automaton-nvim"];
 
       maps.normal = mkBinding cfg.mappings.makeItRain "<cmd>CellularAutomaton make_it_rain<CR>" "Make it rain";
 

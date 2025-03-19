@@ -13,9 +13,7 @@ in {
   config = mkIf cfg.enable (mkMerge [
     {
       vim = {
-        startPlugins = [
-          "orgmode-nvim"
-        ];
+        startPlugins = ["orgmode"];
 
         binds.whichKey.register = pushDownDefault {
           "<leader>o" = "+Notes";

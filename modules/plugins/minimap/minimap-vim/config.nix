@@ -10,13 +10,13 @@
   cfg = config.vim.minimap.minimap-vim;
 in {
   config = mkIf cfg.enable {
-    vim.startPlugins = [
-      pkgs.code-minimap
-      "minimap-vim"
-    ];
+    vim = {
+      startPlugins = ["minimap-vim"];
+      extraPackages = [pkgs.code-minimap];
 
-    vim.binds.whichKey.register = pushDownDefault {
-      "<leader>m" = "+Minimap";
+      binds.whichKey.register = pushDownDefault {
+        "<leader>m" = "+Minimap";
+      };
     };
   };
 }

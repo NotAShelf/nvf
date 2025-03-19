@@ -1,6 +1,7 @@
 # This is the sample configuration for nvf, aiming to give you a feel of the default options
-# while certain plugins are enabled. While it may act as one, this is not an overview of nvf's
-# module options. To find a complete overview of nvf's options and examples, visit the manual.
+# while certain plugins are enabled. While it may partially act as one, this is *not* quite
+# an overview of nvf's module options. To find a complete and curated list of nvf module
+# options, examples, instruction tutorials and more; please visit the online manual.
 # https://notashelf.github.io/nvf/options.html
 isMaximal: {
   config.vim = {
@@ -172,15 +173,18 @@ isMaximal: {
     utility = {
       ccc.enable = false;
       vim-wakatime.enable = false;
+      diffview-nvim.enable = true;
+      yanky-nvim.enable = false;
       icon-picker.enable = isMaximal;
       surround.enable = isMaximal;
-      diffview-nvim.enable = true;
+      leetcode-nvim.enable = isMaximal;
+      multicursors.enable = isMaximal;
+
       motion = {
         hop.enable = true;
         leap.enable = true;
         precognition.enable = isMaximal;
       };
-
       images = {
         image-nvim.enable = false;
       };
@@ -230,6 +234,7 @@ isMaximal: {
         enable = false;
         cmp.enable = isMaximal;
       };
+      codecompanion-nvim.enable = false;
     };
 
     session = {

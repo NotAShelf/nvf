@@ -14,7 +14,7 @@ indent_style = space
 indent_size = 2
 trim_trailing_whitespace = false
 
-[*.{js,nix,yml,yaml}]
+[*.{js,json,nix,yml,yaml,toml}]
 indent_style = space
 indent_size = 2
 tab_width = 2
@@ -26,3 +26,6 @@ trim_trailing_whitespace = unset
 
 [*.lock]
 indent_size = unset
+
+[npins/sources.json]
+insert_final_newline = unset
