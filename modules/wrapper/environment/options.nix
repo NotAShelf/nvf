@@ -54,9 +54,7 @@ in {
 
     optPlugins = pluginsOpt {
       default = [];
-      example = ''
-        [pkgs.vimPlugins.vim-ghost]
-      '';
+      example = "[pkgs.vimPlugins.vim-ghost]";
       description = ''
         List of plugins to optionally load on startup.
 
@@ -73,8 +71,8 @@ in {
       type = attrsOf extraPluginType;
       default = {};
       description = ''
-        A list of plugins and their configurations that will be
-        set up after builtin plugins.
+        Plugins and their configurations that will be set up after
+        builtin plugins.
 
         This option takes a special type that allows you to order
         your custom plugins using nvf's modified DAG library.
@@ -82,16 +80,30 @@ in {
 
       example = literalMD ''
         ```nix
-        with pkgs.vimPlugins; {
+        {
           aerial = {
-            package = aerial-nvim;
+            package = pkgs.vimPlugins.aerial-nvim;
             setup = "require('aerial').setup {}";
           };
 
           harpoon = {
-            package = harpoon;
+            package = pkgs.vimPlugins.harpoon;
             setup = "require('harpoon').setup {}";
             after = ["aerial"]; # place harpoon configuration after aerial
+          };
+
+          # Example for packages built from source
+          deferred-clipboard = {
+            package = buildVimPlugin {
+              name = "deferred-clipboard";
+              src = (fetchFromGitHub {
+                owner = "EtiamNullam";
+                repo = "deferred-clipboard.nvim";
+                rev = "810a29d166eaa41afc220cc7cd85eeaa3c43b37f";
+                hash = "sha256-nanNQEtpjv0YKEkkrPmq/5FPxq+Yj/19cs0Gf7YgKjU=";
+              };
+            });
+            setup = "require('deferred-clipboard').setup {}";
           };
         }
         ```
@@ -101,21 +113,20 @@ in {
     extraPackages = mkOption {
       type = listOf package;
       default = [];
-      example = ''[pkgs.fzf pkgs.ripgrep]'';
+      example = "[pkgs.fzf pkgs.ripgrep]";
       description = ''
         List of additional packages to make available to the Neovim
         wrapper.
       '';
     };
 
-    # this defaults to `true` in the wrapper
+    # This defaults to `true` in the wrapper
     # and since we pass this value to the wrapper
     # with an inherit, it should be `true` here as well
     withRuby =
-      mkEnableOption ''
-        Ruby support in the Neovim wrapper.
-      ''
+      mkEnableOption ""
       // {
+        description = "Whether to enable Ruby support in the Neovim wrapper";
         default = true;
       };
 

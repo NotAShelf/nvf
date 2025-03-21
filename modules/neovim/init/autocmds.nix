@@ -126,6 +126,20 @@ in {
     autocmds = mkOption {
       type = listOf autocommandType;
       default = [];
+      example = literalExpression ''
+        [
+          {
+           enable = true;
+            desc = "Highlight yanks on copy";
+            pattern = ["*"];
+            callback = lib.generators.mkLuaInline '''
+              function()
+                vim.highlight.on_yank({ timeout = 500 })
+              end
+            ''';
+          }
+        ]
+      '';
       description = ''
         A list of Neovim autocommands to be registered.
 
