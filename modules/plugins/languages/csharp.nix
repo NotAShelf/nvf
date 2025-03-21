@@ -6,13 +6,14 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) either listOf package str enum;
   inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.types) either listOf package str enum;
   inherit (lib.lists) isList;
   inherit (lib.strings) optionalString;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) expToLua toLuaObject;
 
   lspKeyConfig = config.vim.lsp.mappings;
   lspKeyOptions = options.vim.lsp.mappings;
@@ -22,6 +23,11 @@
   in
     optionalString (key != null) "vim.keymap.set('n', '${key}', ${action}, {buffer=bufnr, noremap=true, silent=true, desc='${desc}'})";
 
+  packageToCmd = package: defaultCmd:
+    if isList package
+    then expToLua package
+    else ''{ "${package}/bin/${defaultCmd}" }'';
+
   # Omnisharp doesn't have colors in popup docs for some reason, and I've also
   # seen mentions of it being way slower, so until someone finds missing
   # functionality, this will be the default.
@@ -30,10 +36,10 @@
     omnisharp = {
       package = pkgs.omnisharp-roslyn;
       internalFormatter = true;
-      lspConfig = ''
-        lspconfig.omnisharp.setup {
-          capabilities = capabilities,
-          on_attach = function(client, bufnr)
+      options = {
+        capabilities = mkLuaInline "capabilities";
+        on_attach = mkLuaInline ''
+          function(client, bufnr)
             default_on_attach(client, bufnr)
 
             local oe = require("omnisharp_extended")
@@ -42,35 +48,40 @@
             ${mkLspBinding "listReferences" "oe.lsp_references"}
             ${mkLspBinding "listImplementations" "oe.lsp_implementation"}
           end,
-          cmd = ${
+        '';
+        filetypes = ["cs" "vb"];
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else "{'${cfg.lsp.package}/bin/OmniSharp'}"
-        }
-        }
-      '';
+          else ["${packageToCmd cfg.lsp.package "OmniSharp"}"];
+        single_file_support = false; # upstream default
+        init_options = {};
+        handlers = {
+          "textDocument/definition" = mkLuaInline "extended_handler";
+          "textDocument/typeDefinition" = mkLuaInline "extended_handler";
+        };
+      };
     };
 
     csharp_ls = {
       package = pkgs.csharp-ls;
       internalFormatter = true;
-      lspConfig = ''
-        local extended_handler = require("csharpls_extended").handler
-
-        lspconfig.csharp_ls.setup {
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          handlers = {
-            ["textDocument/definition"] = extended_handler,
-            ["textDocument/typeDefinition"] = extended_handler
-          },
-          cmd = ${
+      options = {
+        capabilities = mkLuaInline "capabilities";
+        on_attach = mkLuaInline "default_on_attach";
+        filetypes = ["cs"];
+        offset_encoding = "utf-32";
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else "{'${cfg.lsp.package}/bin/csharp-ls'}"
-        }
-        }
-      '';
+          else ["${packageToCmd cfg.lsp.package "csharp-ls"}"];
+        single_file_support = false; # upstream default
+        init_options = {AutomaticWorkspaceInit = true;};
+        handlers = {
+          "textDocument/definition" = mkLuaInline "extended_handler";
+          "textDocument/typeDefinition" = mkLuaInline "extended_handler";
+        };
+      };
     };
   };
 
@@ -116,7 +127,9 @@ in {
     (mkIf cfg.lsp.enable {
       vim.startPlugins = extraServerPlugins.${cfg.lsp.server} or [];
       vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.csharp-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.lspconfig.sources.csharp-lsp = ''
+        lspconfig.${toLuaObject cfg.lsp.server}.setup(${toLuaObject cfg.lsp.options})
+      '';
     })
   ]);
 }

@@ -6,12 +6,15 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.trivial) boolToString;
-  inherit (lib.lists) isList;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) enum either listOf package nullOr str bool;
+  inherit (lib.types) enum either listOf package str bool;
+  inherit (lib.lists) isList;
   inherit (lib.strings) optionalString;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.trivial) boolToString;
+  inherit (lib.meta) getExe;
+  inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.lua) expToLua toLuaObject;
+  inherit (lib.nvim.languages) lspOptions;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryAnywhere;
 
@@ -22,18 +25,29 @@
   servers = {
     dart = {
       package = pkgs.dart;
-      lspConfig = ''
-        lspconfig.dartls.setup{
-          capabilities = capabilities;
-          on_attach=default_on_attach;
-          cmd = ${
+      options = {
+        capabilities = mkLuaInline "capabilities";
+        on_attach = mkLuaInline "default_on_attach";
+        filetypes = ["dart"];
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/dart", "language-server", "--protocol=lsp"}''
+          else ["${getExe cfg.lsp.package}" "language-server" "--protocol=lsp"];
+        single_file_support = true;
+        init_options = {
+          closingLabels = true;
+          flutterOutline = true;
+          onlyAnalyzeProjectsWithOpenFiles = true;
+          outline = true;
+          suggestFromUnimportedLibraries = true;
         };
-          ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.dartOpts}"}
-        }
-      '';
+        settings = {
+          dart = {
+            completeFunctionCalls = true;
+            showTodos = true;
+          };
+        };
+      };
     };
   };
 in {
@@ -52,6 +66,7 @@ in {
         type = enum (attrNames servers);
         default = defaultServer;
       };
+
       package = mkOption {
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
@@ -59,10 +74,15 @@ in {
         description = "Dart LSP server package, or the command to run as a list of strings";
       };
 
-      opts = mkOption {
-        type = nullOr str;
-        default = null;
-        description = "Options to pass to Dart LSP server";
+      options = mkOption {
+        type = lspOptions;
+        default = servers.${cfg.lsp.server}.options;
+        description = ''
+          LSP options for Dart language support.
+
+          This option is freeform, you may add options that are not set by default
+          and they will be merged into the final table passed to lspconfig.
+        '';
       };
     };
 
@@ -129,8 +149,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.dart-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.lspconfig = {
+        enable = true;
+        sources.dart-lsp = ''
+          lspconfig.${toLuaObject cfg.lsp.server}.setup(${toLuaObject cfg.lsp.options})
+        '';
+      };
     })
 
     (mkIf ftcfg.enable {
