@@ -37,6 +37,12 @@ in {
           inherit (cfg) setupOpts;
           after = mkIf cfg.cmp.enable "require('copilot_cmp').setup()";
 
+          event = [
+            {
+              event = "User";
+              pattern = "LazyFile";
+            }
+          ];
           cmd = ["Copilot" "CopilotAuth" "CopilotDetach" "CopilotPanel" "CopilotStop"];
           keys = [
             (mkLuaKeymap ["n"] cfg.mappings.panel.accept (wrapPanelBinding ''require("copilot.panel").accept'' cfg.mappings.panel.accept) "[copilot] Accept suggestion" {})
