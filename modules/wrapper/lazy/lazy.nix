@@ -126,7 +126,7 @@
       };
 
       event = mkOption {
-        type = nullOr (oneOf [str (listOf str) lznEvent]);
+        type = nullOr (oneOf [str lznEvent (listOf (either str lznEvent))]);
         default = null;
         description = "Lazy-load on event";
       };

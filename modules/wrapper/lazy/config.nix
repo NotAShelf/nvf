@@ -136,6 +136,16 @@ in {
       optPlugins = pluginPackages;
 
       lazy.builtLazyConfig = ''
+        -- create LazyFile user event
+        vim.api.nvim_create_autocmd(
+          {"BufReadPost", "BufNewFile", "BufWritePre"},
+          {
+            group     = vim.api.nvim_create_augroup("nvf_lazy_file_hooks", {}),
+            command   = "doautocmd User LazyFile",
+            once      = true,
+          }
+        )
+
         require('lz.n').load(${toLuaObject lznSpecs})
         ${optionalString cfg.enableLznAutoRequire "require('lzn-auto-require').enable()"}
       '';
