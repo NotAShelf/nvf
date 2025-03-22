@@ -13,7 +13,7 @@ in {
     vim = {
       startPlugins = ["nvim-lint"];
       pluginRC.nvim-lint = entryAnywhere ''
-        require("lint").linters_by_ft(${toLuaObject cfg.linters_by_ft})
+        require("lint").linters_by_ft = ${toLuaObject cfg.linters_by_ft}
       '';
     };
   };
