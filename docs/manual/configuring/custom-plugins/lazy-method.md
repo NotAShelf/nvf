@@ -38,3 +38,22 @@ As of version **0.7**, we exposed an API for configuring lazy-loaded plugins via
   };
 }
 ```
+
+## LazyFile event {#sec-lazyfile-event}
+
+You can use the `LazyFile` user event to load a plugin when a file is opened:
+
+```nix
+{
+  config.vim.lazy.plugins = {
+    "aerial.nvim" = {
+      package = pkgs.vimPlugins.aerial-nvim;
+      event = [{event = "User"; pattern = "LazyFile";}];
+      # ...
+    };
+  };
+}
+```
+
+You can consider `LazyFile` as an alias to
+`["BufReadPost" "BufNewFile" "BufWritePre"]`
