@@ -123,6 +123,16 @@
           ls_sources,
           null_ls.builtins.diagnostics.eslint_d.with({
             command = "${getExe pkg}",
+            condition = function(utils)
+              return utils.root_has_file({
+                "eslint.config.js",
+                "eslint.config.mjs",
+                ".eslintrc",
+                ".eslintrc.json",
+                ".eslintrc.js",
+                ".eslintrc.yml",
+              })
+            end,
           })
         )
       '';
