@@ -464,7 +464,19 @@ to find out more about the DAG system.</p></div>
     };
   };
 }
-</code></pre>
+</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="sec-lazyfile-event" class="title" >LazyFile event   </h4>  </div> </div></div><p>You can use the <code class="literal">LazyFile</code> user event to load a plugin when a file is opened:</p><pre><code class="programlisting nix">{
+  config.vim.lazy.plugins = {
+    &quot;aerial.nvim&quot; = {
+      package = pkgs.vimPlugins.aerial-nvim;
+      event = [{event = &quot;User&quot;; pattern = &quot;LazyFile&quot;;}];
+      # ...
+    };
+  };
+}
+</code></pre><p>You can consider <code class="literal">LazyFile</code> as an alias to
+<code class="literal">[&quot;BufReadPost&quot; &quot;BufNewFile&quot; &quot;BufWritePre&quot;]</code></p>
+</div>
+
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-non-lazy-method" class="title" >Non-lazy Method   </h3>  </div> </div></div><p>As of version <span class="strong"><strong>0.5</strong></span>, we have a more extensive API for configuring plugins,
 under <code class="literal">vim.extraPlugins</code>. Instead of using DAGs exposed by the library, you may
 use the extra plugin module as follows:</p><pre><code class="programlisting nix">{
