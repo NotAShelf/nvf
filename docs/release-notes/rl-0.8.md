@@ -271,3 +271,7 @@
 [Butzist](https://github.com/butzist):
 
 - Add Helm chart support under `vim.languages.helm`.
+
+[rice-cracker-dev](https://github.com/rice-cracker-dev)
+
+- `eslint_d` now checks for configuration files to load.
