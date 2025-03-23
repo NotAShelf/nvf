@@ -89,6 +89,7 @@
 [blink.cmp]: https://github.com/saghen/blink.cmp
 
 - Add [blink.cmp] support.
+- Add `LazyFile` user event.
 
 [diniamo](https://github.com/diniamo):
 
@@ -244,8 +245,8 @@
   syncing of nvim shell environment with direnv's.
 - Add [blink.cmp] source options and some default-disabled sources.
 - Add [blink.cmp] option to add
-  [friendly-snippets](https://github.com/rafamadriz/friendly-snippets)
-  so blink.cmp can source snippets from it.
+  [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) so
+  blink.cmp can source snippets from it.
 - Fix [blink.cmp] breaking when built-in sources were modified.
 
 [TheColorman](https://github.com/TheColorman):
