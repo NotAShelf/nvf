@@ -276,3 +276,7 @@
 [rice-cracker-dev](https://github.com/rice-cracker-dev):
 
 - `eslint_d` now checks for configuration files to load.
+
+[Sc3l3t0n](https://github.com/Sc3l3t0n)
+
+- Add F# support under `vim.languages.fsharp`.
