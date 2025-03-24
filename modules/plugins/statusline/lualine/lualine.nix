@@ -124,8 +124,6 @@ in {
       mkOption {
         type = enum themesConcatted;
         default = "auto";
-        # TODO: xml generation error if the closing '' is on a new line.
-        # issue: https://gitlab.com/rycee/nmd/-/issues/10
         defaultText = ''`config.vim.theme.name` if theme supports lualine else "auto"'';
         description = "Theme for lualine";
       };
