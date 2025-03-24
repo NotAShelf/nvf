@@ -10,6 +10,7 @@ in {
     ./clang.nix
     ./css.nix
     ./elixir.nix
+    ./fsharp.nix
     ./gleam.nix
     ./go.nix
     ./hcl.nix
