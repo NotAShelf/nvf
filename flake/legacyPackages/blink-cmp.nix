@@ -1,11 +1,11 @@
 {
+  stdenv,
   rustPlatform,
   hostPlatform,
   vimUtils,
   git,
   src,
   version,
-  fetchpatch,
 }: let
   blink-fuzzy-lib = rustPlatform.buildRustPackage {
     pname = "blink-fuzzy-lib";
@@ -19,11 +19,6 @@
 
     nativeBuildInputs = [git];
   };
-
-  libExt =
-    if hostPlatform.isDarwin
-    then "dylib"
-    else "so";
 in
   vimUtils.buildVimPlugin {
     pname = "blink-cmp";
@@ -31,21 +26,12 @@ in
 
     # blink references a repro.lua which is placed outside the lua/ directory
     doCheck = false;
-    preInstall = ''
+    preInstall = let
+      ext = stdenv.hostPlatform.extensions.sharedLibrary;
+    in ''
       mkdir -p target/release
-      ln -s ${blink-fuzzy-lib}/lib/libblink_cmp_fuzzy.${libExt} target/release/libblink_cmp_fuzzy.${libExt}
-      echo -n "nix" > target/release/version
+      ln -s ${blink-fuzzy-lib}/lib/libblink_cmp_fuzzy${ext} target/release/libblink_cmp_fuzzy${ext}
     '';
-
-    # Borrowed from nixpkgs
-    # TODO: Remove this patch when updating to next version
-    patches = [
-      (fetchpatch {
-        name = "blink-add-bypass-for-nix.patch";
-        url = "https://github.com/Saghen/blink.cmp/commit/6c83ef1ae34abd7ef9a32bfcd9595ac77b61037c.diff?full_index=1";
-        hash = "sha256-304F1gDDKVI1nXRvvQ0T1xBN+kHr3jdmwMMp8CNl+GU=";
-      })
-    ];
 
     # Module for reproducing issues
     nvimSkipModule = ["repro"];
