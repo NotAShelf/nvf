@@ -95,8 +95,6 @@
     inherit (nvimModuleDocs) optionsJSON;
   };
 in {
-  inherit (inputs) nmd;
-
   # TODO: Use `hmOptionsDocs.optionsJSON` directly once upstream
   # `nixosOptionsDoc` is more customizable.
   options.json =
