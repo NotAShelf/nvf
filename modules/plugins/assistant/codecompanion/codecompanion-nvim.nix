@@ -1,6 +1,7 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) int str enum nullOr attrs;
+  inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
 in {
   options.vim.assistant = {
@@ -272,6 +273,17 @@ in {
             that can be used in the action palette.
           '';
         };
+      };
+
+      mappings = {
+        inlineAssistant.open = mkMappingOption "[CodeCompanion] Open inline Assistant" "<leader>aa";
+        chat = {
+          open = mkMappingOption "[CodeCompanion] Open chat" "<leader>ao";
+          toggle = mkMappingOption "[CodeCompanion] Toggle chat" "<leader>ac";
+          addToChatBuffer = mkMappingOption "[CodeCompanion] Add selection to chat" "<leader>ab";
+        };
+        actions.open = mkMappingOption "[CodeCompanion] Open actions" "<C-a>";
+        command.open = mkMappingOption "[CodeCompanion] Open cli command generation prompt" "<leader>ag";
       };
     };
   };
