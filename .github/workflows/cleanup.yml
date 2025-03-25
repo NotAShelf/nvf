@@ -1,9 +1,13 @@
-name: Cleanup
+name: Delete Stale Branches
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
   schedule:
     - cron: "0 4 1 * *" # 4AM on 1st of every month
     - cron: "0 4 15 * *" # 4AM on the 15th of every month
+
 jobs:
   branches:
     name: Cleanup old branches
