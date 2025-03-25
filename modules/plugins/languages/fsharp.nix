@@ -68,6 +68,7 @@ in {
         package = mkOption {
           type = either package (listOf str);
           default = servers.${cfg.lsp.server}.package;
+          example = ''[lib.getExe pkgs.fsautocomplete "--state-directory" "~/.cache/fsautocomplete"]'';
           description = "F# LSP server package, or the command to run as a list of strings";
         };
       };
