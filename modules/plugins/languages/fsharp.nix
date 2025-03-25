@@ -61,14 +61,14 @@ in {
         enable = mkEnableOption "F# LSP support" // {default = config.vim.languages.enableLSP;};
         server = mkOption {
           type = enum (attrNames servers);
-          description = "F# LSP server to use";
           default = defaultServer;
+          description = "F# LSP server to use";
         };
 
         package = mkOption {
           type = either package (listOf str);
-          description = "F# LSP server package, or the command to run as a list of strings";
           default = servers.${cfg.lsp.server}.package;
+          description = "F# LSP server package, or the command to run as a list of strings";
         };
       };
       format = {
@@ -76,14 +76,14 @@ in {
 
         type = mkOption {
           type = enum (attrNames formats);
-          description = "F# formatter to use";
           default = defaultFormat;
+          description = "F# formatter to use";
         };
 
         package = mkOption {
           type = package;
-          description = "F# formatter package";
           default = formats.${cfg.format.type}.package;
+          description = "F# formatter package";
         };
       };
     };
