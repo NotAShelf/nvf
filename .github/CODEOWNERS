@@ -1,1 +1,5 @@
-* @NotAShelf
+# Codeowners should be used to distinguish the maintainers of the project
+# and not contributors of specific modules to nvf. While adding a new module
+# please consider adding yourself to 'meta.maintainers' in the module instead
+# of CODEOWNERS here.
+* @NotAShelf @horriblename @Soliprem
