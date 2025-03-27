@@ -21,5 +21,7 @@ in {
         accept.
       '';
     };
+
+    lint_after_save = mkEnableOption "autocmd to lint after each save" // {default = true;};
   };
 }
