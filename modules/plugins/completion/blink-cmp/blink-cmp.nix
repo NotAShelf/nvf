@@ -1,8 +1,8 @@
 {lib, ...}: let
   inherit (lib.options) mkEnableOption mkOption literalMD;
-  inherit (lib.types) listOf str either attrsOf submodule enum anything int nullOr;
+  inherit (lib.types) bool listOf str either attrsOf submodule enum anything int nullOr;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) mkPluginSetupOption luaInline;
+  inherit (lib.nvim.types) mkPluginSetupOption luaInline pluginType;
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.config) mkBool;
 
@@ -21,8 +21,9 @@
     freeformType = anything;
     options = {
       module = mkOption {
-        type = str;
-        description = "module of the provider";
+        type = nullOr str;
+        default = null;
+        description = "Provider module.";
       };
     };
   };
@@ -37,16 +38,10 @@ in {
           description = "Default list of sources to enable for completion.";
         };
 
-        cmdline = mkOption {
-          type = nullOr (listOf str);
-          default = [];
-          description = "List of sources to enable for cmdline. Null means use default source list.";
-        };
-
         providers = mkOption {
           type = attrsOf providerType;
           default = {};
-          description = "Settings for completion providers";
+          description = "Settings for completion providers.";
         };
 
         transform_items = mkOption {
@@ -63,6 +58,20 @@ in {
         };
       };
 
+      cmdline = {
+        sources = mkOption {
+          type = nullOr (listOf str);
+          default = [];
+          description = "List of sources to enable for cmdline. Null means use default source list.";
+        };
+
+        keymap = mkOption {
+          type = keymapType;
+          default = {};
+          description = "blink.cmp cmdline keymap";
+        };
+      };
+
       completion = {
         documentation = {
           auto_show = mkBool true "Show documentation whenever an item is selected";
@@ -71,6 +80,16 @@ in {
             default = 200;
             description = "Delay before auto show triggers";
           };
+        };
+
+        menu.auto_show = mkOption {
+          type = bool;
+          default = true;
+          description = ''
+            Manages the appearance of the completion menu. You may prevent the menu
+            from automatically showing by this option to `false` and manually showing
+            it with the show keymap command.
+          '';
         };
       };
 
@@ -101,7 +120,25 @@ in {
       fuzzy = {
         prebuilt_binaries = {
           download = mkBool false ''
-            Auto-downloads prebuilt binaries. Do not enable, it doesn't work on nix
+            Auto-downloads prebuilt binaries.
+
+            ::: .{warning}
+            Do not enable this option, as it does **not work** on Nix!
+            :::
+          '';
+        };
+
+        implementation = mkOption {
+          type = enum ["lua" "prefer_rust" "rust" "prefer_rust_with_warning"];
+          default = "prefer_rust";
+          description = ''
+            fuzzy matcher implementation for Blink.
+
+            * `"lua"`: slower, Lua native fuzzy matcher implementation
+            * `"rust": use the SIMD fuzzy matcher, 'frizbee'
+            * `"prefer_rust"`: use the rust implementation, but fall back to lua
+            * `"prefer_rust_with_warning"`: use the rust implementation, and fall back to lua
+              if it is not available after emitting a warning.
           '';
         };
       };
@@ -116,5 +153,67 @@ in {
       scrollDocsUp = mkMappingOption "Scroll docs up [blink.cmp]" "<C-d>";
       scrollDocsDown = mkMappingOption "Scroll docs down [blink.cmp]" "<C-f>";
     };
+
+    sourcePlugins = let
+      sourcePluginType = submodule {
+        options = {
+          enable = mkEnableOption "this source";
+          package = mkOption {
+            type = pluginType;
+            description = ''
+              `blink-cmp` source plugin package.
+            '';
+          };
+
+          module = mkOption {
+            type = str;
+            description = ''
+              Value of {option}`vim.autocomplete.blink-cmp.setupOpts.sources.providers.<name>.module`.
+
+              Should be present in the source's documentation.
+            '';
+          };
+        };
+      };
+    in
+      mkOption {
+        type = submodule {
+          freeformType = attrsOf sourcePluginType;
+          options = let
+            defaultSourcePluginOption = name: package: module: {
+              package = mkOption {
+                type = pluginType;
+                default = package;
+                description = ''
+                  `blink-cmp` ${name} source plugin package.
+                '';
+              };
+              module = mkOption {
+                type = str;
+                default = module;
+                description = ''
+                  Value of {option}`vim.autocomplete.blink-cmp.setupOpts.sources.providers.${name}.module`.
+                '';
+              };
+              enable = mkEnableOption "${name} source";
+            };
+          in {
+            # emoji completion after :
+            emoji = defaultSourcePluginOption "emoji" "blink-emoji-nvim" "blink-emoji";
+            # spelling suggestions as completions
+            spell = defaultSourcePluginOption "spell" "blink-cmp-spell" "blink-cmp-spell";
+            # words from nearby files
+            ripgrep = defaultSourcePluginOption "ripgrep" "blink-ripgrep-nvim" "blink-ripgrep";
+          };
+        };
+        default = {};
+        description = ''
+          `blink.cmp` sources.
+
+          Attribute names must be source names used in {option}`vim.autocomplete.blink-cmp.setupOpts.sources.default`.
+        '';
+      };
+
+    friendly-snippets.enable = mkEnableOption "friendly-snippets for blink to source from automatically";
   };
 }

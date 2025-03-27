@@ -5,8 +5,8 @@ options will include useful comments, warnings or setup tips on how a module
 option is meant to be used as well as examples in complex cases.
 
 An offline version of this page is bundled with nvf as a part of the manpages
-which you can access with `man 5 nvf`. Please us know if you believe any of the
-options below are missing useful examples.
+which you can access with `man 5 nvf`. Please let us know if you believe any of
+the options below are missing useful examples.
 
 <!--
 In the manual, individual options may be referenced in Hyperlinks as follows:

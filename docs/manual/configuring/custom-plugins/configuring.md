@@ -67,7 +67,7 @@ of individual sections of configuration as needed. nvf provides helper functions
 in the extended library, usually under `inputs.nvf.lib.nvim.dag` that you may
 use.
 
-Please refer to the [DAG section](/index.xhtml#ch-dag-entries) in the nvf manual
+Please refer to the [DAG section](#ch-dag-entries) in the nvf manual
 to find out more about the DAG system.
 :::
 

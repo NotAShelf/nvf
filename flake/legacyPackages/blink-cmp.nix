@@ -1,4 +1,5 @@
 {
+  stdenv,
   rustPlatform,
   hostPlatform,
   vimUtils,
@@ -13,17 +14,11 @@
     # TODO: remove this if plugin stops using nightly rust
     env.RUSTC_BOOTSTRAP = true;
 
-    nativeBuildInputs = [git];
-    cargoLock = {
-      lockFile = "${src}/Cargo.lock";
-      allowBuiltinFetchGit = true;
-    };
-  };
+    useFetchCargoVendor = true;
+    cargoHash = "sha256-F1wh/TjYoiIbDY3J/prVF367MKk3vwM7LqOpRobOs7I=";
 
-  libExt =
-    if hostPlatform.isDarwin
-    then "dylib"
-    else "so";
+    nativeBuildInputs = [git];
+  };
 in
   vimUtils.buildVimPlugin {
     pname = "blink-cmp";
@@ -31,8 +26,13 @@ in
 
     # blink references a repro.lua which is placed outside the lua/ directory
     doCheck = false;
-    preInstall = ''
+    preInstall = let
+      ext = stdenv.hostPlatform.extensions.sharedLibrary;
+    in ''
       mkdir -p target/release
-      ln -s ${blink-fuzzy-lib}/lib/libblink_cmp_fuzzy.${libExt} target/release/libblink_cmp_fuzzy.${libExt}
+      ln -s ${blink-fuzzy-lib}/lib/libblink_cmp_fuzzy${ext} target/release/libblink_cmp_fuzzy${ext}
     '';
+
+    # Module for reproducing issues
+    nvimSkipModule = ["repro"];
   }

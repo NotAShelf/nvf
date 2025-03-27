@@ -1,10 +1,26 @@
 # Release 0.8 {#sec-release-0.8}
 
+## Breaking changes
+
+[Lspsaga documentation]: https://nvimdev.github.io/lspsaga/
+
+- `git-conflict` keybinds are now prefixed with `<leader>` to avoid conflicting
+  with builtins.
+
+- `alpha` is now configured with nix, default config removed.
+
+- Lspsaga module no longer ships default keybindings. The keybind format has
+  been changed by upstream, and old keybindings do not have equivalents under
+  the new API they provide. Please manually set your keybinds according to
+  [Lspsaga documentation] following the new API.
+
 [NotAShelf](https://github.com/notashelf):
 
 [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
 [render-markdown.nvim]: https://github.com/MeanderingProgrammer/render-markdown.nvim
 [yanky.nvim]: https://github.com/gbprod/yanky.nvim
+[yazi.nvim]: https://github.com/mikavilpas/yazi.nvim
+[snacks.nvim]: https://github.com/folke/snacks.nvim
 
 - Add [typst-preview.nvim] under
   `languages.typst.extensions.typst-preview-nvim`.
@@ -12,7 +28,7 @@
 - Add a search widget to the options page in the nvf manual.
 
 - Add [render-markdown.nvim] under
-  `languages.markdown.extensions.render-markdown-nvim`
+  `languages.markdown.extensions.render-markdown-nvim`.
 
 - Implement [](#opt-vim.git.gitsigns.setupOpts) for user-specified setup table
   in gitsigns configuration.
@@ -41,6 +57,27 @@
 
 - Add [yanky.nvim] to available plugins, under `vim.utility.yanky-nvim`.
 
+- Fix plugin `setupOpts` for yanky.nvim and assert if shada is configured as a
+  backend while shada is disabled in Neovim options.
+
+- Add [yazi.nvim] as a companion plugin for Yazi, the terminal file manager.
+
+- Add [](#opt-vim.autocmds) and [](#opt-vim.augroups) to allow declaring
+  autocommands via Nix.
+
+- Fix plugin `setupOpts` for yanky.nvim and assert if shada is configured as a
+  backend while shada is disabled in Neovim options.
+
+- Add [yazi.nvim] as a companion plugin for Yazi, the terminal file manager.
+
+- Add [snacks.nvim] under `vim.utility.snacks-nvim` as a general-purpose utility
+  plugin.
+
+- Move LSPSaga to `setupOpts` format, allowing freeform configuration in
+  `vim.lsp.lspsaga.setupOpts`.
+
+- Lazyload Lspsaga and remove default keybindings for it.
+
 [amadaluzia](https://github.com/amadaluzia):
 
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim
@@ -51,7 +88,8 @@
 
 [blink.cmp]: https://github.com/saghen/blink.cmp
 
-- Add [blink.cmp] support
+- Add [blink.cmp] support.
+- Add `LazyFile` user event.
 
 [diniamo](https://github.com/diniamo):
 
@@ -65,8 +103,8 @@
 [aerial.nvim]: (https://github.com/stevearc/aerial.nvim)
 [nvim-ufo]: (https://github.com/kevinhwang91/nvim-ufo)
 
-- Add [aerial.nvim]
-- Add [nvim-ufo]
+- Add [aerial.nvim].
+- Add [nvim-ufo].
 
 [LilleAila](https://github.com/LilleAila):
 
@@ -138,35 +176,103 @@
 [thamenato](https://github.com/thamenato):
 
 [ruff]: (https://github.com/astral-sh/ruff)
+[cue]: (https://cuelang.org/)
 
 - Add [ruff] as a formatter option in `vim.languages.python.format.type`.
+- Add [cue] support under `vim.languages.cue`.
 
 [ARCIII](https://github.com/ArmandoCIII):
 
 [leetcode.nvim]: https://github.com/kawre/leetcode.nvim
+[codecompanion-nvim]: https://github.com/olimorris/codecompanion.nvim
 
 - Add `vim.languages.zig.dap` support through pkgs.lldb dap adapter. Code
   Inspiration from `vim.languages.clang.dap` implementation.
 - Add [leetcode.nvim] plugin under `vim.utility.leetcode-nvim`.
+- Add [codecompanion.nvim] plugin under `vim.assistant.codecompanion-nvim`.
 
-
-[nezia1](https://github.com/nezia1)
+[nezia1](https://github.com/nezia1):
 
 - Add support for [nixd](https://github.com/nix-community/nixd) language server.
 
-[folospior](https://github.com/folospior)
+[jahanson](https://github.com/jahanson):
+
+- Add [multicursors.nvim](https://github.com/smoka7/multicursors.nvim) to
+  available plugins, under `vim.utility.multicursors`.
+- Add [hydra.nvim](https://github.com/nvimtools/hydra.nvim) as dependency for
+  `multicursors.nvim` and lazy loads by default.
+
+[folospior](https://github.com/folospior):
 
 - Fix plugin name for lsp/lspkind.
 
-[iynaix](https://github.com/iynaix)
+- Move `vim-illuminate` to `setupOpts format`
+
+[iynaix](https://github.com/iynaix):
 
 - Add lsp options support for [nixd](https://github.com/nix-community/nixd)
   language server.
 
-[Mr-Helpful](https://github.com/Mr-Helpful)
+[Mr-Helpful](https://github.com/Mr-Helpful):
 
-- Corrects pin names used for nvim themes
+- Corrects pin names used for nvim themes.
 
-[Libadoxon](https://github.com/Libadoxon)
+[Libadoxon](https://github.com/Libadoxon):
 
-- Add [git-conflict](https://github.com/akinsho/git-conflict.nvim) plugin for resolving git conflicts
+- Add [git-conflict](https://github.com/akinsho/git-conflict.nvim) plugin for
+  resolving git conflicts.
+- Add formatters for go: [gofmt](https://go.dev/blog/gofmt),
+  [golines](https://github.com/segmentio/golines) and
+  [gofumpt](https://github.com/mvdan/gofumpt).
+
+[UltraGhostie](https://github.com/UltraGhostie)
+
+- Add [harpoon](https://github.com/ThePrimeagen/harpoon) plugin for navigation
+
+[MaxMur](https://github.com/TheMaxMur):
+
+- Add YAML support under `vim.languages.yaml`.
+
+[alfarel](https://github.com/alfarelcynthesis):
+
+- Add missing `yazi.nvim` dependency (`snacks.nvim`).
+
+- Add [mkdir.nvim](https://github.com/jghauser/mkdir.nvim) plugin for automatic
+  creation of parent directories when editing a nested file.
+- Add [nix-develop.nvim](https://github.com/figsoda/nix-develop.nvim) plugin for
+  in-neovim `nix develop`, `nix shell` and more.
+- Add [direnv.vim](https://github.com/direnv/direnv.vim) plugin for automatic
+  syncing of nvim shell environment with direnv's.
+- Add [blink.cmp] source options and some default-disabled sources.
+- Add [blink.cmp] option to add
+  [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) so
+  blink.cmp can source snippets from it.
+- Fix [blink.cmp] breaking when built-in sources were modified.
+
+[TheColorman](https://github.com/TheColorman):
+
+- Fix plugin `setupOpts` for `neovim-session-manager` having an invalid value
+  for `autoload_mode`.
+
+[esdevries](https://github.com/esdevries):
+
+[projekt0n/github-nvim-theme]: https://github.com/projekt0n/github-nvim-theme
+
+- Add `github-nvim-theme` theme from [projekt0n/github-nvim-theme].
+
+[BANanaD3V](https://github.com/BANanaD3V):
+
+- `alpha` is now configured with nix.
+
+[viicslen](https://github.com/viicslen):
+
+- Add `intelephense` language server support under
+  `vim.languages.php.lsp.server`
+
+[Butzist](https://github.com/butzist):
+
+- Add Helm chart support under `vim.languages.helm`.
+
+[rice-cracker-dev](https://github.com/rice-cracker-dev):
+
+- `eslint_d` now checks for configuration files to load.

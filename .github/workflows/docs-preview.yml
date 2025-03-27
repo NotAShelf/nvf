@@ -9,7 +9,7 @@ on:
       - "modules/**"
       - "docs/**"
 
-# Defining permissions here passes it to all workflows.
+# Defining permissions here passes it to all jobs.
 # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
 permissions:
   contents: write
@@ -34,7 +34,7 @@ jobs:
         run: git config --global init.defaultBranch main
 
       - name: Build documentation packages
-        run: nix build .#docs-html --print-build-logs
+        run: nix build .#docs-html --print-build-logs || exit 1
 
       - name: Deploy to GitHub Pages preview
         run: |

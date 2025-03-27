@@ -21,6 +21,17 @@
     "codedark"
     "dracula"
     "everforest"
+    "github_dark"
+    "github_light"
+    "github_dark_dimmed"
+    "github_dark_default"
+    "github_light_default"
+    "github_dark_high_contrast"
+    "github_light_high_contrast"
+    "github_dark_colorblind"
+    "github_light_colorblind"
+    "github_dark_tritanopia"
+    "github_light_tritanopia"
     "gruvbox"
     "gruvbox_dark"
     "gruvbox_light"
@@ -113,8 +124,6 @@ in {
       mkOption {
         type = enum themesConcatted;
         default = "auto";
-        # TODO: xml generation error if the closing '' is on a new line.
-        # issue: https://gitlab.com/rycee/nmd/-/issues/10
         defaultText = ''`config.vim.theme.name` if theme supports lualine else "auto"'';
         description = "Theme for lualine";
       };

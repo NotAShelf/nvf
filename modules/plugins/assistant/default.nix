@@ -2,5 +2,6 @@
   imports = [
     ./chatgpt
     ./copilot
+    ./codecompanion
   ];
 }
