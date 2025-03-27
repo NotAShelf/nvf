@@ -7,6 +7,7 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) either listOf package str enum;
+  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.nvim.types) mkGrammarOption;
@@ -35,14 +36,6 @@
   formats = {
     fantomas = {
       package = pkgs.fantomas;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.fantomas.with({
-            command = "${cfg.format.package}/bin/fantomas",
-          })
-        )
-      '';
     };
   };
 
@@ -102,8 +95,13 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.fsharp-format = formats.${cfg.format.type}.nullConfig;
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.fsharp = [cfg.format.type];
+        setupOpts.formatters.${cfg.format.type} = {
+          command = getExe cfg.format.package;
+        };
+      };
     })
   ]);
 }
