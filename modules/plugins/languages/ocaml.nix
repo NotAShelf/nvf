@@ -37,14 +37,6 @@
   formats = {
     ocamlformat = {
       package = pkgs.ocamlPackages.ocamlformat;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.ocamlformat.with({
-            command = "${cfg.format.package}/bin/ocamlformat",
-          })
-        )
-      '';
     };
   };
 in {
@@ -97,9 +89,13 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.ocamlformat = formats.${cfg.format.type}.nullConfig;
-      vim.extraPackages = [formats.${cfg.format.type}.package];
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.ocaml = [cfg.format.type];
+        setupOpts.formatters.${cfg.format.type} = {
+          command = getExe cfg.format.package;
+        };
+      };
     })
   ]);
 }
