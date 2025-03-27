@@ -14206,6 +14206,237 @@ package</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.languages.fsharp.enable"></a><a class="term" href="options.html#opt-vim.languages.fsharp.enable"><code class="option">vim.languages.fsharp.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable F# language support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_top">
+&lt;nvf/modules/plugins/languages/fsharp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.fsharp.format.enable"></a><a class="term" href="options.html#opt-vim.languages.fsharp.format.enable"><code class="option">vim.languages.fsharp.format.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable F# formatting.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_top">
+&lt;nvf/modules/plugins/languages/fsharp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.fsharp.format.package"></a><a class="term" href="options.html#opt-vim.languages.fsharp.format.package"><code class="option">vim.languages.fsharp.format.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>F# formatter package</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation fantomas-7.0.1&gt;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_top">
+&lt;nvf/modules/plugins/languages/fsharp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.fsharp.format.type"></a><a class="term" href="options.html#opt-vim.languages.fsharp.format.type"><code class="option">vim.languages.fsharp.format.type</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>F# formatter to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+value “fantomas” (singular enum)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;fantomas&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_top">
+&lt;nvf/modules/plugins/languages/fsharp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.fsharp.lsp.enable"></a><a class="term" href="options.html#opt-vim.languages.fsharp.lsp.enable"><code class="option">vim.languages.fsharp.lsp.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable F# LSP support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_top">
+&lt;nvf/modules/plugins/languages/fsharp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.fsharp.lsp.package"></a><a class="term" href="options.html#opt-vim.languages.fsharp.lsp.package"><code class="option">vim.languages.fsharp.lsp.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>F# LSP server package, or the command to run as a list of strings</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package or list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation fsautocomplete-0.77.2&gt;</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&quot;[lib.getExe pkgs.fsautocomplete \&quot;--state-directory\&quot; \&quot;~/.cache/fsautocomplete\&quot;]&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_top">
+&lt;nvf/modules/plugins/languages/fsharp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.fsharp.lsp.server"></a><a class="term" href="options.html#opt-vim.languages.fsharp.lsp.server"><code class="option">vim.languages.fsharp.lsp.server</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>F# LSP server to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+value “fsautocomplete” (singular enum)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;fsautocomplete&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_top">
+&lt;nvf/modules/plugins/languages/fsharp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.fsharp.treesitter.enable"></a><a class="term" href="options.html#opt-vim.languages.fsharp.treesitter.enable"><code class="option">vim.languages.fsharp.treesitter.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable F# treesitter.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_top">
+&lt;nvf/modules/plugins/languages/fsharp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.fsharp.treesitter.package"></a><a class="term" href="options.html#opt-vim.languages.fsharp.treesitter.package"><code class="option">vim.languages.fsharp.treesitter.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The fsharp treesitter package to use.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">pkgs.vimPlugins.nvim-treesitter.builtGrammars.fsharp</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_top">
+&lt;nvf/modules/plugins/languages/fsharp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.languages.gleam.enable"></a><a class="term" href="options.html#opt-vim.languages.gleam.enable"><code class="option">vim.languages.gleam.enable</code>
   </a>
  </span>
