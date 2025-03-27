@@ -7,10 +7,13 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
   inherit (lib.types) enum either listOf package str;
+  inherit (lib.lists) isList;
+  inherit (lib.meta) getExe;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) expToLua toLuaObject;
+  inherit (lib.nvim.languages) lspOptions;
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.languages.elixir;
@@ -19,18 +22,15 @@
   servers = {
     elixirls = {
       package = pkgs.elixir-ls;
-      lspConfig = ''
-        -- elixirls setup
-        lspconfig.elixirls.setup {
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          cmd = ${
+      options = {
+        capabilities = mkLuaInline "capabilities";
+        on_attach = mkLuaInline "default_on_attach";
+        filetypes = ["elixir" "eelixir" "heex" "surface"];
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/elixir-ls"}''
-        }
-        }
-      '';
+          else ["${getExe cfg.lsp.package}"];
+      };
     };
   };
 
@@ -72,6 +72,17 @@ in {
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
       };
+
+      options = mkOption {
+        type = lspOptions;
+        default = servers.${cfg.lsp.server}.options;
+        description = ''
+          LSP options for Elixir language support.
+
+          This option is freeform, you may add options that are not set by default
+          and they will be merged into the final table passed to lspconfig.
+        '';
+      };
     };
 
     format = {
@@ -102,8 +113,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.elixir-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.lspconfig = {
+        enable = true;
+        sources.elixir-lsp = ''
+          lspconfig.${toLuaObject cfg.lsp.server}.setup(${toLuaObject cfg.lsp.options})
+        '';
+      };
     })
 
     (mkIf cfg.format.enable {
