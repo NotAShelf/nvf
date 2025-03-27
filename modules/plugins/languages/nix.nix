@@ -6,6 +6,7 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib) concatStringsSep;
+  inherit (lib.meta) getExe;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
@@ -13,7 +14,6 @@
   inherit (lib.types) anything attrsOf enum either listOf nullOr package str;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
   inherit (lib.nvim.lua) expToLua toLuaObject;
-  inherit (lib.nvim.languages) diagnosticsToLua;
 
   cfg = config.vim.languages.nix;
 
@@ -100,26 +100,10 @@
   formats = {
     alejandra = {
       package = pkgs.alejandra;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.alejandra.with({
-            command = "${cfg.format.package}/bin/alejandra"
-          })
-        )
-      '';
     };
 
     nixfmt = {
       package = pkgs.nixfmt-rfc-style;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.nixfmt.with({
-            command = "${cfg.format.package}/bin/nixfmt"
-          })
-        )
-      '';
     };
   };
 
@@ -237,17 +221,24 @@ in {
       vim.lsp.lspconfig.sources.nix-lsp = servers.${cfg.lsp.server}.lspConfig;
     })
 
-    (mkIf (cfg.format.enable && !servers.${cfg.lsp.server}.internalFormatter) {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.nix-format = formats.${cfg.format.type}.nullConfig;
+    (mkIf (cfg.format.enable && (!cfg.lsp.enable || !servers.${cfg.lsp.server}.internalFormatter)) {
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.nix = [cfg.format.type];
+        setupOpts.formatters.${cfg.format.type} = {
+          command = getExe cfg.format.package;
+        };
+      };
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources = diagnosticsToLua {
-        lang = "nix";
-        config = cfg.extraDiagnostics.types;
-        inherit diagnosticsProviders;
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.nix = cfg.extraDiagnostics.types;
+        linters = mkMerge (map (name: {
+            ${name}.cmd = getExe diagnosticsProviders.${name}.package;
+          })
+          cfg.extraDiagnostics.types);
       };
     })
   ]);
