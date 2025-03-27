@@ -5,9 +5,10 @@
   ...
 }: let
   inherit (builtins) attrNames;
+  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.lists) isList concatLists;
+  inherit (lib.lists) isList;
   inherit (lib.types) bool enum either package listOf str;
   inherit (lib.nvim.lua) expToLua toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
@@ -32,31 +33,17 @@
     };
   };
 
-  defaultFormat = "denofmt";
+  defaultFormat = "deno_fmt";
   formats = {
+    # for backwards compatibility
     denofmt = {
       package = pkgs.deno;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.deno_fmt.with({
-            filetypes = ${expToLua (concatLists [cfg.format.extraFiletypes ["markdown"]])},
-            command = "${cfg.format.package}/bin/deno",
-          })
-        )
-      '';
+    };
+    deno_fmt = {
+      package = pkgs.deno;
     };
     prettierd = {
       package = pkgs.prettierd;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.prettierd.with({
-            filetypes = ${expToLua (concatLists [cfg.format.extraFiletypes ["markdown"]])},
-            command = "${cfg.format.package}/bin/prettierd",
-          })
-        )
-      '';
     };
   };
 in {
@@ -96,7 +83,7 @@ in {
       type = mkOption {
         type = enum (attrNames formats);
         default = defaultFormat;
-        description = "Markdown formatter to use";
+        description = "Markdown formatter to use. `denofmt` is deprecated and currently aliased to deno_fmt.";
       };
 
       package = mkOption {
@@ -148,8 +135,17 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.markdown-format = formats.${cfg.format.type}.nullConfig;
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.markdown = [cfg.format.type];
+        setupOpts.formatters.${
+          if cfg.format.type == "denofmt"
+          then "deno_fmt"
+          else cfg.format.type
+        } = {
+          command = getExe cfg.format.package;
+        };
+      };
     })
 
     # Extensions
