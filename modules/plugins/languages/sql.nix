@@ -6,11 +6,11 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.types) enum either listOf package str;
   inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.languages) diagnosticsToLua;
   inherit (lib.nvim.types) diagnostics;
 
   cfg = config.vim.languages.sql;
@@ -41,15 +41,10 @@
   formats = {
     sqlfluff = {
       package = sqlfluffDefault;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.sqlfluff.with({
-            command = "${cfg.format.package}/bin/sqlfluff",
-            extra_args = {"--dialect", "${cfg.dialect}"}
-          })
-        )
-      '';
+      config = {
+        command = getExe cfg.format.package;
+        append_args = ["--dialect=${cfg.dialect}"];
+      };
     };
   };
 
@@ -57,15 +52,10 @@
   diagnosticsProviders = {
     sqlfluff = {
       package = sqlfluffDefault;
-      nullConfig = pkg: ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.diagnostics.sqlfluff.with({
-            command = "${pkg}/bin/sqlfluff",
-            extra_args = {"--dialect", "${cfg.dialect}"}
-          })
-        )
-      '';
+      config = {
+        cmd = getExe sqlfluffDefault;
+        args = ["lint" "--format=json" "--dialect=${cfg.dialect}"];
+      };
     };
   };
 in {
@@ -150,16 +140,20 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources."sql-format" = formats.${cfg.format.type}.nullConfig;
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.sql = [cfg.format.type];
+        setupOpts.formatters.${cfg.format.type} = formats.${cfg.format.type}.config;
+      };
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources = diagnosticsToLua {
-        lang = "sql";
-        config = cfg.extraDiagnostics.types;
-        inherit diagnosticsProviders;
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.sql = cfg.extraDiagnostics.types;
+        linters =
+          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
+            cfg.extraDiagnostics.types);
       };
     })
   ]);
