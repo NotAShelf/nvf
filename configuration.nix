@@ -203,6 +203,7 @@ isMaximal: {
       toggleterm = {
         enable = true;
         lazygit.enable = true;
+        slides.enable = true;
       };
     };
 

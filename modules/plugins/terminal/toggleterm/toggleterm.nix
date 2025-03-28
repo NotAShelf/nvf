@@ -5,14 +5,31 @@
 }: let
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.nvim.binds) mkMappingOption;
-  inherit (lib.types) nullOr str enum bool package either int;
+  inherit
+    (lib.types)
+    nullOr
+    str
+    enum
+    bool
+    package
+    either
+    int
+    ;
   inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   inherit (lib.generators) mkLuaInline;
 in {
   imports = [
-    (mkRenamedOptionModule ["vim" "terminal" "toggleterm" "direction"] ["vim" "terminal" "toggleterm" "setupOpts" "direction"])
-    (mkRenamedOptionModule ["vim" "terminal" "toggleterm" "enable_winbar"] ["vim" "terminal" "toggleterm" "setupOpts" "enable_winbar"])
+    (
+      mkRenamedOptionModule
+      ["vim" "terminal" "toggleterm" "direction"]
+      ["vim" "terminal" "toggleterm" "setupOpts" "direction"]
+    )
+    (
+      mkRenamedOptionModule
+      ["vim" "terminal" "toggleterm" "enable_winbar"]
+      ["vim" "terminal" "toggleterm" "setupOpts" "enable_winbar"]
+    )
   ];
 
   options.vim.terminal.toggleterm = {
@@ -27,7 +44,12 @@ in {
 
     setupOpts = mkPluginSetupOption "ToggleTerm" {
       direction = mkOption {
-        type = enum ["horizontal" "vertical" "tab" "float"];
+        type = enum [
+          "horizontal"
+          "vertical"
+          "tab"
+          "float"
+        ];
         default = "horizontal";
         description = "Direction of the terminal";
       };
@@ -52,7 +74,11 @@ in {
         '';
       };
       winbar = {
-        enabled = mkEnableOption "winbar in terminal" // {default = true;};
+        enabled =
+          mkEnableOption "winbar in terminal"
+          // {
+            default = true;
+          };
         name_formatter = mkOption {
           type = luaInline;
           description = "Winbar formatter function.";
@@ -68,7 +94,12 @@ in {
     lazygit = {
       enable = mkEnableOption "LazyGit integration";
       direction = mkOption {
-        type = enum ["horizontal" "vertical" "tab" "float"];
+        type = enum [
+          "horizontal"
+          "vertical"
+          "tab"
+          "float"
+        ];
         default = "float";
         description = "Direction of the lazygit window";
       };
@@ -81,6 +112,20 @@ in {
 
       mappings = {
         open = mkMappingOption "Open lazygit [toggleterm]" "<leader>gg";
+      };
+    };
+
+    slides = {
+      enable = mkEnableOption "Slides integration";
+
+      package = mkOption {
+        type = nullOr package;
+        default = pkgs.slides;
+        description = "The package that should be used for slides. Setting it to null will attempt to use slides from your PATH";
+      };
+
+      mappings = {
+        open = mkMappingOption "Open slides [toggleterm]" "<leader>ss";
       };
     };
   };
