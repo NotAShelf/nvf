@@ -235,8 +235,9 @@
 
 [alfarel](https://github.com/alfarelcynthesis):
 
-- Add missing `yazi.nvim` dependency (`snacks.nvim`).
+[conform.nvim]: https://github.com/stevearc/conform.nvim
 
+- Add missing `yazi.nvim` dependency (`snacks.nvim`).
 - Add [mkdir.nvim](https://github.com/jghauser/mkdir.nvim) plugin for automatic
   creation of parent directories when editing a nested file.
 - Add [nix-develop.nvim](https://github.com/figsoda/nix-develop.nvim) plugin for
@@ -248,6 +249,8 @@
   [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) so
   blink.cmp can source snippets from it.
 - Fix [blink.cmp] breaking when built-in sources were modified.
+- Fix [conform.nvim] not allowing disabling formatting on and after save.
+  Use `null` value to disable them if conform is enabled.
 
 [TheColorman](https://github.com/TheColorman):
 
