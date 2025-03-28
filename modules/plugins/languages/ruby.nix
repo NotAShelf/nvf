@@ -6,10 +6,10 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
   inherit (lib.types) either listOf package str enum;
-  inherit (lib.nvim.languages) diagnosticsToLua;
 
   cfg = config.vim.languages.ruby;
 
@@ -35,24 +35,8 @@
   defaultFormat = "rubocop";
   formats = {
     rubocop = {
+      # TODO: is this right?
       package = pkgs.rubyPackages.rubocop;
-      nullConfig = ''
-        local conditional = function(fn)
-          local utils = require("null-ls.utils").make_conditional_utils()
-          return fn(utils)
-        end
-
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.rubocop.with({
-            command="${pkgs.bundler}/bin/bundle",
-            args = vim.list_extend(
-              {"exec", "rubocop", "-a" },
-              null_ls.builtins.formatting.rubocop._opts.args
-            ),
-          })
-        )
-      '';
     };
   };
 
@@ -60,14 +44,7 @@
   diagnosticsProviders = {
     rubocop = {
       package = pkgs.rubyPackages.rubocop;
-      nullConfig = pkg: ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.diagnostics.rubocop.with({
-            command = "${lib.getExe pkg}",
-          })
-        )
-      '';
+      config.command = getExe cfg.format.package;
     };
   };
 in {
@@ -136,16 +113,23 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.ruby-format = formats.${cfg.format.type}.nullConfig;
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.ruby = [cfg.format.type];
+        setupOpts.formatters.${cfg.format.type} = {
+          command = getExe cfg.format.package;
+        };
+      };
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources = diagnosticsToLua {
-        lang = "ruby";
-        config = cfg.extraDiagnostics.types;
-        inherit diagnosticsProviders;
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.ruby = cfg.extraDiagnostics.types;
+        linters = mkMerge (map (name: {
+            ${name}.cmd = getExe diagnosticsProviders.${name}.package;
+          })
+          cfg.extraDiagnostics.types);
       };
     })
   ]);
