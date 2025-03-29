@@ -43,6 +43,7 @@ in {
         Supported themes can be found in {file}`supportedThemes.nix`.
         Setting the theme to "base16" enables base16 theming and
         requires all of the colors in {option}`vim.theme.base16-colors` to be set.
+        Setting the theme to "tinted-theming" adds all of the "tinted-vim" colorschemes.
       '';
     };
     base16-colors = base16Options;
