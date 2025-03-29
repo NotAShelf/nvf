@@ -130,6 +130,7 @@ jobs:
               > "$HOME/changed_files"
           else
             git diff --name-only HEAD^ > "$HOME/changed_files"
+          fi
 
       - name: Print list of changed files
         run: |
