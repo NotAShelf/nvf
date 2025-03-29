@@ -211,4 +211,9 @@ in {
     '';
     styles = ["dark" "light" "dark_dimmed" "dark_default" "light_default" "dark_high_contrast" "light_high_contrast" "dark_colorblind" "light_colorblind" "dark_tritanopia" "light_tritanopia"];
   };
+  tinted-theming = {
+    setup = {style ? "base24-ayu-dark", ...}: ''
+      vim.cmd.colorscheme("${style}")
+    '';
+  };
 }

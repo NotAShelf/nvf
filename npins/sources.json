@@ -2208,6 +2208,19 @@
       "url": "https://github.com/nvim-telescope/telescope.nvim/archive/a4ed82509cecc56df1c7138920a1aeaf246c0ac5.tar.gz",
       "hash": "0vc2fr5nhbc39d55zn09fh8zpy4472ic4xmwvmk5dda8fqw76p8q"
     },
+    "tinted-vim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "tinted-theming",
+        "repo": "tinted-vim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "3bca166be9ad02e28934fd6e5c38c31f59cd28fe",
+      "url": "https://github.com/tinted-theming/tinted-vim/archive/3bca166be9ad02e28934fd6e5c38c31f59cd28fe.tar.gz",
+      "hash": "1x6krr0fxip566g7f4j0dh8vrapph0r4vfil3x2mv3zwpqpyvbx5"
+    },
     "tiny-devicons-auto-colors-nvim": {
       "type": "Git",
       "repository": {
