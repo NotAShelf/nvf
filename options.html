@@ -5635,6 +5635,315 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.lint_after_save"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.lint_after_save"><code class="option">vim.diagnostics.nvim-lint.lint_after_save</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable autocmd to lint after each save.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters"><code class="option">vim.diagnostics.nvim-lint.linters</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Linter configurations. Builtin linters will be updated and not
+replaced, but note that this is not a deep extend operation, i.e. if
+you define an <code class="literal">env</code> option, it will replace the entire <code class="literal">env</code> table
+provided by the builtin (if it exists).</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+attribute set of (submodule)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">&#x27;&#x27;
+  {
+    phpcs = {
+      args = [&quot;-q&quot; &quot;--report-json&quot; &quot;-&quot;];
+  
+      # this will replace the builtin&#x27;s env table if it exists
+      env = {
+        ENV_VAR = &quot;something&quot;;
+      };
+    };
+  }
+&#x27;&#x27;
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.append_fname"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.append_fname"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.append_fname</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Automatically add the current file name to the commands arguments. Only
+has an effect if stdin is false</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.args"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.args"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.args</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Arguments to pass</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or (list of (string or (luaInline)))</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.cmd"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.cmd"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.cmd</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Command of the linter</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.cwd"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.cwd"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.cwd</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Working directory of the linter</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.env"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.env"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.env</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Environment variables to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or (attribute set of string)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.ignore_exitcode"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.ignore_exitcode"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.ignore_exitcode</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Declares if exit code != 1 should be ignored or result in a warning.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.name"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.name"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.name</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Name of the linter</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.parser"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.parser"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.parser</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Parser function</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or (luaInline)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.stdin"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.stdin"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.stdin</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Send content via stdin.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.stream"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.stream"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.stream</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Result stream</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or one of “stdout”, “stderr”, “both”</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.diagnostics.nvim-lint.linters_by_ft"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters_by_ft"><code class="option">vim.diagnostics.nvim-lint.linters_by_ft</code>
   </a>
  </span>
@@ -12306,7 +12615,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation prettier-3.5.2&gt;</code></p>
+<code class="literal">&lt;derivation prettier-3.5.3&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -13272,7 +13581,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation prettier-3.5.2&gt;</code></p>
+<code class="literal">&lt;derivation prettier-3.5.3&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -14206,6 +14515,237 @@ package</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.languages.fsharp.enable"></a><a class="term" href="options.html#opt-vim.languages.fsharp.enable"><code class="option">vim.languages.fsharp.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable F# language support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_top">
+&lt;nvf/modules/plugins/languages/fsharp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.fsharp.format.enable"></a><a class="term" href="options.html#opt-vim.languages.fsharp.format.enable"><code class="option">vim.languages.fsharp.format.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable F# formatting.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_top">
+&lt;nvf/modules/plugins/languages/fsharp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.fsharp.format.package"></a><a class="term" href="options.html#opt-vim.languages.fsharp.format.package"><code class="option">vim.languages.fsharp.format.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>F# formatter package</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation fantomas-7.0.1&gt;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_top">
+&lt;nvf/modules/plugins/languages/fsharp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.fsharp.format.type"></a><a class="term" href="options.html#opt-vim.languages.fsharp.format.type"><code class="option">vim.languages.fsharp.format.type</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>F# formatter to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+value “fantomas” (singular enum)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;fantomas&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_top">
+&lt;nvf/modules/plugins/languages/fsharp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.fsharp.lsp.enable"></a><a class="term" href="options.html#opt-vim.languages.fsharp.lsp.enable"><code class="option">vim.languages.fsharp.lsp.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable F# LSP support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_top">
+&lt;nvf/modules/plugins/languages/fsharp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.fsharp.lsp.package"></a><a class="term" href="options.html#opt-vim.languages.fsharp.lsp.package"><code class="option">vim.languages.fsharp.lsp.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>F# LSP server package, or the command to run as a list of strings</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package or list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation fsautocomplete-0.77.4&gt;</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&quot;[lib.getExe pkgs.fsautocomplete \&quot;--state-directory\&quot; \&quot;~/.cache/fsautocomplete\&quot;]&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_top">
+&lt;nvf/modules/plugins/languages/fsharp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.fsharp.lsp.server"></a><a class="term" href="options.html#opt-vim.languages.fsharp.lsp.server"><code class="option">vim.languages.fsharp.lsp.server</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>F# LSP server to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+value “fsautocomplete” (singular enum)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;fsautocomplete&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_top">
+&lt;nvf/modules/plugins/languages/fsharp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.fsharp.treesitter.enable"></a><a class="term" href="options.html#opt-vim.languages.fsharp.treesitter.enable"><code class="option">vim.languages.fsharp.treesitter.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable F# treesitter.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_top">
+&lt;nvf/modules/plugins/languages/fsharp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.fsharp.treesitter.package"></a><a class="term" href="options.html#opt-vim.languages.fsharp.treesitter.package"><code class="option">vim.languages.fsharp.treesitter.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The fsharp treesitter package to use.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">pkgs.vimPlugins.nvim-treesitter.builtGrammars.fsharp</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_top">
+&lt;nvf/modules/plugins/languages/fsharp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.languages.gleam.enable"></a><a class="term" href="options.html#opt-vim.languages.gleam.enable"><code class="option">vim.languages.gleam.enable</code>
   </a>
  </span>
@@ -14421,7 +14961,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation delve-1.24.0&gt;</code></p>
+<code class="literal">&lt;derivation delve-1.24.1&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -15366,7 +15906,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation jdt-language-server-1.44.0&gt;</code></p>
+<code class="literal">&lt;derivation jdt-language-server-1.45.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot;-data\&quot; \&quot;~/.cache/jdtls/workspace\&quot;]&quot;</code></p>
@@ -15500,7 +16040,7 @@ the command to run as a list of strings.</p>
 null or package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation julia-1.11.3-env&gt;</code></p>
+<code class="literal">&lt;derivation julia-1.11.4-env&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -15847,7 +16387,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation lua-language-server-3.13.6&gt;</code></p>
+<code class="literal">&lt;derivation lua-language-server-3.13.9&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -16079,7 +16619,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation deno-2.2.3&gt;</code></p>
+<code class="literal">&lt;derivation deno-2.2.4&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -16121,13 +16661,13 @@ list of string</p>
  </span>
 </dt>
 <dd>
-<p>Markdown formatter to use</p>
+<p>Markdown formatter to use. <code class="literal">denofmt</code> is deprecated and currently aliased to deno_fmt.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-one of “denofmt”, “prettierd”</p>
+one of “deno_fmt”, “denofmt”, “prettierd”</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&quot;denofmt&quot;</code></p>
+<code class="literal">&quot;deno_fmt&quot;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -16895,7 +17435,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation nushell-0.102.0&gt;</code></p>
+<code class="literal">&lt;derivation nushell-0.103.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;[(lib.getExe pkgs.nushell) \&quot;--lsp\&quot;]&quot;</code></p>
@@ -17279,7 +17819,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation ols-0-unstable-2025-02-11&gt;</code></p>
+<code class="literal">&lt;derivation ols-0-unstable-2025-03-12&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -17664,7 +18204,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation black-24.10.0&gt;</code></p>
+<code class="literal">&lt;derivation black-25.1.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -17739,7 +18279,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation basedpyright-1.28.1&gt;</code></p>
+<code class="literal">&lt;derivation basedpyright-1.28.2&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot;-data\&quot; \&quot;~/.cache/jdtls/workspace\&quot;]&quot;</code></p>
@@ -17895,7 +18435,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation R-4.4.2-wrapper&gt;</code></p>
+<code class="literal">&lt;derivation R-4.4.3-wrapper&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -18581,7 +19121,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation rust-analyzer-2025-02-24&gt;</code></p>
+<code class="literal">&lt;derivation rust-analyzer-2025-03-17&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot;-data\&quot; \&quot;~/.cache/jdtls/workspace\&quot;]&quot;</code></p>
@@ -19392,7 +19932,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation prettier-3.5.2&gt;</code></p>
+<code class="literal">&lt;derivation prettier-3.5.3&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -19986,7 +20526,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation prettier-3.5.2&gt;</code></p>
+<code class="literal">&lt;derivation prettier-3.5.3&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -20455,7 +20995,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation tinymist-0.13.8&gt;</code></p>
+<code class="literal">&lt;derivation tinymist-0.13.10&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot;-data\&quot; \&quot;~/.cache/jdtls/workspace\&quot;]&quot;</code></p>
@@ -20764,7 +21304,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation wgsl-analyzer-0.9.5&gt;</code></p>
+<code class="literal">&lt;derivation wgsl-analyzer-0.9.8&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">[(lib.getExe pkgs.wgsl-analyzer)]</code></p>
