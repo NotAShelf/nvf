@@ -1,9 +1,8 @@
 {
   stdenv,
   rustPlatform,
-  hostPlatform,
   vimUtils,
-  git,
+  gitMinimal,
   src,
   version,
 }: let
@@ -17,7 +16,7 @@
     useFetchCargoVendor = true;
     cargoHash = "sha256-F1wh/TjYoiIbDY3J/prVF367MKk3vwM7LqOpRobOs7I=";
 
-    nativeBuildInputs = [git];
+    nativeBuildInputs = [gitMinimal];
   };
 in
   vimUtils.buildVimPlugin {
@@ -34,5 +33,5 @@ in
     '';
 
     # Module for reproducing issues
-    nvimSkipModule = ["repro"];
+    nvimSkipModules = ["repro"];
   }
