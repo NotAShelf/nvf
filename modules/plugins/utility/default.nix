@@ -15,6 +15,7 @@
     ./multicursors
     ./new-file-template
     ./nix-develop
+    ./oil-nvim
     ./outline
     ./preview
     ./snacks-nvim
