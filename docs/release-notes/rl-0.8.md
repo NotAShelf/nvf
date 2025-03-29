@@ -88,8 +88,11 @@
 
 [blink.cmp]: https://github.com/saghen/blink.cmp
 
+- Add [aerial.nvim].
+- Add [nvim-ufo].
 - Add [blink.cmp] support.
 - Add `LazyFile` user event.
+- Migrate language modules from none-ls to conform/nvim-lint
 
 [diniamo](https://github.com/diniamo):
 
@@ -97,14 +100,6 @@
 
 - Disable the built-in format-on-save feature of zls. Use `vim.lsp.formatOnSave`
   instead.
-
-[horriblename](https://github.com/horriblename):
-
-[aerial.nvim]: (https://github.com/stevearc/aerial.nvim)
-[nvim-ufo]: (https://github.com/kevinhwang91/nvim-ufo)
-
-- Add [aerial.nvim].
-- Add [nvim-ufo].
 
 [LilleAila](https://github.com/LilleAila):
 
