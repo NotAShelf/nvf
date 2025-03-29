@@ -120,7 +120,7 @@ package here may yield undesirable results.</p></div>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation neovim-unwrapped-0.10.4&gt;</code></p>
+<code class="literal">&lt;derivation neovim-unwrapped-0.11.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -14142,7 +14142,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation dart-3.7.1&gt;</code></p>
+<code class="literal">&lt;derivation dart-3.7.2&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot;-data\&quot; \&quot;~/.cache/jdtls/workspace\&quot;]&quot;</code></p>
@@ -19121,7 +19121,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation rust-analyzer-2025-03-17&gt;</code></p>
+<code class="literal">&lt;derivation rust-analyzer-2025-03-24&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot;-data\&quot; \&quot;~/.cache/jdtls/workspace\&quot;]&quot;</code></p>
@@ -32824,35 +32824,26 @@ list of string</p>
     {
       -- Lsp server name
       function()
-        local buf_ft = vim.api.nvim_get_option_value(&#x27;filetype&#x27;, {})
+        local buf_ft = vim.bo.filetype
+        local excluded_buf_ft = { toggleterm = true, NvimTree = true, [&quot;neo-tree&quot;] = true, TelescopePrompt = true }
     
-        -- List of buffer types to exclude
-        local excluded_buf_ft = {&quot;toggleterm&quot;, &quot;NvimTree&quot;, &quot;neo-tree&quot;, &quot;TelescopePrompt&quot;}
-    
-        -- Check if the current buffer type is in the excluded list
-        for _, excluded_type in ipairs(excluded_buf_ft) do
-          if buf_ft == excluded_type then
-            return &quot;&quot;
+        if excluded_buf_ft[buf_ft] then
+          return &quot;&quot;
           end
+    
+        local bufnr = vim.api.nvim_get_current_buf()
+        local clients = vim.lsp.get_clients({ bufnr = bufnr })
+    
+        if vim.tbl_isempty(clients) then
+          return &quot;No Active LSP&quot;
         end
     
-        -- Get the name of the LSP server active in the current buffer
-        local clients = vim.lsp.get_active_clients()
-        local msg = &#x27;No Active Lsp&#x27;
-    
-        -- if no lsp client is attached then return the msg
-        if next(clients) == nil then
-          return msg
-        end
-    
+        local active_clients = {}
         for _, client in ipairs(clients) do
-          local filetypes = client.config.filetypes
-          if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-            return client.name
-          end
+          table.insert(active_clients, client.name)
         end
     
-        return msg
+        return table.concat(active_clients, &quot;, &quot;)
       end,
       icon = &#x27; &#x27;,
       separator = {left = &#x27;&#x27;},
