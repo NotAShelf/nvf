@@ -6,10 +6,10 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
+  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.types) enum either package listOf str bool;
-  inherit (lib.nvim.languages) diagnosticsToLua;
   inherit (lib.nvim.types) diagnostics mkGrammarOption;
   inherit (lib.nvim.lua) expToLua;
 
@@ -37,14 +37,6 @@
   formats = {
     shfmt = {
       package = pkgs.shfmt;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.shfmt.with({
-            command = "${pkgs.shfmt}/bin/shfmt",
-          })
-        )
-      '';
     };
   };
 
@@ -52,15 +44,6 @@
   diagnosticsProviders = {
     shellcheck = {
       package = pkgs.shellcheck;
-      nullConfig = pkg: ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.diagnostics.shellcheck.with({
-            command = "${pkg}/bin/shellcheck",
-            diagnostics_format = "#{m} [#{c}]"
-          })
-        )
-      '';
     };
   };
 in {
@@ -130,16 +113,23 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.bash-format = formats.${cfg.format.type}.nullConfig;
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.sh = [cfg.format.type];
+        setupOpts.formatters.${cfg.format.type} = {
+          command = getExe cfg.format.package;
+        };
+      };
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources = diagnosticsToLua {
-        lang = "bash";
-        config = cfg.extraDiagnostics.types;
-        inherit diagnosticsProviders;
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.sh = cfg.extraDiagnostics.types;
+        linters = mkMerge (map (name: {
+            ${name}.cmd = getExe diagnosticsProviders.${name}.package;
+          })
+          cfg.extraDiagnostics.types);
       };
     })
   ]);

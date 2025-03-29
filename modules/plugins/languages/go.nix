@@ -38,36 +38,15 @@
   formats = {
     gofmt = {
       package = pkgs.go;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.gofmt.with({
-            command = "${cfg.format.package}/bin/gofmt",
-          })
-        )
-      '';
+      config.command = "${cfg.format.package}/bin/gofmt";
     };
     gofumpt = {
       package = pkgs.gofumpt;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.gofumpt.with({
-            command = "${cfg.format.package}/bin/gofumpt",
-          })
-        )
-      '';
+      config.command = getExe cfg.format.package;
     };
     golines = {
       package = pkgs.golines;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.golines.with({
-            command = "${cfg.format.package}/bin/golines",
-          })
-        )
-      '';
+      config.command = "${cfg.format.package}/bin/golines";
     };
   };
 
@@ -153,8 +132,11 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.go-format = formats.${cfg.format.type}.nullConfig;
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.go = [cfg.format.type];
+        setupOpts.formatters.${cfg.format.type} = formats.${cfg.format.type}.config;
+      };
     })
 
     (mkIf cfg.dap.enable {

@@ -1551,9 +1551,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "bb680d752cec37949faca7a1f509e2fe67ab418a",
-      "url": "https://github.com/nvimtools/none-ls.nvim/archive/bb680d752cec37949faca7a1f509e2fe67ab418a.tar.gz",
-      "hash": "11zgc86cjkv1vi183mplx3bsqa2x7ardk7ybyrp702xx5hmd882l"
+      "revision": "a117163db44c256d53c3be8717f3e1a2a28e6299",
+      "url": "https://github.com/nvimtools/none-ls.nvim/archive/a117163db44c256d53c3be8717f3e1a2a28e6299.tar.gz",
+      "hash": "1qxi1wq3snhns49sl6rli5hsgjn7zzc43brnwv0b6mfzl55ydzr8"
     },
     "nord": {
       "type": "Git",
