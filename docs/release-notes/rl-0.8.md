@@ -14,6 +14,11 @@
   the new API they provide. Please manually set your keybinds according to
   [Lspsaga documentation] following the new API.
 
+- none-ls has been updated to the latest version. If you have been using raw Lua
+  configuration to _manually_ configure it, some of the formats may become
+  unavailable as they have been refactored out of the main none-ls repository
+  upstream.
+
 [NotAShelf](https://github.com/notashelf):
 
 [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
