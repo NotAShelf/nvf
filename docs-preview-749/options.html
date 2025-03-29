@@ -5635,6 +5635,315 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.lint_after_save"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.lint_after_save"><code class="option">vim.diagnostics.nvim-lint.lint_after_save</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable autocmd to lint after each save.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters"><code class="option">vim.diagnostics.nvim-lint.linters</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Linter configurations. Builtin linters will be updated and not
+replaced, but note that this is not a deep extend operation, i.e. if
+you define an <code class="literal">env</code> option, it will replace the entire <code class="literal">env</code> table
+provided by the builtin (if it exists).</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+attribute set of (submodule)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">&#x27;&#x27;
+  {
+    phpcs = {
+      args = [&quot;-q&quot; &quot;--report-json&quot; &quot;-&quot;];
+  
+      # this will replace the builtin&#x27;s env table if it exists
+      env = {
+        ENV_VAR = &quot;something&quot;;
+      };
+    };
+  }
+&#x27;&#x27;
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.append_fname"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.append_fname"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.append_fname</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Automatically add the current file name to the commands arguments. Only
+has an effect if stdin is false</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.args"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.args"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.args</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Arguments to pass</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or (list of (string or (luaInline)))</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.cmd"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.cmd"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.cmd</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Command of the linter</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.cwd"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.cwd"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.cwd</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Working directory of the linter</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.env"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.env"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.env</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Environment variables to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or (attribute set of string)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.ignore_exitcode"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.ignore_exitcode"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.ignore_exitcode</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Declares if exit code != 1 should be ignored or result in a warning.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.name"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.name"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.name</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Name of the linter</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.parser"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.parser"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.parser</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Parser function</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or (luaInline)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.stdin"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.stdin"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.stdin</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Send content via stdin.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.stream"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.stream"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.stream</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Result stream</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or one of “stdout”, “stderr”, “both”</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.diagnostics.nvim-lint.linters_by_ft"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters_by_ft"><code class="option">vim.diagnostics.nvim-lint.linters_by_ft</code>
   </a>
  </span>
@@ -16352,13 +16661,13 @@ list of string</p>
  </span>
 </dt>
 <dd>
-<p>Markdown formatter to use</p>
+<p>Markdown formatter to use. <code class="literal">denofmt</code> is deprecated and currently aliased to deno_fmt.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-one of “denofmt”, “prettierd”</p>
+one of “deno_fmt”, “denofmt”, “prettierd”</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&quot;denofmt&quot;</code></p>
+<code class="literal">&quot;deno_fmt&quot;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
