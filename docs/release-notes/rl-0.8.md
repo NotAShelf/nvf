@@ -26,6 +26,7 @@
 [yanky.nvim]: https://github.com/gbprod/yanky.nvim
 [yazi.nvim]: https://github.com/mikavilpas/yazi.nvim
 [snacks.nvim]: https://github.com/folke/snacks.nvim
+[oil.nvim]: https://github.com/stevearc/oil.nvim
 
 - Add [typst-preview.nvim] under
   `languages.typst.extensions.typst-preview-nvim`.
@@ -82,6 +83,9 @@
   `vim.lsp.lspsaga.setupOpts`.
 
 - Lazyload Lspsaga and remove default keybindings for it.
+
+- Add [oil.nvim] as an alternative file explorer. It will be available under
+  `vim.utility.oil-nvim`.
 
 [amadaluzia](https://github.com/amadaluzia):
 
