@@ -280,3 +280,11 @@
 [Sc3l3t0n](https://github.com/Sc3l3t0n):
 
 - Add F# support under `vim.languages.fsharp`.
+
+[tebuevd](https://github.com/tebuevd):
+
+- Fix `pickers` configuration for `telescope` by nesting it under `setupOpts`
+- Fix `find_command` configuration for `telescope` by nesting it under
+  `setupOpts.pickers.find_files`
+- Update default `telescope.setupOpts.pickers.find_files.find_command` to only
+  include files (and therefore exclude directories from results)
