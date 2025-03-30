@@ -280,3 +280,7 @@
 [Sc3l3t0n](https://github.com/Sc3l3t0n):
 
 - Add F# support under `vim.languages.fsharp`.
+
+[venkyr77](https://github.com/venkyr77):
+
+- Add lint(luacheck), format(stylua) support for lua.
