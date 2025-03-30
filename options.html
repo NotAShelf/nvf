@@ -23299,7 +23299,9 @@ null or string</p>
  </span>
 </dt>
 <dd>
-<p>Whether to enable null-ls, also enabled automatically.</p>
+<p>Whether to enable null-ls, plugin to use Neovim as a language server to inject LSP diagnostics,
+code actions, and more via Lua.
+.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -23321,12 +23323,37 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.lsp.null-ls.debounce"></a><a class="term" href="options.html#opt-vim.lsp.null-ls.debounce"><code class="option">vim.lsp.null-ls.debounce</code>
+ <a id="opt-vim.lsp.null-ls.setupOpts"></a><a class="term" href="options.html#opt-vim.lsp.null-ls.setupOpts"><code class="option">vim.lsp.null-ls.setupOpts</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>Default debounce</p>
+<p>Option table to pass into the setup function of null-ls</p><p>You can pass in any additional options even if they’re
+not listed in the docs</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/null-ls/null-ls.nix" target="_top">
+&lt;nvf/modules/plugins/lsp/null-ls/null-ls.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.lsp.null-ls.setupOpts.debounce"></a><a class="term" href="options.html#opt-vim.lsp.null-ls.setupOpts.debounce"><code class="option">vim.lsp.null-ls.setupOpts.debounce</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Amount of time between the last change to a buffer and the next <code class="literal">textDocument/didChange</code> notification.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 signed integer</p>
@@ -23345,12 +23372,14 @@ signed integer</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.lsp.null-ls.debug"></a><a class="term" href="options.html#opt-vim.lsp.null-ls.debug"><code class="option">vim.lsp.null-ls.debug</code>
+ <a id="opt-vim.lsp.null-ls.setupOpts.debug"></a><a class="term" href="options.html#opt-vim.lsp.null-ls.setupOpts.debug"><code class="option">vim.lsp.null-ls.setupOpts.debug</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>Whether to enable debugging information for `null-ls.</p>
+<p>Whether to enable debugging information for null-ls.</p><p>Displays all possible log messages and writes them to the null-ls log,
+which you can view with the command <code class="literal">:NullLsLog</code>
+.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -23372,12 +23401,13 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.lsp.null-ls.default_timeout"></a><a class="term" href="options.html#opt-vim.lsp.null-ls.default_timeout"><code class="option">vim.lsp.null-ls.default_timeout</code>
+ <a id="opt-vim.lsp.null-ls.setupOpts.default_timeout"></a><a class="term" href="options.html#opt-vim.lsp.null-ls.setupOpts.default_timeout"><code class="option">vim.lsp.null-ls.setupOpts.default_timeout</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>Default timeout value, in milliseconds</p>
+<p>Amount of time (in milliseconds) after which built-in sources will time out.</p><div class="note"><h3 class="title">Note</h3><p>Built-in sources can define their own timeout period and users can override
+the timeout period on a per-source basis</p></div>
 
 <p><span class="emphasis"><em>Type:</em></span>
 signed integer</p>
@@ -23396,12 +23426,13 @@ signed integer</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.lsp.null-ls.diagnostics_format"></a><a class="term" href="options.html#opt-vim.lsp.null-ls.diagnostics_format"><code class="option">vim.lsp.null-ls.diagnostics_format</code>
+ <a id="opt-vim.lsp.null-ls.setupOpts.diagnostics_format"></a><a class="term" href="options.html#opt-vim.lsp.null-ls.setupOpts.diagnostics_format"><code class="option">vim.lsp.null-ls.setupOpts.diagnostics_format</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>Diagnostic output format for null-ls</p>
+<p>Sets the default format used for diagnostics. null-ls will replace th
+e following special components with the relevant diagnostic information:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p><code class="literal">#{m}</code>: message</p></li><li class="listitem"><p><code class="literal">#{s}</code>: source name (defaults to null-ls if not specified)</p></li><li class="listitem"><p><code class="literal">#{c}</code>: code (if available)</p></li></ul></div>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -23420,18 +23451,45 @@ string</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.lsp.null-ls.sources"></a><a class="term" href="options.html#opt-vim.lsp.null-ls.sources"><code class="option">vim.lsp.null-ls.sources</code>
+ <a id="opt-vim.lsp.null-ls.setupOpts.on_attach"></a><a class="term" href="options.html#opt-vim.lsp.null-ls.setupOpts.on_attach"><code class="option">vim.lsp.null-ls.setupOpts.on_attach</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>null-ls sources</p>
+<p>Defines an on_attach callback to run whenever null-ls attaches to a buffer.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-attribute set of string</p>
+null or (luaInline)</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">{
+  _type = &quot;lua-inline&quot;;
+  expr = &quot;on_attach&quot;;
+}
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/null-ls/null-ls.nix" target="_top">
+&lt;nvf/modules/plugins/lsp/null-ls/null-ls.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.lsp.null-ls.setupOpts.sources"></a><a class="term" href="options.html#opt-vim.lsp.null-ls.setupOpts.sources"><code class="option">vim.lsp.null-ls.setupOpts.sources</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Sources for null-ls to register</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or (attribute set of (luaInline))</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">{ }</code></p>
+<code class="literal">null</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
