@@ -13,7 +13,7 @@ in {
     setupOpts = mkPluginSetupOption "scrollbar-nvim" {
       excluded_filetypes = mkOption {
         type = listOf str;
-        default = ["prompt" "TelescopePrompt" "noice" "noice" "NvimTree" "neo-tree" "alpha" "notify" "Navbuddy"];
+        default = ["prompt" "TelescopePrompt" "noice" "NvimTree" "neo-tree" "alpha" "notify" "Navbuddy" "fastaction_popup"];
         description = "Filetypes to hide the scrollbar on";
       };
     };

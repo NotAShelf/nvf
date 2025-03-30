@@ -12,8 +12,7 @@ in {
   config = mkIf cfg.enable {
     vim = {
       startPlugins = ["nvim-scrollbar"];
-
-      pluginRC.cursorline = entryAnywhere ''
+      pluginRC.nvim-scrollbar = entryAnywhere ''
         require("scrollbar").setup(${toLuaObject cfg.setupOpts})
       '';
     };
