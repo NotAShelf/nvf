@@ -36084,32 +36084,6 @@ list of (one of “hidden”, “tail”, “absolute”, “smart”, “shorte
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.telescope.setupOpts.defaults.pickers.find_command"></a><a class="term" href="options.html#opt-vim.telescope.setupOpts.defaults.pickers.find_command"><code class="option">vim.telescope.setupOpts.defaults.pickers.find_command</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>cmd to use for finding files</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-(list of string) or (luaInline)</p>
-
-<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
-  &quot;\${pkgs.fd}/bin/fd&quot;
-]
-</code></pre>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_top">
-&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
  <a id="opt-vim.telescope.setupOpts.defaults.prompt_prefix"></a><a class="term" href="options.html#opt-vim.telescope.setupOpts.defaults.prompt_prefix"><code class="option">vim.telescope.setupOpts.defaults.prompt_prefix</code>
   </a>
  </span>
@@ -36279,6 +36253,33 @@ signed integer</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">0</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_top">
+&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.telescope.setupOpts.pickers.find_files.find_command"></a><a class="term" href="options.html#opt-vim.telescope.setupOpts.pickers.find_files.find_command"><code class="option">vim.telescope.setupOpts.pickers.find_files.find_command</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>cmd to use for finding files</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+(list of string) or (luaInline)</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
+  &quot;\${pkgs.fd}/bin/fd&quot;
+  &quot;--type=file&quot;
+]
+</code></pre>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
