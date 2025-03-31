@@ -93,11 +93,7 @@ in {
                 })
             end
           ''
-          else "
-              vim.lsp.buf.format({
-                bufnr = bufnr,
-              })
-        "
+          else ""
         }
               end,
             })
