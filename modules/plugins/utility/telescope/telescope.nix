@@ -8,6 +8,12 @@
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   setupOptions = {
+    pickers.find_files.find_command = mkOption {
+      description = "cmd to use for finding files";
+      type = either (listOf str) luaInline;
+      default = ["${pkgs.fd}/bin/fd" "--type=file"];
+    };
+
     defaults = {
       vimgrep_arguments = mkOption {
         description = ''
@@ -26,11 +32,6 @@
           "--hidden"
           "--no-ignore"
         ];
-      };
-      pickers.find_command = mkOption {
-        description = "cmd to use for finding files";
-        type = either (listOf str) luaInline;
-        default = ["${pkgs.fd}/bin/fd"];
       };
       prompt_prefix = mkOption {
         description = "Shown in front of Telescope's prompt";
