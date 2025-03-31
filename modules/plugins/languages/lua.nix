@@ -56,20 +56,20 @@ in {
 
     format = {
       enable = mkOption {
-        description = "Enable Lua formatting";
         type = bool;
         default = config.vim.languages.enableFormat;
+        description = "Enable Lua formatting";
       };
       type = mkOption {
-        description = "Lua formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "Lua formatter to use";
       };
 
       package = mkOption {
-        description = "Lua formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "Lua formatter package";
       };
     };
 
