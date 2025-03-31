@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.types) attrs enum;
+  inherit (lib.types) attrs enum nullOr;
   inherit (lib.nvim.types) mkPluginSetupOption;
   inherit (lib.nvim.lua) mkLuaInline;
 in {
@@ -31,7 +31,7 @@ in {
       };
 
       format_on_save = mkOption {
-        type = attrs;
+        type = nullOr attrs;
         default = {
           lsp_format = "fallback";
           timeout_ms = 500;
@@ -43,7 +43,7 @@ in {
       };
 
       format_after_save = mkOption {
-        type = attrs;
+        type = nullOr attrs;
         default = {lsp_format = "fallback";};
         description = ''
           Table that will be passed to `conform.format()`. If this
