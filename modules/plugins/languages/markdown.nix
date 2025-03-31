@@ -11,7 +11,7 @@
   inherit (lib.lists) isList;
   inherit (lib.types) bool enum either package listOf str;
   inherit (lib.nvim.lua) expToLua toLuaObject;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.languages.markdown;
@@ -44,6 +44,12 @@
     };
     prettierd = {
       package = pkgs.prettierd;
+    };
+  };
+  defaultDiagnosticsProvider = ["markdownlint-cli2"];
+  diagnosticsProviders = {
+    markdownlint-cli2 = {
+      package = pkgs.markdownlint-cli2;
     };
   };
 in {
@@ -121,6 +127,15 @@ in {
         };
       };
     };
+
+    extraDiagnostics = {
+      enable = mkEnableOption "extra Markdown diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      types = diagnostics {
+        langDesc = "Markdown";
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -154,6 +169,17 @@ in {
       vim.pluginRC.render-markdown-nvim = entryAnywhere ''
         require("render-markdown").setup(${toLuaObject cfg.extensions.render-markdown-nvim.setupOpts})
       '';
+    })
+
+    (mkIf cfg.extraDiagnostics.enable {
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.markdown = cfg.extraDiagnostics.types;
+        linters = mkMerge (map (name: {
+            ${name}.cmd = getExe diagnosticsProviders.${name}.package;
+          })
+          cfg.extraDiagnostics.types);
+      };
     })
   ]);
 }

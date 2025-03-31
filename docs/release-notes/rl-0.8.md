@@ -287,6 +287,7 @@
 [venkyr77](https://github.com/venkyr77):
 
 - Add lint (luacheck) and formatting (stylua) support for Lua.
+- Add lint (markdownlint-cli2) support for Markdown.
 
 [tebuevd](https://github.com/tebuevd):
 
