@@ -31,7 +31,7 @@ in {
         '';
       };
     })
-    (mkIf cfg.lint_after_save {
+    (mkIf (cfg.enable && cfg.lint_after_save) {
       vim = {
         augroups = [{name = "nvf_nvim_lint";}];
         autocmds = [
