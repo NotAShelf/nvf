@@ -4,16 +4,30 @@
   lib,
   ...
 }: let
+  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.lists) isList;
-  inherit (lib.types) either listOf package str;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.types) bool either enum listOf package str;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.dag) entryBefore;
 
   cfg = config.vim.languages.lua;
+  defaultFormat = "stylua";
+  formats = {
+    stylua = {
+      package = pkgs.stylua;
+    };
+  };
+
+  defaultDiagnosticsProvider = ["luacheck"];
+  diagnosticsProviders = {
+    luacheck = {
+      package = pkgs.luajitPackages.luacheck;
+    };
+  };
 in {
   imports = [
     (lib.mkRemovedOptionModule ["vim" "languages" "lua" "lsp" "neodev"] ''
@@ -38,6 +52,34 @@ in {
       };
 
       lazydev.enable = mkEnableOption "lazydev.nvim integration, useful for neovim plugin developers";
+    };
+
+    format = {
+      enable = mkOption {
+        type = bool;
+        default = config.vim.languages.enableFormat;
+        description = "Enable Lua formatting";
+      };
+      type = mkOption {
+        type = enum (attrNames formats);
+        default = defaultFormat;
+        description = "Lua formatter to use";
+      };
+
+      package = mkOption {
+        type = package;
+        default = formats.${cfg.format.type}.package;
+        description = "Lua formatter package";
+      };
+    };
+
+    extraDiagnostics = {
+      enable = mkEnableOption "extra Lua diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      types = diagnostics {
+        langDesc = "Lua";
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
+      };
     };
   };
 
@@ -73,6 +115,27 @@ in {
             library = { { path = "''${3rd}/luv/library", words = { "vim%.uv" } } },
           })
         '';
+      })
+
+      (mkIf cfg.format.enable {
+        vim.formatter.conform-nvim = {
+          enable = true;
+          setupOpts.formatters_by_ft.lua = [cfg.format.type];
+          setupOpts.formatters.${cfg.format.type} = {
+            command = getExe cfg.format.package;
+          };
+        };
+      })
+
+      (mkIf cfg.extraDiagnostics.enable {
+        vim.diagnostics.nvim-lint = {
+          enable = true;
+          linters_by_ft.lua = cfg.extraDiagnostics.types;
+          linters = mkMerge (map (name: {
+              ${name}.cmd = getExe diagnosticsProviders.${name}.package;
+            })
+            cfg.extraDiagnostics.types);
+        };
       })
     ]))
   ];
