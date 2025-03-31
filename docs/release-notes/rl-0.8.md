@@ -286,4 +286,4 @@
 
 [venkyr77](https://github.com/venkyr77):
 
-- Add lint(luacheck), format(stylua) support for lua.
+- Add lint (luacheck) and formatting (stylua) support for Lua.
