@@ -16349,6 +16349,131 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.languages.lua.extraDiagnostics.enable"></a><a class="term" href="options.html#opt-vim.languages.lua.extraDiagnostics.enable"><code class="option">vim.languages.lua.extraDiagnostics.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable extra Lua diagnostics.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lua.nix" target="_top">
+&lt;nvf/modules/plugins/languages/lua.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.lua.extraDiagnostics.types"></a><a class="term" href="options.html#opt-vim.languages.lua.extraDiagnostics.types"><code class="option">vim.languages.lua.extraDiagnostics.types</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>List of Lua diagnostics to enable</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+list of (value “luacheck” (singular enum) or (submodule))</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
+  &quot;luacheck&quot;
+]
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lua.nix" target="_top">
+&lt;nvf/modules/plugins/languages/lua.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.lua.format.enable"></a><a class="term" href="options.html#opt-vim.languages.lua.format.enable"><code class="option">vim.languages.lua.format.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Enable Lua formatting</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lua.nix" target="_top">
+&lt;nvf/modules/plugins/languages/lua.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.lua.format.package"></a><a class="term" href="options.html#opt-vim.languages.lua.format.package"><code class="option">vim.languages.lua.format.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Lua formatter package</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation stylua-2.0.2&gt;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lua.nix" target="_top">
+&lt;nvf/modules/plugins/languages/lua.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.lua.format.type"></a><a class="term" href="options.html#opt-vim.languages.lua.format.type"><code class="option">vim.languages.lua.format.type</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Lua formatter to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+value “stylua” (singular enum)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;stylua&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lua.nix" target="_top">
+&lt;nvf/modules/plugins/languages/lua.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.languages.lua.lsp.enable"></a><a class="term" href="options.html#opt-vim.languages.lua.lsp.enable"><code class="option">vim.languages.lua.lsp.enable</code>
   </a>
  </span>
