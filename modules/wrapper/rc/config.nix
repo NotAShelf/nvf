@@ -7,6 +7,7 @@
   inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.strings) concatLines concatMapStringsSep;
   inherit (lib.trivial) showWarnings;
+  inherit (lib.lists) optional;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryAfter mkLuarcSection resolveDag entryAnywhere;
   inherit (lib.nvim.lua) toLuaObject;
@@ -18,7 +19,19 @@ in {
       mapAttrsToList (name: value: "vim.g.${name} = ${toLuaObject value}") cfg.globals;
 
     optionsScript =
-      mapAttrsToList (name: value: "vim.o.${name} = ${toLuaObject value}") cfg.options;
+      mapAttrsToList (name: value: "vim.o.${name} = ${toLuaObject value}") cfg.options
+      ++ mapAttrsToList (
+        name: {
+          append,
+          prepend,
+          remove,
+        }:
+          concatLines
+          ((optional (append != null) "vim.opt.${name}:append(${toLuaObject append})")
+            ++ (optional (prepend != null) "vim.opt.${name}:prepend(${toLuaObject prepend})")
+            ++ (optional (remove != null) "vim.opt.${name}:remove(${toLuaObject remove})"))
+      )
+      cfg.opt;
 
     extraPluginConfigs = resolveDag {
       name = "extra plugin configs";
