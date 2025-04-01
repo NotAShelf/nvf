@@ -114,17 +114,10 @@ in {
               [render-markdown.nvim]: https://github.com/MeanderingProgrammer/render-markdown.nvim
 
               Inline Markdown rendering with [render-markdown.nvim]
-
             '';
           };
 
-        setupOpts = mkPluginSetupOption "render-markdown" {
-          auto_override_publish_diagnostics = mkOption {
-            description = "Automatically override the publish_diagnostics handler";
-            type = bool;
-            default = true;
-          };
-        };
+        setupOpts = mkPluginSetupOption "render-markdown" {};
       };
     };
 
