@@ -2097,9 +2097,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "a1fc4e559252baa128c471adadf0be045abd542d",
-      "url": "https://github.com/MeanderingProgrammer/render-markdown.nvim/archive/a1fc4e559252baa128c471adadf0be045abd542d.tar.gz",
-      "hash": "0n9zis5jf7khjdmc622g40is5yjsqkxph64mldpd3q8ka64yaib1"
+      "revision": "6b66c32364cd3e6101d37fd71ba4c6fbb2eddfda",
+      "url": "https://github.com/MeanderingProgrammer/render-markdown.nvim/archive/6b66c32364cd3e6101d37fd71ba4c6fbb2eddfda.tar.gz",
+      "hash": "0hlsxh1bjfmzb4vh87631nbi0xl1svs9qdkb3id6ybks8n4qb9jw"
     },
     "rose-pine": {
       "type": "Git",
