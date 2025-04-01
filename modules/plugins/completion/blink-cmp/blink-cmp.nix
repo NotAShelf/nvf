@@ -43,19 +43,6 @@ in {
           default = {};
           description = "Settings for completion providers.";
         };
-
-        transform_items = mkOption {
-          type = nullOr luaInline;
-          default = mkLuaInline "function(_, items) return items end";
-          defaultText = ''
-            Our default does nothing. If you want blink.cmp's default, which
-            lowers the score for snippets, set this option to null.
-          '';
-          description = ''
-            Function to use when transforming the items before they're returned
-            for all providers.
-          '';
-        };
       };
 
       cmdline = {
