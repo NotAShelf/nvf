@@ -1,14 +1,15 @@
 {
   imports = [
-    ./noice
-    ./modes
-    ./nvim-ufo
-    ./notifications
-    ./smartcolumn
-    ./colorizer
-    ./illuminate
-    ./breadcrumbs
     ./borders
+    ./breadcrumbs
+    ./colorful-menu-nvim
+    ./colorizer
     ./fastaction
+    ./illuminate
+    ./modes
+    ./noice
+    ./notifications
+    ./nvim-ufo
+    ./smartcolumn
   ];
 }

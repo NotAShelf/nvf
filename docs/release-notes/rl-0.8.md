@@ -26,6 +26,7 @@
 [yanky.nvim]: https://github.com/gbprod/yanky.nvim
 [yazi.nvim]: https://github.com/mikavilpas/yazi.nvim
 [snacks.nvim]: https://github.com/folke/snacks.nvim
+[colorful-menu.nvim]: https://github.com/xzbdmw/colorful-menu.nvim
 
 - Add [typst-preview.nvim] under
   `languages.typst.extensions.typst-preview-nvim`.
@@ -82,6 +83,9 @@
   `vim.lsp.lspsaga.setupOpts`.
 
 - Lazyload Lspsaga and remove default keybindings for it.
+
+- Add [colorful-menu.nvim] to enhance the completion menus, with optional
+  integration for blink-cmp and nvim-cmp
 
 [amadaluzia](https://github.com/amadaluzia):
 
@@ -249,8 +253,8 @@
   [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) so
   blink.cmp can source snippets from it.
 - Fix [blink.cmp] breaking when built-in sources were modified.
-- Fix [conform.nvim] not allowing disabling formatting on and after save.
-  Use `null` value to disable them if conform is enabled.
+- Fix [conform.nvim] not allowing disabling formatting on and after save. Use
+  `null` value to disable them if conform is enabled.
 
 [TheColorman](https://github.com/TheColorman):
 
