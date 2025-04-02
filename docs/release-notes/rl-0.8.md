@@ -301,6 +301,9 @@
 - Update default `telescope.setupOpts.pickers.find_files.find_command` to only
   include files (and therefore exclude directories from results)
 
-  [ckoehler](https://github.com/ckoehler):
+[ckoehler](https://github.com/ckoehler):
 
-  - Fix oil config referencing snacks
+[flash.nvim]: https://github.com/folke/flash.nvim
+
+- Fix oil config referencing snacks
+- Add [flash.nvim] plugin to `vim.utility.motion.flash-nvim`
