@@ -292,6 +292,7 @@
 
 - Add lint (luacheck) and formatting (stylua) support for Lua.
 - Add lint (markdownlint-cli2) support for Markdown.
+- Add catppuccin integration for Lspsaga.
 
 [tebuevd](https://github.com/tebuevd):
 
