@@ -22,7 +22,7 @@
       package = pkgs.astro-language-server;
       lspConfig = ''
         lspconfig.astro.setup {
-          capabilities = capabilities;
+          capabilities = capabilities,
           on_attach = attach_keymaps,
           cmd = ${
           if isList cfg.lsp.package
@@ -39,6 +39,10 @@
   formats = {
     prettier = {
       package = pkgs.nodePackages.prettier;
+    };
+
+    prettierd = {
+      package = pkgs.prettierd;
     };
 
     biome = {
@@ -84,16 +88,16 @@ in {
       enable = mkEnableOption "Astro LSP support" // {default = config.vim.languages.enableLSP;};
 
       server = mkOption {
-        description = "Astro LSP server to use";
         type = enum (attrNames servers);
         default = defaultServer;
+        description = "Astro LSP server to use";
       };
 
       package = mkOption {
-        description = "Astro LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.astro-language-server "--minify" "--stdio"]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+        example = ''[lib.getExe pkgs.astro-language-server "--minify" "--stdio"]'';
+        description = "Astro LSP server package, or the command to run as a list of strings";
       };
     };
 
