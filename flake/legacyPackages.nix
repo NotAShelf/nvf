@@ -17,6 +17,9 @@
           # Build nil from source to get most recent
           # features as they are added.
           nil = inputs'.nil.packages.default;
+          nvf-queries = final.callPackage ./legacyPackages/nvf-queries.nix {
+            version = self.shortRev or self.dirtyShortRev or "dirty";
+          };
           blink-cmp = let
             pin = self.pins.blink-cmp;
           in

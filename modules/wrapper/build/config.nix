@@ -51,7 +51,7 @@
       doCheck = false;
     };
 
-    inherit (inputs.self.legacyPackages.${pkgs.stdenv.system}) blink-cmp;
+    inherit (inputs.self.legacyPackages.${pkgs.stdenv.system}) blink-cmp nvf-queries;
   };
 
   buildConfigPlugins = plugins:
