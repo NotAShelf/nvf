@@ -12,7 +12,7 @@ in {
   config = mkIf cfg.enable {
     vim = {
       startPlugins = ["oil-nvim"];
-      pluginRC.snacks-nvim = entryAnywhere ''
+      pluginRC.oil-nvim = entryAnywhere ''
         require("oil").setup(${toLuaObject cfg.setupOpts});
       '';
     };
