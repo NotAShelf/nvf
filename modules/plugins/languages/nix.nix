@@ -140,6 +140,13 @@ in {
     treesitter = {
       enable = mkEnableOption "Nix treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = mkGrammarOption pkgs "nix";
+
+      enableNvfQueries =
+        mkEnableOption ''
+          extra query files targetted at nvf configuration, e.g. injection rules
+          for mkLuaInline and some options.
+        ''
+        // {default = true;};
     };
 
     lsp = {
@@ -212,8 +219,11 @@ in {
     }
 
     (mkIf cfg.treesitter.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      vim = {
+        treesitter.enable = true;
+        treesitter.grammars = [cfg.treesitter.package];
+        startPlugins = mkIf cfg.treesitter.enableNvfQueries ["nvf-queries"];
+      };
     })
 
     (mkIf cfg.lsp.enable {
