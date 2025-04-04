@@ -308,3 +308,7 @@
 
 - Fix oil config referencing snacks
 - Add [flash.nvim] plugin to `vim.utility.motion.flash-nvim`
+
+[rrvsh](https://github.com/rrvsh):
+
+- Fix namespace of python-lsp-server by changing it to python3Packages
