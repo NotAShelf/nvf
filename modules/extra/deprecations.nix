@@ -104,6 +104,13 @@ in {
         their behaviour was abstract, and confusing. Please use 'vim.options' or 'vim.luaConfigRC'
         to replicate previous behaviour.
       '')
+
+      # 2025-04-04
+      (mkRemovedOptionModule ["vim" "lsp" "lsplines"] ''
+        lsplines module has been removed from nvf, as its functionality is now built into Neovim
+        under the diagnostics module. Please consider using one of 'vim.diagnostics.config' or
+        'vim.luaConfigRC' to configure LSP lines for Neovim through its own diagnostics API.
+      '')
     ]
 
     # Migrated via batchRenameOptions. Further batch renames must be below this line.
