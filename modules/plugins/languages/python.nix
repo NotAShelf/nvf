@@ -47,7 +47,7 @@
     };
 
     python-lsp-server = {
-      package = pkgs.python-lsp-server;
+      package = pkgs.python3Packages.python-lsp-server;
       lspConfig = ''
         lspconfig.pylsp.setup{
           capabilities = capabilities;

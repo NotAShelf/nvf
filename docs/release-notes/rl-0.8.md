@@ -296,6 +296,7 @@
 
 - Add lint (luacheck) and formatting (stylua) support for Lua.
 - Add lint (markdownlint-cli2) support for Markdown.
+- Add catppuccin integration for Bufferline, Lspsaga.
 
 [tebuevd](https://github.com/tebuevd):
 
@@ -311,3 +312,7 @@
 
 - Fix oil config referencing snacks
 - Add [flash.nvim] plugin to `vim.utility.motion.flash-nvim`
+
+[rrvsh](https://github.com/rrvsh):
+
+- Fix namespace of python-lsp-server by changing it to python3Packages
