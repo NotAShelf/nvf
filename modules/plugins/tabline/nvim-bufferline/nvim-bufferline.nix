@@ -279,6 +279,12 @@ in {
               highlight = "Directory";
               separator = true;
             }
+            {
+              filetype = "neo-tree";
+              text = "File Explorer";
+              highlight = "Directory";
+              separator = true;
+            }
           ];
           description = "The windows to offset bufferline above, see `:help bufferline-offset`";
         };
