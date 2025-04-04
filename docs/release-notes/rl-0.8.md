@@ -294,6 +294,7 @@
 - Add lint (markdownlint-cli2) support for Markdown.
 - Add catppuccin integration for Bufferline, Lspsaga.
 - Add neo-tree integration for Bufferline.
+- Add more applicable filetypes to illuminate denylist.
 
 [tebuevd](https://github.com/tebuevd):
 
