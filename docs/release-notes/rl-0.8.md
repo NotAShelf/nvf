@@ -295,6 +295,7 @@
 - Add catppuccin integration for Bufferline, Lspsaga.
 - Add neo-tree integration for Bufferline.
 - Add more applicable filetypes to illuminate denylist.
+- Disable mini.indentscope for applicable filetypes.
 
 [tebuevd](https://github.com/tebuevd):
 
