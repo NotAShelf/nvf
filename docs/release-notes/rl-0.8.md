@@ -87,6 +87,10 @@
 - Add [oil.nvim] as an alternative file explorer. It will be available under
   `vim.utility.oil-nvim`.
 
+- Add `vim.diagnostics` to interact with Neovim's diagnostics module. Available
+  options for `vim.diagnostic.config()` can now be customized through the
+  [](#opt-vim.diagnostics.config) in nvf.
+
 [amadaluzia](https://github.com/amadaluzia):
 
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim
@@ -253,8 +257,8 @@
   [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) so
   blink.cmp can source snippets from it.
 - Fix [blink.cmp] breaking when built-in sources were modified.
-- Fix [conform.nvim] not allowing disabling formatting on and after save.
-  Use `null` value to disable them if conform is enabled.
+- Fix [conform.nvim] not allowing disabling formatting on and after save. Use
+  `null` value to disable them if conform is enabled.
 
 [TheColorman](https://github.com/TheColorman):
 
