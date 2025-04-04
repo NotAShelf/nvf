@@ -37538,15 +37538,23 @@ boolean</p>
  </span>
 </dt>
 <dd>
-<p>List of treesitter grammars to install.</p><p>For languages already supported by nvf, you may
-use the <code class="option">vim.language.&lt;lang&gt;.treesitter</code> options, which
-will automatically add the required grammars to this.</p>
+<p>List of treesitter grammars to install. For grammars to be installed properly,
+you must use grammars from <code class="literal">pkgs.vimPlugins.nvim-treesitter.builtGrammars</code>.</p><p>For languages already supported by nvf, you may use
+<code class="option">vim.language.&lt;lang&gt;.treesitter</code> options, which will automatically add
+the required grammars to this.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 list of package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">[ ]</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+  regex
+  kdl
+];
+
+</code></pre>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
