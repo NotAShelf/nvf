@@ -4,6 +4,7 @@
   pkgs,
   ...
 }: let
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.modules) mkIf;
   inherit (lib.strings) optionalString;
   inherit (lib.trivial) boolToString;
@@ -27,6 +28,25 @@ in {
         sources = {nvim_lsp = "[LSP]";};
         sourcePlugins = ["cmp-nvim-lsp"];
       };
+
+      autocmds =
+        if cfg.inlayHints.enable
+        then [
+          {
+            callback = mkLuaInline ''
+              function(event)
+                local bufnr = event.buf
+                local client = vim.lsp.get_client_by_id(event.data.client_id)
+                if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+                  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+                end
+              end
+            '';
+            desc = "LSP on-attach enable inlay hints autocmd";
+            event = ["LspAttach"];
+          }
+        ]
+        else [];
 
       pluginRC.lsp-setup = ''
         vim.g.formatsave = ${boolToString cfg.formatOnSave};
