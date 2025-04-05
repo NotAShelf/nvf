@@ -20,6 +20,10 @@
     # 2025-02-07
     scrollOffset = "scrolloff";
   };
+
+  lspOptRemovalMsg = ''
+    `vim.languages.<lang>.lsp.opts` are now moved to `vim.lsp.servers.<server_name>.init_options`
+  '';
 in {
   imports = concatLists [
     [
@@ -120,6 +124,9 @@ in {
         in 'vim.clipboard.registers'. Please see the documentation for the new module for more
         details, or open an issue if you are confused.
       '')
+
+      # 2025-04-05
+      (mkRemovedOptionModule ["vim" "languages" "clang" "lsp" "opts"] lspOptRemovalMsg)
     ]
 
     # Migrated via batchRenameOptions. Further batch renames must be below this line.
