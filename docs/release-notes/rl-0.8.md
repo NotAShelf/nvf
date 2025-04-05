@@ -301,6 +301,7 @@
 - Add more applicable filetypes to illuminate denylist.
 - Disable mini.indentscope for applicable filetypes.
 - Enable inlay hints support - `config.vim.lsp.inlayHints`.
+- Add [`auto-save-nvim`](https://github.com/pocco81/auto-save.nvim).
 
 [tebuevd](https://github.com/tebuevd):
 

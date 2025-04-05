@@ -1,5 +1,6 @@
 {
   imports = [
+    ./auto-save
     ./binds
     ./ccc
     ./diffview
