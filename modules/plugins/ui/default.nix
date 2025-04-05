@@ -6,6 +6,7 @@
     ./notifications
     ./smartcolumn
     ./colorizer
+    ./dressing
     ./illuminate
     ./breadcrumbs
     ./borders
