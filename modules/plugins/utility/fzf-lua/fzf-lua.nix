@@ -1,15 +1,21 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
-  inherit (lib.types) nullOr enum;
+  inherit (lib.types) enum package;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.nvim.types) mkPluginSetupOption borderType;
 in {
   options.vim.fzf-lua = {
     enable = mkEnableOption "fzf-lua";
     setupOpts = mkPluginSetupOption "fzf-lua" {
+      fzf_bin = mkOption {
+        type = package;
+        default = "${lib.getExe pkgs.fzf}";
+        description = "fzf package to use";
+      };
       winopts.border = mkOption {
         type = borderType;
         default = config.vim.ui.borders.globalStyle;
