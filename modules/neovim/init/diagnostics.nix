@@ -12,63 +12,70 @@
 
   cfg = config.vim.diagnostics;
 
+  # Takes a boolean, a table, or a Lua list ({key = value}). We
+  # would like to allow all of those types, while clearly expressing
+  # them in the option's type. As such, this type is what it is.
   diagnosticType = oneOf [(attrsOf anything) bool luaInline];
   diagnosticsSubmodule = submodule {
+    # The table might need to be extended, so let's allow that case
+    # with a freeform type of what is supported by diagnostics opts.
     freeformType = attrsOf diagnosticType;
-    underline = mkOption {
-      type = diagnosticType;
-      default = true;
-      description = "Use underline for diagnostics.";
-    };
-
-    virtual_text = mkOption {
-      type = diagnosticType;
-      default = false;
-      example = literalExpression ''
-        {
-          format = lib.generators.mkLuaInline '''
-            function(diagnostic)
-              return string.format("%s (%s)", diagnostic.message, diagnostic.source)
-            end
-          ''';
-        }
-      '';
-
-      description = ''
-        Use virtual text for diagnostics. If multiple diagnostics are set for a namespace,
-        one prefix per diagnostic + the last diagnostic message are shown.
-      '';
-    };
-
-    virtual_lines = mkOption {
-      type = diagnosticType;
-      default = false;
-      description = ''
-        Use virtual lines for diagnostics.
-      '';
-    };
-
-    signs = mkOption {
-      type = diagnosticType;
-      default = false;
-      example = {
-        signs.text = {
-          "vim.diagnostic.severity.ERROR" = "󰅚 ";
-          "vim.diagnostic.severity.WARN" = "󰀪 ";
-        };
+    options = {
+      underline = mkOption {
+        type = diagnosticType;
+        default = true;
+        description = "Use underline for diagnostics.";
       };
-      description = ''
-        Use signs for diagnostics. See {command}`:help diagnostic-signs`.
-      '';
-    };
 
-    update_in_insert = mkOption {
-      type = bool;
-      default = false;
-      description = ''
-        Update diagnostics in Insert mode. If `false`, diagnostics will
-        be updated on InsertLeave ({command}`:help InsertLeave`).
-      '';
+      virtual_text = mkOption {
+        type = diagnosticType;
+        default = false;
+        example = literalExpression ''
+          {
+            format = lib.generators.mkLuaInline '''
+              function(diagnostic)
+                return string.format("%s (%s)", diagnostic.message, diagnostic.source)
+              end
+            ''';
+          }
+        '';
+
+        description = ''
+          Use virtual text for diagnostics. If multiple diagnostics are set for a namespace,
+          one prefix per diagnostic + the last diagnostic message are shown.
+        '';
+      };
+
+      virtual_lines = mkOption {
+        type = diagnosticType;
+        default = false;
+        description = ''
+          Use virtual lines for diagnostics.
+        '';
+      };
+
+      signs = mkOption {
+        type = diagnosticType;
+        default = false;
+        example = {
+          signs.text = {
+            "vim.diagnostic.severity.ERROR" = "󰅚 ";
+            "vim.diagnostic.severity.WARN" = "󰀪 ";
+          };
+        };
+        description = ''
+          Use signs for diagnostics. See {command}`:help diagnostic-signs`.
+        '';
+      };
+
+      update_in_insert = mkOption {
+        type = bool;
+        default = false;
+        description = ''
+          Update diagnostics in Insert mode. If `false`, diagnostics will
+          be updated on InsertLeave ({command}`:help InsertLeave`).
+        '';
+      };
     };
   };
 in {
