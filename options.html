@@ -5636,6 +5636,148 @@ attribute set of ((attribute set of anything) or boolean or (luaInline))</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.diagnostics.config.signs"></a><a class="term" href="options.html#opt-vim.diagnostics.config.signs"><code class="option">vim.diagnostics.config.signs</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Use signs for diagnostics. See <span class="command"><strong>:help diagnostic-signs</strong></span>.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+(attribute set of anything) or boolean or (luaInline)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">{
+  signs = {
+    text = {
+      &quot;vim.diagnostic.severity.ERROR&quot; = &quot;󰅚 &quot;;
+      &quot;vim.diagnostic.severity.WARN&quot; = &quot;󰀪 &quot;;
+    };
+  };
+}
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/diagnostics.nix" target="_top">
+&lt;nvf/modules/neovim/init/diagnostics.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.config.underline"></a><a class="term" href="options.html#opt-vim.diagnostics.config.underline"><code class="option">vim.diagnostics.config.underline</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Use underline for diagnostics.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+(attribute set of anything) or boolean or (luaInline)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/diagnostics.nix" target="_top">
+&lt;nvf/modules/neovim/init/diagnostics.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.config.update_in_insert"></a><a class="term" href="options.html#opt-vim.diagnostics.config.update_in_insert"><code class="option">vim.diagnostics.config.update_in_insert</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Update diagnostics in Insert mode. If <code class="literal">false</code>, diagnostics will
+be updated on InsertLeave (<span class="command"><strong>:help InsertLeave</strong></span>).</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/diagnostics.nix" target="_top">
+&lt;nvf/modules/neovim/init/diagnostics.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.config.virtual_lines"></a><a class="term" href="options.html#opt-vim.diagnostics.config.virtual_lines"><code class="option">vim.diagnostics.config.virtual_lines</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Use virtual lines for diagnostics.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+(attribute set of anything) or boolean or (luaInline)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/diagnostics.nix" target="_top">
+&lt;nvf/modules/neovim/init/diagnostics.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.config.virtual_text"></a><a class="term" href="options.html#opt-vim.diagnostics.config.virtual_text"><code class="option">vim.diagnostics.config.virtual_text</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Use virtual text for diagnostics. If multiple diagnostics are set for a namespace,
+one prefix per diagnostic + the last diagnostic message are shown.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+(attribute set of anything) or boolean or (luaInline)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">{
+  format = lib.generators.mkLuaInline &#x27;&#x27;
+    function(diagnostic)
+      return string.format(&quot;%s (%s)&quot;, diagnostic.message, diagnostic.source)
+    end
+  &#x27;&#x27;;
+}
+
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/diagnostics.nix" target="_top">
+&lt;nvf/modules/neovim/init/diagnostics.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.diagnostics.nvim-lint.enable"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.enable"><code class="option">vim.diagnostics.nvim-lint.enable</code>
   </a>
  </span>
