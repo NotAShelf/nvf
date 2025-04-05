@@ -44,6 +44,7 @@ in {
     ./wgsl.nix
     ./yaml.nix
     ./ruby.nix
+    ./graphql.nix
   ];
 
   options.vim.languages = {

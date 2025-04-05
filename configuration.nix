@@ -65,6 +65,7 @@ isMaximal: {
         enable = isMaximal;
         crates.enable = isMaximal;
       };
+      graphql.enable = isMaximal;
 
       # Language modules that are not as common.
       assembly.enable = false;
