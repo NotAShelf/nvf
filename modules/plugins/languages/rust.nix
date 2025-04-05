@@ -4,17 +4,15 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
+  inherit (builtins) isList attrNames;
   inherit (lib.meta) getExe;
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf mkMerge mkRenamedOptionModule;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.strings) optionalString;
   inherit (lib.trivial) boolToString;
-  inherit (lib.lists) isList;
   inherit (lib.types) bool package str listOf either enum;
-  inherit (lib.nvim.languages) lspOptions;
-  inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryAfter entryAnywhere;
 
   cfg = config.vim.languages.rust;
@@ -26,21 +24,16 @@
     };
   };
 in {
+  imports = [
+    (mkRenamedOptionModule ["vim" "languages" "rust" "crates"] ["vim" "languages" "rust" "extensions" "crates-nvim"])
+  ];
+
   options.vim.languages.rust = {
     enable = mkEnableOption "Rust language support";
 
     treesitter = {
       enable = mkEnableOption "Rust treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = mkGrammarOption pkgs "rust";
-    };
-
-    crates = {
-      enable = mkEnableOption "crates-nvim, tools for managing dependencies";
-      codeActions = mkOption {
-        description = "Enable code actions through null-ls";
-        type = bool;
-        default = true;
-      };
     };
 
     lsp = {
@@ -97,25 +90,26 @@ in {
         default = pkgs.lldb;
       };
     };
+
+    extensions = {
+      crates-nvim = {
+        enable =
+          mkEnableOption ""
+          // {
+            default = true;
+            description = ''
+              [crates.nvim]: https://github.com/Saecki/crates.nvim/
+
+              Helper plugin for managing crates.io dependencies [crates.nvim]
+            '';
+          };
+
+        setupOpts = mkPluginSetupOption "crates-nvim" {};
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
-    (mkIf cfg.crates.enable {
-      vim = {
-        startPlugins = ["crates-nvim"];
-        lsp.null-ls.enable = mkIf cfg.crates.codeActions true;
-        autocomplete.nvim-cmp.sources = {crates = "[Crates]";};
-        pluginRC.rust-crates = entryAnywhere ''
-          require('crates').setup {
-            null_ls = {
-              enabled = ${boolToString cfg.crates.codeActions},
-              name = "crates.nvim",
-            }
-          }
-        '';
-      };
-    })
-
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.package];
@@ -147,7 +141,7 @@ in {
             server = {
               cmd = ${
               if isList cfg.lsp.package
-              then expToLua cfg.lsp.package
+              then toLuaObject cfg.lsp.package
               else ''{"${cfg.lsp.package}/bin/rust-analyzer"}''
             },
               default_settings = {
@@ -189,6 +183,23 @@ in {
               },
             },
           ''}
+          }
+        '';
+      };
+    })
+
+    # Extensions
+    (mkIf cfg.extensions.crates.enable {
+      vim = {
+        startPlugins = ["crates-nvim"];
+        autocomplete.nvim-cmp.sources = {crates = "[Crates]";};
+
+        pluginRC.rust-crates-nvim = entryAnywhere ''
+          require('crates').setup {
+            null_ls = {
+              enabled = ${boolToString cfg.crates.codeActions},
+              name = "crates.nvim",
+            }
           }
         '';
       };
