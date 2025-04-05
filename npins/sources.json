@@ -747,18 +747,6 @@
       "url": "https://github.com/kawre/leetcode.nvim/archive/db7e1cd6b9191b34b4c1f2f96e4e3949cde9f951.tar.gz",
       "hash": "1d3lb7625b2qdzqm74mzrac66rxqc0qgjd3mb37l4v8wqyiyv6pp"
     },
-    "lsp-lines": {
-      "type": "Git",
-      "repository": {
-        "type": "Git",
-        "url": "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "a92c755f182b89ea91bd8a6a2227208026f27b4d",
-      "url": null,
-      "hash": "14ym4d8vgvw2vhsaxik8612wyvszd895q69n9h100yd7x5jqhy4c"
-    },
     "lsp-signature-nvim": {
       "type": "Git",
       "repository": {
