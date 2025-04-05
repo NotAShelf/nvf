@@ -4,14 +4,15 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.meta) getExe;
+  inherit (builtins) isList attrNames;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.types) diagnostics;
+  inherit (lib.meta) getExe;
+  inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.languages) lspOptions;
+  inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption;
 
   cfg = config.vim.languages.sql;
   sqlfluffDefault = pkgs.sqlfluff;
@@ -20,20 +21,20 @@
   servers = {
     sqls = {
       package = pkgs.sqls;
-      lspConfig = ''
-        lspconfig.sqls.setup {
-          on_attach = function(client)
-            client.server_capabilities.execute_command = true
+      options = {
+        on_attach = mkLuaInline ''
+          function(client)
             on_attach_keymaps(client, bufnr)
-            require'sqls'.setup{}
+            client.server_capabilities.execute_command = true
+            require('sqls').setup()
           end,
-          cmd = ${
+        '';
+
+        cmd =
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{ "${cfg.lsp.package}/bin/sqls", "-config", string.format("%s/config.yml", vim.fn.getcwd()) }''
-        }
-        }
-      '';
+          then toLuaObject cfg.lsp.package
+          else ''{ "${cfg.lsp.package}/bin/sqls", "-config", string.format("%s/config.yml", vim.fn.getcwd()) }'';
+      };
     };
   };
 
@@ -70,50 +71,42 @@ in {
 
     treesitter = {
       enable = mkEnableOption "SQL treesitter" // {default = config.vim.languages.enableTreesitter;};
-
-      package = mkOption {
-        description = "SQL treesitter grammar to use";
-        type = package;
-        default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.sql;
-      };
+      package = mkGrammarOption "sql";
     };
 
     lsp = {
       enable = mkEnableOption "SQL LSP support" // {default = config.vim.languages.enableLSP;};
-
       server = mkOption {
-        description = "SQL LSP server to use";
-        type = enum (attrNames servers);
+        type = listOf (enum (attrNames servers));
         default = defaultServer;
+        description = "SQL LSP server to use";
       };
 
       package = mkOption {
-        description = "SQL LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
         type = either package (listOf str);
+        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
         default = servers.${cfg.lsp.server}.package;
+        description = "SQL LSP server package, or the command to run as a list of strings";
       };
     };
 
     format = {
       enable = mkEnableOption "SQL formatting" // {default = config.vim.languages.enableFormat;};
-
       type = mkOption {
-        description = "SQL formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "SQL formatter to use";
       };
 
       package = mkOption {
-        description = "SQL formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "SQL formatter package";
       };
     };
 
     extraDiagnostics = {
       enable = mkEnableOption "extra SQL diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
-
       types = diagnostics {
         langDesc = "SQL";
         inherit diagnosticsProviders;

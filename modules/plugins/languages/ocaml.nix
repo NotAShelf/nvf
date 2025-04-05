@@ -4,12 +4,12 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (builtins) isList attrNames;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.meta) getExe;
-  inherit (lib.lists) isList;
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) either enum listOf package str;
+  inherit (lib.meta) getExe;
+  inherit (lib.nvim.languages) lspOptions;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.lua) expToLua;
 
@@ -19,17 +19,12 @@
   servers = {
     ocaml-lsp = {
       package = pkgs.ocamlPackages.ocaml-lsp;
-      lspConfig = ''
-        lspconfig.ocamllsp.setup {
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-            cmd = ${
+      options = {
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else ''{"${getExe cfg.lsp.package}"}''
-        };
-        }
-      '';
+          else ''{"${getExe cfg.lsp.package}"}'';
+      };
     };
   };
 
@@ -49,30 +44,31 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "OCaml LSP support (ocaml-lsp)" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "OCaml LSP support" // {default = config.vim.languages.enableLSP;};
       server = mkOption {
-        description = "OCaml LSP server to user";
-        type = enum (attrNames servers);
+        type = listOf (enum (attrNames servers));
         default = defaultServer;
+        description = "OCaml LSP server to user";
       };
+
       package = mkOption {
-        description = "OCaml language server package, or the command to run as a list of strings";
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+        description = "OCaml language server package, or the command to run as a list of strings";
       };
     };
 
     format = {
-      enable = mkEnableOption "OCaml formatting support (ocamlformat)" // {default = config.vim.languages.enableFormat;};
+      enable = mkEnableOption "OCaml formatting support" // {default = config.vim.languages.enableFormat;};
       type = mkOption {
-        description = "OCaml formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "OCaml formatter to use";
       };
       package = mkOption {
-        description = "OCaml formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "OCaml formatter package";
       };
     };
   };

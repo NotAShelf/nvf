@@ -9,6 +9,7 @@
   inherit (lib.modules) mkIf mkMerge mkDefault;
   inherit (lib.lists) isList;
   inherit (lib.types) bool either listOf package str enum;
+  inherit (lib.nvim.languages) lspOptions;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.types) mkGrammarOption;
 
@@ -73,7 +74,6 @@ in {
 
     lsp = {
       enable = mkEnableOption "Zig LSP support" // {default = config.vim.languages.enableLSP;};
-
       server = mkOption {
         type = enum (attrNames servers);
         default = defaultServer;
@@ -81,9 +81,9 @@ in {
       };
 
       package = mkOption {
-        description = "ZLS package, or the command to run as a list of strings";
         type = either package (listOf str);
         default = pkgs.zls;
+        description = "ZLS package, or the command to run as a list of strings";
       };
     };
 

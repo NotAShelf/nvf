@@ -4,14 +4,14 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
+  inherit (builtins) attrNames isList;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.lists) isList;
   inherit (lib.types) bool enum either package listOf str;
-  inherit (lib.nvim.lua) expToLua toLuaObject;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) diagnostics mkGrammarOption mkPluginSetupOption;
+  inherit (lib.nvim.languages) lspOptions;
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.languages.markdown;
@@ -19,33 +19,23 @@
   servers = {
     marksman = {
       package = pkgs.marksman;
-      lspConfig = ''
-        lspconfig.marksman.setup{
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
+      options = {
+        cmd =
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/marksman", "server"}''
-        },
-        }
-      '';
+          then toLuaObject cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/marksman", "server"}'';
+      };
     };
   };
 
   defaultFormat = "deno_fmt";
   formats = {
     # for backwards compatibility
-    denofmt = {
-      package = pkgs.deno;
-    };
-    deno_fmt = {
-      package = pkgs.deno;
-    };
-    prettierd = {
-      package = pkgs.prettierd;
-    };
+    denofmt.package = pkgs.deno;
+    deno_fmt.package = pkgs.deno;
+    prettierd.package = pkgs.prettierd;
   };
+
   defaultDiagnosticsProvider = ["markdownlint-cli2"];
   diagnosticsProviders = {
     markdownlint-cli2 = {
@@ -57,35 +47,29 @@ in {
     enable = mkEnableOption "Markdown markup language support";
 
     treesitter = {
-      enable = mkOption {
-        type = bool;
-        default = config.vim.languages.enableTreesitter;
-        description = "Enable Markdown treesitter";
-      };
+      enable = mkEnableOption "Markdown treesitter" // {default = config.vim.languages.enableTreesitter;};
       mdPackage = mkGrammarOption pkgs "markdown";
       mdInlinePackage = mkGrammarOption pkgs "markdown-inline";
     };
 
     lsp = {
-      enable = mkEnableOption "Enable Markdown LSP support" // {default = config.vim.languages.enableLSP;};
-
+      enable = mkEnableOption "Markdown LSP support" // {default = config.vim.languages.enableLSP;};
       server = mkOption {
-        type = enum (attrNames servers);
-        default = defaultServer;
+        type = listOf (enum (attrNames servers));
+        default = [defaultServer];
         description = "Markdown LSP server to use";
       };
 
       package = mkOption {
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
-        example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
+        example = ''["marksman"]'';
         description = "Markdown LSP server package, or the command to run as a list of strings";
       };
     };
 
     format = {
       enable = mkEnableOption "Markdown formatting" // {default = config.vim.languages.enableFormat;};
-
       type = mkOption {
         type = enum (attrNames formats);
         default = defaultFormat;

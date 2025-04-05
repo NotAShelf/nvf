@@ -6,13 +6,15 @@
 }: let
   inherit (lib.generators) mkLuaInline;
   inherit (lib.modules) mkIf mkMerge;
+
+  inherit (lib.options) mkOption mkEnableOption mkPackageOption;
+  inherit (lib.strings) optionalString;
+  inherit (lib.types) attrsOf anything bool;
+  inherit (lib.nvim.languages) lspOptions;
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption luaInline;
-  inherit (lib.options) mkOption mkEnableOption mkPackageOption;
-  inherit (lib.strings) optionalString;
-  inherit (lib.types) attrsOf anything bool;
 
   listCommandsAction =
     if config.vim.telescope.enable

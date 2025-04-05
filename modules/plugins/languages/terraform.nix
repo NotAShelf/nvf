@@ -4,12 +4,28 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (builtins) isList attrNames;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) package;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.types) either package enum listOf str;
+  inherit (lib.meta) getExe;
+  inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.nvim.languages) lspOptions;
   inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.terraform;
+  defaultServer = "terraform-ls";
+  servers = {
+    terraform-ls = {
+      package = pkgs.terraform-ls;
+      options = {
+        cmd =
+          if isList cfg.lsp.package
+          then toLuaObject cfg.lsp.package
+          else ''{"${getExe cfg.lsp.package}", "serve"}'';
+      };
+    };
+  };
 in {
   options.vim.languages.terraform = {
     enable = mkEnableOption "Terraform/HCL support";
@@ -20,12 +36,18 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Terraform LSP support (terraform-ls)" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Terraform LSP support" // {default = config.vim.languages.enableLSP;};
+      server = mkOption {
+        type = listOf (enum (attrNames servers));
+        default = defaultServer;
+        description = "Terraform LSP server to use";
+      };
 
       package = mkOption {
-        description = "terraform-ls package";
-        type = package;
-        default = pkgs.terraform-ls;
+        type = either package (listOf str);
+        default = servers.${cfg.lsp.server}.package;
+        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
+        description = "Terraform LSP server package, or the command to run as a list of strings";
       };
     };
   };

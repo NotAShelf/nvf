@@ -12,6 +12,7 @@
   inherit (lib.trivial) boolToString;
   inherit (lib.lists) isList;
   inherit (lib.types) bool package str listOf either enum;
+  inherit (lib.nvim.languages) lspOptions;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.dag) entryAfter entryAnywhere;

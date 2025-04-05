@@ -4,12 +4,13 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (builtins) isList attrNames;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
+  inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.meta) getExe;
+  inherit (lib.nvim.languages) lspOptions;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.r;
@@ -56,17 +57,12 @@
       package = pkgs.writeShellScriptBin "r_lsp" ''
         ${r-with-languageserver}/bin/R --slave -e "languageserver::run()"
       '';
-      lspConfig = ''
-        lspconfig.r_language_server.setup{
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
+      options = {
+        cmd =
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${lib.getExe cfg.lsp.package}"}''
-        }
-        }
-      '';
+          then toLuaObject cfg.lsp.package
+          else ''{"${getExe cfg.lsp.package}"}'';
+      };
     };
   };
 in {
@@ -82,16 +78,16 @@ in {
       enable = mkEnableOption "R LSP support" // {default = config.vim.languages.enableLSP;};
 
       server = mkOption {
-        description = "R LSP server to use";
-        type = enum (attrNames servers);
+        type = listOf (enum (attrNames servers));
         default = defaultServer;
+        description = "R LSP server to use";
       };
 
       package = mkOption {
-        description = "R LSP server package, or the command to run as a list of strings";
-        example = literalExpression "[ (lib.getExe pkgs.jdt-language-server) \"-data\" \"~/.cache/jdtls/workspace\" ]";
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+        example = literalExpression "[ (lib.getExe pkgs.jdt-language-server) \"-data\" \"~/.cache/jdtls/workspace\" ]";
+        description = "R LSP server package, or the command to run as a list of strings";
       };
     };
 
@@ -118,17 +114,17 @@ in {
       vim.treesitter.grammars = [cfg.treesitter.package];
     })
 
+    (mkIf cfg.lsp.enable {
+      vim.lsp.lspconfig.enable = true;
+      vim.lsp.lspconfig.sources.r-lsp = servers.${cfg.lsp.server}.lspConfig;
+    })
+
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
         setupOpts.formatters_by_ft.r = [cfg.format.type];
         setupOpts.formatters.${cfg.format.type} = formats.${cfg.format.type}.config;
       };
-    })
-
-    (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.r-lsp = servers.${cfg.lsp.server}.lspConfig;
     })
   ]);
 }

@@ -12,6 +12,7 @@
   inherit (lib.lists) isList;
   inherit (lib.strings) optionalString;
   inherit (lib.types) anything attrsOf enum either listOf nullOr package str;
+  inherit (lib.nvim.languages) lspOptions;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
   inherit (lib.nvim.lua) expToLua toLuaObject;
 
@@ -20,11 +21,12 @@
   useFormat = "on_attach = default_on_attach";
   noFormat = "on_attach = attach_keymaps";
 
-  defaultServer = "nil";
   packageToCmd = package: defaultCmd:
     if isList package
     then expToLua package
     else ''{"${package}/bin/${defaultCmd}"}'';
+
+  defaultServer = "nil";
   servers = {
     nil = {
       package = pkgs.nil;
@@ -145,9 +147,9 @@ in {
     lsp = {
       enable = mkEnableOption "Nix LSP support" // {default = config.vim.languages.enableLSP;};
       server = mkOption {
+        type = listOf (enum (attrNames servers));
+        default = [defaultServer];
         description = "Nix LSP server to use";
-        type = enum (attrNames servers);
-        default = defaultServer;
       };
 
       package = mkOption {
@@ -155,12 +157,6 @@ in {
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
-      };
-
-      options = mkOption {
-        type = nullOr (attrsOf anything);
-        default = null;
-        description = "Options to pass to nixd LSP server";
       };
     };
 

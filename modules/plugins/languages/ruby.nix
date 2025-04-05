@@ -4,33 +4,34 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.meta) getExe;
+  inherit (builtins) isList attrNames;
+
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) either listOf package str enum;
+  inherit (lib.meta) getExe;
+  inherit (lib.nvim.languages) lspOptions;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.languages.ruby;
 
-  defaultServer = "rubyserver";
+  defaultServer = "solargraph";
   servers = {
-    rubyserver = {
+    solargraph = {
       package = pkgs.rubyPackages.solargraph;
-      lspConfig = ''
-        lspconfig.solargraph.setup {
-          capabilities = capabilities,
-          on_attach = attach_keymaps,
-          flags = {
-            debounce_text_changes = 150,
-          },
-          cmd = { "${pkgs.solargraph}/bin/solargraph", "stdio" }
-        }
-      '';
+      options = {
+        cmd =
+          if isList cfg.lsp.package
+          then toLuaObject cfg.lsp.package
+          else ''{"${getExe cfg.lsp.package}", "stdio"}'';
+
+        flags = {
+          debounce_text_changes = 150;
+        };
+      };
     };
   };
-
-  # testing
 
   defaultFormat = "rubocop";
   formats = {
@@ -58,9 +59,8 @@ in {
 
     lsp = {
       enable = mkEnableOption "Ruby LSP support" // {default = config.vim.languages.enableLSP;};
-
       server = mkOption {
-        type = enum (attrNames servers);
+        type = listOf (enum (attrNames servers));
         default = defaultServer;
         description = "Ruby LSP server to use";
       };
@@ -74,7 +74,6 @@ in {
 
     format = {
       enable = mkEnableOption "Ruby formatter support" // {default = config.vim.languages.enableFormat;};
-
       type = mkOption {
         type = enum (attrNames formats);
         default = defaultFormat;
@@ -89,10 +88,7 @@ in {
     };
 
     extraDiagnostics = {
-      enable =
-        mkEnableOption "Ruby extra diagnostics support"
-        // {default = config.vim.languages.enableExtraDiagnostics;};
-
+      enable = mkEnableOption "extra Ruby diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
       types = diagnostics {
         langDesc = "Ruby";
         inherit diagnosticsProviders;

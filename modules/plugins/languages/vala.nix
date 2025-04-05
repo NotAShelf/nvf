@@ -9,6 +9,8 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.types) enum either listOf package str;
+
+  inherit (lib.nvim.languages) lspOptions;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.lua) expToLua;
 
@@ -26,18 +28,13 @@
             --prefix PATH : ${pkgs.uncrustify}/bin
         '';
       };
-      internalFormatter = true;
-      lspConfig = ''
-        lspconfig.vala_ls.setup {
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
+
+      options = {
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/vala-language-server"}''
-        },
-        }
-      '';
+          else ''{"${cfg.lsp.package}/bin/vala-language-server"}'';
+      };
     };
   };
 in {
@@ -52,15 +49,15 @@ in {
     lsp = {
       enable = mkEnableOption "Vala LSP support" // {default = config.vim.languages.enableLSP;};
       server = mkOption {
-        description = "Vala LSP server to use";
-        type = enum (attrNames servers);
+        type = listOf (enum (attrNames servers));
         default = defaultServer;
+        description = "Vala LSP server to use";
       };
 
       package = mkOption {
-        description = "Vala LSP server package, or the command to run as a list of strings";
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+        description = "Vala LSP server package, or the command to run as a list of strings";
       };
     };
   };

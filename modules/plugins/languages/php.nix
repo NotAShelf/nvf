@@ -4,12 +4,13 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.meta) getExe;
+  inherit (builtins) isList attrNames;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
+
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) enum either listOf package str;
+  inherit (lib.meta) getExe;
+  inherit (lib.nvim.languages) lspOptions;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.lua) expToLua;
 
@@ -19,31 +20,18 @@
   servers = {
     phpactor = {
       package = pkgs.phpactor;
-      lspConfig = ''
-        lspconfig.phpactor.setup{
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          cmd = ${
+      options = {
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else ''
-            {
-              "${getExe cfg.lsp.package}",
-              "language-server"
-            },
-          ''
-        }
-        }
-      '';
+          else ''{"${getExe cfg.lsp.package}", "language-server"}'';
+      };
     };
 
     phan = {
-      package = pkgs.php81Packages.phan;
-      lspConfig = ''
-        lspconfig.phan.setup{
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          cmd = ${
+      package = pkgs.php83Packages.phan;
+      options = {
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
           else ''
@@ -59,30 +47,18 @@
                 "--language-server-on-stdin",
                 "--allow-polyfill-parser"
             },
-          ''
-        }
-        }
-      '';
+          '';
+      };
     };
 
     intelephense = {
       package = pkgs.intelephense;
-      lspConfig = ''
-        lspconfig.intelephense.setup{
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          cmd = ${
+      options = {
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else ''
-            {
-              "${getExe cfg.lsp.package}",
-              "--stdio"
-            },
-          ''
-        }
-        }
-      '';
+          else ''{"${getExe cfg.lsp.package}", "--stdio"'';
+      };
     };
   };
 in {
@@ -98,16 +74,16 @@ in {
       enable = mkEnableOption "PHP LSP support" // {default = config.vim.languages.enableLSP;};
 
       server = mkOption {
-        description = "PHP LSP server to use";
-        type = enum (attrNames servers);
+        type = listOf (enum (attrNames servers));
         default = defaultServer;
+        description = "PHP LSP server to use";
       };
 
       package = mkOption {
-        description = "PHP LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+        example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
+        description = "PHP LSP server package, or the command to run as a list of strings";
       };
     };
   };
@@ -117,6 +93,7 @@ in {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.package];
     })
+
     (mkIf cfg.lsp.enable {
       vim.lsp.lspconfig = {
         enable = true;

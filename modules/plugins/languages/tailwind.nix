@@ -9,7 +9,8 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.languages) lspOptions;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.languages.tailwind;
 
@@ -17,17 +18,12 @@
   servers = {
     tailwindcss-language-server = {
       package = pkgs.tailwindcss-language-server;
-      lspConfig = ''
-        lspconfig.tailwindcss.setup {
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
+      options = {
+        cmd =
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/tailwindcss-language-server", "--stdio"}''
-        }
-        }
-      '';
+          then toLuaObject cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/tailwindcss-language-server", "--stdio"}'';
+      };
     };
   };
 in {
@@ -36,11 +32,10 @@ in {
 
     lsp = {
       enable = mkEnableOption "Tailwindcss LSP support" // {default = config.vim.languages.enableLSP;};
-
       server = mkOption {
-        description = "Tailwindcss LSP server to use";
-        type = enum (attrNames servers);
+        type = listOf (enum (attrNames servers));
         default = defaultServer;
+        description = "Tailwindcss LSP server to use";
       };
 
       package = mkOption {

@@ -12,6 +12,7 @@
   inherit (lib.types) enum either listOf package str;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.languages) lspOptions;
 
   cfg = config.vim.languages.nim;
 
@@ -19,19 +20,14 @@
   servers = {
     nimlsp = {
       package = pkgs.nimlsp;
-      lspConfig = ''
-        lspconfig.nimls.setup{
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
+      options = {
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
           else ''
             {"${cfg.lsp.package}/bin/nimlsp"}
-          ''
-        };
-        }
-      '';
+          '';
+      };
     };
   };
 
@@ -56,31 +52,31 @@ in {
     lsp = {
       enable = mkEnableOption "Nim LSP support" // {default = config.vim.languages.enableLSP;};
       server = mkOption {
+        type = listOf (enum (attrNames servers));
+        default = [defaultServer];
         description = "Nim LSP server to use";
-        type = str;
-        default = defaultServer;
       };
 
       package = mkOption {
-        description = "Nim LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.nimlsp]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+        example = ''[lib.getExe pkgs.nimlsp]'';
+        description = "Nim LSP server package, or the command to run as a list of strings";
       };
     };
 
     format = {
       enable = mkEnableOption "Nim formatting" // {default = config.vim.languages.enableFormat;};
       type = mkOption {
-        description = "Nim formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "Nim formatter to use";
       };
 
       package = mkOption {
-        description = "Nim formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "Nim formatter package";
       };
     };
   };

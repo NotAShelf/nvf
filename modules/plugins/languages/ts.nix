@@ -4,14 +4,14 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
+  inherit (builtins) isList attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
+  inherit (lib.types) enum either listOf package str bool;
   inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.types) enum either listOf package str bool;
-  inherit (lib.nvim.lua) expToLua toLuaObject;
+  inherit (lib.nvim.languages) lspOptions;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption diagnostics mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAnywhere;
 
@@ -21,36 +21,29 @@
   servers = {
     ts_ls = {
       package = pkgs.typescript-language-server;
-      lspConfig = ''
-        lspconfig.ts_ls.setup {
-          capabilities = capabilities,
-          on_attach = function(client, bufnr)
+      options = {
+        on_attach = mkLuaInline ''
+          function(client, bufnr)
             attach_keymaps(client, bufnr);
             client.server_capabilities.documentFormattingProvider = false;
           end,
-          cmd = ${
+        '';
+
+        cmd =
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/typescript-language-server", "--stdio"}''
-        }
-        }
-      '';
+          then toLuaObject cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/typescript-language-server", "--stdio"}'';
+      };
     };
 
     denols = {
       package = pkgs.deno;
-      lspConfig = ''
-        vim.g.markdown_fenced_languages = { "ts=typescript" }
-        lspconfig.denols.setup {
-          capabilities = capabilities;
-          on_attach = attach_keymaps,
-          cmd = ${
+      options = {
+        cmd =
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/deno", "lsp"}''
-        }
-        }
-      '';
+          then toLuaObject cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/deno", "lsp"}'';
+      };
     };
 
     # Here for backwards compatibility. Still consider tsserver a valid
@@ -58,17 +51,12 @@
     # redirect the user to the correct server.
     tsserver = {
       package = pkgs.typescript-language-server;
-      lspConfig = ''
-        lspconfig.ts_ls.setup {
-          capabilities = capabilities;
-          on_attach = attach_keymaps,
-          cmd = ${
+      options = {
+        cmd =
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/typescript-language-server", "--stdio"}''
-        }
-        }
-      '';
+          then toLuaObject cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/typescript-language-server", "--stdio"}'';
+      };
     };
   };
 
@@ -128,40 +116,37 @@ in {
 
     lsp = {
       enable = mkEnableOption "Typescript/Javascript LSP support" // {default = config.vim.languages.enableLSP;};
-
       server = mkOption {
-        description = "Typescript/Javascript LSP server to use";
-        type = enum (attrNames servers);
+        type = listOf (enum (attrNames servers));
         default = defaultServer;
+        description = "Typescript/Javascript LSP server to use";
       };
 
       package = mkOption {
-        description = "Typescript/Javascript LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
+        description = "Typescript/Javascript LSP server package, or the command to run as a list of strings";
       };
     };
 
     format = {
       enable = mkEnableOption "Typescript/Javascript formatting" // {default = config.vim.languages.enableFormat;};
-
       type = mkOption {
-        description = "Typescript/Javascript formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "Typescript/Javascript formatter to use";
       };
 
       package = mkOption {
-        description = "Typescript/Javascript formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "Typescript/Javascript formatter package";
       };
     };
 
     extraDiagnostics = {
       enable = mkEnableOption "extra Typescript/Javascript diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
-
       types = diagnostics {
         langDesc = "Typescript/Javascript";
         inherit diagnosticsProviders;
@@ -175,15 +160,14 @@ in {
           [ts-error-translator.nvim]: https://github.com/dmmulroy/ts-error-translator.nvim
 
           Typescript error translation with [ts-error-translator.nvim]
-
         '';
 
         setupOpts = mkPluginSetupOption "ts-error-translator" {
           # This is the default configuration behaviour.
           auto_override_publish_diagnostics = mkOption {
-            description = "Automatically override the publish_diagnostics handler";
             type = bool;
             default = true;
+            description = "Automatically override the publish_diagnostics handler";
           };
         };
       };
