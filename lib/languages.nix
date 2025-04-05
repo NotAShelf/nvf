@@ -58,6 +58,14 @@ in {
         type = listOf str;
         description = "Command used to start the LSP server";
       };
+
+      root_markers = mkOption {
+        type = listOf str;
+        description = ''
+          "root markers" used to determine the root directory of the workspace, and
+          the filetypes associated with this LSP server.
+        '';
+      };
     };
   };
 }
