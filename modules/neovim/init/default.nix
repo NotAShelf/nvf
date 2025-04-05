@@ -5,6 +5,7 @@
     ./debug.nix
     ./diagnostics.nix
     ./highlight.nix
+    ./lsp.nix
     ./spellcheck.nix
   ];
 }
