@@ -106,6 +106,7 @@
 - Add [blink.cmp] support.
 - Add `LazyFile` user event.
 - Migrate language modules from none-ls to conform/nvim-lint
+- Add tsx support in conform and lint
 
 [diniamo](https://github.com/diniamo):
 
