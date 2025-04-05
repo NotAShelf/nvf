@@ -3,11 +3,13 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkIf;
+  inherit (builtins) filter;
+  inherit (lib.modules) mkIf mkMerge mkDefault;
   inherit (lib.options) mkOption;
   inherit (lib.types) attrsOf;
   inherit (lib.strings) concatLines;
   inherit (lib.attrsets) mapAttrsToList attrNames filterAttrs;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.languages) lspOptions;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.lua) toLuaObject;
@@ -32,13 +34,22 @@ in {
     };
   };
 
-  config = mkIf (cfg.servers != {}) {
-    vim.luaConfigRC.lsp-servers = entryAnywhere ''
-      -- Individual LSP configurations managed by nvf.
-      ${(concatLines lspConfigurations)}
+  config = mkMerge [
+    {
+      vim.lsp.servers."*" = {
+        capabilities = mkDefault (mkLuaInline "capabilities");
+        on_attach = mkDefault (mkLuaInline "default_on_attach");
+      };
+    }
 
-      -- Enable configured LSPs explicitly
-      vim.lsp.enable(${toLuaObject (attrNames enabledServers)})
-    '';
-  };
+    (mkIf (cfg.servers != {}) {
+      vim.luaConfigRC.lsp-servers = entryAnywhere ''
+        -- Individual LSP configurations managed by nvf.
+        ${(concatLines lspConfigurations)}
+
+        -- Enable configured LSPs explicitly
+        vim.lsp.enable(${toLuaObject (filter (name: name != "*") (attrNames enabledServers))})
+      '';
+    })
+  ];
 }
