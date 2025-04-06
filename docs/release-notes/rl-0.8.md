@@ -315,10 +315,12 @@
 [ckoehler](https://github.com/ckoehler):
 
 [flash.nvim]: https://github.com/folke/flash.nvim
+[gitlinker.nvim]: https://github.com/linrongbin16/gitlinker.nvim
 
 - Fix oil config referencing snacks
 - Add [flash.nvim] plugin to `vim.utility.motion.flash-nvim`
 - Fix default telescope ignore list entry for '.git/' to properly match
+- Add [gitlinker.nvim] plugin to `vim.git.gitlinker-nvim`
 
 [rrvsh](https://github.com/rrvsh):
 

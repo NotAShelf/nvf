@@ -562,6 +562,19 @@
       "url": "https://github.com/projekt0n/github-nvim-theme/archive/c106c9472154d6b2c74b74565616b877ae8ed31d.tar.gz",
       "hash": "1w7lz4bgfm8hq1mir4hcr8ik585d4l4w7bjl8yl3g3zklj8223pw"
     },
+    "gitlinker-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "linrongbin16",
+        "repo": "gitlinker.nvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "23982c86f50a9c3f4bc531d41b7a4a68ddd12355",
+      "url": "https://github.com/linrongbin16/gitlinker.nvim/archive/23982c86f50a9c3f4bc531d41b7a4a68ddd12355.tar.gz",
+      "hash": "1kz3gpdysxzpb27izhq0jgk59xw01mmnfvg5yrqvxnfhyjblxvqh"
+    },
     "gitsigns-nvim": {
       "type": "Git",
       "repository": {
