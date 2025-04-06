@@ -22,6 +22,11 @@ in {
       };
 
       treesitter.enable = true;
+
+      autocomplete.nvim-cmp = {
+        sources = {codecompanion-nvim = "[codecompanion]";};
+        sourcePlugins = ["codecompanion-nvim"];
+      };
     };
   };
 }

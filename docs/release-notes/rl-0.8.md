@@ -198,6 +198,7 @@
   Inspiration from `vim.languages.clang.dap` implementation.
 - Add [leetcode.nvim] plugin under `vim.utility.leetcode-nvim`.
 - Add [codecompanion.nvim] plugin under `vim.assistant.codecompanion-nvim`.
+- Fix [codecompanion-nvim] plugin: nvim-cmp error and setupOpts defaults.
 
 [nezia1](https://github.com/nezia1):
 

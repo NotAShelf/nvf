@@ -9,7 +9,12 @@ in {
 
       setupOpts = mkPluginSetupOption "codecompanion-nvim" {
         opts = {
-          send_code = mkEnableOption "code from being sent to the LLM.";
+          send_code =
+            mkEnableOption ""
+            // {
+              default = true;
+              description = "code from being sent to the LLM.";
+            };
 
           log_level = mkOption {
             type = enum ["DEBUG" "INFO" "ERROR" "TRACE"];
@@ -64,7 +69,12 @@ in {
           };
 
           chat = {
-            auto_scroll = mkEnableOption "automatic page scrolling.";
+            auto_scroll =
+              mkEnableOption ""
+              // {
+                default = true;
+                description = "automatic page scrolling.";
+              };
 
             show_settings = mkEnableOption ''
               LLM settings to appear at the top of the chat buffer.
