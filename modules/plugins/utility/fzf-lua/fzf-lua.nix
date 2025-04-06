@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib.types) enum package;
+  inherit (lib.types) enum str;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.nvim.types) mkPluginSetupOption borderType;
 in {
@@ -12,9 +12,9 @@ in {
     enable = mkEnableOption "fzf-lua";
     setupOpts = mkPluginSetupOption "fzf-lua" {
       fzf_bin = mkOption {
-        type = package;
+        type = str;
         default = "${lib.getExe pkgs.fzf}";
-        description = "fzf package to use";
+        description = "Path to fzf executable";
       };
       winopts.border = mkOption {
         type = borderType;
