@@ -117,7 +117,7 @@
       file_ignore_patterns = mkOption {
         description = "A table of lua regex that define the files that should be ignored.";
         type = listOf str;
-        default = ["node_modules" ".git/" "dist/" "build/" "target/" "result/"];
+        default = ["node_modules" "%.git/" "dist/" "build/" "target/" "result/"];
       };
       color_devicons = mkOption {
         description = "Boolean if devicons should be enabled or not.";
