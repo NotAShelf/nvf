@@ -318,6 +318,7 @@
 
 - Fix oil config referencing snacks
 - Add [flash.nvim] plugin to `vim.utility.motion.flash-nvim`
+- Fix default telescope ignore list entry for '.git/' to properly match
 
 [rrvsh](https://github.com/rrvsh):
 
