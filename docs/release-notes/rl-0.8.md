@@ -106,6 +106,7 @@
 - Add [blink.cmp] support.
 - Add `LazyFile` user event.
 - Migrate language modules from none-ls to conform/nvim-lint
+- Add tsx support in conform and lint
 
 [diniamo](https://github.com/diniamo):
 
@@ -301,6 +302,7 @@
 - Add neo-tree integration for Bufferline.
 - Add more applicable filetypes to illuminate denylist.
 - Disable mini.indentscope for applicable filetypes.
+- Fix fzf-lua having a hard dependency on fzf.
 - Enable inlay hints support - `config.vim.lsp.inlayHints`.
 
 [tebuevd](https://github.com/tebuevd):
