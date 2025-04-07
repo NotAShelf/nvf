@@ -1,6 +1,6 @@
 {
   imports = [
     ./config.nix
-    ./lsplines.nix
+    ./oil-nvim.nix
   ];
 }

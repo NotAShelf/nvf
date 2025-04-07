@@ -3,16 +3,22 @@
     ./binds
     ./ccc
     ./diffview
+    ./direnv
     ./fzf-lua
     ./gestures
+    ./harpoon
     ./icon-picker
     ./images
     ./leetcode-nvim
+    ./mkdir
     ./motion
     ./multicursors
     ./new-file-template
+    ./nix-develop
+    ./oil-nvim
     ./outline
     ./preview
+    ./snacks-nvim
     ./surround
     ./telescope
     ./wakatime

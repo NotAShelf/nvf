@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
+  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.strings) optionalString;
@@ -21,14 +22,6 @@
   formats = {
     rustfmt = {
       package = pkgs.rustfmt;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.rustfmt.with({
-            command = "${cfg.format.package}/bin/rustfmt",
-          })
-        )
-      '';
     };
   };
 in {
@@ -62,6 +55,15 @@ in {
         description = "Options to pass to rust analyzer";
         type = str;
         default = "";
+        example = ''
+          ['rust-analyzer'] = {
+            cargo = {allFeature = true},
+            checkOnSave = true,
+            procMacro = {
+              enable = true,
+            },
+          },
+        '';
       };
     };
 
@@ -119,8 +121,13 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.rust-format = formats.${cfg.format.type}.nullConfig;
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.rust = [cfg.format.type];
+        setupOpts.formatters.${cfg.format.type} = {
+          command = getExe cfg.format.package;
+        };
+      };
     })
 
     (mkIf (cfg.lsp.enable || cfg.dap.enable) {
@@ -142,6 +149,9 @@ in {
               then expToLua cfg.lsp.package
               else ''{"${cfg.lsp.package}/bin/rust-analyzer"}''
             },
+              default_settings = {
+                ${cfg.lsp.opts}
+              },
               on_attach = function(client, bufnr)
                 default_on_attach(client, bufnr)
                 local opts = { noremap=true, silent=true, buffer = bufnr }

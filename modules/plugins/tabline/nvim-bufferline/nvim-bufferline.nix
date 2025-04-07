@@ -1,4 +1,8 @@
-{lib, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) enum bool either nullOr str int listOf attrs;
   inherit (lib.generators) mkLuaInline;
@@ -23,7 +27,14 @@ in {
     setupOpts = mkPluginSetupOption "Bufferline-nvim" {
       highlights = mkOption {
         type = either attrs luaInline;
-        default = {};
+        default =
+          if config.vim.theme.enable && config.vim.theme.name == "catppuccin"
+          then
+            mkLuaInline
+            ''
+              require("catppuccin.groups.integrations.bufferline").get()
+            ''
+          else {};
         description = ''
           Overrides the highlight groups of bufferline.
 
@@ -264,6 +275,12 @@ in {
           default = [
             {
               filetype = "NvimTree";
+              text = "File Explorer";
+              highlight = "Directory";
+              separator = true;
+            }
+            {
+              filetype = "neo-tree";
               text = "File Explorer";
               highlight = "Directory";
               separator = true;

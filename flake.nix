@@ -86,12 +86,6 @@
     # Alternate neovim-wrapper
     mnw.url = "github:Gerg-L/mnw";
 
-    # For generating documentation website
-    nmd = {
-      url = "sourcehut:~rycee/nmd";
-      flake = false;
-    };
-
     # Language servers (use master instead of nixpkgs)
     nil = {
       url = "github:oxalica/nil";

@@ -9,7 +9,6 @@
   inherit (lib.lists) isList;
   inherit (lib.types) nullOr enum either attrsOf listOf package str;
   inherit (lib.attrsets) attrNames;
-  inherit (lib.generators) mkLuaInline;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.lua) expToLua toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
@@ -61,26 +60,10 @@
   formats = {
     typstfmt = {
       package = pkgs.typstfmt;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.typstfmt.with({
-            command = "${cfg.format.package}/bin/typstfmt",
-          })
-        )
-      '';
     };
     # https://github.com/Enter-tainer/typstyle
     typstyle = {
       package = pkgs.typstyle;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.typstfmt.with({
-            command = "${cfg.format.package}/bin/typstyle",
-          })
-        )
-      '';
     };
   };
 in {
@@ -176,8 +159,13 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.typst-format = formats.${cfg.format.type}.nullConfig;
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.typst = [cfg.format.type];
+        setupOpts.formatters.${cfg.format.type} = {
+          command = getExe cfg.format.package;
+        };
+      };
     })
 
     (mkIf cfg.lsp.enable {
