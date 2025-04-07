@@ -5,6 +5,7 @@ in {
     ./gitsigns
     ./vim-fugitive
     ./git-conflict
+    ./gitlinker-nvim
   ];
 
   options.vim.git = {
@@ -15,6 +16,7 @@ in {
       * gitsigns
       * vim-fugitive
       * git-conflict
+      * gitlinker-nvim
     '';
   };
 }
