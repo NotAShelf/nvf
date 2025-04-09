@@ -303,6 +303,7 @@
 - Disable mini.indentscope for applicable filetypes.
 - Fix fzf-lua having a hard dependency on fzf.
 - Enable inlay hints support - `config.vim.lsp.inlayHints`.
+- Add `neo-tree` extension to `lualine`.
 
 [tebuevd](https://github.com/tebuevd):
 

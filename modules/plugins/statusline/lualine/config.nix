@@ -14,10 +14,15 @@
   bCfg = config.vim.ui.breadcrumbs;
 in {
   config = mkMerge [
-    # TODO: move into nvim-tree file
     (mkIf config.vim.filetree.nvimTree.enable {
       vim.statusline.lualine.setupOpts = {
         extensions = ["nvim-tree"];
+      };
+    })
+
+    (mkIf config.vim.filetree.neo-tree.enable {
+      vim.statusline.lualine.setupOpts = {
+        extensions = ["neo-tree"];
       };
     })
 
