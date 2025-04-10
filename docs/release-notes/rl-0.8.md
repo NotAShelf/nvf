@@ -288,6 +288,7 @@
 [rice-cracker-dev](https://github.com/rice-cracker-dev):
 
 - `eslint_d` now checks for configuration files to load.
+- Fixed an error where `eslint_d` fails to load.
 
 [Sc3l3t0n](https://github.com/Sc3l3t0n):
 

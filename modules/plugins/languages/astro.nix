@@ -62,7 +62,7 @@
             local markers = { "eslint.config.js", "eslint.config.mjs",
               ".eslintrc", ".eslintrc.json", ".eslintrc.js", ".eslintrc.yml", }
             for _, filename in ipairs(markers) do
-              local path = vim.fs.join(cwd, filename)
+              local path = vim.fs.joinpath(cwd, filename)
               if vim.loop.fs_stat(path) then
                 return require("lint.linters.eslint_d").parser(output, bufnr, cwd)
               end
