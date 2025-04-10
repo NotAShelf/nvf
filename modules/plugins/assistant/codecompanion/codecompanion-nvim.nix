@@ -9,7 +9,14 @@ in {
 
       setupOpts = mkPluginSetupOption "codecompanion-nvim" {
         opts = {
-          send_code = mkEnableOption "code from being sent to the LLM.";
+          send_code =
+            mkEnableOption ""
+            // {
+              default = true;
+              description = ''
+                Whether to enable code being sent to the LLM.
+              '';
+            };
 
           log_level = mkOption {
             type = enum ["DEBUG" "INFO" "ERROR" "TRACE"];
@@ -30,7 +37,10 @@ in {
               mkEnableOption ""
               // {
                 default = true;
-                description = "a diff view to see the changes made by the LLM.";
+                description = ''
+                  Whether to enable a diff view
+                  to see the changes made by the LLM.
+                '';
               };
 
             close_chat_at = mkOption {
@@ -64,7 +74,12 @@ in {
           };
 
           chat = {
-            auto_scroll = mkEnableOption "automatic page scrolling.";
+            auto_scroll =
+              mkEnableOption ""
+              // {
+                default = true;
+                description = "Whether to enable automatic page scrolling.";
+              };
 
             show_settings = mkEnableOption ''
               LLM settings to appear at the top of the chat buffer.
@@ -85,14 +100,18 @@ in {
               mkEnableOption ""
               // {
                 default = true;
-                description = "references in the chat buffer.";
+                description = ''
+                  Whether to enable references in the chat buffer.
+                '';
               };
 
             show_token_count =
               mkEnableOption ""
               // {
                 default = true;
-                description = "the token count for each response.";
+                description = ''
+                  Whether to enable the token count for each response.
+                '';
               };
 
             intro_message = mkOption {
@@ -155,7 +174,10 @@ in {
                 mkEnableOption ""
                 // {
                   default = true;
-                  description = "showing default actions in the action palette.";
+                  description = ''
+                    Whether to enable showing default
+                    actions in the action palette.
+                  '';
                 };
 
               show_default_prompt_library =
@@ -163,7 +185,8 @@ in {
                 // {
                   default = true;
                   description = ''
-                    showing default prompt library in the action palette.
+                    Whether to enable showing default
+                    prompt library in the action palette.
                   '';
                 };
             };

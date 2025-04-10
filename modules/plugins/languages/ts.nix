@@ -103,7 +103,7 @@
             local markers = { "eslint.config.js", "eslint.config.mjs",
               ".eslintrc", ".eslintrc.json", ".eslintrc.js", ".eslintrc.yml", }
             for _, filename in ipairs(markers) do
-              local path = vim.fs.join(cwd, filename)
+              local path = vim.fs.joinpath(cwd, filename)
               if vim.loop.fs_stat(path) then
                 return require("lint.linters.eslint_d").parser(output, bufnr, cwd)
               end
@@ -204,9 +204,13 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.typescript = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.typescript = [cfg.format.type];
+          # .tsx files
+          formatters_by_ft.typescriptreact = [cfg.format.type];
+          formatters.${cfg.format.type} = {
+            command = getExe cfg.format.package;
+          };
         };
       };
     })
@@ -215,6 +219,7 @@ in {
       vim.diagnostics.nvim-lint = {
         enable = true;
         linters_by_ft.typescript = cfg.extraDiagnostics.types;
+        linters_by_ft.typescriptreact = cfg.extraDiagnostics.types;
 
         linters = mkMerge (map (name: {
             ${name}.cmd = getExe diagnosticsProviders.${name}.package;

@@ -106,6 +106,7 @@
 - Add [blink.cmp] support.
 - Add `LazyFile` user event.
 - Migrate language modules from none-ls to conform/nvim-lint
+- Add tsx support in conform and lint
 
 [diniamo](https://github.com/diniamo):
 
@@ -198,6 +199,7 @@
   Inspiration from `vim.languages.clang.dap` implementation.
 - Add [leetcode.nvim] plugin under `vim.utility.leetcode-nvim`.
 - Add [codecompanion.nvim] plugin under `vim.assistant.codecompanion-nvim`.
+- Fix [codecompanion-nvim] plugin: nvim-cmp error and setupOpts defaults.
 
 [nezia1](https://github.com/nezia1):
 
@@ -287,6 +289,7 @@
 [rice-cracker-dev](https://github.com/rice-cracker-dev):
 
 - `eslint_d` now checks for configuration files to load.
+- Fixed an error where `eslint_d` fails to load.
 
 [Sc3l3t0n](https://github.com/Sc3l3t0n):
 
@@ -300,7 +303,9 @@
 - Add neo-tree integration for Bufferline.
 - Add more applicable filetypes to illuminate denylist.
 - Disable mini.indentscope for applicable filetypes.
+- Fix fzf-lua having a hard dependency on fzf.
 - Enable inlay hints support - `config.vim.lsp.inlayHints`.
+- Add `neo-tree` extension to `lualine`.
 
 [tebuevd](https://github.com/tebuevd):
 
@@ -313,9 +318,12 @@
 [ckoehler](https://github.com/ckoehler):
 
 [flash.nvim]: https://github.com/folke/flash.nvim
+[gitlinker.nvim]: https://github.com/linrongbin16/gitlinker.nvim
 
 - Fix oil config referencing snacks
 - Add [flash.nvim] plugin to `vim.utility.motion.flash-nvim`
+- Fix default telescope ignore list entry for '.git/' to properly match
+- Add [gitlinker.nvim] plugin to `vim.git.gitlinker-nvim`
 
 [rrvsh](https://github.com/rrvsh):
 
