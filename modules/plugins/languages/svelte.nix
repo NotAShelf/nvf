@@ -4,14 +4,15 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
+  inherit (builtins) isList attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
+
+  inherit (lib.types) enum either listOf package str;
   inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.languages) lspOptions;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
 
   cfg = config.vim.languages.svelte;
@@ -20,17 +21,12 @@
   servers = {
     svelte = {
       package = pkgs.nodePackages.svelte-language-server;
-      lspConfig = ''
-        lspconfig.svelte.setup {
-          capabilities = capabilities;
-          on_attach = attach_keymaps,
-          cmd = ${
+      options = {
+        cmd =
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/svelteserver", "--stdio"}''
-        }
-        }
-      '';
+          then toLuaObject cfg.lsp.package
+          else ''{"${cfg.lsp.package}/bin/svelteserver", "--stdio"}'';
+      };
     };
   };
 
@@ -79,7 +75,6 @@ in {
 
     treesitter = {
       enable = mkEnableOption "Svelte treesitter" // {default = config.vim.languages.enableTreesitter;};
-
       sveltePackage = mkGrammarOption pkgs "svelte";
     };
 
@@ -88,15 +83,15 @@ in {
 
       server = mkOption {
         description = "Svelte LSP server to use";
-        type = enum (attrNames servers);
+        type = listOf (enum (attrNames servers));
         default = defaultServer;
       };
 
       package = mkOption {
-        description = "Svelte LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
+        description = "Svelte LSP server package, or the command to run as a list of strings";
       };
     };
 

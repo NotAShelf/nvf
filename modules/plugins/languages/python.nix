@@ -4,12 +4,13 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (lib.meta) getExe;
+  inherit (builtins) isList attrNames;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
+  inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) enum either listOf package str bool;
+  inherit (lib.meta) getExe;
+  inherit (lib.nvim.languages) lspOptions;
+  inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.lua) expToLua;
 
   cfg = config.vim.languages.python;
@@ -18,47 +19,32 @@
   servers = {
     pyright = {
       package = pkgs.pyright;
-      lspConfig = ''
-        lspconfig.pyright.setup{
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
+      options = {
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/pyright-langserver", "--stdio"}''
-        }
-        }
-      '';
+          else ''{"${cfg.lsp.package}/bin/pyright-langserver", "--stdio"}'';
+      };
     };
 
     basedpyright = {
       package = pkgs.basedpyright;
-      lspConfig = ''
-        lspconfig.basedpyright.setup{
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
+      options = {
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/basedpyright-langserver", "--stdio"}''
-        }
-        }
-      '';
+          else ''{"${cfg.lsp.package}/bin/basedpyright-langserver", "--stdio"}'';
+      };
     };
 
     python-lsp-server = {
       package = pkgs.python3Packages.python-lsp-server;
-      lspConfig = ''
-        lspconfig.pylsp.setup{
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
+      options = {
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/pylsp"}''
-        }
-        }
-      '';
+          else ''{"${cfg.lsp.package}/bin/pylsp"}'';
+      };
     };
   };
 
@@ -161,27 +147,22 @@ in {
 
     treesitter = {
       enable = mkEnableOption "Python treesitter" // {default = config.vim.languages.enableTreesitter;};
-      package = mkOption {
-        description = "Python treesitter grammar to use";
-        type = package;
-        default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.python;
-      };
+      package = mkGrammarOption pkgs "python";
     };
 
     lsp = {
       enable = mkEnableOption "Python LSP support" // {default = config.vim.languages.enableLSP;};
-
       server = mkOption {
-        description = "Python LSP server to use";
-        type = enum (attrNames servers);
+        type = listOf (enum (attrNames servers));
         default = defaultServer;
+        description = "Python LSP server to use";
       };
 
       package = mkOption {
-        description = "python LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
+        description = "Python LSP server package, or the command to run as a list of strings";
       };
     };
 

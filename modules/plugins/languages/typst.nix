@@ -4,12 +4,14 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (builtins) isList attrNames;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
+
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) nullOr enum either attrsOf listOf package str;
-  inherit (lib.attrsets) attrNames;
   inherit (lib.meta) getExe;
+  inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.languages) lspOptions;
   inherit (lib.nvim.lua) expToLua toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAnywhere;
@@ -20,39 +22,38 @@
   servers = {
     typst-lsp = {
       package = pkgs.typst-lsp;
-      lspConfig = ''
-        lspconfig.typst_lsp.setup {
-          capabilities = capabilities,
-          on_attach = function(client, bufnr)
-            -- Disable semantic tokens as a workaround for a semantic token error when using non-english characters
+      options = {
+        on_attach = mkLuaInline ''
+          function(client, bufnr)
+            -- Disable semantic tokens as a workaround for a semantic token error
+            -- when using non-english characters
             client.server_capabilities.semanticTokensProvider = nil
           end,
-          cmd = ${
+        '';
+
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/typst-lsp"}''
-        },
-        }
-      '';
+          else ''{"${getExe cfg.lsp.package}'';
+      };
     };
 
     tinymist = {
       package = pkgs.tinymist;
-      lspConfig = ''
-        lspconfig.tinymist.setup {
-          capabilities = capabilities,
-          single_file_support = true,
-          on_attach = function(client, bufnr)
-            -- Disable semantic tokens as a workaround for a semantic token error when using non-english characters
+      options = {
+        on_attach = mkLuaInline ''
+          function(client, bufnr)
+            -- Disable semantic tokens as a workaround for a semantic token error
+            -- when using non-english characters
             client.server_capabilities.semanticTokensProvider = nil
           end,
-          cmd = ${
+        '';
+
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/tinymist"}''
-        },
-        }
-      '';
+          else ''{"${cfg.lsp.package}/bin/tinymist"}'';
+      };
     };
   };
 
@@ -79,44 +80,46 @@ in {
       enable = mkEnableOption "Typst LSP support (typst-lsp)" // {default = config.vim.languages.enableLSP;};
 
       server = mkOption {
-        description = "Typst LSP server to use";
-        type = enum (attrNames servers);
+        type = listOf (enum (attrNames servers));
         default = defaultServer;
+        description = "Typst LSP server to use";
       };
 
       package = mkOption {
-        description = "typst-lsp package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
+        description = "typst-lsp package, or the command to run as a list of strings";
       };
     };
 
     format = {
       enable = mkEnableOption "Typst document formatting" // {default = config.vim.languages.enableFormat;};
-
       type = mkOption {
-        description = "Typst formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "Typst formatter to use";
       };
 
       package = mkOption {
-        description = "Typst formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "Typst formatter package";
       };
     };
 
     extensions = {
       typst-preview-nvim = {
         enable =
-          mkEnableOption ''
-            [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
+          mkEnableOption ""
+          // {
+            default = true;
+            description = ''
+              [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
 
-            Low latency typst preview for Neovim via [typst-preview.nvim]
-          ''
-          // {default = true;};
+              Low latency typst preview for Neovim via [typst-preview.nvim]
+            '';
+          };
 
         setupOpts = mkPluginSetupOption "typst-preview-nvim" {
           open_cmd = mkOption {
