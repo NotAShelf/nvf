@@ -5,10 +5,10 @@ under `vim.extraPlugins`. Instead of using DAGs exposed by the library, you may
 use the extra plugin module as follows:
 
 ```nix
-{
-  config.vim.extraPlugins = with pkgs.vimPlugins; {
+{pkgs, ...}: {
+  config.vim.extraPlugins = {
     aerial = {
-      package = aerial-nvim;
+      package = pkgs.vimPlugins.aerial-nvim;
       setup = ''
         require('aerial').setup {
           -- some lua configuration here
@@ -17,7 +17,7 @@ use the extra plugin module as follows:
     };
 
     harpoon = {
-      package = harpoon;
+      package = pkgs.vimPlugins.harpoon;
       setup = "require('harpoon').setup {}";
       after = ["aerial"];
     };
