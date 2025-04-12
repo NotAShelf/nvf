@@ -53,24 +53,20 @@
   # TODO: specify packages
   defaultDiagnosticsProvider = ["eslint_d"];
   diagnosticsProviders = {
-    eslint_d = {
-      package = pkgs.eslint_d;
+    eslint_d = let
+      pkg = pkgs.eslint_d;
+    in {
+      package = pkg;
       config = {
-        # HACK: change if nvim-lint gets a dynamic enable thing
-        parser = mkLuaInline ''
-          function(output, bufnr, cwd)
-            local markers = { "eslint.config.js", "eslint.config.mjs",
-              ".eslintrc", ".eslintrc.json", ".eslintrc.js", ".eslintrc.yml", }
-            for _, filename in ipairs(markers) do
-              local path = vim.fs.joinpath(cwd, filename)
-              if vim.loop.fs_stat(path) then
-                return require("lint.linters.eslint_d").parser(output, bufnr, cwd)
-              end
-            end
-
-            return {}
-          end
-        '';
+        cmd = getExe pkg;
+        required_files = [
+          "eslint.config.js"
+          "eslint.config.mjs"
+          ".eslintrc"
+          ".eslintrc.json"
+          ".eslintrc.js"
+          ".eslintrc.yml"
+        ];
       };
     };
   };
@@ -153,16 +149,9 @@ in {
       vim.diagnostics.nvim-lint = {
         enable = true;
         linters_by_ft.astro = cfg.extraDiagnostics.types;
-        linters = mkMerge (map (
-            name: {
-              ${name} =
-                diagnosticsProviders.${name}.config
-                // {
-                  cmd = getExe diagnosticsProviders.${name}.package;
-                };
-            }
-          )
-          cfg.extraDiagnostics.types);
+        linters =
+          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
+            cfg.extraDiagnostics.types);
       };
     })
   ]);

@@ -69,6 +69,13 @@
         default = null;
         description = "Parser function";
       };
+
+      required_files = mkOption {
+        type = nullOr (listOf str);
+        default = null;
+        description = "Required files to lint";
+        example = ["eslint.config.js"];
+      };
     };
   };
 in {

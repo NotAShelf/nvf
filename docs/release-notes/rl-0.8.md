@@ -290,6 +290,7 @@
 
 - `eslint_d` now checks for configuration files to load.
 - Fixed an error where `eslint_d` fails to load.
+- Added required files support for linters under `vim.diagnostics.nvim-lint.linters.*.required_files`.
 
 [Sc3l3t0n](https://github.com/Sc3l3t0n):
 
