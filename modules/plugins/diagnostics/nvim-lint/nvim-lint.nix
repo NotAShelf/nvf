@@ -73,7 +73,7 @@
       required_files = mkOption {
         type = nullOr (listOf str);
         default = null;
-        description = "Required files to lint";
+        description = "Required files to lint. These files must exist relative to the cwd of the linter or else this linter will be skipped";
         example = ["eslint.config.js"];
       };
     };
