@@ -53,6 +53,8 @@ in {
                   if type(linter) == "function" then
                     linter = linter()
                   end
+                  -- for require("lint").lint() to work, linter.name must be set
+                  linter.name = linter.name or name
                   local cwd = linter.required_files
 
                   -- if no configuration files are configured, lint
@@ -61,8 +63,10 @@ in {
                   else
                     -- if configuration files are configured and present in the project, lint
                     for _, fn in ipairs(cwd) do
-                      if vim.uv.fs_stat(fn) then
-                        require("lint").try_lint(name)
+                      local path = vim.fs.joinpath(linter.cwd or vim.fn.getcwd(), fn);
+                      if vim.uv.fs_stat(path) then
+                        require("lint").lint(linter)
+                        break
                       end
                     end
                   end
