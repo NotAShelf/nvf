@@ -57,7 +57,7 @@ in {
 
                   -- if no configuration files are configured, lint
                   if cwd == nil then
-                    require("lint").try_lint(name)
+                    require("lint").lint(linter)
                   else
                     -- if configuration files are configured and present in the project, lint
                     for _, fn in ipairs(cwd) do
