@@ -47,7 +47,13 @@ in {
                 if linters_from_ft == nil then return end
 
                 for _, name in ipairs(linters_from_ft) do
-                  local cwd = linters[name].required_files
+                  local linter = linters[name]
+                  assert(linter, 'Linter with name `' .. name .. '` not available')
+
+                  if type(linter) == "function" then
+                    linter = linter()
+                  end
+                  local cwd = linter.required_files
 
                   -- if no configuration files are configured, lint
                   if cwd == nil then
