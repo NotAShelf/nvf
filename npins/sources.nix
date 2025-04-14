@@ -98,7 +98,9 @@ builtins.mapAttrs
             Channel = getZip;
             Tarball = getUrl;
           }
-          .${spec.type}
+          .${
+            spec.type
+          }
           or (builtins.throw "Unknown source type ${spec.type}");
       in
         spec // {outPath = mayOverride (func spec);}
