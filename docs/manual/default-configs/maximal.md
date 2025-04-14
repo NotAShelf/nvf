@@ -1,7 +1,7 @@
 # Maximal {#sec-default-maximal}
 
 ```bash
-$ nix shell github:notashelf/nvf#maximal test.nix
+$ nix run github:notashelf/nvf#maximal -- test.nix
 ```
 
 It is the same fully configured Neovim as with the [Nix](#sec-default-nix)
