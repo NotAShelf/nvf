@@ -18,12 +18,13 @@
       systems = import inputs.systems;
       imports = [
         ./flake/templates
+        ./flake/tests
 
         ./flake/apps.nix
+        ./flake/develop.nix
         ./flake/legacyPackages.nix
         ./flake/overlays.nix
         ./flake/packages.nix
-        ./flake/develop.nix
       ];
 
       flake = {
