@@ -7,10 +7,11 @@
   inherit (builtins) attrNames;
   inherit (lib.lists) isList;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.types) either enum listOf package str;
+  inherit (lib.nvim.languages) lspOptions;
+  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.wgsl;
 
@@ -19,17 +20,12 @@
     wgsl-analyzer = {
       package = pkgs.wgsl-analyzer;
       internalFormatter = true;
-      lspConfig = ''
-        lspconfig.wgsl_analyzer.setup {
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          cmd = ${
+      options = {
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else "{'${cfg.lsp.package}/bin/wgsl_analyzer'}"
-        }
-        }
-      '';
+          else "{'${cfg.lsp.package}/bin/wgsl_analyzer'}";
+      };
     };
   };
 in {
@@ -43,18 +39,17 @@ in {
 
     lsp = {
       enable = mkEnableOption "WGSL LSP support" // {default = config.vim.languages.enableLSP;};
-
       server = mkOption {
-        type = enum (attrNames servers);
+        type = listOf (enum (attrNames servers));
         default = defaultServer;
         description = "WGSL LSP server to use";
       };
 
       package = mkOption {
-        description = "wgsl-analyzer package, or the command to run as a list of strings";
-        example = literalExpression "[(lib.getExe pkgs.wgsl-analyzer)]";
         type = either package (listOf str);
         default = pkgs.wgsl-analyzer;
+        example = literalExpression "[(lib.getExe pkgs.wgsl-analyzer)]";
+        description = "wgsl-analyzer package, or the command to run as a list of strings";
       };
     };
   };

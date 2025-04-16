@@ -4,28 +4,25 @@
   config,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) str either package listOf;
+  inherit (builtins) isList attrNames;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.types) str either package listOf enum;
+  inherit (lib.meta) getExe;
+  inherit (lib.nvim.languages) lspOptions;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (builtins) isList;
 
   defaultServer = "nushell";
   servers = {
     nushell = {
       package = pkgs.nushell;
-      lspConfig = ''
-        lspconfig.nushell.setup{
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          cmd = ${
+      options = {
+        cmd =
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/nu", "--no-config-file", "--lsp"}''
-        }
-        }
-      '';
+          then toLuaObject cfg.lsp.package
+          else ''{"${getExe cfg.lsp.package}", "--no-config-file", "--lsp"}'';
+      };
     };
   };
 
@@ -42,8 +39,8 @@ in {
     lsp = {
       enable = mkEnableOption "Nu LSP support" // {default = config.vim.languages.enableLSP;};
       server = mkOption {
-        type = str;
-        default = defaultServer;
+        type = listOf (enum (attrNames servers));
+        default = [defaultServer];
         description = "Nu LSP server to use";
       };
 

@@ -4,11 +4,12 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (builtins) isList attrNames;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) either listOf package str enum;
+  inherit (lib.meta) getExe;
+  inherit (lib.nvim.languages) lspOptions;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.types) mkGrammarOption;
 
@@ -16,17 +17,12 @@
   servers = {
     ols = {
       package = pkgs.ols;
-      lspConfig = ''
-        lspconfig.ols.setup {
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          cmd = ${
+      options = {
+        cmd =
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
-          else "{'${cfg.lsp.package}/bin/ols'}"
-        }
-        }
-      '';
+          else "{'${getExe cfg.lsp.package}'}";
+      };
     };
   };
 
@@ -42,7 +38,6 @@ in {
 
     lsp = {
       enable = mkEnableOption "Odin LSP support" // {default = config.vim.languages.enableLSP;};
-
       server = mkOption {
         type = enum (attrNames servers);
         default = defaultServer;
@@ -50,9 +45,9 @@ in {
       };
 
       package = mkOption {
-        description = "Ols package, or the command to run as a list of strings";
         type = either package (listOf str);
         default = pkgs.ols;
+        description = "Ols package, or the command to run as a list of strings";
       };
     };
   };

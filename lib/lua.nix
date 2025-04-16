@@ -1,8 +1,8 @@
 # Helpers for converting values to lua
 {lib}: let
-  inherit (builtins) hasAttr head throw typeOf isList isAttrs isBool isInt isString isPath isFloat toJSON;
-  inherit (lib.attrsets) mapAttrsToList filterAttrs;
-  inherit (lib.strings) concatStringsSep concatMapStringsSep stringToCharacters concatLines;
+  inherit (builtins) head throw typeOf isList isAttrs isBool isInt isString isPath isFloat toJSON;
+  inherit (lib.attrsets) mapAttrsToList filterAttrs hasAttr;
+  inherit (lib.strings) concatStringsSep concatMapStringsSep stringToCharacters;
   inherit (lib.trivial) boolToString warn;
 in rec {
   # Convert a null value to lua's nil
@@ -11,43 +11,13 @@ in rec {
     then "nil"
     else "'${value}'";
 
-  # convert an expression to lua
-  expToLua = exp:
-    if isList exp
-    then listToLuaTable exp # if list, convert to lua table
-    else if isAttrs exp
-    then attrsetToLuaTable exp # if attrs, convert to table
-    else if isBool exp
-    then boolToString exp # if bool, convert to string
-    else if isInt exp
-    then toString exp # if int, convert to string
-    else if exp == null
-    then "nil"
-    else (toJSON exp); # otherwise jsonify the value and print as is
+  expToLua = exp: builtins.warn "expToLua is deprecated, please use toLuaObject instead" (toLuaObject exp);
+  listToLuaTable = exp: builtins.warn "listToLuaTable is deprecated, please use toLuaObject instead" (toLuaObject exp);
+  attrsetToLuaTable = exp: builtins.warn "attrsetToLuaTable is deprecated, please use toLuaObject instead" (toLuaObject exp);
+  luaTable = exp: builtins.warn "luaTable is deprecated, please use toLuaObject instead" (toLuaObject exp);
 
-  # convert list to a lua table
-  listToLuaTable = list:
-    "{ " + (concatStringsSep ", " (map expToLua list)) + " }";
-
-  # convert attrset to a lua table
-  attrsetToLuaTable = attrset:
-    "{ "
-    + (
-      concatStringsSep ", "
-      (
-        mapAttrsToList (
-          name: value:
-            name
-            + " = "
-            + (expToLua value)
-        )
-        attrset
-      )
-    )
-    + " }";
-  # Convert a list of lua expressions to a lua table. The difference to listToLuaTable is that the elements here are expected to be lua expressions already, whereas listToLuaTable converts from nix types to lua first
-  luaTable = items: ''{${concatStringsSep "," items}}'';
-
+  # Check if the given object is a Lua inline object.
+  # isLuaInline :: AttrSet -> Bool
   isLuaInline = object: (object._type or null) == "lua-inline";
 
   toLuaObject = args:
