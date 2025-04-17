@@ -328,3 +328,7 @@
 [rrvsh](https://github.com/rrvsh):
 
 - Fix namespace of python-lsp-server by changing it to python3Packages
+
+[Noah765](https://github.com/Noah765):
+
+- Add missing `flutter-tools.nvim` dependency `plenary.nvim`.
