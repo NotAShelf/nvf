@@ -5,7 +5,7 @@
 }: let
   inherit (builtins) map mapAttrs filter;
   inherit (lib.attrsets) mapAttrsToList;
-  inherit (lib.strings) concatLines concatMapStringsSep;
+  inherit (lib.strings) concatLines concatMapStringsSep optionalString;
   inherit (lib.trivial) showWarnings;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryAfter mkLuarcSection resolveDag entryAnywhere;
@@ -72,6 +72,14 @@ in {
           dag = cfg.luaConfigRC;
           mapResult = result:
             concatLines [
+              (optionalString (cfg.additionalRuntimePaths != []) ''
+                vim.opt.runtimepath:append(${toLuaObject cfg.additionalRuntimePaths})
+              '')
+              (optionalString cfg.enableLuaLoader ''
+                if vim.loader then
+                  vim.loader.enable()
+                end
+              '')
               cfg.luaConfigPre
               (concatMapStringsSep "\n" mkLuarcSection result)
               cfg.luaConfigPost
