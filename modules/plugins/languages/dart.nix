@@ -134,10 +134,14 @@ in {
     })
 
     (mkIf ftcfg.enable {
-      vim.startPlugins =
-        if ftcfg.enableNoResolvePatch
-        then ["flutter-tools-patched"]
-        else ["flutter-tools-nvim"];
+      vim.startPlugins = [
+        (
+          if ftcfg.enableNoResolvePatch
+          then "flutter-tools-patched"
+          else "flutter-tools-nvim"
+        )
+        "plenary-nvim"
+      ];
 
       vim.pluginRC.flutter-tools = entryAnywhere ''
         require('flutter-tools').setup {
