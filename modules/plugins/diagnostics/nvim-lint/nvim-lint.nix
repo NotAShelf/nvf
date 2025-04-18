@@ -78,6 +78,13 @@
         description = ''
           Required files to lint. These files must exist relative to the cwd
           of the linter or else this linter will be skipped
+
+          ::: {.note}
+          This option is an nvf extension that only takes effect if you
+          use the `nvf_lint()` lua function.
+
+          See {option}`vim.diagnostics.nvim-lint.lint_function`.
+          :::
         '';
       };
     };
