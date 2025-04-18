@@ -5835,6 +5835,76 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.lint_function"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.lint_function"><code class="option">vim.diagnostics.nvim-lint.lint_function</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Define the global function nvf_lint which is used by nvf to lint.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+luaInline</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">{
+  _type = &quot;lua-inline&quot;;
+  expr = &#x27;&#x27;
+    function(buf)
+      local ft = vim.api.nvim_get_option_value(&quot;filetype&quot;, { buf = buf })
+      local linters = require(&quot;lint&quot;).linters
+      local linters_from_ft = require(&quot;lint&quot;).linters_by_ft[ft]
+    
+      -- if no linter is configured for this filetype, stops linting
+      if linters_from_ft == nil then return end
+    
+      for _, name in ipairs(linters_from_ft) do
+        local linter = linters[name]
+        assert(linter, &#x27;Linter with name `&#x27; .. name .. &#x27;` not available&#x27;)
+    
+        if type(linter) == &quot;function&quot; then
+          linter = linter()
+        end
+        -- for require(&quot;lint&quot;).lint() to work, linter.name must be set
+        linter.name = linter.name or name
+        local cwd = linter.required_files
+    
+        -- if no configuration files are configured, lint
+        if cwd == nil then
+          require(&quot;lint&quot;).lint(linter)
+        else
+          -- if configuration files are configured and present in the project, lint
+          for _, fn in ipairs(cwd) do
+            local path = vim.fs.joinpath(linter.cwd or vim.fn.getcwd(), fn);
+            if vim.uv.fs_stat(path) then
+              require(&quot;lint&quot;).lint(linter)
+              break
+            end
+          end
+        end
+      end
+    end
+  &#x27;&#x27;;
+}
+</code></pre>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">mkLuaInline &#x27;&#x27;
+  function(buf)
+    require(&quot;lint&quot;).try_lint()
+  end
+&#x27;&#x27;
+
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.diagnostics.nvim-lint.linters"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters"><code class="option">vim.diagnostics.nvim-lint.linters</code>
   </a>
  </span>
@@ -6057,6 +6127,37 @@ null or (luaInline)</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix" target="_top">
+&lt;nvf/modules/plugins/diagnostics/nvim-lint/nvim-lint.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.diagnostics.nvim-lint.linters._name_.required_files"></a><a class="term" href="options.html#opt-vim.diagnostics.nvim-lint.linters._name_.required_files"><code class="option">vim.diagnostics.nvim-lint.linters.&lt;name&gt;.required_files</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Required files to lint. These files must exist relative to the cwd
+of the linter or else this linter will be skipped</p><div class="note"><h3 class="title">Note</h3><p>This option is an nvf extension that only takes effect if you
+use the <code class="literal">nvf_lint()</code> lua function.</p><p>See <code class="option">vim.diagnostics.nvim-lint.lint_function</code>.</p></div>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or (list of string)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">[
+  &quot;eslint.config.js&quot;
+]
+</code></pre>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
