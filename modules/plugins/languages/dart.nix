@@ -81,16 +81,23 @@ in {
         description = "Enable flutter-tools for flutter support";
       };
 
+      flutterPackage = mkOption {
+        type = nullOr package;
+        default = pkgs.flutter;
+        description = "Flutter package, or null to detect the flutter path at runtime instead.";
+      };
+
       enableNoResolvePatch = mkOption {
         type = bool;
-        default = true;
+        default = false;
         description = ''
           Whether to patch flutter-tools so that it doesn't resolve
           symlinks when detecting flutter path.
 
-          This is required if you want to use a flutter package built with nix.
-          If you are using a flutter SDK installed from a different source
-          and encounter the error "`dart` missing from PATH", disable this option.
+          This is required if flutterPackage is set to null and the flutter
+          package in your PATH was built with nix. If you are using a flutter
+          SDK installed from a different source and encounter the error "`dart`
+          missing from PATH", leave this option disabled.
         '';
       };
 
@@ -147,6 +154,7 @@ in {
 
       pluginRC.flutter-tools = entryAfter ["lsp-setup"] ''
         require('flutter-tools').setup {
+          ${optionalString (ftcfg.flutterPackage != null) "flutter_path = \"${ftcfg.flutterPackage}/bin/flutter\","}
           lsp = {
             color = { -- show the derived colours for dart variables
               enabled = ${boolToString ftcfg.color.enable}, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
