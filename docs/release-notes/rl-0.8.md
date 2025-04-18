@@ -329,6 +329,12 @@
 
 - Fix namespace of python-lsp-server by changing it to python3Packages
 
+
 [dmitriiStepanidenko](https://github.com/dmitriiStepanidenko):
 
 - Add graphql LSP and formatter suport via prettier.
+
+[Noah765](https://github.com/Noah765):
+
+- Add missing `flutter-tools.nvim` dependency `plenary.nvim`.
+

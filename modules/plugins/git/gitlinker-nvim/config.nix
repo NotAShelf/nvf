@@ -9,7 +9,6 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = ["gitlinker-nvim"];
       lazy.plugins = {
         "gitlinker-nvim" = {
           package = "gitlinker-nvim";
