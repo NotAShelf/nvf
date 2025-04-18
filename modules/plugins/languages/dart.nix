@@ -13,7 +13,7 @@
   inherit (lib.strings) optionalString;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.dag) entryAfter;
 
   cfg = config.vim.languages.dart;
   ftcfg = cfg.flutter-tools;
@@ -122,19 +122,21 @@ in {
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config.vim = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      treesitter.enable = true;
+      treesitter.grammars = [cfg.treesitter.package];
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.dart-lsp = servers.${cfg.lsp.server}.lspConfig;
+      lsp.lspconfig.enable = true;
+      lsp.lspconfig.sources.dart-lsp = servers.${cfg.lsp.server}.lspConfig;
     })
 
     (mkIf ftcfg.enable {
-      vim.startPlugins = [
+      lsp.enable = true;
+
+      startPlugins = [
         (
           if ftcfg.enableNoResolvePatch
           then "flutter-tools-patched"
@@ -143,7 +145,7 @@ in {
         "plenary-nvim"
       ];
 
-      vim.pluginRC.flutter-tools = entryAnywhere ''
+      pluginRC.flutter-tools = entryAfter ["lsp-setup"] ''
         require('flutter-tools').setup {
           lsp = {
             color = { -- show the derived colours for dart variables
