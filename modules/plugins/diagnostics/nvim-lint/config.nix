@@ -28,6 +28,8 @@ in {
               end
             end
           end
+
+          nvf_lint = ${toLuaObject cfg.lint_function}
         '';
       };
     })
@@ -38,8 +40,8 @@ in {
           {
             event = ["BufWritePost"];
             callback = mkLuaInline ''
-              function()
-                require("lint").try_lint()
+              function(args)
+                nvf_lint(args.buf)
               end
             '';
           }

@@ -55,21 +55,14 @@
       package = pkg;
       config = {
         cmd = getExe pkg;
-        # HACK: change if nvim-lint gets a dynamic enable thing
-        parser = mkLuaInline ''
-          function(output, bufnr, cwd)
-            local markers = { "eslint.config.js", "eslint.config.mjs",
-              ".eslintrc", ".eslintrc.json", ".eslintrc.js", ".eslintrc.yml", }
-            for _, filename in ipairs(markers) do
-              local path = vim.fs.joinpath(cwd, filename)
-              if vim.loop.fs_stat(path) then
-                return require("lint.linters.eslint_d").parser(output, bufnr, cwd)
-              end
-            end
-
-            return {}
-          end
-        '';
+        required_files = [
+          "eslint.config.js"
+          "eslint.config.mjs"
+          ".eslintrc"
+          ".eslintrc.json"
+          ".eslintrc.js"
+          ".eslintrc.yml"
+        ];
       };
     };
   };

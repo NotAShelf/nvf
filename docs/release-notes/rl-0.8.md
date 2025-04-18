@@ -289,7 +289,9 @@
 [rice-cracker-dev](https://github.com/rice-cracker-dev):
 
 - `eslint_d` now checks for configuration files to load.
-- Fixed an error where `eslint_d` fails to load.
+- Fix an error where `eslint_d` fails to load.
+- Add required files support for linters under `vim.diagnostics.nvim-lint.linters.*.required_files`.
+- Add global function `nvf_lint` under `vim.diagnostics.nvim-lint.lint_function`.
 
 [Sc3l3t0n](https://github.com/Sc3l3t0n):
 
