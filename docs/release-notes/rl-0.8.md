@@ -290,8 +290,10 @@
 
 - `eslint_d` now checks for configuration files to load.
 - Fix an error where `eslint_d` fails to load.
-- Add required files support for linters under `vim.diagnostics.nvim-lint.linters.*.required_files`.
-- Add global function `nvf_lint` under `vim.diagnostics.nvim-lint.lint_function`.
+- Add required files support for linters under
+  `vim.diagnostics.nvim-lint.linters.*.required_files`.
+- Add global function `nvf_lint` under
+  `vim.diagnostics.nvim-lint.lint_function`.
 
 [Sc3l3t0n](https://github.com/Sc3l3t0n):
 
@@ -334,3 +336,7 @@
 [Noah765](https://github.com/Noah765):
 
 - Add missing `flutter-tools.nvim` dependency `plenary.nvim`.
+
+[howird](https://github.com/howird):
+
+- Change python dap adapter name from `python` to commonly expected `debugpy`.
