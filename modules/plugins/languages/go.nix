@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalMD;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.lists) isList;
@@ -84,7 +84,14 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "Go formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "Go formatting"
+        // {
+          default = !cfg.lsp.enable && config.vim.languages.enableFormat;
+          defaultText = literalMD ''
+            disabled if Go LSP is enabled, otherwise follows {option}`vim.languages.enableFormat`
+          '';
+        };
 
       type = mkOption {
         description = "Go formatter to use";
