@@ -14307,15 +14307,16 @@ boolean</p>
 </dt>
 <dd>
 <p>Whether to patch flutter-tools so that it doesn’t resolve
-symlinks when detecting flutter path.</p><p>This is required if you want to use a flutter package built with nix.
-If you are using a flutter SDK installed from a different source
-and encounter the error “<code class="literal">dart</code> missing from PATH”, disable this option.</p>
+symlinks when detecting flutter path.</p><div class="note"><h3 class="title">Note</h3><p>This is required if <code class="literal">flutterPackage</code> is set to null and the flutter
+package in your <code class="literal">PATH</code> was built with Nix. If you are using a flutter
+SDK installed from a different source and encounter the error “<code class="literal">dart</code>
+missing from <code class="literal">PATH</code>”, leave this option disabled.</p></div>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">true</code></p>
+<code class="literal">false</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -14442,6 +14443,30 @@ string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">&quot;■&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/dart.nix" target="_top">
+&lt;nvf/modules/plugins/languages/dart.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.dart.flutter-tools.flutterPackage"></a><a class="term" href="options.html#opt-vim.languages.dart.flutter-tools.flutterPackage"><code class="option">vim.languages.dart.flutter-tools.flutterPackage</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Flutter package, or null to detect the flutter path at runtime instead.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation flutter-wrapped-3.29.2-sdk-links&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
