@@ -336,6 +336,8 @@
 [Noah765](https://github.com/Noah765):
 
 - Add missing `flutter-tools.nvim` dependency `plenary.nvim`.
+- Add necessary dependency of `flutter-tools.nvim` on lsp.
+- Add the `vim.languages.dart.flutter-tools.flutterPackage` option.
 
 [howird](https://github.com/howird):
 
