@@ -94,10 +94,12 @@ in {
           Whether to patch flutter-tools so that it doesn't resolve
           symlinks when detecting flutter path.
 
-          This is required if flutterPackage is set to null and the flutter
-          package in your PATH was built with nix. If you are using a flutter
+          ::: {.note}
+          This is required if `flutterPackage` is set to null and the flutter
+          package in your `PATH` was built with Nix. If you are using a flutter
           SDK installed from a different source and encounter the error "`dart`
-          missing from PATH", leave this option disabled.
+          missing from `PATH`", leave this option disabled.
+          :::
         '';
       };
 
