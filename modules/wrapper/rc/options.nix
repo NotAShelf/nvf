@@ -5,7 +5,7 @@
 }: let
   inherit (lib.options) mkOption literalMD literalExpression;
   inherit (lib.strings) optionalString;
-  inherit (lib.types) str bool int enum attrsOf lines listOf either path submodule anything;
+  inherit (lib.types) str bool int enum attrsOf lines listOf either path submodule anything nullOr;
   inherit (lib.nvim.types) dagOf;
   inherit (lib.nvim.lua) listToLuaTable;
 
@@ -275,6 +275,46 @@ in {
         resulting Lua value will be inferred from the type of the value in the
         `{name = value;}` pair passed to the option.
         :::
+      '';
+    };
+
+    opt = mkOption {
+      default = {};
+      type = attrsOf (submodule {
+        options = {
+          append = mkOption {
+            type = nullOr (listOf anything);
+            default = null;
+            description = "Values to append";
+          };
+
+          prepend = mkOption {
+            type = nullOr (listOf anything);
+            default = null;
+            description = "Values to prepend";
+          };
+
+          remove = mkOption {
+            type = nullOr (listOf anything);
+            default = null;
+            description = "Values to remove";
+          };
+        };
+      });
+
+      example = literalExpression ''
+        {
+          runtimepath.append = ["~/.config/nvim"];
+          formatoptions.append = ["n"];
+          formatoptions.remove = ["o"];
+        }
+      '';
+      description = ''
+        Wrapper of the lua `vim.opt` interface. Makes interacting with list and
+        map-style option more convenient.
+
+        If you're looking to set an option normally, instead of add/remove from
+        a list/map type option, see {option}`vim.options` instead.
       '';
     };
 
