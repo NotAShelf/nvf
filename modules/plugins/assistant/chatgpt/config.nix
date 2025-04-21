@@ -30,7 +30,16 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = ["chatgpt-nvim"];
+      startPlugins = [
+        "chatgpt-nvim"
+
+        # Dependencies
+        "nui-nvim"
+        "plenary-nvim"
+      ];
+
+      # ChatGPT.nvim explicitly depends on Telescope.
+      telescope.enable = true;
 
       pluginRC.chagpt = entryAnywhere ''
         require("chatgpt").setup(${toLuaObject cfg.setupOpts})
