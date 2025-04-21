@@ -107,8 +107,8 @@
 - Add `LazyFile` user event.
 - Migrate language modules from none-ls to conform/nvim-lint
 - Add tsx support in conform and lint
-- Moved code setting additionalRuntimePaths and enableLuaLoader out of
-  luaConfigPre's default to prevent being overridden
+- Moved code setting `additionalRuntimePaths` and `enableLuaLoader` out of
+  `luaConfigPre`'s default to prevent being overridden
 
 [diniamo](https://github.com/diniamo):
 
