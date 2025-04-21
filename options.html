@@ -1984,8 +1984,8 @@ boolean</p>
 <dd>
 <p>A list of Neovim autogroups, which are used to organize and manage related
 autocommands together. Groups allow multiple autocommands to be cleared
-or redefined collectively, preventing duplicate definitions.</p><p>Each autogroup consists of a name, a boolean indicating whether to clear
-existing autocommands, and a list of associated autocommands.</p>
+or redefined collectively, preventing duplicate definitions.</p><p>Each autogroup consists of a name and a boolean indicating whether to clear
+existing autocommands.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 list of (submodule)</p>
@@ -2009,7 +2009,7 @@ list of (submodule)</p>
  </span>
 </dt>
 <dd>
-<p>Whether to enable this autogroup</p>
+<p>Whether to enable this autocommand group.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -2085,8 +2085,8 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>A list of Neovim autocommands to be registered.</p><p>Each entry defines an autocommand, specifying events, patterns, optional
-callbacks, commands, groups, and execution settings.</p>
+<p>A list of Neovim autocommands to be registered.</p><p>Each entry defines an autocommand, specifying events, patterns, a callback or Vim
+command, an optional group, a description, and execution settings.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 list of (submodule)</p>
@@ -2110,7 +2110,7 @@ list of (submodule)</p>
  </span>
 </dt>
 <dd>
-<p>Whether to enable this autocommand</p>
+<p>Whether to enable this autocommand.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -2137,7 +2137,7 @@ boolean</p>
  </span>
 </dt>
 <dd>
-<p>The file pattern(s) that determine when the autocommand applies.</p>
+<p>Lua function to be called when the event(s) are triggered.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 null or (luaInline)</p>
@@ -2169,7 +2169,8 @@ null or (luaInline)</p>
  </span>
 </dt>
 <dd>
-<p>Vim command string instead of a Lua function.</p>
+<p>Vim command to be executed when the event(s) are triggered.
+Cannot be defined if the <code class="literal">callback</code> option is already defined.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 null or string</p>
@@ -2301,7 +2302,7 @@ boolean</p>
  </span>
 </dt>
 <dd>
-<p>Whether autocommand run only once.</p>
+<p>Whether to run the autocommand only once.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -2325,7 +2326,7 @@ boolean</p>
  </span>
 </dt>
 <dd>
-<p>The file pattern(s) that determine when the autocommand applies).</p>
+<p>The file pattern(s) that determine when the autocommand applies.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 null or (list of string)</p>
@@ -15186,7 +15187,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation gleam-1.9.1&gt;</code></p>
+<code class="literal">&lt;derivation gleam-1.10.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -15411,7 +15412,7 @@ disabled if Go LSP is enabled, otherwise follows <code class="option">vim.langua
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation go-1.24.1&gt;</code></p>
+<code class="literal">&lt;derivation go-1.24.2&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -16281,7 +16282,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation jdt-language-server-1.45.0&gt;</code></p>
+<code class="literal">&lt;derivation jdt-language-server-1.46.1&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot;-data\&quot; \&quot;~/.cache/jdtls/workspace\&quot;]&quot;</code></p>
@@ -19248,7 +19249,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation ruby3.3-rubocop-1.73.2&gt;</code></p>
+<code class="literal">&lt;derivation ruby3.3-rubocop-1.75.2&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -19323,7 +19324,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation ruby3.3-solargraph-0.53.4&gt;</code></p>
+<code class="literal">&lt;derivation ruby3.3-solargraph-0.54.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -19575,7 +19576,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation rustfmt-1.85.0&gt;</code></p>
+<code class="literal">&lt;derivation rustfmt-1.86.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -19650,7 +19651,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation rust-analyzer-2025-03-31&gt;</code></p>
+<code class="literal">&lt;derivation rust-analyzer-2025-04-14&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot;-data\&quot; \&quot;~/.cache/jdtls/workspace\&quot;]&quot;</code></p>
@@ -36921,7 +36922,7 @@ boolean</p>
 null or package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation lazygit-0.48.0&gt;</code></p>
+<code class="literal">&lt;derivation lazygit-0.49.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
