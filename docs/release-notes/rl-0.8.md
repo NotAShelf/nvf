@@ -344,3 +344,7 @@
 [howird](https://github.com/howird):
 
 - Change python dap adapter name from `python` to commonly expected `debugpy`.
+
+[aionoid](https://github.com/aionoid):
+
+- Fix [render-markdown.nvim] file_types option type to list, to accept merging.
