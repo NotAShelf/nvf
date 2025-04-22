@@ -350,4 +350,3 @@
 [avante-nvim]: https://github.com/yetone/avante.nvim
 
 - Add [avante.nvim] plugin under `vim.assistant.avante-nvim`.
-- Fix [render-markdown.nvim] file_types option type to list, to accept merging.
