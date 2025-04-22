@@ -344,3 +344,10 @@
 [howird](https://github.com/howird):
 
 - Change python dap adapter name from `python` to commonly expected `debugpy`.
+
+[aionoid](https://github.com/aionoid):
+
+[avante-nvim]: https://github.com/yetone/avante.nvim
+
+- Add [avante.nvim] plugin under `vim.assistant.avante-nvim`.
+- Fix [render-markdown.nvim] file_types option type to list, to accept merging.
