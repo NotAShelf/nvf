@@ -119,8 +119,8 @@ in {
 
         setupOpts = mkPluginSetupOption "render-markdown" {
           file_types = lib.mkOption {
-            type = listOf (nullOr str);
-            default = [];
+            type = nullOr (listOf str);
+            default = null;
             description = ''
               List of buffer filetypes to enable this plugin in.
 
