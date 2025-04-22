@@ -121,7 +121,12 @@ in {
           file_types = lib.mkOption {
             type = listOf (nullOr str);
             default = [];
-            description = "List of buffer filetypes to enable this plugin in. This will cause the plugin to attach to new buffers who have any of these filetypes.";
+            description = ''
+              List of buffer filetypes to enable this plugin in.
+
+              This will cause the plugin to attach to new buffers who
+              have any of these filetypes.
+            '';
           };
         };
       };
