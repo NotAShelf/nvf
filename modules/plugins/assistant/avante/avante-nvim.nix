@@ -1,7 +1,7 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption literalMD;
-  inherit (lib.types) int str enum nullOr attrs either;
-  inherit (lib.nvim.types) mkPluginSetupOption luaInline;
+  inherit (lib.types) int str enum nullOr attrs;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   options.vim.assistant = {
     avante-nvim = {
@@ -63,24 +63,25 @@ in {
             mkEnableOption ""
             // {
               default = false;
-              description = ''
-                enable/disable dual boost.
-              '';
+              description = "Whether to enable dual_boost mode.";
             };
 
           first_provider = mkOption {
             type = str;
             default = "openai";
+            description = "The first provider to generate response.";
           };
 
           second_provider = mkOption {
             type = str;
             default = "claude";
+            description = "The second provider to generate response.";
           };
 
           prompt = mkOption {
             type = str;
             default = "Based on the two reference outputs below, generate a response that incorporates elements from both but reflects your own judgment and unique perspective. Do not provide any explanation, just give the response directly. Reference Output 1: [{{provider1_output}}], Reference Output 2: [{{provider2_output}}]";
+            description = "The prompt to generate response based on the two reference outputs.";
           };
 
           timeout = mkOption {
@@ -95,30 +96,35 @@ in {
             mkEnableOption ""
             // {
               default = false;
+              description = "Whether to enable auto suggestions.";
             };
 
           auto_set_highlight_group =
             mkEnableOption ""
             // {
               default = true;
+              description = "Whether to automatically set the highlight group for the current line.";
             };
 
           auto_set_keymaps =
             mkEnableOption ""
             // {
               default = true;
+              description = "Whether to automatically set the keymap for the current line.";
             };
 
           auto_apply_diff_after_generation =
             mkEnableOption ""
             // {
               default = false;
+              description = "Whether to automatically apply diff after LLM response.";
             };
 
           support_paste_from_clipboard =
             mkEnableOption ""
             // {
               default = false;
+              description = "Whether to support pasting image from clipboard. This will be determined automatically based whether img-clip is available or not.";
             };
 
           minimize_diff =
@@ -239,6 +245,7 @@ in {
               mkEnableOption ""
               // {
                 default = true;
+                description = "Enable rounded sidebar header";
               };
           };
 
@@ -246,6 +253,7 @@ in {
             prefix = mkOption {
               type = str;
               default = "> ";
+              description = "The prefix used on the user input.";
             };
 
             height = mkOption {
@@ -261,6 +269,7 @@ in {
             border = mkOption {
               type = str;
               default = "rounded";
+              description = "The border type on the edit window.";
             };
 
             start_insert =
@@ -295,26 +304,13 @@ in {
             border = mkOption {
               type = str;
               default = "rounded";
+              description = "The border type on the ask window.";
             };
 
             focus_on_apply = mkOption {
               type = enum ["ours" "theirs"];
               default = "ours";
-              description = "which diff to focus after applying.";
-            };
-          };
-        };
-
-        highlights = {
-          diff = {
-            current = mkOption {
-              type = str;
-              default = "DiffText";
-            };
-
-            incoming = mkOption {
-              type = str;
-              default = "DiffAdd";
+              description = "Which diff to focus after applying.";
             };
           };
         };
@@ -324,12 +320,8 @@ in {
             mkEnableOption ""
             // {
               default = true;
+              description = "Automatically jumps to the next change.";
             };
-
-          list_opener = mkOption {
-            type = either str luaInline;
-            default = "copen";
-          };
 
           override_timeoutlen = mkOption {
             type = int;
@@ -346,11 +338,13 @@ in {
           debounce = mkOption {
             type = int;
             default = 600;
+            description = "Suggestion debounce in milliseconds.";
           };
 
           throttle = mkOption {
             type = int;
             default = 600;
+            description = "Suggestion throttle in milliseconds.";
           };
         };
       };
