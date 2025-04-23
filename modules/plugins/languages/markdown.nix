@@ -9,7 +9,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.lists) isList;
-  inherit (lib.types) bool enum either package listOf str;
+  inherit (lib.types) bool enum either package listOf str nullOr;
   inherit (lib.nvim.lua) expToLua toLuaObject;
   inherit (lib.nvim.types) diagnostics mkGrammarOption mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAnywhere;
@@ -117,7 +117,18 @@ in {
             '';
           };
 
-        setupOpts = mkPluginSetupOption "render-markdown" {};
+        setupOpts = mkPluginSetupOption "render-markdown" {
+          file_types = lib.mkOption {
+            type = nullOr (listOf str);
+            default = null;
+            description = ''
+              List of buffer filetypes to enable this plugin in.
+
+              This will cause the plugin to attach to new buffers who
+              have any of these filetypes.
+            '';
+          };
+        };
       };
     };
 
