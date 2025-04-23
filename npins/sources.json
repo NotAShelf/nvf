@@ -1020,6 +1020,22 @@
       "url": "https://github.com/echasnovski/mini.completion/archive/35130cebc63ace7d6e4583f349af8cd3f3141af7.tar.gz",
       "hash": "0h5z5i62cc780bzw60rbizngvpyl4vk7j858pndyi2g572plz929"
     },
+    "mini-cursorword": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "echasnovski",
+        "repo": "mini.cursorword"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.15.0",
+      "revision": "6683f04509c380e3147cca368f90bbdb99641775",
+      "url": "https://api.github.com/repos/echasnovski/mini.cursorword/tarball/v0.15.0",
+      "hash": "0vqr4hkzq13ap6giyyp8asn5g6nnm406piq1a07a5nmkfxiskp9v"
+    },
     "mini-diff": {
       "type": "Git",
       "repository": {
