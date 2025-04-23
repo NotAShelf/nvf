@@ -338,6 +338,7 @@
 - Add missing `flutter-tools.nvim` dependency `plenary.nvim`.
 - Add necessary dependency of `flutter-tools.nvim` on lsp.
 - Add the `vim.languages.dart.flutter-tools.flutterPackage` option.
+- Fix the type of the `highlight` color options.
 
 [howird](https://github.com/howird):
 
