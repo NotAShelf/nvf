@@ -21,22 +21,11 @@ in {
           package = avante-nvim;
           setupModule = "avante";
           inherit (cfg) setupOpts;
-          after =
-            /*
-            lua
-            */
-            ''
-              vim.opt.laststatus = 3
-            '';
+          event = ["DeferredUIEnter"];
         };
       };
 
       treesitter.enable = true;
-
-      autocomplete.nvim-cmp = {
-        sources = {"avante.nvim" = "[avante]";};
-        sourcePlugins = ["avante-nvim"];
-      };
 
       languages.markdown.extensions.render-markdown-nvim.setupOpts.file_types = lib.mkAfter ["Avante"];
     };
