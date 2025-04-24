@@ -337,10 +337,13 @@
 
 [Noah765](https://github.com/Noah765):
 
+[vim-sleuth]: https://github.com/tpope/vim-sleuth
+
 - Add missing `flutter-tools.nvim` dependency `plenary.nvim`.
 - Add necessary dependency of `flutter-tools.nvim` on lsp.
 - Add the `vim.languages.dart.flutter-tools.flutterPackage` option.
 - Fix the type of the `highlight` color options.
+- Add [vim-sleuth] plugin under `vim.utility.sleuth`.
 
 [howird](https://github.com/howird):
 

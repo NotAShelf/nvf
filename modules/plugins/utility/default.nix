@@ -18,6 +18,7 @@
     ./oil-nvim
     ./outline
     ./preview
+    ./sleuth
     ./snacks-nvim
     ./surround
     ./telescope

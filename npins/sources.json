@@ -2407,6 +2407,19 @@
       "url": "https://github.com/tpope/vim-repeat/archive/65846025c15494983dafe5e3b46c8f88ab2e9635.tar.gz",
       "hash": "0n8sx6s2sbjb21dv9j6y5lyqda9vvxraffg2jz423daamn96dxqv"
     },
+    "vim-sleuth": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "tpope",
+        "repo": "vim-sleuth"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "be69bff86754b1aa5adcbb527d7fcd1635a84080",
+      "url": "https://github.com/tpope/vim-sleuth/archive/be69bff86754b1aa5adcbb527d7fcd1635a84080.tar.gz",
+      "hash": "0wqxdjgplf04nq428ialw1w03f8nh5vb629a17vl5gc9gf3zfanq"
+    },
     "vim-startify": {
       "type": "Git",
       "repository": {
