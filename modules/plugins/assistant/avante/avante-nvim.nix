@@ -44,7 +44,8 @@ in {
           default = "claude";
           description = ''
             Since auto-suggestions are a high-frequency operation and therefore expensive,
-            currently designating it as `copilot` provider is dangerous because: https://github.com/yetone/avante.nvim/issues/1048
+            currently designating it as `copilot` provider is dangerous because:
+            https://github.com/yetone/avante.nvim/issues/1048
             Of course, you can reduce the request frequency by increasing `suggestion.debounce`.
           '';
         };
@@ -124,7 +125,10 @@ in {
             mkEnableOption ""
             // {
               default = false;
-              description = "Whether to support pasting image from clipboard. This will be determined automatically based whether img-clip is available or not.";
+              description = ''
+                Whether to support pasting image from clipboard.
+                This will be determined automatically based whether img-clip is available or not.
+              '';
             };
 
           minimize_diff =
