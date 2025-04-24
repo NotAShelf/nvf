@@ -5,15 +5,14 @@
 }: let
   inherit (lib.options) mkOption;
   inherit (lib.types) nullOr attrsOf listOf submodule bool ints str enum;
-  inherit (lib.strings) hasPrefix concatLines;
+  inherit (lib.strings) concatLines;
   inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.nvim.dag) entryBetween;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.types) hexColor;
 
   mkColorOption = target:
     mkOption {
-      type = nullOr hexColor;
+      type = nullOr str;
       default = null;
       example = "#ebdbb2";
       description = ''
