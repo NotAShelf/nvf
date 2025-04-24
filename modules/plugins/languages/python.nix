@@ -125,7 +125,7 @@
           end
         end
 
-        dap.configurations.debugpy = {
+        dap.configurations.python = {
           {
             -- The first three options are required by nvim-dap
             type = 'debugpy'; -- the type here established the link to the adapter definition: `dap.adapters.debugpy`
