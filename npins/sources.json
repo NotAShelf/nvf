@@ -27,17 +27,20 @@
       "hash": "0c1jkhxamfn2md7m1r5b2wpxa26y90b98yzjwf68m3fymalvkn5h"
     },
     "avante-nvim": {
-      "type": "Git",
+      "type": "GitRelease",
       "repository": {
         "type": "GitHub",
         "owner": "yetone",
         "repo": "avante.nvim"
       },
-      "branch": "main",
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
       "submodules": false,
-      "revision": "eb1cd44731783024621beafe4e46204cbc9a4320",
-      "url": "https://github.com/yetone/avante.nvim/archive/eb1cd44731783024621beafe4e46204cbc9a4320.tar.gz",
-      "hash": "1hdb1b74mxq6j10fv0zh6fniwpijwbxjxc59k7xzkqj6q20lad07"
+      "version": "v0.0.23",
+      "revision": "868c13657442b799a5c161940602f99623a08197",
+      "url": "https://api.github.com/repos/yetone/avante.nvim/tarball/v0.0.23",
+      "hash": "11h0fch0whr2mh23940h3k7l6grnp5bqv2nyxywkg1zvj680vpji"
     },
     "base16": {
       "type": "Git",
