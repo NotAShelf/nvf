@@ -58,4 +58,13 @@ the default theme enabled. You may use other options inside `config.vim` in
       };
     };
   };
-}```
+}
+```
+
+::: {.note}
+
+Now that you have nvf installed, head over to [](#ch-configuring) for an
+overview of how to configure nvf, or [](#ch-options) for the full reference of
+all available options
+
+:::
