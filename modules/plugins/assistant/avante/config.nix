@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   lib,
   ...
@@ -17,8 +16,8 @@ in {
       ];
 
       lazy.plugins = {
-        "avante.nvim" = with pkgs.vimPlugins; {
-          package = avante-nvim;
+        avante-nvim = {
+          package = "avante-nvim";
           setupModule = "avante";
           inherit (cfg) setupOpts;
           event = ["DeferredUIEnter"];
