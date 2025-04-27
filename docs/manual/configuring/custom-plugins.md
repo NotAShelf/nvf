@@ -15,7 +15,7 @@ plugin to the runtime, you need to add it to the [](#opt-vim.startPlugins) list
 in your configuration.
 
 Adding a plugin to `startPlugins` will not allow you to configure the plugin
-that you have added, but **nvf** provides multiple way of configuring any custom
+that you have added, but **nvf** provides multiple ways of configuring any custom
 plugins that you might have added to your configuration.
 
 ```{=include=} sections
