@@ -1,6 +1,6 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) attrsOf str int nullOr;
+  inherit (lib.types) listOf str int nullOr;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) luaInline mkPluginSetupOption;
   inherit (lib.nvim.config) batchRenameOptions;
@@ -70,7 +70,7 @@ in {
       };
 
       sources = mkOption {
-        type = nullOr (attrsOf luaInline);
+        type = nullOr (listOf luaInline);
         default = null;
         description = "Sources for null-ls to register";
       };

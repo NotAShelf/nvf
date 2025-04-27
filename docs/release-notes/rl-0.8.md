@@ -306,12 +306,12 @@
 - Add lint (luacheck) and formatting (stylua) support for Lua.
 - Add lint (markdownlint-cli2) support for Markdown.
 - Add catppuccin integration for Bufferline, Lspsaga.
-- Add neo-tree integration for Bufferline.
+- Add `neo-tree`, `snacks.explorer` integrations to `bufferline`.
 - Add more applicable filetypes to illuminate denylist.
 - Disable mini.indentscope for applicable filetypes.
 - Fix fzf-lua having a hard dependency on fzf.
 - Enable inlay hints support - `config.vim.lsp.inlayHints`.
-- Add `neo-tree` extension to `lualine`.
+- Add `neo-tree`, `snacks.picker` extensions to `lualine`.
 
 [tebuevd](https://github.com/tebuevd):
 
