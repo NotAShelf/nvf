@@ -37,7 +37,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@main
 
       - name: Check formatting via Alejandra
-        run: nix run nixpkgs#alejandra -- -c .
+        run: nix run nixpkgs#alejandra -- --check . --exclude npins
 
   check-typos:
     name: "Check source tree for typos"

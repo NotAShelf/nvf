@@ -107,6 +107,8 @@
 - Add `LazyFile` user event.
 - Migrate language modules from none-ls to conform/nvim-lint
 - Add tsx support in conform and lint
+- Moved code setting `additionalRuntimePaths` and `enableLuaLoader` out of
+  `luaConfigPre`'s default to prevent being overridden
 
 [diniamo](https://github.com/diniamo):
 
@@ -199,6 +201,7 @@
   Inspiration from `vim.languages.clang.dap` implementation.
 - Add [leetcode.nvim] plugin under `vim.utility.leetcode-nvim`.
 - Add [codecompanion.nvim] plugin under `vim.assistant.codecompanion-nvim`.
+- Fix [codecompanion-nvim] plugin: nvim-cmp error and setupOpts defaults.
 
 [nezia1](https://github.com/nezia1):
 
@@ -288,6 +291,11 @@
 [rice-cracker-dev](https://github.com/rice-cracker-dev):
 
 - `eslint_d` now checks for configuration files to load.
+- Fix an error where `eslint_d` fails to load.
+- Add required files support for linters under
+  `vim.diagnostics.nvim-lint.linters.*.required_files`.
+- Add global function `nvf_lint` under
+  `vim.diagnostics.nvim-lint.lint_function`.
 
 [Sc3l3t0n](https://github.com/Sc3l3t0n):
 
@@ -326,3 +334,21 @@
 [rrvsh](https://github.com/rrvsh):
 
 - Fix namespace of python-lsp-server by changing it to python3Packages
+
+[Noah765](https://github.com/Noah765):
+
+[vim-sleuth]: https://github.com/tpope/vim-sleuth
+
+- Add missing `flutter-tools.nvim` dependency `plenary.nvim`.
+- Add necessary dependency of `flutter-tools.nvim` on lsp.
+- Add the `vim.languages.dart.flutter-tools.flutterPackage` option.
+- Fix the type of the `highlight` color options.
+- Add [vim-sleuth] plugin under `vim.utility.sleuth`.
+
+[howird](https://github.com/howird):
+
+- Change python dap adapter name from `python` to commonly expected `debugpy`.
+
+[aionoid](https://github.com/aionoid):
+
+- Fix [render-markdown.nvim] file_types option type to list, to accept merging.

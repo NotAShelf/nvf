@@ -17,7 +17,7 @@
         mkEnableOption ""
         // {
           default = true;
-          description = "Whether to enable this autocommand";
+          description = "Whether to enable this autocommand.";
         };
 
       event = mkOption {
@@ -31,7 +31,7 @@
         type = nullOr (listOf str);
         default = null;
         example = ["*.lua" "*.vim"];
-        description = "The file pattern(s) that determine when the autocommand applies).";
+        description = "The file pattern(s) that determine when the autocommand applies.";
       };
 
       callback = mkOption {
@@ -44,13 +44,16 @@
             end
           ''''
         '';
-        description = "The file pattern(s) that determine when the autocommand applies.";
+        description = "Lua function to be called when the event(s) are triggered.";
       };
 
       command = mkOption {
         type = nullOr str;
         default = null;
-        description = "Vim command string instead of a Lua function.";
+        description = ''
+          Vim command to be executed when the event(s) are triggered.
+          Cannot be defined if the `callback` option is already defined.
+        '';
       };
 
       group = mkOption {
@@ -70,7 +73,7 @@
       once = mkOption {
         type = bool;
         default = false;
-        description = "Whether autocommand run only once.";
+        description = "Whether to run the autocommand only once.";
       };
 
       nested = mkOption {
@@ -87,7 +90,7 @@
         mkEnableOption ""
         // {
           default = true;
-          description = "Whether to enable this autogroup";
+          description = "Whether to enable this autocommand group.";
         };
 
       name = mkOption {
@@ -118,8 +121,8 @@ in {
         autocommands together. Groups allow multiple autocommands to be cleared
         or redefined collectively, preventing duplicate definitions.
 
-        Each autogroup consists of a name, a boolean indicating whether to clear
-        existing autocommands, and a list of associated autocommands.
+        Each autogroup consists of a name and a boolean indicating whether to clear
+        existing autocommands.
       '';
     };
 
@@ -129,8 +132,8 @@ in {
       description = ''
         A list of Neovim autocommands to be registered.
 
-        Each entry defines an autocommand, specifying events, patterns, optional
-        callbacks, commands, groups, and execution settings.
+        Each entry defines an autocommand, specifying events, patterns, a callback or Vim
+        command, an optional group, a description, and execution settings.
       '';
     };
   };

@@ -13,7 +13,7 @@
   inherit (lib.strings) optionalString;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.dag) entryAfter;
 
   cfg = config.vim.languages.dart;
   ftcfg = cfg.flutter-tools;
@@ -81,16 +81,25 @@ in {
         description = "Enable flutter-tools for flutter support";
       };
 
+      flutterPackage = mkOption {
+        type = nullOr package;
+        default = pkgs.flutter;
+        description = "Flutter package, or null to detect the flutter path at runtime instead.";
+      };
+
       enableNoResolvePatch = mkOption {
         type = bool;
-        default = true;
+        default = false;
         description = ''
           Whether to patch flutter-tools so that it doesn't resolve
           symlinks when detecting flutter path.
 
-          This is required if you want to use a flutter package built with nix.
-          If you are using a flutter SDK installed from a different source
-          and encounter the error "`dart` missing from PATH", disable this option.
+          ::: {.note}
+          This is required if `flutterPackage` is set to null and the flutter
+          package in your `PATH` was built with Nix. If you are using a flutter
+          SDK installed from a different source and encounter the error "`dart`
+          missing from `PATH`", leave this option disabled.
+          :::
         '';
       };
 
@@ -122,25 +131,32 @@ in {
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config.vim = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      treesitter.enable = true;
+      treesitter.grammars = [cfg.treesitter.package];
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.dart-lsp = servers.${cfg.lsp.server}.lspConfig;
+      lsp.lspconfig.enable = true;
+      lsp.lspconfig.sources.dart-lsp = servers.${cfg.lsp.server}.lspConfig;
     })
 
     (mkIf ftcfg.enable {
-      vim.startPlugins =
-        if ftcfg.enableNoResolvePatch
-        then ["flutter-tools-patched"]
-        else ["flutter-tools-nvim"];
+      lsp.enable = true;
 
-      vim.pluginRC.flutter-tools = entryAnywhere ''
+      startPlugins = [
+        (
+          if ftcfg.enableNoResolvePatch
+          then "flutter-tools-patched"
+          else "flutter-tools-nvim"
+        )
+        "plenary-nvim"
+      ];
+
+      pluginRC.flutter-tools = entryAfter ["lsp-setup"] ''
         require('flutter-tools').setup {
+          ${optionalString (ftcfg.flutterPackage != null) "flutter_path = \"${ftcfg.flutterPackage}/bin/flutter\","}
           lsp = {
             color = { -- show the derived colours for dart variables
               enabled = ${boolToString ftcfg.color.enable}, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
@@ -152,7 +168,6 @@ in {
 
             capabilities = capabilities,
             on_attach = default_on_attach;
-            flags = lsp_flags,
           },
           ${optionalString cfg.dap.enable ''
           debugger = {
