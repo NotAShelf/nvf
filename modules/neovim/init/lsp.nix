@@ -30,7 +30,34 @@ in {
     vim.lsp.servers = mkOption {
       type = attrsOf lspOptions;
       default = {};
-      description = "";
+      example = ''
+        {
+          "*" = {
+            root_markers = [".git"];
+            capabilities = {
+              textDocument = {
+                semanticTokens = {
+                  multilineTokenSupport = true;
+                };
+              };
+            };
+          };
+
+          "clangd" = {
+            filetypes = ["c"];
+          };
+        }
+      '';
+      description = ''
+        LSP configurations that will be managed using `vim.lsp.config()` and
+        related utilities added in Neovim 0.11. LSPs defined here will be
+        added to the resulting {file}`init.lua` using `vim.lsp.config` and
+        enabled through `vim.lsp.enable` below the configuration table.
+
+        You may review the generated configuration by running {command}`nvf-print-config`
+        in a shell. Please see {command}`:help lsp-config` for more details
+        on the underlying API.
+      '';
     };
   };
 
@@ -45,7 +72,7 @@ in {
     (mkIf (cfg.servers != {}) {
       vim.luaConfigRC.lsp-servers = entryAnywhere ''
         -- Individual LSP configurations managed by nvf.
-        ${(concatLines lspConfigurations)}
+        ${concatLines lspConfigurations}
 
         -- Enable configured LSPs explicitly
         vim.lsp.enable(${toLuaObject (filter (name: name != "*") (attrNames enabledServers))})
