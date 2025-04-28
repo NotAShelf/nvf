@@ -69,6 +69,7 @@ isMaximal: {
       # Language modules that are not as common.
       assembly.enable = false;
       astro.enable = false;
+      emmet.enable = false;
       nu.enable = false;
       csharp.enable = false;
       julia.enable = false;

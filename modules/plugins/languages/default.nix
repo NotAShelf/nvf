@@ -14,6 +14,7 @@ in {
     ./clang.nix
     ./css.nix
     ./elixir.nix
+    ./emmet.nix
     ./fsharp.nix
     ./gleam.nix
     ./go.nix
