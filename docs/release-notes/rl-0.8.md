@@ -91,6 +91,9 @@
   options for `vim.diagnostic.config()` can now be customized through the
   [](#opt-vim.diagnostics.config) in nvf.
 
+- Add `vim.clipboard` module for easily managing Neovim clipboard providers and
+  relevant packages in a simple UI.
+
 [amadaluzia](https://github.com/amadaluzia):
 
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim
@@ -361,4 +364,5 @@
 
 [Hardtime.nvim]: https://github.com/m4xshen/hardtime.nvim
 
-- Add Plugin [Hardtime.nvim] under `vim.binds.hardtime-nvim` with `enable` and `setupOpts` options
+- Add Plugin [Hardtime.nvim] under `vim.binds.hardtime-nvim` with `enable` and
+  `setupOpts` options
