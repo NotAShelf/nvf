@@ -14467,7 +14467,7 @@ string</p>
 null or package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation flutter-wrapped-3.29.2-sdk-links&gt;</code></p>
+<code class="literal">&lt;derivation flutter-wrapped-3.29.3-sdk-links&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -16027,7 +16027,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation helm-ls-0.2.0&gt;</code></p>
+<code class="literal">&lt;derivation helm-ls-0.2.1&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -16416,7 +16416,7 @@ the command to run as a list of strings.</p>
 null or package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation julia-1.11.4-env&gt;</code></p>
+<code class="literal">&lt;derivation julia-1.11.5-env&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -17174,7 +17174,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation deno-2.2.8&gt;</code></p>
+<code class="literal">&lt;derivation deno-2.2.11&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -17450,7 +17450,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation x86_64-unknown-linux-gnu-nim-wrapper-2.2.2&gt;</code></p>
+<code class="literal">&lt;derivation x86_64-unknown-linux-gnu-nim-wrapper-2.2.4&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -18146,7 +18146,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation ocaml5.2.1-ocamlformat-0.27.0&gt;</code></p>
+<code class="literal">&lt;derivation ocaml5.3.0-ocamlformat-0.27.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -18221,7 +18221,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation ocaml5.2.1-ocaml-lsp-server-1.21.0&gt;</code></p>
+<code class="literal">&lt;derivation ocaml5.3.0-ocaml-lsp-server-1.22.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -18527,7 +18527,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation phpactor-2025.03.28.0&gt;</code></p>
+<code class="literal">&lt;derivation phpactor-2025.04.17.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot; - data \&quot; \&quot; ~/.cache/jdtls/workspace \&quot;]&quot;</code></p>
@@ -18834,7 +18834,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation basedpyright-1.28.5&gt;</code></p>
+<code class="literal">&lt;derivation basedpyright-1.29.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot;-data\&quot; \&quot;~/.cache/jdtls/workspace\&quot;]&quot;</code></p>
@@ -20203,7 +20203,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation sqlfluff-3.3.1&gt;</code></p>
+<code class="literal">&lt;derivation sqlfluff-3.4.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -24454,6 +24454,200 @@ list of string</p>
 <tr><td>
 <code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/otter/otter.nix" target="_top">
 &lt;nvf/modules/plugins/lsp/otter/otter.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.lsp.servers"></a><a class="term" href="options.html#opt-vim.lsp.servers"><code class="option">vim.lsp.servers</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>LSP configurations that will be managed using <code class="literal">vim.lsp.config()</code> and
+related utilities added in Neovim 0.11. LSPs defined here will be
+added to the resulting <code class="filename">init.lua</code> using <code class="literal">vim.lsp.config</code> and
+enabled through <code class="literal">vim.lsp.enable</code> below the configuration table.</p><p>You may review the generated configuration by running <span class="command"><strong>nvf-print-config</strong></span>
+in a shell. Please see <span class="command"><strong>:help lsp-config</strong></span> for more details
+on the underlying API.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+attribute set of (attribute set of anything)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">&#x27;&#x27;
+  {
+    &quot;*&quot; = {
+      root_markers = [&quot;.git&quot;];
+      capabilities = {
+        textDocument = {
+          semanticTokens = {
+            multilineTokenSupport = true;
+          };
+        };
+      };
+    };
+  
+    &quot;clangd&quot; = {
+      filetypes = [&quot;c&quot;];
+    };
+  }
+&#x27;&#x27;
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/lsp.nix" target="_top">
+&lt;nvf/modules/neovim/init/lsp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.lsp.servers._name_.enable"></a><a class="term" href="options.html#opt-vim.lsp.servers._name_.enable"><code class="option">vim.lsp.servers.&lt;name&gt;.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable this LSP server.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/lsp.nix" target="_top">
+&lt;nvf/modules/neovim/init/lsp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.lsp.servers._name_.capabilities"></a><a class="term" href="options.html#opt-vim.lsp.servers._name_.capabilities"><code class="option">vim.lsp.servers.&lt;name&gt;.capabilities</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>LSP capabilitiess to pass to lspconfig</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or (luaInline) or attribute set of anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/lsp.nix" target="_top">
+&lt;nvf/modules/neovim/init/lsp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.lsp.servers._name_.cmd"></a><a class="term" href="options.html#opt-vim.lsp.servers._name_.cmd"><code class="option">vim.lsp.servers.&lt;name&gt;.cmd</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Command used to start the LSP server</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or (list of string)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/lsp.nix" target="_top">
+&lt;nvf/modules/neovim/init/lsp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.lsp.servers._name_.filetypes"></a><a class="term" href="options.html#opt-vim.lsp.servers._name_.filetypes"><code class="option">vim.lsp.servers.&lt;name&gt;.filetypes</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Filetypes to auto-attach LSP in</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or (list of string)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/lsp.nix" target="_top">
+&lt;nvf/modules/neovim/init/lsp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.lsp.servers._name_.on_attach"></a><a class="term" href="options.html#opt-vim.lsp.servers._name_.on_attach"><code class="option">vim.lsp.servers.&lt;name&gt;.on_attach</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Function to execute when an LSP server attaches to a buffer</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or (luaInline)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/lsp.nix" target="_top">
+&lt;nvf/modules/neovim/init/lsp.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.lsp.servers._name_.root_markers"></a><a class="term" href="options.html#opt-vim.lsp.servers._name_.root_markers"><code class="option">vim.lsp.servers.&lt;name&gt;.root_markers</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>“root markers” used to determine the root directory of the workspace, and
+the filetypes associated with this LSP server.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or (list of string)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/lsp.nix" target="_top">
+&lt;nvf/modules/neovim/init/lsp.nix&gt;
 </a></code>
 </td></tr>
 </table>
