@@ -142,9 +142,7 @@ isMaximal: {
     binds = {
       whichKey.enable = true;
       cheatsheet.enable = true;
-
-      # Remove this after test
-      hardtime.enable = true;
+      hardtime.enable = isMaximal;
     };
 
     telescope.enable = true;
