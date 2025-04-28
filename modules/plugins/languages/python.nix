@@ -47,7 +47,7 @@
     };
 
     python-lsp-server = {
-      package = pkgs.python-lsp-server;
+      package = pkgs.python3Packages.python-lsp-server;
       lspConfig = ''
         lspconfig.pylsp.setup{
           capabilities = capabilities;
@@ -66,26 +66,10 @@
   formats = {
     black = {
       package = pkgs.black;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.black.with({
-            command = "${cfg.format.package}/bin/black",
-          })
-        )
-      '';
     };
 
     isort = {
       package = pkgs.isort;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.isort.with({
-            command = "${cfg.format.package}/bin/isort",
-          })
-        )
-      '';
     };
 
     black-and-isort = {
@@ -96,15 +80,6 @@
           black --quiet - "$@" | isort --profile black -
         '';
       };
-
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.black.with({
-            command = "${cfg.format.package}/bin/black",
-          })
-        )
-      '';
     };
 
     ruff = {
@@ -115,14 +90,6 @@
           ruff format -
         '';
       };
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.ruff.with({
-            command = "${cfg.format.package}/bin/ruff",
-          })
-        )
-      '';
     };
   };
 
@@ -132,7 +99,7 @@
       # idk if this is the best way to install/run debugpy
       package = pkgs.python3.withPackages (ps: with ps; [debugpy]);
       dapConfig = ''
-        dap.adapters.python = function(cb, config)
+        dap.adapters.debugpy = function(cb, config)
           if config.request == 'attach' then
             ---@diagnostic disable-next-line: undefined-field
             local port = (config.connect or config).port
@@ -161,7 +128,7 @@
         dap.configurations.python = {
           {
             -- The first three options are required by nvim-dap
-            type = 'python'; -- the type here established the link to the adapter definition: `dap.adapters.python`
+            type = 'debugpy'; -- the type here established the link to the adapter definition: `dap.adapters.debugpy`
             request = 'launch';
             name = "Launch file";
 
@@ -272,8 +239,22 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.python-format = formats.${cfg.format.type}.nullConfig;
+      vim.formatter.conform-nvim = {
+        enable = true;
+        # HACK: I'm planning to remove these soon so I just took the easiest way out
+        setupOpts.formatters_by_ft.python =
+          if cfg.format.type == "black-and-isort"
+          then ["black"]
+          else [cfg.format.type];
+        setupOpts.formatters =
+          if (cfg.format.type == "black-and-isort")
+          then {
+            black.command = "${cfg.format.package}/bin/black";
+          }
+          else {
+            ${cfg.format.type}.command = getExe cfg.format.package;
+          };
+      };
     })
 
     (mkIf cfg.dap.enable {

@@ -200,8 +200,9 @@ fix.
 **Q**: What platforms are supported?
 
 **A**: nvf actively supports **Linux and Darwin** platforms using standalone
-Nix, NixOS or Home-Manager. Please take a look at the [nvf manual] for available
-installation instructions.
+Nix, NixOS or Home-Manager. It has been reported that **Android** is also
+supported through the Home-Manager module, or using standalone package. Please
+take a look at the [nvf manual] for available installation instructions.
 
 **Q**: Can you add _X_?
 

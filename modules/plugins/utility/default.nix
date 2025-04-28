@@ -15,8 +15,10 @@
     ./multicursors
     ./new-file-template
     ./nix-develop
+    ./oil-nvim
     ./outline
     ./preview
+    ./sleuth
     ./snacks-nvim
     ./surround
     ./telescope

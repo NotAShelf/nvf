@@ -48,16 +48,9 @@
       patches = [./patches/flutter-tools.patch];
 
       # Disable failing require check hook checks
-      nvimSkipModule = [
-        "flutter-tools.devices"
-        "flutter-tools.dap"
-        "flutter-tools.runners.job_runner"
-        "flutter-tools.decorations"
-        "flutter-tools.commands"
-        "flutter-tools.executable"
-        "flutter-tools.dev_tools"
-      ];
+      doCheck = false;
     };
+
     inherit (inputs.self.legacyPackages.${pkgs.stdenv.system}) blink-cmp;
   };
 

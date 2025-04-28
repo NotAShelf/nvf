@@ -10,8 +10,8 @@
   inherit (lib.lists) isList;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum either listOf package str;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.languages) diagnosticsToLua;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
 
   cfg = config.vim.languages.astro;
@@ -22,7 +22,7 @@
       package = pkgs.astro-language-server;
       lspConfig = ''
         lspconfig.astro.setup {
-          capabilities = capabilities;
+          capabilities = capabilities,
           on_attach = attach_keymaps,
           cmd = ${
           if isList cfg.lsp.package
@@ -39,52 +39,35 @@
   formats = {
     prettier = {
       package = pkgs.nodePackages.prettier;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.prettier.with({
-            command = "${cfg.format.package}/bin/prettier",
-          })
-        )
-      '';
+    };
+
+    prettierd = {
+      package = pkgs.prettierd;
     };
 
     biome = {
       package = pkgs.biome;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.biome.with({
-            command = "${cfg.format.package}/bin/biome",
-          })
-        )
-      '';
     };
   };
 
   # TODO: specify packages
   defaultDiagnosticsProvider = ["eslint_d"];
   diagnosticsProviders = {
-    eslint_d = {
-      package = pkgs.eslint_d;
-      nullConfig = pkg: ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.diagnostics.eslint_d.with({
-            command = "${getExe pkg}",
-            condition = function(utils)
-              return utils.root_has_file({
-                "eslint.config.js",
-                "eslint.config.mjs",
-                ".eslintrc",
-                ".eslintrc.json",
-                ".eslintrc.js",
-                ".eslintrc.yml",
-              })
-            end,
-          })
-        )
-      '';
+    eslint_d = let
+      pkg = pkgs.eslint_d;
+    in {
+      package = pkg;
+      config = {
+        cmd = getExe pkg;
+        required_files = [
+          "eslint.config.js"
+          "eslint.config.mjs"
+          ".eslintrc"
+          ".eslintrc.json"
+          ".eslintrc.js"
+          ".eslintrc.yml"
+        ];
+      };
     };
   };
 in {
@@ -101,16 +84,16 @@ in {
       enable = mkEnableOption "Astro LSP support" // {default = config.vim.languages.enableLSP;};
 
       server = mkOption {
-        description = "Astro LSP server to use";
         type = enum (attrNames servers);
         default = defaultServer;
+        description = "Astro LSP server to use";
       };
 
       package = mkOption {
-        description = "Astro LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.astro-language-server "--minify" "--stdio"]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+        example = ''[lib.getExe pkgs.astro-language-server "--minify" "--stdio"]'';
+        description = "Astro LSP server package, or the command to run as a list of strings";
       };
     };
 
@@ -153,16 +136,22 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.astro-format = formats.${cfg.format.type}.nullConfig;
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.astro = [cfg.format.type];
+        setupOpts.formatters.${cfg.format.type} = {
+          command = getExe cfg.format.package;
+        };
+      };
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources = diagnosticsToLua {
-        lang = "astro";
-        config = cfg.extraDiagnostics.types;
-        inherit diagnosticsProviders;
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.astro = cfg.extraDiagnostics.types;
+        linters =
+          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
+            cfg.extraDiagnostics.types);
       };
     })
   ]);

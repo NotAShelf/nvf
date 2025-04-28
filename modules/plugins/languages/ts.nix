@@ -9,10 +9,10 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.meta) getExe;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.types) enum either listOf package str bool;
   inherit (lib.nvim.lua) expToLua toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption diagnostics mkPluginSetupOption;
-  inherit (lib.nvim.languages) diagnosticsToLua;
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.languages.ts;
@@ -77,65 +77,35 @@
   formats = {
     prettier = {
       package = pkgs.nodePackages.prettier;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.prettier.with({
-            command = "${cfg.format.package}/bin/prettier",
-            filetypes = { "typescript", "javascript" },
-          })
-        )
-      '';
     };
 
     prettierd = {
       package = pkgs.prettierd;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.prettier.with({
-            command = "${cfg.format.package}/bin/prettierd",
-          })
-        )
-      '';
     };
 
     biome = {
       package = pkgs.biome;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.biome.with({
-            command = "${cfg.format.package}/bin/biome",
-          })
-        )
-      '';
     };
   };
 
   # TODO: specify packages
   defaultDiagnosticsProvider = ["eslint_d"];
   diagnosticsProviders = {
-    eslint_d = {
-      package = pkgs.eslint_d;
-      nullConfig = pkg: ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.diagnostics.eslint_d.with({
-            command = "${getExe pkg}",
-            condition = function(utils)
-              return utils.root_has_file({
-                "eslint.config.js",
-                "eslint.config.mjs",
-                ".eslintrc",
-                ".eslintrc.json",
-                ".eslintrc.js",
-                ".eslintrc.yml",
-              })
-            end,
-          })
-        )
-      '';
+    eslint_d = let
+      pkg = pkgs.eslint_d;
+    in {
+      package = pkg;
+      config = {
+        cmd = getExe pkg;
+        required_files = [
+          "eslint.config.js"
+          "eslint.config.mjs"
+          ".eslintrc"
+          ".eslintrc.json"
+          ".eslintrc.js"
+          ".eslintrc.yml"
+        ];
+      };
     };
   };
 in {
@@ -225,16 +195,28 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.ts-format = formats.${cfg.format.type}.nullConfig;
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts = {
+          formatters_by_ft.typescript = [cfg.format.type];
+          # .tsx files
+          formatters_by_ft.typescriptreact = [cfg.format.type];
+          formatters.${cfg.format.type} = {
+            command = getExe cfg.format.package;
+          };
+        };
+      };
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources = diagnosticsToLua {
-        lang = "ts";
-        config = cfg.extraDiagnostics.types;
-        inherit diagnosticsProviders;
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.typescript = cfg.extraDiagnostics.types;
+        linters_by_ft.typescriptreact = cfg.extraDiagnostics.types;
+
+        linters =
+          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
+            cfg.extraDiagnostics.types);
       };
     })
 

@@ -24,12 +24,19 @@ in {
     grammars = mkOption {
       type = listOf package;
       default = [];
+      example = literalExpression ''
+        pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+          regex
+          kdl
+        ];
+      '';
       description = ''
-        List of treesitter grammars to install.
+        List of treesitter grammars to install. For grammars to be installed properly,
+        you must use grammars from `pkgs.vimPlugins.nvim-treesitter.builtGrammars`.
 
-        For languages already supported by nvf, you may
-        use the {option}`vim.language.<lang>.treesitter` options, which
-        will automatically add the required grammars to this.
+        For languages already supported by nvf, you may use
+        {option}`vim.language.<lang>.treesitter` options, which will automatically add
+        the required grammars to this.
       '';
     };
 

@@ -11,6 +11,12 @@
 
   cfg = config.vim.telescope;
   setupOptions = {
+    pickers.find_files.find_command = mkOption {
+      description = "cmd to use for finding files";
+      type = either (listOf str) luaInline;
+      default = ["${pkgs.fd}/bin/fd" "--type=file"];
+    };
+
     defaults = {
       vimgrep_arguments = mkOption {
         type = listOf str;
@@ -138,8 +144,7 @@
 
       file_ignore_patterns = mkOption {
         type = listOf str;
-        default = ["node_modules" ".git/" "dist/" "build/" "target/" "result/"];
-        description = "A table of lua regex that define the files that should be ignored.";
+        default = ["node_modules" "%.git/" "dist/" "build/" "target/" "result/"];
       };
 
       color_devicons = mkOption {

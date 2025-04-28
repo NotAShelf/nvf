@@ -5,12 +5,13 @@
   ...
 }: let
   inherit (builtins) attrNames;
+  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.lists) isList concatLists;
-  inherit (lib.types) bool enum either package listOf str;
+  inherit (lib.lists) isList;
+  inherit (lib.types) bool enum either package listOf str nullOr;
   inherit (lib.nvim.lua) expToLua toLuaObject;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.languages.markdown;
@@ -32,31 +33,23 @@
     };
   };
 
-  defaultFormat = "denofmt";
+  defaultFormat = "deno_fmt";
   formats = {
+    # for backwards compatibility
     denofmt = {
       package = pkgs.deno;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.deno_fmt.with({
-            filetypes = ${expToLua (concatLists [cfg.format.extraFiletypes ["markdown"]])},
-            command = "${cfg.format.package}/bin/deno",
-          })
-        )
-      '';
+    };
+    deno_fmt = {
+      package = pkgs.deno;
     };
     prettierd = {
       package = pkgs.prettierd;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.prettierd.with({
-            filetypes = ${expToLua (concatLists [cfg.format.extraFiletypes ["markdown"]])},
-            command = "${cfg.format.package}/bin/prettierd",
-          })
-        )
-      '';
+    };
+  };
+  defaultDiagnosticsProvider = ["markdownlint-cli2"];
+  diagnosticsProviders = {
+    markdownlint-cli2 = {
+      package = pkgs.markdownlint-cli2;
     };
   };
 in {
@@ -96,7 +89,7 @@ in {
       type = mkOption {
         type = enum (attrNames formats);
         default = defaultFormat;
-        description = "Markdown formatter to use";
+        description = "Markdown formatter to use. `denofmt` is deprecated and currently aliased to deno_fmt.";
       };
 
       package = mkOption {
@@ -121,17 +114,30 @@ in {
               [render-markdown.nvim]: https://github.com/MeanderingProgrammer/render-markdown.nvim
 
               Inline Markdown rendering with [render-markdown.nvim]
-
             '';
           };
 
         setupOpts = mkPluginSetupOption "render-markdown" {
-          auto_override_publish_diagnostics = mkOption {
-            description = "Automatically override the publish_diagnostics handler";
-            type = bool;
-            default = true;
+          file_types = lib.mkOption {
+            type = nullOr (listOf str);
+            default = null;
+            description = ''
+              List of buffer filetypes to enable this plugin in.
+
+              This will cause the plugin to attach to new buffers who
+              have any of these filetypes.
+            '';
           };
         };
+      };
+    };
+
+    extraDiagnostics = {
+      enable = mkEnableOption "extra Markdown diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      types = diagnostics {
+        langDesc = "Markdown";
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
@@ -148,8 +154,17 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.markdown-format = formats.${cfg.format.type}.nullConfig;
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.markdown = [cfg.format.type];
+        setupOpts.formatters.${
+          if cfg.format.type == "denofmt"
+          then "deno_fmt"
+          else cfg.format.type
+        } = {
+          command = getExe cfg.format.package;
+        };
+      };
     })
 
     # Extensions
@@ -158,6 +173,17 @@ in {
       vim.pluginRC.render-markdown-nvim = entryAnywhere ''
         require("render-markdown").setup(${toLuaObject cfg.extensions.render-markdown-nvim.setupOpts})
       '';
+    })
+
+    (mkIf cfg.extraDiagnostics.enable {
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.markdown = cfg.extraDiagnostics.types;
+        linters = mkMerge (map (name: {
+            ${name}.cmd = getExe diagnosticsProviders.${name}.package;
+          })
+          cfg.extraDiagnostics.types);
+      };
     })
   ]);
 }

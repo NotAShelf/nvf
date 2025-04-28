@@ -14,6 +14,11 @@
   the new API they provide. Please manually set your keybinds according to
   [Lspsaga documentation] following the new API.
 
+- none-ls has been updated to the latest version. If you have been using raw Lua
+  configuration to _manually_ configure it, some of the formats may become
+  unavailable as they have been refactored out of the main none-ls repository
+  upstream.
+
 [NotAShelf](https://github.com/notashelf):
 
 [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
@@ -21,6 +26,7 @@
 [yanky.nvim]: https://github.com/gbprod/yanky.nvim
 [yazi.nvim]: https://github.com/mikavilpas/yazi.nvim
 [snacks.nvim]: https://github.com/folke/snacks.nvim
+[oil.nvim]: https://github.com/stevearc/oil.nvim
 
 - Add [typst-preview.nvim] under
   `languages.typst.extensions.typst-preview-nvim`.
@@ -78,6 +84,13 @@
 
 - Lazyload Lspsaga and remove default keybindings for it.
 
+- Add [oil.nvim] as an alternative file explorer. It will be available under
+  `vim.utility.oil-nvim`.
+
+- Add `vim.diagnostics` to interact with Neovim's diagnostics module. Available
+  options for `vim.diagnostic.config()` can now be customized through the
+  [](#opt-vim.diagnostics.config) in nvf.
+
 [amadaluzia](https://github.com/amadaluzia):
 
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim
@@ -88,8 +101,14 @@
 
 [blink.cmp]: https://github.com/saghen/blink.cmp
 
+- Add [aerial.nvim].
+- Add [nvim-ufo].
 - Add [blink.cmp] support.
 - Add `LazyFile` user event.
+- Migrate language modules from none-ls to conform/nvim-lint
+- Add tsx support in conform and lint
+- Moved code setting `additionalRuntimePaths` and `enableLuaLoader` out of
+  `luaConfigPre`'s default to prevent being overridden
 
 [diniamo](https://github.com/diniamo):
 
@@ -97,14 +116,6 @@
 
 - Disable the built-in format-on-save feature of zls. Use `vim.lsp.formatOnSave`
   instead.
-
-[horriblename](https://github.com/horriblename):
-
-[aerial.nvim]: (https://github.com/stevearc/aerial.nvim)
-[nvim-ufo]: (https://github.com/kevinhwang91/nvim-ufo)
-
-- Add [aerial.nvim].
-- Add [nvim-ufo].
 
 [LilleAila](https://github.com/LilleAila):
 
@@ -190,6 +201,7 @@
   Inspiration from `vim.languages.clang.dap` implementation.
 - Add [leetcode.nvim] plugin under `vim.utility.leetcode-nvim`.
 - Add [codecompanion.nvim] plugin under `vim.assistant.codecompanion-nvim`.
+- Fix [codecompanion-nvim] plugin: nvim-cmp error and setupOpts defaults.
 
 [nezia1](https://github.com/nezia1):
 
@@ -235,8 +247,9 @@
 
 [alfarel](https://github.com/alfarelcynthesis):
 
-- Add missing `yazi.nvim` dependency (`snacks.nvim`).
+[conform.nvim]: https://github.com/stevearc/conform.nvim
 
+- Add missing `yazi.nvim` dependency (`snacks.nvim`).
 - Add [mkdir.nvim](https://github.com/jghauser/mkdir.nvim) plugin for automatic
   creation of parent directories when editing a nested file.
 - Add [nix-develop.nvim](https://github.com/figsoda/nix-develop.nvim) plugin for
@@ -248,6 +261,8 @@
   [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) so
   blink.cmp can source snippets from it.
 - Fix [blink.cmp] breaking when built-in sources were modified.
+- Fix [conform.nvim] not allowing disabling formatting on and after save. Use
+  `null` value to disable them if conform is enabled.
 
 [TheColorman](https://github.com/TheColorman):
 
@@ -276,3 +291,64 @@
 [rice-cracker-dev](https://github.com/rice-cracker-dev):
 
 - `eslint_d` now checks for configuration files to load.
+- Fix an error where `eslint_d` fails to load.
+- Add required files support for linters under
+  `vim.diagnostics.nvim-lint.linters.*.required_files`.
+- Add global function `nvf_lint` under
+  `vim.diagnostics.nvim-lint.lint_function`.
+
+[Sc3l3t0n](https://github.com/Sc3l3t0n):
+
+- Add F# support under `vim.languages.fsharp`.
+
+[venkyr77](https://github.com/venkyr77):
+
+- Add lint (luacheck) and formatting (stylua) support for Lua.
+- Add lint (markdownlint-cli2) support for Markdown.
+- Add catppuccin integration for Bufferline, Lspsaga.
+- Add `neo-tree`, `snacks.explorer` integrations to `bufferline`.
+- Add more applicable filetypes to illuminate denylist.
+- Disable mini.indentscope for applicable filetypes.
+- Fix fzf-lua having a hard dependency on fzf.
+- Enable inlay hints support - `config.vim.lsp.inlayHints`.
+- Add `neo-tree`, `snacks.picker` extensions to `lualine`.
+
+[tebuevd](https://github.com/tebuevd):
+
+- Fix `pickers` configuration for `telescope` by nesting it under `setupOpts`
+- Fix `find_command` configuration for `telescope` by nesting it under
+  `setupOpts.pickers.find_files`
+- Update default `telescope.setupOpts.pickers.find_files.find_command` to only
+  include files (and therefore exclude directories from results)
+
+[ckoehler](https://github.com/ckoehler):
+
+[flash.nvim]: https://github.com/folke/flash.nvim
+[gitlinker.nvim]: https://github.com/linrongbin16/gitlinker.nvim
+
+- Fix oil config referencing snacks
+- Add [flash.nvim] plugin to `vim.utility.motion.flash-nvim`
+- Fix default telescope ignore list entry for '.git/' to properly match
+- Add [gitlinker.nvim] plugin to `vim.git.gitlinker-nvim`
+
+[rrvsh](https://github.com/rrvsh):
+
+- Fix namespace of python-lsp-server by changing it to python3Packages
+
+[Noah765](https://github.com/Noah765):
+
+[vim-sleuth]: https://github.com/tpope/vim-sleuth
+
+- Add missing `flutter-tools.nvim` dependency `plenary.nvim`.
+- Add necessary dependency of `flutter-tools.nvim` on lsp.
+- Add the `vim.languages.dart.flutter-tools.flutterPackage` option.
+- Fix the type of the `highlight` color options.
+- Add [vim-sleuth] plugin under `vim.utility.sleuth`.
+
+[howird](https://github.com/howird):
+
+- Change python dap adapter name from `python` to commonly expected `debugpy`.
+
+[aionoid](https://github.com/aionoid):
+
+- Fix [render-markdown.nvim] file_types option type to list, to accept merging.

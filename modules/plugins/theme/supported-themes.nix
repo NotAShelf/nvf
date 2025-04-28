@@ -66,21 +66,22 @@ in {
         transparent_background = ${boolToString transparent},
         term_colors = true,
         integrations = {
-      	  nvimtree = {
-      		  enabled = true,
-      		  transparent_panel = ${boolToString transparent},
-      		  show_root = true,
-      	  },
+          nvimtree = {
+            enabled = true,
+            transparent_panel = ${boolToString transparent},
+            show_root = true,
+          },
 
           hop = true,
-      	  gitsigns = true,
-      	  telescope = true,
-      	  treesitter = true,
+          gitsigns = true,
+          telescope = true,
+          treesitter = true,
           treesitter_context = true,
-      	  ts_rainbow = true,
+          ts_rainbow = true,
           fidget = true,
           alpha = true,
           leap = true,
+          lsp_saga = true,
           markdown = true,
           noice = true,
           notify = true, -- nvim-notify
@@ -106,9 +107,9 @@ in {
       style' =
         warnIf (style == "light") "oxocarbon: light theme is not well-supported" style;
     in ''
-       require('oxocarbon')
-       vim.opt.background = "${style'}"
-       vim.cmd.colorscheme = "oxocarbon"
+      require('oxocarbon')
+      vim.opt.background = "${style'}"
+      vim.cmd.colorscheme = "oxocarbon"
       ${optionalString transparent ''
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })

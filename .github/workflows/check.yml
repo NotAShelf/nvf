@@ -37,7 +37,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@main
 
       - name: Check formatting via Alejandra
-        run: nix run nixpkgs#alejandra -- -c .
+        run: nix run nixpkgs#alejandra -- --check . --exclude npins
 
   check-typos:
     name: "Check source tree for typos"
@@ -114,33 +114,35 @@ jobs:
     runs-on: ubuntu-latest
     if: "!contains(github.event.pull_request.title, '[skip ci]')"
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # slows down checkout, but we need to compare against the previous commit on push events
+
       - name: Get list of changed files from PR
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
         run: |
-          gh api \
-            repos/${{ github.repository }}/pulls/${{github.event.number}}/files --paginate \
-            | jq '.[] | select(.status != "removed") | .filename' \
-            > "$HOME/changed_files"
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            gh api repos/${{ github.repository }}/pulls/${{ github.event.number }}/files --paginate \
+              | jq -r '.[] | select(.status != "removed") | .filename' \
+              > "$HOME/changed_files"
+          else
+            git diff --name-only HEAD^ > "$HOME/changed_files"
+          fi
 
       - name: Print list of changed files
         run: |
           cat "$HOME/changed_files"
 
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: refs/pull/${{ github.event.pull_request.number }}/merge
-
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
 
-      - name: Checking EditorConfig
+      - name: Checking Editorconfig conformance
         shell: bash
         run: |
-          cat "$HOME/changed_files" | nix-shell -p editorconfig-checker.out \
-            --run 'xargs -r editorconfig-checker -disable-indentation -exclude flake.lock --verbose'
-          echo -n "Check status: $?"
+          < "$HOME/changed_files" nix-shell -p editorconfig-checker --run 'xargs -r editorconfig-checker -disable-indent-size'
 
       - if: ${{ failure() }}
         shell: bash

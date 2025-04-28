@@ -7,7 +7,6 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.nvim.languages) diagnosticsToLua;
   inherit (lib.types) either package listOf str;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
   inherit (lib.lists) isList;
@@ -19,14 +18,6 @@
   diagnosticsProviders = {
     ktlint = {
       package = pkgs.ktlint;
-      nullConfig = pkg: ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.diagnostics.ktlint.with({
-            command = "${getExe pkg}",
-          })
-        )
-      '';
     };
   };
 in {
@@ -76,11 +67,13 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources = diagnosticsToLua {
-        lang = "kotlin";
-        config = cfg.extraDiagnostics.types;
-        inherit diagnosticsProviders;
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.kotlin = cfg.extraDiagnostics.types;
+        linters = mkMerge (map (name: {
+            ${name}.cmd = getExe diagnosticsProviders.${name}.package;
+          })
+          cfg.extraDiagnostics.types);
       };
     })
 
