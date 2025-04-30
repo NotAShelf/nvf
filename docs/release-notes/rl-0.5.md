@@ -91,7 +91,7 @@ Release notes for release 0.5
 - Updated indent-blankine.nvim to v3 - this comes with a few option changes,
   which will be migrated with `renamedOptionModule`
 
-[jacekpoz](https://jacekpoz.pl):
+[poz](https://poz.pet):
 
 - Fixed scrollOffset not being used
 
