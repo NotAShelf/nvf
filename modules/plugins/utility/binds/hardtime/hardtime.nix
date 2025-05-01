@@ -3,7 +3,7 @@
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   options.vim.binds.hardtime-nvim = {
-    enable = mkEnableOption "Hardtime - A Plugin for Blocks key repeats in Neovim.";
+    enable = mkEnableOption "hardtime helper for no repeat keybinds";
 
     setupOpts = mkPluginSetupOption "hardtime-nvim" {};
   };
