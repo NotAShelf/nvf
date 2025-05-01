@@ -359,5 +359,6 @@
 
 [Haskex](https://github.com/haskex):
 
-- Add Plugin [Hardtime.nvim](https://github.com/m4xshen/hardtime.nvim).
-- Add option `vim.binds.hardtime-nvim` with `enable` and `setupOpts` options.
+[Hardtime.nvim]: https://github.com/m4xshen/hardtime.nvim
+
+- Add Plugin [Hardtime.nvim] under `vim.binds.hardtime-nvim` with `enable` and `setupOpts` options
