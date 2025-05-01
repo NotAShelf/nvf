@@ -7,7 +7,7 @@
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryAnywhere;
 
-  cfg = config.vim.binds.hardtime;
+  cfg = config.vim.binds.hardtime-nvim;
 in {
   config = mkIf cfg.enable {
     vim = {

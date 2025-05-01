@@ -142,7 +142,7 @@ isMaximal: {
     binds = {
       whichKey.enable = true;
       cheatsheet.enable = true;
-      hardtime.enable = isMaximal;
+      hardtime-nvim.enable = isMaximal;
     };
 
     telescope.enable = true;

@@ -356,3 +356,8 @@
 [poz](https://poz.pet):
 
 - Fix gitsigns null-ls issue.
+
+[Haskex](https://github.com/haskex):
+
+- Add Plugin [Hardtime.nvim](https://github.com/m4xshen/hardtime.nvim).
+- Add option `vim.binds.hardtime-nvim` with `enable` and `setupOpts` options.
