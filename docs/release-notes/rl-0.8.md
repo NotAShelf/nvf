@@ -352,3 +352,7 @@
 [aionoid](https://github.com/aionoid):
 
 - Fix [render-markdown.nvim] file_types option type to list, to accept merging.
+
+[poz](https://poz.pet):
+
+- Fix gitsigns null-ls issue.
