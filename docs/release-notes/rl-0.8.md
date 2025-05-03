@@ -355,3 +355,13 @@
 
 - Fix [render-markdown.nvim] file_types option type to list, to accept merging.
 - Add [avante.nvim] plugin under `vim.assistant.avante-nvim`.
+
+[poz](https://poz.pet):
+
+- Fix gitsigns null-ls issue.
+
+[Haskex](https://github.com/haskex):
+
+[Hardtime.nvim]: https://github.com/m4xshen/hardtime.nvim
+
+- Add Plugin [Hardtime.nvim] under `vim.binds.hardtime-nvim` with `enable` and `setupOpts` options

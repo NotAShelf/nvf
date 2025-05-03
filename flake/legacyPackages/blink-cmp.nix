@@ -14,7 +14,7 @@
     env.RUSTC_BOOTSTRAP = true;
 
     useFetchCargoVendor = true;
-    cargoHash = "sha256-MWElqh7ENJ6CbLOnvz0DsP5YYu+e+y12GSUOfW1IKGU=";
+    cargoHash = "sha256-IDoDugtNWQovfSstbVMkKHLBXKa06lxRWmywu4zyS3M=";
 
     nativeBuildInputs = [gitMinimal];
   };
