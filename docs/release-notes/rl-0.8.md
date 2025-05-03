@@ -362,3 +362,7 @@
 [Hardtime.nvim]: https://github.com/m4xshen/hardtime.nvim
 
 - Add Plugin [Hardtime.nvim] under `vim.binds.hardtime-nvim` with `enable` and `setupOpts` options
+
+[dmitriiStepanidenko](https://github.com/dmitriiStepanidenko):
+
+- Add graphql LSP and formatter suport via prettier.
