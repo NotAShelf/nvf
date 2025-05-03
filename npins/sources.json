@@ -614,6 +614,19 @@
       "url": "https://github.com/ellisonleao/gruvbox.nvim/archive/91a0f8e460197a521d42a2e84a7a2a4010be4bbb.tar.gz",
       "hash": "1bmxps0wawyvwyzcwzdxbf1wcqx6v7h6afj3yzgb38gz649wr8q7"
     },
+    "hardtime-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "m4xshen",
+        "repo": "hardtime.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "9aaec65de041bddfc4c0af66919030d2950bcea8",
+      "url": "https://github.com/m4xshen/hardtime.nvim/archive/9aaec65de041bddfc4c0af66919030d2950bcea8.tar.gz",
+      "hash": "1rmcl200a4m3ip3xjzhh7ghhh2961xj2mw7yf0w44jpvs98gqb18"
+    },
     "harpoon": {
       "type": "Git",
       "repository": {
