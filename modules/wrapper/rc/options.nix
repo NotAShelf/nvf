@@ -1,15 +1,7 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{lib, ...}: let
   inherit (lib.options) mkOption literalMD literalExpression;
-  inherit (lib.strings) optionalString;
   inherit (lib.types) str bool int enum attrsOf lines listOf either path submodule anything;
   inherit (lib.nvim.types) dagOf;
-  inherit (lib.nvim.lua) listToLuaTable;
-
-  cfg = config.vim;
 in {
   options.vim = {
     enableLuaLoader = mkOption {
@@ -19,13 +11,14 @@ in {
       description = ''
         [official documentation]: https://neovim.io/doc/user/lua.html#vim.loader.enable()
 
-        the experimental Lua module loader to speed up the start up process
+        Whethere to enable the experimental Lua module loader to speed up the start
+        up process. If `true`, this will enable the experimental Lua module loader
+        which:
 
-        If `true`, this will enable the experimental Lua module loader which:
-          - overrides loadfile
-          - adds the lua loader using the byte-compilation cache
-          - adds the libs loader
-          - removes the default Neovim loader
+        * overrides loadfile
+        * adds the lua loader using the byte-compilation cache
+        * adds the libs loader
+        * removes the default Neovim loader
 
         ::: {.note}
         The Lua module loader is *disabled* by default. Before setting this option, please
@@ -286,21 +279,7 @@ in {
 
     luaConfigPre = mkOption {
       type = str;
-      default = ''
-        ${optionalString (cfg.additionalRuntimePaths != []) ''
-          -- The following list is generated from `vim.additionalRuntimePaths`
-          -- and is used to append additional runtime paths to the
-          -- `runtimepath` option.
-          vim.opt.runtimepath:append(${listToLuaTable cfg.additionalRuntimePaths})
-        ''}
-
-        ${optionalString cfg.enableLuaLoader ''
-          if vim.loader then
-            vim.loader.enable()
-          end
-        ''}
-      '';
-
+      default = "";
       defaultText = literalMD ''
         By default, this option will **append** paths in
         [](#opt-vim.additionalRuntimePaths)

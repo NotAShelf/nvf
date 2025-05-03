@@ -272,20 +272,12 @@ in {
 
         offsets = mkOption {
           type = listOf attrs;
-          default = [
-            {
-              filetype = "NvimTree";
-              text = "File Explorer";
-              highlight = "Directory";
-              separator = true;
-            }
-            {
-              filetype = "neo-tree";
-              text = "File Explorer";
-              highlight = "Directory";
-              separator = true;
-            }
-          ];
+          default = map (filetype: {
+            inherit filetype;
+            text = "File Explorer";
+            highlight = "Directory";
+            separator = true;
+          }) ["NvimTree" "neo-tree" "snacks_layout_box"];
           description = "The windows to offset bufferline above, see `:help bufferline-offset`";
         };
 

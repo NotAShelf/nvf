@@ -107,6 +107,8 @@
 - Add `LazyFile` user event.
 - Migrate language modules from none-ls to conform/nvim-lint
 - Add tsx support in conform and lint
+- Moved code setting `additionalRuntimePaths` and `enableLuaLoader` out of
+  `luaConfigPre`'s default to prevent being overridden
 
 [diniamo](https://github.com/diniamo):
 
@@ -289,7 +291,11 @@
 [rice-cracker-dev](https://github.com/rice-cracker-dev):
 
 - `eslint_d` now checks for configuration files to load.
-- Fixed an error where `eslint_d` fails to load.
+- Fix an error where `eslint_d` fails to load.
+- Add required files support for linters under
+  `vim.diagnostics.nvim-lint.linters.*.required_files`.
+- Add global function `nvf_lint` under
+  `vim.diagnostics.nvim-lint.lint_function`.
 
 [Sc3l3t0n](https://github.com/Sc3l3t0n):
 
@@ -300,12 +306,12 @@
 - Add lint (luacheck) and formatting (stylua) support for Lua.
 - Add lint (markdownlint-cli2) support for Markdown.
 - Add catppuccin integration for Bufferline, Lspsaga.
-- Add neo-tree integration for Bufferline.
+- Add `neo-tree`, `snacks.explorer` integrations to `bufferline`.
 - Add more applicable filetypes to illuminate denylist.
 - Disable mini.indentscope for applicable filetypes.
 - Fix fzf-lua having a hard dependency on fzf.
 - Enable inlay hints support - `config.vim.lsp.inlayHints`.
-- Add `neo-tree` extension to `lualine`.
+- Add `neo-tree`, `snacks.picker` extensions to `lualine`.
 
 [tebuevd](https://github.com/tebuevd):
 
@@ -329,12 +335,34 @@
 
 - Fix namespace of python-lsp-server by changing it to python3Packages
 
+[Noah765](https://github.com/Noah765):
+
+[vim-sleuth]: https://github.com/tpope/vim-sleuth
+
+- Add missing `flutter-tools.nvim` dependency `plenary.nvim`.
+- Add necessary dependency of `flutter-tools.nvim` on lsp.
+- Add the `vim.languages.dart.flutter-tools.flutterPackage` option.
+- Fix the type of the `highlight` color options.
+- Add [vim-sleuth] plugin under `vim.utility.sleuth`.
+
+[howird](https://github.com/howird):
+
+- Change python dap adapter name from `python` to commonly expected `debugpy`.
+
+[aionoid](https://github.com/aionoid):
+
+- Fix [render-markdown.nvim] file_types option type to list, to accept merging.
+
+[poz](https://poz.pet):
+
+- Fix gitsigns null-ls issue.
+
+[Haskex](https://github.com/haskex):
+
+[Hardtime.nvim]: https://github.com/m4xshen/hardtime.nvim
+
+- Add Plugin [Hardtime.nvim] under `vim.binds.hardtime-nvim` with `enable` and `setupOpts` options
 
 [dmitriiStepanidenko](https://github.com/dmitriiStepanidenko):
 
 - Add graphql LSP and formatter suport via prettier.
-
-[Noah765](https://github.com/Noah765):
-
-- Add missing `flutter-tools.nvim` dependency `plenary.nvim`.
-

@@ -23,7 +23,7 @@ isMaximal: {
       lightbulb.enable = true;
       lspsaga.enable = false;
       trouble.enable = true;
-      lspSignature.enable = true;
+      lspSignature.enable = !isMaximal; # conflicts with blink in maximal
       otter-nvim.enable = isMaximal;
       nvim-docs-view.enable = isMaximal;
     };
@@ -125,7 +125,15 @@ isMaximal: {
 
     autopairs.nvim-autopairs.enable = true;
 
-    autocomplete.nvim-cmp.enable = true;
+    # nvf provides various autocomplete options. The tried and tested nvim-cmp
+    # is enabled in default package, because it does not trigger a build. We
+    # enable blink-cmp in maximal because it needs to build its rust fuzzy
+    # matcher library.
+    autocomplete = {
+      nvim-cmp.enable = !isMaximal;
+      blink-cmp.enable = isMaximal;
+    };
+
     snippets.luasnip.enable = true;
 
     filetree = {
@@ -143,6 +151,7 @@ isMaximal: {
     binds = {
       whichKey.enable = true;
       cheatsheet.enable = true;
+      hardtime-nvim.enable = isMaximal;
     };
 
     telescope.enable = true;
