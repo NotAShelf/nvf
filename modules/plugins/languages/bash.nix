@@ -56,7 +56,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Enable Bash LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Enable Bash LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "Bash LSP server to use";

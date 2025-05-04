@@ -18,6 +18,10 @@ isMaximal: {
     };
 
     lsp = {
+      # This must be enabled for the language modules to hook into
+      # the LSP API.
+      enable = true;
+
       formatOnSave = true;
       lspkind.enable = false;
       lightbulb.enable = true;
@@ -38,8 +42,7 @@ isMaximal: {
     # This section does not include a comprehensive list of available language modules.
     # To list all available language module options, please visit the nvf manual.
     languages = {
-      enableLSP = true;
-      enableFormat = true;
+      enableFormat = true; #
       enableTreesitter = true;
       enableExtraDiagnostics = true;
 

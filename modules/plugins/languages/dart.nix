@@ -77,7 +77,7 @@ in {
     flutter-tools = {
       enable = mkOption {
         type = bool;
-        default = config.vim.languages.enableLSP;
+        default = config.vim.lsp.enable;
         description = "Enable flutter-tools for flutter support";
       };
 

@@ -67,7 +67,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Go LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Go LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "Go LSP server to use";
