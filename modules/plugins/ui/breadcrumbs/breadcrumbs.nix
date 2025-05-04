@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) nullOr listOf enum bool str int either;
+  inherit (lib.types) nullOr listOf enum bool str int;
   inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.nvim.types) mkPluginSetupOption borderType;
   mkSimpleIconOption = default:
