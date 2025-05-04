@@ -87,6 +87,9 @@ in {
         ];
       };
     };
+    description = ''
+      Define the pdf viewer to use for viewing compiled tex documents.
+    '';
   };
 
   config = let
