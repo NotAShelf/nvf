@@ -39032,7 +39032,7 @@ boolean</p>
 <p>Whether to always display the breadcrumbs component
 on winbar.</p><div class="note"><h3 class="title">Note</h3><p>This will pass <code class="literal">draw_empty</code> to the <code class="literal">nvim_navic</code> winbar
 component, which causes the component to be drawn even
-if it’s empty</p></div>
+if it’s empty.</p></div>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -39086,7 +39086,7 @@ boolean</p>
  </span>
 </dt>
 <dd>
-<p>insert at end of name</p>
+<p>Insert at the end of name.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39110,7 +39110,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>insert at end of scope</p>
+<p>Insert at the end of scope.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39134,7 +39134,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>keybinding to navigate to the child node</p>
+<p>Navigate to the child node.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39158,7 +39158,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>keybinding to close Navbuddy UI</p>
+<p>Close and return the cursor to its original location.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39182,7 +39182,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>comment the node</p>
+<p>Comment the node.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39206,7 +39206,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>delete the node</p>
+<p>Delete the node.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39230,7 +39230,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>create a new fold</p>
+<p>Create a new fold of the node.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39254,7 +39254,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>delete the current fold</p>
+<p>Delete the current fold of the node.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39278,7 +39278,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>open mapping help window</p>
+<p>Open the mappings help window.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39297,12 +39297,36 @@ string</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.ui.breadcrumbs.navbuddy.mappings.hsplit"></a><a class="term" href="options.html#opt-vim.ui.breadcrumbs.navbuddy.mappings.hsplit"><code class="option">vim.ui.breadcrumbs.navbuddy.mappings.hsplit</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Open the node in a horizontal split.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;&lt;C-s&gt;&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/ui/breadcrumbs/breadcrumbs.nix" target="_top">
+&lt;nvf/modules/plugins/ui/breadcrumbs/breadcrumbs.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.ui.breadcrumbs.navbuddy.mappings.insertName"></a><a class="term" href="options.html#opt-vim.ui.breadcrumbs.navbuddy.mappings.insertName"><code class="option">vim.ui.breadcrumbs.navbuddy.mappings.insertName</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>insert at start of name</p>
+<p>Insert at the start of name.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39326,7 +39350,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>insert at start of scope</p>
+<p>Insert at the start of scope.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39350,7 +39374,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>move focused node down</p>
+<p>Move the node down.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39374,7 +39398,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>move focused node up</p>
+<p>Move the node up.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39398,7 +39422,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>keybinding to navigate to the next sibling node</p>
+<p>Navigate to the next sibling node.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39422,7 +39446,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>keybinding to navigate to the parent node</p>
+<p>Navigate to the parent node.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39446,7 +39470,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>keybinding to navigate to the previous sibling node</p>
+<p>Navigate to the previous sibling node.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39470,7 +39494,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>rename the node</p>
+<p>Rename the node.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39494,7 +39518,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>keybinding to navigate to the root node</p>
+<p>Navigate to the root node.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39518,7 +39542,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>goto selected symbol</p>
+<p>Goto the node.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39542,7 +39566,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>fuzzy finder at current level</p>
+<p>Start fuzzy finder at the current level.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39561,12 +39585,36 @@ string</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.ui.breadcrumbs.navbuddy.mappings.togglePreview"></a><a class="term" href="options.html#opt-vim.ui.breadcrumbs.navbuddy.mappings.togglePreview"><code class="option">vim.ui.breadcrumbs.navbuddy.mappings.togglePreview</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Toggle the preview.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;s&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/ui/breadcrumbs/breadcrumbs.nix" target="_top">
+&lt;nvf/modules/plugins/ui/breadcrumbs/breadcrumbs.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.ui.breadcrumbs.navbuddy.mappings.visualName"></a><a class="term" href="options.html#opt-vim.ui.breadcrumbs.navbuddy.mappings.visualName"><code class="option">vim.ui.breadcrumbs.navbuddy.mappings.visualName</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>visual selection of name</p>
+<p>Select the name visually.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39590,7 +39638,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>visual selection of scope</p>
+<p>Select the scope visually.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39609,12 +39657,36 @@ string</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.ui.breadcrumbs.navbuddy.mappings.vsplit"></a><a class="term" href="options.html#opt-vim.ui.breadcrumbs.navbuddy.mappings.vsplit"><code class="option">vim.ui.breadcrumbs.navbuddy.mappings.vsplit</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Open the node in a vertical split.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;&lt;C-v&gt;&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/ui/breadcrumbs/breadcrumbs.nix" target="_top">
+&lt;nvf/modules/plugins/ui/breadcrumbs/breadcrumbs.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.ui.breadcrumbs.navbuddy.mappings.yankName"></a><a class="term" href="options.html#opt-vim.ui.breadcrumbs.navbuddy.mappings.yankName"><code class="option">vim.ui.breadcrumbs.navbuddy.mappings.yankName</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>yank the name to system clipboard</p>
+<p>Yank the name to system clipboard.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -39638,7 +39710,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>yank the scope to system clipboard</p>
+<p>Yank the scope to system clipboard.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 string</p>
@@ -40259,7 +40331,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>Whether to attach to LSP server manually</p>
+<p>Whether to attach to LSP server manually.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -40283,7 +40355,7 @@ boolean</p>
  </span>
 </dt>
 <dd>
-<p>list of lsp server names in order of preference</p>
+<p>The preference list ranking LSP servers.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 null or (list of string)</p>
@@ -40400,7 +40472,7 @@ string</p>
  </span>
 </dt>
 <dd>
-<p>keep the current node in focus on the source buffer</p>
+<p>Whether to keep the current node in focus in the source buffer.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -40424,7 +40496,7 @@ boolean</p>
  </span>
 </dt>
 <dd>
-<p>highlight the currently focused node</p>
+<p>Whether to highlight the currently focused node in the source buffer.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -40448,7 +40520,7 @@ boolean</p>
  </span>
 </dt>
 <dd>
-<p>reorient buffer after changing nodes</p>
+<p>The mode for reorienting the source buffer after moving nodes.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 one of “smart”, “top”, “mid”, “none”</p>
@@ -40472,7 +40544,7 @@ one of “smart”, “top”, “mid”, “none”</p>
  </span>
 </dt>
 <dd>
-<p>scrolloff value when navbuddy is open</p>
+<p>The scrolloff value in the source buffer when Navbuddy is open.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 null or signed integer</p>
@@ -40496,7 +40568,7 @@ null or signed integer</p>
  </span>
 </dt>
 <dd>
-<p>use default Navbuddy keybindings (disables user-specified keybinds)</p>
+<p>Add the default Navbuddy keybindings in addition to the keybinding added by this module.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -40520,7 +40592,7 @@ boolean</p>
  </span>
 </dt>
 <dd>
-<p>border style to use</p>
+<p>The border style to use.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 one of “none”, “single”, “double”, “rounded”, “solid”, “shadow” or list of (string or list of string)</p>
@@ -40544,7 +40616,7 @@ one of “none”, “single”, “double”, “rounded”, “solid”, “sh
  </span>
 </dt>
 <dd>
-<p>Scrolloff value within navbuddy window</p>
+<p>The scrolloff value within a navbuddy window.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 null or signed integer</p>
@@ -40568,7 +40640,7 @@ null or signed integer</p>
  </span>
 </dt>
 <dd>
-<p>border style to use for the left section of Navbuddy UI</p>
+<p>The border style to use for the left section of the Navbuddy UI.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 one of “none”, “single”, “double”, “rounded”, “solid”, “shadow” or list of (string or list of string)</p>
@@ -40592,7 +40664,7 @@ one of “none”, “single”, “double”, “rounded”, “solid”, “sh
  </span>
 </dt>
 <dd>
-<p>border style to use for the middle section of Navbuddy UI</p>
+<p>The border style to use for the middle section of the Navbuddy UI.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 one of “none”, “single”, “double”, “rounded”, “solid”, “shadow” or list of (string or list of string)</p>
@@ -40616,7 +40688,7 @@ one of “none”, “single”, “double”, “rounded”, “solid”, “sh
  </span>
 </dt>
 <dd>
-<p>border style to use for the right section of Navbuddy UI</p>
+<p>The border style to use for the right section of the Navbuddy UI.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 one of “none”, “single”, “double”, “rounded”, “solid”, “shadow” or list of (string or list of string)</p>
@@ -40640,7 +40712,7 @@ one of “none”, “single”, “double”, “rounded”, “solid”, “sh
  </span>
 </dt>
 <dd>
-<p>display mode of the preview on the right section</p>
+<p>The display mode of the preview on the right section.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 one of “leaf”, “always”, “never”</p>
