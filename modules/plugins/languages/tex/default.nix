@@ -44,6 +44,7 @@ in {
           `vim.g.tex_flavor = <flavor>` line from your lua config entirely
           (unless you manually set it elsewhere of course).
         '';
+
         flavor = mkOption {
           type = enum [
             "plaintex"
@@ -71,7 +72,7 @@ in {
   config = mkIf cfg.enable (mkMerge [
     # Extra Lua config options
     (mkIf cfg.extraOpts.texFlavor.enable {
-      vim.globals.tex_flavor = "${cfg.extraOpts.texFlavor.flavor}";
+      vim.globals.tex_flavor = lib.mkDefault "${cfg.extraOpts.texFlavor.flavor}";
     })
   ]);
 }

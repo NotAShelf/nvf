@@ -12,7 +12,13 @@ in {
     ./texlab.nix
   ];
 
-  config = mkIf (cfg.enable && (any (x: x.enable) (attrValues cfg.lsp))) {
-    vim.lsp.lspconfig.enable = true; # Enable lspconfig when any of the lsps are enabled
-  };
+  config =
+    mkIf
+    (
+      cfg.enable # Check if nvf is enabled.
+      && (any (x: x.enable) (attrValues cfg.lsp)) # Check if any of the LSPs have been enabled.
+    )
+    {
+      vim.lsp.lspconfig.enable = lib.mkDefault true; # Enable lspconfig when any of the lsps are enabled
+    };
 }

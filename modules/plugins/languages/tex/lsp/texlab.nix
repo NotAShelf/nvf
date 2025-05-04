@@ -26,6 +26,9 @@
   cfg = config.vim.languages.tex;
   texlabCfg = cfg.lsp.texlab;
   builderCfg = cfg.build.builder;
+
+  # Get the enabled pdf viewer.
+  pdfViewer = import ../pdfViewer/getEnabledPdfViewer.nix {inherit lib config;};
 in {
   options.vim.languages.tex.lsp.texlab = {
     enable = mkBool config.vim.languages.enableLSP ''
@@ -271,7 +274,7 @@ in {
 
       package = mkOption {
         type = package;
-        default = cfg.pdfViewer.package;
+        default = pdfViewer.package;
         description = ''
           The package to use as your PDF viewer.
           This viewer needs to support Synctex.
@@ -282,7 +285,7 @@ in {
 
       executable = mkOption {
         type = str;
-        default = cfg.pdfViewer.executable;
+        default = pdfViewer.executable;
         description = ''
           Defines the executable of the PDF previewer. The previewer needs to
           support SyncTeX.
@@ -293,7 +296,7 @@ in {
 
       args = mkOption {
         type = listOf str;
-        default = cfg.pdfViewer.args;
+        default = pdfViewer.args;
         description = ''
           Defines additional arguments that are passed to the configured
           previewer to perform the forward search.

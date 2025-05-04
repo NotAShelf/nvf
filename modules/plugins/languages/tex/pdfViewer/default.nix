@@ -1,162 +1,104 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
-  defaultPdfViewerName = "okular";
-
-  inherit
-    (builtins)
-    filter
-    isAttrs
-    hasAttr
-    attrNames
-    length
-    elemAt
-    ;
-  inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption;
   inherit (lib.types) str package listOf;
 
   cfg = config.vim.languages.tex;
-  viewerCfg = cfg.pdfViewer;
 
-  enabledPdfViewersInfo = let
-    # This function will sort through the pdf viewer options and count how many
-    # pdf viewers have been enabled.
-    # If no viewers have been enabled, the count will be 0 and the name of the
-    # enabled viewer will be the default pdf viewer defined above.
-    getEnabledPdfViewersInfo = {
-      enabledPdfViewersCount ? 0,
-      index ? 0,
-      pdfViewerNamesList ? (
-        filter (
-          x: let
-            y = viewerCfg."${x}";
-          in (
-            isAttrs y && hasAttr "enable" y && hasAttr "package" y && hasAttr "executable" y && hasAttr "args" y
-          )
-        ) (attrNames viewerCfg)
-      ),
-      currentEnabledPdfViewerName ? defaultPdfViewerName,
-    }: let
-      # Get the name of the current pdf viewer being checked if it is enabled
-      currentPdfViewerName = elemAt pdfViewerNamesList index;
+  pdfViewer = {name, ...}: {
+    options = {
+      enable = lib.mkEnableOption "${builtins.toString name} pdf viewer";
 
-      # Get the current pdf viewer object
-      currentPdfViewer = viewerCfg."${currentPdfViewerName}";
+      name = mkOption {
+        type = str;
+        example = "okular";
+        description = ''
+          The name of the pdf viewer to use.
 
-      # Get the index that will be used for the next iteration
-      nextIndex = index + 1;
+          This value will be automatically set when any of the viewers are
+          enabled.
 
-      # Increment the count that is recording the number of enabled pdf viewers
-      # if this viewer is enabled, otherwise leave it as is.
-      newEnabledPdfViewersCount =
-        if currentPdfViewer.enable
-        then enabledPdfViewersCount + 1
-        else enabledPdfViewersCount;
+          This value will be automatically set to the value of the parent
+          attribute set. ex. `...tex.pdfViewer.<name>.name = "$${name}"`
+          This value cannot and should not be changed to be different from this
+          parent value.
 
-      # If this pdf viewer is enabled, set is as the enabled viewer.
-      newEnabledPdfViewerName =
-        if currentPdfViewer.enable
-        then currentPdfViewerName
-        else currentEnabledPdfViewerName;
-    in
-      # Check that the end of the list of viewers has not been reached
-      if length pdfViewerNamesList > nextIndex
-      # If the end of the viewers list has not been reached, call the next iteration
-      # of the function to process the next viewer
-      then
-        getEnabledPdfViewersInfo {
-          inherit pdfViewerNamesList;
-          enabledPdfViewersCount = newEnabledPdfViewersCount;
-          index = nextIndex;
-          currentEnabledPdfViewerName = newEnabledPdfViewerName;
-        }
-      # If the end of the viewers list has been reached, then return the total number
-      # of viewers that have been enabled and the name of the last viewer that was enabled.
-      else {
-        count = newEnabledPdfViewersCount;
-        enabledViewerName = newEnabledPdfViewerName;
+          Default values already exist such as `...tex.pdfViewer.okular` but
+          you can override the default values or created completely custom
+          pdf viewers should you wish.
+        '';
       };
-  in (getEnabledPdfViewersInfo {});
 
-  enabledPdfViewerCfg = viewerCfg."${enabledPdfViewersInfo.enabledViewerName}";
+      package = mkOption {
+        type = package;
+        example = pkgs.kdePackages.okular;
+        description = "The package of the pdf viewer to use.";
+      };
+
+      executable = mkOption {
+        type = str;
+        default = "${builtins.toString name}";
+        description = ''
+          The executable for the pdf viewer to use.
+
+          It will be called as `<package_path>/bin/<executable>`.
+
+          By default, the name of the pdf viewer will be used.
+        '';
+      };
+
+      args = mkOption {
+        type = listOf str;
+        default = [];
+        description = ''
+          The command line arguments to use when calling the pdf viewer command.
+
+          These will be called as
+          `<package_path>/bin/<executable> <arg1> <arg2> ...`.
+        '';
+      };
+    };
+
+    # The name of the pdf viewer must be set to the parent attribute set name.
+    config.name = lib.mkForce name;
+  };
 in {
   imports = [
-    ./custom.nix
-    ./okular.nix
-    ./qpdfview.nix
-    ./sioyek.nix
-    ./zathura.nix
+    ./premadePdfViewers.nix
   ];
 
-  options.vim.languages.tex.pdfViewer = {
-    name = mkOption {
-      type = str;
-      default = enabledPdfViewerCfg.name;
-      description = ''
-        The name of the pdf viewer to use.
+  options.vim.languages.tex.pdfViewer = mkOption {
+    type = with lib.types; attrsOf (submodule pdfViewer);
+    default = {};
+    example = {
+      zathura.enable = true;
 
-        This value will be automatically set when any of the viewers are
-        enabled.
-
-        Setting this option option manually is not recommended but can be used
-        for some very technical nix-ing. If you wish to use a custom viewer,
-        please use the `custom` entry provided under `viewers`.
-      '';
-    };
-
-    package = mkOption {
-      type = package;
-      default = enabledPdfViewerCfg.package;
-      description = ''
-        The package of the pdf viewer to use.
-
-        This value will be automatically set when any of the viewers are
-        enabled.
-
-        Setting this option option manually is not recommended but can be used
-        for some very technical nix-ing. If you wish to use a custom viewer,
-        please use the `custom` entry provided under `viewers`.
-      '';
-    };
-
-    executable = mkOption {
-      type = str;
-      default = enabledPdfViewerCfg.executable;
-      description = ''
-        The executable for the pdf viewer to use.
-
-        This value will be automatically set when any of the viewers are
-        enabled.
-
-        Setting this option option manually is not recommended but can be used
-        for some very technical nix-ing. If you wish to use a custom viewer,
-        please use the `custom` entry provided under `viewers`.
-      '';
-    };
-
-    args = mkOption {
-      type = listOf str;
-      default = enabledPdfViewerCfg.args;
-      description = ''
-        The command line arguments to use when calling the pdf viewer command.
-
-        This value will be automatically set when any of the viewers are
-        enabled.
-
-        Setting this option option manually is not recommended but can be used
-        for some very technical nix-ing. If you wish to use a custom viewer,
-        please use the `custom` entry provided under `viewers`.
-      '';
+      customOkular = {
+        enable = false;
+        package = pkgs.kdePackages.okular;
+        executable = "okular";
+        args = [
+          "--unique"
+          "file:%p#src:%l%f"
+        ];
+      };
     };
   };
 
-  config = mkIf (enabledPdfViewersInfo.count > 0) {
+  config = let
+    # List form of all pdf viewers.
+    pdfViewers = builtins.attrValues cfg.pdfViewer;
+
+    countPdfViewers = viewers: (lib.lists.count (x: x.enable) viewers);
+  in {
     assertions = [
       {
-        assertion = enabledPdfViewersInfo.count < 2;
+        # Assert that there is only one enabled pdf viewer.
+        assertion = (countPdfViewers pdfViewers) < 2;
         message = ''
           The nvf-tex-language implementation does not support having more than
           1 pdf viewers enabled.
