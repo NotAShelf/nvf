@@ -215,6 +215,24 @@ in {
           description = "move focused node up";
         };
 
+        togglePreview = mkOption {
+          type = str;
+          default = "s";
+          description = "show preview of current node";
+        };
+
+        vsplit = mkOption {
+          type = str;
+          default = "<C-v>";
+          description = "open selected node in a vertical split";
+        };
+
+        hsplit = mkOption {
+          type = str;
+          default = "<C-s>";
+          description = "open selected node in a horizontal split";
+        };
+
         telescope = mkOption {
           type = str;
           default = "t";
