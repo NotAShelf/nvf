@@ -12725,30 +12725,6 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.languages.enableLSP"></a><a class="term" href="options.html#opt-vim.languages.enableLSP"><code class="option">vim.languages.enableLSP</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Turn on LSP for enabled languages by default</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-boolean</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">false</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages" target="_top">
-&lt;nvf/modules/plugins/languages&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
  <a id="opt-vim.languages.enableTreesitter"></a><a class="term" href="options.html#opt-vim.languages.enableTreesitter"><code class="option">vim.languages.enableTreesitter</code>
   </a>
  </span>
@@ -22936,7 +22912,11 @@ one of “relative”, “number”, “relNumber”, “none”</p>
  </span>
 </dt>
 <dd>
-<p>Whether to enable LSP, also enabled automatically through null-ls and lspconfig options.</p>
+<p>Whether to enable global LSP functionality for Neovim.</p><p>This option controls whether to enable LSP functionality within modules under
+<code class="option">vim.languages</code>. You do not need to set this to <code class="literal">true</code> for language
+servers defined in <code class="option">vim.lsp.servers</code> to take effect, since they are
+enabled automatically.
+.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -22950,8 +22930,8 @@ boolean</p>
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
 <tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/module.nix" target="_top">
-&lt;nvf/modules/plugins/lsp/module.nix&gt;
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/lsp.nix" target="_top">
+&lt;nvf/modules/neovim/init/lsp.nix&gt;
 </a></code>
 </td></tr>
 </table>
@@ -24519,10 +24499,10 @@ list of string</p>
  </span>
 </dt>
 <dd>
-<p>LSP configurations that will be managed using <code class="literal">vim.lsp.config()</code> and
-related utilities added in Neovim 0.11. LSPs defined here will be
-added to the resulting <code class="filename">init.lua</code> using <code class="literal">vim.lsp.config</code> and
-enabled through <code class="literal">vim.lsp.enable</code> below the configuration table.</p><p>You may review the generated configuration by running <span class="command"><strong>nvf-print-config</strong></span>
+<p>LSP configurations that will be managed using <code class="literal">vim.lsp.config()</code> and related
+utilities added in Neovim 0.11. LSPs defined here will be added to the
+resulting <code class="filename">init.lua</code> using <code class="literal">vim.lsp.config</code> and enabled through
+<code class="literal">vim.lsp.enable()</code> API from Neovim below the configuration table.</p><p>You may review the generated configuration by running <span class="command"><strong>nvf-print-config</strong></span>
 in a shell. Please see <span class="command"><strong>:help lsp-config</strong></span> for more details
 on the underlying API.</p>
 
