@@ -43,7 +43,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Lua LSP support via LuaLS" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Lua LSP support via LuaLS" // {default = config.vim.lsp.enable;};
 
       package = mkOption {
         description = "LuaLS package, or the command to run as a list of strings";

@@ -40,7 +40,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Nu LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Nu LSP support" // {default = config.vim.lsp.enable;};
       server = mkOption {
         type = str;
         default = defaultServer;

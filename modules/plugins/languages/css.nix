@@ -80,7 +80,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "CSS LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "CSS LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "CSS LSP server to use";

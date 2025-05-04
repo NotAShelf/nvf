@@ -95,7 +95,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "PHP LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "PHP LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "PHP LSP server to use";

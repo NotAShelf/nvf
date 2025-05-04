@@ -64,6 +64,11 @@ in {
         ${cfg.navbuddy.mappings.moveDown} = mkLuaInline "actions.move_down()";
         ${cfg.navbuddy.mappings.moveUp} = mkLuaInline "actions.move_up()";
 
+        ${cfg.navbuddy.mappings.togglePreview} = mkLuaInline "actions.toggle_preview()";
+
+        ${cfg.navbuddy.mappings.vsplit} = mkLuaInline "actions.vsplit()";
+        ${cfg.navbuddy.mappings.hsplit} = mkLuaInline "actions.hsplit()";
+
         ${cfg.navbuddy.mappings.telescope} = mkLuaInline ''
           actions.telescope({
             layout_strategy = "horizontal",
