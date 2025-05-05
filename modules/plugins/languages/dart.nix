@@ -143,8 +143,6 @@ in {
     })
 
     (mkIf ftcfg.enable {
-      lsp.enable = true;
-
       startPlugins = [
         (
           if ftcfg.enableNoResolvePatch
