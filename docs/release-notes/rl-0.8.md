@@ -373,3 +373,11 @@
 
 - Add Plugin [Hardtime.nvim] under `vim.binds.hardtime-nvim` with `enable` and
   `setupOpts` options
+
+[taylrfnt](https://github.com/taylrfnt):
+
+[nvim-tree](https://github.com/nvim-tree/nvim-tree.lua):
+
+- Add missing `right_align` option for existing `renderer.icons` options.
+- Add missing `render.icons` options (`hidden_placement`,
+  `diagnostics_placement`, and `bookmarks_placement`).

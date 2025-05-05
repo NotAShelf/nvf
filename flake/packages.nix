@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{inputs, ...} @ args: {
   perSystem = {
     config,
     pkgs,
@@ -6,8 +6,15 @@
     ...
   }: let
     docs = import ../docs {inherit pkgs inputs lib;};
+    buildPkg = maximal:
+      (args.config.flake.lib.nvim.neovimConfiguration {
+        inherit pkgs;
+        modules = [(import ../configuration.nix maximal)];
+      }).neovim;
   in {
     packages = {
+      blink-cmp = pkgs.callPackage ./blink {};
+
       inherit (docs.manual) htmlOpenTool;
       # Documentation
       docs = docs.manual.html;
@@ -61,9 +68,9 @@
         '';
 
       # Exposed neovim configurations
-      nix = config.legacyPackages.neovim-nix;
-      maximal = config.legacyPackages.neovim-maximal;
-      default = config.legacyPackages.neovim-nix;
+      nix = buildPkg false;
+      maximal = buildPkg true;
+      default = config.packages.nix;
     };
   };
 }

@@ -12,6 +12,7 @@
     inherit
       (
         (lib.evalModules {
+          specialArgs = {inherit inputs;};
           modules =
             import ../modules/modules.nix {
               inherit lib pkgs;
