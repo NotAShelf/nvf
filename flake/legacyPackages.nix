@@ -28,6 +28,17 @@
                 sha256 = pin.hash;
               };
             };
+          avante-nvim = let
+            pin = self.pins.avante-nvim;
+          in
+            final.callPackage ./legacyPackages/avante-nvim.nix {
+              version = pin.branch;
+              src = prev.fetchFromGitHub {
+                inherit (pin.repository) owner repo;
+                rev = pin.revision;
+                sha256 = pin.hash;
+              };
+            };
         })
       ];
     };
