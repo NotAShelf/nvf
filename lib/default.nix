@@ -4,7 +4,7 @@
   lib,
   ...
 }: {
-  types = import ./types {inherit lib;};
+  types = import ./types {inherit lib self;};
   config = import ./config.nix {inherit lib;};
   binds = import ./binds.nix {inherit lib;};
   dag = import ./dag.nix {inherit lib;};
