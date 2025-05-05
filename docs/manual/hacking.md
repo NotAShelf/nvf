@@ -27,4 +27,5 @@ hacking/guidelines.md
 hacking/testing.md
 hacking/keybinds.md
 hacking/additional-plugins.md
+hacking/default-value-priority.md
 ```
