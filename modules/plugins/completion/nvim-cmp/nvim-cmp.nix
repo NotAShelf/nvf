@@ -98,15 +98,11 @@ in {
 
     sources = mkOption {
       type = attrsOf (nullOr str);
-      defaultText = literalMD ''
-        These sources are included by default:
-
-        ```nix
+      default = {
         nvim-cmp = null;
         buffer = "[Buffer]";
         path = "[Path]";
-        ```
-      '';
+      };
       example = {
         nvim-cmp = null;
         buffer = "[Buffer]";
