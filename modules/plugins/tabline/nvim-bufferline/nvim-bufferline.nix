@@ -109,7 +109,7 @@ in {
             type = nullOr str;
             default = null;
             description = ''
-              The indicatotor icon to use for the current buffer.
+              The indicator icon to use for the current buffer.
 
               ::: {.warning}
               This **must** be omitted while style is not `icon`
