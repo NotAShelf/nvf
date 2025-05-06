@@ -3609,10 +3609,11 @@ list of (null or package or one of “blink-cmp”, “aerial-nvim”, “alpha-
 <p><span class="emphasis"><em>Type:</em></span>
 attribute set of (null or string)</p>
 
-<p><span class="emphasis"><em>Default:</em></span>
-These sources are included by default:</p><pre><code class="programlisting nix">nvim-cmp = null;
-buffer = &quot;[Buffer]&quot;;
-path = &quot;[Path]&quot;;
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">{
+  buffer = &quot;[Buffer]&quot;;
+  nvim-cmp = null;
+  path = &quot;[Path]&quot;;
+}
 </code></pre>
 
 <p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">{
