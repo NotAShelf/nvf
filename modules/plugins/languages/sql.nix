@@ -79,7 +79,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "SQL LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "SQL LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "SQL LSP server to use";

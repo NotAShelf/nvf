@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: let
   inherit (builtins) attrNames;
@@ -27,7 +28,7 @@
     else ''{"${package}/bin/${defaultCmd}"}'';
   servers = {
     nil = {
-      package = pkgs.nil;
+      package = inputs.nil.packages.${pkgs.stdenv.system}.nil;
       internalFormatter = true;
       lspConfig = ''
         lspconfig.nil_ls.setup{
@@ -143,7 +144,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Nix LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Nix LSP support" // {default = config.vim.lsp.enable;};
       server = mkOption {
         description = "Nix LSP server to use";
         type = enum (attrNames servers);

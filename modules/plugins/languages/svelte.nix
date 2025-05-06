@@ -77,7 +77,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Svelte LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Svelte LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "Svelte LSP server to use";
