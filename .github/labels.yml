@@ -24,7 +24,7 @@
       - any-glob-to-any-file:
         - .github/workflows/*.yml
         - .github/typos.toml
-        . .github/dependabot.yml
+        - .github/dependabot.yml
 
 "topic: meta":
   - any:
