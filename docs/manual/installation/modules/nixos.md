@@ -82,8 +82,8 @@ configure **nvf**.
 
 ::: {.note}
 
-**nvf** exposes a lot of options, most of which are not referenced in the
-installation sections of the manual. You may find all available options in the
-[appendix](https://notashelf.github.io/nvf/options)
+Now that you have nvf installed, head over to [](#ch-configuring) for an
+overview of how to configure nvf, or [](#ch-options) for the full reference of
+all available options
 
 :::

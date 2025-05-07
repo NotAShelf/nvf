@@ -61,6 +61,14 @@ build independently from your system configuration while also possibly sharing
 it with others. The next two chapters will detail specific usage of such a setup
 for a package output in the context of NixOS or Home-Manager installation.
 
+::: {.note}
+
+Once you have nvf installed, head over to [](#ch-configuring) for an overview of
+how to configure nvf, or [](#ch-options) for the full reference of all available
+options
+
+:::
+
 ```{=include=} chapters
 standalone/nixos.md
 standalone/home-manager.md
