@@ -101,6 +101,7 @@
           "eslint.config.js"
           "eslint.config.mjs"
           ".eslintrc"
+          ".eslintrc.cjs"
           ".eslintrc.json"
           ".eslintrc.js"
           ".eslintrc.yml"
