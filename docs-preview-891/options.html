@@ -10738,15 +10738,23 @@ attribute set</p>
  </span>
 </dt>
 <dd>
-<p>Table that will be passed to <code class="literal">conform.format()</code>. If this
-is set, Conform will run the formatter asynchronously after
-save.</p>
+<p>Table or function(luainline) that will be passed to <code class="literal">conform.format()</code>. If this
+is set, Conform will run the formatter asynchronously after save.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-null or (attribute set)</p>
+null or (attribute set) or (luaInline)</p>
 
 <p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">{
-  lsp_format = &quot;fallback&quot;;
+  _type = &quot;lua-inline&quot;;
+  expr = &#x27;&#x27;
+    function()
+      if not vim.g.formatsave or vim.b.disableFormatSave then
+        return
+      else
+        return {[&quot;lsp_format&quot;] = &quot;fallback&quot;}
+      end
+    end
+  &#x27;&#x27;;
 }
 </code></pre>
 
@@ -10766,17 +10774,16 @@ null or (attribute set)</p>
  </span>
 </dt>
 <dd>
-<p>Table that will be passed to <code class="literal">conform.format()</code>. If this
-is set, Conform will run the formatter on save.</p>
+<p>Attribute set or Lua function that will be passed to
+<code class="literal">conform.format()</code>. If this is set, Conform will run the formatter
+on save.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-null or (attribute set)</p>
+null or (attribute set) or (luaInline)</p>
 
-<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">{
-  lsp_format = &quot;fallback&quot;;
-  timeout_ms = 500;
-}
-</code></pre>
+<p><span class="emphasis"><em>Default:</em></span>
+enabled by default, and respects <code class="option">vim.lsp.formatOnSave</code> and
+<code class="option">vim.lsp.mappings.toggleFormatSave</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
