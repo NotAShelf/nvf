@@ -60,12 +60,6 @@ in {
         enableSharedCmpSources = true;
 
         nvim-cmp = {
-          sources = {
-            nvim-cmp = null;
-            buffer = "[Buffer]";
-            path = "[Path]";
-          };
-
           sourcePlugins = ["cmp-buffer" "cmp-path"];
 
           setupOpts = {

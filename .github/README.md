@@ -200,8 +200,9 @@ fix.
 **Q**: What platforms are supported?
 
 **A**: nvf actively supports **Linux and Darwin** platforms using standalone
-Nix, NixOS or Home-Manager. Please take a look at the [nvf manual] for available
-installation instructions.
+Nix, NixOS or Home-Manager. It has been reported that **Android** is also
+supported through the Home-Manager module, or using standalone package. Please
+take a look at the [nvf manual] for available installation instructions.
 
 **Q**: Can you add _X_?
 
@@ -246,14 +247,15 @@ Neovim's behaviour with Nix.
 
 ### Co-Maintainers
 
-Alongside myself, nvf is developed by those talented folk:
+Alongside [myself](https://github.com/notashelf), nvf is developed by those
+talented folk. nvf would not be what it is today without their invaluable
+contributions.
 
 - [**@horriblename**](https://github.com/horriblename)
   ([Liberapay](https://liberapay.com/horriblename/))- For actively implementing
   planned features and quality of life updates.
-- [**@Diniamo**](https://github.com/Diniamo)
-  ([Liberapay](https://en.liberapay.com/diniamo/)) - For actively submitting
-  pull requests, issues and assistance with maintenance of nvf.
+- [**@Soliprem**](https://github.com/soliprem) - For rigorously implementing
+  missing features and excellent work on new language modules.
 
 Please do remember to extend your thanks (financially or otherwise) if this
 project has been helpful to you.
@@ -270,14 +272,14 @@ heart-felt thanks to
 - [**@FlafyDev**](https://github.com/FlafyDev) - For getting Home-Manager module
   to work and Nix assistance.
 - [**@n3oney**](https://github.com/n3oney) - For making custom keybinds finally
-  possible, and other module additions.
+  possible, great ideas and module additions.
 - [**@Yavko**](https://github.com/Yavko) - For the amazing **nvf** logo
 - [**@FrothyMarrow**](https://github.com/FrothyMarrow) - For seeing mistakes
-  that I could not.
+  that I could not and contributing good ideas & code.
 - [**@Gerg-l**](https://github.com/gerg-l) 🐸 - For the modern Neovim wrapper,
-  [mnw], and occasional code improvements.
-- [**@Soliprem**](https://github.com/soliprem) - Rigorously implementing missing
-  features and excellent work on new language modules.
+  [mnw], and occasional improvements to the codebase.
+- [**@Diniamo**](https://github.com/Diniamo) - For actively submitting pull
+  requests, issues and assistance with co-maintenance of nvf.
 
 and everyone who has submitted issues or pull requests!
 
@@ -301,7 +303,6 @@ including:
 
 I am grateful for their previous work and inspiration, and I wholeheartedly
 recommend checking their work out.
-<br/>
 
 ## License
 

@@ -64,6 +64,26 @@
         }
       '';
     };
+
+    intelephense = {
+      package = pkgs.intelephense;
+      lspConfig = ''
+        lspconfig.intelephense.setup{
+          capabilities = capabilities,
+          on_attach = default_on_attach,
+          cmd = ${
+          if isList cfg.lsp.package
+          then expToLua cfg.lsp.package
+          else ''
+            {
+              "${getExe cfg.lsp.package}",
+              "--stdio"
+            },
+          ''
+        }
+        }
+      '';
+    };
   };
 in {
   options.vim.languages.php = {
@@ -75,7 +95,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "PHP LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "PHP LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "PHP LSP server to use";

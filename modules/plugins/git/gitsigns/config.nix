@@ -5,6 +5,7 @@
 }: let
   inherit (builtins) toJSON;
   inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.binds) addDescriptionsToMappings mkSetExprBinding mkSetLuaBinding pushDownDefault;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.lua) toLuaObject;
@@ -32,6 +33,7 @@ in {
                 return '<Ignore>'
               end
             '')
+
             (mkSetExprBinding gsMappings.previousHunk ''
               function()
                 if vim.wo.diff then return ${toJSON gsMappings.previousHunk.value} end
@@ -77,13 +79,14 @@ in {
     }
 
     (mkIf cfg.codeActions.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.gitsigns-ca = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.code_actions.gitsigns
-        )
-      '';
+      vim.lsp.null-ls = {
+        enable = true;
+        setupOpts.sources = [
+          (mkLuaInline ''
+            require("null-ls").builtins.code_actions.gitsigns
+          '')
+        ];
+      };
     })
   ]);
 }

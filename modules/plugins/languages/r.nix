@@ -24,28 +24,29 @@
       package = pkgs.rWrapper.override {
         packages = [pkgs.rPackages.styler];
       };
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.styler.with({
-            command = "${cfg.format.package}/bin/R",
-          })
-        )
-      '';
+      config = {
+        command = "${cfg.format.package}/bin/R";
+      };
     };
 
     format_r = {
       package = pkgs.rWrapper.override {
         packages = [pkgs.rPackages.formatR];
       };
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.format_r.with({
-            command = "${cfg.format.package}/bin/R",
-          })
-        )
-      '';
+      config = {
+        command = "${cfg.format.package}/bin/R";
+        stdin = true;
+        args = [
+          "--slave"
+          "--no-restore"
+          "--no-save"
+          "-s"
+          "-e"
+          ''formatR::tidy_source(source="stdin")''
+        ];
+        # TODO: range_args seem to be possible
+        # https://github.com/nvimtools/none-ls.nvim/blob/main/lua/null-ls/builtins/formatting/format_r.lua
+      };
     };
   };
 
@@ -78,7 +79,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "R LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "R LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "R LSP server to use";
@@ -118,8 +119,11 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.r-format = formats.${cfg.format.type}.nullConfig;
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.r = [cfg.format.type];
+        setupOpts.formatters.${cfg.format.type} = formats.${cfg.format.type}.config;
+      };
     })
 
     (mkIf cfg.lsp.enable {

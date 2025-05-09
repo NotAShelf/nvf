@@ -1,4 +1,6 @@
-name: "Validate flake & check formatting"
+name: "Treewide Checks"
+permissions: read-all
+
 on:
   pull_request:
   workflow_dispatch:
@@ -6,13 +8,13 @@ on:
     branches:
       - main
     paths-ignore:
-      - .github/**
       - assets/**
-      - .gitignore
+
 jobs:
   nix-flake-check:
-    name: Validate Flake
+    name: "Validate flake"
     runs-on: ubuntu-latest
+    if: "!contains(github.event.pull_request.title, '[skip ci]')"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,8 +26,9 @@ jobs:
         run: nix flake check
 
   format-with-alejandra:
-    name: Formatting via Alejandra
+    name: "Check formatting"
     runs-on: ubuntu-latest
+    if: "!contains(github.event.pull_request.title, '[skip ci]')"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,4 +36,118 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
 
-      - run: nix run nixpkgs#alejandra -- -c .
+      - name: Check formatting via Alejandra
+        run: nix run nixpkgs#alejandra -- --check . --exclude npins
+
+  check-typos:
+    name: "Check source tree for typos"
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.pull_request.title, '[skip ci]')"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check for typos
+        uses: crate-ci/typos@master
+        with:
+          config: .github/typos.toml
+
+      - if: ${{ failure() }}
+        shell: bash
+        run: |
+          echo "::error:: Current codebase contains typos that were caught by the CI!"
+          echo "If those typos were intentional, please add them to the ignored regexes in .github/typos.toml"
+          echo "[skip ci] label may be added to the PR title if this is a one-time issue and is safe to ignore"
+          exit 1
+
+  flake-docs-check:
+    name: "Validate documentation builds"
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.pull_request.title, '[skip ci]')"
+    strategy:
+      matrix:
+        package:
+          - docs
+          - docs-html
+          - docs-manpages
+          - docs-json
+    steps:
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set default git branch (to reduce log spam)
+        run: git config --global init.defaultBranch main
+
+      - name: Build documentation packages
+        run: nix build .#${{ matrix.package }} --print-build-logs
+
+      - name: Get current date
+        id: get-date
+        # output format: 2023-12-22-120000
+        run: echo "date=$(date +'%Y-%m-%d-%H%M%S')" >> ${GITHUB_OUTPUT}
+
+      - name: Upload doc artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: "${{ matrix.package }}"
+          path: result/share/doc/nvf
+
+  flake-docs-linkcheck:
+    name: "Validate hyperlinks in documentation sources"
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.pull_request.title, '[skip ci]')"
+    steps:
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build linkcheck package
+        run: nix build .#docs-linkcheck -Lv
+
+  check-editorconfig:
+    name: "Validate Editorconfig conformance"
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.pull_request.title, '[skip ci]')"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # slows down checkout, but we need to compare against the previous commit on push events
+
+      - name: Get list of changed files from PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            gh api repos/${{ github.repository }}/pulls/${{ github.event.number }}/files --paginate \
+              | jq -r '.[] | select(.status != "removed") | .filename' \
+              > "$HOME/changed_files"
+          else
+            git diff --name-only HEAD^ > "$HOME/changed_files"
+          fi
+
+      - name: Print list of changed files
+        run: |
+          cat "$HOME/changed_files"
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Checking Editorconfig conformance
+        shell: bash
+        run: |
+          < "$HOME/changed_files" nix-shell -p editorconfig-checker --run 'xargs -r editorconfig-checker -disable-indent-size'
+
+      - if: ${{ failure() }}
+        shell: bash
+        run: |
+          echo "::error:: Current formatting does not fit convention provided by .editorconfig located in the project root."
+          echo "Please make sure your editor properly integrates editorconfig, Neovim does so by default."
+          echo "See https://editorconfig.org/#download on how to integrate Editorconfig to your editor."
+          exit 1

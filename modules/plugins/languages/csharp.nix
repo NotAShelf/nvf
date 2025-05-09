@@ -91,7 +91,7 @@ in {
       };
 
       lsp = {
-        enable = mkEnableOption "C# LSP support" // {default = config.vim.languages.enableLSP;};
+        enable = mkEnableOption "C# LSP support" // {default = config.vim.lsp.enable;};
         server = mkOption {
           description = "C# LSP server to use";
           type = enum (attrNames servers);

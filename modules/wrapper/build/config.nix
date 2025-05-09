@@ -6,9 +6,8 @@
   ...
 }: let
   inherit (pkgs) vimPlugins;
-  inherit (lib.strings) isString;
-  inherit (lib.lists) filter map;
-  inherit (builtins) path;
+  inherit (lib.trivial) flip;
+  inherit (builtins) path filter isString;
 
   getPin = name: ((pkgs.callPackages ../../../npins/sources.nix {}) // config.vim.pluginOverrides).${name};
 
@@ -49,17 +48,10 @@
       patches = [./patches/flutter-tools.patch];
 
       # Disable failing require check hook checks
-      nvimSkipModule = [
-        "flutter-tools.devices"
-        "flutter-tools.dap"
-        "flutter-tools.runners.job_runner"
-        "flutter-tools.decorations"
-        "flutter-tools.commands"
-        "flutter-tools.executable"
-        "flutter-tools.dev_tools"
-      ];
+      doCheck = false;
     };
-    inherit (inputs.self.legacyPackages.${pkgs.stdenv.system}) blink-cmp;
+
+    inherit (inputs.self.packages.${pkgs.stdenv.system}) blink-cmp;
   };
 
   buildConfigPlugins = plugins:
@@ -70,31 +62,29 @@
       filter (f: f != null) plugins
     );
 
-  # built (or "normalized") plugins that are modified
-  builtStartPlugins = buildConfigPlugins config.vim.startPlugins;
-  builtOptPlugins = map (package: package // {optional = true;}) (
-    buildConfigPlugins config.vim.optPlugins
-  );
-
-  # additional Lua and Python3 packages, mapped to their respective functions
-  # to conform to the format mnw expects. end user should
-  # only ever need to pass a list of packages, which are modified
-  # here
-  extraLuaPackages = ps: map (x: ps.${x}) config.vim.luaPackages;
-  extraPython3Packages = ps: map (x: ps.${x}) config.vim.python3Packages;
-
   # Wrap the user's desired (unwrapped) Neovim package with arguments that'll be used to
   # generate a wrapped Neovim package.
-  neovim-wrapped = inputs.mnw.lib.wrap pkgs {
+  neovim-wrapped = inputs.mnw.lib.wrap {inherit pkgs;} {
     neovim = config.vim.package;
-    plugins = builtStartPlugins ++ builtOptPlugins;
+    plugins = {
+      start = buildConfigPlugins config.vim.startPlugins;
+      opt = buildConfigPlugins config.vim.optPlugins;
+    };
     appName = "nvf";
     extraBinPath = config.vim.extraPackages;
     initLua = config.vim.builtLuaConfigRC;
     luaFiles = config.vim.extraLuaFiles;
+    providers = {
+      python3 = {
+        enable = config.vim.withPython3;
+        extraPackages = ps: map (flip builtins.getAttr ps) config.vim.python3Packages;
+      };
+      ruby.enable = config.vim.withRuby;
+      nodeJs.enable = config.vim.withNodeJs;
+    };
+    aliases = lib.optional config.vim.viAlias "vi" ++ lib.optional config.vim.vimAlias "vim";
 
-    inherit (config.vim) viAlias vimAlias withRuby withNodeJs withPython3;
-    inherit extraLuaPackages extraPython3Packages;
+    extraLuaPackages = ps: map (flip builtins.getAttr ps) config.vim.luaPackages;
   };
 
   dummyInit = pkgs.writeText "nvf-init.lua" config.vim.builtLuaConfigRC;

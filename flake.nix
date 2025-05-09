@@ -18,10 +18,7 @@
       systems = import inputs.systems;
       imports = [
         ./flake/templates
-
         ./flake/apps.nix
-        ./flake/legacyPackages.nix
-        ./flake/overlays.nix
         ./flake/packages.nix
         ./flake/develop.nix
       ];
@@ -85,12 +82,6 @@
 
     # Alternate neovim-wrapper
     mnw.url = "github:Gerg-L/mnw";
-
-    # For generating documentation website
-    nmd = {
-      url = "sourcehut:~rycee/nmd";
-      flake = false;
-    };
 
     # Language servers (use master instead of nixpkgs)
     nil = {

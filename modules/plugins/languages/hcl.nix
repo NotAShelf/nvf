@@ -6,6 +6,7 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) package bool enum;
   inherit (lib.nvim.types) mkGrammarOption;
@@ -30,14 +31,6 @@
   formats = {
     hclfmt = {
       package = pkgs.hclfmt;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.hclfmt.with({
-            command = "${lib.getExe cfg.format.package}",
-          })
-        )
-      '';
     };
   };
 in {
@@ -50,7 +43,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "HCL LSP support (terraform-ls)" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "HCL LSP support (terraform-ls)" // {default = config.vim.lsp.enable;};
       # TODO: (maybe, is it better?) it would be cooler to use vscode-extensions.hashicorp.hcl probably, shouldn't be too hard
       package = mkOption {
         type = package;
@@ -110,8 +103,13 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.hcl-format = formats.${cfg.format.type}.nullConfig;
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.hcl = [cfg.format.type];
+        setupOpts.formatters.${cfg.format.type} = {
+          command = getExe cfg.format.package;
+        };
+      };
     })
   ]);
 }

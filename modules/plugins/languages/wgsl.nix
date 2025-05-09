@@ -42,7 +42,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "WGSL LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "WGSL LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         type = enum (attrNames servers);

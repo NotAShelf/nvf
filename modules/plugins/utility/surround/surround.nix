@@ -37,9 +37,13 @@ in {
       type = bool;
       default = false;
       description = ''
-        nvim-surround: add/change/delete surrounding delimiter pairs with ease.
-        Note that the default mappings deviate from upstream to avoid conflicts
-        with nvim-leap.
+        Whether to enable nvim-surround, Neovim plugin to add/change/delete
+        surrounding delimiter pairs with ease.
+
+        ::: {.note}
+        The default mappings deviate from upstream to avoid conflicts with nvim-leap.
+        You may change those in your configuration if you do not use nvim-leap
+        :::
       '';
     };
     setupOpts = mkPluginSetupOption "nvim-surround" {
@@ -61,7 +65,9 @@ in {
     useVendoredKeybindings = mkOption {
       type = bool;
       default = true;
-      description = "Use alternative set of keybindings that avoids conflicts with other popular plugins, e.g. nvim-leap";
+      description = ''
+        Use alternative set of keybindings that avoids conflicts with other popular plugins, e.g. nvim-leap
+      '';
     };
   };
 }

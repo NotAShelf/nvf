@@ -6,8 +6,8 @@
   inherit (lib.modules) mkIf;
   inherit (lib.strings) optionalString;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.attrsets) attrValues filterAttrs;
-  inherit (lib.lists) map optional;
+  inherit (lib.attrsets) attrValues filterAttrs mapAttrsToList;
+  inherit (lib.lists) map optional elem;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (builtins) concatStringsSep typeOf tryEval attrNames mapAttrs;
 
@@ -24,7 +24,22 @@
 
   enabledBlinkSources = filterAttrs (_source: definition: definition.enable) cfg.sourcePlugins;
   blinkSourcePlugins = map (definition: definition.package) (attrValues enabledBlinkSources);
+
+  blinkBuiltins = [
+    "path"
+    "lsp"
+    "snippets"
+    "buffer"
+    "omni"
+  ];
 in {
+  assertions =
+    mapAttrsToList (provider: definition: {
+      assertion = elem provider blinkBuiltins || definition.module != null;
+      message = "`config.vim.autocomplete.blink-cmp.setupOpts.sources.providers.${provider}.module` is `null`: non-builtin providers must set `module`.";
+    })
+    cfg.setupOpts.sources.providers;
+
   vim = mkIf cfg.enable {
     startPlugins = ["blink-compat"] ++ blinkSourcePlugins ++ (optional cfg.friendly-snippets.enable "friendly-snippets");
     lazy.plugins = {

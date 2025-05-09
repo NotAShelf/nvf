@@ -14,9 +14,10 @@ in {
     vim = {
       lazy.plugins.nvim-surround = {
         package = "nvim-surround";
-
         setupModule = "nvim-surround";
         inherit (cfg) setupOpts;
+
+        event = ["BufReadPre" "BufNewFile"];
 
         keys = [
           (mkLznKey "i" cfg.setupOpts.keymaps.insert)

@@ -102,11 +102,7 @@ in {
 
     setupOpts = mkPluginSetupOption "colorizer" {
       filetypes = mkOption {
-        description = ''
-          Filetypes to enable on and their option overrides.
-
-          "*" means enable on all filetypes. Filetypes prefixed with "!" are disabled.
-        '';
+        type = attrsOf settingSubmodule;
         default = {};
         example = {
           "*" = {};
@@ -115,13 +111,21 @@ in {
             AARRGGBB = false;
           };
         };
-        type = attrsOf settingSubmodule;
+        description = ''
+          Filetypes to enable on and their option overrides.
+
+          `"*"` means enable on all filetypes. Filetypes prefixed with `"!"` are disabled.
+        '';
       };
 
       user_default_options = mkOption {
-        description = "Default options";
-        default = {};
         type = settingSubmodule;
+        default = {};
+        description = ''
+          `user_default_options` is the second parameter to nvim-colorizer's setup function.
+
+          Anything set here is the inverse of the previous setup configuration.
+        '';
       };
     };
   };
