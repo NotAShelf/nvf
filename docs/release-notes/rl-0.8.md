@@ -119,6 +119,7 @@
 - Add tsx support in conform and lint
 - Moved code setting `additionalRuntimePaths` and `enableLuaLoader` out of
   `luaConfigPre`'s default to prevent being overridden
+- Use conform over custom autocmds for LSP format on save
 
 [diniamo](https://github.com/diniamo):
 
@@ -322,6 +323,8 @@
 - Fix fzf-lua having a hard dependency on fzf.
 - Enable inlay hints support - `config.vim.lsp.inlayHints`.
 - Add `neo-tree`, `snacks.picker` extensions to `lualine`.
+- Add support for `vim.lsp.formatOnSave` and
+  `vim.lsp.mappings.toggleFormatOnSave`
 
 [tebuevd](https://github.com/tebuevd):
 
