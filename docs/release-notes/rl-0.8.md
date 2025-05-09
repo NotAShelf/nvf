@@ -97,6 +97,12 @@
 
 - Add Haskell support under `vim.languages.haskell` using [haskell-tools.nvim].
 
+[Bliztle](https://github.com/Bliztle):
+
+[emmet-language-server]: https://github.com/olrtg/emmet-language-server
+
+- Add Emmet support under `vim.languages.emmet` using [emmet-language-server].
+
 [horriblename](https://github.com/horriblename):
 
 [blink.cmp]: https://github.com/saghen/blink.cmp
