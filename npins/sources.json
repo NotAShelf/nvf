@@ -1906,6 +1906,19 @@
       "url": "https://github.com/nvim-treesitter/nvim-treesitter-context/archive/6daca3ad780f045550b820f262002f35175a6c04.tar.gz",
       "hash": "0qprwd44hw9sz0vh14p6lpvs9vxrick462pfkradmal6ak1kfwn3"
     },
+    "nvim-treesitter-textobjects": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvim-treesitter",
+        "repo": "nvim-treesitter-textobjects"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "0e3be38005e9673d044e994b1e4b123adb040179",
+      "url": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects/archive/0e3be38005e9673d044e994b1e4b123adb040179.tar.gz",
+      "hash": "0y93pj3asarw7jhk4cdphhx6awxdyiwajc0n9nr4836gn48qcs85"
+    },
     "nvim-ts-autotag": {
       "type": "Git",
       "repository": {
