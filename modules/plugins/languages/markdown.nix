@@ -193,7 +193,7 @@ in {
         require("markview").setup(${toLuaObject cfg.extensions.markview-nvim.setupOpts})
       '';
     })
-    
+
     (mkIf cfg.extraDiagnostics.enable {
       vim.diagnostics.nvim-lint = {
         enable = true;
