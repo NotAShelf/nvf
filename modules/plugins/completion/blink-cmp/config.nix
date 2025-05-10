@@ -122,6 +122,19 @@ in {
             "fallback"
           ];
         };
+
+        # cmdline is not enabled by default, we're just providing keymaps in
+        # case the user enables them
+        cmdline.keymap = {
+          ${mappings.complete} = ["show" "fallback"];
+          ${mappings.close} = ["hide" "fallback"];
+          ${mappings.scrollDocsUp} = ["scroll_documentation_up" "fallback"];
+          ${mappings.scrollDocsDown} = ["scroll_documentation_down" "fallback"];
+          ${mappings.confirm} = ["accept" "fallback"];
+
+          ${mappings.next} = ["select_next" "show" "fallback"];
+          ${mappings.previous} = ["select_prev" "fallback"];
+        };
       };
     };
   };
