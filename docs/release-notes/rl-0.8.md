@@ -19,6 +19,11 @@
   unavailable as they have been refactored out of the main none-ls repository
   upstream.
 
+- `vim.useSystemClipboard` has been deprecated as a part of removing most
+  top-level convenience options, and should instead be configured in the new
+  module interface. You may set [](#opt-vim.clipboard.registers) appropriately
+  to configure Neovim to use the system clipboard.
+
 [NotAShelf](https://github.com/notashelf):
 
 [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
@@ -90,6 +95,11 @@
 - Add `vim.diagnostics` to interact with Neovim's diagnostics module. Available
   options for `vim.diagnostic.config()` can now be customized through the
   [](#opt-vim.diagnostics.config) in nvf.
+
+- Add `vim.clipboard` module for easily managing Neovim clipboard providers and
+  relevant packages in a simple UI.
+  - This deprecates `vim.useSystemClipboard` as well, see breaking changes
+    section above for migration options.
 
 [amadaluzia](https://github.com/amadaluzia):
 

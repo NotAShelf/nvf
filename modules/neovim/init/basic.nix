@@ -34,12 +34,6 @@ in {
       description = "Enable syntax highlighting";
     };
 
-    useSystemClipboard = mkOption {
-      type = bool;
-      default = false;
-      description = "Make use of the clipboard for default yank and paste operations. Don't use * and +";
-    };
-
     lineNumberMode = mkOption {
       type = enum ["relative" "number" "relNumber" "none"];
       default = "relNumber";
@@ -144,10 +138,6 @@ in {
     # to pre-set Neovim options. Fear not, though as the Lua DAG is still as powerful as it
     # could be.
     luaConfigRC.basic = entryAfter ["globalsScript"] ''
-      ${optionalString cfg.useSystemClipboard ''
-        vim.opt.clipboard:append("unnamedplus")
-      ''}
-
       ${optionalString cfg.syntaxHighlighting ''
         vim.cmd("syntax on")
       ''}
