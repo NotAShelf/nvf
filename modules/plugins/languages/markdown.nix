@@ -130,6 +130,18 @@ in {
           };
         };
       };
+      markview-nvim = {
+        enable =
+          mkEnableOption ""
+          // {
+            description = ''
+              [markview.nvim]: https://github.com/OXY2DEV/markview.nvim
+
+              [markview.nvim] - a hackable markdown, Typst, latex, html(inline) & YAML previewer
+            '';
+          };
+        setupOpts = mkPluginSetupOption "markview-nvim" {};
+      };
     };
 
     extraDiagnostics = {
@@ -175,6 +187,13 @@ in {
       '';
     })
 
+    (mkIf cfg.extensions.markview-nvim.enable {
+      vim.startPlugins = ["markview-nvim"];
+      vim.pluginRC.markview-nvim = entryAnywhere ''
+        require("markview").setup(${toLuaObject cfg.extensions.markview-nvim.setupOpts})
+      '';
+    })
+    
     (mkIf cfg.extraDiagnostics.enable {
       vim.diagnostics.nvim-lint = {
         enable = true;
