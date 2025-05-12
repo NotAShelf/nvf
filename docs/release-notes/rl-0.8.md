@@ -329,11 +329,13 @@
 
 [flash.nvim]: https://github.com/folke/flash.nvim
 [gitlinker.nvim]: https://github.com/linrongbin16/gitlinker.nvim
+[nvim-treesitter-textobjects]: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 
 - Fix oil config referencing snacks
 - Add [flash.nvim] plugin to `vim.utility.motion.flash-nvim`
 - Fix default telescope ignore list entry for '.git/' to properly match
 - Add [gitlinker.nvim] plugin to `vim.git.gitlinker-nvim`
+- Add [nvim-treesitter-textobjects] plugin to `vim.treesitter.textobjects`
 
 [rrvsh](https://github.com/rrvsh):
 
