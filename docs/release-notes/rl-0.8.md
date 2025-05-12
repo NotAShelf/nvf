@@ -375,3 +375,8 @@
 - Add missing `right_align` option for existing `renderer.icons` options.
 - Add missing `render.icons` options (`hidden_placement`,
   `diagnostics_placement`, and `bookmarks_placement`).
+
+[cramt](https://github.com/cramt):
+
+- Add `rubylsp` option in `vim.languages.ruby.lsp.server` to use shopify's
+  ruby-lsp language server
