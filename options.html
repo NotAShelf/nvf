@@ -3986,6 +3986,247 @@ package <span class="emphasis"><em>(read only)</em></span></p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.clipboard.enable"></a><a class="term" href="options.html#opt-vim.clipboard.enable"><code class="option">vim.clipboard.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable clipboard management for Neovim. Users may still choose to manage their
+clipboard through <a class="xref" href="options.html#opt-vim.options"  ><code class="option">vim.options</code></a> should they wish to avoid using
+this module.
+.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/clipboard.nix" target="_top">
+&lt;nvf/modules/neovim/init/clipboard.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.clipboard.providers"></a><a class="term" href="options.html#opt-vim.clipboard.providers"><code class="option">vim.clipboard.providers</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Clipboard providers for which packages will be added to nvf’s
+<code class="option">extraPackages</code>. The <code class="literal">package</code> field may be set to <code class="literal">null</code>
+if related packages are already found in system packages to
+potentially reduce closure sizes.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+submodule</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/clipboard.nix" target="_top">
+&lt;nvf/modules/neovim/init/clipboard.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.clipboard.providers.wl-copy.enable"></a><a class="term" href="options.html#opt-vim.clipboard.providers.wl-copy.enable"><code class="option">vim.clipboard.providers.wl-copy.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable wl-copy.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/clipboard.nix" target="_top">
+&lt;nvf/modules/neovim/init/clipboard.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.clipboard.providers.wl-copy.package"></a><a class="term" href="options.html#opt-vim.clipboard.providers.wl-copy.package"><code class="option">vim.clipboard.providers.wl-copy.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The wl-clipboard package to use.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">pkgs.wl-clipboard</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/clipboard.nix" target="_top">
+&lt;nvf/modules/neovim/init/clipboard.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.clipboard.providers.xclip.enable"></a><a class="term" href="options.html#opt-vim.clipboard.providers.xclip.enable"><code class="option">vim.clipboard.providers.xclip.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable xclip.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/clipboard.nix" target="_top">
+&lt;nvf/modules/neovim/init/clipboard.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.clipboard.providers.xclip.package"></a><a class="term" href="options.html#opt-vim.clipboard.providers.xclip.package"><code class="option">vim.clipboard.providers.xclip.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The xclip package to use.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">pkgs.xclip</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/clipboard.nix" target="_top">
+&lt;nvf/modules/neovim/init/clipboard.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.clipboard.providers.xsel.enable"></a><a class="term" href="options.html#opt-vim.clipboard.providers.xsel.enable"><code class="option">vim.clipboard.providers.xsel.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable xsel.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/clipboard.nix" target="_top">
+&lt;nvf/modules/neovim/init/clipboard.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.clipboard.providers.xsel.package"></a><a class="term" href="options.html#opt-vim.clipboard.providers.xsel.package"><code class="option">vim.clipboard.providers.xsel.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The xsel package to use.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">pkgs.xsel</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/clipboard.nix" target="_top">
+&lt;nvf/modules/neovim/init/clipboard.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.clipboard.registers"></a><a class="term" href="options.html#opt-vim.clipboard.registers"><code class="option">vim.clipboard.registers</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The register to be used by the Neovim clipboard. Recognized types are:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>unnamed: Vim will use the clipboard register <code class="literal">&quot;*&quot;</code> for all yank, delete,
+change and put operations which would normally go to the unnamed register.</p></li><li class="listitem"><p>unnamedplus: A variant of the “unnamed” flag which uses the clipboard register
+<code class="literal">&quot;+&quot;</code> (<span class="command"><strong>:h quoteplus</strong></span>) instead of register <code class="literal">&quot;*&quot;</code> for all yank, delete,
+change and put operations which would normally go to the unnamed register.</p></li></ul></div><p>When <code class="literal">unnamed</code> and <code class="literal">unnamedplus</code> is included simultaneously yank and delete
+operations (but not put) will additionally copy the text into register <code class="literal">&quot;*&quot;</code>.</p><p>Please see  <span class="command"><strong>:h clipboard</strong></span> for more details.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string or list of string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;&quot;</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">&quot;unnamedplus&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/clipboard.nix" target="_top">
+&lt;nvf/modules/neovim/init/clipboard.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.comments.comment-nvim.enable"></a><a class="term" href="options.html#opt-vim.comments.comment-nvim.enable"><code class="option">vim.comments.comment-nvim.enable</code>
   </a>
  </span>
@@ -42814,30 +43055,6 @@ string or (luaInline)</p>
 
 <p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting nix">mkLuaInline &quot;os.getenv(&#x27;XDG_DATA_HOME&#x27;) .. &#x27;/nvf/undo&#x27;&quot;
 </code></pre>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/basic.nix" target="_top">
-&lt;nvf/modules/neovim/init/basic.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="opt-vim.useSystemClipboard"></a><a class="term" href="options.html#opt-vim.useSystemClipboard"><code class="option">vim.useSystemClipboard</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Make use of the clipboard for default yank and paste operations. Don’t use * and +</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-boolean</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">false</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
