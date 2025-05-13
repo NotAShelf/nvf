@@ -14,8 +14,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-bKe8SSg1HPWE7b4iRQJwiOVCrvvgttuHCOIa4U/38AY=";
   };
 
+  forceShare = [
+    "man"
+    "info"
+  ];
+
   postInstall = ''
     cp -r {lua,plugin} "$out"
+    mkdir -p "$out/doc"
+    cp 'doc/'*'.txt' "$out/doc/"
     mkdir -p "$out/target"
     mv "$out/lib" "$out/target/release"
   '';
