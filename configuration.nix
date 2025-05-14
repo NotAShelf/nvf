@@ -63,6 +63,7 @@ isMaximal: {
       lua.enable = isMaximal;
       zig.enable = isMaximal;
       python.enable = isMaximal;
+      qml.enable = isMaximal;
       typst.enable = isMaximal;
       rust = {
         enable = isMaximal;

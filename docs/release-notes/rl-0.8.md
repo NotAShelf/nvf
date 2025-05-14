@@ -246,7 +246,16 @@
   resolving git conflicts.
 - Add formatters for go: [gofmt](https://go.dev/blog/gofmt),
   [golines](https://github.com/segmentio/golines) and
+
   [gofumpt](https://github.com/mvdan/gofumpt).
+ 
+[TheSunCat](https://git.allpurposem.at/mat):
+
+[qmlls]: https://doc.qt.io/qt-6/qtqml-tooling-qmlls.html
+[qmlformat]: https://doc.qt.io/qt-6/qtqml-tooling-qmlformat.html
+
+- Add QML LSP and formatter support under `vim.languages.qml` using [qmlls] and
+  [qmlformat].
 
 [UltraGhostie](https://github.com/UltraGhostie)
 
