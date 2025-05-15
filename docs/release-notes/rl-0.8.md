@@ -392,3 +392,9 @@
 
 - Add `rubylsp` option in `vim.languages.ruby.lsp.server` to use shopify's
   ruby-lsp language server
+
+[Haskex](https://github.com/haskex):
+
+[solarized-osaka.nvim]: https://github.com/craftzdog/solarized-osaka.nvim
+
+- Add [solarized-osaka.nvim] theme
