@@ -12,9 +12,10 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.strings) optionalString;
-  inherit (lib.types) anything attrsOf enum either listOf nullOr package str;
+  inherit (lib.types) anything attrsOf enum either listOf nullOr package str oneOf;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
   inherit (lib.nvim.lua) expToLua toLuaObject;
+  inherit (lib.nvim.languages) lspOptions;
 
   cfg = config.vim.languages.nix;
 
@@ -30,70 +31,70 @@
     nil = {
       package = inputs.nil.packages.${pkgs.stdenv.system}.nil;
       internalFormatter = true;
-      lspConfig = ''
-        lspconfig.nil_ls.setup{
-          capabilities = capabilities,
-        ${
-          if cfg.format.enable
-          then useFormat
-          else noFormat
-        },
-          cmd = ${packageToCmd cfg.lsp.package "nil"},
-        ${optionalString cfg.format.enable ''
-          settings = {
-            ["nil"] = {
-          ${optionalString (cfg.format.type == "alejandra")
-            ''
-              formatting = {
-                command = {"${cfg.format.package}/bin/alejandra", "--quiet"},
-              },
-            ''}
-          ${optionalString (cfg.format.type == "nixfmt")
-            ''
-              formatting = {
-                command = {"${cfg.format.package}/bin/nixfmt"},
-              },
-            ''}
-            },
-          },
-        ''}
-        }
-      '';
+      # lspConfig = ''
+        # lspconfig.nil_ls.setup{
+        #   capabilities = capabilities,
+        # ${
+        #   if cfg.format.enable
+        #   then useFormat
+        #   else noFormat
+        # },
+        #   cmd = ${packageToCmd cfg.lsp.package "nil"},
+        # ${optionalString cfg.format.enable ''
+        #   settings = {
+        #     ["nil"] = {
+        #   ${optionalString (cfg.format.type == "alejandra")
+        #     ''
+        #       formatting = {
+        #         command = {"${cfg.format.package}/bin/alejandra", "--quiet"},
+        #       },
+        #     ''}
+        #   ${optionalString (cfg.format.type == "nixfmt")
+        #     ''
+        #       formatting = {
+        #         command = {"${cfg.format.package}/bin/nixfmt"},
+        #       },
+        #     ''}
+        #     },
+        #   },
+        # ''}
+        # }
+      # '';
     };
 
     nixd = {
       package = pkgs.nixd;
       internalFormatter = true;
-      lspConfig = ''
-        lspconfig.nixd.setup{
-          capabilities = capabilities,
-        ${
-          if cfg.format.enable
-          then useFormat
-          else noFormat
-        },
-          cmd = ${packageToCmd cfg.lsp.package "nixd"},
-        ${optionalString cfg.format.enable ''
-          settings = {
-            nixd = {
-          ${optionalString (cfg.format.type == "alejandra")
-            ''
-              formatting = {
-                command = {"${cfg.format.package}/bin/alejandra", "--quiet"},
-              },
-            ''}
-          ${optionalString (cfg.format.type == "nixfmt")
-            ''
-              formatting = {
-                command = {"${cfg.format.package}/bin/nixfmt"},
-              },
-            ''}
-          options = ${toLuaObject cfg.lsp.options},
-            },
-          },
-        ''}
-        }
-      '';
+      # lspConfig = ''
+      #   lspconfig.nixd.setup{
+      #     capabilities = capabilities,
+      #   ${
+      #     if cfg.format.enable
+      #     then useFormat
+      #     else noFormat
+      #   },
+      #     cmd = ${packageToCmd cfg.lsp.package "nixd"},
+      #   ${optionalString cfg.format.enable ''
+      #     settings = {
+      #       nixd = {
+      #     ${optionalString (cfg.format.type == "alejandra")
+      #       ''
+      #         formatting = {
+      #           command = {"${cfg.format.package}/bin/alejandra", "--quiet"},
+      #         },
+      #       ''}
+      #     ${optionalString (cfg.format.type == "nixfmt")
+      #       ''
+      #         formatting = {
+      #           command = {"${cfg.format.package}/bin/nixfmt"},
+      #         },
+      #       ''}
+      #     options = ${toLuaObject cfg.lsp.options},
+      #       },
+      #     },
+      #   ''}
+      #   }
+      # '';
     };
   };
 
@@ -146,8 +147,11 @@ in {
     lsp = {
       enable = mkEnableOption "Nix LSP support" // {default = config.vim.lsp.enable;};
       server = mkOption {
-        description = "Nix LSP server to use";
-        type = enum (attrNames servers);
+        description = "Nix LSP server(s) to use";
+        type = listOf oneOf [
+          (attrsOf lspOptions)
+          (enum (attrNames servers))
+        ];
         default = defaultServer;
       };
 
@@ -218,8 +222,7 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.nix-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers = cfg.lsp.server;
     })
 
     (mkIf (cfg.format.enable && (!cfg.lsp.enable || !servers.${cfg.lsp.server}.internalFormatter)) {
