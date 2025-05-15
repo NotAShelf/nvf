@@ -25,7 +25,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "LSP support for Haskell" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "LSP support for Haskell" // {default = config.vim.lsp.enable;};
       package = mkOption {
         description = "Haskell LSP package or command to run the Haskell LSP";
         example = ''[ (lib.getExe pkgs.haskellPackages.haskell-language-server) "--debug" ]'';

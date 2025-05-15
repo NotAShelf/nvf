@@ -14,8 +14,6 @@ in {
   config = mkIf cfg.lspconfig.enable (mkMerge [
     {
       vim = {
-        lsp.enable = true;
-
         startPlugins = ["nvim-lspconfig"];
 
         pluginRC.lspconfig = entryAfter ["lsp-setup"] ''

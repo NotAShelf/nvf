@@ -45,11 +45,18 @@ in
     inherit version src;
 
     dependencies = with vimPlugins; [
-      dressing-nvim
-      img-clip-nvim
-      nui-nvim
       nvim-treesitter
+      dressing-nvim
       plenary-nvim
+      nui-nvim
+
+      # optional, not sure how we best deal with adding these as options for the user to set
+      mini-pick
+      telescope-nvim
+      nvim-cmp
+      fzf-lua
+      nvim-web-devicons
+      img-clip-nvim
     ];
 
     postInstall = let

@@ -101,6 +101,7 @@
           "eslint.config.js"
           "eslint.config.mjs"
           ".eslintrc"
+          ".eslintrc.cjs"
           ".eslintrc.json"
           ".eslintrc.js"
           ".eslintrc.yml"
@@ -120,7 +121,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Typescript/Javascript LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Typescript/Javascript LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "Typescript/Javascript LSP server to use";

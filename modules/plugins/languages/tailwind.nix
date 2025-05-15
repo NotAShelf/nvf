@@ -35,7 +35,7 @@ in {
     enable = mkEnableOption "Tailwindcss language support";
 
     lsp = {
-      enable = mkEnableOption "Tailwindcss LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Tailwindcss LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "Tailwindcss LSP server to use";

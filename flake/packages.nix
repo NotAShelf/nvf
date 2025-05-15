@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  self,
+  ...
+} @ args: {
   perSystem = {
     config,
     pkgs,
@@ -6,8 +10,26 @@
     ...
   }: let
     docs = import ../docs {inherit pkgs inputs lib;};
+    buildPkg = maximal:
+      (args.config.flake.lib.nvim.neovimConfiguration {
+        inherit pkgs;
+        modules = [(import ../configuration.nix maximal)];
+      }).neovim;
   in {
     packages = {
+      blink-cmp = pkgs.callPackage ./blink {};
+      avante-nvim = let
+        pin = self.pins.avante-nvim;
+      in
+        pkgs.callPackage ./avante-nvim {
+          version = pin.branch;
+          src = pkgs.fetchFromGitHub {
+            inherit (pin.repository) owner repo;
+            rev = pin.revision;
+            sha256 = pin.hash;
+          };
+        };
+
       inherit (docs.manual) htmlOpenTool;
       # Documentation
       docs = docs.manual.html;
@@ -61,9 +83,9 @@
         '';
 
       # Exposed neovim configurations
-      nix = config.legacyPackages.neovim-nix;
-      maximal = config.legacyPackages.neovim-maximal;
-      default = config.legacyPackages.neovim-nix;
+      nix = buildPkg false;
+      maximal = buildPkg true;
+      default = config.packages.nix;
     };
   };
 }

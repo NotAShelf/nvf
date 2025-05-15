@@ -23,7 +23,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Java LSP support (java-language-server)" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Java LSP support (java-language-server)" // {default = config.vim.lsp.enable;};
       package = mkOption {
         description = "java language server package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';

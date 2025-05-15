@@ -52,22 +52,6 @@
       "url": "https://github.com/rrethy/base16-nvim/archive/965160025d0facbe9caa863e5beef2a7a488e9d1.tar.gz",
       "hash": "02w1mn15gydma9canvqrlwf4l5z76s1vs01zanipwwflvwclsb8f"
     },
-    "blink-cmp": {
-      "type": "GitRelease",
-      "repository": {
-        "type": "GitHub",
-        "owner": "saghen",
-        "repo": "blink.cmp"
-      },
-      "pre_releases": false,
-      "version_upper_bound": null,
-      "release_prefix": null,
-      "submodules": false,
-      "version": "v1.2.0",
-      "revision": "d72a826e1961e14f91d8867d10a27a89c5cfe748",
-      "url": "https://api.github.com/repos/saghen/blink.cmp/tarball/v1.2.0",
-      "hash": "01phyx7y26p2123xpdp0zfp45rc8f014a8myxn2ga71m514vr9vc"
-    },
     "blink-cmp-spell": {
       "type": "Git",
       "repository": {
@@ -889,6 +873,18 @@
       "revision": "ef746afb55467984ef3200d9709c8059ee0257d0",
       "url": "https://github.com/horriblename/lzn-auto-require/archive/ef746afb55467984ef3200d9709c8059ee0257d0.tar.gz",
       "hash": "1mgka1mmvpd2gfya898qdbbwrp5rpqds8manjs1s7g5x63xp6b98"
+    },
+    "markview-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "OXY2DEV",
+        "repo": "markview.nvim"
+      },
+      "branch": "main",
+      "revision": "6c92a6455e97c954a4a419265a032fedd69846f6",
+      "url": "https://github.com/OXY2DEV/markview.nvim/archive/6c92a6455e97c954a4a419265a032fedd69846f6.tar.gz",
+      "hash": "01sw4iscnciyifpba4cwjb6fs95wrkk60xvqq67b8d5j8yb5449a"
     },
     "mind-nvim": {
       "type": "Git",
@@ -1922,6 +1918,19 @@
       "revision": "6daca3ad780f045550b820f262002f35175a6c04",
       "url": "https://github.com/nvim-treesitter/nvim-treesitter-context/archive/6daca3ad780f045550b820f262002f35175a6c04.tar.gz",
       "hash": "0qprwd44hw9sz0vh14p6lpvs9vxrick462pfkradmal6ak1kfwn3"
+    },
+    "nvim-treesitter-textobjects": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvim-treesitter",
+        "repo": "nvim-treesitter-textobjects"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "0e3be38005e9673d044e994b1e4b123adb040179",
+      "url": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects/archive/0e3be38005e9673d044e994b1e4b123adb040179.tar.gz",
+      "hash": "0y93pj3asarw7jhk4cdphhx6awxdyiwajc0n9nr4836gn48qcs85"
     },
     "nvim-ts-autotag": {
       "type": "Git",

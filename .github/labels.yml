@@ -1,0 +1,55 @@
+# This file is used by .github/workflows/labels.yml
+"topic: plugins":
+  - any:
+    - changed-files:
+      - any-glob-to-any-file:
+        - modules/plugins/**/*
+
+"topic: modules":
+  - any:
+    - changed-files:
+      - any-glob-to-any-file:
+        - modules/**/*
+
+"topic: dependencies":
+  - any:
+    - changed-files:
+      - any-glob-to-any-file:
+        - npins
+        - flake.lock
+
+"topic: CI":
+  - any:
+    - changed-files:
+      - any-glob-to-any-file:
+        - .github/workflows/*.yml
+        - .github/typos.toml
+        - .github/dependabot.yml
+
+"topic: meta":
+  - any:
+    - changed-files:
+      - any-glob-to-any-file:
+        - .github/CODEOWNERS
+        - LICENSE
+        - .github/README.md
+        - .github/funding.yml
+        - .github/assets
+        - .github/*_TEMPLATE
+        - .gitignore
+        - .editorconfig
+        - release.json
+
+"topic: documentation":
+  - any:
+    - changed-files:
+      - any-glob-to-any-file:
+        - docs/**/*
+        - .github/CONTRIBUTING.md
+        - .github/README.md
+"topic: packaging":
+  - any:
+    - changed-files:
+      - any-glob-to-any-file:
+          - flake.nix
+          - flake/packages.nix

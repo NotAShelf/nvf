@@ -49,7 +49,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "OCaml LSP support (ocaml-lsp)" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "OCaml LSP support (ocaml-lsp)" // {default = config.vim.lsp.enable;};
       server = mkOption {
         description = "OCaml LSP server to user";
         type = enum (attrNames servers);
