@@ -683,15 +683,48 @@ in {
               };
 
               git_placement = mkOption {
-                type = enum ["before" "after" "signcolumn"];
-                description = "Place where the git icons will be rendered. `signcolumn` requires `view.signcolumn` to be enabled.";
+                type = enum ["before" "after" "signcolumn" "right_align"];
                 default = "before";
+                description = ''
+                  Place where the git icons will be rendered.
+                  `signcolumn` requires `view.signcolumn` to be enabled.
+                '';
               };
 
               modified_placement = mkOption {
-                type = enum ["before" "after" "signcolumn"];
-                description = "Place where the modified icons will be rendered. `signcolumn` requires `view.signcolumn` to be enabled.";
+                type = enum ["before" "after" "signcolumn" "right_align"];
                 default = "after";
+                description = ''
+                  Place where the modified icons will be rendered.
+                  `signcolumn` requires `view.signcolumn` to be enabled.
+                '';
+              };
+
+              hidden_placement = mkOption {
+                type = enum ["before" "after" "signcolumn" "right_align"];
+                default = "after";
+                description = ''
+                  Place where the hidden icons will be rendered.
+                  `signcolumn` requires `view.signcolumn` to be enabled.
+                '';
+              };
+
+              diagnostics_placement = mkOption {
+                type = enum ["before" "after" "signcolumn" "right_align"];
+                default = "after";
+                description = ''
+                  Place where the diagnostics icons will be rendered.
+                  `signcolumn` requires `view.signcolumn` to be enabled.
+                '';
+              };
+
+              bookmarks_placement = mkOption {
+                type = enum ["before" "after" "signcolumn" "right_align"];
+                default = "after";
+                description = ''
+                  Place where the bookmark icons will be rendered.
+                  `signcolumn` requires `view.signcolumn` to be enabled.
+                '';
               };
 
               padding = mkOption {

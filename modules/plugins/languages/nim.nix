@@ -54,7 +54,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Nim LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Nim LSP support" // {default = config.vim.lsp.enable;};
       server = mkOption {
         description = "Nim LSP server to use";
         type = str;

@@ -76,7 +76,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Typst LSP support (typst-lsp)" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Typst LSP support (typst-lsp)" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "Typst LSP server to use";

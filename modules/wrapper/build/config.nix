@@ -51,7 +51,7 @@
       doCheck = false;
     };
 
-    inherit (inputs.self.legacyPackages.${pkgs.stdenv.system}) blink-cmp;
+    inherit (inputs.self.packages.${pkgs.stdenv.system}) blink-cmp;
   };
 
   buildConfigPlugins = plugins:
@@ -62,17 +62,14 @@
       filter (f: f != null) plugins
     );
 
-  # built (or "normalized") plugins that are modified
-  builtStartPlugins = buildConfigPlugins config.vim.startPlugins;
-  builtOptPlugins = map (package: package // {optional = true;}) (
-    buildConfigPlugins config.vim.optPlugins
-  );
-
   # Wrap the user's desired (unwrapped) Neovim package with arguments that'll be used to
   # generate a wrapped Neovim package.
-  neovim-wrapped = inputs.mnw.lib.wrap pkgs {
+  neovim-wrapped = inputs.mnw.lib.wrap {inherit pkgs;} {
     neovim = config.vim.package;
-    plugins = builtStartPlugins ++ builtOptPlugins;
+    plugins = {
+      start = buildConfigPlugins config.vim.startPlugins;
+      opt = buildConfigPlugins config.vim.optPlugins;
+    };
     appName = "nvf";
     extraBinPath = config.vim.extraPackages;
     initLua = config.vim.builtLuaConfigRC;

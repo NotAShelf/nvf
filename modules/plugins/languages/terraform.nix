@@ -20,7 +20,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Terraform LSP support (terraform-ls)" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Terraform LSP support (terraform-ls)" // {default = config.vim.lsp.enable;};
 
       package = mkOption {
         description = "terraform-ls package";

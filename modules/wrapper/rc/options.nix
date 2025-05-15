@@ -11,13 +11,14 @@ in {
       description = ''
         [official documentation]: https://neovim.io/doc/user/lua.html#vim.loader.enable()
 
-        the experimental Lua module loader to speed up the start up process
+        Whethere to enable the experimental Lua module loader to speed up the start
+        up process. If `true`, this will enable the experimental Lua module loader
+        which:
 
-        If `true`, this will enable the experimental Lua module loader which:
-          - overrides loadfile
-          - adds the lua loader using the byte-compilation cache
-          - adds the libs loader
-          - removes the default Neovim loader
+        * overrides loadfile
+        * adds the lua loader using the byte-compilation cache
+        * adds the libs loader
+        * removes the default Neovim loader
 
         ::: {.note}
         The Lua module loader is *disabled* by default. Before setting this option, please

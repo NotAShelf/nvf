@@ -1,12 +1,12 @@
 # Custom Neovim Package {#ch-custom-package}
 
 As of v0.5, you may now specify the Neovim package that will be wrapped with
-your configuration. This is done with the `vim.package` option.
+your configuration. This is done with the [](#opt-vim.package) option.
 
 ```nix
 {inputs, pkgs, ...}: {
   # using the neovim-nightly overlay
-  vim.package = inputs.neovim-overlay.packages.${pkgs.system}.neovim;
+  vim.package = inputs.neovim-overlay.packages.${pkgs.stdenv.system}.neovim;
 }
 ```
 
