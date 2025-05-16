@@ -28,7 +28,7 @@ $ nix run github:notashelf/nvf#maximal
 
 ### Available Configurations {#sec-available-configs}
 
-:::{.info}
+::: {.info}
 
 The below configurations are provided for demonstration purposes, and are
 **not** designed to be installed as is. You may
