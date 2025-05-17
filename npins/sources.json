@@ -2234,6 +2234,19 @@
       "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/v2.22.0",
       "hash": "1hbm4fnw51qdp0nz83fcxbvnxjq2k57a37w6dp0wz6wkcx7cwxw9"
     },
+    "solarized-osaka": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "craftzdog",
+        "repo": "solarized-osaka.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "f796014c14b1910e08d42cc2077fef34f08e0295",
+      "url": "https://github.com/craftzdog/solarized-osaka.nvim/archive/f796014c14b1910e08d42cc2077fef34f08e0295.tar.gz",
+      "hash": "0jy2hk4fc210jih30ybvisr9pliya1s3nazw4d131vh5k4p1xqi6"
+    },
     "sqls-nvim": {
       "type": "Git",
       "repository": {
