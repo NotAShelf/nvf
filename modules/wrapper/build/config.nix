@@ -7,23 +7,20 @@
 }: let
   inherit (pkgs) vimPlugins;
   inherit (lib.trivial) flip;
-  inherit (builtins) path filter isString;
+  inherit (builtins) filter isString;
 
   getPin = name: ((pkgs.callPackages ../../../npins/sources.nix {}) // config.vim.pluginOverrides).${name};
 
   noBuildPlug = pname: let
     pin = getPin pname;
-    version = pin.revision or "dirty";
-  in {
-    # vim.lazy.plugins relies on pname, so we only set that here
-    # version isn't needed for anything, but inherit it anyway for correctness
-    inherit pname version;
-    outPath = path {
-      name = "${pname}-0-unstable-${version}";
-      path = pin.outPath;
+    version = builtins.substring 0 8 pin.revision;
+  in
+    pin.outPath.overrideAttrs {
+      inherit pname version;
+      name = "${pname}-${version}";
+
+      passthru.vimPlugin = false;
     };
-    passthru.vimPlugin = false;
-  };
 
   # build a vim plugin with the given name and arguments
   # if the plugin is nvim-treesitter, warn the user to use buildTreesitterPlug
