@@ -347,6 +347,8 @@
 - Fix default telescope ignore list entry for '.git/' to properly match
 - Add [gitlinker.nvim] plugin to `vim.git.gitlinker-nvim`
 - Add [nvim-treesitter-textobjects] plugin to `vim.treesitter.textobjects`
+- Default to disabling Conform for Rust if rust-analyzer is used
+  - To force using Conform, set `languages.rust.format.enable = true`.
 
 [rrvsh](https://github.com/rrvsh):
 
