@@ -407,3 +407,10 @@
 - Add [img-clip.nvim] plugin in `vim.utility.images.img-clip` with `enable` and
   `setupOpts`
 - Add `vim.utility.images.img-clip.enable = isMaximal` in configuration.nix
+
+[anil9](https://github.com/anil9):
+
+[clojure-lsp]: https://github.com/clojure-lsp/clojure-lsp
+[conjure]: https://github.com/Olical/conjure
+
+- Add Clojure support under `vim.languages.clojure` using [clojure-lsp] and [conjure].
