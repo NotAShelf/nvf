@@ -6,11 +6,10 @@
   inherit (lib.options) mkOption mkEnableOption literalMD;
   inherit (lib.strings) optionalString;
   inherit (lib.attrsets) optionalAttrs;
-  inherit (lib.types) enum bool str int either;
+  inherit (lib.types) enum bool str either;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.binds) pushDownDefault;
-  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) luaInline;
 
   cfg = config.vim;
@@ -20,12 +19,6 @@ in {
       type = bool;
       default = false;
       description = "Hide search highlight so it doesn't stay highlighted";
-    };
-
-    scrollOffset = mkOption {
-      type = int;
-      default = 8;
-      description = "Start scrolling this number of lines from the top or bottom of the page.";
     };
 
     syntaxHighlighting = mkOption {

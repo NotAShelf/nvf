@@ -308,6 +308,7 @@
   `vim.diagnostics.nvim-lint.linters.*.required_files`.
 - Add global function `nvf_lint` under
   `vim.diagnostics.nvim-lint.lint_function`.
+- Deprecate `vim.scrollOffset` in favor of `vim.options.scrolloff`.
 
 [Sc3l3t0n](https://github.com/Sc3l3t0n):
 
@@ -394,3 +395,15 @@
 
 - Add `rubylsp` option in `vim.languages.ruby.lsp.server` to use shopify's
   ruby-lsp language server
+
+[Haskex](https://github.com/haskex):
+
+[solarized-osaka.nvim]: https://github.com/craftzdog/solarized-osaka.nvim
+
+- Add [solarized-osaka.nvim] theme
+
+[img-clip.nvim]: https://github.com/hakonharnes/img-clip.nvim
+
+- Add [img-clip.nvim] plugin in `vim.utility.images.img-clip` with `enable` and
+  `setupOpts`
+- Add `vim.utility.images.img-clip.enable = isMaximal` in configuration.nix
