@@ -14,7 +14,7 @@ in {
       startPlugins = ["hardtime-nvim"];
 
       pluginRC.hardtime = entryAnywhere ''
-        require("hardtime").setup (${toLuaObject cfg.setupOpts})
+        require("hardtime").setup(${toLuaObject cfg.setupOpts})
       '';
     };
   };

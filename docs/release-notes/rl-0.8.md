@@ -399,3 +399,9 @@
 [solarized-osaka.nvim]: https://github.com/craftzdog/solarized-osaka.nvim
 
 - Add [solarized-osaka.nvim] theme
+
+[img-clip.nvim]: https://github.com/hakonharnes/img-clip.nvim
+
+- Add [img-clip.nvim] plugin in `vim.utility.images.img-clip` with `enable` and
+  `setupOpts`
+- Add `vim.utility.images.img-clip.enable = isMaximal` in configuration.nix
