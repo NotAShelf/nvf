@@ -308,6 +308,7 @@
   `vim.diagnostics.nvim-lint.linters.*.required_files`.
 - Add global function `nvf_lint` under
   `vim.diagnostics.nvim-lint.lint_function`.
+- Deprecate `vim.scrollOffset` in favor of `vim.options.scrolloff`.
 
 [Sc3l3t0n](https://github.com/Sc3l3t0n):
 
