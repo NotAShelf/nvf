@@ -399,3 +399,10 @@
 [solarized-osaka.nvim]: https://github.com/craftzdog/solarized-osaka.nvim
 
 - Add [solarized-osaka.nvim] theme
+
+[anil9](https://github.com/anil9):
+
+[clojure-lsp]: https://github.com/clojure-lsp/clojure-lsp
+[conjure]: https://github.com/Olical/conjure
+
+- Add Clojure support under `vim.languages.clojure` using [clojure-lsp] and [conjure].
