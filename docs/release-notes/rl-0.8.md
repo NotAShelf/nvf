@@ -370,7 +370,10 @@
 
 [aionoid](https://github.com/aionoid):
 
+[avante-nvim]: https://github.com/yetone/avante.nvim
+
 - Fix [render-markdown.nvim] file_types option type to list, to accept merging.
+- Add [avante.nvim] plugin under `vim.assistant.avante-nvim`.
 
 [poz](https://poz.pet):
 

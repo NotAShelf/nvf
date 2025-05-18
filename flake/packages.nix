@@ -1,4 +1,8 @@
-{inputs, ...} @ args: {
+{
+  inputs,
+  self,
+  ...
+} @ args: {
   perSystem = {
     config,
     pkgs,
@@ -14,6 +18,18 @@
   in {
     packages = {
       blink-cmp = pkgs.callPackage ./blink {};
+      avante-nvim = let
+        pin = self.pins.avante-nvim;
+      in
+        pkgs.callPackage ./avante-nvim {
+          version = pin.branch;
+          src = pkgs.fetchFromGitHub {
+            inherit (pin.repository) owner repo;
+            rev = pin.revision;
+            sha256 = pin.hash;
+          };
+          pins = self.pins;
+        };
 
       inherit (docs.manual) htmlOpenTool;
       # Documentation
