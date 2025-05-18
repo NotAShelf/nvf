@@ -199,6 +199,7 @@ isMaximal: {
       };
       images = {
         image-nvim.enable = false;
+        img-clip.enable = isMaximal;
       };
     };
 
