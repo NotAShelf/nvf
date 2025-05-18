@@ -1,11 +1,11 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption literalMD;
-  inherit (lib.types) int str enum nullOr attrs;
+  inherit (lib.types) int str enum nullOr attrs bool;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   options.vim.assistant = {
     avante-nvim = {
-      enable = mkEnableOption "complementary neovim plugin for avante.nvim";
+      enable = mkEnableOption "complementary Neovim plugin for avante.nvim";
       setupOpts = mkPluginSetupOption "avante-nvim" {
         provider = mkOption {
           type = nullOr str;
@@ -54,18 +54,13 @@ in {
           type = nullOr str;
           default = null;
           description = ''
-            The provider used in the applying phase of Cursor Planning Mode, defaults to nil,
-            when nil uses Config.provider as the provider for the applying phase
+            The provider used in the applying phase of Cursor Planning Mode, defaults to `nil`,
+            Config.provider will be used as the provider for the applying phase when `nil`.
           '';
         };
 
         dual_boost = {
-          enabled =
-            mkEnableOption ""
-            // {
-              default = false;
-              description = "Whether to enable dual_boost mode.";
-            };
+          enabled = mkEnableOption "dual_boost mode.";
 
           first_provider = mkOption {
             type = str;
@@ -81,7 +76,11 @@ in {
 
           prompt = mkOption {
             type = str;
-            default = "Based on the two reference outputs below, generate a response that incorporates elements from both but reflects your own judgment and unique perspective. Do not provide any explanation, just give the response directly. Reference Output 1: [{{provider1_output}}], Reference Output 2: [{{provider2_output}}]";
+            default = ''
+              Based on the two reference outputs below, generate a response that incorporates
+              elements from both but reflects your own judgment and unique perspective.
+              Do not provide any explanation, just give the response directly. Reference Output 1:
+              [{{provider1_output}}], Reference Output 2: [{{provider2_output}}'';
             description = "The prompt to generate response based on the two reference outputs.";
           };
 
@@ -94,70 +93,45 @@ in {
 
         behaviour = {
           auto_suggestions =
-            mkEnableOption ""
-            // {
-              default = false;
-              description = "Whether to enable auto suggestions.";
-            };
+            mkEnableOption "auto suggestions.";
 
           auto_set_highlight_group =
-            mkEnableOption ""
+            mkEnableOption "automatically set the highlight group for the current line."
             // {
               default = true;
-              description = "Whether to automatically set the highlight group for the current line.";
             };
 
           auto_set_keymaps =
-            mkEnableOption ""
+            mkEnableOption "automatically set the keymap for the current line."
             // {
               default = true;
-              description = "Whether to automatically set the keymap for the current line.";
             };
 
           auto_apply_diff_after_generation =
-            mkEnableOption ""
-            // {
-              default = false;
-              description = "Whether to automatically apply diff after LLM response.";
-            };
+            mkEnableOption "automatically apply diff after LLM response.";
 
-          support_paste_from_clipboard =
-            mkEnableOption ""
-            // {
-              default = false;
-              description = ''
-                Whether to support pasting image from clipboard.
-                This will be determined automatically based whether img-clip is available or not.
-              '';
-            };
+          support_paste_from_clipboard = mkEnableOption ''
+            pasting image from clipboard.
+            This will be determined automatically based whether img-clip is available or not.
+          '';
 
           minimize_diff =
-            mkEnableOption ""
+            mkEnableOption "remove unchanged lines when applying a code block."
             // {
               default = true;
-              description = "Whether to remove unchanged lines when applying a code block.";
             };
 
           enable_token_counting =
-            mkEnableOption ""
+            mkEnableOption "token counting."
             // {
               default = true;
-              description = "Whether to enable token counting. Default to true.";
             };
 
           enable_cursor_planning_mode =
-            mkEnableOption ""
-            // {
-              default = false;
-              description = "Whether to enable Cursor Planning Mode. Default to false.";
-            };
+            mkEnableOption "Cursor Planning Mode.";
 
           enable_claude_text_editor_tool_mode =
-            mkEnableOption ""
-            // {
-              default = false;
-              description = "Whether to enable Claude Text Editor Tool Mode.";
-            };
+            mkEnableOption "Claude Text Editor Tool Mode.";
         };
 
         mappings = {
@@ -230,14 +204,11 @@ in {
           };
 
           sidebar_header = {
-            enabled =
-              mkEnableOption ""
-              // {
-                default = true;
-                description = ''
-                  enable/disable the header.
-                '';
-              };
+            enabled = mkOption {
+              type = bool;
+              default = true;
+              description = "enable/disable the header.";
+            };
 
             align = mkOption {
               type = enum ["right" "center" "left"];
@@ -245,12 +216,11 @@ in {
               description = "Position of the title.";
             };
 
-            rounded =
-              mkEnableOption ""
-              // {
-                default = true;
-                description = "Enable rounded sidebar header";
-              };
+            rounded = mkOption {
+              type = bool;
+              default = true;
+              description = "Enable rounded sidebar header";
+            };
           };
 
           input = {
@@ -276,34 +246,31 @@ in {
               description = "The border type on the edit window.";
             };
 
-            start_insert =
-              mkEnableOption ""
-              // {
-                default = true;
-                description = ''
-                  Start insert mode when opening the edit window.
-                '';
-              };
+            start_insert = mkOption {
+              type = bool;
+              default = true;
+              description = ''
+                Start insert mode when opening the edit window.
+              '';
+            };
           };
 
           ask = {
-            floating =
-              mkEnableOption ""
-              // {
-                default = false;
-                description = ''
-                  Open the 'AvanteAsk' prompt in a floating window.
-                '';
-              };
+            floating = mkOption {
+              type = bool;
+              default = false;
+              description = ''
+                Open the 'AvanteAsk' prompt in a floating window.
+              '';
+            };
 
-            start_insert =
-              mkEnableOption ""
-              // {
-                default = true;
-                description = ''
-                  Start insert mode when opening the ask window.
-                '';
-              };
+            start_insert = mkOption {
+              type = bool;
+              default = true;
+              description = ''
+                Start insert mode when opening the ask window.
+              '';
+            };
 
             border = mkOption {
               type = str;
@@ -330,8 +297,9 @@ in {
           override_timeoutlen = mkOption {
             type = int;
             default = 500;
+            example = -1;
             description = ''
-              Override the 'timeoutlen' setting while hovering over a diff (see :help timeoutlen).
+              Override the 'timeoutlen' setting while hovering over a diff (see {command}`:help timeoutlen`).
               Helps to avoid entering operator-pending mode with diff mappings starting with `c`.
               Disable by setting to -1.
             '';

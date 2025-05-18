@@ -28,6 +28,7 @@
             rev = pin.revision;
             sha256 = pin.hash;
           };
+          pins = self.pins;
         };
 
       inherit (docs.manual) htmlOpenTool;

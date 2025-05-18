@@ -10,6 +10,7 @@
   pkgs,
   version,
   src,
+  pins,
 }: let
   inherit version src;
   avante-nvim-lib = rustPlatform.buildRustPackage {
@@ -44,20 +45,20 @@ in
     pname = "avante-nvim";
     inherit version src;
 
-    dependencies = with vimPlugins; [
-      nvim-treesitter
-      dressing-nvim
-      plenary-nvim
-      nui-nvim
-
-      # optional, not sure how we best deal with adding these as options for the user to set
-      mini-pick
-      telescope-nvim
-      nvim-cmp
-      fzf-lua
-      nvim-web-devicons
-      img-clip-nvim
-    ];
+    dependencies =
+      [vimPlugins.nvim-treesitter]
+      ++ (builtins.map (name: let
+        pin = pins.${name};
+      in
+        pkgs.fetchFromGitHub {
+          inherit (pin.repository) owner repo;
+          rev = pin.revision;
+          sha256 = pin.hash;
+        }) [
+        "dressing-nvim"
+        "plenary-nvim"
+        "nui-nvim"
+      ]);
 
     postInstall = let
       ext = stdenv.hostPlatform.extensions.sharedLibrary;
@@ -68,15 +69,6 @@ in
       ln -s ${avante-nvim-lib}/lib/libavante_tokenizers${ext} $out/build/avante_tokenizers${ext}
       ln -s ${avante-nvim-lib}/lib/libavante_html2md${ext} $out/build/avante_html2md${ext}
     '';
-
-    passthru = {
-      updateScript = nix-update-script {
-        attrPath = "vimPlugins.avante-nvim.avante-nvim-lib";
-      };
-
-      # needed for the update script
-      inherit avante-nvim-lib;
-    };
 
     nvimSkipModules = [
       # Requires setup with corresponding provider
