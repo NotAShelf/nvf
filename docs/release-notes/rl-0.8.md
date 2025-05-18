@@ -407,3 +407,8 @@
 - Add [img-clip.nvim] plugin in `vim.utility.images.img-clip` with `enable` and
   `setupOpts`
 - Add `vim.utility.images.img-clip.enable = isMaximal` in configuration.nix
+
+[Munsio](https://github.com/munsio):
+
+- Add [avante.nvim](https://github.com/yetone/avante.nvim) plugin another AI
+  Assistant.

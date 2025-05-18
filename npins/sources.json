@@ -26,6 +26,19 @@
       "url": "https://github.com/goolord/alpha-nvim/archive/de72250e054e5e691b9736ee30db72c65d560771.tar.gz",
       "hash": "0c1jkhxamfn2md7m1r5b2wpxa26y90b98yzjwf68m3fymalvkn5h"
     },
+    "avante-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "yetone",
+        "repo": "avante.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "e98bb8d3bae102662c5ad4ada1ce63a9aacac4e0",
+      "url": "https://github.com/yetone/avante.nvim/archive/e98bb8d3bae102662c5ad4ada1ce63a9aacac4e0.tar.gz",
+      "hash": "1x1xs80bmh3w0xnpjanwl8qwqz0lm7d2cmsvgd1p4jki1shllb8y"
+    },
     "base16": {
       "type": "Git",
       "repository": {
