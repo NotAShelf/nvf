@@ -26,7 +26,7 @@ by typing the following in a shell within a clone of the **nvf** Git repository:
 
 ```console
 $ nix build .#docs-html
-$ xdg-open $PWD/result/share/doc/nvf/index.html
+$ xdg-open $PWD/result/share/doc/nvf/index.xhtml
 ```
 
 ## Formatting Code {#sec-guidelines-formatting}

@@ -412,3 +412,4 @@
 
 - Add [avante.nvim](https://github.com/yetone/avante.nvim) plugin another AI
   Assistant.
+- Fix typo in Guidelines.
