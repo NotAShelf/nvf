@@ -705,6 +705,19 @@
       "url": "https://github.com/3rd/image.nvim/archive/4c51d6202628b3b51e368152c053c3fb5c5f76f2.tar.gz",
       "hash": "16s1wsy9k72qiqzvwij67j2jzwgi6ggl6lhx9p6lfw8dpps3ayxg"
     },
+    "img-clip": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hakonharnes",
+        "repo": "img-clip.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "08a02e14c8c0d42fa7a92c30a98fd04d6993b35d",
+      "url": "https://github.com/hakonharnes/img-clip.nvim/archive/08a02e14c8c0d42fa7a92c30a98fd04d6993b35d.tar.gz",
+      "hash": "0ani8z5pkvqmmalzcgyj27rfhqs76ivmpq79xn8rsdyy5a5fy979"
+    },
     "indent-blankline-nvim": {
       "type": "Git",
       "repository": {
@@ -869,6 +882,7 @@
         "repo": "markview.nvim"
       },
       "branch": "main",
+      "submodules": false,
       "revision": "6c92a6455e97c954a4a419265a032fedd69846f6",
       "url": "https://github.com/OXY2DEV/markview.nvim/archive/6c92a6455e97c954a4a419265a032fedd69846f6.tar.gz",
       "hash": "01sw4iscnciyifpba4cwjb6fs95wrkk60xvqq67b8d5j8yb5449a"
@@ -2233,6 +2247,19 @@
       "revision": "5eac729fa290248acfe10916d92a5ed5e5c0f9ed",
       "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/v2.22.0",
       "hash": "1hbm4fnw51qdp0nz83fcxbvnxjq2k57a37w6dp0wz6wkcx7cwxw9"
+    },
+    "solarized-osaka": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "craftzdog",
+        "repo": "solarized-osaka.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "f796014c14b1910e08d42cc2077fef34f08e0295",
+      "url": "https://github.com/craftzdog/solarized-osaka.nvim/archive/f796014c14b1910e08d42cc2077fef34f08e0295.tar.gz",
+      "hash": "0jy2hk4fc210jih30ybvisr9pliya1s3nazw4d131vh5k4p1xqi6"
     },
     "sqls-nvim": {
       "type": "Git",
