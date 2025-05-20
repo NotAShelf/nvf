@@ -1,9 +1,13 @@
 {lib}: let
   inherit (builtins) isString getAttr;
   inherit (lib.options) mkOption;
-  inherit (lib.types) listOf bool str submodule attrsOf anything either nullOr;
+  inherit (lib.strings) concatStringsSep;
+  inherit (lib.types) listOf bool str submodule attrsOf anything either nullOr oneOf enum;
+  inherit (lib.attrsets) attrNames;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) luaInline;
+  inherit (lib.lists) isList;
+  inherit (lib) genAttrs recursiveUpdate;
 in {
   # TODO: remove
   diagnosticsToLua = {
@@ -33,6 +37,18 @@ in {
       type = bool;
       description = "Turn on ${desc} for enabled languages by default";
     };
+
+  # resolveLspOptions
+  # servers: AttrsOf lspOptions
+  # selected: AttrsOf lspOptions | List of string keys from servers
+  # Returns: AttrsOf lspOptions
+  resolveLspOptions = {
+    servers,
+    selected,
+  }:
+    if isList selected
+    then genAttrs selected (name: servers.${name})
+    else selected;
 
   lspOptions = submodule {
     freeformType = attrsOf anything;
@@ -77,4 +93,27 @@ in {
       };
     };
   };
+
+  mkLspOption = {servers, ...} @ args: let
+    serverNames = attrNames servers;
+    defaultAttrs = {
+      type = oneOf [
+        (attrsOf lib.nvim.languages.lspOptions)
+        (listOf (enum serverNames))
+      ];
+      description = ''
+        Either a full set of selected LSP options as an attribute set,
+        or a list of server names from: ${concatStringsSep ", " serverNames}.
+      '';
+      default = {};
+      example = {
+        clangd = {
+          filetypes = ["c"];
+          root_markers = ["CMakeLists.txt"];
+        };
+      };
+    };
+    cleanedArgs = removeAttrs args ["servers"];
+  in
+    mkOption (recursiveUpdate defaultAttrs cleanedArgs);
 }

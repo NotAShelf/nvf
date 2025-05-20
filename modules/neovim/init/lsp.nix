@@ -18,11 +18,35 @@
 
   lspConfigurations =
     mapAttrsToList (
-      name: value: ''
-        vim.lsp.config["${name}"] = ${toLuaObject value}
-      ''
+      # TODO: Determine the best thing to do about merging in lspconfig
+      name: value:
+      /*
+      lua
+      */
+      ''vim.lsp.config["${name}"] = ${toLuaObject value}''
     )
     cfg.servers;
+
+  # Approach 1:
+  # Create function perhaps called mkLspConfig
+  # mkLspConfig servers;
+  # that expands to something like
+  # vim.lsp.servers = cfg.lsp.servers......
+  # vim.luaConfigRC.lspconfigMerge = entryAfter ["lsp-servers"] ''vim.lsp.config["${name}"] = vim.tbl_deep_extend("force", lspconfig.${name}, vim.lsp.config["${name}"])''
+
+
+  # Approach 2:
+  # lspConfigurations =
+  #   mapAttrsToList (
+  #     name: value: ''vim.lsp.config["${name}"] = vim.tbl_deep_extend("force", lspconfig.${name}, ${toLuaObject value})''
+  #   )
+  #   (filterAttrs (n: _: n != "*") cfg.servers);
+  # Then also need to configure global * settings
+  # globalConfiguration =
+  #   mapAttrsToList (
+  #     name: value: ''vim.lsp.config["${name}"] = ${toLuaObject value}''
+  #   )
+  #   (filterAttrs (n: _: n == "*") cfg.servers);
 
   enabledServers = filterAttrs (_: u: u.enable) cfg.servers;
 in {
@@ -81,13 +105,18 @@ in {
     }
 
     (mkIf (cfg.servers != {}) {
-      vim.luaConfigRC.lsp-servers = entryAnywhere ''
-        -- Individual LSP configurations managed by nvf.
-        ${concatLines lspConfigurations}
+      vim.luaConfigRC.lsp-servers =
+        entryAnywhere
+         # Or entryAfter ["lspconfig"] if we go with the second approach
+        /*
+        lua
+        */
+        ''
+          ${concatLines lspConfigurations}
 
-        -- Enable configured LSPs explicitly
-        vim.lsp.enable(${toLuaObject (filter (name: name != "*") (attrNames enabledServers))})
-      '';
+          -- Enable configured LSPs explicitly
+          vim.lsp.enable(${toLuaObject (filter (name: name != "*") (attrNames enabledServers))});
+        '';
     })
   ];
 }

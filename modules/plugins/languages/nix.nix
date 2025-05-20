@@ -2,99 +2,54 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }: let
   inherit (builtins) attrNames;
   inherit (lib) concatStringsSep;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.meta) getExe;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
-  inherit (lib.strings) optionalString;
-  inherit (lib.types) anything attrsOf enum either listOf nullOr package str oneOf;
+  inherit (lib.types) enum package;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
-  inherit (lib.nvim.lua) expToLua toLuaObject;
-  inherit (lib.nvim.languages) lspOptions;
+  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.languages) resolveLspOptions mkLspOption;
 
   cfg = config.vim.languages.nix;
 
-  useFormat = "on_attach = default_on_attach";
-  noFormat = "on_attach = attach_keymaps";
-
-  defaultServer = "nil";
   packageToCmd = package: defaultCmd:
     if isList package
     then expToLua package
     else ''{"${package}/bin/${defaultCmd}"}'';
+
+  formattingCmd = lib.mkIf (cfg.format.enable && cfg.lsp.enable) {
+    formatting = lib.mkMerge [
+      (lib.mkIf (cfg.format.type == "alejandra") {
+        command = ["${cfg.format.package}/bin/alejandra" "--quiet"];
+      })
+      (lib.mkIf (cfg.format.type == "nixfmt") {
+        command = ["${cfg.format.package}/bin/nixfmt"];
+      })
+    ];
+  };
+
+  defaultServers = ["nil_ls"]
   servers = {
-    nil = {
-      package = inputs.nil.packages.${pkgs.stdenv.system}.nil;
-      internalFormatter = true;
-      # lspConfig = ''
-        # lspconfig.nil_ls.setup{
-        #   capabilities = capabilities,
-        # ${
-        #   if cfg.format.enable
-        #   then useFormat
-        #   else noFormat
-        # },
-        #   cmd = ${packageToCmd cfg.lsp.package "nil"},
-        # ${optionalString cfg.format.enable ''
-        #   settings = {
-        #     ["nil"] = {
-        #   ${optionalString (cfg.format.type == "alejandra")
-        #     ''
-        #       formatting = {
-        #         command = {"${cfg.format.package}/bin/alejandra", "--quiet"},
-        #       },
-        #     ''}
-        #   ${optionalString (cfg.format.type == "nixfmt")
-        #     ''
-        #       formatting = {
-        #         command = {"${cfg.format.package}/bin/nixfmt"},
-        #       },
-        #     ''}
-        #     },
-        #   },
-        # ''}
-        # }
-      # '';
+    nil_ls = {
+      enable = true;
+      cmd = ["${pkgs.nil}/bin/nil"];
+      settings = {
+        nil = formattingCmd;
+      };
     };
 
     nixd = {
-      package = pkgs.nixd;
-      internalFormatter = true;
-      # lspConfig = ''
-      #   lspconfig.nixd.setup{
-      #     capabilities = capabilities,
-      #   ${
-      #     if cfg.format.enable
-      #     then useFormat
-      #     else noFormat
-      #   },
-      #     cmd = ${packageToCmd cfg.lsp.package "nixd"},
-      #   ${optionalString cfg.format.enable ''
-      #     settings = {
-      #       nixd = {
-      #     ${optionalString (cfg.format.type == "alejandra")
-      #       ''
-      #         formatting = {
-      #           command = {"${cfg.format.package}/bin/alejandra", "--quiet"},
-      #         },
-      #       ''}
-      #     ${optionalString (cfg.format.type == "nixfmt")
-      #       ''
-      #         formatting = {
-      #           command = {"${cfg.format.package}/bin/nixfmt"},
-      #         },
-      #       ''}
-      #     options = ${toLuaObject cfg.lsp.options},
-      #       },
-      #     },
-      #   ''}
-      #   }
-      # '';
+      enable = true;
+      cmd = ["${pkgs.nixd}/bin/nixd"];
+      settings = {
+        nixd = formattingCmd;
+      };
     };
   };
 
@@ -146,26 +101,9 @@ in {
 
     lsp = {
       enable = mkEnableOption "Nix LSP support" // {default = config.vim.lsp.enable;};
-      server = mkOption {
-        description = "Nix LSP server(s) to use";
-        type = listOf oneOf [
-          (attrsOf lspOptions)
-          (enum (attrNames servers))
-        ];
-        default = defaultServer;
-      };
-
-      package = mkOption {
-        description = "Nix LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
-      };
-
-      options = mkOption {
-        type = nullOr (attrsOf anything);
-        default = null;
-        description = "Options to pass to nixd LSP server";
+      servers = mkLspOption {
+        inherit servers;
+        default = defaultServers;
       };
     };
 
@@ -206,13 +144,6 @@ in {
             ${concatStringsSep ", " (attrNames formats)}
           '';
         }
-        {
-          assertion = cfg.lsp.server != "rnix";
-          message = ''
-            rnix-lsp has been archived upstream. Please use one of the following available language servers:
-            ${concatStringsSep ", " (attrNames servers)}
-          '';
-        }
       ];
     }
 
@@ -222,10 +153,15 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers = cfg.lsp.server;
+      # TODO: Map this to include lspconfig stuff so that we can do
+      vim.lsp.servers = resolveLspOptions {
+        inherit servers;
+        selected = cfg.lsp.servers;
+      };
     })
 
-    (mkIf (cfg.format.enable && (!cfg.lsp.enable || !servers.${cfg.lsp.server}.internalFormatter)) {
+    # TODO: Figure out what do here. This is not necessarily correct as other lsps might not have formatting by default
+    (mkIf (cfg.format.enable && !cfg.lsp.enable) {
       vim.formatter.conform-nvim = {
         enable = true;
         setupOpts.formatters_by_ft.nix = [cfg.format.type];
