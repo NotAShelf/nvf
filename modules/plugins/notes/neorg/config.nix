@@ -7,6 +7,7 @@
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.binds) pushDownDefault;
   inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.trivial) warnIf;
 
   cfg = config.vim.notes.neorg;
 in {
@@ -34,9 +35,12 @@ in {
     }
 
     # TODO: build the grammars within an overlay or something
-    # (mkIf cfg.treesitter.enable {
-    #   vim.treesitter.enable = true;
-    #   vim.treesitter.grammars = [cfg.treesitter.norgPackage];
-    # })
+    (warnIf (cfg.treesitter.enable) ''
+      the Neorg treesitter package has been removed from nixpkgs.
+      Until we find a solution, you can add it under vim.treesitter.grammars'')
+    (mkIf cfg.treesitter.enable {
+      vim.treesitter.enable = true;
+      # vim.treesitter.grammars = [cfg.treesitter.norgPackage];
+    })
   ]);
 }
