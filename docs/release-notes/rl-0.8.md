@@ -413,4 +413,5 @@
 [clojure-lsp]: https://github.com/clojure-lsp/clojure-lsp
 [conjure]: https://github.com/Olical/conjure
 
-- Add Clojure support under `vim.languages.clojure` using [clojure-lsp] and [conjure].
+- Add Clojure support under `vim.languages.clojure` using [clojure-lsp]
+- Add code evaluation environment [conjure] under `vim.repl.conjure`
