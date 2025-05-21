@@ -42,9 +42,10 @@ in {
       };
     };
 
-    treesitter = {
-      enable = mkEnableOption "Neorg treesitter" // {default = config.vim.languages.enableTreesitter;};
-      norgPackage = mkGrammarOption pkgs "norg";
-    };
+    # TODO: reimplement now that the grammars are no longer in nixpkgs
+    # treesitter = {
+    #   enable = mkEnableOption "Neorg treesitter" // {default = config.vim.languages.enableTreesitter;};
+    #   norgPackage = mkGrammarOption pkgs "norg";
+    # };
   };
 }

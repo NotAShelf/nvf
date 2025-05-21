@@ -33,9 +33,10 @@ in {
       };
     }
 
-    (mkIf cfg.treesitter.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.norgPackage];
-    })
+    # TODO: build the grammars within an overlay or something
+    # (mkIf cfg.treesitter.enable {
+    #   vim.treesitter.enable = true;
+    #   vim.treesitter.grammars = [cfg.treesitter.norgPackage];
+    # })
   ]);
 }
