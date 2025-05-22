@@ -6,15 +6,14 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib) concatStringsSep;
-  inherit (lib.generators) mkLuaInline;
   inherit (lib.meta) getExe;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
-  inherit (lib.types) enum package;
+  inherit (lib.types) enum package listOf;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.languages) resolveLspOptions mkLspOption;
 
   cfg = config.vim.languages.nix;
 
@@ -23,18 +22,18 @@
     then expToLua package
     else ''{"${package}/bin/${defaultCmd}"}'';
 
-  formattingCmd = lib.mkIf (cfg.format.enable && cfg.lsp.enable) {
-    formatting = lib.mkMerge [
-      (lib.mkIf (cfg.format.type == "alejandra") {
+  formattingCmd = mkIf (cfg.format.enable && cfg.lsp.enable) {
+    formatting = mkMerge [
+      (mkIf (cfg.format.type == "alejandra") {
         command = ["${cfg.format.package}/bin/alejandra" "--quiet"];
       })
-      (lib.mkIf (cfg.format.type == "nixfmt") {
+      (mkIf (cfg.format.type == "nixfmt") {
         command = ["${cfg.format.package}/bin/nixfmt"];
       })
     ];
   };
 
-  defaultServers = ["nil_ls"]
+  defaultServers = ["nil_ls"];
   servers = {
     nil_ls = {
       enable = true;
@@ -101,9 +100,11 @@ in {
 
     lsp = {
       enable = mkEnableOption "Nix LSP support" // {default = config.vim.lsp.enable;};
-      servers = mkLspOption {
-        inherit servers;
+      servers = mkOption {
+        description = "Nix LSP server to use";
+        type = listOf (enum (attrNames servers));
         default = defaultServers;
+        example = ["nixd"];
       };
     };
 
@@ -153,14 +154,14 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      # TODO: Map this to include lspconfig stuff so that we can do
-      vim.lsp.servers = resolveLspOptions {
-        inherit servers;
-        selected = cfg.lsp.servers;
-      };
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
 
-    # TODO: Figure out what do here. This is not necessarily correct as other lsps might not have formatting by default
     (mkIf (cfg.format.enable && !cfg.lsp.enable) {
       vim.formatter.conform-nvim = {
         enable = true;
