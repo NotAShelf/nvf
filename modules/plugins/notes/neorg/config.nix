@@ -35,10 +35,13 @@ in {
     }
 
     # TODO: build the grammars within an overlay or something
-    (warnIf (cfg.treesitter.enable) ''
-      the Neorg treesitter package has been removed from nixpkgs.
-      Until we find a solution, you can add it under vim.treesitter.grammars'')
     (mkIf cfg.treesitter.enable {
+      warnings = [
+        ''
+          the Neorg treesitter package has been removed from nixpkgs.
+          Until we find a solution, you can add it under vim.treesitter.grammars
+        ''
+      ];
       vim.treesitter.enable = true;
       # vim.treesitter.grammars = [cfg.treesitter.norgPackage];
     })
