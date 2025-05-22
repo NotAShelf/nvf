@@ -9,27 +9,18 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.lists) isList;
-  inherit (lib.types) bool enum either package listOf str nullOr;
-  inherit (lib.nvim.lua) expToLua toLuaObject;
+  inherit (lib.types) bool enum package listOf str nullOr;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) diagnostics mkGrammarOption mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.markdown;
-  defaultServer = "marksman";
+  defaultServers = ["marksman"];
   servers = {
     marksman = {
-      package = pkgs.marksman;
-      lspConfig = ''
-        lspconfig.marksman.setup{
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/marksman", "server"}''
-        },
-        }
-      '';
+      enable = true;
+      cmd = ["${pkgs.marksman}/bin/marksman" "server"];
     };
   };
 
@@ -69,17 +60,10 @@ in {
     lsp = {
       enable = mkEnableOption "Enable Markdown LSP support" // {default = config.vim.lsp.enable;};
 
-      server = mkOption {
-        type = enum (attrNames servers);
-        default = defaultServer;
+      servers = mkOption {
         description = "Markdown LSP server to use";
-      };
-
-      package = mkOption {
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
-        example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
-        description = "Markdown LSP server package, or the command to run as a list of strings";
+        type = listOf (enum (attrNames servers));
+        default = defaultServers;
       };
     };
 
@@ -161,8 +145,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.markdown-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
 
     (mkIf cfg.format.enable {
