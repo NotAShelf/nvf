@@ -10,7 +10,7 @@
   cfg = config.vim.repl.conjure;
 in {
   options.vim.repl.conjure = {
-    enable = mkEnableOption "Whether to enable Conjure";
+    enable = mkEnableOption "Conjure";
   };
 
   config = mkIf cfg.enable {
