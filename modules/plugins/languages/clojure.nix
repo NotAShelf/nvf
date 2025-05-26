@@ -25,9 +25,9 @@ in {
     lsp = {
       enable = mkEnableOption "Clojure LSP support" // {default = config.vim.lsp.enable;};
       package = mkOption {
-        description = "Clojure LSP";
         type = either package (listOf str);
         default = pkgs.clojure-lsp;
+        description = "Clojure LSP";
       };
     };
   };
