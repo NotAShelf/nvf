@@ -140,7 +140,7 @@ in {
     (mkIf (cfg.lsp.enable || cfg.dap.enable) {
       vim = {
         startPlugins = ["rustaceanvim"];
-
+        extraPackages = [pkgs.rustfmt];
         pluginRC.rustaceanvim = entryAfter ["lsp-setup"] ''
           vim.g.rustaceanvim = {
           ${optionalString cfg.lsp.enable ''
