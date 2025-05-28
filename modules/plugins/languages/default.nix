@@ -38,6 +38,7 @@ in {
     ./terraform.nix
     ./ts.nix
     ./typst.nix
+    ./verilog.nix
     ./zig.nix
     ./csharp.nix
     ./julia.nix
