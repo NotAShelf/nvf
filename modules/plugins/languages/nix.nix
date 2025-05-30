@@ -41,6 +41,8 @@
       settings = {
         nil = formattingCmd;
       };
+      filetypes = ["nix"];
+      root_markers = [".git" "flake.nix"];
     };
 
     nixd = {
@@ -49,6 +51,8 @@
       settings = {
         nixd = formattingCmd;
       };
+      filetypes = ["nix"];
+      root_markers = [".git" "flake.nix"];
     };
   };
 

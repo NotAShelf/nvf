@@ -20,7 +20,9 @@
   servers = {
     marksman = {
       enable = true;
-      cmd = ["${pkgs.marksman}/bin/marksman" "server"];
+      cmd = [(getExe pkgs.marksman) "server"];
+      filetypes = ["markdown" "markdown.mdx"];
+      root_markers = [".marksman.toml" ".git"];
     };
   };
 
