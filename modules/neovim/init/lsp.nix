@@ -82,7 +82,6 @@ in {
 
     (mkIf (cfg.servers != {}) {
       # Enable lspconfig in order to merge in the predefined opts
-      vim.lsp.lspconfig.enable = true;
       vim.luaConfigRC.lsp-servers = entryAnywhere ''
         -- Individual LSP configurations managed by nvf.
         ${concatLines lspConfigurations}
