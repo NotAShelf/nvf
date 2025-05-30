@@ -11,7 +11,7 @@
   inherit (lib.attrsets) mapAttrsToList attrNames filterAttrs;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.languages) lspOptions;
-  inherit (lib.nvim.dag) entryAfter;
+  inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.lsp;
@@ -83,7 +83,7 @@ in {
     (mkIf (cfg.servers != {}) {
       # Enable lspconfig in order to merge in the predefined opts
       vim.lsp.lspconfig.enable = true;
-      vim.luaConfigRC.lsp-servers = entryAfter ["lspconfig"] ''
+      vim.luaConfigRC.lsp-servers = entryAnywhere ''
         -- Individual LSP configurations managed by nvf.
         ${concatLines lspConfigurations}
 
