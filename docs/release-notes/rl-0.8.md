@@ -415,3 +415,7 @@
 
 - Add Clojure support under `vim.languages.clojure` using [clojure-lsp]
 - Add code evaluation environment [conjure] under `vim.repl.conjure`
+
+[BarryLabs](https://github.com/BarryLabs):
+
+- Correct treesitter parser packages & builder.
