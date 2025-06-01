@@ -9,18 +9,11 @@
   inherit (lib.meta) getExe;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
   inherit (lib.types) enum package listOf;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
   inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.lua) expToLua;
 
   cfg = config.vim.languages.nix;
-
-  packageToCmd = package: defaultCmd:
-    if isList package
-    then expToLua package
-    else ''{"${package}/bin/${defaultCmd}"}'';
 
   formattingCmd = mkIf (cfg.format.enable && cfg.lsp.enable) {
     formatting = mkMerge [
@@ -37,7 +30,7 @@
   servers = {
     nil_ls = {
       enable = true;
-      cmd = ["${pkgs.nil}/bin/nil"];
+      cmd = [(getExe pkgs.nil)];
       settings = {
         nil = formattingCmd;
       };
@@ -47,7 +40,7 @@
 
     nixd = {
       enable = true;
-      cmd = ["${pkgs.nixd}/bin/nixd"];
+      cmd = [(getExe pkgs.nixd)];
       settings = {
         nixd = formattingCmd;
       };
