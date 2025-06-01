@@ -9,6 +9,7 @@ in {
     ./cue.nix
     ./dart.nix
     ./clang.nix
+    ./clojure.nix
     ./css.nix
     ./elixir.nix
     ./fsharp.nix

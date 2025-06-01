@@ -33,6 +33,7 @@
       "minimap"
       "notes"
       "projects"
+      "repl"
       "rich-presence"
       "runner"
       "session"
