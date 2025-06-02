@@ -415,3 +415,8 @@
 
 - Add Clojure support under `vim.languages.clojure` using [clojure-lsp]
 - Add code evaluation environment [conjure] under `vim.repl.conjure`
+
+[theutz](https://github.com/theutz):
+
+- Added "auto" flavour for catppuccin theme
+

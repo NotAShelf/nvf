@@ -4,10 +4,6 @@ Release notes for release 0.5
 
 ## Changelog {#sec-release-0.5-changelog}
 
-[theutz](https://github.com/theutz):
-
-- Added "auto" flavour for catppuccin theme
-
 [vagahbond](https://github.com/vagahbond):
 
 - Added phan language server for PHP
