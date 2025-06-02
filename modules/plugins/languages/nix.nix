@@ -101,7 +101,6 @@ in {
         description = "Nix LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        example = ["nixd"];
       };
     };
 
