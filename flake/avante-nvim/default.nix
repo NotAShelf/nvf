@@ -45,6 +45,21 @@ in
     pname = "avante-nvim";
     inherit version src;
 
+    dependencies =
+      [vimPlugins.nvim-treesitter]
+      ++ (builtins.map (name: let
+        pin = pins.${name};
+      in
+        pkgs.fetchFromGitHub {
+          inherit (pin.repository) owner repo;
+          rev = pin.revision;
+          sha256 = pin.hash;
+        }) [
+        "dressing-nvim"
+        "plenary-nvim"
+        "nui-nvim"
+      ]);
+
     postInstall = let
       ext = stdenv.hostPlatform.extensions.sharedLibrary;
     in ''
