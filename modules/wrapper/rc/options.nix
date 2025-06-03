@@ -11,7 +11,7 @@ in {
       description = ''
         [official documentation]: https://neovim.io/doc/user/lua.html#vim.loader.enable()
 
-        Whethere to enable the experimental Lua module loader to speed up the start
+        Whether to enable the experimental Lua module loader to speed up the start
         up process. If `true`, this will enable the experimental Lua module loader
         which:
 
