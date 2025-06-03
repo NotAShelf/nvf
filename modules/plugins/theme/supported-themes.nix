@@ -21,9 +21,14 @@ in {
     '';
   };
   onedark = {
-    setup = {style ? "dark", ...}: ''
+    setup = {
+      style ? "dark",
+      transparent,
+      ...
+    }: ''
       -- OneDark theme
       require('onedark').setup {
+        transparent = ${boolToString transparent},
         style = "${style}"
       }
       require('onedark').load()

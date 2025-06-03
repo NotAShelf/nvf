@@ -418,3 +418,8 @@
 
 - Add Clojure support under `vim.languages.clojure` using [clojure-lsp]
 - Add code evaluation environment [conjure] under `vim.repl.conjure`
+
+[CallumGilly](https://github.com/CallumGilly):
+
+- Add missing `transparent` option for existing
+  [onedark.nvim](https://github.com/navarasu/onedark.nvim) theme.
