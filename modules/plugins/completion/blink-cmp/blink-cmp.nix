@@ -48,7 +48,7 @@ in {
       cmdline = {
         sources = mkOption {
           type = nullOr (listOf str);
-          default = [];
+          default = null;
           description = "List of sources to enable for cmdline. Null means use default source list.";
         };
 
