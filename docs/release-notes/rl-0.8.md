@@ -423,3 +423,7 @@
 
 - Add missing `transparent` option for existing
   [onedark.nvim](https://github.com/navarasu/onedark.nvim) theme.
+  
+[theutz](https://github.com/theutz):
+
+- Added "auto" flavour for catppuccin theme
