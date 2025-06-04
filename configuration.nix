@@ -18,12 +18,16 @@ isMaximal: {
     };
 
     lsp = {
+      # This must be enabled for the language modules to hook into
+      # the LSP API.
+      enable = true;
+
       formatOnSave = true;
       lspkind.enable = false;
       lightbulb.enable = true;
       lspsaga.enable = false;
       trouble.enable = true;
-      lspSignature.enable = true;
+      lspSignature.enable = !isMaximal; # conflicts with blink in maximal
       otter-nvim.enable = isMaximal;
       nvim-docs-view.enable = isMaximal;
     };
@@ -38,8 +42,7 @@ isMaximal: {
     # This section does not include a comprehensive list of available language modules.
     # To list all available language module options, please visit the nvf manual.
     languages = {
-      enableLSP = true;
-      enableFormat = true;
+      enableFormat = true; #
       enableTreesitter = true;
       enableExtraDiagnostics = true;
 
@@ -124,7 +127,15 @@ isMaximal: {
 
     autopairs.nvim-autopairs.enable = true;
 
-    autocomplete.nvim-cmp.enable = true;
+    # nvf provides various autocomplete options. The tried and tested nvim-cmp
+    # is enabled in default package, because it does not trigger a build. We
+    # enable blink-cmp in maximal because it needs to build its rust fuzzy
+    # matcher library.
+    autocomplete = {
+      nvim-cmp.enable = !isMaximal;
+      blink-cmp.enable = isMaximal;
+    };
+
     snippets.luasnip.enable = true;
 
     filetree = {
@@ -142,6 +153,7 @@ isMaximal: {
     binds = {
       whichKey.enable = true;
       cheatsheet.enable = true;
+      hardtime-nvim.enable = isMaximal;
     };
 
     telescope.enable = true;
@@ -187,6 +199,7 @@ isMaximal: {
       };
       images = {
         image-nvim.enable = false;
+        img-clip.enable = isMaximal;
       };
     };
 
@@ -235,6 +248,7 @@ isMaximal: {
         cmp.enable = isMaximal;
       };
       codecompanion-nvim.enable = false;
+      avante-nvim.enable = isMaximal;
     };
 
     session = {

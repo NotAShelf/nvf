@@ -10,7 +10,7 @@
     freeformType = attrsOf (listOf (either str luaInline));
     options = {
       preset = mkOption {
-        type = enum ["default" "none" "super-tab" "enter"];
+        type = enum ["default" "none" "super-tab" "enter" "cmdline"];
         default = "none";
         description = "keymap presets";
       };
@@ -48,7 +48,7 @@ in {
       cmdline = {
         sources = mkOption {
           type = nullOr (listOf str);
-          default = [];
+          default = null;
           description = "List of sources to enable for cmdline. Null means use default source list.";
         };
 

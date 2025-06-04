@@ -169,7 +169,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Python LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Python LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "Python LSP server to use";

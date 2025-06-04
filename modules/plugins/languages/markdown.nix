@@ -67,7 +67,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Enable Markdown LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Enable Markdown LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         type = enum (attrNames servers);
@@ -130,6 +130,18 @@ in {
           };
         };
       };
+      markview-nvim = {
+        enable =
+          mkEnableOption ""
+          // {
+            description = ''
+              [markview.nvim]: https://github.com/OXY2DEV/markview.nvim
+
+              [markview.nvim] - a hackable markdown, Typst, latex, html(inline) & YAML previewer
+            '';
+          };
+        setupOpts = mkPluginSetupOption "markview-nvim" {};
+      };
     };
 
     extraDiagnostics = {
@@ -172,6 +184,13 @@ in {
       vim.startPlugins = ["render-markdown-nvim"];
       vim.pluginRC.render-markdown-nvim = entryAnywhere ''
         require("render-markdown").setup(${toLuaObject cfg.extensions.render-markdown-nvim.setupOpts})
+      '';
+    })
+
+    (mkIf cfg.extensions.markview-nvim.enable {
+      vim.startPlugins = ["markview-nvim"];
+      vim.pluginRC.markview-nvim = entryAnywhere ''
+        require("markview").setup(${toLuaObject cfg.extensions.markview-nvim.setupOpts})
       '';
     })
 

@@ -6,6 +6,7 @@
 }: let
   inherit (lib.generators) mkLuaInline;
   inherit (lib.modules) mkIf;
+  inherit (lib.lists) optional;
   inherit (lib.strings) optionalString;
   inherit (lib.trivial) boolToString;
   inherit (lib.nvim.binds) addDescriptionsToMappings;
@@ -14,7 +15,10 @@
   usingNvimCmp = config.vim.autocomplete.nvim-cmp.enable;
   usingBlinkCmp = config.vim.autocomplete.blink-cmp.enable;
   self = import ./module.nix {inherit config lib pkgs;};
+  conformCfg = config.vim.formatter.conform-nvim;
+  conformFormatOnSave = conformCfg.enable && conformCfg.setupOpts.format_on_save != null;
 
+  augroup = "nvf_lsp";
   mappingDefinitions = self.options.vim.lsp.mappings;
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
   mkBinding = binding: action:
@@ -29,24 +33,59 @@ in {
         sourcePlugins = ["cmp-nvim-lsp"];
       };
 
+      augroups = [{name = augroup;}];
       autocmds =
-        if cfg.inlayHints.enable
-        then [
-          {
-            callback = mkLuaInline ''
-              function(event)
-                local bufnr = event.buf
-                local client = vim.lsp.get_client_by_id(event.data.client_id)
-                if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-                  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+        (optional cfg.inlayHints.enable {
+          group = augroup;
+          event = ["LspAttach"];
+          desc = "LSP on-attach enable inlay hints autocmd";
+          callback = mkLuaInline ''
+            function(event)
+              local bufnr = event.buf
+              local client = vim.lsp.get_client_by_id(event.data.client_id)
+              if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+              end
+            end
+          '';
+        })
+        ++ (optional (!conformFormatOnSave) {
+          group = augroup;
+          event = ["BufWritePre"];
+          desc = "LSP on-attach create format on save autocmd";
+          callback = mkLuaInline ''
+            function(ev)
+              if vim.b.disableFormatSave or not vim.g.formatsave then
+                return
+              end
+
+              local bufnr = ev.buf
+
+              ${optionalString cfg.null-ls.enable ''
+              -- prefer null_ls formatter
+              do
+                local clients = vim.lsp.get_clients({
+                  bufnr = bufnr,
+                  name = "null-ls",
+                  method = "textDocument/formatting",
+                })
+                if clients[1] then
+                  vim.lsp.buf.format({ bufnr = bufnr, id = clients[1].id })
+                  return
                 end
               end
-            '';
-            desc = "LSP on-attach enable inlay hints autocmd";
-            event = ["LspAttach"];
-          }
-        ]
-        else [];
+            ''}
+
+              local clients = vim.lsp.get_clients({
+                bufnr = bufnr,
+                method = "textDocument/formatting",
+              })
+              if clients[1] then
+                vim.lsp.buf.format({ bufnr = bufnr, id = clients[1].id })
+              end
+            end
+          '';
+        });
 
       pluginRC.lsp-setup = ''
         vim.g.formatsave = ${boolToString cfg.formatOnSave};
@@ -74,60 +113,9 @@ in {
           ${mkBinding mappings.toggleFormatOnSave "function() vim.b.disableFormatSave = not vim.b.disableFormatSave end"}
         end
 
-        -- Enable formatting
-        local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
-        format_callback = function(client, bufnr)
-          if vim.g.formatsave then
-            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-            vim.api.nvim_create_autocmd("BufWritePre", {
-              group = augroup,
-              buffer = bufnr,
-              callback = function()
-                ${
-          if config.vim.lsp.null-ls.enable
-          then ''
-            if vim.b.disableFormatSave then
-              return
-            end
-
-            local function is_null_ls_formatting_enabled(bufnr)
-                local file_type = vim.api.nvim_buf_get_option(bufnr, "filetype")
-                local generators = require("null-ls.generators").get_available(
-                    file_type,
-                    require("null-ls.methods").internal.FORMATTING
-                )
-                return #generators > 0
-            end
-
-            if is_null_ls_formatting_enabled(bufnr) then
-               vim.lsp.buf.format({
-                  bufnr = bufnr,
-                  filter = function(client)
-                    return client.name == "null-ls"
-                  end
-                })
-            else
-                vim.lsp.buf.format({
-                  bufnr = bufnr,
-                })
-            end
-          ''
-          else "
-              vim.lsp.buf.format({
-                bufnr = bufnr,
-              })
-        "
-        }
-              end,
-            })
-          end
-        end
-
         ${optionalString config.vim.ui.breadcrumbs.enable ''local navic = require("nvim-navic")''}
         default_on_attach = function(client, bufnr)
           attach_keymaps(client, bufnr)
-          format_callback(client, bufnr)
           ${optionalString config.vim.ui.breadcrumbs.enable ''
           -- let navic attach to buffers
           if client.server_capabilities.documentSymbolProvider then
@@ -138,6 +126,7 @@ in {
 
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         ${optionalString usingNvimCmp ''
+          -- TODO(horriblename): migrate to vim.lsp.config['*']
           -- HACK: copied from cmp-nvim-lsp. If we ever lazy load lspconfig we
           -- should re-evaluate whether we can just use `default_capabilities`
           capabilities = {

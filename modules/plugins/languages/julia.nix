@@ -78,7 +78,7 @@ in {
       lsp = {
         enable = mkOption {
           type = bool;
-          default = config.vim.languages.enableLSP;
+          default = config.vim.lsp.enable;
           description = ''
             Whether to enable Julia LSP support.
 

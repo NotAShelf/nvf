@@ -7,23 +7,20 @@
 }: let
   inherit (pkgs) vimPlugins;
   inherit (lib.trivial) flip;
-  inherit (builtins) path filter isString;
+  inherit (builtins) filter isString;
 
   getPin = name: ((pkgs.callPackages ../../../npins/sources.nix {}) // config.vim.pluginOverrides).${name};
 
   noBuildPlug = pname: let
     pin = getPin pname;
-    version = pin.revision or "dirty";
-  in {
-    # vim.lazy.plugins relies on pname, so we only set that here
-    # version isn't needed for anything, but inherit it anyway for correctness
-    inherit pname version;
-    outPath = path {
-      name = "${pname}-0-unstable-${version}";
-      path = pin.outPath;
+    version = builtins.substring 0 8 pin.revision;
+  in
+    pin.outPath.overrideAttrs {
+      inherit pname version;
+      name = "${pname}-${version}";
+
+      passthru.vimPlugin = false;
     };
-    passthru.vimPlugin = false;
-  };
 
   # build a vim plugin with the given name and arguments
   # if the plugin is nvim-treesitter, warn the user to use buildTreesitterPlug
@@ -51,7 +48,7 @@
       doCheck = false;
     };
 
-    inherit (inputs.self.legacyPackages.${pkgs.stdenv.system}) blink-cmp;
+    inherit (inputs.self.packages.${pkgs.stdenv.system}) blink-cmp avante-nvim;
   };
 
   buildConfigPlugins = plugins:
@@ -62,17 +59,14 @@
       filter (f: f != null) plugins
     );
 
-  # built (or "normalized") plugins that are modified
-  builtStartPlugins = buildConfigPlugins config.vim.startPlugins;
-  builtOptPlugins = map (package: package // {optional = true;}) (
-    buildConfigPlugins config.vim.optPlugins
-  );
-
   # Wrap the user's desired (unwrapped) Neovim package with arguments that'll be used to
   # generate a wrapped Neovim package.
-  neovim-wrapped = inputs.mnw.lib.wrap pkgs {
+  neovim-wrapped = inputs.mnw.lib.wrap {inherit pkgs;} {
     neovim = config.vim.package;
-    plugins = builtStartPlugins ++ builtOptPlugins;
+    plugins = {
+      start = buildConfigPlugins config.vim.startPlugins;
+      opt = buildConfigPlugins config.vim.optPlugins;
+    };
     appName = "nvf";
     extraBinPath = config.vim.extraPackages;
     initLua = config.vim.builtLuaConfigRC;

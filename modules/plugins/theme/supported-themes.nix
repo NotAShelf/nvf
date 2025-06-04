@@ -21,9 +21,14 @@ in {
     '';
   };
   onedark = {
-    setup = {style ? "dark", ...}: ''
+    setup = {
+      style ? "dark",
+      transparent,
+      ...
+    }: ''
       -- OneDark theme
       require('onedark').setup {
+        transparent = ${boolToString transparent},
         style = "${style}"
       }
       require('onedark').load()
@@ -95,7 +100,7 @@ in {
       -- setup must be called before loading
       vim.cmd.colorscheme "catppuccin"
     '';
-    styles = ["latte" "frappe" "macchiato" "mocha"];
+    styles = ["auto" "latte" "frappe" "macchiato" "mocha"];
   };
 
   oxocarbon = {
@@ -211,5 +216,18 @@ in {
       vim.cmd[[colorscheme github_${style}]]
     '';
     styles = ["dark" "light" "dark_dimmed" "dark_default" "light_default" "dark_high_contrast" "light_high_contrast" "dark_colorblind" "light_colorblind" "dark_tritanopia" "light_tritanopia"];
+  };
+  solarized-osaka = {
+    setup = {transparent ? false, ...}: ''
+      require("solarized-osaka").setup({
+        transparent = ${boolToString transparent},
+        styles = {
+          comments = { italic = false },
+          keywords = { italic = false },
+        }
+      })
+
+      vim.cmd.colorscheme("solarized-osaka")
+    '';
   };
 }

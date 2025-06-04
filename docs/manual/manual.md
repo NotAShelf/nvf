@@ -8,7 +8,6 @@ try-it-out.md
 ```
 
 ```{=include=} parts
-default-configs.md
 installation.md
 configuring.md
 tips.md

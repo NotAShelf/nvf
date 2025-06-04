@@ -33,7 +33,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Scala LSP support (metals)" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Scala LSP support (metals)" // {default = config.vim.lsp.enable;};
       package = mkPackageOption pkgs "metals" {
         default = ["metals"];
       };

@@ -53,7 +53,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Elixir LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Elixir LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "Elixir LSP server to use";
