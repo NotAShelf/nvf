@@ -48,7 +48,7 @@
       doCheck = false;
     };
 
-    inherit (inputs.self.packages.${pkgs.stdenv.system}) blink-cmp;
+    inherit (inputs.self.packages.${pkgs.stdenv.system}) blink-cmp avante-nvim;
   };
 
   buildConfigPlugins = plugins:

@@ -248,6 +248,7 @@ isMaximal: {
         cmp.enable = isMaximal;
       };
       codecompanion-nvim.enable = false;
+      avante-nvim.enable = isMaximal;
     };
 
     session = {
