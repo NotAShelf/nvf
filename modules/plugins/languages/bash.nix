@@ -13,6 +13,7 @@
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) diagnostics mkGrammarOption;
   inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.bash;
 
