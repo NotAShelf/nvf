@@ -62,7 +62,7 @@ in {
       };
 
       cmd = mkOption {
-        type = nullOr (listOf (oneOf [str luaInline]));
+        type = nullOr (either luaInline (listOf str));
         default = null;
         description = "Command used to start the LSP server";
       };
