@@ -11,27 +11,69 @@
 
   getPin = name: ((pkgs.callPackages ../../../npins/sources.nix {}) // config.vim.pluginOverrides).${name};
 
+  # HACK: this is so fucking ass someone please rewrite this
   noBuildPlug = pname: let
     pin = getPin pname;
-    version = builtins.substring 0 8 pin.revision;
+    pinVersion = builtins.substring 0 8 pin.revision;
+    drvVersion =
+      pin.version or (
+        if pin ? rev
+        then builtins.substring 0 8 pin.rev
+        else "dirty"
+      );
   in
-    pin.outPath.overrideAttrs {
-      inherit pname version;
-      name = "${pname}-${version}";
+    if pin ? type && pin.type == "derivation"
+    then # a derivation, hopefully from a fetcher
+      pin.overrideAttrs {
+        inherit pname;
+        version = drvVersion;
+        # the name from various fetchers tend to be "source"
+        name = "${pname}-${drvVersion}";
 
-      passthru.vimPlugin = false;
-    };
+        passthru.vimPlugin = false;
+      }
+    else if pin ? type
+    then # npins source
+      # there's a set list of possible values for pin.type so maybe I should
+      # check that
+      pin.outPath.overrideAttrs {
+        inherit pname;
+        version = pinVersion;
+        name = "${pname}-${pinVersion}";
+
+        passthru.vimPlugin = false;
+      }
+    else # flake inputs with flake=false are not derivations
+      # should I detect bad inputs? maybe, but I have no fucking clue what I'm
+      # doing here
+      # Is this how you normally do a no-build? idfk
+      pkgs.stdenv.mkDerivation {
+        inherit pname;
+        version = pin.rev or "dirty";
+        src = pin;
+        dontBuild = true;
+        installPhase = ''
+          cp -r . $out
+        '';
+
+        passthru.vimPlugin = false;
+      };
 
   # build a vim plugin with the given name and arguments
-  # if the plugin is nvim-treesitter, warn the user to use buildTreesitterPlug
-  # instead
   buildPlug = attrs: let
     pin = getPin attrs.pname;
+    src =
+      if pin ? type -> pin.type == "derivation"
+      # derivation or flake input, I hope
+      then pin
+      # npins source
+      else pin.outPath;
   in
     pkgs.vimUtils.buildVimPlugin (
       {
-        version = pin.revision or "dirty";
-        src = pin.outPath;
+        # pin.revision is for npins, pin.rev for result from fetchers
+        version = pin.revision or pin.rev or "dirty";
+        inherit src;
       }
       // attrs
     );
