@@ -9,12 +9,80 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.strings) optionalString;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption enum attrNames;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) expToLua;
+  inherit (lib.meta) getExe;
+  inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (pkgs) haskellPackages;
 
   cfg = config.vim.languages.haskell;
+
+  defaultServers = ["hls"];
+  servers = {
+    hls = {
+      enable = true;
+      cmd = [(getExe pkgs.haskellPackages.haskell-language-server) "--debug"];
+      filetypes = ["haskell" "lhaskell"];
+      on_attach =
+        mkLuaInline
+        /*
+        lua
+        */
+        ''
+          function(client, bufnr, ht)
+            default_on_attach(client, bufnr, ht)
+            local opts = { noremap = true, silent = true, buffer = bufnr }
+            vim.keymap.set('n', '<localleader>cl', vim.lsp.codelens.run, opts)
+            vim.keymap.set('n', '<localleader>hs', ht.hoogle.hoogle_signature, opts)
+            vim.keymap.set('n', '<localleader>ea', ht.lsp.buf_eval_all, opts)
+            vim.keymap.set('n', '<localleader>rr', ht.repl.toggle, opts)
+            vim.keymap.set('n', '<localleader>rf', function()
+              ht.repl.toggle(vim.api.nvim_buf_get_name(0))
+            end, opts)
+            vim.keymap.set('n', '<localleader>rq', ht.repl.quit, opts)
+          end,
+        '';
+      root_dir =
+        mkLuaInline
+        /*
+        lua
+        */
+        ''
+          function(bufnr, on_dir)
+            local root_pattern = function(...)
+              local patterns = M.tbl_flatten { ... }
+              return function(startpath)
+                startpath = M.strip_archive_subpath(startpath)
+                for _, pattern in ipairs(patterns) do
+                  local match = M.search_ancestors(startpath, function(path)
+                    for _, p in ipairs(vim.fn.glob(table.concat({ escape_wildcards(path), pattern }, '/'), true, true)) do
+                      if vim.uv.fs_stat(p) then
+                        return path
+                      end
+                    end
+                  end)
+
+                  if match ~= nil then
+                    return match
+                  end
+                end
+              end
+            end
+
+            local fname = vim.api.nvim_buf_get_name(bufnr)
+              on_dir(root_pattern('hie.yaml', 'stack.yaml', 'cabal.project', '*.cabal', 'package.yaml')(fname))
+            end
+        '';
+      settings = {
+        haskell = {
+          formattingProvider = "ormolu";
+          cabalFormattingProvider = "cabalfmt";
+        };
+      };
+    };
+  };
 in {
   options.vim.languages.haskell = {
     enable = mkEnableOption "Haskell support";
@@ -25,12 +93,11 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "LSP support for Haskell" // {default = config.vim.lsp.enable;};
-      package = mkOption {
-        description = "Haskell LSP package or command to run the Haskell LSP";
-        example = ''[ (lib.getExe pkgs.haskellPackages.haskell-language-server) "--debug" ]'';
-        default = haskellPackages.haskell-language-server;
-        type = either package (listOf str);
+      enable = mkEnableOption "Haskell LSP support" // {default = config.vim.lsp.enable;};
+      servers = mkOption {
+        description = "Haskell LSP server to use";
+        type = listOf (enum (attrNames servers));
+        default = defaultServers;
       };
     };
 
@@ -52,12 +119,21 @@ in {
       };
     })
 
+    (mkIf cfg.lsp.enable {
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
+    })
+
     (mkIf (cfg.dap.enable || cfg.lsp.enable) {
       vim = {
         startPlugins = ["haskell-tools-nvim"];
         luaConfigRC.haskell-tools-nvim =
           entryAfter
-          ["lsp-setup"]
+          ["lsp-servers"]
           ''
             vim.g.haskell_tools = {
             ${optionalString cfg.lsp.enable ''
@@ -67,25 +143,8 @@ in {
                   enable = true,
                 },
               },
-              hls = {
-                cmd = ${
-                if isList cfg.lsp.package
-                then expToLua cfg.lsp.package
-                else ''{"${cfg.lsp.package}/bin/haskell-language-server-wrapper", "--lsp"}''
-              },
-                on_attach = function(client, bufnr, ht)
-                  default_on_attach(client, bufnr, ht)
-                  local opts = { noremap = true, silent = true, buffer = bufnr }
-                  vim.keymap.set('n', '<localleader>cl', vim.lsp.codelens.run, opts)
-                  vim.keymap.set('n', '<localleader>hs', ht.hoogle.hoogle_signature, opts)
-                  vim.keymap.set('n', '<localleader>ea', ht.lsp.buf_eval_all, opts)
-                  vim.keymap.set('n', '<localleader>rr', ht.repl.toggle, opts)
-                  vim.keymap.set('n', '<localleader>rf', function()
-                    ht.repl.toggle(vim.api.nvim_buf_get_name(0))
-                  end, opts)
-                  vim.keymap.set('n', '<localleader>rq', ht.repl.quit, opts)
-                end,
-              },
+              -- Configured through vim.lsp.config
+              hls = {},
             ''}
             ${optionalString cfg.dap.enable ''
               dap = {

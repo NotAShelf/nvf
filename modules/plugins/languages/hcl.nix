@@ -8,22 +8,19 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) package bool enum;
+  inherit (lib.types) package bool enum listOf;
   inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.hcl;
 
-  defaultServer = "terraform-ls";
+  defaultServers = ["terraform-ls"];
   servers = {
     terraform-ls = {
-      package = pkgs.terraform-ls;
-      lspConfig = ''
-        lspconfig.terraformls.setup {
-          capabilities = capabilities,
-          on_attach=default_on_attach,
-          cmd = {"${lib.getExe cfg.lsp.package}", "serve"},
-        }
-      '';
+      enable = true;
+      cmd = [(getExe pkgs.terraform-ls) "serve"];
+      filetypes = ["terraform" "terraform-vars"];
+      root_markers = [".terraform" ".git"];
     };
   };
 
@@ -43,12 +40,11 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "HCL LSP support (terraform-ls)" // {default = config.vim.lsp.enable;};
-      # TODO: (maybe, is it better?) it would be cooler to use vscode-extensions.hashicorp.hcl probably, shouldn't be too hard
-      package = mkOption {
-        type = package;
-        default = servers.${defaultServer}.package;
-        description = "HCL language server package (terraform-ls)";
+      enable = mkEnableOption "HCL LSP support" // {default = config.vim.lsp.enable;};
+      servers = mkOption {
+        description = "HCL LSP server to use";
+        type = listOf (enum (attrNames servers));
+        default = defaultServers;
       };
     };
 
@@ -93,6 +89,15 @@ in {
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.package];
+    })
+
+    (mkIf cfg.lsp.enable {
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
 
     (mkIf cfg.lsp.enable {
