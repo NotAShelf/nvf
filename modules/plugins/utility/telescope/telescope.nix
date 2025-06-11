@@ -95,42 +95,42 @@
           options = {
             horizontal = {
               prompt_position = mkOption {
-                description = "";
-                type = str;
+                type = enum ["top" "bottom"];
                 default = "top";
+                description = "Where to place prompt window";
               };
 
               preview_width = mkOption {
-                description = "";
                 type = float;
                 default = 0.55;
+                description = "Change the width of Telescope's preview window";
               };
             };
 
             vertical = {
               mirror = mkOption {
-                description = "";
                 type = bool;
                 default = false;
+                description = "Flip the location of the results/prompt and preview windows";
               };
             };
 
             width = mkOption {
-              description = "";
               type = float;
               default = 0.8;
+              description = "How wide to make Telescope's entire layout";
             };
 
             height = mkOption {
-              description = "";
               type = float;
               default = 0.8;
+              description = "How tall to make Telescope's entire layout";
             };
 
             preview_cutoff = mkOption {
-              description = "";
               type = int;
               default = 120;
+              description = "When lines are less than this value, the preview will be disabled";
             };
           };
         };
@@ -145,13 +145,10 @@
       file_ignore_patterns = mkOption {
         type = listOf str;
         default = ["node_modules" "%.git/" "dist/" "build/" "target/" "result/"];
+        description = "File patterns to omit from Telescope results";
       };
 
-      color_devicons = mkOption {
-        type = bool;
-        default = true;
-        description = "Boolean if devicons should be enabled or not.";
-      };
+      color_devicons = mkEnableOption "colored devicons";
 
       path_display = mkOption {
         type = listOf (enum ["hidden" "tail" "absolute" "smart" "shorten" "truncate"]);
@@ -168,7 +165,7 @@
       winblend = mkOption {
         type = int;
         default = 0;
-        description = "pseudo-transparency of keymap hints floating window";
+        description = "Pseudo-transparency of keymap hints floating window";
       };
 
       extensions = mkOption {
