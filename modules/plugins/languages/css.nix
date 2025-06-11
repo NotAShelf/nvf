@@ -42,7 +42,7 @@
   defaultFormat = "prettier";
   formats = {
     prettier = {
-      package = pkgs.nodePackages.prettier;
+      package = pkgs.prettier;
     };
 
     prettierd = {
