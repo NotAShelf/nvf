@@ -37809,6 +37809,118 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.telescope.extensions"></a><a class="term" href="options.html#opt-vim.telescope.extensions"><code class="option">vim.telescope.extensions</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Individual extension configurations containing <span class="strong"><strong>name</strong></span>, <span class="strong"><strong>packages</strong></span> and <span class="strong"><strong>setup</strong></span>
+fields to resolve dependencies, handle <code class="literal">load_extension</code> calls and add the <code class="literal">setup</code>
+table into the <code class="literal">extensions</code> portion of Telescope’s setup table.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+list of (submodule)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">[ ]</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">[
+  {
+    name = &quot;fzf&quot;;
+    packages = [pkgs.vimPlugins.telescope-fzf-native-nvim];
+    setup = {fzf = {fuzzy = true;};};
+  }
+]
+
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_top">
+&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.telescope.extensions._.packages"></a><a class="term" href="options.html#opt-vim.telescope.extensions._.packages"><code class="option">vim.telescope.extensions.*.packages</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Package or packages providing the Telescope extension to be loaded.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+list of (string or package)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">[ ]</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_top">
+&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.telescope.extensions._.name"></a><a class="term" href="options.html#opt-vim.telescope.extensions._.name"><code class="option">vim.telescope.extensions.*.name</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Name of the extension, will be used to load it with a <code class="literal">require</code></p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string</p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_top">
+&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.telescope.extensions._.setup"></a><a class="term" href="options.html#opt-vim.telescope.extensions._.setup"><code class="option">vim.telescope.extensions.*.setup</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Named attribute set to be inserted into Telescope’s extensions table.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+attribute set of anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">{
+  fzf = {
+    fuzzy = true;
+  };
+}
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_top">
+&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.telescope.mappings.buffers"></a><a class="term" href="options.html#opt-vim.telescope.mappings.buffers"><code class="option">vim.telescope.mappings.buffers</code>
   </a>
  </span>
@@ -38319,12 +38431,15 @@ anything</p>
  </span>
 </dt>
 <dd>
-<p>Boolean if devicons should be enabled or not.</p>
+<p>Whether to enable colored devicons.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">true</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
@@ -38362,12 +38477,36 @@ string</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.telescope.setupOpts.defaults.extensions"></a><a class="term" href="options.html#opt-vim.telescope.setupOpts.defaults.extensions"><code class="option">vim.telescope.setupOpts.defaults.extensions</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Attribute set containing per-extension settings for Telescope</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+attribute set of anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_top">
+&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.telescope.setupOpts.defaults.file_ignore_patterns"></a><a class="term" href="options.html#opt-vim.telescope.setupOpts.defaults.file_ignore_patterns"><code class="option">vim.telescope.setupOpts.defaults.file_ignore_patterns</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>A table of lua regex that define the files that should be ignored.</p>
+<p>File patterns to omit from Telescope results</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 list of string</p>
@@ -38423,7 +38562,7 @@ one of “insert”, “normal”</p>
 </dt>
 <dd>
 <p>Determines the default configuration values for layout strategies.
-See telescope.layout for details of the configurations options for
+See <code class="literal">telescope.layout</code> for details of the configurations options for
 each strategy.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
@@ -38448,6 +38587,8 @@ submodule</p>
  </span>
 </dt>
 <dd>
+<p>How tall to make Telescope’s entire layout</p>
+
 <p><span class="emphasis"><em>Type:</em></span>
 floating point number</p>
 
@@ -38470,6 +38611,8 @@ floating point number</p>
  </span>
 </dt>
 <dd>
+<p>Change the width of Telescope’s preview window</p>
+
 <p><span class="emphasis"><em>Type:</em></span>
 floating point number</p>
 
@@ -38492,8 +38635,10 @@ floating point number</p>
  </span>
 </dt>
 <dd>
+<p>Where to place prompt window</p>
+
 <p><span class="emphasis"><em>Type:</em></span>
-string</p>
+one of “top”, “bottom”</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">&quot;top&quot;</code></p>
@@ -38514,6 +38659,8 @@ string</p>
  </span>
 </dt>
 <dd>
+<p>When lines are less than this value, the preview will be disabled</p>
+
 <p><span class="emphasis"><em>Type:</em></span>
 signed integer</p>
 
@@ -38536,6 +38683,8 @@ signed integer</p>
  </span>
 </dt>
 <dd>
+<p>Flip the location of the results/prompt and preview windows</p>
+
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
 
@@ -38558,6 +38707,8 @@ boolean</p>
  </span>
 </dt>
 <dd>
+<p>How wide to make Telescope’s entire layout</p>
+
 <p><span class="emphasis"><em>Type:</em></span>
 floating point number</p>
 
@@ -38611,6 +38762,33 @@ list of (one of “hidden”, “tail”, “absolute”, “smart”, “shorte
 
 <p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
   &quot;absolute&quot;
+]
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_top">
+&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.telescope.setupOpts.defaults.pickers.find_command"></a><a class="term" href="options.html#opt-vim.telescope.setupOpts.defaults.pickers.find_command"><code class="option">vim.telescope.setupOpts.defaults.pickers.find_command</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Command to use for finding files. If using an executable from <code class="envar">PATH</code> then you must
+make sure that the package is available in <a class="xref" href="options.html#opt-vim.extraPackages"  ><code class="option">vim.extraPackages</code></a>.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+(list of string) or (luaInline)</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
+  &quot;\${pkgs.fd}/bin/fd&quot;
 ]
 </code></pre>
 
@@ -38787,7 +38965,7 @@ list of string</p>
  </span>
 </dt>
 <dd>
-<p>pseudo-transparency of keymap hints floating window</p>
+<p>Pseudo-transparency of keymap hints floating window</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 signed integer</p>
