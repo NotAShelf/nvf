@@ -164,7 +164,7 @@ in {
       package = mkOption {
         description = "Python treesitter grammar to use";
         type = package;
-        default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.python;
+        default = pkgs.tree-sitter-grammars.tree-sitter-python;
       };
     };
 
