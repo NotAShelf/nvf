@@ -12,7 +12,7 @@
   cfg = config.vim.ui.noice;
   tscfg = config.vim.treesitter;
 
-  defaultGrammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [vim regex lua bash markdown];
+  defaultGrammars = with pkgs.tree-sitter-grammars; [tree-sitter-vim tree-sitter-regex tree-sitter-lua tree-sitter-bash tree-sitter-markdown];
 in {
   config = mkIf cfg.enable {
     vim = {
