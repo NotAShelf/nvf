@@ -427,3 +427,9 @@
 [theutz](https://github.com/theutz):
 
 - Added "auto" flavour for catppuccin theme
+
+[lackac](https://github.com/lackac):
+
+[solarized.nvim]: https://github.com/maxmx03/solarized.nvim
+
+- Add [solarized.nvim] theme with support for multiple variants

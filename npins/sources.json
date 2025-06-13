@@ -2261,6 +2261,22 @@
       "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/v2.22.0",
       "hash": "1hbm4fnw51qdp0nz83fcxbvnxjq2k57a37w6dp0wz6wkcx7cwxw9"
     },
+    "solarized": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "maxmx03",
+        "repo": "solarized.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v3.6.0",
+      "revision": "c0dfe1cbfabd93b546baf5f1408f5df7e02e2050",
+      "url": "https://api.github.com/repos/maxmx03/solarized.nvim/tarball/v3.6.0",
+      "hash": "1fz1wc569w26aanmj3hhsc17xrx29g6bfsjsbgssa7jq76aavp3w"
+    },
     "solarized-osaka": {
       "type": "Git",
       "repository": {
