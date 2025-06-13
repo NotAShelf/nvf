@@ -2,7 +2,9 @@
   config,
   lib,
 }: let
-  inherit (lib.strings) optionalString;
+  inherit (lib.strings) optionalString splitString;
+  inherit (lib.attrsets) mapCartesianProduct;
+  inherit (lib.lists) intersectLists;
   inherit (lib.trivial) boolToString warnIf;
   inherit (lib.nvim.lua) toLuaObject;
 in {
@@ -217,6 +219,46 @@ in {
     '';
     styles = ["dark" "light" "dark_dimmed" "dark_default" "light_default" "dark_high_contrast" "light_high_contrast" "dark_colorblind" "light_colorblind" "dark_tritanopia" "light_tritanopia"];
   };
+
+  solarized = let
+    backgrounds = ["light" "dark"];
+    palettes = ["solarized" "selenized"];
+    variants = ["spring" "summer" "autumn" "winter"];
+  in {
+    setup = {
+      style ? "", # use plugin defaults
+      transparent ? false,
+      ...
+    }: let
+      parts = splitString "-" style;
+      detect = list:
+        let intersection = intersectLists parts list;
+        in if intersection == [] then null else builtins.head intersection;
+      background = detect backgrounds;
+      palette = detect palettes;
+      variant = detect variants;
+    in ''
+      -- Solarized theme
+      require('solarized').setup {
+        transparent = {
+          enabled = ${boolToString transparent},
+        },
+        ${optionalString (!isNull palette) ''palette = "${palette}",''}
+        ${optionalString (!isNull variant) ''variant = "${variant}",''}
+      }
+      ${optionalString (!isNull background) ''vim.opt.background = "${background}"''}
+      vim.cmd.colorscheme "solarized"
+    '';
+    styles = let
+      joinWithDashes = parts: lib.concatStringsSep "-" (lib.filter (s: s != "") parts);
+      combinations = mapCartesianProduct ({bg, pal, var}: joinWithDashes [bg pal var]) {
+        bg = [""] ++ backgrounds;
+        pal = [""] ++ palettes;
+        var = [""] ++ variants;
+      };
+    in lib.filter (s: s != "") combinations;
+  };
+
   solarized-osaka = {
     setup = {transparent ? false, ...}: ''
       require("solarized-osaka").setup({
