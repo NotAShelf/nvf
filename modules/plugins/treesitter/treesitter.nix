@@ -25,14 +25,14 @@ in {
       type = listOf package;
       default = [];
       example = literalExpression ''
-        pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-          regex
-          kdl
+        pkgs.tree-sitter-grammars; [
+          tree-sitter-regex
+          tree-sitter-kdl
         ];
       '';
       description = ''
         List of treesitter grammars to install. For grammars to be installed properly,
-        you must use grammars from `pkgs.vimPlugins.nvim-treesitter.builtGrammars`.
+        you must use grammars from `pkgs.tree-sitter-grammars`.
 
         For languages already supported by nvf, you may use
         {option}`vim.language.<lang>.treesitter` options, which will automatically add
@@ -55,7 +55,7 @@ in {
       internal = true;
       readOnly = true;
       type = listOf package;
-      default = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [c lua vim vimdoc query];
+      default = with pkgs.tree-sitter-grammars; [tree-sitter-c tree-sitter-lua tree-sitter-vim];
       description = ''
         A list of treesitter grammars that will be installed by default
         if treesitter has been enabled and  {option}`vim.treeesitter.addDefaultGrammars`
