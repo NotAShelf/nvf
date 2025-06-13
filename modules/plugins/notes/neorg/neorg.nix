@@ -6,7 +6,7 @@
 }: let
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) submodule listOf str;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   options.vim.notes.neorg = {
     enable = mkEnableOption ''
@@ -42,9 +42,9 @@ in {
       };
     };
 
+    # TODO: reimplement now that the grammars are no longer in nixpkgs
     treesitter = {
       enable = mkEnableOption "Neorg treesitter" // {default = config.vim.languages.enableTreesitter;};
-      norgPackage = mkGrammarOption pkgs "norg";
     };
   };
 }
