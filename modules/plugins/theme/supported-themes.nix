@@ -231,9 +231,12 @@ in {
       ...
     }: let
       parts = splitString "-" style;
-      detect = list:
-        let intersection = intersectLists parts list;
-        in if intersection == [] then null else builtins.head intersection;
+      detect = list: let
+        intersection = intersectLists parts list;
+      in
+        if intersection == []
+        then null
+        else builtins.head intersection;
       background = detect backgrounds;
       palette = detect palettes;
       variant = detect variants;
@@ -251,12 +254,18 @@ in {
     '';
     styles = let
       joinWithDashes = parts: lib.concatStringsSep "-" (lib.filter (s: s != "") parts);
-      combinations = mapCartesianProduct ({bg, pal, var}: joinWithDashes [bg pal var]) {
+      combinations = mapCartesianProduct ({
+        bg,
+        pal,
+        var,
+      }:
+        joinWithDashes [bg pal var]) {
         bg = [""] ++ backgrounds;
         pal = [""] ++ palettes;
         var = [""] ++ variants;
       };
-    in lib.filter (s: s != "") combinations;
+    in
+      lib.filter (s: s != "") combinations;
   };
 
   solarized-osaka = {
