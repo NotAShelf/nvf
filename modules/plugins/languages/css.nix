@@ -50,7 +50,7 @@
       nullConfig = ''
         table.insert(
           ls_sources,
-          null_ls.builtins.formatting.prettier.with({
+          null_ls.builtins.formatting.prettierd.with({
             command = "${cfg.format.package}/bin/prettierd",
           })
         )
