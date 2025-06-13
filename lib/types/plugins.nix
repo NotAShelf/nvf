@@ -21,7 +21,7 @@
   pluginType = nullOr (
     either
     package
-    (enum (pluginInputNames ++ ["nvim-treesitter" "flutter-tools-patched" "vim-repeat"]))
+    (enum (pluginInputNames ++ ["tree-sitter-grammars" "flutter-tools-patched" "vim-repeat"]))
   );
 
   pluginsType = listOf pluginType;
