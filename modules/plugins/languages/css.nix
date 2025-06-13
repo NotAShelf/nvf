@@ -39,11 +39,11 @@
     };
   };
 
-  defaultFormat = "prettier";
+  defaultFormat = "prettierd";
   formats = {
-    prettier = {
-      package = pkgs.prettierd;
-    };
+    # prettierd = {
+    #   package = pkgs.prettierd;
+    # };
 
     prettierd = {
       package = pkgs.prettierd;
