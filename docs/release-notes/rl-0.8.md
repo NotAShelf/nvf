@@ -370,7 +370,10 @@
 
 [aionoid](https://github.com/aionoid):
 
+[avante-nvim]: https://github.com/yetone/avante.nvim
+
 - Fix [render-markdown.nvim] file_types option type to list, to accept merging.
+- Add [avante.nvim] plugin under `vim.assistant.avante-nvim`.
 
 [poz](https://poz.pet):
 
@@ -416,6 +419,11 @@
 - Add Clojure support under `vim.languages.clojure` using [clojure-lsp]
 - Add code evaluation environment [conjure] under `vim.repl.conjure`
 
-[BarryLabs](https://github.com/BarryLabs):
+[CallumGilly](https://github.com/CallumGilly):
 
-- Correct treesitter parser packages & builder.
+- Add missing `transparent` option for existing
+  [onedark.nvim](https://github.com/navarasu/onedark.nvim) theme.
+  
+[theutz](https://github.com/theutz):
+
+- Added "auto" flavour for catppuccin theme

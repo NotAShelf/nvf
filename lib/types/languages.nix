@@ -30,7 +30,7 @@
 
   mkGrammarOption = pkgs: grammar:
     mkPackageOption pkgs ["${grammar} treesitter"] {
-      default = ["tree-sitter-grammars" grammar];
+      default = ["vimPlugins" "nvim-treesitter" "builtGrammars" grammar];
     };
 in {
   inherit diagnostics diagnosticSubmodule mkGrammarOption;

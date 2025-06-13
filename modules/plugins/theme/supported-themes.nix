@@ -21,9 +21,14 @@ in {
     '';
   };
   onedark = {
-    setup = {style ? "dark", ...}: ''
+    setup = {
+      style ? "dark",
+      transparent,
+      ...
+    }: ''
       -- OneDark theme
       require('onedark').setup {
+        transparent = ${boolToString transparent},
         style = "${style}"
       }
       require('onedark').load()
@@ -95,7 +100,7 @@ in {
       -- setup must be called before loading
       vim.cmd.colorscheme "catppuccin"
     '';
-    styles = ["latte" "frappe" "macchiato" "mocha"];
+    styles = ["auto" "latte" "frappe" "macchiato" "mocha"];
   };
 
   oxocarbon = {
