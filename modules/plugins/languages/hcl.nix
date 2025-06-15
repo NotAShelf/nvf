@@ -100,13 +100,6 @@ in {
         cfg.lsp.servers;
     })
 
-    (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources = lib.optionalAttrs (! config.vim.languages.terraform.lsp.enable) {
-        terraform-ls = servers.${cfg.lsp.server}.lspConfig;
-      };
-    })
-
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
