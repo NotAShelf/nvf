@@ -23,7 +23,7 @@
   servers = {
     hls = {
       enable = true;
-      cmd = [(getExe pkgs.haskellPackages.haskell-language-server) "--debug"];
+      cmd = [(getExe pkgs.haskellPackages.haskell-language-server) "--lsp"];
       filetypes = ["haskell" "lhaskell"];
       on_attach =
         mkLuaInline
@@ -51,29 +51,9 @@
         */
         ''
           function(bufnr, on_dir)
-            local root_pattern = function(...)
-              local patterns = M.tbl_flatten { ... }
-              return function(startpath)
-                startpath = M.strip_archive_subpath(startpath)
-                for _, pattern in ipairs(patterns) do
-                  local match = M.search_ancestors(startpath, function(path)
-                    for _, p in ipairs(vim.fn.glob(table.concat({ escape_wildcards(path), pattern }, '/'), true, true)) do
-                      if vim.uv.fs_stat(p) then
-                        return path
-                      end
-                    end
-                  end)
-
-                  if match ~= nil then
-                    return match
-                  end
-                end
-              end
-            end
-
             local fname = vim.api.nvim_buf_get_name(bufnr)
-              on_dir(root_pattern('hie.yaml', 'stack.yaml', 'cabal.project', '*.cabal', 'package.yaml')(fname))
-            end
+            on_dir(util.root_pattern('hie.yaml', 'stack.yaml', 'cabal.project', '*.cabal', 'package.yaml')(fname))
+          end
         '';
       settings = {
         haskell = {
