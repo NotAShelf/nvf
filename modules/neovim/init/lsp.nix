@@ -16,6 +16,7 @@
 
   cfg = config.vim.lsp;
 
+  # TODO: lspConfigurations filter on enabledServers instead of cfg.servers?
   lspConfigurations =
     mapAttrsToList (
       name: value: ''
@@ -81,7 +82,6 @@ in {
     }
 
     (mkIf (cfg.servers != {}) {
-      # Enable lspconfig in order to merge in the predefined opts
       vim.luaConfigRC.lsp-servers = entryAnywhere ''
         -- Individual LSP configurations managed by nvf.
         ${concatLines lspConfigurations}
