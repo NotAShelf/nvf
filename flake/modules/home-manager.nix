@@ -16,13 +16,19 @@
 
   cfg = config.programs.nvf;
 
+  nvfPkgs = import inputs.nixpkgs {inherit (pkgs) system;};
+
   nvfModule = submoduleWith {
     description = "Nvf module";
     class = "nvf";
     specialArgs = {
-      inherit pkgs lib inputs;
+      pkgs = nvfPkgs;
+      inherit lib inputs;
     };
-    modules = import ../../modules/modules.nix {inherit pkgs lib;};
+    modules = import ../../modules/modules.nix {
+      pkgs = nvfPkgs;
+      inherit lib;
+    };
   };
 in {
   imports = [
