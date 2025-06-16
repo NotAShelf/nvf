@@ -4,46 +4,28 @@
   pkgs,
   ...
 }: let
-  inherit (builtins) isList;
-  inherit (lib.types) either package listOf str;
+  inherit (builtins) isList attrNames;
+  inherit (lib.types) either package enum listOf str;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.strings) optionalString;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption enum attrNames;
-  inherit (lib.nvim.dag) entryAfter;
+  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.dag) entryAfter entryBefore;
   inherit (lib.nvim.lua) expToLua;
-  inherit (lib.meta) getExe;
+  inherit (lib.meta) getExe';
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (pkgs) haskellPackages;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.languages.haskell;
 
-  defaultServers = ["hls"];
+  defaultServers = ["haskell-tools"];
   servers = {
-    hls = {
-      enable = true;
-      cmd = [(getExe pkgs.haskellPackages.haskell-language-server) "--lsp"];
+    haskell-tools = {
+      enable = false;
+      cmd = [(getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server-wrapper") "--lsp"];
       filetypes = ["haskell" "lhaskell"];
-      on_attach =
-        mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function(client, bufnr, ht)
-            default_on_attach(client, bufnr, ht)
-            local opts = { noremap = true, silent = true, buffer = bufnr }
-            vim.keymap.set('n', '<localleader>cl', vim.lsp.codelens.run, opts)
-            vim.keymap.set('n', '<localleader>hs', ht.hoogle.hoogle_signature, opts)
-            vim.keymap.set('n', '<localleader>ea', ht.lsp.buf_eval_all, opts)
-            vim.keymap.set('n', '<localleader>rr', ht.repl.toggle, opts)
-            vim.keymap.set('n', '<localleader>rf', function()
-              ht.repl.toggle(vim.api.nvim_buf_get_name(0))
-            end, opts)
-            vim.keymap.set('n', '<localleader>rq', ht.repl.quit, opts)
-          end,
-        '';
       root_dir =
         mkLuaInline
         /*
@@ -124,7 +106,20 @@ in {
                 },
               },
               -- Configured through vim.lsp.config
-              hls = {},
+              hls = {
+                on_attach = function(client, bufnr, ht)
+                  default_on_attach(client, bufnr, ht)
+                  local opts = { noremap = true, silent = true, buffer = bufnr }
+                  vim.keymap.set('n', '<localleader>cl', vim.lsp.codelens.run, opts)
+                  vim.keymap.set('n', '<localleader>hs', ht.hoogle.hoogle_signature, opts)
+                  vim.keymap.set('n', '<localleader>ea', ht.lsp.buf_eval_all, opts)
+                  vim.keymap.set('n', '<localleader>rr', ht.repl.toggle, opts)
+                  vim.keymap.set('n', '<localleader>rf', function()
+                    ht.repl.toggle(vim.api.nvim_buf_get_name(0))
+                  end, opts)
+                  vim.keymap.set('n', '<localleader>rq', ht.repl.quit, opts)
+                end,
+              }
             ''}
             ${optionalString cfg.dap.enable ''
               dap = {
