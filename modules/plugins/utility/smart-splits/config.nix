@@ -21,9 +21,9 @@
     };
 in {
   config = mkIf cfg.enable {
-    vim.lazy.plugins = {
-      ${pkgs.vimPlugins.smart-splits-nvim.pname} = {
-        package = pkgs.vimPlugins.smart-splits-nvim;
+    vim = {
+      lazy.plugins.smart-splits = {
+        package = "smart-splits";
         setupModule = "smart-splits";
         inherit (cfg) setupOpts;
 
