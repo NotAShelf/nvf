@@ -20,12 +20,32 @@
 
   cfg = config.vim.languages.haskell;
 
-  defaultServers = ["haskell-tools"];
+  defaultServers = ["hls"];
   servers = {
-    haskell-tools = {
+    hls = {
       enable = false;
       cmd = [(getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server-wrapper") "--lsp"];
       filetypes = ["haskell" "lhaskell"];
+      on_attach =
+        mkLuaInline
+        /*
+        lua
+        */
+        ''
+          function(client, bufnr)
+              local ht = require("haskell-tools")
+              default_on_attach(client, bufnr, ht)
+              local opts = { noremap = true, silent = true, buffer = bufnr }
+              vim.keymap.set('n', '<localleader>cl', vim.lsp.codelens.run, opts)
+              vim.keymap.set('n', '<localleader>hs', ht.hoogle.hoogle_signature, opts)
+              vim.keymap.set('n', '<localleader>ea', ht.lsp.buf_eval_all, opts)
+              vim.keymap.set('n', '<localleader>rr', ht.repl.toggle, opts)
+              vim.keymap.set('n', '<localleader>rf', function()
+                ht.repl.toggle(vim.api.nvim_buf_get_name(0))
+              end, opts)
+              vim.keymap.set('n', '<localleader>rq', ht.repl.quit, opts)
+            end
+        '';
       root_dir =
         mkLuaInline
         /*
@@ -81,15 +101,6 @@ in {
       };
     })
 
-    (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
-    })
-
     (mkIf (cfg.dap.enable || cfg.lsp.enable) {
       vim = {
         startPlugins = ["haskell-tools-nvim"];
@@ -105,21 +116,7 @@ in {
                   enable = true,
                 },
               },
-              -- Configured through vim.lsp.config
-              hls = {
-                on_attach = function(client, bufnr, ht)
-                  default_on_attach(client, bufnr, ht)
-                  local opts = { noremap = true, silent = true, buffer = bufnr }
-                  vim.keymap.set('n', '<localleader>cl', vim.lsp.codelens.run, opts)
-                  vim.keymap.set('n', '<localleader>hs', ht.hoogle.hoogle_signature, opts)
-                  vim.keymap.set('n', '<localleader>ea', ht.lsp.buf_eval_all, opts)
-                  vim.keymap.set('n', '<localleader>rr', ht.repl.toggle, opts)
-                  vim.keymap.set('n', '<localleader>rf', function()
-                    ht.repl.toggle(vim.api.nvim_buf_get_name(0))
-                  end, opts)
-                  vim.keymap.set('n', '<localleader>rq', ht.repl.quit, opts)
-                end,
-              }
+              hls = ${toLuaObject servers.hls}
             ''}
             ${optionalString cfg.dap.enable ''
               dap = {
