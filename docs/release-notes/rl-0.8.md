@@ -433,3 +433,7 @@
 [solarized.nvim]: https://github.com/maxmx03/solarized.nvim
 
 - Add [solarized.nvim] theme with support for multiple variants
+
+[lunabirkeland](https://github.com/lunabirkeland):
+
+- Fix nixos and home-manager modules not using nvf's nixpkgs input.
