@@ -191,6 +191,7 @@ isMaximal: {
       surround.enable = isMaximal;
       leetcode-nvim.enable = isMaximal;
       multicursors.enable = isMaximal;
+      smart-splits.enable = isMaximal;
 
       motion = {
         hop.enable = true;
