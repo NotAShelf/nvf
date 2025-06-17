@@ -352,6 +352,7 @@
 
 [rrvsh](https://github.com/rrvsh):
 
+- Add custom snippet support to `vim.snippets.luasnip`
 - Fix namespace of python-lsp-server by changing it to python3Packages
 
 [Noah765](https://github.com/Noah765):
