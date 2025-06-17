@@ -2232,6 +2232,22 @@
       "url": "https://github.com/mrcjkb/rustaceanvim/archive/a0c8e9698ef90bcfdf42806a38bf55b612b65b18.tar.gz",
       "hash": "1j63qpal1n8m9kj3fdjjw81ljbsqjzph65q2cacwm5ziwi2xvncx"
     },
+    "smart-splits": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mrjones2014",
+        "repo": "smart-splits.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v2.0.1",
+      "revision": "7c9bc1cfc0582c8c6851c38bb3338db644039cf7",
+      "url": "https://api.github.com/repos/mrjones2014/smart-splits.nvim/tarball/v2.0.1",
+      "hash": "0lhwkb07pdfi7dx9kbzynh0dxivhiryngkiy4565hyhxapfis5v7"
+    },
     "smartcolumn-nvim": {
       "type": "Git",
       "repository": {
