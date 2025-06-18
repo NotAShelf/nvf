@@ -910,6 +910,64 @@ null or string</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.assistant.avante-nvim.setupOpts.providers"></a><a class="term" href="options.html#opt-vim.assistant.avante-nvim.setupOpts.providers"><code class="option">vim.assistant.avante-nvim.setupOpts.providers</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Define settings for builtin and custom providers.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or (attribute set)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting nix">  openai = {
+    endpoint = &quot;https://api.openai.com/v1&quot;;
+    model = &quot;gpt-4o&quot;; # your desired model (or use gpt-4o, etc.)
+    timeout = 30000; # Timeout in milliseconds, increase this for reasoning models
+    extra_request_body = {
+      temperature = 0;
+      max_completion_tokens = 8192; # Increase this to include reasoning tokens (for reasoning models)
+      reasoning_effort = &quot;medium&quot;; # low|medium|high, only used for reasoning models
+    };
+  };
+  ollama = {
+    endpoint = &quot;http://127.0.0.1:11434&quot;;
+    timeout = 30000; # Timeout in milliseconds
+    extra_request_body = {
+      options = {
+        temperature = 0.75;
+        num_ctx = 20480;
+        keep_alive = &quot;5m&quot;;
+      };
+    };
+  };
+  groq = {
+    __inherited_from = &quot;openai&quot;;
+    api_key_name = &quot;GROQ_API_KEY&quot;;
+    endpoint = &quot;https://api.groq.com/openai/v1/&quot;;
+    model = &quot;llama-3.3-70b-versatile&quot;;
+    disable_tools = true;
+    extra_request_body = {
+      temperature = 1;
+      max_tokens = 32768; # remember to increase this value, otherwise it will stop generating halfway
+    };
+  };
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/avante/avante-nvim.nix" target="_top">
+&lt;nvf/modules/plugins/assistant/avante/avante-nvim.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.assistant.avante-nvim.setupOpts.suggestion.debounce"></a><a class="term" href="options.html#opt-vim.assistant.avante-nvim.setupOpts.suggestion.debounce"><code class="option">vim.assistant.avante-nvim.setupOpts.suggestion.debounce</code>
   </a>
  </span>
@@ -946,48 +1004,6 @@ signed integer</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">600</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/avante/avante-nvim.nix" target="_top">
-&lt;nvf/modules/plugins/assistant/avante/avante-nvim.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="opt-vim.assistant.avante-nvim.setupOpts.vendors"></a><a class="term" href="options.html#opt-vim.assistant.avante-nvim.setupOpts.vendors"><code class="option">vim.assistant.avante-nvim.setupOpts.vendors</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Define Your Custom providers.</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-null or (attribute set)</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">null</code></p>
-
-<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting nix">ollama = {
-  __inherited_from = &quot;openai&quot;;
-  api_key_name = &quot;&quot;;
-  endpoint = &quot;http://127.0.0.1:11434/v1&quot;;
-  model = &quot;qwen2.5u-coder:7b&quot;;
-  max_tokens = 4096;
-  disable_tools = true;
-};
-ollama_ds = {
-  __inherited_from = &quot;openai&quot;;
-  api_key_name = &quot;&quot;;
-  endpoint = &quot;http://127.0.0.1:11434/v1&quot;;
-  model = &quot;deepseek-r1u:7b&quot;;
-  max_tokens = 4096;
-  disable_tools = true;
-};
-</code></pre>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
