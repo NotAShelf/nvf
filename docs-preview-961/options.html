@@ -34956,6 +34956,121 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.snippets.luasnip.customSnippets.snipmate"></a><a class="term" href="options.html#opt-vim.snippets.luasnip.customSnippets.snipmate"><code class="option">vim.snippets.luasnip.customSnippets.snipmate</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>A list containing custom snippets in the SnipMate format to be loaded by LuaSnip.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+attribute set of list of (submodule)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">&#x27;&#x27;
+  {
+    all = [
+      {
+        trigger = &quot;if&quot;;
+        body = &quot;if $1 else $2&quot;;
+      }
+    ];
+    nix = [
+      {
+        trigger = &quot;mkOption&quot;;
+        body = &#x27;&#x27;&#x27;
+          mkOption {
+            type = $1;
+            default = $2;
+            description = $3;
+            example = $4;
+          }
+        &#x27;&#x27;&#x27;;
+      }
+    ];
+  }
+&#x27;&#x27;
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/snippets/luasnip/luasnip.nix" target="_top">
+&lt;nvf/modules/plugins/snippets/luasnip/luasnip.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.snippets.luasnip.customSnippets.snipmate._name_._.body"></a><a class="term" href="options.html#opt-vim.snippets.luasnip.customSnippets.snipmate._name_._.body"><code class="option">vim.snippets.luasnip.customSnippets.snipmate.&lt;name&gt;.*.body</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The body of the snippet in SnipMate format (see <a class="link" href="https://github.com/L3MON4D3/LuaSnip#add-snippets"  target="_top">LuaSnip Documentation</a>).</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string</p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/snippets/luasnip/luasnip.nix" target="_top">
+&lt;nvf/modules/plugins/snippets/luasnip/luasnip.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.snippets.luasnip.customSnippets.snipmate._name_._.description"></a><a class="term" href="options.html#opt-vim.snippets.luasnip.customSnippets.snipmate._name_._.description"><code class="option">vim.snippets.luasnip.customSnippets.snipmate.&lt;name&gt;.*.description</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The description shown for this snippet.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/snippets/luasnip/luasnip.nix" target="_top">
+&lt;nvf/modules/plugins/snippets/luasnip/luasnip.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.snippets.luasnip.customSnippets.snipmate._name_._.trigger"></a><a class="term" href="options.html#opt-vim.snippets.luasnip.customSnippets.snipmate._name_._.trigger"><code class="option">vim.snippets.luasnip.customSnippets.snipmate.&lt;name&gt;.*.trigger</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The trigger used to activate this snippet.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string</p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/snippets/luasnip/luasnip.nix" target="_top">
+&lt;nvf/modules/plugins/snippets/luasnip/luasnip.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.snippets.luasnip.loaders"></a><a class="term" href="options.html#opt-vim.snippets.luasnip.loaders"><code class="option">vim.snippets.luasnip.loaders</code>
   </a>
  </span>
