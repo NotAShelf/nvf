@@ -364,6 +364,7 @@
 - Add the `vim.languages.dart.flutter-tools.flutterPackage` option.
 - Fix the type of the `highlight` color options.
 - Add [vim-sleuth] plugin under `vim.utility.sleuth`.
+- Add missing `rustaceanvim` dependency `rustfmt`.
 
 [howird](https://github.com/howird):
 
