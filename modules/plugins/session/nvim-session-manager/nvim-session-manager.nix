@@ -77,7 +77,7 @@ in {
       };
 
       autoload_mode = mkOption {
-        type = either (enum ["Disabled" "CurrentDir" "LastSession"]) luaInline;
+        type = either (enum ["Disabled" "CurrentDir" "LastSession" "GitSession"]) luaInline;
         # Variable 'sm' is defined in the pluginRC of nvim-session-manager. The
         # definition is as follows: `local sm = require('session_manager.config')`
         apply = val:
@@ -88,7 +88,7 @@ in {
         description = ''
           Define what to do when Neovim is started without arguments.
 
-          Takes either one of `"Disabled"`, `"CurrentDir"`, `"LastSession` in which case the value
+          Takes either one of `"Disabled"`, `"CurrentDir"`, `"LastSession"`, `"GitSession"` in which case the value
           will be inserted into `sm.AutoloadMode.<value>`, or an inline Lua value.
         '';
       };
