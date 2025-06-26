@@ -7,11 +7,9 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.lists) isList;
   inherit (builtins) attrNames;
-  inherit (lib.types) either listOf package str enum;
+  inherit (lib.types) listOf enum;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.dag) entryBefore;
   inherit (lib.generators) mkLuaInline;
@@ -83,7 +81,7 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.lsp.enable {
-      vim.luaConfigRC.java-stuff =
+      vim.luaConfigRC.jdtls-util =
         entryBefore ["lsp-servers"]
         /*
         lua
