@@ -27,10 +27,10 @@
           dynamicRegistration = true;
         };
       };
-      # TODO: Reconsider this? Not sure if that necessary.
       settings = {
         helm-ls = {
           yamlls = {
+            # TODO: Determine if this is a good enough solution
             path = (head yamlCfg.lsp.servers).cmd;
           };
         };
