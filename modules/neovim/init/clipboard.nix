@@ -4,9 +4,10 @@
   lib,
   ...
 }: let
+  inherit (builtins) typeOf concatStringsSep;
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption mkEnableOption mkPackageOption;
-  inherit (lib.types) nullOr either str listOf submodule;
+  inherit (lib.types) either str listOf submodule;
   inherit (lib.attrsets) mapAttrs mapAttrsToList filterAttrs;
   cfg = config.vim.clipboard;
 in {
@@ -71,7 +72,10 @@ in {
 
   config = mkIf cfg.enable {
     vim = {
-      options.clipboard = cfg.registers;
+      options.clipboard =
+        if typeOf cfg.registers == "list"
+        then concatStringsSep "," cfg.registers
+        else cfg.registers;
       extraPackages = mapAttrsToList (_: v: v.package) (
         filterAttrs (_: v: v.enable && v.package != null) cfg.providers
       );
