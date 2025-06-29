@@ -5376,11 +5376,11 @@ null or package</p>
 <p>The register to be used by the Neovim clipboard. Recognized types are:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>unnamed: Vim will use the clipboard register <code class="literal">&quot;*&quot;</code> for all yank, delete,
 change and put operations which would normally go to the unnamed register.</p></li><li class="listitem"><p>unnamedplus: A variant of the “unnamed” flag which uses the clipboard register
 <code class="literal">&quot;+&quot;</code> (<span class="command"><strong>:h quoteplus</strong></span>) instead of register <code class="literal">&quot;*&quot;</code> for all yank, delete,
-change and put operations which would normally go to the unnamed register.</p></li></ul></div><p>When <code class="literal">unnamed</code> and <code class="literal">unnamedplus</code> is included simultaneously yank and delete
-operations (but not put) will additionally copy the text into register <code class="literal">&quot;*&quot;</code>.</p><p>Please see  <span class="command"><strong>:h clipboard</strong></span> for more details.</p>
+change and put operations which would normally go to the unnamed register.</p></li></ul></div><p>When <code class="literal">unnamed</code> and <code class="literal">unnamedplus</code> is included simultaneously as <code class="literal">&quot;unnamed,unnamedplus&quot;</code>,
+yank and delete operations (but not put) will additionally copy the text into register <code class="literal">&quot;*&quot;</code>.</p><p>Please see  <span class="command"><strong>:h clipboard</strong></span> for more details.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-string or list of string</p>
+string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">&quot;&quot;</code></p>
