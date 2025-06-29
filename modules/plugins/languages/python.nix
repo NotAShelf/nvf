@@ -11,6 +11,7 @@
   inherit (lib.lists) isList;
   inherit (lib.types) enum either listOf package str bool;
   inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 
   cfg = config.vim.languages.python;
 
@@ -225,6 +226,11 @@ in {
         '';
       };
     };
+
+    uv = {
+      enable = mkEnableOption "the uv.nvim plugin";
+      setupOpts = mkPluginSetupOption "uv.nvim." {};
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -260,6 +266,17 @@ in {
     (mkIf cfg.dap.enable {
       vim.debugger.nvim-dap.enable = true;
       vim.debugger.nvim-dap.sources.python-debugger = debuggers.${cfg.dap.debugger}.dapConfig;
+    })
+
+    (mkIf cfg.uv.enable {
+      vim.lazy.plugins."uv.nvim" = {
+        package = "uv.nvim";
+        setupModule = "uv";
+        inherit (cfg.uv) setupOpts;
+        # Plugin should be loaded whenever we enter a buffer
+        # so it can load the uv virtual environment.
+        event = ["BufEnter"];
+      };
     })
   ]);
 }

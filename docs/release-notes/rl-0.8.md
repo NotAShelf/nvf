@@ -352,8 +352,13 @@
 
 [rrvsh](https://github.com/rrvsh):
 
+[uv.nvim]: https://github.com/benomahony/uv.nvim
+
 - Add custom snippet support to `vim.snippets.luasnip`
 - Fix namespace of python-lsp-server by changing it to python3Packages
+- Add [uv.nvim] for integration with the uv Python package manager,
+  allowing automatic activation of virtual environments and
+  running code directly from Neovim. Available at `vim.languages.python.uv`.
 
 [Noah765](https://github.com/Noah765):
 
