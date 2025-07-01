@@ -44,8 +44,8 @@ let
           capabilities = mkLuaInline "capabilities";
           on_attach = if cfg.format.enable then mkLuaInline "default_on_attach" else "attach_keymaps";
           cmd = packageToCmd cfg.lsp.package "nil";
-          settings = {
-            nil.formatting.command =
+          settings.nil = {
+            formatting.command =
               if cfg.format.enable then
                 if cfg.format.type == "alejandra" then
                   ''{"${cfg.format.package}/bin/alejandra", "--quiet"}''
@@ -55,7 +55,7 @@ let
                   null
               else
                 null;
-          } // config.lsp.options;
+          } // cfg.lsp.options;
         }
       }'';
       # lspConfig = ''
