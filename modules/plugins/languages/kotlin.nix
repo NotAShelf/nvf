@@ -4,14 +4,12 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe' getExe;
   inherit (builtins) attrNames;
-  inherit (lib.types) either enum package listOf str;
+  inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
-  inherit (lib.lists) isList;
-  inherit (lib.nvim.lua) expToLua;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
