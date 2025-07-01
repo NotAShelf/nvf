@@ -47,7 +47,7 @@
               if cfg.format.enable
               then mkLuaInline "default_on_attach"
               else "attach_keymaps";
-            cmd = [(packageToCmd cfg.lsp.package "nil")];
+            cmd = mkLuaInline (packageToCmd cfg.lsp.package "nil");
             settings.nil =
               {
                 formatting.command =
