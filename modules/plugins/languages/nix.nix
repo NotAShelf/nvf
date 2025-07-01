@@ -4,16 +4,16 @@
   lib,
   inputs,
   ...
-}: let
+}:
+let
   inherit (builtins) attrNames;
-  inherit (lib) concatStringsSep;
+  inherit (lib) concatStringsSep mkLuaInline;
   inherit (lib.meta) getExe;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.strings) optionalString;
-  inherit
-    (lib.types)
+  inherit (lib.types)
     anything
     attrsOf
     enum
@@ -32,42 +32,60 @@
   noFormat = "on_attach = attach_keymaps";
 
   defaultServer = "nil";
-  packageToCmd = package: defaultCmd:
-    if isList package
-    then expToLua package
-    else ''{"${package}/bin/${defaultCmd}"}'';
+  packageToCmd =
+    package: defaultCmd:
+    if isList package then expToLua package else ''{"${package}/bin/${defaultCmd}"}'';
   servers = {
     nil = {
       package = inputs.nil.packages.${pkgs.stdenv.system}.nil;
       internalFormatter = true;
-      lspConfig = ''
-        lspconfig.nil_ls.setup{
-          capabilities = capabilities,
-        ${
-          if cfg.format.enable
-          then useFormat
-          else noFormat
-        },
-          cmd = ${packageToCmd cfg.lsp.package "nil"},
-        ${optionalString cfg.format.enable ''
+      lspConfig = ''lspconfig.nil_ls.setup ${
+        toLuaObject {
+          capabilities = mkLuaInline "capabilities";
+          on_attach = if cfg.format.enable then mkLuaInline "default_on_attach" else "attach_keymaps";
+          cmd = packageToCmd cfg.lsp.package "nil";
           settings = {
-            ["nil"] = {
-          ${optionalString (cfg.format.type == "alejandra") ''
-            formatting = {
-              command = {"${cfg.format.package}/bin/alejandra", "--quiet"},
-            },
-          ''}
-          ${optionalString (cfg.format.type == "nixfmt") ''
-            formatting = {
-              command = {"${cfg.format.package}/bin/nixfmt"},
-            },
-          ''}
-            nix = ${toLuaObject cfg.lsp.options},
-            },
-          },
-        ''}
+            nil.formatting.command =
+              if cfg.format.enable then
+                if cfg.format.type == "alejandra" then
+                  ''{"${cfg.format.package}/bin/alejandra", "--quiet"}''
+                else if cfg.format.type == "nixfmt" then
+                  ''{"${cfg.format.package}/bin/nixfmt"}''
+                else
+                  null
+              else
+                null;
+          } // config.lsp.options;
         }
-      '';
+      }'';
+      # lspConfig = ''
+      #   lspconfig.nil_ls.setup{
+      #     capabilities = capabilities,
+      #   ${
+      #     if cfg.format.enable
+      #     then useFormat
+      #     else noFormat
+      #   },
+      #     cmd = ${packageToCmd cfg.lsp.package "nil"},
+      #   ${optionalString cfg.format.enable ''
+      #     settings = {
+      #       ["nil"] = {
+      #     ${optionalString (cfg.format.type == "alejandra") ''
+      #       formatting = {
+      #         command = {"${cfg.format.package}/bin/alejandra", "--quiet"},
+      #       },
+      #     ''}
+      #     ${optionalString (cfg.format.type == "nixfmt") ''
+      #       formatting = {
+      #         command = {"${cfg.format.package}/bin/nixfmt"},
+      #       },
+      #     ''}
+      #       nix = ${toLuaObject cfg.lsp.options},
+      #       },
+      #     },
+      #   ''}
+      #   }
+      # '';
     };
 
     nixd = {
@@ -76,11 +94,7 @@
       lspConfig = ''
         lspconfig.nixd.setup{
           capabilities = capabilities,
-        ${
-          if cfg.format.enable
-          then useFormat
-          else noFormat
-        },
+        ${if cfg.format.enable then useFormat else noFormat},
           cmd = ${packageToCmd cfg.lsp.package "nixd"},
         ${optionalString cfg.format.enable ''
           settings = {
@@ -144,25 +158,22 @@
       '';
     };
   };
-in {
+in
+{
   options.vim.languages.nix = {
     enable = mkEnableOption "Nix language support";
 
     treesitter = {
-      enable =
-        mkEnableOption "Nix treesitter"
-        // {
-          default = config.vim.languages.enableTreesitter;
-        };
+      enable = mkEnableOption "Nix treesitter" // {
+        default = config.vim.languages.enableTreesitter;
+      };
       package = mkGrammarOption pkgs "nix";
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Nix LSP support"
-        // {
-          default = config.vim.lsp.enable;
-        };
+      enable = mkEnableOption "Nix LSP support" // {
+        default = config.vim.lsp.enable;
+      };
       server = mkOption {
         description = "Nix LSP server to use";
         type = enum (attrNames servers);
@@ -184,11 +195,9 @@ in {
     };
 
     format = {
-      enable =
-        mkEnableOption "Nix formatting"
-        // {
-          default = config.vim.languages.enableFormat;
-        };
+      enable = mkEnableOption "Nix formatting" // {
+        default = config.vim.languages.enableFormat;
+      };
 
       type = mkOption {
         description = "Nix formatter to use";
@@ -204,11 +213,9 @@ in {
     };
 
     extraDiagnostics = {
-      enable =
-        mkEnableOption "extra Nix diagnostics"
-        // {
-          default = config.vim.languages.enableExtraDiagnostics;
-        };
+      enable = mkEnableOption "extra Nix diagnostics" // {
+        default = config.vim.languages.enableExtraDiagnostics;
+      };
 
       types = diagnostics {
         langDesc = "Nix";
@@ -240,7 +247,7 @@ in {
 
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      vim.treesitter.grammars = [ cfg.treesitter.package ];
     })
 
     (mkIf cfg.lsp.enable {
@@ -251,7 +258,7 @@ in {
     (mkIf (cfg.format.enable && (!cfg.lsp.enable || !servers.${cfg.lsp.server}.internalFormatter)) {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.nix = [cfg.format.type];
+        setupOpts.formatters_by_ft.nix = [ cfg.format.type ];
         setupOpts.formatters.${cfg.format.type} = {
           command = getExe cfg.format.package;
         };
@@ -265,8 +272,7 @@ in {
         linters = mkMerge (
           map (name: {
             ${name}.cmd = getExe diagnosticsProviders.${name}.package;
-          })
-          cfg.extraDiagnostics.types
+          }) cfg.extraDiagnostics.types
         );
       };
     })
