@@ -4,8 +4,7 @@
   lib,
   inputs,
   ...
-}:
-let
+}: let
   inherit (builtins) attrNames;
   inherit (lib) concatStringsSep;
   inherit (lib.meta) getExe;
@@ -13,7 +12,8 @@ let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.strings) optionalString;
-  inherit (lib.types)
+  inherit
+    (lib.types)
     anything
     attrsOf
     enum
@@ -32,9 +32,10 @@ let
   noFormat = "on_attach = attach_keymaps";
 
   defaultServer = "nil";
-  packageToCmd =
-    package: defaultCmd:
-    if isList package then expToLua package else ''{"${package}/bin/${defaultCmd}"}'';
+  packageToCmd = package: defaultCmd:
+    if isList package
+    then expToLua package
+    else ''{"${package}/bin/${defaultCmd}"}'';
   servers = {
     nil = {
       package = inputs.nil.packages.${pkgs.stdenv.system}.nil;
@@ -42,7 +43,11 @@ let
       lspConfig = ''
         lspconfig.nil_ls.setup{
           capabilities = capabilities,
-        ${if cfg.format.enable then useFormat else noFormat},
+        ${
+          if cfg.format.enable
+          then useFormat
+          else noFormat
+        },
           cmd = ${packageToCmd cfg.lsp.package "nil"},
         ${optionalString cfg.format.enable ''
           settings = {
@@ -71,7 +76,11 @@ let
       lspConfig = ''
         lspconfig.nixd.setup{
           capabilities = capabilities,
-        ${if cfg.format.enable then useFormat else noFormat},
+        ${
+          if cfg.format.enable
+          then useFormat
+          else noFormat
+        },
           cmd = ${packageToCmd cfg.lsp.package "nixd"},
         ${optionalString cfg.format.enable ''
           settings = {
@@ -135,22 +144,25 @@ let
       '';
     };
   };
-in
-{
+in {
   options.vim.languages.nix = {
     enable = mkEnableOption "Nix language support";
 
     treesitter = {
-      enable = mkEnableOption "Nix treesitter" // {
-        default = config.vim.languages.enableTreesitter;
-      };
+      enable =
+        mkEnableOption "Nix treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+        };
       package = mkGrammarOption pkgs "nix";
     };
 
     lsp = {
-      enable = mkEnableOption "Nix LSP support" // {
-        default = config.vim.lsp.enable;
-      };
+      enable =
+        mkEnableOption "Nix LSP support"
+        // {
+          default = config.vim.lsp.enable;
+        };
       server = mkOption {
         description = "Nix LSP server to use";
         type = enum (attrNames servers);
@@ -172,9 +184,11 @@ in
     };
 
     format = {
-      enable = mkEnableOption "Nix formatting" // {
-        default = config.vim.languages.enableFormat;
-      };
+      enable =
+        mkEnableOption "Nix formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+        };
 
       type = mkOption {
         description = "Nix formatter to use";
@@ -190,9 +204,11 @@ in
     };
 
     extraDiagnostics = {
-      enable = mkEnableOption "extra Nix diagnostics" // {
-        default = config.vim.languages.enableExtraDiagnostics;
-      };
+      enable =
+        mkEnableOption "extra Nix diagnostics"
+        // {
+          default = config.vim.languages.enableExtraDiagnostics;
+        };
 
       types = diagnostics {
         langDesc = "Nix";
@@ -224,7 +240,7 @@ in
 
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
-      vim.treesitter.grammars = [ cfg.treesitter.package ];
+      vim.treesitter.grammars = [cfg.treesitter.package];
     })
 
     (mkIf cfg.lsp.enable {
@@ -235,7 +251,7 @@ in
     (mkIf (cfg.format.enable && (!cfg.lsp.enable || !servers.${cfg.lsp.server}.internalFormatter)) {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.nix = [ cfg.format.type ];
+        setupOpts.formatters_by_ft.nix = [cfg.format.type];
         setupOpts.formatters.${cfg.format.type} = {
           command = getExe cfg.format.package;
         };
@@ -249,7 +265,8 @@ in
         linters = mkMerge (
           map (name: {
             ${name}.cmd = getExe diagnosticsProviders.${name}.package;
-          }) cfg.extraDiagnostics.types
+          })
+          cfg.extraDiagnostics.types
         );
       };
     })
