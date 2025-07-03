@@ -2436,6 +2436,19 @@
       "url": "https://github.com/chomosuke/typst-preview.nvim/archive/dea4525d5420b7c32eebda7de15a6beb9d6574fa.tar.gz",
       "hash": "0y658l2ibq0x4cwa4rl3lab7aw4ba68xcrdnxp81p2rsk0d60qq4"
     },
+    "uv.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "benomahony",
+        "repo": "uv.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "642e45d392a65fe15dbebd63444e45e21a38f883",
+      "url": "https://github.com/benomahony/uv.nvim/archive/642e45d392a65fe15dbebd63444e45e21a38f883.tar.gz",
+      "hash": "1l681q5d3c8hqr1vvb4rxs6y5a1fs3m3cx3v0n6lvmlcdbdn4mjb"
+    },
     "vim-dirtytalk": {
       "type": "Git",
       "repository": {
