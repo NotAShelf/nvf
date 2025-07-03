@@ -808,7 +808,7 @@ manner.</p><pre><code class="programlisting nix">{
   # flake.nix. For the sake of the argument, we will assume that the Neovim lua
   # configuration is in a nvim/ directory relative to flake.nix.
   vim = {
-    additionalRuntimeDirectories = [
+    additionalRuntimePaths = [
       # This will be added to Neovim&#x27;s runtime paths. Conceptually, this behaves
       # very similarly to ~/.config/nvim but you may not place a top-level
       # init.lua to be able to require it directly.
@@ -821,7 +821,7 @@ realised after your flake gets copied to the Nix store, to Neovim’s runtime
 directory. You may now create a <code class="literal">lua/myconfig</code> directory within this nvim
 directory, and call it with <a class="xref" href="options.html#opt-vim.luaConfigRC"  ><code class="option">vim.luaConfigRC</code></a>.</p><pre><code class="programlisting nix">{pkgs, ...}: {
   vim = {
-    additionalRuntimeDirectories = [
+    additionalRuntimePaths = [
       # You can list more than one file here.
       ./nvim-custom-1
 
