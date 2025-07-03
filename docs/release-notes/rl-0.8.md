@@ -439,3 +439,4 @@
 - Add [smart-splits.nvim] for navigating between Neovim windows and terminal multiplexer panes.
   Available at `vim.utility.smart-splits`.
 
+- Fix lualine separator options
