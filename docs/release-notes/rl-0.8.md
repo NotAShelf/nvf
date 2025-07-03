@@ -439,3 +439,4 @@
 - Add [smart-splits.nvim] for navigating between Neovim windows and terminal multiplexer panes.
   Available at `vim.utility.smart-splits`.
 
+- Allow deregistering which-key binds or groups by setting them to `null`
