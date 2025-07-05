@@ -3,7 +3,7 @@
     ./chatgpt
     ./copilot
     ./codecompanion
-    ./supermaven
+    ./supermaven-nvim
     ./avante
   ];
 }
