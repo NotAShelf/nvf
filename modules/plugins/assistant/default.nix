@@ -3,6 +3,7 @@
     ./chatgpt
     ./copilot
     ./codecompanion
+    ./supermaven
     ./avante
   ];
 }
