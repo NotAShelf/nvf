@@ -439,3 +439,9 @@
 - Add [smart-splits.nvim] for navigating between Neovim windows and terminal multiplexer panes.
   Available at `vim.utility.smart-splits`.
 
+[justDeeevin](https://github.com/justDeeevin):
+
+[supermaven-nvim]: https://github.com/supermaven-inc/supermaven-nvim
+
+- Add [supermaven-nvim] plugin in `vim.assistant.supermaven-nvim` with `enable` and
+  `setupOpts`
