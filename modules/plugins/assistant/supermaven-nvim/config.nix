@@ -3,10 +3,10 @@
   lib,
   ...
 }: let
-  cfg = config.vim.assistant.supermaven;
+  cfg = config.vim.assistant.supermaven-nvim;
 in {
   config = lib.mkIf cfg.enable {
-    vim.plugins = {
+    vim.lazy.plugins = {
       supermaven-nvim = {
         package = "supermaven-nvim";
         setupModule = "supermaven-nvim";

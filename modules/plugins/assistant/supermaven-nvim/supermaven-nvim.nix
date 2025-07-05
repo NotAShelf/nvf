@@ -1,7 +1,8 @@
 {lib, ...}: let
-  inherit (lib) mkOption mkEnableOption types;
+  inherit (lib) types;
+  inherit (lib.options) mkOption mkEnableOption;
 in {
-  options.vim.assistant.supermaven = {
+  options.vim.assistant.supermaven-nvim = {
     enable = mkEnableOption "Supermaven AI assistant";
 
     setupOpts = lib.nvim.types.mkPluginSetupOption "Supermaven" {
@@ -75,7 +76,11 @@ in {
       condition = mkOption {
         type = types.nullOr lib.nvim.types.luaInline;
         default = null;
-        description = "Condition function to check for stopping supermaven. A returned `true` means to stop supermaven";
+        description = ''
+          Condition function to check for stopping supermaven.
+
+          A returned `true` means to stop supermaven
+        '';
       };
     };
   };
