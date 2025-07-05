@@ -94,6 +94,8 @@ in {
       Enabling this option will unconditionally set
       {option}`vim.spellcheck.enable` to true as vim-dirtytalk
       depends on spellchecking having been set up.
+
+      Run {command}`:DirtytalkUpdate` on first use to download the spellfile.
       :::
     '';
   };

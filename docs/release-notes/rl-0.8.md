@@ -439,3 +439,4 @@
 - Add [smart-splits.nvim] for navigating between Neovim windows and terminal multiplexer panes.
   Available at `vim.utility.smart-splits`.
 
+- Restore vim-dirtytalk plugin and fix ordering with spellcheck in generated config.

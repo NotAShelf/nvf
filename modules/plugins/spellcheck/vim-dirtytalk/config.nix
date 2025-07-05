@@ -17,7 +17,7 @@ in {
       # like to append programming to spelllangs as soon as
       # possible while the plugin is enabled and the state
       # directory can be found.
-      pluginRC.vim-dirtytalk = entryAfter ["spellcheck"] ''
+      luaConfigRC.vim-dirtytalk = entryAfter ["spellcheck"] ''
         -- If Neovim can find (or access) the state directory
         -- then append "programming" wordlist from vim-dirtytalk
         -- to spelllang table. If path cannot be found, display
