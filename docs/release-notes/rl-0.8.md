@@ -445,3 +445,9 @@
 - Restore vim-dirtytalk plugin and fix ordering with spellcheck in generated config.
 - Fix lualine separator options
 - Add [neogit], an interactive and powerful Git interface for Neovim, inspired by Magit
+[justDeeevin](https://github.com/justDeeevin):
+
+[supermaven-nvim]: https://github.com/supermaven-inc/supermaven-nvim
+
+- Add [supermaven-nvim] plugin in `vim.assistant.supermaven-nvim` with `enable` and
+  `setupOpts`
