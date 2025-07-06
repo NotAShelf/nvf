@@ -28,7 +28,7 @@
   defaultServer = "yaml-language-server";
   servers = {
     yaml-language-server = {
-      package = pkgs.nodePackages.yaml-language-server;
+      package = pkgs.yaml-language-server;
       lspConfig = ''
 
 

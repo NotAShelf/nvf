@@ -19,7 +19,7 @@
   defaultServer = "svelte";
   servers = {
     svelte = {
-      package = pkgs.nodePackages.svelte-language-server;
+      package = pkgs.svelte-language-server;
       lspConfig = ''
         lspconfig.svelte.setup {
           capabilities = capabilities;
