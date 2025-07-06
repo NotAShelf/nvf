@@ -82,12 +82,5 @@
 
     # Alternate neovim-wrapper
     mnw.url = "github:Gerg-L/mnw";
-
-    ## Language servers (use master instead of nixpkgs)
-    # Nix LSP
-    nil = {
-      url = "github:oxalica/nil";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 }
