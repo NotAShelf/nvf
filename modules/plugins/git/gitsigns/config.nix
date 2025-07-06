@@ -69,7 +69,7 @@ in {
         };
 
         binds.whichKey.register = pushDownDefault {
-          "<leader>g" = "+Gitsigns";
+          "<leader>h" = "+Gitsigns";
         };
 
         pluginRC.gitsigns = entryAnywhere ''

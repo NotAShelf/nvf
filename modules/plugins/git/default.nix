@@ -6,6 +6,7 @@ in {
     ./vim-fugitive
     ./git-conflict
     ./gitlinker-nvim
+    ./neogit
   ];
 
   options.vim.git = {

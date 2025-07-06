@@ -433,9 +433,9 @@
 
 [solarized.nvim]: https://github.com/maxmx03/solarized.nvim
 [smart-splits.nvim]: https://github.com/mrjones2014/smart-splits.nvim
+[neogit]: https://github.com/NeogitOrg/neogit
 
 - Add [solarized.nvim] theme with support for multiple variants
-
 - Add [smart-splits.nvim] for navigating between Neovim windows and terminal multiplexer panes.
   Available at `vim.utility.smart-splits`.
-
+- Add [neogit], an interactive and powerful Git interface for Neovim, inspired by Magit
