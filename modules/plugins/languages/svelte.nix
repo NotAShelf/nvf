@@ -9,7 +9,6 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.meta) getExe;
-  inherit (lib.generators) mkLuaInline;
   inherit (lib.types) enum either listOf package str;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;

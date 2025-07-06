@@ -6,7 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption mkEnableOption mkPackageOption;
-  inherit (lib.types) nullOr either str listOf submodule;
+  inherit (lib.types) str submodule;
   inherit (lib.attrsets) mapAttrs mapAttrsToList filterAttrs;
   cfg = config.vim.clipboard;
 in {

@@ -1,7 +1,6 @@
 {lib, ...}: let
   inherit (lib.options) mkEnableOption mkOption literalMD;
   inherit (lib.types) bool listOf str either attrsOf submodule enum anything int nullOr;
-  inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline pluginType;
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.config) mkBool;

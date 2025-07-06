@@ -4,7 +4,6 @@
   ...
 }: let
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.strings) hasPrefix;
   inherit (lib.nvim.types) mkPluginSetupOption;
   inherit (lib.nvim.types) hexColor;
 in {
