@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }: let
   inherit (builtins) attrNames;
@@ -28,7 +27,7 @@
     else ''{"${package}/bin/${defaultCmd}"}'';
   servers = {
     nil = {
-      package = inputs.nil.packages.${pkgs.stdenv.system}.nil;
+      package = pkgs.nil;
       internalFormatter = true;
       lspConfig = ''
         lspconfig.nil_ls.setup{
