@@ -3,11 +3,10 @@
   config,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf;
   inherit (lib.strings) optionalString;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (builtins) attrNames typeOf tryEval concatStringsSep;
 
   borders = config.vim.ui.borders.plugins.nvim-cmp;
