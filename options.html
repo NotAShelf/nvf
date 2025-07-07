@@ -7112,7 +7112,8 @@ attribute set of ((attribute set of anything) or boolean or (luaInline))</p>
  </span>
 </dt>
 <dd>
-<p>Use signs for diagnostics. See <span class="command"><strong>:help diagnostic-signs</strong></span>.</p>
+<p>Use signs for diagnostics. See <span class="command"><strong>:help diagnostic-signs</strong></span>.</p><div class="note"><h3 class="title">Note</h3><p>The code presented in that example section uses Lua expressions as object keys which
+only translate well if you use <code class="literal">lib.generators.mkLuaInline</code> as in the example.</p></div>
 
 <p><span class="emphasis"><em>Type:</em></span>
 (attribute set of anything) or boolean or (luaInline)</p>
@@ -7120,14 +7121,13 @@ attribute set of ((attribute set of anything) or boolean or (luaInline))</p>
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">false</code></p>
 
-<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">{
-  signs = {
-    text = {
-      &quot;vim.diagnostic.severity.ERROR&quot; = &quot;󰅚 &quot;;
-      &quot;vim.diagnostic.severity.WARN&quot; = &quot;󰀪 &quot;;
-    };
-  };
-}
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">signs.text = lib.generators.mkLuaInline &#x27;&#x27;
+  {
+    [vim.diagnostic.severity.ERROR] = &quot;󰅚 &quot;,
+    [vim.diagnostic.severity.WARN] = &quot;󰀪 &quot;,
+  }
+&#x27;&#x27;;
+
 </code></pre>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
