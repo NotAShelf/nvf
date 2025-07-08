@@ -22,7 +22,7 @@
       enable = true;
       cmd = [(getExe pkgs.gleam) "lsp"];
       filetypes = ["gleam"];
-      root_markers = [ "gleam.toml" ".git" ];
+      root_markers = ["gleam.toml" ".git"];
     };
   };
 in {
