@@ -352,6 +352,7 @@
 
 [rrvsh](https://github.com/rrvsh):
 
+- Add custom snippet support to `vim.snippets.luasnip`
 - Fix namespace of python-lsp-server by changing it to python3Packages
 
 [Noah765](https://github.com/Noah765):
@@ -370,7 +371,10 @@
 
 [aionoid](https://github.com/aionoid):
 
+[avante-nvim]: https://github.com/yetone/avante.nvim
+
 - Fix [render-markdown.nvim] file_types option type to list, to accept merging.
+- Add [avante.nvim] plugin under `vim.assistant.avante-nvim`.
 
 [poz](https://poz.pet):
 
@@ -415,3 +419,24 @@
 
 - Add Clojure support under `vim.languages.clojure` using [clojure-lsp]
 - Add code evaluation environment [conjure] under `vim.repl.conjure`
+
+[CallumGilly](https://github.com/CallumGilly):
+
+- Add missing `transparent` option for existing
+  [onedark.nvim](https://github.com/navarasu/onedark.nvim) theme.
+  
+[theutz](https://github.com/theutz):
+
+- Added "auto" flavour for catppuccin theme
+
+[lackac](https://github.com/lackac):
+
+[solarized.nvim]: https://github.com/maxmx03/solarized.nvim
+[smart-splits.nvim]: https://github.com/mrjones2014/smart-splits.nvim
+
+- Add [solarized.nvim] theme with support for multiple variants
+
+- Add [smart-splits.nvim] for navigating between Neovim windows and terminal multiplexer panes.
+  Available at `vim.utility.smart-splits`.
+
+- Fix lualine separator options

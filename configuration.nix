@@ -192,6 +192,7 @@ isMaximal: {
       surround.enable = isMaximal;
       leetcode-nvim.enable = isMaximal;
       multicursors.enable = isMaximal;
+      smart-splits.enable = isMaximal;
 
       motion = {
         hop.enable = true;
@@ -249,6 +250,7 @@ isMaximal: {
         cmp.enable = isMaximal;
       };
       codecompanion-nvim.enable = false;
+      avante-nvim.enable = isMaximal;
     };
 
     session = {

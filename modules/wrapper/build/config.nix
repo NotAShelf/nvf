@@ -7,9 +7,9 @@
 }: let
   inherit (pkgs) vimPlugins;
   inherit (lib.trivial) flip;
-  inherit (builtins) filter isString;
+  inherit (builtins) filter isString hasAttr getAttr;
 
-  getPin = name: ((pkgs.callPackages ../../../npins/sources.nix {}) // config.vim.pluginOverrides).${name};
+  getPin = flip getAttr (pkgs.callPackages ../../../npins/sources.nix {});
 
   noBuildPlug = pname: let
     pin = getPin pname;
@@ -48,13 +48,22 @@
       doCheck = false;
     };
 
-    inherit (inputs.self.packages.${pkgs.stdenv.system}) blink-cmp;
+    inherit (inputs.self.packages.${pkgs.stdenv.system}) blink-cmp avante-nvim;
   };
 
   buildConfigPlugins = plugins:
     map (plug:
       if (isString plug)
-      then pluginBuilders.${plug} or (noBuildPlug plug)
+      then
+        if hasAttr plug config.vim.pluginOverrides
+        then
+          (let
+            plugin = config.vim.pluginOverrides.${plug};
+          in
+            if (lib.isType "flake" plugin)
+            then plugin // {name = plug;}
+            else plugin)
+        else pluginBuilders.${plug} or (noBuildPlug plug)
       else plug) (
       filter (f: f != null) plugins
     );

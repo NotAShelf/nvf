@@ -82,12 +82,5 @@
 
     # Alternate neovim-wrapper
     mnw.url = "github:Gerg-L/mnw";
-
-    # Language servers (use master instead of nixpkgs)
-    nil = {
-      url = "github:oxalica/nil";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
   };
 }

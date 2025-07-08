@@ -19,6 +19,7 @@
     ./outline
     ./preview
     ./sleuth
+    ./smart-splits
     ./snacks-nvim
     ./surround
     ./telescope

@@ -2,7 +2,7 @@
 {lib}: let
   inherit (builtins) hasAttr head throw typeOf isList isAttrs isBool isInt isString isPath isFloat toJSON;
   inherit (lib.attrsets) mapAttrsToList filterAttrs;
-  inherit (lib.strings) concatStringsSep concatMapStringsSep stringToCharacters concatLines;
+  inherit (lib.strings) concatStringsSep concatMapStringsSep stringToCharacters;
   inherit (lib.trivial) boolToString warn;
 in rec {
   # Convert a null value to lua's nil

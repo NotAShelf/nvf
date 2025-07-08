@@ -29,7 +29,7 @@
   servers = {
     yaml-language-server = {
       enable = true;
-      cmd = [(getExe pkgs.nodePackages.yaml-language-server) "--stdio"];
+      cmd = [(getExe pkgs.yaml-language-server) "--stdio"];
       filetypes = ["yaml" "yaml.docker-compose" "yaml.gitlab" "yaml.helm-values"];
       root_markers = [".git"];
       on_attach = onAttach;

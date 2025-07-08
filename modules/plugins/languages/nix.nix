@@ -26,9 +26,9 @@
     ];
   };
 
-  defaultServers = ["nil_ls"];
+  defaultServers = ["nil"];
   servers = {
-    nil_ls = {
+    nil = {
       enable = true;
       cmd = [(getExe pkgs.nil)];
       settings = {

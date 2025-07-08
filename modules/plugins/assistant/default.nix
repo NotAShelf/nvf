@@ -3,5 +3,6 @@
     ./chatgpt
     ./copilot
     ./codecompanion
+    ./avante
   ];
 }

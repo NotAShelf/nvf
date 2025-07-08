@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption literalExpression literalMD;
+  inherit (lib.options) mkEnableOption mkOption literalMD;
   inherit (lib.types) str attrsOf nullOr either listOf;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.binds) mkMappingOption;

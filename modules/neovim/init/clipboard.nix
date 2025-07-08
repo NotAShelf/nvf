@@ -6,7 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption mkEnableOption mkPackageOption;
-  inherit (lib.types) nullOr either str listOf submodule;
+  inherit (lib.types) str submodule;
   inherit (lib.attrsets) mapAttrs mapAttrsToList filterAttrs;
   cfg = config.vim.clipboard;
 in {
@@ -20,7 +20,7 @@ in {
         '';
 
         registers = mkOption {
-          type = either str (listOf str);
+          type = str;
           default = "";
           example = "unnamedplus";
           description = ''
@@ -33,8 +33,8 @@ in {
             `"+"` ({command}`:h quoteplus`) instead of register `"*"` for all yank, delete,
             change and put operations which would normally go to the unnamed register.
 
-            When `unnamed` and `unnamedplus` is included simultaneously yank and delete
-            operations (but not put) will additionally copy the text into register `"*"`.
+            When `unnamed` and `unnamedplus` is included simultaneously as `"unnamed,unnamedplus"`,
+            yank and delete operations (but not put) will additionally copy the text into register `"*"`.
 
             Please see  {command}`:h clipboard` for more details.
 
