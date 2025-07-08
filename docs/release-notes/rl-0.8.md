@@ -435,8 +435,7 @@
 [smart-splits.nvim]: https://github.com/mrjones2014/smart-splits.nvim
 
 - Add [solarized.nvim] theme with support for multiple variants
-
 - Add [smart-splits.nvim] for navigating between Neovim windows and terminal multiplexer panes.
   Available at `vim.utility.smart-splits`.
-
+- Restore vim-dirtytalk plugin and fix ordering with spellcheck in generated config.
 - Fix lualine separator options
