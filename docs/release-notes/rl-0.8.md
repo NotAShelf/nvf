@@ -24,6 +24,10 @@
   module interface. You may set [](#opt-vim.clipboard.registers) appropriately
   to configure Neovim to use the system clipboard.
 
+- Changed which-key group used for gitsigns from `<leader>g` to `<leader>h` to
+  align with the "hunks" themed mapping and avoid conflict with the new [neogit]
+  group.
+
 [NotAShelf](https://github.com/notashelf):
 
 [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
@@ -433,10 +437,12 @@
 
 [solarized.nvim]: https://github.com/maxmx03/solarized.nvim
 [smart-splits.nvim]: https://github.com/mrjones2014/smart-splits.nvim
+[neogit]: https://github.com/NeogitOrg/neogit
 
 - Add [solarized.nvim] theme with support for multiple variants
-
 - Add [smart-splits.nvim] for navigating between Neovim windows and terminal multiplexer panes.
   Available at `vim.utility.smart-splits`.
-
+- Restore vim-dirtytalk plugin and fix ordering with spellcheck in generated config.
+- Fix lualine separator options
+- Add [neogit], an interactive and powerful Git interface for Neovim, inspired by Magit
 - Allow deregistering which-key binds or groups by setting them to `null`

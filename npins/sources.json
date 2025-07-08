@@ -1530,6 +1530,22 @@
       "url": "https://github.com/IogaMaster/neocord/archive/2ebf3792a8100376bb65fd66d5dbf60f50af7529.tar.gz",
       "hash": "1ycx26ppfb5djxji1mwamr7ra29z8sm0fs9a6hhwn0l69x06x353"
     },
+    "neogit": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NeogitOrg",
+        "repo": "neogit"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v2.0.0",
+      "revision": "7f97dbfc5af3b898c6660d927c23e3a96a5bd069",
+      "url": "https://api.github.com/repos/NeogitOrg/neogit/tarball/v2.0.0",
+      "hash": "0nyv64ai3765if7bdfyx01a0xmsmhm8cjvxyvh2s40bzvkx8xy17"
+    },
     "neorg": {
       "type": "Git",
       "repository": {

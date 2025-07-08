@@ -63,8 +63,8 @@ in {
           options = {
             icons_enabled = mkDefault cfg.icons.enable;
             theme = mkDefault cfg.theme;
-            component_separators = mkDefault [cfg.componentSeparator.left cfg.componentSeparator.right];
-            section_separators = mkDefault [cfg.sectionSeparator.left cfg.sectionSeparator.right];
+            component_separators = mkDefault cfg.componentSeparator;
+            section_separators = mkDefault cfg.sectionSeparator;
             globalstatus = mkDefault cfg.globalStatus;
             refresh = mkDefault cfg.refresh;
             always_divide_middle = mkDefault cfg.alwaysDivideMiddle;
