@@ -1,6 +1,6 @@
 {
   imports = [
-    ./supermaven.nix
+    ./supermaven-nvim.nix
     ./config.nix
   ];
 }
