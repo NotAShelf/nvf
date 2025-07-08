@@ -24,6 +24,10 @@
   module interface. You may set [](#opt-vim.clipboard.registers) appropriately
   to configure Neovim to use the system clipboard.
 
+- Changed which-key group used for gitsigns from `<leader>g` to `<leader>h` to
+  align with the "hunks" themed mapping and avoid conflict with the new [neogit]
+  group.
+
 [NotAShelf](https://github.com/notashelf):
 
 [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
