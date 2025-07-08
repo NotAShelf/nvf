@@ -66,7 +66,7 @@ in {
 
       package = mkOption {
         description = "bash-language-server package, or the command to run as a list of strings";
-        example = literalExpression ''[lib.getExe pkgs.nodePackages.bash-language-server "start"]'';
+        example = literalExpression ''[lib.getExe pkgs.bash-language-server "start"]'';
         type = either package (listOf str);
         default = pkgs.bash-language-server;
       };

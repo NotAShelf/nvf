@@ -10,7 +10,6 @@
   inherit (lib.lists) isList;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum either listOf package str;
-  inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
 
