@@ -38,7 +38,7 @@
       "runner"
       "session"
       "snippets"
-      # "spellcheck" # FIXME: see neovim/init/spellcheck.nix
+      "spellcheck"
       "statusline"
       "tabline"
       "terminal"

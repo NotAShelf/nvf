@@ -5,7 +5,6 @@
 }: let
   inherit (builtins) toJSON;
   inherit (lib.modules) mkIf;
-  inherit (lib.strings) optionalString;
 
   cfg = config.vim.assistant.copilot;
 

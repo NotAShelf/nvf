@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkMerge;
   inherit (lib.trivial) pipe;
   inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.lists) flatten;

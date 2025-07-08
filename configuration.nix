@@ -15,6 +15,7 @@ isMaximal: {
 
     spellcheck = {
       enable = true;
+      programmingWordlist.enable = isMaximal;
     };
 
     lsp = {
