@@ -9,11 +9,12 @@
     enum
     ;
   inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   options.vim.assistant.supermaven-nvim = {
     enable = mkEnableOption "Supermaven AI assistant";
 
-    setupOpts = lib.nvim.mkPluginSetupOption "Supermaven" {
+    setupOpts = mkPluginSetupOption "Supermaven" {
       keymaps = {
         accept_suggestion = mkOption {
           type = nullOr str;
