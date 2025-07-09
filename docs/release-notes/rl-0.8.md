@@ -445,3 +445,4 @@
 - Restore vim-dirtytalk plugin and fix ordering with spellcheck in generated config.
 - Fix lualine separator options
 - Add [neogit], an interactive and powerful Git interface for Neovim, inspired by Magit
+- Allow deregistering which-key binds or groups by setting them to `null`
