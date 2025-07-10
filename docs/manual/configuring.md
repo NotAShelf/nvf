@@ -8,7 +8,7 @@ your convenience. You might also be interested in the [helpful tips section] for
 more advanced or unusual configuration options supported by nvf.
 
 Note that this section does not cover module _options_. For an overview of all
-module options provided by nvf, please visit the [appendix](/options.html)
+module options provided by nvf, please visit the [appendix](/nvf/options.html)
 
 ```{=include=} chapters
 configuring/custom-package.md
