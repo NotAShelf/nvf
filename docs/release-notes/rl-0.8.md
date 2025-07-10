@@ -446,3 +446,13 @@
 - Fix lualine separator options
 - Add [neogit], an interactive and powerful Git interface for Neovim, inspired by Magit
 - Allow deregistering which-key binds or groups by setting them to `null`
+
+[trueNAHO](https://github.com/trueNAHO):
+
+- `flake-parts`'s `nixpkgs-lib` input follows nvf's `nixpkgs` input to reduce
+  download size.
+
+- `flake-utils`'s `systems` inputs follows nvf's `systems` input to transitively
+  leverage the pattern introduced in commit [fc8206e7a61d ("flake: utilize
+  nix-systems for overridable flake systems")](
+  https://github.com/NotAShelf/nvf/commit/fc8206e7a61d7eb02006f9010e62ebdb3336d0d2).
