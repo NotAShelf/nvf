@@ -446,3 +446,11 @@
 - Fix lualine separator options
 - Add [neogit], an interactive and powerful Git interface for Neovim, inspired by Magit
 - Allow deregistering which-key binds or groups by setting them to `null`
+
+[justDeeevin](https://github.com/justDeeevin):
+
+[supermaven-nvim]: https://github.com/supermaven-inc/supermaven-nvim
+
+- Add [supermaven-nvim] plugin in `vim.assistant.supermaven-nvim` with `enable` and
+  `setupOpts`
+

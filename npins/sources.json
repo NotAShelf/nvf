@@ -2335,6 +2335,19 @@
       "url": "https://github.com/nanotee/sqls.nvim/archive/d1bc5421ef3e8edc5101e37edbb7de6639207a09.tar.gz",
       "hash": "1j4n5c8h1iriqzsjxr0wvz70g9lf6d4lm3nyxlpwy9dqmbj8w0kd"
     },
+    "supermaven-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "supermaven-inc",
+        "repo": "supermaven-nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "07d20fce48a5629686aefb0a7cd4b25e33947d50",
+      "url": "https://github.com/supermaven-inc/supermaven-nvim/archive/07d20fce48a5629686aefb0a7cd4b25e33947d50.tar.gz",
+      "hash": "1h9h98wsnfhkfdmdxjvr2d4idhrvp4i56pp4q6l0m4d2i0ldcgfp"
+    },
     "tabular": {
       "type": "Git",
       "repository": {
