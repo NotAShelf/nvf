@@ -19,15 +19,17 @@
   servers = {
     vala_ls = {
       enable = true;
-      cmd = [(getExe (pkgs.symlinkJoin {
-        name = "vala-language-server-wrapper";
-        paths = [pkgs.vala-language-server];
-        buildInputs = [pkgs.makeBinaryWrapper];
-        postBuild = ''
-          wrapProgram $out/bin/vala-language-server \
-            --prefix PATH : ${pkgs.uncrustify}/bin
-        '';
-      }))];
+      cmd = [
+        (getExe (pkgs.symlinkJoin {
+          name = "vala-language-server-wrapper";
+          paths = [pkgs.vala-language-server];
+          buildInputs = [pkgs.makeBinaryWrapper];
+          postBuild = ''
+            wrapProgram $out/bin/vala-language-server \
+              --prefix PATH : ${pkgs.uncrustify}/bin
+          '';
+        }))
+      ];
       filetypes = ["vala" "genie"];
       root_dir = mkLuaInline ''
         function(bufnr, on_dir)
