@@ -9,7 +9,7 @@
     enum
     ;
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.nvim.types) mkPluginSetupOption;
+  inherit (lib.nvim.types) mkPluginSetupOption luaInline;
 in {
   options.vim.assistant.supermaven-nvim = {
     enable = mkEnableOption "Supermaven AI assistant";
@@ -81,7 +81,7 @@ in {
         description = "Disable built-in keymaps for more manual control";
       };
       condition = mkOption {
-        type = nullOr lib.nvim.luaInline;
+        type = nullOr luaInline;
         default = null;
         description = ''
           Condition function to check for stopping supermaven.
