@@ -8,28 +8,50 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.lists) isList;
-  inherit (lib.types) either enum listOf package str;
+  inherit (lib.types) enum listOf package;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.ocaml;
 
-  defaultServer = "ocaml-lsp";
+  defaultServers = ["ocaml-lsp"];
   servers = {
     ocaml-lsp = {
-      package = pkgs.ocamlPackages.ocaml-lsp;
-      lspConfig = ''
-        lspconfig.ocamllsp.setup {
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-            cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${getExe cfg.lsp.package}"}''
-        };
-        }
-      '';
+      enable = true;
+      cmd = [(getExe pkgs.ocamlPackages.ocaml-lsp)];
+      filetypes = ["ocaml" "menhir" "ocamlinterface" "ocamllex" "reason" "dune"];
+      root_dir =
+        mkLuaInline
+        /*
+        lua
+        */
+        ''
+          function(bufnr, on_dir)
+            local fname = vim.api.nvim_buf_get_name(bufnr)
+            on_dir(util.root_pattern('*.opam', 'esy.json', 'package.json', '.git', 'dune-project', 'dune-workspace')(fname))
+          end
+        '';
+      get_language_id =
+        mkLuaInline
+        /*
+        lua
+        */
+        ''
+          function(_, ftype)
+            local language_id_of = {
+              menhir = 'ocaml.menhir',
+              ocaml = 'ocaml',
+              ocamlinterface = 'ocaml.interface',
+              ocamllex = 'ocaml.ocamllex',
+              reason = 'reason',
+              dune = 'dune',
+            }
+
+            return language_id_of[ftype]
+
+          end
+        '';
     };
   };
 
@@ -49,16 +71,12 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "OCaml LSP support (ocaml-lsp)" // {default = config.vim.lsp.enable;};
-      server = mkOption {
-        description = "OCaml LSP server to user";
-        type = enum (attrNames servers);
-        default = defaultServer;
-      };
-      package = mkOption {
-        description = "OCaml language server package, or the command to run as a list of strings";
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
+      enable = mkEnableOption "OCaml LSP support" // {default = config.vim.lsp.enable;};
+
+      servers = mkOption {
+        description = "OCaml LSP server to use";
+        type = listOf (enum (attrNames servers));
+        default = defaultServers;
       };
     };
 
@@ -79,8 +97,12 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.ocaml-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
 
     (mkIf cfg.treesitter.enable {
