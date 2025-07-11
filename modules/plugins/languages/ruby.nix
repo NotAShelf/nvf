@@ -77,7 +77,7 @@ in {
       enable = mkEnableOption "Ruby LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = listOf (enum (attrNames servers));        default = defaultServers;
+        type = listOf (enum (attrNames servers));
         default = defaultServers;
         description = "Ruby LSP server to use";
       };
