@@ -8,13 +8,32 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.lists) isList;
-  inherit (lib.types) bool either enum listOf package str;
+  inherit (lib.types) bool enum listOf package;
   inherit (lib.nvim.types) diagnostics mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.dag) entryBefore;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.lua;
+
+  defaultServers = ["lua-language-server"];
+  servers = {
+    lua-language-server = {
+      enable = true;
+      cmd = [(getExe pkgs.lua-language-server)];
+      filetypes = ["lua"];
+      root_markers = [
+        ".luarc.json"
+        ".luarc.jsonc"
+        ".luacheckrc"
+        ".stylua.toml"
+        "stylua.toml"
+        "selene.toml"
+        "selene.yml"
+        ".git"
+      ];
+    };
+  };
+
   defaultFormat = "stylua";
   formats = {
     stylua = {
@@ -43,12 +62,11 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Lua LSP support via LuaLS" // {default = config.vim.lsp.enable;};
-
-      package = mkOption {
-        description = "LuaLS package, or the command to run as a list of strings";
-        type = either package (listOf str);
-        default = pkgs.lua-language-server;
+      enable = mkEnableOption "Lua LSP support" // {default = config.vim.lsp.enable;};
+      servers = mkOption {
+        description = "Lua LSP server to use";
+        type = listOf (enum (attrNames servers));
+        default = defaultServers;
       };
 
       lazydev.enable = mkEnableOption "lazydev.nvim integration, useful for neovim plugin developers";
@@ -91,23 +109,17 @@ in {
 
     (mkIf cfg.enable (mkMerge [
       (mkIf cfg.lsp.enable {
-        vim.lsp.lspconfig.enable = true;
-        vim.lsp.lspconfig.sources.lua-lsp = ''
-          lspconfig.lua_ls.setup {
-            capabilities = capabilities;
-            on_attach = default_on_attach;
-            cmd = ${
-            if isList cfg.lsp.package
-            then expToLua cfg.lsp.package
-            else ''{"${getExe cfg.lsp.package}"}''
-          };
-          }
-        '';
+        vim.lsp.servers =
+          mapListToAttrs (n: {
+            name = n;
+            value = servers.${n};
+          })
+          cfg.lsp.servers;
       })
 
       (mkIf cfg.lsp.lazydev.enable {
         vim.startPlugins = ["lazydev-nvim"];
-        vim.pluginRC.lazydev = entryBefore ["lua-lsp"] ''
+        vim.pluginRC.lazydev = entryBefore ["lsp-servers"] ''
           require("lazydev").setup({
             enabled = function(root_dir)
               return not vim.uv.fs_stat(root_dir .. "/.luarc.json")

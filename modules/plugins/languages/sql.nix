@@ -8,31 +8,27 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
-  inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.types) enum listOf package str;
   inherit (lib.nvim.types) diagnostics;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.sql;
   sqlfluffDefault = pkgs.sqlfluff;
 
-  defaultServer = "sqls";
+  defaultServers = ["sqls"];
   servers = {
     sqls = {
-      package = pkgs.sqls;
-      lspConfig = ''
-        lspconfig.sqls.setup {
-          on_attach = function(client)
-            client.server_capabilities.execute_command = true
-            on_attach_keymaps(client, bufnr)
-            require'sqls'.setup{}
-          end,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{ "${cfg.lsp.package}/bin/sqls", "-config", string.format("%s/config.yml", vim.fn.getcwd()) }''
-        }
-        }
+      enable = true;
+      cmd = [(getExe pkgs.sqls)];
+      filetypes = ["sql" "mysql"];
+      root_markers = ["config.yml"];
+      settings = {};
+      on_attach = mkLuaInline ''
+        function(client, bufnr)
+          client.server_capabilities.execute_command = true
+          require'sqls'.setup{}
+        end
       '';
     };
   };
@@ -81,17 +77,10 @@ in {
     lsp = {
       enable = mkEnableOption "SQL LSP support" // {default = config.vim.lsp.enable;};
 
-      server = mkOption {
+      servers = mkOption {
         description = "SQL LSP server to use";
-        type = enum (attrNames servers);
-        default = defaultServer;
-      };
-
-      package = mkOption {
-        description = "SQL LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
+        type = listOf (enum (attrNames servers));
+        default = defaultServers;
       };
     };
 
@@ -132,10 +121,12 @@ in {
       vim = {
         startPlugins = ["sqls-nvim"];
 
-        lsp.lspconfig = {
-          enable = true;
-          sources.sql-lsp = servers.${cfg.lsp.server}.lspConfig;
-        };
+        lsp.servers =
+          mapListToAttrs (n: {
+            name = n;
+            value = servers.${n};
+          })
+          cfg.lsp.servers;
       };
     })
 
