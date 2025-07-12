@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib.modules) mkRemovedOptionModule mkRenamedOptionModule;
+  inherit (lib.modules) mkRemovedOptionModule mkRenamedOptionModule doRename;
   inherit (lib.lists) concatLists;
   inherit (lib.nvim.config) batchRenameOptions;
 
@@ -21,9 +21,17 @@
     scrollOffset = "scrolloff";
   };
 
-  lspOptRemovalMsg = ''
-    `vim.languages.<lang>.lsp.opts` are now moved to `vim.lsp.servers.<server_name>.init_options`
-  '';
+  mkRemovedLspOpt = lang: (mkRemovedOptionModule ["vim" "languages" lang "lsp" "opts"] ''
+    `vim.languages.${lang}.lsp.opts` is now moved to `vim.lsp.servers.<server_name>.init_options`
+  '');
+
+  mkRemovedLspPackage = lang: (mkRemovedOptionModule ["vim" "languages" lang "lsp" "package"] ''
+    `vim.languages.${lang}.lsp.package` is now moved to `vim.lsp.servers.<server_name>.cmd`
+  '');
+
+  mkRemovedLspServer = lang: (mkRemovedOptionModule ["vim" "languages" lang "lsp" "server"] ''
+    `vim.languages.${lang}.lsp.server` is now moved to `vim.languages.${lang}.lsp.servers`
+  '');
 in {
   imports = concatLists [
     [
@@ -125,8 +133,28 @@ in {
         details, or open an issue if you are confused.
       '')
 
-      # 2025-04-05
-      (mkRemovedOptionModule ["vim" "languages" "clang" "lsp" "opts"] lspOptRemovalMsg)
+      # 2025-07-12
+      (mkRemovedLspServer "assembly")
+
+      (mkRemovedLspServer "astro")
+      (mkRemovedLspPackage "astro")
+
+      (mkRemovedLspServer "bash")
+      (mkRemovedLspPackage "bash")
+
+      (mkRemovedLspOpt "clang")
+      (mkRemovedLspPackage "clang")
+      (mkRemovedLspServer "clang")
+
+      (mkRemovedLspPackage "clojure")
+
+      (mkRemovedLspServer "csharp")
+      (mkRemovedLspPackage "csharp")
+
+      (mkRemovedLspServer "css")
+      (mkRemovedLspPackage "css")
+
+      (mkRemovedLspPackage "cue")
     ]
 
     # Migrated via batchRenameOptions. Further batch renames must be below this line.
