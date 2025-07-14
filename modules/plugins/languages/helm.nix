@@ -49,9 +49,9 @@ in {
     lsp = {
       enable = mkEnableOption "Helm LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        description = "Helm LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Helm LSP server to use";
       };
     };
   };

@@ -74,23 +74,23 @@ in {
       enable = mkEnableOption "OCaml LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        description = "OCaml LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "OCaml LSP server to use";
       };
     };
 
     format = {
       enable = mkEnableOption "OCaml formatting support (ocamlformat)" // {default = config.vim.languages.enableFormat;};
       type = mkOption {
-        description = "OCaml formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "OCaml formatter to use";
       };
       package = mkOption {
-        description = "OCaml formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "OCaml formatter package";
       };
     };
   };

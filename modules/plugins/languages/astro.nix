@@ -91,9 +91,9 @@ in {
     lsp = {
       enable = mkEnableOption "Astro LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        description = "Astro LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Astro LSP server to use";
       };
     };
 
@@ -101,15 +101,15 @@ in {
       enable = mkEnableOption "Astro formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        description = "Astro formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "Astro formatter to use";
       };
 
       package = mkOption {
-        description = "Astro formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "Astro formatter package";
       };
     };
 

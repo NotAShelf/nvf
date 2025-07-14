@@ -64,9 +64,9 @@ in {
     lsp = {
       enable = mkEnableOption "Lua LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        description = "Lua LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Lua LSP server to use";
       };
 
       lazydev.enable = mkEnableOption "lazydev.nvim integration, useful for neovim plugin developers";

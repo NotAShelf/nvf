@@ -229,9 +229,9 @@ in {
       enable = mkEnableOption "Python LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        description = "Python LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Python LSP server to use";
       };
     };
 
@@ -239,30 +239,30 @@ in {
       enable = mkEnableOption "Python formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        description = "Python formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "Python formatter to use";
       };
 
       package = mkOption {
-        description = "Python formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "Python formatter package";
       };
     };
 
     # TODO this implementation is very bare bones, I don't know enough python to implement everything
     dap = {
       enable = mkOption {
-        description = "Enable Python Debug Adapter";
         type = bool;
         default = config.vim.languages.enableDAP;
+        description = "Enable Python Debug Adapter";
       };
 
       debugger = mkOption {
-        description = "Python debugger to use";
         type = enum (attrNames debuggers);
         default = defaultDebugger;
+        description = "Python debugger to use";
       };
 
       package = mkOption {

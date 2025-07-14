@@ -36,9 +36,9 @@ in {
       enable = mkEnableOption "Terraform LSP support (terraform-ls)" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        description = "Terraform LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Terraform LSP server to use";
       };
     };
   };

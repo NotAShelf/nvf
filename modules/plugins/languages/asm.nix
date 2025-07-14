@@ -34,9 +34,9 @@ in {
     lsp = {
       enable = mkEnableOption "Assembly LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        description = "Assembly LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Assembly LSP server to use";
       };
     };
   };

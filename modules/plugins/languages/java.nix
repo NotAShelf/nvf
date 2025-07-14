@@ -72,9 +72,9 @@ in {
     lsp = {
       enable = mkEnableOption "Java LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        description = "Java LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Java LSP server to use";
       };
     };
   };

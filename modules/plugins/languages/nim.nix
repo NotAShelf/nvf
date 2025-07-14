@@ -59,24 +59,24 @@ in {
       enable = mkEnableOption "Nim LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        description = "Nim LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Nim LSP server to use";
       };
     };
 
     format = {
       enable = mkEnableOption "Nim formatting" // {default = config.vim.languages.enableFormat;};
       type = mkOption {
-        description = "Nim formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "Nim formatter to use";
       };
 
       package = mkOption {
-        description = "Nim formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "Nim formatter package";
       };
     };
   };

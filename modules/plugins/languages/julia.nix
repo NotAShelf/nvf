@@ -97,6 +97,8 @@ in {
       lsp = {
         enable = mkEnableOption "Java LSP support" // {default = config.vim.lsp.enable;};
         servers = mkOption {
+          type = listOf (enum (attrNames servers));
+          default = defaultServers;
           description = ''
             Julia LSP Server to Use
 
@@ -110,8 +112,6 @@ in {
             Julia in your devshells.
             :::
           '';
-          type = listOf (enum (attrNames servers));
-          default = defaultServers;
         };
       };
     };

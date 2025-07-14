@@ -59,18 +59,18 @@ in {
     enable = mkEnableOption "SQL language support";
 
     dialect = mkOption {
-      description = "SQL dialect for sqlfluff (if used)";
       type = str;
       default = "ansi";
+      description = "SQL dialect for sqlfluff (if used)";
     };
 
     treesitter = {
       enable = mkEnableOption "SQL treesitter" // {default = config.vim.languages.enableTreesitter;};
 
       package = mkOption {
-        description = "SQL treesitter grammar to use";
         type = package;
         default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.sql;
+        description = "SQL treesitter grammar to use";
       };
     };
 
@@ -78,9 +78,9 @@ in {
       enable = mkEnableOption "SQL LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        description = "SQL LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "SQL LSP server to use";
       };
     };
 
@@ -88,15 +88,15 @@ in {
       enable = mkEnableOption "SQL formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        description = "SQL formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "SQL formatter to use";
       };
 
       package = mkOption {
-        description = "SQL formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "SQL formatter package";
       };
     };
 

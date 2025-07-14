@@ -114,9 +114,9 @@ in {
       enable = mkEnableOption "Typst LSP support (typst-lsp)" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        description = "Typst LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Typst LSP server to use";
       };
     };
 
@@ -124,15 +124,15 @@ in {
       enable = mkEnableOption "Typst document formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        description = "Typst formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "Typst formatter to use";
       };
 
       package = mkOption {
-        description = "Typst formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "Typst formatter package";
       };
     };
 

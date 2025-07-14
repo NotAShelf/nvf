@@ -63,9 +63,9 @@ in {
     lsp = {
       enable = mkEnableOption "Kotlin LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        description = "Kotlin LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Kotlin LSP server to use";
       };
     };
 

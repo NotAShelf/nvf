@@ -63,9 +63,9 @@ in {
     lsp = {
       enable = mkEnableOption "Elixir LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        description = "Elixir LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Elixir LSP server to use";
       };
     };
 
@@ -73,15 +73,15 @@ in {
       enable = mkEnableOption "Elixir formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        description = "Elixir formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "Elixir formatter to use";
       };
 
       package = mkOption {
-        description = "Elixir formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "Elixir formatter package";
       };
     };
 

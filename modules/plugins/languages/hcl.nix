@@ -42,9 +42,9 @@ in {
     lsp = {
       enable = mkEnableOption "HCL LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        description = "HCL LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "HCL LSP server to use";
       };
     };
 

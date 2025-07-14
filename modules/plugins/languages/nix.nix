@@ -98,9 +98,9 @@ in {
     lsp = {
       enable = mkEnableOption "Nix LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        description = "Nix LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Nix LSP server to use";
       };
     };
 

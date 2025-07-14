@@ -57,28 +57,28 @@ in {
     lsp = {
       enable = mkEnableOption "Bash LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        description = "Bash LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Bash LSP server to use";
       };
     };
 
     format = {
       enable = mkOption {
-        description = "Enable Bash formatting";
         type = bool;
         default = config.vim.languages.enableFormat;
+        description = "Enable Bash formatting";
       };
       type = mkOption {
-        description = "Bash formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "Bash formatter to use";
       };
 
       package = mkOption {
-        description = "Bash formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "Bash formatter package";
       };
     };
 

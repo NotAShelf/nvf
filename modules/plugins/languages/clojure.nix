@@ -37,9 +37,9 @@ in {
     lsp = {
       enable = mkEnableOption "Clojure LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        description = "Clojure LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Clojure LSP server to use";
       };
     };
   };

@@ -154,9 +154,9 @@ in {
       enable = mkEnableOption "Tailwindcss LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        description = "Tailwindcss LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Tailwindcss LSP server to use";
       };
     };
   };

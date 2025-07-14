@@ -37,9 +37,9 @@ in {
     lsp = {
       enable = mkEnableOption "Gleam LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        description = "Gleam LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Gleam LSP server to use";
       };
     };
   };

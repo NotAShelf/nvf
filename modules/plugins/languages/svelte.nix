@@ -90,9 +90,9 @@ in {
       enable = mkEnableOption "Svelte LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        description = "Svelte LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Svelte LSP server to use";
       };
     };
 
@@ -100,15 +100,15 @@ in {
       enable = mkEnableOption "Svelte formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        description = "Svelte formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "Svelte formatter to use";
       };
 
       package = mkOption {
-        description = "Svelte formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "Svelte formatter package";
       };
     };
 

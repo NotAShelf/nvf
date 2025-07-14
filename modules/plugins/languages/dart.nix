@@ -54,9 +54,9 @@ in {
     lsp = {
       enable = mkEnableOption "Dart LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        description = "Dart LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Dart LSP server to use";
       };
     };
 

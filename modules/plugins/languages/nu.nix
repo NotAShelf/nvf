@@ -46,9 +46,9 @@ in {
       enable = mkEnableOption "Nu LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        description = "Nu LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Nu LSP server to use";
       };
     };
   };

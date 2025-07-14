@@ -73,9 +73,9 @@ in {
     lsp = {
       enable = mkEnableOption "Vala LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        description = "Vala LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Vala LSP server to use";
       };
     };
   };

@@ -56,9 +56,9 @@ in {
     lsp = {
       enable = mkEnableOption "Yaml LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        description = "Yaml LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Yaml LSP server to use";
       };
     };
   };

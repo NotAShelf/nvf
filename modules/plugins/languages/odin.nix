@@ -46,9 +46,9 @@ in {
       enable = mkEnableOption "Odin LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        description = "Odin LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Odin LSP server to use";
       };
     };
   };

@@ -77,18 +77,18 @@ in {
     lsp = {
       enable = mkEnableOption "Haskell LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        description = "Haskell LSP server to use";
         type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Haskell LSP server to use";
       };
     };
 
     dap = {
       enable = mkEnableOption "DAP support for Haskell" // {default = config.vim.languages.enableDAP;};
       package = mkOption {
-        description = "Haskell DAP package or command to run the Haskell DAP";
         default = haskellPackages.haskell-debug-adapter;
         type = either package (listOf str);
+        description = "Haskell DAP package or command to run the Haskell DAP";
       };
     };
   };
