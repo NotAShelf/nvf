@@ -35,7 +35,7 @@ in {
 
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.norgPackage];
+      vim.treesitter.grammars = [cfg.treesitter.norgPackage cfg.treesitter.norgMetaPackage];
     })
   ]);
 }
