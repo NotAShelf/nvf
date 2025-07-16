@@ -463,3 +463,6 @@
   leverage the pattern introduced in commit [fc8206e7a61d ("flake: utilize
   nix-systems for overridable flake systems")](
   https://github.com/NotAShelf/nvf/commit/fc8206e7a61d7eb02006f9010e62ebdb3336d0d2).
+
+[soliprem](https://github.com/soliprem):
+- fix broken `neorg` grammars
