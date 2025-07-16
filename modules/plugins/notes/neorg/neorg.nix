@@ -44,7 +44,7 @@ in {
 
     treesitter = {
       enable = mkEnableOption "Neorg treesitter" // {default = config.vim.languages.enableTreesitter;};
-      norgPackage= mkPackageOption pkgs ["norg-meta treesitter"] {
+      norgPackage = mkPackageOption pkgs ["norg-meta treesitter"] {
         default = ["tree-sitter-grammars" "tree-sitter-norg"];
       };
       norgMetaPackage = mkPackageOption pkgs ["norg-meta treesitter"] {
