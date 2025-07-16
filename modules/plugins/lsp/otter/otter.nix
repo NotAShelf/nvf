@@ -25,15 +25,6 @@ in {
           };
         };
         buffers = {
-          set_filetype = mkOption {
-            type = bool;
-            default = false;
-            description = ''
-              if set to true, the filetype of the otterbuffers will be set. Other wide only
-              the autocommand of lspconfig that attaches the language server will be
-              executed without setting the filetype
-            '';
-          };
           write_to_disk = mkOption {
             type = bool;
             default = false;
