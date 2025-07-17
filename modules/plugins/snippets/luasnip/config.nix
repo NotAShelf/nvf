@@ -65,6 +65,9 @@ in {
         ${optionalString (
           cfg.customSnippets.snipmate != {}
         ) "require('luasnip.loaders.from_snipmate').lazy_load()"}
+        ${optionalString (
+          config.vim.autocomplete.nvim-cmp.enable || config.vim.autocomplete.blink-cmp.friendly-snippets.enable
+        ) "require('luasnip.loaders.from_vscode').lazy_load()"}
       '';
     };
   };
