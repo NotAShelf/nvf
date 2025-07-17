@@ -32569,7 +32569,7 @@ luaInline</p>
   _type = &quot;lua-inline&quot;;
   expr = &#x27;&#x27;
     function()
-      return vim.loop.cwd()
+      return vim.uv.cwd()
     end
   &#x27;&#x27;;
 }
@@ -40874,7 +40874,7 @@ syntax errors within your Neovim configuration.</p></div>
 <p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting lua">-- Disable slow treesitter highlight for large files
 function(lang, buf)
   local max_filesize = 1000 * 1024 -- 1MB
-  local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+  local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
   if ok and stats and stats.size &gt; max_filesize then
       return true
   end
