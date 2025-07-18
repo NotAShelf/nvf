@@ -246,10 +246,10 @@ in {
         transparent = {
           enabled = ${boolToString transparent},
         },
-        ${optionalString (!isNull palette) ''palette = "${palette}",''}
-        ${optionalString (!isNull variant) ''variant = "${variant}",''}
+        ${optionalString (palette != null) ''palette = "${palette}",''}
+        ${optionalString (variant != null) ''variant = "${variant}",''}
       }
-      ${optionalString (!isNull background) ''vim.opt.background = "${background}"''}
+      ${optionalString (background != null) ''vim.opt.background = "${background}"''}
       vim.cmd.colorscheme "solarized"
     '';
     styles = let
