@@ -1,5 +1,6 @@
 {lib, ...}: let
-  inherit (lib.modules) mkRemovedOptionModule mkRenamedOptionModule;
+  inherit (builtins) head warn;
+  inherit (lib.modules) mkRemovedOptionModule mkRenamedOptionModule doRename;
   inherit (lib.lists) concatLists;
   inherit (lib.nvim.config) batchRenameOptions;
 
@@ -21,9 +22,26 @@
     scrollOffset = "scrolloff";
   };
 
-  lspOptRemovalMsg = ''
-    `vim.languages.<lang>.lsp.opts` are now moved to `vim.lsp.servers.<server_name>.init_options`
-  '';
+  mkRemovedLspOpt = lang: (mkRemovedOptionModule ["vim" "languages" lang "lsp" "opts"] ''
+    `vim.languages.${lang}.lsp.opts` is now moved to `vim.lsp.servers.<server_name>.init_options`
+  '');
+
+  mkRemovedLspPackage = lang: (mkRemovedOptionModule ["vim" "languages" lang "lsp" "package"] ''
+    `vim.languages.${lang}.lsp.package` is now moved to `vim.lsp.servers.<server_name>.cmd`
+  '');
+
+  mkRenamedLspServer = lang:
+    doRename
+    {
+      from = ["vim" "languages" lang "lsp" "server"];
+      to = ["vim" "languages" lang "lsp" "servers"];
+      visible = false;
+      warn = true;
+      use = x:
+        warn
+        "Obsolete option `vim.languages.${lang}.lsp.server` used, use `${lang}.lsp.servers` instead."
+        (head x);
+    };
 in {
   imports = concatLists [
     [
@@ -125,8 +143,122 @@ in {
         details, or open an issue if you are confused.
       '')
 
-      # 2025-04-05
-      (mkRemovedOptionModule ["vim" "languages" "clang" "lsp" "opts"] lspOptRemovalMsg)
+      # 2025-07-12
+      (mkRenamedLspServer "assembly")
+
+      (mkRenamedLspServer "astro")
+      (mkRemovedLspPackage "astro")
+
+      (mkRenamedLspServer "bash")
+      (mkRemovedLspPackage "bash")
+
+      (mkRemovedLspOpt "clang")
+      (mkRemovedLspPackage "clang")
+      (mkRenamedLspServer "clang")
+
+      (mkRemovedLspPackage "clojure")
+
+      (mkRenamedLspServer "csharp")
+      (mkRemovedLspPackage "csharp")
+
+      (mkRenamedLspServer "css")
+      (mkRemovedLspPackage "css")
+
+      (mkRemovedLspPackage "cue")
+
+      (mkRenamedLspServer "dart")
+      (mkRemovedLspPackage "dart")
+      (mkRemovedLspOpt "dart")
+
+      (mkRenamedLspServer "elixir")
+      (mkRemovedLspPackage "elixir")
+
+      (mkRenamedLspServer "fsharp")
+      (mkRemovedLspPackage "fsharp")
+
+      (mkRenamedLspServer "gleam")
+      (mkRemovedLspPackage "gleam")
+
+      (mkRenamedLspServer "go")
+      (mkRemovedLspPackage "go")
+
+      (mkRemovedLspPackage "haskell")
+
+      (mkRemovedLspPackage "hcl")
+
+      (mkRenamedLspServer "helm")
+      (mkRemovedLspPackage "helm")
+
+      (mkRemovedLspPackage "java")
+
+      (mkRenamedLspServer "julia")
+      (mkRemovedLspPackage "julia")
+
+      (mkRemovedLspPackage "kotlin")
+
+      (mkRemovedLspPackage "lua")
+
+      (mkRenamedLspServer "markdown")
+      (mkRemovedLspPackage "markdown")
+
+      (mkRenamedLspServer "nim")
+      (mkRemovedLspPackage "nim")
+
+      (mkRenamedLspServer "nix")
+      (mkRemovedLspPackage "nix")
+      (mkRemovedOptionModule ["vim" "languages" "nix" "lsp" "options"] ''
+        `vim.languages.nix.lsp.options` has been moved to `vim.lsp.servers.<server_name>.init_options`.
+      '')
+
+      (mkRenamedLspServer "nu")
+      (mkRemovedLspPackage "nu")
+
+      (mkRenamedLspServer "ocaml")
+      (mkRemovedLspPackage "ocaml")
+
+      (mkRenamedLspServer "odin")
+      (mkRemovedLspPackage "odin")
+
+      (mkRenamedLspServer "php")
+      (mkRemovedLspPackage "php")
+
+      (mkRenamedLspServer "python")
+      (mkRemovedLspPackage "python")
+
+      (mkRenamedLspServer "r")
+      (mkRemovedLspPackage "r")
+
+      (mkRenamedLspServer "ruby")
+      (mkRemovedLspPackage "ruby")
+
+      (mkRenamedLspServer "sql")
+      (mkRemovedLspPackage "sql")
+
+      (mkRenamedLspServer "svelte")
+      (mkRemovedLspPackage "svelte")
+
+      (mkRenamedLspServer "tailwind")
+      (mkRemovedLspPackage "tailwind")
+
+      (mkRemovedLspPackage "terraform")
+
+      (mkRenamedLspServer "ts")
+      (mkRemovedLspPackage "ts")
+
+      (mkRenamedLspServer "typst")
+      (mkRemovedLspPackage "typst")
+
+      (mkRenamedLspServer "vala")
+      (mkRemovedLspPackage "vala")
+
+      (mkRenamedLspServer "wgsl")
+      (mkRemovedLspPackage "wgsl")
+
+      (mkRenamedLspServer "yaml")
+      (mkRemovedLspPackage "yaml")
+
+      (mkRenamedLspServer "zig")
+      (mkRemovedLspPackage "zig")
     ]
 
     # Migrated via batchRenameOptions. Further batch renames must be below this line.
