@@ -7,12 +7,12 @@
 }: let
   inherit (builtins) attrNames concatMap;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) listOf enum;
+  inherit (lib.types) enum;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.strings) optionalString;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -148,7 +148,7 @@ in {
         enable = mkEnableOption "C# LSP support" // {default = config.vim.lsp.enable;};
         servers = mkOption {
           description = "C# LSP server to use";
-          type = listOf (enum (attrNames servers));
+          type = singleOrListOf (enum (attrNames servers));
           default = defaultServers;
         };
       };

@@ -9,8 +9,8 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.types) bool enum package listOf;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.types) bool enum package;
+  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 

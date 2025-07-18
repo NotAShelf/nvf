@@ -1,7 +1,8 @@
 {lib}: let
   inherit (lib.options) mergeEqualOption;
+  inherit (lib.lists) singleton;
   inherit (lib.strings) isString stringLength match;
-  inherit (lib.types) listOf mkOptionType;
+  inherit (lib.types) listOf mkOptionType coercedTo;
 in {
   mergelessListOf = elemType: let
     super = listOf elemType;
@@ -27,4 +28,6 @@ in {
     description = "RGB color in hex format";
     check = v: isString v && (match "#?[0-9a-fA-F]{6}" v) != null;
   };
+
+  singleOrListOf = t: coercedTo t singleton (listOf t);
 }

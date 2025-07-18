@@ -8,11 +8,11 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum listOf package bool;
+  inherit (lib.types) enum package bool;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics mkPluginSetupOption;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics mkPluginSetupOption singleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere entryBefore;
 
   cfg = config.vim.languages.ts;

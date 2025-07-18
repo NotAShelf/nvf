@@ -8,8 +8,8 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum listOf package;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.types) enum package;
+  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -74,7 +74,7 @@ in {
       enable = mkEnableOption "OCaml LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = singleOrListOf (enum (attrNames servers));
         default = defaultServers;
         description = "OCaml LSP server to use";
       };

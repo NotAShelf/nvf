@@ -8,8 +8,9 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum listOf;
+  inherit (lib.types) enum;
   inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.types) singleOrListOf;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.tailwind;
@@ -154,7 +155,7 @@ in {
       enable = mkEnableOption "Tailwindcss LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = singleOrListOf (enum (attrNames servers));
         default = defaultServers;
         description = "Tailwindcss LSP server to use";
       };
