@@ -88,7 +88,7 @@
 in {
   options.vim = {
     diagnostics = {
-      enable = mkEnableOption "diagostics module for Neovim";
+      enable = mkEnableOption "diagnostics module for Neovim";
       config = mkOption {
         type = diagnosticsSubmodule;
         default = {};
