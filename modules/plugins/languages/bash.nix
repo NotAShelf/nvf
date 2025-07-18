@@ -5,14 +5,12 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkOption mkEnableOption literalExpression;
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
-  inherit (lib.types) enum either package listOf str bool;
+  inherit (lib.types) enum package bool;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) diagnostics mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption singleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.bash;
@@ -57,7 +55,7 @@ in {
     lsp = {
       enable = mkEnableOption "Bash LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = singleOrListOf (enum (attrNames servers));
         default = defaultServers;
         description = "Bash LSP server to use";
       };

@@ -10,7 +10,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) bool enum package listOf str nullOr;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.types) diagnostics mkGrammarOption mkPluginSetupOption;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption mkPluginSetupOption singleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -63,7 +63,7 @@ in {
 
       servers = mkOption {
         description = "Markdown LSP server to use";
-        type = listOf (enum (attrNames servers));
+        type = singleOrListOf (enum (attrNames servers));
         default = defaultServers;
       };
     };

@@ -8,8 +8,9 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum listOf package str bool;
+  inherit (lib.types) enum package bool;
   inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.types) singleOrListOf;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryBefore;
 
@@ -229,7 +230,7 @@ in {
       enable = mkEnableOption "Python LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = singleOrListOf (enum (attrNames servers));
         default = defaultServers;
         description = "Python LSP server to use";
       };

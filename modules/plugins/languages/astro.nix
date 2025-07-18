@@ -7,12 +7,10 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.types) enum package;
   inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics singleOrListOf;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.astro;
@@ -91,7 +89,7 @@ in {
     lsp = {
       enable = mkEnableOption "Astro LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = singleOrListOf (enum (attrNames servers));
         default = defaultServers;
         description = "Astro LSP server to use";
       };

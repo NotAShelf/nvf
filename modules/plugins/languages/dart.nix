@@ -8,12 +8,10 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.trivial) boolToString;
-  inherit (lib.lists) isList;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) enum either listOf package nullOr str bool;
+  inherit (lib.types) enum package nullOr str bool;
   inherit (lib.strings) optionalString;
-  inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -54,7 +52,7 @@ in {
     lsp = {
       enable = mkEnableOption "Dart LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = singleOrListOf (enum (attrNames servers));
         default = defaultServers;
         description = "Dart LSP server to use";
       };

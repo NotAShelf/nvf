@@ -6,11 +6,11 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) listOf package enum;
+  inherit (lib.types) package enum;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   defaultServer = ["fsautocomplete"];
@@ -72,7 +72,7 @@ in {
       lsp = {
         enable = mkEnableOption "F# LSP support" // {default = config.vim.lsp.enable;};
         servers = mkOption {
-          type = listOf (enum (attrNames servers));
+          type = singleOrListOf (enum (attrNames servers));
           default = defaultServer;
           description = "F# LSP server to use";
         };

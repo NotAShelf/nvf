@@ -6,11 +6,11 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) bool enum package listOf;
+  inherit (lib.types) bool enum package;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.dag) entryAfter;
 
@@ -198,7 +198,7 @@ in {
 
       servers = mkOption {
         description = "The clang LSP server to use";
-        type = listOf (enum (attrNames servers));
+        type = singleOrListOf (enum (attrNames servers));
         default = defaultServers;
       };
     };
