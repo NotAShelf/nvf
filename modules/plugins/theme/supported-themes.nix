@@ -281,4 +281,23 @@ in {
       vim.cmd.colorscheme("solarized-osaka")
     '';
   };
+
+  everforest = {
+    setup = {
+      style ? "medium",
+      transparent ? false,
+      ...
+    }: ''
+      vim.g.everforest_background = "${style}"
+      vim.g.everforest_transparent_background = ${
+        if transparent
+        then "1"
+        else "0"
+      }
+
+      vim.cmd.colorscheme("everforest")
+    '';
+
+    styles = ["hard" "medium" "soft"];
+  };
 }
