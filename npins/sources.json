@@ -692,6 +692,22 @@
       "url": "https://github.com/phaazon/hop.nvim/archive/1a1eceafe54b5081eae4cb91c723abd1d450f34b.tar.gz",
       "hash": "08h18cam2yr57qvfsnf1bra28vbl6013wlchnr5crb757xw8aysa"
     },
+    "hunk-nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "julienvincent",
+        "repo": "hunk.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v1.8.0",
+      "revision": "1e0a4d719c780bb8b0690a54915601508ced321e",
+      "url": "https://api.github.com/repos/julienvincent/hunk.nvim/tarball/v1.8.0",
+      "hash": "036cwnswx36m048mvlwa8rr9baclf7lrgjlq065pb4w13c4drbmx"
+    },
     "hydra-nvim": {
       "type": "GitRelease",
       "repository": {
