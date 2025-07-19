@@ -7,8 +7,8 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) package enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.types) enum;
+  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -34,9 +34,9 @@ in {
     lsp = {
       enable = mkEnableOption "Assembly LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
-        default = defaultServers;
+        type = singleOrListOf (enum (attrNames servers));
         description = "Assembly LSP server to use";
+        default = defaultServers;
       };
     };
   };

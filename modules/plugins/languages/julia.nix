@@ -6,10 +6,10 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) listOf enum;
+  inherit (lib.types) enum;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.dag) entryBefore;
@@ -97,7 +97,7 @@ in {
       lsp = {
         enable = mkEnableOption "Java LSP support" // {default = config.vim.lsp.enable;};
         servers = mkOption {
-          type = listOf (enum (attrNames servers));
+          type = singleOrListOf (enum (attrNames servers));
           default = defaultServers;
           description = ''
             Julia LSP Server to Use

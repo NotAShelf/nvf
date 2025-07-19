@@ -8,8 +8,8 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.meta) getExe';
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum listOf package;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.types) enum package;
+  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -59,7 +59,7 @@ in {
       enable = mkEnableOption "Nim LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = singleOrListOf (enum (attrNames servers));
         default = defaultServers;
         description = "Nim LSP server to use";
       };

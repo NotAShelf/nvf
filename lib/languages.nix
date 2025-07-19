@@ -1,7 +1,7 @@
 {lib}: let
   inherit (builtins) isString getAttr;
   inherit (lib.options) mkOption;
-  inherit (lib.types) listOf bool str submodule attrsOf anything either nullOr oneOf;
+  inherit (lib.types) listOf bool str submodule attrsOf anything either nullOr uniq;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) luaInline;
 in {
@@ -62,7 +62,7 @@ in {
       };
 
       cmd = mkOption {
-        type = nullOr (either luaInline (listOf str));
+        type = nullOr (either luaInline (uniq (listOf str)));
         default = null;
         description = "Command used to start the LSP server";
       };

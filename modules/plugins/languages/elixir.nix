@@ -7,12 +7,10 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum either listOf package str;
+  inherit (lib.types) enum package;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -63,7 +61,7 @@ in {
     lsp = {
       enable = mkEnableOption "Elixir LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = singleOrListOf (enum (attrNames servers));
         default = defaultServers;
         description = "Elixir LSP server to use";
       };
