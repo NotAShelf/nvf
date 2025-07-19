@@ -18,7 +18,7 @@ in {
       lazy.plugins = {
         "hunk-nvim" = {
           package = "hunk-nvim";
-          setupModule = "hunk-nvim";
+          setupModule = "hunk";
           inherit (cfg) setupOpts;
         };
       };
