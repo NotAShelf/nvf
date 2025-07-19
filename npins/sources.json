@@ -442,6 +442,22 @@
       "url": "https://github.com/elixir-tools/elixir-tools.nvim/archive/eeb2b5a2e99e1646861a104f108c5818dd3973dc.tar.gz",
       "hash": "1l0xjis8jp5mf3v42f9xsjmwpjskf6zk6brpr8l39sp1bjn9z4x7"
     },
+    "everforest": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "sainnhe",
+        "repo": "everforest"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.3.0",
+      "revision": "1e625639362661972821e83d8bbe528b8981a05f",
+      "url": "https://api.github.com/repos/sainnhe/everforest/tarball/v0.3.0",
+      "hash": "18h7mwr9lpsdsdi90vn4nc868g50li27xvylrs2srppfjr7kvl7w"
+    },
     "fastaction-nvim": {
       "type": "Git",
       "repository": {

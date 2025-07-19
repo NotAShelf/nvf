@@ -382,7 +382,10 @@
 
 [poz](https://poz.pet):
 
+[everforest]: https://github.com/sainnhe/everforest
+
 - Fix gitsigns null-ls issue.
+- Add [everforest] theme support.
 
 [Haskex](https://github.com/haskex):
 
