@@ -9,10 +9,16 @@
 in {
   config = mkIf cfg.enable {
     vim = {
+      startPlugins = [
+        # dependencies
+        "nui-nvim" # ui library
+        "nvim-web-devicons" # glyphs
+      ];
+
       lazy.plugins = {
         "hunk-nvim" = {
           package = "hunk-nvim";
-          setupModule = "gitlinker";
+          setupModule = "hunk";
           inherit (cfg) setupOpts;
         };
       };
