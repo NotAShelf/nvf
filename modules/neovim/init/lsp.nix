@@ -16,6 +16,7 @@
 
   cfg = config.vim.lsp;
 
+  # TODO: lspConfigurations filter on enabledServers instead of cfg.servers?
   lspConfigurations =
     mapAttrsToList (
       name: value: ''
