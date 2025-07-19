@@ -7,10 +7,11 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
-  inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.types) enum listOf package;
+  inherit (lib.meta) getExe;
   inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.r;
 
@@ -50,22 +51,16 @@
     };
   };
 
-  defaultServer = "r_language_server";
+  defaultServers = ["r_language_server"];
   servers = {
     r_language_server = {
-      package = pkgs.writeShellScriptBin "r_lsp" ''
-        ${r-with-languageserver}/bin/R --slave -e "languageserver::run()"
-      '';
-      lspConfig = ''
-        lspconfig.r_language_server.setup{
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${lib.getExe cfg.lsp.package}"}''
-        }
-        }
+      enable = true;
+      cmd = [(getExe r-with-languageserver) "--no-echo" "-e" "languageserver::run()"];
+      filetypes = ["r" "rmd" "quarto"];
+      root_dir = mkLuaInline ''
+        function(bufnr, on_dir)
+          on_dir(vim.fs.root(bufnr, '.git') or vim.uv.os_homedir())
+        end
       '';
     };
   };
@@ -81,17 +76,10 @@ in {
     lsp = {
       enable = mkEnableOption "R LSP support" // {default = config.vim.lsp.enable;};
 
-      server = mkOption {
+      servers = mkOption {
+        type = listOf (enum (attrNames servers));
+        default = defaultServers;
         description = "R LSP server to use";
-        type = enum (attrNames servers);
-        default = defaultServer;
-      };
-
-      package = mkOption {
-        description = "R LSP server package, or the command to run as a list of strings";
-        example = literalExpression "[ (lib.getExe pkgs.jdt-language-server) \"-data\" \"~/.cache/jdtls/workspace\" ]";
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
       };
     };
 
@@ -127,8 +115,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.r-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
   ]);
 }

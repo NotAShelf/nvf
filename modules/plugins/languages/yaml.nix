@@ -7,10 +7,10 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
-  inherit (lib.types) enum either listOf package str;
+  inherit (lib.meta) getExe;
+  inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.yaml;
 
@@ -25,23 +25,22 @@
       end''
     else "on_attach = default_on_attach";
 
-  defaultServer = "yaml-language-server";
+  defaultServers = ["yaml-language-server"];
   servers = {
     yaml-language-server = {
-      package = pkgs.yaml-language-server;
-      lspConfig = ''
-
-
-        lspconfig.yamlls.setup {
-          capabilities = capabilities,
-          ${onAttach},
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/yaml-language-server", "--stdio"}''
-        },
-        }
-      '';
+      enable = true;
+      cmd = [(getExe pkgs.yaml-language-server) "--stdio"];
+      filetypes = ["yaml" "yaml.docker-compose" "yaml.gitlab" "yaml.helm-values"];
+      root_markers = [".git"];
+      on_attach = onAttach;
+      # -- https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting
+      settings = {
+        redhat = {
+          telemetry = {
+            enabled = false;
+          };
+        };
+      };
     };
   };
 in {
@@ -55,18 +54,11 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "YAML LSP support" // {default = config.vim.lsp.enable;};
-
-      server = mkOption {
-        type = enum (attrNames servers);
-        default = defaultServer;
-        description = "YAML LSP server to use";
-      };
-
-      package = mkOption {
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
-        description = "YAML LSP server package";
+      enable = mkEnableOption "Yaml LSP support" // {default = config.vim.lsp.enable;};
+      servers = mkOption {
+        type = listOf (enum (attrNames servers));
+        default = defaultServers;
+        description = "Yaml LSP server to use";
       };
     };
   };
@@ -78,8 +70,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.yaml-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
   ]);
 }

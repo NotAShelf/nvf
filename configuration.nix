@@ -84,6 +84,7 @@ isMaximal: {
       ocaml.enable = false;
       elixir.enable = false;
       haskell.enable = false;
+      hcl.enable = false;
       ruby.enable = false;
       fsharp.enable = false;
 
