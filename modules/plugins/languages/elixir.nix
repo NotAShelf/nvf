@@ -8,29 +8,37 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
+  inherit (lib.meta) getExe;
   inherit (lib.types) enum either listOf package str;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.elixir;
 
-  defaultServer = "elixirls";
+  defaultServers = ["elixirls"];
   servers = {
     elixirls = {
-      package = pkgs.elixir-ls;
-      lspConfig = ''
-        -- elixirls setup
-        lspconfig.elixirls.setup {
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/elixir-ls"}''
-        }
-        }
-      '';
+      enable = true;
+      cmd = [(getExe pkgs.elixir-ls)];
+      filetypes = ["elixir" "eelixir" "heex" "surface"];
+      root_dir =
+        mkLuaInline
+        /*
+        lua
+        */
+        ''
+          function(bufnr, on_dir)
+            local fname = vim.api.nvim_buf_get_name(bufnr)
+            local matches = vim.fs.find({ 'mix.exs' }, { upward = true, limit = 2, path = fname })
+            local child_or_root_path, maybe_umbrella_path = unpack(matches)
+            local root_dir = vim.fs.dirname(maybe_umbrella_path or child_or_root_path)
+
+            on_dir(root_dir)
+          end
+        '';
     };
   };
 
@@ -54,18 +62,10 @@ in {
 
     lsp = {
       enable = mkEnableOption "Elixir LSP support" // {default = config.vim.lsp.enable;};
-
-      server = mkOption {
+      servers = mkOption {
+        type = listOf (enum (attrNames servers));
+        default = defaultServers;
         description = "Elixir LSP server to use";
-        type = enum (attrNames servers);
-        default = defaultServer;
-      };
-
-      package = mkOption {
-        description = "Elixir LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
       };
     };
 
@@ -73,15 +73,15 @@ in {
       enable = mkEnableOption "Elixir formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        description = "Elixir formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "Elixir formatter to use";
       };
 
       package = mkOption {
-        description = "Elixir formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "Elixir formatter package";
       };
     };
 
@@ -97,8 +97,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.elixir-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
 
     (mkIf cfg.format.enable {
