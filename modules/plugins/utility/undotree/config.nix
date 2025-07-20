@@ -2,6 +2,12 @@
 {
   vim.lazy.plugins.undotree = {
     package = "undotree";
-    cmd = [ "UndotreeToggle" ];
+    cmd = [
+      "UndotreeToggle"
+      "UndotreeShow"
+      "UndotreeHide"
+      "UndotreePersistUndo"
+      "UndotreeFocus"
+    ];
   };
 }
