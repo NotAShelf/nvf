@@ -1,5 +1,5 @@
 {
-  vim.lazy.plugins.undotree = {
+  vim.lazy.plugins.utility.undotree = {
     package = "undotree";
     cmd = [
       "UndotreeToggle"
