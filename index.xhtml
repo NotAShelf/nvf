@@ -46,11 +46,12 @@ changes that you think are critical over at the <a class="link" href="https://gi
 </div><div class="preface"> <div class="titlepage">  <div>   <div>    <h1 id="ch-try-it-out" class="title" >Try it out   </h1>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-using-prebuilt-configs">Using Prebuilt Configs</a> </span></dt> </dl></div><p>Thanks to the portability of Nix, you can try out nvf without actually
 installing it to your machine. Below are the commands you may run to try out
 different configurations provided by this flake. As of v0.5, two specialized
-configurations are provided:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><span class="strong"><strong>Nix</strong></span> - Nix language server + simple utility plugins</p></li><li class="listitem"><p><span class="strong"><strong>Maximal</strong></span> - Variable language servers + utility and decorative plugins</p></li></ul></div><p>You may try out any of the provided configurations using the <code class="literal">nix run</code> command
-on a system where Nix is installed.</p><pre><code class="programlisting bash">$ cachix use nvf                   # Optional: it&#x27;ll save you CPU resources and time
-$ nix run github:notashelf/nvf#nix # will run the default minimal configuration
-</code></pre><p>Do keep in mind that this is <span class="strong"><strong>susceptible to garbage collection</strong></span> meaning it
-will be removed from your Nix store once you garbage collect.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-using-prebuilt-configs" class="title" >Using Prebuilt Configs   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-available-configs">Available Configurations</a> </span></dt> </dl></div><pre><code class="programlisting bash">$ nix run github:notashelf/nvf#nix
+configurations are provided:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><span class="strong"><strong>Nix</strong></span> (<code class="literal">packages.nix</code>) - Nix language server + simple utility plugins</p></li><li class="listitem"><p><span class="strong"><strong>Maximal</strong></span> (<code class="literal">packages.maximal</code>) - Variable language servers + utility and
+decorative plugins</p></li></ul></div><p>You may try out any of the provided configurations using the <code class="literal">nix run</code> command
+on a system where Nix is installed.</p><pre><code class="programlisting sh">$ cachix use nvf                   # Optional: it&#x27;ll save you CPU resources and time
+$ nix run github:notashelf/nvf#nix # Will run the default minimal configuration
+</code></pre><p>Do keep in mind that this is <span class="strong"><strong>susceptible to garbage collection</strong></span> meaning that
+the built outputs will be removed from your Nix store once you garbage collect.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-using-prebuilt-configs" class="title" >Using Prebuilt Configs   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-available-configs">Available Configurations</a> </span></dt> </dl></div><pre><code class="programlisting bash">$ nix run github:notashelf/nvf#nix
 $ nix run github:notashelf/nvf#maximal
 </code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-available-configs" class="title" >Available Configurations   </h3>  </div> </div></div><p>::: {.info}</p><p>The below configurations are provided for demonstration purposes, and are
 <span class="strong"><strong>not</strong></span> designed to be installed as is. You may</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="sec-configs-nix" class="title" >Nix   </h4>  </div> </div></div><p><code class="literal">Nix</code> configuration by default provides LSP/diagnostic support for Nix alongside
@@ -66,7 +67,8 @@ mind, however, that this will pull a lot of dependencies.</p><pre><code class="p
 </code></pre><p>It uses the same configuration template with the <a class="link" href="index.xhtml#sec-configs-nix" title="Nix" >Nix</a>
 configuration, but supports many more languages, and enables more utility,
 companion or fun plugins.</p><div class="warning"><h3 class="title">Warning</h3><p>Running the maximal config will download <span class="emphasis"><em>a lot</em></span> of packages as it is
-downloading language servers, formatters, and more.</p></div>
+downloading language servers, formatters, and more. If CPU time and bandwidth
+are concerns, please use the default package instead.</p></div>
 </div>
 
 </div>
@@ -230,10 +232,12 @@ the default theme enabled. You may use other options inside <code class="literal
 </div>
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="ch-module-installation" class="title" >Module Installation   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="chapter">  <a href="index.xhtml#ch-nixos-module">NixOS Module</a> </span></dt><dt> <span class="chapter">  <a href="index.xhtml#ch-hm-module">Home-Manager Module</a> </span></dt> </dl></div><p>The below chapters will describe installing nvf as NixOS and Home-Manager
 modules. Note that those methods are mutually exclusive, and will likely cause
-path collisions if used simultaneously.</p><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="ch-nixos-module" class="title" >NixOS Module   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-example-installation-nixos">Example Installation</a> </span></dt> </dl></div><p>The NixOS module allows us to customize the different <code class="literal">vim</code> options from inside
+path collisions if used simultaneously.</p><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="ch-nixos-module" class="title" >NixOS Module   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-nixos-flakes">With Flakes</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-nixos-flakeless">Without Flakes</a> </span></dt> </dl></div><p>The NixOS module allows us to customize the different <code class="literal">vim</code> options from inside
 the NixOS configuration without having to call for the wrapper yourself. It is
 the recommended way to use <span class="strong"><strong>nvf</strong></span> alongside the home-manager module depending
-on your needs.</p><p>To use it, we first add the input flake.</p><pre><code class="programlisting nix">{
+on your needs.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-nixos-flakes" class="title" style="clear: both">With Flakes   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-nixos-flakes-usage">Usage</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-example-installation-nixos">Example Installation</a> </span></dt> </dl></div><pre><code class="programlisting {=include=}">flakes.md
+</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-nixos-flakes-usage" class="title" >Usage   </h3>  </div> </div></div><p>To use <span class="strong"><strong>nvf</strong></span> with flakes, we first need to add the input to our <code class="literal">flake.nix</code>.</p><pre><code class="programlisting nix"># flake.nix
+{
   inputs = {
     # Optional, if you intend to follow nvf&#x27;s obsidian-nvim input
     # you must also add it as a flake input.
@@ -241,7 +245,7 @@ on your needs.</p><p>To use it, we first add the input flake.</p><pre><code clas
 
     # Required, nvf works best and only directly supports flakes
     nvf = {
-      url = &quot;github:notashelf/nvf&quot;;
+      url = &quot;github:NotAShelf/nvf&quot;;
       # You can override the input nixpkgs to follow your system&#x27;s
       # instance of nixpkgs. This is safe to do as nvf does not depend
       # on a binary cache.
@@ -250,6 +254,8 @@ on your needs.</p><p>To use it, we first add the input flake.</p><pre><code clas
       # for example:
       inputs.obsidian-nvim.follows = &quot;obsidian-nvim&quot;; # &lt;- this will use the obsidian-nvim from your inputs
     };
+
+    # ...
   };
 }
 </code></pre><p>Followed by importing the NixOS module somewhere in your configuration.</p><pre><code class="programlisting nix">{
@@ -257,7 +263,8 @@ on your needs.</p><p>To use it, we first add the input flake.</p><pre><code clas
   # see example below
   imports = [ inputs.nvf.nixosModules.default ];
 }
-</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-example-installation-nixos" class="title" style="clear: both">Example Installation   </h2>  </div> </div></div><pre><code class="programlisting nix">{
+</code></pre>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-example-installation-nixos" class="title" >Example Installation   </h3>  </div> </div></div><pre><code class="programlisting nix">{
   inputs = {
     nixpkgs.url = &quot;github:NixOS/nixpkgs/nixos-unstable&quot;;
     nvf.url = &quot;github:notashelf/nvf&quot;;
@@ -275,9 +282,11 @@ on your needs.</p><p>To use it, we first add the input flake.</p><pre><code clas
 }
 </code></pre><p>Once the module is properly imported by your host, you will be able to use the
 <code class="literal">programs.nvf</code> module option anywhere in your configuration in order to
-configure <span class="strong"><strong>nvf</strong></span>.</p><pre><code class="programlisting nix{">  programs.nvf = {
+configure <span class="strong"><strong>nvf</strong></span>.</p><pre><code class="programlisting nix">{
+  programs.nvf = {
     enable = true;
-    # your settings need to go into the settings attribute set
+    
+    # Your settings need to go into the settings attribute set
     # most settings are documented in the appendix
     settings = {
       vim.viAlias = false;
@@ -293,10 +302,39 @@ installation sections of the manual. You may find all available options in the
 <a class="link" href="https://notashelf.github.io/nvf/options"  target="_top">appendix</a></p></div>
 </div>
 
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="ch-hm-module" class="title" >Home-Manager Module   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-example-installation-hm">Example Installation</a> </span></dt> </dl></div><p>The home-manager module allows us to customize the different <code class="literal">vim</code> options from
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-nixos-flakeless" class="title" style="clear: both">Without Flakes   </h2>  </div> </div></div><p>As of v0.8, it is possible to install <span class="strong"><strong>nvf</strong></span> on a system if you are not using
+flakes. This is possible thanks to the flake-compat project.</p><p>To get started, you must fetch the repository using <code class="literal">builtins.fetchTarball</code> or a
+similar mechanism.</p><pre><code class="programlisting nix"># configuration.nix
+let
+  nvf = import (builtins.fetchTarball {
+    url = &quot;https://github.com/notashelf/nvf/archive/&lt;commit or tag&gt;.tar.gz&quot;;
+    # Optionally, you can add &#x27;sha256&#x27; for verification and caching
+    # sha256 = &quot;&lt;sha256&gt;&quot;;
+  });
+in {
+  imports = [
+    # Import the NixOS module from your fetched input
+    nvf.nixosModules.nvf
+  ];
+
+  # Once the module is imported, you may use `programs.nvf` as exposed by the
+  # NixOS module.
+  programs.nvf.enable = true;
+}
+</code></pre><div class="tip"><h3 class="title">Tip</h3><p>Nix2 does not have a builtin lockfile mechanism like flakes. As such you must
+manually update the URL and hash for your input. This is annoying to deal with,
+and most users choose to defer this task to projects such as <a class="link" href="https://github.com/andir/npins"  target="_top">npins</a> or <a class="link" href="https://github.com/nmattia/niv"  target="_top">niv</a>.
+If you are new to NixOS, I encourage you to look into Flakes and see if they fit
+your use case. Alternatively, look into the aforementioned projects for more
+convenient dependency management mechanisms.</p></div>
+</div>
+
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="ch-hm-module" class="title" >Home-Manager Module   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-hm-flakes">With Flakes</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-hm-flakeless">Without Flakes</a> </span></dt> </dl></div><p>The home-manager module allows us to customize the different <code class="literal">vim</code> options from
 inside the home-manager configuration without having to call for the wrapper
 yourself. It is the recommended way to use <span class="strong"><strong>nvf</strong></span> alongside the NixOS module
-depending on your needs.</p><p>To use it, we first add the input flake.</p><pre><code class="programlisting nix">{
+depending on your needs.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-hm-flakes" class="title" style="clear: both">With Flakes   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-hm-flakes-usage">Usage</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-example-installation-hm">Example Installation</a> </span></dt> </dl></div><pre><code class="programlisting {=include=}">flakes.md
+</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-hm-flakes-usage" class="title" >Usage   </h3>  </div> </div></div><p>To use <span class="strong"><strong>nvf</strong></span> with flakes, we first need to add the input to our <code class="literal">flake.nix</code>.</p><pre><code class="programlisting nix"># flake.nix
+{
   inputs = {
     # Optional, if you intend to follow nvf&#x27;s obsidian-nvim input
     # you must also add it as a flake input.
@@ -304,7 +342,7 @@ depending on your needs.</p><p>To use it, we first add the input flake.</p><pre>
 
     # Required, nvf works best and only directly supports flakes
     nvf = {
-      url = &quot;github:notashelf/nvf&quot;;
+      url = &quot;github:NotAShelf/nvf&quot;;
       # You can override the input nixpkgs to follow your system&#x27;s
       # instance of nixpkgs. This is safe to do as nvf does not depend
       # on a binary cache.
@@ -313,6 +351,8 @@ depending on your needs.</p><p>To use it, we first add the input flake.</p><pre>
       # for example:
       inputs.obsidian-nvim.follows = &quot;obsidian-nvim&quot;; # &lt;- this will use the obsidian-nvim from your inputs
     };
+
+    # ...
   };
 }
 </code></pre><p>Followed by importing the home-manager module somewhere in your configuration.</p><pre><code class="programlisting nix">{
@@ -320,7 +360,8 @@ depending on your needs.</p><p>To use it, we first add the input flake.</p><pre>
   # See example installation below
   imports = [ inputs.nvf.homeManagerModules.default ];
 }
-</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-example-installation-hm" class="title" style="clear: both">Example Installation   </h2>  </div> </div></div><pre><code class="programlisting nix">{
+</code></pre>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-example-installation-hm" class="title" >Example Installation   </h3>  </div> </div></div><pre><code class="programlisting nix">{
   inputs = {
     nixpkgs.url = &quot;github:NixOS/nixpkgs/nixos-unstable&quot;;
     home-manager.url = &quot;github:nix-community/home-manager&quot;;
@@ -340,7 +381,8 @@ depending on your needs.</p><p>To use it, we first add the input flake.</p><pre>
 }
 </code></pre><p>Once the module is properly imported by your host, you will be able to use the
 <code class="literal">programs.nvf</code> module option anywhere in your configuration in order to
-configure <span class="strong"><strong>nvf</strong></span>.</p><pre><code class="programlisting nix{">  programs.nvf = {
+configure <span class="strong"><strong>nvf</strong></span>.</p><pre><code class="programlisting nix">{
+  programs.nvf = {
     enable = true;
     # your settings need to go into the settings attribute set
     # most settings are documented in the appendix
@@ -356,6 +398,33 @@ configure <span class="strong"><strong>nvf</strong></span>.</p><pre><code class=
 </code></pre><div class="note"><h3 class="title">Note</h3><p><span class="strong"><strong>nvf</strong></span> exposes a lot of options, most of which are not referenced in the
 installation sections of the manual. You may find all available options in the
 <a class="link" href="https://notashelf.github.io/nvf/options"  target="_top">appendix</a></p></div>
+</div>
+
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-hm-flakeless" class="title" style="clear: both">Without Flakes   </h2>  </div> </div></div><p>As of v0.8, it is possible to install <span class="strong"><strong>nvf</strong></span> on a system if you are not using
+flakes. This is possible thanks to the flake-compat project.</p><p>To get started, you must fetch the repository using <code class="literal">builtins.fetchTarball</code> or a
+similar mechanism.</p><pre><code class="programlisting nix"># home.nix
+let
+  nvf = import (builtins.fetchTarball {
+    url = &quot;https://github.com/notashelf/nvf/archive/&lt;commit or tag&gt;.tar.gz&quot;;
+    # Optionally, you can add &#x27;sha256&#x27; for verification and caching
+    # sha256 = &quot;&lt;sha256&gt;&quot;;
+  });
+in {
+  imports = [
+    # Import the NixOS module from your fetched input
+    nvf.homeManagerModules.nvf
+  ];
+
+  # Once the module is imported, you may use `programs.nvf` as exposed by the
+  # NixOS module.
+  programs.nvf.enable = true;
+}
+</code></pre><div class="tip"><h3 class="title">Tip</h3><p>Nix2 does not have a builtin lockfile mechanism like flakes. As such you must
+manually update the URL and hash for your input. This is annoying to deal with,
+and most users choose to defer this task to projects such as <a class="link" href="https://github.com/andir/npins"  target="_top">npins</a> or <a class="link" href="https://github.com/nmattia/niv"  target="_top">niv</a>.
+If you are new to NixOS, I encourage you to look into Flakes and see if they fit
+your use case. Alternatively, look into the aforementioned projects for more
+convenient dependency management mechanisms.</p></div>
 </div>
 
 </div>
