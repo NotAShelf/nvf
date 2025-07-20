@@ -5,8 +5,9 @@
     self,
     ...
   } @ inputs: let
-    # call the extended library with `inputs`
-    # inputs is used to get the original standard library, and to pass inputs to the plugin autodiscovery function
+    # Call the extended library with `inputs`.
+    # inputs is used to get the original standard library, and to pass inputs
+    # to the plugin autodiscovery function
     lib = import ./lib/stdlib-extended.nix {inherit inputs self;};
   in
     flake-parts.lib.mkFlake {
@@ -29,6 +30,8 @@
           inherit (lib.nvim) neovimConfiguration;
         };
 
+        inherit (lib.importJSON ./npins/sources.json) pins;
+
         homeManagerModules = {
           nvf = import ./flake/modules/home-manager.nix {inherit lib inputs;};
           default = self.homeManagerModules.nvf;
@@ -50,21 +53,33 @@
             ''
             self.nixosModules.nvf;
         };
-
-        inherit (lib.importJSON ./npins/sources.json) pins;
       };
 
       perSystem = {pkgs, ...}: {
-        # Provide the default formatter. `nix fmt` in project root
-        # will format available files with the correct formatter.
-        # P.S: Please do not format with nixfmt! It messes with many
-        # syntax elements and results in unreadable code.
-        formatter = pkgs.alejandra;
+        # Provides the default formatter for 'nix fmt', which will format the
+        # entire tree with Alejandra. The wrapper script is necessary due to
+        # changes to the behaviour of Nix, which now encourages wrappers for
+        # tree-wide formatting.
+        formatter = pkgs.writeShellApplication {
+          name = "nix3-fmt-wrapper";
 
-        # Check if codebase is properly formatted.
-        # This can be initiated with `nix build .#checks.<system>.nix-fmt`
-        # or with `nix flake check`
+          runtimeInputs = [
+            pkgs.alejandra
+            pkgs.fd
+          ];
+
+          text = ''
+            # Find Nix files in the tree and format them with Alejandra
+            fd "$@" -t f -e nix -x alejandra -q '{}'
+          '';
+        };
+
+        # Provides checks to be built an ran on 'nix flake check'. They can also
+        # be built individually with 'nix build' as described below.
         checks = {
+          # Check if codebase is properly formatted.
+          # This can be initiated with `nix build .#checks.<system>.nix-fmt`
+          # or with `nix flake check`
           nix-fmt = pkgs.runCommand "nix-fmt-check" {nativeBuildInputs = [pkgs.alejandra];} ''
             alejandra --check ${self} < /dev/null | tee $out
           '';
@@ -72,8 +87,9 @@
       };
     };
 
-  # Flake inputs
   inputs = {
+    systems.url = "github:nix-systems/default";
+
     ## Basic Inputs
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
@@ -87,7 +103,10 @@
       inputs.systems.follows = "systems";
     };
 
-    systems.url = "github:nix-systems/default";
+    flake-compat = {
+      url = "git+https://git.lix.systems/lix-project/flake-compat.git";
+      flake = false;
+    };
 
     # Alternate neovim-wrapper
     mnw.url = "github:Gerg-L/mnw";
