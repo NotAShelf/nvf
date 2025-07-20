@@ -4,6 +4,6 @@ let
 in
 {
   options.vim.undotree = {
-    enable = mkEnableOption "undotree";
+    enable = mkEnableOption "undo history visualizer for Vim [undotree]";
   };
 }
