@@ -25,7 +25,7 @@ in {
       type = listOf package;
       default = [];
       example = literalExpression ''
-        pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+        with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
           regex
           kdl
         ];
