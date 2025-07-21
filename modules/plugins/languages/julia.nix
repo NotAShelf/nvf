@@ -12,9 +12,9 @@
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.dag) entryBefore;
 
-  defaultServers = ["jdtls"];
+  defaultServers = ["julia"];
   servers = {
-    jdtls = {
+    julia = {
       enable = true;
       cmd =
         mkLuaInline
