@@ -10,7 +10,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.lists) isList;
   inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption mkServersOption;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -36,11 +36,7 @@ in {
 
     lsp = {
       enable = mkEnableOption "Clojure LSP support" // {default = config.vim.lsp.enable;};
-      servers = mkOption {
-        type = listOf (enum (attrNames servers));
-        default = defaultServers;
-        description = "Clojure LSP servers to use";
-      };
+      servers = mkServersOption "Clojure" servers defaultServers;
     };
   };
 

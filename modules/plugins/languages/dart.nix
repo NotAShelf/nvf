@@ -13,7 +13,7 @@
   inherit (lib.types) enum either listOf package nullOr str bool;
   inherit (lib.strings) optionalString;
   inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption mkServersOption;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -53,11 +53,7 @@ in {
 
     lsp = {
       enable = mkEnableOption "Dart LSP support" // {default = config.vim.lsp.enable;};
-      servers = mkOption {
-        type = listOf (enum (attrNames servers));
-        default = defaultServers;
-        description = "Dart LSP servers to use";
-      };
+      servers = mkServersOption "Dart" servers defaultServers;
     };
 
     dap = {

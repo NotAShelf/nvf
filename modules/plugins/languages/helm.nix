@@ -9,7 +9,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption mkServersOption;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.helm;
@@ -48,11 +48,7 @@ in {
 
     lsp = {
       enable = mkEnableOption "Helm LSP support" // {default = config.vim.lsp.enable;};
-      servers = mkOption {
-        type = listOf (enum (attrNames servers));
-        default = defaultServers;
-        description = "Helm LSP servers to use";
-      };
+      servers = mkServersOption "Helm" servers defaultServers;
     };
   };
 

@@ -9,7 +9,7 @@
   inherit (lib.meta) getExe' getExe;
   inherit (builtins) attrNames;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.nvim.types) mkGrammarOption mkServersOption diagnostics;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -62,11 +62,7 @@ in {
 
     lsp = {
       enable = mkEnableOption "Kotlin LSP support" // {default = config.vim.lsp.enable;};
-      servers = mkOption {
-        type = listOf (enum (attrNames servers));
-        default = defaultServers;
-        description = "Kotlin LSP servers to use";
-      };
+      servers = mkServersOption "Kotlin" servers defaultServers;
     };
 
     extraDiagnostics = {

@@ -9,7 +9,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.strings) optionalString;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption mkServersOption;
   inherit (lib.nvim.dag) entryAfter entryBefore;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.meta) getExe';
@@ -76,11 +76,7 @@ in {
 
     lsp = {
       enable = mkEnableOption "Haskell LSP support" // {default = config.vim.lsp.enable;};
-      servers = mkOption {
-        type = listOf (enum (attrNames servers));
-        default = defaultServers;
-        description = "Haskell LSP servers to use";
-      };
+      servers = mkServersOption "Haskell" servers defaultServers;
     };
 
     dap = {

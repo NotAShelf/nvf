@@ -6,7 +6,7 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption mkServersOption;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) enum listOf;
   inherit (lib.meta) getExe;
@@ -35,12 +35,7 @@ in {
 
     lsp = {
       enable = mkEnableOption "WGSL LSP support" // {default = config.vim.lsp.enable;};
-
-      servers = mkOption {
-        type = listOf (enum (attrNames servers));
-        default = defaultServers;
-        description = "WGSL LSP servers to use";
-      };
+      servers = mkServersOption "WGSL" servers defaultServers;
     };
   };
 

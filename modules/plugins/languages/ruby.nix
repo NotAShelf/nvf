@@ -8,7 +8,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.nvim.types) mkGrammarOption mkServersOption diagnostics;
   inherit (lib.types) listOf package enum;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -75,12 +75,7 @@ in {
 
     lsp = {
       enable = mkEnableOption "Ruby LSP support" // {default = config.vim.lsp.enable;};
-
-      servers = mkOption {
-        type = listOf (enum (attrNames servers));
-        default = defaultServers;
-        description = "Ruby LSP servers to use";
-      };
+      servers = mkServersOption "Ruby" servers defaultServers;
     };
 
     format = {

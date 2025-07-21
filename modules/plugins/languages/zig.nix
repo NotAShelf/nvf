@@ -8,7 +8,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge mkDefault;
   inherit (lib.types) bool listOf package enum;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption mkServersOption;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -65,12 +65,7 @@ in {
 
     lsp = {
       enable = mkEnableOption "Zig LSP support" // {default = config.vim.lsp.enable;};
-
-      servers = mkOption {
-        type = listOf (enum (attrNames servers));
-        default = defaultServers;
-        description = "Zig LSP servers to use";
-      };
+      servers = mkServersOption "Zig" servers defaultServers;
     };
 
     dap = {

@@ -9,7 +9,7 @@
   inherit (lib.meta) getExe;
   inherit (builtins) attrNames;
   inherit (lib.types) listOf enum;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption mkServersOption;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.dag) entryBefore;
   inherit (lib.generators) mkLuaInline;
@@ -71,11 +71,7 @@ in {
 
     lsp = {
       enable = mkEnableOption "Java LSP support" // {default = config.vim.lsp.enable;};
-      servers = mkOption {
-        type = listOf (enum (attrNames servers));
-        default = defaultServers;
-        description = "Java LSP servers to use";
-      };
+      servers = mkServersOption "Java" servers defaultServers;
     };
   };
 

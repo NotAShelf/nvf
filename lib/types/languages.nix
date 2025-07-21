@@ -32,6 +32,13 @@
     mkPackageOption pkgs ["${grammar} treesitter"] {
       default = ["vimPlugins" "nvim-treesitter" "builtGrammars" grammar];
     };
+
+  mkServersOption = language: servers: defaultServers:
+    mkOption {
+      type = listOf (enum (attrNames servers));
+      default = defaultServers;
+      description = "${language} LSP servers to use";
+    };
 in {
-  inherit diagnostics diagnosticSubmodule mkGrammarOption;
+  inherit diagnostics diagnosticSubmodule mkGrammarOption mkServersOption;
 }

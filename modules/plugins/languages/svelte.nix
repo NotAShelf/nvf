@@ -9,7 +9,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum listOf package;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.nvim.types) mkGrammarOption mkServersOption diagnostics;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.generators) mkLuaInline;
 
@@ -88,12 +88,7 @@ in {
 
     lsp = {
       enable = mkEnableOption "Svelte LSP support" // {default = config.vim.lsp.enable;};
-
-      servers = mkOption {
-        type = listOf (enum (attrNames servers));
-        default = defaultServers;
-        description = "Svelte LSP servers to use";
-      };
+      servers = mkServersOption "Svelte" servers defaultServers;
     };
 
     format = {

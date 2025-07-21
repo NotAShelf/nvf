@@ -11,7 +11,7 @@
   inherit (lib.lists) isList;
   inherit (lib.types) enum either package listOf str bool;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) diagnostics mkGrammarOption;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption mkServersOption;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -56,11 +56,7 @@ in {
 
     lsp = {
       enable = mkEnableOption "Bash LSP support" // {default = config.vim.lsp.enable;};
-      servers = mkOption {
-        type = listOf (enum (attrNames servers));
-        default = defaultServers;
-        description = "Bash LSP servers to use";
-      };
+      servers = mkServersOption "Bash" servers defaultServers;
     };
 
     format = {

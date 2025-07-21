@@ -9,7 +9,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) bool enum listOf package;
-  inherit (lib.nvim.types) diagnostics mkGrammarOption;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption mkServersOption;
   inherit (lib.nvim.dag) entryBefore;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -63,11 +63,7 @@ in {
 
     lsp = {
       enable = mkEnableOption "Lua LSP support" // {default = config.vim.lsp.enable;};
-      servers = mkOption {
-        type = listOf (enum (attrNames servers));
-        default = defaultServers;
-        description = "Lua LSP servers to use";
-      };
+      servers = mkServersOption "Lua" servers defaultServers;
 
       lazydev.enable = mkEnableOption "lazydev.nvim integration, useful for neovim plugin developers";
     };

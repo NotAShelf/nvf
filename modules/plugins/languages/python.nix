@@ -12,6 +12,7 @@
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryBefore;
+  inherit (lib.nvim.types) mkServersOption;
 
   cfg = config.vim.languages.python;
 
@@ -227,12 +228,7 @@ in {
 
     lsp = {
       enable = mkEnableOption "Python LSP support" // {default = config.vim.lsp.enable;};
-
-      servers = mkOption {
-        type = listOf (enum (attrNames servers));
-        default = defaultServers;
-        description = "Python LSP servers to use";
-      };
+      servers = mkServersOption "Python" servers defaultServers;
     };
 
     format = {

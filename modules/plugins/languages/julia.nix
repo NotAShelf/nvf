@@ -9,7 +9,7 @@
   inherit (lib.types) listOf enum;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption mkServersOption;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.dag) entryBefore;
@@ -96,23 +96,23 @@ in {
 
       lsp = {
         enable = mkEnableOption "Java LSP support" // {default = config.vim.lsp.enable;};
-        servers = mkOption {
-          type = listOf (enum (attrNames servers));
-          default = defaultServers;
-          description = ''
-            Julia LSP servers to use
+        servers =
+          mkServersOption "Julia" servers defaultServers
+          // {
+            description = ''
+              Julia LSP servers to use
 
-            ::: {.note}
-            The entirety of Julia is bundled with nvf, if you enable this
-            option, since there is no way to provide only the LSP server.
+              ::: {.note}
+              The entirety of Julia is bundled with nvf, if you enable this
+              option, since there is no way to provide only the LSP server.
 
-            If you want to avoid that, you have to change
-            [](#opt-vim.languages.julia.lsp.package) to use the Julia binary
-            in {env}`PATH` (set it to `null`), and add the `LanguageServer` package to
-            Julia in your devshells.
-            :::
-          '';
-        };
+              If you want to avoid that, you have to change
+              [](#opt-vim.languages.julia.lsp.package) to use the Julia binary
+              in {env}`PATH` (set it to `null`), and add the `LanguageServer` package to
+              Julia in your devshells.
+              :::
+            '';
+          };
       };
     };
   };
