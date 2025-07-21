@@ -5,69 +5,68 @@
   ...
 }: let
   inherit (builtins) attrNames;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
+  inherit (lib.lists) elem;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum either listOf package str bool;
-  inherit (lib.nvim.lua) expToLua toLuaObject;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics mkPluginSetupOption;
-  inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.types) enum package bool;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics mkPluginSetupOption mkServersOption;
+  inherit (lib.nvim.dag) entryAnywhere entryBefore;
 
   cfg = config.vim.languages.ts;
 
-  defaultServer = "ts_ls";
+  defaultServers = ["ts_ls"];
   servers = {
     ts_ls = {
-      package = pkgs.typescript-language-server;
-      lspConfig = ''
-        lspconfig.ts_ls.setup {
-          capabilities = capabilities,
-          on_attach = function(client, bufnr)
+      enable = true;
+      cmd = [(getExe pkgs.typescript-language-server) "--stdio"];
+      filetypes = ["javascript" "javascriptreact" "javascript.jsx" "typescript" "typescriptreact" "typescript.tsx"];
+      root_markers = ["tsconfig.json" "jsconfig.json" "package.json" ".git"];
+      on_attach =
+        mkLuaInline
+        /*
+        lua
+        */
+        ''
+          function(client, bufnr)
             attach_keymaps(client, bufnr);
             client.server_capabilities.documentFormattingProvider = false;
-          end,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/typescript-language-server", "--stdio"}''
-        }
-        }
-      '';
+          end
+        '';
     };
 
     denols = {
+      enable = true;
+      cmd = [(getExe pkgs.deno) "lsp"];
       package = pkgs.deno;
-      lspConfig = ''
-        vim.g.markdown_fenced_languages = { "ts=typescript" }
-        lspconfig.denols.setup {
-          capabilities = capabilities;
-          on_attach = attach_keymaps,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/deno", "lsp"}''
-        }
-        }
-      '';
+      filetypes = ["javascript" "javascriptreact" "javascript.jsx" "typescript" "typescriptreact" "typescript.tsx"];
+      root_markers = ["tsconfig.json" "jsconfig.json" "package.json" ".git"];
+      on_attach =
+        mkLuaInline
+        /*
+        lua
+        */
+        "attach_keymaps";
     };
 
     # Here for backwards compatibility. Still consider tsserver a valid
     # configuration in the enum, but assert if it's set to *properly*
     # redirect the user to the correct server.
     tsserver = {
+      enable = true;
+      cmd = [(getExe pkgs.typescript-language-server) "--stdio"];
       package = pkgs.typescript-language-server;
-      lspConfig = ''
-        lspconfig.ts_ls.setup {
-          capabilities = capabilities;
-          on_attach = attach_keymaps,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/typescript-language-server", "--stdio"}''
-        }
-        }
-      '';
+      filetypes = ["javascript" "javascriptreact" "javascript.jsx" "typescript" "typescriptreact" "typescript.tsx"];
+      root_markers = ["tsconfig.json" "jsconfig.json" "package.json" ".git"];
+      on_attach =
+        mkLuaInline
+        /*
+        lua
+        */
+        "attach_keymaps";
     };
   };
 
@@ -121,19 +120,7 @@ in {
 
     lsp = {
       enable = mkEnableOption "Typescript/Javascript LSP support" // {default = config.vim.lsp.enable;};
-
-      server = mkOption {
-        description = "Typescript/Javascript LSP server to use";
-        type = enum (attrNames servers);
-        default = defaultServer;
-      };
-
-      package = mkOption {
-        description = "Typescript/Javascript LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
-      };
+      servers = mkServersOption "Typescript/Javascript" servers defaultServers;
     };
 
     format = {
@@ -190,8 +177,23 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.ts-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
+    })
+
+    (mkIf (cfg.lsp.enable && elem "denols" cfg.lsp.servers) {
+      vim.luaConfigRC.denols =
+        entryBefore ["lsp-servers"]
+        /*
+        lua
+        */
+        ''
+          vim.g.markdown_fenced_languages = { "ts=typescript" }
+        '';
     })
 
     (mkIf cfg.format.enable {
