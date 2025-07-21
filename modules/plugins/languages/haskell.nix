@@ -116,7 +116,7 @@ in {
                   enable = true,
                 },
               },
-              hls = ${toLuaObject servers.hls}
+              hls = ${toLuaObject servers.hls},
             ''}
             ${optionalString cfg.dap.enable ''
               dap = {
