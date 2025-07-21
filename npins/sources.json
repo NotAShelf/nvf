@@ -2497,6 +2497,19 @@
       "url": "https://github.com/chomosuke/typst-preview.nvim/archive/dea4525d5420b7c32eebda7de15a6beb9d6574fa.tar.gz",
       "hash": "0y658l2ibq0x4cwa4rl3lab7aw4ba68xcrdnxp81p2rsk0d60qq4"
     },
+    "undotree": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mbbill",
+        "repo": "undotree"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "28f2f54a34baff90ea6f4a735ef1813ad875c743",
+      "url": "https://github.com/mbbill/undotree/archive/28f2f54a34baff90ea6f4a735ef1813ad875c743.tar.gz",
+      "hash": "0k9qfp64rbwy1lc62x0vkwfl3qlx8633lfbhqxkf64yqwi81ysp5"
+    },
     "vim-dirtytalk": {
       "type": "Git",
       "repository": {
