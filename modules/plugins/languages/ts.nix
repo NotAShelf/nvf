@@ -229,25 +229,5 @@ in {
         require("ts-error-translator").setup(${toLuaObject cfg.extensions.ts-error-translator.setupOpts})
       '';
     })
-
-    # Warn the user if they have set the default server name to tsserver to match upstream (us)
-    # The name "tsserver" has been deprecated in lspconfig, and now should be called ts_ls. This
-    # is a purely cosmetic change, but emits a warning if not accounted for.
-    {
-      assertions = [
-        {
-          assertion = cfg.lsp.enable -> cfg.lsp.server != "tsserver";
-          message = ''
-            As of a recent lspconfig update, the `tsserver` configuration has been renamed
-            to `ts_ls` to match upstream behaviour of `lspconfig`, and the name `tsserver`
-            is no longer considered valid by nvf. Please set `vim.languages.ts.lsp.server`
-            to `"ts_ls"` instead of to `${cfg.lsp.server}`
-
-            Please see <https://github.com/neovim/nvim-lspconfig/pull/3232> for more details
-            about this change.
-          '';
-        }
-      ];
-    }
   ]);
 }
