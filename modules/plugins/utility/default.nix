@@ -26,5 +26,6 @@
     ./wakatime
     ./yanky-nvim
     ./yazi-nvim
+    ./undotree
   ];
 }
