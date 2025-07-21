@@ -15,14 +15,22 @@
 
   onAttach =
     if config.vim.languages.helm.lsp.enable
-    then ''
-      on_attach = function(client, bufnr)
-        local filetype = vim.bo[bufnr].filetype
-        if filetype == "helm" then
-          client.stop()
-        end
-      end''
-    else "on_attach = default_on_attach";
+    then
+      /*
+      lua
+      */
+      ''
+        function(client, bufnr)
+          local filetype = vim.bo[bufnr].filetype
+          if filetype == "helm" then
+            client.stop()
+          end
+        end''
+    else
+      /*
+      lua
+      */
+      "default_on_attach";
 
   defaultServers = ["yaml-language-server"];
   servers = {
