@@ -19,6 +19,8 @@
   servers = {
     nimlsp = {
       enable = true;
+      # TODO: switch to getExe when
+      # https://github.com/NixOS/nixpkgs/pull/426657 hits unstable
       cmd = [(getExe' pkgs.nimlsp "nimlsp")];
       filetypes = ["nim"];
       root_dir =

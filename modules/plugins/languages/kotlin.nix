@@ -17,6 +17,8 @@
   servers = {
     kotlin-language-server = {
       enable = true;
+      # TODO: switch to getExe when
+      # https://github.com/NixOS/nixpkgs/pull/426657 hits unstable
       cmd = [(getExe' pkgs.kotlin-language-server "kotlin-language-server")];
       filetypes = ["kotlin"];
       root_markers = [
