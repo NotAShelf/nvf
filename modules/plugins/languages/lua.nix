@@ -66,7 +66,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Lua LSP server to use";
+        description = "Lua LSP servers to use";
       };
 
       lazydev.enable = mkEnableOption "lazydev.nvim integration, useful for neovim plugin developers";

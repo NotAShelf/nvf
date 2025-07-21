@@ -51,7 +51,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Helm LSP server to use";
+        description = "Helm LSP servers to use";
       };
     };
   };

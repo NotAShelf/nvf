@@ -76,7 +76,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "OCaml LSP server to use";
+        description = "OCaml LSP servers to use";
       };
     };
 

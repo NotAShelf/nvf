@@ -39,7 +39,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Clojure LSP server to use";
+        description = "Clojure LSP servers to use";
       };
     };
   };

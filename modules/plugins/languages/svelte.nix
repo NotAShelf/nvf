@@ -92,7 +92,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Svelte LSP server to use";
+        description = "Svelte LSP servers to use";
       };
     };
 

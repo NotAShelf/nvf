@@ -79,7 +79,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "PHP LSP server to use";
+        description = "PHP LSP servers to use";
       };
     };
   };

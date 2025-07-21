@@ -231,7 +231,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Python LSP server to use";
+        description = "Python LSP servers to use";
       };
     };
 

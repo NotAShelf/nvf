@@ -79,7 +79,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Haskell LSP server to use";
+        description = "Haskell LSP servers to use";
       };
     };
 

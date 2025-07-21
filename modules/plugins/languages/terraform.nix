@@ -38,7 +38,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Terraform LSP server to use";
+        description = "Terraform LSP servers to use";
       };
     };
   };

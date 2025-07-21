@@ -48,7 +48,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Odin LSP server to use";
+        description = "Odin LSP servers to use";
       };
     };
   };

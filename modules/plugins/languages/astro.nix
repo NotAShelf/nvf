@@ -93,7 +93,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Astro LSP server to use";
+        description = "Astro LSP servers to use";
       };
     };
 

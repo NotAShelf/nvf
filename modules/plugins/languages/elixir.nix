@@ -65,7 +65,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Elixir LSP server to use";
+        description = "Elixir LSP servers to use";
       };
     };
 

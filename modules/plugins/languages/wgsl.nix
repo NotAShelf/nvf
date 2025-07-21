@@ -39,7 +39,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "WGSL LSP server to use";
+        description = "WGSL LSP servers to use";
       };
     };
   };

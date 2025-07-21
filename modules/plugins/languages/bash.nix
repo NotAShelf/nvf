@@ -59,7 +59,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Bash LSP server to use";
+        description = "Bash LSP servers to use";
       };
     };
 

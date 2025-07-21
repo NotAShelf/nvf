@@ -56,7 +56,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Dart LSP server to use";
+        description = "Dart LSP servers to use";
       };
     };
 

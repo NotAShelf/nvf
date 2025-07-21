@@ -74,7 +74,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Java LSP server to use";
+        description = "Java LSP servers to use";
       };
     };
   };

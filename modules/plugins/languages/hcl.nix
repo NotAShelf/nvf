@@ -44,7 +44,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "HCL LSP server to use";
+        description = "HCL LSP servers to use";
       };
     };
 

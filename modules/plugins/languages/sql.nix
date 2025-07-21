@@ -80,7 +80,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "SQL LSP server to use";
+        description = "SQL LSP servers to use";
       };
     };
 

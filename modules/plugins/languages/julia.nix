@@ -100,7 +100,7 @@ in {
           type = listOf (enum (attrNames servers));
           default = defaultServers;
           description = ''
-            Julia LSP Server to Use
+            Julia LSP servers to use
 
             ::: {.note}
             The entirety of Julia is bundled with nvf, if you enable this

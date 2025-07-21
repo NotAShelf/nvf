@@ -39,7 +39,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Gleam LSP server to use";
+        description = "Gleam LSP servers to use";
       };
     };
   };

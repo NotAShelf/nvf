@@ -58,7 +58,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Yaml LSP server to use";
+        description = "Yaml LSP servers to use";
       };
     };
   };

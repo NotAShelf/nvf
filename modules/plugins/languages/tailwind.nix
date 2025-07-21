@@ -156,7 +156,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Tailwindcss LSP server to use";
+        description = "Tailwindcss LSP servers to use";
       };
     };
   };

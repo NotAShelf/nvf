@@ -69,7 +69,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Zig LSP server to use";
+        description = "Zig LSP servers to use";
       };
     };
 

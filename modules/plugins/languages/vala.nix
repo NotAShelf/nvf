@@ -75,7 +75,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Vala LSP server to use";
+        description = "Vala LSP servers to use";
       };
     };
   };

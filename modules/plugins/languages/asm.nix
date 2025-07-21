@@ -36,7 +36,7 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Assembly LSP server to use";
+        description = "Assembly LSP servers to use";
       };
     };
   };
