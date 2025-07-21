@@ -5,9 +5,9 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum listOf package;
+  inherit (lib.types) enum package;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.types) mkGrammarOption mkServersOption;
   inherit (lib.nvim.attrsets) mapListToAttrs;

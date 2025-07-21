@@ -4,11 +4,9 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (builtins) attrNames;
-  inherit (lib.types) listOf enum;
   inherit (lib.nvim.types) mkGrammarOption mkServersOption;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.dag) entryBefore;

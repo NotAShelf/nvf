@@ -7,12 +7,10 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum either listOf package str;
+  inherit (lib.types) enum package;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) mkGrammarOption mkServersOption;
-  inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 

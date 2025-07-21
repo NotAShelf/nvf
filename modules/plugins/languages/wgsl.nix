@@ -4,11 +4,9 @@
   pkgs,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption mkServersOption;
-  inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) enum listOf;
+  inherit (lib.options) mkEnableOption;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 

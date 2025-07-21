@@ -8,7 +8,7 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum listOf package str bool;
+  inherit (lib.types) enum package bool;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryBefore;

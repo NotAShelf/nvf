@@ -9,7 +9,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption mkServersOption diagnostics;
-  inherit (lib.types) listOf package enum;
+  inherit (lib.types) package enum;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.ruby;

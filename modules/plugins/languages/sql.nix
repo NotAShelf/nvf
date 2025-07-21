@@ -8,7 +8,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum listOf package str;
+  inherit (lib.types) enum package str;
   inherit (lib.nvim.types) diagnostics mkGrammarOption mkServersOption;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.generators) mkLuaInline;

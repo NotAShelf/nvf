@@ -5,14 +5,12 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkOption mkEnableOption literalExpression;
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
-  inherit (lib.types) enum either package listOf str bool;
+  inherit (lib.types) enum package bool;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) diagnostics mkGrammarOption mkServersOption;
-  inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.bash;

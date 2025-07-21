@@ -7,7 +7,7 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge mkDefault;
-  inherit (lib.types) bool listOf package enum;
+  inherit (lib.types) bool package enum;
   inherit (lib.nvim.types) mkGrammarOption mkServersOption;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.attrsets) mapListToAttrs;

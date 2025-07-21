@@ -4,14 +4,10 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.lists) isList;
-  inherit (lib.types) enum either listOf package str;
   inherit (lib.nvim.types) mkGrammarOption mkServersOption;
-  inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.clojure;
