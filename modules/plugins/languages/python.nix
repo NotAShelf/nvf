@@ -12,7 +12,7 @@
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryBefore;
-  inherit (lib.nvim.types) mkServersOption;
+  inherit (lib.nvim.types) mkGrammarOption mkServersOption;
 
   cfg = config.vim.languages.python;
 
@@ -219,11 +219,7 @@ in {
 
     treesitter = {
       enable = mkEnableOption "Python treesitter" // {default = config.vim.languages.enableTreesitter;};
-      package = mkOption {
-        description = "Python treesitter grammar to use";
-        type = package;
-        default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.python;
-      };
+      package = mkGrammarOption pkgs "python";
     };
 
     lsp = {

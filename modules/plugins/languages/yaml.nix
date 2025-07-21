@@ -49,7 +49,6 @@ in {
 
     treesitter = {
       enable = mkEnableOption "YAML treesitter" // {default = config.vim.languages.enableTreesitter;};
-
       package = mkGrammarOption pkgs "yaml";
     };
 

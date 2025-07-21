@@ -9,7 +9,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum listOf package str;
-  inherit (lib.nvim.types) diagnostics mkServersOption;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption mkServersOption;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.generators) mkLuaInline;
 
@@ -66,12 +66,7 @@ in {
 
     treesitter = {
       enable = mkEnableOption "SQL treesitter" // {default = config.vim.languages.enableTreesitter;};
-
-      package = mkOption {
-        type = package;
-        default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.sql;
-        description = "SQL treesitter grammar to use";
-      };
+      package = mkGrammarOption pkgs "sql";
     };
 
     lsp = {
