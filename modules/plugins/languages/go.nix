@@ -8,29 +8,20 @@
   inherit (lib.options) mkEnableOption mkOption literalMD;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.lists) isList;
-  inherit (lib.types) bool enum either listOf package str;
-  inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.types) bool enum package;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.types) mkGrammarOption mkServersOption;
   inherit (lib.nvim.dag) entryAfter;
 
   cfg = config.vim.languages.go;
 
-  defaultServer = "gopls";
+  defaultServers = ["gopls"];
   servers = {
     gopls = {
-      package = pkgs.gopls;
-      lspConfig = ''
-        lspconfig.gopls.setup {
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/gopls", "serve"}''
-        },
-        }
-      '';
+      enable = true;
+      cmd = [(getExe pkgs.gopls) "serve"];
+      filetypes = ["go" "gomod"];
+      root_markers = ["go.mod" ".git"];
     };
   };
 
@@ -62,25 +53,12 @@ in {
 
     treesitter = {
       enable = mkEnableOption "Go treesitter" // {default = config.vim.languages.enableTreesitter;};
-
       package = mkGrammarOption pkgs "go";
     };
 
     lsp = {
       enable = mkEnableOption "Go LSP support" // {default = config.vim.lsp.enable;};
-
-      server = mkOption {
-        description = "Go LSP server to use";
-        type = enum (attrNames servers);
-        default = defaultServer;
-      };
-
-      package = mkOption {
-        description = "Go LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
-      };
+      servers = mkServersOption "Go" servers defaultServers;
     };
 
     format = {
@@ -134,8 +112,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.go-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
 
     (mkIf cfg.format.enable {
