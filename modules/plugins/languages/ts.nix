@@ -52,10 +52,7 @@
         "attach_keymaps";
     };
 
-    # Here for backwards compatibility. Still consider tsserver a valid
-    # configuration in the enum, but assert if it's set to *properly*
-    # redirect the user to the correct server.
-    tsserver = {
+    typescript-language-server = {
       enable = true;
       cmd = [(getExe pkgs.typescript-language-server) "--stdio"];
       package = pkgs.typescript-language-server;
