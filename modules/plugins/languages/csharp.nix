@@ -5,14 +5,14 @@
   options,
   ...
 }: let
-  inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) either listOf package str enum;
+  inherit (lib.generators) mkLuaInline;
+  inherit (lib.lists) flatten map;
+  inherit (lib.options) mkEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
   inherit (lib.strings) optionalString;
-  inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.types) mkGrammarOption mkServersOption;
 
   lspKeyConfig = config.vim.lsp.mappings;
   lspKeyOptions = options.vim.lsp.mappings;
@@ -25,15 +25,30 @@
   # Omnisharp doesn't have colors in popup docs for some reason, and I've also
   # seen mentions of it being way slower, so until someone finds missing
   # functionality, this will be the default.
-  defaultServer = "csharp_ls";
+  defaultServers = ["csharp_ls"];
   servers = {
     omnisharp = {
-      package = pkgs.omnisharp-roslyn;
-      internalFormatter = true;
-      lspConfig = ''
-        lspconfig.omnisharp.setup {
-          capabilities = capabilities,
-          on_attach = function(client, bufnr)
+      enable = true;
+      cmd = [(getExe pkgs.omnisharp-roslyn)];
+      filetypes = ["cs"];
+      root_dir =
+        mkLuaInline
+        /*
+        lua
+        */
+        ''
+          function(bufnr, on_dir)
+            local fname = vim.api.nvim_buf_get_name(bufnr)
+            on_dir(util.root_pattern('*.sln', '*.csproj', '.git')(fname))
+          end
+        '';
+      on_attach =
+        mkLuaInline
+        /*
+        lua
+        */
+        ''
+          function(client, bufnr)
             default_on_attach(client, bufnr)
 
             local oe = require("omnisharp_extended")
@@ -41,36 +56,40 @@
             ${mkLspBinding "goToType" "oe.lsp_type_definition"}
             ${mkLspBinding "listReferences" "oe.lsp_references"}
             ${mkLspBinding "listImplementations" "oe.lsp_implementation"}
-          end,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else "{'${cfg.lsp.package}/bin/OmniSharp'}"
-        }
-        }
-      '';
+          end
+        '';
     };
 
     csharp_ls = {
-      package = pkgs.csharp-ls;
-      internalFormatter = true;
-      lspConfig = ''
-        local extended_handler = require("csharpls_extended").handler
+      enable = true;
+      cmd = [(getExe pkgs.csharp-ls)];
+      filetypes = ["cs"];
+      root_dir =
+        mkLuaInline
+        /*
+        lua
+        */
+        ''
+          function(bufnr, on_dir)
+            local fname = vim.api.nvim_buf_get_name(bufnr)
+            on_dir(util.root_pattern('*.sln', '*.csproj', '.git')(fname))
+          end
+        '';
 
-        lspconfig.csharp_ls.setup {
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          handlers = {
-            ["textDocument/definition"] = extended_handler,
-            ["textDocument/typeDefinition"] = extended_handler
-          },
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else "{'${cfg.lsp.package}/bin/csharp-ls'}"
-        }
-        }
-      '';
+      handlers = {
+        "textDocument/definition" =
+          mkLuaInline
+          /*
+          lua
+          */
+          "require('csharpls_extended').handler";
+        "textDocument/typeDefinition" =
+          mkLuaInline
+          /*
+          lua
+          */
+          "require('csharpls_extended').handler";
+      };
     };
   };
 
@@ -92,17 +111,7 @@ in {
 
       lsp = {
         enable = mkEnableOption "C# LSP support" // {default = config.vim.lsp.enable;};
-        server = mkOption {
-          description = "C# LSP server to use";
-          type = enum (attrNames servers);
-          default = defaultServer;
-        };
-
-        package = mkOption {
-          description = "C# LSP server package, or the command to run as a list of strings";
-          type = either package (listOf str);
-          default = servers.${cfg.lsp.server}.package;
-        };
+        servers = mkServersOption "C#" servers defaultServers;
       };
     };
   };
@@ -114,9 +123,13 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.startPlugins = extraServerPlugins.${cfg.lsp.server} or [];
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.csharp-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.startPlugins = flatten (map (s: extraServerPlugins.${s}) cfg.lsp.servers);
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
   ]);
 }
