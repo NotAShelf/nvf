@@ -5,48 +5,36 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.lists) isList;
   inherit (lib.strings) optionalString;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) bool enum package either listOf str nullOr;
+  inherit (lib.types) bool enum package str nullOr;
+  inherit (lib.meta) getExe getExe';
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.types) mkGrammarOption mkServersOption;
   inherit (lib.nvim.dag) entryAfter;
-
-  packageToCmd = package: defaultCmd:
-    if isList cfg.lsp.package
-    then expToLua cfg.lsp.package
-    else ''{ "${cfg.lsp.package}/bin/${defaultCmd}" }'';
 
   cfg = config.vim.languages.clang;
 
-  defaultServer = "clangd";
+  defaultServers = ["clangd"];
   servers = {
     ccls = {
-      package = pkgs.ccls;
-      lspConfig = ''
-        lspconfig.ccls.setup{
-          capabilities = capabilities;
-          on_attach=default_on_attach;
-          cmd = ${packageToCmd cfg.lsp.package "ccls"};
-          ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.opts}"}
-        }
-      '';
+      enable = true;
+      cmd = [(getExe pkgs.ccls)];
+      filetypes = ["c" "cpp"];
+      root_markers = [".clangd" "compile_commands.json" ".git"];
+      init_options = optionalString (cfg.lsp.opts != null) cfg.lsp.opts;
     };
+
     clangd = {
-      package = pkgs.clang-tools;
-      lspConfig = ''
-        local clangd_cap = capabilities
-        -- use same offsetEncoding as null-ls
-        clangd_cap.offsetEncoding = {"utf-16"}
-        lspconfig.clangd.setup{
-          capabilities = clangd_cap;
-          on_attach=default_on_attach;
-          cmd = ${packageToCmd cfg.lsp.package "clangd"};
-          ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.opts}"}
-        }
-      '';
+      enable = true;
+      cmd = [(getExe' pkgs.clang-tools "clangd")];
+      filetypes = ["c" "cpp"];
+      root_markers = [".clangd" "compile_commands.json" ".git"];
+      capabilities = {
+        offsetEncoding = ["utf-16"];
+      };
+      init_options = optionalString (cfg.lsp.opts != null) cfg.lsp.opts;
     };
   };
 
@@ -99,19 +87,7 @@ in {
 
     lsp = {
       enable = mkEnableOption "clang LSP support" // {default = config.vim.lsp.enable;};
-
-      server = mkOption {
-        description = "The clang LSP server to use";
-        type = enum (attrNames servers);
-        default = defaultServer;
-      };
-
-      package = mkOption {
-        description = "clang LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
-      };
+      servers = mkServersOption "clang" servers defaultServers;
 
       opts = mkOption {
         description = "Options to pass to clang LSP server";
@@ -150,9 +126,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-
-      vim.lsp.lspconfig.sources.clang-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
 
     (mkIf cfg.dap.enable {
