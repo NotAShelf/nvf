@@ -6,7 +6,7 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf mkMerge mkRemovedOptionModule;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum package;
   inherit (lib.nvim.types) mkGrammarOption mkServersOption diagnostics;
@@ -77,13 +77,16 @@
     };
   };
 in {
+  imports = [
+    (mkRemovedOptionModule ["vim" "languages" "svelte" "treesitter" "sveltePackage"] "renamed to `vim.languages.svelte.treesitter.package`")
+  ];
+
   options.vim.languages.svelte = {
     enable = mkEnableOption "Svelte language support";
 
     treesitter = {
       enable = mkEnableOption "Svelte treesitter" // {default = config.vim.languages.enableTreesitter;};
-
-      sveltePackage = mkGrammarOption pkgs "svelte";
+      package = mkGrammarOption pkgs "svelte";
     };
 
     lsp = {
@@ -121,7 +124,7 @@ in {
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.sveltePackage];
+      vim.treesitter.grammars = [cfg.treesitter.package];
     })
 
     (mkIf cfg.lsp.enable {
