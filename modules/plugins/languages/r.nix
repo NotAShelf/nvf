@@ -19,6 +19,20 @@
     packages = [pkgs.rPackages.languageserver];
   };
 
+  defaultServers = ["r_language_server"];
+  servers = {
+    r_language_server = {
+      enable = true;
+      cmd = [(getExe r-with-languageserver) "--no-echo" "-e" "languageserver::run()"];
+      filetypes = ["r" "rmd" "quarto"];
+      root_dir = mkLuaInline ''
+        function(bufnr, on_dir)
+          on_dir(vim.fs.root(bufnr, '.git') or vim.uv.os_homedir())
+        end
+      '';
+    };
+  };
+
   defaultFormat = "format_r";
   formats = {
     styler = {
@@ -48,20 +62,6 @@
         # TODO: range_args seem to be possible
         # https://github.com/nvimtools/none-ls.nvim/blob/main/lua/null-ls/builtins/formatting/format_r.lua
       };
-    };
-  };
-
-  defaultServers = ["r_language_server"];
-  servers = {
-    r_language_server = {
-      enable = true;
-      cmd = [(getExe r-with-languageserver) "--no-echo" "-e" "languageserver::run()"];
-      filetypes = ["r" "rmd" "quarto"];
-      root_dir = mkLuaInline ''
-        function(bufnr, on_dir)
-          on_dir(vim.fs.root(bufnr, '.git') or vim.uv.os_homedir())
-        end
-      '';
     };
   };
 in {
