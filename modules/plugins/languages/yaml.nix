@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.options) mkEnableOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
@@ -30,7 +31,7 @@
       cmd = [(getExe pkgs.yaml-language-server) "--stdio"];
       filetypes = ["yaml" "yaml.docker-compose" "yaml.gitlab" "yaml.helm-values"];
       root_markers = [".git"];
-      on_attach = onAttach;
+      on_attach = mkLuaInline onAttach;
       # -- https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting
       settings = {
         redhat = {
