@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD013 MD033 MD041-->
 <div align="center">
     <img src="assets/nvf-logo-work.svg" alt="nvf Logo"  width="200">
     <br/>
@@ -46,11 +47,10 @@
 [Features]: #features
 [Get Started]: #get-started
 [Documentation]: #documentation
-[Help]: #help
+[Help]: #getting-help
 [Contribute]: #contributing
 [FAQ]: #frequently-asked-questions
 [Credits]: #credits
-[License]: #license
 
 **[<kbd><br> Features <br></kbd>][Features]**
 **[<kbd><br> Get Started <br></kbd>][Get Started]**
@@ -84,21 +84,22 @@
   customizable through the Nix module system.
   - Not comfortable with a full-nix config or want to bring your Lua config? You
     can do just that, no unnecessary restrictions.
-  - Lazyloading 💤? We got it! Lazyload both internal and external plugins at
-    will.
+  - Lazyloading? We got it! Lazyload both internal and external plugins at will
+    💤 .
   - nvf allows _ordering configuration bits_ using [DAG] (_Directed acyclic
     graph_)s. It has never been easier to construct an editor configuration
     deterministically!
   - nvf exposes everything you need to avoid a vendor lock-in. Which means you
     can add new modules, plugins and so on without relying on us adding a module
     for them! Though, of course, feel free to request them.
-    - Use plugins from anywhere. Inputs, npins, nixpkgs... You name it.
-    - Add your own modules, with ease. It's all built-in!
+    - Use plugins from anywhere: inputs, npins, nixpkgs... You name it.
+    - Add your own modules with ease. It's all built-in!
 - **Well-documented**: Documentation is priority. You will _never_ face
   undocumented, obscure behaviour.
-  - Changes, breaking or otherwise, will be communicated in the [release notes]
+  - Any and all changes, breaking or otherwise, will be communicated in the
+    [release notes].
   - Refer to the [FAQ section] for answers to common questions.
-    - Your question not there? Head to the to the [discussions tab]!
+    - Your question not there? Head to the [discussions tab]!
 - **Idiomatic**: nvf does things ✨ _the right way_ ✨ - the codebase is, and
   will, remain maintainable for myself and any contributors.
 - **Community-Led**: we would like nvf to be fully capable of accomplishing what
@@ -129,12 +130,17 @@ of the configuration options are final as **nvf** is designed to be modular and
 configurable.
 
 > [!TIP]
-> The flake exposes `#nix` as the default package, providing minimal language
-> support and various utilities. You may also use the `#nix` or `#maximal`
-> packages provided by the this flake to get try out different configurations.
+> The flake exposes `nix` as the default package, which will be evaluated when
+> you run `nix build` or `nix run` on this repo. It is minimal, and providing
+> limited language support and various utilities. We also expose the `maximal`
+> package, which you may choose to build if you'd like to see more of nvf's
+> built-in modules. Please keep in mind that those are demo packages, nvf does
+> not ship a default configuration if installed as a NixOS/Home-Manager module
+> or via standalone method.
 
-It is as simple as changing the target output to get a different configuration.
-For example, to get a configuration with large language coverage, run:
+It is as simple as changing the target output in your `nix run` command to get a
+different configuration. For example, to get a configuration with large language
+coverage, run:
 
 ```bash
 # Run the maximal package
@@ -142,7 +148,7 @@ nix run github:notashelf/nvf#maximal
 ```
 
 Similar instructions will apply for `nix profile install`. However, you are
-recommended to instead use the module system as described in the manual.
+recommended to instead use the module system as described in the [nvf manual].
 
 > [!NOTE]
 > The `maximal` configuration is quite large, and might take a while to build.
@@ -155,6 +161,10 @@ instructions.
 
 ## Documentation
 
+**nvf** prides itself in its rich, intuitive documentation. The chapter below
+covers several methods through which you can install **nvf**. If you believe
+something is missing, or could be done better, please feel free to contact us!
+
 ### Installation
 
 The _recommended_ way of installing nvf is using either the NixOS or the
@@ -163,7 +173,7 @@ install **nvf** as a standalone package, or a flake output.
 
 See the rendered [nvf manual] for detailed and up-to-date installation guides,
 configurations, available options, release notes and more. Tips for installing
-userspace plugins is also contained in the documentation.
+userspace plugins are also contained in the documentation.
 
 > [!TIP]
 > While using NixOS or Home-Manager modules,
@@ -180,8 +190,9 @@ requests are also welcome, and appreciated.
 If you are confused, stuck or would like to ask a simple question; you may
 create an issue on the [issue tracker] to ask questions or report bugs.
 
-We are not not yet on spaces like matrix or IRC, so please use the issue tracker
-for now.
+We are not yet on spaces like matrix or IRC, so please use the issue tracker for
+now. The [discussions tab] can also be a place to request help from community
+members, or engage in productive discussion with the maintainers.
 
 ## Contributing
 
@@ -225,7 +236,7 @@ in the most comfortable way possible for the end user. If you have not noticed
 any activity on the main branch, consider taking a look at the
 [list of branches] or the [list of open pull requests]. You may also consider
 _testing_ those release branches to get access to new features ahead of time and
-better prepare to breaking changes.
+better prepare for breaking changes.
 
 **Q**: Will you support non-flake installations?
 
@@ -240,8 +251,8 @@ of a configuration generated from Nix?
 
 **A**: Yes! Add `"~/.config/nvim"` to `vim.additionalRuntimePaths = [ ... ]` and
 any plugins you want to load to `vim.startPlugins`. This will load your
-configuration from `~/.config/nvim`. You may still use `vim.*` to modify
-Neovim's behaviour with Nix.
+configuration from `~/.config/nvim`. You may still use `vim.*` options in Nix to
+further configure Neovim.
 
 ## Credits
 
