@@ -2030,6 +2030,19 @@
       "url": "https://github.com/epwalsh/obsidian.nvim/archive/14e0427bef6c55da0d63f9a313fd9941be3a2479.tar.gz",
       "hash": "15ycmhn48ryaqzch6w3w6llq2qgmjx8xwkb9dn0075z60dybpflr"
     },
+    "oil-git-status.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "refractalize",
+        "repo": "oil-git-status.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "4b5cf53842c17a09420919e655a6a559da3112d7",
+      "url": "https://github.com/refractalize/oil-git-status.nvim/archive/4b5cf53842c17a09420919e655a6a559da3112d7.tar.gz",
+      "hash": "1jzw6lkvi9xxzqy8xz056xlb45byr1arklh87zmyf0nj9plm2nsp"
+    },
     "oil-nvim": {
       "type": "Git",
       "repository": {
