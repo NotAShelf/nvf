@@ -38,6 +38,7 @@
 [oil.nvim]: https://github.com/stevearc/oil.nvim
 [hunk.nvim]: https://github.com/julienvincent/hunk.nvim
 [undotree]: https://github.com/mbbill/undotree
+[nvim-biscuits]: https://github.com/code-biscuits/nvim-biscuits
 
 - Add [typst-preview.nvim] under
   `languages.typst.extensions.typst-preview-nvim`.
