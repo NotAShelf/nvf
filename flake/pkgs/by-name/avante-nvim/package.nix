@@ -55,8 +55,8 @@ in
       ext = stdenv.hostPlatform.extensions.sharedLibrary;
     in ''
       mkdir -p $out/build
-      for lib in avante_repo_map avante_templates avante_tokenizers avante_html2md; do
-        ln -s ${avante-nvim-lib}/lib/lib$lib${ext} $out/build/$$lib${ext}
+      for lib in "avante_repo_map" "avante_templates" "avante_tokenizers" "avante_html2md"; do
+        ln -s ${avante-nvim-lib}/lib/lib$lib${ext} $out/build/$lib${ext}
       done
     '';
 
