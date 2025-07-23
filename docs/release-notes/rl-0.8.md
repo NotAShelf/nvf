@@ -480,3 +480,6 @@
 [Cool-Game-Dev](https://github.com/Cool-Game-Dev):
 
 [nvim-biscuits]: https://github.com/code-biscuits/nvim-biscuits
+
+- Add [nvim-biscuits] to show block context. Available at
+  `vim.utility.nvim-biscuits`.
