@@ -10,6 +10,7 @@ in {
     ./dart.nix
     ./clang.nix
     ./clojure.nix
+    ./cmake.nix
     ./css.nix
     ./elixir.nix
     ./fsharp.nix
