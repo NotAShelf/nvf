@@ -383,9 +383,11 @@
 [poz](https://poz.pet):
 
 [everforest]: https://github.com/sainnhe/everforest
+[neocmakelsp]: https://github.com/neocmakelsp/neocmakelsp
 
 - Fix gitsigns null-ls issue.
 - Add [everforest] theme support.
+- Add CMake support with [neocmakelsp].
 
 [Haskex](https://github.com/haskex):
 
