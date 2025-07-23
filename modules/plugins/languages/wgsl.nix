@@ -14,9 +14,9 @@
 
   cfg = config.vim.languages.wgsl;
 
-  defaultServers = ["wgsl_analyzer"];
+  defaultServers = ["wgsl-analyzer"];
   servers = {
-    wgsl_analyzer = {
+    wgsl-analyzer = {
       enable = true;
       cmd = [(getExe pkgs.wgsl-analyzer)];
       filetypes = ["wgsl"];
