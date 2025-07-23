@@ -3,9 +3,7 @@
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   options.vim.utility.nvim-biscuits = {
-    enable = mkEnableOption ''
-      A neovim port of Assorted Biscuits.
-    '';
+    enable = mkEnableOption "a Neovim port of Assorted Biscuits [nvim-biscuits]";
 
     setupOpts = mkPluginSetupOption "nvim-biscuits" {};
   };
