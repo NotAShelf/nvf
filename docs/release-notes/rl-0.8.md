@@ -384,10 +384,12 @@
 
 [everforest]: https://github.com/sainnhe/everforest
 [neocmakelsp]: https://github.com/neocmakelsp/neocmakelsp
+[arduino-language-server]: https://github.com/arduino/arduino-language-server
 
 - Fix gitsigns null-ls issue.
 - Add [everforest] theme support.
 - Add CMake support with [neocmakelsp].
+- Add Arduino support with [arduino-language-server].
 
 [Haskex](https://github.com/haskex):
 
