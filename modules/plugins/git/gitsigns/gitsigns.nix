@@ -19,25 +19,25 @@ in {
     codeActions.enable = mkEnableOption "gitsigns codeactions through null-ls";
 
     mappings = {
-      nextHunk = mkMappingOption "Next hunk [Gitsigns]" "]c";
-      previousHunk = mkMappingOption "Previous hunk [Gitsigns]" "[c";
+      nextHunk = mkMappingOption config.vim.enableNvfKeymaps "Next hunk [Gitsigns]" "]c";
+      previousHunk = mkMappingOption config.vim.enableNvfKeymaps "Previous hunk [Gitsigns]" "[c";
 
-      stageHunk = mkMappingOption "Stage hunk [Gitsigns]" "<leader>hs";
-      undoStageHunk = mkMappingOption "Undo stage hunk [Gitsigns]" "<leader>hu";
-      resetHunk = mkMappingOption "Reset hunk [Gitsigns]" "<leader>hr";
+      stageHunk = mkMappingOption config.vim.enableNvfKeymaps "Stage hunk [Gitsigns]" "<leader>hs";
+      undoStageHunk = mkMappingOption config.vim.enableNvfKeymaps "Undo stage hunk [Gitsigns]" "<leader>hu";
+      resetHunk = mkMappingOption config.vim.enableNvfKeymaps "Reset hunk [Gitsigns]" "<leader>hr";
 
-      stageBuffer = mkMappingOption "Stage buffer [Gitsigns]" "<leader>hS";
-      resetBuffer = mkMappingOption "Reset buffer [Gitsigns]" "<leader>hR";
+      stageBuffer = mkMappingOption config.vim.enableNvfKeymaps "Stage buffer [Gitsigns]" "<leader>hS";
+      resetBuffer = mkMappingOption config.vim.enableNvfKeymaps "Reset buffer [Gitsigns]" "<leader>hR";
 
-      previewHunk = mkMappingOption "Preview hunk [Gitsigns]" "<leader>hP";
+      previewHunk = mkMappingOption config.vim.enableNvfKeymaps "Preview hunk [Gitsigns]" "<leader>hP";
 
-      blameLine = mkMappingOption "Blame line [Gitsigns]" "<leader>hb";
-      toggleBlame = mkMappingOption "Toggle blame [Gitsigns]" "<leader>tb";
+      blameLine = mkMappingOption config.vim.enableNvfKeymaps "Blame line [Gitsigns]" "<leader>hb";
+      toggleBlame = mkMappingOption config.vim.enableNvfKeymaps "Toggle blame [Gitsigns]" "<leader>tb";
 
-      diffThis = mkMappingOption "Diff this [Gitsigns]" "<leader>hd";
-      diffProject = mkMappingOption "Diff project [Gitsigns]" "<leader>hD";
+      diffThis = mkMappingOption config.vim.enableNvfKeymaps "Diff this [Gitsigns]" "<leader>hd";
+      diffProject = mkMappingOption config.vim.enableNvfKeymaps "Diff project [Gitsigns]" "<leader>hD";
 
-      toggleDeleted = mkMappingOption "Toggle deleted [Gitsigns]" "<leader>td";
+      toggleDeleted = mkMappingOption config.vim.enableNvfKeymaps "Toggle deleted [Gitsigns]" "<leader>td";
     };
   };
 }

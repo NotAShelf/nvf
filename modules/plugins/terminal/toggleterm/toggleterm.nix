@@ -80,7 +80,7 @@ in {
       };
 
       mappings = {
-        open = mkMappingOption "Open lazygit [toggleterm]" "<leader>gg";
+        open = mkMappingOption config.vim.enableNvfKeymaps "Open lazygit [toggleterm]" "<leader>gg";
       };
     };
   };

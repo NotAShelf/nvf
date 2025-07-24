@@ -200,29 +200,29 @@
 in {
   options.vim.telescope = {
     mappings = {
-      findProjects = mkMappingOption "Find projects [Telescope]" "<leader>fp";
-      findFiles = mkMappingOption "Find files [Telescope]" "<leader>ff";
-      liveGrep = mkMappingOption "Live grep [Telescope]" "<leader>fg";
-      buffers = mkMappingOption "Buffers [Telescope]" "<leader>fb";
-      helpTags = mkMappingOption "Help tags [Telescope]" "<leader>fh";
-      open = mkMappingOption "Open [Telescope]" "<leader>ft";
-      resume = mkMappingOption "Resume (previous search) [Telescope]" "<leader>fr";
+      findProjects = mkMappingOption config.vim.enableNvfKeymaps "Find projects [Telescope]" "<leader>fp";
+      findFiles = mkMappingOption config.vim.enableNvfKeymaps "Find files [Telescope]" "<leader>ff";
+      liveGrep = mkMappingOption config.vim.enableNvfKeymaps "Live grep [Telescope]" "<leader>fg";
+      buffers = mkMappingOption config.vim.enableNvfKeymaps "Buffers [Telescope]" "<leader>fb";
+      helpTags = mkMappingOption config.vim.enableNvfKeymaps "Help tags [Telescope]" "<leader>fh";
+      open = mkMappingOption config.vim.enableNvfKeymaps "Open [Telescope]" "<leader>ft";
+      resume = mkMappingOption config.vim.enableNvfKeymaps "Resume (previous search) [Telescope]" "<leader>fr";
 
-      gitCommits = mkMappingOption "Git commits [Telescope]" "<leader>fvcw";
-      gitBufferCommits = mkMappingOption "Git buffer commits [Telescope]" "<leader>fvcb";
-      gitBranches = mkMappingOption "Git branches [Telescope]" "<leader>fvb";
-      gitStatus = mkMappingOption "Git status [Telescope]" "<leader>fvs";
-      gitStash = mkMappingOption "Git stash [Telescope]" "<leader>fvx";
+      gitCommits = mkMappingOption config.vim.enableNvfKeymaps "Git commits [Telescope]" "<leader>fvcw";
+      gitBufferCommits = mkMappingOption config.vim.enableNvfKeymaps "Git buffer commits [Telescope]" "<leader>fvcb";
+      gitBranches = mkMappingOption config.vim.enableNvfKeymaps "Git branches [Telescope]" "<leader>fvb";
+      gitStatus = mkMappingOption config.vim.enableNvfKeymaps "Git status [Telescope]" "<leader>fvs";
+      gitStash = mkMappingOption config.vim.enableNvfKeymaps "Git stash [Telescope]" "<leader>fvx";
 
-      lspDocumentSymbols = mkMappingOption "LSP Document Symbols [Telescope]" "<leader>flsb";
-      lspWorkspaceSymbols = mkMappingOption "LSP Workspace Symbols [Telescope]" "<leader>flsw";
-      lspReferences = mkMappingOption "LSP References [Telescope]" "<leader>flr";
-      lspImplementations = mkMappingOption "LSP Implementations [Telescope]" "<leader>fli";
-      lspDefinitions = mkMappingOption "LSP Definitions [Telescope]" "<leader>flD";
-      lspTypeDefinitions = mkMappingOption "LSP Type Definitions [Telescope]" "<leader>flt";
-      diagnostics = mkMappingOption "Diagnostics [Telescope]" "<leader>fld";
+      lspDocumentSymbols = mkMappingOption config.vim.enableNvfKeymaps "LSP Document Symbols [Telescope]" "<leader>flsb";
+      lspWorkspaceSymbols = mkMappingOption config.vim.enableNvfKeymaps "LSP Workspace Symbols [Telescope]" "<leader>flsw";
+      lspReferences = mkMappingOption config.vim.enableNvfKeymaps "LSP References [Telescope]" "<leader>flr";
+      lspImplementations = mkMappingOption config.vim.enableNvfKeymaps "LSP Implementations [Telescope]" "<leader>fli";
+      lspDefinitions = mkMappingOption config.vim.enableNvfKeymaps "LSP Definitions [Telescope]" "<leader>flD";
+      lspTypeDefinitions = mkMappingOption config.vim.enableNvfKeymaps "LSP Type Definitions [Telescope]" "<leader>flt";
+      diagnostics = mkMappingOption config.vim.enableNvfKeymaps "Diagnostics [Telescope]" "<leader>fld";
 
-      treesitter = mkMappingOption "Treesitter [Telescope]" "<leader>fs";
+      treesitter = mkMappingOption config.vim.enableNvfKeymaps "Treesitter [Telescope]" "<leader>fs";
     };
 
     enable = mkEnableOption "telescope.nvim: multi-purpose search and picker utility";

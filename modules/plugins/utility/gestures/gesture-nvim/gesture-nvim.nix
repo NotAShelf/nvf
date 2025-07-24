@@ -6,8 +6,8 @@ in {
     enable = mkEnableOption "gesture-nvim: mouse gestures";
 
     mappings = {
-      draw = mkMappingOption "Start drawing [gesture.nvim]" "<LeftDrag>";
-      finish = mkMappingOption "Finish drawing [gesture.nvim]" "<LeftRelease>";
+      draw = mkMappingOption config.vim.enableNvfKeymaps "Start drawing [gesture.nvim]" "<LeftDrag>";
+      finish = mkMappingOption config.vim.enableNvfKeymaps "Finish drawing [gesture.nvim]" "<LeftRelease>";
     };
   };
 }

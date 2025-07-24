@@ -57,8 +57,8 @@ in {
     };
 
     mappings = {
-      viewToggle = mkMappingOption "Open or close the docs view panel" "<leader>lvt";
-      viewUpdate = mkMappingOption "Manually update the docs view panel" "<leader>lvu";
+      viewToggle = mkMappingOption config.vim.enableNvfKeymaps "Open or close the docs view panel" "<leader>lvt";
+      viewUpdate = mkMappingOption config.vim.enableNvfKeymaps "Manually update the docs view panel" "<leader>lvu";
     };
   };
 }

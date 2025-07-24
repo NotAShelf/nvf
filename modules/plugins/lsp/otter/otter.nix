@@ -10,7 +10,7 @@ in {
         lsp features and a code completion source for code embedded in other documents [otter-nvim]
       '';
       mappings = {
-        toggle = mkMappingOption "Activate LSP on Cursor Position [otter-nvim]" "<leader>lo";
+        toggle = mkMappingOption config.vim.enableNvfKeymaps "Activate LSP on Cursor Position [otter-nvim]" "<leader>lo";
       };
       setupOpts = mkPluginSetupOption "otter.nvim" {
         lsp = {

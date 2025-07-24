@@ -13,15 +13,15 @@ in {
     enable = mkEnableOption "neovim bufferline";
 
     mappings = {
-      closeCurrent = mkMappingOption "Close buffer" null;
-      cycleNext = mkMappingOption "Next buffer" "<leader>bn";
-      cyclePrevious = mkMappingOption "Previous buffer" "<leader>bp";
-      pick = mkMappingOption "Pick buffer" "<leader>bc";
-      sortByExtension = mkMappingOption "Sort buffers by extension" "<leader>bse";
-      sortByDirectory = mkMappingOption "Sort buffers by directory" "<leader>bsd";
-      sortById = mkMappingOption "Sort buffers by ID" "<leader>bsi";
-      moveNext = mkMappingOption "Move next buffer" "<leader>bmn";
-      movePrevious = mkMappingOption "Move previous buffer" "<leader>bmp";
+      closeCurrent = mkMappingOption config.vim.enableNvfKeymaps "Close buffer" null;
+      cycleNext = mkMappingOption config.vim.enableNvfKeymaps "Next buffer" "<leader>bn";
+      cyclePrevious = mkMappingOption config.vim.enableNvfKeymaps "Previous buffer" "<leader>bp";
+      pick = mkMappingOption config.vim.enableNvfKeymaps "Pick buffer" "<leader>bc";
+      sortByExtension = mkMappingOption config.vim.enableNvfKeymaps "Sort buffers by extension" "<leader>bse";
+      sortByDirectory = mkMappingOption config.vim.enableNvfKeymaps "Sort buffers by directory" "<leader>bsd";
+      sortById = mkMappingOption config.vim.enableNvfKeymaps "Sort buffers by ID" "<leader>bsi";
+      moveNext = mkMappingOption config.vim.enableNvfKeymaps "Move next buffer" "<leader>bmn";
+      movePrevious = mkMappingOption config.vim.enableNvfKeymaps "Move previous buffer" "<leader>bmp";
     };
 
     setupOpts = mkPluginSetupOption "Bufferline-nvim" {

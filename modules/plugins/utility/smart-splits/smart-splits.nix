@@ -19,19 +19,19 @@ in {
     setupOpts = mkPluginSetupOption "smart-splits" {};
 
     keymaps = {
-      resize_left = mkMappingOption "Resize Window/Pane Left" "<A-h>";
-      resize_down = mkMappingOption "Resize Window/Pane Down" "<A-j>";
-      resize_up = mkMappingOption "Resize Window/Pane Up" "<A-k>";
-      resize_right = mkMappingOption "Resize Window/Pane Right" "<A-l>";
-      move_cursor_left = mkMappingOption "Focus Window/Pane on the Left" "<C-h>";
-      move_cursor_down = mkMappingOption "Focus Window/Pane Below" "<C-j>";
-      move_cursor_up = mkMappingOption "Focus Window/Pane Above" "<C-k>";
-      move_cursor_right = mkMappingOption "Focus Window/Pane on the Right" "<C-l>";
-      move_cursor_previous = mkMappingOption "Focus Previous Window/Pane" "<C-\\>";
-      swap_buf_left = mkMappingOption "Swap Buffer Left" "<leader><leader>h";
-      swap_buf_down = mkMappingOption "Swap Buffer Down" "<leader><leader>j";
-      swap_buf_up = mkMappingOption "Swap Buffer Up" "<leader><leader>k";
-      swap_buf_right = mkMappingOption "Swap Buffer Right" "<leader><leader>l";
+      resize_left = mkMappingOption config.vim.enableNvfKeymaps "Resize Window/Pane Left" "<A-h>";
+      resize_down = mkMappingOption config.vim.enableNvfKeymaps "Resize Window/Pane Down" "<A-j>";
+      resize_up = mkMappingOption config.vim.enableNvfKeymaps "Resize Window/Pane Up" "<A-k>";
+      resize_right = mkMappingOption config.vim.enableNvfKeymaps "Resize Window/Pane Right" "<A-l>";
+      move_cursor_left = mkMappingOption config.vim.enableNvfKeymaps "Focus Window/Pane on the Left" "<C-h>";
+      move_cursor_down = mkMappingOption config.vim.enableNvfKeymaps "Focus Window/Pane Below" "<C-j>";
+      move_cursor_up = mkMappingOption config.vim.enableNvfKeymaps "Focus Window/Pane Above" "<C-k>";
+      move_cursor_right = mkMappingOption config.vim.enableNvfKeymaps "Focus Window/Pane on the Right" "<C-l>";
+      move_cursor_previous = mkMappingOption config.vim.enableNvfKeymaps "Focus Previous Window/Pane" "<C-\\>";
+      swap_buf_left = mkMappingOption config.vim.enableNvfKeymaps "Swap Buffer Left" "<leader><leader>h";
+      swap_buf_down = mkMappingOption config.vim.enableNvfKeymaps "Swap Buffer Down" "<leader><leader>j";
+      swap_buf_up = mkMappingOption config.vim.enableNvfKeymaps "Swap Buffer Up" "<leader><leader>k";
+      swap_buf_right = mkMappingOption config.vim.enableNvfKeymaps "Swap Buffer Right" "<leader><leader>l";
     };
   };
 }

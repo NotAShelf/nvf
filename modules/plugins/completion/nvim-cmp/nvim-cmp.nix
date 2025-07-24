@@ -62,13 +62,13 @@ in {
     };
 
     mappings = {
-      complete = mkMappingOption "Complete [nvim-cmp]" "<C-Space>";
-      confirm = mkMappingOption "Confirm [nvim-cmp]" "<CR>";
-      next = mkMappingOption "Next item [nvim-cmp]" "<Tab>";
-      previous = mkMappingOption "Previous item [nvim-cmp]" "<S-Tab>";
-      close = mkMappingOption "Close [nvim-cmp]" "<C-e>";
-      scrollDocsUp = mkMappingOption "Scroll docs up [nvim-cmp]" "<C-d>";
-      scrollDocsDown = mkMappingOption "Scroll docs down [nvim-cmp]" "<C-f>";
+      complete = mkMappingOption config.vim.enableNvfKeymaps "Complete [nvim-cmp]" "<C-Space>";
+      confirm = mkMappingOption config.vim.enableNvfKeymaps "Confirm [nvim-cmp]" "<CR>";
+      next = mkMappingOption config.vim.enableNvfKeymaps "Next item [nvim-cmp]" "<Tab>";
+      previous = mkMappingOption config.vim.enableNvfKeymaps "Previous item [nvim-cmp]" "<S-Tab>";
+      close = mkMappingOption config.vim.enableNvfKeymaps "Close [nvim-cmp]" "<C-e>";
+      scrollDocsUp = mkMappingOption config.vim.enableNvfKeymaps "Scroll docs up [nvim-cmp]" "<C-d>";
+      scrollDocsDown = mkMappingOption config.vim.enableNvfKeymaps "Scroll docs down [nvim-cmp]" "<C-f>";
     };
 
     format = mkOption {

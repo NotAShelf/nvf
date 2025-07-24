@@ -9,9 +9,9 @@ in {
       setupOpts = mkPluginSetupOption "run.nvim" {};
 
       mappings = {
-        run = mkMappingOption "Run cached" "<leader>ri";
-        runOverride = mkMappingOption "Run and override" "<leader>ro";
-        runCommand = mkMappingOption "Run prompt" "<leader>rc";
+        run = mkMappingOption config.vim.enableNvfKeymaps "Run cached" "<leader>ri";
+        runOverride = mkMappingOption config.vim.enableNvfKeymaps "Run and override" "<leader>ro";
+        runCommand = mkMappingOption config.vim.enableNvfKeymaps "Run prompt" "<leader>rc";
       };
     };
   };

@@ -6,10 +6,10 @@ in {
     enable = mkEnableOption "codewindow plugin for minimap view";
 
     mappings = {
-      open = mkMappingOption "Open minimap [codewindow]" "<leader>mo";
-      close = mkMappingOption "Close minimap [codewindow]" "<leader>mc";
-      toggle = mkMappingOption "Toggle minimap [codewindow]" "<leader>mm";
-      toggleFocus = mkMappingOption "Toggle minimap focus [codewindow]" "<leader>mf";
+      open = mkMappingOption config.vim.enableNvfKeymaps "Open minimap [codewindow]" "<leader>mo";
+      close = mkMappingOption config.vim.enableNvfKeymaps "Close minimap [codewindow]" "<leader>mc";
+      toggle = mkMappingOption config.vim.enableNvfKeymaps "Toggle minimap [codewindow]" "<leader>mm";
+      toggleFocus = mkMappingOption config.vim.enableNvfKeymaps "Toggle minimap focus [codewindow]" "<leader>mf";
     };
   };
 }

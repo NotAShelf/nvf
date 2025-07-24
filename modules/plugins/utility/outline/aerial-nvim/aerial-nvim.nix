@@ -8,7 +8,7 @@ in {
     setupOpts = mkPluginSetupOption "aerial.nvim" {};
 
     mappings = {
-      toggle = mkMappingOption "Toggle aerial window" "gO";
+      toggle = mkMappingOption config.vim.enableNvfKeymaps "Toggle aerial window" "gO";
     };
   };
 }
