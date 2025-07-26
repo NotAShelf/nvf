@@ -1708,6 +1708,19 @@
       "url": "https://github.com/windwp/nvim-autopairs/archive/4d74e75913832866aa7de35e4202463ddf6efd1b.tar.gz",
       "hash": "0q6pv89x05l71nfg2chqf9p0d2ha72agmll2svimq0npp84ymfxz"
     },
+    "nvim-biscuits": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "code-biscuits",
+        "repo": "nvim-biscuits"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "ff1d12c8b47cd28723da593b2cfa2e98391d439a",
+      "url": "https://github.com/code-biscuits/nvim-biscuits/archive/ff1d12c8b47cd28723da593b2cfa2e98391d439a.tar.gz",
+      "hash": "18dvvg32nxrdp1ydbvxrzkdg7q214naq2bphs7y1s9zmjhyj25pm"
+    },
     "nvim-bufferline-lua": {
       "type": "Git",
       "repository": {
