@@ -10,9 +10,9 @@ in {
     '';
 
     mappings = {
-      openYazi = mkMappingOption "Open yazi at the current file [yazi.nvim]" "<leader>-";
-      openYaziDir = mkMappingOption "Open the file manager in nvim's working directory [yazi.nvim]" "<leader>cw";
-      yaziToggle = mkMappingOption "Resume the last yazi session [yazi.nvim]" "<c-up>";
+      openYazi = mkMappingOption config.vim.enableNvfKeymaps "Open yazi at the current file [yazi.nvim]" "<leader>-";
+      openYaziDir = mkMappingOption config.vim.enableNvfKeymaps "Open the file manager in nvim's working directory [yazi.nvim]" "<leader>cw";
+      yaziToggle = mkMappingOption config.vim.enableNvfKeymaps "Resume the last yazi session [yazi.nvim]" "<c-up>";
     };
 
     setupOpts = mkPluginSetupOption "yazi-nvim" {

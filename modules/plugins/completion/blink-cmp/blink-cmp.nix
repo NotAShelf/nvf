@@ -131,13 +131,13 @@ in {
     };
 
     mappings = {
-      complete = mkMappingOption "Complete [blink.cmp]" "<C-Space>";
-      confirm = mkMappingOption "Confirm [blink.cmp]" "<CR>";
-      next = mkMappingOption "Next item [blink.cmp]" "<Tab>";
-      previous = mkMappingOption "Previous item [blink.cmp]" "<S-Tab>";
-      close = mkMappingOption "Close [blink.cmp]" "<C-e>";
-      scrollDocsUp = mkMappingOption "Scroll docs up [blink.cmp]" "<C-d>";
-      scrollDocsDown = mkMappingOption "Scroll docs down [blink.cmp]" "<C-f>";
+      complete = mkMappingOption config.vim.enableNvfKeymaps "Complete [blink.cmp]" "<C-Space>";
+      confirm = mkMappingOption config.vim.enableNvfKeymaps "Confirm [blink.cmp]" "<CR>";
+      next = mkMappingOption config.vim.enableNvfKeymaps "Next item [blink.cmp]" "<Tab>";
+      previous = mkMappingOption config.vim.enableNvfKeymaps "Previous item [blink.cmp]" "<S-Tab>";
+      close = mkMappingOption config.vim.enableNvfKeymaps "Close [blink.cmp]" "<C-e>";
+      scrollDocsUp = mkMappingOption config.vim.enableNvfKeymaps "Scroll docs up [blink.cmp]" "<C-d>";
+      scrollDocsDown = mkMappingOption config.vim.enableNvfKeymaps "Scroll docs down [blink.cmp]" "<C-f>";
     };
 
     sourcePlugins = let

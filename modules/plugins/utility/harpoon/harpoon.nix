@@ -7,12 +7,12 @@
 in {
   options.vim.navigation.harpoon = {
     mappings = {
-      markFile = mkMappingOption "Mark file [Harpoon]" "<leader>a";
-      listMarks = mkMappingOption "List marked files [Harpoon]" "<C-e>";
-      file1 = mkMappingOption "Go to marked file 1 [Harpoon]" "<C-j>";
-      file2 = mkMappingOption "Go to marked file 2 [Harpoon]" "<C-k>";
-      file3 = mkMappingOption "Go to marked file 3 [Harpoon]" "<C-l>";
-      file4 = mkMappingOption "Go to marked file 4 [Harpoon]" "<C-;>";
+      markFile = mkMappingOption config.vim.enableNvfKeymaps "Mark file [Harpoon]" "<leader>a";
+      listMarks = mkMappingOption config.vim.enableNvfKeymaps "List marked files [Harpoon]" "<C-e>";
+      file1 = mkMappingOption config.vim.enableNvfKeymaps "Go to marked file 1 [Harpoon]" "<C-j>";
+      file2 = mkMappingOption config.vim.enableNvfKeymaps "Go to marked file 2 [Harpoon]" "<C-k>";
+      file3 = mkMappingOption config.vim.enableNvfKeymaps "Go to marked file 3 [Harpoon]" "<C-l>";
+      file4 = mkMappingOption config.vim.enableNvfKeymaps "Go to marked file 4 [Harpoon]" "<C-;>";
     };
 
     enable = mkEnableOption "Quick bookmarks on keybinds [Harpoon]";

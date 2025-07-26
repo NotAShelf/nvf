@@ -53,9 +53,9 @@ in {
     };
 
     mappings = {
-      quickFix = mkMappingOption "Open Todo-s in a quickfix list" "<leader>tdq";
-      telescope = mkMappingOption "Open Todo-s in telescope" "<leader>tds";
-      trouble = mkMappingOption "Open Todo-s in Trouble" "<leader>tdt";
+      quickFix = mkMappingOption config.vim.enableNvfKeymaps "Open Todo-s in a quickfix list" "<leader>tdq";
+      telescope = mkMappingOption config.vim.enableNvfKeymaps "Open Todo-s in telescope" "<leader>tds";
+      trouble = mkMappingOption config.vim.enableNvfKeymaps "Open Todo-s in Trouble" "<leader>tdt";
     };
   };
 }

@@ -12,10 +12,10 @@ in {
     enable = mkEnableOption "treesitter, also enabled automatically through language options";
 
     mappings.incrementalSelection = {
-      init = mkMappingOption "Init selection [treesitter]" "gnn";
-      incrementByNode = mkMappingOption "Increment selection by node [treesitter]" "grn";
-      incrementByScope = mkMappingOption "Increment selection by scope [treesitter]" "grc";
-      decrementByNode = mkMappingOption "Decrement selection by node [treesitter]" "grm";
+      init = mkMappingOption config.vim.enableNvfKeymaps "Init selection [treesitter]" "gnn";
+      incrementByNode = mkMappingOption config.vim.enableNvfKeymaps "Increment selection by node [treesitter]" "grn";
+      incrementByScope = mkMappingOption config.vim.enableNvfKeymaps "Increment selection by scope [treesitter]" "grc";
+      decrementByNode = mkMappingOption config.vim.enableNvfKeymaps "Decrement selection by node [treesitter]" "grm";
     };
 
     fold = mkEnableOption "fold with treesitter";

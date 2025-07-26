@@ -13,7 +13,7 @@ in {
     enable = mkEnableOption "cellular-automaton to help you cope with stubborn code [cellular-automaton]";
 
     mappings = {
-      makeItRain = mkMappingOption "Make it rain [cellular-automaton]" "<leader>fml";
+      makeItRain = mkMappingOption config.vim.enableNvfKeymaps "Make it rain [cellular-automaton]" "<leader>fml";
     };
 
     animation = {

@@ -7,19 +7,19 @@ in {
     enable = mkEnableOption "ChatGPT AI assistant. Requires the environment variable OPENAI_API_KEY to be set";
     setupOpts = mkPluginSetupOption "chatgpt" {};
     mappings = {
-      chatGpt = mkMappingOption "ChatGPT" "<leader>ac";
-      editWithInstructions = mkMappingOption "[ChatGPT] Edit with instructions" "<leader>ae";
-      grammarCorrection = mkMappingOption "[ChatGPT] Grammar correction" "<leader>ag";
-      translate = mkMappingOption "[ChatGPT] Translate" "<leader>at";
-      keyword = mkMappingOption "[ChatGPT] Keywords" "<leader>ak";
-      docstring = mkMappingOption "[ChatGPT] Docstring" "<leader>ad";
-      addTests = mkMappingOption "[ChatGPT] Add tests" "<leader>aa";
-      optimize = mkMappingOption "[ChatGPT] Optimize code" "<leader>ao";
-      summarize = mkMappingOption "[ChatGPT] Summarize" "<leader>as";
-      fixBugs = mkMappingOption "[ChatGPT] Fix bugs" "<leader>af";
-      explain = mkMappingOption "[ChatGPT] Explain code" "<leader>ax";
-      roxygenEdit = mkMappingOption "[ChatGPT] Roxygen edit" "<leader>ar";
-      readabilityanalysis = mkMappingOption "[ChatGPT] Code reability analysis" "<leader>al";
+      chatGpt = mkMappingOption config.vim.enableNvfKeymaps "ChatGPT" "<leader>ac";
+      editWithInstructions = mkMappingOption config.vim.enableNvfKeymaps "[ChatGPT] Edit with instructions" "<leader>ae";
+      grammarCorrection = mkMappingOption config.vim.enableNvfKeymaps "[ChatGPT] Grammar correction" "<leader>ag";
+      translate = mkMappingOption config.vim.enableNvfKeymaps "[ChatGPT] Translate" "<leader>at";
+      keyword = mkMappingOption config.vim.enableNvfKeymaps "[ChatGPT] Keywords" "<leader>ak";
+      docstring = mkMappingOption config.vim.enableNvfKeymaps "[ChatGPT] Docstring" "<leader>ad";
+      addTests = mkMappingOption config.vim.enableNvfKeymaps "[ChatGPT] Add tests" "<leader>aa";
+      optimize = mkMappingOption config.vim.enableNvfKeymaps "[ChatGPT] Optimize code" "<leader>ao";
+      summarize = mkMappingOption config.vim.enableNvfKeymaps "[ChatGPT] Summarize" "<leader>as";
+      fixBugs = mkMappingOption config.vim.enableNvfKeymaps "[ChatGPT] Fix bugs" "<leader>af";
+      explain = mkMappingOption config.vim.enableNvfKeymaps "[ChatGPT] Explain code" "<leader>ax";
+      roxygenEdit = mkMappingOption config.vim.enableNvfKeymaps "[ChatGPT] Roxygen edit" "<leader>ar";
+      readabilityanalysis = mkMappingOption config.vim.enableNvfKeymaps "[ChatGPT] Code reability analysis" "<leader>al";
     };
   };
 }

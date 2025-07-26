@@ -8,10 +8,10 @@ in {
     setupOpts = mkPluginSetupOption "neogit" {};
 
     mappings = {
-      open = mkMappingOption "Git Status [Neogit]" "<leader>gs";
-      commit = mkMappingOption "Git Commit [Neogit]" "<leader>gc";
-      pull = mkMappingOption "Git pull [Neogit]" "<leader>gp";
-      push = mkMappingOption "Git push [Neogit]" "<leader>gP";
+      open = mkMappingOption config.vim.enableNvfKeymaps "Git Status [Neogit]" "<leader>gs";
+      commit = mkMappingOption config.vim.enableNvfKeymaps "Git Commit [Neogit]" "<leader>gc";
+      pull = mkMappingOption config.vim.enableNvfKeymaps "Git pull [Neogit]" "<leader>gp";
+      push = mkMappingOption config.vim.enableNvfKeymaps "Git push [Neogit]" "<leader>gP";
     };
   };
 }

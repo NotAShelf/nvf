@@ -39,7 +39,7 @@ in {
       };
 
       extraMappings = {
-        listCommands = mkMappingOption "List Metals commands" "<leader>lc";
+        listCommands = mkMappingOption config.vim.enableNvfKeymaps "List Metals commands" "<leader>lc";
       };
 
       extraSettings = mkOption {

@@ -32,10 +32,14 @@
         };
       };
 
-    mkMappingOption = description: default:
+    mkMappingOption = enableDefault: description: default:
       mkOption {
         type = nullOr str;
-        inherit default description;
+        default =
+          if enableDefault
+          then default
+          else null;
+        inherit description;
       };
 
     # Utility function that takes two attrsets:

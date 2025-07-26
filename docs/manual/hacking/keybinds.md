@@ -49,12 +49,12 @@ in {
 
     # Mappings should always be inside an attrset called mappings
     mappings = {
-      workspaceDiagnostics = mkMappingOption "Workspace diagnostics [trouble]" "<leader>lwd";
-      documentDiagnostics = mkMappingOption "Document diagnostics [trouble]" "<leader>ld";
-      lspReferences = mkMappingOption "LSP References [trouble]" "<leader>lr";
-      quickfix = mkMappingOption "QuickFix [trouble]" "<leader>xq";
-      locList = mkMappingOption "LOCList [trouble]" "<leader>xl";
-      symbols = mkMappingOption "Symbols [trouble]" "<leader>xs";
+      workspaceDiagnostics = mkMappingOption config.vim.enableNvfKeymaps "Workspace diagnostics [trouble]" "<leader>lwd";
+      documentDiagnostics = mkMappingOption config.vim.enableNvfKeymaps "Document diagnostics [trouble]" "<leader>ld";
+      lspReferences = mkMappingOption config.vim.enableNvfKeymaps "LSP References [trouble]" "<leader>lr";
+      quickfix = mkMappingOption config.vim.enableNvfKeymaps "QuickFix [trouble]" "<leader>xq";
+      locList = mkMappingOption config.vim.enableNvfKeymaps "LOCList [trouble]" "<leader>xl";
+      symbols = mkMappingOption config.vim.enableNvfKeymaps "Symbols [trouble]" "<leader>xs";
     };
 }
 ```

@@ -4,7 +4,7 @@
 in {
   options.vim.utility.motion.hop = {
     mappings = {
-      hop = mkMappingOption "Jump to occurrences [hop.nvim]" "<leader>h";
+      hop = mkMappingOption config.vim.enableNvfKeymaps "Jump to occurrences [hop.nvim]" "<leader>h";
     };
 
     enable = mkEnableOption "Hop.nvim plugin (easy motion)";
