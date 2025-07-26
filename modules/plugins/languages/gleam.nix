@@ -7,11 +7,9 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.types) enum;
+  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.gleam;
@@ -37,7 +35,7 @@ in {
     lsp = {
       enable = mkEnableOption "Gleam LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = singleOrListOf (enum (attrNames servers));
         default = defaultServers;
         description = "Gleam LSP server to use";
       };

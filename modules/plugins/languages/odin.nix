@@ -7,9 +7,9 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) listOf enum;
+  inherit (lib.types) enum;
   inherit (lib.meta) getExe;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -46,7 +46,7 @@ in {
       enable = mkEnableOption "Odin LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = singleOrListOf (enum (attrNames servers));
         default = defaultServers;
         description = "Odin LSP server to use";
       };

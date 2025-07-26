@@ -6,17 +6,17 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) listOf enum;
+  inherit (lib.types) enum;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.dag) entryBefore;
 
-  defaultServers = ["jdtls"];
+  defaultServers = ["julials"];
   servers = {
-    jdtls = {
+    julials = {
       enable = true;
       cmd =
         mkLuaInline
@@ -95,9 +95,9 @@ in {
       };
 
       lsp = {
-        enable = mkEnableOption "Java LSP support" // {default = config.vim.lsp.enable;};
+        enable = mkEnableOption "Julia LSP support" // {default = config.vim.lsp.enable;};
         servers = mkOption {
-          type = listOf (enum (attrNames servers));
+          type = singleOrListOf (enum (attrNames servers));
           default = defaultServers;
           description = ''
             Julia LSP Server to Use
@@ -107,9 +107,11 @@ in {
             option, since there is no way to provide only the LSP server.
 
             If you want to avoid that, you have to change
-            [](#opt-vim.languages.julia.lsp.package) to use the Julia binary
-            in {env}`PATH` (set it to `null`), and add the `LanguageServer` package to
-            Julia in your devshells.
+            [vim.lsp.servers.julials.cmd](#opt-vim.lsp.servers._name_.cmd) to use
+            the Julia binary in {env}`PATH`, and add the `LanguageServer`
+            package to Julia in your devshells.
+
+            Check the source file of this option for the full `cmd`.
             :::
           '';
         };
