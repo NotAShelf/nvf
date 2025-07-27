@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
@@ -14,16 +15,17 @@
 
   cfg = config.vim.languages.yaml;
 
-  onAttach =
-    if config.vim.languages.helm.lsp.enable
+  on_attach = mkLuaInline (
+    if config.vim.languages.helm.lsp.enable && config.vim.languages.helm.enable
     then ''
-      on_attach = function(client, bufnr)
+      function(client, bufnr)
         local filetype = vim.bo[bufnr].filetype
         if filetype == "helm" then
           client.stop()
         end
       end''
-    else "on_attach = default_on_attach";
+    else "default_on_attach"
+  );
 
   defaultServers = ["yaml-language-server"];
   servers = {
@@ -32,7 +34,7 @@
       cmd = [(getExe pkgs.yaml-language-server) "--stdio"];
       filetypes = ["yaml" "yaml.docker-compose" "yaml.gitlab" "yaml.helm-values"];
       root_markers = [".git"];
-      on_attach = onAttach;
+      inherit on_attach;
       # -- https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting
       settings = {
         redhat = {
