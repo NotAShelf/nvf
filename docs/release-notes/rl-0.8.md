@@ -289,6 +289,8 @@
 - Fix [blink.cmp] breaking when built-in sources were modified.
 - Fix [conform.nvim] not allowing disabling formatting on and after save. Use
   `null` value to disable them if conform is enabled.
+- Fix Helm-YAML language module integration. YAML diagnostics will now remain in
+  `helmfile`s when both are enabled.
 
 [TheColorman](https://github.com/TheColorman):
 
