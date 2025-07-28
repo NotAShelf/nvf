@@ -5,13 +5,13 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "blink-cmp";
-  version = "1.3.1";
+  version = "1.6.0";
 
   src = fetchFromGitHub {
     owner = "Saghen";
     repo = "blink.cmp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-8lyDDrsh3sY7l0i0TPyhL69Oq0l63+/QPnLaU/mhq5A=";
+    hash = "sha256-IHRYgKcYP+JDGu8Vtawgzlhq25vpROFqb8KmpfVMwCk=";
   };
 
   forceShare = [
@@ -29,8 +29,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mv "$out/lib" "$out/target/release"
   '';
 
-  cargoHash = "sha256-IDoDugtNWQovfSstbVMkKHLBXKa06lxRWmywu4zyS3M=";
-  useFetchCargoVendor = true;
+  cargoHash = "sha256-QsVCugYWRri4qu64wHnbJQZBhy4tQrr+gCYbXtRBlqE=";
 
   nativeBuildInputs = [
     (writeShellScriptBin "git" "exit 1")
