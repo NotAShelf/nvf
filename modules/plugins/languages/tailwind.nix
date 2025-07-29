@@ -121,7 +121,6 @@
       workspace_required = true;
       root_dir = mkLuaInline ''
         function(bufnr, on_dir)
-          local util = require 'lspconfig.util'
           local root_files = {
             -- Generic
             'tailwind.config.js',
