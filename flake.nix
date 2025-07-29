@@ -98,11 +98,6 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.systems.follows = "systems";
-    };
-
     flake-compat = {
       url = "git+https://git.lix.systems/lix-project/flake-compat.git";
       flake = false;
