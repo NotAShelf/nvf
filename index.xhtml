@@ -630,9 +630,9 @@ in {
 
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="ch-overriding-plugins" class="title" >Overriding plugins   </h2>  </div> </div></div><p>The <a class="link" href="index.xhtml#sec-additional-plugins" title="Adding Plugins" >additional plugins section</a> details the addition
 of new plugins to nvf under regular circumstances, i.e. while making a pull
-request to the project. You may <span class="emphasis"><em>override</em></span> those plugins in your config
-to change source versions, e.g., to use newer versions of plugins
-that are not yet updated in <span class="strong"><strong>nvf</strong></span>.</p><pre><code class="programlisting nix">vim.pluginOverrides = {
+request to the project. You may <span class="emphasis"><em>override</em></span> those plugins in your config to
+change source versions, e.g., to use newer versions of plugins that are not yet
+updated in <span class="strong"><strong>nvf</strong></span>.</p><pre><code class="programlisting nix">vim.pluginOverrides = {
   lazydev-nvim = pkgs.fetchFromGitHub {
     owner = &quot;folke&quot;;
     repo = &quot;lazydev.nvim&quot;;
@@ -1208,8 +1208,8 @@ functions.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h
 }
 </code></pre><p>There are many settings available in the options. Please refer to the
 <a class="link" href="https://notashelf.github.io/nvf/options.html#opt-vim.keymaps"  target="_top">documentation</a> to
-see a list of them.</p><p><span class="strong"><strong>nvf</strong></span> provides a helper function, so that you don’t have to write the
-mapping attribute sets every time:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">mkKeymap</code>, which mimics neovim’s <code class="literal">vim.keymap.set</code> function</p></li></ul></div><p>You can read the source code of some modules to see them in action, but the
+see a list of them.</p><p><span class="strong"><strong>nvf</strong></span> provides a helper function, so that you don’t have to write the mapping
+attribute sets every time:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">mkKeymap</code>, which mimics neovim’s <code class="literal">vim.keymap.set</code> function</p></li></ul></div><p>You can read the source code of some modules to see them in action, but the
 usage should look something like this:</p><pre><code class="programlisting nix"># plugindefinition.nix
 {lib, ...}: let
   inherit (lib.options) mkEnableOption;
