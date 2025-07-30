@@ -39,6 +39,17 @@ jobs:
       - name: Check formatting via Alejandra
         run: nix run nixpkgs#alejandra -- --check . --exclude npins
 
+      - name: Check formatting via Deno
+        run: nix run nixpkgs#deno -- fmt --check --ext md **/*.md
+
+      - if: ${{ failure() }}
+        shell: bash
+        run: |
+          echo "::error:: Current codebase contains formatting errors that were caught by the CI!"
+          echo "Please ensure that all Nix code is formatted with Alejandra, and Markdown with `deno fmt"
+          echo "[skip ci] label may be added to the PR title if this is a one-time issue and is safe to ignore"
+          exit 1
+
   check-typos:
     name: "Check source tree for typos"
     runs-on: ubuntu-latest
@@ -142,7 +153,8 @@ jobs:
       - name: Checking Editorconfig conformance
         shell: bash
         run: |
-          < "$HOME/changed_files" nix-shell -p editorconfig-checker --run 'xargs -r editorconfig-checker -disable-indent-size'
+          < "$HOME/changed_files" nix-shell -p editorconfig-checker \
+                                    --run 'xargs -r editorconfig-checker -disable-indent-size --exclude flake.lock'
 
       - if: ${{ failure() }}
         shell: bash
