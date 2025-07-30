@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD013 MD033 MD041-->
 <div align="center">
-    <img src="assets/nvf-logo-work.svg" alt="nvf Logo"  width="200">
+    <img src=".gitjub/assets/nvf-logo-work.svg" alt="nvf Logo"  width="192">
     <br/>
     <h1>nvf</h1>
 </div>
