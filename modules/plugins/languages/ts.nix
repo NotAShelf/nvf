@@ -75,7 +75,6 @@
             capabilities = capabilities,
             on_attach = function(client, bufnr)
               attach_keymaps(client, bufnr);
-              -- TODO: do we need to disable formatting for this LS?
               client.server_capabilities.documentFormattingProvider = false;
             end,
             filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
@@ -96,6 +95,11 @@
           })
 
           vim.lsp.config('vue_ls', {
+            capabilities = capabilities,
+            on_attach = function(client, bufnr)
+              attach_keymaps(client, bufnr);
+              client.server_capabilities.documentFormattingProvider = false;
+            end,
             cmd = {"${getExe pkgs.vue-language-server}", "--stdio"}
           })
 
@@ -252,6 +256,8 @@ in {
           formatters_by_ft.typescript = [cfg.format.type];
           # .tsx files
           formatters_by_ft.typescriptreact = [cfg.format.type];
+          # .vue files
+          formatters_by_ft.vue = [cfg.format.type];
           formatters.${cfg.format.type} = {
             command = getExe cfg.format.package;
           };
