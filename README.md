@@ -122,7 +122,7 @@ the following in order to take **nvf** out for a spin.
 
 ```bash
 # Run the default package
-nix run github:notashelf/nvf
+$ nix run github:notashelf/nvf
 ```
 
 This will get you a feel for the base configuration and UI design. Though, none
@@ -144,7 +144,7 @@ coverage, run:
 
 ```bash
 # Run the maximal package
-nix run github:notashelf/nvf#maximal
+$ nix run github:notashelf/nvf#maximal
 ```
 
 Similar instructions will apply for `nix profile install`. However, you are
@@ -196,11 +196,12 @@ members, or engage in productive discussion with the maintainers.
 
 ## Contributing
 
+[contributing guide]: .github/CONTRIBUTING.md
+
 I am always looking for new ways to help improve this flake. If you would like
-to contribute, please read the [contributing guide](CONTRIBUTING.md) before
-submitting a pull request. You can also create an issue on the [issue tracker]
-before submitting a pull request if you would like to discuss a feature or bug
-fix.
+to contribute, please read the [contributing guide] before submitting a pull
+request. You can also create an issue on the [issue tracker] before submitting a
+pull request if you would like to discuss a feature or bug fix.
 
 ## Frequently Asked Questions
 
@@ -259,11 +260,11 @@ further configure Neovim.
 ### Co-Maintainers
 
 Alongside [myself](https://github.com/notashelf), nvf is developed by those
-talented folk. nvf would not be what it is today without their invaluable
+talented folk. **nvf** would not be what it is today without their invaluable
 contributions.
 
 - [**@horriblename**](https://github.com/horriblename)
-  ([Liberapay](https://liberapay.com/horriblename/))- For actively implementing
+  ([Liberapay](https://liberapay.com/horriblename/)) - For actively implementing
   planned features and quality of life updates.
 - [**@Soliprem**](https://github.com/soliprem) - For rigorously implementing
   missing features and excellent work on new language modules.
