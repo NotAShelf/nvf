@@ -1860,9 +1860,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "4d3b3bb8815fbe37bcaf3dbdb12a22382bc11ebe",
-      "url": "https://github.com/neovim/nvim-lspconfig/archive/4d3b3bb8815fbe37bcaf3dbdb12a22382bc11ebe.tar.gz",
-      "hash": "1lssglccyxlzkypklr4cwz20zik0qwnv514hp06722vcrxs32pzw"
+      "revision": "3db16ceeea947517f0dc1404c24dcb5ab0c91d26",
+      "url": "https://github.com/neovim/nvim-lspconfig/archive/3db16ceeea947517f0dc1404c24dcb5ab0c91d26.tar.gz",
+      "hash": "0gam1rxqkxksayblhj1i7jkh4sqjp6lpvyb1psmrhkryj6967ir2"
     },
     "nvim-metals": {
       "type": "Git",
