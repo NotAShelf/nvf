@@ -87,6 +87,7 @@ isMaximal: {
       hcl.enable = false;
       ruby.enable = false;
       fsharp.enable = false;
+      just.enable = false;
 
       tailwind.enable = false;
       svelte.enable = false;

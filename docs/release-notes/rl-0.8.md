@@ -468,4 +468,11 @@
   https://github.com/NotAShelf/nvf/commit/fc8206e7a61d7eb02006f9010e62ebdb3336d0d2).
 
 [soliprem](https://github.com/soliprem):
+
 - fix broken `neorg` grammars
+
+[Cool-Game-Dev](https://github.com/Cool-Game-Dev):
+
+[just-lsp]: https://github.com/terror/just-lsp
+
+- Add just support under `vim.languages.just` using [just-lsp].
