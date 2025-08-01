@@ -5,14 +5,16 @@
   options,
   ...
 }: let
-  inherit (builtins) attrNames;
+  inherit (builtins) attrNames concatMap;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) either listOf package str enum;
+  inherit (lib.types) enum;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
+  inherit (lib.meta) getExe;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.strings) optionalString;
-  inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   lspKeyConfig = config.vim.lsp.mappings;
   lspKeyOptions = options.vim.lsp.mappings;
@@ -25,52 +27,104 @@
   # Omnisharp doesn't have colors in popup docs for some reason, and I've also
   # seen mentions of it being way slower, so until someone finds missing
   # functionality, this will be the default.
-  defaultServer = "csharp_ls";
+  defaultServers = ["csharp_ls"];
   servers = {
     omnisharp = {
-      package = pkgs.omnisharp-roslyn;
-      internalFormatter = true;
-      lspConfig = ''
-        lspconfig.omnisharp.setup {
-          capabilities = capabilities,
-          on_attach = function(client, bufnr)
-            default_on_attach(client, bufnr)
-
+      cmd = mkLuaInline ''
+        {
+          ${toLuaObject (getExe pkgs.omnisharp-roslyn)},
+          '-z', -- https://github.com/OmniSharp/omnisharp-vscode/pull/4300
+          '--hostPID',
+          tostring(vim.fn.getpid()),
+          'DotNet:enablePackageRestore=false',
+          '--encoding',
+          'utf-8',
+          '--languageserver',
+        }
+      '';
+      filetypes = ["cs" "vb"];
+      root_markers = [".sln" ".csproj" "omnisharp.json" "function.json"];
+      init_options = {};
+      capabilities = {
+        workspace = {
+          workspaceFolders = false; # https://github.com/OmniSharp/omnisharp-roslyn/issues/909
+        };
+      };
+      on_attach = mkLuaInline ''
+        function(client, bufnr)
+          default_on_attach(client, bufnr)
             local oe = require("omnisharp_extended")
             ${mkLspBinding "goToDefinition" "oe.lsp_definition"}
             ${mkLspBinding "goToType" "oe.lsp_type_definition"}
             ${mkLspBinding "listReferences" "oe.lsp_references"}
             ${mkLspBinding "listImplementations" "oe.lsp_implementation"}
-          end,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else "{'${cfg.lsp.package}/bin/OmniSharp'}"
-        }
-        }
+        end
       '';
+      settings = {
+        FormattingOptions = {
+          # Enables support for reading code style, naming convention and analyzer
+          # settings from .editorconfig.
+          EnableEditorConfigSupport = true;
+          # Specifies whether 'using' directives should be grouped and sorted during
+          # document formatting.
+          OrganizeImports = null;
+        };
+        MsBuild = {
+          # If true, MSBuild project system will only load projects for files that
+          # were opened in the editor. This setting is useful for big C# codebases
+          # and allows for faster initialization of code navigation features only
+          # for projects that are relevant to code that is being edited. With this
+          # setting enabled OmniSharp may load fewer projects and may thus display
+          # incomplete reference lists for symbols.
+          LoadProjectsOnDemand = null;
+        };
+        RoslynExtensionsOptions = {
+          # Enables support for roslyn analyzers, code fixes and rulesets.
+          EnableAnalyzersSupport = null;
+          # Enables support for showing unimported types and unimported extension
+          # methods in completion lists. When committed, the appropriate using
+          # directive will be added at the top of the current file. This option can
+          # have a negative impact on initial completion responsiveness;
+          # particularly for the first few completion sessions after opening a
+          # solution.
+          EnableImportCompletion = null;
+          # Only run analyzers against open files when 'enableRoslynAnalyzers' is
+          # true
+          AnalyzeOpenDocumentsOnly = null;
+          # Enables the possibility to see the code in external nuget dependencies
+          EnableDecompilationSupport = null;
+        };
+        RenameOptions = {
+          RenameInComments = null;
+          RenameOverloads = null;
+          RenameInStrings = null;
+        };
+        Sdk = {
+          # Specifies whether to include preview versions of the .NET SDK when
+          # determining which version to use for project loading.
+          IncludePrereleases = true;
+        };
+      };
     };
 
     csharp_ls = {
-      package = pkgs.csharp-ls;
-      internalFormatter = true;
-      lspConfig = ''
-        local extended_handler = require("csharpls_extended").handler
+      cmd = [(lib.getExe pkgs.csharp-ls)];
+      filetypes = ["cs"];
+      root_dir = mkLuaInline ''
+        function(bufnr, on_dir)
+          local function find_root_pattern(fname, lua_pattern)
+            return vim.fs.root(0, function(name, path)
+              return name:match(lua_pattern)
+            end)
+          end
 
-        lspconfig.csharp_ls.setup {
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          handlers = {
-            ["textDocument/definition"] = extended_handler,
-            ["textDocument/typeDefinition"] = extended_handler
-          },
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else "{'${cfg.lsp.package}/bin/csharp-ls'}"
-        }
-        }
+          local fname = vim.api.nvim_buf_get_name(bufnr)
+          on_dir(find_root_pattern(fname, "%.sln$") or find_root_pattern(fname, "%.csproj$"))
+        end
       '';
+      init_options = {
+        AutomaticWorkspaceInit = true;
+      };
     };
   };
 
@@ -92,16 +146,10 @@ in {
 
       lsp = {
         enable = mkEnableOption "C# LSP support" // {default = config.vim.lsp.enable;};
-        server = mkOption {
+        servers = mkOption {
           description = "C# LSP server to use";
-          type = enum (attrNames servers);
-          default = defaultServer;
-        };
-
-        package = mkOption {
-          description = "C# LSP server package, or the command to run as a list of strings";
-          type = either package (listOf str);
-          default = servers.${cfg.lsp.server}.package;
+          type = singleOrListOf (enum (attrNames servers));
+          default = defaultServers;
         };
       };
     };
@@ -114,9 +162,13 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.startPlugins = extraServerPlugins.${cfg.lsp.server} or [];
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.csharp-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.startPlugins = concatMap (server: extraServerPlugins.${server}) cfg.lsp.servers;
+      vim.lsp.servers =
+        mapListToAttrs (name: {
+          inherit name;
+          value = servers.${name};
+        })
+        cfg.lsp.servers;
     })
   ]);
 }

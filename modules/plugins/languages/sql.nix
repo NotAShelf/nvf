@@ -8,8 +8,8 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum listOf package str;
-  inherit (lib.nvim.types) diagnostics;
+  inherit (lib.types) enum package str;
+  inherit (lib.nvim.types) diagnostics singleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.generators) mkLuaInline;
 
@@ -78,7 +78,7 @@ in {
       enable = mkEnableOption "SQL LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = singleOrListOf (enum (attrNames servers));
         default = defaultServers;
         description = "SQL LSP server to use";
       };

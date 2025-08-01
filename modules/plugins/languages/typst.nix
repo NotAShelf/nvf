@@ -9,7 +9,7 @@
   inherit (lib.types) nullOr enum attrsOf listOf package str;
   inherit (lib.attrsets) attrNames;
   inherit (lib.meta) getExe;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption singleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.attrsets) mapListToAttrs;
@@ -114,7 +114,7 @@ in {
       enable = mkEnableOption "Typst LSP support (typst-lsp)" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = singleOrListOf (enum (attrNames servers));
         default = defaultServers;
         description = "Typst LSP server to use";
       };
