@@ -46,12 +46,11 @@ changes that you think are critical over at the <a class="link" href="https://gi
 </div><div class="preface"> <div class="titlepage">  <div>   <div>    <h1 id="ch-try-it-out" class="title" >Try it out   </h1>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-using-prebuilt-configs">Using Prebuilt Configs</a> </span></dt> </dl></div><p>Thanks to the portability of Nix, you can try out nvf without actually
 installing it to your machine. Below are the commands you may run to try out
 different configurations provided by this flake. As of v0.5, two specialized
-configurations are provided:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><span class="strong"><strong>Nix</strong></span> (<code class="literal">packages.nix</code>) - Nix language server + simple utility plugins</p></li><li class="listitem"><p><span class="strong"><strong>Maximal</strong></span> (<code class="literal">packages.maximal</code>) - Variable language servers + utility and
-decorative plugins</p></li></ul></div><p>You may try out any of the provided configurations using the <code class="literal">nix run</code> command
-on a system where Nix is installed.</p><pre><code class="programlisting sh">$ cachix use nvf                   # Optional: it&#x27;ll save you CPU resources and time
-$ nix run github:notashelf/nvf#nix # Will run the default minimal configuration
-</code></pre><p>Do keep in mind that this is <span class="strong"><strong>susceptible to garbage collection</strong></span> meaning that
-the built outputs will be removed from your Nix store once you garbage collect.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-using-prebuilt-configs" class="title" >Using Prebuilt Configs   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-available-configs">Available Configurations</a> </span></dt> </dl></div><pre><code class="programlisting bash">$ nix run github:notashelf/nvf#nix
+configurations are provided:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><span class="strong"><strong>Nix</strong></span> - Nix language server + simple utility plugins</p></li><li class="listitem"><p><span class="strong"><strong>Maximal</strong></span> - Variable language servers + utility and decorative plugins</p></li></ul></div><p>You may try out any of the provided configurations using the <code class="literal">nix run</code> command
+on a system where Nix is installed.</p><pre><code class="programlisting bash">$ cachix use nvf                   # Optional: it&#x27;ll save you CPU resources and time
+$ nix run github:notashelf/nvf#nix # will run the default minimal configuration
+</code></pre><p>Do keep in mind that this is <span class="strong"><strong>susceptible to garbage collection</strong></span> meaning it
+will be removed from your Nix store once you garbage collect.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-using-prebuilt-configs" class="title" >Using Prebuilt Configs   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-available-configs">Available Configurations</a> </span></dt> </dl></div><pre><code class="programlisting bash">$ nix run github:notashelf/nvf#nix
 $ nix run github:notashelf/nvf#maximal
 </code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-available-configs" class="title" >Available Configurations   </h3>  </div> </div></div><p>::: {.info}</p><p>The below configurations are provided for demonstration purposes, and are
 <span class="strong"><strong>not</strong></span> designed to be installed as is. You may</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="sec-configs-nix" class="title" >Nix   </h4>  </div> </div></div><p><code class="literal">Nix</code> configuration by default provides LSP/diagnostic support for Nix alongside
@@ -67,8 +66,7 @@ mind, however, that this will pull a lot of dependencies.</p><pre><code class="p
 </code></pre><p>It uses the same configuration template with the <a class="link" href="index.xhtml#sec-configs-nix" title="Nix" >Nix</a>
 configuration, but supports many more languages, and enables more utility,
 companion or fun plugins.</p><div class="warning"><h3 class="title">Warning</h3><p>Running the maximal config will download <span class="emphasis"><em>a lot</em></span> of packages as it is
-downloading language servers, formatters, and more. If CPU time and bandwidth
-are concerns, please use the default package instead.</p></div>
+downloading language servers, formatters, and more.</p></div>
 </div>
 
 </div>
@@ -170,8 +168,7 @@ the default theme enabled. You may use other options inside <code class="literal
         # ...
         modules = [
           # This will make wrapped neovim available in your system packages
-          # Can also move this to another config file if you pass your own
-          # inputs/self around with specialArgs
+          # Can also move this to another config file if you pass inputs/self around with specialArgs
           ({pkgs, ...}: {
             environment.systemPackages = [self.packages.${pkgs.stdenv.system}.neovim];
           })
@@ -180,7 +177,7 @@ the default theme enabled. You may use other options inside <code class="literal
       };
     };
   };
-}
+}```
 </code></pre>
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="ch-standalone-hm" class="title" >Standalone Installation on Home-Manager   </h2>  </div> </div></div><p>Your built Neovim configuration can be exposed as a flake output to make it
 easier to share across machines, repositories and so on. Or it can be added to
@@ -233,12 +230,10 @@ the default theme enabled. You may use other options inside <code class="literal
 </div>
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="ch-module-installation" class="title" >Module Installation   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="chapter">  <a href="index.xhtml#ch-nixos-module">NixOS Module</a> </span></dt><dt> <span class="chapter">  <a href="index.xhtml#ch-hm-module">Home-Manager Module</a> </span></dt> </dl></div><p>The below chapters will describe installing nvf as NixOS and Home-Manager
 modules. Note that those methods are mutually exclusive, and will likely cause
-path collisions if used simultaneously.</p><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="ch-nixos-module" class="title" >NixOS Module   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-nixos-flakes">With Flakes</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-nixos-flakeless">Without Flakes</a> </span></dt> </dl></div><p>The NixOS module allows us to customize the different <code class="literal">vim</code> options from inside
+path collisions if used simultaneously.</p><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="ch-nixos-module" class="title" >NixOS Module   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-example-installation-nixos">Example Installation</a> </span></dt> </dl></div><p>The NixOS module allows us to customize the different <code class="literal">vim</code> options from inside
 the NixOS configuration without having to call for the wrapper yourself. It is
 the recommended way to use <span class="strong"><strong>nvf</strong></span> alongside the home-manager module depending
-on your needs.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-nixos-flakes" class="title" style="clear: both">With Flakes   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-nixos-flakes-usage">Usage</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-example-installation-nixos">Example Installation</a> </span></dt> </dl></div><pre><code class="programlisting {=include=}">flakes.md
-</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-nixos-flakes-usage" class="title" >Usage   </h3>  </div> </div></div><p>To use <span class="strong"><strong>nvf</strong></span> with flakes, we first need to add the input to our <code class="literal">flake.nix</code>.</p><pre><code class="programlisting nix"># flake.nix
-{
+on your needs.</p><p>To use it, we first add the input flake.</p><pre><code class="programlisting nix">{
   inputs = {
     # Optional, if you intend to follow nvf&#x27;s obsidian-nvim input
     # you must also add it as a flake input.
@@ -246,7 +241,7 @@ on your needs.</p><div class="section"> <div class="titlepage">  <div>   <div>  
 
     # Required, nvf works best and only directly supports flakes
     nvf = {
-      url = &quot;github:NotAShelf/nvf&quot;;
+      url = &quot;github:notashelf/nvf&quot;;
       # You can override the input nixpkgs to follow your system&#x27;s
       # instance of nixpkgs. This is safe to do as nvf does not depend
       # on a binary cache.
@@ -255,8 +250,6 @@ on your needs.</p><div class="section"> <div class="titlepage">  <div>   <div>  
       # for example:
       inputs.obsidian-nvim.follows = &quot;obsidian-nvim&quot;; # &lt;- this will use the obsidian-nvim from your inputs
     };
-
-    # ...
   };
 }
 </code></pre><p>Followed by importing the NixOS module somewhere in your configuration.</p><pre><code class="programlisting nix">{
@@ -264,8 +257,7 @@ on your needs.</p><div class="section"> <div class="titlepage">  <div>   <div>  
   # see example below
   imports = [ inputs.nvf.nixosModules.default ];
 }
-</code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-example-installation-nixos" class="title" >Example Installation   </h3>  </div> </div></div><pre><code class="programlisting nix">{
+</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-example-installation-nixos" class="title" style="clear: both">Example Installation   </h2>  </div> </div></div><pre><code class="programlisting nix">{
   inputs = {
     nixpkgs.url = &quot;github:NixOS/nixpkgs/nixos-unstable&quot;;
     nvf.url = &quot;github:notashelf/nvf&quot;;
@@ -283,11 +275,9 @@ on your needs.</p><div class="section"> <div class="titlepage">  <div>   <div>  
 }
 </code></pre><p>Once the module is properly imported by your host, you will be able to use the
 <code class="literal">programs.nvf</code> module option anywhere in your configuration in order to
-configure <span class="strong"><strong>nvf</strong></span>.</p><pre><code class="programlisting nix">{
-  programs.nvf = {
+configure <span class="strong"><strong>nvf</strong></span>.</p><pre><code class="programlisting nix{">  programs.nvf = {
     enable = true;
-    
-    # Your settings need to go into the settings attribute set
+    # your settings need to go into the settings attribute set
     # most settings are documented in the appendix
     settings = {
       vim.viAlias = false;
@@ -303,39 +293,10 @@ installation sections of the manual. You may find all available options in the
 <a class="link" href="https://notashelf.github.io/nvf/options"  target="_top">appendix</a></p></div>
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-nixos-flakeless" class="title" style="clear: both">Without Flakes   </h2>  </div> </div></div><p>As of v0.8, it is possible to install <span class="strong"><strong>nvf</strong></span> on a system if you are not using
-flakes. This is possible thanks to the flake-compat project.</p><p>To get started, you must fetch the repository using <code class="literal">builtins.fetchTarball</code> or a
-similar mechanism.</p><pre><code class="programlisting nix"># configuration.nix
-let
-  nvf = import (builtins.fetchTarball {
-    url = &quot;https://github.com/notashelf/nvf/archive/&lt;commit or tag&gt;.tar.gz&quot;;
-    # Optionally, you can add &#x27;sha256&#x27; for verification and caching
-    # sha256 = &quot;&lt;sha256&gt;&quot;;
-  });
-in {
-  imports = [
-    # Import the NixOS module from your fetched input
-    nvf.nixosModules.nvf
-  ];
-
-  # Once the module is imported, you may use `programs.nvf` as exposed by the
-  # NixOS module.
-  programs.nvf.enable = true;
-}
-</code></pre><div class="tip"><h3 class="title">Tip</h3><p>Nix2 does not have a builtin lockfile mechanism like flakes. As such you must
-manually update the URL and hash for your input. This is annoying to deal with,
-and most users choose to defer this task to projects such as <a class="link" href="https://github.com/andir/npins"  target="_top">npins</a> or <a class="link" href="https://github.com/nmattia/niv"  target="_top">niv</a>.
-If you are new to NixOS, I encourage you to look into Flakes and see if they fit
-your use case. Alternatively, look into the aforementioned projects for more
-convenient dependency management mechanisms.</p></div>
-</div>
-
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="ch-hm-module" class="title" >Home-Manager Module   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-hm-flakes">With Flakes</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-hm-flakeless">Without Flakes</a> </span></dt> </dl></div><p>The home-manager module allows us to customize the different <code class="literal">vim</code> options from
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="ch-hm-module" class="title" >Home-Manager Module   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-example-installation-hm">Example Installation</a> </span></dt> </dl></div><p>The home-manager module allows us to customize the different <code class="literal">vim</code> options from
 inside the home-manager configuration without having to call for the wrapper
 yourself. It is the recommended way to use <span class="strong"><strong>nvf</strong></span> alongside the NixOS module
-depending on your needs.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-hm-flakes" class="title" style="clear: both">With Flakes   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-hm-flakes-usage">Usage</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-example-installation-hm">Example Installation</a> </span></dt> </dl></div><pre><code class="programlisting {=include=}">flakes.md
-</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-hm-flakes-usage" class="title" >Usage   </h3>  </div> </div></div><p>To use <span class="strong"><strong>nvf</strong></span> with flakes, we first need to add the input to our <code class="literal">flake.nix</code>.</p><pre><code class="programlisting nix"># flake.nix
-{
+depending on your needs.</p><p>To use it, we first add the input flake.</p><pre><code class="programlisting nix">{
   inputs = {
     # Optional, if you intend to follow nvf&#x27;s obsidian-nvim input
     # you must also add it as a flake input.
@@ -343,7 +304,7 @@ depending on your needs.</p><div class="section"> <div class="titlepage">  <div>
 
     # Required, nvf works best and only directly supports flakes
     nvf = {
-      url = &quot;github:NotAShelf/nvf&quot;;
+      url = &quot;github:notashelf/nvf&quot;;
       # You can override the input nixpkgs to follow your system&#x27;s
       # instance of nixpkgs. This is safe to do as nvf does not depend
       # on a binary cache.
@@ -352,8 +313,6 @@ depending on your needs.</p><div class="section"> <div class="titlepage">  <div>
       # for example:
       inputs.obsidian-nvim.follows = &quot;obsidian-nvim&quot;; # &lt;- this will use the obsidian-nvim from your inputs
     };
-
-    # ...
   };
 }
 </code></pre><p>Followed by importing the home-manager module somewhere in your configuration.</p><pre><code class="programlisting nix">{
@@ -361,8 +320,7 @@ depending on your needs.</p><div class="section"> <div class="titlepage">  <div>
   # See example installation below
   imports = [ inputs.nvf.homeManagerModules.default ];
 }
-</code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-example-installation-hm" class="title" >Example Installation   </h3>  </div> </div></div><pre><code class="programlisting nix">{
+</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-example-installation-hm" class="title" style="clear: both">Example Installation   </h2>  </div> </div></div><pre><code class="programlisting nix">{
   inputs = {
     nixpkgs.url = &quot;github:NixOS/nixpkgs/nixos-unstable&quot;;
     home-manager.url = &quot;github:nix-community/home-manager&quot;;
@@ -382,8 +340,7 @@ depending on your needs.</p><div class="section"> <div class="titlepage">  <div>
 }
 </code></pre><p>Once the module is properly imported by your host, you will be able to use the
 <code class="literal">programs.nvf</code> module option anywhere in your configuration in order to
-configure <span class="strong"><strong>nvf</strong></span>.</p><pre><code class="programlisting nix">{
-  programs.nvf = {
+configure <span class="strong"><strong>nvf</strong></span>.</p><pre><code class="programlisting nix{">  programs.nvf = {
     enable = true;
     # your settings need to go into the settings attribute set
     # most settings are documented in the appendix
@@ -399,33 +356,6 @@ configure <span class="strong"><strong>nvf</strong></span>.</p><pre><code class=
 </code></pre><div class="note"><h3 class="title">Note</h3><p><span class="strong"><strong>nvf</strong></span> exposes a lot of options, most of which are not referenced in the
 installation sections of the manual. You may find all available options in the
 <a class="link" href="https://notashelf.github.io/nvf/options"  target="_top">appendix</a></p></div>
-</div>
-
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-hm-flakeless" class="title" style="clear: both">Without Flakes   </h2>  </div> </div></div><p>As of v0.8, it is possible to install <span class="strong"><strong>nvf</strong></span> on a system if you are not using
-flakes. This is possible thanks to the flake-compat project.</p><p>To get started, you must fetch the repository using <code class="literal">builtins.fetchTarball</code> or a
-similar mechanism.</p><pre><code class="programlisting nix"># home.nix
-let
-  nvf = import (builtins.fetchTarball {
-    url = &quot;https://github.com/notashelf/nvf/archive/&lt;commit or tag&gt;.tar.gz&quot;;
-    # Optionally, you can add &#x27;sha256&#x27; for verification and caching
-    # sha256 = &quot;&lt;sha256&gt;&quot;;
-  });
-in {
-  imports = [
-    # Import the NixOS module from your fetched input
-    nvf.homeManagerModules.nvf
-  ];
-
-  # Once the module is imported, you may use `programs.nvf` as exposed by the
-  # NixOS module.
-  programs.nvf.enable = true;
-}
-</code></pre><div class="tip"><h3 class="title">Tip</h3><p>Nix2 does not have a builtin lockfile mechanism like flakes. As such you must
-manually update the URL and hash for your input. This is annoying to deal with,
-and most users choose to defer this task to projects such as <a class="link" href="https://github.com/andir/npins"  target="_top">npins</a> or <a class="link" href="https://github.com/nmattia/niv"  target="_top">niv</a>.
-If you are new to NixOS, I encourage you to look into Flakes and see if they fit
-your use case. Alternatively, look into the aforementioned projects for more
-convenient dependency management mechanisms.</p></div>
 </div>
 
 </div>
@@ -630,9 +560,9 @@ in {
 
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="ch-overriding-plugins" class="title" >Overriding plugins   </h2>  </div> </div></div><p>The <a class="link" href="index.xhtml#sec-additional-plugins" title="Adding Plugins" >additional plugins section</a> details the addition
 of new plugins to nvf under regular circumstances, i.e. while making a pull
-request to the project. You may <span class="emphasis"><em>override</em></span> those plugins in your config to
-change source versions, e.g., to use newer versions of plugins that are not yet
-updated in <span class="strong"><strong>nvf</strong></span>.</p><pre><code class="programlisting nix">vim.pluginOverrides = {
+request to the project. You may <span class="emphasis"><em>override</em></span> those plugins in your config
+to change source versions, e.g., to use newer versions of plugins
+that are not yet updated in <span class="strong"><strong>nvf</strong></span>.</p><pre><code class="programlisting nix">vim.pluginOverrides = {
   lazydev-nvim = pkgs.fetchFromGitHub {
     owner = &quot;folke&quot;;
     repo = &quot;lazydev.nvim&quot;;
@@ -1208,8 +1138,8 @@ functions.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h
 }
 </code></pre><p>There are many settings available in the options. Please refer to the
 <a class="link" href="https://notashelf.github.io/nvf/options.html#opt-vim.keymaps"  target="_top">documentation</a> to
-see a list of them.</p><p><span class="strong"><strong>nvf</strong></span> provides a helper function, so that you don’t have to write the mapping
-attribute sets every time:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">mkKeymap</code>, which mimics neovim’s <code class="literal">vim.keymap.set</code> function</p></li></ul></div><p>You can read the source code of some modules to see them in action, but the
+see a list of them.</p><p><span class="strong"><strong>nvf</strong></span> provides a helper function, so that you don’t have to write the
+mapping attribute sets every time:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">mkKeymap</code>, which mimics neovim’s <code class="literal">vim.keymap.set</code> function</p></li></ul></div><p>You can read the source code of some modules to see them in action, but the
 usage should look something like this:</p><pre><code class="programlisting nix"># plugindefinition.nix
 {lib, ...}: let
   inherit (lib.options) mkEnableOption;
@@ -1259,52 +1189,8 @@ allow custom keybindings, don’t be scared to implement a draft PR. We’ll hel
 you get it done.</p></div>
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h1 id="sec-additional-plugins" class="title" style="clear: both">Adding Plugins   </h1>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-npins-for-plugins">With npins</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-pkgs-for-plugins">Packaging Complex Plugins</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-modular-setup-options">Modular setup options</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-details-of-toluaobject">Details of toLuaObject</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-lazy-plugins">Lazy plugins</a> </span></dt> </dl></div><p>There are two methods for adding new Neovim plugins to <span class="strong"><strong>nvf</strong></span>. npins is the
-faster option that should be preferred if the plugin consists of pure Lua or
-Vimscript code. In which case there is no building required, and we can easily
-handle the copying of plugin files. Alternative method, which is required when
-plugins try to build their own libraries (e.g., in Rust or C) that need to be
-built with Nix to function correctly.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-npins-for-plugins" class="title" style="clear: both">With npins   </h2>  </div> </div></div><p>npins is the standard method of adding new plugins to <span class="strong"><strong>nvf</strong></span>. You simply need
-the repository URL for the plugin, and can add it as a source to be built
-automatically with one command. To add a new Neovim plugin, use <code class="literal">npins</code>. For
-example:</p><pre><code class="programlisting bash">nix-shell -p npins # or nix shell nixpkgs#npins if using flakes
-</code></pre><p>Then run:</p><pre><code class="programlisting bash">npins add --name &lt;plugin name&gt; github &lt;owner&gt; &lt;repo&gt; -b &lt;branch&gt;
-</code></pre><div class="note"><h3 class="title">Note</h3><p>Be sure to replace any non-alphanumeric characters with <code class="literal">-</code> for <code class="literal">--name</code>. For
-example</p><pre><code class="programlisting bash">npins add --name lazydev-nvim github folke lazydev.nvim -b main
-</code></pre></div><p>Once the <code class="literal">npins</code> command is done, you can start referencing the plugin as a
-<span class="strong"><strong>string</strong></span>.</p><pre><code class="programlisting nix">{
-  config.vim.startPlugins = [&quot;lazydev-nvim&quot;];
-}
-</code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-pkgs-for-plugins" class="title" style="clear: both">Packaging Complex Plugins   </h2>  </div> </div></div><p>Some plugins require additional packages to be built and substituted to function
-correctly. For example <a class="link" href="https://github.com/Saghen/blink.cmp"  target="_top">blink.cmp</a> requires its own fuzzy matcher library, built
-with Rust, to be installed or else defaults to a much slower Lua implementation.
-In the Blink documentation, you are advised to build with <code class="literal">cargo</code> but that is
-not ideal since we are leveraging the power of Nix. In this case the ideal
-solution is to write a derivation for the plugin.</p><p>We use <code class="literal">buildRustPackage</code> to build the library from the repository root, and
-copy everything in the <code class="literal">postInstall</code> phase.</p><pre><code class="programlisting nix">postInstall = &#x27;&#x27;
-  cp -r {lua,plugin} &quot;$out&quot;
-
-  mkdir -p &quot;$out/doc&quot;
-  cp &#x27;doc/&#x27;*&#x27;.txt&#x27; &quot;$out/doc/&quot;
-
-  mkdir -p &quot;$out/target&quot;
-  mv &quot;$out/lib&quot; &quot;$out/target/release&quot;
-&#x27;&#x27;;
-</code></pre><p>In a similar fashion, you may utilize <code class="literal">stdenv.mkDerivation</code> and other Nixpkgs
-builders to build your library from source, and copy the relevant files and Lua
-plugin files in the <code class="literal">postInstall</code> phase. Do note, however, that you still need
-to fetch the plugin sources somehow. npins is, once again, the recommended
-option to fetch the plugin sources. Refer to the previous section on how to use
-npins to add a new plugin.</p><p>Plugins built from source must go into the <code class="literal">flake/pkgs/by-name</code> overlay. It will
-automatically create flake outputs for individual packages. Lastly, you must add
-your package to the plugin builder (<code class="literal">pluginBuilders</code>) function manually in
-<code class="literal">modules/wrapper/build/config.nix</code>. Once done, you may refer to your plugin as a
-<span class="strong"><strong>string</strong></span>.</p><pre><code class="programlisting nix">{
-  config.vim.startPlugins = [&quot;blink-cmp&quot;];
-}
-</code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-modular-setup-options" class="title" style="clear: both">Modular setup options   </h2>  </div> </div></div><p>Most plugins is initialized with a call to <code class="literal">require(&#x27;plugin&#x27;).setup({...})</code>.</p><p>We use a special function that lets you easily add support for such setup
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h1 id="sec-additional-plugins" class="title" style="clear: both">Adding Plugins   </h1>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="index.xhtml#sec-modular-setup-options">Modular setup options</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-details-of-toluaobject">Details of toLuaObject</a> </span></dt><dt> <span class="section">  <a href="index.xhtml#sec-lazy-plugins">Lazy plugins</a> </span></dt> </dl></div><p>To add a new Neovim plugin, use <code class="literal">npins</code></p><p>Use:</p><p><code class="literal">nix-shell -p npins</code> or <code class="literal">nix shell nixpkgs#npins</code></p><p>Then run:</p><p><code class="literal">npins add --name &lt;plugin name&gt; github &lt;owner&gt; &lt;repo&gt; -b &lt;branch&gt;</code></p><p>Be sure to replace any non-alphanumeric characters with <code class="literal">-</code> for <code class="literal">--name</code></p><p>For example</p><p><code class="literal">npins add --name lazydev-nvim github folke lazydev.nvim -b main</code></p><p>You can now reference this plugin as a <span class="strong"><strong>string</strong></span>.</p><pre><code class="programlisting nix">config.vim.startPlugins = [&quot;lazydev-nvim&quot;];
+</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-modular-setup-options" class="title" style="clear: both">Modular setup options   </h2>  </div> </div></div><p>Most plugins is initialized with a call to <code class="literal">require(&#x27;plugin&#x27;).setup({...})</code>.</p><p>We use a special function that lets you easily add support for such setup
 options in a modular way: <code class="literal">mkPluginSetupOption</code>.</p><p>Once you have added the source of the plugin as shown above, you can define the
 setup options like this:</p><pre><code class="programlisting nix"># in modules/.../your-plugin/your-plugin.nix
 
@@ -1338,7 +1224,7 @@ in {
     require(&#x27;plugin-name&#x27;).setup(${lib.nvim.lua.toLuaObject cfg.setupOpts})
   &#x27;&#x27;;
 }
-</code></pre><p>This above config will result in this Lua script:</p><pre><code class="programlisting lua">require(&#x27;plugin-name&#x27;).setup({
+</code></pre><p>This above config will result in this lua script:</p><pre><code class="programlisting lua">require(&#x27;plugin-name&#x27;).setup({
   enable_feature_a = false,
   number_option = 3,
 })
@@ -1356,47 +1242,36 @@ own fields!</p><pre><code class="programlisting nix"># in user&#x27;s config
 }
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-details-of-toluaobject" class="title" style="clear: both">Details of toLuaObject   </h2>  </div> </div></div><p>As you’ve seen above, <code class="literal">toLuaObject</code> is used to convert our nix attrSet
-<code class="literal">cfg.setupOpts</code>, into a lua table. Here are some rules of the conversion:</p><div class="orderedlist"><ol class="orderedlist "  type="1"><li class="listitem"><p>Nix <code class="literal">null</code> converts to lua <code class="literal">nil</code></p></li><li class="listitem"><p>Number and strings convert to their lua counterparts</p></li><li class="listitem"><p>Nix attribute sets (<code class="literal">{}</code>) and lists (<code class="literal">[]</code>) convert into Lua dictionaries and
-tables respectively. Here is an example of Nix -&gt; Lua conversion.</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">{foo = &quot;bar&quot;}</code> -&gt; <code class="literal">{[&quot;foo&quot;] = &quot;bar&quot;}</code></p></li><li class="listitem"><p><code class="literal">[&quot;foo&quot; &quot;bar&quot;]</code> -&gt; <code class="literal">{&quot;foo&quot;, &quot;bar&quot;}</code></p></li></ul></div></li><li class="listitem"><p>You can write raw Lua code using <code class="literal">lib.generators.mkLuaInline</code>. This function
-is part of nixpkgs, and is accessible without relying on <span class="strong"><strong>nvf</strong></span>’s extended
-library.</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">mkLuaInline &quot;function add(a, b) return a + b end&quot;</code> will yield the
-following result:</p></li></ul></div><pre><code class="programlisting nix">{
- _type = &quot;lua-inline&quot;;
- expr = &quot;function add(a, b) return a + b end&quot;;
+<code class="literal">cfg.setupOpts</code>, into a lua table. Here are some rules of the conversion:</p><div class="orderedlist"><ol class="orderedlist compact"  type="1"><li class="listitem"><p>nix <code class="literal">null</code> converts to lua <code class="literal">nil</code></p></li><li class="listitem"><p>number and strings convert to their lua counterparts</p></li><li class="listitem"><p>nix attrSet/list convert into lua tables</p></li><li class="listitem"><p>you can write raw lua code using <code class="literal">lib.generators.mkLuaInline</code>. This function
+is part of nixpkgs.</p></li></ol></div><p>Example:</p><pre><code class="programlisting nix">vim.your-plugin.setupOpts = {
+  on_init = lib.generators.mkLuaInline &#x27;&#x27;
+    function()
+      print(&#x27;we can write lua!&#x27;)
+    end
+  &#x27;&#x27;;
 }
-</code></pre><p>The above expression will be interpreted as a Lua expression in the final
-config. Without the <code class="literal">mkLuaInline</code> function, you will only receive a string
-literal. You can use it to feed plugin configuration tables Lua functions
-that return specific values as expected by the plugins.</p><pre><code class="programlisting nix">{
-   vim.your-plugin.setupOpts = {
-     on_init = lib.generators.mkLuaInline &#x27;&#x27;
-       function()
-         print(&#x27;we can write lua!&#x27;)
-       end
-     &#x27;&#x27;;
-   };
-}
-</code></pre></li></ol></div>
+</code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-lazy-plugins" class="title" style="clear: both">Lazy plugins   </h2>  </div> </div></div><p>If the plugin can be lazy-loaded, <code class="literal">vim.lazy.plugins</code> should be used to add it.
 Lazy plugins are managed by <code class="literal">lz.n</code>.</p><pre><code class="programlisting nix"># in modules/.../your-plugin/config.nix
-{config, ...}: let
+{lib, config, ...}:
+let
   cfg = config.vim.your-plugin;
 in {
   vim.lazy.plugins.your-plugin = {
-    # Instead of vim.startPlugins, use this:
+    # instead of vim.startPlugins, use this:
     package = &quot;your-plugin&quot;;
 
-    # ıf your plugin uses the `require(&#x27;your-plugin&#x27;).setup{...}` pattern
+    # if your plugin uses the `require(&#x27;your-plugin&#x27;).setup{...}` pattern
     setupModule = &quot;your-plugin&quot;;
     inherit (cfg) setupOpts;
 
-    # Events that trigger this plugin to be loaded
+    # events that trigger this plugin to be loaded
     event = [&quot;DirChanged&quot;];
     cmd = [&quot;YourPluginCommand&quot;];
 
-    # Plugin Keymaps
+    # keymaps
     keys = [
-      # We&#x27;ll cover this in detail in the &#x27;keybinds&#x27; section
+      # we&#x27;ll cover this in detail in the keymaps section
       {
         key = &quot;&lt;leader&gt;d&quot;;
         mode = &quot;n&quot;;
@@ -1404,14 +1279,13 @@ in {
       }
     ];
   };
+;
 }
 </code></pre><p>This results in the following lua code:</p><pre><code class="programlisting lua">require(&#x27;lz.n&#x27;).load({
   {
     &quot;name-of-your-plugin&quot;,
     after = function()
-      require(&#x27;your-plugin&#x27;).setup({
-        --[[ your setupOpts ]]--
-      })
+      require(&#x27;your-plugin&#x27;).setup({--[[ your setupOpts ]]})
     end,
 
     event = {&quot;DirChanged&quot;},
@@ -1421,8 +1295,8 @@ in {
     },
   }
 })
-</code></pre><p>A full list of options can be found in the <a class="link" href="https://notashelf.github.io/nvf/options.html#opt-vim.lazy.plugins"  target="_top"><code class="literal">vim.lazy.plugins</code> spec</a> on the
-rendered manual.</p>
+</code></pre><p>A full list of options can be found
+[here](https://notashelf.github.io/nvf/options.html#opt-vim.lazy.plugins</p>
 </div>
 
 </div>
