@@ -31,7 +31,7 @@
         helm-ls = {
           yamlls = {
             # TODO: Determine if this is a good enough solution
-            path = (head yamlCfg.lsp.servers).cmd;
+            path = config.vim.lsp.servers.${head yamlCfg.lsp.servers}.cmd;
           };
         };
       };
