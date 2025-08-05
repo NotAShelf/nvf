@@ -39,7 +39,7 @@ An example flake that exposes your custom Neovim configuration might look like
                 theme.enable = true;
 
                 # Enable Treesitter
-                tree-sitter.enable = true;
+                treesitter.enable = true;
 
                 # Other options will go here. Refer to the config
                 # reference in Appendix B of the nvf manual.

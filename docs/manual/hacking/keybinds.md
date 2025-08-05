@@ -30,8 +30,8 @@ There are many settings available in the options. Please refer to the
 [documentation](https://notashelf.github.io/nvf/options.html#opt-vim.keymaps) to
 see a list of them.
 
-**nvf** provides a helper function, so that you don't have to write the
-mapping attribute sets every time:
+**nvf** provides a helper function, so that you don't have to write the mapping
+attribute sets every time:
 
 - `mkKeymap`, which mimics neovim's `vim.keymap.set` function
 

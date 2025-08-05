@@ -1,7 +1,7 @@
 {lib, ...}: let
   inherit (lib.modules) mkRemovedOptionModule;
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) submodule attrs attrsOf;
+  inherit (lib.types) attrs;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   imports = [

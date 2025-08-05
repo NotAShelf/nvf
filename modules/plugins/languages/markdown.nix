@@ -9,7 +9,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.lists) isList;
-  inherit (lib.types) bool enum either package listOf str;
+  inherit (lib.types) bool enum either package listOf str nullOr;
   inherit (lib.nvim.lua) expToLua toLuaObject;
   inherit (lib.nvim.types) diagnostics mkGrammarOption mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAnywhere;
@@ -67,7 +67,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Enable Markdown LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Enable Markdown LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         type = enum (attrNames servers);
@@ -114,17 +114,33 @@ in {
               [render-markdown.nvim]: https://github.com/MeanderingProgrammer/render-markdown.nvim
 
               Inline Markdown rendering with [render-markdown.nvim]
-
             '';
           };
 
         setupOpts = mkPluginSetupOption "render-markdown" {
-          auto_override_publish_diagnostics = mkOption {
-            description = "Automatically override the publish_diagnostics handler";
-            type = bool;
-            default = true;
+          file_types = lib.mkOption {
+            type = nullOr (listOf str);
+            default = null;
+            description = ''
+              List of buffer filetypes to enable this plugin in.
+
+              This will cause the plugin to attach to new buffers who
+              have any of these filetypes.
+            '';
           };
         };
+      };
+      markview-nvim = {
+        enable =
+          mkEnableOption ""
+          // {
+            description = ''
+              [markview.nvim]: https://github.com/OXY2DEV/markview.nvim
+
+              [markview.nvim] - a hackable markdown, Typst, latex, html(inline) & YAML previewer
+            '';
+          };
+        setupOpts = mkPluginSetupOption "markview-nvim" {};
       };
     };
 
@@ -168,6 +184,13 @@ in {
       vim.startPlugins = ["render-markdown-nvim"];
       vim.pluginRC.render-markdown-nvim = entryAnywhere ''
         require("render-markdown").setup(${toLuaObject cfg.extensions.render-markdown-nvim.setupOpts})
+      '';
+    })
+
+    (mkIf cfg.extensions.markview-nvim.enable {
+      vim.startPlugins = ["markview-nvim"];
+      vim.pluginRC.markview-nvim = entryAnywhere ''
+        require("markview").setup(${toLuaObject cfg.extensions.markview-nvim.setupOpts})
       '';
     })
 

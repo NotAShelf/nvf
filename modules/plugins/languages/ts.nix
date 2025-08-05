@@ -9,7 +9,6 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.meta) getExe;
-  inherit (lib.generators) mkLuaInline;
   inherit (lib.types) enum either listOf package str bool;
   inherit (lib.nvim.lua) expToLua toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption diagnostics mkPluginSetupOption;
@@ -76,7 +75,7 @@
   defaultFormat = "prettier";
   formats = {
     prettier = {
-      package = pkgs.nodePackages.prettier;
+      package = pkgs.prettier;
     };
 
     prettierd = {
@@ -91,27 +90,21 @@
   # TODO: specify packages
   defaultDiagnosticsProvider = ["eslint_d"];
   diagnosticsProviders = {
-    eslint_d = {
-      package = pkgs.eslint_d;
-      config = let
-        pkg = pkgs.eslint_d;
-      in {
+    eslint_d = let
+      pkg = pkgs.eslint_d;
+    in {
+      package = pkg;
+      config = {
         cmd = getExe pkg;
-        # HACK: change if nvim-lint gets a dynamic enable thing
-        parser = mkLuaInline ''
-          function(output, bufnr, cwd)
-            local markers = { "eslint.config.js", "eslint.config.mjs",
-              ".eslintrc", ".eslintrc.json", ".eslintrc.js", ".eslintrc.yml", }
-            for _, filename in ipairs(markers) do
-              local path = vim.fs.join(cwd, filename)
-              if vim.loop.fs_stat(path) then
-                return require("lint.linters.eslint_d").parser(output, bufnr, cwd)
-              end
-            end
-
-            return {}
-          end
-        '';
+        required_files = [
+          "eslint.config.js"
+          "eslint.config.mjs"
+          ".eslintrc"
+          ".eslintrc.cjs"
+          ".eslintrc.json"
+          ".eslintrc.js"
+          ".eslintrc.yml"
+        ];
       };
     };
   };
@@ -127,7 +120,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Typescript/Javascript LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Typescript/Javascript LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "Typescript/Javascript LSP server to use";
@@ -204,9 +197,13 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.typescript = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.typescript = [cfg.format.type];
+          # .tsx files
+          formatters_by_ft.typescriptreact = [cfg.format.type];
+          formatters.${cfg.format.type} = {
+            command = getExe cfg.format.package;
+          };
         };
       };
     })
@@ -215,11 +212,11 @@ in {
       vim.diagnostics.nvim-lint = {
         enable = true;
         linters_by_ft.typescript = cfg.extraDiagnostics.types;
+        linters_by_ft.typescriptreact = cfg.extraDiagnostics.types;
 
-        linters = mkMerge (map (name: {
-            ${name}.cmd = getExe diagnosticsProviders.${name}.package;
-          })
-          cfg.extraDiagnostics.types);
+        linters =
+          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
+            cfg.extraDiagnostics.types);
       };
     })
 

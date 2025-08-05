@@ -32,7 +32,7 @@ in {
 
     assertions = [
       {
-        assertion = usingShada && ((config.vim.options.shada or "") == "");
+        assertion = usingShada -> (config.vim.options.shada or "") != "";
         message = ''
           Yanky.nvim is configured to use 'shada' for the storage backend, but shada is disabled
           in 'vim.options'. Please re-enable shada, or switch to a different backend.

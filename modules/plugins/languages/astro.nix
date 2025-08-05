@@ -10,7 +10,6 @@
   inherit (lib.lists) isList;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum either listOf package str;
-  inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
 
@@ -22,7 +21,7 @@
       package = pkgs.astro-language-server;
       lspConfig = ''
         lspconfig.astro.setup {
-          capabilities = capabilities;
+          capabilities = capabilities,
           on_attach = attach_keymaps,
           cmd = ${
           if isList cfg.lsp.package
@@ -38,7 +37,11 @@
   defaultFormat = "prettier";
   formats = {
     prettier = {
-      package = pkgs.nodePackages.prettier;
+      package = pkgs.prettier;
+    };
+
+    prettierd = {
+      package = pkgs.prettierd;
     };
 
     biome = {
@@ -49,24 +52,20 @@
   # TODO: specify packages
   defaultDiagnosticsProvider = ["eslint_d"];
   diagnosticsProviders = {
-    eslint_d = {
-      package = pkgs.eslint_d;
+    eslint_d = let
+      pkg = pkgs.eslint_d;
+    in {
+      package = pkg;
       config = {
-        # HACK: change if nvim-lint gets a dynamic enable thing
-        parser = mkLuaInline ''
-          function(output, bufnr, cwd)
-            local markers = { "eslint.config.js", "eslint.config.mjs",
-              ".eslintrc", ".eslintrc.json", ".eslintrc.js", ".eslintrc.yml", }
-            for _, filename in ipairs(markers) do
-              local path = vim.fs.join(cwd, filename)
-              if vim.loop.fs_stat(path) then
-                return require("lint.linters.eslint_d").parser(output, bufnr, cwd)
-              end
-            end
-
-            return {}
-          end
-        '';
+        cmd = getExe pkg;
+        required_files = [
+          "eslint.config.js"
+          "eslint.config.mjs"
+          ".eslintrc"
+          ".eslintrc.json"
+          ".eslintrc.js"
+          ".eslintrc.yml"
+        ];
       };
     };
   };
@@ -81,19 +80,19 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Astro LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Astro LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
-        description = "Astro LSP server to use";
         type = enum (attrNames servers);
         default = defaultServer;
+        description = "Astro LSP server to use";
       };
 
       package = mkOption {
-        description = "Astro LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.astro-language-server "--minify" "--stdio"]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+        example = ''[lib.getExe pkgs.astro-language-server "--minify" "--stdio"]'';
+        description = "Astro LSP server package, or the command to run as a list of strings";
       };
     };
 
@@ -149,16 +148,9 @@ in {
       vim.diagnostics.nvim-lint = {
         enable = true;
         linters_by_ft.astro = cfg.extraDiagnostics.types;
-        linters = mkMerge (map (
-            name: {
-              ${name} =
-                diagnosticsProviders.${name}.config
-                // {
-                  cmd = getExe diagnosticsProviders.${name}.package;
-                };
-            }
-          )
-          cfg.extraDiagnostics.types);
+        linters =
+          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
+            cfg.extraDiagnostics.types);
       };
     })
   ]);

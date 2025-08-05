@@ -11,6 +11,7 @@
     ./colors
     ./comment
     ./completion
+    ./cursorword
     ./diff
     ./doc
     ./extra

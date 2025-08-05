@@ -11,7 +11,7 @@ in {
     setupOpts = mkPluginSetupOption "vim-illuminate" {
       filetypes_denylist = mkOption {
         type = listOf str;
-        default = ["dirvish" "fugitive" "NvimTree" "TelescopePrompt"];
+        default = ["dirvish" "fugitive" "help" "neo-tree" "notify" "NvimTree" "TelescopePrompt"];
         description = "Filetypes to not illuminate, this overrides `filetypes_allowlist`";
       };
     };

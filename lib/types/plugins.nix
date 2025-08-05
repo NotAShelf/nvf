@@ -1,4 +1,7 @@
-{lib}: let
+{
+  lib,
+  self,
+}: let
   inherit (lib.options) mkOption;
   inherit (lib.attrsets) attrNames mapAttrs' filterAttrs nameValuePair;
   inherit (lib.strings) hasPrefix removePrefix;
@@ -12,7 +15,7 @@
     mapAttrs' (n: v: nameValuePair (removePrefix prefix n) {src = v;}) (filterAttrs (n: _: hasPrefix prefix n) inputs);
 
   #  Get the names of all npins
-  pluginInputNames = attrNames (lib.importJSON ../../npins/sources.json).pins;
+  pluginInputNames = ["blink-cmp"] ++ attrNames self.pins;
 
   # You can either use the name of the plugin or a package.
   pluginType = nullOr (

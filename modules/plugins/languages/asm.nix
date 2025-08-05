@@ -20,7 +20,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Assembly LSP support (asm-lsp)" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Assembly LSP support (asm-lsp)" // {default = config.vim.lsp.enable;};
 
       package = mkOption {
         type = package;

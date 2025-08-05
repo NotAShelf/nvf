@@ -23,7 +23,7 @@ manner.
   # flake.nix. For the sake of the argument, we will assume that the Neovim lua
   # configuration is in a nvim/ directory relative to flake.nix.
   vim = {
-    additionalRuntimeDirectories = [
+    additionalRuntimePaths = [
       # This will be added to Neovim's runtime paths. Conceptually, this behaves
       # very similarly to ~/.config/nvim but you may not place a top-level
       # init.lua to be able to require it directly.
@@ -41,7 +41,7 @@ directory, and call it with [](#opt-vim.luaConfigRC).
 ```nix
 {pkgs, ...}: {
   vim = {
-    additionalRuntimeDirectories = [
+    additionalRuntimePaths = [
       # You can list more than one file here.
       ./nvim-custom-1
 

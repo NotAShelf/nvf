@@ -122,6 +122,21 @@ in {
             "fallback"
           ];
         };
+
+        # cmdline is not enabled by default, we're just providing keymaps in
+        # case the user enables them
+        cmdline.keymap = {
+          ${mappings.complete} = ["show" "fallback"];
+          ${mappings.close} = ["hide" "fallback"];
+          ${mappings.scrollDocsUp} = ["scroll_documentation_up" "fallback"];
+          ${mappings.scrollDocsDown} = ["scroll_documentation_down" "fallback"];
+          # NOTE: mappings.confirm is skipped because our default, <CR> would
+          # lead to accidental triggers of blink.accept instead of executing
+          # the cmd
+
+          ${mappings.next} = ["select_next" "show" "fallback"];
+          ${mappings.previous} = ["select_prev" "fallback"];
+        };
       };
     };
   };

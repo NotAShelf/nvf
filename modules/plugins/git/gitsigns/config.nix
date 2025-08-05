@@ -69,7 +69,7 @@ in {
         };
 
         binds.whichKey.register = pushDownDefault {
-          "<leader>g" = "+Gitsigns";
+          "<leader>h" = "+Gitsigns";
         };
 
         pluginRC.gitsigns = entryAnywhere ''
@@ -81,9 +81,11 @@ in {
     (mkIf cfg.codeActions.enable {
       vim.lsp.null-ls = {
         enable = true;
-        setupOpts.sources.gitsigns-ca = mkLuaInline ''
-          require("null-ls").builtins.code_actions.gitsigns
-        '';
+        setupOpts.sources = [
+          (mkLuaInline ''
+            require("null-ls").builtins.code_actions.gitsigns
+          '')
+        ];
       };
     })
   ]);

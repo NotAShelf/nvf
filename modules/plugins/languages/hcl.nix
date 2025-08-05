@@ -43,7 +43,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "HCL LSP support (terraform-ls)" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "HCL LSP support (terraform-ls)" // {default = config.vim.lsp.enable;};
       # TODO: (maybe, is it better?) it would be cooler to use vscode-extensions.hashicorp.hcl probably, shouldn't be too hard
       package = mkOption {
         type = package;

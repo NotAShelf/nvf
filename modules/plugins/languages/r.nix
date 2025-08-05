@@ -79,7 +79,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "R LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "R LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "R LSP server to use";

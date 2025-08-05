@@ -6,11 +6,10 @@
   inherit (lib.options) mkOption mkEnableOption literalMD;
   inherit (lib.strings) optionalString;
   inherit (lib.attrsets) optionalAttrs;
-  inherit (lib.types) enum bool str int either;
+  inherit (lib.types) enum bool str either;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.binds) pushDownDefault;
-  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) luaInline;
 
   cfg = config.vim;
@@ -22,22 +21,10 @@ in {
       description = "Hide search highlight so it doesn't stay highlighted";
     };
 
-    scrollOffset = mkOption {
-      type = int;
-      default = 8;
-      description = "Start scrolling this number of lines from the top or bottom of the page.";
-    };
-
     syntaxHighlighting = mkOption {
       type = bool;
       default = !config.vim.treesitter.highlight.enable;
       description = "Enable syntax highlighting";
-    };
-
-    useSystemClipboard = mkOption {
-      type = bool;
-      default = false;
-      description = "Make use of the clipboard for default yank and paste operations. Don't use * and +";
     };
 
     lineNumberMode = mkOption {
@@ -144,10 +131,6 @@ in {
     # to pre-set Neovim options. Fear not, though as the Lua DAG is still as powerful as it
     # could be.
     luaConfigRC.basic = entryAfter ["globalsScript"] ''
-      ${optionalString cfg.useSystemClipboard ''
-        vim.opt.clipboard:append("unnamedplus")
-      ''}
-
       ${optionalString cfg.syntaxHighlighting ''
         vim.cmd("syntax on")
       ''}

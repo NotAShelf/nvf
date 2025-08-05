@@ -49,7 +49,8 @@ the default theme enabled. You may use other options inside `config.vim` in
         # ...
         modules = [
           # This will make wrapped neovim available in your system packages
-          # Can also move this to another config file if you pass inputs/self around with specialArgs
+          # Can also move this to another config file if you pass your own
+          # inputs/self around with specialArgs
           ({pkgs, ...}: {
             environment.systemPackages = [self.packages.${pkgs.stdenv.system}.neovim];
           })
@@ -58,4 +59,5 @@ the default theme enabled. You may use other options inside `config.vim` in
       };
     };
   };
-}```
+}
+```

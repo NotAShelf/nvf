@@ -28,7 +28,7 @@
   defaultServer = "yaml-language-server";
   servers = {
     yaml-language-server = {
-      package = pkgs.nodePackages.yaml-language-server;
+      package = pkgs.yaml-language-server;
       lspConfig = ''
 
 
@@ -55,7 +55,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "YAML LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "YAML LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         type = enum (attrNames servers);
