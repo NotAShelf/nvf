@@ -35,6 +35,7 @@
 [yanky.nvim]: https://github.com/gbprod/yanky.nvim
 [yazi.nvim]: https://github.com/mikavilpas/yazi.nvim
 [snacks.nvim]: https://github.com/folke/snacks.nvim
+[colorful-menu.nvim]: https://github.com/xzbdmw/colorful-menu.nvim
 [oil.nvim]: https://github.com/stevearc/oil.nvim
 [hunk.nvim]: https://github.com/julienvincent/hunk.nvim
 [undotree]: https://github.com/mbbill/undotree
@@ -95,9 +96,10 @@
 
 - Lazyload Lspsaga and remove default keybindings for it.
 
+- Add [colorful-menu.nvim] to enhance the completion menus, with optional
+  integration for blink-cmp and nvim-cmp
 - Add [oil.nvim] as an alternative file explorer. It will be available under
   `vim.utility.oil-nvim`.
-
 - Add `vim.diagnostics` to interact with Neovim's diagnostics module. Available
   options for `vim.diagnostic.config()` can now be customized through the
   [](#opt-vim.diagnostics.config) in nvf.

@@ -286,6 +286,19 @@
       "url": "https://github.com/gorbit99/codewindow.nvim/archive/a8e175043ce3baaa89e0a6b5171bcd920aab3dad.tar.gz",
       "hash": "12nsdynpym15fl9qwjzlzhxr2mbpa0l6sp2r1rrc300jr59q0gkr"
     },
+    "colorful-menu-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "xzbdmw",
+        "repo": "colorful-menu.nvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "f80feb8a6706f965321aff24d0ed3849f02a7f77",
+      "url": "https://github.com/xzbdmw/colorful-menu.nvim/archive/f80feb8a6706f965321aff24d0ed3849f02a7f77.tar.gz",
+      "hash": "1rj6yy7gchdyynhd13l35vhmn8npldmgn4vam9gv244mywpz3flw"
+    },
     "comment-nvim": {
       "type": "Git",
       "repository": {
