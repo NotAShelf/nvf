@@ -36,7 +36,7 @@ in {
           # Absolute path, as a string. This is the impure option.
           "$HOME/.config/nvim-extra"
 
-          # Relative path inside your configurationn. If your config
+          # Relative path inside your configuration. If your config
           # is version controlled, then this is pure and reproducible.
           ./nvim
 
