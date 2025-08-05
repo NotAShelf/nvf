@@ -140,15 +140,12 @@ package</p>
  </span>
 </dt>
 <dd>
-<p>Additional runtime paths that will be appended to the
-active runtimepath of the Neovim. This can be used to
-add additional lookup paths for configs, plugins, spell
-languages and other things you would generally place in
-your <code class="filename">$HOME/.config/nvim</code>.</p><p>This is meant as a declarative alternative to throwing
-files into <code class="filename">~/.config/nvim</code> and having the Neovim
-wrapper pick them up. For more details on
-<code class="literal">vim.o.runtimepath</code>, and what paths to use; please see
-<a class="link" href="https://neovim.io/doc/user/options.html#&#x27;runtimepath&#x27;"  target="_top">the official documentation</a></p>
+<p>Additional runtime paths that will be appended to the active
+runtimepath of the Neovim. This can be used to add additional
+lookup paths for configs, plugins, spell languages and other
+things you would generally place in your <code class="filename">$HOME/.config/nvim</code>.</p><p>This is meant as a declarative alternative to throwing files into
+<code class="filename">~/.config/nvim</code> and having the Neovim wrapper pick them up.</p><p>For more details on <code class="literal">vim.o.runtimepath</code>, and what paths to use, please see
+<a class="link" href="https://neovim.io/doc/user/options.html#&#x27;runtimepath&#x27;"  target="_top">the official documentation</a>.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 list of (absolute path or string)</p>
@@ -157,16 +154,18 @@ list of (absolute path or string)</p>
 <code class="literal">[ ]</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">[
-  # absolute path, as a string - impure
+  # Absolute path, as a string. This is the impure option.
   &quot;$HOME/.config/nvim-extra&quot;
 
-  # relative path, as a path - pure
+  # Relative path inside your configuration. If your config
+  # is version controlled, then this is pure and reproducible.
   ./nvim
 
-  # source type path - pure and reproducible
-  (builtins.source {
-    path = ./runtime;
-    name = &quot;nvim-runtime&quot;;
+  # Source type path. This pure and reproducible.
+  # See `:doc builtins.path` inside a Nix repl for more options.
+  (builtins.path {
+    path = ./runtime; # this must be a relative path
+    name = &quot;nvim-runtime&quot;; # name is arbitrary
   })
 ]
 
@@ -6120,7 +6119,7 @@ anything</p>
  </span>
 </dt>
 <dd>
-<p>Whether to enable dashboard via vim-startify.</p>
+<p>Whether to enable fancy start screen for Vim [vim-startify].</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -6147,7 +6146,7 @@ boolean</p>
  </span>
 </dt>
 <dd>
-<p>List of book marks to disaply on start page</p>
+<p>List of book marks to display on start page</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 list of (attribute set)</p>
@@ -6176,7 +6175,7 @@ list of (attribute set)</p>
  </span>
 </dt>
 <dd>
-<p>Command to change the current window with. Can be cd, lcd or tcd</p>
+<p>Command to change the current window with.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 one of “cd”, “lcd”, “tcd”</p>
@@ -6200,7 +6199,7 @@ one of “cd”, “lcd”, “tcd”</p>
  </span>
 </dt>
 <dd>
-<p>Should vim change to the directory of the file you open</p>
+<p>Whether Vim should change to the directory of the file you open</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -6224,7 +6223,7 @@ boolean</p>
  </span>
 </dt>
 <dd>
-<p>Should vim change to the version control root when opening a file</p>
+<p>Whether Vim should change to the version control root when opening a file</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -6344,7 +6343,8 @@ list of string</p>
  </span>
 </dt>
 <dd>
-<p>Prevent startify from opening on startup but can be called with :Startify</p>
+<p>Whether vim-startify should be disabled on startup.</p><p>This will prevent startify from opening on startup, but it can still
+be called with <code class="literal">:Startify</code></p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -6471,7 +6471,7 @@ signed integer</p>
  </span>
 </dt>
 <dd>
-<p>Make startify auto load Session.vim files from the current directory</p>
+<p>Make vim-startify auto load Session.vim files from the current directory</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -6663,13 +6663,16 @@ list of string</p>
  </span>
 </dt>
 <dd>
-<p>Set if you want items sorted by date rather than alphabetically</p>
+<p>While true, sessions will be sorted by date rather than alphabetically.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -6735,7 +6738,8 @@ list of string</p>
  </span>
 </dt>
 <dd>
-<p>Turns on unsafe mode for Startify. Stops resolving links, checking files are readable and filtering bookmark list</p>
+<p>Whether to turn on unsafe mode for Startify.</p><p>While enabld, vim-startify will stops resolving links, checking files
+are readable and filtering bookmark list</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -8044,9 +8048,8 @@ attribute set of list of string</p>
  </span>
 </dt>
 <dd>
-<p>Additional lua files that will be sourced by Neovim.
-Takes both absolute and relative paths, all of which
-will be called via the <code class="literal">luafile</code> command in Neovim.</p><p>See <a class="link" href="https://neovim.io/doc/user/lua.html#lua-commands"  target="_top">lua-commands</a>
+<p>Additional Lua files that will be sourced by Neovim.</p><p>Takes both absolute and relative paths, all of which will be called
+via the <code class="literal">luafile</code> command in Neovim.</p><p>See <a class="link" href="https://neovim.io/doc/user/lua.html#lua-commands"  target="_top">lua-commands</a>
 on the Neovim documentation for more details.</p><div class="warning"><h3 class="title">Warning</h3><p>All paths passed to this option must be valid. If Neovim cannot
 resolve the path you are attempting to source, then your configuration
 will error, and Neovim will not start. Please ensure that all paths
@@ -8059,13 +8062,13 @@ list of (absolute path or string)</p>
 <code class="literal">[ ]</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">[
-  # absolute path, as a string - impure
+  # Absolute path, as a string - impure
   &quot;$HOME/.config/nvim/my-lua-file.lua&quot;
 
-  # relative path, as a path - pure
+  # Relative path, as a path - pure
   ./nvim/my-lua-file.lua
 
-  # source type path - pure and reproducible
+  # Source type path - pure and reproducible
   (builtins.path {
     path = ./nvim/my-lua-file.lua;
     name = &quot;my-lua-file&quot;;
