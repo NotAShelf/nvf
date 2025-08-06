@@ -1,25 +1,92 @@
 # Adding Plugins {#sec-additional-plugins}
 
-To add a new Neovim plugin, use `npins`
+There are two methods for adding new Neovim plugins to **nvf**. npins is the
+faster option that should be preferred if the plugin consists of pure Lua or
+Vimscript code. In which case there is no building required, and we can easily
+handle the copying of plugin files. Alternative method, which is required when
+plugins try to build their own libraries (e.g., in Rust or C) that need to be
+built with Nix to function correctly.
 
-Use:
+## With npins {#sec-npins-for-plugins}
 
-`nix-shell -p npins` or `nix shell nixpkgs#npins`
+npins is the standard method of adding new plugins to **nvf**. You simply need
+the repository URL for the plugin, and can add it as a source to be built
+automatically with one command. To add a new Neovim plugin, use `npins`. For
+example:
+
+```bash
+nix-shell -p npins # or nix shell nixpkgs#npins if using flakes
+```
 
 Then run:
 
-`npins add --name <plugin name> github <owner> <repo> -b <branch>`
+```bash
+npins add --name <plugin name> github <owner> <repo> -b <branch>
+```
 
-Be sure to replace any non-alphanumeric characters with `-` for `--name`
+::: {.note}
 
-For example 
+Be sure to replace any non-alphanumeric characters with `-` for `--name`. For
+example
 
-`npins add --name lazydev-nvim github folke lazydev.nvim -b main`
+```bash
+npins add --name lazydev-nvim github folke lazydev.nvim -b main
+```
 
-You can now reference this plugin as a **string**.
+:::
+
+Once the `npins` command is done, you can start referencing the plugin as a
+**string**.
 
 ```nix
-config.vim.startPlugins = ["lazydev-nvim"];
+{
+  config.vim.startPlugins = ["lazydev-nvim"];
+}
+```
+
+## Packaging Complex Plugins {#sec-pkgs-for-plugins}
+
+[blink.cmp]: https://github.com/Saghen/blink.cmp
+
+Some plugins require additional packages to be built and substituted to function
+correctly. For example [blink.cmp] requires its own fuzzy matcher library, built
+with Rust, to be installed or else defaults to a much slower Lua implementation.
+In the Blink documentation, you are advised to build with `cargo` but that is
+not ideal since we are leveraging the power of Nix. In this case the ideal
+solution is to write a derivation for the plugin.
+
+We use `buildRustPackage` to build the library from the repository root, and
+copy everything in the `postInstall` phase.
+
+```nix
+postInstall = ''
+  cp -r {lua,plugin} "$out"
+
+  mkdir -p "$out/doc"
+  cp 'doc/'*'.txt' "$out/doc/"
+
+  mkdir -p "$out/target"
+  mv "$out/lib" "$out/target/release"
+'';
+```
+
+In a similar fashion, you may utilize `stdenv.mkDerivation` and other Nixpkgs
+builders to build your library from source, and copy the relevant files and Lua
+plugin files in the `postInstall` phase. Do note, however, that you still need
+to fetch the plugin sources somehow. npins is, once again, the recommended
+option to fetch the plugin sources. Refer to the previous section on how to use
+npins to add a new plugin.
+
+Plugins built from source must go into the `flake/pkgs/by-name` overlay. It will
+automatically create flake outputs for individual packages. Lastly, you must add
+your package to the plugin builder (`pluginBuilders`) function manually in
+`modules/wrapper/build/config.nix`. Once done, you may refer to your plugin as a
+**string**.
+
+```nix
+{
+  config.vim.startPlugins = ["blink-cmp"];
+}
 ```
 
 ## Modular setup options {#sec-modular-setup-options}
@@ -70,7 +137,7 @@ in {
 }
 ```
 
-This above config will result in this lua script:
+This above config will result in this Lua script:
 
 ```lua
 require('plugin-name').setup({
@@ -101,23 +168,41 @@ own fields!
 As you've seen above, `toLuaObject` is used to convert our nix attrSet
 `cfg.setupOpts`, into a lua table. Here are some rules of the conversion:
 
-1. nix `null` converts to lua `nil`
-2. number and strings convert to their lua counterparts
-3. nix attrSet/list convert into lua tables
-4. you can write raw lua code using `lib.generators.mkLuaInline`. This function
-   is part of nixpkgs.
+1. Nix `null` converts to lua `nil`
+2. Number and strings convert to their lua counterparts
+3. Nix attribute sets (`{}`) and lists (`[]`) convert into Lua dictionaries and
+   tables respectively. Here is an example of Nix -> Lua conversion.
+   - `{foo = "bar"}` -> `{["foo"] = "bar"}`
+   - `["foo" "bar"]` -> `{"foo", "bar"}`
+4. You can write raw Lua code using `lib.generators.mkLuaInline`. This function
+   is part of nixpkgs, and is accessible without relying on **nvf**'s extended
+   library.
+   - `mkLuaInline "function add(a, b) return a + b end"` will yield the
+     following result:
 
-Example:
+   ```nix
+   {
+    _type = "lua-inline";
+    expr = "function add(a, b) return a + b end";
+   }
+   ```
 
-```nix
-vim.your-plugin.setupOpts = {
-  on_init = lib.generators.mkLuaInline ''
-    function()
-      print('we can write lua!')
-    end
-  '';
-}
-```
+   The above expression will be interpreted as a Lua expression in the final
+   config. Without the `mkLuaInline` function, you will only receive a string
+   literal. You can use it to feed plugin configuration tables Lua functions
+   that return specific values as expected by the plugins.
+
+   ```nix
+   {
+      vim.your-plugin.setupOpts = {
+        on_init = lib.generators.mkLuaInline ''
+          function()
+            print('we can write lua!')
+          end
+        '';
+      };
+   }
+   ```
 
 ## Lazy plugins {#sec-lazy-plugins}
 
@@ -126,25 +211,24 @@ Lazy plugins are managed by `lz.n`.
 
 ```nix
 # in modules/.../your-plugin/config.nix
-{lib, config, ...}:
-let
+{config, ...}: let
   cfg = config.vim.your-plugin;
 in {
   vim.lazy.plugins.your-plugin = {
-    # instead of vim.startPlugins, use this:
+    # Instead of vim.startPlugins, use this:
     package = "your-plugin";
 
-    # if your plugin uses the `require('your-plugin').setup{...}` pattern
+    # ıf your plugin uses the `require('your-plugin').setup{...}` pattern
     setupModule = "your-plugin";
     inherit (cfg) setupOpts;
 
-    # events that trigger this plugin to be loaded
+    # Events that trigger this plugin to be loaded
     event = ["DirChanged"];
     cmd = ["YourPluginCommand"];
 
-    # keymaps
+    # Plugin Keymaps
     keys = [
-      # we'll cover this in detail in the keymaps section
+      # We'll cover this in detail in the 'keybinds' section
       {
         key = "<leader>d";
         mode = "n";
@@ -152,7 +236,6 @@ in {
       }
     ];
   };
-;
 }
 ```
 
@@ -163,7 +246,9 @@ require('lz.n').load({
   {
     "name-of-your-plugin",
     after = function()
-      require('your-plugin').setup({--[[ your setupOpts ]]})
+      require('your-plugin').setup({
+        --[[ your setupOpts ]]--
+      })
     end,
 
     event = {"DirChanged"},
@@ -175,5 +260,7 @@ require('lz.n').load({
 })
 ```
 
-A full list of options can be found
-[here](https://notashelf.github.io/nvf/options.html#opt-vim.lazy.plugins
+[`vim.lazy.plugins` spec]: https://notashelf.github.io/nvf/options.html#opt-vim.lazy.plugins
+
+A full list of options can be found in the [`vim.lazy.plugins` spec] on the
+rendered manual.

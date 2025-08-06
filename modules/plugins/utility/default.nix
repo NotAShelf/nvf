@@ -15,6 +15,7 @@
     ./multicursors
     ./new-file-template
     ./nix-develop
+    ./nvim-biscuits
     ./oil-nvim
     ./outline
     ./preview
@@ -26,5 +27,6 @@
     ./wakatime
     ./yanky-nvim
     ./yazi-nvim
+    ./undotree
   ];
 }

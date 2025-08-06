@@ -246,10 +246,10 @@ in {
         transparent = {
           enabled = ${boolToString transparent},
         },
-        ${optionalString (!isNull palette) ''palette = "${palette}",''}
-        ${optionalString (!isNull variant) ''variant = "${variant}",''}
+        ${optionalString (palette != null) ''palette = "${palette}",''}
+        ${optionalString (variant != null) ''variant = "${variant}",''}
       }
-      ${optionalString (!isNull background) ''vim.opt.background = "${background}"''}
+      ${optionalString (background != null) ''vim.opt.background = "${background}"''}
       vim.cmd.colorscheme "solarized"
     '';
     styles = let
@@ -280,5 +280,24 @@ in {
 
       vim.cmd.colorscheme("solarized-osaka")
     '';
+  };
+
+  everforest = {
+    setup = {
+      style ? "medium",
+      transparent ? false,
+      ...
+    }: ''
+      vim.g.everforest_background = "${style}"
+      vim.g.everforest_transparent_background = ${
+        if transparent
+        then "1"
+        else "0"
+      }
+
+      vim.cmd.colorscheme("everforest")
+    '';
+
+    styles = ["hard" "medium" "soft"];
   };
 }
