@@ -52,6 +52,61 @@
       '';
     };
 
+    # vtsls language server, including Vue support
+    # https://github.com/yioneko/vtsls
+    # https://github.com/vuejs/language-tools/wiki/Neovim
+    vtsls = {
+      package = pkgs.vtsls;
+      lspConfig =
+        # lua
+        ''
+          local vue_language_server_path = '${pkgs.vue-language-server + "/lib/node_modules/@vue/language-server"}'
+          local vue_plugin = {
+            name = '@vue/typescript-plugin',
+            location = vue_language_server_path,
+            languages = { 'vue' },
+            configNamespace = 'typescript',
+          }
+
+          --- lsconfig method doesn't work in nvf, it says
+          --- it cannot find vue_ls or vtsls config.md
+          --- Using it this way means they're always enabled configs
+          vim.lsp.config("vtsls", {
+            capabilities = capabilities,
+            on_attach = function(client, bufnr)
+              attach_keymaps(client, bufnr);
+              client.server_capabilities.documentFormattingProvider = false;
+            end,
+            filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+            settings = {
+              vtsls = {
+                tsserver = {
+                  globalPlugins = {
+                    vue_plugin,
+                  }
+                }
+              }
+            },
+            cmd = ${
+            if isList cfg.lsp.package
+            then expToLua cfg.lsp.package
+            else ''{"${cfg.lsp.package}/bin/vtsls", "--stdio"}''
+          },
+          })
+
+          vim.lsp.config('vue_ls', {
+            capabilities = capabilities,
+            on_attach = function(client, bufnr)
+              attach_keymaps(client, bufnr);
+              client.server_capabilities.documentFormattingProvider = false;
+            end,
+            cmd = {"${getExe pkgs.vue-language-server}", "--stdio"}
+          })
+
+          vim.lsp.enable({'vtsls', 'vue_ls'})
+        '';
+    };
+
     # Here for backwards compatibility. Still consider tsserver a valid
     # configuration in the enum, but assert if it's set to *properly*
     # redirect the user to the correct server.
@@ -201,6 +256,8 @@ in {
           formatters_by_ft.typescript = [cfg.format.type];
           # .tsx files
           formatters_by_ft.typescriptreact = [cfg.format.type];
+          # .vue files
+          formatters_by_ft.vue = [cfg.format.type];
           formatters.${cfg.format.type} = {
             command = getExe cfg.format.package;
           };
