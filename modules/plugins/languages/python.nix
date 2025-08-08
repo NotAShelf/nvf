@@ -8,9 +8,10 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
-  inherit (lib.types) enum either listOf package str bool;
+  inherit (lib.lists) isList toList;
+  inherit (lib.types) enum either listOf package str bool attrsOf;
   inherit (lib.nvim.lua) expToLua;
+  inherit (lib) genAttrs;
 
   cfg = config.vim.languages.python;
 
@@ -23,9 +24,9 @@
           capabilities = capabilities;
           on_attach = default_on_attach;
           cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/pyright-langserver", "--stdio"}''
+          if isList cfg.lsp.package.pyright
+          then expToLua cfg.lsp.package.pyright
+          else ''{"${cfg.lsp.package.pyright}/bin/pyright-langserver", "--stdio"}''
         }
         }
       '';
@@ -38,9 +39,24 @@
           capabilities = capabilities;
           on_attach = default_on_attach;
           cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/basedpyright-langserver", "--stdio"}''
+          if isList cfg.lsp.package.basedpyright
+          then expToLua cfg.lsp.package.basedpyright
+          else ''{"${cfg.lsp.package.basedpyright}/bin/basedpyright-langserver", "--stdio"}''
+        }
+        }
+      '';
+    };
+
+    ruff = {
+      package = pkgs.ruff;
+      lspConfig = ''
+        lspconfig.ruff.setup{
+          capabilities = capabilities;
+          on_attach = default_on_attach;
+          cmd = ${
+          if isList cfg.lsp.package.ruff
+          then expToLua cfg.lsp.package.ruff
+          else ''{"${cfg.lsp.package.ruff}/bin/ruff", "server"}''
         }
         }
       '';
@@ -53,9 +69,9 @@
           capabilities = capabilities;
           on_attach = default_on_attach;
           cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/pylsp"}''
+          if isList cfg.lsp.package.pylsp
+          then expToLua cfg.lsp.package.pylsp
+          else ''{"${cfg.lsp.package.pylsp}/bin/pylsp"}''
         }
         }
       '';
@@ -172,16 +188,20 @@ in {
       enable = mkEnableOption "Python LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
-        description = "Python LSP server to use";
-        type = enum (attrNames servers);
+        description = "Python LSP server to use either as a single server or a list of servers";
+        example = ''
+          server = "basedpyright;
+          server = ["basedpyright" "ruff"];
+        '';
+        type = either (enum (attrNames servers)) (listOf (enum (attrNames servers)));
         default = defaultServer;
       };
 
       package = mkOption {
         description = "python LSP server package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
+        type = attrsOf (either package (listOf str));
+        default = genAttrs (toList cfg.lsp.server) (name: servers.${name}.package);
       };
     };
 
@@ -235,7 +255,7 @@ in {
 
     (mkIf cfg.lsp.enable {
       vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.python-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.lspconfig.sources = genAttrs (toList cfg.lsp.server) (name: servers.${name}.lspConfig);
     })
 
     (mkIf cfg.format.enable {
