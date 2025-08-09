@@ -383,9 +383,12 @@
 [poz](https://poz.pet):
 
 [everforest]: https://github.com/sainnhe/everforest
+[oil]: https://github.com/stevearc/oil.nvim
+[oil-git-status]: https://github.com/refractalize/oil-git-status.nvim
 
 - Fix gitsigns null-ls issue.
 - Add [everforest] theme support.
+- Add [oil-git-status] support to [oil] module.
 
 [Haskex](https://github.com/haskex):
 
