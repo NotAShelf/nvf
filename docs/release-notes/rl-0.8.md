@@ -492,3 +492,8 @@
 - Fix default [blink.cmp] sources "path" and "buffer" not working when
   `autocomplete.nvim-cmp.enable` was disabled and
   `autocomplete.nvim-cmp.sources` had not been modified.
+
+[Morsicus](https://github.com/Morsicus):
+
+- add [EEx Treesitter Grammar](https://github.com/connorlay/tree-sitter-eex) for Elixir
+- add [HEEx Treesitter Grammar](https://github.com/phoenixframework/tree-sitter-heex) for Elixir
