@@ -114,13 +114,13 @@ in {
           auto_set_highlight_group = mkOption {
             type = bool;
             default = true;
-            description = "Automatically set the highlight group for the current line.";
+            description = "Whether to automatically set the highlight group for the current line.";
           };
 
           auto_set_keymaps = mkOption {
             type = bool;
             default = true;
-            description = "Automatically set the keymap for the current line.";
+            description = "Whether to automatically set the keymap for the current line.";
           };
 
           auto_apply_diff_after_generation =
@@ -128,19 +128,19 @@ in {
 
           support_paste_from_clipboard = mkEnableOption ''
             support pasting image from clipboard.
-            This will be determined automatically based whether img-clip is available or not.
+            This will be determined automatically based whether img-clip is available or not
           '';
 
           minimize_diff = mkOption {
             type = bool;
             default = true;
-            description = "Remove unchanged lines when applying a code block.";
+            description = "Whether to remove unchanged lines when applying a code block.";
           };
 
           enable_token_counting = mkOption {
             type = bool;
             default = true;
-            description = "Token counting.";
+            description = "Whether to enable token counting.";
           };
 
           enable_cursor_planning_mode =
@@ -204,7 +204,7 @@ in {
           wrap = mkOption {
             type = bool;
             default = true;
-            description = "Similar to vim.o.wrap.";
+            description = "Whether to enable wrap, similar to vim.o.wrap.";
           };
 
           width = mkOption {
@@ -217,7 +217,7 @@ in {
             enabled = mkOption {
               type = bool;
               default = true;
-              description = "Enable the sidebar header.";
+              description = "Whether to enable the sidebar header.";
             };
 
             align = mkOption {
@@ -229,7 +229,7 @@ in {
             rounded = mkOption {
               type = bool;
               default = true;
-              description = "Enable rounded sidebar header.";
+              description = "Whether to enable rounded sidebar header.";
             };
           };
 
@@ -292,7 +292,7 @@ in {
           autojump = mkOption {
             type = bool;
             default = true;
-            description = "Automatically jumps to the next change.";
+            description = "Whether to automatically jump to the next change.";
           };
 
           override_timeoutlen = mkOption {
