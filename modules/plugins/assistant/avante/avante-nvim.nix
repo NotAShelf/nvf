@@ -76,7 +76,7 @@ in {
         };
 
         dual_boost = {
-          enabled = mkEnableOption "Dual_boost mode.";
+          enabled = mkEnableOption "dual_boost mode.";
 
           first_provider = mkOption {
             type = str;
@@ -127,7 +127,7 @@ in {
             mkEnableOption "automatically apply diff after LLM response.";
 
           support_paste_from_clipboard = mkEnableOption ''
-            pasting image from clipboard.
+            support pasting image from clipboard.
             This will be determined automatically based whether img-clip is available or not.
           '';
 
