@@ -495,5 +495,5 @@
 
 [Morsicus](https://github.com/Morsicus):
 
-- add [EEx Treesitter Grammar](https://github.com/connorlay/tree-sitter-eex) for Elixir
-- add [HEEx Treesitter Grammar](https://github.com/phoenixframework/tree-sitter-heex) for Elixir
+- Add [EEx Treesitter Grammar](https://github.com/connorlay/tree-sitter-eex) for Elixir
+- Add [HEEx Treesitter Grammar](https://github.com/phoenixframework/tree-sitter-heex) for Elixir
