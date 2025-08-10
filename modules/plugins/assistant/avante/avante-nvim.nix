@@ -5,7 +5,7 @@
 in {
   options.vim.assistant = {
     avante-nvim = {
-      enable = mkEnableOption "Complementary Neovim plugin for avante.nvim";
+      enable = mkEnableOption "complementary Neovim plugin for avante.nvim";
       setupOpts = mkPluginSetupOption "avante-nvim" {
         provider = mkOption {
           type = nullOr str;
@@ -109,7 +109,7 @@ in {
 
         behaviour = {
           auto_suggestions =
-            mkEnableOption "Auto suggestions.";
+            mkEnableOption "auto suggestions.";
 
           auto_set_highlight_group = mkOption {
             type = bool;
@@ -124,10 +124,10 @@ in {
           };
 
           auto_apply_diff_after_generation =
-            mkEnableOption "Automatically apply diff after LLM response.";
+            mkEnableOption "automatically apply diff after LLM response.";
 
           support_paste_from_clipboard = mkEnableOption ''
-            Pasting image from clipboard.
+            pasting image from clipboard.
             This will be determined automatically based whether img-clip is available or not.
           '';
 
