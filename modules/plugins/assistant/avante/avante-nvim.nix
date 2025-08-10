@@ -112,7 +112,7 @@ in {
             mkEnableOption "Auto suggestions.";
 
           auto_set_highlight_group = mkOption {
-            type = true;
+            type = bool;
             default = true;
             description = "Automatically set the highlight group for the current line.";
           };
