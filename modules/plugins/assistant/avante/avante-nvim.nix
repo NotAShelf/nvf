@@ -76,7 +76,7 @@ in {
         };
 
         dual_boost = {
-          enabled = mkEnableOption "dual_boost mode.";
+          enabled = mkEnableOption "`dual_boost` mode.";
 
           first_provider = mkOption {
             type = str;
