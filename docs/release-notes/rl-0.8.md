@@ -492,3 +492,9 @@
 - Fix default [blink.cmp] sources "path" and "buffer" not working when
   `autocomplete.nvim-cmp.enable` was disabled and
   `autocomplete.nvim-cmp.sources` had not been modified.
+
+[valterschutz](https://github.com/valterschutz):
+
+[ruff]: (https://github.com/astral-sh/ruff)
+
+- Add [ruff-fix] as a formatter option in `vim.languages.python.format.type`.

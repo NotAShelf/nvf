@@ -91,6 +91,16 @@
         '';
       };
     };
+
+    ruff-fix = {
+      package = pkgs.writeShellApplication {
+        name = "ruff-fix";
+        runtimeInputs = [pkgs.ruff];
+        text = ''
+          ruff format - "$@" | ruff check --fix --exit-zero -
+        '';
+      };
+    };
   };
 
   defaultDebugger = "debugpy";
