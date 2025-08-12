@@ -126,11 +126,27 @@
         AutomaticWorkspaceInit = true;
       };
     };
+
+    roslyn_ls = {
+      cmd = mkLuaInline ''
+        {
+          ${toLuaObject (getExe pkgs.roslyn-ls)},
+          '--logLevel=Warning',
+          '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
+          '--stdio',
+        }
+      '';
+
+      filetypes = ["cs"];
+      root_markers = [".sln" ".csproj" ".editorconfig"];
+      init_options = {};
+    };
   };
 
   extraServerPlugins = {
     omnisharp = ["omnisharp-extended-lsp-nvim"];
     csharp_ls = ["csharpls-extended-lsp-nvim"];
+    roslyn_ls = [];
   };
 
   cfg = config.vim.languages.csharp;
