@@ -477,5 +477,8 @@
 [Cool-Game-Dev](https://github.com/Cool-Game-Dev):
 
 [just-lsp]: https://github.com/terror/just-lsp
+[roslyn-ls]: https://github.com/dotnet/vscode-csharp 
 
 - Add just support under `vim.languages.just` using [just-lsp].
+
+- Add [roslyn-ls] to the `vim.languages.csharp` module.
