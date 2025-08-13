@@ -23,6 +23,9 @@
       (mkIf (cfg.format.type == "nixfmt") {
         command = ["${cfg.format.package}/bin/nixfmt"];
       })
+      (mkIf (cfg.format.type == "flake") {
+        command = ["${cfg.format.package}/bin/nix" "fmt"];
+      })
     ];
   };
 
@@ -57,6 +60,10 @@
 
     nixfmt = {
       package = pkgs.nixfmt-rfc-style;
+    };
+
+    flake = {
+      package = pkgs.nix;
     };
   };
 
