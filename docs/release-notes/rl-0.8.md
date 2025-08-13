@@ -479,3 +479,17 @@
 [just-lsp]: https://github.com/terror/just-lsp
 
 - Add just support under `vim.languages.just` using [just-lsp].
+- Add [nvim-biscuits] to show block context. Available at
+  `vim.utility.nvim-biscuits`.
+
+[JManch](https://github.com/JManch):
+
+- Fix default [blink.cmp] sources "path" and "buffer" not working when
+  `autocomplete.nvim-cmp.enable` was disabled and
+  `autocomplete.nvim-cmp.sources` had not been modified.
+
+[valterschutz](https://github.com/valterschutz):
+
+[ruff]: (https://github.com/astral-sh/ruff)
+
+- Add [ruff-fix] as a formatter option in `vim.languages.python.format.type`.
