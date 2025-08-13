@@ -43,7 +43,18 @@
         }
       '';
       filetypes = ["cs" "vb"];
-      root_markers = [".sln" ".csproj" "omnisharp.json" "function.json"];
+      root_dir = mkLuaInline ''
+        function(bufnr, on_dir)
+          local function find_root_pattern(fname, lua_pattern)
+            return vim.fs.root(0, function(name, path)
+              return name:match(lua_pattern)
+            end)
+          end
+
+          local fname = vim.api.nvim_buf_get_name(bufnr)
+          on_dir(find_root_pattern(fname, "%.sln$") or find_root_pattern(fname, "%.csproj$"))
+        end
+      '';
       init_options = {};
       capabilities = {
         workspace = {
@@ -138,7 +149,18 @@
       '';
 
       filetypes = ["cs"];
-      root_markers = [".sln" ".csproj" ".editorconfig"];
+      root_dir = mkLuaInline ''
+        function(bufnr, on_dir)
+          local function find_root_pattern(fname, lua_pattern)
+            return vim.fs.root(0, function(name, path)
+              return name:match(lua_pattern)
+            end)
+          end
+
+          local fname = vim.api.nvim_buf_get_name(bufnr)
+          on_dir(find_root_pattern(fname, "%.sln$") or find_root_pattern(fname, "%.csproj$"))
+        end
+      '';
       init_options = {};
     };
   };
