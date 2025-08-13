@@ -7,7 +7,7 @@ in {
 
     bookmarks = mkOption {
       default = [];
-      description = ''List of book marks to disaply on start page'';
+      description = ''List of book marks to display on start page'';
       type = listOf attrs;
       example = {"c" = "~/.vimrc";};
     };
