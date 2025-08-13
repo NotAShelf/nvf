@@ -18134,6 +18134,212 @@ package</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.languages.json.enable"></a><a class="term" href="options.html#opt-vim.languages.json.enable"><code class="option">vim.languages.json.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable JSON langauge support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/json.nix" target="_top">
+&lt;nvf/modules/plugins/languages/json.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.json.format.enable"></a><a class="term" href="options.html#opt-vim.languages.json.format.enable"><code class="option">vim.languages.json.format.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable JSON formatting.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/json.nix" target="_top">
+&lt;nvf/modules/plugins/languages/json.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.json.format.package"></a><a class="term" href="options.html#opt-vim.languages.json.format.package"><code class="option">vim.languages.json.format.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>JSON formatter package</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation jsonfmt&gt;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/json.nix" target="_top">
+&lt;nvf/modules/plugins/languages/json.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.json.format.type"></a><a class="term" href="options.html#opt-vim.languages.json.format.type"><code class="option">vim.languages.json.format.type</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>JSON formatter to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+value “jsonfmt” (singular enum)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;jsonfmt&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/json.nix" target="_top">
+&lt;nvf/modules/plugins/languages/json.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.json.lsp.enable"></a><a class="term" href="options.html#opt-vim.languages.json.lsp.enable"><code class="option">vim.languages.json.lsp.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable JSON LSP support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/json.nix" target="_top">
+&lt;nvf/modules/plugins/languages/json.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.json.lsp.servers"></a><a class="term" href="options.html#opt-vim.languages.json.lsp.servers"><code class="option">vim.languages.json.lsp.servers</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>JSON LSP server to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+(list of value “jsonls” (singular enum)) or value “jsonls” (singular enum) convertible to it</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
+  &quot;jsonls&quot;
+]
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/json.nix" target="_top">
+&lt;nvf/modules/plugins/languages/json.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.json.treesitter.enable"></a><a class="term" href="options.html#opt-vim.languages.json.treesitter.enable"><code class="option">vim.languages.json.treesitter.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable JSON treesitter.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/json.nix" target="_top">
+&lt;nvf/modules/plugins/languages/json.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.json.treesitter.package"></a><a class="term" href="options.html#opt-vim.languages.json.treesitter.package"><code class="option">vim.languages.json.treesitter.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The json treesitter package to use.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">pkgs.vimPlugins.nvim-treesitter.builtGrammars.json</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/json.nix" target="_top">
+&lt;nvf/modules/plugins/languages/json.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.languages.julia.enable"></a><a class="term" href="options.html#opt-vim.languages.julia.enable"><code class="option">vim.languages.julia.enable</code>
   </a>
  </span>
