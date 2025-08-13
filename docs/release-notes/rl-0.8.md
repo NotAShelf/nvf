@@ -477,8 +477,12 @@
 [Cool-Game-Dev](https://github.com/Cool-Game-Dev):
 
 [just-lsp]: https://github.com/terror/just-lsp
-[roslyn-ls]: https://github.com/dotnet/vscode-csharp 
+[roslyn-ls]: https://github.com/dotnet/vscode-csharp
+[jsonls]: https://github.com/microsoft/vscode/tree/1.101.2/extensions/json-language-features/server
+[jsonfmt]: https://github.com/caarlos0/jsonfmt
 
 - Add just support under `vim.languages.just` using [just-lsp].
 
 - Add [roslyn-ls] to the `vim.languages.csharp` module.
+
+- Added json support under `vim.languages.json` using [jsonls] and [jsonfmt].

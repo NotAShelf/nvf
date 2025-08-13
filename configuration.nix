@@ -56,6 +56,7 @@ isMaximal: {
       clang.enable = isMaximal;
       css.enable = isMaximal;
       html.enable = isMaximal;
+      json.enable = isMaximal;
       sql.enable = isMaximal;
       java.enable = isMaximal;
       kotlin.enable = isMaximal;

@@ -21,6 +21,7 @@ in {
     ./html.nix
     ./haskell.nix
     ./java.nix
+    ./json.nix
     ./lua.nix
     ./markdown.nix
     ./nim.nix
