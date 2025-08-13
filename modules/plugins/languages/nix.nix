@@ -24,7 +24,7 @@
         command = ["${cfg.format.package}/bin/nixfmt"];
       })
       (mkIf (cfg.format.type == "flake") {
-        command = ["${cfg.format.package}/bin/nix" "fmt"];
+        command = ["${cfg.format.package}/bin/nix_fmt"];
       })
     ];
   };
@@ -63,7 +63,11 @@
     };
 
     flake = {
-      package = pkgs.nix;
+      package = pkgs.writeShellApplication {
+        name = "nix_fmt";
+        runtimeInputs = [pkgs.nix];
+        text = "nix fmt";
+      };
     };
   };
 
