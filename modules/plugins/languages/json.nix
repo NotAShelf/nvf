@@ -31,9 +31,7 @@
       package = pkgs.writeShellApplication {
         name = "jsonfmt";
         runtimeInputs = [pkgs.jsonfmt];
-        text = ''
-          jsonfmt -w -
-        '';
+        text = "jsonfmt -w -";
       };
     };
   };
