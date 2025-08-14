@@ -3,5 +3,6 @@ _: {
     ./which-key
     ./cheatsheet
     ./hardtime
+    ./qmk
   ];
 }

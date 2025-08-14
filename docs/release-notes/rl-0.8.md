@@ -480,9 +480,12 @@
 [roslyn-ls]: https://github.com/dotnet/vscode-csharp
 [jsonls]: https://github.com/microsoft/vscode/tree/1.101.2/extensions/json-language-features/server
 [jsonfmt]: https://github.com/caarlos0/jsonfmt
+[qmk]: https://github.com/codethread/qmk.nvim
 
 - Add just support under `vim.languages.just` using [just-lsp].
 
 - Add [roslyn-ls] to the `vim.languages.csharp` module.
 
 - Added json support under `vim.languages.json` using [jsonls] and [jsonfmt].
+
+- Add [qmk] plugin in `vim.binds.qmk` with `enable` and `setupOpts`.

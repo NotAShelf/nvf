@@ -158,6 +158,7 @@ isMaximal: {
       whichKey.enable = true;
       cheatsheet.enable = true;
       hardtime-nvim.enable = isMaximal;
+      qmk.enable = false; # requires hardware specific options
     };
 
     telescope.enable = true;
