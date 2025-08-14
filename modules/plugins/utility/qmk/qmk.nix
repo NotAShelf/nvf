@@ -1,5 +1,4 @@
 { 
-  config, 
   lib, 
   ... 
 }: let
@@ -7,7 +6,7 @@
   inherit (lib.types) attrsOf enum lines str;  
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
-  options.vim.binds.qmk = {
+  options.vim.utility.qmk = {
     enable = mkEnableOption "QMK and ZMK keymaps in nvim";
 
     setupOpts = mkPluginSetupOption "qmk.nvim" {

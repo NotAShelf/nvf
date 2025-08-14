@@ -158,7 +158,6 @@ isMaximal: {
       whichKey.enable = true;
       cheatsheet.enable = true;
       hardtime-nvim.enable = isMaximal;
-      qmk.enable = false; # requires hardware specific options
     };
 
     telescope.enable = true;
@@ -193,6 +192,7 @@ isMaximal: {
       vim-wakatime.enable = false;
       diffview-nvim.enable = true;
       yanky-nvim.enable = false;
+      qmk.enable = false; # requires hardware specific options
       icon-picker.enable = isMaximal;
       surround.enable = isMaximal;
       leetcode-nvim.enable = isMaximal;
