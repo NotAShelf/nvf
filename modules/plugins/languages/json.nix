@@ -17,7 +17,7 @@
   defaultServers = ["jsonls"];
   servers = {
     jsonls = {
-      cmd = [(getExe' "vscode-json-languageserver" pkgs.vscode-langservers-extracted) "--stdio"];
+      cmd = [(getExe' pkgs.vscode-langservers-extracted "vscode-json-languageserver") "--stdio"];
       filetypes = ["json" "jsonc"];
       init_options = {provideFormatter = true;};
       root_markers = [".git"];
