@@ -483,6 +483,9 @@
 [qmk]: https://github.com/codethread/qmk.nvim
 
 - Add just support under `vim.languages.just` using [just-lsp].
+- Add [roslyn-ls] to the `vim.languages.csharp` module.
+- Add JSON support under `vim.languages.json` using [jsonls] and [jsonfmt].
+- Add QMK support under `vim.binds.qmk` via [qmk.nvim].
 
 - Add [roslyn-ls] to the `vim.languages.csharp` module.
 
