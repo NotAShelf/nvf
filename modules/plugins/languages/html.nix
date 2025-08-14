@@ -35,22 +35,13 @@
       };
     };
   };
-  
+
   defaultDiagnosticsProvider = ["htmlhint"];
   diagnosticsProviders = {
     htmlhint = {
-      package = pkgs.htmlhint;
-      nullConfig = pkg: ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.diagnostics.htmlhint.with({
-            command = "${pkg}/bin/htmlhint"
-          })
-        )
-      '';
+      config.cmd = getExe pkgs.htmlhint;
     };
   };
-
 in {
   options.vim.languages.html = {
     enable = mkEnableOption "HTML language support";
@@ -91,7 +82,7 @@ in {
 
     extraDiagnostics = {
       enable = mkEnableOption "extra HTML diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
-      
+
       types = diagnostics {
         langDesc = "HTML";
         inherit diagnosticsProviders;
@@ -99,7 +90,7 @@ in {
       };
     };
   };
-    
+
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
       vim = {
@@ -117,7 +108,7 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers = 
+      vim.lsp.servers =
         mapListToAttrs (n: {
           name = n;
           value = servers.${n};
@@ -140,9 +131,9 @@ in {
         enable = true;
         linters_by_ft.html = cfg.extraDiagnostics.types;
         linters = mkMerge (map (name: {
-          ${name}.cmd = getExe diagnosticsProviders.${name}.package;
-        })
-        cfg.extraDiagnostics.types);
+            ${name} = diagnosticsProviders.${name}.config;
+          })
+          cfg.extraDiagnostics.types);
       };
     })
   ]);
