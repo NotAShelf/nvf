@@ -2186,6 +2186,19 @@
       "url": "https://github.com/kevinhwang91/promise-async/archive/119e8961014c9bfaf1487bf3c2a393d254f337e2.tar.gz",
       "hash": "0q4a0rmy09hka6zvydzjj2gcm2j5mlbrhbxfcdjj33ngpblkmqzm"
     },
+    "qmk-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "codethread",
+        "repo": "qmk.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "3c804c1480991e4837514900b22b9358cfd64fa1",
+      "url": "https://github.com/codethread/qmk.nvim/archive/3c804c1480991e4837514900b22b9358cfd64fa1.tar.gz",
+      "hash": "03fsx6qsn8b36jp5m0fkdla6gkkzdv2j18y378y3cqpjclgq995a"
+    },
     "rainbow-delimiters-nvim": {
       "type": "Git",
       "repository": {
