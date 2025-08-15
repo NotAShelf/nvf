@@ -486,3 +486,5 @@
 - Add [roslyn-ls] to the `vim.languages.csharp` module.
 
 - Added json support under `vim.languages.json` using [jsonls] and [jsonfmt].
+
+- Add flake formatter type to the nix language module.
