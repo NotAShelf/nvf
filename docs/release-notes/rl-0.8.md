@@ -492,3 +492,8 @@
 - Fix default [blink.cmp] sources "path" and "buffer" not working when
   `autocomplete.nvim-cmp.enable` was disabled and
   `autocomplete.nvim-cmp.sources` had not been modified.
+
+[diced](https://github.com/diced):
+
+- Fixed `typescript` treesitter grammar not being included by default.
+
