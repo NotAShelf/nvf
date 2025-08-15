@@ -18,9 +18,19 @@ in {
       '';
     };
 
-    assertions = [{
-      assertion = !(cfg.setupOpts.variant == "zmk") && !(cfg.setupOpts.comment_preview.position == "inside");
-      message = "comment_preview.position can only be set to inside when using the qmk layoyt";
-    }];
+    assertions = [
+      {
+        assertion = cfg.setupOpts.variant != "zmk" && cfg.setupOpts.comment_preview.position != "inside";
+        message = "comment_preview.position can only be set to inside when using the qmk layoyt";
+      }
+      {
+        assertion = cfg.setupOpts.name != null;
+        message = "qmk-nvim requires 'vim.utility.qmk.setupOpts.name' to be set.";
+      }
+      {
+        assertion = cfg.setupOpts.layout != null;
+        message = "qmk-nvim requires 'vim.utility.qmk.setupOpts.layout' to be set.";
+      }
+    ];
   };
 }

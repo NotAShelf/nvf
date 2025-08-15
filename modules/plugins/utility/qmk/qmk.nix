@@ -1,9 +1,6 @@
-{ 
-  lib, 
-  ... 
-}: let
+{lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) attrsOf enum lines str;  
+  inherit (lib.types) attrsOf nullOr enum lines str;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   options.vim.utility.qmk = {
@@ -11,18 +8,20 @@ in {
 
     setupOpts = mkPluginSetupOption "qmk.nvim" {
       name = mkOption {
-        type = str;
+        type = nullOr str;
+        default = null;
         description = "The name of the layout";
       };
 
       layout = mkOption {
-        type = lines;
+        type = nullOr lines;
+        default = null;
         description = ''
-          The keyboard key layout 
+          The keyboard key layout
           see <https://github.com/codethread/qmk.nvim?tab=readme-ov-file#Layout> for more details
         '';
       };
-      
+
       variant = mkOption {
         type = enum ["qmk" "zmk"];
         default = "qmk";
