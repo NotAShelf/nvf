@@ -76,7 +76,7 @@ in {
         };
 
         dual_boost = {
-          enabled = mkEnableOption "dual_boost mode.";
+          enabled = mkEnableOption "`dual_boost` mode.";
 
           first_provider = mkOption {
             type = str;
@@ -111,37 +111,37 @@ in {
           auto_suggestions =
             mkEnableOption "auto suggestions.";
 
-          auto_set_highlight_group =
-            mkEnableOption "automatically set the highlight group for the current line."
-            // {
-              default = true;
-            };
+          auto_set_highlight_group = mkOption {
+            type = bool;
+            default = true;
+            description = "Whether to automatically set the highlight group for the current line.";
+          };
 
-          auto_set_keymaps =
-            mkEnableOption "automatically set the keymap for the current line."
-            // {
-              default = true;
-            };
+          auto_set_keymaps = mkOption {
+            type = bool;
+            default = true;
+            description = "Whether to automatically set the keymap for the current line.";
+          };
 
           auto_apply_diff_after_generation =
             mkEnableOption "automatically apply diff after LLM response.";
 
           support_paste_from_clipboard = mkEnableOption ''
-            pasting image from clipboard.
-            This will be determined automatically based whether img-clip is available or not.
+            support pasting image from clipboard.
+            This will be determined automatically based whether img-clip is available or not
           '';
 
-          minimize_diff =
-            mkEnableOption "remove unchanged lines when applying a code block."
-            // {
-              default = true;
-            };
+          minimize_diff = mkOption {
+            type = bool;
+            default = true;
+            description = "Whether to remove unchanged lines when applying a code block.";
+          };
 
-          enable_token_counting =
-            mkEnableOption "token counting."
-            // {
-              default = true;
-            };
+          enable_token_counting = mkOption {
+            type = bool;
+            default = true;
+            description = "Whether to enable token counting.";
+          };
 
           enable_cursor_planning_mode =
             mkEnableOption "Cursor Planning Mode.";
@@ -188,14 +188,11 @@ in {
           };
         };
 
-        hints.enabled =
-          mkEnableOption ""
-          // {
-            default = true;
-            description = ''
-              Whether to enable hints.
-            '';
-          };
+        hints.enabled = mkOption {
+          type = bool;
+          default = true;
+          description = "Whether to enable hints.";
+        };
 
         windows = {
           position = mkOption {
@@ -204,14 +201,11 @@ in {
             description = "The position of the sidebar.";
           };
 
-          wrap =
-            mkEnableOption ""
-            // {
-              default = true;
-              description = ''
-                similar to vim.o.wrap.
-              '';
-            };
+          wrap = mkOption {
+            type = bool;
+            default = true;
+            description = "Whether to enable wrap, similar to vim.o.wrap.";
+          };
 
           width = mkOption {
             type = int;
@@ -223,7 +217,7 @@ in {
             enabled = mkOption {
               type = bool;
               default = true;
-              description = "enable/disable the header.";
+              description = "Whether to enable the sidebar header.";
             };
 
             align = mkOption {
@@ -235,7 +229,7 @@ in {
             rounded = mkOption {
               type = bool;
               default = true;
-              description = "Enable rounded sidebar header";
+              description = "Whether to enable rounded sidebar header.";
             };
           };
 
@@ -249,9 +243,7 @@ in {
             height = mkOption {
               type = int;
               default = 8;
-              description = ''
-                Height of the input window in vertical layout.
-              '';
+              description = "Height of the input window in vertical layout.";
             };
           };
 
@@ -265,9 +257,7 @@ in {
             start_insert = mkOption {
               type = bool;
               default = true;
-              description = ''
-                Start insert mode when opening the edit window.
-              '';
+              description = "Start insert mode when opening the edit window.";
             };
           };
 
@@ -275,17 +265,13 @@ in {
             floating = mkOption {
               type = bool;
               default = false;
-              description = ''
-                Open the 'AvanteAsk' prompt in a floating window.
-              '';
+              description = "Open the 'AvanteAsk' prompt in a floating window.";
             };
 
             start_insert = mkOption {
               type = bool;
               default = true;
-              description = ''
-                Start insert mode when opening the ask window.
-              '';
+              description = "Start insert mode when opening the ask window.";
             };
 
             border = mkOption {
@@ -303,12 +289,11 @@ in {
         };
 
         diff = {
-          autojump =
-            mkEnableOption ""
-            // {
-              default = true;
-              description = "Automatically jumps to the next change.";
-            };
+          autojump = mkOption {
+            type = bool;
+            default = true;
+            description = "Whether to automatically jump to the next change.";
+          };
 
           override_timeoutlen = mkOption {
             type = int;
