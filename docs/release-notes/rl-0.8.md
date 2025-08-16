@@ -492,3 +492,7 @@
 - Fix default [blink.cmp] sources "path" and "buffer" not working when
   `autocomplete.nvim-cmp.enable` was disabled and
   `autocomplete.nvim-cmp.sources` had not been modified.
+
+[KozlekKinski]'https://github.com/KozlekKinski):
+
+- Change `tabstop` and `shiftwidth` default values from 8 to 4
