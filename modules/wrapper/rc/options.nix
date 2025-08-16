@@ -239,7 +239,7 @@ in {
 
           tabstop = mkOption {
             type = int;
-            default = 8; # Neovim default
+            default = 4; # Neovim default
             description = ''
               Number of spaces that a `<Tab>` in the file counts for. Also see
               the {command}`:retab` command, and the {option}`softtabstop` option.
@@ -248,7 +248,7 @@ in {
 
           shiftwidth = mkOption {
             type = int;
-            default = 8; # Neovim default
+            default = 4; # Neovim default
             description = ''
               Number of spaces to use for each step of (auto)indent. Used for
               {option}`cindent`, `>>`, `<<`, etc.
