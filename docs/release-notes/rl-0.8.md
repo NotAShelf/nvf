@@ -486,3 +486,8 @@
 - Add [roslyn-ls] to the `vim.languages.csharp` module.
 
 - Added json support under `vim.languages.json` using [jsonls] and [jsonfmt].
+
+[Morsicus](https://github.com/Morsicus):
+
+- Add [EEx Treesitter Grammar](https://github.com/connorlay/tree-sitter-eex) for Elixir
+- Add [HEEx Treesitter Grammar](https://github.com/phoenixframework/tree-sitter-heex) for Elixir

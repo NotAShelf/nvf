@@ -56,6 +56,8 @@ in {
     treesitter = {
       enable = mkEnableOption "Elixir treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = mkGrammarOption pkgs "elixir";
+      heexPackage = mkGrammarOption pkgs "heex";
+      eexPackage = mkGrammarOption pkgs "eex";
     };
 
     lsp = {
@@ -91,7 +93,11 @@ in {
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      vim.treesitter.grammars = [
+        cfg.treesitter.package
+        cfg.treesitter.heexPackage
+        cfg.treesitter.eexPackage
+      ];
     })
 
     (mkIf cfg.lsp.enable {
