@@ -49,9 +49,9 @@ in {
       enable = mkEnableOption "HTML treesitter support" // {default = config.vim.languages.enableTreesitter;};
       package = mkGrammarOption pkgs "html";
       autotagHtml = mkOption {
-        description = "Enable autoclose/autorename of html tags (nvim-ts-autotag)";
         type = bool;
         default = true;
+        description = "Enable autoclose/autorename of html tags (nvim-ts-autotag)";
       };
     };
 
@@ -68,15 +68,15 @@ in {
       enable = mkEnableOption "HTML formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        description = "HTML formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "HTML formatter to use";
       };
 
       package = mkOption {
-        description = "HTML formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "HTML formatter package";
       };
     };
 
