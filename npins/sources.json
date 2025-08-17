@@ -2432,6 +2432,19 @@
       "url": "https://github.com/nvim-telescope/telescope.nvim/archive/b4da76be54691e854d3e0e02c36b0245f945c2c7.tar.gz",
       "hash": "161qlx099ymi62qsd89srda605ynks1sswx3djamrwqp3dxb9596"
     },
+    "tinted-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "tinted-theming",
+        "repo": "tinted-nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "15033005ca7956aa833c21d4d11594abfc6e7ac1",
+      "url": "https://github.com/tinted-theming/tinted-nvim/archive/15033005ca7956aa833c21d4d11594abfc6e7ac1.tar.gz",
+      "hash": "0zvgsyv1myd8qayvhlzsnn3k6d3gn7af5g0b43chiphh99iw921g"
+    },
     "tiny-devicons-auto-colors-nvim": {
       "type": "Git",
       "repository": {
