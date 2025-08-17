@@ -7,7 +7,7 @@
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryAfter;
 
-  cfg = config.vim.utility.qmk;
+  cfg = config.vim.utility.qmk-nvim;
 in {
   config = mkIf cfg.enable {
     vim = {

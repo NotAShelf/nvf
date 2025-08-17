@@ -3,7 +3,7 @@
   inherit (lib.types) attrsOf nullOr enum lines str;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
-  options.vim.utility.qmk = {
+  options.vim.utility.qmk-nvim = {
     enable = mkEnableOption "QMK and ZMK keymaps in nvim";
 
     setupOpts = mkPluginSetupOption "qmk.nvim" {

@@ -192,7 +192,7 @@ isMaximal: {
       vim-wakatime.enable = false;
       diffview-nvim.enable = true;
       yanky-nvim.enable = false;
-      qmk.enable = false; # requires hardware specific options
+      qmk-nvim.enable = false; # requires hardware specific options
       icon-picker.enable = isMaximal;
       surround.enable = isMaximal;
       leetcode-nvim.enable = isMaximal;
