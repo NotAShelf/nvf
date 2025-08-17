@@ -682,30 +682,33 @@ used for topologically sorting strings. The DAG type allows the attribute set
 entries to express dependency relations among themselves. This can, for example,
 be used to control the order of configuration sections in your <code class="literal">luaConfigRC</code>.</p><p>The below section, mostly taken from the
 <a class="link" href="https://raw.githubusercontent.com/nix-community/home-manager/master/docs/manual/writing-modules/types.md"  target="_top">home-manager manual</a>
-explains in more detail the overall usage logic of the DAG type.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-types-dag-entryAnywhere" class="title" style="clear: both">entryAnywhere   </h2>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p><code class="literal">lib.dag.entryAnywhere (value: T) : DagEntry&lt;T&gt;</code></p></blockquote></div><p>Indicates that <code class="literal">value</code> can be placed anywhere within the DAG. This is also the
-default for plain attribute set entries, that is</p><pre><code class="programlisting nix">foo.bar = {
-  a = lib.dag.entryAnywhere 0;
+explains in more detail the overall usage logic of the DAG type.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-types-dag-entryAnywhere" class="title" style="clear: both">entryAnywhere   </h2>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p><code class="literal">nvf.lib.nvim.dag.entryAnywhere (value: T) : DagEntry&lt;T&gt;</code></p></blockquote></div><p>Indicates that <code class="literal">value</code> can be placed anywhere within the DAG. This is also the
+default for plain attribute set entries, that is</p><pre><code class="programlisting nix"># For &#x27;nvf&#x27; to be available in module&#x27;s arguments,
+# it needs to be inherited from imports in the modules array as:
+# modules = [{ _module.args = { inherit nvf; }; } ...]; 
+foo.bar = {
+  a = nvf.lib.nvim.dag.entryAnywhere 0;
 }
 </code></pre><p>and</p><pre><code class="programlisting nix">foo.bar = {
   a = 0;
 }
 </code></pre><p>are equivalent.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="ch-types-dag-entryAfter" class="title" style="clear: both">entryAfter   </h2>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p><code class="literal">lib.dag.entryAfter (afters: list string) (value: T) : DagEntry&lt;T&gt;</code></p></blockquote></div><p>Indicates that <code class="literal">value</code> must be placed <span class="emphasis"><em>after</em></span> each of the attribute names in the
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="ch-types-dag-entryAfter" class="title" style="clear: both">entryAfter   </h2>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p><code class="literal">nvf.lib.nvim.dag.entryAfter (afters: list string) (value: T) : DagEntry&lt;T&gt;</code></p></blockquote></div><p>Indicates that <code class="literal">value</code> must be placed <span class="emphasis"><em>after</em></span> each of the attribute names in the
 given list. For example</p><pre><code class="programlisting nix">foo.bar = {
   a = 0;
-  b = lib.dag.entryAfter [ &quot;a&quot; ] 1;
+  b = nvf.lib.nvim.dag.entryAfter [ &quot;a&quot; ] 1;
 }
 </code></pre><p>would place <code class="literal">b</code> after <code class="literal">a</code> in the graph.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="ch-types-dag-entryBefore" class="title" style="clear: both">entryBefore   </h2>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p><code class="literal">lib.dag.entryBefore (befores: list string) (value: T) : DagEntry&lt;T&gt;</code></p></blockquote></div><p>Indicates that <code class="literal">value</code> must be placed <span class="emphasis"><em>before</em></span> each of the attribute names in
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="ch-types-dag-entryBefore" class="title" style="clear: both">entryBefore   </h2>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p><code class="literal">nvf.lib.nvim.dag.entryBefore (befores: list string) (value: T) : DagEntry&lt;T&gt;</code></p></blockquote></div><p>Indicates that <code class="literal">value</code> must be placed <span class="emphasis"><em>before</em></span> each of the attribute names in
 the given list. For example</p><pre><code class="programlisting nix">foo.bar = {
-  b = lib.dag.entryBefore [ &quot;a&quot; ] 1;
+  b = nvf.lib.nvim.dag.entryBefore [ &quot;a&quot; ] 1;
   a = 0;
 }
 </code></pre><p>would place <code class="literal">b</code> before <code class="literal">a</code> in the graph.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-types-dag-entryBetween" class="title" style="clear: both">entryBetween   </h2>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p><code class="literal">lib.dag.entryBetween (befores: list string) (afters: list string) (value: T) : DagEntry&lt;T&gt;</code></p></blockquote></div><p>Indicates that <code class="literal">value</code> must be placed <span class="emphasis"><em>before</em></span> the attribute names in the first
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-types-dag-entryBetween" class="title" style="clear: both">entryBetween   </h2>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p><code class="literal">nvf.lib.nvim.dag.entryBetween (befores: list string) (afters: list string) (value: T) : DagEntry&lt;T&gt;</code></p></blockquote></div><p>Indicates that <code class="literal">value</code> must be placed <span class="emphasis"><em>before</em></span> the attribute names in the first
 list and <span class="emphasis"><em>after</em></span> the attribute names in the second list. For example</p><pre><code class="programlisting nix">foo.bar = {
   a = 0;
-  c = lib.dag.entryBetween [ &quot;b&quot; ] [ &quot;a&quot; ] 2;
+  c = nvf.lib.nvim.dag.entryBetween [ &quot;b&quot; ] [ &quot;a&quot; ] 2;
   b = 1;
 }
 </code></pre><p>would place <code class="literal">c</code> before <code class="literal">b</code> and after <code class="literal">a</code> in the graph.</p><p>There are also a set of functions that generate a DAG from a list. These are
@@ -713,42 +716,42 @@ convenient when you just want to have a linear list of DAG entries, without
 having to manually enter the relationship between each entry. Each of these
 functions take a <code class="literal">tag</code> as argument and the DAG entries will be named
 <code class="literal">${tag}-${index}</code>.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-types-dag-entriesAnywhere" class="title" style="clear: both">entriesAnywhere   </h2>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p><code class="literal">lib.dag.entriesAnywhere (tag: string) (values: [T]) : Dag&lt;T&gt;</code></p></blockquote></div><p>Creates a DAG with the given values with each entry labeled using the given tag.
-For example</p><pre><code class="programlisting nix">foo.bar = lib.dag.entriesAnywhere &quot;a&quot; [ 0 1 ];
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-types-dag-entriesAnywhere" class="title" style="clear: both">entriesAnywhere   </h2>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p><code class="literal">nvf.lib.nvim.dag.entriesAnywhere (tag: string) (values: [T]) : Dag&lt;T&gt;</code></p></blockquote></div><p>Creates a DAG with the given values with each entry labeled using the given tag.
+For example</p><pre><code class="programlisting nix">foo.bar = nvf.lib.nvim.dag.entriesAnywhere &quot;a&quot; [ 0 1 ];
 </code></pre><p>is equivalent to</p><pre><code class="programlisting nix">foo.bar = {
   a-0 = 0;
-  a-1 = lib.dag.entryAfter [ &quot;a-0&quot; ] 1;
+  a-1 = nvf.lib.nvim.dag.entryAfter [ &quot;a-0&quot; ] 1;
 }
 </code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-types-dag-entriesAfter" class="title" style="clear: both">entriesAfter   </h2>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p><code class="literal">lib.dag.entriesAfter (tag: string) (afters: list string) (values: [T]) : Dag&lt;T&gt;</code></p></blockquote></div><p>Creates a DAG with the given values with each entry labeled using the given tag.
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-types-dag-entriesAfter" class="title" style="clear: both">entriesAfter   </h2>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p><code class="literal">nvf.lib.nvim.dag.entriesAfter (tag: string) (afters: list string) (values: [T]) : Dag&lt;T&gt;</code></p></blockquote></div><p>Creates a DAG with the given values with each entry labeled using the given tag.
 The list of values are placed are placed <span class="emphasis"><em>after</em></span> each of the attribute names in
 <code class="literal">afters</code>. For example</p><pre><code class="programlisting nix">foo.bar =
-  { b = 0; } // lib.dag.entriesAfter &quot;a&quot; [ &quot;b&quot; ] [ 1 2 ];
+  { b = 0; } // nvf.lib.nvim.dag.entriesAfter &quot;a&quot; [ &quot;b&quot; ] [ 1 2 ];
 </code></pre><p>is equivalent to</p><pre><code class="programlisting nix">foo.bar = {
   b = 0;
-  a-0 = lib.dag.entryAfter [ &quot;b&quot; ] 1;
-  a-1 = lib.dag.entryAfter [ &quot;a-0&quot; ] 2;
+  a-0 = nvf.lib.nvim.dag.entryAfter [ &quot;b&quot; ] 1;
+  a-1 = nvf.lib.nvim.dag.entryAfter [ &quot;a-0&quot; ] 2;
 }
 </code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-types-dag-entriesBefore" class="title" style="clear: both">entriesBefore   </h2>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p><code class="literal">lib.dag.entriesBefore (tag: string) (befores: list string) (values: [T]) : Dag&lt;T&gt;</code></p></blockquote></div><p>Creates a DAG with the given values with each entry labeled using the given tag.
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-types-dag-entriesBefore" class="title" style="clear: both">entriesBefore   </h2>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p><code class="literal">nvf.lib.nvim.dag.entriesBefore (tag: string) (befores: list string) (values: [T]) : Dag&lt;T&gt;</code></p></blockquote></div><p>Creates a DAG with the given values with each entry labeled using the given tag.
 The list of values are placed <span class="emphasis"><em>before</em></span> each of the attribute names in <code class="literal">befores</code>.
 For example</p><pre><code class="programlisting nix">foo.bar =
-  { b = 0; } // lib.dag.entriesBefore &quot;a&quot; [ &quot;b&quot; ] [ 1 2 ];
+  { b = 0; } // nvf.lib.nvim.dag.entriesBefore &quot;a&quot; [ &quot;b&quot; ] [ 1 2 ];
 </code></pre><p>is equivalent to</p><pre><code class="programlisting nix">foo.bar = {
   b = 0;
   a-0 = 1;
-  a-1 = lib.dag.entryBetween [ &quot;b&quot; ] [ &quot;a-0&quot; ] 2;
+  a-1 = nvf.lib.nvim.dag.entryBetween [ &quot;b&quot; ] [ &quot;a-0&quot; ] 2;
 }
 </code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-types-dag-entriesBetween" class="title" style="clear: both">entriesBetween   </h2>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p><code class="literal">lib.dag.entriesBetween (tag: string) (befores: list string) (afters: list string) (values: [T]) : Dag&lt;T&gt;</code></p></blockquote></div><p>Creates a DAG with the given values with each entry labeled using the given tag.
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-types-dag-entriesBetween" class="title" style="clear: both">entriesBetween   </h2>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p><code class="literal">nvf.lib.nvim.dag.entriesBetween (tag: string) (befores: list string) (afters: list string) (values: [T]) : Dag&lt;T&gt;</code></p></blockquote></div><p>Creates a DAG with the given values with each entry labeled using the given tag.
 The list of values are placed <span class="emphasis"><em>before</em></span> each of the attribute names in <code class="literal">befores</code>
 and <span class="emphasis"><em>after</em></span> each of the attribute names in <code class="literal">afters</code>. For example</p><pre><code class="programlisting nix">foo.bar =
-  { b = 0; c = 3; } // lib.dag.entriesBetween &quot;a&quot; [ &quot;b&quot; ] [ &quot;c&quot; ] [ 1 2 ];
+  { b = 0; c = 3; } // nvf.lib.nvim.dag.entriesBetween &quot;a&quot; [ &quot;b&quot; ] [ &quot;c&quot; ] [ 1 2 ];
 </code></pre><p>is equivalent to</p><pre><code class="programlisting nix">foo.bar = {
   b = 0;
   c = 3;
-  a-0 = lib.dag.entryAfter [ &quot;c&quot; ] 1;
-  a-1 = lib.dag.entryBetween [ &quot;b&quot; ] [ &quot;a-0&quot; ] 2;
+  a-0 = nvf.lib.nvim.dag.entryAfter [ &quot;c&quot; ] 1;
+  a-1 = nvf.lib.nvim.dag.entryBetween [ &quot;b&quot; ] [ &quot;a-0&quot; ] 2;
 }
 </code></pre>
 </div>
