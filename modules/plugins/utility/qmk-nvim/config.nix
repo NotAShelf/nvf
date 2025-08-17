@@ -20,7 +20,7 @@ in {
 
     assertions = [
       {
-        assertion = cfg.setupOpts.variant != "zmk" && cfg.setupOpts.comment_preview.position != "inside";
+        assertion = cfg.setupOpts.variant == "qmk" && cfg.setupOpts.comment_preview.position != "inside";
         message = "comment_preview.position can only be set to inside when using the qmk layoyt";
       }
       {
