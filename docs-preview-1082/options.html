@@ -17928,6 +17928,187 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.languages.html.extraDiagnostics.enable"></a><a class="term" href="options.html#opt-vim.languages.html.extraDiagnostics.enable"><code class="option">vim.languages.html.extraDiagnostics.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable extra HTML diagnostics.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/html.nix" target="_top">
+&lt;nvf/modules/plugins/languages/html.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.html.extraDiagnostics.types"></a><a class="term" href="options.html#opt-vim.languages.html.extraDiagnostics.types"><code class="option">vim.languages.html.extraDiagnostics.types</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>List of HTML diagnostics to enable</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+list of (value “htmlhint” (singular enum) or (submodule))</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
+  &quot;htmlhint&quot;
+]
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/html.nix" target="_top">
+&lt;nvf/modules/plugins/languages/html.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.html.format.enable"></a><a class="term" href="options.html#opt-vim.languages.html.format.enable"><code class="option">vim.languages.html.format.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable HTML formatting.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/html.nix" target="_top">
+&lt;nvf/modules/plugins/languages/html.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.html.format.package"></a><a class="term" href="options.html#opt-vim.languages.html.format.package"><code class="option">vim.languages.html.format.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>HTML formatter package</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation superhtml_fmt&gt;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/html.nix" target="_top">
+&lt;nvf/modules/plugins/languages/html.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.html.format.type"></a><a class="term" href="options.html#opt-vim.languages.html.format.type"><code class="option">vim.languages.html.format.type</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>HTML formatter to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+value “superhtml” (singular enum)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;superhtml&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/html.nix" target="_top">
+&lt;nvf/modules/plugins/languages/html.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.html.lsp.enable"></a><a class="term" href="options.html#opt-vim.languages.html.lsp.enable"><code class="option">vim.languages.html.lsp.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable HTML LSP support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/html.nix" target="_top">
+&lt;nvf/modules/plugins/languages/html.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.html.lsp.servers"></a><a class="term" href="options.html#opt-vim.languages.html.lsp.servers"><code class="option">vim.languages.html.lsp.servers</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>HTML LSP server to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+(list of value “superhtml” (singular enum)) or value “superhtml” (singular enum) convertible to it</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
+  &quot;superhtml&quot;
+]
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/html.nix" target="_top">
+&lt;nvf/modules/plugins/languages/html.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.languages.html.treesitter.enable"></a><a class="term" href="options.html#opt-vim.languages.html.treesitter.enable"><code class="option">vim.languages.html.treesitter.enable</code>
   </a>
  </span>
