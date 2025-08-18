@@ -1,6 +1,6 @@
 {
   imports = [
     ./config.nix
-    ./qmk.nix
+    ./qmk-nvim.nix
   ];
 }
