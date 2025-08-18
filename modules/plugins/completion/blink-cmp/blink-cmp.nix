@@ -60,7 +60,11 @@ in {
 
       completion = {
         documentation = {
-          auto_show = mkBool true "Show documentation whenever an item is selected";
+          auto_show = mkOption {
+            type = either bool luaInline;
+            default = true;
+            description = "Show documentation whenever an item is selected. Can also be a function.";
+          };
           auto_show_delay_ms = mkOption {
             type = int;
             default = 200;
@@ -69,12 +73,13 @@ in {
         };
 
         menu.auto_show = mkOption {
-          type = bool;
+          type = either bool luaInline;
           default = true;
           description = ''
             Manages the appearance of the completion menu. You may prevent the menu
-            from automatically showing by this option to `false` and manually showing
-            it with the show keymap command.
+            from automatically showing by setting this to `false` and manually showing 
+            it with the show keymap command. For more control you can also use a `luaInline`
+            expression with mkLuaInline.
           '';
         };
       };
