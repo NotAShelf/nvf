@@ -6,7 +6,7 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.meta) getExe;
+  inherit (lib.meta) getExe' getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum package;
   inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
@@ -17,7 +17,7 @@
   defaultServers = ["jsonls"];
   servers = {
     jsonls = {
-      cmd = [(getExe pkgs.vscode-json-languageserver) "--stdio"];
+      cmd = [(getExe' pkgs.vscode-langservers-extracted "vscode-json-languageserver") "--stdio"];
       filetypes = ["json" "jsonc"];
       init_options = {provideFormatter = true;};
       root_markers = [".git"];
@@ -37,7 +37,7 @@
   };
 in {
   options.vim.languages.json = {
-    enable = mkEnableOption "JSON langauge support";
+    enable = mkEnableOption "JSON language support";
 
     treesitter = {
       enable = mkEnableOption "JSON treesitter" // {default = config.vim.languages.enableTreesitter;};
