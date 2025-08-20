@@ -480,11 +480,14 @@
 [roslyn-ls]: https://github.com/dotnet/vscode-csharp
 [jsonls]: https://github.com/microsoft/vscode/tree/1.101.2/extensions/json-language-features/server
 [jsonfmt]: https://github.com/caarlos0/jsonfmt
+[superhtml]: https://github.com/kristoff-it/superhtml
+[htmlHTML]: https://github.com/htmlhint/HTMLHint
+[qmk-nvim]: https://github.com/codethread/qmk.nvim
 
 - Add just support under `vim.languages.just` using [just-lsp].
-
 - Add [roslyn-ls] to the `vim.languages.csharp` module.
-
-- Added json support under `vim.languages.json` using [jsonls] and [jsonfmt].
-
-- Add flake formatter type to the nix language module.
+- Add JSON support under `vim.languages.json` using [jsonls] and [jsonfmt].
+- Add advanced HTML support under `vim.languages.html` using [superhtml] and
+  [htmlHINT].
+- Add QMK support under `vim.utility.qmk-nvim` via [qmk-nvim].
+- Add flake formatter to the `vim.languages.nix` module.
