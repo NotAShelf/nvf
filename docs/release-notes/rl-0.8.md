@@ -482,12 +482,11 @@
 [jsonfmt]: https://github.com/caarlos0/jsonfmt
 [superhtml]: https://github.com/kristoff-it/superhtml
 [htmlHTML]: https://github.com/htmlhint/HTMLHint
+[qmk-nvim]: https://github.com/codethread/qmk.nvim
 
 - Add just support under `vim.languages.just` using [just-lsp].
-
 - Add [roslyn-ls] to the `vim.languages.csharp` module.
-
-- Added json support under `vim.languages.json` using [jsonls] and [jsonfmt].
-
-- Added advanced HTML support with [superhtml] for lsp and formatting and
-  [htmlHINT] for diagnostics.
+- Add JSON support under `vim.languages.json` using [jsonls] and [jsonfmt].
+- Add advanced HTML support under `vim.languages.html` using [superhtml] and
+  [htmlHINT].
+- Add QMK support under `vim.utility.qmk-nvim` via [qmk-nvim].
