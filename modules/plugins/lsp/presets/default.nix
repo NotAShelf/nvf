@@ -6,6 +6,7 @@
     ./astro-language-server.nix
     ./basedpyright.nix
     ./bash-language-server.nix
+    ./beancount-language-server.nix
     ./ccls.nix
     ./clangd.nix
     ./clojure-lsp.nix
