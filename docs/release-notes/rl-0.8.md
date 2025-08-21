@@ -484,13 +484,6 @@
 - fix broken `neorg` grammars
 - remove obsolete warning in the `otter` module
 
-[Cool-Game-Dev](https://github.com/Cool-Game-Dev):
-
-[nvim-biscuits]: https://github.com/code-biscuits/nvim-biscuits
-
-- Add [nvim-biscuits] to show block context. Available at
-  `vim.utility.nvim-biscuits`.
-
 [JManch](https://github.com/JManch):
 
 - Fix default [blink.cmp] sources "path" and "buffer" not working when
@@ -499,6 +492,7 @@
 
 [Cool-Game-Dev](https://github.com/Cool-Game-Dev):
 
+[nvim-biscuits]: https://github.com/code-biscuits/nvim-biscuits
 [just-lsp]: https://github.com/terror/just-lsp
 [roslyn-ls]: https://github.com/dotnet/vscode-csharp
 [jsonls]: https://github.com/microsoft/vscode/tree/1.101.2/extensions/json-language-features/server
@@ -509,6 +503,7 @@
 [qmlls]: https://doc.qt.io/qt-6/qtqml-tooling-qmlls.html
 [qmlformat]: https://doc.qt.io/qt-6/qtqml-tooling-qmlformat.html
 
+- Add [nvim-biscuits] support under `vim.utility.nvim-biscuits`.
 - Add just support under `vim.languages.just` using [just-lsp].
 - Add [roslyn-ls] to the `vim.languages.csharp` module.
 - Add JSON support under `vim.languages.json` using [jsonls] and [jsonfmt].
