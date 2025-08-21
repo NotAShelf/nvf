@@ -30,6 +30,7 @@ in {
     ./ocaml.nix
     ./php.nix
     ./python.nix
+    ./qml.nix
     ./r.nix
     ./rust.nix
     ./scala.nix

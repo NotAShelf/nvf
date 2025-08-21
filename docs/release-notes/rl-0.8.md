@@ -483,6 +483,8 @@
 [superhtml]: https://github.com/kristoff-it/superhtml
 [htmlHINT]: https://github.com/htmlhint/HTMLHint
 [qmk-nvim]: https://github.com/codethread/qmk.nvim
+[qmlls]: https://doc.qt.io/qt-6/qtqml-tooling-qmlls.html
+[qmlformat]: https://doc.qt.io/qt-6/qtqml-tooling-qmlformat.html
 
 - Add just support under `vim.languages.just` using [just-lsp].
 - Add [roslyn-ls] to the `vim.languages.csharp` module.
@@ -490,3 +492,4 @@
 - Add advanced HTML support under `vim.languages.html` using [superhtml] and
   [htmlHINT].
 - Add QMK support under `vim.utility.qmk-nvim` via [qmk-nvim].
+- Add QML support under `vim.languages.qml` using [qmlls] and [qmlformat]
