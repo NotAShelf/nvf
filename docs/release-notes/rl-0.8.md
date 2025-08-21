@@ -319,6 +319,7 @@
 - Add global function `nvf_lint` under
   `vim.diagnostics.nvim-lint.lint_function`.
 - Deprecate `vim.scrollOffset` in favor of `vim.options.scrolloff`.
+- Fix `svelte-language-server` not reloading TS/JS files on change.
 
 [Sc3l3t0n](https://github.com/Sc3l3t0n):
 

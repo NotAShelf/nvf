@@ -22,7 +22,20 @@
       lspConfig = ''
         lspconfig.svelte.setup {
           capabilities = capabilities;
-          on_attach = attach_keymaps,
+          on_attach = function(client, bufnr)
+            -- Workaround to trigger reloading JS/TS files
+            -- See https://github.com/sveltejs/language-tools/issues/2008
+            vim.api.nvim_create_autocmd('BufWritePost', {
+              pattern = { '*.js', '*.ts' },
+              group = vim.api.nvim_create_augroup('svelte_js_ts_file_watch', {}),
+              callback = function(ctx)
+                -- internal API to sync changes that have not yet been saved to the file system
+                client:notify('$/onDidChangeTsOrJsFile', { uri = ctx.match })
+              end,
+            })
+
+            attach_keymaps(client, bufnr)
+          end,
           cmd = ${
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
