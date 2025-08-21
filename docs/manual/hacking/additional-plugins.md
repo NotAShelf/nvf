@@ -165,15 +165,33 @@ own fields!
 
 ## Details of toLuaObject {#sec-details-of-toluaobject}
 
-As you've seen above, `toLuaObject` is used to convert our nix attrSet
-`cfg.setupOpts`, into a lua table. Here are some rules of the conversion:
+As you've seen above, `toLuaObject` is used to convert our `cfg.setupOpts`, a
+Nix attribute set, into Lua tables across the codebase. Here are some rules of
+the conversion:
 
-1. Nix `null` converts to lua `nil`
-2. Number and strings convert to their lua counterparts
+1. Nix `null` converts to Lua `nil`
+   - `foo = null;` -> `foo = nil`
+2. Number and strings convert to their Lua counterparts
 3. Nix attribute sets (`{}`) and lists (`[]`) convert into Lua dictionaries and
    tables respectively. Here is an example of Nix -> Lua conversion.
    - `{foo = "bar"}` -> `{["foo"] = "bar"}`
    - `["foo" "bar"]` -> `{"foo", "bar"}`
+   - You may also write **mixed tables** using `toLuaObject`, using a special
+     syntax to describe a key's position in the table. Let's say you want to get
+     something like `{"foo", bar = "baz"}` expressed in Lua using Nix. The
+     appropriate Nix syntax to express mixed tables is as follows:
+
+     ```nix
+     # Notice the position indicator, "@1"
+     { "@1" = "foo"; bar = "baz"; };
+     ```
+
+     This will result in a mixed Lua table that is as follows:
+
+     ```lua
+     {"foo", bar = "baz"}
+     ```
+
 4. You can write raw Lua code using `lib.generators.mkLuaInline`. This function
    is part of nixpkgs, and is accessible without relying on **nvf**'s extended
    library.
