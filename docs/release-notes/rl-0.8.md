@@ -506,8 +506,14 @@
 - Add [nvim-biscuits] support under `vim.utility.nvim-biscuits`.
 - Add just support under `vim.languages.just` using [just-lsp].
 - Add [roslyn-ls] to the `vim.languages.csharp` module.
+- Added json support under `vim.languages.json` using [jsonls] and [jsonfmt].
 - Add JSON support under `vim.languages.json` using [jsonls] and [jsonfmt].
 - Add advanced HTML support under `vim.languages.html` using [superhtml] and
   [htmlHINT].
 - Add QMK support under `vim.utility.qmk-nvim` via [qmk-nvim].
 - Add QML support under `vim.languages.qml` using [qmlls] and [qmlformat]
+
+[Morsicus](https://github.com/Morsicus):
+
+- Add [EEx Treesitter Grammar](https://github.com/connorlay/tree-sitter-eex) for Elixir
+- Add [HEEx Treesitter Grammar](https://github.com/phoenixframework/tree-sitter-heex) for Elixir
