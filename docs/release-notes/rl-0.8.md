@@ -517,3 +517,10 @@
 
 - Add [EEx Treesitter Grammar](https://github.com/connorlay/tree-sitter-eex) for Elixir
 - Add [HEEx Treesitter Grammar](https://github.com/phoenixframework/tree-sitter-heex) for Elixir
+
+[gmvar](https://github.com/gmvar):
+
+[beancount-language-server]: https://github.com/polarmutex/beancount-language-server
+[bean-format]: https://github.com/beancount/beancount
+
+- Add beancount support under `vim.languages.beancount` using [beancount-language-server] and [bean-format].
