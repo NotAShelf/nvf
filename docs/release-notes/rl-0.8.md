@@ -492,4 +492,4 @@
 - Add advanced HTML support under `vim.languages.html` using [superhtml] and
   [htmlHINT].
 - Add QMK support under `vim.utility.qmk-nvim` via [qmk-nvim].
-- Add QML support under `vim.languages.just` using [qmlls] and [qmlformat]
+- Add QML support under `vim.languages.qml` using [qmlls] and [qmlformat]
