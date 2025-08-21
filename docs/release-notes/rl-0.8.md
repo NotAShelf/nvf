@@ -490,7 +490,7 @@
   `autocomplete.nvim-cmp.enable` was disabled and
   `autocomplete.nvim-cmp.sources` had not been modified.
 
-[Cool-Game-Dev](https://github.com/Cool-Game-Dev):
+[Poseidon](https://github.com/poseidon-rises):
 
 [nvim-biscuits]: https://github.com/code-biscuits/nvim-biscuits
 [just-lsp]: https://github.com/terror/just-lsp
