@@ -21034,6 +21034,212 @@ package</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-vim.languages.qml.enable"></a><a class="term" href="options.html#opt-vim.languages.qml.enable"><code class="option">vim.languages.qml.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable QML language support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/qml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/qml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.qml.format.enable"></a><a class="term" href="options.html#opt-vim.languages.qml.format.enable"><code class="option">vim.languages.qml.format.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable QML formatting.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/qml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/qml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.qml.format.package"></a><a class="term" href="options.html#opt-vim.languages.qml.format.package"><code class="option">vim.languages.qml.format.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>QML formatter package</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&lt;derivation qmlformat&gt;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/qml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/qml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.qml.format.type"></a><a class="term" href="options.html#opt-vim.languages.qml.format.type"><code class="option">vim.languages.qml.format.type</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>QML formatter to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+value “qmlformat” (singular enum)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;qmlformat&quot;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/qml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/qml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.qml.lsp.enable"></a><a class="term" href="options.html#opt-vim.languages.qml.lsp.enable"><code class="option">vim.languages.qml.lsp.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable QML LSP support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/qml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/qml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.qml.lsp.servers"></a><a class="term" href="options.html#opt-vim.languages.qml.lsp.servers"><code class="option">vim.languages.qml.lsp.servers</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>QML LSP server to use</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+(list of value “qmlls” (singular enum)) or value “qmlls” (singular enum) convertible to it</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
+  &quot;qmlls&quot;
+]
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/qml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/qml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.qml.treesitter.enable"></a><a class="term" href="options.html#opt-vim.languages.qml.treesitter.enable"><code class="option">vim.languages.qml.treesitter.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable QML treesitter support.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/qml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/qml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.qml.treesitter.package"></a><a class="term" href="options.html#opt-vim.languages.qml.treesitter.package"><code class="option">vim.languages.qml.treesitter.package</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The qmljs treesitter package to use.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+package</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">pkgs.vimPlugins.nvim-treesitter.builtGrammars.qmljs</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/qml.nix" target="_top">
+&lt;nvf/modules/plugins/languages/qml.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-vim.languages.r.enable"></a><a class="term" href="options.html#opt-vim.languages.r.enable"><code class="option">vim.languages.r.enable</code>
   </a>
  </span>
