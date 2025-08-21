@@ -7,6 +7,7 @@ in {
     ./asm.nix
     ./astro.nix
     ./bash.nix
+    ./beancount.nix
     ./cue.nix
     ./dart.nix
     ./clang.nix

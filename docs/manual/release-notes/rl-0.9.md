@@ -60,7 +60,7 @@
   following:
 
   ```shell
-  (class: "nixos") cannot be imported into a module 
+  (class: "nixos") cannot be imported into a module
   evaluation that expects class "darwin".
   ```
 
@@ -293,5 +293,13 @@ https://github.com/gorbit99/codewindow.nvim
 [alv-around](https://github.com/alv-around):
 
 - Fix `vim.assistant.codecompanion-nvim` lazy loading with [blink-cmp]
+
+[gmvar](https://github.com/gmvar):
+
+[beancount-language-server]: https://github.com/polarmutex/beancount-language-server
+[bean-format]: https://github.com/beancount/beancount
+
+- Add beancount support under `vim.languages.beancount` using
+  [beancount-language-server] and [bean-format].
 
 <!-- vim: set textwidth=80: -->
