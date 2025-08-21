@@ -1,4 +1,5 @@
 {
+  pins,
   openssl,
   pkg-config,
   rustPlatform,
@@ -6,11 +7,17 @@
   vimUtils,
   makeWrapper,
   pkgs,
-  version,
-  src,
   ...
 }: let
-  inherit version src;
+  # From npins
+  pin = pins.avante-nvim;
+  version = pin.branch;
+  src = pkgs.fetchFromGitHub {
+    inherit (pin.repository) owner repo;
+    rev = pin.revision;
+    sha256 = pin.hash;
+  };
+
   avante-nvim-lib = rustPlatform.buildRustPackage {
     pname = "avante-nvim-lib";
     inherit version src;
@@ -48,10 +55,9 @@ in
       ext = stdenv.hostPlatform.extensions.sharedLibrary;
     in ''
       mkdir -p $out/build
-      ln -s ${avante-nvim-lib}/lib/libavante_repo_map${ext} $out/build/avante_repo_map${ext}
-      ln -s ${avante-nvim-lib}/lib/libavante_templates${ext} $out/build/avante_templates${ext}
-      ln -s ${avante-nvim-lib}/lib/libavante_tokenizers${ext} $out/build/avante_tokenizers${ext}
-      ln -s ${avante-nvim-lib}/lib/libavante_html2md${ext} $out/build/avante_html2md${ext}
+      for lib in "avante_repo_map" "avante_templates" "avante_tokenizers" "avante_html2md"; do
+        ln -s ${avante-nvim-lib}/lib/lib$lib${ext} $out/build/$lib${ext}
+      done
     '';
 
     nvimSkipModules = [

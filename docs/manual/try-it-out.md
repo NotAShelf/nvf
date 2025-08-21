@@ -5,19 +5,20 @@ installing it to your machine. Below are the commands you may run to try out
 different configurations provided by this flake. As of v0.5, two specialized
 configurations are provided:
 
-- **Nix** - Nix language server + simple utility plugins
-- **Maximal** - Variable language servers + utility and decorative plugins
+- **Nix** (`packages.nix`) - Nix language server + simple utility plugins
+- **Maximal** (`packages.maximal`) - Variable language servers + utility and
+  decorative plugins
 
 You may try out any of the provided configurations using the `nix run` command
 on a system where Nix is installed.
 
-```bash
+```sh
 $ cachix use nvf                   # Optional: it'll save you CPU resources and time
-$ nix run github:notashelf/nvf#nix # will run the default minimal configuration
+$ nix run github:notashelf/nvf#nix # Will run the default minimal configuration
 ```
 
-Do keep in mind that this is **susceptible to garbage collection** meaning it
-will be removed from your Nix store once you garbage collect.
+Do keep in mind that this is **susceptible to garbage collection** meaning that
+the built outputs will be removed from your Nix store once you garbage collect.
 
 ## Using Prebuilt Configs {#sec-using-prebuilt-configs}
 
@@ -65,6 +66,7 @@ companion or fun plugins.
 ::: {.warning}
 
 Running the maximal config will download _a lot_ of packages as it is
-downloading language servers, formatters, and more.
+downloading language servers, formatters, and more. If CPU time and bandwidth
+are concerns, please use the default package instead.
 
 :::

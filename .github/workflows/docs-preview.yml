@@ -28,7 +28,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@main
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set default git branch (to reduce log spam)
         run: git config --global init.defaultBranch main
@@ -127,7 +127,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Delete preview for closed/merged PR
         run: |
@@ -164,7 +164,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Double check preview directory deletion
         run: |

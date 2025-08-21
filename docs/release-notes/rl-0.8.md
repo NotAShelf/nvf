@@ -35,7 +35,10 @@
 [yanky.nvim]: https://github.com/gbprod/yanky.nvim
 [yazi.nvim]: https://github.com/mikavilpas/yazi.nvim
 [snacks.nvim]: https://github.com/folke/snacks.nvim
+[colorful-menu.nvim]: https://github.com/xzbdmw/colorful-menu.nvim
 [oil.nvim]: https://github.com/stevearc/oil.nvim
+[hunk.nvim]: https://github.com/julienvincent/hunk.nvim
+[undotree]: https://github.com/mbbill/undotree
 
 - Add [typst-preview.nvim] under
   `languages.typst.extensions.typst-preview-nvim`.
@@ -93,9 +96,10 @@
 
 - Lazyload Lspsaga and remove default keybindings for it.
 
+- Add [colorful-menu.nvim] to enhance the completion menus, with optional
+  integration for blink-cmp and nvim-cmp
 - Add [oil.nvim] as an alternative file explorer. It will be available under
   `vim.utility.oil-nvim`.
-
 - Add `vim.diagnostics` to interact with Neovim's diagnostics module. Available
   options for `vim.diagnostic.config()` can now be customized through the
   [](#opt-vim.diagnostics.config) in nvf.
@@ -104,6 +108,8 @@
   relevant packages in a simple UI.
   - This deprecates `vim.useSystemClipboard` as well, see breaking changes
     section above for migration options.
+- Add [hunk.nvim], Neovim plugin & tool for splitting diffs in Neovim. Available
+  as `vim.git.hunk-nvim`
 
 [amadaluzia](https://github.com/amadaluzia):
 
@@ -434,7 +440,7 @@
 
 - Add missing `transparent` option for existing
   [onedark.nvim](https://github.com/navarasu/onedark.nvim) theme.
-  
+
 [theutz](https://github.com/theutz):
 
 - Added "auto" flavour for catppuccin theme
@@ -446,19 +452,21 @@
 [neogit]: https://github.com/NeogitOrg/neogit
 
 - Add [solarized.nvim] theme with support for multiple variants
-- Add [smart-splits.nvim] for navigating between Neovim windows and terminal multiplexer panes.
-  Available at `vim.utility.smart-splits`.
-- Restore vim-dirtytalk plugin and fix ordering with spellcheck in generated config.
+- Add [smart-splits.nvim] for navigating between Neovim windows and terminal
+  multiplexer panes. Available at `vim.utility.smart-splits`.
+- Restore vim-dirtytalk plugin and fix ordering with spellcheck in generated
+  config.
 - Fix lualine separator options
-- Add [neogit], an interactive and powerful Git interface for Neovim, inspired by Magit
+- Add [neogit], an interactive and powerful Git interface for Neovim, inspired
+  by Magit
 - Allow deregistering which-key binds or groups by setting them to `null`
 
 [justDeeevin](https://github.com/justDeeevin):
 
 [supermaven-nvim]: https://github.com/supermaven-inc/supermaven-nvim
 
-- Add [supermaven-nvim] plugin in `vim.assistant.supermaven-nvim` with `enable` and
-  `setupOpts`
+- Add [supermaven-nvim] plugin in `vim.assistant.supermaven-nvim` with `enable`
+  and `setupOpts`
 
 [trueNAHO](https://github.com/trueNAHO):
 
@@ -466,13 +474,28 @@
   download size.
 
 - `flake-utils`'s `systems` inputs follows nvf's `systems` input to transitively
-  leverage the pattern introduced in commit [fc8206e7a61d ("flake: utilize
-  nix-systems for overridable flake systems")](
-  https://github.com/NotAShelf/nvf/commit/fc8206e7a61d7eb02006f9010e62ebdb3336d0d2).
+  leverage the pattern introduced in commit
+  [fc8206e7a61d ("flake: utilize
+  nix-systems for overridable flake systems")](https://github.com/NotAShelf/nvf/commit/fc8206e7a61d7eb02006f9010e62ebdb3336d0d2).
 
 [soliprem](https://github.com/soliprem):
 
+
 - fix broken `neorg` grammars
+- remove obsolete warning in the `otter` module
+
+[Cool-Game-Dev](https://github.com/Cool-Game-Dev):
+
+[nvim-biscuits]: https://github.com/code-biscuits/nvim-biscuits
+
+- Add [nvim-biscuits] to show block context. Available at
+  `vim.utility.nvim-biscuits`.
+
+[JManch](https://github.com/JManch):
+
+- Fix default [blink.cmp] sources "path" and "buffer" not working when
+  `autocomplete.nvim-cmp.enable` was disabled and
+  `autocomplete.nvim-cmp.sources` had not been modified.
 
 [Cool-Game-Dev](https://github.com/Cool-Game-Dev):
 

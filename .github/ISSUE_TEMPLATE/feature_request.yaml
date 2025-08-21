@@ -1,58 +1,72 @@
 name: 🚀 Feature Request
 description: "Propose a new feature"
-#title: "[Feature] "
+title: "<short description of the desired addition>"
 labels: [feature-request]
 body:
   - type: checkboxes
-    id: no-duplicate-issues
     attributes:
-      label: "⚠️ Please verify that this feature request has NOT been suggested before."
-      description: "Search in the issues sections by clicking [HERE](https://github.com/notashelf/neovim-flake/issues?q=)"
+      label: I have verified that this feature request has not been made before
+      description: >-
+        Before opening a new issue for feature requests, please consider searching through currently
+        open issues [here](https://github.com/notashelf/nvf/issues). If you would like to discuss a
+        new addition beforehand, you may first want to create a new discussion threat and discuss it
+        with the maintainers [on the discussions tab](https://github.com/notashelf/nvf/discussions)
       options:
-        - label: "I checked and didn't find a similar feature request"
-          required: true
+        - required: true
+          label: >-
+            I have checked the [issues tab](https://github.com/notashelf/nvf/issues?q=is%3Aissue),
+            and did not find a similar feature request. I understand that my issue will be closed
+            if it is a duplicate.
+
   - type: dropdown
     id: feature-area
     attributes:
-      label: "🏷️ Feature Type"
-      description: "What kind of a feature request is this?"
+      label: Feature Type
+      description: Please describe the kind of addition this is
       multiple: true
       options:
-        - New Command
-        - New Addon
-        - API Additions
+        - New Plugin
+        - Update Request (Plugin/Nixpkgs)
+        - Documentation Updates
         - Other
     validations:
       required: true
+
+
   - type: textarea
     id: feature-description
+    attributes:
+      label: Feature description
+      description: >-
+        Please provide a clear and concise description of the desired addition. If this is a plugin
+        addition, please also include a link to the desired plugin and the reason why you think this
+        is a good addition. Keep in mind that we may refuse plugin requests as nvf already provides
+        appropriate methods of installing plugins in user configurations.
+      placeholder: >-
+        "nvf currently does [...], which really frustrates me" or "You should add [...] because I think
+        [...]"
     validations:
       required: true
-    attributes:
-      label: "🔖 Feature description"
-      description: "A clear and concise description of what your feature request is."
-      placeholder: "'You should add [...]' or '[...] has always frustrated me' "
-  - type: textarea
-    id: solution
-    validations:
-      required: true
-    attributes:
-      label: "✔️ Solution"
-      description: "A clear and concise description of what you want to happen."
-      placeholder: "In my use-case, I would like [...]"
+
   - type: textarea
     id: alternatives
+    attributes:
+      label: Alternatives
+      description: >-
+        If you have tried anything before creating this issue, please give us a clear and concise
+        description of any alternative solutions or methods you have considered.
+      placeholder: "I have considered [...]"
     validations:
       required: false
-    attributes:
-      label: "❓ Alternatives"
-      description: "A clear and concise description of any alternative solutions or features you've considered."
-      placeholder: "I have considered [...]"
+
   - type: textarea
     id: additional-context
+    attributes:
+      label: Additional Context
+      description: >-
+        If there is anything else you would like to mention, such as additional context or screenshots
+        demonstrating the requested feature, please add them here. This field is optional, but you may
+        be requested to provide further context. Please ensure that your feature request clearly describes
+        the requested feature in good detail.
     validations:
       required: false
-    attributes:
-      label: "📝 Additional Context"
-      description: "Add any other context or screenshots about the feature request here."
-      placeholder: "..."
