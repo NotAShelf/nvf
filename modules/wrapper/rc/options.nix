@@ -33,32 +33,33 @@ in {
       default = [];
       example = literalExpression ''
         [
-          # absolute path, as a string - impure
+          # Absolute path, as a string. This is the impure option.
           "$HOME/.config/nvim-extra"
 
-          # relative path, as a path - pure
+          # Relative path inside your configuration. If your config
+          # is version controlled, then this is pure and reproducible.
           ./nvim
 
-          # source type path - pure and reproducible
-          (builtins.source {
-            path = ./runtime;
-            name = "nvim-runtime";
+          # Source type path. This pure and reproducible.
+          # See `:doc builtins.path` inside a Nix repl for more options.
+          (builtins.path {
+            path = ./runtime; # this must be a relative path
+            name = "nvim-runtime"; # name is arbitrary
           })
         ]
       '';
 
       description = ''
-        Additional runtime paths that will be appended to the
-        active runtimepath of the Neovim. This can be used to
-        add additional lookup paths for configs, plugins, spell
-        languages and other things you would generally place in
-        your {file}`$HOME/.config/nvim`.
+        Additional runtime paths that will be appended to the active
+        runtimepath of the Neovim. This can be used to add additional
+        lookup paths for configs, plugins, spell languages and other
+        things you would generally place in your {file}`$HOME/.config/nvim`.
 
-        This is meant as a declarative alternative to throwing
-        files into {file}`~/.config/nvim` and having the Neovim
-        wrapper pick them up. For more details on
-        `vim.o.runtimepath`, and what paths to use; please see
-        [the official documentation](https://neovim.io/doc/user/options.html#'runtimepath')
+        This is meant as a declarative alternative to throwing files into
+        {file}`~/.config/nvim` and having the Neovim wrapper pick them up.
+
+        For more details on `vim.o.runtimepath`, and what paths to use, please see
+        [the official documentation](https://neovim.io/doc/user/options.html#'runtimepath').
       '';
     };
 
@@ -67,13 +68,13 @@ in {
       default = [];
       example = literalExpression ''
         [
-          # absolute path, as a string - impure
+          # Absolute path, as a string - impure
           "$HOME/.config/nvim/my-lua-file.lua"
 
-          # relative path, as a path - pure
+          # Relative path, as a path - pure
           ./nvim/my-lua-file.lua
 
-          # source type path - pure and reproducible
+          # Source type path - pure and reproducible
           (builtins.path {
             path = ./nvim/my-lua-file.lua;
             name = "my-lua-file";
@@ -82,9 +83,10 @@ in {
       '';
 
       description = ''
-        Additional lua files that will be sourced by Neovim.
-        Takes both absolute and relative paths, all of which
-        will be called via the `luafile` command in Neovim.
+        Additional Lua files that will be sourced by Neovim.
+
+        Takes both absolute and relative paths, all of which will be called
+        via the `luafile` command in Neovim.
 
         See [lua-commands](https://neovim.io/doc/user/lua.html#lua-commands)
         on the Neovim documentation for more details.

@@ -5,11 +5,12 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.strings) optionalString;
+  inherit (lib.attrsets) optionalAttrs;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.attrsets) attrValues filterAttrs mapAttrsToList;
-  inherit (lib.lists) map optional elem;
+  inherit (lib.lists) map optional optionals elem;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (builtins) concatStringsSep typeOf tryEval attrNames mapAttrs;
+  inherit (builtins) concatStringsSep typeOf tryEval attrNames mapAttrs removeAttrs;
 
   cfg = config.vim.autocomplete.blink-cmp;
   cmpCfg = config.vim.autocomplete.nvim-cmp;
@@ -55,7 +56,7 @@ in {
         after =
           # lua
           ''
-            ${optionalString config.vim.lazy.enable
+            ${optionalString (config.vim.lazy.enable && cmpCfg.enable)
               (concatStringsSep "\n" (map
                 (package: "require('lz.n').trigger_load(${toLuaObject (getPluginName package)})")
                 cmpCfg.sourcePlugins))}
@@ -66,7 +67,10 @@ in {
     autocomplete = {
       enableSharedCmpSources = true;
       blink-cmp.setupOpts = {
-        sources = {
+        sources = let
+          # We do not want nvim-cmp compat sources overriding built-in blink sources
+          filteredCmpSources = removeAttrs cmpCfg.sources blinkBuiltins;
+        in {
           default =
             [
               "lsp"
@@ -74,14 +78,16 @@ in {
               "snippets"
               "buffer"
             ]
-            ++ (attrNames cmpCfg.sources)
+            ++ optionals cmpCfg.enable (attrNames filteredCmpSources)
             ++ (attrNames enabledBlinkSources);
           providers =
-            mapAttrs (name: _: {
-              inherit name;
-              module = "blink.compat.source";
-            })
-            cmpCfg.sources
+            optionalAttrs cmpCfg.enable (
+              mapAttrs (name: _: {
+                inherit name;
+                module = "blink.compat.source";
+              })
+              filteredCmpSources
+            )
             // (mapAttrs (name: definition: {
                 inherit name;
                 inherit (definition) module;

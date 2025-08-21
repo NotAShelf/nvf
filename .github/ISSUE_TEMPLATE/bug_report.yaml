@@ -90,15 +90,6 @@ body:
     validations:
       required: true
 
-  - type: input
-    id: nix-metadata
-    attributes:
-      label: "💻 Metadata"
-      description: 'Please run `nix-shell -p nix-info --run "nix-info -m"` and paste the result.'
-      placeholder: '[user@system:~]$ nix-shell -p nix-info --run "nix-info -m"'
-    validations:
-      required: true
-
   - type: textarea
     attributes:
       label: System Information
@@ -119,7 +110,7 @@ body:
     id: logs
     attributes:
       render: bash
-      label: "📝 Relevant log output"
+      label: "Relevant log output"
       description: >-
         Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
 

@@ -3,6 +3,7 @@
 in {
   imports = [
     ./gitsigns
+    ./hunk-nvim
     ./vim-fugitive
     ./git-conflict
     ./gitlinker-nvim
@@ -14,7 +15,9 @@ in {
       git integration suite.
 
       Enabling this option will enable the following plugins:
+
       * gitsigns
+      * hunk-nvim
       * vim-fugitive
       * git-conflict
       * gitlinker-nvim
