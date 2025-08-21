@@ -484,21 +484,15 @@
 - fix broken `neorg` grammars
 - remove obsolete warning in the `otter` module
 
-[Cool-Game-Dev](https://github.com/Cool-Game-Dev):
-
-[nvim-biscuits]: https://github.com/code-biscuits/nvim-biscuits
-
-- Add [nvim-biscuits] to show block context. Available at
-  `vim.utility.nvim-biscuits`.
-
 [JManch](https://github.com/JManch):
 
 - Fix default [blink.cmp] sources "path" and "buffer" not working when
   `autocomplete.nvim-cmp.enable` was disabled and
   `autocomplete.nvim-cmp.sources` had not been modified.
 
-[Cool-Game-Dev](https://github.com/Cool-Game-Dev):
+[Poseidon](https://github.com/poseidon-rises):
 
+[nvim-biscuits]: https://github.com/code-biscuits/nvim-biscuits
 [just-lsp]: https://github.com/terror/just-lsp
 [roslyn-ls]: https://github.com/dotnet/vscode-csharp
 [jsonls]: https://github.com/microsoft/vscode/tree/1.101.2/extensions/json-language-features/server
@@ -509,10 +503,17 @@
 [qmlls]: https://doc.qt.io/qt-6/qtqml-tooling-qmlls.html
 [qmlformat]: https://doc.qt.io/qt-6/qtqml-tooling-qmlformat.html
 
+- Add [nvim-biscuits] support under `vim.utility.nvim-biscuits`.
 - Add just support under `vim.languages.just` using [just-lsp].
 - Add [roslyn-ls] to the `vim.languages.csharp` module.
+- Added json support under `vim.languages.json` using [jsonls] and [jsonfmt].
 - Add JSON support under `vim.languages.json` using [jsonls] and [jsonfmt].
 - Add advanced HTML support under `vim.languages.html` using [superhtml] and
   [htmlHINT].
 - Add QMK support under `vim.utility.qmk-nvim` via [qmk-nvim].
 - Add QML support under `vim.languages.qml` using [qmlls] and [qmlformat].
+
+[Morsicus](https://github.com/Morsicus):
+
+- Add [EEx Treesitter Grammar](https://github.com/connorlay/tree-sitter-eex) for Elixir
+- Add [HEEx Treesitter Grammar](https://github.com/phoenixframework/tree-sitter-heex) for Elixir
