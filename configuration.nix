@@ -89,6 +89,7 @@ isMaximal: {
       arduino.enable = false;
       assembly.enable = false;
       astro.enable = false;
+      beancount.enable = false;
       nu.enable = false;
       csharp.enable = false;
       julia.enable = false;
