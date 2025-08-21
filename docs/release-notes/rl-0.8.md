@@ -111,6 +111,9 @@
 - Add [hunk.nvim], Neovim plugin & tool for splitting diffs in Neovim. Available
   as `vim.git.hunk-nvim`
 
+- Move `crates.nvim` into `languages.rust.extensions and support` `setupOpts`
+  for the plugin.
+
 [amadaluzia](https://github.com/amadaluzia):
 
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim
@@ -479,7 +482,6 @@
   nix-systems for overridable flake systems")](https://github.com/NotAShelf/nvf/commit/fc8206e7a61d7eb02006f9010e62ebdb3336d0d2).
 
 [soliprem](https://github.com/soliprem):
-
 
 - fix broken `neorg` grammars
 - remove obsolete warning in the `otter` module
