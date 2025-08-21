@@ -8,6 +8,7 @@ in {
     ./asm.nix
     ./astro.nix
     ./bash.nix
+    ./beancount.nix
     ./clang.nix
     ./clojure.nix
     ./cmake.nix
