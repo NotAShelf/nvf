@@ -560,8 +560,11 @@
 [gmvar](https://github.com/gmvar):
 
 [harper-ls]: https://github.com/Automattic/harper
+[beancount-language-server]: https://github.com/polarmutex/beancount-language-server
+[bean-format]: https://github.com/beancount/beancount
 
 - Add [harper-ls] to the `vim.lsp` module.
+- Add beancount support under `vim.languages.beancount` using [beancount-language-server] and [bean-format].
 
 [derethil](https://github.com/derethil):
 
