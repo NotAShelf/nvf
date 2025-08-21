@@ -319,6 +319,7 @@
 - Add global function `nvf_lint` under
   `vim.diagnostics.nvim-lint.lint_function`.
 - Deprecate `vim.scrollOffset` in favor of `vim.options.scrolloff`.
+- Fix `svelte-language-server` not reloading .js/.ts files on change.
 
 [Sc3l3t0n](https://github.com/Sc3l3t0n):
 
@@ -479,7 +480,6 @@
   nix-systems for overridable flake systems")](https://github.com/NotAShelf/nvf/commit/fc8206e7a61d7eb02006f9010e62ebdb3336d0d2).
 
 [soliprem](https://github.com/soliprem):
-
 
 - fix broken `neorg` grammars
 - remove obsolete warning in the `otter` module
