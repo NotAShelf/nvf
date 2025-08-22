@@ -524,3 +524,9 @@
 [diced](https://github.com/diced):
 
 - Fixed `typescript` treesitter grammar not being included by default.
+
+[gmvar](https://github.com/gmvar):
+
+[harper-ls]: https://github.com/Automattic/harper
+
+- Add [harper-ls] to the `vim.lsp` module.
