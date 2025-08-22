@@ -517,3 +517,8 @@
 
 - Add [EEx Treesitter Grammar](https://github.com/connorlay/tree-sitter-eex) for Elixir
 - Add [HEEx Treesitter Grammar](https://github.com/phoenixframework/tree-sitter-heex) for Elixir
+
+[diced](https://github.com/diced):
+
+- Fixed `typescript` treesitter grammar not being included by default.
+
