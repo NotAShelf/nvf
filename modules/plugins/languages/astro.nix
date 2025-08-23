@@ -10,7 +10,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.types) enum;
   inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.astro;
@@ -73,7 +73,7 @@ in {
     lsp = {
       enable = mkEnableOption "Astro LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.astro.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Astro LSP server to use";
       };

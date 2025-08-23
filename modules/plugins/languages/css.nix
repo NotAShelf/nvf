@@ -9,7 +9,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.css;
@@ -58,7 +58,7 @@ in {
       enable = mkEnableOption "CSS LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.css.lsp.servers" (enum (attrNames servers));
         default = defaultServer;
         description = "CSS LSP server to use";
       };
@@ -69,7 +69,7 @@ in {
 
       type = mkOption {
         description = "CSS formatter to use";
-        type = singleOrListOf (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.css.format.type" (enum (attrNames formats));
         default = defaultFormat;
       };
     };

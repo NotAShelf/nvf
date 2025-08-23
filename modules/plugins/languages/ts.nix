@@ -12,7 +12,7 @@
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics mkPluginSetupOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics mkPluginSetupOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere entryBefore;
 
   cfg = config.vim.languages.ts;
@@ -228,7 +228,7 @@ in {
       enable = mkEnableOption "Typescript/Javascript LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.ts.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Typescript/Javascript LSP server to use";
       };
@@ -239,7 +239,7 @@ in {
 
       type = mkOption {
         description = "Typescript/Javascript formatter to use";
-        type = singleOrListOf (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.ts.format.type" (enum (attrNames formats));
         default = defaultFormat;
       };
     };

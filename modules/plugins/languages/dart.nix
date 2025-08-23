@@ -11,7 +11,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) enum package nullOr str bool;
   inherit (lib.strings) optionalString;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -52,7 +52,7 @@ in {
     lsp = {
       enable = mkEnableOption "Dart LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.dart.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Dart LSP server to use";
       };
