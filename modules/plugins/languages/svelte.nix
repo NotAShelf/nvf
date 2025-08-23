@@ -8,7 +8,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum package;
+  inherit (lib.types) enum;
   inherit (lib.nvim.types) mkGrammarOption diagnostics singleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.generators) mkLuaInline;
@@ -53,19 +53,6 @@
     };
   };
 
-  # TODO: specify packages
-  defaultFormat = "prettier";
-  formats = {
-    prettier = {
-      package = pkgs.prettier;
-    };
-
-    biome = {
-      package = pkgs.biome;
-    };
-  };
-
-  # TODO: specify packages
   defaultDiagnosticsProvider = ["eslint_d"];
   diagnosticsProviders = {
     eslint_d = let
@@ -105,22 +92,6 @@ in {
       };
     };
 
-    format = {
-      enable = mkEnableOption "Svelte formatting" // {default = config.vim.languages.enableFormat;};
-
-      type = mkOption {
-        type = enum (attrNames formats);
-        default = defaultFormat;
-        description = "Svelte formatter to use";
-      };
-
-      package = mkOption {
-        type = package;
-        default = formats.${cfg.format.type}.package;
-        description = "Svelte formatter package";
-      };
-    };
-
     extraDiagnostics = {
       enable = mkEnableOption "extra Svelte diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
 
@@ -145,16 +116,6 @@ in {
           value = servers.${n};
         })
         cfg.lsp.servers;
-    })
-
-    (mkIf cfg.format.enable {
-      vim.formatter.conform-nvim = {
-        enable = true;
-        setupOpts.formatters_by_ft.svelte = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
-        };
-      };
     })
 
     (mkIf cfg.extraDiagnostics.enable {
