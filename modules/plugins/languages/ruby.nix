@@ -60,7 +60,6 @@
   diagnosticsProviders = {
     rubocop = {
       package = pkgs.rubyPackages.rubocop;
-      config.command = getExe cfg.format.package;
     };
   };
 in {
