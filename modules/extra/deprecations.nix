@@ -42,6 +42,10 @@
         "Obsolete option `vim.languages.${lang}.lsp.server` used, use `vim.languages.${lang}.lsp.servers` instead."
         (head x);
     };
+
+  mkRemovedFormatPackage = lang: (mkRemovedOptionModule ["vim" "languages" lang "format" "package"] ''
+    `vim.languages.${lang}.format.package` is removed, please use `vim.formatter.conform-nvim.formatters.<formatter_name>.command` instead.
+  '');
 in {
   imports = concatLists [
     [
@@ -269,8 +273,38 @@ in {
 
         <https://github.com/Saecki/crates.nvim/wiki/Documentation-v0.7.1#in-process-language-server>
       '')
+
+      (mkRemovedOptionModule ["vim" "language" "astro" "format"] ''
+        This option has been removed due to being broken for a long time.
+      '')
+      (mkRemovedOptionModule ["vim" "language" "svelte" "format"] ''
+        This option has been removed due to being broken for a long time.
+      '')
     ]
 
+    (map mkRemovedFormatPackage [
+      "bash"
+      "css"
+      "elixir"
+      "fsharp"
+      "go"
+      "hcl"
+      "html"
+      "json"
+      "lua"
+      "markdown"
+      "nim"
+      "nix"
+      "ocaml"
+      "python"
+      "qml"
+      "r"
+      "ruby"
+      "rust"
+      "sql"
+      "ts"
+      "typst"
+    ])
     # Migrated via batchRenameOptions. Further batch renames must be below this line.
     renamedVimOpts
   ];
