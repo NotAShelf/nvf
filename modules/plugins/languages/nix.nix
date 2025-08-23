@@ -18,10 +18,10 @@
   formattingCmd = mkIf (cfg.format.enable && cfg.lsp.enable) {
     formatting = mkMerge [
       (mkIf (cfg.format.type == "alejandra") {
-        command = ["${cfg.format.package}/bin/alejandra" "--quiet"];
+        command = [(getExe pkgs.alejandra) "--quiet"];
       })
       (mkIf (cfg.format.type == "nixfmt") {
-        command = ["${cfg.format.package}/bin/nixfmt"];
+        command = [(getExe pkgs.nixfmt-rfc-style)];
       })
     ];
   };
