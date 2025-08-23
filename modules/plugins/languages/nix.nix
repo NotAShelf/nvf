@@ -10,7 +10,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.nix;
@@ -98,7 +98,7 @@ in {
     lsp = {
       enable = mkEnableOption "Nix LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.nix.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Nix LSP server to use";
       };
@@ -109,7 +109,7 @@ in {
 
       type = mkOption {
         description = "Nix formatter to use";
-        type = singleOrListOf (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.nix.format.type" (enum (attrNames formats));
         default = defaultFormat;
       };
     };

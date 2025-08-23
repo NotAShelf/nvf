@@ -13,7 +13,7 @@
   inherit (lib.lists) isList;
   inherit (lib.types) bool package str listOf either enum;
   inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.dag) entryAfter entryAnywhere;
 
@@ -80,7 +80,7 @@ in {
 
       type = mkOption {
         description = "Rust formatter to use";
-        type = singleOrListOf (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.rust.format.type" (enum (attrNames formats));
         default = defaultFormat;
       };
     };

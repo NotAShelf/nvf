@@ -9,7 +9,7 @@
   inherit (lib.meta) getExe';
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -56,7 +56,7 @@ in {
       enable = mkEnableOption "Nim LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.nim.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Nim LSP server to use";
       };
@@ -65,7 +65,7 @@ in {
     format = {
       enable = mkEnableOption "Nim formatting" // {default = config.vim.languages.enableFormat;};
       type = mkOption {
-        type = singleOrListOf (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.nim.format.type" (enum (attrNames formats));
         default = defaultFormat;
         description = "Nim formatter to use";
       };

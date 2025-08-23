@@ -10,7 +10,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   defaultServer = ["fsautocomplete"];
@@ -72,7 +72,7 @@ in {
       lsp = {
         enable = mkEnableOption "F# LSP support" // {default = config.vim.lsp.enable;};
         servers = mkOption {
-          type = singleOrListOf (enum (attrNames servers));
+          type = deprecatedSingleOrListOf "vim.language.fsharp.lsp.servers" (enum (attrNames servers));
           default = defaultServer;
           description = "F# LSP server to use";
         };
@@ -81,7 +81,7 @@ in {
         enable = mkEnableOption "F# formatting" // {default = config.vim.languages.enableFormat;};
 
         type = mkOption {
-          type = singleOrListOf (enum (attrNames formats));
+          type = deprecatedSingleOrListOf "vim.language.fsharp.format.type" (enum (attrNames formats));
           default = defaultFormat;
           description = "F# formatter to use";
         };
