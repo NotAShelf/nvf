@@ -10,7 +10,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum bool;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) diagnostics mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.bash;
@@ -55,7 +55,7 @@ in {
     lsp = {
       enable = mkEnableOption "Bash LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.bash.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Bash LSP server to use";
       };
@@ -68,7 +68,7 @@ in {
         description = "Enable Bash formatting";
       };
       type = mkOption {
-        type = singleOrListOf (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.bash.format.type" (enum (attrNames formats));
         default = defaultFormat;
         description = "Bash formatter to use";
       };

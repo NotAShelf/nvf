@@ -11,7 +11,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum package bool;
   inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.types) singleOrListOf;
+  inherit (lib.nvim.types) deprecatedSingleOrListOf;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryBefore;
 
@@ -235,7 +235,7 @@ in {
       enable = mkEnableOption "Python LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.python.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Python LSP server to use";
       };
@@ -245,7 +245,7 @@ in {
       enable = mkEnableOption "Python formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = singleOrListOf (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.python.format.type" (enum (attrNames formats));
         default = defaultFormat;
         description = "Python formatters to use";
       };

@@ -9,7 +9,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.generators) mkLuaInline;
 
@@ -74,7 +74,7 @@ in {
     lsp = {
       enable = mkEnableOption "Vala LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.vala.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Vala LSP server to use";
       };

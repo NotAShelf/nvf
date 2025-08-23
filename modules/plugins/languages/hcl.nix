@@ -9,7 +9,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) bool enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.hcl;
@@ -55,7 +55,7 @@ in {
         description = "Enable HCL formatting";
       };
       type = mkOption {
-        type = singleOrListOf (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.hcl.format.type" (enum (attrNames formats));
         default = defaultFormat;
         description = "HCL formatter to use";
       };

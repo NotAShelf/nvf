@@ -10,7 +10,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) bool enum;
   inherit (lib.lists) optional;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -60,7 +60,7 @@ in {
     lsp = {
       enable = mkEnableOption "HTML LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.html.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "HTML LSP server to use";
       };
@@ -70,7 +70,7 @@ in {
       enable = mkEnableOption "HTML formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = singleOrListOf (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.html.format.type" (enum (attrNames formats));
         default = defaultFormat;
         description = "HTML formatter to use";
       };

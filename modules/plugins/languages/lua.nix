@@ -9,7 +9,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) bool enum listOf;
-  inherit (lib.nvim.types) diagnostics mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryBefore;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -79,7 +79,7 @@ in {
         description = "Enable Lua formatting";
       };
       type = mkOption {
-        type = singleOrListOf (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.lua.format.type" (enum (attrNames formats));
         default = defaultFormat;
         description = "Lua formatter to use";
       };
