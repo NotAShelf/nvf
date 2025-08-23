@@ -176,18 +176,18 @@
   '';
 
   # TODO: specify packages
-  defaultFormat = "prettier";
+  defaultFormat = ["prettier"];
   formats = {
     prettier = {
-      package = pkgs.prettier;
+      command = getExe pkgs.prettier;
     };
 
     prettierd = {
-      package = pkgs.prettierd;
+      command = getExe pkgs.prettierd;
     };
 
     biome = {
-      package = pkgs.biome;
+      command = getExe pkgs.biome;
     };
   };
 
@@ -239,14 +239,8 @@ in {
 
       type = mkOption {
         description = "Typescript/Javascript formatter to use";
-        type = enum (attrNames formats);
+        type = singleOrListOf (enum (attrNames formats));
         default = defaultFormat;
-      };
-
-      package = mkOption {
-        description = "Typescript/Javascript formatter package";
-        type = package;
-        default = formats.${cfg.format.type}.package;
       };
     };
 
@@ -309,12 +303,15 @@ in {
       vim.formatter.conform-nvim = {
         enable = true;
         setupOpts = {
-          formatters_by_ft.typescript = [cfg.format.type];
+          formatters_by_ft.typescript = cfg.format.type;
           # .tsx files
-          formatters_by_ft.typescriptreact = [cfg.format.type];
-          formatters.${cfg.format.type} = {
-            command = getExe cfg.format.package;
-          };
+          formatters_by_ft.typescriptreact = cfg.format.type;
+          setupOpts.formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })
