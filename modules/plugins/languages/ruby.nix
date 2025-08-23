@@ -9,7 +9,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption diagnostics singleOrListOf;
-  inherit (lib.types) package enum;
+  inherit (lib.types) enum;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.ruby;
@@ -49,11 +49,10 @@
 
   # testing
 
-  defaultFormat = "rubocop";
+  defaultFormat = ["rubocop"];
   formats = {
     rubocop = {
-      # TODO: is this right?
-      package = pkgs.rubyPackages.rubocop;
+      command = getExe pkgs.rubyPackages.rubocop;
     };
   };
 
@@ -87,15 +86,9 @@ in {
       enable = mkEnableOption "Ruby formatter support" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = enum (attrNames formats);
+        type = singleOrListOf (enum (attrNames formats));
         default = defaultFormat;
         description = "Ruby formatter to use";
-      };
-
-      package = mkOption {
-        type = package;
-        default = formats.${cfg.format.type}.package;
-        description = "Ruby formatter package";
       };
     };
 
@@ -130,9 +123,14 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.ruby = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.ruby = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })

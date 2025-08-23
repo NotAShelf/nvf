@@ -127,7 +127,7 @@
     };
   };
 
-  defaultFormat = "black";
+  defaultFormat = ["black"];
   formats = {
     black = {
       command = getExe pkgs.black;
@@ -249,12 +249,6 @@ in {
         default = defaultFormat;
         description = "Python formatters to use";
       };
-
-      package = mkOption {
-        type = package;
-        default = formats.${cfg.format.type}.package;
-        description = "Python formatter package";
-      };
     };
 
     # TODO this implementation is very bare bones, I don't know enough python to implement everything
@@ -334,13 +328,15 @@ in {
         cfg.format.type);
       in {
         enable = true;
-        setupOpts.formatters_by_ft.python = names;
-        setupOpts.formatters =
-          mapListToAttrs (name: {
-            inherit name;
-            value = formats.${name};
-          })
-          names;
+        setupOpts = {
+          formatters_by_ft.python = names;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            names;
+        };
       };
     })
 
