@@ -130,6 +130,9 @@
 - Moved code setting `additionalRuntimePaths` and `enableLuaLoader` out of
   `luaConfigPre`'s default to prevent being overridden
 - Use conform over custom autocmds for LSP format on save
+- Allow multiple formatters in language modules.
+- Remove formatter options for `astro` and `svelte`, as they have been broken
+  since conception
 
 [diniamo](https://github.com/diniamo):
 
