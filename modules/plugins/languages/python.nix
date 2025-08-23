@@ -129,7 +129,7 @@
     };
   };
 
-  defaultFormat = "black";
+  defaultFormat = ["black"];
   formats = {
     black = {
       command = getExe pkgs.black;
@@ -250,12 +250,6 @@ in {
         type = singleOrListOf (enum (attrNames formats));
         default = defaultFormat;
         description = "Python formatters to use";
-      };
-
-      package = mkOption {
-        type = package;
-        default = formats.${cfg.format.type}.package;
-        description = "Python formatter package";
       };
     };
 

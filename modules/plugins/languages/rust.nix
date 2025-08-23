@@ -12,16 +12,17 @@
   inherit (lib.trivial) boolToString;
   inherit (lib.lists) isList;
   inherit (lib.types) bool package str listOf either enum;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.dag) entryAfter entryAnywhere;
 
   cfg = config.vim.languages.rust;
 
-  defaultFormat = "rustfmt";
+  defaultFormat = ["rustfmt"];
   formats = {
     rustfmt = {
-      package = pkgs.rustfmt;
+      command = getExe pkgs.rustfmt;
     };
   };
 in {
@@ -79,14 +80,8 @@ in {
 
       type = mkOption {
         description = "Rust formatter to use";
-        type = enum (attrNames formats);
+        type = singleOrListOf (enum (attrNames formats));
         default = defaultFormat;
-      };
-
-      package = mkOption {
-        description = "Rust formatter package";
-        type = package;
-        default = formats.${cfg.format.type}.package;
       };
     };
 
@@ -130,10 +125,13 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.rust = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
-        };
+        setupOpts.formatters_by_ft.rust = cfg.format.type;
+        setupOpts.formatters =
+          mapListToAttrs (name: {
+            inherit name;
+            value = formats.${name};
+          })
+          cfg.format.type;
       };
     })
 
