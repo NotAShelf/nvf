@@ -10,7 +10,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.types) enum;
   inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.types) singleOrListOf;
+  inherit (lib.nvim.types) deprecatedSingleOrListOf;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.tailwind;
@@ -154,7 +154,7 @@ in {
       enable = mkEnableOption "Tailwindcss LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.tailwind.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Tailwindcss LSP server to use";
       };

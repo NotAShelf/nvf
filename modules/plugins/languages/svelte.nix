@@ -10,7 +10,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum package coercedTo;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.generators) mkLuaInline;
 
@@ -92,7 +92,7 @@
   };
 
   formatType =
-    singleOrListOf
+    deprecatedSingleOrListOf
     "vim.languages.svelte.format.type"
     (coercedTo (enum ["prettierd"]) (_:
       lib.warn
@@ -113,7 +113,7 @@ in {
       enable = mkEnableOption "Svelte LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.svelte.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Svelte LSP server to use";
       };

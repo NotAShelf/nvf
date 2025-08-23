@@ -10,7 +10,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.dag) entryAfter;
 
@@ -194,7 +194,7 @@ in {
 
       servers = mkOption {
         description = "The clang LSP server to use";
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.clang.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
       };
     };

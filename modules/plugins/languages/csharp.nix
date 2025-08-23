@@ -12,7 +12,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.strings) optionalString;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -185,7 +185,7 @@ in {
         enable = mkEnableOption "C# LSP support" // {default = config.vim.lsp.enable;};
         servers = mkOption {
           description = "C# LSP server to use";
-          type = singleOrListOf (enum (attrNames servers));
+          type = deprecatedSingleOrListOf "vim.language.csharp.lsp.servers" (enum (attrNames servers));
           default = defaultServers;
         };
       };

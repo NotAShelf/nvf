@@ -10,7 +10,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.types) bool enum package;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -92,7 +92,7 @@ in {
       enable = mkEnableOption "Go LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.go.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Go LSP server to use";
       };
@@ -110,7 +110,7 @@ in {
 
       type = mkOption {
         description = "Go formatter to use";
-        type = singleOrListOf (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.go.format.type" (enum (attrNames formats));
         default = defaultFormat;
       };
     };

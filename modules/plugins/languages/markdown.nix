@@ -10,7 +10,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) bool enum listOf str nullOr;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.types) diagnostics mkGrammarOption mkPluginSetupOption singleOrListOf;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -70,7 +70,7 @@ in {
 
       servers = mkOption {
         description = "Markdown LSP server to use";
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.markdown.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
       };
     };
@@ -79,7 +79,7 @@ in {
       enable = mkEnableOption "Markdown formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = singleOrListOf (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.markdown.format.type" (enum (attrNames formats));
         default = defaultFormat;
         description = "Markdown formatter to use. `denofmt` is deprecated and currently aliased to deno_fmt.";
       };

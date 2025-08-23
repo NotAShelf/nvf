@@ -9,7 +9,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum package str;
-  inherit (lib.nvim.types) diagnostics singleOrListOf;
+  inherit (lib.nvim.types) diagnostics deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.generators) mkLuaInline;
 
@@ -75,7 +75,7 @@ in {
       enable = mkEnableOption "SQL LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.sql.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "SQL LSP server to use";
       };
@@ -85,7 +85,7 @@ in {
       enable = mkEnableOption "SQL formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = singleOrListOf (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.sql.format.type" (enum (attrNames formats));
         default = defaultFormat;
         description = "SQL formatter to use";
       };

@@ -9,7 +9,7 @@
   inherit (lib.meta) getExe' getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.json;
@@ -46,7 +46,7 @@ in {
       enable = mkEnableOption "JSON LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.json.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "JSON LSP server to use";
       };
@@ -57,7 +57,7 @@ in {
 
       type = mkOption {
         description = "JSON formatter to use";
-        type = singleOrListOf (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.json.format.type" (enum (attrNames formats));
         default = defaultFormat;
       };
     };

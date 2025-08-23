@@ -9,7 +9,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum;
   inherit (lib.meta) getExe;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.generators) mkLuaInline;
 
@@ -73,7 +73,7 @@ in {
       enable = mkEnableOption "R LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.r.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "R LSP server to use";
       };
@@ -83,7 +83,7 @@ in {
       enable = mkEnableOption "R formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = singleOrListOf (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.r.format.type" (enum (attrNames formats));
         default = defaultFormat;
         description = "R formatter to use";
       };

@@ -10,7 +10,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.types) enum;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -60,7 +60,7 @@ in {
     lsp = {
       enable = mkEnableOption "Elixir LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.elixir.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Elixir LSP server to use";
       };
@@ -70,7 +70,7 @@ in {
       enable = mkEnableOption "Elixir formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = singleOrListOf (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.elixir.format.type" (enum (attrNames formats));
         default = defaultFormat;
         description = "Elixir formatter to use";
       };
