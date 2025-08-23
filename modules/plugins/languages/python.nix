@@ -4,8 +4,9 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
+  inherit (builtins) attrNames warn;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib.lists) flatten;
   inherit (lib.meta) getExe getExe';
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum package bool;
@@ -129,31 +130,19 @@
   defaultFormat = "black";
   formats = {
     black = {
-      package = pkgs.black;
+      command = getExe pkgs.black;
     };
 
     isort = {
-      package = pkgs.isort;
+      command = getExe pkgs.isort;
     };
 
-    black-and-isort = {
-      package = pkgs.writeShellApplication {
-        name = "black";
-        runtimeInputs = [pkgs.black pkgs.isort];
-        text = ''
-          black --quiet - "$@" | isort --profile black -
-        '';
-      };
-    };
+    # dummy option for backwards compat
+    black-and-isort = {};
 
     ruff = {
-      package = pkgs.writeShellApplication {
-        name = "ruff";
-        runtimeInputs = [pkgs.ruff];
-        text = ''
-          ruff format -
-        '';
-      };
+      command = getExe pkgs.ruff;
+      args = ["format" "-"];
     };
 
     ruff-check = {
@@ -256,9 +245,9 @@ in {
       enable = mkEnableOption "Python formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = enum (attrNames formats);
+        type = singleOrListOf (enum (attrNames formats));
         default = defaultFormat;
-        description = "Python formatter to use";
+        description = "Python formatters to use";
       };
 
       package = mkOption {
@@ -333,21 +322,25 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.formatter.conform-nvim = {
+      vim.formatter.conform-nvim = let
+        names = flatten (map (type:
+          if type == "black-and-isort"
+          then
+            warn ''
+              vim.languages.python.format.type: "black-and-isort" is deprecated,
+              use `["black" "isort"]` instead.
+            '' ["black" "isort"]
+          else type)
+        cfg.format.type);
+      in {
         enable = true;
-        # HACK: I'm planning to remove these soon so I just took the easiest way out
-        setupOpts.formatters_by_ft.python =
-          if cfg.format.type == "black-and-isort"
-          then ["black"]
-          else [cfg.format.type];
+        setupOpts.formatters_by_ft.python = names;
         setupOpts.formatters =
-          if (cfg.format.type == "black-and-isort")
-          then {
-            black.command = "${cfg.format.package}/bin/black";
-          }
-          else {
-            ${cfg.format.type}.command = getExe cfg.format.package;
-          };
+          mapListToAttrs (name: {
+            inherit name;
+            value = formats.${name};
+          })
+          names;
       };
     })
 
