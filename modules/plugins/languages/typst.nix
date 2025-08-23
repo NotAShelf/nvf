@@ -92,14 +92,14 @@
     };
   };
 
-  defaultFormat = "typstfmt";
+  defaultFormat = ["typstfmt"];
   formats = {
     typstfmt = {
-      package = pkgs.typstfmt;
+      command = getExe pkgs.typstfmt;
     };
     # https://github.com/Enter-tainer/typstyle
     typstyle = {
-      package = pkgs.typstyle;
+      command = getExe pkgs.typstyle;
     };
   };
 in {
@@ -125,15 +125,9 @@ in {
       enable = mkEnableOption "Typst document formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = enum (attrNames formats);
+        type = singleOrListOf (enum (attrNames formats));
         default = defaultFormat;
         description = "Typst formatter to use";
-      };
-
-      package = mkOption {
-        type = package;
-        default = formats.${cfg.format.type}.package;
-        description = "Typst formatter package";
       };
     };
 
@@ -241,9 +235,14 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.typst = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.typst = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })

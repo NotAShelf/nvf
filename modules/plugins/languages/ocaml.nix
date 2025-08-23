@@ -8,7 +8,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum package;
+  inherit (lib.types) enum;
   inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
@@ -55,10 +55,10 @@
     };
   };
 
-  defaultFormat = "ocamlformat";
+  defaultFormat = ["ocamlformat"];
   formats = {
     ocamlformat = {
-      package = pkgs.ocamlPackages.ocamlformat;
+      command = getExe pkgs.ocamlPackages.ocamlformat;
     };
   };
 in {
@@ -83,14 +83,9 @@ in {
     format = {
       enable = mkEnableOption "OCaml formatting support (ocamlformat)" // {default = config.vim.languages.enableFormat;};
       type = mkOption {
-        type = enum (attrNames formats);
+        type = singleOrListOf (enum (attrNames formats));
         default = defaultFormat;
         description = "OCaml formatter to use";
-      };
-      package = mkOption {
-        type = package;
-        default = formats.${cfg.format.type}.package;
-        description = "OCaml formatter package";
       };
     };
   };
@@ -113,9 +108,14 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.ocaml = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.ocaml = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })

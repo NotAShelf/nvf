@@ -139,6 +139,21 @@ in {
         cfg.lsp.servers;
     })
 
+    (mkIf cfg.format.enable {
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts = {
+          formatters_by_ft.astro = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
+        };
+      };
+    })
+
     (mkIf cfg.extraDiagnostics.enable {
       vim.diagnostics.nvim-lint = {
         enable = true;

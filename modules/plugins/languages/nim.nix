@@ -8,7 +8,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.meta) getExe';
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum package;
+  inherit (lib.types) enum;
   inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
@@ -37,13 +37,10 @@
     };
   };
 
-  defaultFormat = "nimpretty";
+  defaultFormat = ["nimpretty"];
   formats = {
     nimpretty = {
-      package = pkgs.nim;
-      config = {
-        command = "${cfg.format.package}/bin/nimpretty";
-      };
+      command = "${pkgs.nim}/bin/nimpretty";
     };
   };
 in {
@@ -68,15 +65,9 @@ in {
     format = {
       enable = mkEnableOption "Nim formatting" // {default = config.vim.languages.enableFormat;};
       type = mkOption {
-        type = enum (attrNames formats);
+        type = singleOrListOf (enum (attrNames formats));
         default = defaultFormat;
         description = "Nim formatter to use";
-      };
-
-      package = mkOption {
-        type = package;
-        default = formats.${cfg.format.type}.package;
-        description = "Nim formatter package";
       };
     };
   };
@@ -108,8 +99,15 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.nim = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = formats.${cfg.format.type}.config;
+        setupOpts = {
+          formatters_by_ft.nim = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
+        };
       };
     })
   ]);

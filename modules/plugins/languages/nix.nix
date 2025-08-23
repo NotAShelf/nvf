@@ -9,7 +9,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum package;
+  inherit (lib.types) enum;
   inherit (lib.nvim.types) mkGrammarOption diagnostics singleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -49,14 +49,14 @@
     };
   };
 
-  defaultFormat = "alejandra";
+  defaultFormat = ["alejandra"];
   formats = {
     alejandra = {
-      package = pkgs.alejandra;
+      command = getExe pkgs.alejandra;
     };
 
     nixfmt = {
-      package = pkgs.nixfmt-rfc-style;
+      command = getExe pkgs.nixfmt-rfc-style;
     };
   };
 
@@ -109,14 +109,8 @@ in {
 
       type = mkOption {
         description = "Nix formatter to use";
-        type = enum (attrNames formats);
+        type = singleOrListOf (enum (attrNames formats));
         default = defaultFormat;
-      };
-
-      package = mkOption {
-        description = "Nix formatter package";
-        type = package;
-        default = formats.${cfg.format.type}.package;
       };
     };
 
@@ -161,9 +155,14 @@ in {
     (mkIf (cfg.format.enable && !cfg.lsp.enable) {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.nix = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.nix = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })

@@ -127,12 +127,6 @@ in {
         default = defaultFormat;
         description = "Svelte formatter to use";
       };
-
-      package = mkOption {
-        type = package;
-        default = formats.${cfg.format.type}.package;
-        description = "Svelte formatter package";
-      };
     };
 
     extraDiagnostics = {

@@ -8,7 +8,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum package;
+  inherit (lib.types) enum;
   inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -30,34 +30,18 @@
     };
   };
 
-  defaultFormat = "prettier";
+  defaultFormat = ["prettier"];
   formats = {
     prettier = {
-      package = pkgs.prettier;
+      command = getExe pkgs.prettier;
     };
 
     prettierd = {
-      package = pkgs.prettierd;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.prettier.with({
-            command = "${cfg.format.package}/bin/prettierd",
-          })
-        )
-      '';
+      command = getExe pkgs.prettierd;
     };
 
     biome = {
-      package = pkgs.biome;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.biome.with({
-            command = "${cfg.format.package}/bin/biome",
-          })
-        )
-      '';
+      command = getExe pkgs.biome;
     };
   };
 in {
@@ -85,14 +69,8 @@ in {
 
       type = mkOption {
         description = "CSS formatter to use";
-        type = enum (attrNames formats);
+        type = singleOrListOf (enum (attrNames formats));
         default = defaultFormat;
-      };
-
-      package = mkOption {
-        description = "CSS formatter package";
-        type = package;
-        default = formats.${cfg.format.type}.package;
       };
     };
   };
@@ -115,9 +93,14 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.css = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.css = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })

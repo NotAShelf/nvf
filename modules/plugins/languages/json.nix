@@ -8,7 +8,7 @@
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.meta) getExe' getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum package;
+  inherit (lib.types) enum;
   inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -24,15 +24,12 @@
     };
   };
 
-  defaultFormat = "jsonfmt";
+  defaultFormat = ["jsonfmt"];
 
   formats = {
     jsonfmt = {
-      package = pkgs.writeShellApplication {
-        name = "jsonfmt";
-        runtimeInputs = [pkgs.jsonfmt];
-        text = "jsonfmt -w -";
-      };
+      command = getExe pkgs.jsonfmt;
+      args = ["-w" "-"];
     };
   };
 in {
@@ -60,14 +57,8 @@ in {
 
       type = mkOption {
         description = "JSON formatter to use";
-        type = enum (attrNames formats);
+        type = singleOrListOf (enum (attrNames formats));
         default = defaultFormat;
-      };
-
-      package = mkOption {
-        description = "JSON formatter package";
-        type = package;
-        default = formats.${cfg.format.type}.package;
       };
     };
   };
@@ -90,9 +81,14 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.json = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.json = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })
