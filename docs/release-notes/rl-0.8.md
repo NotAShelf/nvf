@@ -143,6 +143,9 @@
 - Use conform over custom autocmds for LSP format on save
 - Move LSP keybinds and other related plugin integrations into an LspAttach
   event.
+- Allow multiple formatters in language modules.
+- Fixed `prettier` in astro and svelte, and removed `prettierd` due to high
+  complexity that would be needed to support it.
 
 [diniamo](https://github.com/diniamo):
 
