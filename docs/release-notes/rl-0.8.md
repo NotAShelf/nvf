@@ -502,6 +502,8 @@
 [qmk-nvim]: https://github.com/codethread/qmk.nvim
 [qmlls]: https://doc.qt.io/qt-6/qtqml-tooling-qmlls.html
 [qmlformat]: https://doc.qt.io/qt-6/qtqml-tooling-qmlformat.html
+[fish-lsp]: https://www.fish-lsp.dev/
+[fish_indent]: https://fishshell.com/docs/current/cmds/fish_indent.html 
 
 - Add [nvim-biscuits] support under `vim.utility.nvim-biscuits`.
 - Add just support under `vim.languages.just` using [just-lsp].
@@ -511,6 +513,8 @@
   [htmlHINT].
 - Add QMK support under `vim.utility.qmk-nvim` via [qmk-nvim].
 - Add QML support under `vim.languages.qml` using [qmlls] and [qmlformat].
+- Add Fish support inder `vim.languages.fish` using [fish-lsp] and
+  [fish_indent].
 
 [Morsicus](https://github.com/Morsicus):
 
