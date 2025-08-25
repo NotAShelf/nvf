@@ -90,6 +90,7 @@ isMaximal: {
       fsharp.enable = false;
       just.enable = false;
       qml.enable = false;
+      dockerfile.enable = false;
 
       tailwind.enable = false;
       svelte.enable = false;

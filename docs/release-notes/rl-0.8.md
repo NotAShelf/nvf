@@ -502,6 +502,9 @@
 [qmk-nvim]: https://github.com/codethread/qmk.nvim
 [qmlls]: https://doc.qt.io/qt-6/qtqml-tooling-qmlls.html
 [qmlformat]: https://doc.qt.io/qt-6/qtqml-tooling-qmlformat.html
+[docker-language-server]: https://github.com/docker/docker-language-server
+[dockerfmt]: https://github.com/reteps/dockerfmt
+[hadolint]: https://github.com/hadolint/hadolint
 
 - Add [nvim-biscuits] support under `vim.utility.nvim-biscuits`.
 - Add just support under `vim.languages.just` using [just-lsp].
@@ -511,6 +514,8 @@
   [htmlHINT].
 - Add QMK support under `vim.utility.qmk-nvim` via [qmk-nvim].
 - Add QML support under `vim.languages.qml` using [qmlls] and [qmlformat].
+- Add Dockerfile support under `vim.languages.dockerfile` using
+  [docker-language-server], [dockerfmt], and [hadolint].
 
 [Morsicus](https://github.com/Morsicus):
 
