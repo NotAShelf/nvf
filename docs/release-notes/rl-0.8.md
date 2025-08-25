@@ -506,7 +506,6 @@
 - Add [nvim-biscuits] support under `vim.utility.nvim-biscuits`.
 - Add just support under `vim.languages.just` using [just-lsp].
 - Add [roslyn-ls] to the `vim.languages.csharp` module.
-- Added json support under `vim.languages.json` using [jsonls] and [jsonfmt].
 - Add JSON support under `vim.languages.json` using [jsonls] and [jsonfmt].
 - Add advanced HTML support under `vim.languages.html` using [superhtml] and
   [htmlHINT].
