@@ -144,3 +144,11 @@
 [Machshev](https://github.com/machshev):
 
 - Added `ruff` and `ty` LSP support for Python under `programs.python`.
+
+[Poseidon](https://github.com/poseidon-rises):
+
+[fish-lsp]: https://www.fish-lsp.dev/
+[fish_indent]: https://fishshell.com/docs/current/cmds/fish_indent.html
+
+- Add Fish support vai {option}`languages.fish` using [fish-lsp] and
+  [fish_indent].

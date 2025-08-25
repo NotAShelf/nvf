@@ -92,6 +92,7 @@ isMaximal: {
       fsharp.enable = false;
       just.enable = false;
       qml.enable = false;
+      fish.enable = false;
 
       tailwind.enable = false;
       svelte.enable = false;
