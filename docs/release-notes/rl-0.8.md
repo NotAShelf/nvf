@@ -523,3 +523,7 @@
 [diced](https://github.com/diced):
 
 - Fixed `typescript` treesitter grammar not being included by default.
+
+[derethil](https://github.com/derethil):
+
+- Fix `vim.lazy.plugins.<name>.enabled` Lua evaluation.
