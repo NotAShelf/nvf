@@ -2,6 +2,7 @@
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) int str enum nullOr attrs;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
+  inherit (lib.generators) mkLuaInline;
 in {
   options.vim.assistant = {
     codecompanion-nvim = {
@@ -294,6 +295,12 @@ in {
             A prompt library is a collection of prompts
             that can be used in the action palette.
           '';
+        };
+
+        extensions = mkOption {
+          type = luaInline;
+          default = mkLuaInline "{}";
+          description = "Extensions for codecompanion";
         };
       };
     };
