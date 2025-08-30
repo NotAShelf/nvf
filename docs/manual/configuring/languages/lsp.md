@@ -1,23 +1,41 @@
-# LSP Custom Packages/Command {#sec-languages-custom-lsp-packages}
+# Configuring supported LSP servers {#sec-languages-configuraing-lsp-servers}
 
 One of the strengths of **nvf** is convenient aliases to quickly configure LSP
 servers through the Nix module system. By default the LSP packages for relevant
 language modules will be pulled into the closure. If this is not desirable, you
-may provide **a custom LSP package** (e.g., a Bash script that calls a command)
-or **a list of strings** to be interpreted as the command to launch the language
-server. By using a list of strings, you can use this to skip automatic
-installation of a language server, and instead use the one found in your `$PATH`
-during runtime, for example:
+may modify [](#opt-vim.lsp.servers._name_.cmd) (see example below).
+
+Any other forms of configuration can be done via [](#opt-vim.lsp.servers), which
+is a wrapper for the Neovim Lua API available as`vim.lsp.config()`. Getting
+familiar with `:help vim.lsp.config()` may help you better understand how to
+configure LSPs.
 
 ```nix
-vim.languages.java = {
-  lsp = {
+{
+  vim.languages.python = {
     enable = true;
+    lsp = {
+      enable = true;
+      # You can now enable multiple LSPs per language
+      servers = ["basedpyright"];
+    };
+  };
 
-    # This expects 'jdt-language-server' to be in your PATH or in
-    # 'vim.extraPackages.' There are no additional checks performed to see
-    # if the command provided is valid.
-    package = ["jdt-language-server" "-data" "~/.cache/jdtls/workspace"];
+  # vim.lsp.servers is a wrapper for the lua API vim.lsp.config
+  # (see :help vim.lsp.config)
+  vim.lsp.servers = {
+    basedpyright = {
+      # `vim.languages.<lang>.lsp.package` is now removed, you have to
+      # modify the cmd field, and remember to copy over the arguments!
+      cmd = [(getExe pkgs.myCustomPackage) "--stdio"];
+
+      # server specific settings, see documentation of the respective language
+      # servers
+      settings = {
+        basedpyright.analysis.logLevel = "Error";
+        python.pythonPath = getExe pkgs.myPython3;
+      };
+    };
   };
 }
 ```
