@@ -28,6 +28,62 @@
   align with the "hunks" themed mapping and avoid conflict with the new [neogit]
   group.
 
+- Language modules are reworked to allow more flexible and close-to-neovim-API
+  configs. LSP configuration options are removed from `vim.languages` and should
+  be done via `vim.lsp.servers`.
+
+## Language module LSP rework
+
+In nvf v0.8, language modules are overhauled, with a few goals in mind:
+
+1. Get rid of our rigid "hard-coded" Lua scripts in favor of the more flexible
+   `setupOpts` styled options
+2. Have our new API stick closer to Lua APIs, in this case `vim.lsp.config`
+3. Allow enabling multiple LSPs per-language
+
+This is, however, a big change, so breaking changes are inevitable. The most
+important change is the removal of `vim.languages.<lang>.lsp.package` - you now
+need to modify `vim.lsp.servers.<server>.cmd`, copying over any additional
+arguments - these can be found in the source code files of the respective
+language.
+
+<!-- TODO: add [!NOTE] admonitions when available-->
+
+The `<server>` mentioned here is the name of the language server, as shown in
+`vim.languages.<lang>.lsp.servers`. This is NOT the name of the language.
+
+Here's a quick overview at what the new language module, looks like:
+
+```nix
+{
+  vim.languages.python = {
+    enable = true;
+    lsp = {
+      enable = true;
+      # You can now enable multiple LSPs per language
+      servers = ["pyright" "python-lsp-server"];
+    };
+  };
+
+  # vim.lsp.servers is a wrapper for the lua API vim.lsp.config
+  # (see :help vim.lsp.config)
+  vim.lsp.servers = {
+    pyright = {
+      # `vim.languages.<lang>.lsp.package` is now removed, you have to
+      # modify the cmd field, and remember to copy over the arguments!
+      cmd = [(getExe pkgs.myCustomPyright) "--stdio"];
+    };
+
+    python-lsp-server = {
+      # server specific settings
+      settings = {
+        pylsp.signature.line_length = 100;
+      };
+    };
+  };
+}
+```
+
 [NotAShelf](https://github.com/notashelf):
 
 [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
