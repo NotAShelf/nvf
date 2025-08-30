@@ -149,6 +149,16 @@
         '';
       };
     };
+
+    ruff-check = {
+      package = pkgs.writeShellApplication {
+        name = "ruff-check";
+        runtimeInputs = [pkgs.ruff];
+        text = ''
+          ruff check --fix --exit-zero -
+        '';
+      };
+    };
   };
 
   defaultDebugger = "debugpy";

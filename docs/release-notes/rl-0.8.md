@@ -528,6 +528,12 @@
 
 - Fixed `typescript` treesitter grammar not being included by default.
 
+[valterschutz](https://github.com/valterschutz):
+
+[ruff]: (https://github.com/astral-sh/ruff)
+
+- Add [ruff-fix] as a formatter option in `vim.languages.python.format.type`.
+
 [gmvar](https://github.com/gmvar):
 
 [harper-ls]: https://github.com/Automattic/harper
