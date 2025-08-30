@@ -24637,7 +24637,7 @@ attribute set of (submodule)</p>
 <p>When false, or if the lua function returns false, this plugin will not be included in the spec</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-null or boolean or string</p>
+null or boolean or (luaInline)</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">null</code></p>
@@ -25110,6 +25110,81 @@ boolean</p>
 <tr><td>
 <code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/module.nix" target="_top">
 &lt;nvf/modules/plugins/lsp/module.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.lsp.harper-ls.enable"></a><a class="term" href="options.html#opt-vim.lsp.harper-ls.enable"><code class="option">vim.lsp.harper-ls.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable Harper grammar checking LSP.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/harper-ls/harper-ls.nix" target="_top">
+&lt;nvf/modules/plugins/lsp/harper-ls/harper-ls.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.lsp.harper-ls.settings"></a><a class="term" href="options.html#opt-vim.lsp.harper-ls.settings"><code class="option">vim.lsp.harper-ls.settings</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Settings to pass to harper-ls</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+attribute set of anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">{
+  codeActions = {
+    ForceStable = false;
+  };
+  diagnosticSeverity = &quot;hint&quot;;
+  dialect = &quot;American&quot;;
+  fileDictPath = &quot;&quot;;
+  ignoredLintsPath = { };
+  isolateEnglish = false;
+  linters = {
+    BoringWords = true;
+    PossessiveNoun = true;
+    SentenceCapitalization = false;
+    SpellCheck = false;
+  };
+  markdown = {
+    IgnoreLinkTitle = false;
+  };
+  maxFileLength = 120000;
+  userDictPath = &quot;&quot;;
+  workspaceDictPath = &quot;&quot;;
+}
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/harper-ls/harper-ls.nix" target="_top">
+&lt;nvf/modules/plugins/lsp/harper-ls/harper-ls.nix&gt;
 </a></code>
 </td></tr>
 </table>
