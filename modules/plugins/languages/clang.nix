@@ -197,7 +197,10 @@ in {
       enable = mkEnableOption "clang LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        description = "The clang LSP server to use";
+        description = ''
+          The clang LSP server to use. Customization of the servers can be done
+          via [](#opt-vim.lsp.servers).
+        '';
         type = singleOrListOf (enum (attrNames servers));
         default = defaultServers;
       };
