@@ -43,7 +43,8 @@ languages have sections under the `vim.languages` attribute.
 - Scala: [vim.languages.scala.enable](#opt-vim.languages.scala.enable)
 - Svelte: [vim.languages.svelte.enable](#opt-vim.languages.svelte.enable)
 - Tailwind: [vim.languages.tailwind.enable](#opt-vim.languages.tailwind.enable)
-- Terraform: [vim.languages.terraform.enable](#opt-vim.languages.terraform.enable)
+- Terraform:
+  [vim.languages.terraform.enable](#opt-vim.languages.terraform.enable)
 - Typst: [vim.languages.typst.enable](#opt-vim.languages.typst.enable)
 - Vala: [vim.languages.vala.enable](#opt-vim.languages.vala.enable)
 - WGSL: [vim.languages.wgsl.enable](#opt-vim.languages.wgsl.enable)

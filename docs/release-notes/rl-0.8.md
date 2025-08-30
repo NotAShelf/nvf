@@ -113,7 +113,8 @@
 
 [sjcobb2022](https://github.com/sjcobb2022):
 
-- Migrate all current lsp configurations to `vim.lsp.server` and remove internal dependency on `nvim-lspconfig`
+- Migrate all current lsp configurations to `vim.lsp.server` and remove internal
+  dependency on `nvim-lspconfig`
 
 [amadaluzia](https://github.com/amadaluzia):
 
