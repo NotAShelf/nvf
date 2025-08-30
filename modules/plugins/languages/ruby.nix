@@ -79,7 +79,10 @@ in {
       servers = mkOption {
         type = singleOrListOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Ruby LSP server to use";
+        description = ''
+          Ruby LSP server to use. Customization of the servers can be done via
+          [](#opt-vim.lsp.servers).
+        '';
       };
     };
 
