@@ -38,7 +38,10 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Terraform LSP server to use";
+        description = ''
+          Terraform LSP server to use. Customization of the servers can be done
+          via [](#opt-vim.lsp.servers).
+        '';
       };
     };
   };
