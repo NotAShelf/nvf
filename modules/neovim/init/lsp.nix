@@ -41,24 +41,22 @@ in {
       servers = mkOption {
         type = attrsOf lspOptions;
         default = {};
-        example = ''
-          {
-            "*" = {
-              root_markers = [".git"];
-              capabilities = {
-                textDocument = {
-                  semanticTokens = {
-                    multilineTokenSupport = true;
-                  };
+        example = {
+          "*" = {
+            root_markers = [".git"];
+            capabilities = {
+              textDocument = {
+                semanticTokens = {
+                  multilineTokenSupport = true;
                 };
               };
             };
+          };
 
-            "clangd" = {
-              filetypes = ["c"];
-            };
-          }
-        '';
+          "clangd" = {
+            filetypes = ["c"];
+          };
+        };
         description = ''
           LSP configurations that will be managed using `vim.lsp.config()` and related
           utilities added in Neovim 0.11. LSPs defined here will be added to the
