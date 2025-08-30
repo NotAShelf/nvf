@@ -528,6 +528,12 @@
 
 - Fixed `typescript` treesitter grammar not being included by default.
 
+[gmvar](https://github.com/gmvar):
+
+[harper-ls]: https://github.com/Automattic/harper
+
+- Add [harper-ls] to the `vim.lsp` module.
+
 [derethil](https://github.com/derethil):
 
 - Fix `vim.lazy.plugins.<name>.enabled` Lua evaluation.
