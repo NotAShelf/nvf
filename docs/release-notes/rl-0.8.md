@@ -111,6 +111,10 @@
 - Add [hunk.nvim], Neovim plugin & tool for splitting diffs in Neovim. Available
   as `vim.git.hunk-nvim`
 
+[sjcobb2022](https://github.com/sjcobb2022):
+
+- Migrate all current lsp configurations to `vim.lsp.server` and remove internal dependency on `nvim-lspconfig`
+
 [amadaluzia](https://github.com/amadaluzia):
 
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim
@@ -506,7 +510,6 @@
 - Add [nvim-biscuits] support under `vim.utility.nvim-biscuits`.
 - Add just support under `vim.languages.just` using [just-lsp].
 - Add [roslyn-ls] to the `vim.languages.csharp` module.
-- Added json support under `vim.languages.json` using [jsonls] and [jsonfmt].
 - Add JSON support under `vim.languages.json` using [jsonls] and [jsonfmt].
 - Add advanced HTML support under `vim.languages.html` using [superhtml] and
   [htmlHINT].
@@ -515,8 +518,11 @@
 
 [Morsicus](https://github.com/Morsicus):
 
-- Add [EEx Treesitter Grammar](https://github.com/connorlay/tree-sitter-eex) for Elixir
-- Add [HEEx Treesitter Grammar](https://github.com/phoenixframework/tree-sitter-heex) for Elixir
+- Add [EEx Treesitter Grammar](https://github.com/connorlay/tree-sitter-eex) for
+  Elixir
+- Add
+  [HEEx Treesitter Grammar](https://github.com/phoenixframework/tree-sitter-heex)
+  for Elixir
 
 [diced](https://github.com/diced):
 
@@ -527,3 +533,13 @@
 [ruff]: (https://github.com/astral-sh/ruff)
 
 - Add [ruff-fix] as a formatter option in `vim.languages.python.format.type`.
+
+[gmvar](https://github.com/gmvar):
+
+[harper-ls]: https://github.com/Automattic/harper
+
+- Add [harper-ls] to the `vim.lsp` module.
+
+[derethil](https://github.com/derethil):
+
+- Fix `vim.lazy.plugins.<name>.enabled` Lua evaluation.
