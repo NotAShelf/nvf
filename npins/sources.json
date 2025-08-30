@@ -1838,6 +1838,19 @@
       "url": "https://github.com/amrbashir/nvim-docs-view/archive/f674ba57349849bce894efdd54096483c88e810b.tar.gz",
       "hash": "0ifbfhifly5sdsbxv1p71wvl644jz505ln9j1yr6qwvyk6a2krm1"
     },
+    "nvim-highlight-colors": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "brenoprata10",
+        "repo": "nvim-highlight-colors"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "1ce0a09bfc28c7274e649d20927cea51e440b65c",
+      "url": "https://github.com/brenoprata10/nvim-highlight-colors/archive/1ce0a09bfc28c7274e649d20927cea51e440b65c.tar.gz",
+      "hash": "1wsscm2mycd7zalxv8paa3fk0qy46bbhq4yfr73sl71wvkdh6yjn"
+    },
     "nvim-lightbulb": {
       "type": "Git",
       "repository": {
