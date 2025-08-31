@@ -3,6 +3,7 @@
     ./borders
     ./breadcrumbs
     ./colorful-menu-nvim
+    ./nvim-highlight-colors
     ./colorizer
     ./fastaction
     ./illuminate

@@ -492,3 +492,10 @@
 - Fix default [blink.cmp] sources "path" and "buffer" not working when
   `autocomplete.nvim-cmp.enable` was disabled and
   `autocomplete.nvim-cmp.sources` had not been modified.
+
+[Jules](https://github.com/jules-sommer):
+
+[nvim-highlight-colors]: https://github.com/brenoprata10/nvim-highlight-colors
+
+- Add [nvim-highlight-colors] plugin in `vim.ui.nvim-highlight-colors` with
+  `enable` and `setupOpts`
