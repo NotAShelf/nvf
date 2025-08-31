@@ -544,3 +544,10 @@
 [derethil](https://github.com/derethil):
 
 - Fix `vim.lazy.plugins.<name>.enabled` Lua evaluation.
+
+[Jules](https://github.com/jules-sommer):
+
+[nvim-highlight-colors]: https://github.com/brenoprata10/nvim-highlight-colors
+
+- Add [nvim-highlight-colors] plugin in `vim.ui.nvim-highlight-colors` with
+  `enable` and `setupOpts`
