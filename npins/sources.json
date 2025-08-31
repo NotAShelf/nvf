@@ -35,9 +35,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "ff116a567346003d37e19d05aa514972b53b574e",
-      "url": "https://github.com/yetone/avante.nvim/archive/ff116a567346003d37e19d05aa514972b53b574e.tar.gz",
-      "hash": "1fipz3c5gdbjnih366h20ppg7q6x7xqj5jlnadsqm5z28vj3kfr1"
+      "revision": "bcbe0347d8b5542b8a3361af8506f6dcf5bca02e",
+      "url": "https://github.com/yetone/avante.nvim/archive/bcbe0347d8b5542b8a3361af8506f6dcf5bca02e.tar.gz",
+      "hash": "1h7v40i3a7471ss5115my3n62gr4ldicmdc6vr4aaahjbghrri4v"
     },
     "base16": {
       "type": "Git",
@@ -116,6 +116,22 @@
       "revision": "f6bcea78afb3060b198125256f897040538bcb81",
       "url": "https://github.com/famiu/bufdelete.nvim/archive/f6bcea78afb3060b198125256f897040538bcb81.tar.gz",
       "hash": "0xfzk3zgnxbwnr55n3lglsb8nmhnchpiqz9d152xr6j8d9z0sdcn"
+    },
+    "bufferline-nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "akinsho",
+        "repo": "bufferline.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v4.9.1",
+      "revision": "655133c3b4c3e5e05ec549b9f8cc2894ac6f51b3",
+      "url": "https://api.github.com/repos/akinsho/bufferline.nvim/tarball/v4.9.1",
+      "hash": "0m5363rpbjgvsnbhp9yrivbqj17lmrb5m57lpnq7dgxsmw3hrvk9"
     },
     "catppuccin": {
       "type": "Git",
@@ -1733,19 +1749,6 @@
       "revision": "ff1d12c8b47cd28723da593b2cfa2e98391d439a",
       "url": "https://github.com/code-biscuits/nvim-biscuits/archive/ff1d12c8b47cd28723da593b2cfa2e98391d439a.tar.gz",
       "hash": "18dvvg32nxrdp1ydbvxrzkdg7q214naq2bphs7y1s9zmjhyj25pm"
-    },
-    "nvim-bufferline-lua": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "akinsho",
-        "repo": "nvim-bufferline.lua"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "655133c3b4c3e5e05ec549b9f8cc2894ac6f51b3",
-      "url": "https://github.com/akinsho/nvim-bufferline.lua/archive/655133c3b4c3e5e05ec549b9f8cc2894ac6f51b3.tar.gz",
-      "hash": "0m5363rpbjgvsnbhp9yrivbqj17lmrb5m57lpnq7dgxsmw3hrvk9"
     },
     "nvim-cmp": {
       "type": "Git",
