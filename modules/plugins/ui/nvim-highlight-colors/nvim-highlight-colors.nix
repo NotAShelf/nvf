@@ -37,56 +37,35 @@ in {
         '';
       };
 
-      virtual_symbol = mkOption {
-        type = nullOr str;
-        default = "■";
-        example = "⬤";
+      virtual_symbol_position = mkOption {
+        type = enum ["inline" "eol" "eow"];
+        default = "inline";
+        example = "eol";
         description = ''
-          Symbol to display color with as virtual text.
+          Where to render the virtual symbol in
+          relation to the color string.
 
           ::: {.note}
-          Only applies when `render` is set to 'virtual'.
+          Each render style works as follows:
+            - 'inline' render virtual text inline,
+              similar to the style of VSCode color
+              hinting.
+
+            - 'eol' render virtual text at the end
+              of the line which the color string
+              occurs (last column). Recommended to
+              set `virtual_symbol_suffix` to an
+              empty string when used.
+
+            - 'eow' render virtual text at the end
+              of the word where the color string
+              occurs. Recommended to set
+              `virtual_symbol_prefix` to a single
+              space for padding and the suffix to
+              an empty string for no padding.
           :::
         '';
       };
-
-      virtual_symbol_prefix = mkOption {
-        type = nullOr str;
-        default = "";
-        description = ''
-          String used as a prefix to the virtual_symbol
-          For example, to add padding between the color
-          string and the virtual symbol.
-
-          ::: {.note}
-          Only applies when `render` is set to 'virtual'.
-          :::
-        '';
-      };
-
-      virtual_symbol_suffix = mkOption {
-        type = nullOr str;
-        default = " ";
-        description = ''
-          String used as a suffix to the virtual_symbol
-          For example, to add padding between the virtual
-          symbol and other text in the buffer.
-
-          ::: {.note}
-          Only applies when `render` is set to 'virtual'.
-          :::
-        '';
-      };
-
-      enable_hex = mkBool true "Enable highlighting for hex color strings, i.e `#FFFFFF`.";
-      enable_short_hex = mkBool true "Enable highlighting for shorthand hex color format, i.e `#FFF`.";
-      enable_rgb = mkBool true "Enable highlighting for RGB color strings, i.e `rgb(0, 0, 0)` or `rgb(0 0 0)`.";
-      enable_hsl = mkBool true "Enable highlighting for HSL color strings, i.e `hsl(150deg 30% 40%)`.";
-      enable_ansi = mkBool true "Enable highlighting for HSL color strings, i.e `\033[0;34m`.";
-      enable_hsl_without_function = mkBool true "Enable highlighting for bare HSL color strings, i.e `--foreground: 0 69% 69%;`.";
-      enable_var_usage = mkBool true "Enable highlighting for CSS variables which reference colors, i.e `var(--testing-color)`.";
-      enable_named_colors = mkBool true "Enable highlighting for named colors, i.e `green`.";
-      enable_tailwind = mkBool false "Enable highlighting for tailwind color classes, i.e `bg-blue-500`.";
     };
   };
 }

@@ -15,6 +15,9 @@ in {
         "nvim-highlight-colors"
       ];
 
+      # enable display of 24-bit RGB colors in neovim
+      # via the terminal. This is required for nvim-highlight-colors
+      # to display arbitrary RGB highlights.
       options.termguicolors = true;
 
       pluginRC.nvim-highlight-colors = entryAnywhere ''
