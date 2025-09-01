@@ -112,10 +112,10 @@ in {
         pluginRC.rust-crates = entryAnywhere ''
           require('crates').setup {
            lsp = {
-              enabled = true,
-              actions = true,
-              completion = true,
-              hover = true,
+              enabled = ${boolToString cfg.crates.enable},
+              actions = ${boolToString cfg.crates.codeActions},
+              completion =  ${boolToString cfg.crates.enable},
+              hover = ${boolToString cfg.crates.enable},
             },
           }
         '';
