@@ -109,14 +109,14 @@ in {
     (mkIf cfg.crates.enable {
       vim = {
         startPlugins = ["crates-nvim"];
-        lsp.null-ls.enable = mkIf cfg.crates.codeActions true;
-        autocomplete.nvim-cmp.sources = {crates = "[Crates]";};
         pluginRC.rust-crates = entryAnywhere ''
           require('crates').setup {
-            null_ls = {
-              enabled = ${boolToString cfg.crates.codeActions},
-              name = "crates.nvim",
-            }
+           lsp = {
+              enabled = true,
+              actions = true,
+              completion = true,
+              hover = true,
+            },
           }
         '';
       };
