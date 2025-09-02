@@ -9,14 +9,16 @@ in {
 
     setupOpts = mkPluginSetupOption "image.nvim" {
       backend = mkOption {
-        type = enum ["kitty" "ueberzug"];
+        type = enum ["kitty" "ueberzug" "sixel"];
         default = "ueberzug";
         description = ''
           The backend to use for rendering images.
 
-          - kitty - best in class, works great and is very snappy
-          - ueberzug - backed by ueberzugpp, supports any terminal,
+          * `kitty` - best in class, works great and is very snappy. Recommended
+          by upstream.
+          * `ueberzug` - backed by ueberzugpp, supports any terminal,
             but has lower performance
+          * `sixel` - uses the Sixel graphics protocol, widely supported by many terminals
         '';
       };
 
