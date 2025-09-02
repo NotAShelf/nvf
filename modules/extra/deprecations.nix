@@ -259,6 +259,14 @@ in {
 
       (mkRenamedLspServer "zig")
       (mkRemovedLspPackage "zig")
+
+      # 2025-08-21
+      (mkRenamedOptionModule ["vim" "languages" "rust" "crates" "enable"] ["vim" "languages" "rust" "extensions" "crates-nvim" "enable"])
+      (mkRemovedOptionModule ["vim" "languages" "rust" "crates" "codeActions"] ''
+        'vim.languages.rust.crates' option has been moved to 'vim.languages.rust.extensions.crates-nvim' in full and the
+        codeActions option has been removed. To set up code actions again, you may use the the new 'setupOpts' option
+        located under 'vim.languages.rust.extensions.crates-nvim'. Refer to crates.nvim documentation for setup steps.
+      '')
     ]
 
     # Migrated via batchRenameOptions. Further batch renames must be below this line.
