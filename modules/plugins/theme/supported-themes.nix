@@ -71,6 +71,9 @@ in {
       require('catppuccin').setup {
         flavour = "${style}",
         transparent_background = ${boolToString transparent},
+        float = {
+          transparent = ${boolToString transparent},
+        },
         term_colors = true,
         integrations = {
           nvimtree = {
