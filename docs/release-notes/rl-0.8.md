@@ -111,6 +111,11 @@
 - Add [hunk.nvim], Neovim plugin & tool for splitting diffs in Neovim. Available
   as `vim.git.hunk-nvim`
 
+[sjcobb2022](https://github.com/sjcobb2022):
+
+- Migrate all current lsp configurations to `vim.lsp.server` and remove internal
+  dependency on `nvim-lspconfig`
+
 [amadaluzia](https://github.com/amadaluzia):
 
 [haskell-tools.nvim]: https://github.com/MrcJkb/haskell-tools.nvim
@@ -319,6 +324,7 @@
 - Add global function `nvf_lint` under
   `vim.diagnostics.nvim-lint.lint_function`.
 - Deprecate `vim.scrollOffset` in favor of `vim.options.scrolloff`.
+- Fix `svelte-language-server` not reloading .js/.ts files on change.
 
 [Sc3l3t0n](https://github.com/Sc3l3t0n):
 
@@ -389,9 +395,12 @@
 [poz](https://poz.pet):
 
 [everforest]: https://github.com/sainnhe/everforest
+[oil]: https://github.com/stevearc/oil.nvim
+[oil-git-status]: https://github.com/refractalize/oil-git-status.nvim
 
 - Fix gitsigns null-ls issue.
 - Add [everforest] theme support.
+- Add [oil-git-status] support to [oil] module.
 
 [Haskex](https://github.com/haskex):
 
@@ -480,18 +489,61 @@
 - fix broken `neorg` grammars
 - remove obsolete warning in the `otter` module
 
-[Cool-Game-Dev](https://github.com/Cool-Game-Dev):
-
-[nvim-biscuits]: https://github.com/code-biscuits/nvim-biscuits
-
-- Add [nvim-biscuits] to show block context. Available at
-  `vim.utility.nvim-biscuits`.
-
 [JManch](https://github.com/JManch):
 
 - Fix default [blink.cmp] sources "path" and "buffer" not working when
   `autocomplete.nvim-cmp.enable` was disabled and
   `autocomplete.nvim-cmp.sources` had not been modified.
+
+[Poseidon](https://github.com/poseidon-rises):
+
+[nvim-biscuits]: https://github.com/code-biscuits/nvim-biscuits
+[just-lsp]: https://github.com/terror/just-lsp
+[roslyn-ls]: https://github.com/dotnet/vscode-csharp
+[jsonls]: https://github.com/microsoft/vscode/tree/1.101.2/extensions/json-language-features/server
+[jsonfmt]: https://github.com/caarlos0/jsonfmt
+[superhtml]: https://github.com/kristoff-it/superhtml
+[htmlHINT]: https://github.com/htmlhint/HTMLHint
+[qmk-nvim]: https://github.com/codethread/qmk.nvim
+[qmlls]: https://doc.qt.io/qt-6/qtqml-tooling-qmlls.html
+[qmlformat]: https://doc.qt.io/qt-6/qtqml-tooling-qmlformat.html
+
+- Add [nvim-biscuits] support under `vim.utility.nvim-biscuits`.
+- Add just support under `vim.languages.just` using [just-lsp].
+- Add [roslyn-ls] to the `vim.languages.csharp` module.
+- Add JSON support under `vim.languages.json` using [jsonls] and [jsonfmt].
+- Add advanced HTML support under `vim.languages.html` using [superhtml] and
+  [htmlHINT].
+- Add QMK support under `vim.utility.qmk-nvim` via [qmk-nvim].
+- Add QML support under `vim.languages.qml` using [qmlls] and [qmlformat].
+
+[Morsicus](https://github.com/Morsicus):
+
+- Add [EEx Treesitter Grammar](https://github.com/connorlay/tree-sitter-eex) for
+  Elixir
+- Add
+  [HEEx Treesitter Grammar](https://github.com/phoenixframework/tree-sitter-heex)
+  for Elixir
+
+[diced](https://github.com/diced):
+
+- Fixed `typescript` treesitter grammar not being included by default.
+
+[valterschutz](https://github.com/valterschutz):
+
+[ruff]: (https://github.com/astral-sh/ruff)
+
+- Add [ruff-fix] as a formatter option in `vim.languages.python.format.type`.
+
+[gmvar](https://github.com/gmvar):
+
+[harper-ls]: https://github.com/Automattic/harper
+
+- Add [harper-ls] to the `vim.lsp` module.
+
+[derethil](https://github.com/derethil):
+
+- Fix `vim.lazy.plugins.<name>.enabled` Lua evaluation.
 
 [Jules](https://github.com/jules-sommer):
 
