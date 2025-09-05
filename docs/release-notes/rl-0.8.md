@@ -499,3 +499,7 @@
 
 - Add [nvim-highlight-colors] plugin in `vim.ui.nvim-highlight-colors` with
   `enable` and `setupOpts`
+
+[midischwarz12](https://github.com/midischwarz12):
+
+- Add extension support for [codecompanion-nvim].
