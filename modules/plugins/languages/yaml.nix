@@ -19,6 +19,7 @@
     if config.vim.languages.helm.lsp.enable && config.vim.languages.helm.enable
     then ''
       function(client, bufnr)
+        default_on_attach()
         local filetype = vim.bo[bufnr].filetype
         if filetype == "helm" then
           client.stop()

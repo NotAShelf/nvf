@@ -291,6 +291,8 @@
   `null` value to disable them if conform is enabled.
 - Fix Helm-YAML language module integration. YAML diagnostics will now remain in
   `helmfile`s when both are enabled.
+- Fix YAML language module not activating LSP keybinds if the Helm language
+  module was also enabled.
 
 [TheColorman](https://github.com/TheColorman):
 
