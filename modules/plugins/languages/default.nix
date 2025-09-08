@@ -3,6 +3,7 @@
   inherit (lib.nvim.languages) mkEnable;
 in {
   imports = [
+    ./angular.nix
     ./asm.nix
     ./astro.nix
     ./bash.nix

@@ -499,3 +499,7 @@
 
 - Add [nvim-highlight-colors] plugin in `vim.ui.nvim-highlight-colors` with
   `enable` and `setupOpts`
+
+[NikSne](https://github.com/NikSneMC):
+
+- Add Angular support under `vim.languages.angular`.

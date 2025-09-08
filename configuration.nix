@@ -71,6 +71,7 @@ isMaximal: {
       };
 
       # Language modules that are not as common.
+      angular.enable = false;
       assembly.enable = false;
       astro.enable = false;
       nu.enable = false;
