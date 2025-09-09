@@ -145,7 +145,7 @@ in {
       ];
 
       lazy.builtLazyConfig = ''
-        require('lz.n').load(${toLuaObject lznSpecs})
+        ${optionalString (length lznSpecs > 0) "require('lz.n').load(${toLuaObject lznSpecs})"}
         ${optionalString cfg.enableLznAutoRequire "require('lzn-auto-require').enable()"}
       '';
     })

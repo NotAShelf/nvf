@@ -38,7 +38,7 @@
         type = nullOr luaInline;
         default = null;
         example = literalExpression ''
-          mkLuaInline '''
+          lib.generators.mkLuaInline '''
             function()
                 print("Saving a Lua file...")
             end
