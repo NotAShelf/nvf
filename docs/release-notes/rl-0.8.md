@@ -499,3 +499,9 @@
 
 - Add [nvim-highlight-colors] plugin in `vim.ui.nvim-highlight-colors` with
   `enable` and `setupOpts`
+
+
+
+[Freexploit](https://github.com/freexploit):
+
+- Deprecate null-ls in [crates.nvim](https://github.com/saecki/crates.nvim)
