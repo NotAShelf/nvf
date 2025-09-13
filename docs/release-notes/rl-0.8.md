@@ -499,3 +499,6 @@
 
 - Add [nvim-highlight-colors] plugin in `vim.ui.nvim-highlight-colors` with
   `enable` and `setupOpts`
+- Fix [blink.cmp] keymap preset types to allow alternate cmdline, terminal, 
+  etc modes to `inherit` the default mode keymaps. This is an option as per
+  the [blink.cmp] docs and is now supported in  docs and is now supported in nvf.nvf.
