@@ -15,6 +15,9 @@ in {
     {
       vim = {
         startPlugins = ["nvim-lspconfig"];
+        # TODO: we need this pre-0.8 to get the `capabilities` variable in lua,
+        # does it make sense to remove this after 0.8?
+        lsp.enable = true;
 
         pluginRC.lspconfig = entryAfter ["lsp-setup"] ''
           local lspconfig = require('lspconfig')
