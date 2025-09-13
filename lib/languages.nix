@@ -1,7 +1,7 @@
 {lib}: let
   inherit (builtins) isString getAttr;
   inherit (lib.options) mkOption;
-  inherit (lib.types) listOf bool str submodule attrsOf anything either nullOr;
+  inherit (lib.types) listOf bool str submodule attrsOf anything either nullOr uniq;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) luaInline;
 in {
@@ -46,7 +46,7 @@ in {
       capabilities = mkOption {
         type = nullOr (either luaInline (attrsOf anything));
         default = null;
-        description = "LSP capabilitiess to pass to lspconfig";
+        description = "LSP capabilities to pass to LSP server configuration";
       };
 
       on_attach = mkOption {
@@ -58,11 +58,11 @@ in {
       filetypes = mkOption {
         type = nullOr (listOf str);
         default = null;
-        description = "Filetypes to auto-attach LSP in";
+        description = "Filetypes to auto-attach LSP server in";
       };
 
       cmd = mkOption {
-        type = nullOr (listOf str);
+        type = nullOr (either luaInline (uniq (listOf str)));
         default = null;
         description = "Command used to start the LSP server";
       };
