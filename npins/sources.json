@@ -775,9 +775,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "a8d6829ce8472a79df140bc494e75f1847f8861e",
-      "url": "https://github.com/3rd/image.nvim/archive/a8d6829ce8472a79df140bc494e75f1847f8861e.tar.gz",
-      "hash": "0aq8qdlhyncy5gdbz2ybbfzb2dik1sr9iysg64p4ry5kh8bd2277"
+      "revision": "446a8a5cc7a3eae3185ee0c697732c32a5547a0b",
+      "url": "https://github.com/3rd/image.nvim/archive/446a8a5cc7a3eae3185ee0c697732c32a5547a0b.tar.gz",
+      "hash": "18hgp9qkm596rl0k1n4rrri8y6k84fkacphf9x3mrqwgqrixx80i"
     },
     "img-clip": {
       "type": "Git",
