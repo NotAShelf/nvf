@@ -45650,11 +45650,12 @@ anything</p>
  </span>
 </dt>
 <dd>
-<p>The backend to use for rendering images.</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>kitty - best in class, works great and is very snappy</p></li><li class="listitem"><p>ueberzug - backed by ueberzugpp, supports any terminal,
-but has lower performance</p></li></ul></div>
+<p>The backend to use for rendering images.</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p><code class="literal">kitty</code> - best in class, works great and is very snappy. Recommended
+by upstream.</p></li><li class="listitem"><p><code class="literal">ueberzug</code> - backed by ueberzugpp, supports any terminal,
+but has lower performance</p></li><li class="listitem"><p><code class="literal">sixel</code> - uses the Sixel graphics protocol, widely supported by many terminals</p></li></ul></div>
 
 <p><span class="emphasis"><em>Type:</em></span>
-one of “kitty”, “ueberzug”</p>
+one of “kitty”, “ueberzug”, “sixel”</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">&quot;ueberzug&quot;</code></p>
