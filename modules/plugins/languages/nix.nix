@@ -72,6 +72,7 @@
           else noFormat
         },
           cmd = ${packageToCmd cfg.lsp.package "nixd"},
+          options = ${toLuaObject cfg.lsp.options},
         ${optionalString cfg.format.enable ''
           settings = {
             nixd = {
@@ -87,7 +88,6 @@
                 command = {"${cfg.format.package}/bin/nixfmt"},
               },
             ''}
-          options = ${toLuaObject cfg.lsp.options},
             },
           },
         ''}
