@@ -144,3 +144,12 @@
 [Machshev](https://github.com/machshev):
 
 - Added `ruff` and `ty` LSP support for Python under `programs.python`.
+
+[Poseidon](https://github.com/poseidon-rises):
+
+[docker-language-server]: https://github.com/docker/docker-language-server
+[dockerfmt]: https://github.com/reteps/dockerfmt
+[hadolint]: https://github.com/hadolint/hadolint
+
+- Add dockerfile support using [docker-language-server], [dockerfmt], and
+  [hadolint].
