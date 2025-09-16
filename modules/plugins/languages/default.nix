@@ -11,6 +11,7 @@ in {
     ./clang.nix
     ./clojure.nix
     ./css.nix
+    ./dockerfile.nix
     ./elixir.nix
     ./fsharp.nix
     ./gleam.nix
