@@ -2526,6 +2526,19 @@
       "url": "https://github.com/dmmulroy/ts-error-translator.nvim/archive/47e5ba89f71b9e6c72eaaaaa519dd59bd6897df4.tar.gz",
       "hash": "08whn7l75qv5n74cifmnxc0s7n7ja1g7589pjnbbsk2djn6bqbky"
     },
+    "typst-concealer": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "PartyWumpus",
+        "repo": "typst-concealer"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "3d2e72ce7fc06bd0db0dafbdd1e17d3c9e343d53",
+      "url": "https://github.com/PartyWumpus/typst-concealer/archive/3d2e72ce7fc06bd0db0dafbdd1e17d3c9e343d53.tar.gz",
+      "hash": "16j3q3hk1wzgcz6snn9997vclhkanplyn0cp1dm9lk034jd8v9nh"
+    },
     "typst-preview-nvim": {
       "type": "Git",
       "repository": {
