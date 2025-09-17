@@ -193,6 +193,12 @@ in {
             type = str;
             default = getExe pkgs.typst;
             description = "Where should typst-concealer look for your typst binary?";
+            example = ''lib.getExe pkgs.typst'';
+          };
+          conceal_in_normal = mkOption {
+            type = nullOr bool;
+            default = null;
+            description = "Should typst-concealer still conceal when the normal mode cursor goes over a line.";
           };
         };
       };
