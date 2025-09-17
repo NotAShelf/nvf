@@ -102,7 +102,7 @@ in
         --script script/anchor-use.js \
         --script script/anchor-min.js \
         --script script/search.js \
-        --toc-depth 2 \
+        --toc-depth 1 \
         --section-toc-depth 1 \
         manual.md \
         "$dest/index.xhtml"

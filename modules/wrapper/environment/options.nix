@@ -140,5 +140,21 @@ in {
       example = ''["pynvim"]'';
       description = "List of python packages to install";
     };
+
+    pluginOverrides = mkOption {
+      type = attrsOf package;
+      default = {};
+      example = ''
+        {
+          lazydev-nvim = pkgs.fetchFromGitHub {
+            owner = "folke";
+            repo = "lazydev.nvim";
+            rev = "";
+            hash = "";
+          };
+        }
+      '';
+      description = "Attribute set of plugins to override default values";
+    };
   };
 }

@@ -69,7 +69,7 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
 
 - Added rose-pine theme.
 
-[jacekpoz](https://jacekpoz.pl):
+[poz](https://poz.pet):
 
 - Added `vim.autocomplete.alwaysComplete`. Allows users to have the autocomplete
   window popup only when manually activated.

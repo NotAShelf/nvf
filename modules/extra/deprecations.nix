@@ -4,6 +4,7 @@
   inherit (lib.nvim.config) batchRenameOptions;
 
   renamedVimOpts = batchRenameOptions ["vim"] ["vim" "options"] {
+    # 2024-12-01
     colourTerm = "termguicolors";
     mouseSupport = "mouse";
     cmdHeight = "cmdheight";
@@ -15,6 +16,9 @@
     autoIndent = "autoindent";
     wordWrap = "wrap";
     showSignColumn = "signcolumn";
+
+    # 2025-02-07
+    scrollOffset = "scrolloff";
   };
 in {
   imports = concatLists [
@@ -93,9 +97,31 @@ in {
 
       # 2024-12-02
       (mkRenamedOptionModule ["vim" "enableEditorconfig"] ["vim" "globals" "editorconfig"])
+
+      # 2025-02-06
+      (mkRemovedOptionModule ["vim" "disableArrows"] ''
+        Top-level convenience options are now in the process of being removed from nvf as
+        their behaviour was abstract, and confusing. Please use 'vim.options' or 'vim.luaConfigRC'
+        to replicate previous behaviour.
+      '')
+
+      # 2025-04-04
+      (mkRemovedOptionModule ["vim" "lsp" "lsplines"] ''
+        lsplines module has been removed from nvf, as its functionality is now built into Neovim
+        under the diagnostics module. Please consider using one of 'vim.diagnostics.config' or
+        'vim.luaConfigRC' to configure LSP lines for Neovim through its own diagnostics API.
+      '')
+
+      # 2025-05-04
+      (mkRemovedOptionModule ["vim" "useSystemClipboard"] ''
+        Clipboard behaviour should now be controlled through the new, more fine-grained module
+        interface found in 'vim.clipboard'. To replicate previous behaviour, you may either
+        add 'vim.opt.clipboard:append("unnamedplus")' in luaConfigRC, or preferably set it
+        in 'vim.clipboard.registers'. Please see the documentation for the new module for more
+        details, or open an issue if you are confused.
+      '')
     ]
 
-    # 2024-12-01
     # Migrated via batchRenameOptions. Further batch renames must be below this line.
     renamedVimOpts
   ];

@@ -24,7 +24,7 @@ in {
   entryAfter, and entryBefore to a topologically sorted list of
   entries.
 
-  Internally this function uses the `toposort` function in
+  Internally this function uses the `topoSort` function in
   `<nixpkgs/lib/lists.nix>` and its value is accordingly.
 
   Specifically, the result on success is
@@ -136,16 +136,26 @@ in {
   entriesAfter = tag: entriesBetween tag [];
   entriesBefore = tag: before: entriesBetween tag before [];
 
-  # mkLuarcSection and mkVimrcSection take a section DAG
-  # and return a string containing a comment to identify
+  # mkLuarcSection takes a section DAG, containing 'name' and 'data' fields
+  # then returns a string containing a comment to identify the section, and
+  # the data contained within the section.
   # the section, and the data contained within the section
   #
-  # all operations are done without any modifications
-  # to the inputted section data
-  mkLuarcSection = section: ''
-    -- SECTION: ${section.name}
-    ${section.data}
-  '';
+  # All operations are done without any modifications to the inputted section
+  # data, but if a non-string is passed to name or data, then it will try to
+  # coerce it into a string, which may fail. Setting data to "" or null will
+  # return an empty string.
+  #
+  # section.data should never be null, though taking 'null' as a value that
+  # can "clear" the DAG might come in handy for filtering sections more easily.
+  # Or perhaps simply unsetting them from an user perspective.
+  mkLuarcSection = section:
+    if section.data == "" || section.data == null
+    then ""
+    else ''
+      -- SECTION: ${section.name}
+      ${section.data}
+    '';
 
   resolveDag = {
     name,

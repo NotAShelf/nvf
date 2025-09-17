@@ -38,14 +38,9 @@
   formats = {
     nimpretty = {
       package = pkgs.nim;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.nimpretty.with({
-            command = "${pkgs.nim}/bin/nimpretty",
-          })
-        )
-      '';
+      config = {
+        command = "${cfg.format.package}/bin/nimpretty";
+      };
     };
   };
 in {
@@ -58,7 +53,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Nim LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Nim LSP support" // {default = config.vim.lsp.enable;};
       server = mkOption {
         description = "Nim LSP server to use";
         type = str;
@@ -110,8 +105,11 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.nim-format = formats.${cfg.format.type}.nullConfig;
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.nim = [cfg.format.type];
+        setupOpts.formatters.${cfg.format.type} = formats.${cfg.format.type}.config;
+      };
     })
   ]);
 }

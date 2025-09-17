@@ -6,14 +6,14 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib) concatStringsSep;
+  inherit (lib.meta) getExe;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.strings) optionalString;
-  inherit (lib.types) enum either listOf package str;
+  inherit (lib.types) anything attrsOf enum either listOf nullOr package str;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
-  inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.languages) diagnosticsToLua;
+  inherit (lib.nvim.lua) expToLua toLuaObject;
 
   cfg = config.vim.languages.nix;
 
@@ -59,35 +59,44 @@
         }
       '';
     };
+
+    nixd = let
+      settings.nixd = {
+        inherit (cfg.lsp) options;
+        formatting.command =
+          if !cfg.format.enable
+          then null
+          else if cfg.format.type == "alejandra"
+          then ["${cfg.format.package}/bin/alejandra" "--quiet"]
+          else ["${cfg.format.package}/bin/nixfmt"];
+      };
+    in {
+      package = pkgs.nixd;
+      internalFormatter = true;
+      lspConfig = ''
+        lspconfig.nixd.setup{
+          capabilities = capabilities,
+        ${
+          if cfg.format.enable
+          then useFormat
+          else noFormat
+        },
+          cmd = ${packageToCmd cfg.lsp.package "nixd"},
+          settings = ${toLuaObject settings},
+        }
+      '';
+    };
   };
 
   defaultFormat = "alejandra";
   formats = {
     alejandra = {
       package = pkgs.alejandra;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.alejandra.with({
-            command = "${cfg.format.package}/bin/alejandra"
-          })
-        )
-      '';
     };
 
     nixfmt = {
       package = pkgs.nixfmt-rfc-style;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.nixfmt.with({
-            command = "${cfg.format.package}/bin/nixfmt"
-          })
-        )
-      '';
     };
-
-    nixpkgs-fmt = null; # removed
   };
 
   defaultDiagnosticsProvider = ["statix" "deadnix"];
@@ -126,7 +135,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Nix LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Nix LSP support" // {default = config.vim.lsp.enable;};
       server = mkOption {
         description = "Nix LSP server to use";
         type = enum (attrNames servers);
@@ -138,6 +147,12 @@ in {
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+      };
+
+      options = mkOption {
+        type = nullOr (attrsOf anything);
+        default = null;
+        description = "Options to pass to nixd LSP server";
       };
     };
 
@@ -178,7 +193,6 @@ in {
             ${concatStringsSep ", " (attrNames formats)}
           '';
         }
-
         {
           assertion = cfg.lsp.server != "rnix";
           message = ''
@@ -199,17 +213,24 @@ in {
       vim.lsp.lspconfig.sources.nix-lsp = servers.${cfg.lsp.server}.lspConfig;
     })
 
-    (mkIf (cfg.format.enable && !servers.${cfg.lsp.server}.internalFormatter) {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.nix-format = formats.${cfg.format.type}.nullConfig;
+    (mkIf (cfg.format.enable && (!cfg.lsp.enable || !servers.${cfg.lsp.server}.internalFormatter)) {
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.nix = [cfg.format.type];
+        setupOpts.formatters.${cfg.format.type} = {
+          command = getExe cfg.format.package;
+        };
+      };
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources = diagnosticsToLua {
-        lang = "nix";
-        config = cfg.extraDiagnostics.types;
-        inherit diagnosticsProviders;
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.nix = cfg.extraDiagnostics.types;
+        linters = mkMerge (map (name: {
+            ${name}.cmd = getExe diagnosticsProviders.${name}.package;
+          })
+          cfg.extraDiagnostics.types);
       };
     })
   ]);

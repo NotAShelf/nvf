@@ -134,9 +134,18 @@ in {
       startPlugins = ["lz-n" "lzn-auto-require"];
 
       optPlugins = pluginPackages;
+      augroups = [{name = "nvf_lazy_file_hooks";}];
+      autocmds = [
+        {
+          event = ["BufReadPost" "BufNewFile" "BufWritePre"];
+          group = "nvf_lazy_file_hooks";
+          command = "doautocmd User LazyFile";
+          once = true;
+        }
+      ];
 
       lazy.builtLazyConfig = ''
-        require('lz.n').load(${toLuaObject lznSpecs})
+        ${optionalString (length lznSpecs > 0) "require('lz.n').load(${toLuaObject lznSpecs})"}
         ${optionalString cfg.enableLznAutoRequire "require('lzn-auto-require').enable()"}
       '';
     })

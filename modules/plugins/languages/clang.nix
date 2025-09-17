@@ -98,7 +98,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "clang LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "clang LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "The clang LSP server to use";

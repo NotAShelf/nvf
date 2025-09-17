@@ -162,7 +162,7 @@ The changes are, in no particular order:
 - Add [lz.n] support and lazy-load some builtin plugins.
 - Add simpler helper functions for making keymaps
 
-[jacekpoz](https://jacekpoz.pl):
+[poz](https://poz.pet):
 
 [ocaml-lsp]: https://github.com/ocaml/ocaml-lsp
 [new-file-template.nvim]: https://github.com/otavioschwanck/new-file-template.nvim

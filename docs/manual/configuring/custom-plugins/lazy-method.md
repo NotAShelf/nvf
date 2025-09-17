@@ -1,7 +1,8 @@
 # Lazy Method {#sec-lazy-method}
 
-As of version **0.7**, we exposed an API for configuring lazy-loaded plugins via
-`lz.n` and `lzn-auto-require`.
+As of version **0.7**, an API is exposed to allow configuring lazy-loaded
+plugins via `lz.n` and `lzn-auto-require`. Below is a comprehensive example of
+how it may be loaded to lazy-load an arbitrary plugin.
 
 ```nix
 {
@@ -38,3 +39,24 @@ As of version **0.7**, we exposed an API for configuring lazy-loaded plugins via
   };
 }
 ```
+
+## LazyFile event {#sec-lazyfile-event}
+
+**nvf** re-implements `LazyFile` as a familiar user event to load a plugin when
+a file is opened:
+
+```nix
+{
+  config.vim.lazy.plugins = {
+    "aerial.nvim" = {
+      package = pkgs.vimPlugins.aerial-nvim;
+      event = [{event = "User"; pattern = "LazyFile";}];
+      # ...
+    };
+  };
+}
+```
+
+You can consider the `LazyFile` event as an alias to the combination of
+`"BufReadPost"`, `"BufNewFile"` and `"BufWritePre"`, i.e., a list containing all
+three of those events: `["BufReadPost" "BufNewFile" "BufWritePre"]`

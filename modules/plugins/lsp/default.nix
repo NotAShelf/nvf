@@ -15,7 +15,6 @@
     ./lightbulb
     ./otter
     ./lspkind
-    ./lsplines
     ./nvim-docs-view
   ];
 }

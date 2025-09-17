@@ -38,14 +38,9 @@
   formats = {
     mix = {
       package = pkgs.elixir;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.mix.with({
-            command = "${cfg.format.package}/bin/mix",
-          })
-        )
-      '';
+      config = {
+        command = "${cfg.format.package}/bin/mix";
+      };
     };
   };
 in {
@@ -58,7 +53,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Elixir LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Elixir LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "Elixir LSP server to use";
@@ -107,12 +102,16 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.elixir-format = formats.${cfg.format.type}.nullConfig;
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.elixir = [cfg.format.type];
+        setupOpts.formatters.${cfg.format.type} =
+          formats.${cfg.format.type}.config;
+      };
     })
 
     (mkIf cfg.elixir-tools.enable {
-      vim.startPlugins = ["elixir-tools"];
+      vim.startPlugins = ["elixir-tools-nvim"];
       vim.pluginRC.elixir-tools = entryAnywhere ''
         local elixir = require("elixir")
         local elixirls = require("elixir.elixirls")

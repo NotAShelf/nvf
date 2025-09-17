@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) nullOr listOf enum bool str int either;
+  inherit (lib.types) nullOr listOf enum bool str int;
   inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.nvim.types) mkPluginSetupOption borderType;
   mkSimpleIconOption = default:
@@ -74,7 +74,7 @@ in {
           ::: {.note}
           This will pass `draw_empty` to the `nvim_navic` winbar
           component, which causes the component to be drawn even
-          if it's empty
+          if it's empty.
           :::
         '';
       };
@@ -86,145 +86,163 @@ in {
         close = mkOption {
           type = str;
           default = "<esc>";
-          description = "keybinding to close Navbuddy UI";
+          description = "Close and return the cursor to its original location.";
         };
 
         nextSibling = mkOption {
           type = str;
           default = "j";
-          description = "keybinding to navigate to the next sibling node";
+          description = "Navigate to the next sibling node.";
         };
 
         previousSibling = mkOption {
           type = str;
           default = "k";
-          description = "keybinding to navigate to the previous sibling node";
+          description = "Navigate to the previous sibling node.";
         };
 
         parent = mkOption {
           type = str;
           default = "h";
-          description = "keybinding to navigate to the parent node";
+          description = "Navigate to the parent node.";
         };
 
         children = mkOption {
           type = str;
           default = "l";
-          description = "keybinding to navigate to the child node";
+          description = "Navigate to the child node.";
         };
 
         root = mkOption {
           type = str;
           default = "0";
-          description = "keybinding to navigate to the root node";
+          description = "Navigate to the root node.";
         };
 
         visualName = mkOption {
           type = str;
           default = "v";
-          description = "visual selection of name";
+          description = "Select the name visually.";
         };
 
         visualScope = mkOption {
           type = str;
           default = "V";
-          description = "visual selection of scope";
+          description = "Select the scope visually.";
         };
 
         yankName = mkOption {
           type = str;
           default = "y";
-          description = "yank the name to system clipboard";
+          description = "Yank the name to system clipboard.";
         };
 
         yankScope = mkOption {
           type = str;
           default = "Y";
-          description = "yank the scope to system clipboard";
+          description = "Yank the scope to system clipboard.";
         };
 
         insertName = mkOption {
           type = str;
           default = "i";
-          description = "insert at start of name";
+          description = "Insert at the start of name.";
         };
 
         insertScope = mkOption {
           type = str;
           default = "I";
-          description = "insert at start of scope";
+          description = "Insert at the start of scope.";
         };
 
         appendName = mkOption {
           type = str;
           default = "a";
-          description = "insert at end of name";
+          description = "Insert at the end of name.";
         };
 
         appendScope = mkOption {
           type = str;
           default = "A";
-          description = "insert at end of scope";
+          description = "Insert at the end of scope.";
         };
 
         rename = mkOption {
           type = str;
           default = "r";
-          description = "rename the node";
+          description = "Rename the node.";
         };
 
         delete = mkOption {
           type = str;
           default = "d";
-          description = "delete the node";
+          description = "Delete the node.";
         };
 
         foldCreate = mkOption {
           type = str;
           default = "f";
-          description = "create a new fold";
+          description = "Create a new fold of the node.";
         };
 
         foldDelete = mkOption {
           type = str;
           default = "F";
-          description = "delete the current fold";
+          description = "Delete the current fold of the node.";
         };
 
         comment = mkOption {
           type = str;
           default = "c";
-          description = "comment the node";
+          description = "Comment the node.";
         };
 
         select = mkOption {
           type = str;
           default = "<enter>";
-          description = "goto selected symbol";
+          description = "Goto the node.";
         };
 
         moveDown = mkOption {
           type = str;
           default = "J";
-          description = "move focused node down";
+          description = "Move the node down.";
         };
 
         moveUp = mkOption {
           type = str;
           default = "K";
-          description = "move focused node up";
+          description = "Move the node up.";
+        };
+
+        togglePreview = mkOption {
+          type = str;
+          default = "s";
+          description = "Toggle the preview.";
+        };
+
+        vsplit = mkOption {
+          type = str;
+          default = "<C-v>";
+          description = "Open the node in a vertical split.";
+        };
+
+        hsplit = mkOption {
+          type = str;
+          default = "<C-s>";
+          description = "Open the node in a horizontal split.";
         };
 
         telescope = mkOption {
           type = str;
           default = "t";
-          description = "fuzzy finder at current level";
+          description = "Start fuzzy finder at the current level.";
         };
 
         help = mkOption {
           type = str;
           default = "g?";
-          description = "open mapping help window";
+          description = "Open the mappings help window.";
         };
       };
 
@@ -232,7 +250,7 @@ in {
         useDefaultMappings = mkOption {
           type = bool;
           default = true;
-          description = "use default Navbuddy keybindings (disables user-specified keybinds)";
+          description = "Add the default Navbuddy keybindings in addition to the keybinding added by this module.";
         };
 
         window = {
@@ -242,13 +260,13 @@ in {
           border = mkOption {
             type = borderType;
             default = config.vim.ui.borders.globalStyle;
-            description = "border style to use";
+            description = "The border style to use.";
           };
 
           scrolloff = mkOption {
             type = nullOr int;
             default = null;
-            description = "Scrolloff value within navbuddy window";
+            description = "The scrolloff value within a navbuddy window.";
           };
 
           sections = {
@@ -265,7 +283,7 @@ in {
               border = mkOption {
                 type = borderType;
                 default = config.vim.ui.borders.globalStyle;
-                description = "border style to use for the left section of Navbuddy UI";
+                description = "The border style to use for the left section of the Navbuddy UI.";
               };
             };
 
@@ -282,7 +300,7 @@ in {
               border = mkOption {
                 type = borderType;
                 default = config.vim.ui.borders.globalStyle;
-                description = "border style to use for the middle section of Navbuddy UI";
+                description = "The border style to use for the middle section of the Navbuddy UI.";
               };
             };
 
@@ -292,13 +310,13 @@ in {
               border = mkOption {
                 type = borderType;
                 default = config.vim.ui.borders.globalStyle;
-                description = "border style to use for the right section of Navbuddy UI";
+                description = "The border style to use for the right section of the Navbuddy UI.";
               };
 
               preview = mkOption {
                 type = enum ["leaf" "always" "never"];
                 default = "leaf";
-                description = "display mode of the preview on the right section";
+                description = "The display mode of the preview on the right section.";
               };
             };
           };
@@ -317,13 +335,13 @@ in {
           auto_attach = mkOption {
             type = bool;
             default = true;
-            description = "Whether to attach to LSP server manually";
+            description = "Whether to attach to LSP server manually.";
           };
 
           preference = mkOption {
             type = nullOr (listOf str);
             default = null;
-            description = "list of lsp server names in order of preference";
+            description = "The preference list ranking LSP servers.";
           };
         };
 
@@ -331,25 +349,25 @@ in {
           followNode = mkOption {
             type = bool;
             default = true;
-            description = "keep the current node in focus on the source buffer";
+            description = "Whether to keep the current node in focus in the source buffer.";
           };
 
           highlight = mkOption {
             type = bool;
             default = true;
-            description = "highlight the currently focused node";
+            description = "Whether to highlight the currently focused node in the source buffer.";
           };
 
           reorient = mkOption {
             type = enum ["smart" "top" "mid" "none"];
             default = "smart";
-            description = "reorient buffer after changing nodes";
+            description = "The mode for reorienting the source buffer after moving nodes.";
           };
 
           scrolloff = mkOption {
             type = nullOr int;
             default = null;
-            description = "scrolloff value when navbuddy is open";
+            description = "The scrolloff value in the source buffer when Navbuddy is open.";
           };
         };
 

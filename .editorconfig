@@ -14,15 +14,17 @@ indent_style = space
 indent_size = 2
 trim_trailing_whitespace = false
 
-[*.{js,nix,yml,yaml}]
+[*.{js,json,nix,yml,yaml,toml}]
 indent_style = space
 indent_size = 2
 tab_width = 2
 
-[*.{diff,patch}]
+[*.{diff,patch,lock}]
 end_of_line = unset
 insert_final_newline = unset
 trim_trailing_whitespace = unset
 
-[*.lock]
+[npins/sources.json]
+indent_style = unset
 indent_size = unset
+trim_trailing_whitespace = unset

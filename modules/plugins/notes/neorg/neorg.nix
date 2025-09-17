@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkPackageOption mkEnableOption mkOption;
   inherit (lib.types) submodule listOf str;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   options.vim.notes.neorg = {
     enable = mkEnableOption ''
@@ -44,7 +44,12 @@ in {
 
     treesitter = {
       enable = mkEnableOption "Neorg treesitter" // {default = config.vim.languages.enableTreesitter;};
-      norgPackage = mkGrammarOption pkgs "norg";
+      norgPackage = mkPackageOption pkgs ["norg-meta treesitter"] {
+        default = ["tree-sitter-grammars" "tree-sitter-norg"];
+      };
+      norgMetaPackage = mkPackageOption pkgs ["norg-meta treesitter"] {
+        default = ["tree-sitter-grammars" "tree-sitter-norg-meta"];
+      };
     };
   };
 }

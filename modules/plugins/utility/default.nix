@@ -1,19 +1,32 @@
 {
   imports = [
-    ./outline
     ./binds
     ./ccc
+    ./diffview
+    ./direnv
+    ./fzf-lua
     ./gestures
-    ./motion
-    ./new-file-template
-    ./telescope
+    ./harpoon
     ./icon-picker
     ./images
-    ./telescope
-    ./diffview
-    ./wakatime
-    ./surround
+    ./leetcode-nvim
+    ./mkdir
+    ./motion
+    ./multicursors
+    ./new-file-template
+    ./nix-develop
+    ./nvim-biscuits
+    ./oil-nvim
+    ./outline
     ./preview
-    ./fzf-lua
+    ./sleuth
+    ./smart-splits
+    ./snacks-nvim
+    ./surround
+    ./telescope
+    ./wakatime
+    ./yanky-nvim
+    ./yazi-nvim
+    ./undotree
   ];
 }

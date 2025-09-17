@@ -11,7 +11,7 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = ["indent-blankline"];
+      startPlugins = ["indent-blankline-nvim"];
 
       pluginRC.indent-blankline = entryAnywhere ''
         require("ibl").setup(${toLuaObject cfg.setupOpts})

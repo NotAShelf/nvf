@@ -11,7 +11,6 @@
   inherit (lib.meta) getExe;
   inherit (lib.types) enum either listOf package str;
   inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.languages) diagnosticsToLua;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
 
   cfg = config.vim.languages.svelte;
@@ -19,7 +18,7 @@
   defaultServer = "svelte";
   servers = {
     svelte = {
-      package = pkgs.nodePackages.svelte-language-server;
+      package = pkgs.svelte-language-server;
       lspConfig = ''
         lspconfig.svelte.setup {
           capabilities = capabilities;
@@ -38,43 +37,32 @@
   defaultFormat = "prettier";
   formats = {
     prettier = {
-      package = pkgs.nodePackages.prettier;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.prettier.with({
-            command = "${cfg.format.package}/bin/prettier",
-          })
-        )
-      '';
+      package = pkgs.prettier;
     };
 
     biome = {
       package = pkgs.biome;
-      nullConfig = ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.formatting.biome.with({
-            command = "${cfg.format.package}/bin/biome",
-          })
-        )
-      '';
     };
   };
 
   # TODO: specify packages
   defaultDiagnosticsProvider = ["eslint_d"];
   diagnosticsProviders = {
-    eslint_d = {
-      package = pkgs.eslint_d;
-      nullConfig = pkg: ''
-        table.insert(
-          ls_sources,
-          null_ls.builtins.diagnostics.eslint_d.with({
-            command = "${getExe pkg}",
-          })
-        )
-      '';
+    eslint_d = let
+      pkg = pkgs.eslint_d;
+    in {
+      package = pkg;
+      config = {
+        cmd = getExe pkg;
+        required_files = [
+          "eslint.config.js"
+          "eslint.config.mjs"
+          ".eslintrc"
+          ".eslintrc.json"
+          ".eslintrc.js"
+          ".eslintrc.yml"
+        ];
+      };
     };
   };
 in {
@@ -88,7 +76,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Svelte LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Svelte LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "Svelte LSP server to use";
@@ -143,16 +131,22 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources.svelte-format = formats.${cfg.format.type}.nullConfig;
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.svelte = [cfg.format.type];
+        setupOpts.formatters.${cfg.format.type} = {
+          command = getExe cfg.format.package;
+        };
+      };
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.lsp.null-ls.enable = true;
-      vim.lsp.null-ls.sources = diagnosticsToLua {
-        lang = "svelte";
-        config = cfg.extraDiagnostics.types;
-        inherit diagnosticsProviders;
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.svelte = cfg.extraDiagnostics.types;
+        linters =
+          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
+            cfg.extraDiagnostics.types);
       };
     })
   ]);

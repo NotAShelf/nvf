@@ -1,6 +1,7 @@
 # This is the sample configuration for nvf, aiming to give you a feel of the default options
-# while certain plugins are enabled. While it may act as one, this is not an overview of nvf's
-# module options. To find a complete overview of nvf's options and examples, visit the manual.
+# while certain plugins are enabled. While it may partially act as one, this is *not* quite
+# an overview of nvf's module options. To find a complete and curated list of nvf module
+# options, examples, instruction tutorials and more; please visit the online manual.
 # https://notashelf.github.io/nvf/options.html
 isMaximal: {
   config.vim = {
@@ -14,17 +15,21 @@ isMaximal: {
 
     spellcheck = {
       enable = true;
+      programmingWordlist.enable = isMaximal;
     };
 
     lsp = {
+      # This must be enabled for the language modules to hook into
+      # the LSP API.
+      enable = true;
+
       formatOnSave = true;
       lspkind.enable = false;
       lightbulb.enable = true;
       lspsaga.enable = false;
       trouble.enable = true;
-      lspSignature.enable = true;
+      lspSignature.enable = !isMaximal; # conflicts with blink in maximal
       otter-nvim.enable = isMaximal;
-      lsplines.enable = isMaximal;
       nvim-docs-view.enable = isMaximal;
     };
 
@@ -38,7 +43,6 @@ isMaximal: {
     # This section does not include a comprehensive list of available language modules.
     # To list all available language module options, please visit the nvf manual.
     languages = {
-      enableLSP = true;
       enableFormat = true;
       enableTreesitter = true;
       enableExtraDiagnostics = true;
@@ -81,6 +85,7 @@ isMaximal: {
       elixir.enable = false;
       haskell.enable = false;
       ruby.enable = false;
+      fsharp.enable = false;
 
       tailwind.enable = false;
       svelte.enable = false;
@@ -123,7 +128,15 @@ isMaximal: {
 
     autopairs.nvim-autopairs.enable = true;
 
-    autocomplete.nvim-cmp.enable = true;
+    # nvf provides various autocomplete options. The tried and tested nvim-cmp
+    # is enabled in default package, because it does not trigger a build. We
+    # enable blink-cmp in maximal because it needs to build its rust fuzzy
+    # matcher library.
+    autocomplete = {
+      nvim-cmp.enable = !isMaximal;
+      blink-cmp.enable = isMaximal;
+    };
+
     snippets.luasnip.enable = true;
 
     filetree = {
@@ -149,6 +162,7 @@ isMaximal: {
       enable = true;
       gitsigns.enable = true;
       gitsigns.codeActions.enable = false; # throws an annoying debug message
+      neogit.enable = isMaximal;
     };
 
     minimap = {
@@ -172,17 +186,24 @@ isMaximal: {
     utility = {
       ccc.enable = false;
       vim-wakatime.enable = false;
+      diffview-nvim.enable = true;
+      yanky-nvim.enable = false;
       icon-picker.enable = isMaximal;
       surround.enable = isMaximal;
-      diffview-nvim.enable = true;
+      leetcode-nvim.enable = isMaximal;
+      multicursors.enable = isMaximal;
+      smart-splits.enable = isMaximal;
+      undotree.enable = isMaximal;
+      nvim-biscuits.enable = isMaximal;
+
       motion = {
         hop.enable = true;
         leap.enable = true;
         precognition.enable = isMaximal;
       };
-
       images = {
         image-nvim.enable = false;
+        img-clip.enable = isMaximal;
       };
     };
 
@@ -230,6 +251,8 @@ isMaximal: {
         enable = false;
         cmp.enable = isMaximal;
       };
+      codecompanion-nvim.enable = false;
+      avante-nvim.enable = isMaximal;
     };
 
     session = {

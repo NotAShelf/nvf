@@ -75,8 +75,8 @@
   };
 
   extraServerPlugins = {
-    omnisharp = ["omnisharp-extended"];
-    csharp_ls = ["csharpls-extended"];
+    omnisharp = ["omnisharp-extended-lsp-nvim"];
+    csharp_ls = ["csharpls-extended-lsp-nvim"];
   };
 
   cfg = config.vim.languages.csharp;
@@ -91,7 +91,7 @@ in {
       };
 
       lsp = {
-        enable = mkEnableOption "C# LSP support" // {default = config.vim.languages.enableLSP;};
+        enable = mkEnableOption "C# LSP support" // {default = config.vim.lsp.enable;};
         server = mkOption {
           description = "C# LSP server to use";
           type = enum (attrNames servers);

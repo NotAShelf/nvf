@@ -10,11 +10,11 @@
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.binds.whichKey;
-  register = mapAttrsToList (n: v: mkLuaInline "{ '${n}', desc = '${v}' }") cfg.register;
+  register = mapAttrsToList (n: v: lib.lists.optional (v != null) (mkLuaInline "{ '${n}', desc = '${v}' }")) cfg.register;
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = ["which-key"];
+      startPlugins = ["which-key-nvim"];
 
       pluginRC.whichkey = entryAnywhere ''
         local wk = require("which-key")

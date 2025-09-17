@@ -15,14 +15,6 @@
   mappings = addDescriptionsToMappings cfg.otter-nvim.mappings mappingDefinitions;
 in {
   config = mkIf (cfg.enable && cfg.otter-nvim.enable) {
-    assertions = [
-      {
-        assertion = !config.vim.utility.ccc.enable;
-        message = ''
-          ccc and otter have a breaking conflict. It's been reported upstream. Until it's fixed, disable one of them
-        '';
-      }
-    ];
     vim = {
       startPlugins = ["otter-nvim"];
 

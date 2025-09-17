@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption literalExpression literalMD;
+  inherit (lib.options) mkEnableOption mkOption literalMD;
   inherit (lib.types) str attrsOf nullOr either listOf;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.binds) mkMappingOption;
@@ -98,14 +98,16 @@ in {
 
     sources = mkOption {
       type = attrsOf (nullOr str);
-      default = {};
+      default = {
+        nvim-cmp = null;
+        buffer = "[Buffer]";
+        path = "[Path]";
+      };
+      example = {
+        nvim-cmp = null;
+        buffer = "[Buffer]";
+      };
       description = "The list of sources used by nvim-cmp";
-      example = literalExpression ''
-        {
-          nvim-cmp = null;
-          buffer = "[Buffer]";
-        }
-      '';
     };
 
     sourcePlugins = mkOption {

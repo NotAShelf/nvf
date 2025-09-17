@@ -50,9 +50,8 @@ soon.
 
 - A new section has been added for language support: `vim.languages.<language>`.
 
-  - The options [](#opt-vim.languages.enableLSP),
-    [](#opt-vim.languages.enableTreesitter), etc. will enable the respective
-    section for all languages that have been enabled.
+  - The options `enableLSP` [](#opt-vim.languages.enableTreesitter), etc. will
+    enable the respective section for all languages that have been enabled.
   - All LSP languages have been moved here
   - `plantuml` and `markdown` have been moved here
   - A new section has been added for `html`. The old

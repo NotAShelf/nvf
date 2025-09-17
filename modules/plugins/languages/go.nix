@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalMD;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.lists) isList;
@@ -34,6 +34,22 @@
     };
   };
 
+  defaultFormat = "gofmt";
+  formats = {
+    gofmt = {
+      package = pkgs.go;
+      config.command = "${cfg.format.package}/bin/gofmt";
+    };
+    gofumpt = {
+      package = pkgs.gofumpt;
+      config.command = getExe cfg.format.package;
+    };
+    golines = {
+      package = pkgs.golines;
+      config.command = "${cfg.format.package}/bin/golines";
+    };
+  };
+
   defaultDebugger = "delve";
   debuggers = {
     delve = {
@@ -51,7 +67,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Go LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Go LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "Go LSP server to use";
@@ -64,6 +80,29 @@ in {
         example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+      };
+    };
+
+    format = {
+      enable =
+        mkEnableOption "Go formatting"
+        // {
+          default = !cfg.lsp.enable && config.vim.languages.enableFormat;
+          defaultText = literalMD ''
+            disabled if Go LSP is enabled, otherwise follows {option}`vim.languages.enableFormat`
+          '';
+        };
+
+      type = mkOption {
+        description = "Go formatter to use";
+        type = enum (attrNames formats);
+        default = defaultFormat;
+      };
+
+      package = mkOption {
+        description = "Go formatter package";
+        type = package;
+        default = formats.${cfg.format.type}.package;
       };
     };
 
@@ -97,6 +136,14 @@ in {
     (mkIf cfg.lsp.enable {
       vim.lsp.lspconfig.enable = true;
       vim.lsp.lspconfig.sources.go-lsp = servers.${cfg.lsp.server}.lspConfig;
+    })
+
+    (mkIf cfg.format.enable {
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts.formatters_by_ft.go = [cfg.format.type];
+        setupOpts.formatters.${cfg.format.type} = formats.${cfg.format.type}.config;
+      };
     })
 
     (mkIf cfg.dap.enable {

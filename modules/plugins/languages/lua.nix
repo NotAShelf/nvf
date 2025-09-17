@@ -4,18 +4,37 @@
   lib,
   ...
 }: let
+  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.lists) isList;
-  inherit (lib.strings) optionalString;
-  inherit (lib.types) either listOf package str;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.types) bool either enum listOf package str;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.dag) entryBefore;
 
   cfg = config.vim.languages.lua;
+  defaultFormat = "stylua";
+  formats = {
+    stylua = {
+      package = pkgs.stylua;
+    };
+  };
+
+  defaultDiagnosticsProvider = ["luacheck"];
+  diagnosticsProviders = {
+    luacheck = {
+      package = pkgs.luajitPackages.luacheck;
+    };
+  };
 in {
+  imports = [
+    (lib.mkRemovedOptionModule ["vim" "languages" "lua" "lsp" "neodev"] ''
+      neodev has been replaced by lazydev
+    '')
+  ];
+
   options.vim.languages.lua = {
     enable = mkEnableOption "Lua language support";
     treesitter = {
@@ -24,7 +43,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Lua LSP support via LuaLS" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Lua LSP support via LuaLS" // {default = config.vim.lsp.enable;};
 
       package = mkOption {
         description = "LuaLS package, or the command to run as a list of strings";
@@ -32,7 +51,35 @@ in {
         default = pkgs.lua-language-server;
       };
 
-      neodev.enable = mkEnableOption "neodev.nvim integration, useful for neovim plugin developers";
+      lazydev.enable = mkEnableOption "lazydev.nvim integration, useful for neovim plugin developers";
+    };
+
+    format = {
+      enable = mkOption {
+        type = bool;
+        default = config.vim.languages.enableFormat;
+        description = "Enable Lua formatting";
+      };
+      type = mkOption {
+        type = enum (attrNames formats);
+        default = defaultFormat;
+        description = "Lua formatter to use";
+      };
+
+      package = mkOption {
+        type = package;
+        default = formats.${cfg.format.type}.package;
+        description = "Lua formatter package";
+      };
+    };
+
+    extraDiagnostics = {
+      enable = mkEnableOption "extra Lua diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      types = diagnostics {
+        langDesc = "Lua";
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
+      };
     };
   };
 
@@ -49,7 +96,6 @@ in {
           lspconfig.lua_ls.setup {
             capabilities = capabilities;
             on_attach = default_on_attach;
-            ${optionalString cfg.lsp.neodev.enable "before_init = require('neodev.lsp').before_init;"}
             cmd = ${
             if isList cfg.lsp.package
             then expToLua cfg.lsp.package
@@ -59,11 +105,37 @@ in {
         '';
       })
 
-      (mkIf cfg.lsp.neodev.enable {
-        vim.startPlugins = ["neodev-nvim"];
-        vim.pluginRC.neodev = entryBefore ["lua-lsp"] ''
-          require("neodev").setup({})
+      (mkIf cfg.lsp.lazydev.enable {
+        vim.startPlugins = ["lazydev-nvim"];
+        vim.pluginRC.lazydev = entryBefore ["lua-lsp"] ''
+          require("lazydev").setup({
+            enabled = function(root_dir)
+              return not vim.uv.fs_stat(root_dir .. "/.luarc.json")
+            end,
+            library = { { path = "''${3rd}/luv/library", words = { "vim%.uv" } } },
+          })
         '';
+      })
+
+      (mkIf cfg.format.enable {
+        vim.formatter.conform-nvim = {
+          enable = true;
+          setupOpts.formatters_by_ft.lua = [cfg.format.type];
+          setupOpts.formatters.${cfg.format.type} = {
+            command = getExe cfg.format.package;
+          };
+        };
+      })
+
+      (mkIf cfg.extraDiagnostics.enable {
+        vim.diagnostics.nvim-lint = {
+          enable = true;
+          linters_by_ft.lua = cfg.extraDiagnostics.types;
+          linters = mkMerge (map (name: {
+              ${name}.cmd = getExe diagnosticsProviders.${name}.package;
+            })
+            cfg.extraDiagnostics.types);
+        };
       })
     ]))
   ];
