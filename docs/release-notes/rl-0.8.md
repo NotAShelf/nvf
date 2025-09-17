@@ -504,4 +504,5 @@
 
 [typst-concealer]: https://github.com/PartyWumpus/typst-concealer
 
-- Add inline typst concealing support under `vim.languages.typst` using [typst-concealer].
+- Add inline typst concealing support under `vim.languages.typst` using
+  [typst-concealer].
