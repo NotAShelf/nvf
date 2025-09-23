@@ -11,19 +11,24 @@
   inherit (lib.types) enum;
   inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.yaml;
 
   onAttach =
     if config.vim.languages.helm.lsp.enable
-    then ''
-      on_attach = function(client, bufnr)
-        local filetype = vim.bo[bufnr].filetype
-        if filetype == "helm" then
-          client.stop()
-        end
-      end''
-    else "on_attach = default_on_attach";
+    then
+      mkLuaInline ''
+        function(client, bufnr)
+          local filetype = vim.bo[bufnr].filetype
+          if filetype == "helm" then
+            client.stop()
+          end
+        end''
+    else
+      mkLuaInline ''
+        default_on_attach
+      '';
 
   defaultServers = ["yaml-language-server"];
   servers = {
