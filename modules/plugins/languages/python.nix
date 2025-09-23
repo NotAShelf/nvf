@@ -6,7 +6,7 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (lib.meta) getExe;
+  inherit (lib.meta) getExe getExe';
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum package bool;
   inherit (lib.nvim.attrsets) mapListToAttrs;
@@ -20,7 +20,7 @@
   servers = {
     pyright = {
       enable = true;
-      cmd = [(getExe pkgs.pyright) "--stdio"];
+      cmd = [(getExe' pkgs.pyright "pyright-langserver") "--stdio"];
       filetypes = ["python"];
       root_markers = [
         "pyproject.toml"
@@ -42,18 +42,22 @@
       };
       on_attach = mkLuaInline ''
         function(client, bufnr)
+          default_on_attach(client, bufnr);
           vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightOrganizeImports', function()
-            client:exec_cmd({
+            local params = {
               command = 'pyright.organizeimports',
               arguments = { vim.uri_from_bufnr(bufnr) },
-            })
+            }
+
+            -- Using client.request() directly because "pyright.organizeimports" is private
+            -- (not advertised via capabilities), which client:exec_cmd() refuses to call.
+            -- https://github.com/neovim/neovim/blob/c333d64663d3b6e0dd9aa440e433d346af4a3d81/runtime/lua/vim/lsp/client.lua#L1024-L1030
+            client.request('workspace/executeCommand', params, nil, bufnr)
           end, {
             desc = 'Organize Imports',
           })
-          vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightSetPythonPath', function(opts)
-            set_python_path('pyright', opts.args)
-          end, {
-            desc = 'Reconfigure pyright with the provided python path',
+          vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightSetPythonPath', set_python_path, {
+            desc = 'Reconfigure basedpyright with the provided python path',
             nargs = 1,
             complete = 'file',
           })
@@ -63,7 +67,7 @@
 
     basedpyright = {
       enable = true;
-      cmd = [(getExe pkgs.basedpyright) "--stdio"];
+      cmd = [(getExe' pkgs.basedpyright "basedpyright-langserver") "--stdio"];
       filetypes = ["python"];
       root_markers = [
         "pyproject.toml"
@@ -85,18 +89,22 @@
       };
       on_attach = mkLuaInline ''
         function(client, bufnr)
+          default_on_attach(client, bufnr);
           vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightOrganizeImports', function()
-            client:exec_cmd({
+            local params = {
               command = 'basedpyright.organizeimports',
               arguments = { vim.uri_from_bufnr(bufnr) },
-            })
+            }
+
+            -- Using client.request() directly because "basedpyright.organizeimports" is private
+            -- (not advertised via capabilities), which client:exec_cmd() refuses to call.
+            -- https://github.com/neovim/neovim/blob/c333d64663d3b6e0dd9aa440e433d346af4a3d81/runtime/lua/vim/lsp/client.lua#L1024-L1030
+            client.request('workspace/executeCommand', params, nil, bufnr)
           end, {
             desc = 'Organize Imports',
           })
 
-          vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightSetPythonPath', function(opts)
-            set_python_path('basedpyright', opts.args)
-          end, {
+          vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightSetPythonPath', set_python_path, {
             desc = 'Reconfigure basedpyright with the provided python path',
             nargs = 1,
             complete = 'file',
@@ -301,7 +309,8 @@ in {
         lua
         */
         ''
-          local function set_python_path(server_name, path)
+          local function set_python_path(server_name, command)
+            local path = command.args
             local clients = vim.lsp.get_clients {
               bufnr = vim.api.nvim_get_current_buf(),
               name = server_name,
@@ -312,7 +321,7 @@ in {
               else
                 client.config.settings = vim.tbl_deep_extend('force', client.config.settings, { python = { pythonPath = path } })
               end
-              client.notify('workspace/didChangeConfiguration', { settings = nil })
+              client:notify('workspace/didChangeConfiguration', { settings = nil })
             end
           end
         '';

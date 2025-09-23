@@ -551,3 +551,9 @@
 
 - Add [nvim-highlight-colors] plugin in `vim.ui.nvim-highlight-colors` with
   `enable` and `setupOpts`
+
+[simon-wg](https://github.com/simon-wg):
+
+- Update `python` language module to use correct lsp binary.
+- Fix `python` pyright and basedpyright language servers not using default on
+  attach behavior.
