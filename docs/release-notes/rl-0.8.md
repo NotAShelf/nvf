@@ -289,6 +289,8 @@
 - Fix [blink.cmp] breaking when built-in sources were modified.
 - Fix [conform.nvim] not allowing disabling formatting on and after save. Use
   `null` value to disable them if conform is enabled.
+- Add [markdown-oxide](https://github.com/Feel-ix-343/markdown-oxide) option to
+  markdown language module.
 - Fix Helm-YAML language module integration. YAML diagnostics will now remain in
   `helmfile`s when both are enabled.
 - Fix YAML language module not activating LSP keybinds if the Helm language
