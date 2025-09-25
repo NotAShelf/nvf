@@ -15,18 +15,18 @@
 
   cfg = config.vim.languages.yaml;
 
-  on_attach = mkLuaInline (
+  on_attach =
     if config.vim.languages.helm.lsp.enable && config.vim.languages.helm.enable
-    then ''
-      function(client, bufnr)
-        default_on_attach()
-        local filetype = vim.bo[bufnr].filetype
-        if filetype == "helm" then
-          client.stop()
+    then
+      mkLuaInline ''
+        function(client, bufnr)
+          local filetype = vim.bo[bufnr].filetype
+          if filetype == "helm" then
+            client.stop()
+          end
         end
-      end''
-    else "default_on_attach"
-  );
+      ''
+    else null;
 
   defaultServers = ["yaml-language-server"];
   servers = {

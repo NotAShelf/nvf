@@ -161,7 +161,6 @@ in {
             },
 
             capabilities = capabilities,
-            on_attach = default_on_attach;
           },
           ${optionalString cfg.dap.enable ''
           debugger = {

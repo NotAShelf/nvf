@@ -63,12 +63,11 @@
       };
       on_attach = mkLuaInline ''
         function(client, bufnr)
-          default_on_attach(client, bufnr)
-            local oe = require("omnisharp_extended")
-            ${mkLspBinding "goToDefinition" "oe.lsp_definition"}
-            ${mkLspBinding "goToType" "oe.lsp_type_definition"}
-            ${mkLspBinding "listReferences" "oe.lsp_references"}
-            ${mkLspBinding "listImplementations" "oe.lsp_implementation"}
+          local oe = require("omnisharp_extended")
+          ${mkLspBinding "goToDefinition" "oe.lsp_definition"}
+          ${mkLspBinding "goToType" "oe.lsp_type_definition"}
+          ${mkLspBinding "listReferences" "oe.lsp_references"}
+          ${mkLspBinding "listImplementations" "oe.lsp_implementation"}
         end
       '';
       settings = {

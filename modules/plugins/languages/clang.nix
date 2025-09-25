@@ -26,8 +26,6 @@
       workspace_required = true;
       on_attach = mkLuaInline ''
         function(client, bufnr)
-          default_on_attach(client, bufnr)
-
           local function switch_source_header(bufnr)
             local method_name = "textDocument/switchSourceHeader"
             local params = vim.lsp.util.make_text_document_params(bufnr)
@@ -77,8 +75,6 @@
       };
       on_attach = mkLuaInline ''
         function(client, bufnr)
-          default_on_attach(client, bufnr)
-
           local function switch_source_header(bufnr)
             local method_name = "textDocument/switchSourceHeader"
             local client = vim.lsp.get_clients({ bufnr = bufnr, name = "clangd", })[1]

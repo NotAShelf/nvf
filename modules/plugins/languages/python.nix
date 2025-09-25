@@ -42,7 +42,6 @@
       };
       on_attach = mkLuaInline ''
         function(client, bufnr)
-          default_on_attach(client, bufnr);
           vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightOrganizeImports', function()
             local params = {
               command = 'pyright.organizeimports',
@@ -89,7 +88,6 @@
       };
       on_attach = mkLuaInline ''
         function(client, bufnr)
-          default_on_attach(client, bufnr);
           vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightOrganizeImports', function()
             local params = {
               command = 'basedpyright.organizeimports',

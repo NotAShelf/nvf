@@ -10,11 +10,10 @@
   inherit (lib.strings) optionalString;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.dag) entryAfter entryBefore;
+  inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.meta) getExe';
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (pkgs) haskellPackages;
   inherit (lib.nvim.lua) toLuaObject;
 
@@ -34,7 +33,6 @@
         ''
           function(client, bufnr)
               local ht = require("haskell-tools")
-              default_on_attach(client, bufnr, ht)
               local opts = { noremap = true, silent = true, buffer = bufnr }
               vim.keymap.set('n', '<localleader>cl', vim.lsp.codelens.run, opts)
               vim.keymap.set('n', '<localleader>hs', ht.hoogle.hoogle_signature, opts)
