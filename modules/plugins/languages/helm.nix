@@ -6,7 +6,7 @@
 }: let
   inherit (builtins) attrNames head;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkDefault mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum;
   inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
@@ -27,11 +27,13 @@
           dynamicRegistration = true;
         };
       };
-      settings = {
+      settings = mkIf (yamlCfg.enable && yamlCfg.lsp.enable) {
         helm-ls = {
           yamlls = {
-            # TODO: Determine if this is a good enough solution
-            path = (head yamlCfg.lsp.servers).cmd;
+            # Without this being enabled, the YAML language module will look broken in helmfiles
+            # if both modules are enabled at once.
+            enabled = mkDefault yamlCfg.lsp.enable;
+            path = head config.vim.lsp.servers.${head yamlCfg.lsp.servers}.cmd;
           };
         };
       };

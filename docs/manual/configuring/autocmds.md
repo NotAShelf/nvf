@@ -38,17 +38,17 @@ Autocommands (`autocmd`) trigger actions based on events happening within Neovim
 (e.g., saving a file, entering a buffer). Each entry in the list is a submodule
 with the following options:
 
-| Option     | Type                  | Default | Description                                                                                                                                                                      | Example                                                          |
-| :--------- | :-------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------- |
-| `enable`   | `bool`                | `true`  | Enables or disables this autocommand definition.                                                                                                                                 | `true`                                                           |
-| `event`    | `nullOr (listOf str)` | `null`  | **Required.** List of Neovim events that trigger this autocommand (e.g., `BufWritePre`, `FileType`).                                                                             | `[ "BufWritePre" ]`                                              |
-| `pattern`  | `nullOr (listOf str)` | `null`  | List of file patterns (globs) to match against (e.g., `*.py`, `*`). If `null`, matches all files for the given event.                                                            | `[ "*.lua", "*.nix" ]`                                           |
-| `callback` | `nullOr luaInline`    | `null`  | A Lua function to execute when the event triggers. Use `lib.nvim.types.luaInline` or `lib.options.literalExpression "mkLuaInline '''...'''"`. **Cannot be used with `command`.** | `lib.nvim.types.luaInline "function() print('File saved!') end"` |
-| `command`  | `nullOr str`          | `null`  | A Vimscript command to execute when the event triggers. **Cannot be used with `callback`.**                                                                                      | `"echo 'File saved!'"`                                           |
-| `group`    | `nullOr str`          | `null`  | The name of an `augroup` (defined in `vim.augroups`) to associate this autocommand with.                                                                                         | `"MyCustomAuGroup"`                                              |
-| `desc`     | `nullOr str`          | `null`  | A description for the autocommand (useful for introspection).                                                                                                                    | `"Format buffer on save"`                                        |
-| `once`     | `bool`                | `false` | If `true`, the autocommand runs only once and then automatically removes itself.                                                                                                 | `false`                                                          |
-| `nested`   | `bool`                | `false` | If `true`, allows this autocommand to trigger other autocommands.                                                                                                                | `false`                                                          |
+| Option     | Type                  | Default | Description                                                                                                             | Example                                                            |
+| :--------- | :-------------------- | :------ | :---------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------- |
+| `enable`   | `bool`                | `true`  | Enables or disables this autocommand definition.                                                                        | `true`                                                             |
+| `event`    | `nullOr (listOf str)` | `null`  | **Required.** List of Neovim events that trigger this autocommand (e.g., `BufWritePre`, `FileType`).                    | `[ "BufWritePre" ]`                                                |
+| `pattern`  | `nullOr (listOf str)` | `null`  | List of file patterns (globs) to match against (e.g., `*.py`, `*`). If `null`, matches all files for the given event.   | `[ "*.lua", "*.nix" ]`                                             |
+| `callback` | `nullOr luaInline`    | `null`  | A Lua function to execute when the event triggers. Use `lib.generators.mkLuaInline`. **Cannot be used with `command`.** | `lib.generators.mkLuaInline "function() print('File saved!') end"` |
+| `command`  | `nullOr str`          | `null`  | A Vimscript command to execute when the event triggers. **Cannot be used with `callback`.**                             | `"echo 'File saved!'"`                                             |
+| `group`    | `nullOr str`          | `null`  | The name of an `augroup` (defined in `vim.augroups`) to associate this autocommand with.                                | `"MyCustomAuGroup"`                                                |
+| `desc`     | `nullOr str`          | `null`  | A description for the autocommand (useful for introspection).                                                           | `"Format buffer on save"`                                          |
+| `once`     | `bool`                | `false` | If `true`, the autocommand runs only once and then automatically removes itself.                                        | `false`                                                            |
+| `nested`   | `bool`                | `false` | If `true`, allows this autocommand to trigger other autocommands.                                                       | `false`                                                            |
 
 :::{.warning}
 
@@ -71,7 +71,7 @@ Vimscript) for the same autocommand. Choose one.
       pattern = [ "*.lua" ];
       group = "UserSetup";
       desc = "Notify after saving Lua file";
-      callback = lib.nvim.types.luaInline ''
+      callback = lib.generators.mkLuaInline ''
         function()
           vim.notify("Lua file saved!", vim.log.levels.INFO)
         end

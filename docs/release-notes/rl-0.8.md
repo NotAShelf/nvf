@@ -291,6 +291,10 @@
   `null` value to disable them if conform is enabled.
 - Add [markdown-oxide](https://github.com/Feel-ix-343/markdown-oxide) option to
   markdown language module.
+- Fix Helm-YAML language module integration. YAML diagnostics will now remain in
+  `helmfile`s when both are enabled.
+- Fix YAML language module not activating LSP keybinds if the Helm language
+  module was also enabled.
 
 [TheColorman](https://github.com/TheColorman):
 
@@ -546,3 +550,16 @@
 [derethil](https://github.com/derethil):
 
 - Fix `vim.lazy.plugins.<name>.enabled` Lua evaluation.
+
+[Jules](https://github.com/jules-sommer):
+
+[nvim-highlight-colors]: https://github.com/brenoprata10/nvim-highlight-colors
+
+- Add [nvim-highlight-colors] plugin in `vim.ui.nvim-highlight-colors` with
+  `enable` and `setupOpts`
+
+[simon-wg](https://github.com/simon-wg):
+
+- Update `python` language module to use correct lsp binary.
+- Fix `python` pyright and basedpyright language servers not using default on
+  attach behavior.
