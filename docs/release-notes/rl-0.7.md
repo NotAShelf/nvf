@@ -376,8 +376,8 @@ The changes are, in no particular order:
 
 - Add [biome](https://github.com/biomejs/biome) support for Typescript, CSS and
   Svelte. Enable them via [](#opt-vim.languages.ts.format.type),
-  [](#opt-vim.languages.css.format.type) and
-  [](#opt-vim.languages.svelte.format.type) respectively.
+  [](#opt-vim.languages.css.format.type) and `vim.languages.svelte.format.type`
+  respectively.
 - Replace [nixpkgs-fmt](https://github.com/nix-community/nixpkgs-fmt) with
   [nixfmt](https://github.com/NixOS/nixfmt) (nixfmt-rfc-style).
 

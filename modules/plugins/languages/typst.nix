@@ -9,7 +9,7 @@
   inherit (lib.types) nullOr enum attrsOf listOf package str;
   inherit (lib.attrsets) attrNames;
   inherit (lib.meta) getExe;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.attrsets) mapListToAttrs;
@@ -91,14 +91,14 @@
     };
   };
 
-  defaultFormat = "typstfmt";
+  defaultFormat = ["typstfmt"];
   formats = {
     typstfmt = {
-      package = pkgs.typstfmt;
+      command = getExe pkgs.typstfmt;
     };
     # https://github.com/Enter-tainer/typstyle
     typstyle = {
-      package = pkgs.typstyle;
+      command = getExe pkgs.typstyle;
     };
   };
 in {
@@ -114,7 +114,7 @@ in {
       enable = mkEnableOption "Typst LSP support (typst-lsp)" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.typst.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Typst LSP server to use";
       };
@@ -124,15 +124,9 @@ in {
       enable = mkEnableOption "Typst document formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = enum (attrNames formats);
+        type = deprecatedSingleOrListOf "vim.language.typst.format.type" (enum (attrNames formats));
         default = defaultFormat;
         description = "Typst formatter to use";
-      };
-
-      package = mkOption {
-        type = package;
-        default = formats.${cfg.format.type}.package;
-        description = "Typst formatter package";
       };
     };
 
@@ -189,10 +183,13 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.typst = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
-        };
+        setupOpts.formatters_by_ft.typst = cfg.format.type;
+        setupOpts.formatters =
+          mapListToAttrs (name: {
+            inherit name;
+            value = formats.${name};
+          })
+          cfg.format.type;
       };
     })
 

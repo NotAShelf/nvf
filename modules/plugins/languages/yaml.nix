@@ -10,7 +10,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.yaml;
@@ -59,7 +59,7 @@ in {
     lsp = {
       enable = mkEnableOption "Yaml LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.yaml.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Yaml LSP server to use";
       };

@@ -8,9 +8,9 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum package;
+  inherit (lib.types) enum;
   inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.astro;
@@ -37,22 +37,6 @@
             end
           end
         '';
-    };
-  };
-
-  # TODO: specify packages
-  defaultFormat = "prettier";
-  formats = {
-    prettier = {
-      package = pkgs.prettier;
-    };
-
-    prettierd = {
-      package = pkgs.prettierd;
-    };
-
-    biome = {
-      package = pkgs.biome;
     };
   };
 
@@ -89,25 +73,9 @@ in {
     lsp = {
       enable = mkEnableOption "Astro LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.astro.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Astro LSP server to use";
-      };
-    };
-
-    format = {
-      enable = mkEnableOption "Astro formatting" // {default = config.vim.languages.enableFormat;};
-
-      type = mkOption {
-        type = enum (attrNames formats);
-        default = defaultFormat;
-        description = "Astro formatter to use";
-      };
-
-      package = mkOption {
-        type = package;
-        default = formats.${cfg.format.type}.package;
-        description = "Astro formatter package";
       };
     };
 
@@ -135,16 +103,6 @@ in {
           value = servers.${n};
         })
         cfg.lsp.servers;
-    })
-
-    (mkIf cfg.format.enable {
-      vim.formatter.conform-nvim = {
-        enable = true;
-        setupOpts.formatters_by_ft.astro = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
-        };
-      };
     })
 
     (mkIf cfg.extraDiagnostics.enable {
