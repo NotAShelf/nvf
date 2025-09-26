@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  pkgs,
+  options,
   ...
 }: let
   inherit (lib.generators) mkLuaInline;
@@ -14,12 +14,11 @@
   cfg = config.vim.lsp;
   usingNvimCmp = config.vim.autocomplete.nvim-cmp.enable;
   usingBlinkCmp = config.vim.autocomplete.blink-cmp.enable;
-  self = import ./module.nix {inherit config lib pkgs;};
   conformCfg = config.vim.formatter.conform-nvim;
   conformFormatOnSave = conformCfg.enable && conformCfg.setupOpts.format_on_save != null;
 
   augroup = "nvf_lsp";
-  mappingDefinitions = self.options.vim.lsp.mappings;
+  mappingDefinitions = options.vim.lsp.mappings;
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
   mkBinding = binding: action:
     if binding.value != null

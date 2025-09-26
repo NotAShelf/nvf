@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  options,
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
@@ -9,8 +10,8 @@
   inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.tabline.nvimBufferline;
-  self = import ./nvim-bufferline.nix {inherit config lib;};
-  inherit (self.options.vim.tabline.nvimBufferline) mappings;
+
+  inherit (options.vim.tabline.nvimBufferline) mappings;
 in {
   config = mkIf cfg.enable {
     vim = {
