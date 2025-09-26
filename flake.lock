@@ -91,11 +91,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1758451644,
-        "narHash": "sha256-sP4hBXifUIrEk37N+NRp3p42Os4OahX/8w1CN74nig8=",
+        "lastModified": 1759819052,
+        "narHash": "sha256-/PiEHW2x72ZunFBfk5RXKqD99tfwLeIa3UhexabCRyk=",
         "owner": "feel-co",
         "repo": "ndg",
-        "rev": "a7c8f6ca855335c4dff4826a0245ee93e1816b70",
+        "rev": "40f1c0633ffa2e3548a0452c0ed09edb01773dfb",
         "type": "github"
       },
       "original": {
