@@ -1,4 +1,4 @@
-# Release 0.1 {#sec-release-0.1}
+# Release 0.1 {#sec-release-0-1}
 
 This is the current master branch and information here is not final. These are
 changes from the v0.1 tag.
@@ -7,7 +7,7 @@ Special thanks to [home-manager](https://github.com/nix-community/home-manager/)
 for this release. Docs/manual generation, the new module evaluation system, and
 DAG implementation are from them.
 
-## Changelog {#sec-release-0.1-changelog}
+## Changelog {#sec-release-0-1-changelog}
 
 [jordanisaacs](https://github.com/jordanisaacs):
 
