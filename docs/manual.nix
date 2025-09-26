@@ -4,6 +4,7 @@
   stdenvNoCC,
   runCommandNoCCLocal,
   optionsJSON,
+  release,
 } @ args: let
   manual-release = args.release or "unstable";
 in
@@ -27,9 +28,6 @@ in
     # pages. This can be built into ndg at a later date.
     substituteInPlace ./manual/index.md \
       --subst-var-by NVF_VERSION ${manual-release}
-
-    substituteInPlace ./manual/hacking/additional-plugins.md \
-      --subst-var-by NVF_REPO "https://github.com/notashelf/nvf/blob/${manual-release}"
 
     # Generate the final manual from a set of parameters. This uses
     # feel-co/ndg to render the web manual.
