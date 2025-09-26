@@ -1,4 +1,4 @@
-# Release 0.7 {#sec-release-0.7}
+# Release 0.7 {#sec-release-0-7}
 
 Release notes for release 0.7
 
@@ -170,7 +170,7 @@ The changes are, in no particular order:
 
 - Add [ocaml-lsp] support
 
-- Fix misspelled "Emacs"
+- Fix "Emac" typo
 
 - Add [new-file-template.nvim] to automatically fill new file contents using
   templates

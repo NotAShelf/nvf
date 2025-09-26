@@ -1,4 +1,4 @@
-# Release 0.3 {#sec-release-0.3}
+# Release 0.3 {#sec-release-0-3}
 
 Release 0.3 had to come out before I wanted it to due to Neovim 0.9 dropping
 into nixpkgs-unstable. The Treesitter changes have prompted a Treesitter rework,
@@ -7,7 +7,7 @@ those are downstreamed from the original repository. The feature requests that
 was originally planned for 0.3 have been moved to 0.4, which should come out
 soon.
 
-## Changelog {#sec-release-0.3-changelog}
+## Changelog {#sec-release-0-3-changelog}
 
 - We have transitioned to flake-parts, from flake-utils to extend the
   flexibility of this flake. This means the flake structure is different than

@@ -1,8 +1,6 @@
-# Release 0.5 {#sec-release-0.5}
+# Release 0.5 {#sec-release-0-5}
 
-Release notes for release 0.5
-
-## Changelog {#sec-release-0.5-changelog}
+## Changelog {#sec-release-0-5-changelog}
 
 [vagahbond](https://github.com/vagahbond):
 

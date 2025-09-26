@@ -1,4 +1,4 @@
-# Release 0.8 {#sec-release-0.8}
+# Release 0.8 {#sec-release-0-8}
 
 ## Breaking changes
 
@@ -31,6 +31,8 @@
 - LSP keybinds and related plugin integrations are now attached in an LspAttach
   autocmd event. If you were calling `default_on_attach()` in your LSP setup you
   can remove them now.
+
+## Changelog {#sec-release-0-8-changelog}
 
 [NotAShelf](https://github.com/notashelf):
 
