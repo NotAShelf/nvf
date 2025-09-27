@@ -69,7 +69,10 @@ in {
       enable = mkEnableOption "Markdown LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        description = "Markdown LSP server to use";
+        description = ''
+          Markdown LSP server to use. Customization of the servers can be done
+          via [](#opt-vim.lsp.servers).
+        '';
         type = singleOrListOf (enum (attrNames servers));
         default = defaultServers;
       };

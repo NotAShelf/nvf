@@ -53,7 +53,10 @@ in {
       servers = mkOption {
         type = singleOrListOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Helm LSP server to use";
+        description = ''
+          Helm LSP server to use. Customization of the servers can be done via
+          [](#opt-vim.lsp.servers).
+        '';
       };
     };
   };
