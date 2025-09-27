@@ -1,7 +1,7 @@
 {
   config,
-  pkgs,
   lib,
+  options,
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
@@ -12,8 +12,7 @@
 
   cfg = config.vim.treesitter;
 
-  self = import ./treesitter.nix {inherit pkgs lib;};
-  mappingDefinitions = self.options.vim.treesitter.mappings;
+  mappingDefinitions = options.vim.treesitter.mappings;
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
 in {
   config = mkIf cfg.enable {

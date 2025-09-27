@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  options,
   ...
 }: let
   inherit (lib.modules) mkIf;
@@ -9,9 +10,7 @@
 
   cfg = config.vim.utility.motion.hop;
 
-  self = import ./hop.nix {inherit lib;};
-
-  mappingDefinitions = self.options.vim.utility.motion.hop.mappings;
+  mappingDefinitions = options.vim.utility.motion.hop.mappings;
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
 in {
   config = mkIf cfg.enable {
