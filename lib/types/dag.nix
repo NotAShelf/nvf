@@ -3,7 +3,6 @@
 {lib}: let
   inherit
     (lib)
-    defaultFunctor
     nvim
     mkIf
     mkOrder
@@ -62,7 +61,18 @@ in rec {
       inherit (elemType) getSubModules;
       getSubOptions = prefix: elemType.getSubOptions (prefix ++ ["<name>"]);
       substSubModules = m: dagOf (elemType.substSubModules m);
-      functor = (defaultFunctor name) // {wrapped = elemType;};
+      # Based on the result of calling the nixpkgs types.nix elemTypeFunctor helper function.
+      functor = {
+        inherit name;
+        payload.elemType = elemType;
+        type = payload: types.${name} payload.elemType;
+        binOp = a: b: let
+          merged = a.elemType.typeMerge b.elemType.functor;
+        in
+          if merged == null
+          then null
+          else {elemType = merged;};
+      };
       nestedTypes.elemType = elemType;
     };
 }
