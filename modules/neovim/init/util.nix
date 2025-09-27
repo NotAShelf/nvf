@@ -3,7 +3,6 @@
   lib,
   ...
 }: let
-  inherit (builtins) filter;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.dag) entryBefore;
 

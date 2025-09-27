@@ -10,11 +10,10 @@
   inherit (lib.strings) optionalString;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.dag) entryAfter entryBefore;
+  inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.meta) getExe';
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (pkgs) haskellPackages;
   inherit (lib.nvim.lua) toLuaObject;
 
