@@ -403,10 +403,16 @@
 [everforest]: https://github.com/sainnhe/everforest
 [oil]: https://github.com/stevearc/oil.nvim
 [oil-git-status]: https://github.com/refractalize/oil-git-status.nvim
+[neocmakelsp]: https://github.com/neocmakelsp/neocmakelsp
+[arduino-language-server]: https://github.com/arduino/arduino-language-server
+[glsl_analyzer]: https://github.com/nolanderc/glsl_analyzer
 
 - Fix gitsigns null-ls issue.
 - Add [everforest] theme support.
 - Add [oil-git-status] support to [oil] module.
+- Add CMake support with [neocmakelsp].
+- Add Arduino support with [arduino-language-server].
+- Add GLSL support with [glsl_analyzer].
 
 [Haskex](https://github.com/haskex):
 
