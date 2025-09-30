@@ -77,7 +77,6 @@ in {
     {
       vim.lsp.servers."*" = {
         capabilities = mkDefault (mkLuaInline "capabilities");
-        on_attach = mkDefault (mkLuaInline "default_on_attach");
       };
     }
 

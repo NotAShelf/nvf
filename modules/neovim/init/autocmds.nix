@@ -9,7 +9,7 @@
   inherit (lib.types) nullOr submodule listOf str bool;
   inherit (lib.nvim.types) luaInline;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.dag) entryAfter;
+  inherit (lib.nvim.dag) entryAfter entryBetween;
 
   autocommandType = submodule {
     options = {
@@ -144,7 +144,7 @@ in {
       enabledAutogroups = filter (au: au.enable) cfg.augroups;
     in {
       luaConfigRC = {
-        augroups = entryAfter ["pluginConfigs"] (optionalString (enabledAutogroups != []) ''
+        augroups = entryBetween ["autocmds"] ["pluginConfigs"] (optionalString (enabledAutogroups != []) ''
           local nvf_autogroups = {}
           for _, group in ipairs(${toLuaObject enabledAutogroups}) do
             if group.name then

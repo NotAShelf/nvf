@@ -33,7 +33,6 @@
         ''
           function(client, bufnr)
               local ht = require("haskell-tools")
-              default_on_attach(client, bufnr, ht)
               local opts = { noremap = true, silent = true, buffer = bufnr }
               vim.keymap.set('n', '<localleader>cl', vim.lsp.codelens.run, opts)
               vim.keymap.set('n', '<localleader>hs', ht.hoogle.hoogle_signature, opts)

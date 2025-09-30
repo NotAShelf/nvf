@@ -10,6 +10,8 @@
   inherit (lib.strings) optionalString;
   inherit (lib.trivial) boolToString;
   inherit (lib.nvim.binds) addDescriptionsToMappings;
+  inherit (lib.nvim.dag) entryBefore;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.lsp;
   usingNvimCmp = config.vim.autocomplete.nvim-cmp.enable;
@@ -22,7 +24,7 @@
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
   mkBinding = binding: action:
     if binding.value != null
-    then "vim.keymap.set('n', '${binding.value}', ${action}, {buffer=bufnr, noremap=true, silent=true, desc='${binding.description}'})"
+    then "vim.keymap.set('n', ${toLuaObject binding.value}, ${action}, {buffer=bufnr, noremap=true, silent=true, desc=${toLuaObject binding.description}})"
     else "";
 in {
   config = mkIf cfg.enable {
@@ -34,20 +36,26 @@ in {
 
       augroups = [{name = augroup;}];
       autocmds =
-        (optional cfg.inlayHints.enable {
-          group = augroup;
-          event = ["LspAttach"];
-          desc = "LSP on-attach enable inlay hints autocmd";
-          callback = mkLuaInline ''
-            function(event)
-              local bufnr = event.buf
-              local client = vim.lsp.get_client_by_id(event.data.client_id)
-              if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+        [
+          {
+            group = augroup;
+            event = ["LspAttach"];
+            desc = "LSP on-attach add keybinds, enable inlay hints, and other plugin integrations";
+            callback = mkLuaInline ''
+              function(event)
+                local bufnr = event.buf
+                local client = vim.lsp.get_client_by_id(event.data.client_id)
+                default_on_attach(client, bufnr)
+
+                ${optionalString cfg.inlayHints.enable ''
+                if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+                  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+                end
+              ''}
               end
-            end
-          '';
-        })
+            '';
+          }
+        ]
         ++ (optional (!conformFormatOnSave) {
           group = augroup;
           event = ["BufWritePre"];
@@ -86,7 +94,7 @@ in {
           '';
         });
 
-      pluginRC.lsp-setup = ''
+      pluginRC.lsp-setup = entryBefore ["autocmds"] ''
         vim.g.formatsave = ${boolToString cfg.formatOnSave};
 
         local attach_keymaps = function(client, bufnr)

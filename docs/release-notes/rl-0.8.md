@@ -28,6 +28,10 @@
   align with the "hunks" themed mapping and avoid conflict with the new [neogit]
   group.
 
+- LSP keybinds and related plugin integrations are now attached in an LspAttach
+  autocmd event. If you were calling `default_on_attach()` in your LSP setup you
+  can remove them now.
+
 [NotAShelf](https://github.com/notashelf):
 
 [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
@@ -135,6 +139,8 @@
 - Moved code setting `additionalRuntimePaths` and `enableLuaLoader` out of
   `luaConfigPre`'s default to prevent being overridden
 - Use conform over custom autocmds for LSP format on save
+- Move LSP keybinds and other related plugin integrations into an LspAttach
+  event.
 
 [diniamo](https://github.com/diniamo):
 
