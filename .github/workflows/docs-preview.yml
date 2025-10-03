@@ -90,7 +90,7 @@ jobs:
           echo "Preview can be found at ${URL}" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Find Comment
-        uses: peter-evans/find-comment@v3
+        uses: peter-evans/find-comment@v4
         id: fc
         with:
           comment-author: "github-actions[bot]"
@@ -98,7 +98,7 @@ jobs:
           body-includes: "Live preview deployed"
 
       - name: Post live preview comment
-        uses: peter-evans/create-or-update-comment@v4
+        uses: peter-evans/create-or-update-comment@v5
         env:
           COMMENT_ID: ${{ steps.fc.outputs.comment-id }}
           URL: ${{ steps.prelude.outputs.URL }}
@@ -177,7 +177,7 @@ jobs:
           fi
 
       - name: Post cleanup verification
-        uses: peter-evans/create-or-update-comment@v4
+        uses: peter-evans/create-or-update-comment@v5
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |

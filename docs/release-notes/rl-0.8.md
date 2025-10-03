@@ -564,6 +564,12 @@
 - Add [nvim-highlight-colors] plugin in `vim.ui.nvim-highlight-colors` with
   `enable` and `setupOpts`
 
+[PartyWumpus](https://github.com/PartyWumpus):
+
+[typst-concealer]: https://github.com/PartyWumpus/typst-concealer
+
+- Add inline typst concealing support under `vim.languages.typst` using
+  [typst-concealer].
 [simon-wg](https://github.com/simon-wg):
 
 - Update `python` language module to use correct lsp binary.

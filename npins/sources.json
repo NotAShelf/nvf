@@ -9,9 +9,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "c7cbbad40c2065fccfd1f1863bb2c08180c0533d",
-      "url": "https://github.com/stevearc/aerial.nvim/archive/c7cbbad40c2065fccfd1f1863bb2c08180c0533d.tar.gz",
-      "hash": "01bzgwsx4v3y5l2hy4k6j7pma9azjcx4hnrr1sc4l27m1lklyqnx"
+      "revision": "5e687b5a14004fa2dd9eccbee042b96869fe1557",
+      "url": "https://github.com/stevearc/aerial.nvim/archive/5e687b5a14004fa2dd9eccbee042b96869fe1557.tar.gz",
+      "hash": "10y8kbiigh9j3wpigb800wg287xllg76kk7k8rv9a64mhrfm2v7w"
     },
     "alpha-nvim": {
       "type": "Git",
@@ -35,9 +35,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "bcbe0347d8b5542b8a3361af8506f6dcf5bca02e",
-      "url": "https://github.com/yetone/avante.nvim/archive/bcbe0347d8b5542b8a3361af8506f6dcf5bca02e.tar.gz",
-      "hash": "1h7v40i3a7471ss5115my3n62gr4ldicmdc6vr4aaahjbghrri4v"
+      "revision": "5e4bb50ddaa8c4688675df6f437712c0e793a51c",
+      "url": "https://github.com/yetone/avante.nvim/archive/5e4bb50ddaa8c4688675df6f437712c0e793a51c.tar.gz",
+      "hash": "0z3h8vb73rrmqcd6373pbqc5swbwxpfpd92yhly0256hw5a9jjm2"
     },
     "base16": {
       "type": "Git",
@@ -48,9 +48,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "0f2863e28d66a65129b6a277e0652736f9ad4fad",
-      "url": "https://github.com/rrethy/base16-nvim/archive/0f2863e28d66a65129b6a277e0652736f9ad4fad.tar.gz",
-      "hash": "199ass8sm0v9xcp03qwzzy4x46gfaha3r6yagkf0dcswc09vv83k"
+      "revision": "a2907cc3cd661e0f89f7db1f4fc304782a676a7d",
+      "url": "https://github.com/rrethy/base16-nvim/archive/a2907cc3cd661e0f89f7db1f4fc304782a676a7d.tar.gz",
+      "hash": "0acqa0b5n4l01ac9mbbxz2nbg8k8a50s0ajngg72l68q6m5z9mkm"
     },
     "blink-cmp-spell": {
       "type": "Git",
@@ -100,9 +100,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "b035188bc6d8bcbf86c49ac230ee0bbadca7f7fb",
-      "url": "https://github.com/mikavilpas/blink-ripgrep.nvim/archive/b035188bc6d8bcbf86c49ac230ee0bbadca7f7fb.tar.gz",
-      "hash": "1fmlsfnkyiakx7alap0vdr6shwwjd1afpkajjyn31w8bykhmmm9i"
+      "revision": "932a8e568b2dc4f42268cfcc885ff2d701dd8bb7",
+      "url": "https://github.com/mikavilpas/blink-ripgrep.nvim/archive/932a8e568b2dc4f42268cfcc885ff2d701dd8bb7.tar.gz",
+      "hash": "0qafiwdisz21fi2hjima4aqz8qsjiq48pnfpp7nr8a9a15ix83sb"
     },
     "bufdelete-nvim": {
       "type": "Git",
@@ -142,9 +142,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "30fa4d122d9b22ad8b2e0ab1b533c8c26c4dde86",
-      "url": "https://github.com/catppuccin/nvim/archive/30fa4d122d9b22ad8b2e0ab1b533c8c26c4dde86.tar.gz",
-      "hash": "00disdqjhnvxsxyprbsx52df71a12r3pyi9f0cz1wfp2z8q4pid3"
+      "revision": "c89184526212e04feffbddda9d06b041a8fca416",
+      "url": "https://github.com/catppuccin/nvim/archive/c89184526212e04feffbddda9d06b041a8fca416.tar.gz",
+      "hash": "0f3ykavynyplp0npkijq8psrzn79jfz916l0vm9rc16bvv8c43bn"
     },
     "ccc-nvim": {
       "type": "Git",
@@ -285,9 +285,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "dfd894a3888a87725eb6285b97bb69f7d8e07824",
-      "url": "https://github.com/olimorris/codecompanion.nvim/archive/dfd894a3888a87725eb6285b97bb69f7d8e07824.tar.gz",
-      "hash": "0m4sazcyxw4nxjf2kmn4gjsnc9d2pnmi7h5kh5sz1k9ib51bw8n3"
+      "revision": "38db66c4e20032821bd166f7012291fe99f1e8f3",
+      "url": "https://github.com/olimorris/codecompanion.nvim/archive/38db66c4e20032821bd166f7012291fe99f1e8f3.tar.gz",
+      "hash": "1iqqgcj7vdsif0fj0pf6ifn3nh05aznk2gnas7l3lg8b5g103vb8"
     },
     "codewindow-nvim": {
       "type": "Git",
@@ -311,9 +311,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "bc3e82609f2fcf7dad7ca87c20e65e51d5d9d87c",
-      "url": "https://github.com/xzbdmw/colorful-menu.nvim/archive/bc3e82609f2fcf7dad7ca87c20e65e51d5d9d87c.tar.gz",
-      "hash": "0r6q17ldg0npx7d05szimp9ip2jpkx0cbr7rw1kp9vrinw8ppk2x"
+      "revision": "d5b97d247528be308b6b69d96b5950a30e470f3d",
+      "url": "https://github.com/xzbdmw/colorful-menu.nvim/archive/d5b97d247528be308b6b69d96b5950a30e470f3d.tar.gz",
+      "hash": "1j1nbkjrcys0zjbhzxxgxdcaf9pk2wx9k0xkcp808rwd8ym641ha"
     },
     "comment-nvim": {
       "type": "Git",
@@ -337,9 +337,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "b4aab989db276993ea5dcb78872be494ce546521",
-      "url": "https://github.com/stevearc/conform.nvim/archive/b4aab989db276993ea5dcb78872be494ce546521.tar.gz",
-      "hash": "1637cpq5167dm4s2llc8w0y2sicqxn9gcq0p003x1mwb3m5wxm4g"
+      "revision": "9d6f881a4047a51c7709223dcf24e967633c6523",
+      "url": "https://github.com/stevearc/conform.nvim/archive/9d6f881a4047a51c7709223dcf24e967633c6523.tar.gz",
+      "hash": "0ww4xapysmkpzcvzs6prwh1lx3vg84g5sicdpskjd2nlwv507n09"
     },
     "copilot-cmp": {
       "type": "Git",
@@ -363,9 +363,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "e73fe7c43c68aeb84fbeed12ee6cc60a29e78fbb",
-      "url": "https://github.com/zbirenbaum/copilot.lua/archive/e73fe7c43c68aeb84fbeed12ee6cc60a29e78fbb.tar.gz",
-      "hash": "1zxfqd2w3xr63z66aj28jk1qjfm86f60bsk9dkdda694rr0v4mhb"
+      "revision": "3cd5086c28c5769f5db147721f457a3e081de254",
+      "url": "https://github.com/zbirenbaum/copilot.lua/archive/3cd5086c28c5769f5db147721f457a3e081de254.tar.gz",
+      "hash": "018q6qy2k357prxg5sz8i73gyxa7f47idr79ihwx7hf31m7ax2pd"
     },
     "crates-nvim": {
       "type": "Git",
@@ -389,9 +389,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "2fe5fb0abe2b24b2f4365d0adbf069523b17c6f3",
-      "url": "https://github.com/Decodetalkers/csharpls-extended-lsp.nvim/archive/2fe5fb0abe2b24b2f4365d0adbf069523b17c6f3.tar.gz",
-      "hash": "1xj9mc4snjdi4ah9dqkm0jz58lllkb3y9zp76ja6rn0g1gqkbvq1"
+      "revision": "9cd24d7be42bd138f287baf6300a55d5797ab33e",
+      "url": "https://github.com/Decodetalkers/csharpls-extended-lsp.nvim/archive/9cd24d7be42bd138f287baf6300a55d5797ab33e.tar.gz",
+      "hash": "1jh528jvzja4l213r1fqgvgfrwhmchd5caxg5qaxnp9bmgm85pfi"
     },
     "dashboard-nvim": {
       "type": "Git",
@@ -441,9 +441,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "df528c869b09fbdc7578e6ccc7ff6faf44a2046d",
-      "url": "https://github.com/Mofiqul/dracula.nvim/archive/df528c869b09fbdc7578e6ccc7ff6faf44a2046d.tar.gz",
-      "hash": "1i8rhhzfpdry9yyx7ni1jbsh8c4ra6mq6lk7bm2wnd2wm19akvcv"
+      "revision": "041d923368d540a1e438989ce8f915628081a56a",
+      "url": "https://github.com/Mofiqul/dracula.nvim/archive/041d923368d540a1e438989ce8f915628081a56a.tar.gz",
+      "hash": "0bl6hggv01pg5970nsi0vaf23mb46xzpjrkasi7134465lh0m1m3"
     },
     "dressing-nvim": {
       "type": "Git",
@@ -467,9 +467,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "2b3dc7be1b9eea766bf6d75f519b05bd902e0c3a",
-      "url": "https://github.com/elixir-tools/elixir-tools.nvim/archive/2b3dc7be1b9eea766bf6d75f519b05bd902e0c3a.tar.gz",
-      "hash": "0wzbv75a9r2v4i0fk5ddkc8lcqjw3lx20ikrxgbadh2rqs5v5gab"
+      "revision": "51b026c1ed5fe32396e1cd94c2b67435b066a4fb",
+      "url": "https://github.com/elixir-tools/elixir-tools.nvim/archive/51b026c1ed5fe32396e1cd94c2b67435b066a4fb.tar.gz",
+      "hash": "0prns04rrygyw722afph4893vpc5i20vpc2aakf3bmxfag8f7ksm"
     },
     "everforest": {
       "type": "GitRelease",
@@ -509,9 +509,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "4d5858bd4c471c895060e1b9f3575f1551184dc5",
-      "url": "https://github.com/j-hui/fidget.nvim/archive/4d5858bd4c471c895060e1b9f3575f1551184dc5.tar.gz",
-      "hash": "10yvbh3qiv6adj9j3sn5pniss19q6qhan2bi5slj55jw8ylm8699"
+      "revision": "3f5475949679953af6d78654db29b944fa826e6a",
+      "url": "https://github.com/j-hui/fidget.nvim/archive/3f5475949679953af6d78654db29b944fa826e6a.tar.gz",
+      "hash": "1frrrq0bc9r4lh723hvy38g1bab1r1gmpqlkfvddrj80lk6kgrl9"
     },
     "flash-nvim": {
       "type": "Git",
@@ -522,9 +522,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "3c942666f115e2811e959eabbdd361a025db8b63",
-      "url": "https://github.com/folke/flash.nvim/archive/3c942666f115e2811e959eabbdd361a025db8b63.tar.gz",
-      "hash": "1xil2lkyr404zni1qmkwrl9hvbwjjk52fmncg59vqmvdybwsnqni"
+      "revision": "b68bda044d68e4026c4e1ec6df3c5afd7eb8e341",
+      "url": "https://github.com/folke/flash.nvim/archive/b68bda044d68e4026c4e1ec6df3c5afd7eb8e341.tar.gz",
+      "hash": "1blfqyipmn876dkw0v8gm4gw5gnv9dfca4szws503835v9jj0azf"
     },
     "flutter-tools-nvim": {
       "type": "Git",
@@ -561,9 +561,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "96dede0bca5cc24868df7c8b46b5a32b89c2f19d",
-      "url": "https://github.com/ibhagwan/fzf-lua/archive/96dede0bca5cc24868df7c8b46b5a32b89c2f19d.tar.gz",
-      "hash": "1sp9ysa1wcxdiacxw0w2b4kl3rd7q45fma1wi2py43hanmw8k6m6"
+      "revision": "e9d95a29514c1a239c570c9d4077b7adca419161",
+      "url": "https://github.com/ibhagwan/fzf-lua/archive/e9d95a29514c1a239c570c9d4077b7adca419161.tar.gz",
+      "hash": "1ry58pmd9aphqd7klrmscyhdsgp4j60dd5hcv2qjp7sp424kirlg"
     },
     "gesture-nvim": {
       "type": "Git",
@@ -613,9 +613,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "5d448b143ce72aa72ea6a39ac76c00c86cf6d061",
-      "url": "https://github.com/linrongbin16/gitlinker.nvim/archive/5d448b143ce72aa72ea6a39ac76c00c86cf6d061.tar.gz",
-      "hash": "0w9q1g7hc7ra8hzlmyf30cwcryaickzir6x6k7d4nhxbb9w9m25j"
+      "revision": "7c1fae10e39fba627a433a0d7126683c79af289f",
+      "url": "https://github.com/linrongbin16/gitlinker.nvim/archive/7c1fae10e39fba627a433a0d7126683c79af289f.tar.gz",
+      "hash": "0c4qa7yqf200zxh7iy510kid0gvlsfy07q7ami5d68qm3b9qdd97"
     },
     "gitsigns-nvim": {
       "type": "Git",
@@ -626,9 +626,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "6e3c66548035e50db7bd8e360a29aec6620c3641",
-      "url": "https://github.com/lewis6991/gitsigns.nvim/archive/6e3c66548035e50db7bd8e360a29aec6620c3641.tar.gz",
-      "hash": "1yw1bjyrhy2r0lv0m1bkgs5zd2cx6h104kg5w4iqzldlpyl2n5fc"
+      "revision": "1ee5c1fd068c81f9dd06483e639c2aa4587dc197",
+      "url": "https://github.com/lewis6991/gitsigns.nvim/archive/1ee5c1fd068c81f9dd06483e639c2aa4587dc197.tar.gz",
+      "hash": "1dag4560vdw4ldb4grzmda68mgfhq9qb51nzwxg2ciwdfhivschq"
     },
     "glow-nvim": {
       "type": "Git",
@@ -652,9 +652,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "12c2624287dc827edb5d72b2bc4c9619e692a554",
-      "url": "https://github.com/ellisonleao/gruvbox.nvim/archive/12c2624287dc827edb5d72b2bc4c9619e692a554.tar.gz",
-      "hash": "0kwzwy85v2lq7ifbjjasng6ykldcna3aycfmma6fhfvv9akll9y2"
+      "revision": "5e0a460d8e0f7f669c158dedd5f9ae2bcac31437",
+      "url": "https://github.com/ellisonleao/gruvbox.nvim/archive/5e0a460d8e0f7f669c158dedd5f9ae2bcac31437.tar.gz",
+      "hash": "0x56900ihp83izaai660bvb5b5qq04bjc9qmafjis4jz1qqv948h"
     },
     "hardtime-nvim": {
       "type": "Git",
@@ -665,9 +665,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "6d7664d5bdfaea44c5f50b29f5239fab7b00c273",
-      "url": "https://github.com/m4xshen/hardtime.nvim/archive/6d7664d5bdfaea44c5f50b29f5239fab7b00c273.tar.gz",
-      "hash": "0vdljivlhwwmr13gl2k7pbvh6z4irg2s3mmyv0y1bkxzmj0780h6"
+      "revision": "b4e431934af1fe224a3a801f632c008278cb7628",
+      "url": "https://github.com/m4xshen/hardtime.nvim/archive/b4e431934af1fe224a3a801f632c008278cb7628.tar.gz",
+      "hash": "03df6kd6srwj6yb3pvmdpbj6jg269dw4ns0w9flj9myl852l0br7"
     },
     "harpoon": {
       "type": "Git",
@@ -691,9 +691,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "58db880c2d690d53e66628a1f47114a42dee2620",
-      "url": "https://github.com/mrcjkb/haskell-tools.nvim/archive/58db880c2d690d53e66628a1f47114a42dee2620.tar.gz",
-      "hash": "12w5yyl9dprrpnrd561r5y432nqx8wrrq50sljc4kh35dk46paxy"
+      "revision": "641b06beab01bb85e4d4bb1f4a22d9f82938a8d4",
+      "url": "https://github.com/mrcjkb/haskell-tools.nvim/archive/641b06beab01bb85e4d4bb1f4a22d9f82938a8d4.tar.gz",
+      "hash": "07i19al7vx9dcd7ch5gcxxp68ii7fpvxyigq69x3nyj1vlxzrzf1"
     },
     "highlight-undo-nvim": {
       "type": "Git",
@@ -732,10 +732,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v1.8.0",
-      "revision": "1e0a4d719c780bb8b0690a54915601508ced321e",
-      "url": "https://api.github.com/repos/julienvincent/hunk.nvim/tarball/v1.8.0",
-      "hash": "036cwnswx36m048mvlwa8rr9baclf7lrgjlq065pb4w13c4drbmx"
+      "version": "v1.9.0",
+      "revision": "c21f15dbe78ddf23a4e1528a9a5370958c28b608",
+      "url": "https://api.github.com/repos/julienvincent/hunk.nvim/tarball/v1.9.0",
+      "hash": "1yifb94kdx9dhk478j9cf7npzpi5iafh35ys2pl5y0jkb6rkg9n5"
     },
     "hydra-nvim": {
       "type": "GitRelease",
@@ -814,9 +814,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "2367a6c0a01eb9edb0464731cc0fb61ed9ab9d2c",
-      "url": "https://github.com/folke/lazydev.nvim/archive/2367a6c0a01eb9edb0464731cc0fb61ed9ab9d2c.tar.gz",
-      "hash": "1v4m18j270rfbjrcn99fkbiwhlmmr9bm9lcbagp533kx4n57731f"
+      "revision": "258d2a5ef4a3e3d6d9ba9da72c9725c53e9afcbd",
+      "url": "https://github.com/folke/lazydev.nvim/archive/258d2a5ef4a3e3d6d9ba9da72c9725c53e9afcbd.tar.gz",
+      "hash": "0qn50y6zdw1vad82km1zlkn0g30v1jhr6y56sqg98xlf45kf3yfg"
     },
     "leap-nvim": {
       "type": "Git",
@@ -827,9 +827,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "e9cb442c0614a7e8185608f639e10c54e53bb083",
-      "url": "https://github.com/ggandor/leap.nvim/archive/e9cb442c0614a7e8185608f639e10c54e53bb083.tar.gz",
-      "hash": "1zqvgpslrw9gjd1grz0b8cpzi0i0gbcaljypx7h6yzf55mm0vn94"
+      "revision": "07304103f6bd923004fdef9262d9a4d7925fb70a",
+      "url": "https://github.com/ggandor/leap.nvim/archive/07304103f6bd923004fdef9262d9a4d7925fb70a.tar.gz",
+      "hash": "1n21jmh13f2ms7s6qhk623wa7kqpjjfvg4sp40sx01fn8br8m280"
     },
     "leetcode-nvim": {
       "type": "Git",
@@ -840,9 +840,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "10f63d67201f6e988467485e6cf32d08176fcad2",
-      "url": "https://github.com/kawre/leetcode.nvim/archive/10f63d67201f6e988467485e6cf32d08176fcad2.tar.gz",
-      "hash": "1b3acblmg1xjyzbvlyf7qqm73ilgsr14dz9cgj0xfad5yq9mliha"
+      "revision": "fdd3f91800b3983e27bc9fcfb99cfa7293d7f11a",
+      "url": "https://github.com/kawre/leetcode.nvim/archive/fdd3f91800b3983e27bc9fcfb99cfa7293d7f11a.tar.gz",
+      "hash": "0pqjg3bdsj6x0w0pf35fd676nkmhhc14kh9g48nswcx268yw79ry"
     },
     "lsp-signature-nvim": {
       "type": "Git",
@@ -866,9 +866,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "d79a1c3299ad0ef94e255d045bed9fa26025dab6",
-      "url": "https://github.com/onsails/lspkind-nvim/archive/d79a1c3299ad0ef94e255d045bed9fa26025dab6.tar.gz",
-      "hash": "1wdavqmwadby9lyw415jw79kxynxv4fxg2v376y0rkxf258clarq"
+      "revision": "3ddd1b4edefa425fda5a9f95a4f25578727c0bb3",
+      "url": "https://github.com/onsails/lspkind-nvim/archive/3ddd1b4edefa425fda5a9f95a4f25578727c0bb3.tar.gz",
+      "hash": "0yyf2vac4y424kn1vl7bkf5zazs0hd8v3106gl54ib69vav9hljd"
     },
     "lspsaga-nvim": {
       "type": "Git",
@@ -918,9 +918,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "de10d8414235b0a8cabfeba60d07c24304e71f5c",
-      "url": "https://github.com/L3MON4D3/LuaSnip/archive/de10d8414235b0a8cabfeba60d07c24304e71f5c.tar.gz",
-      "hash": "0pa171dx8rfi6d8xz7a3lfwkrgkxivhp09f1xj4vq8hzci6fl516"
+      "revision": "73813308abc2eaeff2bc0d3f2f79270c491be9d7",
+      "url": "https://github.com/L3MON4D3/LuaSnip/archive/73813308abc2eaeff2bc0d3f2f79270c491be9d7.tar.gz",
+      "hash": "0v2jp936b8x3qx3d84w5xrvldcrk8bp9cshcz7blswv0yp9h89xj"
     },
     "lz-n": {
       "type": "Git",
@@ -931,9 +931,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "590d1fcae1c34bf7f366de87908aa990a2b555af",
-      "url": "https://github.com/nvim-neorocks/lz.n/archive/590d1fcae1c34bf7f366de87908aa990a2b555af.tar.gz",
-      "hash": "05vmxjv2jkz70gxh3banlclrgc9sg1acn4jqbg7rkjgyrpi9yhbv"
+      "revision": "9fc3d8234a0fb7ec6238a677a8b38bf24c1d9cc7",
+      "url": "https://github.com/nvim-neorocks/lz.n/archive/9fc3d8234a0fb7ec6238a677a8b38bf24c1d9cc7.tar.gz",
+      "hash": "0fsbw95k6qy1qbl2k7838ap9m31m5w8fqpmv61m2dgzg112hnlw8"
     },
     "lzn-auto-require": {
       "type": "Git",
@@ -957,9 +957,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "4e5f93e054b1c3dce026731dfcea1e44b0941137",
-      "url": "https://github.com/OXY2DEV/markview.nvim/archive/4e5f93e054b1c3dce026731dfcea1e44b0941137.tar.gz",
-      "hash": "1j13l4gz7d7phllprxi1qw80vbq13pqx1mw22ycwv2phcs7lc6g1"
+      "revision": "de79a7626d54d7785436105ef72f37ee8fe8fa16",
+      "url": "https://github.com/OXY2DEV/markview.nvim/archive/de79a7626d54d7785436105ef72f37ee8fe8fa16.tar.gz",
+      "hash": "032i6m9pld1zyhd7lq49dg4qh98w6vmmzqp2f46drhq0ds26hs4h"
     },
     "mind-nvim": {
       "type": "Git",
@@ -983,9 +983,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "45a26d032d8703f280c69c2ed9fb4e1bfc8f24f9",
-      "url": "https://github.com/echasnovski/mini.ai/archive/45a26d032d8703f280c69c2ed9fb4e1bfc8f24f9.tar.gz",
-      "hash": "0q65whb7hw1cill7dkf88m095m27j09ld8zf8rzfvy0xhp64rzlk"
+      "revision": "e0d00c227112e942ed2789dd4c21d651002831c0",
+      "url": "https://github.com/echasnovski/mini.ai/archive/e0d00c227112e942ed2789dd4c21d651002831c0.tar.gz",
+      "hash": "0v165kgfzhfm88p6ljnghnpmp39sb0gbkgb81fym99nmmzklm536"
     },
     "mini-align": {
       "type": "Git",
@@ -996,9 +996,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "ab6777ca0fdfe8e4cfe931e3b0b5d98c719c3c1d",
-      "url": "https://github.com/echasnovski/mini.align/archive/ab6777ca0fdfe8e4cfe931e3b0b5d98c719c3c1d.tar.gz",
-      "hash": "0j3xzfjrk430lx6l2l1wqi76pjnf0qn78xan722cpj9wy7vlvsds"
+      "revision": "be20e745cfa549009d1867bf55381602810250da",
+      "url": "https://github.com/echasnovski/mini.align/archive/be20e745cfa549009d1867bf55381602810250da.tar.gz",
+      "hash": "0af7nq6l8qiqcv15hx69rlrzpf7cnv6mb8xrih5gkr98kvawvwdp"
     },
     "mini-animate": {
       "type": "Git",
@@ -1009,9 +1009,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "37df15e199da3edc0b36647967cc04bf80175183",
-      "url": "https://github.com/echasnovski/mini.animate/archive/37df15e199da3edc0b36647967cc04bf80175183.tar.gz",
-      "hash": "1xn0chs9s63m7gyq7a023nlxd30wcslkg0295dyh0n1q9d6rw56c"
+      "revision": "98c612d104524da5a368c8419b3907c488e8c968",
+      "url": "https://github.com/echasnovski/mini.animate/archive/98c612d104524da5a368c8419b3907c488e8c968.tar.gz",
+      "hash": "0k03ncgjzi6v1c1khj3dzyz34fjhdrcxdgd89pznndbyd4svnx23"
     },
     "mini-base16": {
       "type": "Git",
@@ -1022,9 +1022,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "f4aa0d75c8bd0c4a4296f5f28b537040bcd18d3e",
-      "url": "https://github.com/echasnovski/mini.base16/archive/f4aa0d75c8bd0c4a4296f5f28b537040bcd18d3e.tar.gz",
-      "hash": "1n5abk7z06gh6q3ij2bk1ikxjayx52iyz2i4m67ara5w2n2g5n9v"
+      "revision": "a55403967588257a17a6049e99f80aa982543c36",
+      "url": "https://github.com/echasnovski/mini.base16/archive/a55403967588257a17a6049e99f80aa982543c36.tar.gz",
+      "hash": "0w2287b6xrknn1m732197cpx2hv8cpdd8gjv590b39cz99frsy3g"
     },
     "mini-basics": {
       "type": "Git",
@@ -1035,9 +1035,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "b2c25615ebaf3da0ebcc25eefd5510c02126ffac",
-      "url": "https://github.com/echasnovski/mini.basics/archive/b2c25615ebaf3da0ebcc25eefd5510c02126ffac.tar.gz",
-      "hash": "1gsxg4l7qgkq7ffpjpgdnqwh8vd4lmvdhn5ikassj0cp9i6c8x8f"
+      "revision": "7a5f213ad45d89250143d65a30e3dcea9ec4d785",
+      "url": "https://github.com/echasnovski/mini.basics/archive/7a5f213ad45d89250143d65a30e3dcea9ec4d785.tar.gz",
+      "hash": "1rvnahl45xp05b7nybc6r2w6cjhqig63a82m05ccpnms7slhd415"
     },
     "mini-bracketed": {
       "type": "Git",
@@ -1048,9 +1048,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "672b4e2fe9222fd4d5a104ff23217801bae37046",
-      "url": "https://github.com/echasnovski/mini.bracketed/archive/672b4e2fe9222fd4d5a104ff23217801bae37046.tar.gz",
-      "hash": "19sqhv68yn214md95wkd3jg632smp7ny4nb3zbmn43ksyiaxmi9h"
+      "revision": "87cf031b49e3753227f73f433851a6a75cf31445",
+      "url": "https://github.com/echasnovski/mini.bracketed/archive/87cf031b49e3753227f73f433851a6a75cf31445.tar.gz",
+      "hash": "09bb1vzmp43jd33j1yrna1qkwqs9w33m1pvnp4brx2130zx0gdi9"
     },
     "mini-bufremove": {
       "type": "Git",
@@ -1061,9 +1061,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "e60941ab23eb0679f0da0e92ac0b572425756dc2",
-      "url": "https://github.com/echasnovski/mini.bufremove/archive/e60941ab23eb0679f0da0e92ac0b572425756dc2.tar.gz",
-      "hash": "03jj3lxykdl7dlblv90h1hym91ww5mz24wsr9jqi535acakajn3x"
+      "revision": "6ce45baad3af93e4b112d84f702eb00bb4e29b9e",
+      "url": "https://github.com/echasnovski/mini.bufremove/archive/6ce45baad3af93e4b112d84f702eb00bb4e29b9e.tar.gz",
+      "hash": "1flr1ijfylp02ydqpxcxvxv3d71qz39x55mmp55a0r53717wi8s2"
     },
     "mini-clue": {
       "type": "Git",
@@ -1074,9 +1074,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "2d361459de6a5fd7ea20a14ee4b95c6caec383b9",
-      "url": "https://github.com/echasnovski/mini.clue/archive/2d361459de6a5fd7ea20a14ee4b95c6caec383b9.tar.gz",
-      "hash": "14gpvrcvwdr59vqmzs1ma6iylb23cr8dwcy5xv5cmbdiiz1sb1lp"
+      "revision": "83696f95c9e498174950b947e2b6b4298eb19828",
+      "url": "https://github.com/echasnovski/mini.clue/archive/83696f95c9e498174950b947e2b6b4298eb19828.tar.gz",
+      "hash": "14y7a0bpf7hd50mj253liqrqqgjslf5j5nhhrx7zycq4nx1a0q60"
     },
     "mini-colors": {
       "type": "Git",
@@ -1087,9 +1087,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "3ec0d1bb6d82ec5f2275dfb58690ee22a2e59316",
-      "url": "https://github.com/echasnovski/mini.colors/archive/3ec0d1bb6d82ec5f2275dfb58690ee22a2e59316.tar.gz",
-      "hash": "1w720qrjmv0gmw2irlsvlwyq5zni2ncafxb7im6brgf84nbhpcxc"
+      "revision": "dd65a9f4653f8b3609e5d83d646ab447bfc980d1",
+      "url": "https://github.com/echasnovski/mini.colors/archive/dd65a9f4653f8b3609e5d83d646ab447bfc980d1.tar.gz",
+      "hash": "06436dxf3csdx8mh5hib0n0snyik9jk9x5n8q2fyi6wy9jvd7py5"
     },
     "mini-comment": {
       "type": "Git",
@@ -1100,9 +1100,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "a9474da9175b27a5c32ee712433c23b9b0f7f139",
-      "url": "https://github.com/echasnovski/mini.comment/archive/a9474da9175b27a5c32ee712433c23b9b0f7f139.tar.gz",
-      "hash": "1xjdhasqrli8gx89hhzm7zhcccnfr2irh5bldxkvvhydb3m74mar"
+      "revision": "796eff9194389220c8d89e0303857630adaaf786",
+      "url": "https://github.com/echasnovski/mini.comment/archive/796eff9194389220c8d89e0303857630adaaf786.tar.gz",
+      "hash": "03vaf4blnq74sy8k7zdnb2qm8j83qds465m4gwgvwmm8csg5sw8k"
     },
     "mini-completion": {
       "type": "Git",
@@ -1113,9 +1113,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "d121b158b557c61d6762999af9dca5c19c538f20",
-      "url": "https://github.com/echasnovski/mini.completion/archive/d121b158b557c61d6762999af9dca5c19c538f20.tar.gz",
-      "hash": "0vlzz1nn7d09fxfq3nmzqdqqvyw5asp8q4j67vqfxhwrq08ih6ca"
+      "revision": "09470ac1f244070fa8a66d3c93f8b379075939f5",
+      "url": "https://github.com/echasnovski/mini.completion/archive/09470ac1f244070fa8a66d3c93f8b379075939f5.tar.gz",
+      "hash": "0l38flvjdqz207h0m1qgmqjq9yq8b1fbvgkydc98jp93ip163rln"
     },
     "mini-cursorword": {
       "type": "GitRelease",
@@ -1142,9 +1142,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "7077b636d642fcd5cd48554e187a251883239660",
-      "url": "https://github.com/echasnovski/mini.diff/archive/7077b636d642fcd5cd48554e187a251883239660.tar.gz",
-      "hash": "1kj1gwpdmnv0fwydfyi93bfqxghrgha1221pds3ki16f1zrm3d78"
+      "revision": "faecf54385bad761d8f3f3096c6c0ea2a6e73123",
+      "url": "https://github.com/echasnovski/mini.diff/archive/faecf54385bad761d8f3f3096c6c0ea2a6e73123.tar.gz",
+      "hash": "1z9gfxm78vgjjdiwpc4y2px3m23bcq4s9cdn3jab4yr652ckh214"
     },
     "mini-doc": {
       "type": "Git",
@@ -1155,9 +1155,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "476a05cde8320bbbc5ac3d58ecde88106d457eea",
-      "url": "https://github.com/echasnovski/mini.doc/archive/476a05cde8320bbbc5ac3d58ecde88106d457eea.tar.gz",
-      "hash": "14hwyva1d8g5gqwyfpvm6s7d8zklfyn57g7gl2pg1zscr7q0f66y"
+      "revision": "8c6bf704287fb6ed15ace91e34d94fffeedbfffc",
+      "url": "https://github.com/echasnovski/mini.doc/archive/8c6bf704287fb6ed15ace91e34d94fffeedbfffc.tar.gz",
+      "hash": "16kjqxh94kcp8cswwdfx75dvn13vnrg45v39lk4vvcrqd5prah1m"
     },
     "mini-extra": {
       "type": "Git",
@@ -1168,9 +1168,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "a4ea6fc035906b1e9494f6e249ca387b57e8308f",
-      "url": "https://github.com/echasnovski/mini.extra/archive/a4ea6fc035906b1e9494f6e249ca387b57e8308f.tar.gz",
-      "hash": "0n2kq7qk3qzpph8jwm9jzr1b6rl00wl01w2xvln9sq0118lqk532"
+      "revision": "647deb1e79d8c871f6eda0572cf0000582487943",
+      "url": "https://github.com/echasnovski/mini.extra/archive/647deb1e79d8c871f6eda0572cf0000582487943.tar.gz",
+      "hash": "1m9kw7cx6fddwn1h0knlddbkii239v2d5qyckcn040fvm37s2fmd"
     },
     "mini-files": {
       "type": "Git",
@@ -1181,9 +1181,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "34a730a6bdb09c3e6755fe34b20a78a5d81d21c4",
-      "url": "https://github.com/echasnovski/mini.files/archive/34a730a6bdb09c3e6755fe34b20a78a5d81d21c4.tar.gz",
-      "hash": "1r3dzpg3wl41aqif4gvm8445vj0wbzgzj8ab94g3qqzagash4pj3"
+      "revision": "d22c5b74b7764d0bd33e4988e5ee00139cfe22e3",
+      "url": "https://github.com/echasnovski/mini.files/archive/d22c5b74b7764d0bd33e4988e5ee00139cfe22e3.tar.gz",
+      "hash": "0wxs1amjf3mvz2zp2si7azg6xj4d4x8r98lvk0aq85aj4djrhzdk"
     },
     "mini-fuzzy": {
       "type": "Git",
@@ -1194,9 +1194,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "cb2f359471c2cb1cf2aa997552a28e4748d4c2bc",
-      "url": "https://github.com/echasnovski/mini.fuzzy/archive/cb2f359471c2cb1cf2aa997552a28e4748d4c2bc.tar.gz",
-      "hash": "168np3jky78gz98l0sq3iwxkgqlg77vp0ki0602x4iijw1ghzw6c"
+      "revision": "ef22e4fdd79df86192e80d1a5244de3ab56f2f06",
+      "url": "https://github.com/echasnovski/mini.fuzzy/archive/ef22e4fdd79df86192e80d1a5244de3ab56f2f06.tar.gz",
+      "hash": "0q8v78piqjc84522lzjlxs5njgkarlcxg5njg8pw7vdg5f5q69wf"
     },
     "mini-git": {
       "type": "Git",
@@ -1207,9 +1207,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "1948d4290105d4c52b8c1d5da5b748c402f6fdff",
-      "url": "https://github.com/echasnovski/mini-git/archive/1948d4290105d4c52b8c1d5da5b748c402f6fdff.tar.gz",
-      "hash": "14zjrs6wh43x5dxnhdrsmfv19rq743bxlqvgaag54mn48029wmsc"
+      "revision": "0cdcfa1294558aad343234b928ef1c15040586ce",
+      "url": "https://github.com/echasnovski/mini-git/archive/0cdcfa1294558aad343234b928ef1c15040586ce.tar.gz",
+      "hash": "1pgj865r3yf0hivy6hmsnhibsrpzadimizsnj22438xfky8xsdp8"
     },
     "mini-hipatterns": {
       "type": "Git",
@@ -1220,9 +1220,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "96d07d32a0db0d8d8a10c83a964ec557cca005e7",
-      "url": "https://github.com/echasnovski/mini.hipatterns/archive/96d07d32a0db0d8d8a10c83a964ec557cca005e7.tar.gz",
-      "hash": "1lmdi790xcg7jpz6swfl9siray8gbx8wz638vzxa9b0s6wkwa2ab"
+      "revision": "1e0e8f51d50b18eb23b50eef8d97bfd9482e29d9",
+      "url": "https://github.com/echasnovski/mini.hipatterns/archive/1e0e8f51d50b18eb23b50eef8d97bfd9482e29d9.tar.gz",
+      "hash": "1iwg4mc24ab4l8gj11aca0fwcbhxyfpkj9ipb2w21n52sla5r0s5"
     },
     "mini-hues": {
       "type": "Git",
@@ -1233,9 +1233,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "a067598176acfa754ba032c1526f53220249690a",
-      "url": "https://github.com/echasnovski/mini.hues/archive/a067598176acfa754ba032c1526f53220249690a.tar.gz",
-      "hash": "0wx6aira4m3w8459jx6pi1d3f3npldyw23z1xa3wppivz7j9wdjd"
+      "revision": "3db0ee390af98c55e3336380b675ed23a053743a",
+      "url": "https://github.com/echasnovski/mini.hues/archive/3db0ee390af98c55e3336380b675ed23a053743a.tar.gz",
+      "hash": "0l8m4h5qliyp3527rwc9mzd2s3svjnyb2sngg9i6fwpdqjy4ay23"
     },
     "mini-icons": {
       "type": "Git",
@@ -1246,9 +1246,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "f9a177c11daa7829389b7b6eaaec8b8a5c47052d",
-      "url": "https://github.com/echasnovski/mini.icons/archive/f9a177c11daa7829389b7b6eaaec8b8a5c47052d.tar.gz",
-      "hash": "028zvjc7wyqw51jbj5r5llfkq5223wxga6qwb16ns9s71cflpgh6"
+      "revision": "e8fae66cb400744daeedf6e387347df50271c252",
+      "url": "https://github.com/echasnovski/mini.icons/archive/e8fae66cb400744daeedf6e387347df50271c252.tar.gz",
+      "hash": "0ach18lv75hgxdfzdrsakdyl26syn3gxfw0fz90437s5ywzhc6nk"
     },
     "mini-indentscope": {
       "type": "Git",
@@ -1259,9 +1259,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "9d9490c172a4718d7d1f20eaae668a28f160c2d7",
-      "url": "https://github.com/echasnovski/mini.indentscope/archive/9d9490c172a4718d7d1f20eaae668a28f160c2d7.tar.gz",
-      "hash": "1rz56q0adi50d9rmwr4ydqv97jxgxgarhdrach4dvsmz1f3bh9d2"
+      "revision": "fc1bb1e4573f7174cb6e2bbabc3453340a9eec16",
+      "url": "https://github.com/echasnovski/mini.indentscope/archive/fc1bb1e4573f7174cb6e2bbabc3453340a9eec16.tar.gz",
+      "hash": "0yvd97rdx5sxq248s6xdw1lcpc2b0zhsgvy7mndc3mzd8k3lmvj7"
     },
     "mini-jump": {
       "type": "Git",
@@ -1272,9 +1272,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "bb5895c9ae4d25fd95c0431ece2bb8f5e3909911",
-      "url": "https://github.com/echasnovski/mini.jump/archive/bb5895c9ae4d25fd95c0431ece2bb8f5e3909911.tar.gz",
-      "hash": "0w0i4lcvxzjmniib076nm3yvkjn70xr21iiys8r3y57q1m3iw9f1"
+      "revision": "86cb4bf366cedbeaf81cc282049852995cb5c462",
+      "url": "https://github.com/echasnovski/mini.jump/archive/86cb4bf366cedbeaf81cc282049852995cb5c462.tar.gz",
+      "hash": "197c1mmxh5sw5g0al83vmi7472va516psdpsp4sk31k30zjwk8di"
     },
     "mini-jump2d": {
       "type": "Git",
@@ -1285,9 +1285,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "3710fcdfbbff539e245e16ff14f2d95ffc2fb631",
-      "url": "https://github.com/echasnovski/mini.jump2d/archive/3710fcdfbbff539e245e16ff14f2d95ffc2fb631.tar.gz",
-      "hash": "0jxdhqim5zhsynd32xn8yj3p3i9qlw693r779yzmfadm5szncvp1"
+      "revision": "cd902f64880a0acab7595337884c5d8e381968ca",
+      "url": "https://github.com/echasnovski/mini.jump2d/archive/cd902f64880a0acab7595337884c5d8e381968ca.tar.gz",
+      "hash": "02bl1mxsjl1s23vysxfjizz3ci6na52knvs6k1jpwklmdj1nflnv"
     },
     "mini-map": {
       "type": "Git",
@@ -1298,9 +1298,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "fe1ffddf80aadfdd312add16a1b4a882c5e0ffaa",
-      "url": "https://github.com/echasnovski/mini.map/archive/fe1ffddf80aadfdd312add16a1b4a882c5e0ffaa.tar.gz",
-      "hash": "17rdj52lilpn16r8k2w8m5lwz8p380kzwc0gzpv747wrj0q5v90v"
+      "revision": "8317f824d8a183613b744d5eb39757357f6b528c",
+      "url": "https://github.com/echasnovski/mini.map/archive/8317f824d8a183613b744d5eb39757357f6b528c.tar.gz",
+      "hash": "0nryfvab8i9h855djksxzg4d21d049z6jzbyp771y9cbzbi67vw1"
     },
     "mini-misc": {
       "type": "Git",
@@ -1311,9 +1311,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "b48a5527e26e3d1840be317e52b1f3db5c364f35",
-      "url": "https://github.com/echasnovski/mini.misc/archive/b48a5527e26e3d1840be317e52b1f3db5c364f35.tar.gz",
-      "hash": "0gbv9nnl027lkqmp9jlrawbzi437gbxf52d7kgw4h1qg7lp5ccjx"
+      "revision": "cc07b078146bcea14f19dd8ff525dbd57af93e5f",
+      "url": "https://github.com/echasnovski/mini.misc/archive/cc07b078146bcea14f19dd8ff525dbd57af93e5f.tar.gz",
+      "hash": "1lws9aj88lysdf514nq1lw98hdln0jwb76ykcyjf036dxs7wwfzc"
     },
     "mini-move": {
       "type": "Git",
@@ -1324,9 +1324,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "710ff226e31a3b9dd7e14bc9e2993f24d653df20",
-      "url": "https://github.com/echasnovski/mini.move/archive/710ff226e31a3b9dd7e14bc9e2993f24d653df20.tar.gz",
-      "hash": "0db5csmpi0rly8flh6rp2js6l9s1f28nygmlv3fa284igm5471sa"
+      "revision": "7231697e0e90d03f2bebab3108c5028a73af8934",
+      "url": "https://github.com/echasnovski/mini.move/archive/7231697e0e90d03f2bebab3108c5028a73af8934.tar.gz",
+      "hash": "1wzyyavagn9ms446ag2fx3nbasadgms6gps7xjhkjvzciz0iiq7a"
     },
     "mini-notify": {
       "type": "Git",
@@ -1337,9 +1337,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "f109564e1db7893bc500e52ebf6a06b85e14a705",
-      "url": "https://github.com/echasnovski/mini.notify/archive/f109564e1db7893bc500e52ebf6a06b85e14a705.tar.gz",
-      "hash": "006xx213lz22lqj150yabf8zq4n1mc33cyaw4q69dscm09iwnhvr"
+      "revision": "68ce2126c831bfcb9dcc359c15ccb105cf136718",
+      "url": "https://github.com/echasnovski/mini.notify/archive/68ce2126c831bfcb9dcc359c15ccb105cf136718.tar.gz",
+      "hash": "13mswvymfd01x8nmnw7pmg3x211666w6hzym00fldbfz4lxwr08l"
     },
     "mini-operators": {
       "type": "Git",
@@ -1350,9 +1350,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "57c9daf96e0278ebac07bc57fe2f60cf360e5eea",
-      "url": "https://github.com/echasnovski/mini.operators/archive/57c9daf96e0278ebac07bc57fe2f60cf360e5eea.tar.gz",
-      "hash": "0x8vm0fzvvw3d46ygdw45cbsfkawzflcpva6gdcd0q70iak7lnyv"
+      "revision": "11a340facf8fa4880efd39d4cd01333b5b79728f",
+      "url": "https://github.com/echasnovski/mini.operators/archive/11a340facf8fa4880efd39d4cd01333b5b79728f.tar.gz",
+      "hash": "0gmy5isrxrgd2qiv1la78ndr2frn4kv8fyfy6amlyciadhrw7j31"
     },
     "mini-pairs": {
       "type": "Git",
@@ -1363,9 +1363,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "6e1cc569130f25b2c6fa16d8b21b31ddb1420a4a",
-      "url": "https://github.com/echasnovski/mini.pairs/archive/6e1cc569130f25b2c6fa16d8b21b31ddb1420a4a.tar.gz",
-      "hash": "1q7blg6cigv3lh5y0yymv4swr6gbb9r1vdi45fk26pigvm2bkdvd"
+      "revision": "bada72fe4ec607f882a098d15aa4a3279bc6883d",
+      "url": "https://github.com/echasnovski/mini.pairs/archive/bada72fe4ec607f882a098d15aa4a3279bc6883d.tar.gz",
+      "hash": "1dmm25d5awc6hcjqwcglrx690pvd26wxwmnkby193gx4jpxiax67"
     },
     "mini-pick": {
       "type": "Git",
@@ -1376,9 +1376,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "be6490ae9d7038b9f5185d95a8060054f9b23666",
-      "url": "https://github.com/echasnovski/mini.pick/archive/be6490ae9d7038b9f5185d95a8060054f9b23666.tar.gz",
-      "hash": "1yhwb8c44n7bzcqa7vwrh5fqxc6qgx1bxqph43f2sajsgnfd1vhp"
+      "revision": "364a239e1c87ce1c4e9355cb7836d99686bb1912",
+      "url": "https://github.com/echasnovski/mini.pick/archive/364a239e1c87ce1c4e9355cb7836d99686bb1912.tar.gz",
+      "hash": "1kvglhrqqfn1b2z22q6hdhjynxqnmkmnx9dwg23h19r9y3lrfjgs"
     },
     "mini-sessions": {
       "type": "Git",
@@ -1389,9 +1389,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "f590f6973fd7ae675a84743ab90a53dcdc36136d",
-      "url": "https://github.com/echasnovski/mini.sessions/archive/f590f6973fd7ae675a84743ab90a53dcdc36136d.tar.gz",
-      "hash": "00s3rvx67kmldzydb6j6s9w7va5ghwwq5ixv4m0xkvpsa24gbar4"
+      "revision": "3c42869b9da52090cd8b81e8877548fbbbfffaf6",
+      "url": "https://github.com/echasnovski/mini.sessions/archive/3c42869b9da52090cd8b81e8877548fbbbfffaf6.tar.gz",
+      "hash": "1dwg1cn36qhj7xwncb9gbng10wh1ys0zq90viiw43w9hqcsynjf3"
     },
     "mini-snippets": {
       "type": "Git",
@@ -1402,9 +1402,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "c5e2d0aae10a299fd92834b6d68916c9c7ba14f2",
-      "url": "https://github.com/echasnovski/mini.snippets/archive/c5e2d0aae10a299fd92834b6d68916c9c7ba14f2.tar.gz",
-      "hash": "0k9915ilqfwv927njr9gmpni7i2r77ij1m2jci281l1dpn12wn28"
+      "revision": "e8610e97a6c50f7dd521bd76d7b90a996a96cd09",
+      "url": "https://github.com/echasnovski/mini.snippets/archive/e8610e97a6c50f7dd521bd76d7b90a996a96cd09.tar.gz",
+      "hash": "01lkrp41srd4b8az1rdliqrxxmsaykizni99z1488xr61x58lnax"
     },
     "mini-splitjoin": {
       "type": "Git",
@@ -1415,9 +1415,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "93b14b5e8e8107b77724b09763dcd6de58626af7",
-      "url": "https://github.com/echasnovski/mini.splitjoin/archive/93b14b5e8e8107b77724b09763dcd6de58626af7.tar.gz",
-      "hash": "044naw7clk0ck522n35nmbhbz8l9jd2qda10lwdg0yinjfl8khf9"
+      "revision": "0826fa1cf68a2db309b6208232f41b2a45360216",
+      "url": "https://github.com/echasnovski/mini.splitjoin/archive/0826fa1cf68a2db309b6208232f41b2a45360216.tar.gz",
+      "hash": "0sb09lsliy7wp9nzx74g8mvnb72gl0dh521hcryk0sn968ayk4ip"
     },
     "mini-starter": {
       "type": "Git",
@@ -1428,9 +1428,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "98e3ca7fa53fa7c011df576c22c52c7501eca245",
-      "url": "https://github.com/echasnovski/mini.starter/archive/98e3ca7fa53fa7c011df576c22c52c7501eca245.tar.gz",
-      "hash": "16zx527acv13cj0ba4m9g6ya414a92hzbldbb99gnpbb96m6vhfd"
+      "revision": "99e548b6f56c93965e30ad54803076886cd4dbb9",
+      "url": "https://github.com/echasnovski/mini.starter/archive/99e548b6f56c93965e30ad54803076886cd4dbb9.tar.gz",
+      "hash": "1wy6qml9gjv0w4snmfxrq262djrv1f0pd5y2126laq79qlks32yb"
     },
     "mini-statusline": {
       "type": "Git",
@@ -1441,9 +1441,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "3c86b8a1cb67e347e91815b21662c28fd52ac144",
-      "url": "https://github.com/echasnovski/mini.statusline/archive/3c86b8a1cb67e347e91815b21662c28fd52ac144.tar.gz",
-      "hash": "092sl18f2n0wq6wy3jmbb5ap1wpcxj2wn3hv0880mqw1vv9x52pw"
+      "revision": "9968a44b2dad6866615dcd970eac26903d6ed05c",
+      "url": "https://github.com/echasnovski/mini.statusline/archive/9968a44b2dad6866615dcd970eac26903d6ed05c.tar.gz",
+      "hash": "1lsbygzs3fz54wql2ag6hvbdg0sg3187plzhlvpk8lzgj724b43h"
     },
     "mini-surround": {
       "type": "Git",
@@ -1454,9 +1454,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "953fb53aa1d0b2ae4506d35fff0e0e7afc8ceb8d",
-      "url": "https://github.com/echasnovski/mini.surround/archive/953fb53aa1d0b2ae4506d35fff0e0e7afc8ceb8d.tar.gz",
-      "hash": "0g48c5wi0mgpyyi1430dqsb6176vrd87xzgzmm2ibafhq14aqdjs"
+      "revision": "aec6ed2902a2fd809e3c2fe79ee4568791285201",
+      "url": "https://github.com/echasnovski/mini.surround/archive/aec6ed2902a2fd809e3c2fe79ee4568791285201.tar.gz",
+      "hash": "0sm8ahyzqqz1p7lp62gp8wic13djv4ya4lrfvf5chrwbcqzg53nd"
     },
     "mini-tabline": {
       "type": "Git",
@@ -1467,9 +1467,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "033deb2f3e1f7eca6e4619da6e7facc9334c9658",
-      "url": "https://github.com/echasnovski/mini.tabline/archive/033deb2f3e1f7eca6e4619da6e7facc9334c9658.tar.gz",
-      "hash": "0mnwcpywj5fq49qv5r1v8sd2n7c29y02jmpl4dlvcz7qgfmc4j9q"
+      "revision": "c08c7a9715d29139128f8087338e78923f34e72c",
+      "url": "https://github.com/echasnovski/mini.tabline/archive/c08c7a9715d29139128f8087338e78923f34e72c.tar.gz",
+      "hash": "0116n6swafikmdwpz0h18szlqs6xb34l1v3rb8hlc4rbradwfx62"
     },
     "mini-test": {
       "type": "Git",
@@ -1480,9 +1480,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "75ca9600a9c3ad6317f72ecee39cbaad17a6295d",
-      "url": "https://github.com/echasnovski/mini.test/archive/75ca9600a9c3ad6317f72ecee39cbaad17a6295d.tar.gz",
-      "hash": "1h1miv128qzaynqjdmq5cgrpmdylvzvdjmz1lw86pdj62l8xk3lc"
+      "revision": "49fff7a133a4ecbce6eb439b44e7dad419b1f38b",
+      "url": "https://github.com/echasnovski/mini.test/archive/49fff7a133a4ecbce6eb439b44e7dad419b1f38b.tar.gz",
+      "hash": "1i6g5im6yahi2mnjb4dyncrfw8gf1nj492ivxznx7lj8im7vppv4"
     },
     "mini-trailspace": {
       "type": "Git",
@@ -1493,9 +1493,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "eb0756101087e941b22447c7564b79948a13f4d1",
-      "url": "https://github.com/echasnovski/mini.trailspace/archive/eb0756101087e941b22447c7564b79948a13f4d1.tar.gz",
-      "hash": "12ivcqzkjs97g0pplfy0csr97f7avc7zqa9br8z7rg87vvfgi3kb"
+      "revision": "e0265c5ad106cf3fa7194c024e48d20b13b33006",
+      "url": "https://github.com/echasnovski/mini.trailspace/archive/e0265c5ad106cf3fa7194c024e48d20b13b33006.tar.gz",
+      "hash": "1s49ivldd5i8xpvvfi0cv82w8x6j2d7i5pw95dpk85djn6r7vxrk"
     },
     "mini-visits": {
       "type": "Git",
@@ -1506,9 +1506,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "1ca5282c51c77ecd236ae3c123b5d7fbc6adf057",
-      "url": "https://github.com/echasnovski/mini.visits/archive/1ca5282c51c77ecd236ae3c123b5d7fbc6adf057.tar.gz",
-      "hash": "0nkw5511cgmlh98p3vyczcfz0bksqf8w6w25pypiar3ddg20aa1k"
+      "revision": "49d96e5e8aceb9956ea2188d52be8da6cc66e0c9",
+      "url": "https://github.com/echasnovski/mini.visits/archive/49d96e5e8aceb9956ea2188d52be8da6cc66e0c9.tar.gz",
+      "hash": "14i621gc0q9q4s6dhs7fpj79cv7g6bmiy8lzadhhi0hriaxjk9hy"
     },
     "minimap-vim": {
       "type": "Git",
@@ -1545,9 +1545,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "69407cef8b8074db0c692abb9216cb123152ef46",
-      "url": "https://github.com/mvllow/modes.nvim/archive/69407cef8b8074db0c692abb9216cb123152ef46.tar.gz",
-      "hash": "1mfp4ljjqllkf7h5kng7qqq34vdd6nxwm7yjkrqchmy0macw46m4"
+      "revision": "0932ba4e0bdc3457ac89a8aeed4d56ca0b36977a",
+      "url": "https://github.com/mvllow/modes.nvim/archive/0932ba4e0bdc3457ac89a8aeed4d56ca0b36977a.tar.gz",
+      "hash": "0kr0q38bjrwb0hihavhdhpd4x5xykxwp09zsdxfkf3c1zi5paz29"
     },
     "multicursors-nvim": {
       "type": "GitRelease",
@@ -1574,9 +1574,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "aa27c5cb33d14729d516971f422d3fb7b5513972",
-      "url": "https://github.com/nvim-neo-tree/neo-tree.nvim/archive/aa27c5cb33d14729d516971f422d3fb7b5513972.tar.gz",
-      "hash": "0pk288477xvm3mz9apwbx3cqbrjgby6w3g6ajzbp63j6acykj05n"
+      "revision": "9130e58424ad95bf2dd8b40afbb8cf04d648638c",
+      "url": "https://github.com/nvim-neo-tree/neo-tree.nvim/archive/9130e58424ad95bf2dd8b40afbb8cf04d648638c.tar.gz",
+      "hash": "0zm40p718cvqg9ngzlnc56pbglrp7yp1580g0f1pfakkwdrvnhdv"
     },
     "neocord": {
       "type": "Git",
@@ -1602,10 +1602,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v2.0.0",
-      "revision": "7f97dbfc5af3b898c6660d927c23e3a96a5bd069",
-      "url": "https://api.github.com/repos/NeogitOrg/neogit/tarball/v2.0.0",
-      "hash": "0nyv64ai3765if7bdfyx01a0xmsmhm8cjvxyvh2s40bzvkx8xy17"
+      "version": "v3.0.0",
+      "revision": "f635fa74477a1c1556bbcb85ce121e5f1c2a9335",
+      "url": "https://api.github.com/repos/NeogitOrg/neogit/tarball/v3.0.0",
+      "hash": "0d8ln5lzp6qaigv93vkwgi3s1dcrphr7w5y412xlbyjaz3zcqrb8"
     },
     "neorg": {
       "type": "Git",
@@ -1616,9 +1616,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "790b0444c0c654131a722817dc893332e06c72b9",
-      "url": "https://github.com/nvim-neorg/neorg/archive/790b0444c0c654131a722817dc893332e06c72b9.tar.gz",
-      "hash": "1bnqsf4v6rbw54z6ybibxz1qf0smxvzfxk938yb19jg075fsn15r"
+      "revision": "4da2159b3f3420d43613f43e159f4253b8544474",
+      "url": "https://github.com/nvim-neorg/neorg/archive/4da2159b3f3420d43613f43e159f4253b8544474.tar.gz",
+      "hash": "1yrsr4rlr8q2dfykkdxxf9q3nlvslvgyfiq8w6fpsnzj2xs5nnhc"
     },
     "neorg-telescope": {
       "type": "Git",
@@ -1694,9 +1694,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "53ec77181d96494b9dc9457110dd62dc623cc78d",
-      "url": "https://github.com/nvimtools/none-ls.nvim/archive/53ec77181d96494b9dc9457110dd62dc623cc78d.tar.gz",
-      "hash": "0z4wcbrxv955cmw6inrsg8iml2bjp0sfxx604hk582081yc2q9dp"
+      "revision": "5cf63841461b49989972d35bf886e076a1ab3649",
+      "url": "https://github.com/nvimtools/none-ls.nvim/archive/5cf63841461b49989972d35bf886e076a1ab3649.tar.gz",
+      "hash": "16p9wipxm59rrlzwck9d7bp1i3f8yxn8kan1pddvkgr4sdmxxprf"
     },
     "nord": {
       "type": "Git",
@@ -1707,9 +1707,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "57fb474a1d628bdf9d1e7964719464ed5675d7c7",
-      "url": "https://github.com/gbprod/nord.nvim/archive/57fb474a1d628bdf9d1e7964719464ed5675d7c7.tar.gz",
-      "hash": "1qdrss698sllsv0dkpfj6idap5w0dhkjwmy59kgafpdv0xyid2gp"
+      "revision": "c0e33fc6a2587cdda67b4ee9eb26d01350a8f96b",
+      "url": "https://github.com/gbprod/nord.nvim/archive/c0e33fc6a2587cdda67b4ee9eb26d01350a8f96b.tar.gz",
+      "hash": "0i1ak45gxpsn3qqxwca5v0x8civ08sx7n1nswb8fmcp6jid6g9ix"
     },
     "nui-nvim": {
       "type": "Git",
@@ -1746,9 +1746,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "ff1d12c8b47cd28723da593b2cfa2e98391d439a",
-      "url": "https://github.com/code-biscuits/nvim-biscuits/archive/ff1d12c8b47cd28723da593b2cfa2e98391d439a.tar.gz",
-      "hash": "18dvvg32nxrdp1ydbvxrzkdg7q214naq2bphs7y1s9zmjhyj25pm"
+      "revision": "dae2323054b9ff3a1f6300847dee29c00cdabdde",
+      "url": "https://github.com/code-biscuits/nvim-biscuits/archive/dae2323054b9ff3a1f6300847dee29c00cdabdde.tar.gz",
+      "hash": "0h86kj2hgs8lqcnfj9b96w8yx83plv4hp1dj5r3gzkj8zqiq8i5g"
     },
     "nvim-cmp": {
       "type": "Git",
@@ -1798,9 +1798,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "7891b01beedc37cef4eaf2e92563bd0a5b6e9c58",
-      "url": "https://github.com/mfussenegger/nvim-dap/archive/7891b01beedc37cef4eaf2e92563bd0a5b6e9c58.tar.gz",
-      "hash": "05dj5p23752zjy195dp48msqzi0v97xi4y47w7wbqc0achwj1vpd"
+      "revision": "7367cec8e8f7a0b1e4566af9a7ef5959d11206a7",
+      "url": "https://github.com/mfussenegger/nvim-dap/archive/7367cec8e8f7a0b1e4566af9a7ef5959d11206a7.tar.gz",
+      "hash": "0idq35srs368nq3acz18wqwhl32c6vca70nxv72xd44zahnrm973"
     },
     "nvim-dap-go": {
       "type": "Git",
@@ -1850,9 +1850,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "1ce0a09bfc28c7274e649d20927cea51e440b65c",
-      "url": "https://github.com/brenoprata10/nvim-highlight-colors/archive/1ce0a09bfc28c7274e649d20927cea51e440b65c.tar.gz",
-      "hash": "1wsscm2mycd7zalxv8paa3fk0qy46bbhq4yfr73sl71wvkdh6yjn"
+      "revision": "e0c4a58ec8c3ca7c92d3ee4eb3bc1dd0f7be317e",
+      "url": "https://github.com/brenoprata10/nvim-highlight-colors/archive/e0c4a58ec8c3ca7c92d3ee4eb3bc1dd0f7be317e.tar.gz",
+      "hash": "1lm3f0sf9g8h0w10waqjx12i61nzhgk6f19lp8qdsyx2c59hx1q4"
     },
     "nvim-lightbulb": {
       "type": "Git",
@@ -1876,9 +1876,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "f126af5345c7472e9a0cdbe1d1a29209be72c4c4",
-      "url": "https://github.com/mfussenegger/nvim-lint/archive/f126af5345c7472e9a0cdbe1d1a29209be72c4c4.tar.gz",
-      "hash": "1qaxgsvbqn006q3lks7qcmlrrhc0i83fpbmrkr5nphc81xgjzlw4"
+      "revision": "335a6044be16d7701001059cba9baa36fbeef422",
+      "url": "https://github.com/mfussenegger/nvim-lint/archive/335a6044be16d7701001059cba9baa36fbeef422.tar.gz",
+      "hash": "1bqaljh4wbhxkyhdm75wgfgk29431mbji6z0sbzdvgs0qrzd1s9w"
     },
     "nvim-lspconfig": {
       "type": "Git",
@@ -1889,9 +1889,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "f8474abbe3f0cf7cf2476331313b583207787148",
-      "url": "https://github.com/neovim/nvim-lspconfig/archive/f8474abbe3f0cf7cf2476331313b583207787148.tar.gz",
-      "hash": "00550isq38qgy22dihq4r91bjbj6x5wn32qnlykb2r564lvx4v03"
+      "revision": "db8fef885009fdec0daeff3e5dda92e1f539611e",
+      "url": "https://github.com/neovim/nvim-lspconfig/archive/db8fef885009fdec0daeff3e5dda92e1f539611e.tar.gz",
+      "hash": "04ji3265bddlfqrb6gpv402nm078xwp4gbk03z3xh9cl1k7k1n2d"
     },
     "nvim-metals": {
       "type": "Git",
@@ -1967,9 +1967,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "397c7c1184745fca649e5104de659e6392ef5a4d",
-      "url": "https://github.com/rcarriga/nvim-notify/archive/397c7c1184745fca649e5104de659e6392ef5a4d.tar.gz",
-      "hash": "0hjjgh730kcmc8lm1l8fwkgm9x96hkcnxw8aphi8q7m3yvfl205r"
+      "revision": "8701bece920b38ea289b457f902e2ad184131a5d",
+      "url": "https://github.com/rcarriga/nvim-notify/archive/8701bece920b38ea289b457f902e2ad184131a5d.tar.gz",
+      "hash": "1qsxv5w8pb4pv0963lwhsy21cgi75mw2a0s20vm1821y6qr97d47"
     },
     "nvim-scrollbar": {
       "type": "Git",
@@ -1993,9 +1993,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "a868c256c861044beb9794b4dd126480dcdfbdad",
-      "url": "https://github.com/kylechui/nvim-surround/archive/a868c256c861044beb9794b4dd126480dcdfbdad.tar.gz",
-      "hash": "01cw6paim1jv2wvjdb3r7qawfnbsnkiibpp9hc1zz53pbi3wzcmi"
+      "revision": "75de1782c781961e392efcca57601bf436f4d550",
+      "url": "https://github.com/kylechui/nvim-surround/archive/75de1782c781961e392efcca57601bf436f4d550.tar.gz",
+      "hash": "1ik23ii18ndh4fbv92m24cccwh7l5ms8m601phd99lm2q9pybipf"
     },
     "nvim-tree-lua": {
       "type": "Git",
@@ -2006,9 +2006,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "fefa335f1c8f690eb668a1efd18ee4fc6d64cd3e",
-      "url": "https://github.com/nvim-tree/nvim-tree.lua/archive/fefa335f1c8f690eb668a1efd18ee4fc6d64cd3e.tar.gz",
-      "hash": "087138m2536k9w1h0avd5gvyaaq0diszs52z7pkxy9zgvw6rv3z1"
+      "revision": "87d096a39cb2d5d43e6771563575ff042a79f48b",
+      "url": "https://github.com/nvim-tree/nvim-tree.lua/archive/87d096a39cb2d5d43e6771563575ff042a79f48b.tar.gz",
+      "hash": "1jc4nj1l7cj4175bafr84mz048brv7h1zkzpyk30vivxgkqisr2f"
     },
     "nvim-treesitter-context": {
       "type": "Git",
@@ -2019,9 +2019,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "dca8726fea2c14e1ce6adbaa76a04816fbfaff61",
-      "url": "https://github.com/nvim-treesitter/nvim-treesitter-context/archive/dca8726fea2c14e1ce6adbaa76a04816fbfaff61.tar.gz",
-      "hash": "15wcgplfvp8ysvgnbbjml6yrg9dczry52sg8kd8sxnqvph0vv1kz"
+      "revision": "41847d3dafb5004464708a3db06b14f12bde548a",
+      "url": "https://github.com/nvim-treesitter/nvim-treesitter-context/archive/41847d3dafb5004464708a3db06b14f12bde548a.tar.gz",
+      "hash": "0p6pslcr1pqhz7nv66cnk6z5g1siwidzznbxr50zazb6rdpgqa7v"
     },
     "nvim-treesitter-textobjects": {
       "type": "Git",
@@ -2045,9 +2045,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "a1d526af391f6aebb25a8795cbc05351ed3620b5",
-      "url": "https://github.com/windwp/nvim-ts-autotag/archive/a1d526af391f6aebb25a8795cbc05351ed3620b5.tar.gz",
-      "hash": "1wl30qr6xs6xwx0s3yjkprxp802dhg45rzdiwpr9v6mwbsm5qw3b"
+      "revision": "c4ca798ab95b316a768d51eaaaee48f64a4a46bc",
+      "url": "https://github.com/windwp/nvim-ts-autotag/archive/c4ca798ab95b316a768d51eaaaee48f64a4a46bc.tar.gz",
+      "hash": "1zi3wrlq6jy7f0plp4q3f2dimb6apcwjxvfcxk7zq4c50bk9cgcx"
     },
     "nvim-ufo": {
       "type": "Git",
@@ -2071,9 +2071,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "f66cdfef5e84112045b9ebc3119fee9bddb3c687",
-      "url": "https://github.com/nvim-tree/nvim-web-devicons/archive/f66cdfef5e84112045b9ebc3119fee9bddb3c687.tar.gz",
-      "hash": "0224c2i4rqqgqwpigajhhn31rlsjqzzrjy7l41dn8sa1k0b3126b"
+      "revision": "b8221e42cf7287c4dcde81f232f58d7b947c210d",
+      "url": "https://github.com/nvim-tree/nvim-web-devicons/archive/b8221e42cf7287c4dcde81f232f58d7b947c210d.tar.gz",
+      "hash": "1qbyh8r2gbaw2n0mm7qwi4y8r9ywyz37q35vlxjzy879ba8dlnlm"
     },
     "obsidian-nvim": {
       "type": "Git",
@@ -2110,9 +2110,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "07f80ad645895af849a597d1cac897059d89b686",
-      "url": "https://github.com/stevearc/oil.nvim/archive/07f80ad645895af849a597d1cac897059d89b686.tar.gz",
-      "hash": "15r6kmpki4blmlv4b49b8rpmjkl05jz03wz98raxq9vvafsxgvzz"
+      "revision": "919e155fdf38e9148cdb5304faaaf53c20d703ea",
+      "url": "https://github.com/stevearc/oil.nvim/archive/919e155fdf38e9148cdb5304faaaf53c20d703ea.tar.gz",
+      "hash": "0mba3rdnsbrha5m54lfsmq8n53pbpa8virbr1x586xp80lm2pdwr"
     },
     "omnisharp-extended-lsp-nvim": {
       "type": "Git",
@@ -2149,9 +2149,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "b924cbb7e9c5f2c34f84d92e49dc76e01f32cad9",
-      "url": "https://github.com/nvim-orgmode/orgmode/archive/b924cbb7e9c5f2c34f84d92e49dc76e01f32cad9.tar.gz",
-      "hash": "0hm4pdr6hgf517wl6if7sdi9p1k7dy0ajz36sfvxv8rjz6drh2i1"
+      "revision": "4775d1a523a321b68b926f3a65a83357722a42c7",
+      "url": "https://github.com/nvim-orgmode/orgmode/archive/4775d1a523a321b68b926f3a65a83357722a42c7.tar.gz",
+      "hash": "11ngq8s8y9lsr2i1wa7fpyn8djwfckhxhbmm1xdls2c25ic8fz14"
     },
     "otter-nvim": {
       "type": "Git",
@@ -2162,9 +2162,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "71fec0dc58c3a66078e691b9a77b2516fe3e319b",
-      "url": "https://github.com/jmbuhr/otter.nvim/archive/71fec0dc58c3a66078e691b9a77b2516fe3e319b.tar.gz",
-      "hash": "0sib4n0v18xzzkmqiimih3hnx8v4nf5ybw8y1c8ppb3bma5mz4vd"
+      "revision": "c44d645f03ae96e2e3cdc37f92ecfa93a534b736",
+      "url": "https://github.com/jmbuhr/otter.nvim/archive/c44d645f03ae96e2e3cdc37f92ecfa93a534b736.tar.gz",
+      "hash": "13s70d9y3rcbzn3s4wbkybmw91y7hm3h2mi1lv09060favh3mvkn"
     },
     "oxocarbon": {
       "type": "Git",
@@ -2175,9 +2175,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "b1aca1d6843b3eed1c4500ad5b106646375bd726",
-      "url": "https://github.com/nyoom-engineering/oxocarbon.nvim/archive/b1aca1d6843b3eed1c4500ad5b106646375bd726.tar.gz",
-      "hash": "16jck4v2vx0mjb9cadypfw24iq1dqn65qnbi2bv7nxb2n0kc9wl1"
+      "revision": "9f85f6090322f39b11ae04a343d4eb9d12a86897",
+      "url": "https://github.com/nyoom-engineering/oxocarbon.nvim/archive/9f85f6090322f39b11ae04a343d4eb9d12a86897.tar.gz",
+      "hash": "14vpv15cvan15gkrkqlj4al4afniah7d6yr24gsknl3lylrqb605"
     },
     "pathlib-nvim": {
       "type": "Git",
@@ -2266,9 +2266,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "97bf4b8ef9298644a29fcd9dd41a0210cf08cac7",
-      "url": "https://github.com/HiPhish/rainbow-delimiters.nvim/archive/97bf4b8ef9298644a29fcd9dd41a0210cf08cac7.tar.gz",
-      "hash": "045zcmzsxi5hh10a26qr96szg9kvkr7b12n841x7dck4vj9j2dk3"
+      "revision": "3277ad5f96eb03c9d618c88e24f683e4364e578c",
+      "url": "https://github.com/HiPhish/rainbow-delimiters.nvim/archive/3277ad5f96eb03c9d618c88e24f683e4364e578c.tar.gz",
+      "hash": "018ns6zpg4d7kypfrs6fzfgj1sv304h1pv6ihkq78wvksn5lyihk"
     },
     "registers-nvim": {
       "type": "Git",
@@ -2292,9 +2292,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "e76eb2e4262f0f0a1a7bd7a454dd7d44f1299afd",
-      "url": "https://github.com/MeanderingProgrammer/render-markdown.nvim/archive/e76eb2e4262f0f0a1a7bd7a454dd7d44f1299afd.tar.gz",
-      "hash": "02bhhrc571vkmsm0rj4s9vzmfjx65dadas9dg11y618pzgbac8sc"
+      "revision": "7e6af36c846017122e07e68803bbf95f3c729ca3",
+      "url": "https://github.com/MeanderingProgrammer/render-markdown.nvim/archive/7e6af36c846017122e07e68803bbf95f3c729ca3.tar.gz",
+      "hash": "1ywnr77g97cm949q518cwc4xc6s9s0iwh3r2a8fpbj6pmyzpsssa"
     },
     "rose-pine": {
       "type": "Git",
@@ -2344,9 +2344,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "7abb29ab02a3b2ff7a8cef1cc5e816a4a7295bc1",
-      "url": "https://github.com/mrcjkb/rustaceanvim/archive/7abb29ab02a3b2ff7a8cef1cc5e816a4a7295bc1.tar.gz",
-      "hash": "1hf2j1vbpjvv1pyzmswckjnl56ah9y28habv8zbj0mvmcf2z72lk"
+      "revision": "7c9271934d926969e920f7da932da6ba234b1e5a",
+      "url": "https://github.com/mrcjkb/rustaceanvim/archive/7c9271934d926969e920f7da932da6ba234b1e5a.tar.gz",
+      "hash": "1sg0vjw9hyjwq592mk2j54xsksg8f2kdhbmnhkfv0bwgkh37b8km"
     },
     "smart-splits": {
       "type": "GitRelease",
@@ -2388,10 +2388,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v2.22.0",
-      "revision": "5eac729fa290248acfe10916d92a5ed5e5c0f9ed",
-      "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/v2.22.0",
-      "hash": "1hbm4fnw51qdp0nz83fcxbvnxjq2k57a37w6dp0wz6wkcx7cwxw9"
+      "version": "v2.23.0",
+      "revision": "da230e3ca8146da4b73752daaf0a1d07d343c12d",
+      "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/v2.23.0",
+      "hash": "15zcvxsxkihjk5x0bfa1zgx1ky7icjbi9iihsqw8wbi5jyfwnasm"
     },
     "solarized": {
       "type": "GitRelease",
@@ -2431,9 +2431,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "d1bc5421ef3e8edc5101e37edbb7de6639207a09",
-      "url": "https://github.com/nanotee/sqls.nvim/archive/d1bc5421ef3e8edc5101e37edbb7de6639207a09.tar.gz",
-      "hash": "1j4n5c8h1iriqzsjxr0wvz70g9lf6d4lm3nyxlpwy9dqmbj8w0kd"
+      "revision": "bfb7b4090268f6163c408577070da4cc9d7450fd",
+      "url": "https://github.com/nanotee/sqls.nvim/archive/bfb7b4090268f6163c408577070da4cc9d7450fd.tar.gz",
+      "hash": "11sw3ivi1vcymm1bfihhj1pk89101pxpsw0809qkp0f16d57ifrw"
     },
     "supermaven-nvim": {
       "type": "Git",
@@ -2522,9 +2522,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "057ef5d260c1931f1dffd0f052c685dcd14100a3",
-      "url": "https://github.com/folke/tokyonight.nvim/archive/057ef5d260c1931f1dffd0f052c685dcd14100a3.tar.gz",
-      "hash": "002rzmdxq45bdyd27i8k8lhdcwxn9l4v6x5cm6g7v1213m0n25np"
+      "revision": "4d159616aee17796c2c94d2f5f87d2ee1a3f67c7",
+      "url": "https://github.com/folke/tokyonight.nvim/archive/4d159616aee17796c2c94d2f5f87d2ee1a3f67c7.tar.gz",
+      "hash": "1bpki7gglch1n77kcrnyabmz7r41d6b6yq5fa70w4pxwp7y62d6h"
     },
     "trouble": {
       "type": "Git",
@@ -2535,9 +2535,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "85bedb7eb7fa331a2ccbecb9202d8abba64d37b3",
-      "url": "https://github.com/folke/trouble.nvim/archive/85bedb7eb7fa331a2ccbecb9202d8abba64d37b3.tar.gz",
-      "hash": "0qn84q75dk2vbw2shh7g9i3x8m5wnhcg17zx26njpl0srykp1vva"
+      "revision": "f176232e7759c4f8abd923c21e3e5a5c76cd6837",
+      "url": "https://github.com/folke/trouble.nvim/archive/f176232e7759c4f8abd923c21e3e5a5c76cd6837.tar.gz",
+      "hash": "0fdifa9nrvrjhccjsxzawhrmp1cqw72lvl190j0dy28mrx12n5yb"
     },
     "ts-error-translator-nvim": {
       "type": "Git",
@@ -2552,6 +2552,19 @@
       "url": "https://github.com/dmmulroy/ts-error-translator.nvim/archive/47e5ba89f71b9e6c72eaaaaa519dd59bd6897df4.tar.gz",
       "hash": "08whn7l75qv5n74cifmnxc0s7n7ja1g7589pjnbbsk2djn6bqbky"
     },
+    "typst-concealer": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "PartyWumpus",
+        "repo": "typst-concealer"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "3d2e72ce7fc06bd0db0dafbdd1e17d3c9e343d53",
+      "url": "https://github.com/PartyWumpus/typst-concealer/archive/3d2e72ce7fc06bd0db0dafbdd1e17d3c9e343d53.tar.gz",
+      "hash": "16j3q3hk1wzgcz6snn9997vclhkanplyn0cp1dm9lk034jd8v9nh"
+    },
     "typst-preview-nvim": {
       "type": "Git",
       "repository": {
@@ -2561,9 +2574,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "dea4525d5420b7c32eebda7de15a6beb9d6574fa",
-      "url": "https://github.com/chomosuke/typst-preview.nvim/archive/dea4525d5420b7c32eebda7de15a6beb9d6574fa.tar.gz",
-      "hash": "0y658l2ibq0x4cwa4rl3lab7aw4ba68xcrdnxp81p2rsk0d60qq4"
+      "revision": "1603d37bb44ed2efa0b4378d1dfedc087b4f2141",
+      "url": "https://github.com/chomosuke/typst-preview.nvim/archive/1603d37bb44ed2efa0b4378d1dfedc087b4f2141.tar.gz",
+      "hash": "1yfpdccnk6qa38bv93hixr1libi7djs38jqr78c4m543qmyg5n2g"
     },
     "undotree": {
       "type": "Git",
@@ -2574,9 +2587,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "fe9a9d0645f0f5532360b5e5f5c550d7bb4f1869",
-      "url": "https://github.com/mbbill/undotree/archive/fe9a9d0645f0f5532360b5e5f5c550d7bb4f1869.tar.gz",
-      "hash": "01gb938kagndla3pc3cf21zshq373z8hhlsmcgissxx7ivxm3rxn"
+      "revision": "0f1c9816975b5d7f87d5003a19c53c6fd2ff6f7f",
+      "url": "https://github.com/mbbill/undotree/archive/0f1c9816975b5d7f87d5003a19c53c6fd2ff6f7f.tar.gz",
+      "hash": "0kvv65dq3nlnmhl4xpjxkd0918p5blfzqfbfyq9jlnw0qb9qfqqi"
     },
     "vim-dirtytalk": {
       "type": "Git",
@@ -2678,9 +2691,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "370ec46f710e058c9c1646273e6b225acf47cbed",
-      "url": "https://github.com/folke/which-key.nvim/archive/370ec46f710e058c9c1646273e6b225acf47cbed.tar.gz",
-      "hash": "0am4yw7lnibgc949qvbsi4a7hqdx6gk209l5vafv5bwcvd4irwxs"
+      "revision": "904308e6885bbb7b60714c80ab3daf0c071c1492",
+      "url": "https://github.com/folke/which-key.nvim/archive/904308e6885bbb7b60714c80ab3daf0c071c1492.tar.gz",
+      "hash": "1dfavp3dwqpnbw2c93zkaayimcjpwc9p0190c2d7p9lhzsb27n94"
     },
     "yanky-nvim": {
       "type": "Git",
