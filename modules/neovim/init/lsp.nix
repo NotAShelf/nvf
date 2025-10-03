@@ -16,6 +16,7 @@
 
   cfg = config.vim.lsp;
 
+  # TODO: lspConfigurations filter on enabledServers instead of cfg.servers?
   lspConfigurations =
     mapAttrsToList (
       name: value: ''
@@ -76,7 +77,6 @@ in {
     {
       vim.lsp.servers."*" = {
         capabilities = mkDefault (mkLuaInline "capabilities");
-        on_attach = mkDefault (mkLuaInline "default_on_attach");
       };
     }
 

@@ -6,31 +6,34 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.meta) getExe';
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
-  inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.types) enum package;
+  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.nim;
 
-  defaultServer = "nimlsp";
+  defaultServers = ["nimlsp"];
   servers = {
     nimlsp = {
-      package = pkgs.nimlsp;
-      lspConfig = ''
-        lspconfig.nimls.setup{
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''
-            {"${cfg.lsp.package}/bin/nimlsp"}
-          ''
-        };
-        }
-      '';
+      enable = true;
+      cmd = [(getExe' pkgs.nimlsp "nimlsp")];
+      filetypes = ["nim"];
+      root_dir =
+        mkLuaInline
+        /*
+        lua
+        */
+        ''
+          function(bufnr, on_dir)
+              local fname = vim.api.nvim_buf_get_name(bufnr)
+              on_dir(
+                util.root_pattern '*.nimble'(fname) or vim.fs.dirname(vim.fs.find('.git', { path = fname, upward = true })[1])
+              )
+          end
+        '';
     };
   };
 
@@ -54,32 +57,26 @@ in {
 
     lsp = {
       enable = mkEnableOption "Nim LSP support" // {default = config.vim.lsp.enable;};
-      server = mkOption {
-        description = "Nim LSP server to use";
-        type = str;
-        default = defaultServer;
-      };
 
-      package = mkOption {
-        description = "Nim LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.nimlsp]'';
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
+      servers = mkOption {
+        type = singleOrListOf (enum (attrNames servers));
+        default = defaultServers;
+        description = "Nim LSP server to use";
       };
     };
 
     format = {
       enable = mkEnableOption "Nim formatting" // {default = config.vim.languages.enableFormat;};
       type = mkOption {
-        description = "Nim formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "Nim formatter to use";
       };
 
       package = mkOption {
-        description = "Nim formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "Nim formatter package";
       };
     };
   };
@@ -100,8 +97,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.nim-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
 
     (mkIf cfg.format.enable {

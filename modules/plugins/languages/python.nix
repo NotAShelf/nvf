@@ -6,59 +6,123 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (lib.meta) getExe;
+  inherit (lib.meta) getExe getExe';
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
-  inherit (lib.types) enum either listOf package str bool;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.types) enum package bool;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.types) singleOrListOf;
+  inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.dag) entryBefore;
 
   cfg = config.vim.languages.python;
 
-  defaultServer = "basedpyright";
+  defaultServers = ["basedpyright"];
   servers = {
     pyright = {
-      package = pkgs.pyright;
-      lspConfig = ''
-        lspconfig.pyright.setup{
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/pyright-langserver", "--stdio"}''
-        }
-        }
+      enable = true;
+      cmd = [(getExe' pkgs.pyright "pyright-langserver") "--stdio"];
+      filetypes = ["python"];
+      root_markers = [
+        "pyproject.toml"
+        "setup.py"
+        "setup.cfg"
+        "requirements.txt"
+        "Pipfile"
+        "pyrightconfig.json"
+        ".git"
+      ];
+      settings = {
+        python = {
+          analysis = {
+            autoSearchPaths = true;
+            useLibraryCodeForTypes = true;
+            diagnosticMode = "openFilesOnly";
+          };
+        };
+      };
+      on_attach = mkLuaInline ''
+        function(client, bufnr)
+          vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightOrganizeImports', function()
+            local params = {
+              command = 'pyright.organizeimports',
+              arguments = { vim.uri_from_bufnr(bufnr) },
+            }
+
+            -- Using client.request() directly because "pyright.organizeimports" is private
+            -- (not advertised via capabilities), which client:exec_cmd() refuses to call.
+            -- https://github.com/neovim/neovim/blob/c333d64663d3b6e0dd9aa440e433d346af4a3d81/runtime/lua/vim/lsp/client.lua#L1024-L1030
+            client.request('workspace/executeCommand', params, nil, bufnr)
+          end, {
+            desc = 'Organize Imports',
+          })
+          vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightSetPythonPath', set_python_path, {
+            desc = 'Reconfigure basedpyright with the provided python path',
+            nargs = 1,
+            complete = 'file',
+          })
+        end
       '';
     };
 
     basedpyright = {
-      package = pkgs.basedpyright;
-      lspConfig = ''
-        lspconfig.basedpyright.setup{
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/basedpyright-langserver", "--stdio"}''
-        }
-        }
+      enable = true;
+      cmd = [(getExe' pkgs.basedpyright "basedpyright-langserver") "--stdio"];
+      filetypes = ["python"];
+      root_markers = [
+        "pyproject.toml"
+        "setup.py"
+        "setup.cfg"
+        "requirements.txt"
+        "Pipfile"
+        "pyrightconfig.json"
+        ".git"
+      ];
+      settings = {
+        basedpyright = {
+          analysis = {
+            autoSearchPaths = true;
+            useLibraryCodeForTypes = true;
+            diagnosticMode = "openFilesOnly";
+          };
+        };
+      };
+      on_attach = mkLuaInline ''
+        function(client, bufnr)
+          vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightOrganizeImports', function()
+            local params = {
+              command = 'basedpyright.organizeimports',
+              arguments = { vim.uri_from_bufnr(bufnr) },
+            }
+
+            -- Using client.request() directly because "basedpyright.organizeimports" is private
+            -- (not advertised via capabilities), which client:exec_cmd() refuses to call.
+            -- https://github.com/neovim/neovim/blob/c333d64663d3b6e0dd9aa440e433d346af4a3d81/runtime/lua/vim/lsp/client.lua#L1024-L1030
+            client.request('workspace/executeCommand', params, nil, bufnr)
+          end, {
+            desc = 'Organize Imports',
+          })
+
+          vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightSetPythonPath', set_python_path, {
+            desc = 'Reconfigure basedpyright with the provided python path',
+            nargs = 1,
+            complete = 'file',
+          })
+        end
       '';
     };
 
     python-lsp-server = {
-      package = pkgs.python3Packages.python-lsp-server;
-      lspConfig = ''
-        lspconfig.pylsp.setup{
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/pylsp"}''
-        }
-        }
-      '';
+      enable = true;
+      cmd = [(getExe pkgs.python3Packages.python-lsp-server)];
+      filetypes = ["python"];
+      root_markers = [
+        "pyproject.toml"
+        "setup.py"
+        "setup.cfg"
+        "requirements.txt"
+        "Pipfile"
+        ".git"
+      ];
     };
   };
 
@@ -88,6 +152,16 @@
         runtimeInputs = [pkgs.ruff];
         text = ''
           ruff format -
+        '';
+      };
+    };
+
+    ruff-check = {
+      package = pkgs.writeShellApplication {
+        name = "ruff-check";
+        runtimeInputs = [pkgs.ruff];
+        text = ''
+          ruff check --fix --exit-zero -
         '';
       };
     };
@@ -171,17 +245,10 @@ in {
     lsp = {
       enable = mkEnableOption "Python LSP support" // {default = config.vim.lsp.enable;};
 
-      server = mkOption {
+      servers = mkOption {
+        type = singleOrListOf (enum (attrNames servers));
+        default = defaultServers;
         description = "Python LSP server to use";
-        type = enum (attrNames servers);
-        default = defaultServer;
-      };
-
-      package = mkOption {
-        description = "python LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
       };
     };
 
@@ -189,30 +256,30 @@ in {
       enable = mkEnableOption "Python formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        description = "Python formatter to use";
         type = enum (attrNames formats);
         default = defaultFormat;
+        description = "Python formatter to use";
       };
 
       package = mkOption {
-        description = "Python formatter package";
         type = package;
         default = formats.${cfg.format.type}.package;
+        description = "Python formatter package";
       };
     };
 
     # TODO this implementation is very bare bones, I don't know enough python to implement everything
     dap = {
       enable = mkOption {
-        description = "Enable Python Debug Adapter";
         type = bool;
         default = config.vim.languages.enableDAP;
+        description = "Enable Python Debug Adapter";
       };
 
       debugger = mkOption {
-        description = "Python debugger to use";
         type = enum (attrNames debuggers);
         default = defaultDebugger;
+        description = "Python debugger to use";
       };
 
       package = mkOption {
@@ -234,8 +301,35 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.python-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.luaConfigRC.python-util =
+        entryBefore ["lsp-servers"]
+        /*
+        lua
+        */
+        ''
+          local function set_python_path(server_name, command)
+            local path = command.args
+            local clients = vim.lsp.get_clients {
+              bufnr = vim.api.nvim_get_current_buf(),
+              name = server_name,
+            }
+            for _, client in ipairs(clients) do
+              if client.settings then
+                client.settings.python = vim.tbl_deep_extend('force', client.settings.python or {}, { pythonPath = path })
+              else
+                client.config.settings = vim.tbl_deep_extend('force', client.config.settings, { python = { pythonPath = path } })
+              end
+              client:notify('workspace/didChangeConfiguration', { settings = nil })
+            end
+          end
+        '';
+
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
 
     (mkIf cfg.format.enable {

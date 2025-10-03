@@ -19,6 +19,7 @@
     ./oil-nvim
     ./outline
     ./preview
+    ./qmk-nvim
     ./sleuth
     ./smart-splits
     ./snacks-nvim
