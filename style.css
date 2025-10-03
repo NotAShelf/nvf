@@ -402,10 +402,6 @@ pre {
   border: 1px solid #e5e7eb;
   border-radius: 4px;
   box-shadow: 4px 4px 8px #e5e7eb;
-  font-size: 90%;
-  margin-bottom: 1.5rem;
-  padding: 6px;
-  overflow: auto;
 }
 @media (prefers-color-scheme: dark) {
   pre {
@@ -413,6 +409,12 @@ pre {
     border-color: black;
     box-shadow: 4px 4px 8px black;
   }
+}
+pre {
+  font-size: 90%;
+  margin-bottom: 1.5rem;
+  padding: 6px;
+  overflow: auto;
 }
 pre span img {
   user-select: none;
@@ -449,8 +451,6 @@ dd {
 
 ul {
   margin: 0.9rem 0;
-  padding-left: 30px;
-  list-style: disc;
 }
 ul:first-child {
   margin-top: 0;
@@ -458,11 +458,13 @@ ul:first-child {
 ul:last-child {
   margin-bottom: 0;
 }
+ul {
+  padding-left: 30px;
+  list-style: disc;
+}
 
 ol {
   margin: 0.9rem 0;
-  padding-left: 30px;
-  list-style: decimal;
 }
 ol:first-child {
   margin-top: 0;
@@ -470,16 +472,22 @@ ol:first-child {
 ol:last-child {
   margin-bottom: 0;
 }
+ol {
+  padding-left: 30px;
+  list-style: decimal;
+}
 
 li {
   margin: 0.9rem 0;
-  padding-left: 5px;
 }
 li:first-child {
   margin-top: 0;
 }
 li:last-child {
   margin-bottom: 0;
+}
+li {
+  padding-left: 5px;
 }
 
 .navheader hr,
@@ -561,7 +569,6 @@ div.warning {
   border: 1px solid #e5e7eb;
   border-radius: 4px;
   box-shadow: 4px 4px 8px #e5e7eb;
-  font-style: italic;
 }
 @media (prefers-color-scheme: dark) {
   div.note,
@@ -570,6 +577,10 @@ div.warning {
     border-color: black;
     box-shadow: 4px 4px 8px black;
   }
+}
+div.note,
+div.warning {
+  font-style: italic;
 }
 div.note h3,
 div.warning h3 {
