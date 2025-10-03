@@ -86,6 +86,7 @@ isMaximal: {
       haskell.enable = false;
       ruby.enable = false;
       fsharp.enable = false;
+      verilog.enable = false;
 
       tailwind.enable = false;
       svelte.enable = false;

@@ -506,3 +506,11 @@
 
 - Add inline typst concealing support under `vim.languages.typst` using
   [typst-concealer].
+
+[AleksandarZhekovski](https://github.com/AleksandarZhekovski):
+
+[tree-sitter-systemverilog]: https://github.com/gmlarumbe/tree-sitter-systemverilog
+[verible]: https://github.com/chipsalliance/verible
+
+- Add Verilog support under 'vim.languages.verilog' using [verible-verilog-ls]
+  and [tree-sitter-systemverilog].
