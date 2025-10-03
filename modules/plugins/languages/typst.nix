@@ -4,15 +4,16 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) nullOr enum attrsOf listOf package str;
+  inherit (lib.types) nullOr enum attrsOf listOf package str bool int;
   inherit (lib.attrsets) attrNames;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption singleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.binds) mkKeymap mkMappingOption;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.typst;
