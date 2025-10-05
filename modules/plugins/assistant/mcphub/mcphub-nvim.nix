@@ -25,7 +25,7 @@ in {
           type = nullOr str;
           default = null;
           description = "The URL for the mcp-hub server in cases where it is hosted somewhere else.";
-          example = "http://mydomain.com:customport";
+          example = "http://mydomain.com:8080";
         };
 
         config_path = mkOption {
