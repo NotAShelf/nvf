@@ -246,6 +246,7 @@ isMaximal: {
     };
 
     assistant = {
+      mcphub-nvim.enable = isMaximal;
       chatgpt.enable = false;
       copilot = {
         enable = false;
