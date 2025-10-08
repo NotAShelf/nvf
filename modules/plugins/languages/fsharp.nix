@@ -6,29 +6,48 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) either listOf package str enum;
+  inherit (lib.types) package enum;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
-  inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
-  defaultServer = "fsautocomplete";
+  defaultServer = ["fsautocomplete"];
   servers = {
     fsautocomplete = {
-      package = pkgs.fsautocomplete;
-      internalFormatter = false;
-      lspConfig = ''
-        lspconfig.fsautocomplete.setup {
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else "{'${cfg.lsp.package}/bin/fsautocomplete'}"
-        },
-        }
+      cmd = [(getExe pkgs.fsautocomplete) "--adaptive-lsp-server-enabled"];
+      filetypes = ["fsharp"];
+      root_dir = mkLuaInline ''
+        function(bufnr, on_dir)
+          on_dir(vim.fs.root(bufnr, function(name, path)
+            return name == ".git" or name:match("%.sln$") or name:match("%.fsproj$")
+          end))
+        end
       '';
+      init_options = {
+        AutomaticWorkspaceInit = true;
+      };
+      settings = {
+        FSharp = {
+          keywordsAutocomplete = true;
+          ExternalAutocomplete = false;
+          Linter = true;
+          UnionCaseStubGeneration = true;
+          UnionCaseStubGenerationBody = ''failwith "Not Implemented"'';
+          RecordStubGeneration = true;
+          RecordStubGenerationBody = ''failwith "Not Implemented"'';
+          InterfaceStubGeneration = true;
+          InterfaceStubGenerationObjectIdentifier = "this";
+          InterfaceStubGenerationMethodBody = ''failwith "Not Implemented"'';
+          UnusedOpensAnalyzer = true;
+          UnusedDeclarationsAnalyzer = true;
+          UseSdkScripts = true;
+          SimplifyNameAnalyzer = true;
+          ResolveNamespaces = true;
+          EnableReferenceCodeLens = true;
+        };
+      };
     };
   };
 
@@ -52,17 +71,10 @@ in {
 
       lsp = {
         enable = mkEnableOption "F# LSP support" // {default = config.vim.lsp.enable;};
-        server = mkOption {
-          type = enum (attrNames servers);
+        servers = mkOption {
+          type = singleOrListOf (enum (attrNames servers));
           default = defaultServer;
           description = "F# LSP server to use";
-        };
-
-        package = mkOption {
-          type = either package (listOf str);
-          default = servers.${cfg.lsp.server}.package;
-          example = ''[lib.getExe pkgs.fsautocomplete "--state-directory" "~/.cache/fsautocomplete"]'';
-          description = "F# LSP server package, or the command to run as a list of strings";
         };
       };
       format = {
@@ -90,8 +102,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.fsharp-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (name: {
+          inherit name;
+          value = servers.${name};
+        })
+        cfg.lsp.servers;
     })
 
     (mkIf cfg.format.enable {

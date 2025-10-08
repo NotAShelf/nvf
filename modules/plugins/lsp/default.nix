@@ -7,6 +7,7 @@
     ./lspconfig
     ./lspsaga
     ./null-ls
+    ./harper-ls
 
     # lsp plugins
     ./lspsaga
