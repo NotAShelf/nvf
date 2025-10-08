@@ -46,6 +46,7 @@ in {
     ./wgsl.nix
     ./yaml.nix
     ./ruby.nix
+    ./verilog.nix
 
     # This is now a hard deprecation.
     (mkRenamedOptionModule ["vim" "languages" "enableLSP"] ["vim" "lsp" "enable"])
