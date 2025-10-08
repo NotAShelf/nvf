@@ -17,12 +17,17 @@
     inherit lib config;
   };
 
-  numbers = ["0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "A" "B" "C" "D" "E" "F"];
-  base16Options =
+  base16 = ["00" "01" "02" "03" "04" "05" "06" "07" "08" "09" "0A" "0B" "0C" "0D" "0E" "0F"];
+  base24 = ["00" "01" "02" "03" "04" "05" "06" "07" "08" "09" "0A" "0B" "0C" "0D" "0E" "0F" "10" "11" "12" "13" "14" "15" "16" "17"];
+  determineSchemeSystem =
+    if config.vim.theme.tinted-options.scheme-system == "base24"
+    then base24
+    else base16;
+  tinted-colors =
     mapListToAttrs (n: {
-      name = "base0${n}";
+      name = "base${n}";
       value = mkOption {
-        description = "The base0${n} color to use";
+        description = "The base${n} color to use";
         type = hexColor;
         apply = v:
           if hasPrefix "#" v
@@ -30,9 +35,89 @@
           else "#${v}";
       };
     })
-    numbers;
+    determineSchemeSystem;
+  tinted-options = {
+    colors = tinted-colors;
+    scheme-system = mkOption {
+      type = bool;
+      default = true;
+      description = "Scheme system for theme (eg 'base16')";
+    };
+    supports = {
+      tinty = mkOption {
+        type = bool;
+        default = false;
+        description = "Automatically load the colorscheme set by Tinty CLI (https://github.com/tinted-theming/tinty)";
+      };
+      live_reload = mkOption {
+        type = bool;
+        default = false;
+        description = "Automatically reload with a new theme when applied by Tinty CLI (https://github.com/tinted-theming/tinty)";
+      };
+      tinted_shell = mkOption {
+        type = bool;
+        default = false;
+        description = "Automatically load the colorscheme set by tinted-shell (tinted-theming/tinted-shell)";
+      };
+    };
+
+    highlights = {
+      telescope = mkOption {
+        type = bool;
+        default = true;
+        description = "Set highlights for Telescope";
+      };
+      telescope_borders = mkOption {
+        type = bool;
+        default = false;
+        description = "Set highlights for Telescope borders";
+      };
+      indentblankline = mkOption {
+        type = bool;
+        default = true;
+        description = "Set highlights for indentblankline";
+      };
+      notify = mkOption {
+        type = bool;
+        default = true;
+        description = "Set highlights for notify";
+      };
+      ts_rainbow = mkOption {
+        type = bool;
+        default = true;
+        description = "Set highlights for ts_rainbow";
+      };
+      cmp = mkOption {
+        type = bool;
+        default = true;
+        description = "Set highlights for cmp";
+      };
+      illuminate = mkOption {
+        type = bool;
+        default = true;
+        description = "Set highlights for illuminate";
+      };
+      lsp_semantic = mkOption {
+        type = bool;
+        default = true;
+        description = "Set LSP semantic highlights";
+      };
+      mini_completion = mkOption {
+        type = bool;
+        default = true;
+        description = "Set highlights for mini.completion";
+      };
+      dapui = mkOption {
+        type = bool;
+        default = true;
+        description = "Set highlights for dapui";
+      };
+    };
+  };
 in {
   options.vim.theme = {
+    inherit tinted-options;
+
     enable = mkOption {
       type = bool;
       description = "Enable theming";
@@ -40,12 +125,12 @@ in {
     name = mkOption {
       type = enum (attrNames supportedThemes);
       description = ''
-        Supported themes can be found in {file}`supportedThemes.nix`.
-        Setting the theme to "base16" enables base16 theming and
-        requires all of the colors in {option}`vim.theme.base16-colors` to be set.
+        Supported themes can be found in {file}`supportedThemes.nix`. Setting
+        the theme to "tinted-theming" enables base16 and base24 theming,
+        requires all of the colors in {option}`vim.theme.tinted-colors` to be
+        set and adds all of the "tinted-nvim" colorschemes.
       '';
     };
-    base16-colors = base16Options;
 
     style = mkOption {
       type = enum supportedThemes.${cfg.name}.styles;
@@ -68,7 +153,7 @@ in {
       startPlugins = [cfg.name];
       luaConfigRC.theme = entryBefore ["pluginConfigs" "lazyConfigs"] ''
         ${cfg.extraConfig}
-        ${supportedThemes.${cfg.name}.setup {inherit (cfg) style transparent base16-colors;}}
+        ${supportedThemes.${cfg.name}.setup {inherit (cfg) style transparent tinted-options;}}
       '';
     };
   };
