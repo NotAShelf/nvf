@@ -9,7 +9,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.lists) isList;
   inherit (lib.types) either listOf package str enum;
 
@@ -28,7 +28,7 @@
           },
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else ''{ "${cfg.lsp.package}/bin/solargraph", "stdio" }''
         }
         }
@@ -42,7 +42,7 @@
           on_attach = default_on_attach,
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else ''{ "${cfg.lsp.package}/bin/ruby-lsp" }''
         }
         }

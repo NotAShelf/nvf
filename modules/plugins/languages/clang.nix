@@ -10,13 +10,13 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) bool enum package either listOf str nullOr;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryAfter;
 
   packageToCmd = package: defaultCmd:
     if isList cfg.lsp.package
-    then expToLua cfg.lsp.package
+    then toLuaObject cfg.lsp.package
     else ''{ "${cfg.lsp.package}/bin/${defaultCmd}" }'';
 
   cfg = config.vim.languages.clang;

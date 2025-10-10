@@ -11,7 +11,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryAfter;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (pkgs) haskellPackages;
 
   cfg = config.vim.languages.haskell;
@@ -70,7 +70,7 @@ in {
               hls = {
                 cmd = ${
                 if isList cfg.lsp.package
-                then expToLua cfg.lsp.package
+                then toLuaObject cfg.lsp.package
                 else ''{"${cfg.lsp.package}/bin/haskell-language-server-wrapper", "--lsp"}''
               },
                 on_attach = function(client, bufnr, ht)
@@ -91,7 +91,7 @@ in {
               dap = {
                 cmd = ${
                 if isList cfg.dap.package
-                then expToLua cfg.dap.package
+                then toLuaObject cfg.dap.package
                 else ''{"${cfg.dap.package}/bin/haskell-debug-adapter"}''
               },
               },

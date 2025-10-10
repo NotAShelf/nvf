@@ -11,7 +11,7 @@
   inherit (lib.attrsets) attrNames;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.binds) mkMappingOption mkKeymap;
-  inherit (lib.nvim.lua) expToLua toLuaObject;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAnywhere;
 
@@ -30,7 +30,7 @@
           end,
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/typst-lsp"}''
         },
         }
@@ -49,7 +49,7 @@
           end,
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/tinymist"}''
         },
         }

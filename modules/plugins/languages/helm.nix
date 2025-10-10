@@ -10,7 +10,7 @@
   inherit (lib.lists) isList;
   inherit (lib.types) enum either listOf package str;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.languages.helm;
   yamlCfg = config.vim.languages.yaml;
@@ -32,7 +32,7 @@
         lspconfig.helm_ls.setup {
           capabilities = capabilities,
           on_attach = default_on_attach,
-          cmd = ${expToLua helmCmd},
+          cmd = ${toLuaObject helmCmd},
           settings = {
             ['helm-ls'] = {
               yamlls = {
