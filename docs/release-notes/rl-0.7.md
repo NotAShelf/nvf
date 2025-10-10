@@ -170,7 +170,7 @@ The changes are, in no particular order:
 
 - Add [ocaml-lsp] support
 
-- Fix "Emac" typo
+- Fix `Emac` typo
 
 - Add [new-file-template.nvim] to automatically fill new file contents using
   templates
