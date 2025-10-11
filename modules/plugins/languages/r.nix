@@ -9,7 +9,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.r;
@@ -62,7 +62,7 @@
           on_attach = default_on_attach;
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else ''{"${lib.getExe cfg.lsp.package}"}''
         }
         }

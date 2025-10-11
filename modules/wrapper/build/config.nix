@@ -109,7 +109,11 @@
     # Allow evaluating config.vim, i.e., config.vim from the packages' passthru
     # attribute. For example, packages.x86_64-linux.neovim.passthru.neovimConfig
     # will return the configuration in full.
-    passthru.neovimConfig = config.vim;
+    passthru = {
+      mnwConfig = neovim-wrapped.passthru.config;
+      mnwConfigDir = neovim-wrapped.passthru.configDir;
+      neovimConfig = config.vim;
+    };
 
     meta =
       neovim-wrapped.meta

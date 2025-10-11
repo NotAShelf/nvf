@@ -10,7 +10,7 @@
   inherit (lib.types) either package listOf str;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
   inherit (lib.lists) isList;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.languages.kotlin;
 
@@ -90,7 +90,7 @@ in {
           },
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/kotlin-language-server"}''
         },
         }

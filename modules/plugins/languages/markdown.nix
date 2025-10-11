@@ -10,7 +10,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.lists) isList;
   inherit (lib.types) bool enum either package listOf str nullOr;
-  inherit (lib.nvim.lua) expToLua toLuaObject;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) diagnostics mkGrammarOption mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAnywhere;
 
@@ -25,7 +25,7 @@
           on_attach = default_on_attach;
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/marksman", "server"}''
         },
         }

@@ -11,7 +11,7 @@
   inherit (lib.lists) isList;
   inherit (lib.types) bool either enum listOf package str;
   inherit (lib.nvim.types) diagnostics mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryBefore;
 
   cfg = config.vim.languages.lua;
@@ -98,7 +98,7 @@ in {
             on_attach = default_on_attach;
             cmd = ${
             if isList cfg.lsp.package
-            then expToLua cfg.lsp.package
+            then toLuaObject cfg.lsp.package
             else ''{"${getExe cfg.lsp.package}"}''
           };
           }

@@ -10,7 +10,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.types) enum either listOf package str bool;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.languages.python;
 
@@ -24,7 +24,7 @@
           on_attach = default_on_attach;
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/pyright-langserver", "--stdio"}''
         }
         }
@@ -39,7 +39,7 @@
           on_attach = default_on_attach;
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/basedpyright-langserver", "--stdio"}''
         }
         }
@@ -54,7 +54,7 @@
           on_attach = default_on_attach;
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/pylsp"}''
         }
         }

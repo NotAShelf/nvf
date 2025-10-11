@@ -11,7 +11,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) enum either listOf package nullOr str bool;
   inherit (lib.strings) optionalString;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryAfter;
 
@@ -28,7 +28,7 @@
           on_attach=default_on_attach;
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/dart", "language-server", "--protocol=lsp"}''
         };
           ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.dartOpts}"}

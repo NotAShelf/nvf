@@ -12,7 +12,7 @@
   inherit (lib.lists) isList;
   inherit (lib.strings) optionalString;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) toLuaObject;
 
   lspKeyConfig = config.vim.lsp.mappings;
   lspKeyOptions = options.vim.lsp.mappings;
@@ -44,7 +44,7 @@
           end,
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else "{'${cfg.lsp.package}/bin/OmniSharp'}"
         }
         }
@@ -66,7 +66,7 @@
           },
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else "{'${cfg.lsp.package}/bin/csharp-ls'}"
         }
         }

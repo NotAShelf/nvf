@@ -13,7 +13,7 @@
   inherit (lib.lists) isList;
   inherit (lib.types) bool package str listOf either enum;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryAfter entryAnywhere;
 
   cfg = config.vim.languages.rust;
@@ -153,7 +153,7 @@ in {
             server = {
               cmd = ${
               if isList cfg.lsp.package
-              then expToLua cfg.lsp.package
+              then toLuaObject cfg.lsp.package
               else ''{"${cfg.lsp.package}/bin/rust-analyzer"}''
             },
               default_settings = {

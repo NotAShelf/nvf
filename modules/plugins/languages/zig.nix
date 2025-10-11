@@ -9,7 +9,7 @@
   inherit (lib.modules) mkIf mkMerge mkDefault;
   inherit (lib.lists) isList;
   inherit (lib.types) bool either listOf package str enum;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.zig;
@@ -25,7 +25,7 @@
           on_attach = default_on_attach,
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else "{'${cfg.lsp.package}/bin/zls'}"
         }
         }

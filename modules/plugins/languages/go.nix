@@ -11,7 +11,7 @@
   inherit (lib.lists) isList;
   inherit (lib.types) bool enum either listOf package str;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryAfter;
 
   cfg = config.vim.languages.go;
@@ -26,7 +26,7 @@
           on_attach = default_on_attach;
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/gopls", "serve"}''
         },
         }

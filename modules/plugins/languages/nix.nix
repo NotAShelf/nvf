@@ -13,7 +13,7 @@
   inherit (lib.strings) optionalString;
   inherit (lib.types) anything attrsOf enum either listOf nullOr package str;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
-  inherit (lib.nvim.lua) expToLua toLuaObject;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.languages.nix;
 
@@ -23,7 +23,7 @@
   defaultServer = "nil";
   packageToCmd = package: defaultCmd:
     if isList package
-    then expToLua package
+    then toLuaObject package
     else ''{"${package}/bin/${defaultCmd}"}'';
   servers = {
     nil = {

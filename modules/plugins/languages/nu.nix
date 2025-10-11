@@ -7,7 +7,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) str either package listOf;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (builtins) isList;
 
@@ -21,7 +21,7 @@
           on_attach = default_on_attach,
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/nu", "--no-config-file", "--lsp"}''
         }
         }

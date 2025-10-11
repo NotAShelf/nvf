@@ -10,7 +10,7 @@
   inherit (lib.lists) isList;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
 
   cfg = config.vim.languages.astro;
@@ -25,7 +25,7 @@
           on_attach = attach_keymaps,
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/astro-ls", "--stdio"}''
         }
         }

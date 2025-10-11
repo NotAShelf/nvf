@@ -7,7 +7,7 @@
   inherit (builtins) attrNames;
   inherit (lib.lists) isList;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.types) either enum listOf package str;
@@ -25,7 +25,7 @@
           on_attach = default_on_attach,
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else "{'${cfg.lsp.package}/bin/wgsl-analyzer'}"
         }
         }

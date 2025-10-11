@@ -10,7 +10,7 @@
   inherit (lib.lists) isList;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum either listOf package str bool;
-  inherit (lib.nvim.lua) expToLua toLuaObject;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption diagnostics mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAnywhere;
 
@@ -29,7 +29,7 @@
           end,
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/typescript-language-server", "--stdio"}''
         }
         }
@@ -45,7 +45,7 @@
           on_attach = attach_keymaps,
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/deno", "lsp"}''
         }
         }
@@ -63,7 +63,7 @@
           on_attach = attach_keymaps,
           cmd = ${
           if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
+          then toLuaObject cfg.lsp.package
           else ''{"${cfg.lsp.package}/bin/typescript-language-server", "--stdio"}''
         }
         }
