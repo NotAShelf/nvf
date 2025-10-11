@@ -961,6 +961,35 @@
       "url": "https://github.com/OXY2DEV/markview.nvim/archive/de79a7626d54d7785436105ef72f37ee8fe8fa16.tar.gz",
       "hash": "032i6m9pld1zyhd7lq49dg4qh98w6vmmzqp2f46drhq0ds26hs4h"
     },
+    "mcp-hub": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ravitemer",
+        "repo": "mcp-hub"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v4.2.1",
+      "revision": "aac67ba3e163712d07674c154532a71965015e57",
+      "url": "https://api.github.com/repos/ravitemer/mcp-hub/tarball/v4.2.1",
+      "hash": "127d91xnfqaxqvk76682n8cghjhw1b02xzi4rxm3ggpljxfjza99"
+    },
+    "mcphub-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ravitemer",
+        "repo": "mcphub.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "8ff40b5edc649959bb7e89d25ae18e055554859a",
+      "url": "https://github.com/ravitemer/mcphub.nvim/archive/8ff40b5edc649959bb7e89d25ae18e055554859a.tar.gz",
+      "hash": "1saw3xfrbnwpjklcffp144q2y100kd51yrhvmxnhgc7niy0ip893"
+    },
     "mind-nvim": {
       "type": "Git",
       "repository": {

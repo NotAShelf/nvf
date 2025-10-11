@@ -386,6 +386,10 @@
 - Fix [render-markdown.nvim] file_types option type to list, to accept merging.
 - Add [avante.nvim] plugin under `vim.assistant.avante-nvim`.
 
+[mcphub-nvim]: https://github.com/ravitemer/mcphub.nvim
+
+- Add [mcphub.nvim] plugin under `vim.assistant.mcphub-nvim`.
+
 [poz](https://poz.pet):
 
 [everforest]: https://github.com/sainnhe/everforest
