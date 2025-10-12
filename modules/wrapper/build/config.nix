@@ -22,9 +22,7 @@
       passthru.vimPlugin = false;
     };
 
-  # build a vim plugin with the given name and arguments
-  # if the plugin is nvim-treesitter, warn the user to use buildTreesitterPlug
-  # instead
+  # Build a Vim plugin with the given name and arguments.
   buildPlug = attrs: let
     pin = getPin attrs.pname;
   in
@@ -36,6 +34,7 @@
       // attrs
     );
 
+  # Build a given Treesitter grammar.
   buildTreesitterPlug = grammars: vimPlugins.nvim-treesitter.withPlugins (_: grammars);
 
   pluginBuilders = {
@@ -48,6 +47,9 @@
       doCheck = false;
     };
 
+    # Get plugins built from source from self.packages
+    # If adding a new plugin to be built from source, it must also be inherited
+    # here.
     inherit (inputs.self.packages.${pkgs.stdenv.system}) blink-cmp avante-nvim;
   };
 
@@ -71,29 +73,38 @@
   # Wrap the user's desired (unwrapped) Neovim package with arguments that'll be used to
   # generate a wrapped Neovim package.
   neovim-wrapped = inputs.mnw.lib.wrap {inherit pkgs;} {
+    appName = "nvf";
     neovim = config.vim.package;
+    initLua = config.vim.builtLuaConfigRC;
+    luaFiles = config.vim.extraLuaFiles;
+
+    # Plugin configurations
     plugins = {
       start = buildConfigPlugins config.vim.startPlugins;
       opt = buildConfigPlugins config.vim.optPlugins;
     };
-    appName = "nvf";
-    extraBinPath = config.vim.extraPackages;
-    initLua = config.vim.builtLuaConfigRC;
-    luaFiles = config.vim.extraLuaFiles;
+
+    # Providers for Neovim
     providers = {
+      ruby.enable = config.vim.withRuby;
+      nodeJs.enable = config.vim.withNodeJs;
       python3 = {
         enable = config.vim.withPython3;
         extraPackages = ps: map (flip builtins.getAttr ps) config.vim.python3Packages;
       };
-      ruby.enable = config.vim.withRuby;
-      nodeJs.enable = config.vim.withNodeJs;
     };
+
+    # Aliases to link `nvim` to
     aliases = lib.optional config.vim.viAlias "vi" ++ lib.optional config.vim.vimAlias "vim";
 
+    # Additional packages or Lua packages to be made available to Neovim
+    extraBinPath = config.vim.extraPackages;
     extraLuaPackages = ps: map (flip builtins.getAttr ps) config.vim.luaPackages;
   };
 
+  # A store path representing the built Lua configuration.
   dummyInit = pkgs.writeText "nvf-init.lua" config.vim.builtLuaConfigRC;
+
   # Additional helper scripts for printing and displaying nvf configuration
   # in your commandline.
   printConfig = pkgs.writers.writeDashBin "nvf-print-config" "cat ${dummyInit}";
@@ -106,10 +117,20 @@
     paths = [neovim-wrapped printConfig printConfigPath];
     postBuild = "echo Helpers added";
 
-    # Allow evaluating config.vim, i.e., config.vim from the packages' passthru
-    # attribute. For example, packages.x86_64-linux.neovim.passthru.neovimConfig
-    # will return the configuration in full.
-    passthru.neovimConfig = config.vim;
+    passthru = {
+      # Allow evaluating config.vim, i.e., config.vim from the packages' passthru
+      # attribute. For example, packages.x86_64-linux.neovim.passthru.neovimConfig
+      # will return the configuration in full.
+      neovimConfig = config.vim;
+
+      # Also expose the helper scripts in passthru.
+      nvfPrintConfig = printConfig;
+      nvfPrintConfigPath = printConfigPath;
+
+      # In systems where we only have a package and no module, this can be used
+      # to access the built init.lua
+      initLua = dummyInit;
+    };
 
     meta =
       neovim-wrapped.meta
