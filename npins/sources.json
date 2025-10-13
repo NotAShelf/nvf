@@ -2565,6 +2565,19 @@
       "url": "https://github.com/mbbill/undotree/archive/0f1c9816975b5d7f87d5003a19c53c6fd2ff6f7f.tar.gz",
       "hash": "0kvv65dq3nlnmhl4xpjxkd0918p5blfzqfbfyq9jlnw0qb9qfqqi"
     },
+    "uv.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "benomahony",
+        "repo": "uv.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "642e45d392a65fe15dbebd63444e45e21a38f883",
+      "url": "https://github.com/benomahony/uv.nvim/archive/642e45d392a65fe15dbebd63444e45e21a38f883.tar.gz",
+      "hash": "1l681q5d3c8hqr1vvb4rxs6y5a1fs3m3cx3v0n6lvmlcdbdn4mjb"
+    },
     "vim-dirtytalk": {
       "type": "Git",
       "repository": {
