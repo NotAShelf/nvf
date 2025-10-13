@@ -569,8 +569,7 @@
 [typst-concealer]: https://github.com/PartyWumpus/typst-concealer
 
 - Add inline typst concealing support under `vim.languages.typst` using
-  [typst-concealer].
-[simon-wg](https://github.com/simon-wg):
+  [typst-concealer]. [simon-wg](https://github.com/simon-wg):
 
 - Update `python` language module to use correct lsp binary.
 - Fix `python` pyright and basedpyright language servers not using default on
