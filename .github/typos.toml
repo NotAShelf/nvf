@@ -9,5 +9,6 @@ default.extend-ignore-words-re = [
   "edn",
   "esy",
   "BA", # somehow "BANanaD3V" is valid, but BA is not...
+  "Emac"
 ]
 

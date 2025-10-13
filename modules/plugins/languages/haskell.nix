@@ -11,11 +11,10 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryAfter;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.meta) getExe';
   inherit (lib.generators) mkLuaInline;
   inherit (pkgs) haskellPackages;
-  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.languages.haskell;
 
@@ -120,7 +119,7 @@ in {
               dap = {
                 cmd = ${
                 if isList cfg.dap.package
-                then expToLua cfg.dap.package
+                then toLuaObject cfg.dap.package
                 else ''{"${cfg.dap.package}/bin/haskell-debug-adapter"}''
               },
               },

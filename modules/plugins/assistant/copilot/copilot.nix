@@ -93,7 +93,7 @@ in {
         accept = mkOption {
           type = nullOr str;
           default = "<M-l>";
-          description = "Accept suggetion";
+          description = "Accept suggestion";
         };
 
         acceptWord = mkOption {

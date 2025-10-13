@@ -130,6 +130,9 @@
       # In systems where we only have a package and no module, this can be used
       # to access the built init.lua
       initLua = dummyInit;
+
+      mnwConfig = neovim-wrapped.passthru.config;
+      mnwConfigDir = neovim-wrapped.passthru.configDir;
     };
 
     meta =
