@@ -9,8 +9,8 @@
   inherit (lib.meta) getExe;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum package;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics singleOrListOf;
+  inherit (lib.types) enum;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.nix;
@@ -18,10 +18,10 @@
   formattingCmd = mkIf (cfg.format.enable && cfg.lsp.enable) {
     formatting = mkMerge [
       (mkIf (cfg.format.type == "alejandra") {
-        command = ["${cfg.format.package}/bin/alejandra" "--quiet"];
+        command = [(getExe pkgs.alejandra) "--quiet"];
       })
       (mkIf (cfg.format.type == "nixfmt") {
-        command = ["${cfg.format.package}/bin/nixfmt"];
+        command = [(getExe pkgs.nixfmt-rfc-style)];
       })
     ];
   };
@@ -49,14 +49,14 @@
     };
   };
 
-  defaultFormat = "alejandra";
+  defaultFormat = ["alejandra"];
   formats = {
     alejandra = {
-      package = pkgs.alejandra;
+      command = getExe pkgs.alejandra;
     };
 
     nixfmt = {
-      package = pkgs.nixfmt-rfc-style;
+      command = getExe pkgs.nixfmt-rfc-style;
     };
   };
 
@@ -98,7 +98,7 @@ in {
     lsp = {
       enable = mkEnableOption "Nix LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.nix.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Nix LSP server to use";
       };
@@ -109,14 +109,8 @@ in {
 
       type = mkOption {
         description = "Nix formatter to use";
-        type = enum (attrNames formats);
+        type = deprecatedSingleOrListOf "vim.language.nix.format.type" (enum (attrNames formats));
         default = defaultFormat;
-      };
-
-      package = mkOption {
-        description = "Nix formatter package";
-        type = package;
-        default = formats.${cfg.format.type}.package;
       };
     };
 
@@ -161,9 +155,14 @@ in {
     (mkIf (cfg.format.enable && !cfg.lsp.enable) {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.nix = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.nix = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })

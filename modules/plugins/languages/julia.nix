@@ -9,7 +9,7 @@
   inherit (lib.types) enum;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.dag) entryBefore;
@@ -97,7 +97,7 @@ in {
       lsp = {
         enable = mkEnableOption "Julia LSP support" // {default = config.vim.lsp.enable;};
         servers = mkOption {
-          type = singleOrListOf (enum (attrNames servers));
+          type = deprecatedSingleOrListOf "vim.language.julia.lsp.servers" (enum (attrNames servers));
           default = defaultServers;
           description = ''
             Julia LSP Server to Use

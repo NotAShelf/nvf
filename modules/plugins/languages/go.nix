@@ -10,7 +10,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.types) bool enum package;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -59,19 +59,16 @@
     };
   };
 
-  defaultFormat = "gofmt";
+  defaultFormat = ["gofmt"];
   formats = {
     gofmt = {
-      package = pkgs.go;
-      config.command = "${cfg.format.package}/bin/gofmt";
+      command = "${pkgs.go}/bin/gofmt";
     };
     gofumpt = {
-      package = pkgs.gofumpt;
-      config.command = getExe cfg.format.package;
+      command = getExe pkgs.gofumpt;
     };
     golines = {
-      package = pkgs.golines;
-      config.command = "${cfg.format.package}/bin/golines";
+      command = "${pkgs.golines}/bin/golines";
     };
   };
 
@@ -95,7 +92,7 @@ in {
       enable = mkEnableOption "Go LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.go.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Go LSP server to use";
       };
@@ -113,14 +110,8 @@ in {
 
       type = mkOption {
         description = "Go formatter to use";
-        type = enum (attrNames formats);
+        type = deprecatedSingleOrListOf "vim.language.go.format.type" (enum (attrNames formats));
         default = defaultFormat;
-      };
-
-      package = mkOption {
-        description = "Go formatter package";
-        type = package;
-        default = formats.${cfg.format.type}.package;
       };
     };
 
@@ -163,8 +154,15 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.go = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = formats.${cfg.format.type}.config;
+        setupOpts = {
+          formatters_by_ft.go = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
+        };
       };
     })
 

@@ -1,4 +1,5 @@
 {
+  self,
   config,
   pkgs,
   lib,
@@ -8,9 +9,9 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum package;
+  inherit (lib.types) enum coercedTo;
   inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.astro;
@@ -40,23 +41,21 @@
     };
   };
 
-  # TODO: specify packages
-  defaultFormat = "prettier";
-  formats = {
+  defaultFormat = ["prettier"];
+  formats = let
+    parser = "${self.packages.${pkgs.stdenv.system}.prettier-plugin-astro}/index.js";
+  in {
     prettier = {
-      package = pkgs.prettier;
-    };
-
-    prettierd = {
-      package = pkgs.prettierd;
+      command = getExe pkgs.nodePackages.prettier;
+      options.ft_parsers.astro = "astro";
+      prepend_args = ["--plugin=${parser}"];
     };
 
     biome = {
-      package = pkgs.biome;
+      command = getExe pkgs.biome;
     };
   };
 
-  # TODO: specify packages
   defaultDiagnosticsProvider = ["eslint_d"];
   diagnosticsProviders = {
     eslint_d = let
@@ -76,6 +75,15 @@
       };
     };
   };
+
+  formatType =
+    deprecatedSingleOrListOf
+    "vim.languages.astro.format.type"
+    (coercedTo (enum ["prettierd"]) (_:
+      lib.warn
+      "vim.languages.astro.format.type: prettierd is deprecated, use prettier instead"
+      "prettier")
+    (enum (attrNames formats)));
 in {
   options.vim.languages.astro = {
     enable = mkEnableOption "Astro language support";
@@ -89,7 +97,7 @@ in {
     lsp = {
       enable = mkEnableOption "Astro LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.astro.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Astro LSP server to use";
       };
@@ -99,15 +107,9 @@ in {
       enable = mkEnableOption "Astro formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = enum (attrNames formats);
+        type = formatType;
         default = defaultFormat;
         description = "Astro formatter to use";
-      };
-
-      package = mkOption {
-        type = package;
-        default = formats.${cfg.format.type}.package;
-        description = "Astro formatter package";
       };
     };
 
@@ -140,9 +142,14 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.astro = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.astro = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })

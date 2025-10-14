@@ -12,7 +12,7 @@
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics mkPluginSetupOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics mkPluginSetupOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere entryBefore;
 
   cfg = config.vim.languages.ts;
@@ -173,18 +173,18 @@
   '';
 
   # TODO: specify packages
-  defaultFormat = "prettier";
+  defaultFormat = ["prettier"];
   formats = {
     prettier = {
-      package = pkgs.prettier;
+      command = getExe pkgs.prettier;
     };
 
     prettierd = {
-      package = pkgs.prettierd;
+      command = getExe pkgs.prettierd;
     };
 
     biome = {
-      package = pkgs.biome;
+      command = getExe pkgs.biome;
     };
   };
 
@@ -225,7 +225,7 @@ in {
       enable = mkEnableOption "Typescript/Javascript LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.ts.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Typescript/Javascript LSP server to use";
       };
@@ -236,14 +236,8 @@ in {
 
       type = mkOption {
         description = "Typescript/Javascript formatter to use";
-        type = enum (attrNames formats);
+        type = deprecatedSingleOrListOf "vim.language.ts.format.type" (enum (attrNames formats));
         default = defaultFormat;
-      };
-
-      package = mkOption {
-        description = "Typescript/Javascript formatter package";
-        type = package;
-        default = formats.${cfg.format.type}.package;
       };
     };
 
@@ -306,12 +300,15 @@ in {
       vim.formatter.conform-nvim = {
         enable = true;
         setupOpts = {
-          formatters_by_ft.typescript = [cfg.format.type];
+          formatters_by_ft.typescript = cfg.format.type;
           # .tsx files
-          formatters_by_ft.typescriptreact = [cfg.format.type];
-          formatters.${cfg.format.type} = {
-            command = getExe cfg.format.package;
-          };
+          formatters_by_ft.typescriptreact = cfg.format.type;
+          setupOpts.formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })

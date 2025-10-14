@@ -8,8 +8,8 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.types) bool enum listOf package;
-  inherit (lib.nvim.types) diagnostics mkGrammarOption;
+  inherit (lib.types) bool enum listOf;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryBefore;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -34,10 +34,10 @@
     };
   };
 
-  defaultFormat = "stylua";
+  defaultFormat = ["stylua"];
   formats = {
     stylua = {
-      package = pkgs.stylua;
+      command = getExe pkgs.stylua;
     };
   };
 
@@ -79,15 +79,9 @@ in {
         description = "Enable Lua formatting";
       };
       type = mkOption {
-        type = enum (attrNames formats);
+        type = deprecatedSingleOrListOf "vim.language.lua.format.type" (enum (attrNames formats));
         default = defaultFormat;
         description = "Lua formatter to use";
-      };
-
-      package = mkOption {
-        type = package;
-        default = formats.${cfg.format.type}.package;
-        description = "Lua formatter package";
       };
     };
 
@@ -132,9 +126,14 @@ in {
       (mkIf cfg.format.enable {
         vim.formatter.conform-nvim = {
           enable = true;
-          setupOpts.formatters_by_ft.lua = [cfg.format.type];
-          setupOpts.formatters.${cfg.format.type} = {
-            command = getExe cfg.format.package;
+          setupOpts = {
+            formatters_by_ft.lua = cfg.format.type;
+            formatters =
+              mapListToAttrs (name: {
+                inherit name;
+                value = formats.${name};
+              })
+              cfg.format.type;
           };
         };
       })

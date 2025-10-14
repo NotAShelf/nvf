@@ -8,9 +8,9 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum package;
+  inherit (lib.types) enum;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -40,13 +40,10 @@
     };
   };
 
-  defaultFormat = "mix";
+  defaultFormat = ["mix"];
   formats = {
     mix = {
-      package = pkgs.elixir;
-      config = {
-        command = "${cfg.format.package}/bin/mix";
-      };
+      command = "${pkgs.elixir}/bin/mix";
     };
   };
 in {
@@ -63,7 +60,7 @@ in {
     lsp = {
       enable = mkEnableOption "Elixir LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.elixir.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Elixir LSP server to use";
       };
@@ -73,15 +70,9 @@ in {
       enable = mkEnableOption "Elixir formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = enum (attrNames formats);
+        type = deprecatedSingleOrListOf "vim.language.elixir.format.type" (enum (attrNames formats));
         default = defaultFormat;
         description = "Elixir formatter to use";
-      };
-
-      package = mkOption {
-        type = package;
-        default = formats.${cfg.format.type}.package;
-        description = "Elixir formatter package";
       };
     };
 
@@ -112,9 +103,15 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.elixir = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} =
-          formats.${cfg.format.type}.config;
+        setupOpts = {
+          formatters_by_ft.elixir = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
+        };
       };
     })
 
