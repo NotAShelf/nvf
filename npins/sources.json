@@ -2247,6 +2247,22 @@
       "url": "https://api.github.com/repos/withastro/prettier-plugin-astro/tarball/v0.14.1",
       "hash": "14ffwxggcnyc947pdxgsgz1v2q76m5xmybfxg8kyla4l7phg6qsw"
     },
+    "prettier-plugin-svelte": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "sveltejs",
+        "repo": "prettier-plugin-svelte"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v3.3.2",
+      "revision": "76c04ebfdff4306842e8ab0cd96b1c53c7041dde",
+      "url": "https://api.github.com/repos/sveltejs/prettier-plugin-svelte/tarball/v3.3.2",
+      "hash": "0g6h5lvhyms6nvk83vkd3yi8rvsz2v5g6cw03fqsv2nj45s6cf7r"
+    },
     "project-nvim": {
       "type": "Git",
       "repository": {
