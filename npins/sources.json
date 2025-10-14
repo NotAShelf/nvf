@@ -2231,6 +2231,22 @@
       "url": "https://github.com/tris203/precognition.nvim/archive/2aae2687207029b3611a0e19a289f9e1c7efbe16.tar.gz",
       "hash": "0b4yz5jvqd0li373067cs1n761vn9jxkhcvhsrvm9h1snqw1c6nk"
     },
+    "prettier-plugin-astro": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "withastro",
+        "repo": "prettier-plugin-astro"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.14.1",
+      "revision": "57234893ca374c8e401cce1f931180d314e13eac",
+      "url": "https://api.github.com/repos/withastro/prettier-plugin-astro/tarball/v0.14.1",
+      "hash": "14ffwxggcnyc947pdxgsgz1v2q76m5xmybfxg8kyla4l7phg6qsw"
+    },
     "project-nvim": {
       "type": "Git",
       "repository": {
