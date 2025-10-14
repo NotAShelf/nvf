@@ -11,6 +11,7 @@
 
   supported_themes = import ./supported_themes.nix;
   builtin_themes = [
+    "tinted"
     "auto"
     "16color"
     "ayu_dark"
