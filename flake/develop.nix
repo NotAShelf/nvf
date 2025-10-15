@@ -3,6 +3,7 @@
     pkgs,
     config,
     self',
+    inputs',
     ...
   }: {
     devShells = {

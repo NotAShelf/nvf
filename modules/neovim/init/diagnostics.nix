@@ -57,14 +57,21 @@
       signs = mkOption {
         type = diagnosticType;
         default = false;
-        example = {
-          signs.text = {
-            "vim.diagnostic.severity.ERROR" = "󰅚 ";
-            "vim.diagnostic.severity.WARN" = "󰀪 ";
-          };
-        };
+        example = literalExpression ''
+          signs.text = lib.generators.mkLuaInline '''
+            {
+              [vim.diagnostic.severity.ERROR] = "󰅚 ",
+              [vim.diagnostic.severity.WARN] = "󰀪 ",
+            }
+          ''';
+        '';
         description = ''
           Use signs for diagnostics. See {command}`:help diagnostic-signs`.
+
+          :::{.note}
+          The code presented in that example section uses Lua expressions as object keys which
+          only translate well if you use `lib.generators.mkLuaInline` as in the example.
+          :::
         '';
       };
 
@@ -81,7 +88,7 @@
 in {
   options.vim = {
     diagnostics = {
-      enable = mkEnableOption "diagostics module for Neovim";
+      enable = mkEnableOption "diagnostics module for Neovim";
       config = mkOption {
         type = diagnosticsSubmodule;
         default = {};

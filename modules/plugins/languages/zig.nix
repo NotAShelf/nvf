@@ -72,7 +72,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Zig LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Zig LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         type = enum (attrNames servers);

@@ -162,7 +162,7 @@ The changes are, in no particular order:
 - Add [lz.n] support and lazy-load some builtin plugins.
 - Add simpler helper functions for making keymaps
 
-[jacekpoz](https://jacekpoz.pl):
+[poz](https://poz.pet):
 
 [ocaml-lsp]: https://github.com/ocaml/ocaml-lsp
 [new-file-template.nvim]: https://github.com/otavioschwanck/new-file-template.nvim
@@ -170,7 +170,7 @@ The changes are, in no particular order:
 
 - Add [ocaml-lsp] support
 
-- Fix "Emac" typo
+- Fix `Emac` typo
 
 - Add [new-file-template.nvim] to automatically fill new file contents using
   templates

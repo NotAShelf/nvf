@@ -9,7 +9,6 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.meta) getExe;
-  inherit (lib.generators) mkLuaInline;
   inherit (lib.types) enum either listOf package str;
   inherit (lib.nvim.lua) expToLua;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
@@ -19,7 +18,7 @@
   defaultServer = "svelte";
   servers = {
     svelte = {
-      package = pkgs.nodePackages.svelte-language-server;
+      package = pkgs.svelte-language-server;
       lspConfig = ''
         lspconfig.svelte.setup {
           capabilities = capabilities;
@@ -38,7 +37,7 @@
   defaultFormat = "prettier";
   formats = {
     prettier = {
-      package = pkgs.nodePackages.prettier;
+      package = pkgs.prettier;
     };
 
     biome = {
@@ -77,7 +76,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Svelte LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Svelte LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "Svelte LSP server to use";

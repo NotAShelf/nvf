@@ -18,7 +18,7 @@
     showSignColumn = "signcolumn";
 
     # 2025-02-07
-    scrollOff = "scrolloff";
+    scrollOffset = "scrolloff";
   };
 in {
   imports = concatLists [
@@ -110,6 +110,15 @@ in {
         lsplines module has been removed from nvf, as its functionality is now built into Neovim
         under the diagnostics module. Please consider using one of 'vim.diagnostics.config' or
         'vim.luaConfigRC' to configure LSP lines for Neovim through its own diagnostics API.
+      '')
+
+      # 2025-05-04
+      (mkRemovedOptionModule ["vim" "useSystemClipboard"] ''
+        Clipboard behaviour should now be controlled through the new, more fine-grained module
+        interface found in 'vim.clipboard'. To replicate previous behaviour, you may either
+        add 'vim.opt.clipboard:append("unnamedplus")' in luaConfigRC, or preferably set it
+        in 'vim.clipboard.registers'. Please see the documentation for the new module for more
+        details, or open an issue if you are confused.
       '')
     ]
 

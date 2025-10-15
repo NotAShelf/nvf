@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption mkEnableOption literalExpression;
+  inherit (lib.options) mkOption mkEnableOption literalExpression literalMD;
   inherit (lib.types) enum bool either nullOr str int listOf attrs;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.binds) mkMappingOption;
@@ -24,17 +24,28 @@ in {
       movePrevious = mkMappingOption "Move previous buffer" "<leader>bmp";
     };
 
-    setupOpts = mkPluginSetupOption "Bufferline-nvim" {
+    setupOpts = mkPluginSetupOption "bufferline-nvim" {
       highlights = mkOption {
         type = either attrs luaInline;
         default =
           if config.vim.theme.enable && config.vim.theme.name == "catppuccin"
           then
-            mkLuaInline
-            ''
-              require("catppuccin.groups.integrations.bufferline").get()
+            mkLuaInline ''
+              (function()
+                local integration = require("catppuccin.special.bufferline")
+                return (integration.get_theme or integration.get)()
+              end)()
             ''
           else {};
+        defaultText = literalMD ''
+          ```lua
+          (function()
+            local integration = require("catppuccin.special.bufferline")
+            return (integration.get_theme or integration.get)()
+          end)()
+          ```
+          if the active theme is Catppuccin, `{}` otherwise.
+        '';
         description = ''
           Overrides the highlight groups of bufferline.
 
@@ -59,10 +70,11 @@ in {
         themable = mkOption {
           type = bool;
           default = true;
+          example = false;
           description = ''
             Whether or not to allow highlight groups to be overridden.
 
-            While false, bufferline.nvim sets highlights as default.
+            While `false`, bufferline.nvim sets highlights as default.
           '';
         };
 
@@ -109,7 +121,7 @@ in {
             type = nullOr str;
             default = null;
             description = ''
-              The indicatotor icon to use for the current buffer.
+              The indicator icon to use for the current buffer.
 
               ::: {.warning}
               This **must** be omitted while style is not `icon`

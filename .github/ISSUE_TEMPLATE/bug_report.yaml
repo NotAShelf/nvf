@@ -1,60 +1,120 @@
 name: "🐛 Bug Report"
-description: "Submit a bug report to help us improve"
-#title: "[Bug] "
+description: "Submit a bug report to help us improve nvf"
+title: "<short description of the bug>"
 labels: [bug]
 body:
   - type: checkboxes
-    id: no-duplicate-issues
     attributes:
-      label: "⚠️ Please verify that this bug has NOT been reported before."
-      description: "Search in the issues sections by clicking [HERE](https://github.com/notashelf/neovim-flake/issues?q=)"
+      label: I have confirmed that this is a bug related to nvf
+      description: >-
+        If you are unsure whether this is a bug, a packaging issue, or user error that is *not*
+        stemming from nvf, please consider creating a [discussion](https://github.com/notashelf/nvf/discussions)
+        post instead. Invalid bug reports will be closed without an explanation.
       options:
-        - label: "I checked all existing issues and didn't find a similar issue"
-          required: true
+        - required: true
+          label: >-
+            This is a bug, and not an user error or a support request. I understand that my issue
+            will be closed if it is not a bug in nvf.
+        - required: true
+          label: >-
+            I have checked the [issues tab](https://github.com/notashelf/nvf/issues?q=is%3Aissue)
+            and confirmed that my issue has not yet been reported. I understand that my issue will
+            be closed if it is a duplicate.
+
   - type: textarea
-    id: description
-    validations:
-      required: false
     attributes:
-      label: "Description"
-      description: "You could also upload screenshots, if necessary"
+      label: Description
+      placeholder: "Describe the issue here..."
+      description: >-
+        Describe the issue in detail, with steps you have taken included. If applicable, please include
+        a minimal reproducible example, relevant Nix logs, comparisons with alternative commands and
+        screenshots. Do note that **logs** are preferred over screenshots.
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      label: Installation Method
+      description: "How was nvf installed?"
+      options:
+        - NixOS Module (`nixosModules.default`)
+        - Home Manager Module (`homeManagerModules.default`)
+        - Standalone (flake outputs, `nix profile install`, etc.)
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Installation Method (Other)
+      description: "If you have selected 'Other' in the previous section, please describe your installation method"
+      placeholder: >-
+        I installed nvf from...
+
+  - type: textarea
+    attributes:
+      label: nvf Version
+      description: "Which version of nvf are you using? If added as a flake input, write 'master'"
+      placeholder: >-
+        For example, v0.8 if consuming nvf from a tagged release.
+    validations:
+      required: true
+
   - type: textarea
     id: steps-to-reproduce
+    attributes:
+      label: Reproduction steps
+      description: "How do you trigger this bug? Please walk us through the problem, step by step"
+      placeholder: >-
+        1. Do this
+        2. Do that
+        3. Observe
     validations:
       required: true
-    attributes:
-      label: "👟 Reproduction steps"
-      description: "How do you trigger this bug? Please walk us through the problem, step by step"
-      placeholder: "..."
+
   - type: textarea
     id: expected-behavior
-    validations:
-      required: true
     attributes:
-      label: "👀 Expected behavior"
+      label: Expected behavior
       description: "What did you think would or should happen?"
       placeholder: "..."
+    validations:
+      required: true
+
   - type: textarea
     id: actual-behavior
-    validations:
-      required: true
     attributes:
-      label: "😓 Actual Behavior"
+      label: Actual Behavior
       description: "What actually happen?"
       placeholder: "..."
-  - type: input
-    id: nix-metadata
-    attributes:
-      label: "💻 Metadata"
-      description: 'Please run `nix-shell -p nix-info --run "nix-info -m"` and paste the result.'
-      placeholder: '[user@system:~]$ nix-shell -p nix-info --run "nix-info -m"'
     validations:
       required: true
+
+  - type: textarea
+    attributes:
+      label: System Information
+      description: "Output of `nix-info --markdown`"
+      render: bash
+      placeholder: |-
+        '[user@system:~]$ nix-shell -p nix-info --run "nix-info --markdown"
+        - system:
+        - host os:
+        - multi-user?:
+        - sandbox:
+        - version:
+        - nixpkgs:
+    validations:
+      required: true
+
   - type: textarea
     id: logs
     attributes:
-      label: "📝 Relevant log output"
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
       render: bash
+      label: "Relevant log output"
+      description: >-
+        Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+
+        > [!TIP]
+        > You can get your nvf configuration with `nvf-print-config` and attach it by using a service like termbin.com
     validations:
       required: true

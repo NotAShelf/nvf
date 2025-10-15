@@ -9,7 +9,6 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.meta) getExe;
-  inherit (lib.generators) mkLuaInline;
   inherit (lib.types) enum either listOf package str bool;
   inherit (lib.nvim.lua) expToLua toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption diagnostics mkPluginSetupOption;
@@ -76,7 +75,7 @@
   defaultFormat = "prettier";
   formats = {
     prettier = {
-      package = pkgs.nodePackages.prettier;
+      package = pkgs.prettier;
     };
 
     prettierd = {
@@ -101,6 +100,7 @@
           "eslint.config.js"
           "eslint.config.mjs"
           ".eslintrc"
+          ".eslintrc.cjs"
           ".eslintrc.json"
           ".eslintrc.js"
           ".eslintrc.yml"
@@ -120,7 +120,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Typescript/Javascript LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Typescript/Javascript LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "Typescript/Javascript LSP server to use";

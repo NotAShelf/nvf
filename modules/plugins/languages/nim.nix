@@ -6,7 +6,6 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) isList;
   inherit (lib.types) enum either listOf package str;
@@ -54,7 +53,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Nim LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Nim LSP support" // {default = config.vim.lsp.enable;};
       server = mkOption {
         description = "Nim LSP server to use";
         type = str;
