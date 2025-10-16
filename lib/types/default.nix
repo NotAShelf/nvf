@@ -1,11 +1,8 @@
-{
-  lib,
-  self,
-}: let
-  typesDag = import ./dag.nix {inherit lib;};
-  typesPlugin = import ./plugins.nix {inherit lib self;};
-  typesLanguage = import ./languages.nix {inherit lib;};
-  customTypes = import ./custom.nix {inherit lib;};
+args: let
+  typesDag = import ./dag.nix args;
+  typesPlugin = import ./plugins.nix args;
+  typesLanguage = import ./languages.nix args;
+  customTypes = import ./custom.nix args;
 in {
   inherit (typesDag) dagOf;
   inherit (typesPlugin) pluginsOpt extraPluginType mkPluginSetupOption luaInline pluginType borderType;

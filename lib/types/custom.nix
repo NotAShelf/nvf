@@ -1,4 +1,4 @@
-{lib}: let
+{lib, ...}: let
   inherit (lib.options) mergeEqualOption;
   inherit (lib.lists) singleton;
   inherit (lib.strings) isString stringLength match;

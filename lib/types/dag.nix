@@ -1,6 +1,7 @@
 # From home-manager: https://github.com/nix-community/home-manager/blob/master/modules/lib/types-dag.nix
 # Used for ordering configuration text.
-{lib}: let
+{lib, ...}: let
+  # TODO: inherit from subgroups
   inherit
     (lib)
     defaultFunctor

@@ -1,4 +1,4 @@
-{lib}: let
+{lib, ...}: let
   inherit (lib.options) mkOption;
   inherit (lib.types) bool;
   inherit (lib.modules) mkRenamedOptionModule;

@@ -1,9 +1,13 @@
-{lib}: let
+{
+  lib,
+  nvf-lib,
+  ...
+}: let
   inherit (builtins) isString getAttr;
   inherit (lib.options) mkOption;
   inherit (lib.types) listOf bool str submodule attrsOf anything either nullOr uniq;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.types) luaInline;
+  inherit (nvf-lib.attrsets) mapListToAttrs;
+  inherit (nvf-lib.types) luaInline;
 in {
   # TODO: remove
   diagnosticsToLua = {

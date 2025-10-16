@@ -1,16 +1,22 @@
 {
-  self,
   inputs,
-  lib,
-  ...
-}: {
-  types = import ./types {inherit lib self;};
-  config = import ./config.nix {inherit lib;};
-  binds = import ./binds.nix {inherit lib;};
-  dag = import ./dag.nix {inherit lib;};
-  languages = import ./languages.nix {inherit lib;};
-  lists = import ./lists.nix {inherit lib;};
-  attrsets = import ./attrsets.nix {inherit lib;};
-  lua = import ./lua.nix {inherit lib;};
-  neovimConfiguration = import ../modules {inherit self inputs lib;};
+  self,
+}: final: let
+  # Modeled after nixpkgs' lib.
+  callLibs = file:
+    import file {
+      nvf-lib = final;
+      inherit inputs self;
+      inherit (inputs.nixpkgs) lib;
+    };
+in {
+  types = callLibs ./types;
+  config = callLibs ./config.nix;
+  binds = callLibs ./binds.nix;
+  dag = callLibs ./dag.nix;
+  languages = callLibs ./languages.nix;
+  lists = callLibs ./lists.nix;
+  attrsets = callLibs ./attrsets.nix;
+  lua = callLibs ./lua.nix;
+  neovimConfiguration = callLibs ../modules;
 }

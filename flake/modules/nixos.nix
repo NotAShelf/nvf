@@ -1,9 +1,7 @@
 # NixOS module
-{
-  inputs,
-  lib,
-}: {
+{inputs}: {
   config,
+  lib,
   pkgs,
   ...
 }: let
