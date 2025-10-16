@@ -1,34 +1,31 @@
 # From home-manager: https://github.com/nix-community/home-manager/blob/master/modules/lib/types-dag.nix
 # Used for ordering configuration text.
-{lib, ...}: let
-  # TODO: inherit from subgroups
-  inherit
-    (lib)
-    defaultFunctor
-    nvim
-    mkIf
-    mkOrder
-    mkOption
-    mkOptionType
-    types
-    ;
+{
+  lib,
+  nvf-lib,
+  ...
+}: let
+  inherit (lib.types) attrsOf defaultFunctor listOf mkOptionType str submodule;
+  inherit (lib.modules) mkIf mkOrder;
+  inherit (lib.options) mkOption;
+  inherit (nvf-lib.dag) isEntry entryAnywhere;
 
   dagEntryOf = elemType: let
-    submoduleType = types.submodule ({name, ...}: {
+    submoduleType = submodule ({name, ...}: {
       options = {
         data = mkOption {type = elemType;};
-        after = mkOption {type = with types; listOf str;};
-        before = mkOption {type = with types; listOf str;};
+        after = mkOption {type = listOf str;};
+        before = mkOption {type = listOf str;};
       };
       config = mkIf (elemType.name == "submodule") {
         data._module.args.dagName = name;
       };
     });
     maybeConvert = def:
-      if nvim.dag.isEntry def.value
+      if isEntry def.value
       then def.value
       else
-        nvim.dag.entryAnywhere (
+        entryAnywhere (
           if def ? priority
           then mkOrder def.priority def.value
           else def.value
@@ -54,7 +51,7 @@ in rec {
   # "actual" attribute name a new submodule argument is provided with
   # the name `dagName`.
   dagOf = elemType: let
-    attrEquivalent = types.attrsOf (dagEntryOf elemType);
+    attrEquivalent = attrsOf (dagEntryOf elemType);
   in
     mkOptionType rec {
       name = "dagOf";
