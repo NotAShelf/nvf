@@ -301,6 +301,7 @@
   `helmfile`s when both are enabled.
 - Fix YAML language module not activating LSP keybinds if the Helm language
   module was also enabled.
+- Fix `json` language module (default) language server not activating.
 
 [TheColorman](https://github.com/TheColorman):
 
