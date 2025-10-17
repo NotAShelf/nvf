@@ -574,3 +574,8 @@
 - Update `python` language module to use correct lsp binary.
 - Fix `python` pyright and basedpyright language servers not using default on
   attach behavior.
+
+[Siggsy](https://github.com/siggsy):
+
+- Fix `vim.languages.haskell.lsp` using `lspconfig` options instead of
+  `haskell-tools.nvim` options.
