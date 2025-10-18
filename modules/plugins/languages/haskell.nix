@@ -21,9 +21,6 @@
   defaultServers = ["hls"];
   servers = {
     hls = {
-      enable = false;
-      cmd = [(getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server-wrapper") "--lsp"];
-      filetypes = ["haskell" "lhaskell"];
       on_attach =
         mkLuaInline
         /*
@@ -43,23 +40,6 @@
               vim.keymap.set('n', '<localleader>rq', ht.repl.quit, opts)
             end
         '';
-      root_dir =
-        mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function(bufnr, on_dir)
-            local fname = vim.api.nvim_buf_get_name(bufnr)
-            on_dir(util.root_pattern('hie.yaml', 'stack.yaml', 'cabal.project', '*.cabal', 'package.yaml')(fname))
-          end
-        '';
-      settings = {
-        haskell = {
-          formattingProvider = "ormolu";
-          cabalFormattingProvider = "cabalfmt";
-        };
-      };
     };
   };
 in {
