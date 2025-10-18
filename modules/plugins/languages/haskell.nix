@@ -21,7 +21,6 @@
   defaultServers = ["hls"];
   servers = {
     hls = {
-      cmd = [(getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server-wrapper") "--lsp"];
       on_attach =
         mkLuaInline
         /*
