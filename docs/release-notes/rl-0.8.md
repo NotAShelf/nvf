@@ -579,3 +579,5 @@
 
 - Fix `vim.languages.haskell.lsp` using `lspconfig` options instead of
   `haskell-tools.nvim` options.
+- Remove unecessary `haskell-language-server-wrapper`, reducing nvf size by 6GB.
+
