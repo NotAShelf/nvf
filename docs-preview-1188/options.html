@@ -21835,57 +21835,6 @@ boolean</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.languages.rust.crates.enable"></a><a class="term" href="options.html#opt-vim.languages.rust.crates.enable"><code class="option">vim.languages.rust.crates.enable</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Whether to enable crates-nvim, tools for managing dependencies.</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-boolean</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">false</code></p>
-
-<p><span class="emphasis"><em>Example:</em></span>
-<code class="literal">true</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_top">
-&lt;nvf/modules/plugins/languages/rust.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="opt-vim.languages.rust.crates.codeActions"></a><a class="term" href="options.html#opt-vim.languages.rust.crates.codeActions"><code class="option">vim.languages.rust.crates.codeActions</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Enable code actions through null-ls</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-boolean</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">true</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_top">
-&lt;nvf/modules/plugins/languages/rust.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
  <a id="opt-vim.languages.rust.dap.enable"></a><a class="term" href="options.html#opt-vim.languages.rust.dap.enable"><code class="option">vim.languages.rust.dap.enable</code>
   </a>
  </span>
@@ -21922,6 +21871,83 @@ package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">&lt;derivation lldb-19.1.7&gt;</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_top">
+&lt;nvf/modules/plugins/languages/rust.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.rust.extensions.crates-nvim.enable"></a><a class="term" href="options.html#opt-vim.languages.rust.extensions.crates-nvim.enable"><code class="option">vim.languages.rust.extensions.crates-nvim.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable crates.io dependency management [crates-nvim].</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_top">
+&lt;nvf/modules/plugins/languages/rust.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.rust.extensions.crates-nvim.setupOpts"></a><a class="term" href="options.html#opt-vim.languages.rust.extensions.crates-nvim.setupOpts"><code class="option">vim.languages.rust.extensions.crates-nvim.setupOpts</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Option table to pass into the setup function of crates-nvim</p><p>You can pass in any additional options even if they’re
+not listed in the docs</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+open submodule of anything</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_top">
+&lt;nvf/modules/plugins/languages/rust.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.rust.extensions.crates-nvim.setupOpts.completion.enable"></a><a class="term" href="options.html#opt-vim.languages.rust.extensions.crates-nvim.setupOpts.completion.enable"><code class="option">vim.languages.rust.extensions.crates-nvim.setupOpts.completion.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to add crates.nvim as a source for completion plugins. The following
+plugins are supported by crates.nvim:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>nvim-cmp</p></li><li class="listitem"><p>coq.nvim</p></li></ul></div><p>However nvf only supports auto-setup for nvim-cmp.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">&quot;{option}`config.vim.autocomplete.nvim-cmp.enable`&quot;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
