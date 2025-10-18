@@ -4,16 +4,8 @@
     flake-parts,
     self,
     ...
-  } @ inputs: let
-    # Call the extended library with `inputs`.
-    # inputs is used to get the original standard library, and to pass inputs
-    # to the plugin autodiscovery function
-    lib = import ./lib/stdlib-extended.nix {inherit inputs self;};
-  in
-    flake-parts.lib.mkFlake {
-      inherit inputs;
-      specialArgs = {inherit lib;};
-    } {
+  } @ inputs:
+    flake-parts.lib.mkFlake {inherit inputs;} {
       # Allow users to bring their own systems.
       # «https://github.com/nix-systems/nix-systems»
       systems = import inputs.systems;
@@ -24,16 +16,19 @@
         ./flake/develop.nix
       ];
 
-      flake = {
+      flake = {lib, ...}: let
+        # inputs is passed for the plugin autodiscovery function
+        nvf-lib = lib.fixedPoints.makeExtensible (import ./lib {inherit inputs self;});
+      in {
         lib = {
-          inherit (lib) nvim;
-          inherit (lib.nvim) neovimConfiguration;
+          nvim = nvf-lib;
+          inherit (nvf-lib) neovimConfiguration;
         };
 
         inherit (lib.importJSON ./npins/sources.json) pins;
 
         homeManagerModules = {
-          nvf = import ./flake/modules/home-manager.nix {inherit lib inputs;};
+          nvf = import ./flake/modules/home-manager.nix {inherit inputs;};
           default = self.homeManagerModules.nvf;
           neovim-flake =
             lib.warn ''
@@ -44,7 +39,7 @@
         };
 
         nixosModules = {
-          nvf = import ./flake/modules/nixos.nix {inherit lib inputs;};
+          nvf = import ./flake/modules/nixos.nix {inherit inputs;};
           default = self.nixosModules.nvf;
           neovim-flake =
             lib.warn ''

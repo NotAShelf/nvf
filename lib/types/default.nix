@@ -1,14 +1,6 @@
-{
-  lib,
-  self,
-}: let
-  typesDag = import ./dag.nix {inherit lib;};
-  typesPlugin = import ./plugins.nix {inherit lib self;};
-  typesLanguage = import ./languages.nix {inherit lib;};
-  customTypes = import ./custom.nix {inherit lib;};
-in {
-  inherit (typesDag) dagOf;
-  inherit (typesPlugin) pluginsOpt extraPluginType mkPluginSetupOption luaInline pluginType borderType;
-  inherit (typesLanguage) diagnostics mkGrammarOption;
-  inherit (customTypes) char hexColor mergelessListOf singleOrListOf;
+args: {
+  inherit (import ./dag.nix args) dagOf;
+  inherit (import ./plugins.nix args) pluginsOpt extraPluginType mkPluginSetupOption luaInline pluginType borderType;
+  inherit (import ./languages.nix args) diagnostics mkGrammarOption;
+  inherit (import ./custom.nix args) char hexColor mergelessListOf singleOrListOf;
 }

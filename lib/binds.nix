@@ -1,4 +1,4 @@
-{lib}: let
+{lib, ...}: let
   inherit (lib.options) mkOption;
   inherit (lib.modules) mkIf mkDefault;
   inherit (lib.types) nullOr str;
