@@ -578,3 +578,9 @@
 - Update `python` language module to use correct lsp binary.
 - Fix `python` pyright and basedpyright language servers not using default on
   attach behavior.
+
+[critical](https://github.com/critical):
+
+[mellow.nvim]: https://github.com/mellow-theme/mellow.nvim
+
+- Add [mellow.nvim] plugin for vim and lualine theme support

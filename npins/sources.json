@@ -961,6 +961,19 @@
       "url": "https://github.com/OXY2DEV/markview.nvim/archive/de79a7626d54d7785436105ef72f37ee8fe8fa16.tar.gz",
       "hash": "032i6m9pld1zyhd7lq49dg4qh98w6vmmzqp2f46drhq0ds26hs4h"
     },
+    "mellow": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mellow-theme",
+        "repo": "mellow.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "5cd188489bcc7eb512f0a30581ad972070f8e5cd",
+      "url": "https://github.com/mellow-theme/mellow.nvim/archive/5cd188489bcc7eb512f0a30581ad972070f8e5cd.tar.gz",
+      "hash": "0hjfhwvvlc50rrxscg2lbkip7v5s13yaja0pckhhxfkbz17b5v83"
+    },
     "mind-nvim": {
       "type": "Git",
       "repository": {
