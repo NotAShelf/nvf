@@ -5,4 +5,5 @@
   "oxocarbon"
   "gruvbox"
   "nord"
+  "mellow"
 ]
