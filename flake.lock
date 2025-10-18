@@ -51,24 +51,6 @@
         "type": "github"
       }
     },
-    "flake-parts_2": {
-      "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib"
-      },
-      "locked": {
-        "lastModified": 1756770412,
-        "narHash": "sha256-+uWLQZccFHwqpGqr2Yt5VsW/PbeJVTn9Dk6SHWhNRPw=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "4524271976b625a4a605beefd893f270620fd751",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "type": "github"
-      }
-    },
     "mnw": {
       "locked": {
         "lastModified": 1758834834,
@@ -87,15 +69,14 @@
     "ndg": {
       "inputs": {
         "flake-compat": "flake-compat_2",
-        "flake-parts": "flake-parts_2",
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1759819052,
-        "narHash": "sha256-/PiEHW2x72ZunFBfk5RXKqD99tfwLeIa3UhexabCRyk=",
+        "lastModified": 1760777965,
+        "narHash": "sha256-PHmDh1GxoBixpgtRCrBCvXJee/tCb6T57MLbwKfIURg=",
         "owner": "feel-co",
         "repo": "ndg",
-        "rev": "40f1c0633ffa2e3548a0452c0ed09edb01773dfb",
+        "rev": "30b955582f0cd869a86007f491252bbffde48f8b",
         "type": "github"
       },
       "original": {
@@ -110,28 +91,13 @@
         "narHash": "sha256-sUoHmPr/EwXzRMpv1u/kH+dXuvJEyyF2Q7muE+t0EU4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c23193b943c6c689d70ee98ce3128239ed9e32d1",
+        "rev": "8913c168d1c56dc49a7718685968f38752171c3b",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-lib": {
-      "locked": {
-        "lastModified": 1754788789,
-        "narHash": "sha256-x2rJ+Ovzq0sCMpgfgGaaqgBSwY+LST+WbZ6TytnT9Rk=",
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "rev": "a73b9c743612e4244d865a2fdee11865283c04e6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
         "type": "github"
       }
     },
