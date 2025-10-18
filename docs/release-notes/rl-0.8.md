@@ -115,6 +115,9 @@
 - Add [hunk.nvim], Neovim plugin & tool for splitting diffs in Neovim. Available
   as `vim.git.hunk-nvim`
 
+- Move `crates.nvim` into `languages.rust.extensions and support` `setupOpts`
+  for the plugin. Deprecates the top level "crates" option in `languages.rust`.
+
 [sjcobb2022](https://github.com/sjcobb2022):
 
 - Migrate all current lsp configurations to `vim.lsp.server` and remove internal
@@ -301,6 +304,7 @@
   `helmfile`s when both are enabled.
 - Fix YAML language module not activating LSP keybinds if the Helm language
   module was also enabled.
+- Fix `json` language module (default) language server not activating.
 
 [TheColorman](https://github.com/TheColorman):
 
