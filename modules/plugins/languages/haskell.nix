@@ -41,12 +41,6 @@
               vim.keymap.set('n', '<localleader>rq', ht.repl.quit, opts)
             end
         '';
-      settings = {
-        haskell = {
-          formattingProvider = "ormolu";
-          cabalFormattingProvider = "cabalfmt";
-        };
-      };
     };
   };
 in {
