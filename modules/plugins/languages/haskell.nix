@@ -22,6 +22,7 @@
   servers = {
     hls = {
       enable = true;
+      cmd = [ "haskell-language-server-wrapper"  "--lsp" ];
       filetypes = ["haskell" "lhaskell"];
       root_dir =
         mkLuaInline
