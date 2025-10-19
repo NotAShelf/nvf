@@ -18,7 +18,7 @@
 
   cfg = config.vim.languages.haskell;
 
-  defaultServers = ["hls"];
+  defaultServers = ["haskell-tools"];
   serverCommon = {
     filetypes = ["haskell" "lhaskell"];
     root_dir =
