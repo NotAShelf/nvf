@@ -19,46 +19,52 @@
   cfg = config.vim.languages.haskell;
 
   defaultServers = ["hls"];
+  serverCommon = {
+    filetypes = ["haskell" "lhaskell"];
+    root_dir =
+      mkLuaInline
+      /*
+      lua
+      */
+      ''
+        function(bufnr, on_dir)
+          local fname = vim.api.nvim_buf_get_name(bufnr)
+          on_dir(util.root_pattern('hie.yaml', 'stack.yaml', 'cabal.project', '*.cabal', 'package.yaml')(fname))
+        end
+      '';
+  };
   servers = {
-    hls = {
-      enable = true;
-      cmd = [ "haskell-language-server-wrapper"  "--lsp" ];
-      filetypes = ["haskell" "lhaskell"];
-      root_dir =
-        mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function(bufnr, on_dir)
-            local fname = vim.api.nvim_buf_get_name(bufnr)
-            on_dir(util.root_pattern('hie.yaml', 'stack.yaml', 'cabal.project', '*.cabal', 'package.yaml')(fname))
-          end
-        '';
-    };
+    hls =
+      serverCommon
+      // {
+        enable = true;
+        cmd = ["haskell-language-server-wrapper" "--lsp"];
+      };
 
-    haskell-tools = {
-      enable = true;
-      on_attach =
-        mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function(client, bufnr)
-              local ht = require("haskell-tools")
-              local opts = { noremap = true, silent = true, buffer = bufnr }
-              vim.keymap.set('n', '<localleader>cl', vim.lsp.codelens.run, opts)
-              vim.keymap.set('n', '<localleader>hs', ht.hoogle.hoogle_signature, opts)
-              vim.keymap.set('n', '<localleader>ea', ht.lsp.buf_eval_all, opts)
-              vim.keymap.set('n', '<localleader>rr', ht.repl.toggle, opts)
-              vim.keymap.set('n', '<localleader>rf', function()
-                ht.repl.toggle(vim.api.nvim_buf_get_name(0))
-              end, opts)
-              vim.keymap.set('n', '<localleader>rq', ht.repl.quit, opts)
-            end
-        '';
-    };
+    haskell-tools =
+      serverCommon
+      // {
+        enable = false;
+        on_attach =
+          mkLuaInline
+          /*
+          lua
+          */
+          ''
+            function(client, bufnr)
+                local ht = require("haskell-tools")
+                local opts = { noremap = true, silent = true, buffer = bufnr }
+                vim.keymap.set('n', '<localleader>cl', vim.lsp.codelens.run, opts)
+                vim.keymap.set('n', '<localleader>hs', ht.hoogle.hoogle_signature, opts)
+                vim.keymap.set('n', '<localleader>ea', ht.lsp.buf_eval_all, opts)
+                vim.keymap.set('n', '<localleader>rr', ht.repl.toggle, opts)
+                vim.keymap.set('n', '<localleader>rf', function()
+                  ht.repl.toggle(vim.api.nvim_buf_get_name(0))
+                end, opts)
+                vim.keymap.set('n', '<localleader>rq', ht.repl.quit, opts)
+              end
+          '';
+      };
   };
 in {
   options.vim.languages.haskell = {
