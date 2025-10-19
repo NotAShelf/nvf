@@ -44,6 +44,7 @@
     haskell-tools =
       serverCommon
       // {
+        # haskell-tools is already started by haskell-tools.nvim via ftplugin
         enable = false;
         on_attach =
           mkLuaInline
@@ -109,6 +110,16 @@ in {
           value = servers.${n};
         })
         cfg.lsp.servers;
+    })
+
+    (mkIf (cfg.dap.enable && cfg.lsp.enable && !elem "haskell-tools" cfg.lsp.servers) {
+      warnings = [
+        (
+          "You appear to have enabled vim.languages.haskell.dap, which implicitly "
+          + "causes haskell-tools-nvim plugin to be added. Make sure you also add "
+          + "'haskell-tools' server to vim.languages.haskell.lsp.servers"
+        )
+      ];
     })
 
     (mkIf (cfg.dap.enable || (cfg.lsp.enable && elem "haskell-tools" cfg.lsp.servers)) {
