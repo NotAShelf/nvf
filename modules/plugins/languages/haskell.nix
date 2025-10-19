@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (builtins) isList attrNames;
+  inherit (builtins) isList attrNames elem;
   inherit (lib.types) either package enum listOf str;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.strings) optionalString;
@@ -12,7 +12,7 @@
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.meta) getExe';
+  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.generators) mkLuaInline;
   inherit (pkgs) haskellPackages;
 
@@ -21,9 +21,23 @@
   defaultServers = ["hls"];
   servers = {
     hls = {
-      enable = false;
-      cmd = [(getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server-wrapper") "--lsp"];
+      enable = true;
       filetypes = ["haskell" "lhaskell"];
+      root_dir =
+        mkLuaInline
+        /*
+        lua
+        */
+        ''
+          function(bufnr, on_dir)
+            local fname = vim.api.nvim_buf_get_name(bufnr)
+            on_dir(util.root_pattern('hie.yaml', 'stack.yaml', 'cabal.project', '*.cabal', 'package.yaml')(fname))
+          end
+        '';
+    };
+
+    haskell-tools = {
+      enable = true;
       on_attach =
         mkLuaInline
         /*
@@ -43,23 +57,6 @@
               vim.keymap.set('n', '<localleader>rq', ht.repl.quit, opts)
             end
         '';
-      root_dir =
-        mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function(bufnr, on_dir)
-            local fname = vim.api.nvim_buf_get_name(bufnr)
-            on_dir(util.root_pattern('hie.yaml', 'stack.yaml', 'cabal.project', '*.cabal', 'package.yaml')(fname))
-          end
-        '';
-      settings = {
-        haskell = {
-          formattingProvider = "ormolu";
-          cabalFormattingProvider = "cabalfmt";
-        };
-      };
     };
   };
 in {
@@ -98,7 +95,16 @@ in {
       };
     })
 
-    (mkIf (cfg.dap.enable || cfg.lsp.enable) {
+    (mkIf cfg.lsp.enable {
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
+    })
+
+    (mkIf (cfg.dap.enable || (cfg.lsp.enable && elem "haskell-tools" cfg.lsp.servers)) {
       vim = {
         startPlugins = ["haskell-tools-nvim"];
         luaConfigRC.haskell-tools-nvim =
@@ -113,7 +119,6 @@ in {
                   enable = true,
                 },
               },
-              hls = ${toLuaObject servers.hls},
             ''}
             ${optionalString cfg.dap.enable ''
               dap = {
