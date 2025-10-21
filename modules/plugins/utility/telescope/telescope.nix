@@ -208,6 +208,7 @@ in {
       open = mkMappingOption "Open [Telescope]" "<leader>ft";
       resume = mkMappingOption "Resume (previous search) [Telescope]" "<leader>fr";
 
+      gitFiles = mkMappingOption "Git files [Telescope]" "<leader>fvf";
       gitCommits = mkMappingOption "Git commits [Telescope]" "<leader>fvcw";
       gitBufferCommits = mkMappingOption "Git buffer commits [Telescope]" "<leader>fvcb";
       gitBranches = mkMappingOption "Git branches [Telescope]" "<leader>fvb";
