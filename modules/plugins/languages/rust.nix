@@ -99,7 +99,7 @@ in {
         enable = mkEnableOption "crates.io dependency management [crates-nvim]";
 
         setupOpts = mkPluginSetupOption "crates-nvim" {
-          completion.enable = mkOption {
+          completion.cmp.enable = mkOption {
             type = bool;
             default = config.vim.autocomplete.nvim-cmp.enable;
             defaultText = "{option}`config.vim.autocomplete.nvim-cmp.enable`";
