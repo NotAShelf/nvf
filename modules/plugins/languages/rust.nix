@@ -198,7 +198,7 @@ in {
 
     (mkIf cfg.extensions.crates-nvim.enable {
       vim = let
-        withCompletion = cfg.extensions.crates-nvim.withCmpSource;
+        withCompletion = cfg.extensions.crates-nvim.setupOpts.completion.cmp.enable;
       in
         mkMerge [
           {
