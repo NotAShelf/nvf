@@ -7,7 +7,7 @@ in {
     mkOptionType {
       name = "mergelessListOf";
       description = "mergeless list of ${elemType.description or "values"}";
-      check = listOf elemType.check or (x: true);
+      inherit (lib.types.listOf elemType) check;
       merge = mergeEqualOption;
     };
 
