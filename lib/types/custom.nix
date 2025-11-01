@@ -3,13 +3,11 @@
   inherit (lib.strings) isString stringLength match;
   inherit (lib.types) listOf mkOptionType;
 in {
-  mergelessListOf = elemType: let
-    super = listOf elemType;
-  in
-    super
-    // {
+  mergelessListOf = elemType:
+    mkOptionType {
       name = "mergelessListOf";
-      description = "mergeless ${super.description}";
+      description = "mergeless list of ${elemType.description or "values"}";
+      check = listOf elemType.check or (x: true);
       merge = mergeEqualOption;
     };
 
