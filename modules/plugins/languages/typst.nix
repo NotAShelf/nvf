@@ -92,11 +92,8 @@
     };
   };
 
-  defaultFormat = "typstfmt";
+  defaultFormat = "typstyle";
   formats = {
-    typstfmt = {
-      package = pkgs.typstfmt;
-    };
     # https://github.com/Enter-tainer/typstyle
     typstyle = {
       package = pkgs.typstyle;
