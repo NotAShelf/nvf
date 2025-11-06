@@ -1,11 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: github-actions
+    open-pull-requests-limit: 15
     directory: "/"
     schedule:
       interval: daily
-    open-pull-requests-limit: 15
-    reviewers:
-      - NotAShelf
-    assignees:
-      - NotAShelf
