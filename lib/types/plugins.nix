@@ -1,11 +1,14 @@
 {
   lib,
+  nvf-lib,
   self,
+  ...
 }: let
   inherit (lib.options) mkOption;
   inherit (lib.attrsets) attrNames mapAttrs' filterAttrs nameValuePair;
   inherit (lib.strings) hasPrefix removePrefix;
-  inherit (lib.types) submodule either package enum str lines anything listOf nullOr;
+  inherit (lib.types) submodule either package enum str lines anything listOf nullOr mkOptionType;
+  inherit (nvf-lib.lua) isLuaInline;
 
   # Get the names of all flake inputs that start with the given prefix.
   fromInputs = {
@@ -64,9 +67,9 @@ in {
       type = pluginsType;
     };
 
-  luaInline = lib.mkOptionType {
+  luaInline = mkOptionType {
     name = "luaInline";
-    check = x: lib.nvim.lua.isLuaInline x;
+    check = x: isLuaInline x;
   };
 
   /*

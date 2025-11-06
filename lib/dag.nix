@@ -7,11 +7,15 @@
 #
 #  - the addition of the function `entryBefore` indicating a "wanted
 #    by" relationship.
-{lib}: let
+{
+  lib,
+  nvf-lib,
+  ...
+}: let
   inherit (builtins) isAttrs attrValues attrNames elem all head tail length toJSON isString removeAttrs;
   inherit (lib.attrsets) filterAttrs mapAttrs;
   inherit (lib.lists) toposort;
-  inherit (lib.nvim.dag) empty isEntry entryBetween entryAfter entriesBetween entryAnywhere topoSort;
+  inherit (nvf-lib.dag) empty isEntry entryBetween entryAfter entriesBetween entryAnywhere topoSort;
 in {
   empty = {};
 

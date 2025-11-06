@@ -1,4 +1,4 @@
-{lib}: let
+{lib, ...}: let
   inherit (lib.options) mkOption mkPackageOption;
   inherit (lib.attrsets) attrNames;
   inherit (lib.types) listOf either enum submodule package;

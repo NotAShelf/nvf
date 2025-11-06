@@ -1,5 +1,5 @@
 # Helpers for converting values to lua
-{lib}: let
+{lib, ...}: let
   isLuaInline = object: (object._type or null) == "lua-inline";
 
   toLuaObject = args:

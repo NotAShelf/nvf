@@ -1,4 +1,4 @@
-{lib, ...}: {
+{self, ...}: {
   perSystem = {
     pkgs,
     config,
@@ -20,7 +20,7 @@
     packages.dev = let
       configuration = {};
 
-      customNeovim = lib.nvim.neovimConfiguration {
+      customNeovim = self.lib.nvim.neovimConfiguration {
         inherit pkgs;
         modules = [configuration];
       };

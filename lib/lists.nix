@@ -1,4 +1,4 @@
-{lib}: let
+{lib, ...}: let
   inherit (lib.lists) elem all;
 in {
   /*
