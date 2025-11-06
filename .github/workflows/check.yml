@@ -17,7 +17,7 @@ jobs:
     if: "!contains(github.event.pull_request.title, '[skip ci]')"
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
@@ -31,7 +31,7 @@ jobs:
     if: "!contains(github.event.pull_request.title, '[skip ci]')"
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
@@ -39,13 +39,24 @@ jobs:
       - name: Check formatting via Alejandra
         run: nix run nixpkgs#alejandra -- --check . --exclude npins
 
+      - name: Check formatting via Deno
+        run: nix run nixpkgs#deno -- fmt --check --ext md **/*.md
+
+      - if: ${{ failure() }}
+        shell: bash
+        run: |
+          echo "::error:: Current codebase contains formatting errors that were caught by the CI!"
+          echo "Please ensure that all Nix code is formatted with Alejandra, and Markdown with `deno fmt"
+          echo "[skip ci] label may be added to the PR title if this is a one-time issue and is safe to ignore"
+          exit 1
+
   check-typos:
     name: "Check source tree for typos"
     runs-on: ubuntu-latest
     if: "!contains(github.event.pull_request.title, '[skip ci]')"
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Check for typos
         uses: crate-ci/typos@master
@@ -76,7 +87,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@main
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set default git branch (to reduce log spam)
         run: git config --global init.defaultBranch main
@@ -90,7 +101,7 @@ jobs:
         run: echo "date=$(date +'%Y-%m-%d-%H%M%S')" >> ${GITHUB_OUTPUT}
 
       - name: Upload doc artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: "${{ matrix.package }}"
           path: result/share/doc/nvf
@@ -104,7 +115,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@main
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Build linkcheck package
         run: nix build .#docs-linkcheck -Lv
@@ -115,7 +126,7 @@ jobs:
     if: "!contains(github.event.pull_request.title, '[skip ci]')"
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 2 # slows down checkout, but we need to compare against the previous commit on push events
 
@@ -142,7 +153,8 @@ jobs:
       - name: Checking Editorconfig conformance
         shell: bash
         run: |
-          < "$HOME/changed_files" nix-shell -p editorconfig-checker --run 'xargs -r editorconfig-checker -disable-indent-size'
+          < "$HOME/changed_files" nix-shell -p editorconfig-checker \
+                                    --run 'xargs -r editorconfig-checker -disable-indent-size --exclude flake.lock'
 
       - if: ${{ failure() }}
         shell: bash

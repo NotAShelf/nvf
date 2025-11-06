@@ -25,7 +25,7 @@ in {
       type = listOf package;
       default = [];
       example = literalExpression ''
-        pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+        with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
           regex
           kdl
         ];
@@ -33,6 +33,7 @@ in {
       description = ''
         List of treesitter grammars to install. For grammars to be installed properly,
         you must use grammars from `pkgs.vimPlugins.nvim-treesitter.builtGrammars`.
+        You can use `pkgs.vimPlugins.nvim-treesitter.allGrammars` to install all grammars.
 
         For languages already supported by nvf, you may use
         {option}`vim.language.<lang>.treesitter` options, which will automatically add
@@ -106,7 +107,7 @@ in {
           -- Disable slow treesitter highlight for large files
           function(lang, buf)
             local max_filesize = 1000 * 1024 -- 1MB
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+            local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
             if ok and stats and stats.size > max_filesize then
                 return true
             end

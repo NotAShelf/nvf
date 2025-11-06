@@ -5,8 +5,8 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.strings) optionalString;
-  inherit (lib.lists) optionals;
+  inherit (lib.strings) optionalString concatMapStringsSep;
+  inherit (lib.lists) optionals concatLists;
   inherit (lib.nvim.binds) pushDownDefault mkKeymap;
 
   cfg = config.vim.telescope;
@@ -16,7 +16,7 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = ["plenary-nvim"];
+      startPlugins = ["plenary-nvim"] ++ concatLists (map (x: x.packages) cfg.extensions);
 
       lazy.plugins.telescope = {
         package = "telescope";
@@ -28,11 +28,14 @@ in {
           vim.g.loaded_telescope = nil
         '';
 
-        after = ''
+        after = let
+          enabledExtensions = map (x: x.name) cfg.extensions;
+        in ''
           local telescope = require("telescope")
           ${optionalString config.vim.ui.noice.enable "telescope.load_extension('noice')"}
           ${optionalString config.vim.notify.nvim-notify.enable "telescope.load_extension('notify')"}
           ${optionalString config.vim.projects.project-nvim.enable "telescope.load_extension('projects')"}
+          ${concatMapStringsSep "\n" (x: "telescope.load_extension('${x}')") enabledExtensions}
         '';
 
         cmd = ["Telescope"];

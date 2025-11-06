@@ -9,6 +9,8 @@
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.lists) isList;
   inherit (lib.types) either listOf package str enum;
 
   cfg = config.vim.languages.ruby;
@@ -24,7 +26,25 @@
           flags = {
             debounce_text_changes = 150,
           },
-          cmd = { "${pkgs.solargraph}/bin/solargraph", "stdio" }
+          cmd = ${
+          if isList cfg.lsp.package
+          then expToLua cfg.lsp.package
+          else ''{ "${cfg.lsp.package}/bin/solargraph", "stdio" }''
+        }
+        }
+      '';
+    };
+    rubylsp = {
+      package = pkgs.ruby-lsp;
+      lspConfig = ''
+        lspconfig.ruby_lsp.setup {
+          capabilities = capabilities,
+          on_attach = default_on_attach,
+          cmd = ${
+          if isList cfg.lsp.package
+          then expToLua cfg.lsp.package
+          else ''{ "${cfg.lsp.package}/bin/ruby-lsp" }''
+        }
         }
       '';
     };
@@ -57,7 +77,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Ruby LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Ruby LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         type = enum (attrNames servers);

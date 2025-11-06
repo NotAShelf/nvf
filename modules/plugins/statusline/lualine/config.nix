@@ -14,17 +14,28 @@
   bCfg = config.vim.ui.breadcrumbs;
 in {
   config = mkMerge [
-    (mkIf config.vim.filetree.nvimTree.enable {
-      vim.statusline.lualine.setupOpts = {
-        extensions = ["nvim-tree"];
-      };
-    })
-
-    (mkIf config.vim.filetree.neo-tree.enable {
-      vim.statusline.lualine.setupOpts = {
-        extensions = ["neo-tree"];
-      };
-    })
+    {
+      vim.statusline.lualine.setupOpts.extensions =
+        (lib.optionals config.vim.filetree.nvimTree.enable ["nvim-tree"])
+        ++ (lib.optionals config.vim.filetree.neo-tree.enable ["neo-tree"])
+        ++ (lib.optionals config.vim.utility.snacks-nvim.enable [
+          {
+            # same extensions as nerdtree / neo-tree
+            # https://github.com/nvim-lualine/lualine.nvim/blob/master/lua/lualine/extensions/nerdtree.lua
+            # https://github.com/nvim-lualine/lualine.nvim/blob/master/lua/lualine/extensions/neo-tree.lua
+            sections = {
+              lualine_a = mkLuaInline ''
+                {
+                  function()
+                    return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
+                  end,
+                }
+              '';
+            };
+            filetypes = ["snacks_picker_list" "snacks_picker_input"];
+          }
+        ]);
+    }
 
     (mkIf (bCfg.enable && bCfg.lualine.winbar.enable && bCfg.source == "nvim-navic") {
       vim.statusline.lualine.setupOpts = {
@@ -52,8 +63,8 @@ in {
           options = {
             icons_enabled = mkDefault cfg.icons.enable;
             theme = mkDefault cfg.theme;
-            component_separators = mkDefault [cfg.componentSeparator.left cfg.componentSeparator.right];
-            section_separators = mkDefault [cfg.sectionSeparator.left cfg.sectionSeparator.right];
+            component_separators = mkDefault cfg.componentSeparator;
+            section_separators = mkDefault cfg.sectionSeparator;
             globalstatus = mkDefault cfg.globalStatus;
             refresh = mkDefault cfg.refresh;
             always_divide_middle = mkDefault cfg.alwaysDivideMiddle;

@@ -15,7 +15,7 @@ in {
   config = mkIf cfg.enable {
     vim = {
       startPlugins = [
-        "nvim-bufferline-lua"
+        "bufferline-nvim"
         "bufdelete-nvim"
       ];
 

@@ -33,11 +33,12 @@
       "minimap"
       "notes"
       "projects"
+      "repl"
       "rich-presence"
       "runner"
       "session"
       "snippets"
-      # "spellcheck" # FIXME: see neovim/init/spellcheck.nix
+      "spellcheck"
       "statusline"
       "tabline"
       "terminal"

@@ -2,7 +2,9 @@
   config,
   lib,
 }: let
-  inherit (lib.strings) optionalString;
+  inherit (lib.strings) optionalString splitString;
+  inherit (lib.attrsets) mapCartesianProduct;
+  inherit (lib.lists) intersectLists;
   inherit (lib.trivial) boolToString warnIf;
   inherit (lib.nvim.lua) toLuaObject;
 in {
@@ -21,9 +23,14 @@ in {
     '';
   };
   onedark = {
-    setup = {style ? "dark", ...}: ''
+    setup = {
+      style ? "dark",
+      transparent,
+      ...
+    }: ''
       -- OneDark theme
       require('onedark').setup {
+        transparent = ${boolToString transparent},
         style = "${style}"
       }
       require('onedark').load()
@@ -39,6 +46,18 @@ in {
     }: ''
       require('tokyonight').setup {
         transparent = ${boolToString transparent};
+        styles = {
+          sidebars = ${
+        if transparent
+        then ''"transparent"''
+        else ''"dark"''
+      },
+          floats = ${
+        if transparent
+        then ''"transparent"''
+        else ''"dark"''
+      },
+        },
       }
       vim.cmd[[colorscheme tokyonight-${style}]]
     '';
@@ -64,6 +83,9 @@ in {
       require('catppuccin').setup {
         flavour = "${style}",
         transparent_background = ${boolToString transparent},
+        float = {
+          transparent = ${boolToString transparent},
+        },
         term_colors = true,
         integrations = {
           nvimtree = {
@@ -95,7 +117,7 @@ in {
       -- setup must be called before loading
       vim.cmd.colorscheme "catppuccin"
     '';
-    styles = ["latte" "frappe" "macchiato" "mocha"];
+    styles = ["auto" "latte" "frappe" "macchiato" "mocha"];
   };
 
   oxocarbon = {
@@ -211,5 +233,86 @@ in {
       vim.cmd[[colorscheme github_${style}]]
     '';
     styles = ["dark" "light" "dark_dimmed" "dark_default" "light_default" "dark_high_contrast" "light_high_contrast" "dark_colorblind" "light_colorblind" "dark_tritanopia" "light_tritanopia"];
+  };
+
+  solarized = let
+    backgrounds = ["light" "dark"];
+    palettes = ["solarized" "selenized"];
+    variants = ["spring" "summer" "autumn" "winter"];
+  in {
+    setup = {
+      style ? "", # use plugin defaults
+      transparent ? false,
+      ...
+    }: let
+      parts = splitString "-" style;
+      detect = list: let
+        intersection = intersectLists parts list;
+      in
+        if intersection == []
+        then null
+        else builtins.head intersection;
+      background = detect backgrounds;
+      palette = detect palettes;
+      variant = detect variants;
+    in ''
+      -- Solarized theme
+      require('solarized').setup {
+        transparent = {
+          enabled = ${boolToString transparent},
+        },
+        ${optionalString (palette != null) ''palette = "${palette}",''}
+        ${optionalString (variant != null) ''variant = "${variant}",''}
+      }
+      ${optionalString (background != null) ''vim.opt.background = "${background}"''}
+      vim.cmd.colorscheme "solarized"
+    '';
+    styles = let
+      joinWithDashes = parts: lib.concatStringsSep "-" (lib.filter (s: s != "") parts);
+      combinations = mapCartesianProduct ({
+        bg,
+        pal,
+        var,
+      }:
+        joinWithDashes [bg pal var]) {
+        bg = [""] ++ backgrounds;
+        pal = [""] ++ palettes;
+        var = [""] ++ variants;
+      };
+    in
+      lib.filter (s: s != "") combinations;
+  };
+
+  solarized-osaka = {
+    setup = {transparent ? false, ...}: ''
+      require("solarized-osaka").setup({
+        transparent = ${boolToString transparent},
+        styles = {
+          comments = { italic = false },
+          keywords = { italic = false },
+        }
+      })
+
+      vim.cmd.colorscheme("solarized-osaka")
+    '';
+  };
+
+  everforest = {
+    setup = {
+      style ? "medium",
+      transparent ? false,
+      ...
+    }: ''
+      vim.g.everforest_background = "${style}"
+      vim.g.everforest_transparent_background = ${
+        if transparent
+        then "1"
+        else "0"
+      }
+
+      vim.cmd.colorscheme("everforest")
+    '';
+
+    styles = ["hard" "medium" "soft"];
   };
 }

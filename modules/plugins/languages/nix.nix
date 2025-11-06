@@ -60,7 +60,17 @@
       '';
     };
 
-    nixd = {
+    nixd = let
+      settings.nixd = {
+        inherit (cfg.lsp) options;
+        formatting.command =
+          if !cfg.format.enable
+          then null
+          else if cfg.format.type == "alejandra"
+          then ["${cfg.format.package}/bin/alejandra" "--quiet"]
+          else ["${cfg.format.package}/bin/nixfmt"];
+      };
+    in {
       package = pkgs.nixd;
       internalFormatter = true;
       lspConfig = ''
@@ -72,25 +82,7 @@
           else noFormat
         },
           cmd = ${packageToCmd cfg.lsp.package "nixd"},
-        ${optionalString cfg.format.enable ''
-          settings = {
-            nixd = {
-          ${optionalString (cfg.format.type == "alejandra")
-            ''
-              formatting = {
-                command = {"${cfg.format.package}/bin/alejandra", "--quiet"},
-              },
-            ''}
-          ${optionalString (cfg.format.type == "nixfmt")
-            ''
-              formatting = {
-                command = {"${cfg.format.package}/bin/nixfmt"},
-              },
-            ''}
-          options = ${toLuaObject cfg.lsp.options},
-            },
-          },
-        ''}
+          settings = ${toLuaObject settings},
         }
       '';
     };
@@ -143,7 +135,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Nix LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Nix LSP support" // {default = config.vim.lsp.enable;};
       server = mkOption {
         description = "Nix LSP server to use";
         type = enum (attrNames servers);

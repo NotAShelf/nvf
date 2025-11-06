@@ -99,7 +99,7 @@
       # idk if this is the best way to install/run debugpy
       package = pkgs.python3.withPackages (ps: with ps; [debugpy]);
       dapConfig = ''
-        dap.adapters.python = function(cb, config)
+        dap.adapters.debugpy = function(cb, config)
           if config.request == 'attach' then
             ---@diagnostic disable-next-line: undefined-field
             local port = (config.connect or config).port
@@ -128,7 +128,7 @@
         dap.configurations.python = {
           {
             -- The first three options are required by nvim-dap
-            type = 'python'; -- the type here established the link to the adapter definition: `dap.adapters.python`
+            type = 'debugpy'; -- the type here established the link to the adapter definition: `dap.adapters.debugpy`
             request = 'launch';
             name = "Launch file";
 
@@ -169,7 +169,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Python LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Python LSP support" // {default = config.vim.lsp.enable;};
 
       server = mkOption {
         description = "Python LSP server to use";

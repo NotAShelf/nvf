@@ -21,16 +21,7 @@ jobs:
           - nix
           - maximal
     steps:
-      - uses: easimon/maximize-build-space@v10
-        name: Maximize build space
-        with:
-          overprovision-lvm: true
-          remove-android: true
-          remove-dotnet: true
-          remove-haskell: true
-          remove-codeql: true
-
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         name: Checkout
 
       - name: Install Nix

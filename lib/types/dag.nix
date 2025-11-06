@@ -62,7 +62,13 @@ in rec {
       inherit (elemType) getSubModules;
       getSubOptions = prefix: elemType.getSubOptions (prefix ++ ["<name>"]);
       substSubModules = m: dagOf (elemType.substSubModules m);
-      functor = (defaultFunctor name) // {wrapped = elemType;};
+      functor = {
+        name = name;
+        type = dagOf;
+        wrapped = elemType;
+        payload = elemType;
+        binOp = a: b: a;
+      };
       nestedTypes.elemType = elemType;
     };
 }

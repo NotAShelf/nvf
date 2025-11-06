@@ -39,7 +39,7 @@ in {
           type = luaInline;
           default = mkLuaInline ''
             function()
-              return vim.loop.cwd()
+              return vim.uv.cwd()
             end
           '';
           description = ''

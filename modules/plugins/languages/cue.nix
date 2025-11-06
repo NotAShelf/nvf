@@ -21,7 +21,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "CUE LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "CUE LSP support" // {default = config.vim.lsp.enable;};
 
       package = mkOption {
         type = package;

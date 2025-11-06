@@ -3,11 +3,12 @@
   inherit (lib.nvim.binds) mkMappingOption;
 in {
   options.vim.lsp = {
-    enable = mkEnableOption "LSP, also enabled automatically through null-ls and lspconfig options";
     formatOnSave = mkEnableOption "format on save";
+
     inlayHints = {
       enable = mkEnableOption "inlay hints";
     };
+
     mappings = {
       goToDefinition =
         mkMappingOption "Go to definition"

@@ -7,7 +7,7 @@
   inherit (builtins) attrNames;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.options) mkOption mkEnableOption literalMD;
   inherit (lib.strings) optionalString;
   inherit (lib.trivial) boolToString;
   inherit (lib.lists) isList;
@@ -43,7 +43,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Rust LSP support (rust-analyzer with extra tools)" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Rust LSP support (rust-analyzer with extra tools)" // {default = config.vim.lsp.enable;};
       package = mkOption {
         description = "rust-analyzer package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
@@ -68,7 +68,14 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "Rust formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "Rust formatting"
+        // {
+          default = !cfg.lsp.enable && config.vim.languages.enableFormat;
+          defaultText = literalMD ''
+            Disabled if Rust LSP is enabled, otherwise follows {option}`vim.languages.enableFormat`
+          '';
+        };
 
       type = mkOption {
         description = "Rust formatter to use";

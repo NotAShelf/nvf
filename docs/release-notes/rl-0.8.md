@@ -19,6 +19,15 @@
   unavailable as they have been refactored out of the main none-ls repository
   upstream.
 
+- `vim.useSystemClipboard` has been deprecated as a part of removing most
+  top-level convenience options, and should instead be configured in the new
+  module interface. You may set [](#opt-vim.clipboard.registers) appropriately
+  to configure Neovim to use the system clipboard.
+
+- Changed which-key group used for gitsigns from `<leader>g` to `<leader>h` to
+  align with the "hunks" themed mapping and avoid conflict with the new [neogit]
+  group.
+
 [NotAShelf](https://github.com/notashelf):
 
 [typst-preview.nvim]: https://github.com/chomosuke/typst-preview.nvim
@@ -26,7 +35,10 @@
 [yanky.nvim]: https://github.com/gbprod/yanky.nvim
 [yazi.nvim]: https://github.com/mikavilpas/yazi.nvim
 [snacks.nvim]: https://github.com/folke/snacks.nvim
+[colorful-menu.nvim]: https://github.com/xzbdmw/colorful-menu.nvim
 [oil.nvim]: https://github.com/stevearc/oil.nvim
+[hunk.nvim]: https://github.com/julienvincent/hunk.nvim
+[undotree]: https://github.com/mbbill/undotree
 
 - Add [typst-preview.nvim] under
   `languages.typst.extensions.typst-preview-nvim`.
@@ -84,12 +96,20 @@
 
 - Lazyload Lspsaga and remove default keybindings for it.
 
+- Add [colorful-menu.nvim] to enhance the completion menus, with optional
+  integration for blink-cmp and nvim-cmp
 - Add [oil.nvim] as an alternative file explorer. It will be available under
   `vim.utility.oil-nvim`.
-
 - Add `vim.diagnostics` to interact with Neovim's diagnostics module. Available
   options for `vim.diagnostic.config()` can now be customized through the
   [](#opt-vim.diagnostics.config) in nvf.
+
+- Add `vim.clipboard` module for easily managing Neovim clipboard providers and
+  relevant packages in a simple UI.
+  - This deprecates `vim.useSystemClipboard` as well, see breaking changes
+    section above for migration options.
+- Add [hunk.nvim], Neovim plugin & tool for splitting diffs in Neovim. Available
+  as `vim.git.hunk-nvim`
 
 [amadaluzia](https://github.com/amadaluzia):
 
@@ -107,6 +127,9 @@
 - Add `LazyFile` user event.
 - Migrate language modules from none-ls to conform/nvim-lint
 - Add tsx support in conform and lint
+- Moved code setting `additionalRuntimePaths` and `enableLuaLoader` out of
+  `luaConfigPre`'s default to prevent being overridden
+- Use conform over custom autocmds for LSP format on save
 
 [diniamo](https://github.com/diniamo):
 
@@ -276,6 +299,7 @@
 [BANanaD3V](https://github.com/BANanaD3V):
 
 - `alpha` is now configured with nix.
+- Add `markview-nvim` markdown renderer.
 
 [viicslen](https://github.com/viicslen):
 
@@ -289,7 +313,12 @@
 [rice-cracker-dev](https://github.com/rice-cracker-dev):
 
 - `eslint_d` now checks for configuration files to load.
-- Fixed an error where `eslint_d` fails to load.
+- Fix an error where `eslint_d` fails to load.
+- Add required files support for linters under
+  `vim.diagnostics.nvim-lint.linters.*.required_files`.
+- Add global function `nvf_lint` under
+  `vim.diagnostics.nvim-lint.lint_function`.
+- Deprecate `vim.scrollOffset` in favor of `vim.options.scrolloff`.
 
 [Sc3l3t0n](https://github.com/Sc3l3t0n):
 
@@ -300,12 +329,14 @@
 - Add lint (luacheck) and formatting (stylua) support for Lua.
 - Add lint (markdownlint-cli2) support for Markdown.
 - Add catppuccin integration for Bufferline, Lspsaga.
-- Add neo-tree integration for Bufferline.
+- Add `neo-tree`, `snacks.explorer` integrations to `bufferline`.
 - Add more applicable filetypes to illuminate denylist.
 - Disable mini.indentscope for applicable filetypes.
 - Fix fzf-lua having a hard dependency on fzf.
 - Enable inlay hints support - `config.vim.lsp.inlayHints`.
-- Add `neo-tree` extension to `lualine`.
+- Add `neo-tree`, `snacks.picker` extensions to `lualine`.
+- Add support for `vim.lsp.formatOnSave` and
+  `vim.lsp.mappings.toggleFormatOnSave`
 
 [tebuevd](https://github.com/tebuevd):
 
@@ -319,12 +350,163 @@
 
 [flash.nvim]: https://github.com/folke/flash.nvim
 [gitlinker.nvim]: https://github.com/linrongbin16/gitlinker.nvim
+[nvim-treesitter-textobjects]: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 
 - Fix oil config referencing snacks
 - Add [flash.nvim] plugin to `vim.utility.motion.flash-nvim`
 - Fix default telescope ignore list entry for '.git/' to properly match
 - Add [gitlinker.nvim] plugin to `vim.git.gitlinker-nvim`
+- Add [nvim-treesitter-textobjects] plugin to `vim.treesitter.textobjects`
+- Default to disabling Conform for Rust if rust-analyzer is used
+  - To force using Conform, set `languages.rust.format.enable = true`.
 
 [rrvsh](https://github.com/rrvsh):
 
+- Add custom snippet support to `vim.snippets.luasnip`
 - Fix namespace of python-lsp-server by changing it to python3Packages
+
+[Noah765](https://github.com/Noah765):
+
+[vim-sleuth]: https://github.com/tpope/vim-sleuth
+
+- Add missing `flutter-tools.nvim` dependency `plenary.nvim`.
+- Add necessary dependency of `flutter-tools.nvim` on lsp.
+- Add the `vim.languages.dart.flutter-tools.flutterPackage` option.
+- Fix the type of the `highlight` color options.
+- Add [vim-sleuth] plugin under `vim.utility.sleuth`.
+
+[howird](https://github.com/howird):
+
+- Change python dap adapter name from `python` to commonly expected `debugpy`.
+
+[aionoid](https://github.com/aionoid):
+
+[avante-nvim]: https://github.com/yetone/avante.nvim
+
+- Fix [render-markdown.nvim] file_types option type to list, to accept merging.
+- Add [avante.nvim] plugin under `vim.assistant.avante-nvim`.
+
+[poz](https://poz.pet):
+
+[everforest]: https://github.com/sainnhe/everforest
+
+- Fix gitsigns null-ls issue.
+- Add [everforest] theme support.
+
+[Haskex](https://github.com/haskex):
+
+[Hardtime.nvim]: https://github.com/m4xshen/hardtime.nvim
+
+- Add Plugin [Hardtime.nvim] under `vim.binds.hardtime-nvim` with `enable` and
+  `setupOpts` options
+
+[taylrfnt](https://github.com/taylrfnt):
+
+[nvim-tree](https://github.com/nvim-tree/nvim-tree.lua):
+
+- Add missing `right_align` option for existing `renderer.icons` options.
+- Add missing `render.icons` options (`hidden_placement`,
+  `diagnostics_placement`, and `bookmarks_placement`).
+
+[cramt](https://github.com/cramt):
+
+- Add `rubylsp` option in `vim.languages.ruby.lsp.server` to use shopify's
+  ruby-lsp language server
+
+[Haskex](https://github.com/haskex):
+
+[solarized-osaka.nvim]: https://github.com/craftzdog/solarized-osaka.nvim
+
+- Add [solarized-osaka.nvim] theme
+
+[img-clip.nvim]: https://github.com/hakonharnes/img-clip.nvim
+
+- Add [img-clip.nvim] plugin in `vim.utility.images.img-clip` with `enable` and
+  `setupOpts`
+- Add `vim.utility.images.img-clip.enable = isMaximal` in configuration.nix
+
+[anil9](https://github.com/anil9):
+
+[clojure-lsp]: https://github.com/clojure-lsp/clojure-lsp
+[conjure]: https://github.com/Olical/conjure
+
+- Add Clojure support under `vim.languages.clojure` using [clojure-lsp]
+- Add code evaluation environment [conjure] under `vim.repl.conjure`
+
+[CallumGilly](https://github.com/CallumGilly):
+
+- Add missing `transparent` option for existing
+  [onedark.nvim](https://github.com/navarasu/onedark.nvim) theme.
+
+[theutz](https://github.com/theutz):
+
+- Added "auto" flavour for catppuccin theme
+
+[lackac](https://github.com/lackac):
+
+[solarized.nvim]: https://github.com/maxmx03/solarized.nvim
+[smart-splits.nvim]: https://github.com/mrjones2014/smart-splits.nvim
+[neogit]: https://github.com/NeogitOrg/neogit
+
+- Add [solarized.nvim] theme with support for multiple variants
+- Add [smart-splits.nvim] for navigating between Neovim windows and terminal
+  multiplexer panes. Available at `vim.utility.smart-splits`.
+- Restore vim-dirtytalk plugin and fix ordering with spellcheck in generated
+  config.
+- Fix lualine separator options
+- Add [neogit], an interactive and powerful Git interface for Neovim, inspired
+  by Magit
+- Allow deregistering which-key binds or groups by setting them to `null`
+
+[justDeeevin](https://github.com/justDeeevin):
+
+[supermaven-nvim]: https://github.com/supermaven-inc/supermaven-nvim
+
+- Add [supermaven-nvim] plugin in `vim.assistant.supermaven-nvim` with `enable`
+  and `setupOpts`
+
+[trueNAHO](https://github.com/trueNAHO):
+
+- `flake-parts`'s `nixpkgs-lib` input follows nvf's `nixpkgs` input to reduce
+  download size.
+
+- `flake-utils`'s `systems` inputs follows nvf's `systems` input to transitively
+  leverage the pattern introduced in commit
+  [fc8206e7a61d ("flake: utilize
+  nix-systems for overridable flake systems")](https://github.com/NotAShelf/nvf/commit/fc8206e7a61d7eb02006f9010e62ebdb3336d0d2).
+
+[soliprem](https://github.com/soliprem):
+
+- fix broken `neorg` grammars
+- remove obsolete warning in the `otter` module
+
+[Cool-Game-Dev](https://github.com/Cool-Game-Dev):
+
+[nvim-biscuits]: https://github.com/code-biscuits/nvim-biscuits
+
+- Add [nvim-biscuits] to show block context. Available at
+  `vim.utility.nvim-biscuits`.
+
+[JManch](https://github.com/JManch):
+
+- Fix default [blink.cmp] sources "path" and "buffer" not working when
+  `autocomplete.nvim-cmp.enable` was disabled and
+  `autocomplete.nvim-cmp.sources` had not been modified.
+
+[Jules](https://github.com/jules-sommer):
+
+[nvim-highlight-colors]: https://github.com/brenoprata10/nvim-highlight-colors
+
+- Add [nvim-highlight-colors] plugin in `vim.ui.nvim-highlight-colors` with
+  `enable` and `setupOpts`
+
+- Fix [blink.cmp] keymap preset types to allow alternate cmdline, terminal, etc
+  modes to `inherit` the default mode keymaps. This is an option as per the
+  [blink.cmp] docs and is now supported in nvf.
+
+[PartyWumpus](https://github.com/PartyWumpus):
+
+[typst-concealer]: https://github.com/PartyWumpus/typst-concealer
+
+- Add inline typst concealing support under `vim.languages.typst` using
+  [typst-concealer].

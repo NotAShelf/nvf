@@ -30,7 +30,7 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Kotlin LSP support" // {default = config.vim.languages.enableLSP;};
+      enable = mkEnableOption "Kotlin LSP support" // {default = config.vim.lsp.enable;};
 
       package = mkOption {
         description = "kotlin_language_server package with Kotlin runtime";
