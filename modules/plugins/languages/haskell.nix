@@ -12,16 +12,18 @@
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.meta) getExe';
   inherit (lib.generators) mkLuaInline;
   inherit (pkgs) haskellPackages;
 
   cfg = config.vim.languages.haskell;
 
-  defaultServers = ["hls"];
+  defaultServers = ["haskell-tools"];
   servers = {
-    hls = {
-      cmd = [(getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server-wrapper") "--lsp"];
+    haskell-tools = {
+      enable = true;
+      cmd = [(getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server") "--lsp"];
       on_attach =
         mkLuaInline
         /*
@@ -79,6 +81,15 @@ in {
       };
     })
 
+    (mkIf cfg.lsp.enable {
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
+    })
+
     (mkIf (cfg.dap.enable || cfg.lsp.enable) {
       vim = {
         startPlugins = ["haskell-tools-nvim"];
@@ -94,7 +105,6 @@ in {
                   enable = true,
                 },
               },
-              hls = ${toLuaObject servers.hls},
             ''}
             ${optionalString cfg.dap.enable ''
               dap = {
