@@ -5,9 +5,9 @@
   ...
 }: let
   inherit (lib.modules) mkRenamedOptionModule;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption mkPackageOption;
   inherit (lib.types) str listOf;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   imports = [
     (mkRenamedOptionModule ["vim" "notes" "orgmode" "orgAgendaFiles"] ["vim" "notes" "orgmode" "setupOpts" "org_agenda_files"])
@@ -33,7 +33,9 @@ in {
 
     treesitter = {
       enable = mkEnableOption "Orgmode treesitter" // {default = config.vim.languages.enableTreesitter;};
-      orgPackage = mkGrammarOption pkgs "org";
+      orgPackage = mkPackageOption pkgs ["org-nvim treesitter"] {
+        default = ["tree-sitter-grammars" "tree-sitter-org-nvim"];
+      };
     };
   };
 }
