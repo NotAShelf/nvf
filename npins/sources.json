@@ -2656,6 +2656,19 @@
       "url": "https://github.com/mhinz/vim-startify/archive/4e089dffdad46f3f5593f34362d530e8fe823dcf.tar.gz",
       "hash": "1ycqfqnmalqzrx1yy9a1fc2p0w922x4sqv2222bi9xjzmh77z4sv"
     },
+    "vimtex": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "lervag",
+        "repo": "vimtex"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "32bcb3922c20588e00de68f73c86312eda2141ad",
+      "url": "https://github.com/lervag/vimtex/archive/32bcb3922c20588e00de68f73c86312eda2141ad.tar.gz",
+      "hash": "0lgr20w23646ada3aiqmrfxgh5dmkav4724ng2imr0v2nnfpmfh4"
+    },
     "which-key-nvim": {
       "type": "Git",
       "repository": {

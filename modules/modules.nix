@@ -47,6 +47,7 @@
       "ui"
       "utility"
       "visuals"
+      "latex"
     ];
 
     # The neovim wrapper, used to build a wrapped neovim package
