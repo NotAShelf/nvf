@@ -504,6 +504,7 @@
 
 - fix broken `neorg` grammars
 - remove obsolete warning in the `otter` module
+- add mainProgram attribute to vala language server wrapper
 
 [JManch](https://github.com/JManch):
 

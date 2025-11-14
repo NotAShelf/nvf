@@ -23,6 +23,7 @@
         (getExe (pkgs.symlinkJoin {
           name = "vala-language-server-wrapper";
           paths = [pkgs.vala-language-server];
+          meta.mainProgram = "vala-language-server-wrapper";
           buildInputs = [pkgs.makeBinaryWrapper];
           postBuild = ''
             wrapProgram $out/bin/vala-language-server \
