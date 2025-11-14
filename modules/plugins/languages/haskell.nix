@@ -22,7 +22,7 @@
   defaultServers = ["haskell-tools"];
   servers = {
     haskell-tools = {
-      enable = true;
+      enable = false;
       cmd = [(getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server") "--lsp"];
       on_attach =
         mkLuaInline
