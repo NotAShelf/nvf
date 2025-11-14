@@ -46,6 +46,18 @@ in {
     }: ''
       require('tokyonight').setup {
         transparent = ${boolToString transparent};
+        styles = {
+          sidebars = ${
+        if transparent
+        then ''"transparent"''
+        else ''"dark"''
+      },
+          floats = ${
+        if transparent
+        then ''"transparent"''
+        else ''"dark"''
+      },
+        },
       }
       vim.cmd[[colorscheme tokyonight-${style}]]
     '';
