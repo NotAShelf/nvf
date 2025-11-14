@@ -510,3 +510,8 @@
 
 - Add inline typst concealing support under `vim.languages.typst` using
   [typst-concealer].
+
+[mugaizzo](https://github.com/mugaizzo):
+
+- Add [VimTeX](https://github.com/lervag/vimtex) plugin in `vim.latex.vimtex` with
+  `enable`. VimTeX options are set using global options `vim.globals.vimtex_OPTION`.
