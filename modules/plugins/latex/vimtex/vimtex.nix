@@ -3,7 +3,7 @@
   inherit (lib.types) bool str listOf;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
-  options.vim.latex = {
+  options.vim.latex.vimtex = {
     enable = mkEnableOption "VimTeX is a modern Vim and Neovim filetype and syntax plugin for LaTeX files.";
 
     setupOpts = mkPluginSetupOption "vimtex" {
