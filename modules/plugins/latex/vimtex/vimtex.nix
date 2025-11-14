@@ -3,7 +3,6 @@
   inherit (lib.types) bool str listOf;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
-
   options.vim.latex.vimtex = {
     enable = mkEnableOption "VimTeX is a modern Vim and Neovim filetype and syntax plugin for LaTeX files.";
 
@@ -22,18 +21,18 @@ in {
         type = bool;
         default = false;
         description = ''
-        vimtex syntax enabled
+          vimtex syntax enabled
 
-        The default value is false'';
+          The default value is false'';
       };
 
       vimtex_quickfix_ignore_filters = mkOption {
         type = listOf str;
         default = [];
         description = ''
-        vimtex quickfix ignore filters
+          vimtex quickfix ignore filters
 
-        The default value is []'';
+          The default value is []'';
       };
     };
   };
