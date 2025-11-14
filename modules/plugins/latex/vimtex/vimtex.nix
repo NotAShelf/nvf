@@ -5,9 +5,9 @@
 in {
   options.vim.latex.vimtex = {
     enable = mkEnableOption ''
-    VimTeX is a modern Vim and Neovim filetype and syntax plugin for LaTeX files.
+      VimTeX is a modern Vim and Neovim filetype and syntax plugin for LaTeX files.
 
-    VimTeX options are under vim.global.vimtex_OPTION
+      VimTeX options are under vim.global.vimtex_OPTION
     '';
 
     setupOpts = mkPluginSetupOption "vimtex" {
