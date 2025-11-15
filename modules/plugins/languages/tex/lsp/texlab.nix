@@ -31,7 +31,7 @@
   pdfViewer = import ../pdfViewer/getEnabledPdfViewer.nix {inherit lib config;};
 in {
   options.vim.languages.tex.lsp.texlab = {
-    enable = mkBool config.vim.languages.enableLSP ''
+    enable = mkBool config.vim.lsp.enable ''
       Whether to enable Tex LSP support (texlab).
     '';
 
