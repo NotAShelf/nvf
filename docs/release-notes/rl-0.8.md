@@ -589,3 +589,10 @@
 [mellow.nvim]: https://github.com/mellow-theme/mellow.nvim
 
 - Add [mellow.nvim] plugin for vim and lualine theme support
+
+[Siggsy](https://github.com/siggsy):
+
+- Fix `vim.languages.haskell.lsp` using `lspconfig` options instead of
+  `haskell-tools.nvim` options.
+- Fix default language server `cmd` by replacing `haskell-language-server-wrapper` with `haskell-language-server`
+

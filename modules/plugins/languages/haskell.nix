@@ -12,18 +12,18 @@
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.meta) getExe';
   inherit (lib.generators) mkLuaInline;
   inherit (pkgs) haskellPackages;
 
   cfg = config.vim.languages.haskell;
 
-  defaultServers = ["hls"];
+  defaultServers = ["haskell-tools"];
   servers = {
-    hls = {
+    haskell-tools = {
       enable = false;
-      cmd = [(getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server-wrapper") "--lsp"];
-      filetypes = ["haskell" "lhaskell"];
+      cmd = [(getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server") "--lsp"];
       on_attach =
         mkLuaInline
         /*
@@ -43,23 +43,6 @@
               vim.keymap.set('n', '<localleader>rq', ht.repl.quit, opts)
             end
         '';
-      root_dir =
-        mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function(bufnr, on_dir)
-            local fname = vim.api.nvim_buf_get_name(bufnr)
-            on_dir(util.root_pattern('hie.yaml', 'stack.yaml', 'cabal.project', '*.cabal', 'package.yaml')(fname))
-          end
-        '';
-      settings = {
-        haskell = {
-          formattingProvider = "ormolu";
-          cabalFormattingProvider = "cabalfmt";
-        };
-      };
     };
   };
 in {
@@ -98,6 +81,15 @@ in {
       };
     })
 
+    (mkIf cfg.lsp.enable {
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
+    })
+
     (mkIf (cfg.dap.enable || cfg.lsp.enable) {
       vim = {
         startPlugins = ["haskell-tools-nvim"];
@@ -113,7 +105,6 @@ in {
                   enable = true,
                 },
               },
-              hls = ${toLuaObject servers.hls},
             ''}
             ${optionalString cfg.dap.enable ''
               dap = {
