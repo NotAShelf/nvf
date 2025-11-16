@@ -6,11 +6,11 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) package enum;
+  inherit (lib.types) enum;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   defaultServer = ["fsautocomplete"];
@@ -51,10 +51,10 @@
     };
   };
 
-  defaultFormat = "fantomas";
+  defaultFormat = ["fantomas"];
   formats = {
     fantomas = {
-      package = pkgs.fantomas;
+      command = getExe pkgs.fantomas;
     };
   };
 
@@ -72,7 +72,7 @@ in {
       lsp = {
         enable = mkEnableOption "F# LSP support" // {default = config.vim.lsp.enable;};
         servers = mkOption {
-          type = singleOrListOf (enum (attrNames servers));
+          type = deprecatedSingleOrListOf "vim.language.fsharp.lsp.servers" (enum (attrNames servers));
           default = defaultServer;
           description = "F# LSP server to use";
         };
@@ -81,15 +81,9 @@ in {
         enable = mkEnableOption "F# formatting" // {default = config.vim.languages.enableFormat;};
 
         type = mkOption {
-          type = enum (attrNames formats);
+          type = deprecatedSingleOrListOf "vim.language.fsharp.format.type" (enum (attrNames formats));
           default = defaultFormat;
           description = "F# formatter to use";
-        };
-
-        package = mkOption {
-          type = package;
-          default = formats.${cfg.format.type}.package;
-          description = "F# formatter package";
         };
       };
     };
@@ -113,9 +107,14 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.fsharp = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.fsharp = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })

@@ -5,11 +5,11 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.meta) getExe getExe';
+  inherit (lib.meta) getExe';
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum package;
-  inherit (lib.nvim.types) mkGrammarOption singleOrListOf;
+  inherit (lib.types) enum;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.qml;
@@ -25,14 +25,12 @@
     };
   };
 
-  defaultFormat = "qmlformat";
+  defaultFormat = ["qmlformat"];
   formats = {
     qmlformat = {
-      package = pkgs.writeShellApplication {
-        name = "qmlformat";
-        runtimeInputs = [qmlPackage];
-        text = "qmlformat -";
-      };
+      command = "${qmlPackage}/bin/qmlformat";
+      args = ["-i" "$FILENAME"];
+      stdin = false;
     };
   };
 in {
@@ -46,7 +44,7 @@ in {
     lsp = {
       enable = mkEnableOption "QML LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.qml.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "QML LSP server to use";
       };
@@ -56,15 +54,9 @@ in {
       enable = mkEnableOption "QML formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = enum (attrNames formats);
+        type = deprecatedSingleOrListOf "vim.language.qml.format.type" (enum (attrNames formats));
         default = defaultFormat;
         description = "QML formatter to use";
-      };
-
-      package = mkOption {
-        type = package;
-        default = formats.${cfg.format.type}.package;
-        description = "QML formatter package";
       };
     };
   };
@@ -88,9 +80,14 @@ in {
     (mkIf (cfg.format.enable && !cfg.lsp.enable) {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.qml = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.qml = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })

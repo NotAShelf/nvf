@@ -9,7 +9,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum package str;
-  inherit (lib.nvim.types) diagnostics singleOrListOf;
+  inherit (lib.nvim.types) diagnostics deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.generators) mkLuaInline;
 
@@ -33,14 +33,11 @@
     };
   };
 
-  defaultFormat = "sqlfluff";
+  defaultFormat = ["sqlfluff"];
   formats = {
     sqlfluff = {
-      package = sqlfluffDefault;
-      config = {
-        command = getExe cfg.format.package;
-        append_args = ["--dialect=${cfg.dialect}"];
-      };
+      command = getExe sqlfluffDefault;
+      append_args = ["--dialect=${cfg.dialect}"];
     };
   };
 
@@ -78,7 +75,7 @@ in {
       enable = mkEnableOption "SQL LSP support" // {default = config.vim.lsp.enable;};
 
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.sql.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "SQL LSP server to use";
       };
@@ -88,15 +85,9 @@ in {
       enable = mkEnableOption "SQL formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = enum (attrNames formats);
+        type = deprecatedSingleOrListOf "vim.language.sql.format.type" (enum (attrNames formats));
         default = defaultFormat;
         description = "SQL formatter to use";
-      };
-
-      package = mkOption {
-        type = package;
-        default = formats.${cfg.format.type}.package;
-        description = "SQL formatter package";
       };
     };
 
@@ -133,8 +124,15 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.sql = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = formats.${cfg.format.type}.config;
+        setupOpts = {
+          formatters_by_ft.sql = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
+        };
       };
     })
 

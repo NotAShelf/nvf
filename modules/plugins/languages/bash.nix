@@ -8,9 +8,9 @@
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum package bool;
+  inherit (lib.types) enum bool;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) diagnostics mkGrammarOption singleOrListOf;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.bash;
@@ -30,10 +30,10 @@
     };
   };
 
-  defaultFormat = "shfmt";
+  defaultFormat = ["shfmt"];
   formats = {
     shfmt = {
-      package = pkgs.shfmt;
+      command = getExe pkgs.shfmt;
     };
   };
 
@@ -55,7 +55,7 @@ in {
     lsp = {
       enable = mkEnableOption "Bash LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
-        type = singleOrListOf (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.bash.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "Bash LSP server to use";
       };
@@ -68,15 +68,9 @@ in {
         description = "Enable Bash formatting";
       };
       type = mkOption {
-        type = enum (attrNames formats);
+        type = deprecatedSingleOrListOf "vim.language.bash.format.type" (enum (attrNames formats));
         default = defaultFormat;
         description = "Bash formatter to use";
-      };
-
-      package = mkOption {
-        type = package;
-        default = formats.${cfg.format.type}.package;
-        description = "Bash formatter package";
       };
     };
 
@@ -108,9 +102,14 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.sh = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.sh = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })

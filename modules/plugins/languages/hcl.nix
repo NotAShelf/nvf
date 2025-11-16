@@ -8,8 +8,8 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) package bool enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.types) bool enum listOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.hcl;
@@ -24,10 +24,10 @@
     };
   };
 
-  defaultFormat = "hclfmt";
+  defaultFormat = ["hclfmt"];
   formats = {
     hclfmt = {
-      package = pkgs.hclfmt;
+      command = getExe pkgs.hclfmt;
     };
   };
 in {
@@ -55,14 +55,9 @@ in {
         description = "Enable HCL formatting";
       };
       type = mkOption {
-        type = enum (attrNames formats);
+        type = deprecatedSingleOrListOf "vim.language.hcl.format.type" (enum (attrNames formats));
         default = defaultFormat;
         description = "HCL formatter to use";
-      };
-      package = mkOption {
-        type = package;
-        default = formats.${cfg.format.type}.package;
-        description = "HCL formatter package";
       };
     };
   };
@@ -103,9 +98,14 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.hcl = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.hcl = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })

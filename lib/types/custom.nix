@@ -1,4 +1,5 @@
 {lib}: let
+  inherit (builtins) warn toJSON;
   inherit (lib.options) mergeEqualOption;
   inherit (lib.lists) singleton;
   inherit (lib.strings) isString stringLength match;
@@ -27,5 +28,14 @@ in {
     check = v: isString v && (match "#?[0-9a-fA-F]{6}" v) != null;
   };
 
-  singleOrListOf = t: coercedTo t singleton (listOf t);
+  # no compound types please
+  deprecatedSingleOrListOf = option: t:
+    coercedTo
+    t
+    (x:
+      warn ''
+        ${option} no longer accepts non-list values, use [${toJSON x}] instead
+      ''
+      (singleton x))
+    (listOf t);
 }

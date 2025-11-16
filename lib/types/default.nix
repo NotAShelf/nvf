@@ -10,5 +10,5 @@ in {
   inherit (typesDag) dagOf;
   inherit (typesPlugin) pluginsOpt extraPluginType mkPluginSetupOption luaInline pluginType borderType;
   inherit (typesLanguage) diagnostics mkGrammarOption;
-  inherit (customTypes) char hexColor mergelessListOf singleOrListOf;
+  inherit (customTypes) char hexColor mergelessListOf deprecatedSingleOrListOf;
 }
