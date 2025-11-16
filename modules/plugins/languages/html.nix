@@ -23,6 +23,11 @@
       filetypes = ["html" "shtml" "htm"];
       root_markers = ["index.html" ".git"];
     };
+    emmet-ls = {
+      cmd = [(getExe pkgs.emmet-ls) "--stdio"];
+      filetypes = ["html" "shtml" "htm"];
+      root_markers = ["index.html" ".git"];
+    };
   };
 
   defaultFormat = "superhtml";

@@ -72,7 +72,6 @@
 
 - Add [](#opt-vim.lsp.lightbulb.autocmd.enable) for manually managing the
   previously managed lightbulb autocommand.
-
   - A warning will occur if [](#opt-vim.lsp.lightbulb.autocmd.enable) and
     `vim.lsp.lightbulb.setupOpts.autocmd.enabled` are both set at the same time.
     Pick only one.
@@ -589,3 +588,9 @@
 [mellow.nvim]: https://github.com/mellow-theme/mellow.nvim
 
 - Add [mellow.nvim] plugin for vim and lualine theme support
+
+[valyntyler](https://github.com/valyntyler):
+
+[emmet-ls]: https://github.com/aca/emmet-ls
+
+- Add [emmet-ls] to `html.lsp.servers`
