@@ -4145,7 +4145,7 @@ open submodule of attribute set of list of (string or (luaInline))</p>
 <p>keymap presets</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-one of “default”, “none”, “super-tab”, “enter”, “cmdline”</p>
+one of “inherit”, “default”, “none”, “super-tab”, “enter”, “cmdline”</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">&quot;none&quot;</code></p>
@@ -4358,7 +4358,7 @@ open submodule of attribute set of list of (string or (luaInline))</p>
 <p>keymap presets</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-one of “default”, “none”, “super-tab”, “enter”, “cmdline”</p>
+one of “inherit”, “default”, “none”, “super-tab”, “enter”, “cmdline”</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">&quot;none&quot;</code></p>
@@ -5030,7 +5030,7 @@ function will be a comparator that always ranks the specified kind the
 lowest.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-mergeless list of (string or (luaInline))</p>
+mergeless list of string or (luaInline)</p>
 
 <p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
   {
@@ -15497,7 +15497,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation lldb-19.1.7&gt;</code></p>
+<code class="literal">&lt;derivation lldb-21.1.2&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -17347,7 +17347,7 @@ disabled if Go LSP is enabled, otherwise follows <code class="option">vim.langua
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation go-1.25.0&gt;</code></p>
+<code class="literal">&lt;derivation go-1.25.2&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -18194,7 +18194,7 @@ boolean</p>
 <p>HTML LSP server to use</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-(list of value “superhtml” (singular enum)) or value “superhtml” (singular enum) convertible to it</p>
+(list of (one of “emmet-ls”, “superhtml”)) or (one of “emmet-ls”, “superhtml”) convertible to it</p>
 
 <p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
   &quot;superhtml&quot;
@@ -19604,7 +19604,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation deno-2.5.2&gt;</code></p>
+<code class="literal">&lt;derivation deno-2.5.6&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -20918,7 +20918,7 @@ This is a python package with debugpy installed, see https://nixos.wiki/wiki/Pyt
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation python3-3.13.7-env&gt;</code></p>
+<code class="literal">&lt;derivation python3-3.13.8-env&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">with pkgs; python39.withPackages (ps: with ps; [debugpy])</code></p>
@@ -21667,7 +21667,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation ruby3.3-rubocop-1.80.2&gt;</code></p>
+<code class="literal">&lt;derivation ruby3.3-rubocop-0.92.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -21870,7 +21870,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation lldb-19.1.7&gt;</code></p>
+<code class="literal">&lt;derivation lldb-21.1.2&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -22073,7 +22073,7 @@ boolean</p>
 package or list of string</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation rust-analyzer-2025-08-25&gt;</code></p>
+<code class="literal">&lt;derivation rust-analyzer-2025-10-27&gt;</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">&quot;[lib.getExe pkgs.jdt-language-server \&quot;-data\&quot; \&quot;~/.cache/jdtls/workspace\&quot;]&quot;</code></p>
@@ -22600,7 +22600,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation sqlfluff-3.4.2&gt;</code></p>
+<code class="literal">&lt;derivation sqlfluff-3.5.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -22728,7 +22728,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation sql-grammar-0.0.0+rev=b1ec2aa&gt;</code></p>
+<code class="literal">&lt;derivation sql-grammar-0.0.0+rev=d71f2bd&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -24049,7 +24049,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation typstyle-0.13.17&gt;</code></p>
+<code class="literal">&lt;derivation typstyle-0.14.0&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -24645,7 +24645,7 @@ boolean</p>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&lt;derivation lldb-19.1.7&gt;</code></p>
+<code class="literal">&lt;derivation lldb-21.1.2&gt;</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -33468,13 +33468,13 @@ boolean</p>
  </span>
 </dt>
 <dd>
-<p>The org treesitter package to use.</p>
+<p>The org-nvim treesitter package to use.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 package</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">pkgs.vimPlugins.nvim-treesitter.builtGrammars.org</code></p>
+<code class="literal">pkgs.tree-sitter-grammars.tree-sitter-org-nvim</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
