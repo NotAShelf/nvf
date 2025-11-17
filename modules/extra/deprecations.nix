@@ -1,8 +1,9 @@
 {lib, ...}: let
-  inherit (builtins) head warn;
+  inherit (builtins) head;
   inherit (lib.modules) mkRemovedOptionModule mkRenamedOptionModule doRename;
   inherit (lib.lists) concatLists;
   inherit (lib.nvim.config) batchRenameOptions;
+  inherit (lib.trivial) warn;
 
   renamedVimOpts = batchRenameOptions ["vim"] ["vim" "options"] {
     # 2024-12-01
