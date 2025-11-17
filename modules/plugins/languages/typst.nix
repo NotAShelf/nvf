@@ -92,7 +92,7 @@
     };
   };
 
-  defaultFormat = "typstyle";
+  defaultFormat = ["typstyle"];
   formats = {
     # https://github.com/Enter-tainer/typstyle
     typstyle = {
