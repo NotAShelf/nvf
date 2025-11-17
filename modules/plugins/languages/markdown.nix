@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames warn;
+  inherit (builtins) attrNames;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption;
@@ -13,6 +13,7 @@
   inherit (lib.nvim.types) diagnostics mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.trivial) warn;
 
   cfg = config.vim.languages.markdown;
   defaultServers = ["marksman"];

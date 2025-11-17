@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames warn;
+  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.lists) flatten;
   inherit (lib.meta) getExe getExe';
@@ -14,6 +14,7 @@
   inherit (lib.nvim.types) deprecatedSingleOrListOf;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryBefore;
+  inherit (lib.trivial) warn;
 
   cfg = config.vim.languages.python;
 
