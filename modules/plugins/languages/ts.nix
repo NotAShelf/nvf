@@ -301,7 +301,8 @@ in {
         enable = true;
         setupOpts = {
           formatters_by_ft.typescript = cfg.format.type;
-          # .tsx files
+          formatters_by_ft.javascript = cfg.format.type;
+          # .tsx/.jsx files
           formatters_by_ft.typescriptreact = cfg.format.type;
           setupOpts.formatters =
             mapListToAttrs (name: {
