@@ -300,9 +300,12 @@ in {
       vim.formatter.conform-nvim = {
         enable = true;
         setupOpts = {
-          formatters_by_ft.typescript = cfg.format.type;
-          # .tsx files
-          formatters_by_ft.typescriptreact = cfg.format.type;
+          formatters_by_ft = {
+            typescript = cfg.format.type;
+            javascript = cfg.format.type;
+            # .tsx/.jsx files
+            typescriptreact = cfg.format.type;
+          };
           setupOpts.formatters =
             mapListToAttrs (name: {
               inherit name;
