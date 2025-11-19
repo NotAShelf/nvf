@@ -16,7 +16,7 @@
 
   cfg = config.vim.languages.html;
 
-  defaultServers = ["superhtml"];
+  defaultServers = ["superhtml" "emmet-ls"];
   servers = {
     superhtml = {
       cmd = [(getExe pkgs.superhtml) "lsp"];
