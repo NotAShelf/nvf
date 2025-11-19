@@ -306,6 +306,7 @@ in {
       vim.formatter.conform-nvim = {
         enable = true;
         setupOpts = {
+          formatters_by_ft.javascript = [cfg.format.type];
           formatters_by_ft.typescript = [cfg.format.type];
           # .tsx files
           formatters_by_ft.typescriptreact = [cfg.format.type];
