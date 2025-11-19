@@ -597,3 +597,5 @@
 [emmet-ls]: https://github.com/aca/emmet-ls
 
 - Add [emmet-ls] to `html.lsp.servers`
+- Add [emmet-ls] to `css.lsp.servers`
+- Add [emmet-ls] to `ts.lsp.servers`
