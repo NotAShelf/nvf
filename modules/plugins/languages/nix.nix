@@ -17,10 +17,10 @@
 
   formattingCmd = mkIf (cfg.format.enable && cfg.lsp.enable) {
     formatting = mkMerge [
-      (mkIf (cfg.format.type == "alejandra") {
+      (mkIf (cfg.format.type == ["alejandra"]) {
         command = [(getExe pkgs.alejandra)];
       })
-      (mkIf (cfg.format.type == "nixfmt") {
+      (mkIf (cfg.format.type == ["nixfmt"]) {
         command = [(getExe pkgs.nixfmt-rfc-style)];
       })
     ];
