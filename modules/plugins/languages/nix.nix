@@ -18,7 +18,7 @@
   formattingCmd = mkIf (cfg.format.enable && cfg.lsp.enable) {
     formatting = mkMerge [
       (mkIf (cfg.format.type == "alejandra") {
-        command = [(getExe pkgs.alejandra) "--quiet"];
+        command = [(getExe pkgs.alejandra)];
       })
       (mkIf (cfg.format.type == "nixfmt") {
         command = [(getExe pkgs.nixfmt-rfc-style)];
@@ -32,10 +32,13 @@
       enable = true;
       cmd = [(getExe pkgs.nil)];
       settings = {
-        nil = formattingCmd;
+        nil.formatting.command = [(getExe pkgs.alejandra)];
       };
       filetypes = ["nix"];
-      root_markers = [".git" "flake.nix"];
+      root_markers = [
+        ".git"
+        "flake.nix"
+      ];
     };
 
     nixd = {
@@ -45,7 +48,10 @@
         nixd = formattingCmd;
       };
       filetypes = ["nix"];
-      root_markers = [".git" "flake.nix"];
+      root_markers = [
+        ".git"
+        "flake.nix"
+      ];
     };
   };
 
@@ -60,7 +66,10 @@
     };
   };
 
-  defaultDiagnosticsProvider = ["statix" "deadnix"];
+  defaultDiagnosticsProvider = [
+    "statix"
+    "deadnix"
+  ];
   diagnosticsProviders = {
     statix = {
       package = pkgs.statix;
@@ -91,12 +100,20 @@ in {
     enable = mkEnableOption "Nix language support";
 
     treesitter = {
-      enable = mkEnableOption "Nix treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Nix treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+        };
       package = mkGrammarOption pkgs "nix";
     };
 
     lsp = {
-      enable = mkEnableOption "Nix LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Nix LSP support"
+        // {
+          default = config.vim.lsp.enable;
+        };
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.nix.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
@@ -105,7 +122,11 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "Nix formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "Nix formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+        };
 
       type = mkOption {
         description = "Nix formatter to use";
@@ -115,7 +136,11 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkEnableOption "extra Nix diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      enable =
+        mkEnableOption "extra Nix diagnostics"
+        // {
+          default = config.vim.languages.enableExtraDiagnostics;
+        };
 
       types = diagnostics {
         langDesc = "Nix";
@@ -171,10 +196,12 @@ in {
       vim.diagnostics.nvim-lint = {
         enable = true;
         linters_by_ft.nix = cfg.extraDiagnostics.types;
-        linters = mkMerge (map (name: {
+        linters = mkMerge (
+          map (name: {
             ${name}.cmd = getExe diagnosticsProviders.${name}.package;
           })
-          cfg.extraDiagnostics.types);
+          cfg.extraDiagnostics.types
+        );
       };
     })
   ]);
