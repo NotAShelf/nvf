@@ -510,3 +510,9 @@
 
 - Add inline typst concealing support under `vim.languages.typst` using
   [typst-concealer].
+
+[axelbdt](https://github.com/axelbdt):
+
+[neocodeium]: https://github.com/monkoose/neocodeium
+
+- Add [neocodeium] plugin in `vim.assistant.neocodeium` with `enable`, `setupOpts` and `keymaps`
