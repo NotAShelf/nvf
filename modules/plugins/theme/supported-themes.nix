@@ -15,10 +15,15 @@ in {
     '';
   };
   base16-pro-max = {
-    setup = {base16-colors, transparent, ...}: let
-      colors = builtins.replaceStrings
-        [ ''["'' ''"]'']
-        [ "" "" ]
+    setup = {
+      base16-colors,
+      transparent,
+      ...
+    }: let
+      colors =
+        builtins.replaceStrings
+        [''["'' ''"]'']
+        ["" ""]
         (toLuaObject base16-colors);
     in ''
       -- Base16 theme
