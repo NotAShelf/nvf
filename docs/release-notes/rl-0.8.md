@@ -510,3 +510,8 @@
 
 - Add inline typst concealing support under `vim.languages.typst` using
   [typst-concealer].
+
+[Shyrogan](https://github.com/Shyrogan):
+
+- Add `vim.languages.tailwind.lsp.opts` option to Tailwind (for third party such as 
+  [cva](https://beta.cva.style/)) along an example on how to use it.

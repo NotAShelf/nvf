@@ -21,6 +21,11 @@
         lspconfig.tailwindcss.setup {
           capabilities = capabilities;
           on_attach = default_on_attach;
+          settings = {
+            tailwindCSS = {
+              ${cfg.lsp.opts}
+            },
+          },
           cmd = ${
           if isList cfg.lsp.package
           then expToLua cfg.lsp.package
@@ -48,6 +53,19 @@ in {
         example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
         type = either package (listOf str);
         default = servers.${cfg.lsp.server}.package;
+      };
+
+      opts = mkOption {
+        description = "Options to pass to tailwindcss-lsp";
+        type = str;
+        default = "";
+        example = ''
+          experimental = {
+            classRegex = {
+              { "cva\\(([^)]*)\\)", "[\"'`]([^\"'`]+)[\"'`]" },
+            },
+          },
+        '';
       };
     };
   };
