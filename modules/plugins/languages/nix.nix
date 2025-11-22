@@ -15,25 +15,11 @@
 
   cfg = config.vim.languages.nix;
 
-  formattingCmd = mkIf (cfg.format.enable && cfg.lsp.enable) {
-    formatting = mkMerge [
-      (mkIf (cfg.format.type == "alejandra") {
-        command = [(getExe pkgs.alejandra) "--quiet"];
-      })
-      (mkIf (cfg.format.type == "nixfmt") {
-        command = [(getExe pkgs.nixfmt-rfc-style)];
-      })
-    ];
-  };
-
   defaultServers = ["nil"];
   servers = {
     nil = {
       enable = true;
       cmd = [(getExe pkgs.nil)];
-      settings = {
-        nil = formattingCmd;
-      };
       filetypes = ["nix"];
       root_markers = [".git" "flake.nix"];
     };
@@ -41,9 +27,6 @@
     nixd = {
       enable = true;
       cmd = [(getExe pkgs.nixd)];
-      settings = {
-        nixd = formattingCmd;
-      };
       filetypes = ["nix"];
       root_markers = [".git" "flake.nix"];
     };
@@ -152,7 +135,7 @@ in {
         cfg.lsp.servers;
     })
 
-    (mkIf (cfg.format.enable && !cfg.lsp.enable) {
+    (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
         setupOpts = {
