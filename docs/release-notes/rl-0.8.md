@@ -510,3 +510,9 @@
 
 - Add inline typst concealing support under `vim.languages.typst` using
   [typst-concealer].
+
+[ced4rtree](https://github.com/ced4rtree):
+
+[base16-pro-max]: https://github.com/y3owk1n/base16-pro-max.nvim
+
+- Add new transparency supporting base16 theme through [base16-pro-max].
