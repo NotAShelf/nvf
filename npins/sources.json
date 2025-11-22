@@ -52,6 +52,19 @@
       "url": "https://github.com/rrethy/base16-nvim/archive/a2907cc3cd661e0f89f7db1f4fc304782a676a7d.tar.gz",
       "hash": "0acqa0b5n4l01ac9mbbxz2nbg8k8a50s0ajngg72l68q6m5z9mkm"
     },
+    "base16-pro-max": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "y3owk1n",
+        "repo": "base16-pro-max.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "6585489c783ae14fb57cb196f15544637953ee7c",
+      "url": "https://github.com/y3owk1n/base16-pro-max.nvim/archive/6585489c783ae14fb57cb196f15544637953ee7c.tar.gz",
+      "hash": "6cyEmjFjMundTCkI8yEwuGitJaXcAh6N1ioGfQ1u2h4="
+    },
     "blink-cmp-spell": {
       "type": "Git",
       "repository": {
