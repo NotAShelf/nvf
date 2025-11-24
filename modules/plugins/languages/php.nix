@@ -8,81 +8,60 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
-  inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.types) enum;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.php;
 
-  defaultServer = "phpactor";
+  defaultServers = ["phpactor"];
   servers = {
     phpactor = {
-      package = pkgs.phpactor;
-      lspConfig = ''
-        lspconfig.phpactor.setup{
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''
-            {
-              "${getExe cfg.lsp.package}",
-              "language-server"
-            },
-          ''
-        }
-        }
-      '';
+      enable = true;
+      cmd = [(getExe pkgs.phpactor) "language-server"];
+      filetypes = ["php"];
+      root_markers = [".git" "composer.json" ".phpactor.json" ".phpactor.yml"];
+      workspace_required = true;
     };
 
     phan = {
-      package = pkgs.php81Packages.phan;
-      lspConfig = ''
-        lspconfig.phan.setup{
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''
-              {
-                "${getExe cfg.lsp.package}",
-                "-m",
-                "json",
-                "--no-color",
-                "--no-progress-bar",
-                "-x",
-                "-u",
-                "-S",
-                "--language-server-on-stdin",
-                "--allow-polyfill-parser"
-            },
-          ''
-        }
-        }
-      '';
+      enable = true;
+      cmd = [
+        (getExe pkgs.php81Packages.phan)
+        "-m"
+        "json"
+        "--no-color"
+        "--no-progress-bar"
+        "-x"
+        "-u"
+        "-S"
+        "--language-server-on-stdin"
+        "--allow-polyfill-parser"
+      ];
+      filetypes = ["php"];
+      root_dir =
+        mkLuaInline
+        /*
+        lua
+        */
+        ''
+          function(bufnr, on_dir)
+            local fname = vim.api.nvim_buf_get_name(bufnr)
+            local cwd = assert(vim.uv.cwd())
+            local root = vim.fs.root(fname, { 'composer.json', '.git' })
+
+            -- prefer cwd if root is a descendant
+            on_dir(root and vim.fs.relpath(cwd, root) and cwd)
+          end
+        '';
     };
 
     intelephense = {
-      package = pkgs.intelephense;
-      lspConfig = ''
-        lspconfig.intelephense.setup{
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''
-            {
-              "${getExe cfg.lsp.package}",
-              "--stdio"
-            },
-          ''
-        }
-        }
-      '';
+      enable = true;
+      cmd = [(getExe pkgs.intelephense) "--stdio"];
+      filetypes = ["php"];
+      root_markers = ["composer.json" ".git"];
     };
   };
 in {
@@ -97,17 +76,10 @@ in {
     lsp = {
       enable = mkEnableOption "PHP LSP support" // {default = config.vim.lsp.enable;};
 
-      server = mkOption {
+      servers = mkOption {
+        type = deprecatedSingleOrListOf "vim.language.php.lsp.servers" (enum (attrNames servers));
+        default = defaultServers;
         description = "PHP LSP server to use";
-        type = enum (attrNames servers);
-        default = defaultServer;
-      };
-
-      package = mkOption {
-        description = "PHP LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server " - data " " ~/.cache/jdtls/workspace "]'';
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
       };
     };
   };
@@ -117,11 +89,14 @@ in {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.package];
     })
+
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig = {
-        enable = true;
-        sources.php-lsp = servers.${cfg.lsp.server}.lspConfig;
-      };
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
   ]);
 }

@@ -974,6 +974,19 @@
       "url": "https://github.com/OXY2DEV/markview.nvim/archive/de79a7626d54d7785436105ef72f37ee8fe8fa16.tar.gz",
       "hash": "032i6m9pld1zyhd7lq49dg4qh98w6vmmzqp2f46drhq0ds26hs4h"
     },
+    "mellow": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mellow-theme",
+        "repo": "mellow.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "5cd188489bcc7eb512f0a30581ad972070f8e5cd",
+      "url": "https://github.com/mellow-theme/mellow.nvim/archive/5cd188489bcc7eb512f0a30581ad972070f8e5cd.tar.gz",
+      "hash": "0hjfhwvvlc50rrxscg2lbkip7v5s13yaja0pckhhxfkbz17b5v83"
+    },
     "mind-nvim": {
       "type": "Git",
       "repository": {
@@ -2101,6 +2114,19 @@
       "url": "https://github.com/epwalsh/obsidian.nvim/archive/14e0427bef6c55da0d63f9a313fd9941be3a2479.tar.gz",
       "hash": "15ycmhn48ryaqzch6w3w6llq2qgmjx8xwkb9dn0075z60dybpflr"
     },
+    "oil-git-status.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "refractalize",
+        "repo": "oil-git-status.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "4b5cf53842c17a09420919e655a6a559da3112d7",
+      "url": "https://github.com/refractalize/oil-git-status.nvim/archive/4b5cf53842c17a09420919e655a6a559da3112d7.tar.gz",
+      "hash": "1jzw6lkvi9xxzqy8xz056xlb45byr1arklh87zmyf0nj9plm2nsp"
+    },
     "oil-nvim": {
       "type": "Git",
       "repository": {
@@ -2218,6 +2244,38 @@
       "url": "https://github.com/tris203/precognition.nvim/archive/2aae2687207029b3611a0e19a289f9e1c7efbe16.tar.gz",
       "hash": "0b4yz5jvqd0li373067cs1n761vn9jxkhcvhsrvm9h1snqw1c6nk"
     },
+    "prettier-plugin-astro": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "withastro",
+        "repo": "prettier-plugin-astro"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.14.1",
+      "revision": "57234893ca374c8e401cce1f931180d314e13eac",
+      "url": "https://api.github.com/repos/withastro/prettier-plugin-astro/tarball/v0.14.1",
+      "hash": "14ffwxggcnyc947pdxgsgz1v2q76m5xmybfxg8kyla4l7phg6qsw"
+    },
+    "prettier-plugin-svelte": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "sveltejs",
+        "repo": "prettier-plugin-svelte"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v3.3.2",
+      "revision": "76c04ebfdff4306842e8ab0cd96b1c53c7041dde",
+      "url": "https://api.github.com/repos/sveltejs/prettier-plugin-svelte/tarball/v3.3.2",
+      "hash": "0g6h5lvhyms6nvk83vkd3yi8rvsz2v5g6cw03fqsv2nj45s6cf7r"
+    },
     "project-nvim": {
       "type": "Git",
       "repository": {
@@ -2243,6 +2301,19 @@
       "revision": "119e8961014c9bfaf1487bf3c2a393d254f337e2",
       "url": "https://github.com/kevinhwang91/promise-async/archive/119e8961014c9bfaf1487bf3c2a393d254f337e2.tar.gz",
       "hash": "0q4a0rmy09hka6zvydzjj2gcm2j5mlbrhbxfcdjj33ngpblkmqzm"
+    },
+    "qmk-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "codethread",
+        "repo": "qmk.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "3c804c1480991e4837514900b22b9358cfd64fa1",
+      "url": "https://github.com/codethread/qmk.nvim/archive/3c804c1480991e4837514900b22b9358cfd64fa1.tar.gz",
+      "hash": "03fsx6qsn8b36jp5m0fkdla6gkkzdv2j18y378y3cqpjclgq995a"
     },
     "rainbow-delimiters-nvim": {
       "type": "Git",
