@@ -21,7 +21,9 @@ in {
     ./helm.nix
     ./html.nix
     ./java.nix
+    ./json.nix
     ./julia.nix
+    ./just.nix
     ./kotlin.nix
     ./lua.nix
     ./markdown.nix
@@ -32,6 +34,7 @@ in {
     ./odin.nix
     ./php.nix
     ./python.nix
+    ./qml.nix
     ./r.nix
     ./ruby.nix
     ./rust.nix

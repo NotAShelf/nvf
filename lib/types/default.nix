@@ -8,7 +8,21 @@
   customTypes = import ./custom.nix {inherit lib;};
 in {
   inherit (typesDag) dagOf;
-  inherit (typesPlugin) pluginsOpt extraPluginType mkPluginSetupOption luaInline pluginType borderType;
+  inherit
+    (typesPlugin)
+    pluginsOpt
+    extraPluginType
+    mkPluginSetupOption
+    luaInline
+    pluginType
+    borderType
+    ;
   inherit (typesLanguage) diagnostics mkGrammarOption mkEnableTreesitterOption;
-  inherit (customTypes) char hexColor mergelessListOf;
+  inherit
+    (customTypes)
+    char
+    hexColor
+    mergelessListOf
+    deprecatedSingleOrListOf
+    ;
 }

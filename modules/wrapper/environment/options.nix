@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption mkEnableOption literalMD;
+  inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
   inherit (lib.types) package bool str listOf attrsOf;
   inherit (lib.nvim.types) pluginsOpt extraPluginType;
 in {
@@ -11,6 +11,7 @@ in {
     package = mkOption {
       type = package;
       default = pkgs.neovim-unwrapped;
+      defaultText = literalExpression "pkgs.neovim-unwrapped";
       description = ''
         The neovim package to use for the wrapper. This
         corresponds to the package that will be wrapped
@@ -27,21 +28,20 @@ in {
     viAlias = mkOption {
       type = bool;
       default = true;
+      example = false;
       description = "Enable the `vi` alias for `nvim`";
     };
 
     vimAlias = mkOption {
       type = bool;
       default = true;
+      example = false;
       description = "Enable the `vim` alias for `nvim`";
     };
 
     startPlugins = pluginsOpt {
       default = ["plenary-nvim"];
-      example = ''
-        [pkgs.vimPlugins.telescope-nvim]
-      '';
-
+      example = literalExpression "[pkgs.vimPlugins.telescope-nvim]";
       description = ''
         List of plugins to load on startup. This is used
         internally to add plugins to Neovim's runtime.
@@ -54,9 +54,7 @@ in {
 
     optPlugins = pluginsOpt {
       default = [];
-      example = ''
-        [pkgs.vimPlugins.vim-ghost]
-      '';
+      example = literalExpression "[pkgs.vimPlugins.vim-ghost]";
       description = ''
         List of plugins to optionally load on startup.
 
@@ -108,7 +106,7 @@ in {
       '';
     };
 
-    # this defaults to `true` in the wrapper
+    # This defaults to `true` in the wrapper
     # and since we pass this value to the wrapper
     # with an inherit, it should be `true` here as well
     withRuby =
@@ -120,14 +118,14 @@ in {
       };
 
     withNodeJs = mkEnableOption ''
-      NodeJs support in the Neovim wrapper
+      NodeJS support in the Neovim wrapper
     '';
 
     luaPackages = mkOption {
       type = listOf str;
       default = [];
       example = ''["magick" "serpent"]'';
-      description = "List of lua packages to install";
+      description = "List of Lua packages to install";
     };
 
     withPython3 = mkEnableOption ''
@@ -144,7 +142,7 @@ in {
     pluginOverrides = mkOption {
       type = attrsOf package;
       default = {};
-      example = ''
+      example = literalExpression ''
         {
           lazydev-nvim = pkgs.fetchFromGitHub {
             owner = "folke";

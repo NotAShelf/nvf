@@ -4,24 +4,24 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkOption mkEnableOption literalMD;
   inherit (lib.strings) optionalString;
-  inherit (lib.trivial) boolToString;
   inherit (lib.lists) isList;
+  inherit (lib.attrsets) attrNames;
   inherit (lib.types) bool package str listOf either enum;
-  inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.nvim.lua) expToLua toLuaObject;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAfter entryAnywhere;
 
   cfg = config.vim.languages.rust;
 
-  defaultFormat = "rustfmt";
+  defaultFormat = ["rustfmt"];
   formats = {
     rustfmt = {
-      package = pkgs.rustfmt;
+      command = getExe pkgs.rustfmt;
     };
   };
 in {
@@ -31,15 +31,6 @@ in {
     treesitter = {
       enable = mkEnableOption "Rust treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = mkGrammarOption pkgs "rust";
-    };
-
-    crates = {
-      enable = mkEnableOption "crates-nvim, tools for managing dependencies";
-      codeActions = mkOption {
-        description = "Enable code actions through null-ls";
-        type = bool;
-        default = true;
-      };
     };
 
     lsp = {
@@ -79,14 +70,8 @@ in {
 
       type = mkOption {
         description = "Rust formatter to use";
-        type = enum (attrNames formats);
+        type = deprecatedSingleOrListOf "vim.language.rust.format.type" (enum (attrNames formats));
         default = defaultFormat;
-      };
-
-      package = mkOption {
-        description = "Rust formatter package";
-        type = package;
-        default = formats.${cfg.format.type}.package;
       };
     };
 
@@ -103,25 +88,32 @@ in {
         default = pkgs.lldb;
       };
     };
+
+    extensions = {
+      crates-nvim = {
+        enable = mkEnableOption "crates.io dependency management [crates-nvim]";
+
+        setupOpts = mkPluginSetupOption "crates-nvim" {
+          completion.cmp.enable = mkOption {
+            type = bool;
+            default = config.vim.autocomplete.nvim-cmp.enable;
+            defaultText = "{option}`config.vim.autocomplete.nvim-cmp.enable`";
+            description = ''
+              Whether to add crates.nvim as a source for completion plugins. The following
+              plugins are supported by crates.nvim:
+
+              * nvim-cmp
+              * coq.nvim
+
+              However nvf only supports auto-setup for nvim-cmp.
+            '';
+          };
+        };
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
-    (mkIf cfg.crates.enable {
-      vim = {
-        startPlugins = ["crates-nvim"];
-        lsp.null-ls.enable = mkIf cfg.crates.codeActions true;
-        autocomplete.nvim-cmp.sources = {crates = "[Crates]";};
-        pluginRC.rust-crates = entryAnywhere ''
-          require('crates').setup {
-            null_ls = {
-              enabled = ${boolToString cfg.crates.codeActions},
-              name = "crates.nvim",
-            }
-          }
-        '';
-      };
-    })
-
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.package];
@@ -130,9 +122,14 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.rust = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.rust = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })
@@ -140,7 +137,6 @@ in {
     (mkIf (cfg.lsp.enable || cfg.dap.enable) {
       vim = {
         startPlugins = ["rustaceanvim"];
-
         pluginRC.rustaceanvim = entryAfter ["lsp-setup"] ''
           vim.g.rustaceanvim = {
           ${optionalString cfg.lsp.enable ''
@@ -198,6 +194,29 @@ in {
           }
         '';
       };
+    })
+
+    (mkIf cfg.extensions.crates-nvim.enable {
+      vim = let
+        withCompletion = cfg.extensions.crates-nvim.setupOpts.completion.cmp.enable;
+      in
+        mkMerge [
+          {
+            startPlugins = ["crates-nvim"];
+            pluginRC.rust-crates = entryAnywhere ''
+              require("crates").setup(${toLuaObject cfg.extensions.crates-nvim.setupOpts})
+            '';
+          }
+
+          # FIXME: this will not be necessary once crates.nvim creates a new release that
+          # ships improvements to the in-progress LSP module. If updating > 0.7.1, remember
+          # to update this section.
+          # See:
+          #  <https://github.com/saecki/crates.nvim/wiki/Documentation-unstable#auto-completion>
+          (mkIf withCompletion {
+            autocomplete.nvim-cmp.sources = {crates = "[Crates]";};
+          })
+        ];
     })
   ]);
 }

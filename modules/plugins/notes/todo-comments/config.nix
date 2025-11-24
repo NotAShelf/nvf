@@ -1,7 +1,7 @@
 {
-  pkgs,
   config,
   lib,
+  options,
   ...
 }: let
   inherit (lib.modules) mkMerge mkIf;
@@ -9,8 +9,7 @@
   inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.notes.todo-comments;
-  self = import ./todo-comments.nix {inherit pkgs lib;};
-  inherit (self.options.vim.notes.todo-comments) mappings;
+  inherit (options.vim.notes.todo-comments) mappings;
 in {
   config = mkIf cfg.enable {
     vim = {

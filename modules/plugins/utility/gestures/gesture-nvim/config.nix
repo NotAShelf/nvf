@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  options,
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
@@ -9,9 +10,7 @@
 
   cfg = config.vim.gestures.gesture-nvim;
 
-  self = import ./gesture-nvim.nix {inherit lib;};
-
-  mappingDefinitions = self.options.vim.gestures.gesture-nvim.mappings;
+  mappingDefinitions = options.vim.gestures.gesture-nvim.mappings;
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
 in {
   config = mkIf cfg.enable {

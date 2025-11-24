@@ -8,43 +8,36 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
-  inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.types) diagnostics;
+  inherit (lib.types) enum package str;
+  inherit (lib.nvim.types) diagnostics deprecatedSingleOrListOf;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.sql;
   sqlfluffDefault = pkgs.sqlfluff;
 
-  defaultServer = "sqls";
+  defaultServers = ["sqls"];
   servers = {
     sqls = {
-      package = pkgs.sqls;
-      lspConfig = ''
-        lspconfig.sqls.setup {
-          on_attach = function(client)
-            client.server_capabilities.execute_command = true
-            on_attach_keymaps(client, bufnr)
-            require'sqls'.setup{}
-          end,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{ "${cfg.lsp.package}/bin/sqls", "-config", string.format("%s/config.yml", vim.fn.getcwd()) }''
-        }
-        }
+      enable = true;
+      cmd = [(getExe pkgs.sqls)];
+      filetypes = ["sql" "mysql"];
+      root_markers = ["config.yml"];
+      settings = {};
+      on_attach = mkLuaInline ''
+        function(client, bufnr)
+          client.server_capabilities.execute_command = true
+          require'sqls'.setup{}
+        end
       '';
     };
   };
 
-  defaultFormat = "sqlfluff";
+  defaultFormat = ["sqlfluff"];
   formats = {
     sqlfluff = {
-      package = sqlfluffDefault;
-      config = {
-        command = getExe cfg.format.package;
-        append_args = ["--dialect=${cfg.dialect}"];
-      };
+      command = getExe sqlfluffDefault;
+      append_args = ["--dialect=${cfg.dialect}"];
     };
   };
 
@@ -63,35 +56,28 @@ in {
     enable = mkEnableOption "SQL language support";
 
     dialect = mkOption {
-      description = "SQL dialect for sqlfluff (if used)";
       type = str;
       default = "ansi";
+      description = "SQL dialect for sqlfluff (if used)";
     };
 
     treesitter = {
       enable = mkEnableOption "SQL treesitter" // {default = config.vim.languages.enableTreesitter;};
 
       package = mkOption {
-        description = "SQL treesitter grammar to use";
         type = package;
         default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.sql;
+        description = "SQL treesitter grammar to use";
       };
     };
 
     lsp = {
       enable = mkEnableOption "SQL LSP support" // {default = config.vim.lsp.enable;};
 
-      server = mkOption {
+      servers = mkOption {
+        type = deprecatedSingleOrListOf "vim.language.sql.lsp.servers" (enum (attrNames servers));
+        default = defaultServers;
         description = "SQL LSP server to use";
-        type = enum (attrNames servers);
-        default = defaultServer;
-      };
-
-      package = mkOption {
-        description = "SQL LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
       };
     };
 
@@ -99,15 +85,9 @@ in {
       enable = mkEnableOption "SQL formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        description = "SQL formatter to use";
-        type = enum (attrNames formats);
+        type = deprecatedSingleOrListOf "vim.language.sql.format.type" (enum (attrNames formats));
         default = defaultFormat;
-      };
-
-      package = mkOption {
-        description = "SQL formatter package";
-        type = package;
-        default = formats.${cfg.format.type}.package;
+        description = "SQL formatter to use";
       };
     };
 
@@ -132,18 +112,27 @@ in {
       vim = {
         startPlugins = ["sqls-nvim"];
 
-        lsp.lspconfig = {
-          enable = true;
-          sources.sql-lsp = servers.${cfg.lsp.server}.lspConfig;
-        };
+        lsp.servers =
+          mapListToAttrs (n: {
+            name = n;
+            value = servers.${n};
+          })
+          cfg.lsp.servers;
       };
     })
 
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.sql = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = formats.${cfg.format.type}.config;
+        setupOpts = {
+          formatters_by_ft.sql = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
+        };
       };
     })
 
