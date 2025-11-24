@@ -708,18 +708,21 @@
       "url": "https://github.com/tzachar/highlight-undo.nvim/archive/ee32e12693d70e66f954d09a504a7371d110fc27.tar.gz",
       "hash": "09byybwyl61jxlfii9vsi4i21vy6ngm3mbypqlhsivn8wgg24kn9"
     },
-    "hop-nvim": {
-      "type": "Git",
+    "hop.nvim": {
+      "type": "GitRelease",
       "repository": {
         "type": "GitHub",
-        "owner": "phaazon",
+        "owner": "smoka7",
         "repo": "hop.nvim"
       },
-      "branch": "master",
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
       "submodules": false,
-      "revision": "1a1eceafe54b5081eae4cb91c723abd1d450f34b",
-      "url": "https://github.com/phaazon/hop.nvim/archive/1a1eceafe54b5081eae4cb91c723abd1d450f34b.tar.gz",
-      "hash": "08h18cam2yr57qvfsnf1bra28vbl6013wlchnr5crb757xw8aysa"
+      "version": "v2.7.2",
+      "revision": "08ddca799089ab96a6d1763db0b8adc5320bf050",
+      "url": "https://api.github.com/repos/smoka7/hop.nvim/tarball/v2.7.2",
+      "hash": "07mydcm3x7xc7x6wg5l6kcx8yrrv9bwy2p44y17ajyx37c5lmwwn"
     },
     "hunk-nvim": {
       "type": "GitRelease",
