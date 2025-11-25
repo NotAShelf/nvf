@@ -10,7 +10,7 @@
   inherit (lib.strings) optionalString;
   inherit (lib.lists) isList;
   inherit (lib.attrsets) attrNames;
-  inherit (lib.types) bool package str listOf either enum;
+  inherit (lib.types) bool package str listOf either enum int;
   inherit (lib.nvim.lua) expToLua toLuaObject;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
@@ -94,19 +94,24 @@ in {
         enable = mkEnableOption "crates.io dependency management [crates-nvim]";
 
         setupOpts = mkPluginSetupOption "crates-nvim" {
-          completion.cmp.enable = mkOption {
-            type = bool;
-            default = config.vim.autocomplete.nvim-cmp.enable;
-            defaultText = "{option}`config.vim.autocomplete.nvim-cmp.enable`";
-            description = ''
-              Whether to add crates.nvim as a source for completion plugins. The following
-              plugins are supported by crates.nvim:
-
-              * nvim-cmp
-              * coq.nvim
-
-              However nvf only supports auto-setup for nvim-cmp.
-            '';
+          lsp = {
+            enabled = mkEnableOption "crates.nvim's in-process language server" // {default = cfg.extensions.crates-nvim.enable;};
+            actions = mkEnableOption "actions for crates-nvim's in-process language server" // {default = cfg.extensions.crates-nvim.enable;};
+            # completion = {
+            #   enabled = mkEnableOption "completion for crates-nvim's in-process language server" // {default = cfg.extensions.crates-nvim.enable;};
+            #   max_results = mkOption {
+            #     description = "The maximum number of search results to display";
+            #     type = int;
+            #     default = 8;
+            #   };
+            #   min_chars = mkOption {
+            #     description = "The minimum number of characters to type before completions begin appearing";
+            #     type = int;
+            #     default = 3;
+            #   };
+            # };
+            completion = mkEnableOption "completion for crates-nvim's in-process language server" // {default = cfg.extensions.crates-nvim.enable;};
+            hover = mkEnableOption "hover actions for crates-nvim's in-process language server" // {default = cfg.extensions.crates-nvim.enable;};
           };
         };
       };
