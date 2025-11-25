@@ -97,21 +97,23 @@ in {
           lsp = {
             enabled = mkEnableOption "crates.nvim's in-process language server" // {default = cfg.extensions.crates-nvim.enable;};
             actions = mkEnableOption "actions for crates-nvim's in-process language server" // {default = cfg.extensions.crates-nvim.enable;};
-            # completion = {
-            #   enabled = mkEnableOption "completion for crates-nvim's in-process language server" // {default = cfg.extensions.crates-nvim.enable;};
-            #   max_results = mkOption {
-            #     description = "The maximum number of search results to display";
-            #     type = int;
-            #     default = 8;
-            #   };
-            #   min_chars = mkOption {
-            #     description = "The minimum number of characters to type before completions begin appearing";
-            #     type = int;
-            #     default = 3;
-            #   };
-            # };
             completion = mkEnableOption "completion for crates-nvim's in-process language server" // {default = cfg.extensions.crates-nvim.enable;};
             hover = mkEnableOption "hover actions for crates-nvim's in-process language server" // {default = cfg.extensions.crates-nvim.enable;};
+          };
+          completion = {
+            crates = {
+              enabled = mkEnableOption "completion for crates-nvim's in-process language server" // {default = cfg.extensions.crates-nvim.enable;};
+              max_results = mkOption {
+                description = "The maximum number of search results to display";
+                type = int;
+                default = 8;
+              };
+              min_chars = mkOption {
+                description = "The minimum number of characters to type before completions begin appearing";
+                type = int;
+                default = 3;
+              };
+            };
           };
         };
       };
@@ -202,26 +204,14 @@ in {
     })
 
     (mkIf cfg.extensions.crates-nvim.enable {
-      vim = let
-        withCompletion = cfg.extensions.crates-nvim.setupOpts.completion.cmp.enable;
-      in
-        mkMerge [
-          {
-            startPlugins = ["crates-nvim"];
-            pluginRC.rust-crates = entryAnywhere ''
-              require("crates").setup(${toLuaObject cfg.extensions.crates-nvim.setupOpts})
-            '';
-          }
-
-          # FIXME: this will not be necessary once crates.nvim creates a new release that
-          # ships improvements to the in-progress LSP module. If updating > 0.7.1, remember
-          # to update this section.
-          # See:
-          #  <https://github.com/saecki/crates.nvim/wiki/Documentation-unstable#auto-completion>
-          (mkIf withCompletion {
-            autocomplete.nvim-cmp.sources = {crates = "[Crates]";};
-          })
-        ];
+      vim = mkMerge [
+        {
+          startPlugins = ["crates-nvim"];
+          pluginRC.rust-crates = entryAnywhere ''
+            require("crates").setup(${toLuaObject cfg.extensions.crates-nvim.setupOpts})
+          '';
+        }
+      ];
     })
   ]);
 }
