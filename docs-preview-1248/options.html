@@ -21662,19 +21662,177 @@ open submodule of anything</p>
 </dd>
 <dt>
  <span class="term">
- <a id="opt-vim.languages.rust.extensions.crates-nvim.setupOpts.completion.cmp.enable"></a><a class="term" href="options.html#opt-vim.languages.rust.extensions.crates-nvim.setupOpts.completion.cmp.enable"><code class="option">vim.languages.rust.extensions.crates-nvim.setupOpts.completion.cmp.enable</code>
+ <a id="opt-vim.languages.rust.extensions.crates-nvim.setupOpts.completion.crates.enabled"></a><a class="term" href="options.html#opt-vim.languages.rust.extensions.crates-nvim.setupOpts.completion.crates.enabled"><code class="option">vim.languages.rust.extensions.crates-nvim.setupOpts.completion.crates.enabled</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>Whether to add crates.nvim as a source for completion plugins. The following
-plugins are supported by crates.nvim:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>nvim-cmp</p></li><li class="listitem"><p>coq.nvim</p></li></ul></div><p>However nvf only supports auto-setup for nvim-cmp.</p>
+<p>Whether to enable completion for crates-nvim’s in-process language server.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">&quot;{option}`config.vim.autocomplete.nvim-cmp.enable`&quot;</code></p>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_top">
+&lt;nvf/modules/plugins/languages/rust.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.rust.extensions.crates-nvim.setupOpts.completion.crates.max_results"></a><a class="term" href="options.html#opt-vim.languages.rust.extensions.crates-nvim.setupOpts.completion.crates.max_results"><code class="option">vim.languages.rust.extensions.crates-nvim.setupOpts.completion.crates.max_results</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The maximum number of search results to display</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+signed integer</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">8</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_top">
+&lt;nvf/modules/plugins/languages/rust.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.rust.extensions.crates-nvim.setupOpts.completion.crates.min_chars"></a><a class="term" href="options.html#opt-vim.languages.rust.extensions.crates-nvim.setupOpts.completion.crates.min_chars"><code class="option">vim.languages.rust.extensions.crates-nvim.setupOpts.completion.crates.min_chars</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The minimum number of characters to type before completions begin appearing</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+signed integer</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">3</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_top">
+&lt;nvf/modules/plugins/languages/rust.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.rust.extensions.crates-nvim.setupOpts.lsp.enabled"></a><a class="term" href="options.html#opt-vim.languages.rust.extensions.crates-nvim.setupOpts.lsp.enabled"><code class="option">vim.languages.rust.extensions.crates-nvim.setupOpts.lsp.enabled</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable crates.nvim’s in-process language server.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_top">
+&lt;nvf/modules/plugins/languages/rust.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.rust.extensions.crates-nvim.setupOpts.lsp.actions"></a><a class="term" href="options.html#opt-vim.languages.rust.extensions.crates-nvim.setupOpts.lsp.actions"><code class="option">vim.languages.rust.extensions.crates-nvim.setupOpts.lsp.actions</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable actions for crates-nvim’s in-process language server.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_top">
+&lt;nvf/modules/plugins/languages/rust.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.rust.extensions.crates-nvim.setupOpts.lsp.completion"></a><a class="term" href="options.html#opt-vim.languages.rust.extensions.crates-nvim.setupOpts.lsp.completion"><code class="option">vim.languages.rust.extensions.crates-nvim.setupOpts.lsp.completion</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable completion for crates-nvim’s in-process language server.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_top">
+&lt;nvf/modules/plugins/languages/rust.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="opt-vim.languages.rust.extensions.crates-nvim.setupOpts.lsp.hover"></a><a class="term" href="options.html#opt-vim.languages.rust.extensions.crates-nvim.setupOpts.lsp.hover"><code class="option">vim.languages.rust.extensions.crates-nvim.setupOpts.lsp.hover</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to enable hover actions for crates-nvim’s in-process language server.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
