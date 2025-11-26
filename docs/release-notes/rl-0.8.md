@@ -507,6 +507,7 @@
 - fix broken `neorg` grammars
 - remove obsolete warning in the `otter` module
 - add mainProgram attribute to vala language server wrapper
+- fix `crates-nvim`'s completions by using the in-program lsp
 - enable `nil.settings.nil.nix.autoArchive` by default
 
 [JManch](https://github.com/JManch):
