@@ -7,28 +7,20 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
-  inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.meta) getExe;
+  inherit (lib.types) enum;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.gleam;
 
-  defaultServer = "gleam";
+  defaultServers = ["gleam"];
   servers = {
     gleam = {
-      package = pkgs.gleam;
-      lspConfig = ''
-        lspconfig.gleam.setup{
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/gleam", "lsp"}''
-        }
-        }
-      '';
+      enable = true;
+      cmd = [(getExe pkgs.gleam) "lsp"];
+      filetypes = ["gleam"];
+      root_markers = ["gleam.toml" ".git"];
     };
   };
 in {
@@ -42,17 +34,10 @@ in {
 
     lsp = {
       enable = mkEnableOption "Gleam LSP support" // {default = config.vim.lsp.enable;};
-
-      server = mkOption {
-        type = enum (attrNames servers);
-        default = defaultServer;
+      servers = mkOption {
+        type = deprecatedSingleOrListOf "vim.language.gleam.lsp.servers" (enum (attrNames servers));
+        default = defaultServers;
         description = "Gleam LSP server to use";
-      };
-
-      package = mkOption {
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
-        description = "Gleam LSP server package, or the command to run as a list of strings";
       };
     };
   };
@@ -64,8 +49,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.gleam-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
   ]);
 }

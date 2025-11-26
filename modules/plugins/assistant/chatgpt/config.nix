@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  options,
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
@@ -10,8 +11,7 @@
 
   cfg = config.vim.assistant.chatgpt;
 
-  self = import ./chatgpt.nix {inherit lib;};
-  mappingDefinitions = self.options.vim.assistant.chatgpt.mappings;
+  mappingDefinitions = options.vim.assistant.chatgpt.mappings;
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
   maps = mkMerge [
     (mkSetBinding mappings.editWithInstructions "<cmd>ChatGPTEditWithInstruction<CR>")

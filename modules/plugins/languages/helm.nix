@@ -4,44 +4,39 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
+  inherit (builtins) attrNames head;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
-  inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.modules) mkDefault mkIf mkMerge;
+  inherit (lib.meta) getExe;
+  inherit (lib.types) enum;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.helm;
   yamlCfg = config.vim.languages.yaml;
 
-  helmCmd =
-    if isList cfg.lsp.package
-    then cfg.lsp.package
-    else ["${cfg.lsp.package}/bin/helm_ls" "serve"];
-  yamlCmd =
-    if isList yamlCfg.lsp.package
-    then builtins.elemAt yamlCfg.lsp.package 0
-    else "${yamlCfg.lsp.package}/bin/yaml-language-server";
-
-  defaultServer = "helm-ls";
+  defaultServers = ["helm-ls"];
   servers = {
     helm-ls = {
-      package = pkgs.helm-ls;
-      lspConfig = ''
-        lspconfig.helm_ls.setup {
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          cmd = ${expToLua helmCmd},
-          settings = {
-            ['helm-ls'] = {
-              yamlls = {
-                  path = "${yamlCmd}"
-              }
-            }
-          }
-        }
-      '';
+      enable = true;
+      cmd = [(getExe pkgs.helm-ls) "serve"];
+      filetypes = ["helm" "yaml.helm-values"];
+      root_markers = ["Chart.yaml"];
+      capabilities = {
+        didChangeWatchedFiles = {
+          dynamicRegistration = true;
+        };
+      };
+      settings = mkIf (yamlCfg.enable && yamlCfg.lsp.enable) {
+        helm-ls = {
+          yamlls = {
+            # Without this being enabled, the YAML language module will look broken in helmfiles
+            # if both modules are enabled at once.
+            enabled = mkDefault yamlCfg.lsp.enable;
+            path = head config.vim.lsp.servers.${head yamlCfg.lsp.servers}.cmd;
+          };
+        };
+      };
     };
   };
 in {
@@ -55,17 +50,10 @@ in {
 
     lsp = {
       enable = mkEnableOption "Helm LSP support" // {default = config.vim.lsp.enable;};
-
-      server = mkOption {
+      servers = mkOption {
+        type = deprecatedSingleOrListOf "vim.language.helm.lsp.servers" (enum (attrNames servers));
+        default = defaultServers;
         description = "Helm LSP server to use";
-        type = enum (attrNames servers);
-        default = defaultServer;
-      };
-
-      package = mkOption {
-        description = "Helm LSP server package";
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
       };
     };
   };
@@ -77,8 +65,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.helm-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
 
     {

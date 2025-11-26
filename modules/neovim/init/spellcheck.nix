@@ -9,7 +9,7 @@
   inherit (lib.strings) concatLines concatStringsSep optionalString;
   inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.types) listOf str attrsOf;
-  inherit (lib.nvim.lua) listToLuaTable;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryAfter;
 
   cfg = config.vim.spellcheck;
@@ -152,7 +152,7 @@ in {
         vim.api.nvim_create_augroup("nvf_autocmds", {clear = false})
         vim.api.nvim_create_autocmd({ "FileType" }, {
           group = "nvf_autocmds",
-          pattern = ${listToLuaTable cfg.ignoredFiletypes},
+          pattern = ${toLuaObject cfg.ignoredFiletypes},
           callback = function()
             vim.opt_local.spell = false
           end,

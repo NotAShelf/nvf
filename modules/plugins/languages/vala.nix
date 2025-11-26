@@ -7,36 +7,58 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
-  inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.meta) getExe;
+  inherit (lib.types) enum;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.vala;
 
-  defaultServer = "vala_ls";
+  defaultServers = ["vala_ls"];
   servers = {
     vala_ls = {
-      package = pkgs.symlinkJoin {
-        name = "vala-language-server-wrapper";
-        paths = [pkgs.vala-language-server];
-        buildInputs = [pkgs.makeBinaryWrapper];
-        postBuild = ''
-          wrapProgram $out/bin/vala-language-server \
-            --prefix PATH : ${pkgs.uncrustify}/bin
-        '';
-      };
-      internalFormatter = true;
-      lspConfig = ''
-        lspconfig.vala_ls.setup {
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/vala-language-server"}''
-        },
-        }
+      enable = true;
+      cmd = [
+        (getExe (pkgs.symlinkJoin {
+          name = "vala-language-server-wrapper";
+          paths = [pkgs.vala-language-server];
+          meta.mainProgram = "vala-language-server-wrapper";
+          buildInputs = [pkgs.makeBinaryWrapper];
+          postBuild = ''
+            wrapProgram $out/bin/vala-language-server \
+              --prefix PATH : ${pkgs.uncrustify}/bin
+          '';
+        }))
+      ];
+      filetypes = ["vala" "genie"];
+      root_dir = mkLuaInline ''
+        function(bufnr, on_dir)
+          local meson_matcher = function(path)
+            local pattern = 'meson.build'
+            local f = vim.fn.glob(table.concat({ path, pattern }, '/'))
+            if f == ''' then
+              return nil
+            end
+            for line in io.lines(f) do
+              -- skip meson comments
+              if not line:match '^%s*#.*' then
+                local str = line:gsub('%s+', ''')
+                if str ~= ''' then
+                  if str:match '^project%(' then
+                    return path
+                  else
+                    break
+                  end
+                end
+              end
+            end
+          end
+
+          local fname = vim.api.nvim_buf_get_name(bufnr)
+          local root = vim.iter(vim.fs.parents(fname)):find(meson_matcher)
+          on_dir(root or vim.fs.dirname(vim.fs.find('.git', { path = fname, upward = true })[1]))
+        end
       '';
     };
   };
@@ -51,16 +73,10 @@ in {
 
     lsp = {
       enable = mkEnableOption "Vala LSP support" // {default = config.vim.lsp.enable;};
-      server = mkOption {
+      servers = mkOption {
+        type = deprecatedSingleOrListOf "vim.language.vala.lsp.servers" (enum (attrNames servers));
+        default = defaultServers;
         description = "Vala LSP server to use";
-        type = enum (attrNames servers);
-        default = defaultServer;
-      };
-
-      package = mkOption {
-        description = "Vala LSP server package, or the command to run as a list of strings";
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
       };
     };
   };
@@ -72,8 +88,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.vala_ls = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
   ]);
 }

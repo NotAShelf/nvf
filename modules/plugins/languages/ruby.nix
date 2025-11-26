@@ -8,55 +8,51 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics;
-  inherit (lib.nvim.lua) expToLua;
-  inherit (lib.lists) isList;
-  inherit (lib.types) either listOf package str enum;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
+  inherit (lib.types) enum;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.ruby;
 
-  defaultServer = "rubyserver";
+  defaultServers = ["solargraph"];
   servers = {
-    rubyserver = {
-      package = pkgs.rubyPackages.solargraph;
-      lspConfig = ''
-        lspconfig.solargraph.setup {
-          capabilities = capabilities,
-          on_attach = attach_keymaps,
-          flags = {
-            debounce_text_changes = 150,
-          },
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{ "${cfg.lsp.package}/bin/solargraph", "stdio" }''
-        }
-        }
-      '';
+    ruby_lsp = {
+      enable = true;
+      cmd = [(getExe pkgs.ruby-lsp)];
+      filetypes = ["ruby" "eruby"];
+      root_markers = ["Gemfile" ".git"];
+      init_options = {
+        formatter = "auto";
+      };
     };
-    rubylsp = {
-      package = pkgs.ruby-lsp;
-      lspConfig = ''
-        lspconfig.ruby_lsp.setup {
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{ "${cfg.lsp.package}/bin/ruby-lsp" }''
-        }
-        }
-      '';
+
+    solargraph = {
+      enable = true;
+      cmd = [(getExe pkgs.rubyPackages.solargraph) "stdio"];
+      filetypes = ["ruby"];
+      root_markers = ["Gemfile" ".git"];
+      settings = {
+        solargraph = {
+          diagnostics = true;
+        };
+      };
+
+      flags = {
+        debounce_text_changes = 150;
+      };
+
+      init_options = {
+        formatting = true;
+      };
     };
   };
 
   # testing
 
-  defaultFormat = "rubocop";
+  defaultFormat = ["rubocop"];
   formats = {
     rubocop = {
-      # TODO: is this right?
-      package = pkgs.rubyPackages.rubocop;
+      command = getExe pkgs.rubyPackages.rubocop;
     };
   };
 
@@ -64,7 +60,6 @@
   diagnosticsProviders = {
     rubocop = {
       package = pkgs.rubyPackages.rubocop;
-      config.command = getExe cfg.format.package;
     };
   };
 in {
@@ -79,16 +74,10 @@ in {
     lsp = {
       enable = mkEnableOption "Ruby LSP support" // {default = config.vim.lsp.enable;};
 
-      server = mkOption {
-        type = enum (attrNames servers);
-        default = defaultServer;
+      servers = mkOption {
+        type = deprecatedSingleOrListOf "vim.language.ruby.lsp.servers" (enum (attrNames servers));
+        default = defaultServers;
         description = "Ruby LSP server to use";
-      };
-
-      package = mkOption {
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
-        description = "Ruby LSP server package, or the command to run as a list of strings";
       };
     };
 
@@ -96,15 +85,9 @@ in {
       enable = mkEnableOption "Ruby formatter support" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = enum (attrNames formats);
+        type = deprecatedSingleOrListOf "vim.language.ruby.format.type" (enum (attrNames formats));
         default = defaultFormat;
         description = "Ruby formatter to use";
-      };
-
-      package = mkOption {
-        type = package;
-        default = formats.${cfg.format.type}.package;
-        description = "Ruby formatter package";
       };
     };
 
@@ -128,16 +111,25 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.ruby-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
 
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.ruby = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.ruby = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })
