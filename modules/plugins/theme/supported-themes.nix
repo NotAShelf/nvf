@@ -19,16 +19,10 @@ in {
       base16-colors,
       transparent,
       ...
-    }: let
-      colors =
-        builtins.replaceStrings
-        [''["'' ''"]'']
-        ["" ""]
-        (toLuaObject base16-colors);
-    in ''
+    }: ''
       -- Base16 theme
       require('base16-pro-max').setup {
-        colors = ${colors},
+        colors = ${toLuaObject base16-colors},
         styles = { transparency = ${boolToString transparent} },
       }
       vim.cmd.colorscheme "base16-pro-max"
