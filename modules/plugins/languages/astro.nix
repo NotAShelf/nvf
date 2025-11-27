@@ -43,10 +43,10 @@
 
   defaultFormat = ["prettier"];
   formats = let
-    parser = "${self.packages.${pkgs.stdenv.system}.prettier-plugin-astro}/index.js";
+    parser = "${self.packages.${pkgs.stdenv.hostPlatform.system}.prettier-plugin-astro}/index.js";
   in {
     prettier = {
-      command = getExe pkgs.nodePackages.prettier;
+      command = getExe pkgs.prettier;
       options.ft_parsers.astro = "astro";
       prepend_args = ["--plugin=${parser}"];
     };
