@@ -589,7 +589,8 @@
 [smoka7/hop.nvim]: https://github.com/smoka7/hop.nvim
 
 - Migrate [phaazon/hop.nvim] to [smoka7/hop.nvim]
-  [typst-concealer]. [simon-wg](https://github.com/simon-wg):
+
+[simon-wg](https://github.com/simon-wg):
 
 - Update `python` language module to use correct lsp binary.
 - Fix `python` pyright and basedpyright language servers not using default on
