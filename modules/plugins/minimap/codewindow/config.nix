@@ -33,9 +33,9 @@ in {
 
       pluginRC.codewindow = entryAnywhere ''
         local codewindow = require('codewindow')
-        codewindow.setup({
-          exclude_filetypes = { 'NvimTree', 'orgagenda', 'Alpha'},
-        })
+        codewindow.setup(
+          ${lib.nvim.lua.toLuaObject cfg.setupOpts}
+        )
       '';
     };
   };
