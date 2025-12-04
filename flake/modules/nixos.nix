@@ -21,6 +21,7 @@
     class = "nvf";
     specialArgs = {
       inherit pkgs lib inputs;
+      inherit (inputs) self;
     };
     modules = import ../../modules/modules.nix {inherit pkgs lib;};
   };
