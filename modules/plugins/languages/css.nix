@@ -28,6 +28,11 @@
         less.validate = true;
       };
     };
+    emmet-ls = {
+      cmd = [(getExe pkgs.emmet-ls) "--stdio"];
+      filetypes = ["css" "scss" "less"];
+      root_markers = [".git" "package.json"];
+    };
   };
 
   defaultFormat = ["prettier"];

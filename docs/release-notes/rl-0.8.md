@@ -608,3 +608,6 @@
 
 - Enable `languages.ts.format` for `.js` files
 - Add [emmet-ls] to `html.lsp.servers`
+- Add [emmet-ls] to `css.lsp.servers`
+- Add [emmet-ls] to `ts.lsp.servers`
+- Add [emmet-ls] to html default servers

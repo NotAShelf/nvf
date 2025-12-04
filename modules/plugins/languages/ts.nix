@@ -73,6 +73,19 @@
     # redirect the user to the correct server.
     tsserver = ts_ls;
 
+    emmet-ls = {
+      cmd = [(getExe pkgs.emmet-ls) "--stdio"];
+      root_markers = ["tsconfig.json" "jsconfig.json" "package.json" ".git"];
+      filetypes = [
+        "javascript"
+        "javascriptreact"
+        "javascript.jsx"
+        "typescript"
+        "typescriptreact"
+        "typescript.tsx"
+      ];
+    };
+
     denols = {
       cmd = [(getExe pkgs.deno) "lsp"];
       cmd_env = {NO_COLOR = true;};
