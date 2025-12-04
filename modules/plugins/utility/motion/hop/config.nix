@@ -14,7 +14,7 @@
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
 in {
   config = mkIf cfg.enable {
-    vim.startPlugins = ["hop-nvim"];
+    vim.startPlugins = ["hop.nvim"];
 
     vim.maps.normal = mkSetBinding mappings.hop "<cmd> HopPattern<CR>";
 
