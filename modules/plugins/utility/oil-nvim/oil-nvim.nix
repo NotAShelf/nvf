@@ -8,5 +8,13 @@ in {
     '';
 
     setupOpts = mkPluginSetupOption "oil-nvim" {};
+
+    gitStatus = {
+      enable = mkEnableOption ''
+        Git status on [oil-nvim] directory listings
+      '';
+
+      setupOpts = mkPluginSetupOption "oil-git-status-nvim" {};
+    };
   };
 }

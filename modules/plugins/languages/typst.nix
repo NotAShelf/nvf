@@ -4,64 +4,99 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
-  inherit (lib.types) nullOr enum either attrsOf listOf package str bool int;
+  inherit (lib.types) nullOr enum attrsOf listOf package str bool int;
   inherit (lib.attrsets) attrNames;
   inherit (lib.meta) getExe;
-  inherit (lib.nvim.binds) mkMappingOption mkKeymap;
-  inherit (lib.nvim.lua) expToLua toLuaObject;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.binds) mkKeymap mkMappingOption;
+  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.typst;
 
-  defaultServer = "tinymist";
+  defaultServers = ["tinymist"];
   servers = {
-    typst-lsp = {
-      package = pkgs.typst-lsp;
-      lspConfig = ''
-        lspconfig.typst_lsp.setup {
-          capabilities = capabilities,
-          on_attach = function(client, bufnr)
-            -- Disable semantic tokens as a workaround for a semantic token error when using non-english characters
-            client.server_capabilities.semanticTokensProvider = nil
-          end,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/typst-lsp"}''
-        },
-        }
+    typst_lsp = {
+      enable = true;
+      cmd = [(getExe pkgs.typst-lsp)];
+      filetypes = ["typst"];
+      root_markers = [".git"];
+      on_attach = mkLuaInline ''
+        function(client, bufnr)
+          -- Disable semantic tokens as a workaround for a semantic token error when using non-english characters
+          client.server_capabilities.semanticTokensProvider = nil
+        end
       '';
     };
 
     tinymist = {
-      package = pkgs.tinymist;
-      lspConfig = ''
-        lspconfig.tinymist.setup {
-          capabilities = capabilities,
-          single_file_support = true,
-          on_attach = function(client, bufnr)
-            -- Disable semantic tokens as a workaround for a semantic token error when using non-english characters
-            client.server_capabilities.semanticTokensProvider = nil
-          end,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/tinymist"}''
-        },
-        }
+      enable = true;
+      cmd = [(getExe pkgs.tinymist)];
+      filetypes = ["typst"];
+      root_markers = [".git"];
+      on_attach = mkLuaInline ''
+        function(client, bufnr)
+          local function create_tinymist_command(command_name, client, bufnr)
+            local export_type = command_name:match 'tinymist%.export(%w+)'
+            local info_type = command_name:match 'tinymist%.(%w+)'
+            if info_type and info_type:match '^get' then
+              info_type = info_type:gsub('^get', 'Get')
+            end
+            local cmd_display = export_type or info_type
+            local function run_tinymist_command()
+              local arguments = { vim.api.nvim_buf_get_name(bufnr) }
+              local title_str = export_type and ('Export ' .. cmd_display) or cmd_display
+              local function handler(err, res)
+                if err then
+                  return vim.notify(err.code .. ': ' .. err.message, vim.log.levels.ERROR)
+                end
+                vim.notify(export_type and res or vim.inspect(res), vim.log.levels.INFO)
+              end
+              if vim.fn.has 'nvim-0.11' == 1 then
+                return client:exec_cmd({
+                  title = title_str,
+                  command = command_name,
+                  arguments = arguments,
+                }, { bufnr = bufnr }, handler)
+              else
+                return vim.notify('Tinymist commands require Neovim 0.11+', vim.log.levels.WARN)
+              end
+            end
+            local cmd_name = export_type and ('LspTinymistExport' .. cmd_display) or ('LspTinymist' .. cmd_display)
+            local cmd_desc = export_type and ('Export to ' .. cmd_display) or ('Get ' .. cmd_display)
+            return run_tinymist_command, cmd_name, cmd_desc
+          end
+
+          for _, command in ipairs {
+            'tinymist.exportSvg',
+            'tinymist.exportPng',
+            'tinymist.exportPdf',
+            'tinymist.exportMarkdown',
+            'tinymist.exportText',
+            'tinymist.exportQuery',
+            'tinymist.exportAnsiHighlight',
+            'tinymist.getServerInfo',
+            'tinymist.getDocumentTrace',
+            'tinymist.getWorkspaceLabels',
+            'tinymist.getDocumentMetrics',
+          } do
+            local cmd_func, cmd_name, cmd_desc = create_tinymist_command(command, client, bufnr)
+            vim.api.nvim_buf_create_user_command(bufnr, cmd_name, cmd_func, { nargs = 0, desc = cmd_desc })
+          end
+        end
       '';
     };
   };
 
-  defaultFormat = "typstyle";
+  defaultFormat = ["typstyle"];
   formats = {
     # https://github.com/Enter-tainer/typstyle
     typstyle = {
-      package = pkgs.typstyle;
+      command = getExe pkgs.typstyle;
     };
   };
 in {
@@ -76,17 +111,10 @@ in {
     lsp = {
       enable = mkEnableOption "Typst LSP support (typst-lsp)" // {default = config.vim.lsp.enable;};
 
-      server = mkOption {
+      servers = mkOption {
+        type = deprecatedSingleOrListOf "vim.language.typst.lsp.servers" (enum (attrNames servers));
+        default = defaultServers;
         description = "Typst LSP server to use";
-        type = enum (attrNames servers);
-        default = defaultServer;
-      };
-
-      package = mkOption {
-        description = "typst-lsp package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
       };
     };
 
@@ -94,15 +122,9 @@ in {
       enable = mkEnableOption "Typst document formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        description = "Typst formatter to use";
-        type = enum (attrNames formats);
+        type = deprecatedSingleOrListOf "vim.language.typst.format.type" (enum (attrNames formats));
         default = defaultFormat;
-      };
-
-      package = mkOption {
-        description = "Typst formatter package";
-        type = package;
-        default = formats.${cfg.format.type}.package;
+        description = "Typst formatter to use";
       };
     };
 
@@ -129,7 +151,7 @@ in {
           dependencies_bin = mkOption {
             type = attrsOf str;
             default = {
-              "tinymist" = getExe servers.tinymist.package;
+              "tinymist" = getExe pkgs.tinymist;
               "websocat" = getExe pkgs.websocat;
             };
 
@@ -210,16 +232,25 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.typst = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.typst = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.typst-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
 
     # Extensions

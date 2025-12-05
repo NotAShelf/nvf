@@ -14,7 +14,7 @@ in {
         "flash-nvim" = {
           package = "flash-nvim";
           setupModule = "flash";
-          setupOpts = cfg.setupOpts;
+          inherit (cfg) setupOpts;
 
           lazy = true;
 

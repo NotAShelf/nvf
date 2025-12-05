@@ -1,13 +1,58 @@
 {lib, ...}: let
   inherit (lib.generators) mkLuaInline;
   inherit (lib.options) mkOption mkEnableOption literalMD;
-  inherit (lib.types) attrs either nullOr;
+  inherit (lib.types) attrs either nullOr listOf submodule str;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) luaInline mkPluginSetupOption;
+
+  formattersType = submodule {
+    freeformType = attrs;
+    options = {
+      command = mkOption {
+        type = nullOr (either str luaInline);
+        default = null;
+        description = "The command to run.";
+      };
+
+      args = mkOption {
+        type = nullOr (either (listOf str) luaInline);
+        default = null;
+        description = ''
+          A list of strings, or a lua function that returns a list of strings.
+
+          Return a single string instead of a list to run the command in a
+          shell.
+        '';
+      };
+
+      prepend_args = mkOption {
+        type = nullOr (either (listOf str) luaInline);
+        default = null;
+        description = ''
+          When inherit = true, add additional arguments to the beginning of
+          args. Can also be a function, like args.
+        '';
+      };
+
+      append_args = mkOption {
+        type = nullOr (either (listOf str) luaInline);
+        default = null;
+        description = ''
+          When inherit = true, add additional arguments to the end of args.
+          Can also be a function, like args.
+        '';
+      };
+    };
+  };
 in {
   options.vim.formatter.conform-nvim = {
     enable = mkEnableOption "lightweight yet powerful formatter plugin for Neovim [conform-nvim]";
     setupOpts = mkPluginSetupOption "conform.nvim" {
+      formatters = mkOption {
+        type = formattersType;
+        default = {};
+        description = "Custom formatters and overrides for built-in formatters.";
+      };
       formatters_by_ft = mkOption {
         type = attrs;
         default = {};
