@@ -510,3 +510,7 @@
 
 - Add inline typst concealing support under `vim.languages.typst` using
   [typst-concealer].
+
+[JudahZF](https://github.com/JudahZF):
+
+- Added gitFiles mapping option to telescope
