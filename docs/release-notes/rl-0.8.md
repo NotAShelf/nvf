@@ -520,3 +520,6 @@
 [JudahZF](https://github.com/JudahZF):
 
 - Added gitFiles mapping option to telescope
+[vagahbond](https://github.com/vagahbond):
+
+- moved [codewindow](https://github.com/gorbit99/codewindow.nvim) to setupOpts
