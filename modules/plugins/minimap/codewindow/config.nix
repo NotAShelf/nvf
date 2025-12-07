@@ -33,9 +33,7 @@ in {
 
       pluginRC.codewindow = entryAnywhere ''
         local codewindow = require('codewindow')
-        codewindow.setup(
-          ${lib.nvim.lua.toLuaObject cfg.setupOpts}
-        )
+        codewindow.setup(${cfg.setupOpts})
       '';
     };
   };
