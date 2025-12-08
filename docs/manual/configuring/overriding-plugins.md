@@ -22,7 +22,7 @@ vim.pluginOverrides = {
 };
 ```
 
-This will override the source for the `neodev.nvim` plugin that is used in nvf
+This will override the source for the `lazydev.nvim` plugin that is used in nvf
 with your own plugin.
 
 ::: {.warning}
