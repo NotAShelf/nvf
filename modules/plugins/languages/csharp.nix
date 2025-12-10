@@ -24,10 +24,8 @@
   in
     optionalString (key != null) "vim.keymap.set('n', '${key}', ${action}, {buffer=bufnr, noremap=true, silent=true, desc='${desc}'})";
 
-  # Omnisharp doesn't have colors in popup docs for some reason, and I've also
-  # seen mentions of it being way slower, so until someone finds missing
-  # functionality, this will be the default.
-  defaultServers = ["csharp_ls"];
+  # roslyn is the official language server and the most feature-rich
+  defaultServers = ["roslyn"];
   servers = {
     omnisharp = {
       cmd = mkLuaInline ''
@@ -43,19 +41,7 @@
         }
       '';
       filetypes = ["cs" "vb"];
-      root_dir = mkLuaInline ''
-        function(bufnr, on_dir)
-          local function find_root_pattern(fname, lua_pattern)
-            return vim.fs.root(0, function(name, path)
-              return name:match(lua_pattern)
-            end)
-          end
-
-          local fname = vim.api.nvim_buf_get_name(bufnr)
-          on_dir(find_root_pattern(fname, "%.sln$") or find_root_pattern(fname, "%.csproj$"))
-        end
-      '';
-      init_options = {};
+      root_marks = [".sln" ".csproj"];
       capabilities = {
         workspace = {
           workspaceFolders = false; # https://github.com/OmniSharp/omnisharp-roslyn/issues/909
@@ -120,65 +106,65 @@
     csharp_ls = {
       cmd = [(lib.getExe pkgs.csharp-ls)];
       filetypes = ["cs"];
-      root_dir = mkLuaInline ''
-        function(bufnr, on_dir)
-          local function find_root_pattern(fname, lua_pattern)
-            return vim.fs.root(0, function(name, path)
-              return name:match(lua_pattern)
-            end)
-          end
-
-          local fname = vim.api.nvim_buf_get_name(bufnr)
-          on_dir(find_root_pattern(fname, "%.sln$") or find_root_pattern(fname, "%.csproj$"))
-        end
-      '';
+      root_marks = [".sln" ".csproj"];
       init_options = {
         AutomaticWorkspaceInit = true;
       };
     };
 
-    roslyn_ls = {
-      cmd = mkLuaInline ''
-        {
-          ${toLuaObject (getExe pkgs.roslyn-ls)},
-          '--logLevel=Warning',
-          '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
-          '--stdio',
-        }
-      '';
-
-      filetypes = ["cs"];
-      root_dir = mkLuaInline ''
-        function(bufnr, on_dir)
-          local function find_root_pattern(fname, lua_pattern)
-            return vim.fs.root(0, function(name, path)
-              return name:match(lua_pattern)
-            end)
-          end
-
-          local fname = vim.api.nvim_buf_get_name(bufnr)
-          on_dir(find_root_pattern(fname, "%.sln$") or find_root_pattern(fname, "%.csproj$"))
-        end
-      '';
-      init_options = {};
+    roslyn = {
+      # NOTE: cmd is set by roslyn-nvim!
+      filetypes = ["cs" "razor" "cshtml"];
+      root_marks = [".sln" ".csproj"];
     };
   };
 
   extraServerPlugins = {
     omnisharp = ["omnisharp-extended-lsp-nvim"];
     csharp_ls = ["csharpls-extended-lsp-nvim"];
-    roslyn_ls = [];
+    roslyn = ["roslyn-nvim"];
+  };
+
+  defaultRazorExtension = "vscode-csharp";
+  razorExtensions = let
+    packageExtension = pkg: path:
+      pkgs.stdenv.mkDerivation {
+        name = "${pkg.pname}_razor-extension";
+        inherit (pkg) version;
+        src = pkg;
+        installPhase = ''
+          mkdir -p $out/packages/{roslyn,roslyn-unstable}/libexec
+          cp -r $src/${path} $out/packages/roslyn/libexec/.razorExtension
+          cp -r $src/${path} $out/packages/roslyn-unstable/libexec/.razorExtension
+        '';
+      };
+  in {
+    vscode-csharp =
+      packageExtension pkgs.vscode-extensions.ms-dotnettools.csharp "share/vscode/extensions/ms-dotnettools.csharp/.razorExtension";
   };
 
   cfg = config.vim.languages.csharp;
 in {
   options = {
     vim.languages.csharp = {
-      enable = mkEnableOption "C# language support";
+      enable = mkEnableOption ''
+        C# language support.
+
+        ::: {.note}
+        It's worth noting that this support will not work if the .NET SDK is not installed.
+        `roslyn` requires the .NET SDK 10 to work properly with Razor.
+        `csharp_ls` and `omnisharp` require the .NET SDK 9. I strongly recommend using the most recent version available.
+        :::
+
+        ::: {.warning}
+        At the moment, only `roslyn` supports Razor.
+        :::
+      '';
 
       treesitter = {
-        enable = mkEnableOption "C# treesitter" // {default = config.vim.languages.enableTreesitter;};
-        package = mkGrammarOption pkgs "c-sharp";
+        enable = mkEnableOption "C#/razor treesitter" // {default = config.vim.languages.enableTreesitter;};
+        csPackage = mkGrammarOption pkgs "c-sharp";
+        razorPackage = mkGrammarOption pkgs "razor";
       };
 
       lsp = {
@@ -188,6 +174,19 @@ in {
           type = deprecatedSingleOrListOf "vim.language.csharp.lsp.servers" (enum (attrNames servers));
           default = defaultServers;
         };
+
+        razorExtension = mkOption {
+          description = ''
+            razor extensions package to use
+
+            ::: {.warning}
+            At the moment, only `roslyn` supports Razor;
+            therefore, this option is effective only when `roslyn` is selected.
+            :::
+          '';
+          type = enum (attrNames razorExtensions);
+          default = defaultRazorExtension;
+        };
       };
     };
   };
@@ -195,11 +194,23 @@ in {
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      vim.treesitter.grammars = [cfg.treesitter.csPackage cfg.treesitter.razorPackage];
     })
+
+    (mkIf (cfg.lsp.enable && lib.elem "roslyn" cfg.lsp.servers)
+      {
+        vim.extraPackages = [pkgs.roslyn-ls pkgs.vscode-langservers-extracted];
+
+        # NOTE: roslyn-nvim requires razorExtension dll's
+        # See: https://github.com/seblyng/roslyn.nvim/blob/main/lua/roslyn/health.lua
+        vim.luaConfigRC.razorExtension = ''
+          vim.env.MASON = "${razorExtensions.${cfg.lsp.razorExtension}}"
+        '';
+      })
 
     (mkIf cfg.lsp.enable {
       vim.startPlugins = concatMap (server: extraServerPlugins.${server}) cfg.lsp.servers;
+
       vim.lsp.servers =
         mapListToAttrs (name: {
           inherit name;
