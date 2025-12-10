@@ -36,8 +36,8 @@ in
       --module-options ${optionsJSON}/share/doc/nixos/options.json \
       --manpage-urls ${path}/doc/manpage-urls.json \
       --options-depth 3 \
-      --generate-search true \
-      --highlight-code true \
+      --generate-search \
+      --highlight-code \
       --input-dir ./manual \
       --output-dir "$out/share/doc"
 
