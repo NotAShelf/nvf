@@ -144,3 +144,9 @@
 [Machshev](https://github.com/machshev):
 
 - Added `ruff` and `ty` LSP support for Python under `programs.python`.
+
+[CaueAnjos](https://github.com/CaueAnjos):
+
+- Add razor support for C# language
+- Breaking changes:
+  - `roslyn_ls` changed to `roslyn`
