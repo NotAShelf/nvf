@@ -627,3 +627,7 @@
 - Aligned `codelldb` adapter setup with [rustaceanvim]’s built-in logic.
 - Added `languages.rust.dap.backend` option to choose between `codelldb` and
   `lldb-dap` adapters.
+
+[CaueAnjos](https://github.com/CaueAnjos)
+
+- Add razor support for C# language
