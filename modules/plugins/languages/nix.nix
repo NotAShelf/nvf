@@ -20,6 +20,7 @@
     nil = {
       enable = true;
       cmd = [(getExe pkgs.nil)];
+      settings.nil.nix.autoArchive = true;
       filetypes = ["nix"];
       root_markers = [".git" "flake.nix"];
     };
