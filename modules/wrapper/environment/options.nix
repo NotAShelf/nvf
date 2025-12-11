@@ -47,7 +47,7 @@ in {
         internally to add plugins to Neovim's runtime.
 
         To add additional plugins to your configuration, consider
-        using the [{option}`vim.extraPlugins`](#opt-vim.extraPlugins)
+        using the {option}`vim.extraPlugins`
         option.
       '';
     };

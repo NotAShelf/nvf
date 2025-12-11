@@ -15,7 +15,7 @@ in {
       clipboard = {
         enable = mkEnableOption ''
           clipboard management for Neovim. Users may still choose to manage their
-          clipboard through [](#opt-vim.options) should they wish to avoid using
+          clipboard through {option}`vim.options` should they wish to avoid using
           this module.
         '';
 

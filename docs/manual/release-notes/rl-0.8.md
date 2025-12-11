@@ -1,4 +1,4 @@
-# Release 0.8 {#sec-release-0.8}
+# Release 0.8 {#sec-release-0-8}
 
 ## Breaking changes
 
@@ -21,7 +21,7 @@
 
 - `vim.useSystemClipboard` has been deprecated as a part of removing most
   top-level convenience options, and should instead be configured in the new
-  module interface. You may set [](#opt-vim.clipboard.registers) appropriately
+  module interface. You may set {option}`vim.clipboard.registers` appropriately
   to configure Neovim to use the system clipboard.
 
 - Changed which-key group used for gitsigns from `<leader>g` to `<leader>h` to
@@ -31,6 +31,8 @@
 - LSP keybinds and related plugin integrations are now attached in an LspAttach
   autocmd event. If you were calling `default_on_attach()` in your LSP setup you
   can remove them now.
+
+## Changelog {#sec-release-0-8-changelog}
 
 [NotAShelf](https://github.com/notashelf):
 
@@ -52,16 +54,16 @@
 - Add [render-markdown.nvim] under
   `languages.markdown.extensions.render-markdown-nvim`.
 
-- Implement [](#opt-vim.git.gitsigns.setupOpts) for user-specified setup table
+- Implement {option}`vim.git.gitsigns.setupOpts` for user-specified setup table
   in gitsigns configuration.
 
-- [](#opt-vim.options.mouse) no longer compares values to an enum of available
+- {option}`vim.options.mouse` no longer compares values to an enum of available
   mouse modes. This means you can provide any string without the module system
   warning you that it is invalid. Do keep in mind that this value is no longer
   checked, so you will be responsible for ensuring its validity.
 
 - Deprecate `vim.enableEditorconfig` in favor of
-  [](#opt-vim.globals.editorconfig).
+  {option}`vim.globals.editorconfig`.
 
 - Deprecate rnix-lsp as it has been abandoned and archived upstream.
 
@@ -70,9 +72,9 @@
   your Editorconfig configuration, or use an autocommand to set indentation
   values for buffers with the Nix filetype.
 
-- Add [](#opt-vim.lsp.lightbulb.autocmd.enable) for manually managing the
+- Add {option}`vim.lsp.lightbulb.autocmd.enable` for manually managing the
   previously managed lightbulb autocommand.
-  - A warning will occur if [](#opt-vim.lsp.lightbulb.autocmd.enable) and
+  - A warning will occur if {option} vim-lsp-lightbulb-autocmd-enable) and
     `vim.lsp.lightbulb.setupOpts.autocmd.enabled` are both set at the same time.
     Pick only one.
 
@@ -83,7 +85,7 @@
 
 - Add [yazi.nvim] as a companion plugin for Yazi, the terminal file manager.
 
-- Add [](#opt-vim.autocmds) and [](#opt-vim.augroups) to allow declaring
+- Add {option}`vim.autocmds` and {option}`vim-augroups` to allow declaring
   autocommands via Nix.
 
 - Fix plugin `setupOpts` for yanky.nvim and assert if shada is configured as a
@@ -105,7 +107,7 @@
   `vim.utility.oil-nvim`.
 - Add `vim.diagnostics` to interact with Neovim's diagnostics module. Available
   options for `vim.diagnostic.config()` can now be customized through the
-  [](#opt-vim.diagnostics.config) in nvf.
+  {option}`vim.diagnostics.config` in nvf.
 
 - Add `vim.clipboard` module for easily managing Neovim clipboard providers and
   relevant packages in a simple UI.
@@ -207,7 +209,7 @@
 - Add [fzf-lua](https://github.com/ibhagwan/fzf-lua) in `vim.fzf-lua`
 - Add [rainbow-delimiters](https://github.com/HiPhish/rainbow-delimiters.nvim)
   in `vim.visuals.rainbow-delimiters`
-- Add options to define highlights under [](#opt-vim.highlight)
+- Add options to define highlights under {option}`vim.highlight`
 
 [kaktu5](https://github.com/kaktu5):
 
@@ -223,8 +225,8 @@
 
 [thamenato](https://github.com/thamenato):
 
-[ruff]: (https://github.com/astral-sh/ruff)
-[cue]: (https://cuelang.org/)
+[ruff]: https://github.com/astral-sh/ruff
+[cue]: https://cuelang.org/
 
 - Add [ruff] as a formatter option in `vim.languages.python.format.type`.
 - Add [cue] support under `vim.languages.cue`.
@@ -551,7 +553,7 @@
 
 [valterschutz](https://github.com/valterschutz):
 
-[ruff]: (https://github.com/astral-sh/ruff)
+[ruff]: https://github.com/astral-sh/ruff
 
 - Add [ruff-fix] as a formatter option in `vim.languages.python.format.type`.
 

@@ -1,17 +1,17 @@
 # Legacy Method {#sec-legacy-method}
 
 Prior to version **0.5**, the method of adding new plugins was adding the plugin
-package to [](#opt-vim.startPlugins) and adding its configuration as a DAG under
-one of `vim.configRC` or [](#opt-vim.luaConfigRC). While `configRC` has been
-deprecated, users who have not yet updated to 0.5 or those who prefer a more
-hands-on approach may choose to use the old method where the load order of the
-plugins is explicitly determined by DAGs without internal abstractions.
+package to {option}`vim.startPlugins` and adding its configuration as a DAG
+under one of `vim.configRC` or {option}`vim.luaConfigRC`. While `configRC` has
+been deprecated, users who have not yet updated to 0.5 or those who prefer a
+more hands-on approach may choose to use the old method where the load order of
+the plugins is explicitly determined by DAGs without internal abstractions.
 
 ## Adding New Plugins {#sec-adding-new-plugins}
 
 To add a plugin not available in **nvf** as a module to your configuration using
-the legacy method, you must add it to [](#opt-vim.startPlugins) in order to make
-it available to Neovim at runtime.
+the legacy method, you must add it to {option}`vim.startPlugins` in order to
+make it available to Neovim at runtime.
 
 ```nix
 {pkgs, ...}: {

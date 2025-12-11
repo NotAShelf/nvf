@@ -1,4 +1,4 @@
-# Release 0.7 {#sec-release-0.7}
+# Release 0.7 {#sec-release-0-7}
 
 Release notes for release 0.7
 
@@ -98,7 +98,7 @@ options that were under `vim` as convenient shorthands for `vim.o.*` options.
 
 ::: {.warning}
 
-As v0.7 features the addition of [](#opt-vim.options), those options are now
+As v0.7 features the addition of {option}`vim.options`, those options are now
 considered as deprecated. You should migrate to the appropriate options in the
 `vim.options` submodule.
 
@@ -108,14 +108,14 @@ The changes are, in no particular order:
 
 - `colourTerm`, `mouseSupport`, `cmdHeight`, `updateTime`, `mapTime`,
   `cursorlineOpt`, `splitBelow`, `splitRight`, `autoIndent` and `wordWrap` have
-  been mapped to their [](#opt-vim.options) equivalents. Please see the module
+  been mapped to their {option}`vim.options` equivalents. Please see the module
   definition for the updated options.
 
 - `tabWidth` has been **removed** as it lead to confusing behaviour. You can
   replicate the same functionality by setting `shiftwidth`, `tabstop` and
   `softtabstop` under `vim.options` as you see fit.
 
-## Changelog {#sec-release-0.7-changelog}
+## Changelog {#sec-release-0-7-changelog}
 
 [ItsSorae](https://github.com/ItsSorae):
 
@@ -125,7 +125,7 @@ The changes are, in no particular order:
 [frothymarrow](https://github.com/frothymarrow):
 
 - Modified type for
-  [](#opt-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides) from
+  {option}`vim.visuals.fidget-nvim.setupOpts.progress.display.overrides` from
   `anything` to a `submodule` for better type checking.
 
 - Fix null `vim.lsp.mappings` generating an error and not being filtered out.
@@ -134,7 +134,7 @@ The changes are, in no particular order:
   group for `Normal`, `NormalFloat`, `LineNr`, `SignColumn` and optionally
   `NvimTreeNormal` to `none`.
 
-- Fix [](#opt-vim.ui.smartcolumn.setupOpts.custom_colorcolumn) using the wrong
+- Fix {option}`vim.ui.smartcolumn.setupOpts.custom_colorcolumn` using the wrong
   type `int` instead of the expected type `string`.
 
 [horriblename](https://github.com/horriblename):
@@ -170,7 +170,7 @@ The changes are, in no particular order:
 
 - Add [ocaml-lsp] support
 
-- Fix misspelled "Emacs"
+- Fix "Emac" typo
 
 - Add [new-file-template.nvim] to automatically fill new file contents using
   templates
@@ -216,18 +216,18 @@ The changes are, in no particular order:
 
 - Remove `autopairs.type`, and rename `autopairs.enable` to
   `autopairs.nvim-autopairs.enable`. The new
-  [](#opt-vim.autopairs.nvim-autopairs.enable) supports `setupOpts` format by
+  {option}`vim.autopairs.nvim-autopairs.enable` supports `setupOpts` format by
   default.
 
 - Refactor of `nvim-cmp` and completion related modules
 
   - Remove `autocomplete.type` in favor of per-plugin enable options such as
-    [](#opt-vim.autocomplete.nvim-cmp.enable).
+    {option}`vim.autocomplete.nvim-cmp.enable`.
   - Deprecate legacy Vimsnip in favor of Luasnip, and integrate
-    friendly-snippets for bundled snippets. [](#opt-vim.snippets.luasnip.enable)
-    can be used to toggle Luasnip.
+    friendly-snippets for bundled snippets.
+    {option}`vim.snippets.luasnip.enable` can be used to toggle Luasnip.
   - Add sorting function options for completion sources under
-    [](#opt-vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators)
+    {option}`vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators`
 
 - Add C# support under `vim.languages.csharp`, with support for both
   omnisharp-roslyn and csharp-language-server.
@@ -297,12 +297,12 @@ The changes are, in no particular order:
   Lualine. Only `vim.ui.breadcrumbs.lualine.winbar` is supported for the time
   being.
 
-  - [](#opt-vim.ui.breadcrumbs.lualine.winbar.enable) has been added to allow
+  - {option}`vim.ui.breadcrumbs.lualine.winbar.enable` has been added to allow
     controlling the default behaviour of the `nvim-navic` component on Lualine,
     which used to occupy `winbar.lualine_c` as long as breadcrumbs are enabled.
   - `vim.ui.breadcrumbs.alwaysRender` has been renamed to
-    [](#opt-vim.ui.breadcrumbs.lualine.winbar.alwaysRender) to be conform to the
-    new format.
+    {option}`vim.ui.breadcrumbs.lualine.winbar.alwaysRender` to be conform to
+    the new format.
 
 - Add [basedpyright](https://github.com/detachhead/basedpyright) as a Python LSP
   server and make it default.
@@ -310,10 +310,10 @@ The changes are, in no particular order:
 - Add [python-lsp-server](https://github.com/python-lsp/python-lsp-server) as an
   additional Python LSP server.
 
-- Add [](#opt-vim.options) to set `vim.o` values in in your nvf configuration
+- Add {option}`vim.options` to set `vim.o` values in in your nvf configuration
   without using additional Lua. See option documentation for more details.
 
-- Add [](#opt-vim.dashboard.dashboard-nvim.setupOpts) to allow user
+- Add {option}`vim.dashboard.dashboard-nvim.setupOpts` to allow user
   configuration for [dashboard.nvim](https://github.com/nvimdev/dashboard-nvim)
 
 - Update `lualine.nvim` input and add missing themes:
@@ -321,7 +321,7 @@ The changes are, in no particular order:
   - Adds `ayu`, `gruvbox_dark`, `iceberg`, `moonfly`, `onedark`,
     `powerline_dark` and `solarized_light` themes.
 
-- Add [](#opt-vim.spellcheck.extraSpellWords) to allow adding arbitrary
+- Add {option}`vim.spellcheck.extraSpellWords` to allow adding arbitrary
   spellfiles to Neovim's runtime with ease.
 
 - Add combined nvf configuration (`config.vim`) into the final package's
@@ -375,9 +375,9 @@ The changes are, in no particular order:
 [nezia1](https://github.com/nezia1):
 
 - Add [biome](https://github.com/biomejs/biome) support for Typescript, CSS and
-  Svelte. Enable them via [](#opt-vim.languages.ts.format.type),
-  [](#opt-vim.languages.css.format.type) and
-  [](#opt-vim.languages.svelte.format.type) respectively.
+  Svelte. Enable them via {option}`vim.languages.ts.format.type`,
+  {option}`vim.languages.css.format.type` and
+  {option}`vim.languages.svelte.format.type` respectively.
 - Replace [nixpkgs-fmt](https://github.com/nix-community/nixpkgs-fmt) with
   [nixfmt](https://github.com/NixOS/nixfmt) (nixfmt-rfc-style).
 
