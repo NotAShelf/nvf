@@ -301,8 +301,8 @@ The changes are, in no particular order:
     controlling the default behaviour of the `nvim-navic` component on Lualine,
     which used to occupy `winbar.lualine_c` as long as breadcrumbs are enabled.
   - `vim.ui.breadcrumbs.alwaysRender` has been renamed to
-    {option}`vim.ui.breadcrumbs.lualine.winbar.alwaysRender` to be conform to the
-    new format.
+    {option}`vim.ui.breadcrumbs.lualine.winbar.alwaysRender` to be conform to
+    the new format.
 
 - Add [basedpyright](https://github.com/detachhead/basedpyright) as a Python LSP
   server and make it default.
