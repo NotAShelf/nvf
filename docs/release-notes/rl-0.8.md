@@ -608,11 +608,13 @@
 
 - Enable `languages.ts.format` for `.js` files
 - Add [emmet-ls] to `html.lsp.servers`
+
 [axelbdt](https://github.com/axelbdt):
 
 [neocodeium]: https://github.com/monkoose/neocodeium
 
-- Add [neocodeium] plugin in `vim.assistant.neocodeium` with `enable`, `setupOpts` and `keymaps`
+- Add [neocodeium] plugin in `vim.assistant.neocodeium` with `enable`,
+  `setupOpts` and `keymaps`
 
 [JudahZF](https://github.com/JudahZF):
 
