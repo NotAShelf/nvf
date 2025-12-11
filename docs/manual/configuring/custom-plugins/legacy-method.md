@@ -1,7 +1,7 @@
 # Legacy Method {#sec-legacy-method}
 
 Prior to version **0.5**, the method of adding new plugins was adding the plugin
-package to {option}`vim.startPlugins` and adding its configuration as a DAG 
+package to {option}`vim.startPlugins` and adding its configuration as a DAG
 under one of `vim.configRC` or {option}`vim.luaConfigRC`. While `configRC` has
 been deprecated, users who have not yet updated to 0.5 or those who prefer a
 more hands-on approach may choose to use the old method where the load order of

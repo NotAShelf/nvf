@@ -224,8 +224,8 @@ The changes are, in no particular order:
   - Remove `autocomplete.type` in favor of per-plugin enable options such as
     {option}`vim.autocomplete.nvim-cmp.enable`.
   - Deprecate legacy Vimsnip in favor of Luasnip, and integrate
-    friendly-snippets for bundled snippets. {option}`vim.snippets.luasnip.enable`
-    can be used to toggle Luasnip.
+    friendly-snippets for bundled snippets.
+    {option}`vim.snippets.luasnip.enable` can be used to toggle Luasnip.
   - Add sorting function options for completion sources under
     {option}`vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators`
 
