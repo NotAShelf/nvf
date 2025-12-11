@@ -1,10 +1,10 @@
 # Overriding plugins {#ch-overriding-plugins}
 
-The [additional plugins section](./hacking.html#sec-additional-plugins) details the addition
-of new plugins to nvf under regular circumstances, i.e. while making a pull
-request to the project. You may _override_ those plugins in your config to
-change source versions, e.g., to use newer versions of plugins that are not yet
-updated in **nvf**.
+The [additional plugins section](./hacking.html#sec-additional-plugins) details
+the addition of new plugins to nvf under regular circumstances, i.e. while
+making a pull request to the project. You may _override_ those plugins in your
+config to change source versions, e.g., to use newer versions of plugins that
+are not yet updated in **nvf**.
 
 ```nix
 vim.pluginOverrides = {

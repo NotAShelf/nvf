@@ -159,10 +159,10 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
   arguments to take `luaBefore`, `luaConfig` and `luaAfter` as strings, which
   are then concatted inside a lua block.
 
-- Added {option}`vim.luaConfigPre` and {option} `vim-luaConfigPost` for inserting
-  verbatim Lua configuration before and after the resolved Lua DAG respectively.
-  Both of those options take strings as the type, so you may read the contents
-  of a Lua file from a given path.
+- Added {option}`vim.luaConfigPre` and {option} `vim-luaConfigPost` for
+  inserting verbatim Lua configuration before and after the resolved Lua DAG
+  respectively. Both of those options take strings as the type, so you may read
+  the contents of a Lua file from a given path.
 
 - Added `vim.spellchecking.ignoredFiletypes` and
   `vim.spellChecking.programmingWordlist.enable` for ignoring certain filetypes
