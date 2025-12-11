@@ -105,5 +105,8 @@
 
     # Alternate neovim-wrapper
     mnw.url = "github:Gerg-L/mnw";
+
+    # Alternative documentation generator
+    ndg.url = "github:feel-co/ndg";
   };
 }

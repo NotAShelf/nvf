@@ -107,7 +107,7 @@ in {
             option, since there is no way to provide only the LSP server.
 
             If you want to avoid that, you have to change
-            [vim.lsp.servers.julials.cmd](#opt-vim.lsp.servers._name_.cmd) to use
+            {option}`vim.lsp.servers.julials.cmd` to use
             the Julia binary in {env}`PATH`, and add the `LanguageServer`
             package to Julia in your devshells.
 

@@ -19,7 +19,7 @@ as a module.
 :::{.info}
 
 To add a plugin to your runtime, you will need to add it to
-[](#opt-vim.startPlugins) list in your configuration. This is akin to cloning a
+{option}`vim.startPlugins` list in your configuration. This is akin to cloning a
 plugin to `~/.config/nvim`, but they are only ever placed in the Nix store and
 never exposed to the outside world for purity and full isolation.
 

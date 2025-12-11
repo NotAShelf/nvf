@@ -1,4 +1,18 @@
-# Try it out {#ch-try-it-out}
+# Introduction {#nvf-manual}
+
+Version @NVF_VERSION@
+
+## Preface {#ch-preface}
+
+### What is nvf {#sec-what-is-it}
+
+**nvf** is a highly modular, configurable, extensible and easy to use Neovim
+configuration framework built and designed to be used with Nix. Boasting
+flexibility, robustness and ease of use, this projecct allows you to configure a
+fully featured Neovim instance with a few lines of Nix with lots of options for
+advanced users as well.
+
+## Try it out {#ch-try-it-out}
 
 Thanks to the portability of Nix, you can try out nvf without actually
 installing it to your machine. Below are the commands you may run to try out
@@ -29,10 +43,11 @@ $ nix run github:notashelf/nvf#maximal
 
 ### Available Configurations {#sec-available-configs}
 
-::: {.info}
-
-The below configurations are provided for demonstration purposes, and are
-**not** designed to be installed as is. You may
+> [!NOTE]
+> The below configurations are provided for demonstration purposes, and are
+> **not** designed to be installed as is. You may refer to the installation
+> steps below and the helpful tips section for details on creating your own
+> configurations.
 
 #### Nix {#sec-configs-nix}
 
@@ -42,6 +57,7 @@ default package, you will build Neovim with this config.
 
 ```bash
 $ nix run github:notashelf/nvf#nix test.nix
+# => This will open a file called `test.nix` with Nix LSP and syntax highlighting
 ```
 
 This command will start Neovim with some opinionated plugin configurations, and
@@ -57,16 +73,29 @@ mind, however, that this will pull a lot of dependencies.
 
 ```bash
 $ nix run github:notashelf/nvf#maximal -- test.nix
+# => This will open a file called `test.nix` with a variety of plugins available
 ```
 
 It uses the same configuration template with the [Nix](#sec-configs-nix)
 configuration, but supports many more languages, and enables more utility,
 companion or fun plugins.
 
-::: {.warning}
+> [!WARNING]
+> Running the maximal config will download _a lot_ of packages as it is
+> downloading language servers, formatters, and more. If CPU time and bandwidth
+> are concerns, please use the default package instead.
 
-Running the maximal config will download _a lot_ of packages as it is
-downloading language servers, formatters, and more. If CPU time and bandwidth
-are concerns, please use the default package instead.
+## Installing nvf {#ch-installation}
 
-:::
+[module installation section]: #ch-module-installation
+
+There are multiple ways of installing nvf on your system. You may either choose
+the standalone installation method, which does not depend on a module system and
+may be done on any system that has the Nix package manager or the appropriate
+modules for NixOS and home-manager as described in the
+[module installation section].
+
+```{=include=}
+installation/custom-configuration.md
+installation/modules.md
+```
