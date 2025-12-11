@@ -29,7 +29,7 @@ in {
 
         To add your own language files, you may place your `spell` directory in either
         {file}`$XDG_CONFIG_HOME/nvf` or in a path that is included in the
-        [additionalRuntimePaths](#opt-vim.additionalRuntimePaths) list provided by nvf.
+        [additionalRuntimePaths](./options.html#option-vim-additionalRuntimePaths) list provided by nvf.
       '';
     };
 

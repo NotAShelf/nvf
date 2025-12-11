@@ -41,7 +41,7 @@ end
 vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap = true, silent = true })
 ```
 
-## Changelog {#sec-release-0.6-changelog}
+## Changelog {#sec-release-0-6-changelog}
 
 [ksonj](https://github.com/ksonj):
 
@@ -95,7 +95,7 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
   and also has been removed.
 
 - `which-key.nvim` categories can now be customized through
-  [vim.binds.whichKey.register](#opt-vim.binds.whichKey.register)
+  [vim.binds.whichKey.register](./options.html#option-vim-binds-whichKey-register)
 
 - Added `magick` to `vim.luaPackages` for `image.nvim`.
 
@@ -125,10 +125,10 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
 
 - Lualine module now allows customizing `always_divide_middle`, `ignore_focus`
   and `disabled_filetypes` through the new options:
-  [vim.statusline.lualine.alwaysDivideMiddle](#opt-vim.statusline.lualine.alwaysDivideMiddle),
-  [vim.statusline.lualine.ignoreFocus](#opt-vim.statusline.lualine.ignoreFocus)
+  [vim.statusline.lualine.alwaysDivideMiddle](./options.html#option-vim-statusline-lualine-alwaysDivideMiddle),
+  [vim.statusline.lualine.ignoreFocus](./options.html#option-vim-statusline-lualine-ignoreFocus)
   and
-  [vim.statusline.lualine.disabledFiletypes](#opt-vim.statusline.lualine.disabledFiletypes).
+  [vim.statusline.lualine.disabledFiletypes](./options.html#option-vim-statusline-lualine-disabledFiletypes).
 
 - Updated all plugin inputs to their latest versions (**21.04.2024**) - this
   brought minor color changes to the Catppuccin theme.
@@ -159,7 +159,7 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
   arguments to take `luaBefore`, `luaConfig` and `luaAfter` as strings, which
   are then concatted inside a lua block.
 
-- Added {option}`vim.luaConfigPre) and [](#opt-vim.luaConfigPost` for inserting
+- Added {option}`vim.luaConfigPre` and {option} `vim-luaConfigPost` for inserting
   verbatim Lua configuration before and after the resolved Lua DAG respectively.
   Both of those options take strings as the type, so you may read the contents
   of a Lua file from a given path.

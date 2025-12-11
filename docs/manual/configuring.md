@@ -1,7 +1,7 @@
 # Configuring nvf {#ch-configuring}
 
-[helpful tips section]: #ch-helpful-tips
-[options reference]: /nvf/options.html
+[helpful tips section]: ./tips.html#ch-helpful-tips
+[options reference]: ./options.html
 
 nvf allows for _very_ extensive configuration in Neovim through the Nix module
 interface. The below chapters describe several of the options exposed in nvf for

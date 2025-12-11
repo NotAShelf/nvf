@@ -26,7 +26,7 @@ startup.
 }
 ```
 
-[`vim.extraPlugins`]: https://notashelf.github.io/nvf/options.html#opt-vim.extraPlugins
+[`vim.extraPlugins`]: ./options.html#option-vim-extraPlugins
 
 This will fetch aerial.nvim from nixpkgs, and add it to Neovim's runtime path to
 be loaded manually. Although for plugins that require manual setup, you are
@@ -43,7 +43,7 @@ encouraged to use [`vim.extraPlugins`].
 }
 ```
 
-[custom plugins section]: https://notashelf.github.io/nvf/index.xhtml#ch-custom-plugins
+[custom plugins section]: ./configuring.html#ch-custom-plugins
 
 More details on the extraPlugins API is documented in the
 [custom plugins section].

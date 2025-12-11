@@ -273,7 +273,7 @@ An example, simple keybinding, can look like this:
 ```
 
 There are many settings available in the options. Please refer to the
-[documentation](https://notashelf.github.io/nvf/options.html#opt-vim.keymaps) to
+[documentation](./options.html#option-vim-keymaps) to
 see a list of them.
 
 **nvf** provides a helper function, so that you don't have to write the mapping
@@ -601,7 +601,7 @@ require('lz.n').load({
 })
 ```
 
-[`vim.lazy.plugins` spec]: https://notashelf.github.io/nvf/options.html#opt-vim.lazy.plugins
+[`vim.lazy.plugins` spec]: ./options.html#option-vim-lazy-plugins
 
 A full list of options can be found in the [`vim.lazy.plugins` spec] on the
 rendered manual.

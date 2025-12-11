@@ -74,7 +74,7 @@
 
 - Add {option}`vim.lsp.lightbulb.autocmd.enable` for manually managing the
   previously managed lightbulb autocommand.
-  - A warning will occur if [](#opt-vim.lsp.lightbulb.autocmd.enable) and
+  - A warning will occur if {option} vim-lsp-lightbulb-autocmd-enable) and
     `vim.lsp.lightbulb.setupOpts.autocmd.enabled` are both set at the same time.
     Pick only one.
 
@@ -85,7 +85,7 @@
 
 - Add [yazi.nvim] as a companion plugin for Yazi, the terminal file manager.
 
-- Add {option}`vim.autocmds) and [](#opt-vim.augroups` to allow declaring
+- Add {option}`vim.autocmds` and {option}`vim-augroups` to allow declaring
   autocommands via Nix.
 
 - Fix plugin `setupOpts` for yanky.nvim and assert if shada is configured as a
@@ -225,8 +225,8 @@
 
 [thamenato](https://github.com/thamenato):
 
-[ruff]: (https://github.com/astral-sh/ruff)
-[cue]: (https://cuelang.org/)
+[ruff]: https://github.com/astral-sh/ruff
+[cue]: https://cuelang.org/
 
 - Add [ruff] as a formatter option in `vim.languages.python.format.type`.
 - Add [cue] support under `vim.languages.cue`.
@@ -553,7 +553,7 @@
 
 [valterschutz](https://github.com/valterschutz):
 
-[ruff]: (https://github.com/astral-sh/ruff)
+[ruff]: https://github.com/astral-sh/ruff
 
 - Add [ruff-fix] as a formatter option in `vim.languages.python.format.type`.
 

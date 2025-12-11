@@ -115,7 +115,7 @@ The changes are, in no particular order:
   replicate the same functionality by setting `shiftwidth`, `tabstop` and
   `softtabstop` under `vim.options` as you see fit.
 
-## Changelog {#sec-release-0.7-changelog}
+## Changelog {#sec-release-0-7-changelog}
 
 [ItsSorae](https://github.com/ItsSorae):
 

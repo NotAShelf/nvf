@@ -15,7 +15,7 @@ DAG implementation are from them.
   longer defined. If you use hare and would like it added back, please file an
   issue.
 
-- {option}`vim.startPlugins) & [](#opt-vim.optPlugins` are now an enum of
+- {option}`vim.startPlugins` & {option} `vim-optPlugins` are now an enum of
   `string` for options sourced from the flake inputs. Users can still provide
   vim plugin packages.
 

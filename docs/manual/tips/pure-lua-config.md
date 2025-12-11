@@ -105,7 +105,7 @@ this
 }
 ```
 
-[DAG system]: https://notashelf.github.io/nvf/index.xhtml#ch-using-dags
+[DAG system]: ./configuring.html#ch-using-dags
 
 After you load your custom configuration, you may use an `init.lua` located in
 your custom configuration directory to configure Neovim exactly as you would

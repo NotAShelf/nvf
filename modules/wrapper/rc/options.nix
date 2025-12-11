@@ -284,7 +284,7 @@ in {
       default = "";
       defaultText = literalMD ''
         By default, this option will **append** paths in
-        {option}`vim.additionalRuntimePaths`
+        {option}`vim-additionalRuntimePaths`
         to the `runtimepath` and enable the experimental Lua module loader
         if {option}`vim.enableLuaLoader` is set to true.
       '';
