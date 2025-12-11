@@ -2,13 +2,13 @@
   inputs,
   path,
   stdenvNoCC,
-  runCommandNoCCLocal,
+  runCommandLocal,
   optionsJSON,
   release,
 } @ args: let
   manual-release = args.release or "unstable";
 in
-  runCommandNoCCLocal "nvf-docs-html" {
+  runCommandLocal "nvf-docs-html" {
     nativeBuildInputs = [
       (inputs.ndg.packages.${stdenvNoCC.system}.ndg.overrideAttrs
         {
