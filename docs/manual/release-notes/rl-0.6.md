@@ -48,7 +48,7 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
 - Added Terraform language support.
 
 - Added `ChatGPT.nvim`, which can be enabled with
-  [](#opt-vim.assistant.chatgpt.enable). Do keep in mind that this option
+  {option}`vim.assistant.chatgpt.enable`. Do keep in mind that this option
   requires `OPENAI_API_KEY` environment variable to be set.
 
 [donnerinoern](https://github.com/donnerinoern):
@@ -159,7 +159,7 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
   arguments to take `luaBefore`, `luaConfig` and `luaAfter` as strings, which
   are then concatted inside a lua block.
 
-- Added [](#opt-vim.luaConfigPre) and [](#opt-vim.luaConfigPost) for inserting
+- Added {option}`vim.luaConfigPre) and [](#opt-vim.luaConfigPost` for inserting
   verbatim Lua configuration before and after the resolved Lua DAG respectively.
   Both of those options take strings as the type, so you may read the contents
   of a Lua file from a given path.
@@ -172,12 +172,12 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
 - Exposed `withRuby`, `withNodeJs`, `withPython3`, and `python3Packages` from
   the `makeNeovimConfig` function under their respective options.
 
-- Added [](#opt-vim.extraPackages) for appending additional packages to the
+- Added {option}`vim.extraPackages` for appending additional packages to the
   wrapper PATH, making said packages available while inside the Neovim session.
 
 - Made Treesitter options configurable, and moved treesitter-context to
   `setupOpts` while it is enabled.
 
-- Added [](#opt-vim.notify.nvim-notify.setupOpts.render) which takes either a
+- Added {option}`vim.notify.nvim-notify.setupOpts.render` which takes either a
   string of enum, or a Lua function. The default is "compact", but you may
   change it according to nvim-notify documentation.

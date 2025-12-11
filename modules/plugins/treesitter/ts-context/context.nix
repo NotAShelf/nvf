@@ -62,7 +62,7 @@ in {
         default = "outer";
         description = ''
           Which context lines to discard if
-          [](#opt-vim.treesitter.context.setupOpts.max_lines) is exceeded.
+          {option}`vim.treesitter.context.setupOpts.max_lines` is exceeded.
         '';
       };
 
