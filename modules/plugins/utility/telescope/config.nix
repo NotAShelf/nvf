@@ -49,6 +49,7 @@ in {
             (mkKeymap "n" keys.open "<cmd>Telescope<CR>" {desc = mappings.open.description;})
             (mkKeymap "n" keys.resume "<cmd>Telescope resume<CR>" {desc = mappings.resume.description;})
 
+            (mkKeymap "n" keys.gitFiles "<cmd>Telescope git_files<CR>" {desc = mappings.gitFiles.description;})
             (mkKeymap "n" keys.gitCommits "<cmd>Telescope git_commits<CR>" {desc = mappings.gitCommits.description;})
             (mkKeymap "n" keys.gitBufferCommits "<cmd>Telescope git_bcommits<CR>" {desc = mappings.gitBufferCommits.description;})
             (mkKeymap "n" keys.gitBranches "<cmd>Telescope git_branches<CR>" {desc = mappings.gitBranches.description;})

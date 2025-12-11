@@ -1594,6 +1594,22 @@
       "url": "https://github.com/nvim-neo-tree/neo-tree.nvim/archive/9130e58424ad95bf2dd8b40afbb8cf04d648638c.tar.gz",
       "hash": "0zm40p718cvqg9ngzlnc56pbglrp7yp1580g0f1pfakkwdrvnhdv"
     },
+    "neocodeium": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "monkoose",
+        "repo": "neocodeium"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v1.16.3",
+      "revision": "f67384cee91f8ffc0d2e09d257691b2461725d5b",
+      "url": "https://api.github.com/repos/monkoose/neocodeium/tarball/v1.16.3",
+      "hash": "1zr6rrvk00d3gwg7sf1vqd1z1gw2qwl0h08zcbc30x8v0iradsai"
+    },
     "neocord": {
       "type": "Git",
       "repository": {

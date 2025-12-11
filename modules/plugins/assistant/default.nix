@@ -5,5 +5,6 @@
     ./codecompanion
     ./supermaven-nvim
     ./avante
+    ./neocodeium
   ];
 }
