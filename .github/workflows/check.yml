@@ -112,7 +112,7 @@ jobs:
         run: echo "date=$(date +'%Y-%m-%d-%H%M%S')" >> ${GITHUB_OUTPUT}
 
       - name: Upload doc artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: "${{ matrix.package }}"
           path: result/share/doc/nvf
