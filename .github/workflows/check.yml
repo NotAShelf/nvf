@@ -18,9 +18,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+      - uses: cachix/install-nix-action@v31.8.4
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            substituters = https://cache.nixos.org/ https://feel-co.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= feel-co.cachix.org-1:nwEFNnwZvtl4KKSH5LDg+/+K7bV0vcs6faMHAJ6xx0w=
 
       - name: Check Flake
         run: nix flake check
@@ -34,7 +37,12 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+        uses: cachix/install-nix-action@v31.8.4
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            substituters = https://cache.nixos.org/ https://feel-co.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= feel-co.cachix.org-1:nwEFNnwZvtl4KKSH5LDg+/+K7bV0vcs6faMHAJ6xx0w=
 
       - name: Check formatting via Alejandra
         run: nix run nixpkgs#alejandra -- --check . --exclude npins
@@ -83,11 +91,14 @@ jobs:
           - docs-manpages
           - docs-json
     steps:
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-
       - name: Checkout
         uses: actions/checkout@v6
+      - uses: cachix/install-nix-action@v31.8.4
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            substituters = https://cache.nixos.org/ https://feel-co.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= feel-co.cachix.org-1:nwEFNnwZvtl4KKSH5LDg+/+K7bV0vcs6faMHAJ6xx0w=
 
       - name: Set default git branch (to reduce log spam)
         run: git config --global init.defaultBranch main
@@ -111,11 +122,14 @@ jobs:
     runs-on: ubuntu-latest
     if: false # disabled until we fix ndg docs
     steps:
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-
       - name: Checkout
         uses: actions/checkout@v6
+      - uses: cachix/install-nix-action@v31.8.4
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            substituters = https://cache.nixos.org/ https://feel-co.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= feel-co.cachix.org-1:nwEFNnwZvtl4KKSH5LDg+/+K7bV0vcs6faMHAJ6xx0w=
 
       - name: Build linkcheck package
         run: nix build .#docs-linkcheck -Lv
@@ -148,7 +162,12 @@ jobs:
           cat "$HOME/changed_files"
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+        uses: cachix/install-nix-action@v31.8.4
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            substituters = https://cache.nixos.org/ https://feel-co.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= feel-co.cachix.org-1:nwEFNnwZvtl4KKSH5LDg+/+K7bV0vcs6faMHAJ6xx0w=
 
       - name: Checking Editorconfig conformance
         shell: bash
