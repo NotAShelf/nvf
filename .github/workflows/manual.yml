@@ -47,7 +47,7 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@main
       - run: |
           nix build .#docs -Lv
-          cp -r result/share/doc/nvf public
+          cp -r result/share/doc public
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
