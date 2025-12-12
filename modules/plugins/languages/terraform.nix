@@ -4,12 +4,25 @@
   lib,
   ...
 }: let
+  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) package;
+  inherit (lib.meta) getExe;
+  inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.terraform;
+
+  defaultServers = ["terraformls"];
+  servers = {
+    terraformls = {
+      enable = true;
+      cmd = [(getExe pkgs.terraform-ls) "serve"];
+      filetypes = ["terraform" "terraform-vars"];
+      root_markers = [".terraform" ".git"];
+    };
+  };
 in {
   options.vim.languages.terraform = {
     enable = mkEnableOption "Terraform/HCL support";
@@ -22,10 +35,10 @@ in {
     lsp = {
       enable = mkEnableOption "Terraform LSP support (terraform-ls)" // {default = config.vim.lsp.enable;};
 
-      package = mkOption {
-        description = "terraform-ls package";
-        type = package;
-        default = pkgs.terraform-ls;
+      servers = mkOption {
+        type = listOf (enum (attrNames servers));
+        default = defaultServers;
+        description = "Terraform LSP server to use";
       };
     };
   };
@@ -36,14 +49,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.terraform-ls = ''
-        lspconfig.terraformls.setup {
-          capabilities = capabilities,
-          on_attach=default_on_attach,
-          cmd = {"${cfg.lsp.package}/bin/terraform-ls", "serve"},
-        }
-      '';
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
   ]);
 }

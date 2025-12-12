@@ -1,4 +1,5 @@
 {
+  lib,
   pins,
   openssl,
   pkg-config,
@@ -11,6 +12,8 @@
 }: let
   # From npins
   pin = pins.avante-nvim;
+
+  pname = "avante-nvim-lib";
   version = pin.branch;
   src = pkgs.fetchFromGitHub {
     inherit (pin.repository) owner repo;
@@ -19,8 +22,7 @@
   };
 
   avante-nvim-lib = rustPlatform.buildRustPackage {
-    pname = "avante-nvim-lib";
-    inherit version src;
+    inherit pname version src;
 
     cargoHash = "sha256-pTWCT2s820mjnfTscFnoSKC37RE7DAPKxP71QuM+JXQ=";
 
@@ -43,6 +45,8 @@
       "--skip=test_roundtrip"
       "--skip=test_fetch_md"
     ];
+
+    env.RUSTFLAGS = lib.optionalString stdenv.hostPlatform.isDarwin "-C link-arg=-undefined -C link-arg=dynamic_lookup";
   };
 in
   vimUtils.buildVimPlugin {
@@ -64,7 +68,15 @@ in
       # Requires setup with corresponding provider
       "avante.providers.azure"
       "avante.providers.copilot"
-      "avante.providers.vertex_claude"
+      "avante.providers.gemini"
       "avante.providers.ollama"
+      "avante.providers.vertex"
+      "avante.providers.vertex_claude"
     ];
+
+    meta = {
+      description = "Neovim plugin designed to emulate the behaviour of the Cursor AI IDE";
+      homepage = "https://github.com/yetone/avante.nvim";
+      license = lib.licenses.asl20;
+    };
   }

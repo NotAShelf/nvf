@@ -315,4 +315,13 @@ in {
 
     styles = ["hard" "medium" "soft"];
   };
+
+  mellow = {
+    setup = {transparent ? false, ...}: ''
+      -- Mellow configuration
+      vim.g.mellow_transparent = ${boolToString transparent}
+
+      vim.cmd.colorscheme("mellow")
+    '';
+  };
 }

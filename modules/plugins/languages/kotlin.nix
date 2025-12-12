@@ -4,15 +4,46 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.meta) getExe;
-  inherit (lib.types) either package listOf str;
+  inherit (lib.meta) getExe' getExe;
+  inherit (builtins) attrNames;
+  inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
-  inherit (lib.lists) isList;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.kotlin;
+
+  defaultServers = ["kotlin-language-server"];
+  servers = {
+    kotlin-language-server = {
+      enable = true;
+      cmd = [(getExe' pkgs.kotlin-language-server "kotlin-language-server")];
+      filetypes = ["kotlin"];
+      root_markers = [
+        "settings.gradle" # Gradle (multi-project)
+        "settings.gradle.kts" # Gradle (multi-project)
+        "build.xml" # Ant
+        "pom.xml" # Maven
+        "build.gradle" # Gradle
+        "build.gradle.kts" # gradle
+      ];
+      init_options = {
+        storagePath = mkLuaInline "
+        vim.fs.root(vim.fn.expand '%:p:h',
+          {
+            'settings.gradle', -- Gradle (multi-project)
+            'settings.gradle.kts', -- Gradle (multi-project)
+            'build.xml', -- Ant
+            'pom.xml', -- Maven
+            'build.gradle', -- Gradle
+            'build.gradle.kts', -- Gradle
+          }
+        )";
+      };
+    };
+  };
 
   defaultDiagnosticsProvider = ["ktlint"];
   diagnosticsProviders = {
@@ -31,22 +62,10 @@ in {
 
     lsp = {
       enable = mkEnableOption "Kotlin LSP support" // {default = config.vim.lsp.enable;};
-
-      package = mkOption {
-        description = "kotlin_language_server package with Kotlin runtime";
-        type = either package (listOf str);
-        example = literalExpression ''
-          pkgs.symlinkJoin {
-            name = "kotlin-language-server-wrapped";
-            paths = [pkgs.kotlin-language-server];
-            nativeBuildInputs = [pkgs.makeBinaryWrapper];
-            postBuild = '''
-              wrapProgram $out/bin/kotlin-language-server \
-                --prefix PATH : ''${pkgs.kotlin}/bin
-            ''';
-          };
-        '';
-        default = pkgs.kotlin-language-server;
+      servers = mkOption {
+        type = listOf (enum (attrNames servers));
+        default = defaultServers;
+        description = "Kotlin LSP server to use";
       };
     };
 
@@ -78,23 +97,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.kotlin_language_server = ''
-        lspconfig.kotlin_language_server.setup {
-          capabilities = capabilities,
-          root_dir = lspconfig.util.root_pattern("main.kt", ".git"),
-          on_attach=default_on_attach,
-          init_options = {
-          -- speeds up the startup time for the LSP
-            storagePath = vim.fn.stdpath('state') .. '/kotlin',
-          },
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/kotlin-language-server"}''
-        },
-        }
-      '';
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
   ]);
 }

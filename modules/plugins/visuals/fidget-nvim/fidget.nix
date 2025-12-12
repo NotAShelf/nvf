@@ -180,7 +180,7 @@ in {
           overrides = mkOption {
             description = ''
               Overrides the default configuration for a notification group defined
-              in [](#opt-vim.visuals.fidget-nvim.setupOpts.notification.configs).
+              in {option}`vim.visuals.fidget-nvim.setupOpts.notification.configs`.
 
               If any of the fields are null, the value from the default
               configuration is used.

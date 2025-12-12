@@ -1,7 +1,7 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) enum listOf submodule nullOr str bool int attrsOf anything either oneOf lines;
-  inherit (lib.nvim.types) pluginType;
+  inherit (lib.nvim.types) pluginType luaInline;
   inherit (lib.nvim.config) mkBool;
 
   lznKeysSpec = submodule {
@@ -98,7 +98,7 @@
       # lz.n options
 
       enabled = mkOption {
-        type = nullOr (either bool str);
+        type = nullOr (either bool luaInline);
         default = null;
         description = "When false, or if the lua function returns false, this plugin will not be included in the spec";
       };
@@ -121,7 +121,7 @@
         description = ''
           Lua code to run after plugin is loaded. This will be wrapped in a function.
 
-          If [](#opt-vim.lazy.plugins._name_.setupModule) is provided, the setup will be ran before `after`.
+          If {option}`vim.lazy.plugins._name_.setupModule` is provided, the setup will be ran before `after`.
         '';
       };
 

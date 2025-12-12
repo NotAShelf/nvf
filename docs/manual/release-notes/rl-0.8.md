@@ -1,4 +1,4 @@
-# Release 0.8 {#sec-release-0.8}
+# Release 0.8 {#sec-release-0-8}
 
 ## Breaking changes
 
@@ -21,12 +21,18 @@
 
 - `vim.useSystemClipboard` has been deprecated as a part of removing most
   top-level convenience options, and should instead be configured in the new
-  module interface. You may set [](#opt-vim.clipboard.registers) appropriately
+  module interface. You may set {option}`vim.clipboard.registers` appropriately
   to configure Neovim to use the system clipboard.
 
 - Changed which-key group used for gitsigns from `<leader>g` to `<leader>h` to
   align with the "hunks" themed mapping and avoid conflict with the new [neogit]
   group.
+
+- LSP keybinds and related plugin integrations are now attached in an LspAttach
+  autocmd event. If you were calling `default_on_attach()` in your LSP setup you
+  can remove them now.
+
+## Changelog {#sec-release-0-8-changelog}
 
 [NotAShelf](https://github.com/notashelf):
 
@@ -48,16 +54,16 @@
 - Add [render-markdown.nvim] under
   `languages.markdown.extensions.render-markdown-nvim`.
 
-- Implement [](#opt-vim.git.gitsigns.setupOpts) for user-specified setup table
+- Implement {option}`vim.git.gitsigns.setupOpts` for user-specified setup table
   in gitsigns configuration.
 
-- [](#opt-vim.options.mouse) no longer compares values to an enum of available
+- {option}`vim.options.mouse` no longer compares values to an enum of available
   mouse modes. This means you can provide any string without the module system
   warning you that it is invalid. Do keep in mind that this value is no longer
   checked, so you will be responsible for ensuring its validity.
 
 - Deprecate `vim.enableEditorconfig` in favor of
-  [](#opt-vim.globals.editorconfig).
+  {option}`vim.globals.editorconfig`.
 
 - Deprecate rnix-lsp as it has been abandoned and archived upstream.
 
@@ -66,10 +72,9 @@
   your Editorconfig configuration, or use an autocommand to set indentation
   values for buffers with the Nix filetype.
 
-- Add [](#opt-vim.lsp.lightbulb.autocmd.enable) for manually managing the
+- Add {option}`vim.lsp.lightbulb.autocmd.enable` for manually managing the
   previously managed lightbulb autocommand.
-
-  - A warning will occur if [](#opt-vim.lsp.lightbulb.autocmd.enable) and
+  - A warning will occur if {option} vim-lsp-lightbulb-autocmd-enable) and
     `vim.lsp.lightbulb.setupOpts.autocmd.enabled` are both set at the same time.
     Pick only one.
 
@@ -80,7 +85,7 @@
 
 - Add [yazi.nvim] as a companion plugin for Yazi, the terminal file manager.
 
-- Add [](#opt-vim.autocmds) and [](#opt-vim.augroups) to allow declaring
+- Add {option}`vim.autocmds` and {option}`vim-augroups` to allow declaring
   autocommands via Nix.
 
 - Fix plugin `setupOpts` for yanky.nvim and assert if shada is configured as a
@@ -102,7 +107,7 @@
   `vim.utility.oil-nvim`.
 - Add `vim.diagnostics` to interact with Neovim's diagnostics module. Available
   options for `vim.diagnostic.config()` can now be customized through the
-  [](#opt-vim.diagnostics.config) in nvf.
+  {option}`vim.diagnostics.config` in nvf.
 
 - Add `vim.clipboard` module for easily managing Neovim clipboard providers and
   relevant packages in a simple UI.
@@ -110,6 +115,14 @@
     section above for migration options.
 - Add [hunk.nvim], Neovim plugin & tool for splitting diffs in Neovim. Available
   as `vim.git.hunk-nvim`
+
+- Move `crates.nvim` into `languages.rust.extensions and support` `setupOpts`
+  for the plugin. Deprecates the top level "crates" option in `languages.rust`.
+
+[sjcobb2022](https://github.com/sjcobb2022):
+
+- Migrate all current lsp configurations to `vim.lsp.server` and remove internal
+  dependency on `nvim-lspconfig`
 
 [amadaluzia](https://github.com/amadaluzia):
 
@@ -130,6 +143,11 @@
 - Moved code setting `additionalRuntimePaths` and `enableLuaLoader` out of
   `luaConfigPre`'s default to prevent being overridden
 - Use conform over custom autocmds for LSP format on save
+- Move LSP keybinds and other related plugin integrations into an LspAttach
+  event.
+- Allow multiple formatters in language modules.
+- Fixed `prettier` in astro and svelte, and removed `prettierd` due to high
+  complexity that would be needed to support it.
 
 [diniamo](https://github.com/diniamo):
 
@@ -191,7 +209,7 @@
 - Add [fzf-lua](https://github.com/ibhagwan/fzf-lua) in `vim.fzf-lua`
 - Add [rainbow-delimiters](https://github.com/HiPhish/rainbow-delimiters.nvim)
   in `vim.visuals.rainbow-delimiters`
-- Add options to define highlights under [](#opt-vim.highlight)
+- Add options to define highlights under {option}`vim.highlight`
 
 [kaktu5](https://github.com/kaktu5):
 
@@ -207,8 +225,8 @@
 
 [thamenato](https://github.com/thamenato):
 
-[ruff]: (https://github.com/astral-sh/ruff)
-[cue]: (https://cuelang.org/)
+[ruff]: https://github.com/astral-sh/ruff
+[cue]: https://cuelang.org/
 
 - Add [ruff] as a formatter option in `vim.languages.python.format.type`.
 - Add [cue] support under `vim.languages.cue`.
@@ -284,6 +302,13 @@
 - Fix [blink.cmp] breaking when built-in sources were modified.
 - Fix [conform.nvim] not allowing disabling formatting on and after save. Use
   `null` value to disable them if conform is enabled.
+- Add [markdown-oxide](https://github.com/Feel-ix-343/markdown-oxide) option to
+  markdown language module.
+- Fix Helm-YAML language module integration. YAML diagnostics will now remain in
+  `helmfile`s when both are enabled.
+- Fix YAML language module not activating LSP keybinds if the Helm language
+  module was also enabled.
+- Fix `json` language module (default) language server not activating.
 
 [TheColorman](https://github.com/TheColorman):
 
@@ -319,6 +344,7 @@
 - Add global function `nvf_lint` under
   `vim.diagnostics.nvim-lint.lint_function`.
 - Deprecate `vim.scrollOffset` in favor of `vim.options.scrolloff`.
+- Fix `svelte-language-server` not reloading .js/.ts files on change.
 
 [Sc3l3t0n](https://github.com/Sc3l3t0n):
 
@@ -381,7 +407,7 @@
 
 [aionoid](https://github.com/aionoid):
 
-[avante-nvim]: https://github.com/yetone/avante.nvim
+[avante.nvim]: https://github.com/yetone/avante.nvim
 
 - Fix [render-markdown.nvim] file_types option type to list, to accept merging.
 - Add [avante.nvim] plugin under `vim.assistant.avante-nvim`.
@@ -389,9 +415,12 @@
 [poz](https://poz.pet):
 
 [everforest]: https://github.com/sainnhe/everforest
+[oil]: https://github.com/stevearc/oil.nvim
+[oil-git-status]: https://github.com/refractalize/oil-git-status.nvim
 
 - Fix gitsigns null-ls issue.
 - Add [everforest] theme support.
+- Add [oil-git-status] support to [oil] module.
 
 [Haskex](https://github.com/haskex):
 
@@ -479,19 +508,64 @@
 
 - fix broken `neorg` grammars
 - remove obsolete warning in the `otter` module
-
-[Cool-Game-Dev](https://github.com/Cool-Game-Dev):
-
-[nvim-biscuits]: https://github.com/code-biscuits/nvim-biscuits
-
-- Add [nvim-biscuits] to show block context. Available at
-  `vim.utility.nvim-biscuits`.
+- add mainProgram attribute to vala language server wrapper
+- fix `crates-nvim`'s completions by using the in-program lsp
 
 [JManch](https://github.com/JManch):
 
 - Fix default [blink.cmp] sources "path" and "buffer" not working when
   `autocomplete.nvim-cmp.enable` was disabled and
   `autocomplete.nvim-cmp.sources` had not been modified.
+
+[Poseidon](https://github.com/poseidon-rises):
+
+[nvim-biscuits]: https://github.com/code-biscuits/nvim-biscuits
+[just-lsp]: https://github.com/terror/just-lsp
+[roslyn-ls]: https://github.com/dotnet/vscode-csharp
+[jsonls]: https://github.com/microsoft/vscode/tree/1.101.2/extensions/json-language-features/server
+[jsonfmt]: https://github.com/caarlos0/jsonfmt
+[superhtml]: https://github.com/kristoff-it/superhtml
+[htmlHINT]: https://github.com/htmlhint/HTMLHint
+[qmk-nvim]: https://github.com/codethread/qmk.nvim
+[qmlls]: https://doc.qt.io/qt-6/qtqml-tooling-qmlls.html
+[qmlformat]: https://doc.qt.io/qt-6/qtqml-tooling-qmlformat.html
+
+- Add [nvim-biscuits] support under `vim.utility.nvim-biscuits`.
+- Add just support under `vim.languages.just` using [just-lsp].
+- Add [roslyn-ls] to the `vim.languages.csharp` module.
+- Add JSON support under `vim.languages.json` using [jsonls] and [jsonfmt].
+- Add advanced HTML support under `vim.languages.html` using [superhtml] and
+  [htmlHINT].
+- Add QMK support under `vim.utility.qmk-nvim` via [qmk-nvim].
+- Add QML support under `vim.languages.qml` using [qmlls] and [qmlformat].
+
+[Morsicus](https://github.com/Morsicus):
+
+- Add [EEx Treesitter Grammar](https://github.com/connorlay/tree-sitter-eex) for
+  Elixir
+- Add
+  [HEEx Treesitter Grammar](https://github.com/phoenixframework/tree-sitter-heex)
+  for Elixir
+
+[diced](https://github.com/diced):
+
+- Fixed `typescript` treesitter grammar not being included by default.
+
+[valterschutz](https://github.com/valterschutz):
+
+[ruff]: https://github.com/astral-sh/ruff
+
+- Add [ruff-fix] as a formatter option in `vim.languages.python.format.type`.
+
+[gmvar](https://github.com/gmvar):
+
+[harper-ls]: https://github.com/Automattic/harper
+
+- Add [harper-ls] to the `vim.lsp` module.
+
+[derethil](https://github.com/derethil):
+
+- Fix `vim.lazy.plugins.<name>.enabled` Lua evaluation.
 
 [Jules](https://github.com/jules-sommer):
 
@@ -511,11 +585,38 @@
 - Add inline typst concealing support under `vim.languages.typst` using
   [typst-concealer].
 
+[KrappRamiro](https://github.com/KrappRamiro):
+
+[phaazon/hop.nvim]: https://github.com/hadronized/hop.nvim
+[smoka7/hop.nvim]: https://github.com/smoka7/hop.nvim
+
+- Migrate [phaazon/hop.nvim] to [smoka7/hop.nvim]
+
+[simon-wg](https://github.com/simon-wg):
+
+- Update `python` language module to use correct lsp binary.
+- Fix `python` pyright and basedpyright language servers not using default on
+  attach behavior.
+
+[critical](https://github.com/critical):
+
+[mellow.nvim]: https://github.com/mellow-theme/mellow.nvim
+
+- Add [mellow.nvim] plugin for vim and lualine theme support
+
+[valyntyler](https://github.com/valyntyler):
+
+[emmet-ls]: https://github.com/aca/emmet-ls
+
+- Enable `languages.ts.format` for `.js` files
+- Add [emmet-ls] to `html.lsp.servers`
+
 [axelbdt](https://github.com/axelbdt):
 
 [neocodeium]: https://github.com/monkoose/neocodeium
 
-- Add [neocodeium] plugin in `vim.assistant.neocodeium` with `enable`, `setupOpts` and `keymaps`
+- Add [neocodeium] plugin in `vim.assistant.neocodeium` with `enable`,
+  `setupOpts` and `keymaps`
 
 [JudahZF](https://github.com/JudahZF):
 

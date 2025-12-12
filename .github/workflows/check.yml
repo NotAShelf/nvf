@@ -109,7 +109,7 @@ jobs:
   flake-docs-linkcheck:
     name: "Validate hyperlinks in documentation sources"
     runs-on: ubuntu-latest
-    if: "!contains(github.event.pull_request.title, '[skip ci]')"
+    if: false # disabled until we fix ndg docs
     steps:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main

@@ -7,26 +7,28 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
-  inherit (lib.types) either listOf package str enum;
-  inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.types) enum;
+  inherit (lib.meta) getExe;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
-  defaultServer = "ols";
+  defaultServers = ["ols"];
   servers = {
     ols = {
-      package = pkgs.ols;
-      lspConfig = ''
-        lspconfig.ols.setup {
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else "{'${cfg.lsp.package}/bin/ols'}"
-        }
-        }
-      '';
+      enable = true;
+      cmd = [(getExe pkgs.ols)];
+      filetypes = ["odin"];
+      root_dir =
+        mkLuaInline
+        /*
+        lua
+        */
+        ''
+          function(bufnr, on_dir)
+            local fname = vim.api.nvim_buf_get_name(bufnr)
+            on_dir(util.root_pattern('ols.json', '.git', '*.odin')(fname))
+          end'';
     };
   };
 
@@ -43,16 +45,10 @@ in {
     lsp = {
       enable = mkEnableOption "Odin LSP support" // {default = config.vim.lsp.enable;};
 
-      server = mkOption {
-        type = enum (attrNames servers);
-        default = defaultServer;
+      servers = mkOption {
+        type = deprecatedSingleOrListOf "vim.language.odin.lsp.servers" (enum (attrNames servers));
+        default = defaultServers;
         description = "Odin LSP server to use";
-      };
-
-      package = mkOption {
-        description = "Ols package, or the command to run as a list of strings";
-        type = either package (listOf str);
-        default = pkgs.ols;
       };
     };
   };
@@ -64,8 +60,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.odin-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
   ]);
 }

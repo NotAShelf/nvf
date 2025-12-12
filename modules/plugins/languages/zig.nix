@@ -7,29 +7,21 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge mkDefault;
-  inherit (lib.lists) isList;
-  inherit (lib.types) bool either listOf package str enum;
-  inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.types) bool package enum;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.meta) getExe;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.zig;
 
-  defaultServer = "zls";
+  defaultServers = ["zls"];
   servers = {
     zls = {
-      package = pkgs.zls;
-      internalFormatter = true;
-      lspConfig = ''
-        lspconfig.zls.setup {
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else "{'${cfg.lsp.package}/bin/zls'}"
-        }
-        }
-      '';
+      enable = true;
+      cmd = [(getExe pkgs.zls)];
+      filetypes = ["zig" "zir"];
+      root_markers = ["zls.json" "build.zig" ".git"];
+      workspace_required = false;
     };
   };
 
@@ -74,16 +66,10 @@ in {
     lsp = {
       enable = mkEnableOption "Zig LSP support" // {default = config.vim.lsp.enable;};
 
-      server = mkOption {
-        type = enum (attrNames servers);
-        default = defaultServer;
+      servers = mkOption {
+        type = deprecatedSingleOrListOf "vim.language.zig.lsp.servers" (enum (attrNames servers));
+        default = defaultServers;
         description = "Zig LSP server to use";
-      };
-
-      package = mkOption {
-        description = "ZLS package, or the command to run as a list of strings";
-        type = either package (listOf str);
-        default = pkgs.zls;
       };
     };
 
@@ -118,10 +104,12 @@ in {
 
     (mkIf cfg.lsp.enable {
       vim = {
-        lsp.lspconfig = {
-          enable = true;
-          sources.zig-lsp = servers.${cfg.lsp.server}.lspConfig;
-        };
+        lsp.servers =
+          mapListToAttrs (n: {
+            name = n;
+            value = servers.${n};
+          })
+          cfg.lsp.servers;
 
         # nvf handles autosaving already
         globals.zig_fmt_autosave = mkDefault 0;

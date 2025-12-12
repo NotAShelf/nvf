@@ -6,34 +6,38 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.meta) getExe;
   inherit (lib.trivial) boolToString;
-  inherit (lib.lists) isList;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) enum either listOf package nullOr str bool;
+  inherit (lib.types) enum package nullOr str bool;
   inherit (lib.strings) optionalString;
-  inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAfter;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.dart;
   ftcfg = cfg.flutter-tools;
 
-  defaultServer = "dart";
+  defaultServers = ["dart"];
   servers = {
     dart = {
-      package = pkgs.dart;
-      lspConfig = ''
-        lspconfig.dartls.setup{
-          capabilities = capabilities;
-          on_attach=default_on_attach;
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/dart", "language-server", "--protocol=lsp"}''
+      enable = true;
+      cmd = [(getExe pkgs.dart) "language-server" "--protocol=lsp"];
+      filetypes = ["dart"];
+      root_markers = ["pubspec.yaml"];
+      init_options = {
+        onlyAnalyzeProjectsWithOpenFiles = true;
+        suggestFromUnimportedLibraries = true;
+        closingLabels = true;
+        outline = true;
+        flutterOutline = true;
+      };
+      settings = {
+        dart = {
+          completeFunctionCalls = true;
+          showTodos = true;
         };
-          ${optionalString (cfg.lsp.opts != null) "init_options = ${cfg.lsp.dartOpts}"}
-        }
-      '';
+      };
     };
   };
 in {
@@ -46,23 +50,11 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Dart LSP support";
-      server = mkOption {
-        description = "The Dart LSP server to use";
-        type = enum (attrNames servers);
-        default = defaultServer;
-      };
-      package = mkOption {
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
-        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        description = "Dart LSP server package, or the command to run as a list of strings";
-      };
-
-      opts = mkOption {
-        type = nullOr str;
-        default = null;
-        description = "Options to pass to Dart LSP server";
+      enable = mkEnableOption "Dart LSP support" // {default = config.vim.lsp.enable;};
+      servers = mkOption {
+        type = deprecatedSingleOrListOf "vim.language.dart.lsp.servers" (enum (attrNames servers));
+        default = defaultServers;
+        description = "Dart LSP server to use";
       };
     };
 
@@ -131,19 +123,23 @@ in {
     };
   };
 
-  config.vim = mkIf cfg.enable (mkMerge [
+  config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
-      treesitter.enable = true;
-      treesitter.grammars = [cfg.treesitter.package];
+      vim.treesitter.enable = true;
+      vim.treesitter.grammars = [cfg.treesitter.package];
     })
 
     (mkIf cfg.lsp.enable {
-      lsp.lspconfig.enable = true;
-      lsp.lspconfig.sources.dart-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
 
     (mkIf ftcfg.enable {
-      startPlugins = [
+      vim.startPlugins = [
         (
           if ftcfg.enableNoResolvePatch
           then "flutter-tools-patched"
@@ -152,7 +148,7 @@ in {
         "plenary-nvim"
       ];
 
-      pluginRC.flutter-tools = entryAfter ["lsp-setup"] ''
+      vim.pluginRC.flutter-tools = entryAfter ["lsp-servers"] ''
         require('flutter-tools').setup {
           ${optionalString (ftcfg.flutterPackage != null) "flutter_path = \"${ftcfg.flutterPackage}/bin/flutter\","}
           lsp = {
@@ -165,7 +161,6 @@ in {
             },
 
             capabilities = capabilities,
-            on_attach = default_on_attach;
           },
           ${optionalString cfg.dap.enable ''
           debugger = {

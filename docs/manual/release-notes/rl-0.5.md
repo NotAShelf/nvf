@@ -1,8 +1,6 @@
-# Release 0.5 {#sec-release-0.5}
+# Release 0.5 {#sec-release-0-5}
 
-Release notes for release 0.5
-
-## Changelog {#sec-release-0.5-changelog}
+## Changelog {#sec-release-0-5-changelog}
 
 [vagahbond](https://github.com/vagahbond):
 
@@ -17,14 +15,14 @@ Release notes for release 0.5
 - Fixed a bug where cmp's close and scrollDocs mappings wasn't working
 
 - Streamlined and simplified extra plugin API with the addition of
-  [](#opt-vim.extraPlugins)
+  {option}`vim.extraPlugins`
 
 - Allow using command names in place of LSP packages to avoid automatic
   installation
 
 - Add lua LSP and Treesitter support, and neodev.nvim plugin support
 
-- Add [](#opt-vim.lsp.mappings.toggleFormatOnSave) keybind
+- Add {option}`vim.lsp.mappings.toggleFormatOnSave` keybind
 
 [amanse](https://github.com/amanse):
 
@@ -52,10 +50,10 @@ Release notes for release 0.5
 
 - Added GitHub Copilot to nvim-cmp completion sources.
 
-- Added [](#opt-vim.ui.borders.enable) for global and individual plugin border
+- Added {option}`vim.ui.borders.enable` for global and individual plugin border
   configuration.
 
-- LSP integrated breadcrumbs with [](#opt-vim.ui.breadcrumbs.enable) through
+- LSP integrated breadcrumbs with {option}`vim.ui.breadcrumbs.enable` through
   nvim-navic
 
 - LSP navigation helper with nvim-navbuddy, depends on nvim-navic (automatically
@@ -66,14 +64,14 @@ Release notes for release 0.5
 - Fixed mismatching Zig language description
 
 - Added support for `statix` and `deadnix` through
-  [](#opt-vim.languages.nix.extraDiagnostics.types)
+  {option}`vim.languages.nix.extraDiagnostics.types`
 
 - Added `lsp_lines` plugin for showing diagnostic messages
 
 - Added a configuration option for choosing the leader key
 
 - The package used for neovim is now customizable by the user, using
-  [](#opt-vim.package). For best results, always use an unwrapped package
+  {option}`vim.package`. For best results, always use an unwrapped package
 
 - Added highlight-undo plugin for highlighting undo/redo targets
 

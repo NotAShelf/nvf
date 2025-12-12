@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  options,
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
@@ -9,10 +10,7 @@
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.utility.preview.glow;
-  self = import ./glow.nix {
-    inherit lib config pkgs;
-  };
-  inherit (self.options.vim.utility.preview.glow) mappings;
+  inherit (options.vim.utility.preview.glow) mappings;
 in {
   config = mkIf cfg.enable {
     vim.startPlugins = ["glow-nvim"];
