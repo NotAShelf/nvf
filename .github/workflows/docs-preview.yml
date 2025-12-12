@@ -49,7 +49,7 @@ jobs:
           mkdir -p $PREVIEW_DIR
 
           # Copy the build files to the preview subdirectory
-          cp -rvf ../result/share/doc/nvf/* ./$PREVIEW_DIR
+          cp -rvf ../result/share/doc/* ./$PREVIEW_DIR
 
           # Configure git to use the GitHub Actions token for authentication
           git config --global user.name "GitHub Actions"
