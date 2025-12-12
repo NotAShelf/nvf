@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: "Install Nix"
-        uses: cachix/install-nix-action@v31.8.2
+        uses: cachix/install-nix-action@v31.9.0
 
       - name: Set up Git
         run: |
