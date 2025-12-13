@@ -1,5 +1,5 @@
 {
-  self,
+  inputs,
   config,
   pkgs,
   lib,
@@ -43,7 +43,7 @@
 
   defaultFormat = ["prettier"];
   formats = let
-    parser = "${self.packages.${pkgs.stdenv.hostPlatform.system}.prettier-plugin-astro}/index.js";
+    parser = "${inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.prettier-plugin-astro}/index.js";
   in {
     prettier = {
       command = getExe pkgs.prettier;

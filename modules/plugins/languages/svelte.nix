@@ -1,5 +1,5 @@
 {
-  self,
+  inputs,
   config,
   pkgs,
   lib,
@@ -56,7 +56,7 @@
 
   defaultFormat = ["prettier"];
   formats = let
-    prettierPlugin = self.packages.${pkgs.stdenv.system}.prettier-plugin-svelte;
+    prettierPlugin = inputs.self.packages.${pkgs.stdenv.system}.prettier-plugin-svelte;
     prettierPluginPath = "${prettierPlugin}/lib/node_modules/prettier-plugin-svelte/plugin.js";
   in {
     prettier = {
