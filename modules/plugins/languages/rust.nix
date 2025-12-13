@@ -87,6 +87,19 @@ in {
         type = package;
         default = pkgs.lldb;
       };
+
+      adapter = mkOption {
+        type = enum ["lldb-dap" "codelldb"];
+        default = "codelldb";
+        description = ''
+          Select which LLDB-based debug adapter to use:
+
+          - "codelldb": use the CodeLLDB adapter from the vadimcn.vscode-lldb extension.
+          - "lldb-dap": use the LLDB DAP implementation shipped with LLVM (lldb-dap).
+
+          The default "codelldb" backend generally provides a better debugging experience for Rust.
+        '';
+      };
     };
 
     extensions = {
@@ -191,11 +204,20 @@ in {
 
             ${optionalString cfg.dap.enable ''
             dap = {
-              adapter = {
-                type = "executable",
-                command = "${cfg.dap.package}/bin/lldb-dap",
-                name = "rustacean_lldb",
-              },
+              adapter = ${
+              if cfg.dap.adapter == "lldb-dap"
+              then ''
+                {
+                  type = "executable",
+                  command = "${cfg.dap.package}/bin/lldb-dap",
+                  name = "rustacean_lldb",
+                }''
+              else let
+                codelldb = pkgs.vscode-extensions.vadimcn.vscode-lldb.adapter;
+                codelldbPath = "${codelldb}/bin/codelldb";
+                liblldbPath = "${codelldb}/share/lldb/lib/liblldb.so";
+              in ''require("rustaceanvim.config").get_codelldb_adapter("${codelldbPath}", "${liblldbPath}")''
+            },
             },
           ''}
           }
