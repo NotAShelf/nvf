@@ -8359,11 +8359,19 @@
     <details class="toc-category">
       <summary title="vim.languages.rust">
         <span>vim.languages.rust</span>
-        <span class="toc-count">19</span>
+        <span class="toc-count">20</span>
       </summary>
       <ul>
         
 
+        
+        <li>
+          <a href='#option-vim-languages-rust-dap-adapter' title="vim.languages.rust.dap.adapter">
+            dap.adapter
+            
+            
+          </a>
+        </li>
         
         <li>
           <a href='#option-vim-languages-rust-dap-enable' title="vim.languages.rust.dap.enable">
@@ -31518,6 +31526,23 @@ This is a python package with debugpy installed, see <a href="https://nixos.wiki
 </body></html></div>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.builtGrammars.ruby</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/ruby.nix" target="_blank">&lt;nvf/modules/plugins/languages/ruby.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-rust-dap-adapter">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-rust-dap-adapter" class="option-anchor">vim.languages.rust.dap.adapter</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>one of "lldb-dap", "codelldb"</code></div>
+  <div class="option-description"><html><head></head><body><p>Select which LLDB-based debug adapter to use:</p>
+<ul>
+<li>"codelldb": use the CodeLLDB adapter from the vadimcn.vscode-lldb extension.</li>
+<li>"lldb-dap": use the LLDB DAP implementation shipped with LLVM (lldb-dap).</li>
+</ul>
+<p>The default "codelldb" backend generally provides a better debugging experience for Rust.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>"codelldb"</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_blank">&lt;nvf/modules/plugins/languages/rust.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-rust-dap-enable">
   <h3 class="option-name">
