@@ -2373,6 +2373,19 @@
       "url": "https://github.com/rose-pine/neovim/archive/72a04c4065345b51b56aed4859ea1d884f734097.tar.gz",
       "hash": "144jffddwf727w4yqbikv2f46cny8r9z8mpkbc5ngzail5ldj0q8"
     },
+    "roslyn-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "seblyng",
+        "repo": "roslyn.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "1ebc9393d3e577d9f68102f14d98b2e4e7f15644",
+      "url": "https://github.com/seblyng/roslyn.nvim/archive/1ebc9393d3e577d9f68102f14d98b2e4e7f15644.tar.gz",
+      "hash": "0jbgxyrv59pf2n4xy821vcbwiahi4nal642nrpiwymzwya355adh"
+    },
     "rtp-nvim": {
       "type": "Git",
       "repository": {

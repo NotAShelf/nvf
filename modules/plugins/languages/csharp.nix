@@ -24,10 +24,8 @@
   in
     optionalString (key != null) "vim.keymap.set('n', '${key}', ${action}, {buffer=bufnr, noremap=true, silent=true, desc='${desc}'})";
 
-  # Omnisharp doesn't have colors in popup docs for some reason, and I've also
-  # seen mentions of it being way slower, so until someone finds missing
-  # functionality, this will be the default.
-  defaultServers = ["csharp_ls"];
+  # roslyn is the official language server and the most feature-rich
+  defaultServers = ["roslyn"];
   servers = {
     omnisharp = {
       cmd = mkLuaInline ''
@@ -43,19 +41,7 @@
         }
       '';
       filetypes = ["cs" "vb"];
-      root_dir = mkLuaInline ''
-        function(bufnr, on_dir)
-          local function find_root_pattern(fname, lua_pattern)
-            return vim.fs.root(0, function(name, path)
-              return name:match(lua_pattern)
-            end)
-          end
-
-          local fname = vim.api.nvim_buf_get_name(bufnr)
-          on_dir(find_root_pattern(fname, "%.sln$") or find_root_pattern(fname, "%.csproj$"))
-        end
-      '';
-      init_options = {};
+      root_marks = [".sln" ".csproj"];
       capabilities = {
         workspace = {
           workspaceFolders = false; # https://github.com/OmniSharp/omnisharp-roslyn/issues/909
@@ -120,65 +106,35 @@
     csharp_ls = {
       cmd = [(lib.getExe pkgs.csharp-ls)];
       filetypes = ["cs"];
-      root_dir = mkLuaInline ''
-        function(bufnr, on_dir)
-          local function find_root_pattern(fname, lua_pattern)
-            return vim.fs.root(0, function(name, path)
-              return name:match(lua_pattern)
-            end)
-          end
-
-          local fname = vim.api.nvim_buf_get_name(bufnr)
-          on_dir(find_root_pattern(fname, "%.sln$") or find_root_pattern(fname, "%.csproj$"))
-        end
-      '';
+      root_marks = [".sln" ".csproj"];
       init_options = {
         AutomaticWorkspaceInit = true;
       };
     };
 
-    roslyn_ls = {
-      cmd = mkLuaInline ''
-        {
-          ${toLuaObject (getExe pkgs.roslyn-ls)},
-          '--logLevel=Warning',
-          '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
-          '--stdio',
-        }
-      '';
-
-      filetypes = ["cs"];
-      root_dir = mkLuaInline ''
-        function(bufnr, on_dir)
-          local function find_root_pattern(fname, lua_pattern)
-            return vim.fs.root(0, function(name, path)
-              return name:match(lua_pattern)
-            end)
-          end
-
-          local fname = vim.api.nvim_buf_get_name(bufnr)
-          on_dir(find_root_pattern(fname, "%.sln$") or find_root_pattern(fname, "%.csproj$"))
-        end
-      '';
-      init_options = {};
+    roslyn = {
+      # NOTE: cmd is set by roslyn-nvim!
+      filetypes = ["cs" "razor" "cshtml"];
+      root_marks = [".sln" ".csproj"];
     };
   };
 
   extraServerPlugins = {
     omnisharp = ["omnisharp-extended-lsp-nvim"];
     csharp_ls = ["csharpls-extended-lsp-nvim"];
-    roslyn_ls = [];
+    roslyn = ["roslyn-nvim"];
   };
 
   cfg = config.vim.languages.csharp;
 in {
   options = {
     vim.languages.csharp = {
-      enable = mkEnableOption "C# language support";
+      enable = mkEnableOption "C# language support. It requires .NET sdk 10";
 
       treesitter = {
-        enable = mkEnableOption "C# treesitter" // {default = config.vim.languages.enableTreesitter;};
-        package = mkGrammarOption pkgs "c-sharp";
+        enable = mkEnableOption "C#/razor treesitter" // {default = config.vim.languages.enableTreesitter;};
+        csPackage = mkGrammarOption pkgs "c-sharp";
+        razorPackage = mkGrammarOption pkgs "razor";
       };
 
       lsp = {
@@ -195,11 +151,81 @@ in {
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      vim.treesitter.grammars = [cfg.treesitter.csPackage cfg.treesitter.razorPackage];
+    })
+
+    (mkIf (cfg.lsp.enable && lib.elem "roslyn" cfg.lsp.servers) {
+      vim.luaConfigRC.roslyn-path = ''
+        -- NOTE: this is required by roslyn-nvim to find roslyn
+        vim.env.PATH = vim.env.PATH .. ":${pkgs.roslyn-ls}/bin"
+
+        -- NOTE: this is required by roslyn-nvim to find .razorExtension folder
+        -- roslyn-nvim looks for .razorExtension folder using this logic!
+        -- take a look at https://github.com/seblyng/roslyn.nvim/blob/main/lua/roslyn/health.lua
+        local razor_extensions_path = "${pkgs.vscode-extensions.ms-dotnettools.csharp}/share/vscode/extensions/ms-dotnettools.csharp/.razorExtension"
+
+        -- Function to check if path exists (including symlinks)
+        local function path_exists(path)
+            local stat = vim.uv.fs_lstat(path)
+            return stat ~= nil
+        end
+
+        -- Function to create symlink
+        local function create_razor_symlink()
+            if not razor_extensions_path or razor_extensions_path == "" then
+                vim.notify("razor_extensions_path is not set", vim.log.levels.WARN)
+                return
+            end
+
+            -- Check if source path exists
+            if vim.fn.isdirectory(razor_extensions_path) == 0 then
+                vim.notify("Source path does not exist: " .. razor_extensions_path, vim.log.levels.ERROR)
+                return
+            end
+
+            -- Get mason path
+            vim.env.MASON = vim.fn.expand("~/.local/share/nvf/mason")
+            local expanded_mason = vim.fn.expand("$MASON")
+            local mason = expanded_mason == "$MASON"
+                and vim.fs.joinpath(vim.fn.stdpath("data"), "mason")
+                or expanded_mason
+            local mason_packages = vim.fs.joinpath(mason, "packages")
+
+            -- Define target paths
+            local targets = {
+                vim.fs.joinpath(mason_packages, "roslyn", "libexec", ".razorExtension"),
+                vim.fs.joinpath(mason_packages, "roslyn-unstable", "libexec", ".razorExtension"),
+            }
+
+            -- Create symlinks for each target
+            for _, target in ipairs(targets) do
+                local parent_dir = vim.fn.fnamemodify(target, ":h")
+
+                -- Check if parent directory exists
+                if vim.fn.isdirectory(parent_dir) == 1 then
+                    -- Remove existing symlink or directory
+                    if path_exists(target) then
+                        vim.fn.delete(target, "rf")
+                    end
+
+                    -- Create symlink
+                    local success = vim.uv.fs_symlink(razor_extensions_path, target, { dir = true })
+
+                    if not success then
+                        vim.notify("Failed to create symlink for .razorExtension: " .. target, vim.log.levels.ERROR)
+                    end
+                end
+            end
+        end
+
+        -- Run the function
+        create_razor_symlink()
+      '';
     })
 
     (mkIf cfg.lsp.enable {
       vim.startPlugins = concatMap (server: extraServerPlugins.${server}) cfg.lsp.servers;
+
       vim.lsp.servers =
         mapListToAttrs (name: {
           inherit name;
