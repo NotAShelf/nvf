@@ -28,4 +28,6 @@
 [Snoweuph](https://github.com/snoweuph):
 
 - Added [tera](https://keats.github.io/tera/) language support (syntax highlighting only).
+- Added neovim theme `grubber-darker` <https://github.com/blazkowolf/gruber-darker.nvim>.
+
 

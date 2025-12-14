@@ -643,6 +643,19 @@
       "url": "https://github.com/ellisonleao/glow.nvim/archive/5d5954b2f22e109d4a6eba8b2618c5b96e4ee7a2.tar.gz",
       "hash": "11rlis4riy1w4clnkiza8x6fs8xjwsrsgfzlz2k8z041ancmrw0a"
     },
+    "gruber-darker": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "blazkowolf",
+        "repo": "gruber-darker.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "98a2e141981cbd5a194a97eae024bf55af854579",
+      "url": "https://github.com/blazkowolf/gruber-darker.nvim/archive/98a2e141981cbd5a194a97eae024bf55af854579.tar.gz",
+      "hash": "0bxv33isymnbdzf71w79pfxkwi8ylhjiq3ir9ws2as1d73nnl6lv"
+    },
     "gruvbox": {
       "type": "Git",
       "repository": {
