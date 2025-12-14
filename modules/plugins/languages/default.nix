@@ -19,6 +19,7 @@ in {
     ./helm.nix
     ./kotlin.nix
     ./html.nix
+    ./tera.nix
     ./haskell.nix
     ./java.nix
     ./jinja.nix
