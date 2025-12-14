@@ -158,6 +158,8 @@
 
 - Added XML syntax highlighting, LSP support and formatting
 
+- Added neovim builtin theme `habamax`.
+
 [vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
 https://github.com/gorbit99/codewindow.nvim
 
