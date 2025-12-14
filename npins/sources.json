@@ -656,6 +656,19 @@
       "url": "https://github.com/MagicDuck/grug-far.nvim/archive/275dbedc96e61a6b8d1dfb28ba51586ddd233dcf.tar.gz",
       "hash": "sha256-qn1BTNCX0Sm158Lv5JfHThqlJX9ualCIlc+RCjWa+t8="
     },
+    "gruber-darker": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "blazkowolf",
+        "repo": "gruber-darker.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "aba065c3a79b58cc3863d5c9db319255abd1258a",
+      "url": "https://github.com/blazkowolf/gruber-darker.nvim/archive/aba065c3a79b58cc3863d5c9db319255abd1258a.tar.gz",
+      "hash": "sha256-4xB/MRTDccA5gTKe6DrN+bNfDx6fzjuIGOLdkuxg8c0="
+    },
     "gruvbox": {
       "type": "Git",
       "repository": {
