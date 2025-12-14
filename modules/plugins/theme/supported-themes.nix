@@ -8,6 +8,10 @@
   inherit (lib.trivial) boolToString warnIf;
   inherit (lib.nvim.lua) toLuaObject;
 in {
+  habamax = {
+    builtin = true;
+    setup = _: "vim.cmd('colorscheme habamax')";
+  };
   base16 = {
     setup = {base16-colors, ...}: ''
       -- Base16 theme
