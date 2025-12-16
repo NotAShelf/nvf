@@ -3,6 +3,7 @@
   lib,
   ...
 }: let
+  inherit (lib.strings) concatStringsSep;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.dag) entryAnywhere;
 
@@ -30,12 +31,8 @@ in {
       	},
       	alpha_show = "hide", -- needed when highlighter.lsp is set to true
       	recognize = { output = true }, -- automatically recognize color format under cursor
-      	inputs = { ccc.input.hsl },
-      	outputs = {
-      		ccc.output.css_hsl,
-      		ccc.output.css_rgb,
-      		ccc.output.hex,
-      	},
+      	inputs = {${concatStringsSep "," (map (input: "ccc.input.${input}") cfg.inputs)}},
+      	outputs = {${concatStringsSep "," (map (output: "ccc.output.${output}") cfg.outputs)}},
       	convert = {
       		{ ccc.picker.hex, ccc.output.css_hsl },
       		{ ccc.picker.css_rgb, ccc.output.css_hsl },
