@@ -8,7 +8,7 @@
 
 ## Preface
 
-[LICENSE]: ../LICENSE
+[LICENSE]: /LICENSE
 
 I am glad you are thinking about contributing to nvf! The project is shaped by
 contributors and user feedback, and all contributions are appreciated.
@@ -30,7 +30,7 @@ personally.
 
 ## Contributing Process
 
-[pull request template]: ./PULL_REQUEST_TEMPLATE.md
+[pull request template]: /.github/PULL_REQUEST_TEMPLATE.md
 
 The contribution process is mostly documented in the [pull request template].
 When you create a pull request, you will find a checklist of items to complete
