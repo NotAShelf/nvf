@@ -12,4 +12,5 @@ release-notes/rl-0.5.md
 release-notes/rl-0.6.md
 release-notes/rl-0.7.md
 release-notes/rl-0.8.md
+release-notes/rl-0.9.md
 ```
