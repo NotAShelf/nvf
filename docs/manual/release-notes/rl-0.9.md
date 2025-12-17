@@ -11,6 +11,5 @@
 
 [ccc.nvim]: https://github.com/uga-rosa/ccc.nvim
 
-- Added [ccc.nvim] options {option}`vim.utility.ccc.inputs` and
-  {option}`vim.utility.ccc.outputs` to make input color systems and output color
-  formats configurable.
+- Added [ccc.nvim] option {option}`vim.utility.ccc.setupOpts` with the existing
+  hard-coded options as default values.
