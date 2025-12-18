@@ -1,6 +1,6 @@
 # Introduction {#nvf-manual}
 
-Version @NVF_VERSION@
+Generated for nvf @NVF_VERSION@
 
 ## Preface {#ch-preface}
 
@@ -8,11 +8,11 @@ Version @NVF_VERSION@
 
 **nvf** is a highly modular, configurable, extensible and easy to use Neovim
 configuration framework built and designed to be used with Nix. Boasting
-flexibility, robustness and ease of use, this projecct allows you to configure a
+flexibility, robustness and ease of use, this project allows you to configure a
 fully featured Neovim instance with a few lines of Nix with lots of options for
 advanced users as well.
 
-## Try it out {#ch-try-it-out}
+## Try it Out {#ch-try-it-out}
 
 Thanks to the portability of Nix, you can try out nvf without actually
 installing it to your machine. Below are the commands you may run to try out
@@ -27,19 +27,26 @@ You may try out any of the provided configurations using the `nix run` command
 on a system where Nix is installed.
 
 ```sh
+# Add the nvf cache
 $ cachix use nvf                   # Optional: it'll save you CPU resources and time
+
+# Run the minimal configuration with the cache enabled
 $ nix run github:notashelf/nvf#nix # Will run the default minimal configuration
 ```
 
 Do keep in mind that this is **susceptible to garbage collection** meaning that
 the built outputs will be removed from your Nix store once you garbage collect.
 
-## Using Prebuilt Configs {#sec-using-prebuilt-configs}
+## Using Prebuilt Configurations {#sec-using-prebuilt-configs}
+
+<!-- markdownlint-disable MD014 -->
 
 ```bash
 $ nix run github:notashelf/nvf#nix
 $ nix run github:notashelf/nvf#maximal
 ```
+
+<!-- markdownlint-enable MD014 -->
 
 ### Available Configurations {#sec-available-configs}
 
@@ -61,7 +68,7 @@ $ nix run github:notashelf/nvf#nix test.nix
 ```
 
 This command will start Neovim with some opinionated plugin configurations, and
-is designed specifically for Nix. the `nix` configuration lets you see how a
+is designed specifically for Nix. The `nix` configuration lets you see how a
 fully configured Neovim setup _might_ look like without downloading too many
 packages or shell utilities.
 
@@ -87,12 +94,16 @@ companion or fun plugins.
 
 ## Installing nvf {#ch-installation}
 
+<!-- markdownlint-disable MD051 -->
+
 [module installation section]: #ch-module-installation
 
-There are multiple ways of installing nvf on your system. You may either choose
-the standalone installation method, which does not depend on a module system and
-may be done on any system that has the Nix package manager or the appropriate
-modules for NixOS and home-manager as described in the
+<!-- markdownlint-enable MD051 -->
+
+There are multiple ways of installing **nvf** on your system. You may either
+choose the standalone installation method, which does not depend on a module
+system and may be done on any system that has the Nix package manager or the
+appropriate modules for NixOS and Home Manager as described in the
 [module installation section].
 
 ```{=include=}
