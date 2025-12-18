@@ -6,15 +6,18 @@ Generated for nvf @NVF_VERSION@
 
 ### What is nvf {#sec-what-is-it}
 
-**nvf** is a highly modular, configurable, extensible and easy to use Neovim
-configuration framework built and designed to be used with Nix. Boasting
-flexibility, robustness and ease of use, this project allows you to configure a
-fully featured Neovim instance with a few lines of Nix with lots of options for
-advanced users as well.
+[Nix]: https://nixos.org
+
+**nvf** is a highly modular, configurable, extensible and _easy to use_ Neovim
+configuration framework built for and designed to be used with [Nix]. Boasting
+flexibility, robustness and ease of use (among other positive traits), this
+project allows you to configure a fully featured Neovim instance with a few
+lines of Nix while leaving all kinds of doors open for integrating Lua in your
+configurations _whether you are a beginner or an advanced user_.
 
 ## Try it Out {#ch-try-it-out}
 
-Thanks to the portability of Nix, you can try out nvf without actually
+Thanks to the portability of Nix, you can try out **nvf** without actually
 installing it to your machine. Below are the commands you may run to try out
 different configurations provided by this flake. As of v0.5, two specialized
 configurations are provided:
