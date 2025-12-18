@@ -1,7 +1,7 @@
-### Prerequisites {#sec-flakes-prerequisites}
+#### Prerequisites {#sec-flakes-prerequisites}
 
-To install nvf with flakes, you must make sure the following requirements are
-met.
+To install **nvf** with flakes, you must make sure the following requirements
+are met.
 
 1. Nix 2.4 or later must be installed. You may use `nix-shell` to get a later
    version of Nix from nixpkgs.
@@ -29,5 +29,6 @@ met.
      following additional flags to `nix` and `home-manager`:
 
      ```sh
+     # Temporarily enables "nix-command" and "flakes" experimental features.
      $ nix --extra-experimental-features "nix-command flakes" <sub-commands>
      ```

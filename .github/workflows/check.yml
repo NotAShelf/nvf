@@ -28,7 +28,7 @@ jobs:
       - name: Check Flake
         run: nix flake check
 
-  format-with-alejandra:
+  format-sources:
     name: "Check formatting"
     runs-on: ubuntu-latest
     if: "!contains(github.event.pull_request.title, '[skip ci]')"

@@ -1,4 +1,4 @@
-# Standalone Installation on Home-Manager {#ch-standalone-hm}
+## Standalone Installation on Home-Manager {#ch-standalone-hm}
 
 Your built Neovim configuration can be exposed as a flake output to make it
 easier to share across machines, repositories and so on. Or it can be added to

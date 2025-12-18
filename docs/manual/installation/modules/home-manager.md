@@ -1,7 +1,7 @@
-# Home-Manager Module {#ch-hm-module}
+## Home Manager Module {#ch-hm-module}
 
-The home-manager module allows us to customize the different `vim` options from
-inside the home-manager configuration without having to call for the wrapper
+The Home Manager module allows us to customize the different `vim` options from
+inside the Home Manager configuration without having to call for the wrapper
 yourself. It is the recommended way to use **nvf** alongside the NixOS module
 depending on your needs.
 
