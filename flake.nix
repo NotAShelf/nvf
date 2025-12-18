@@ -71,10 +71,12 @@
 
           text = ''
             # Find Nix files in the tree and format them with Alejandra
-            fd "$@" -t f -e nix -x nixfmt -q '{}'
+            echo "Formatting Nix files"
+            fd "$@" -t f -e nix -x alejandra -q '{}'
 
             # Same for Markdown files, but with deno
-            fd "$@" -t f -e md -x deno fmt '{}'
+            echo "Formatting Markdown files"
+            fd "$@" -t f -e md -x deno fmt -q '{}'
           '';
         };
 
@@ -93,7 +95,7 @@
           # This can be initiated with `nix build .#checks.<system>.md-fmt`
           # or with `nix flake check`
           md-fmt = pkgs.runCommand "md-fmt-check" {nativeBuildInputs = [pkgs.deno];} ''
-            deno fmt --check ${self} --ext md < /dev/null
+            deno fmt --check ${self} --ext md
             touch $out
           '';
         };
