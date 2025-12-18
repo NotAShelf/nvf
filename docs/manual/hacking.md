@@ -311,24 +311,52 @@ acceptableList = [
 
 ## Testing Changes {#sec-testing-changes}
 
-Once you have made your changes, you will need to test them thoroughly. If it is
-a module, add your module option to `configuration.nix` (located in the root of
-this project) inside `neovimConfiguration`. Enable it, and then run the maximal
-configuration with `nix run .#maximal -Lv` to check for build errors. If neovim
-opens in the current directory without any error messages (you can check the
-output of `:messages` inside neovim to see if there are any errors), then your
-changes are good to go. Open your pull request, and it will be reviewed as soon
-as possible.
+Once you have made your changes, you will need to test them thoroughly. To make
+testing easier you may either use the `configuration.nix` located in the
+repository root, or use the development package located in `flake/develop.nix`.
+The development package allows you to quickly bootstrap a Neovim configuration
+with only the required modules, instead of the packages that consume the
+`configuration.nix`, so it is generally preferable. To use it navigate to the
+`develop.nix` module, and update the `configuration` set with the Neovim
+configuration that you would like to test with. For example:
 
-If it is not a new module, but a change to an existing one, then make sure the
-module you have changed is enabled in the maximal configuration by editing
-`configuration.nix`, and then run it with `nix run .#maximal -Lv`. Same
-procedure as adding a new module will apply here.
+```nix
+{
+  # Let's assume you are adding a new module for the Nix language.
+  # You will need to enable it here
+  configuration = {
+    vim.languages.nix.enable = true;
+
+    # You can also enable other plugins that you wish to test with, for example
+    # none-ls:
+    vim.lsp.null-ls = {
+      enable = true;
+      setupOpts = { /* Your setup options here */ };
+    };
+  };
+```
+
+You may then run this package with `nix run .#develop` and check for build or
+runtime errors. If Neovim builds and opens without any errors, then your changes
+are good to go. Open your pull request, and it will be reviewed as soon as
+possible.
+
+If your changes are rather large, or if you would like to instead test with a
+more complex configuration then you might use the `configuration.nix` for
+testing. Make your changes, and then build either the default or `maximal`
+package to test your changes.
+
+> [!IMPORTANT]
+> `configuration.nix` is a module used to bootstrap **demo** packages and should
+> generally not be changed unless migrating old APIs or updating the set of
+> default plugins. Similarly, the `develop.nix` file is for reference, and
+> testing configurations **should not be committed**.
 
 ## Adding Documentation {#sec-guidelines-documentation}
 
 [Nixpkgs Flavoured Markdown]: https://github.com/NixOS/nixpkgs/blob/master/doc/README.md#syntax
 [in-house documentation generator]: https://github.com/feel-co/ndg
+[library documentation]: https://github.com/feel-co/ndg/blob/main/ndg-commonmark/docs/SYNTAX.md
 
 Almost all changes to **nvf**'s codebase warrant updates to the documentation.
 At the very least, you must update the relevant changelog document to describe
@@ -345,7 +373,10 @@ As a general rule of thumb:
 By feeding NDG, our documentation generator, Markdown sources we can generate a
 HTML manual with various goodies, including a **search page** and an **options
 page**. The latter, found under `options.html` contains module options, similar
-to the official Nixpkgs search utility.
+to the official Nixpkgs search utility. The supported syntax for NDG can be
+found over at the [library documentation].
+
+### Building the Documentation
 
 The HTML version of this documentation, dubbed the "nvf manual", can be
 generated and opened by typing the following in a shell within a clone of the
@@ -369,7 +400,9 @@ $ nix build .#docs-linkcheck
 ```
 
 You must ensure that the **HTML Documentation** builds before submitting a pull
-request.
+request. If the documentation builds, an automatic "preview" build will be
+deployed automatically for your Pull Request. You may use this preview to view
+your changes as your Pull Request is updated.
 
 ### Formatting Changelog Entries
 
@@ -380,12 +413,29 @@ manual for users hoping to learn what has changed.
 To maintain consistency, you must follow the following format in the changelog:
 
 ```markdown
-[<username>](https://github.com/<username>):
+[username](https://github.com/username):
 
 - Added ...
 - Removed ...
 - Changed ...
 ```
+
+If this is your first contribution, you should add yourself to the changelog.
+Linking your GitHub account is not a strict requirement; it can be any page that
+people can use to discover you. Below the link to your profile, you should
+include a brief description of your changes. Those descriptions must be in past
+tense, unlike commit messages.
+
+While adding a new section, please insert the section at an arbitrary location
+under the `## Changelog` section rather than the end of the document. This helps
+avoid merge conflicts.
+
+### Breaking Changes
+
+If you are introducing _breaking_ changes to the repository, then you must also
+briefly mention what has changed in the breaking changes section of the
+changelog document that you are editing. If this section does not yet exist, you
+must create it.
 
 ```markdown
 # Release 0.9 {#sec-release-0-9}
@@ -395,108 +445,10 @@ To maintain consistency, you must follow the following format in the changelog:
 - We broke everything, please migrate!
 ```
 
-If you are introducing _breaking_ changes to the repository, then you must also
-briefly mention what has changed in the breaking changes section of the
-changelog document that you are editing. If this section does not yet exist, you
-must create it.
-
-## Keybinds {#sec-keybinds}
-
-As of 0.4, there exists an API for writing your own keybinds and a couple of
-useful utility functions are available in the
-[extended standard library](https://github.com/NotAShelf/nvf/tree/main/lib). The
-following section contains a general overview to how you may utilize said
-functions.
-
-### Custom Key Mappings Support for a Plugin {#sec-custom-key-mappings}
-
-To set a mapping, you should define it in `vim.keymaps`.
-
-An example, simple keybinding, can look like this:
-
-```nix
-{
-  vim.keymaps = [
-    {
-      key = "<leader>wq";
-      mode = ["n"];
-      action = ":wq<CR>";
-      silent = true;
-      desc = "Save file and quit";
-    }
-  ];
-}
-```
-
-There are many settings available in the options. Please refer to the
-[documentation](/options.html#option-vim-keymaps) to see a list of them.
-
-**nvf** provides a helper function, so that you don't have to write the mapping
-attribute sets every time:
-
-- `mkKeymap`, which mimics Neovim's `vim.keymap.set` function
-
-You can read the source code of some modules to see them in action, but the
-usage should look something like this:
-
-```nix
-# plugindefinition.nix
-{lib, ...}: let
-  inherit (lib.options) mkEnableOption;
-  inherit (lib.nvim.binds) mkMappingOption;
-in {
-  options.vim.plugin = {
-    enable = mkEnableOption "Enable plugin";
-
-    # Mappings should always be inside an attrset called mappings
-    mappings = {
-      workspaceDiagnostics = mkMappingOption "Workspace diagnostics [trouble]" "<leader>lwd";
-      documentDiagnostics = mkMappingOption "Document diagnostics [trouble]" "<leader>ld";
-      lspReferences = mkMappingOption "LSP References [trouble]" "<leader>lr";
-      quickfix = mkMappingOption "QuickFix [trouble]" "<leader>xq";
-      locList = mkMappingOption "LOCList [trouble]" "<leader>xl";
-      symbols = mkMappingOption "Symbols [trouble]" "<leader>xs";
-    };
-}
-```
-
-<!-- markdownlint-disable MD013  -->
-
-```nix
-# config.nix
-{
-  config,
-  lib,
-  options,
-  ...
-}: let
-  inherit (lib.modules) mkIf;
-  inherit (lib.nvim.binds) mkKeymap;
-
-  cfg = config.vim.plugin;
-
-  keys = cfg.mappings;
-  inherit (options.vim.lsp.trouble) mappings;
-in {
-  config = mkIf cfg.enable {
-    vim.keymaps = [
-      (mkKeymap "n" keys.workspaceDiagnostics "<cmd>Trouble toggle diagnostics<CR>" {desc = mappings.workspaceDiagnostics.description;})
-      (mkKeymap "n" keys.documentDiagnostics "<cmd>Trouble toggle diagnostics filter.buf=0<CR>" {desc = mappings.documentDiagnostics.description;})
-      (mkKeymap "n" keys.lspReferences "<cmd>Trouble toggle lsp_references<CR>" {desc = mappings.lspReferences.description;})
-      (mkKeymap "n" keys.quickfix "<cmd>Trouble toggle quickfix<CR>" {desc = mappings.quickfix.description;})
-      (mkKeymap "n" keys.locList "<cmd>Trouble toggle loclist<CR>" {desc = mappings.locList.description;})
-      (mkKeymap "n" keys.symbols "<cmd>Trouble toggle symbols<CR>" {desc = mappings.symbols.description;})
-    ];
-  };
-}
-```
-
-<!-- markdownlint-enable MD013 -->
-
-> [!TIP]
-> If you have come across a plugin that has an API that doesn't seem to easily
-> allow custom keybindings, don't be scared to implement a draft PR. We'll help
-> you get it done.
+This section is _critical_, as it is used to communicate to the users what has
+changed in the codebase and what breakage they may expect upon an update. To be
+comprehensive, you should include migration steps or how users may mitigate
+breakage depending on the context of the change.
 
 ## Adding Plugins {#sec-additional-plugins}
 
@@ -593,7 +545,7 @@ your package to the plugin builder (`pluginBuilders`) function manually in
 }
 ```
 
-### Modular setup options {#sec-modular-setup-options}
+### Modular Setup Options {#sec-modular-setup-options}
 
 Most plugins is initialized with a call to `require('plugin').setup({...})`.
 
@@ -768,3 +720,104 @@ require('lz.n').load({
 
 A full list of options can be found in the [`vim.lazy.plugins` spec] on the
 rendered manual.
+
+## Keybinds {#sec-keybinds}
+
+[extended standard library]: https://github.com/NotAShelf/nvf/tree/main/lib
+
+As of 0.4, there exists an API for writing your own keybinds and a couple of
+useful utility functions are available in the [extended standard library]. The
+following section contains a general overview to how you may utilize said
+functions.
+
+### Custom Key Mappings Support for a Plugin {#sec-custom-key-mappings}
+
+To set a mapping, you should define it in `vim.keymaps`. As an example, a simple
+keybinding can look like this:
+
+```nix
+{
+  vim.keymaps = [
+    {
+      key = "<leader>wq";
+      mode = ["n"];
+      action = ":wq<CR>";
+      silent = true;
+      desc = "Save file and quit";
+    }
+  ];
+}
+```
+
+[module option documentation]: options.html#option-vim-keymaps
+
+There are many other settings available in the keymap module. Please refer to
+the [module option documentation] for a full and up-to-date list of them.
+
+To make adding new keymaps for your favorite plugins easier, **nvf** provides a
+helper function. This is so that you do not have to write the mapping attribute
+sets every time:
+
+- `mkKeymap`, which mimics Neovim's `vim.keymap.set` function
+
+You can read the source code of some modules to see them in action, but the
+usage should look something like this:
+
+```nix
+# pluginDefinition.nix
+{lib, ...}: let
+  inherit (lib.options) mkEnableOption;
+  inherit (lib.nvim.binds) mkMappingOption;
+in {
+  options.vim.plugin = {
+    enable = mkEnableOption "Enable plugin";
+
+    # Mappings should always be inside an attrset called mappings
+    mappings = {
+      workspaceDiagnostics = mkMappingOption "Workspace diagnostics [trouble]" "<leader>lwd";
+      documentDiagnostics = mkMappingOption "Document diagnostics [trouble]" "<leader>ld";
+      lspReferences = mkMappingOption "LSP References [trouble]" "<leader>lr";
+      quickfix = mkMappingOption "QuickFix [trouble]" "<leader>xq";
+      locList = mkMappingOption "LOCList [trouble]" "<leader>xl";
+      symbols = mkMappingOption "Symbols [trouble]" "<leader>xs";
+    };
+}
+```
+
+<!-- markdownlint-disable MD013  -->
+
+```nix
+# config.nix
+{
+  config,
+  lib,
+  options,
+  ...
+}: let
+  inherit (lib.modules) mkIf;
+  inherit (lib.nvim.binds) mkKeymap;
+
+  cfg = config.vim.plugin;
+
+  keys = cfg.mappings;
+  inherit (options.vim.lsp.trouble) mappings;
+in {
+  config = mkIf cfg.enable {
+    vim.keymaps = [
+      (mkKeymap "n" keys.workspaceDiagnostics "<cmd>Trouble toggle diagnostics<CR>" {desc = mappings.workspaceDiagnostics.description;})
+      (mkKeymap "n" keys.documentDiagnostics "<cmd>Trouble toggle diagnostics filter.buf=0<CR>" {desc = mappings.documentDiagnostics.description;})
+      (mkKeymap "n" keys.lspReferences "<cmd>Trouble toggle lsp_references<CR>" {desc = mappings.lspReferences.description;})
+      (mkKeymap "n" keys.quickfix "<cmd>Trouble toggle quickfix<CR>" {desc = mappings.quickfix.description;})
+      (mkKeymap "n" keys.locList "<cmd>Trouble toggle loclist<CR>" {desc = mappings.locList.description;})
+      (mkKeymap "n" keys.symbols "<cmd>Trouble toggle symbols<CR>" {desc = mappings.symbols.description;})
+    ];
+  };
+}
+```
+
+<!-- markdownlint-enable MD013 -->
+
+> [!TIP]
+> If you have come across a plugin that has an API that doesn't seem to easily
+> allow custom keybindings, don't be scared to implement a draft PR. We'll help
+> you get it done.
