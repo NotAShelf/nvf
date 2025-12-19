@@ -622,8 +622,15 @@
 
 - Added gitFiles mapping option to telescope
 
-[Ring-A-Ding-Ding-Baby](https://github.com/Ring-A-Ding-Ding-Baby)
+[Ring-A-Ding-Ding-Baby](https://github.com/Ring-A-Ding-Ding-Baby):
 
 - Aligned `codelldb` adapter setup with [rustaceanvim]’s built-in logic.
 - Added `languages.rust.dap.backend` option to choose between `codelldb` and
   `lldb-dap` adapters.
+
+[jfeo](https://github.com/jfeo):
+
+[ccc.nvim]: https://github.com/uga-rosa/ccc.nvim
+
+- Added [ccc.nvim] option {option}`vim.utility.ccc.setupOpts` with the existing
+  hard-coded options as default values.
