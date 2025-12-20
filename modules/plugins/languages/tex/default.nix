@@ -12,7 +12,7 @@
 in {
   imports = [
     ./build
-    ./lsp
+    ./lsp.nix
     ./pdfViewer.nix
     ./treesitter.nix
   ];
