@@ -28,7 +28,7 @@
   builderCfg = cfg.build.builder;
 
   # Get the enabled pdf viewer.
-  pdfViewer = import ../pdfViewer/getEnabledPdfViewer.nix {inherit lib config;};
+  pdfViewer = cfg.pdfViewer.viewers.${cfg.pdfViewer.name};
 in {
   options.vim.languages.tex.lsp.texlab = {
     enable = mkBool config.vim.lsp.enable ''
