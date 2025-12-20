@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) isString map;
-  inherit (lib) optionalAttrs;
+  inherit (lib) optionalAttrs mkDefault;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.config) mkBool;
   inherit (lib.options) mkOption mkPackageOption;
@@ -271,45 +271,6 @@ in {
         Note this is not all the options, but can act as a guide to help you
         along with custom configs.
       '';
-
-      package = mkOption {
-        type = package;
-        default = pdfViewer.package;
-        description = ''
-          The package to use as your PDF viewer.
-          This viewer needs to support Synctex.
-
-          By default it is set to the package of the pdfViewer option.
-        '';
-      };
-
-      executable = mkOption {
-        type = str;
-        default = pdfViewer.executable;
-        description = ''
-          Defines the executable of the PDF previewer. The previewer needs to
-          support SyncTeX.
-
-          By default it is set to the executable of the pdfViewer option.
-        '';
-      };
-
-      args = mkOption {
-        type = listOf str;
-        default = pdfViewer.args;
-        description = ''
-          Defines additional arguments that are passed to the configured
-          previewer to perform the forward search.
-          The placeholders `%f`, `%p`, `%l` will be replaced by the server.
-
-          By default it is set to the args of the pdfViewer option.
-
-          Placeholders:
-            - `%f`: The path of the current TeX file.
-            - `%p`: The path of the current PDF file.
-            - `%l`: The current line number.
-        '';
-      };
     };
 
     formatter = {
@@ -558,10 +519,10 @@ in {
         })
         #
         # -- Forward Search --
-        // (optionalAttrs texlabCfg.forwardSearch.enable {
+        // (optionalAttrs (texlabCfg.forwardSearch.enable && cfg.pdfViewer.enable) {
           forwardSearch = {
-            inherit (texlabCfg.forwardSearch) args;
-            executable = "${texlabCfg.forwardSearch.package}/bin/${texlabCfg.forwardSearch.executable}";
+            inherit (pdfViewer) args;
+            executable = "${pdfViewer.package}/bin/${pdfViewer.executable}";
           };
         })
         #
@@ -593,6 +554,18 @@ in {
       (mkIf texlabCfg.chktex.enable {
         vim.extraPackages = [texlabCfg.chktex.package];
       })
+
+      (
+        mkIf texlabCfg.forwardSearch.enable {
+          vim.languages.tex.pdfViewer.enable = mkDefault true;
+
+          warnings = (
+            lib.lists.optional
+            (!cfg.pdfViewer.enable)
+            "You have enabled forward search but have disabled the PDF viewer. Forward search will not work without the PDF viewer."
+          );
+        }
+      )
     ])
   );
 }
