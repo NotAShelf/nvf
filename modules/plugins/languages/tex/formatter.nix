@@ -26,7 +26,7 @@ in {
       // {
         default = !cfg.lsp.enable && config.vim.languages.enableFormat;
         defaultText = literalMD ''
-          diabled if TeX LSP is enabled, otherwise follows {option}`vim.languages.enableFormat`
+          disabled if TeX LSP is enabled, otherwise follows {option}`vim.languages.enableFormat`
         '';
       };
 
