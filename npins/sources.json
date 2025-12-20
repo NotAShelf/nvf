@@ -2108,17 +2108,20 @@
       "hash": "1qbyh8r2gbaw2n0mm7qwi4y8r9ywyz37q35vlxjzy879ba8dlnlm"
     },
     "obsidian-nvim": {
-      "type": "Git",
+      "type": "GitRelease",
       "repository": {
         "type": "GitHub",
-        "owner": "epwalsh",
+        "owner": "obsidian-nvim",
         "repo": "obsidian.nvim"
       },
-      "branch": "main",
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
       "submodules": false,
-      "revision": "14e0427bef6c55da0d63f9a313fd9941be3a2479",
-      "url": "https://github.com/epwalsh/obsidian.nvim/archive/14e0427bef6c55da0d63f9a313fd9941be3a2479.tar.gz",
-      "hash": "15ycmhn48ryaqzch6w3w6llq2qgmjx8xwkb9dn0075z60dybpflr"
+      "version": "v3.14.8",
+      "revision": "f06ad7aa793b8111d3b98a452c5db21edb7e4f01",
+      "url": "https://api.github.com/repos/obsidian-nvim/obsidian.nvim/tarball/v3.14.8",
+      "hash": "0xpb8hiz3gdm4ka9lqjwibqrf6q5hpyc7wwx1v9azwzlm4cg9bwf"
     },
     "oil-git-status.nvim": {
       "type": "Git",
