@@ -106,6 +106,12 @@ in {
         inherit defaultDiagnosticsProvider;
       };
     };
+
+    indentSize = mkOption {
+      description = "Sets the indent size in spaces for .nix files";
+      type = int;
+      default = 2;
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -160,5 +166,26 @@ in {
           cfg.extraDiagnostics.types);
       };
     })
-  ]);
+
+    vim = {
+      autocmds = [
+        {
+          desc = "Sets indent for nix files";
+          event = ["BufEnter"];
+          pattern = [
+            "*.nix"
+            "*.md"
+          ];
+          callback = lib.generators.mkLuaInline ''
+            function()
+              vim.opt.tabstop = ${cfg.indentSize}
+              vim.opt.softtabstop = ${cfg.indentSize}
+              vim.opt.shiftwidth = ${cfg.indentSize}
+            end
+          '';
+          once = true;
+        }
+      ];
+    }
+  ])
 }
