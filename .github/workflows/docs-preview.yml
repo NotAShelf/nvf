@@ -3,7 +3,7 @@ name: Build and Preview Manual
 on:
   workflow_dispatch:
   pull_request_target:
-    types: [opened, synchronize, reopened, closed]
+    types: [opened, synchronize, reopened, labeled, unlabeled, edited]
     paths:
       - ".github/workflows/docs-preview.yml"
       - "modules/**"
