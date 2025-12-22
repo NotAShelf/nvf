@@ -73,7 +73,7 @@ jobs:
         id: prelude
         run: |
           PR_NUMBER=${{ github.event.pull_request.number }}
-          URL="https://${{ github.repository_owner }}.github.io/nvf/docs-preview-${PR_NUMBER}/"
+          URL="https:///nvf.notashelf.dev/docs-preview-${PR_NUMBER}/"
 
           # Propagate non-interpolatable environment vars
           echo "URL=$URL" >> "$GITHUB_OUTPUT"
