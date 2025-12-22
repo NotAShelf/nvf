@@ -4,12 +4,13 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
+  inherit (builtins) attrNames toString;
   inherit (lib) concatStringsSep;
   inherit (lib.meta) getExe;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum;
+  inherit (lib.types) int;
   inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -167,8 +168,8 @@ in {
       };
     })
 
-    vim = {
-      autocmds = [
+    {
+      vim.autocmds = [
         {
           desc = "Sets indent for nix files";
           event = ["BufEnter"];
@@ -178,14 +179,15 @@ in {
           ];
           callback = lib.generators.mkLuaInline ''
             function()
-              vim.opt.tabstop = ${cfg.indentSize}
-              vim.opt.softtabstop = ${cfg.indentSize}
-              vim.opt.shiftwidth = ${cfg.indentSize}
+              vim.opt.tabstop = ${toString cfg.indentSize}
+              vim.opt.softtabstop = ${toString cfg.indentSize}
+              vim.opt.shiftwidth = ${toString cfg.indentSize}
             end
           '';
           once = true;
         }
       ];
     }
-  ])
+
+  ]);
 }
