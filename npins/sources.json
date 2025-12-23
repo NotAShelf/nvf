@@ -285,9 +285,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "38db66c4e20032821bd166f7012291fe99f1e8f3",
-      "url": "https://github.com/olimorris/codecompanion.nvim/archive/38db66c4e20032821bd166f7012291fe99f1e8f3.tar.gz",
-      "hash": "1iqqgcj7vdsif0fj0pf6ifn3nh05aznk2gnas7l3lg8b5g103vb8"
+      "revision": "b3bb0d73079643d4a5b0d8b621cde619a73bc91a",
+      "url": "https://github.com/olimorris/codecompanion.nvim/archive/b3bb0d73079643d4a5b0d8b621cde619a73bc91a.tar.gz",
+      "hash": "0jzldi9h98hci5ij1qnb4283hmh14irnprp5zg6mnfs9l6m8z3mq"
     },
     "codewindow-nvim": {
       "type": "Git",
