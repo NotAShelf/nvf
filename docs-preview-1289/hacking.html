@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hacking nvf</title>
+     
+    <script>
+      // Apply sidebar state immediately to prevent flash
+      (function () {
+        if (localStorage.getItem("sidebar-collapsed") === "true") {
+          document.documentElement.classList.add("sidebar-collapsed");
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="assets/style.css" />
+    <script defer src="assets/main.js"></script>
+    
+    <script>
+      window.searchNamespace = window.searchNamespace || {};
+      window.searchNamespace.rootPath = "";
+    </script>
+    <script defer src="assets/search.js"></script>
+    
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-left">
+          <h1 class="site-title">
+            <a href="index.html">NVF</a>
+          </h1>
+
+          <nav class="header-nav">
+  <ul>
+    <li >
+      <a href="options.html">Options</a>
+    </li>
+    
+    <li><a href="search.html">Search</a></li>
+    
+  </ul>
+</nav>
+
+        </div>
+        
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Search..." />
+          <div id="search-results" class="search-results"></div>
+        </div>
+        
+      </header>
+
+      <div class="layout">
+        <div class="sidebar-toggle" aria-label="Toggle sidebar">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+          </svg>
+        </div>
+        <nav class="sidebar">
+          <div class="docs-nav">
+            <h2>Documents</h2>
+            <ul>
+              <li><a href="index.html">Introduction</a></li>
+<li><a href="configuring.html">Configuring nvf</a></li>
+<li><a href="hacking.html">Hacking nvf</a></li>
+<li><a href="tips.html">Helpful Tips</a></li>
+<li><a href="quirks.html">Known Issues and Quirks</a></li>
+<li><a href="release-notes.html">Release Notes</a></li>
+<li><a href="search.html">Search</a></li>
+
+            </ul>
+          </div>
+
+          <div class="toc">
+            <h2>Contents</h2>
+            <ul class="toc-list">
+              <li><a href="#ch-hacking">Hacking nvf</a>
+<ul><li><a href="#sec-contrib-getting-started">Getting Started</a>
+<li><a href="#sec-guidelines">Guidelines</a>
+<ul><li><a href="#sec-guidelines-documentation">Adding Documentation</a>
+<li><a href="#sec-guidelines-formatting">Formatting Code</a>
+<li><a href="#sec-guidelines-commit-message-style">Formatting Commits</a>
+<li><a href="#sec-guidelines-commit-style">Commit Style</a>
+<li><a href="#sec-guidelines-code-style">Code Style</a>
+</ul><li><a href="#sec-testing-changes">Testing Changes</a>
+<li><a href="#sec-keybinds">Keybinds</a>
+<li><a href="#sec-custom-key-mappings">Custom Key Mappings Support for a Plugin</a>
+<li><a href="#sec-additional-plugins">Adding Plugins</a>
+<ul><li><a href="#sec-npins-for-plugins">With npins</a>
+<li><a href="#sec-pkgs-for-plugins">Packaging Complex Plugins</a>
+<li><a href="#sec-modular-setup-options">Modular setup options</a>
+<li><a href="#sec-details-of-toluaobject">Details of toLuaObject</a>
+<li><a href="#sec-lazy-plugins">Lazy plugins</a>
+</li></ul></li></ul></li>
+            </ul>
+          </div>
+        </nav>
+
+        <main class="content"><html><head></head><body><h1 id="ch-hacking">Hacking nvf</h1>
+<p>nvf is designed for the developer as much as it is designed for the end-user. We
+would like for any contributor to be able to propagate their changes, or add new
+features to the project with minimum possible friction. As such, below are the
+guides and guidelines written to streamline the contribution process and to
+ensure that your valuable input integrates into nvf's development as seamlessly
+as possible without leaving any question marks in your head.</p>
+<p>This section is directed mainly towards those who wish to contribute code into
+the project. If you instead wish to report a bug, or discuss a potential new
+feature implementation (which you do not wish to implement yourself) first look
+among the already <a href="https://github.com/notashelf/nvf/issues">open issues</a> and if no matching issue exists you may open a
+<a href="https://github.com/notashelf/nvf/issues/new">new issue</a> and describe your problem/request.</p>
+<p>While creating an issue, please try to include as much information as you can,
+ideally also include relevant context in which an issue occurs or a feature
+should be implemented. If you wish to make a contribution, but feel stuck -
+please do not be afraid to submit a pull request, we will help you get it in.</p>
+<h2 id="sec-contrib-getting-started">Getting Started</h2>
+<p>You, naturally, would like to start by forking the repository to get started. If
+you are new to Git and GitHub, do have a look at GitHub's
+<a href="https://help.github.com/articles/fork-a-repo/">Fork a repo guide</a> for
+instructions on how you can do this. Once you have a fork of <strong>nvf</strong>, you should
+create a separate branch based on the most recent <code>main</code> branch. Give your
+branch a reasonably descriptive name (e.g. <code>feature/debugger</code> or
+<code>fix/pesky-bug</code>) and you are ready to work on your changes</p>
+<p>Implement your changes and commit them to the newly created branch and when you
+are happy with the result, and positive that it fulfills our
+<a href="#sec-guidelines">Contributing Guidelines</a>, push the branch to GitHub and
+<a href="https://help.github.com/articles/creating-a-pull-request">create a pull request</a>.
+The default pull request template available on the <strong>nvf</strong> repository will guide
+you through the rest of the process, and we'll gently nudge you in the correct
+direction if there are any mistakes.</p>
+<h2 id="sec-guidelines">Guidelines</h2>
+<p>If your contribution tightly follows the guidelines, then there is a good chance
+it will be merged without too much trouble. Some of the guidelines will be
+strictly enforced, others will remain as gentle nudges towards the correct
+direction. As we have no automated system enforcing those guidelines, please try
+to double check your changes before making your pull request in order to avoid
+"faulty" code slipping by.</p>
+<p>If you are uncertain how these rules affect the change you would like to make
+then feel free to start a discussion in the
+<a href="https://github.com/NotAShelf/nvf/discussions">discussions tab</a> ideally (but not
+necessarily) before you start developing.</p>
+<h3 id="sec-guidelines-documentation">Adding Documentation</h3>
+<p>Almost all changes warrant updates to the documentation: at the very least, you
+must update the changelog. Both the manual and module options use
+<a href="https://github.com/NixOS/nixpkgs/blob/master/doc/README.md#syntax">Nixpkgs Flavoured Markdown</a>.</p>
+<p>The HTML version of this manual containing both the module option descriptions
+and the documentation of <strong>nvf</strong> (such as this page) can be generated and opened
+by typing the following in a shell within a clone of the <strong>nvf</strong> Git repository:</p>
+<pre><code class="language-console">$ nix build .#docs-html
+$ xdg-open $PWD/result/share/doc/nvf/index.html
+</code></pre>
+<h3 id="sec-guidelines-formatting">Formatting Code</h3>
+<p>Make sure your code is formatted as described in
+<a href="#sec-guidelines-code-style">code-style section</a>. To maintain consistency
+throughout the project you are encouraged to browse through existing code and
+adopt its style also in new code.</p>
+<h3 id="sec-guidelines-commit-message-style">Formatting Commits</h3>
+<p>Similar to <a href="#sec-guidelines-code-style">code style guidelines</a> we encourage a
+consistent commit message format as described in
+<a href="#sec-guidelines-commit-style">commit style guidelines</a>.</p>
+<h3 id="sec-guidelines-commit-style">Commit Style</h3>
+<p>The commits in your pull request should be reasonably self-contained. Which
+means each and every commit in a pull request should make sense both on its own
+and in general context. That is, a second commit should not resolve an issue
+that is introduced in an earlier commit. In particular, you will be asked to
+amend any commit that introduces syntax errors or similar problems even if they
+are fixed in a later commit.</p>
+<p>The commit messages should follow the
+<a href="https://chris.beams.io/posts/git-commit/#seven-rule">seven rules</a>, except for
+"Capitalize the subject line". We also ask you to include the affected code
+component or module in the first line. A commit message ideally, but not
+necessarily, follow the given template from home-manager's own documentation</p>
+<pre><code>  {component}: {description}
+
+  {long description}
+</code></pre>
+<p>where <code>{component}</code> refers to the code component (or module) your change
+affects, <code>{description}</code> is a very brief description of your change, and
+<code>{long description}</code> is an optional clarifying description. As a rare exception,
+if there is no clear component, or your change affects many components, then the
+<code>{component}</code> part is optional. See
+<a href="#sec-guidelines-ex-commit-message">example commit message</a> for a commit message
+that fulfills these requirements.</p>
+<h4 id="sec-guidelines-ex-commit-message">Example Commit</h4>
+<p>The commit
+<a href="https://github.com/nix-community/home-manager/commit/69f8e47e9e74c8d3d060ca22e18246b7f7d988ef">69f8e47e9e74c8d3d060ca22e18246b7f7d988ef</a>
+in home-manager contains the following commit message.</p>
+<pre><code>starship: allow running in Emacs if vterm is used
+
+The vterm buffer is backed by libvterm and can handle Starship prompts
+without issues.
+</code></pre>
+<p>Similarly, if you are contributing to <strong>nvf</strong>, you would include the scope of
+the commit followed by the description:</p>
+<pre><code>languages/ruby: init module
+
+Adds a language module for Ruby, adds appropriate formatters and Treesitter grammars
+</code></pre>
+<p>Long description can be omitted if the change is too simple to warrant it. A
+minor fix in spelling or a formatting change does not warrant long description,
+however, a module addition or removal does as you would like to provide the
+relevant context, i.e. the reasoning behind it, for your commit.</p>
+<p>Finally, when adding a new module, say <code>modules/foo.nix</code>, we use the fixed
+commit format <code>foo: add module</code>. You can, of course, still include a long
+description if you wish.</p>
+<p>In case of nested modules, i.e <code>modules/languages/java.nix</code> you are recommended
+to contain the parent as well - for example <code>languages/java: some major change</code>.</p>
+<h3 id="sec-guidelines-code-style">Code Style</h3>
+<h4 id="sec-code-style-treewide">Treewide</h4>
+<p>Keep lines at a reasonable width, ideally 80 characters or less. This also
+applies to string literals and module descriptions and documentation.</p>
+<h4 id="sec-code-style-nix">Nix</h4>
+<p><strong>nvf</strong> is formatted by the <a href="https://github.com/kamadorueda/alejandra">alejandra</a> tool and the formatting is checked in
+the pull request and push workflows. Run the <code>nix fmt</code> command inside the
+project repository before submitting your pull request.</p>
+<p>While Alejandra is mostly opinionated on how code looks after formatting,
+certain changes are done at the user's discretion based on how the original code
+was structured.</p>
+<p>Please use one line code for attribute sets that contain only one subset. For
+example:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;parent&nbsp;modules&nbsp;should&nbsp;always&nbsp;be&nbsp;unfolded</span><br><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;which&nbsp;means&nbsp;module&nbsp;=&nbsp;{&nbsp;value&nbsp;=&nbsp;...&nbsp;}&nbsp;instead&nbsp;of&nbsp;module.value&nbsp;=&nbsp;{&nbsp;...&nbsp;}</span><br><span style="color:rgb(97,175,239);">module</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">value</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(97,175,239);">mkEnableOption</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">some&nbsp;description</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">//</span>&nbsp;<span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(86,182,194);">default</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;merges&nbsp;can&nbsp;be&nbsp;done&nbsp;inline&nbsp;where&nbsp;possible</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;same&nbsp;as&nbsp;parent&nbsp;modules,&nbsp;unfold&nbsp;submodules</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">subModule</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;this&nbsp;is&nbsp;an&nbsp;option&nbsp;that&nbsp;contains&nbsp;more&nbsp;than&nbsp;one&nbsp;nested&nbsp;value</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Note:&nbsp;try&nbsp;to&nbsp;be&nbsp;careful&nbsp;about&nbsp;the&nbsp;ordering&nbsp;of&nbsp;`mkOption`&nbsp;arguments.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;General&nbsp;rule&nbsp;of&nbsp;thumb&nbsp;is&nbsp;to&nbsp;order&nbsp;from&nbsp;least&nbsp;to&nbsp;most&nbsp;likely&nbsp;to&nbsp;change.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;This&nbsp;is,&nbsp;for&nbsp;most&nbsp;cases,&nbsp;type&nbsp;&lt;&nbsp;default&nbsp;&lt;&nbsp;description.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Example,&nbsp;if&nbsp;present,&nbsp;would&nbsp;be&nbsp;between&nbsp;default&nbsp;and&nbsp;description</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">someOtherValue</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(97,175,239);">mkOption</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">type</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">types</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">bool</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">default</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">description</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Some&nbsp;other&nbsp;description</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>If you move a line down after the merge operator, Alejandra will automatically
+unfold the whole merged attrset for you, which we <strong>do not</strong> want.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(97,175,239);">module</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">key</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(97,175,239);">mkEnableOption</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">some&nbsp;description</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">//</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">default</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;we&nbsp;want&nbsp;this&nbsp;to&nbsp;be&nbsp;inline</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;...</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>For lists, it is mostly up to your own discretion how you want to format them,
+but please try to unfold lists if they contain multiple items and especially if
+they are to include comments.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;this&nbsp;is&nbsp;ok</span><br><span style="color:rgb(97,175,239);">acceptableList</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(171,178,191);">item1</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;comment</span><br>&nbsp;&nbsp;<span style="color:rgb(171,178,191);">item2</span><br>&nbsp;&nbsp;<span style="color:rgb(171,178,191);">item3</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;some&nbsp;other&nbsp;comment</span><br>&nbsp;&nbsp;<span style="color:rgb(171,178,191);">item4</span><br><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><br><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;this&nbsp;is&nbsp;not&nbsp;ok</span><br><span style="color:rgb(171,178,191);">listToBeAvoided</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(171,178,191);">item1</span>&nbsp;<span style="color:rgb(171,178,191);">item2</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">/*&nbsp;comment&nbsp;*/</span>&nbsp;<span style="color:rgb(171,178,191);">item3</span>&nbsp;<span style="color:rgb(171,178,191);">item4</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><br><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;this&nbsp;is&nbsp;ok</span><br><span style="color:rgb(171,178,191);">acceptableList</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(171,178,191);">item1</span>&nbsp;<span style="color:rgb(171,178,191);">item2</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><br><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;this&nbsp;is&nbsp;also&nbsp;ok&nbsp;if&nbsp;the&nbsp;list&nbsp;is&nbsp;expected&nbsp;to&nbsp;contain&nbsp;more&nbsp;elements</span><br><span style="color:rgb(171,178,191);">acceptableList</span><span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(171,178,191);">item1</span><br>&nbsp;&nbsp;<span style="color:rgb(171,178,191);">item2</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;more&nbsp;items&nbsp;if&nbsp;needed...</span><br><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br></code></pre>
+<h2 id="sec-testing-changes">Testing Changes</h2>
+<p>Once you have made your changes, you will need to test them thoroughly. If it is
+a module, add your module option to <code>configuration.nix</code> (located in the root of
+this project) inside <code>neovimConfiguration</code>. Enable it, and then run the maximal
+configuration with <code>nix run .#maximal -Lv</code> to check for build errors. If neovim
+opens in the current directory without any error messages (you can check the
+output of <code>:messages</code> inside neovim to see if there are any errors), then your
+changes are good to go. Open your pull request, and it will be reviewed as soon
+as possible.</p>
+<p>If it is not a new module, but a change to an existing one, then make sure the
+module you have changed is enabled in the maximal configuration by editing
+<code>configuration.nix</code>, and then run it with <code>nix run .#maximal -Lv</code>. Same
+procedure as adding a new module will apply here.</p>
+<h2 id="sec-keybinds">Keybinds</h2>
+<p>As of 0.4, there exists an API for writing your own keybinds and a couple of
+useful utility functions are available in the
+<a href="https://github.com/NotAShelf/nvf/tree/main/lib">extended standard library</a>. The
+following section contains a general overview to how you may utilize said
+functions.</p>
+<h2 id="sec-custom-key-mappings">Custom Key Mappings Support for a Plugin</h2>
+<p>To set a mapping, you should define it in <code>vim.keymaps</code>.</p>
+<p>An example, simple keybinding, can look like this:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">keymaps</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">key</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;wq</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">mode</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">n</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">action</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">:wq&lt;CR&gt;</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">silent</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">desc</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Save&nbsp;file&nbsp;and&nbsp;quit</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>There are many settings available in the options. Please refer to the
+<a href="./options.html#option-vim-keymaps">documentation</a> to see a list of them.</p>
+<p><strong>nvf</strong> provides a helper function, so that you don't have to write the mapping
+attribute sets every time:</p>
+<ul>
+<li><code>mkKeymap</code>, which mimics neovim's <code>vim.keymap.set</code> function</li>
+</ul>
+<p>You can read the source code of some modules to see them in action, but the
+usage should look something like this:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;plugindefinition.nix</span><br><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(232,102,113);">lib</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(198,120,221);">let</span><br>&nbsp;&nbsp;<span style="color:rgb(198,120,221);">inherit</span>&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">options</span><span style="color:rgb(132,139,152);">)</span>&nbsp;mkEnableOption<span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(198,120,221);">inherit</span>&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">binds</span><span style="color:rgb(132,139,152);">)</span>&nbsp;mkMappingOption<span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(198,120,221);">in</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;options<span style="color:rgb(132,139,152);">.</span>vim<span style="color:rgb(132,139,152);">.</span>plugin&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">enable</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(97,175,239);">mkEnableOption</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Enable&nbsp;plugin</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Mappings&nbsp;should&nbsp;always&nbsp;be&nbsp;inside&nbsp;an&nbsp;attrset&nbsp;called&nbsp;mappings</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">mappings</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">workspaceDiagnostics</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(97,175,239);">mkMappingOption</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Workspace&nbsp;diagnostics&nbsp;[trouble]</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;lwd</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">documentDiagnostics</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(97,175,239);">mkMappingOption</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Document&nbsp;diagnostics&nbsp;[trouble]</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;ld</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">lspReferences</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(97,175,239);">mkMappingOption</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">LSP&nbsp;References&nbsp;[trouble]</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;lr</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">quickfix</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(97,175,239);">mkMappingOption</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">QuickFix&nbsp;[trouble]</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;xq</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">locList</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(97,175,239);">mkMappingOption</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">LOCList&nbsp;[trouble]</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;xl</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">symbols</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(97,175,239);">mkMappingOption</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Symbols&nbsp;[trouble]</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;xs</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;config.nix</span><br><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">config</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">lib</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">options</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">...</span><br><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(198,120,221);">let</span><br>&nbsp;&nbsp;<span style="color:rgb(198,120,221);">inherit</span>&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">modules</span><span style="color:rgb(132,139,152);">)</span>&nbsp;mkIf<span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(198,120,221);">inherit</span>&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">binds</span><span style="color:rgb(132,139,152);">)</span>&nbsp;mkKeymap<span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;cfg&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">plugin</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;keys&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">cfg</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">mappings</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(198,120,221);">inherit</span>&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">options</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lsp</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">trouble</span><span style="color:rgb(132,139,152);">)</span>&nbsp;mappings<span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(198,120,221);">in</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">config</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(97,175,239);">mkIf</span>&nbsp;<span style="color:rgb(171,178,191);">cfg</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enable</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">keymaps</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(97,175,239);">mkKeymap</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">n</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">keys</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">workspaceDiagnostics</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;cmd&gt;Trouble&nbsp;toggle&nbsp;diagnostics&lt;CR&gt;</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><span style="color:rgb(86,182,194);">desc</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">mappings</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">workspaceDiagnostics</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">description</span><span style="color:rgb(132,139,152);">;</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(97,175,239);">mkKeymap</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">n</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">keys</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">documentDiagnostics</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;cmd&gt;Trouble&nbsp;toggle&nbsp;diagnostics&nbsp;filter.buf=0&lt;CR&gt;</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><span style="color:rgb(86,182,194);">desc</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">mappings</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">documentDiagnostics</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">description</span><span style="color:rgb(132,139,152);">;</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(97,175,239);">mkKeymap</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">n</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">keys</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lspReferences</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;cmd&gt;Trouble&nbsp;toggle&nbsp;lsp_references&lt;CR&gt;</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><span style="color:rgb(86,182,194);">desc</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">mappings</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lspReferences</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">description</span><span style="color:rgb(132,139,152);">;</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(97,175,239);">mkKeymap</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">n</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">keys</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">quickfix</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;cmd&gt;Trouble&nbsp;toggle&nbsp;quickfix&lt;CR&gt;</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><span style="color:rgb(86,182,194);">desc</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">mappings</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">quickfix</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">description</span><span style="color:rgb(132,139,152);">;</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(97,175,239);">mkKeymap</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">n</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">keys</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">locList</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;cmd&gt;Trouble&nbsp;toggle&nbsp;loclist&lt;CR&gt;</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><span style="color:rgb(86,182,194);">desc</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">mappings</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">locList</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">description</span><span style="color:rgb(132,139,152);">;</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(97,175,239);">mkKeymap</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">n</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">keys</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">symbols</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;cmd&gt;Trouble&nbsp;toggle&nbsp;symbols&lt;CR&gt;</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><span style="color:rgb(86,182,194);">desc</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">mappings</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">symbols</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">description</span><span style="color:rgb(132,139,152);">;</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have come across a plugin that has an API that doesn't seem to easily
+allow custom keybindings, don't be scared to implement a draft PR. We'll help
+you get it done.</p>
+</div>
+<h2 id="sec-additional-plugins">Adding Plugins</h2>
+<p>There are two methods for adding new Neovim plugins to <strong>nvf</strong>. npins is the
+faster option that should be preferred if the plugin consists of pure Lua or
+Vimscript code. In which case there is no building required, and we can easily
+handle the copying of plugin files. Alternative method, which is required when
+plugins try to build their own libraries (e.g., in Rust or C) that need to be
+built with Nix to function correctly.</p>
+<h3 id="sec-npins-for-plugins">With npins</h3>
+<p>npins is the standard method of adding new plugins to <strong>nvf</strong>. You simply need
+the repository URL for the plugin, and can add it as a source to be built
+automatically with one command. To add a new Neovim plugin, use <code>npins</code>. For
+example:</p>
+<pre class="highlight"><code class="language-bash"><span style="color:rgb(97,175,239);">nix-shell</span>&nbsp;<span style="color:rgb(232,102,113);">-p</span>&nbsp;<span style="color:rgb(232,102,113);">npins</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;or&nbsp;nix&nbsp;shell&nbsp;nixpkgs#npins&nbsp;if&nbsp;using&nbsp;flakes</span><br></code></pre>
+<p>Then run:</p>
+<pre class="highlight"><code class="language-bash"><span style="color:rgb(97,175,239);">npins</span>&nbsp;<span style="color:rgb(232,102,113);">add</span>&nbsp;<span style="color:rgb(232,102,113);">--name</span>&nbsp;<span style="color:rgb(171,178,191);">&lt;</span><span style="color:rgb(232,102,113);">plugin</span>&nbsp;<span style="color:rgb(232,102,113);">name</span><span style="color:rgb(171,178,191);">&gt;</span>&nbsp;<span style="color:rgb(232,102,113);">github</span>&nbsp;<span style="color:rgb(171,178,191);">&lt;</span><span style="color:rgb(232,102,113);">owner</span><span style="color:rgb(171,178,191);">&gt;</span>&nbsp;<span style="color:rgb(171,178,191);">&lt;</span><span style="color:rgb(232,102,113);">repo</span><span style="color:rgb(171,178,191);">&gt;</span>&nbsp;<span style="color:rgb(232,102,113);">-b</span>&nbsp;<span style="color:rgb(171,178,191);">&lt;</span><span style="color:rgb(232,102,113);">branch</span><span style="color:rgb(171,178,191);">&gt;</span><br></code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be sure to replace any non-alphanumeric characters with <code>-</code> for <code>--name</code>. For
+example</p>
+<pre class="highlight"><code class="language-bash"><span style="color:rgb(97,175,239);">npins</span>&nbsp;<span style="color:rgb(232,102,113);">add</span>&nbsp;<span style="color:rgb(232,102,113);">--name</span>&nbsp;<span style="color:rgb(232,102,113);">lazydev-nvim</span>&nbsp;<span style="color:rgb(232,102,113);">github</span>&nbsp;<span style="color:rgb(232,102,113);">folke</span>&nbsp;<span style="color:rgb(232,102,113);">lazydev.nvim</span>&nbsp;<span style="color:rgb(232,102,113);">-b</span>&nbsp;<span style="color:rgb(232,102,113);">main</span><br></code></pre>
+</div>
+<p>Once the <code>npins</code> command is done, you can start referencing the plugin as a
+<strong>string</strong>.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">startPlugins</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">lazydev-nvim</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h3 id="sec-pkgs-for-plugins">Packaging Complex Plugins</h3>
+<p>Some plugins require additional packages to be built and substituted to function
+correctly. For example <a href="https://github.com/Saghen/blink.cmp">blink.cmp</a> requires its own fuzzy matcher library, built
+with Rust, to be installed or else defaults to a much slower Lua implementation.
+In the Blink documentation, you are advised to build with <code>cargo</code> but that is
+not ideal since we are leveraging the power of Nix. In this case the ideal
+solution is to write a derivation for the plugin.</p>
+<p>We use <code>buildRustPackage</code> to build the library from the repository root, and
+copy everything in the <code>postInstall</code> phase.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(97,175,239);">postInstall</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;cp&nbsp;-r&nbsp;{lua,plugin}&nbsp;"$out"</span><br><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;mkdir&nbsp;-p&nbsp;"$out/doc"</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;cp&nbsp;'doc/'*'.txt'&nbsp;"$out/doc/"</span><br><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;mkdir&nbsp;-p&nbsp;"$out/target"</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;mv&nbsp;"$out/lib"&nbsp;"$out/target/release"</span><br><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br></code></pre>
+<p>In a similar fashion, you may utilize <code>stdenv.mkDerivation</code> and other Nixpkgs
+builders to build your library from source, and copy the relevant files and Lua
+plugin files in the <code>postInstall</code> phase. Do note, however, that you still need
+to fetch the plugin sources somehow. npins is, once again, the recommended
+option to fetch the plugin sources. Refer to the previous section on how to use
+npins to add a new plugin.</p>
+<p>Plugins built from source must go into the <code>flake/pkgs/by-name</code> overlay. It will
+automatically create flake outputs for individual packages. Lastly, you must add
+your package to the plugin builder (<code>pluginBuilders</code>) function manually in
+<code>modules/wrapper/build/config.nix</code>. Once done, you may refer to your plugin as a
+<strong>string</strong>.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">startPlugins</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">blink-cmp</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h3 id="sec-modular-setup-options">Modular setup options</h3>
+<p>Most plugins is initialized with a call to <code>require('plugin').setup({...})</code>.</p>
+<p>We use a special function that lets you easily add support for such setup
+options in a modular way: <code>mkPluginSetupOption</code>.</p>
+<p>Once you have added the source of the plugin as shown above, you can define the
+setup options like this:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;in&nbsp;modules/.../your-plugin/your-plugin.nix</span><br><br><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(232,102,113);">lib</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span><br><span style="color:rgb(198,120,221);">let</span><br>&nbsp;&nbsp;<span style="color:rgb(198,120,221);">inherit</span>&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">types</span><span style="color:rgb(132,139,152);">)</span>&nbsp;bool&nbsp;int<span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(198,120,221);">inherit</span>&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">types</span><span style="color:rgb(132,139,152);">)</span>&nbsp;mkPluginSetupOption<span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(198,120,221);">in</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">options</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">your-plugin</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">setupOpts</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(97,175,239);">mkPluginSetupOption</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">plugin&nbsp;name</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">enable_feature_a</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(97,175,239);">mkOption</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">type</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">bool</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">default</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">false</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;...</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">number_option</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(97,175,239);">mkOption</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">type</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">int</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">default</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">3</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;...</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;in&nbsp;modules/.../your-plugin/config.nix</span><br><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(232,102,113);">lib</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">config</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span><br><span style="color:rgb(198,120,221);">let</span><br>&nbsp;&nbsp;cfg&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">your-plugin</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(198,120,221);">in</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">luaConfigRC</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">dag</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">entryAnywhere</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;require('plugin-name').setup(</span><span style="color:rgb(232,102,113);">${</span><span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lua</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">toLuaObject</span>&nbsp;<span style="color:rgb(171,178,191);">cfg</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">setupOpts</span><span style="color:rgb(232,102,113);">}</span><span style="color:rgb(152,195,121);">)</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>This above config will result in this Lua script:</p>
+<pre class="highlight"><code class="language-lua"><span style="color:rgb(86,182,194);">require</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(152,195,121);">'plugin-name'</span><span style="color:rgb(132,139,152);">)</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">setup</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(229,192,123);font-weight: bold;">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">enable_feature_a</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">false</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">number_option</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">3</span><span style="color:rgb(132,139,152);">,</span><br><span style="color:rgb(229,192,123);font-weight: bold;">}</span><span style="color:rgb(132,139,152);">)</span><br></code></pre>
+<p>Now users can set any of the pre-defined option field, and can also add their
+own fields!</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;in&nbsp;user's&nbsp;config</span><br><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">your-plugin</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">setupOpts</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">enable_feature_a</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">number_option</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">4</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">another_field</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">hello</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">size</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;nested&nbsp;fields&nbsp;work&nbsp;as&nbsp;well</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">top</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">10</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h3 id="sec-details-of-toluaobject">Details of toLuaObject</h3>
+<p>As you've seen above, <code>toLuaObject</code> is used to convert our nix attrSet
+<code>cfg.setupOpts</code>, into a lua table. Here are some rules of the conversion:</p>
+<ol>
+<li>
+<p>Nix <code>null</code> converts to lua <code>nil</code></p>
+</li>
+<li>
+<p>Number and strings convert to their lua counterparts</p>
+</li>
+<li>
+<p>Nix attribute sets (<code>{}</code>) and lists (<code>]</code>) convert into Lua dictionaries and
+tables respectively. Here is an example of Nix -&gt; Lua conversion.</p>
+<ul>
+<li><code>{foo = "bar"}</code> -&gt; <code>{["foo"] = "bar"}</code></li>
+<li><code>["foo" "bar"]</code> -&gt; <code>{"foo", "bar"}</code></li>
+</ul>
+</li>
+<li>
+<p>You can write raw Lua code using <code>lib.generators.mkLuaInline</code>. This function
+is part of nixpkgs, and is accessible without relying on <strong>nvf</strong>'s extended
+library.</p>
+<ul>
+<li><code>mkLuaInline "function add(a, b) return a + b end"</code> will yield the
+following result:</li>
+</ul>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;<span style="color:rgb(86,182,194);">_type</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">lua-inline</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;<span style="color:rgb(86,182,194);">expr</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">function&nbsp;add(a,&nbsp;b)&nbsp;return&nbsp;a&nbsp;+&nbsp;b&nbsp;end</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>The above expression will be interpreted as a Lua expression in the final
+config. Without the <code>mkLuaInline</code> function, you will only receive a string
+literal. You can use it to feed plugin configuration tables Lua functions
+that return specific values as expected by the plugins.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">your-plugin</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">setupOpts</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">on_init</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">generators</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">mkLuaInline</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function()</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print('we&nbsp;can&nbsp;write&nbsp;lua!')</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+</li>
+</ol>
+<h3 id="sec-lazy-plugins">Lazy plugins</h3>
+<p>If the plugin can be lazy-loaded, <code>vim.lazy.plugins</code> should be used to add it.
+Lazy plugins are managed by <code>lz.n</code>.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;in&nbsp;modules/.../your-plugin/config.nix</span><br><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(232,102,113);">config</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(198,120,221);">let</span><br>&nbsp;&nbsp;cfg&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">your-plugin</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(198,120,221);">in</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lazy</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">plugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">your-plugin</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Instead&nbsp;of&nbsp;vim.startPlugins,&nbsp;use&nbsp;this:</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">package</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">your-plugin</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;ıf&nbsp;your&nbsp;plugin&nbsp;uses&nbsp;the&nbsp;`require('your-plugin').setup{...}`&nbsp;pattern</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">setupModule</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">your-plugin</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(198,120,221);">inherit</span>&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">cfg</span><span style="color:rgb(132,139,152);">)</span>&nbsp;setupOpts<span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Events&nbsp;that&nbsp;trigger&nbsp;this&nbsp;plugin&nbsp;to&nbsp;be&nbsp;loaded</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">event</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">DirChanged</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">cmd</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">YourPluginCommand</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Plugin&nbsp;Keymaps</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">keys</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;We'll&nbsp;cover&nbsp;this&nbsp;in&nbsp;detail&nbsp;in&nbsp;the&nbsp;'keybinds'&nbsp;section</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">key</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;d</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">mode</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">n</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">action</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">:YourPluginCommand</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>This results in the following lua code:</p>
+<pre class="highlight"><code class="language-lua"><span style="color:rgb(86,182,194);">require</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(152,195,121);">'lz.n'</span><span style="color:rgb(132,139,152);">)</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">load</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(229,192,123);font-weight: bold;">{</span><br>&nbsp;&nbsp;<span style="color:rgb(229,192,123);font-weight: bold;">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"name-of-your-plugin"</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(97,175,239);">after</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(198,120,221);">function</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">require</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(152,195,121);">'your-plugin'</span><span style="color:rgb(132,139,152);">)</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">setup</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(229,192,123);font-weight: bold;">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">--[[&nbsp;your&nbsp;setupOpts&nbsp;]]</span><span style="color:rgb(92,99,112);font-style: italic;">--</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(229,192,123);font-weight: bold;">}</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(198,120,221);">end</span><span style="color:rgb(132,139,152);">,</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">event</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(229,192,123);font-weight: bold;">{</span><span style="color:rgb(152,195,121);">"DirChanged"</span><span style="color:rgb(229,192,123);font-weight: bold;">}</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">cmd</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(229,192,123);font-weight: bold;">{</span><span style="color:rgb(152,195,121);">"YourPluginCommand"</span><span style="color:rgb(229,192,123);font-weight: bold;">}</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">keys</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(229,192,123);font-weight: bold;">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(229,192,123);font-weight: bold;">{</span><span style="color:rgb(152,195,121);">"&lt;leader&gt;d"</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(152,195,121);">":YourPluginCommand"</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(86,182,194);">mode</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(229,192,123);font-weight: bold;">{</span><span style="color:rgb(152,195,121);">"n"</span><span style="color:rgb(229,192,123);font-weight: bold;">}</span><span style="color:rgb(229,192,123);font-weight: bold;">}</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(229,192,123);font-weight: bold;">}</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;<span style="color:rgb(229,192,123);font-weight: bold;">}</span><br><span style="color:rgb(229,192,123);font-weight: bold;">}</span><span style="color:rgb(132,139,152);">)</span><br></code></pre>
+<p>A full list of options can be found in the <a href="./options.html#option-vim-lazy-plugins"><code>vim.lazy.plugins</code> spec</a> on the
+rendered manual.</p>
+</body></html></main>
+      </div>
+
+      <footer>
+  <p>Generated with ndg</p>
+</footer>
+
+    </div>
+
+    
+  </body>
+</html>
