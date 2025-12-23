@@ -17,9 +17,20 @@ in {
     vim = {
       lazy.plugins.toggleterm-nvim = {
         package = "toggleterm-nvim";
-        cmd = ["ToggleTerm" "ToggleTermSendCurrentLine" "ToggleTermSendVisualLines" "ToggleTermSendVisualSelection" "ToggleTermSetName" "ToggleTermToggleAll"];
+        cmd = [
+          "ToggleTerm"
+          "ToggleTermSendCurrentLine"
+          "ToggleTermSendVisualLines"
+          "ToggleTermSendVisualSelection"
+          "ToggleTermSetName"
+          "ToggleTermToggleAll"
+        ];
         keys =
-          [(mkKeymap "n" cfg.mappings.open "<Cmd>execute v:count . \"ToggleTerm\"<CR>" {desc = "Toggle terminal";})]
+          [
+            (mkKeymap ["n" "t"] cfg.mappings.open "<Cmd>execute v:count . \"ToggleTerm\"<CR>" {
+              desc = "Toggle terminal";
+            })
+          ]
           ++ optional cfg.lazygit.enable {
             key = cfg.lazygit.mappings.open;
             mode = "n";
