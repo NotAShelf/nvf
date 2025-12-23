@@ -13,6 +13,7 @@
   inherit (lib.types) int;
   inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.languages) setLanguageIndent;
 
   cfg = config.vim.languages.nix;
 
@@ -168,6 +169,12 @@ in {
       };
     })
 
+    (setLanguageIndent {
+      language = "nix";
+      indentSize = cfg.indentSize;
+    })
+
+    /*
     {
       vim.autocmds = [
         {
@@ -188,6 +195,7 @@ in {
         }
       ];
     }
+    */
 
   ]);
 }

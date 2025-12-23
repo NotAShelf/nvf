@@ -4,6 +4,7 @@
   inherit (lib.types) listOf bool str submodule attrsOf anything either nullOr uniq;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) luaInline;
+  inherit (lib.generators) mkLuaInline;
 in {
   # TODO: remove
   diagnosticsToLua = {
@@ -80,4 +81,23 @@ in {
 
   # maybe put generic function to set indent for provided langs
   # Then we can just call it with the lib arg
+
+  setLanguageIndent = {language, indentSize}: {
+    vim.autocmds = [
+      {
+        desc = "Sets indent for nix files";
+        event = ["BufEnter"];
+        pattern = [ "*.${language}" ];
+        callback = mkLuaInline ''
+          function()
+            vim.opt.tabstop = ${toString indentSize}
+            vim.opt.softtabstop = ${toString indentSize}
+            vim.opt.shiftwidth = ${toString indentSize}
+          end
+        '';
+        once = true;
+      }
+    ];
+  };
+
 }
