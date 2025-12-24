@@ -174,28 +174,5 @@ in {
       indentSize = cfg.indentSize;
     })
 
-    /*
-    {
-      vim.autocmds = [
-        {
-          desc = "Sets indent for nix files";
-          event = ["BufEnter"];
-          pattern = [
-            "*.nix"
-            "*.md"
-          ];
-          callback = lib.generators.mkLuaInline ''
-            function()
-              vim.opt.tabstop = ${toString cfg.indentSize}
-              vim.opt.softtabstop = ${toString cfg.indentSize}
-              vim.opt.shiftwidth = ${toString cfg.indentSize}
-            end
-          '';
-          once = true;
-        }
-      ];
-    }
-    */
-
   ]);
 }

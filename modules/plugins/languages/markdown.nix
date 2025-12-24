@@ -209,7 +209,7 @@ in {
 
     (setLanguageIndent {
       language = "markdown";
-      indentSize = 4;
+      indentSize = 6;
     })
 
   ]);
