@@ -112,7 +112,7 @@ in {
     indentSize = mkOption {
       description = "Sets the indent size in spaces for .nix files";
       type = int;
-      default = 2;
+      default = 10;
     };
   };
 

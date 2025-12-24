@@ -86,13 +86,13 @@ in {
     vim.autocmds = [
       {
         desc = "Sets indent for nix files";
-        event = ["BufEnter"];
-        pattern = [ "*.${language}" ];
+        event = ["FileType"];
+        pattern = [ language ];
         callback = mkLuaInline ''
           function()
-            vim.opt.tabstop = ${toString indentSize}
-            vim.opt.softtabstop = ${toString indentSize}
-            vim.opt.shiftwidth = ${toString indentSize}
+            vim.bo.tabstop = ${toString indentSize}
+            vim.bo.softtabstop = ${toString indentSize}
+            vim.bo.shiftwidth = ${toString indentSize}
           end
         '';
         once = true;
