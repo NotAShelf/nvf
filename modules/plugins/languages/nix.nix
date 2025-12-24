@@ -4,14 +4,16 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
+  inherit (builtins) attrNames toString;
   inherit (lib) concatStringsSep;
   inherit (lib.meta) getExe;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum;
+  inherit (lib.types) int;
   inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.languages) setLanguageIndent;
 
   cfg = config.vim.languages.nix;
 
@@ -106,6 +108,12 @@ in {
         inherit defaultDiagnosticsProvider;
       };
     };
+
+    indentSize = mkOption {
+      description = "Sets the indent size in spaces for .nix files";
+      type = int;
+      default = 10;
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -160,5 +168,11 @@ in {
           cfg.extraDiagnostics.types);
       };
     })
+
+    (setLanguageIndent {
+      language = "nix";
+      indentSize = cfg.indentSize;
+    })
+
   ]);
 }
