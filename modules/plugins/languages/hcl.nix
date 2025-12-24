@@ -4,24 +4,31 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
+  inherit (builtins) attrNames elem;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.meta) getExe;
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf mkMerge mkDefault;
   inherit (lib.types) bool enum listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.hcl;
 
-  defaultServers = ["terraform-ls"];
+  defaultServers = ["tofuls"];
   servers = {
-    terraform-ls = {
+    terraformls = {
       enable = true;
-      cmd = [(getExe pkgs.terraform-ls) "serve"];
-      filetypes = ["terraform" "terraform-vars"];
+      cmd = mkDefault [(getExe pkgs.terraform-ls) "serve"]; # NOTE: mkDefault to avoid clashes with terraform defs
+      filetypes = ["hcl"];
+      root_markers = [".git"];
+    };
+    tofuls = {
+      enable = true;
+      cmd = mkDefault [(getExe pkgs.tofu-ls) "serve"]; # NOTE: mkDefault to avoid clashes with terraform defs
+      filetypes = ["hcl"];
       root_markers = [".terraform" ".git"];
     };
+    # TODO: package nomad-lsp and offer as an option here too
   };
 
   defaultFormat = ["hclfmt"];
@@ -29,18 +36,25 @@
     hclfmt = {
       command = getExe pkgs.hclfmt;
     };
+    nomad-fmt = {
+      command = getExe pkgs.nomad;
+      args = ["fmt" "$FILENAME"];
+      stdin = false;
+    };
   };
 in {
   options.vim.languages.hcl = {
     enable = mkEnableOption "HCL support";
 
     treesitter = {
-      enable = mkEnableOption "HCL treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "HCL treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = mkGrammarOption pkgs "hcl";
     };
 
     lsp = {
-      enable = mkEnableOption "HCL LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "HCL LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
@@ -81,18 +95,24 @@ in {
           .set('hcl', '#%s')
       '';
     }
+
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.package];
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim = {
+        lsp.servers =
+          mapListToAttrs (n: {
+            name = n;
+            value = servers.${n};
+          })
+          cfg.lsp.servers;
+        extraPackages =
+          (lib.optionals (elem "terraformls" cfg.lsp.servers) [pkgs.terraform])
+          ++ (lib.optionals (elem "tofuls" cfg.lsp.servers) [pkgs.opentofu]);
+      };
     })
 
     (mkIf cfg.format.enable {
