@@ -21,10 +21,7 @@
   defaultServers = ["ts_ls"];
   servers = let
     ts_ls = {
-      cmd = [
-        (getExe pkgs.typescript-language-server)
-        "--stdio"
-      ];
+      cmd = [(getExe pkgs.typescript-language-server) "--stdio"];
       init_options = {
         hostInfo = "neovim";
         plugins =

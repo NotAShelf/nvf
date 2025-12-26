@@ -15,18 +15,11 @@
 
   cfg = config.vim.languages.vue;
 
-  defaultServers = [
-    "vue_ls"
-  ];
+  defaultServers = ["vue_ls"];
   servers = {
     vue_ls = {
-      cmd = [
-        (getExe pkgs.vue-language-server)
-        "--stdio"
-      ];
-      filetypes = [
-        "vue"
-      ];
+      cmd = [(getExe pkgs.vue-language-server) "--stdio"];
+      filetypes = ["vue"];
       root_markers = [
         "tsconfig.json"
         "jsconfig.json"
