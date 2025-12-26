@@ -8,7 +8,8 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum package bool;
+  inherit (lib) optional;
+  inherit (lib.types) enum bool;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.lua) toLuaObject;
@@ -21,7 +22,18 @@
   servers = let
     ts_ls = {
       cmd = [(getExe pkgs.typescript-language-server) "--stdio"];
-      init_options = {hostInfo = "neovim";};
+      init_options = {
+        hostInfo = "neovim";
+        plugins =
+          []
+          ++ (optional config.vim.languages.vue.lsp.enable
+            {
+              name = "@vue/typescript-plugin";
+              location = "${pkgs.vue-language-server}/lib/language-tools/packages/language-server";
+              languages = ["vue"];
+              configNamespace = "typescript";
+            });
+      };
       filetypes = [
         "javascript"
         "javascriptreact"
@@ -29,6 +41,7 @@
         "typescript"
         "typescriptreact"
         "typescript.tsx"
+        "vue"
       ];
       root_markers = ["tsconfig.json" "jsconfig.json" "package.json" ".git"];
       handlers = {
@@ -63,6 +76,13 @@
               },
             })
           end, {})
+
+          -- make sure that vue-language-server handles semantic tokens when we are in a vue file
+          if vim.bo.filetype == 'vue' then
+            client.server_capabilities.semanticTokensProvider.full = false
+          else
+            client.server_capabilities.semanticTokensProvider.full = true
+          end
         end
       '';
     };
