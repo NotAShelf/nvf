@@ -8,7 +8,8 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum package bool;
+  inherit (lib) optional;
+  inherit (lib.types) enum bool;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.lua) toLuaObject;
@@ -17,10 +18,7 @@
 
   cfg = config.vim.languages.ts;
 
-  defaultServers = [
-    "ts_ls"
-    "vue_ls"
-  ];
+  defaultServers = ["ts_ls"];
   servers = let
     ts_ls = {
       cmd = [
@@ -29,14 +27,15 @@
       ];
       init_options = {
         hostInfo = "neovim";
-        plugins = [
-          {
-            name = "@vue/typescript-plugin";
-            location = "${pkgs.vue-language-server}/lib/language-tools/packages/language-server";
-            languages = ["vue"];
-            configNamespace = "typescript";
-          }
-        ];
+        plugins =
+          []
+          ++ (optional config.vim.languages.vue.lsp.enable
+            {
+              name = "@vue/typescript-plugin";
+              location = "${pkgs.vue-language-server}/lib/language-tools/packages/language-server";
+              languages = ["vue"];
+              configNamespace = "typescript";
+            });
       };
       filetypes = [
         "javascript"
@@ -96,58 +95,6 @@
     # configuration in the enum, but assert if it's set to *properly*
     # redirect the user to the correct server.
     tsserver = ts_ls;
-
-    vue_ls = {
-      cmd = [
-        (getExe pkgs.vue-language-server)
-        "--stdio"
-      ];
-      filetypes = [
-        "vue"
-      ];
-      root_markers = [
-        "tsconfig.json"
-        "jsconfig.json"
-        "package.json"
-        ".git"
-      ];
-      on_init = mkLuaInline ''
-        -- forward typescript blocks to ts_ls or vtsls depending on which is available first
-        function(client)
-          client.handlers['tsserver/request'] = function(_, result, context)
-            local ts_clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = 'ts_ls' })
-            local clients = {}
-
-            vim.list_extend(clients, ts_clients)
-
-            if #clients == 0 then
-              vim.notify('Could not find `vtsls` or `ts_ls` lsp client, `vue_ls` would not work without it.', vim.log.levels.ERROR)
-              return
-            end
-            local ts_client = clients[1]
-
-            local param = unpack(result)
-            local id, command, payload = unpack(param)
-            ts_client:exec_cmd({
-              title = 'vue_request_forward', -- You can give title anything as it's used to represent a command in the UI, `:h Client:exec_cmd`
-              command = 'typescript.tsserverRequest',
-              arguments = {
-                command,
-                payload,
-              },
-            }, { bufnr = context.bufnr }, function(_, r)
-                local response = r and r.body
-                -- TODO: handle error or response nil here, e.g. logging
-                -- NOTE: Do NOT return if there's an error or no response, just return nil back to the vue_ls to prevent memory leak
-                local response_data = { { id, response } }
-
-                ---@diagnostic disable-next-line: param-type-mismatch
-                client:notify('tsserver/response', response_data)
-              end)
-          end
-        end
-      '';
-    };
 
     denols = {
       cmd = [(getExe pkgs.deno) "lsp"];
