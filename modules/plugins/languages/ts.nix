@@ -65,32 +65,30 @@
           end
         '';
       };
-      on_attach =
-        mkLuaInline
-        # lua
-        ''
-          function(client, bufnr)
-            -- ts_ls provides `source.*` code actions that apply to the whole file. These only appear in
-            -- `vim.lsp.buf.code_action()` if specified in `context.only`.
-            vim.api.nvim_buf_create_user_command(0, 'LspTypescriptSourceAction', function()
-              local source_actions = vim.tbl_filter(function(action)
-                return vim.startswith(action, 'source.')
-              end, client.server_capabilities.codeActionProvider.codeActionKinds)
+      on_attach = mkLuaInline ''
+        function(client, bufnr)
+          -- ts_ls provides `source.*` code actions that apply to the whole file. These only appear in
+          -- `vim.lsp.buf.code_action()` if specified in `context.only`.
+          vim.api.nvim_buf_create_user_command(0, 'LspTypescriptSourceAction', function()
+            local source_actions = vim.tbl_filter(function(action)
+              return vim.startswith(action, 'source.')
+            end, client.server_capabilities.codeActionProvider.codeActionKinds)
 
-              vim.lsp.buf.code_action({
-                context = {
-                  only = source_actions,
-                },
-              })
-            end, {})
+            vim.lsp.buf.code_action({
+              context = {
+                only = source_actions,
+              },
+            })
+          end, {})
 
-            if vim.bo.filetype == 'vue' then
-              client.server_capabilities.semanticTokensProvider.full = false
-            else
-              client.server_capabilities.semanticTokensProvider.full = true
-            end
+          -- make sure that vue-language-server handles semantic tokens when we are in a vue file
+          if vim.bo.filetype == 'vue' then
+            client.server_capabilities.semanticTokensProvider.full = false
+          else
+            client.server_capabilities.semanticTokensProvider.full = true
           end
-        '';
+        end
+      '';
     };
   in {
     inherit ts_ls;
@@ -113,44 +111,42 @@
         "package.json"
         ".git"
       ];
-      on_init =
-        mkLuaInline
-        # lua
-        ''
-          function(client)
-            client.handlers['tsserver/request'] = function(_, result, context)
-              local ts_clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = 'ts_ls' })
-              local clients = {}
+      on_init = mkLuaInline ''
+        -- forward typescript blocks to ts_ls or vtsls depending on which is available first
+        function(client)
+          client.handlers['tsserver/request'] = function(_, result, context)
+            local ts_clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = 'ts_ls' })
+            local clients = {}
 
-              vim.list_extend(clients, ts_clients)
+            vim.list_extend(clients, ts_clients)
 
-              if #clients == 0 then
-                vim.notify('Could not find `vtsls` or `ts_ls` lsp client, `vue_ls` would not work without it.', vim.log.levels.ERROR)
-                return
-              end
-              local ts_client = clients[1]
-
-              local param = unpack(result)
-              local id, command, payload = unpack(param)
-              ts_client:exec_cmd({
-                title = 'vue_request_forward', -- You can give title anything as it's used to represent a command in the UI, `:h Client:exec_cmd`
-                command = 'typescript.tsserverRequest',
-                arguments = {
-                  command,
-                  payload,
-                },
-              }, { bufnr = context.bufnr }, function(_, r)
-                  local response = r and r.body
-                  -- TODO: handle error or response nil here, e.g. logging
-                  -- NOTE: Do NOT return if there's an error or no response, just return nil back to the vue_ls to prevent memory leak
-                  local response_data = { { id, response } }
-
-                  ---@diagnostic disable-next-line: param-type-mismatch
-                  client:notify('tsserver/response', response_data)
-                end)
+            if #clients == 0 then
+              vim.notify('Could not find `vtsls` or `ts_ls` lsp client, `vue_ls` would not work without it.', vim.log.levels.ERROR)
+              return
             end
+            local ts_client = clients[1]
+
+            local param = unpack(result)
+            local id, command, payload = unpack(param)
+            ts_client:exec_cmd({
+              title = 'vue_request_forward', -- You can give title anything as it's used to represent a command in the UI, `:h Client:exec_cmd`
+              command = 'typescript.tsserverRequest',
+              arguments = {
+                command,
+                payload,
+              },
+            }, { bufnr = context.bufnr }, function(_, r)
+                local response = r and r.body
+                -- TODO: handle error or response nil here, e.g. logging
+                -- NOTE: Do NOT return if there's an error or no response, just return nil back to the vue_ls to prevent memory leak
+                local response_data = { { id, response } }
+
+                ---@diagnostic disable-next-line: param-type-mismatch
+                client:notify('tsserver/response', response_data)
+              end)
           end
-        '';
+        end
+      '';
     };
 
     denols = {
