@@ -107,6 +107,9 @@
     mnw.url = "github:Gerg-L/mnw";
 
     # Alternative documentation generator
-    ndg.url = "github:feel-co/ndg";
+    ndg = {
+      url = "github:feel-co/ndg";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }
