@@ -65,9 +65,9 @@
 
 ## Features
 
-[standalone]: https://notashelf.github.io/nvf/index.xhtml#ch-standalone-installation
-[NixOS module]: https://notashelf.github.io/nvf/index.xhtml#ch-standalone-nixos
-[Home-Manager module]: https://notashelf.github.io/nvf/index.xhtml#ch-standalone-hm
+[standalone]: https://nvf.notashelf.dev/#ch-standalone-installation
+[NixOS module]: https://nvf.notashelf.dev/#ch-standalone-nixos
+[Home-Manager module]: https://nvf.notashelf.dev/#ch-standalone-hm
 [release notes]: https://notashelf.github.io/nvf/release-notes.html
 [discussions tab]: https://github.com/notashelf/nvf/discussions
 [FAQ section]: #frequently-asked-questions
