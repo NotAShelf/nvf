@@ -94,6 +94,7 @@ isMaximal: {
 
       tailwind.enable = false;
       svelte.enable = false;
+      vue.enable = false;
 
       # Nim LSP is broken on Darwin and therefore
       # should be disabled by default. Users may still enable
