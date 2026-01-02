@@ -6,3 +6,9 @@
 
 - Fix `vim.tabline.nvimBufferline` where `setupOpts.options.hover` requires
   `vim.opt.mousemoveevent` to be set.
+
+[CaueAnjos](https://github.com/CaueAnjos):
+
+- Add razor support for C# language
+- Breaking changes:
+  - `roslyn_ls` changed to `roslyn`
