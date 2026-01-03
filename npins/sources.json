@@ -39,19 +39,6 @@
       "url": "https://github.com/yetone/avante.nvim/archive/5e4bb50ddaa8c4688675df6f437712c0e793a51c.tar.gz",
       "hash": "0z3h8vb73rrmqcd6373pbqc5swbwxpfpd92yhly0256hw5a9jjm2"
     },
-    "base16": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "rrethy",
-        "repo": "base16-nvim"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "a2907cc3cd661e0f89f7db1f4fc304782a676a7d",
-      "url": "https://github.com/rrethy/base16-nvim/archive/a2907cc3cd661e0f89f7db1f4fc304782a676a7d.tar.gz",
-      "hash": "0acqa0b5n4l01ac9mbbxz2nbg8k8a50s0ajngg72l68q6m5z9mkm"
-    },
     "blink-cmp-spell": {
       "type": "Git",
       "repository": {
@@ -2537,6 +2524,19 @@
       "revision": "b4da76be54691e854d3e0e02c36b0245f945c2c7",
       "url": "https://github.com/nvim-telescope/telescope.nvim/archive/b4da76be54691e854d3e0e02c36b0245f945c2c7.tar.gz",
       "hash": "161qlx099ymi62qsd89srda605ynks1sswx3djamrwqp3dxb9596"
+    },
+    "tinted-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "tinted-theming",
+        "repo": "tinted-nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "b1ff41aa3bcf5c2ec53396427677fced8fc4cefa",
+      "url": "https://github.com/tinted-theming/tinted-nvim/archive/b1ff41aa3bcf5c2ec53396427677fced8fc4cefa.tar.gz",
+      "hash": "0waqf604wzrdipfch1rg99nkiqf58cjvlwbnz9s8lp199n83mjxp"
     },
     "tiny-devicons-auto-colors-nvim": {
       "type": "Git",
