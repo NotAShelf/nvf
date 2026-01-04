@@ -52,7 +52,7 @@ in {
       '');
 
       pluginRC.treesitter = entryAfter ["basic"] ''
-        require('nvim-treesitter').setup {
+        require('nvim-treesitter.configs').setup {
           -- Disable imperative treesitter options that would attempt to fetch
           -- grammars into the read-only Nix store. To add additional grammars here
           -- you must use the `config.vim.treesitter.grammars` option.
