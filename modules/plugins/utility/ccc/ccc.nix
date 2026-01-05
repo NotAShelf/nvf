@@ -1,12 +1,6 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit
-    (lib.types)
-    anything
-    attrsOf
-    listOf
-    enum
-    ;
+  inherit (lib.types) anything attrsOf listOf enum;
   inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   inherit (lib.generators) mkLuaInline;
