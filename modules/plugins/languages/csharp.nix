@@ -178,7 +178,7 @@ in {
 
       treesitter = {
         enable = mkEnableOption "C# treesitter" // {default = config.vim.languages.enableTreesitter;};
-        package = mkGrammarOption pkgs "c-sharp";
+        package = mkGrammarOption pkgs "c_sharp";
       };
 
       lsp = {

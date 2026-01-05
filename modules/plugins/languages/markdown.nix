@@ -63,7 +63,7 @@ in {
         description = "Enable Markdown treesitter";
       };
       mdPackage = mkGrammarOption pkgs "markdown";
-      mdInlinePackage = mkGrammarOption pkgs "markdown-inline";
+      mdInlinePackage = mkGrammarOption pkgs "markdown_inline";
     };
 
     lsp = {
