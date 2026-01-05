@@ -108,7 +108,8 @@
 <ul><li><a href="#breaking-changes">Breaking changes</a>
 <li><a href="#sec-release-0-8-changelog">Changelog</a>
 </ul><li><a href="#sec-release-0-9">Release 0.9</a>
-<ul><li><a href="#sec-release-0-9-changelog">Changelog</a>
+<ul><li><a href="#breaking-changes">Breaking changes</a>
+<li><a href="#sec-release-0-9-changelog">Changelog</a>
 </li></ul></li>
             </ul>
           </div>
@@ -1826,11 +1827,22 @@ attach behavior.</li>
 <li><code>toggleterm</code> open map now also works when in terminal mode</li>
 </ul>
 <h1 id="sec-release-0-9">Release 0.9</h1>
+<h2>Breaking changes</h2>
+<ul>
+<li>Nixpkgs merged a full and incompatible rewrite of vimPlugins.nvim-treesitter.
+The changes affected how grammars are built and it caused issues when neovim
+attempted to load languages and could not find files in expected locations.</li>
+</ul>
 <h2 id="sec-release-0-9-changelog">Changelog</h2>
 <p><a href="https://github.com/suimong">suimong</a>:</p>
 <ul>
 <li>Fix <code>vim.tabline.nvimBufferline</code> where <code>setupOpts.options.hover</code> requires
 <code>vim.opt.mousemoveevent</code> to be set.</li>
+</ul>
+<p><a href="https://github.com/thamenato">thamenato</a>:</p>
+<ul>
+<li>Attempt to adapt nvim-treesitter to (breaking) Nixpkgs changes. Some treesitte grammars
+were changed to prefer <code>grammarPlugins</code> over <code>builtGrammars</code>.</li>
 </ul>
 <p><a href="https://github.com/jfeo">jfeo</a>:</p>
 <ul>
