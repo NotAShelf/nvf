@@ -23,4 +23,12 @@
 [ccc.nvim]: https://github.com/uga-rosa/ccc.nvim
 
 - Added [ccc.nvim] option {option}`vim.utility.ccc.setupOpts` with the existing
-  hard-coded options as default values.
+  hard-coded options as default values
+
+[Snoweuph](https://github.com/snoweuph):
+
+- Added [tera](https://keats.github.io/tera/) language support (syntax highlighting only).
+- Added neovim theme `grubber-darker` <https://github.com/blazkowolf/gruber-darker.nvim>.
+- Added neovim builtin theme `habamax`.
+
+

@@ -8,6 +8,14 @@
   inherit (lib.trivial) boolToString warnIf;
   inherit (lib.nvim.lua) toLuaObject;
 in {
+  habamax = {
+    builtin = true;
+    setup = _:
+    /*
+    lua
+    */
+    "vim.cmd('colorscheme habamax')";
+  };
   base16 = {
     setup = {base16-colors, ...}: ''
       -- Base16 theme
@@ -36,6 +44,33 @@ in {
       require('onedark').load()
     '';
     styles = ["dark" "darker" "cool" "deep" "warm" "warmer"];
+  };
+  gruber-darker = {
+    setup = _:
+    /*
+    lua
+    */
+    ''
+      require('gruber-darker').setup({
+        -- defaults
+        bold = true,
+        invert = {
+          signs = false,
+          tabline = false,
+          visual = false,
+        },
+        italic = {
+          strings = true,
+          comments = true,
+          operators = false,
+          folds = true,
+        },
+        undercurl = true,
+        underline = true,
+      })
+      vim.cmd('colorscheme gruber-darker')
+    '';
+    styles = ["dark"];
   };
 
   tokyonight = {
