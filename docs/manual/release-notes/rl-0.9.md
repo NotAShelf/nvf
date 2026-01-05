@@ -15,4 +15,12 @@
 
 [thamenato](https://github.com/thamenato):
 
-- Attempt to adapt nvim-treesitter to (breaking) Nixpkgs changes
+- Attempt to adapt nvim-treesitter to (breaking) Nixpkgs changes. Some treesitte grammars
+  were changed to prefer `grammarPlugins` over `builtGrammars`.
+
+[jfeo](https://github.com/jfeo):
+
+[ccc.nvim]: https://github.com/uga-rosa/ccc.nvim
+
+- Added [ccc.nvim] option {option}`vim.utility.ccc.setupOpts` with the existing
+  hard-coded options as default values.
