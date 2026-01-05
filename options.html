@@ -17163,7 +17163,7 @@
     <details class="toc-category">
       <summary title="vim.utility.ccc">
         <span>vim.utility.ccc</span>
-        <span class="toc-count">4</span>
+        <span class="toc-count">13</span>
       </summary>
       <ul>
         
@@ -17196,6 +17196,78 @@
         <li>
           <a href='#option-vim-utility-ccc-mappings-quit' title="vim.utility.ccc.mappings.quit">
             mappings.quit
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-utility-ccc-setupOpts' title="vim.utility.ccc.setupOpts">
+            setupOpts
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-utility-ccc-setupOpts-alpha_show' title="vim.utility.ccc.setupOpts.alpha_show">
+            setupOpts.alpha_show
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-utility-ccc-setupOpts-convert' title="vim.utility.ccc.setupOpts.convert">
+            setupOpts.convert
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-utility-ccc-setupOpts-highlighter' title="vim.utility.ccc.setupOpts.highlighter">
+            setupOpts.highlighter
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-utility-ccc-setupOpts-inputs' title="vim.utility.ccc.setupOpts.inputs">
+            setupOpts.inputs
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-utility-ccc-setupOpts-mappings' title="vim.utility.ccc.setupOpts.mappings">
+            setupOpts.mappings
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-utility-ccc-setupOpts-outputs' title="vim.utility.ccc.setupOpts.outputs">
+            setupOpts.outputs
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-utility-ccc-setupOpts-pickers' title="vim.utility.ccc.setupOpts.pickers">
+            setupOpts.pickers
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-utility-ccc-setupOpts-recognize' title="vim.utility.ccc.setupOpts.recognize">
+            setupOpts.recognize
             
             
           </a>
@@ -44193,6 +44265,227 @@ mkLuaInline "os.getenv('XDG_DATA_HOME') .. '/nvf/undo'"
   <div class="option-description"><html><head></head><body><p>Cancel and close the UI without replace or insert</p>
 </body></html></div>
   <div class="option-default">Default: <code>"<Esc>"</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/ccc/ccc.nix" target="_blank">&lt;nvf/modules/plugins/utility/ccc/ccc.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-utility-ccc-setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim-utility-ccc-setupOpts" class="option-anchor">vim.utility.ccc.setupOpts</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>open submodule of anything</code></div>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of ccc.nvim</p>
+<p>You can pass in any additional options even if they're
+not listed in the docs</p>
+</body></html></div>
+  <div class="option-default">Default: <code>{ }</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/ccc/ccc.nix" target="_blank">&lt;nvf/modules/plugins/utility/ccc/ccc.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-utility-ccc-setupOpts-alpha_show">
+  <h3 class="option-name">
+    <a href="#option-vim-utility-ccc-setupOpts-alpha_show" class="option-anchor">vim.utility.ccc.setupOpts.alpha_show</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>one of "show", "hide", "auto"</code></div>
+  <div class="option-description"><html><head></head><body><p>This option determines whether the alpha slider is displayed when the
+UI is opened. "show" and "hide" mean as they are. "auto" makes the
+slider appear only when the alpha value can be picked up.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>"hide"</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/ccc/ccc.nix" target="_blank">&lt;nvf/modules/plugins/utility/ccc/ccc.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-utility-ccc-setupOpts-convert">
+  <h3 class="option-name">
+    <a href="#option-vim-utility-ccc-setupOpts-convert" class="option-anchor">vim.utility.ccc.setupOpts.convert</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of list of (luaInline)</code></div>
+  <div class="option-description"><html><head></head><body><p>Specify the correspondence between picker and output. Must be a list of
+two-element lists defining picker/output pairs as inline Lua references,
+for example:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(86,182,194);">map</span>&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(86,182,194);">map</span>&nbsp;<span style="color:rgb(171,178,191);">mkLuaInline</span><span style="color:rgb(132,139,152);">)</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">ccc.picker.hex</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">ccc.output.css_rgb</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">ccc.picker.css_rgb</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">ccc.output.hex</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><br><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br></code></pre>
+<p>See <code class="command">:help ccc</code> for options.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  [
+    {
+      _type = "lua-inline";
+      expr = "ccc.picker.hex";
+    }
+    {
+      _type = "lua-inline";
+      expr = "ccc.output.css_hsl";
+    }
+  ]
+  [
+    {
+      _type = "lua-inline";
+      expr = "ccc.picker.css_rgb";
+    }
+    {
+      _type = "lua-inline";
+      expr = "ccc.output.css_hsl";
+    }
+  ]
+  [
+    {
+      _type = "lua-inline";
+      expr = "ccc.picker.css_hsl";
+    }
+    {
+      _type = "lua-inline";
+      expr = "ccc.output.hex";
+    }
+  ]
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/ccc/ccc.nix" target="_blank">&lt;nvf/modules/plugins/utility/ccc/ccc.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-utility-ccc-setupOpts-highlighter">
+  <h3 class="option-name">
+    <a href="#option-vim-utility-ccc-setupOpts-highlighter" class="option-anchor">vim.utility.ccc.setupOpts.highlighter</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>attribute set of anything</code></div>
+  <div class="option-description"><html><head></head><body><p>Settings for the highlighter. See <code class="command">:help ccc</code> for options.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>{
+  auto_enable = true;
+  filetypes = {
+    _type = "lua-inline";
+    expr = "colorPickerFts";
+  };
+  lsp = true;
+  max_byte = 2097152;
+}</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/ccc/ccc.nix" target="_blank">&lt;nvf/modules/plugins/utility/ccc/ccc.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-utility-ccc-setupOpts-inputs">
+  <h3 class="option-name">
+    <a href="#option-vim-utility-ccc-setupOpts-inputs" class="option-anchor">vim.utility.ccc.setupOpts.inputs</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (luaInline)</code></div>
+  <div class="option-description"><html><head></head><body><p>List of color systems to be activated. Must be inline lua references to
+<code>ccc.input</code>, for example <code>mkLuaInline "ccc.input.rgb"</code>. See
+<code class="command">:help ccc</code> for options.</p>
+<p>The toggle input mode action toggles in this order. The first one is
+the default used at the first startup. Once activated, it will keep the
+previous input mode.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  {
+    _type = "lua-inline";
+    expr = "ccc.input.hsl";
+  }
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/ccc/ccc.nix" target="_blank">&lt;nvf/modules/plugins/utility/ccc/ccc.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-utility-ccc-setupOpts-mappings">
+  <h3 class="option-name">
+    <a href="#option-vim-utility-ccc-setupOpts-mappings" class="option-anchor">vim.utility.ccc.setupOpts.mappings</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>attribute set of (luaInline)</code></div>
+  <div class="option-description"><html><head></head><body><p>The mappings are set in the UI of ccc. The table where lhs is key and
+rhs is value. To disable all default mappings, use
+<code class="nixos-option">vim.utility.ccc.setupOpts.disable_default_mappings</code>. To
+disable only some of the default mappings, set <code>ccc.mapping.none</code>.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>{
+  H = {
+    _type = "lua-inline";
+    expr = "ccc.mapping.decrease10";
+  };
+  L = {
+    _type = "lua-inline";
+    expr = "ccc.mapping.increase10";
+  };
+  q = {
+    _type = "lua-inline";
+    expr = "ccc.mapping.quit";
+  };
+}</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/ccc/ccc.nix" target="_blank">&lt;nvf/modules/plugins/utility/ccc/ccc.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-utility-ccc-setupOpts-outputs">
+  <h3 class="option-name">
+    <a href="#option-vim-utility-ccc-setupOpts-outputs" class="option-anchor">vim.utility.ccc.setupOpts.outputs</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (luaInline)</code></div>
+  <div class="option-description"><html><head></head><body><p>List of output formats to be activated. Must be inline Lua references to
+<code>ccc.output</code>, for example <code>mkLuaInline "ccc.output.rgb"</code>. See
+<code class="command">:help ccc</code> for options.</p>
+<p>The toggle output mode action toggles in this order. The first one is
+the default used at the first startup. Once activated, it will keep the
+previous output mode.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  {
+    _type = "lua-inline";
+    expr = "ccc.output.css_hsl";
+  }
+  {
+    _type = "lua-inline";
+    expr = "ccc.output.css_rgb";
+  }
+  {
+    _type = "lua-inline";
+    expr = "ccc.output.hex";
+  }
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/ccc/ccc.nix" target="_blank">&lt;nvf/modules/plugins/utility/ccc/ccc.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-utility-ccc-setupOpts-pickers">
+  <h3 class="option-name">
+    <a href="#option-vim-utility-ccc-setupOpts-pickers" class="option-anchor">vim.utility.ccc.setupOpts.pickers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (luaInline)</code></div>
+  <div class="option-description"><html><head></head><body><p>List of formats that can be detected by <code class="command">:CccPick</code> to be
+activated.</p>
+<p>Must be inline lua references to <code>ccc.picker</code>, for example
+<code>mkLuaInline "ccc.picker.hex"</code>. See <code class="command">:help ccc</code> for options.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  {
+    _type = "lua-inline";
+    expr = "ccc.picker.hex";
+  }
+  {
+    _type = "lua-inline";
+    expr = "ccc.picker.css_rgb";
+  }
+  {
+    _type = "lua-inline";
+    expr = "ccc.picker.css_hsl";
+  }
+  {
+    _type = "lua-inline";
+    expr = "ccc.picker.ansi_escape { meaning1 = \"bold\", }";
+  }
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/ccc/ccc.nix" target="_blank">&lt;nvf/modules/plugins/utility/ccc/ccc.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-utility-ccc-setupOpts-recognize">
+  <h3 class="option-name">
+    <a href="#option-vim-utility-ccc-setupOpts-recognize" class="option-anchor">vim.utility.ccc.setupOpts.recognize</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>attribute set of anything</code></div>
+  <div class="option-description"><html><head></head><body><p>Settings for recognizing the color format. See <code class="command">:help ccc</code> for options.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>{
+  output = true;
+}</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/ccc/ccc.nix" target="_blank">&lt;nvf/modules/plugins/utility/ccc/ccc.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-utility-diffview-nvim-enable">
