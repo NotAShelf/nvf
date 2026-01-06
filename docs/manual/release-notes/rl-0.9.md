@@ -4,12 +4,8 @@
 
 - Nixpkgs has merged a fully incompatible rewrite of
   `vimPlugins.nvim-treesitter`. Namely, it changes from the frozen `master`
-  branch to the new main branch. This change also affects how grammars are
-  built, and forces us to change a few things around.
-  - We must now use `"nvim-treesitter".setup` over the old `.configs`.
-    Additionally, built grammars **no longer include queries by default**,
-    therefore queries not managed by nvf will lack their respective syntax
-    highlighting capabilities.
+  branch to the new main branch. This change removes incremental selections, so
+  it is no longer available.
 
 ## Changelog {#sec-release-0-9-changelog}
 
