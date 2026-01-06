@@ -39,7 +39,8 @@ in {
         ];
       };
 
-      # For some reason treesitter highlighting does not work on start if this is set before syntax on
+      # For some reason treesitter highlighting does not work on start if this
+      # is set before 'syntax on' or similar.
       pluginRC.treesitter-fold = mkIf cfg.fold (entryBefore ["basic"] ''
         -- This is required by treesitter-context to handle folds
         vim.o.foldmethod = "expr"
@@ -54,8 +55,8 @@ in {
       pluginRC.treesitter = entryAfter ["basic"] ''
         require('nvim-treesitter.config').setup {
           -- Disable imperative treesitter options that would attempt to fetch
-          -- grammars into the read-only Nix store. To add additional grammars here
-          -- you must use the `config.vim.treesitter.grammars` option.
+          -- grammars into the read-only Nix store. To add additional grammars
+          -- here, you must use the `config.vim.treesitter.grammars` option.
           auto_install = false,
           sync_install = false,
           ensure_installed = {},
@@ -74,9 +75,8 @@ in {
           },
 
           -- Indentation module for Treesitter
-          -- Keymaps are set to false here as they are
-          -- handled by `vim.maps` entries calling lua
-          -- functions achieving the same functionality.
+          -- Keymaps are set to false here as they are handled by `vim.maps`
+          -- entries calling Lua functions achieving the same functionality.
           incremental_selection = {
             enable = ${toLuaObject cfg.incrementalSelection.enable},
             disable = ${toLuaObject cfg.incrementalSelection.disable},
@@ -85,7 +85,6 @@ in {
               node_incremental = false,
               scope_incremental = false,
               node_decremental = false,
-
             },
           },
         }
