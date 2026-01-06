@@ -66,7 +66,7 @@ in {
 
       package = mkOption {
         type = package;
-        default = pkgs.vimPlugins.nvim-treesitter.grammarPlugins.sql;
+        default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.sql;
         description = "SQL treesitter grammar to use";
       };
     };
