@@ -1,5 +1,7 @@
 # Release 0.9 {#sec-release-0-9}
 
+## Changelog {#sec-release-0-9-changelog}
+
 ## Breaking changes
 
 - Nixpkgs merged a full and incompatible rewrite of vimPlugins.nvim-treesitter.
@@ -24,3 +26,16 @@
 
 - Added [ccc.nvim] option {option}`vim.utility.ccc.setupOpts` with the existing
   hard-coded options as default values.
+
+[Ring-A-Ding-Ding-Baby](https://github.com/Ring-A-Ding-Ding-Baby):
+
+
+- Aligned `codelldb` adapter setup with [rustaceanvim]’s built-in logic.
+- Added `languages.rust.dap.backend` option to choose between `codelldb` and
+  `lldb-dap` adapters.
+
+[Libadoxon](https://github.com/Libadoxon):
+
+- `toggleterm` open map now also works when in terminal mode
+
+

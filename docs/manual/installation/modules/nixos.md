@@ -1,11 +1,11 @@
-# NixOS Module {#ch-nixos-module}
+## NixOS Module {#ch-nixos-module}
 
 The NixOS module allows us to customize the different `vim` options from inside
 the NixOS configuration without having to call for the wrapper yourself. It is
 the recommended way to use **nvf** alongside the home-manager module depending
 on your needs.
 
-## With Flakes {#sec-nixos-flakes}
+### With Flakes {#sec-nixos-flakes}
 
 ```{=include=}
 flakes.md

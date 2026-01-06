@@ -621,13 +621,3 @@
 [JudahZF](https://github.com/JudahZF):
 
 - Added gitFiles mapping option to telescope
-
-[Ring-A-Ding-Ding-Baby](https://github.com/Ring-A-Ding-Ding-Baby)
-
-- Aligned `codelldb` adapter setup with [rustaceanvim]’s built-in logic.
-- Added `languages.rust.dap.backend` option to choose between `codelldb` and
-  `lldb-dap` adapters.
-
-[Libadoxon](https://github.com/Libadoxon)
-
-- `toggleterm` open map now also works when in terminal mode
