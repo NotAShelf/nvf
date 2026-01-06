@@ -83,23 +83,21 @@
               <li><a href="#nvf-manual">Introduction</a>
 <ul><li><a href="#ch-preface">Preface</a>
 <ul><li><a href="#sec-what-is-it">What is nvf</a>
-</ul><li><a href="#ch-try-it-out">Try it out</a>
-<li><a href="#sec-using-prebuilt-configs">Using Prebuilt Configs</a>
+</ul><li><a href="#ch-try-it-out">Try it Out</a>
+<li><a href="#sec-using-prebuilt-configs">Using Prebuilt Configurations</a>
 <ul><li><a href="#sec-available-configs">Available Configurations</a>
 </ul><li><a href="#ch-installation">Installing nvf</a>
 </ul><li><a href="#ch-standalone-installation">Standalone Installation</a>
-<li><a href="#ch-standalone-nixos">Standalone Installation on NixOS</a>
+<ul><li><a href="#ch-standalone-nixos">Standalone Installation on NixOS</a>
 <li><a href="#ch-standalone-hm">Standalone Installation on Home-Manager</a>
-<li><a href="#ch-module-installation">Module Installation</a>
-<li><a href="#ch-nixos-module">NixOS Module</a>
+</ul><li><a href="#ch-module-installation">Module Installation</a>
+<ul><li><a href="#ch-nixos-module">NixOS Module</a>
 <ul><li><a href="#sec-nixos-flakes">With Flakes</a>
-<ul><li><a href="#sec-flakes-prerequisites">Prerequisites</a>
 <li><a href="#sec-nixos-flakes-usage">Usage</a>
 <li><a href="#sec-example-installation-nixos">Example Installation</a>
 </ul><li><a href="#sec-nixos-flakeless">Without Flakes</a>
 <li><a href="#sec-hm-flakes">With Flakes</a>
-<ul><li><a href="#sec-flakes-prerequisites">Prerequisites</a>
-<li><a href="#sec-hm-flakes-usage">Usage</a>
+<ul><li><a href="#sec-hm-flakes-usage">Usage</a>
 <li><a href="#sec-example-installation-hm">Example Installation</a>
 </ul><li><a href="#sec-hm-flakeless">Without Flakes</a>
 </li></ul></li>
@@ -108,16 +106,17 @@
         </nav>
 
         <main class="content"><html><head></head><body><h1 id="nvf-manual">Introduction</h1>
-<p>Version v0.9</p>
+<p>Generated for nvf v0.9</p>
 <h2 id="ch-preface">Preface</h2>
 <h3 id="sec-what-is-it">What is nvf</h3>
-<p><strong>nvf</strong> is a highly modular, configurable, extensible and easy to use Neovim
-configuration framework built and designed to be used with Nix. Boasting
-flexibility, robustness and ease of use, this projecct allows you to configure a
-fully featured Neovim instance with a few lines of Nix with lots of options for
-advanced users as well.</p>
-<h2 id="ch-try-it-out">Try it out</h2>
-<p>Thanks to the portability of Nix, you can try out nvf without actually
+<p><strong>nvf</strong> is a highly modular, configurable, extensible and <em>easy to use</em> Neovim
+configuration framework built for and designed to be used with <a href="https://nixos.org">Nix</a>. Boasting
+flexibility, robustness and ease of use (among other positive traits), this
+project allows you to configure a fully featured Neovim instance with a few
+lines of Nix while leaving all kinds of doors open for integrating Lua in your
+configurations <em>whether you are a beginner or an advanced user</em>.</p>
+<h2 id="ch-try-it-out">Try it Out</h2>
+<p>Thanks to the portability of Nix, you can try out <strong>nvf</strong> without actually
 installing it to your machine. Below are the commands you may run to try out
 different configurations provided by this flake. As of v0.5, two specialized
 configurations are provided:</p>
@@ -128,11 +127,13 @@ decorative plugins</li>
 </ul>
 <p>You may try out any of the provided configurations using the <code>nix run</code> command
 on a system where Nix is installed.</p>
-<pre class="highlight"><code class="language-sh"><span style="color:rgb(232,102,113);">$</span>&nbsp;<span style="color:rgb(171,178,191);">cachix</span>&nbsp;<span style="color:rgb(232,102,113);">use</span>&nbsp;<span style="color:rgb(232,102,113);">nvf</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Optional:&nbsp;it'll&nbsp;save&nbsp;you&nbsp;CPU&nbsp;resources&nbsp;and&nbsp;time</span><br><span style="color:rgb(232,102,113);">$</span>&nbsp;<span style="color:rgb(171,178,191);">nix</span>&nbsp;<span style="color:rgb(232,102,113);">run</span>&nbsp;<span style="color:rgb(232,102,113);">github:notashelf/nvf#nix</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Will&nbsp;run&nbsp;the&nbsp;default&nbsp;minimal&nbsp;configuration</span><br></code></pre>
+<pre class="highlight"><code class="language-sh"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Add&nbsp;the&nbsp;nvf&nbsp;cache</span><br><span style="color:rgb(232,102,113);">$</span>&nbsp;<span style="color:rgb(171,178,191);">cachix</span>&nbsp;<span style="color:rgb(232,102,113);">use</span>&nbsp;<span style="color:rgb(232,102,113);">nvf</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Optional:&nbsp;it'll&nbsp;save&nbsp;you&nbsp;CPU&nbsp;resources&nbsp;and&nbsp;time</span><br><br><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Run&nbsp;the&nbsp;minimal&nbsp;configuration&nbsp;with&nbsp;the&nbsp;cache&nbsp;enabled</span><br><span style="color:rgb(232,102,113);">$</span>&nbsp;<span style="color:rgb(171,178,191);">nix</span>&nbsp;<span style="color:rgb(232,102,113);">run</span>&nbsp;<span style="color:rgb(232,102,113);">github:notashelf/nvf#nix</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Will&nbsp;run&nbsp;the&nbsp;default&nbsp;minimal&nbsp;configuration</span><br></code></pre>
 <p>Do keep in mind that this is <strong>susceptible to garbage collection</strong> meaning that
 the built outputs will be removed from your Nix store once you garbage collect.</p>
-<h2 id="sec-using-prebuilt-configs">Using Prebuilt Configs</h2>
+<h2 id="sec-using-prebuilt-configs">Using Prebuilt Configurations</h2>
+<!-- markdownlint-disable MD014 -->
 <pre class="highlight"><code class="language-bash"><span style="color:rgb(232,102,113);">$</span>&nbsp;<span style="color:rgb(171,178,191);">nix</span>&nbsp;<span style="color:rgb(232,102,113);">run</span>&nbsp;<span style="color:rgb(232,102,113);">github:notashelf/nvf#nix</span><br><span style="color:rgb(232,102,113);">$</span>&nbsp;<span style="color:rgb(171,178,191);">nix</span>&nbsp;<span style="color:rgb(232,102,113);">run</span>&nbsp;<span style="color:rgb(232,102,113);">github:notashelf/nvf#maximal</span><br></code></pre>
+
 <h3 id="sec-available-configs">Available Configurations</h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -147,7 +148,7 @@ a set of visual and functional plugins. By running <code>nix run .#</code>, whic
 default package, you will build Neovim with this config.</p>
 <pre class="highlight"><code class="language-bash"><span style="color:rgb(232,102,113);">$</span>&nbsp;<span style="color:rgb(171,178,191);">nix</span>&nbsp;<span style="color:rgb(232,102,113);">run</span>&nbsp;<span style="color:rgb(232,102,113);">github:notashelf/nvf#nix</span>&nbsp;<span style="color:rgb(232,102,113);">test.nix</span><br><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;=&gt;&nbsp;This&nbsp;will&nbsp;open&nbsp;a&nbsp;file&nbsp;called&nbsp;`test.nix`&nbsp;with&nbsp;Nix&nbsp;LSP&nbsp;and&nbsp;syntax&nbsp;highlighting</span><br></code></pre>
 <p>This command will start Neovim with some opinionated plugin configurations, and
-is designed specifically for Nix. the <code>nix</code> configuration lets you see how a
+is designed specifically for Nix. The <code>nix</code> configuration lets you see how a
 fully configured Neovim setup <em>might</em> look like without downloading too many
 packages or shell utilities.</p>
 <h4 id="sec-configs-maximal">Maximal</h4>
@@ -165,10 +166,12 @@ downloading language servers, formatters, and more. If CPU time and bandwidth
 are concerns, please use the default package instead.</p>
 </div>
 <h2 id="ch-installation">Installing nvf</h2>
-<p>There are multiple ways of installing nvf on your system. You may either choose
-the standalone installation method, which does not depend on a module system and
-may be done on any system that has the Nix package manager or the appropriate
-modules for NixOS and home-manager as described in the
+<!-- markdownlint-disable MD051 -->
+<!-- markdownlint-enable MD051 -->
+<p>There are multiple ways of installing <strong>nvf</strong> on your system. You may either
+choose the standalone installation method, which does not depend on a module
+system and may be done on any system that has the Nix package manager or the
+appropriate modules for NixOS and Home Manager as described in the
 <a href="#ch-module-installation">module installation section</a>.</p>
 <h1 id="ch-standalone-installation">Standalone Installation</h1>
 <p>It is possible to install nvf without depending on NixOS or Home-Manager as the
@@ -183,7 +186,7 @@ arguments, and return the following schema as a result.</p>
 build independently from your system configuration while also possibly sharing
 it with others. The next two chapters will detail specific usage of such a setup
 for a package output in the context of NixOS or Home-Manager installation.</p>
-<h1 id="ch-standalone-nixos">Standalone Installation on NixOS</h1>
+<h2 id="ch-standalone-nixos">Standalone Installation on NixOS</h2>
 <p>Your built Neovim configuration can be exposed as a flake output to make it
 easier to share across machines, repositories and so on. Or it can be added to
 your system packages to make it available across your system.</p>
@@ -191,7 +194,7 @@ your system packages to make it available across your system.</p>
 the default theme enabled. You may use other options inside <code>config.vim</code> in
 <code>configModule</code>, but this example will not cover that extensively.</p>
 <pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">inputs</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">nixpkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">url</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">github:NixOS/nixpkgs/nixos-unstable</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">home-manager</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">url</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">github:nix-community/home-manager</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">url</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">github:notashelf/nvf</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;<span style="color:rgb(97,175,239);">outputs</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(232,102,113);">nixpkgs</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(232,102,113);">nvf</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(232,102,113);">self</span><span style="color:rgb(132,139,152);">,</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(232,102,113);">...</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;This&nbsp;will&nbsp;make&nbsp;the&nbsp;package&nbsp;available&nbsp;as&nbsp;a&nbsp;flake&nbsp;output&nbsp;under&nbsp;'packages'</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">packages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">x86_64-linux</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">my-neovim</span>&nbsp;<span style="color:rgb(171,178,191);">=</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">neovimConfiguration</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">pkgs</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">nixpkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">legacyPackages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">x86_64-linux</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">modules</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Or&nbsp;move&nbsp;this&nbsp;to&nbsp;a&nbsp;separate&nbsp;file&nbsp;and&nbsp;add&nbsp;it's&nbsp;path&nbsp;here&nbsp;instead</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;IE:&nbsp;./nvf_module.nix</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">(</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><span style="color:rgb(232,102,113);">pkgs</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Add&nbsp;any&nbsp;custom&nbsp;options&nbsp;(and&nbsp;do&nbsp;feel&nbsp;free&nbsp;to&nbsp;upstream&nbsp;them!)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;options&nbsp;=&nbsp;{&nbsp;...&nbsp;};</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">theme</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enable</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;and&nbsp;more&nbsp;options&nbsp;as&nbsp;you&nbsp;see&nbsp;fit...</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">neovim</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Example&nbsp;nixosConfiguration&nbsp;using&nbsp;the&nbsp;configured&nbsp;Neovim&nbsp;package</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">nixosConfigurations</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">yourHostName</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">nixpkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">nixosSystem</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;...</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">modules</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;This&nbsp;will&nbsp;make&nbsp;wrapped&nbsp;neovim&nbsp;available&nbsp;in&nbsp;your&nbsp;system&nbsp;packages</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Can&nbsp;also&nbsp;move&nbsp;this&nbsp;to&nbsp;another&nbsp;config&nbsp;file&nbsp;if&nbsp;you&nbsp;pass&nbsp;your&nbsp;own</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;inputs/self&nbsp;around&nbsp;with&nbsp;specialArgs</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(232,102,113);">pkgs</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">environment</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">systemPackages</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(171,178,191);">self</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">packages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(232,102,113);">${</span><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">stdenv</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">system</span><span style="color:rgb(232,102,113);">}</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">neovim</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;...</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
-<h1 id="ch-standalone-hm">Standalone Installation on Home-Manager</h1>
+<h2 id="ch-standalone-hm">Standalone Installation on Home-Manager</h2>
 <p>Your built Neovim configuration can be exposed as a flake output to make it
 easier to share across machines, repositories and so on. Or it can be added to
 your system packages to make it available across your system.</p>
@@ -203,15 +206,15 @@ the default theme enabled. You may use other options inside <code>config.vim</co
 <p>The below chapters will describe installing nvf as NixOS and Home-Manager
 modules. Note that those methods are mutually exclusive, and will likely cause
 path collisions if used simultaneously.</p>
-<h1 id="ch-nixos-module">NixOS Module</h1>
+<h2 id="ch-nixos-module">NixOS Module</h2>
 <p>The NixOS module allows us to customize the different <code>vim</code> options from inside
 the NixOS configuration without having to call for the wrapper yourself. It is
 the recommended way to use <strong>nvf</strong> alongside the home-manager module depending
 on your needs.</p>
-<h2 id="sec-nixos-flakes">With Flakes</h2>
-<h3 id="sec-flakes-prerequisites">Prerequisites</h3>
-<p>To install nvf with flakes, you must make sure the following requirements are
-met.</p>
+<h3 id="sec-nixos-flakes">With Flakes</h3>
+<h4 id="sec-flakes-prerequisites">Prerequisites</h4>
+<p>To install <strong>nvf</strong> with flakes, you must make sure the following requirements
+are met.</p>
 <ol>
 <li>Nix 2.4 or later must be installed. You may use <code>nix-shell</code> to get a later
 version of Nix from nixpkgs.</li>
@@ -236,7 +239,7 @@ your system.</p>
 <li>
 <p>Alternatively, you can enable flakes on a per-command basis with the
 following additional flags to <code>nix</code> and <code>home-manager</code>:</p>
-<pre class="highlight"><code class="language-sh"><span style="color:rgb(232,102,113);">$</span>&nbsp;<span style="color:rgb(171,178,191);">nix</span>&nbsp;<span style="color:rgb(232,102,113);">--extra-experimental-features</span>&nbsp;<span style="color:rgb(152,195,121);">"nix-command&nbsp;flakes"</span>&nbsp;<span style="color:rgb(171,178,191);">&lt;</span><span style="color:rgb(232,102,113);">sub-commands</span><span style="color:rgb(171,178,191);">&gt;</span><br></code></pre>
+<pre class="highlight"><code class="language-sh"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Temporarily&nbsp;enables&nbsp;"nix-command"&nbsp;and&nbsp;"flakes"&nbsp;experimental&nbsp;features.</span><br><span style="color:rgb(232,102,113);">$</span>&nbsp;<span style="color:rgb(171,178,191);">nix</span>&nbsp;<span style="color:rgb(232,102,113);">--extra-experimental-features</span>&nbsp;<span style="color:rgb(152,195,121);">"nix-command&nbsp;flakes"</span>&nbsp;<span style="color:rgb(171,178,191);">&lt;</span><span style="color:rgb(232,102,113);">sub-commands</span><span style="color:rgb(171,178,191);">&gt;</span><br></code></pre>
 </li>
 </ul>
 </li>
@@ -273,15 +276,15 @@ If you are new to NixOS, I encourage you to look into Flakes and see if they fit
 your use case. Alternatively, look into the aforementioned projects for more
 convenient dependency management mechanisms.</p>
 </div>
-# Home-Manager Module {#ch-hm-module}
-<p>The home-manager module allows us to customize the different <code>vim</code> options from
-inside the home-manager configuration without having to call for the wrapper
+## Home Manager Module {#ch-hm-module}
+<p>The Home Manager module allows us to customize the different <code>vim</code> options from
+inside the Home Manager configuration without having to call for the wrapper
 yourself. It is the recommended way to use <strong>nvf</strong> alongside the NixOS module
 depending on your needs.</p>
 <h2 id="sec-hm-flakes">With Flakes</h2>
-<h3 id="sec-flakes-prerequisites">Prerequisites</h3>
-<p>To install nvf with flakes, you must make sure the following requirements are
-met.</p>
+<h4 id="sec-flakes-prerequisites">Prerequisites</h4>
+<p>To install <strong>nvf</strong> with flakes, you must make sure the following requirements
+are met.</p>
 <ol>
 <li>Nix 2.4 or later must be installed. You may use <code>nix-shell</code> to get a later
 version of Nix from nixpkgs.</li>
@@ -306,7 +309,7 @@ your system.</p>
 <li>
 <p>Alternatively, you can enable flakes on a per-command basis with the
 following additional flags to <code>nix</code> and <code>home-manager</code>:</p>
-<pre class="highlight"><code class="language-sh"><span style="color:rgb(232,102,113);">$</span>&nbsp;<span style="color:rgb(171,178,191);">nix</span>&nbsp;<span style="color:rgb(232,102,113);">--extra-experimental-features</span>&nbsp;<span style="color:rgb(152,195,121);">"nix-command&nbsp;flakes"</span>&nbsp;<span style="color:rgb(171,178,191);">&lt;</span><span style="color:rgb(232,102,113);">sub-commands</span><span style="color:rgb(171,178,191);">&gt;</span><br></code></pre>
+<pre class="highlight"><code class="language-sh"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Temporarily&nbsp;enables&nbsp;"nix-command"&nbsp;and&nbsp;"flakes"&nbsp;experimental&nbsp;features.</span><br><span style="color:rgb(232,102,113);">$</span>&nbsp;<span style="color:rgb(171,178,191);">nix</span>&nbsp;<span style="color:rgb(232,102,113);">--extra-experimental-features</span>&nbsp;<span style="color:rgb(152,195,121);">"nix-command&nbsp;flakes"</span>&nbsp;<span style="color:rgb(171,178,191);">&lt;</span><span style="color:rgb(232,102,113);">sub-commands</span><span style="color:rgb(171,178,191);">&gt;</span><br></code></pre>
 </li>
 </ul>
 </li>
@@ -343,7 +346,7 @@ If you are new to NixOS, I encourage you to look into Flakes and see if they fit
 your use case. Alternatively, look into the aforementioned projects for more
 convenient dependency management mechanisms.</p>
 </div>
-</body></html><!-- TODO: mention the built-in flake template here when it is added --></main>
+</body></html><!-- markdownlint-enable MD014 --><!-- TODO: mention the built-in flake template here when it is added --></main>
       </div>
 
       <footer>

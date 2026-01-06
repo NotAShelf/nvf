@@ -96,28 +96,31 @@ in turn, will list any known modules or plugins that are known to misbehave, and
 possible workarounds that you may apply.</p>
 <h2 id="ch-quirks-nodejs">NodeJS</h2>
 <h3 id="sec-eslint-plugin-prettier">eslint-plugin-prettier</h3>
-<p>When working with NodeJS, everything works as expected, but some projects have
-settings that can fool nvf.</p>
-<p>If <a href="https://github.com/prettier/eslint-plugin-prettier">this plugin</a> or similar
-is included, you might get a situation where your eslint configuration diagnoses
-your formatting according to its own config (usually <code>.eslintrc.js</code>).</p>
-<p>The issue there is your formatting is made via prettierd.</p>
-<p>This results in auto-formatting relying on your prettier config, while your
-eslint config diagnoses formatting
-<a href="https://prettier.io/docs/en/comparison.html">which it's not supposed to</a>)</p>
-<p>In the end, you get discrepancies between what your editor does and what it
-wants.</p>
+<p>When working with NodeJS, which is <em>obviously</em> known for its meticulous
+standards, most things are bound to work as expected but some projects, tools
+and settings may fool the default configurations of tools provided by <strong>nvf</strong>.</p>
+<p>If</p>
+<p>If <a href="https://github.com/prettier/eslint-plugin-prettier">eslint-plugin-prettier</a> or similar is included, you might get a situation
+where your Eslint configuration diagnoses your formatting according to its own
+config (usually <code>.eslintrc.js</code>). The issue there is your formatting is made via
+prettierd.</p>
+<p>This results in auto-formatting relying on your prettier configuration, while
+your Eslint configuration diagnoses formatting "issues" while it's
+<a href="https://prettier.io/docs/en/comparison.html">not supposed to</a>. In the end, you get discrepancies between what your editor
+does and what it wants.</p>
 <p>Solutions are:</p>
 <ol>
-<li>Don't add a formatting config to eslint, and separate prettier and eslint.</li>
-<li>PR this repo to add an ESLint formatter and configure nvf to use it.</li>
+<li>Don't add a formatting config to Eslint, instead separate Prettier and
+Eslint.</li>
+<li>PR the repo in question to add an ESLint formatter, and configure <strong>nvf</strong> to
+use it.</li>
 </ol>
 <h2 id="ch-bugs-suggestions">Bugs &amp; Suggestions</h2>
-<p>Some quirks are not exactly quirks, but bugs in the module systeme. If you
-notice any issues with nvf, or this documentation, then please consider
-reporting them over at the <a href="https://github.com/notashelf/nvf/issues">issue tracker</a>. Issues tab, in addition to the
+<p>Some quirks are not exactly quirks, but bugs in the module system. If you notice
+any issues with <strong>nvf</strong>, or this documentation, then please consider reporting
+them over at the <a href="https://github.com/notashelf/nvf/issues">issue tracker</a>. Issues tab, in addition to the
 <a href="https://github.com/notashelf/nvf/discussions">discussions tab</a> is a good place as any to request new features.</p>
-<p>You may also consider submitting bugfixes, feature additions and upstreamed
+<p>You may also consider submitting bug fixes, feature additions and upstreamed
 changes that you think are critical over at the <a href="https://github.com/notashelf/nvf/pulls">pull requests tab</a>.</p>
 </body></html></main>
       </div>
