@@ -1,12 +1,15 @@
 # Release 0.9 {#sec-release-0-9}
 
-## Changelog {#sec-release-0-9-changelog}
-
 ## Breaking changes
 
-- Nixpkgs merged a full and incompatible rewrite of vimPlugins.nvim-treesitter.
-  The changes affected how grammars are built and it caused issues when neovim
-  attempted to load languages and could not find files in expected locations.
+- Nixpkgs has merged a fully incompatible rewrite of
+  `vimPlugins.nvim-treesitter`. Namely, it changes from the frozen `master`
+  branch to the new main branch. This change also affects how grammars are
+  built, and forces us to change a few things around.
+  - We must now use `"nvim-treesitter".setup` over the old `.configs`.
+    Additionally, built grammars **no longer include queries by default**,
+    therefore queries not managed by nvf will lack their respective syntax
+    highlighting capabilities.
 
 ## Changelog {#sec-release-0-9-changelog}
 
@@ -17,8 +20,9 @@
 
 [thamenato](https://github.com/thamenato):
 
-- Attempt to adapt nvim-treesitter to (breaking) Nixpkgs changes. Some treesitte grammars
-  were changed to prefer `grammarPlugins` over `builtGrammars`.
+- Attempt to adapt nvim-treesitter to (breaking) Nixpkgs changes. Some
+  treesitter grammars were changed to prefer `grammarPlugins` over
+  `builtGrammars`.
 
 [jfeo](https://github.com/jfeo):
 
@@ -29,7 +33,6 @@
 
 [Ring-A-Ding-Ding-Baby](https://github.com/Ring-A-Ding-Ding-Baby):
 
-
 - Aligned `codelldb` adapter setup with [rustaceanvim]’s built-in logic.
 - Added `languages.rust.dap.backend` option to choose between `codelldb` and
   `lldb-dap` adapters.
@@ -37,5 +40,3 @@
 [Libadoxon](https://github.com/Libadoxon):
 
 - `toggleterm` open map now also works when in terminal mode
-
-
