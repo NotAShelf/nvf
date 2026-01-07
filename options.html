@@ -15499,27 +15499,11 @@
     <details class="toc-category">
       <summary title="vim.treesitter.highlight">
         <span>vim.treesitter.highlight</span>
-        <span class="toc-count">3</span>
+        <span class="toc-count">1</span>
       </summary>
       <ul>
         
 
-        
-        <li>
-          <a href='#option-vim-treesitter-highlight-additionalVimRegexHighlighting' title="vim.treesitter.highlight.additionalVimRegexHighlighting">
-            additionalVimRegexHighlighting
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-vim-treesitter-highlight-disable' title="vim.treesitter.highlight.disable">
-            disable
-            
-            
-          </a>
-        </li>
         
         <li>
           <a href='#option-vim-treesitter-highlight-enable' title="vim.treesitter.highlight.enable">
@@ -15535,101 +15519,17 @@
   
   <li>
     <details class="toc-category">
-      <summary title="vim.treesitter.incrementalSelection">
-        <span>vim.treesitter.incrementalSelection</span>
-        <span class="toc-count">2</span>
-      </summary>
-      <ul>
-        
-
-        
-        <li>
-          <a href='#option-vim-treesitter-incrementalSelection-disable' title="vim.treesitter.incrementalSelection.disable">
-            disable
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-vim-treesitter-incrementalSelection-enable' title="vim.treesitter.incrementalSelection.enable">
-            enable
-            
-            
-          </a>
-        </li>
-        
-      </ul>
-    </details>
-  </li>
-  
-  <li>
-    <details class="toc-category">
       <summary title="vim.treesitter.indent">
         <span>vim.treesitter.indent</span>
-        <span class="toc-count">2</span>
+        <span class="toc-count">1</span>
       </summary>
       <ul>
         
 
-        
-        <li>
-          <a href='#option-vim-treesitter-indent-disable' title="vim.treesitter.indent.disable">
-            disable
-            
-            
-          </a>
-        </li>
         
         <li>
           <a href='#option-vim-treesitter-indent-enable' title="vim.treesitter.indent.enable">
             enable
-            
-            
-          </a>
-        </li>
-        
-      </ul>
-    </details>
-  </li>
-  
-  <li>
-    <details class="toc-category">
-      <summary title="vim.treesitter.mappings">
-        <span>vim.treesitter.mappings</span>
-        <span class="toc-count">4</span>
-      </summary>
-      <ul>
-        
-
-        
-        <li>
-          <a href='#option-vim-treesitter-mappings-incrementalSelection-decrementByNode' title="vim.treesitter.mappings.incrementalSelection.decrementByNode">
-            incrementalSelection.decrementByNode
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-vim-treesitter-mappings-incrementalSelection-incrementByNode' title="vim.treesitter.mappings.incrementalSelection.incrementByNode">
-            incrementalSelection.incrementByNode
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-vim-treesitter-mappings-incrementalSelection-incrementByScope' title="vim.treesitter.mappings.incrementalSelection.incrementByScope">
-            incrementalSelection.incrementByScope
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-vim-treesitter-mappings-incrementalSelection-init' title="vim.treesitter.mappings.incrementalSelection.init">
-            incrementalSelection.init
             
             
           </a>
@@ -41795,70 +41695,17 @@ there are at least 2 lines above cursorline.</p>
   </h3>
   <div class="option-type">Type: <code>list of package</code></div>
   <div class="option-description"><html><head></head><body><p>List of treesitter grammars to install. For grammars to be installed properly,
-you must use grammars from <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins</code>.
+you must use grammars from <code>pkgs.vimPlugins.nvim-treesitter.parsers</code> or <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins</code>.
 You can use <code>pkgs.vimPlugins.nvim-treesitter.allGrammars</code> to install all grammars.</p>
 <p>For languages already supported by nvf, you may use
 <code class="nixos-option">vim.language.&lt;lang&gt;.treesitter</code> options, which will automatically add
 the required grammars to this.</p>
 </body></html></div>
   <div class="option-default">Default: <code>[ ]</code></div>
-  <div class="option-example">Example: <pre><code>with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
+  <div class="option-example">Example: <pre><code>with pkgs.vimPlugins.nvim-treesitter.parsers; [
   regex
   kdl
 ];
-</code></pre></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
-</div>
-<div class="option" id="option-vim-treesitter-highlight-additionalVimRegexHighlighting">
-  <h3 class="option-name">
-    <a href="#option-vim-treesitter-highlight-additionalVimRegexHighlighting" class="option-anchor">vim.treesitter.highlight.additionalVimRegexHighlighting</a>
-    <span class="copy-link" title="Copy link to this option"></span>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-type">Type: <code>boolean or list of string</code></div>
-  <div class="option-description"><html><head></head><body><p>Takes either a boolean or a list of languages.</p>
-<p>Setting this to true will run <code>:h syntax</code> and tree-sitter at the same time.
-You may this to <code>true</code> if you depend on 'syntax' being enabled (like for
-indentation).</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Using this option may slow down your editor, and you may see some duplicate
-highlights.</p>
-</div>
-</body></html></div>
-  <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
-</div>
-<div class="option" id="option-vim-treesitter-highlight-disable">
-  <h3 class="option-name">
-    <a href="#option-vim-treesitter-highlight-disable" class="option-anchor">vim.treesitter.highlight.disable</a>
-    <span class="copy-link" title="Copy link to this option"></span>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-type">Type: <code>(list of string) or (luaInline)</code></div>
-  <div class="option-description"><html><head></head><body><p>List of treesitter grammars to disable highlighting for.</p>
-<p>This option can be either a list, in which case it will be
-converted to a Lua table containing grammars to disable
-highlighting for, or a string containing a <strong>lua function</strong>
-that will be read as is.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>A comma will be added at the end of your function, so you
-do not need to add it yourself. Doing so will cause in
-syntax errors within your Neovim configuration.</p>
-</div>
-</body></html></div>
-  <div class="option-default">Default: <code>[ ]</code></div>
-  <div class="option-example">Example: <pre><code>```lua
--- Disable slow treesitter highlight for large files
-function(lang, buf)
-  local max_filesize = 1000 * 1024 -- 1MB
-  local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-  if ok and stats and stats.size &gt; max_filesize then
-      return true
-  end
-end
-```
 </code></pre></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
 </div>
@@ -41875,66 +41722,6 @@ end
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-vim-treesitter-incrementalSelection-disable">
-  <h3 class="option-name">
-    <a href="#option-vim-treesitter-incrementalSelection-disable" class="option-anchor">vim.treesitter.incrementalSelection.disable</a>
-    <span class="copy-link" title="Copy link to this option"></span>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-type">Type: <code>(list of string) or (luaInline)</code></div>
-  <div class="option-description"><html><head></head><body><p>List of treesitter grammars to disable incremental selection
-for.</p>
-<p>This option can be either a list, in which case it will be
-converted to a Lua table containing grammars to disable
-indentation for, or a string containing a <strong>lua function</strong>
-that will be read as is.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>A comma will be added at the end of your function, so you
-do not need to add it yourself. Doing so will cause in
-syntax errors within your Neovim configuration.</p>
-</div>
-</body></html></div>
-  <div class="option-default">Default: <code>[ ]</code></div>
-  <div class="option-example">Example: <code>["c" "rust" ]</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
-</div>
-<div class="option" id="option-vim-treesitter-incrementalSelection-enable">
-  <h3 class="option-name">
-    <a href="#option-vim-treesitter-incrementalSelection-enable" class="option-anchor">vim.treesitter.incrementalSelection.enable</a>
-    <span class="copy-link" title="Copy link to this option"></span>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Whether to enable incremental selection with treesitter.</p>
-</body></html></div>
-  <div class="option-default">Default: <code>true</code></div>
-  <div class="option-example">Example: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
-</div>
-<div class="option" id="option-vim-treesitter-indent-disable">
-  <h3 class="option-name">
-    <a href="#option-vim-treesitter-indent-disable" class="option-anchor">vim.treesitter.indent.disable</a>
-    <span class="copy-link" title="Copy link to this option"></span>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-type">Type: <code>(list of string) or (luaInline)</code></div>
-  <div class="option-description"><html><head></head><body><p>List of treesitter grammars to disable indentation for.</p>
-<p>This option can be either a list, in which case it will be
-converted to a Lua table containing grammars to disable
-indentation for, or a string containing a <strong>lua function</strong>
-that will be read as is.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>A comma will be added at the end of your function, so you
-do not need to add it yourself. Doing so will cause in
-syntax errors within your Neovim configuration.</p>
-</div>
-</body></html></div>
-  <div class="option-default">Default: <code>[ ]</code></div>
-  <div class="option-example">Example: <code>["c" "rust"]</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
-</div>
 <div class="option" id="option-vim-treesitter-indent-enable">
   <h3 class="option-name">
     <a href="#option-vim-treesitter-indent-enable" class="option-anchor">vim.treesitter.indent.enable</a>
@@ -41946,54 +41733,6 @@ syntax errors within your Neovim configuration.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
   <div class="option-example">Example: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
-</div>
-<div class="option" id="option-vim-treesitter-mappings-incrementalSelection-decrementByNode">
-  <h3 class="option-name">
-    <a href="#option-vim-treesitter-mappings-incrementalSelection-decrementByNode" class="option-anchor">vim.treesitter.mappings.incrementalSelection.decrementByNode</a>
-    <span class="copy-link" title="Copy link to this option"></span>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-type">Type: <code>null or string</code></div>
-  <div class="option-description"><html><head></head><body><p>Decrement selection by node [treesitter]</p>
-</body></html></div>
-  <div class="option-default">Default: <code>"grm"</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
-</div>
-<div class="option" id="option-vim-treesitter-mappings-incrementalSelection-incrementByNode">
-  <h3 class="option-name">
-    <a href="#option-vim-treesitter-mappings-incrementalSelection-incrementByNode" class="option-anchor">vim.treesitter.mappings.incrementalSelection.incrementByNode</a>
-    <span class="copy-link" title="Copy link to this option"></span>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-type">Type: <code>null or string</code></div>
-  <div class="option-description"><html><head></head><body><p>Increment selection by node [treesitter]</p>
-</body></html></div>
-  <div class="option-default">Default: <code>"grn"</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
-</div>
-<div class="option" id="option-vim-treesitter-mappings-incrementalSelection-incrementByScope">
-  <h3 class="option-name">
-    <a href="#option-vim-treesitter-mappings-incrementalSelection-incrementByScope" class="option-anchor">vim.treesitter.mappings.incrementalSelection.incrementByScope</a>
-    <span class="copy-link" title="Copy link to this option"></span>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-type">Type: <code>null or string</code></div>
-  <div class="option-description"><html><head></head><body><p>Increment selection by scope [treesitter]</p>
-</body></html></div>
-  <div class="option-default">Default: <code>"grc"</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
-</div>
-<div class="option" id="option-vim-treesitter-mappings-incrementalSelection-init">
-  <h3 class="option-name">
-    <a href="#option-vim-treesitter-mappings-incrementalSelection-init" class="option-anchor">vim.treesitter.mappings.incrementalSelection.init</a>
-    <span class="copy-link" title="Copy link to this option"></span>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-type">Type: <code>null or string</code></div>
-  <div class="option-description"><html><head></head><body><p>Init selection [treesitter]</p>
-</body></html></div>
-  <div class="option-default">Default: <code>"gnn"</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-treesitter-textobjects-enable">
