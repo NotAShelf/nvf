@@ -126,6 +126,34 @@
         ".git"
       ];
     };
+
+    ruff = {
+      enable = true;
+      cmd = [(getExe pkgs.ruff) "server"];
+      filetypes = ["python"];
+      root_markers = [
+        "pyproject.toml"
+        "setup.py"
+        "setup.cfg"
+        "requirements.txt"
+        "Pipfile"
+        ".git"
+      ];
+    };
+
+    ty = {
+      enable = true;
+      cmd = [(getExe pkgs.ty) "server"];
+      filetypes = ["python"];
+      root_markers = [
+        "pyproject.toml"
+        "setup.py"
+        "setup.cfg"
+        "requirements.txt"
+        "Pipfile"
+        ".git"
+      ];
+    };
   };
 
   defaultFormat = ["black"];
