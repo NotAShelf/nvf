@@ -13,6 +13,18 @@
 
 ## Changelog {#sec-release-0-9-changelog}
 
+[taylrfnt](https://github.com/taylrfnt)
+
+- Introduce a `darwinModule` option for Darwin users. The ergonomics of
+  importing a `nixosModule` into a Darwin flake were less than ideal, and when
+  users fork and update npins, they are prone to encountering errors like the
+  following:
+
+  ```shell
+  (class: "nixos") cannot be imported into a module 
+  evaluation that expects class "darwin".
+  ```
+
 [suimong](https://github.com/suimong):
 
 - Fix `vim.tabline.nvimBufferline` where `setupOpts.options.hover` requires
