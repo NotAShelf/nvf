@@ -36,3 +36,7 @@
 [Libadoxon](https://github.com/Libadoxon):
 
 - `toggleterm` open map now also works when in terminal mode
+
+[Machshev](https://github.com/machshev):
+
+- Added `ruff` and `ty` LSP support for Python using the new API.
