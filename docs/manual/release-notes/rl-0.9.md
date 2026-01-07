@@ -36,3 +36,16 @@
 [Libadoxon](https://github.com/Libadoxon):
 
 - `toggleterm` open map now also works when in terminal mode
+
+[sumrdev](https://github.com/sumrdev):
+
+- Added `vtsls` typescript language server with vue integration
+- Add with
+  `nix
+      vim.languages.ts = {
+        enable = true;
+        extraVueSupport = true;
+        lsp = {
+          servers = ["vtsls"];
+        };
+      };`
