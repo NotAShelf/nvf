@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Known Issues and Quirks</title>
+     
+    <script>
+      // Apply sidebar state immediately to prevent flash
+      (function () {
+        if (localStorage.getItem("sidebar-collapsed") === "true") {
+          document.documentElement.classList.add("sidebar-collapsed");
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="assets/style.css" />
+    <script defer src="assets/main.js"></script>
+    
+    <script>
+      window.searchNamespace = window.searchNamespace || {};
+      window.searchNamespace.rootPath = "";
+    </script>
+    <script defer src="assets/search.js"></script>
+    
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-left">
+          <h1 class="site-title">
+            <a href="index.html">NVF</a>
+          </h1>
+
+          <nav class="header-nav">
+  <ul>
+    <li >
+      <a href="options.html">Options</a>
+    </li>
+    
+    <li><a href="search.html">Search</a></li>
+    
+  </ul>
+</nav>
+
+        </div>
+        
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Search..." />
+          <div id="search-results" class="search-results"></div>
+        </div>
+        
+      </header>
+
+      <div class="layout">
+        <div class="sidebar-toggle" aria-label="Toggle sidebar">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+          </svg>
+        </div>
+        <nav class="sidebar">
+          <div class="docs-nav">
+            <h2>Documents</h2>
+            <ul>
+              <li><a href="index.html">Introduction</a></li>
+<li><a href="configuring.html">Configuring nvf</a></li>
+<li><a href="hacking.html">Hacking nvf</a></li>
+<li><a href="tips.html">Helpful Tips</a></li>
+<li><a href="quirks.html">Known Issues and Quirks</a></li>
+<li><a href="release-notes.html">Release Notes</a></li>
+<li><a href="search.html">Search</a></li>
+
+            </ul>
+          </div>
+
+          <div class="toc">
+            <h2>Contents</h2>
+            <ul class="toc-list">
+              <li><a href="#ch-known-issues-quirks">Known Issues and Quirks</a>
+<ul><li><a href="#ch-quirks-nodejs">NodeJS</a>
+<ul><li><a href="#sec-eslint-plugin-prettier">eslint-plugin-prettier</a>
+</ul><li><a href="#ch-bugs-suggestions">Bugs &amp; Suggestions</a>
+</li></ul></li>
+            </ul>
+          </div>
+        </nav>
+
+        <main class="content"><html><head></head><body><h1 id="ch-known-issues-quirks">Known Issues and Quirks</h1>
+<p>At times, certain plugins and modules may refuse to play nicely with your setup,
+be it a result of generating Lua from Nix, or the state of packaging. This page,
+in turn, will list any known modules or plugins that are known to misbehave, and
+possible workarounds that you may apply.</p>
+<h2 id="ch-quirks-nodejs">NodeJS</h2>
+<h3 id="sec-eslint-plugin-prettier">eslint-plugin-prettier</h3>
+<p>When working with NodeJS, which is <em>obviously</em> known for its meticulous
+standards, most things are bound to work as expected but some projects, tools
+and settings may fool the default configurations of tools provided by <strong>nvf</strong>.</p>
+<p>If</p>
+<p>If <a href="https://github.com/prettier/eslint-plugin-prettier">eslint-plugin-prettier</a> or similar is included, you might get a situation
+where your Eslint configuration diagnoses your formatting according to its own
+config (usually <code>.eslintrc.js</code>). The issue there is your formatting is made via
+prettierd.</p>
+<p>This results in auto-formatting relying on your prettier configuration, while
+your Eslint configuration diagnoses formatting "issues" while it's
+<a href="https://prettier.io/docs/en/comparison.html">not supposed to</a>. In the end, you get discrepancies between what your editor
+does and what it wants.</p>
+<p>Solutions are:</p>
+<ol>
+<li>Don't add a formatting config to Eslint, instead separate Prettier and
+Eslint.</li>
+<li>PR the repo in question to add an ESLint formatter, and configure <strong>nvf</strong> to
+use it.</li>
+</ol>
+<h2 id="ch-bugs-suggestions">Bugs &amp; Suggestions</h2>
+<p>Some quirks are not exactly quirks, but bugs in the module system. If you notice
+any issues with <strong>nvf</strong>, or this documentation, then please consider reporting
+them over at the <a href="https://github.com/notashelf/nvf/issues">issue tracker</a>. Issues tab, in addition to the
+<a href="https://github.com/notashelf/nvf/discussions">discussions tab</a> is a good place as any to request new features.</p>
+<p>You may also consider submitting bug fixes, feature additions and upstreamed
+changes that you think are critical over at the <a href="https://github.com/notashelf/nvf/pulls">pull requests tab</a>.</p>
+</body></html></main>
+      </div>
+
+      <footer>
+  <p>Generated with ndg</p>
+</footer>
+
+    </div>
+
+    
+  </body>
+</html>
