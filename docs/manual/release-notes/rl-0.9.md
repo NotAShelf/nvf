@@ -131,3 +131,7 @@
 - Added [rumdl](https://github.com/rvben/rumdl) support to `languages.markdown`
 
 - Added [sqruff](https://github.com/quarylabs/sqruff) support to `languages.sql`
+
+[Machshev](https://github.com/machshev):
+
+- Added `ruff` and `ty` LSP support for Python under `programs.python`.
