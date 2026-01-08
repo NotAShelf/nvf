@@ -39,4 +39,5 @@
 
 [jtliang24](https://github.com/jtliang24):
 
-- Updated nix language plugin to use pkgs.nixfmt instead of pkgs.nixfmt-rfc-style
+- Updated nix language plugin to use pkgs.nixfmt instead of
+  pkgs.nixfmt-rfc-style

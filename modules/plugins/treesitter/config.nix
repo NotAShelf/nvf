@@ -24,27 +24,36 @@ in {
       pluginRC.treesitter-autocommands = entryAfter ["basic"] ''
         vim.api.nvim_create_augroup("nvf_treesitter", { clear = true })
 
-        ${lib.optionalString cfg.highlight.enable ''
-          -- Enable treesitter highlighting for all filetypes
-          vim.api.nvim_create_autocmd("FileType", {
-            group = "nvf_treesitter",
-            pattern = "*",
-            callback = function()
-              pcall(vim.treesitter.start)
-            end,
-          })
-        ''}
+        local has_configs_module = pcall(require, 'nvim-treesitter.configs')
 
-        ${lib.optionalString cfg.indent.enable ''
-          -- Enable treesitter highlighting for all filetypes
+        if has_configs_module then
+          -- nvim-treesitter master branch
+          require('nvim-treesitter.configs').setup(vim.tbl_deep_extend("force", {
+            ${lib.optionalString cfg.highlight.enable ''
+          highlight = { enable = true },
+        ''}${lib.optionalString cfg.indent.enable ''
+          indent = { enable = true },
+        ''}
+          }, ${lib.nvim.lua.toLuaObject cfg.setupOpts}))
+        else
+          -- nvim-treesitter main branch
+          ${lib.optionalString (cfg.setupOpts != {}) ''
+          require('nvim-treesitter').setup(${lib.nvim.lua.toLuaObject cfg.setupOpts})
+        ''}
+          ${lib.optionalString (cfg.highlight.enable || cfg.indent.enable) ''
           vim.api.nvim_create_autocmd("FileType", {
             group = "nvf_treesitter",
             pattern = "*",
             callback = function()
-              vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+              ${lib.optionalString cfg.highlight.enable ''
+            pcall(vim.treesitter.start)
+          ''}${lib.optionalString cfg.indent.enable ''
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          ''}
             end,
           })
         ''}
+        end
 
         ${lib.optionalString cfg.fold ''
           -- Enable treesitter folding for all filetypes

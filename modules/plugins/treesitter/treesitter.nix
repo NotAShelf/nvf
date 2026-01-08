@@ -5,6 +5,7 @@
 }: let
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) listOf package bool;
+  inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   options.vim.treesitter = {
     enable = mkEnableOption "treesitter, also enabled automatically through language options";
@@ -66,5 +67,7 @@ in {
 
     indent = {enable = mkEnableOption "indentation with treesitter" // {default = true;};};
     highlight = {enable = mkEnableOption "highlighting with treesitter" // {default = true;};};
+
+    setupOpts = mkPluginSetupOption "nvim-treesitter" {};
   };
 }
