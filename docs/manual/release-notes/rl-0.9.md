@@ -44,3 +44,7 @@
   - LSP config
   - Added `tofu` and `tofu-ls` as (free) alternative to `terrraform` and
     `terraform-ls`
+
+[jtliang24](https://github.com/jtliang24):
+
+- Updated nix language plugin to use pkgs.nixfmt instead of pkgs.nixfmt-rfc-style
