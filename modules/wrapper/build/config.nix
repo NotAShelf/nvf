@@ -46,6 +46,21 @@
       # Disable failing require check hook checks
       doCheck = false;
     };
+    # Checkhealth fails to get the plugin's commit and therefore to
+    # show the rest of the useful diagnostics if not built like this.
+    obsidian-nvim = pkgs.vimUtils.buildVimPlugin {
+      # If set to `"obsidian-nvim"`, this breaks like `buildPlug` and `noBuildPlug`.
+      name = "obsidian.nvim";
+      src = getPin "obsidian-nvim";
+      nvimSkipModules = [
+        "minimal"
+        # require picker plugins
+        "obsidian.picker._telescope"
+        "obsidian.picker._snacks"
+        "obsidian.picker._fzf"
+        "obsidian.picker._mini"
+      ];
+    };
 
     # Get plugins built from source from self.packages
     # If adding a new plugin to be built from source, it must also be inherited
