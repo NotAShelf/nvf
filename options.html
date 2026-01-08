@@ -13035,7 +13035,7 @@
     <details class="toc-category">
       <summary title="vim.notes.obsidian">
         <span>vim.notes.obsidian</span>
-        <span class="toc-count">5</span>
+        <span class="toc-count">2</span>
       </summary>
       <ul>
         
@@ -13052,30 +13052,6 @@
         <li>
           <a href='#option-vim-notes-obsidian-setupOpts' title="vim.notes.obsidian.setupOpts">
             setupOpts
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-vim-notes-obsidian-setupOpts-completion-nvim_cmp' title="vim.notes.obsidian.setupOpts.completion.nvim_cmp">
-            setupOpts.completion.nvim_cmp
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-vim-notes-obsidian-setupOpts-daily_notes-date_format' title="vim.notes.obsidian.setupOpts.daily_notes.date_format">
-            setupOpts.daily_notes.date_format
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-vim-notes-obsidian-setupOpts-daily_notes-folder' title="vim.notes.obsidian.setupOpts.daily_notes.folder">
-            setupOpts.daily_notes.folder
             
             
           </a>
@@ -37426,7 +37402,19 @@ not listed in the docs</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Whether to enable complementary neovim plugins for Obsidian editor.</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable plugins to complement the Obsidian markdown editor [obsidian.nvim].</p>
+<p>Enables <a href="https://github.com/preservim/vim-markdown?tab=readme-ov-file#options">vim-markdown</a> which automatically folds markdown headings inside and outside of workspaces/vaults.
+Set <code class="nixos-option">vim.globals.vim_markdown_folding_disable = 1;</code> to disable automatic folding,
+or <code class="nixos-option">vim.globals.vim_markdown_folding_level = &lt;heading-level-int&gt;;</code> to set the default fold level for new buffers.</p>
+<p>nvf will choose one of <code>snacks.picker</code>, <code>mini.pick</code>, <code>telescope</code>, or <code>fzf-lua</code> as the <code>obsidian.nvim</code> picker based on whether they are enabled, in that order.</p>
+<p>You can enable one of them with one of the following:</p>
+<ul>
+<li><code class="nixos-option">vim.utility.snacks-nvim.setupOpts.picker.enabled</code> and <a class="option-reference" href="options.html#option-vim-utility-snacks-nvim-enable"><code class="nixos-option">vim.utility.snacks-nvim.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim-mini-pick-enable"><code class="nixos-option">vim.mini.pick.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim-telescope-enable"><code class="nixos-option">vim.telescope.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim-fzf-lua-enable"><code class="nixos-option">vim.fzf-lua.enable</code></a></li>
+</ul>
+<p><code class="nixos-option">vim.notes.obsidian.setupOpts.ui.enable</code> is automatically disabled if <code>render-markdown.nvim</code> or <code>markview.nvim</code> are enabled.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
@@ -37439,47 +37427,11 @@ not listed in the docs</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>open submodule of anything</code></div>
-  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of Obsidian.nvim</p>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of obsidian.nvim</p>
 <p>You can pass in any additional options even if they're
 not listed in the docs</p>
 </body></html></div>
   <div class="option-default">Default: <code>{ }</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/notes/obsidian/obsidian.nix" target="_blank">&lt;nvf/modules/plugins/notes/obsidian/obsidian.nix&gt;</a></code></div>
-</div>
-<div class="option" id="option-vim-notes-obsidian-setupOpts-completion-nvim_cmp">
-  <h3 class="option-name">
-    <a href="#option-vim-notes-obsidian-setupOpts-completion-nvim_cmp" class="option-anchor">vim.notes.obsidian.setupOpts.completion.nvim_cmp</a>
-    <span class="copy-link" title="Copy link to this option"></span>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>If using nvim-cmp, otherwise set to false</p>
-</body></html></div>
-  <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/notes/obsidian/obsidian.nix" target="_blank">&lt;nvf/modules/plugins/notes/obsidian/obsidian.nix&gt;</a></code></div>
-</div>
-<div class="option" id="option-vim-notes-obsidian-setupOpts-daily_notes-date_format">
-  <h3 class="option-name">
-    <a href="#option-vim-notes-obsidian-setupOpts-daily_notes-date_format" class="option-anchor">vim.notes.obsidian.setupOpts.daily_notes.date_format</a>
-    <span class="copy-link" title="Copy link to this option"></span>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-type">Type: <code>null or string</code></div>
-  <div class="option-description"><html><head></head><body><p>Date format used for creating daily notes</p>
-</body></html></div>
-  <div class="option-default">Default: <code>null</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/notes/obsidian/obsidian.nix" target="_blank">&lt;nvf/modules/plugins/notes/obsidian/obsidian.nix&gt;</a></code></div>
-</div>
-<div class="option" id="option-vim-notes-obsidian-setupOpts-daily_notes-folder">
-  <h3 class="option-name">
-    <a href="#option-vim-notes-obsidian-setupOpts-daily_notes-folder" class="option-anchor">vim.notes.obsidian.setupOpts.daily_notes.folder</a>
-    <span class="copy-link" title="Copy link to this option"></span>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-type">Type: <code>null or string</code></div>
-  <div class="option-description"><html><head></head><body><p>Directory in which daily notes should be created</p>
-</body></html></div>
-  <div class="option-default">Default: <code>null</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/notes/obsidian/obsidian.nix" target="_blank">&lt;nvf/modules/plugins/notes/obsidian/obsidian.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-notes-orgmode-enable">

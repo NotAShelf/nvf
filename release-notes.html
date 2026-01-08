@@ -1819,10 +1819,22 @@ attach behavior.</li>
 <h1 id="sec-release-0-9">Release 0.9</h1>
 <h2>Breaking changes</h2>
 <ul>
-<li>Nixpkgs has merged a fully incompatible rewrite of
+<li>
+<p>Nixpkgs has merged a fully incompatible rewrite of
 <code>vimPlugins.nvim-treesitter</code>. Namely, it changes from the frozen <code>master</code>
 branch to the new main branch. This change removes incremental selections, so
-it is no longer available.</li>
+it is no longer available.</p>
+</li>
+<li>
+<p><a href="https://github.com/obsidian-nvim/obsidian.nvim">obsidian.nvim</a> now uses a maintained fork which has removed the <code>dir</code>
+setting. Use <code>workspaces</code> instead:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">workspaces</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">name</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">any-string</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">path</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">~/old/dir/path/value</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>Some other settings and commands are now deprecated but are still supported.</p>
+<ul>
+<li>The <code>setupOpts.mappings</code> options were also removed. Use the built-in
+Neovim settings (nvf's <a class="option-reference" href="options.html#option-vim-keymaps"><code class="nixos-option">vim.keymaps</code></a>)</li>
+</ul>
+</li>
 </ul>
 <h2 id="sec-release-0-9-changelog">Changelog</h2>
 <p><a href="https://github.com/suimong">suimong</a>:</p>
@@ -1854,6 +1866,62 @@ hard-coded options as default values.</li>
 <p><a href="https://github.com/jtliang24">jtliang24</a>:</p>
 <ul>
 <li>Updated nix language plugin to use pkgs.nixfmt instead of pkgs.nixfmt-rfc-style</li>
+</ul>
+<p><a href="https://github.com/alfarelcynthesis">alfarel</a>:</p>
+<ul>
+<li>Upgrade <a href="https://github.com/obsidian-nvim/obsidian.nvim">obsidian.nvim</a> to use a maintained fork, instead of the unmaintained
+upstream.
+<ul>
+<li>Various upstream improvements:
+<ul>
+<li>Support <a href="https://github.com/saghen/blink.cmp">blink.cmp</a> and completion plugin autodetection.</li>
+<li>Support various pickers for prompts, including <a href="https://github.com/folke/snacks.nvim">snacks.nvim</a>'s
+<code>snacks.picker</code>, <a href="https://nvim-mini.org/mini.nvim/">mini.nvim</a>'s <code>mini.pick</code>, <a href="https://github.com/nvim-telescope/telescope.nvim">telescope.nvim</a>, and
+<a href="https://github.com/ibhagwan/fzf-lua">fzf-lua</a>.</li>
+<li>Merge commands like <code>ObsidianBacklinks</code> into <code>Obisidian backlinks</code>. The
+old format is still supported by default.</li>
+<li>Some <code>setupOpts</code> options have changed:
+<ul>
+<li>
+<p><code>disable_frontmatter</code> -&gt; <code>frontmatter.enabled</code> (and inverted), still
+supported.</p>
+</li>
+<li>
+<p><code>note_frontmatter_func</code> -&gt; <code>frontmatter.func</code>, still supported.</p>
+</li>
+<li>
+<p><code>statusline</code> module is now deprecated in favour of <code>footer</code>, still
+supported.</p>
+</li>
+<li>
+<p><code>dir</code> is no longer supported, use <code>workspaces</code>:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">workspaces</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">name</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">any-string</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">path</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">~/old/dir/path/value</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+</li>
+<li>
+<p><code>use_advanced_uri</code> -&gt; <code>open.use_advanced_uri</code>.</p>
+</li>
+<li>
+<p>Mappings are now expected to be set using the built-in Neovim APIs,
+managed by <code>vim.keymaps</code> in nvf, instead of <code>mappings</code> options.</p>
+</li>
+<li>
+<p>Some option defaults have changed.</p>
+</li>
+</ul>
+</li>
+<li>And more.</li>
+</ul>
+</li>
+<li>Automatically configure an enabled picker in the order mentioned above, if
+any are enabled.</li>
+<li>Add integration with <code>snacks.image</code> for rendering workspace/vault assets.</li>
+<li>Detect if <a href="https://github.com/MeanderingProgrammer/render-markdown.nvim">render-markdown.nvim</a> or <a href="https://github.com/OXY2DEV/markview.nvim">markview.nvim</a> are enabled and disable
+the <code>ui</code> module if so. It should work without this, but <code>render-markdown</code>'s
+<code class="command">:healthcheck</code> doesn't know that.</li>
+<li>Remove <a href="https://github.com/folke/which-key.nvim">which-key.nvim</a> <code>&lt;leader&gt;o</code> <code>+Notes</code> description which did not
+actually correspond to any keybinds.</li>
+</ul>
+</li>
 </ul>
 </body></html></main>
       </div>
