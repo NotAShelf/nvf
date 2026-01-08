@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Helpful Tips</title>
+     
+    <script>
+      // Apply sidebar state immediately to prevent flash
+      (function () {
+        if (localStorage.getItem("sidebar-collapsed") === "true") {
+          document.documentElement.classList.add("sidebar-collapsed");
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="assets/style.css" />
+    <script defer src="assets/main.js"></script>
+    
+    <script>
+      window.searchNamespace = window.searchNamespace || {};
+      window.searchNamespace.rootPath = "";
+    </script>
+    <script defer src="assets/search.js"></script>
+    
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-left">
+          <h1 class="site-title">
+            <a href="index.html">NVF</a>
+          </h1>
+
+          <nav class="header-nav">
+  <ul>
+    <li >
+      <a href="options.html">Options</a>
+    </li>
+    
+    <li><a href="search.html">Search</a></li>
+    
+  </ul>
+</nav>
+
+        </div>
+        
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Search..." />
+          <div id="search-results" class="search-results"></div>
+        </div>
+        
+      </header>
+
+      <div class="layout">
+        <div class="sidebar-toggle" aria-label="Toggle sidebar">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+          </svg>
+        </div>
+        <nav class="sidebar">
+          <div class="docs-nav">
+            <h2>Documents</h2>
+            <ul>
+              <li><a href="index.html">Introduction</a></li>
+<li><a href="configuring.html">Configuring nvf</a></li>
+<li><a href="hacking.html">Hacking nvf</a></li>
+<li><a href="tips.html">Helpful Tips</a></li>
+<li><a href="quirks.html">Known Issues and Quirks</a></li>
+<li><a href="release-notes.html">Release Notes</a></li>
+<li><a href="search.html">Search</a></li>
+
+            </ul>
+          </div>
+
+          <div class="toc">
+            <h2>Contents</h2>
+            <ul class="toc-list">
+              <li><a href="#ch-helpful-tips">Helpful Tips</a>
+<li><a href="#sec-debugging-nvf">Debugging nvf</a>
+<ul><li><a href="#sec-accessing-config">Accessing neovimConfig</a>
+</ul><li><a href="#sec-offline-documentation">Offline Documentation</a>
+<li><a href="#sec-pure-lua-config">Pure Lua Configuration</a>
+<ul><li><a href="#sec-pure-nvf-runtime">Pure Runtime Directory</a>
+<li><a href="#sec-impure-absolute-dir">Impure Absolute Directory</a>
+</ul><li><a href="#sec-plugin-sources">Adding Plugins From Different Sources</a>
+<ul><li><a href="#ch-plugins-from-nixpkgs">Nixpkgs &amp; Friends</a>
+<li><a href="#ch-plugins-from-source">Building Your Own Plugins</a>
+</li></ul></li>
+            </ul>
+          </div>
+        </nav>
+
+        <main class="content"><html><head></head><body><h1 id="ch-helpful-tips">Helpful Tips</h1>
+<p>This section provides helpful tips that may be considered "unorthodox" or "too
+advanced" for some users. We will cover basic debugging steps, offline
+documentation, configuring <strong>nvf</strong> with pure Lua and using custom plugin sources
+in <strong>nvf</strong> in this section. For general configuration tips, please see previous
+chapters.</p>
+<h1 id="sec-debugging-nvf">Debugging nvf</h1>
+<p>There may be instances where the your Nix configuration evaluates to invalid
+Lua, or times when you will be asked to provide your built Lua configuration for
+easier debugging by nvf maintainers. nvf provides two helpful utilities out of
+the box.</p>
+<p><strong>nvf-print-config</strong> and <strong>nvf-print-config-path</strong> will be bundled with nvf as
+lightweight utilities to help you view or share your built configuration when
+necessary.</p>
+<p>To view your configuration with syntax highlighting, you may use the
+<a href="https://github.com/sharkdp/bat">bat pager</a>.</p>
+<pre class="highlight"><code class="language-bash"><span style="color:rgb(97,175,239);">nvf-print-config</span>&nbsp;<span style="color:rgb(171,178,191);">|</span>&nbsp;<span style="color:rgb(97,175,239);">bat</span>&nbsp;<span style="color:rgb(232,102,113);">--language=lua</span><br></code></pre>
+<p>Alternatively, <code>cat</code> or <code>less</code> may also be used.</p>
+<h2 id="sec-accessing-config">Accessing <code>neovimConfig</code></h2>
+<p>It is also possible to access the configuration for the wrapped package. The
+<em>built</em> Neovim package will contain a <code>neovimConfig</code> attribute in its
+<code>passthru</code>.</p>
+<h1 id="sec-offline-documentation">Offline Documentation</h1>
+<p>The manpages provided by nvf contains an offline version of the option search
+normally available at <a href="https://notashelf.github.io/nvf/options.html">https://notashelf.github.io/nvf/options.html</a>. You may
+use the <code>man 5 nvf</code> command to view option documentation from the comfort of
+your terminal.</p>
+<p>Note that this is only available for NixOS and Home-Manager module
+installations.</p>
+<h1 id="sec-pure-lua-config">Pure Lua Configuration</h1>
+<p>We recognize that you might not always want to configure your setup purely in
+Nix, sometimes doing things in Lua is simply the "superior" option. In such a
+case you might want to configure your Neovim instance using Lua, and nothing but
+Lua. It is also possible to mix Lua and Nix configurations.</p>
+<p>Pure Lua or hybrid Lua/Nix configurations can be achieved in two different ways.
+<em>Purely</em>, by modifying Neovim's runtime directory or <em>impurely</em> by placing Lua
+configuration in a directory found in <code>$HOME</code>. For your convenience, this
+section will document both methods as they can be used.</p>
+<h2 id="sec-pure-nvf-runtime">Pure Runtime Directory</h2>
+<p>As of 0.6, nvf allows you to modify Neovim's runtime path to suit your needs.
+One of the ways the new runtime option is to add a configuration <strong>located
+relative to your <code>flake.nix</code></strong>, which must be version controlled in pure flakes
+manner.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Let&nbsp;us&nbsp;assume&nbsp;we&nbsp;are&nbsp;in&nbsp;the&nbsp;repository&nbsp;root,&nbsp;i.e.,&nbsp;the&nbsp;same&nbsp;directory&nbsp;as&nbsp;the</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;flake.nix.&nbsp;For&nbsp;the&nbsp;sake&nbsp;of&nbsp;the&nbsp;argument,&nbsp;we&nbsp;will&nbsp;assume&nbsp;that&nbsp;the&nbsp;Neovim&nbsp;lua</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;configuration&nbsp;is&nbsp;in&nbsp;a&nbsp;nvim/&nbsp;directory&nbsp;relative&nbsp;to&nbsp;flake.nix.</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">additionalRuntimePaths</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;This&nbsp;will&nbsp;be&nbsp;added&nbsp;to&nbsp;Neovim's&nbsp;runtime&nbsp;paths.&nbsp;Conceptually,&nbsp;this&nbsp;behaves</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;very&nbsp;similarly&nbsp;to&nbsp;~/.config/nvim&nbsp;but&nbsp;you&nbsp;may&nbsp;not&nbsp;place&nbsp;a&nbsp;top-level</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;init.lua&nbsp;to&nbsp;be&nbsp;able&nbsp;to&nbsp;require&nbsp;it&nbsp;directly.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(232,102,113);">./nvim</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>This will add the <code>nvim</code> directory, or rather, the <em>store path</em> that will be
+realised after your flake gets copied to the Nix store, to Neovim's runtime
+directory. You may now create a <code>lua/myconfig</code> directory within this nvim
+directory, and call it with <a class="option-reference" href="options.html#option-vim-luaConfigRC"><code class="nixos-option">vim.luaConfigRC</code></a>.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(232,102,113);">pkgs</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">additionalRuntimePaths</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;You&nbsp;can&nbsp;list&nbsp;more&nbsp;than&nbsp;one&nbsp;file&nbsp;here.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(232,102,113);">./nvim-custom-1</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;To&nbsp;make&nbsp;sure&nbsp;list&nbsp;items&nbsp;are&nbsp;ordered,&nbsp;use&nbsp;lib.mkBefore&nbsp;or&nbsp;lib.mkAfter</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Simply&nbsp;placing&nbsp;list&nbsp;items&nbsp;in&nbsp;a&nbsp;given&nbsp;order&nbsp;will&nbsp;**not**&nbsp;ensure&nbsp;that</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;this&nbsp;list&nbsp;&nbsp;will&nbsp;be&nbsp;deterministic.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(232,102,113);">./nvim-custom-2</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">startPlugins</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">gitsigns</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Neovim&nbsp;supports&nbsp;in-line&nbsp;syntax&nbsp;highlighting&nbsp;for&nbsp;multi-line&nbsp;strings.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Simply&nbsp;place&nbsp;the&nbsp;filetype&nbsp;in&nbsp;a&nbsp;/*&nbsp;comment&nbsp;*/&nbsp;before&nbsp;the&nbsp;line.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">luaConfigRC</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">myconfig</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">/*&nbsp;lua&nbsp;*/</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(92,99,112);font-style: italic;">--&nbsp;Call&nbsp;the&nbsp;Lua&nbsp;module&nbsp;from&nbsp;./nvim/lua/myconfig</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(86,182,194);">require</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(152,195,121);">"myconfig"</span><span style="color:rgb(132,139,152);">)</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(92,99,112);font-style: italic;">--&nbsp;Any&nbsp;additional&nbsp;Lua&nbsp;configuration&nbsp;that&nbsp;you&nbsp;might&nbsp;want&nbsp;*after*&nbsp;your&nbsp;own</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(92,99,112);font-style: italic;">--&nbsp;configuration.&nbsp;For&nbsp;example,&nbsp;a&nbsp;plugin&nbsp;setup&nbsp;call.</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(86,182,194);">require</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(152,195,121);">'gitsigns'</span><span style="color:rgb(132,139,152);">)</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">setup</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(229,192,123);font-weight: bold;">{</span><span style="color:rgb(229,192,123);font-weight: bold;">}</span><span style="color:rgb(132,139,152);">)</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h2 id="sec-impure-absolute-dir">Impure Absolute Directory</h2>
+<p>As of <a href="https://github.com/neovim/neovim/pull/22128">Neovim 0.9</a>, <code class="nix-var">$NVIM_APPNAME</code> is a variable expected by Neovim to
+decide on the configuration directory. nvf sets this variable as <code>"nvf"</code>,
+meaning <code>~/.config/nvf</code> will be regarded as <em>the</em> configuration directory by
+Neovim, similar to how <code>~/.config/nvim</code> behaves in regular installations. This
+allows some degree of Lua configuration, backed by our low-level wrapper
+<a href="https://github.com/Gerg-L/mnw">mnw</a>. Creating a <code>lua/</code> directory located in
+<code>$NVIM_APPNAME</code> ("nvf" by default) and placing your configuration in, e.g.,
+<code>~/.config/nvf/lua/myconfig</code> will allow you to <code>require</code> it as a part of the Lua
+module system through nvf's module system.</p>
+<p>Let's assume your <code>~/.config/nvf/lua/myconfig/init.lua</code> consists of the
+following:</p>
+<pre class="highlight"><code class="language-lua"><span style="color:rgb(92,99,112);font-style: italic;">--&nbsp;init.lua</span><br><span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">keymap</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">set</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(152,195,121);">"n"</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(152,195,121);">"&nbsp;"</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(152,195,121);">"&lt;Nop&gt;"</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(229,192,123);font-weight: bold;">{</span>&nbsp;<span style="color:rgb(86,182,194);">silent</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(86,182,194);">remap</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">false</span>&nbsp;<span style="color:rgb(229,192,123);font-weight: bold;">}</span><span style="color:rgb(132,139,152);">)</span><br><span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">g</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">mapleader</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"&nbsp;"</span><br></code></pre>
+<p>The following Nix configuration via <a class="option-reference" href="options.html#option-vim-luaConfigRC"><code class="nixos-option">vim.luaConfigRC</code></a> will allow loading
+this</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;The&nbsp;attribute&nbsp;name&nbsp;"myconfig-dir"&nbsp;here&nbsp;is&nbsp;arbitrary.&nbsp;It&nbsp;is&nbsp;required&nbsp;to&nbsp;be</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;a&nbsp;*named*&nbsp;attribute&nbsp;by&nbsp;the&nbsp;DAG&nbsp;system,&nbsp;but&nbsp;the&nbsp;name&nbsp;is&nbsp;entirely&nbsp;up&nbsp;to&nbsp;you.</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">luaConfigRC</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">myconfig-dir</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;require("myconfig")</span><br><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;Any&nbsp;additional&nbsp;Lua</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>After you load your custom configuration, you may use an <code>init.lua</code> located in
+your custom configuration directory to configure Neovim exactly as you would
+without a wrapper like nvf. If you want to place your <code>require</code> call in a
+specific position (i.e., before or after options you set in nvf) the
+<a href="./configuring.html#ch-using-dags">DAG system</a> will let you place your configuration in a location of your
+choosing.</p>
+<h1 id="sec-plugin-sources">Adding Plugins From Different Sources</h1>
+<p><strong>nvf</strong> attempts to avoid depending on Nixpkgs for Neovim plugins. For the most
+part, this is accomplished by defining each plugin's source and building them
+from source.</p>
+<p>To define plugin sources, we use <a href="https://github.com/andir/npins">npins</a> and pin each plugin source using
+builtin fetchers. You are not bound by this restriction. In your own
+configuration, any kind of fetcher or plugin source is fine.</p>
+<h2 id="ch-plugins-from-nixpkgs">Nixpkgs &amp; Friends</h2>
+<p><code>vim.startPlugins</code> and <code>vim.optPlugins</code> options take either a <strong>string</strong>, in
+which case a plugin from nvf's internal plugins registry will be used, or a
+<strong>package</strong>. If your plugin does not require any setup, or ordering for it s
+configuration, then it is possible to add it to <code>vim.startPlugins</code> to load it on
+startup.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(232,102,113);">pkgs</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Aerial&nbsp;does&nbsp;require&nbsp;some&nbsp;setup.&nbsp;In&nbsp;the&nbsp;case&nbsp;you&nbsp;pass&nbsp;a&nbsp;plugin&nbsp;that&nbsp;*does*</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;require&nbsp;manual&nbsp;setup,&nbsp;then&nbsp;you&nbsp;must&nbsp;also&nbsp;call&nbsp;the&nbsp;setup&nbsp;function.</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">startPlugins</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">aerial-nvim</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>This will fetch aerial.nvim from nixpkgs, and add it to Neovim's runtime path to
+be loaded manually. Although for plugins that require manual setup, you are
+encouraged to use <a href="./options.html#option-vim-extraPlugins"><code>vim.extraPlugins</code></a>.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">extraPlugins</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">aerial</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">package</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">aerial-nvim</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">setup</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">require('aerial').setup&nbsp;{}</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>More details on the extraPlugins API is documented in the
+<a href="./configuring.html#ch-custom-plugins">custom plugins section</a>.</p>
+<h2 id="ch-plugins-from-source">Building Your Own Plugins</h2>
+<p>In the case a plugin is not available in Nixpkgs, or the Nixpkgs package is
+outdated (or, more likely, broken) it is possible to build the plugins from
+source using a tool, such as <a href="https://github.com/andir/npins">npins</a>. You may also use your <em>flake inputs</em> as
+sources.</p>
+<p>Example using plugin inputs:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;In&nbsp;your&nbsp;flake.nix</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">inputs</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">aerial-nvim</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">url</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">github:stevearc/aerial.nvim</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(171,178,191);">flake</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">false</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Make&nbsp;sure&nbsp;that&nbsp;'inputs'&nbsp;is&nbsp;properly&nbsp;propagated&nbsp;into&nbsp;Nvf,&nbsp;for&nbsp;example,&nbsp;through</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;specialArgs.</span><br>&nbsp;&nbsp;outputs&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(232,102,113);">...</span>&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>In the case, you may use the input directly for the plugin's source attribute in
+<code>buildVimPlugin</code>.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Make&nbsp;sure&nbsp;that&nbsp;'inputs'&nbsp;is&nbsp;properly&nbsp;propagated!&nbsp;It&nbsp;will&nbsp;be&nbsp;missing&nbsp;otherwise</span><br><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;and&nbsp;the&nbsp;resulting&nbsp;errors&nbsp;might&nbsp;be&nbsp;too&nbsp;obscure.</span><br><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(232,102,113);">inputs</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(198,120,221);">let</span><br>&nbsp;&nbsp;aerial-from-source&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimUtils</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">buildVimPlugin</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">name</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">aerial-nvim</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">src</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">inputs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">aerial-nvim</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(198,120,221);">in</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">extraPlugins</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">aerial</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">package</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">aerial-from-source</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">setup</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">require('aerial').setup&nbsp;{}</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>Alternatively, if you do not want to keep track of the source using flake inputs
+or npins, you may call <code>fetchFromGitHub</code> (or other fetchers) directly. An
+example would look like this.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(97,175,239);">regexplainer</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">buildVimPlugin</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">name</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">nvim-regexplainer</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">src</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(97,175,239);">fetchFromGitHub</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">owner</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">bennypowers</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">repo</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">nvim-regexplainer</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">rev</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">4250c8f3c1307876384e70eeedde5149249e154f</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">hash</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">sha256-15DLbKtOgUPq4DcF71jFYu31faDn52k3P1x47GL3+b0=</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;The&nbsp;'buildVimPlugin'&nbsp;imposes&nbsp;some&nbsp;"require&nbsp;checks"&nbsp;on&nbsp;all&nbsp;plugins&nbsp;build&nbsp;from</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;source.&nbsp;Failing&nbsp;tests,&nbsp;if&nbsp;they&nbsp;are&nbsp;not&nbsp;relevant,&nbsp;can&nbsp;be&nbsp;disabled&nbsp;using&nbsp;the</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;'nvimSkipModule'&nbsp;argument&nbsp;to&nbsp;the&nbsp;'buildVimPlugin'&nbsp;function.</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">nvimSkipModule</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">regexplainer</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">regexplainer.buffers.init</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">regexplainer.buffers.popup</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">regexplainer.buffers.register</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">regexplainer.buffers.shared</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">regexplainer.buffers.split</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">regexplainer.component.descriptions</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">regexplainer.component.init</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">regexplainer.renderers.narrative.init</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">regexplainer.renderers.narrative.narrative</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">regexplainer.renderers.init</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">regexplainer.utils.defer</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">regexplainer.utils.init</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">regexplainer.utils.treesitter</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+</body></html></main>
+      </div>
+
+      <footer>
+  <p>Generated with ndg</p>
+</footer>
+
+    </div>
+
+    
+  </body>
+</html>
