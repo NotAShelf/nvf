@@ -36,3 +36,7 @@
 [Libadoxon](https://github.com/Libadoxon):
 
 - `toggleterm` open map now also works when in terminal mode
+
+[jtliang24](https://github.com/jtliang24):
+
+- Updated nix language plugin to use pkgs.nixfmt instead of pkgs.nixfmt-rfc-style
