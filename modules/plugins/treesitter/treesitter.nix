@@ -16,7 +16,7 @@ in {
       type = listOf package;
       default = [];
       example = literalExpression ''
-        with pkgs.vimPlugins.nvim-treesitter.parsers; [
+        with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
           regex
           kdl
         ];
@@ -47,7 +47,7 @@ in {
       internal = true;
       readOnly = true;
       type = listOf package;
-      default = with pkgs.vimPlugins.nvim-treesitter.parsers; [c lua vim vimdoc query];
+      default = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [c lua vim vimdoc query];
       description = ''
         A list of treesitter grammars that will be installed by default
         if treesitter has been enabled and  {option}`vim.treeesitter.addDefaultGrammars`
