@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames concatStringsSep elem;
+  inherit (builtins) attrNames concatStringsSep;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;

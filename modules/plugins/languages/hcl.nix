@@ -4,10 +4,10 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames elem;
+  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.meta) getExe;
-  inherit (lib.modules) mkIf mkMerge mkDefault;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) bool enum listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
@@ -18,13 +18,13 @@
   servers = {
     terraformls-hcl = {
       enable = true;
-      cmd = [(getExe pkgs.terraform-ls) "serve"]; # NOTE: mkDefault to avoid clashes with terraform defs
+      cmd = [(getExe pkgs.terraform-ls) "serve"];
       filetypes = ["hcl"];
       root_markers = [".git"];
     };
     tofuls-hcl = {
       enable = true;
-      cmd = [(getExe pkgs.tofu-ls) "serve"]; # NOTE: mkDefault to avoid clashes with terraform defs
+      cmd = [(getExe pkgs.tofu-ls) "serve"];
       filetypes = ["hcl"];
       root_markers = [".terraform" ".git"];
     };
