@@ -14,15 +14,15 @@
 
   cfg = config.vim.languages.terraform;
 
-  defaultServers = ["tofuls"];
+  defaultServers = ["tofuls-tf"];
   servers = {
-    terraformls = {
+    terraformls-tf = {
       enable = true;
       cmd = [(getExe pkgs.terraform-ls) "serve"];
       filetypes = ["terraform" "terraform-vars" "tf"];
       root_markers = [".terraform" ".git"];
     };
-    tofuls = {
+    tofuls-tf = {
       enable = true;
       cmd = [(getExe pkgs.tofu-ls) "serve"];
       filetypes = ["terraform" "terraform-vars" "tf"];
@@ -48,15 +48,12 @@ in {
     enable = mkEnableOption "Terraform support";
 
     treesitter = {
-      enable =
-        mkEnableOption "Terraform treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable = mkEnableOption "Terraform treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = mkGrammarOption pkgs "terraform";
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Terraform LSP support (terraform-ls)" // {default = config.vim.lsp.enable;};
-
+      enable = mkEnableOption "Terraform LSP support (terraform-ls)" // {default = config.vim.lsp.enable;};
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
@@ -92,9 +89,6 @@ in {
             value = servers.${n};
           })
           cfg.lsp.servers;
-        extraPackages =
-          (lib.optionals (elem "terraformls" cfg.lsp.servers) [pkgs.terraform])
-          ++ (lib.optionals (elem "tofuls" cfg.lsp.servers) [pkgs.opentofu]);
       };
     })
 

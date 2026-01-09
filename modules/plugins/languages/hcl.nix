@@ -14,17 +14,17 @@
 
   cfg = config.vim.languages.hcl;
 
-  defaultServers = ["tofuls"];
+  defaultServers = ["tofuls-hcl"];
   servers = {
-    terraformls = {
+    terraformls-hcl = {
       enable = true;
-      cmd = mkDefault [(getExe pkgs.terraform-ls) "serve"]; # NOTE: mkDefault to avoid clashes with terraform defs
+      cmd = [(getExe pkgs.terraform-ls) "serve"]; # NOTE: mkDefault to avoid clashes with terraform defs
       filetypes = ["hcl"];
       root_markers = [".git"];
     };
-    tofuls = {
+    tofuls-hcl = {
       enable = true;
-      cmd = mkDefault [(getExe pkgs.tofu-ls) "serve"]; # NOTE: mkDefault to avoid clashes with terraform defs
+      cmd = [(getExe pkgs.tofu-ls) "serve"]; # NOTE: mkDefault to avoid clashes with terraform defs
       filetypes = ["hcl"];
       root_markers = [".terraform" ".git"];
     };
@@ -47,14 +47,12 @@ in {
     enable = mkEnableOption "HCL support";
 
     treesitter = {
-      enable =
-        mkEnableOption "HCL treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable = mkEnableOption "HCL treesitter" // {default = config.vim.languages.enableTreesitter;};
       package = mkGrammarOption pkgs "hcl";
     };
 
     lsp = {
-      enable =
-        mkEnableOption "HCL LSP support" // {default = config.vim.lsp.enable;};
+      enable = mkEnableOption "HCL LSP support" // {default = config.vim.lsp.enable;};
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
@@ -109,9 +107,6 @@ in {
             value = servers.${n};
           })
           cfg.lsp.servers;
-        extraPackages =
-          (lib.optionals (elem "terraformls" cfg.lsp.servers) [pkgs.terraform])
-          ++ (lib.optionals (elem "tofuls" cfg.lsp.servers) [pkgs.opentofu]);
       };
     })
 
