@@ -1837,6 +1837,16 @@ Neovim settings (nvf's <a class="option-reference" href="options.html#option-vim
 </li>
 </ul>
 <h2 id="sec-release-0-9-changelog">Changelog</h2>
+<p><a href="https://github.com/taylrfnt">taylrfnt</a></p>
+<ul>
+<li>
+<p>Introduce a <code>darwinModule</code> option for Darwin users. The ergonomics of
+importing a <code>nixosModule</code> into a Darwin flake were less than ideal, and when
+users fork and update npins, they are prone to encountering errors like the
+following:</p>
+<pre class="highlight"><code class="language-shell"><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(97,175,239);">class:</span>&nbsp;<span style="color:rgb(152,195,121);">"nixos"</span><span style="color:rgb(132,139,152);">)</span>&nbsp;<span style="color:rgb(97,175,239);">cannot</span>&nbsp;<span style="color:rgb(232,102,113);">be</span>&nbsp;<span style="color:rgb(232,102,113);">imported</span>&nbsp;<span style="color:rgb(232,102,113);">into</span>&nbsp;<span style="color:rgb(232,102,113);">a</span>&nbsp;<span style="color:rgb(232,102,113);">module</span>&nbsp;<br><span style="color:rgb(97,175,239);">evaluation</span>&nbsp;<span style="color:rgb(232,102,113);">that</span>&nbsp;<span style="color:rgb(232,102,113);">expects</span>&nbsp;<span style="color:rgb(232,102,113);">class</span>&nbsp;<span style="color:rgb(152,195,121);">"darwin"</span><span style="color:rgb(232,102,113);">.</span><br></code></pre>
+</li>
+</ul>
 <p><a href="https://github.com/suimong">suimong</a>:</p>
 <ul>
 <li>Fix <code>vim.tabline.nvimBufferline</code> where <code>setupOpts.options.hover</code> requires
