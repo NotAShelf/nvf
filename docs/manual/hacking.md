@@ -388,7 +388,7 @@ generated and opened by typing the following in a shell within a clone of the
 $ nix build .#docs-html
 
 # Open it with a valid browser
-$ xdg-open $PWD/result/share/doc/nvf/index.html
+$ xdg-open $PWD/result/share/doc/index.html
 ```
 
 Additionally, if you are adding new links to the documentation it is **generally
