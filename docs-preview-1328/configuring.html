@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configuring nvf</title>
+     
+    <script>
+      // Apply sidebar state immediately to prevent flash
+      (function () {
+        if (localStorage.getItem("sidebar-collapsed") === "true") {
+          document.documentElement.classList.add("sidebar-collapsed");
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="assets/style.css" />
+    <script defer src="assets/main.js"></script>
+    
+    <script>
+      window.searchNamespace = window.searchNamespace || {};
+      window.searchNamespace.rootPath = "";
+    </script>
+    <script defer src="assets/search.js"></script>
+    
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-left">
+          <h1 class="site-title">
+            <a href="index.html">NVF</a>
+          </h1>
+
+          <nav class="header-nav">
+  <ul>
+    <li >
+      <a href="options.html">Options</a>
+    </li>
+    
+    <li><a href="search.html">Search</a></li>
+    
+  </ul>
+</nav>
+
+        </div>
+        
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Search..." />
+          <div id="search-results" class="search-results"></div>
+        </div>
+        
+      </header>
+
+      <div class="layout">
+        <div class="sidebar-toggle" aria-label="Toggle sidebar">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+          </svg>
+        </div>
+        <nav class="sidebar">
+          <div class="docs-nav">
+            <h2>Documents</h2>
+            <ul>
+              <li><a href="index.html">Introduction</a></li>
+<li><a href="configuring.html">Configuring nvf</a></li>
+<li><a href="hacking.html">Hacking nvf</a></li>
+<li><a href="tips.html">Helpful Tips</a></li>
+<li><a href="quirks.html">Known Issues and Quirks</a></li>
+<li><a href="release-notes.html">Release Notes</a></li>
+<li><a href="search.html">Search</a></li>
+
+            </ul>
+          </div>
+
+          <div class="toc">
+            <h2>Contents</h2>
+            <ul class="toc-list">
+              <li><a href="#ch-configuring">Configuring nvf</a>
+<li><a href="#ch-custom-plugins">Custom Plugins</a>
+<ul><li><a href="#ch-adding-plugins">Adding Plugins</a>
+</ul><li><a href="#sec-configuring-plugins">Configuring</a>
+<ul><li><a href="#ch-vim-lazy-plugins">Lazy Plugins</a>
+<li><a href="#ch-vim-extra-plugins">Standard API</a>
+<ul><li><a href="#setup-using-luaconfigrc">Setup using luaConfigRC</a>
+</ul><li><a href="#sec-lazyfile-event">LazyFile event</a>
+</ul><li><a href="#sec-non-lazy-method">Non-lazy Method</a>
+<li><a href="#sec-legacy-method">Legacy Method</a>
+<ul><li><a href="#sec-adding-new-plugins">Adding New Plugins</a>
+</ul><li><a href="#ch-overriding-plugins">Overriding plugins</a>
+<li><a href="#sec-languages-custom-lsp-packages">LSP Custom Packages/Command</a>
+<li><a href="#ch-using-dags">Using DAGs</a>
+<ul><li><a href="#sec-types-dag-entryAnywhere">entryAnywhere</a>
+<li><a href="#ch-types-dag-entryAfter">entryAfter</a>
+<li><a href="#ch-types-dag-entryBefore">entryBefore</a>
+<li><a href="#sec-types-dag-entryBetween">entryBetween</a>
+<li><a href="#sec-types-dag-entriesAnywhere">entriesAnywhere</a>
+<li><a href="#sec-types-dag-entriesAfter">entriesAfter</a>
+<li><a href="#sec-types-dag-entriesBefore">entriesBefore</a>
+<li><a href="#sec-types-dag-entriesBetween">entriesBetween</a>
+</ul><li><a href="#ch-dag-entries">DAG entries in nvf</a>
+<ul><li><a href="#ch-vim-luaconfigrc">vim.luaConfigRC (top-level DAG)</a>
+</ul><li><a href="#ch-autocmds-augroups">Autocommands and Autogroups</a>
+<ul><li><a href="#sec-vim-augroups">Autogroups (vim.augroups)</a>
+<li><a href="#sec-vim-autocmds">Autocommands (vim.autocmds)</a>
+</li></ul></li>
+            </ul>
+          </div>
+        </nav>
+
+        <main class="content"><html><head></head><body><h1 id="ch-configuring">Configuring nvf</h1>
+<p><strong>nvf</strong> allows for <em>very</em> extensive configuration in Neovim through the Nix
+module interface. The below chapters describe several of the options exposed in
+nvf for your convenience. You might also be interested in the
+<a href="./tips.html#ch-helpful-tips">helpful tips section</a> for more advanced or unusual configuration options
+supported by nvf.</p>
+<p>Note that this section does not cover module <em>options</em>. For an overview of all
+module options provided by nvf, please visit the <a href="./options.html">options reference</a></p>
+<!-- ndg: could not include file: ./manual/configuring/custom-package.md -->
+<h1 id="ch-custom-plugins">Custom Plugins</h1>
+<p><strong>nvf</strong> exposes a very wide variety of plugins by default, which are consumed by
+module options. This is done for your convenience, and to bundle all necessary
+dependencies into <strong>nvf</strong>'s runtime with full control of versioning, testing and
+dependencies. In the case a plugin you need is <em>not</em> available, you may consider
+making a pull request to add the package you're looking for, or you may add it
+to your configuration locally. The below section describes how new plugins may
+be added to the user's configuration.</p>
+<h2 id="ch-adding-plugins">Adding Plugins</h2>
+<p>Per <strong>nvf</strong>'s design choices, there are several ways of adding custom plugins to
+your configuration as you need them. As we aim for extensive configuration, it
+is possible to add custom plugins (from nixpkgs, pinning tools, flake inputs,
+etc.) to your Neovim configuration before they are even implemented in <strong>nvf</strong>
+as a module.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>To add a plugin to your runtime, you will need to add it to
+<a class="option-reference" href="options.html#option-vim-startPlugins"><code class="nixos-option">vim.startPlugins</code></a> list in your configuration. This is akin to cloning a
+plugin to <code>~/.config/nvim</code>, but they are only ever placed in the Nix store and
+never exposed to the outside world for purity and full isolation.</p>
+</div>
+<p>As you would configure a cloned plugin, you must configure the new plugins that
+you've added to <code>startPlugins.</code> <strong>nvf</strong> provides multiple ways of configuring
+any custom plugins that you might have added to your configuration.</p>
+<h1 id="sec-configuring-plugins">Configuring</h1>
+<p>Just making the plugin to your Neovim configuration available might not always
+be enough., for example, if the plugin requires a setup table. In that case, you
+can write custom Lua configuration using one of</p>
+<ul>
+<li><code>config.vim.lazy.plugins.*.setupOpts</code></li>
+<li><code>config.vim.extraPlugins.*.setup</code></li>
+<li><code>config.vim.luaConfigRC</code>.</li>
+</ul>
+<h2 id="ch-vim-lazy-plugins">Lazy Plugins</h2>
+<p><code>config.vim.lazy.plugins.*.setupOpts</code> is useful for lazy-loading plugins, and
+uses an extended version of <code>lz.n's</code> <code>PluginSpec</code> to expose a familiar
+interface. <code>setupModule</code> and <code>setupOpt</code> can be used if the plugin uses a
+<code>require('module').setup(...)</code> pattern. Otherwise, the <code>before</code> and <code>after</code>
+hooks should do what you need.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lazy</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">plugins</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">aerial</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;^^^^^^^^^&nbsp;this&nbsp;name&nbsp;should&nbsp;match&nbsp;the&nbsp;package.pname&nbsp;or&nbsp;package.name</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">package</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">aerial-nvim</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">setupModule</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">aerial</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">setupOpts</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><span style="color:rgb(86,182,194);">option_name</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">false</span><span style="color:rgb(132,139,152);">;</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">after</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">print('aerial&nbsp;loaded')</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h2 id="ch-vim-extra-plugins">Standard API</h2>
+<p><code>vim.extraPlugins</code> uses an attribute set, which maps DAG section names to a
+custom type, which has the fields <code>package</code>, <code>after</code>, <code>setup</code>. They allow you to
+set the package of the plugin, the sections its setup code should be after (note
+that the <code>extraPlugins</code> option has its own DAG scope), and the its setup code
+respectively. For example:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(232,102,113);">pkgs</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">extraPlugins</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">aerial</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">package</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">aerial-nvim</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">setup</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">require('aerial').setup&nbsp;{}</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">harpoon</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">package</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">harpoon</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">setup</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">require('harpoon').setup&nbsp;{}</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">after</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">aerial</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;place&nbsp;harpoon&nbsp;configuration&nbsp;after&nbsp;aerial</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h3 id="setup-using-luaconfigrc">Setup using luaConfigRC</h3>
+<p><code>vim.luaConfigRC</code> also uses an attribute set, but this one is resolved as a DAG
+directly. The attribute names denote the section names, and the values lua code.
+For example:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;This&nbsp;will&nbsp;create&nbsp;a&nbsp;section&nbsp;called&nbsp;"aquarium"&nbsp;in&nbsp;the&nbsp;'init.lua'&nbsp;with&nbsp;the</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;contents&nbsp;of&nbsp;your&nbsp;custom&nbsp;configuration.&nbsp;By&nbsp;default&nbsp;'entryAnywhere'&nbsp;is&nbsp;implied</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;in&nbsp;DAGs,&nbsp;so&nbsp;this&nbsp;will&nbsp;be&nbsp;inserted&nbsp;to&nbsp;an&nbsp;arbitrary&nbsp;position.&nbsp;In&nbsp;the&nbsp;case&nbsp;you&nbsp;</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;wish&nbsp;to&nbsp;control&nbsp;the&nbsp;position&nbsp;of&nbsp;this&nbsp;section&nbsp;with&nbsp;more&nbsp;precision,&nbsp;please</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;look&nbsp;into&nbsp;the&nbsp;DAGs&nbsp;section&nbsp;of&nbsp;the&nbsp;manual.</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">luaConfigRC</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">aquarium</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">vim.cmd('colorscheme&nbsp;aquiarum')</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>One of the <strong>greatest strengths</strong> of <strong>nvf</strong> is the ability to order
+configuration snippets precisely using the <a href="#ch-using-dags">DAG system</a>. DAGs
+are a very powerful mechanism that allows specifying positions
+of individual sections of configuration as needed. We provide helper functions
+in the extended library, usually under <code>inputs.nvf.lib.nvim.dag</code> that you may
+use.</p>
+<p>Please refer to the <a href="#ch-dag-entries">DAG section</a> in the nvf manual
+to find out more about the DAG system.</p>
+</div>
+<!-- deno-fmt-ignore-end -->
+# Lazy Method {#sec-lazy-method}
+<p>As of version <strong>0.7</strong>, an API is exposed to allow configuring lazy-loaded
+plugins via <code>lz.n</code> and <code>lzn-auto-require</code>. Below is a comprehensive example of
+how it may be loaded to lazy-load an arbitrary plugin.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lazy</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">plugins</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">aerial.nvim</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">package</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">aerial-nvim</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">setupModule</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">aerial</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">setupOpts</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">option_name</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">after</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;custom&nbsp;lua&nbsp;code&nbsp;to&nbsp;run&nbsp;after&nbsp;plugin&nbsp;is&nbsp;loaded</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print('aerial&nbsp;loaded')</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Explicitly&nbsp;mark&nbsp;plugin&nbsp;as&nbsp;lazy.&nbsp;You&nbsp;don't&nbsp;need&nbsp;this&nbsp;if&nbsp;you&nbsp;define&nbsp;one&nbsp;of</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;the&nbsp;trigger&nbsp;"events"&nbsp;below</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">lazy</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;load&nbsp;on&nbsp;command</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">cmd</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">AerialOpen</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;load&nbsp;on&nbsp;event</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">event</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">BufEnter</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;load&nbsp;on&nbsp;keymap</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">keys</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">key</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;a</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">action</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">:AerialToggle&lt;CR&gt;</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h2 id="sec-lazyfile-event">LazyFile event</h2>
+<p><strong>nvf</strong> re-implements <code>LazyFile</code> as a familiar user event to load a plugin when
+a file is opened:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lazy</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">plugins</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">aerial.nvim</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">package</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">aerial-nvim</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">event</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(86,182,194);">event</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">User</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(86,182,194);">pattern</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">LazyFile</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;...</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>You can consider the <code>LazyFile</code> event as an alias to the combination of
+<code>"BufReadPost"</code>, <code>"BufNewFile"</code> and <code>"BufWritePre"</code>, i.e., a list containing all
+three of those events: <code>["BufReadPost" "BufNewFile" "BufWritePre"]</code></p>
+<h1 id="sec-non-lazy-method">Non-lazy Method</h1>
+<p>As of version <strong>0.5</strong>, we have a more extensive API for configuring plugins that
+should be preferred over the legacy method. This API is available as
+<a class="option-reference" href="options.html#option-vim-extraPlugins"><code class="nixos-option">vim.extraPlugins</code></a>. Instead of using DAGs exposed by the library
+<em>directly</em>, you may use the extra plugin module as follows:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(232,102,113);">pkgs</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">extraPlugins</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">aerial</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">package</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">aerial-nvim</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">setup</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;require('aerial').setup&nbsp;{</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;some&nbsp;lua&nbsp;configuration&nbsp;here</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">harpoon</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">package</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">harpoon</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">setup</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">require('harpoon').setup&nbsp;{}</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">after</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">aerial</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>This provides a level of abstraction over the DAG system for faster iteration.</p>
+<h1 id="sec-legacy-method">Legacy Method</h1>
+<p>Prior to version <strong>0.5</strong>, the method of adding new plugins was adding the plugin
+package to <a class="option-reference" href="options.html#option-vim-startPlugins"><code class="nixos-option">vim.startPlugins</code></a> and adding its configuration as a DAG
+under one of <code>vim.configRC</code> or <a class="option-reference" href="options.html#option-vim-luaConfigRC"><code class="nixos-option">vim.luaConfigRC</code></a>. While <code>configRC</code> has
+been deprecated, users who have not yet updated to 0.5 or those who prefer a
+more hands-on approach may choose to use the old method where the load order of
+the plugins is explicitly determined by DAGs without internal abstractions.</p>
+<h2 id="sec-adding-new-plugins">Adding New Plugins</h2>
+<p>To add a plugin not available in <strong>nvf</strong> as a module to your configuration using
+the legacy method, you must add it to <a class="option-reference" href="options.html#option-vim-startPlugins"><code class="nixos-option">vim.startPlugins</code></a> in order to
+make it available to Neovim at runtime.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(232,102,113);">pkgs</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Add&nbsp;a&nbsp;Neovim&nbsp;plugin&nbsp;from&nbsp;Nixpkgs&nbsp;to&nbsp;the&nbsp;runtime.</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;This&nbsp;does&nbsp;not&nbsp;need&nbsp;to&nbsp;come&nbsp;explicitly&nbsp;from&nbsp;packages.&nbsp;'vim.startPlugins'</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;takes&nbsp;a&nbsp;list&nbsp;of&nbsp;*string*&nbsp;(to&nbsp;load&nbsp;internal&nbsp;plugins)&nbsp;or&nbsp;*package*&nbsp;to&nbsp;load</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;a&nbsp;Neovim&nbsp;package&nbsp;from&nbsp;any&nbsp;source.</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">startPlugins</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">aerial-nvim</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>Once the package is available in Neovim's runtime, you may use the <code>luaConfigRC</code>
+option to provide configuration as a DAG using the <strong>nvf</strong> extended library in
+order to configure the added plugin,</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(232,102,113);">inputs</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(198,120,221);">let</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;This&nbsp;assumes&nbsp;you&nbsp;have&nbsp;an&nbsp;input&nbsp;called&nbsp;'nvf'&nbsp;in&nbsp;your&nbsp;flake&nbsp;inputs</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;and&nbsp;'inputs'&nbsp;in&nbsp;your&nbsp;specialArgs.&nbsp;In&nbsp;the&nbsp;case&nbsp;you&nbsp;have&nbsp;passed&nbsp;'nvf'</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;to&nbsp;specialArgs,&nbsp;the&nbsp;'inputs'&nbsp;prefix&nbsp;may&nbsp;be&nbsp;omitted.</span><br>&nbsp;&nbsp;<span style="color:rgb(198,120,221);">inherit</span>&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">inputs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">dag</span><span style="color:rgb(132,139,152);">)</span>&nbsp;entryAnywhere<span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(198,120,221);">in</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;luaConfigRC&nbsp;takes&nbsp;Lua&nbsp;configuration&nbsp;verbatim&nbsp;and&nbsp;inserts&nbsp;it&nbsp;at&nbsp;an&nbsp;arbitrary</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;position&nbsp;by&nbsp;default&nbsp;or&nbsp;if&nbsp;'entryAnywhere'&nbsp;is&nbsp;used.</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">luaConfigRC</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">aerial-nvim</span><span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(97,175,239);">entryAnywhere</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;require('aerial').setup&nbsp;{</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;your&nbsp;configuration&nbsp;here</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;}</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h1 id="ch-overriding-plugins">Overriding plugins</h1>
+<p>The <a href="./hacking.html#sec-additional-plugins">additional plugins section</a> details
+the addition of new plugins to nvf under regular circumstances, i.e. while
+making a pull request to the project. You may <em>override</em> those plugins in your
+config to change source versions, e.g., to use newer versions of plugins that
+are not yet updated in <strong>nvf</strong>.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">pluginOverrides</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">lazydev-nvim</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">fetchFromGitHub</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">owner</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">folke</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">repo</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">lazydev.nvim</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">rev</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">hash</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;It's&nbsp;also&nbsp;possible&nbsp;to&nbsp;use&nbsp;a&nbsp;flake&nbsp;input</span><br>&nbsp;<span style="color:rgb(86,182,194);">lazydev-nvim</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">inputs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lazydev-nvim</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Or&nbsp;a&nbsp;local&nbsp;path&nbsp;</span><br>&nbsp;<span style="color:rgb(86,182,194);">lazydev-nvim</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(232,102,113);">./lazydev</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Or&nbsp;a&nbsp;npins&nbsp;pin...&nbsp;etc</span><br><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br></code></pre>
+<p>This will override the source for the <code>lazydev.nvim</code> plugin that is used in nvf
+with your own plugin.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>While updating plugin inputs, make sure that any configuration that has been
+deprecated in newer versions is changed in the plugin's <code>setupOpts</code>. If you
+depend on a new version, requesting a version bump in the issues section is a
+more reliable option.</p>
+</div>
+# Language Support {#ch-languages}
+<p>Language specific support means there is a combination of language specific
+plugins, <code>treesitter</code> support, <code>nvim-lspconfig</code> language servers, <code>conform-nvim</code>
+formatters, and <code>nvim-lint</code> linter integration. This gets you capabilities
+ranging from autocompletion to formatting to diagnostics. The following
+languages have sections under the <code>vim.languages</code> attribute.</p>
+<ul>
+<li>Rust:
+<a href="./options.html#option-vim-languages-rust-enable">vim.languages.rust.enable</a></li>
+<li>Nix:
+<a href="./options.html#option-vim-languages-nix-enable">vim.languages.nix.enable</a></li>
+<li>SQL:
+<a href="./options.html#option-vim-languages-sql-enable">vim.languages.sql.enable</a></li>
+<li>C/C++:
+<a href="./options.html#option-vim-languages-clang-enable">vim.languages.clang.enable</a></li>
+<li>Typescript/Javascript:
+<a href="./options.html#option-vim-languages-ts-enable">vim.languages.ts.enable</a></li>
+<li>Python:
+<a href="./options.html#option-vim-languages-python-enable">vim.languages.python.enable</a>:</li>
+<li>Zig:
+<a href="./options.html#option-vim-languages-zig-enable">vim.languages.zig.enable</a></li>
+<li>Markdown:
+<a href="./options.html#option-vim-languages-markdown-enable">vim.languages.markdown.enable</a></li>
+<li>HTML:
+<a href="./options.html#option-vim-languages-html-enable">vim.languages.html.enable</a></li>
+<li>Dart:
+<a href="./options.html#option-vim-languages-dart-enable">vim.languages.dart.enable</a></li>
+<li>Go: <a href="./options.html#option-vim-languages-go-enable">vim.languages.go.enable</a></li>
+<li>Lua:
+<a href="./options.html#option-vim-languages-lua-enable">vim.languages.lua.enable</a></li>
+<li>PHP:
+<a href="./options.html#option-vim-languages-php-enable">vim.languages.php.enable</a></li>
+<li>F#:
+<a href="./options.html#option-vim-languages-fsharp-enable">vim.languages.fsharp.enable</a></li>
+<li>Assembly:
+<a href="./options.html#option-vim-languages-assembly-enable">vim.languages.assembly.enable</a></li>
+<li>Astro:
+<a href="./options.html#option-vim-languages-astro-enable">vim.languages.astro.enable</a></li>
+<li>Bash:
+<a href="./options.html#option-vim-languages-bash-enable">vim.languages.bash.enable</a></li>
+<li>Clang:
+<a href="./options.html#option-vim-languages-clang-enable">vim.languages.clang.enable</a></li>
+<li>Clojure:
+<a href="./options.html#option-vim-languages-clojure-enable">vim.languages.clojure.enable</a></li>
+<li>C#:
+<a href="./options.html#option-vim-languages-csharp-enable">vim.languages.csharp.enable</a></li>
+<li>CSS:
+<a href="./options.html#option-vim-languages-css-enable">vim.languages.css.enable</a></li>
+<li>CUE:
+<a href="./options.html#option-vim-languages-cue-enable">vim.languages.cue.enable</a></li>
+<li>Elixir:
+<a href="./options.html#option-vim-languages-elixir-enable">vim.languages.elixir.enable</a></li>
+<li>Gleam:
+<a href="./options.html#option-vim-languages-gleam-enable">vim.languages.gleam.enable</a></li>
+<li>HCL:
+<a href="./options.html#option-vim-languages-hcl-enable">vim.languages.hcl.enable</a></li>
+<li>Helm:
+<a href="./options.html#option-vim-languages-helm-enable">vim.languages.helm.enable</a></li>
+<li>Julia:
+<a href="./options.html#option-vim-languages-julia-enable">vim.languages.julia.enable</a></li>
+<li>Kotlin:
+<a href="./options.html#option-vim-languages-kotlin-enable">vim.languages.kotlin.enable</a></li>
+<li>Nim:
+<a href="./options.html#option-vim-languages-nim-enable">vim.languages.nim.enable</a></li>
+<li>Nu: <a href="./options.html#option-vim-languages-nu-enable">vim.languages.nu.enable</a></li>
+<li>OCaml:
+<a href="./options.html#option-vim-languages-ocaml-enable">vim.languages.ocaml.enable</a></li>
+<li>Odin:
+<a href="./options.html#option-vim-languages-odin-enable">vim.languages.odin.enable</a></li>
+<li>R: <a href="./options.html#option-vim-languages-r-enable">vim.languages.r.enable</a></li>
+<li>Ruby:
+<a href="./options.html#option-vim-languages-ruby-enable">vim.languages.ruby.enable</a></li>
+<li>Scala:
+<a href="./options.html#option-vim-languages-scala-enable">vim.languages.scala.enable</a></li>
+<li>Svelte:
+<a href="./options.html#option-vim-languages-svelte-enable">vim.languages.svelte.enable</a></li>
+<li>Tailwind:
+<a href="./options.html#option-vim-languages-tailwind-enable">vim.languages.tailwind.enable</a></li>
+<li>Terraform:
+<a href="./options.html#option-vim-languages-terraform-enable">vim.languages.terraform.enable</a></li>
+<li>Typst:
+<a href="./options.html#option-vim-languages-typst-enable">vim.languages.typst.enable</a></li>
+<li>Vala:
+<a href="./options.html#option-vim-languages-vala-enable">vim.languages.vala.enable</a></li>
+<li>WGSL:
+<a href="./options.html#option-vim-languages-wgsl-enable">vim.languages.wgsl.enable</a></li>
+<li>YAML:
+<a href="./options.html#option-vim-languages-yaml-enable">vim.languages.yaml.enable</a></li>
+</ul>
+<p>Adding support for more languages, and improving support for existing ones are
+great places where you can contribute with a PR.</p>
+<h1 id="sec-languages-custom-lsp-packages">LSP Custom Packages/Command</h1>
+<p>One of the strengths of <strong>nvf</strong> is convenient aliases to quickly configure LSP
+servers through the Nix module system. By default the LSP packages for relevant
+language modules will be pulled into the closure. If this is not desirable, you
+may provide <strong>a custom LSP package</strong> (e.g., a Bash script that calls a command)
+or <strong>a list of strings</strong> to be interpreted as the command to launch the language
+server. By using a list of strings, you can use this to skip automatic
+installation of a language server, and instead use the one found in your <code>$PATH</code>
+during runtime, for example:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">java</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">lsp</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">enable</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;This&nbsp;expects&nbsp;'jdt-language-server'&nbsp;to&nbsp;be&nbsp;in&nbsp;your&nbsp;PATH&nbsp;or&nbsp;in</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;'vim.extraPackages.'&nbsp;There&nbsp;are&nbsp;no&nbsp;additional&nbsp;checks&nbsp;performed&nbsp;to&nbsp;see</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;if&nbsp;the&nbsp;command&nbsp;provided&nbsp;is&nbsp;valid.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">package</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">jdt-language-server</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">-data</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">~/.cache/jdtls/workspace</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h1 id="ch-using-dags">Using DAGs</h1>
+<p>We conform to the NixOS options types for the most part, however, a noteworthy
+addition for certain options is the
+<a href="https://en.wikipedia.org/wiki/Directed_acyclic_graph"><strong>DAG (Directed acyclic graph)</strong></a>
+type which is borrowed from home-manager's extended library. This type is most
+used for topologically sorting strings. The DAG type allows the attribute set
+entries to express dependency relations among themselves. This can, for example,
+be used to control the order of configuration sections in your <code>luaConfigRC</code>.</p>
+<p>The below section, mostly taken from the
+<a href="https://raw.githubusercontent.com/nix-community/home-manager/master/docs/manual/writing-modules/types.md">home-manager manual</a>
+explains in more detail the overall usage logic of the DAG type.</p>
+<h2 id="sec-types-dag-entryAnywhere">entryAnywhere</h2>
+<blockquote>
+<p><code>nvf.lib.nvim.dag.entryAnywhere (value: T) : DagEntry&lt;T&gt;</code></p>
+</blockquote>
+<p>Indicates that <code>value</code> can be placed anywhere within the DAG. This is also the
+default for plain attribute set entries, that is</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;For&nbsp;'nvf'&nbsp;to&nbsp;be&nbsp;available&nbsp;in&nbsp;module's&nbsp;arguments,</span><br><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;it&nbsp;needs&nbsp;to&nbsp;be&nbsp;inherited&nbsp;from&nbsp;imports&nbsp;in&nbsp;the&nbsp;modules&nbsp;array&nbsp;as:</span><br><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;modules&nbsp;=&nbsp;[{&nbsp;_module.args&nbsp;=&nbsp;{&nbsp;inherit&nbsp;nvf;&nbsp;};&nbsp;}&nbsp;...];&nbsp;</span><br><span style="color:rgb(171,178,191);">foo</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">bar</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">a</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">dag</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">entryAnywhere</span>&nbsp;<span style="color:rgb(209,154,102);">0</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>and</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">foo</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">bar</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">a</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">0</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>are equivalent.</p>
+<h2 id="ch-types-dag-entryAfter">entryAfter</h2>
+<blockquote>
+<p><code>nvf.lib.nvim.dag.entryAfter (afters: list string) (value: T) : DagEntry&lt;T&gt;</code></p>
+</blockquote>
+<p>Indicates that <code>value</code> must be placed <em>after</em> each of the attribute names in the
+given list. For example</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">foo</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">bar</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">a</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">0</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">b</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">dag</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">entryAfter</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">a</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span>&nbsp;<span style="color:rgb(209,154,102);">1</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>would place <code>b</code> after <code>a</code> in the graph.</p>
+<h2 id="ch-types-dag-entryBefore">entryBefore</h2>
+<blockquote>
+<p><code>nvf.lib.nvim.dag.entryBefore (befores: list string) (value: T) : DagEntry&lt;T&gt;</code></p>
+</blockquote>
+<p>Indicates that <code>value</code> must be placed <em>before</em> each of the attribute names in
+the given list. For example</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">foo</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">bar</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">b</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">dag</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">entryBefore</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">a</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span>&nbsp;<span style="color:rgb(209,154,102);">1</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">a</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">0</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>would place <code>b</code> before <code>a</code> in the graph.</p>
+<h2 id="sec-types-dag-entryBetween">entryBetween</h2>
+<blockquote>
+<p><code>nvf.lib.nvim.dag.entryBetween (befores: list string) (afters: list string) (value: T) : DagEntry&lt;T&gt;</code></p>
+</blockquote>
+<p>Indicates that <code>value</code> must be placed <em>before</em> the attribute names in the first
+list and <em>after</em> the attribute names in the second list. For example</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">foo</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">bar</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">a</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">0</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">c</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">dag</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">entryBetween</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">b</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">a</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span>&nbsp;<span style="color:rgb(209,154,102);">2</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">b</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">1</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>would place <code>c</code> before <code>b</code> and after <code>a</code> in the graph.</p>
+<p>There are also a set of functions that generate a DAG from a list. These are
+convenient when you just want to have a linear list of DAG entries, without
+having to manually enter the relationship between each entry. Each of these
+functions take a <code>tag</code> as argument and the DAG entries will be named
+<code>${tag}-${index}</code>.</p>
+<h2 id="sec-types-dag-entriesAnywhere">entriesAnywhere</h2>
+<blockquote>
+<p><code>nvf.lib.nvim.dag.entriesAnywhere (tag: string) (values: [T]) : Dag&lt;T&gt;</code></p>
+</blockquote>
+<p>Creates a DAG with the given values with each entry labeled using the given tag.
+For example</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">foo</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">bar</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">dag</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">entriesAnywhere</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">a</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(209,154,102);">0</span>&nbsp;<span style="color:rgb(209,154,102);">1</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br></code></pre>
+<p>is equivalent to</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">foo</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">bar</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">a-0</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">0</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">a-1</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">dag</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">entryAfter</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">a-0</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span>&nbsp;<span style="color:rgb(209,154,102);">1</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h2 id="sec-types-dag-entriesAfter">entriesAfter</h2>
+<blockquote>
+<p><code>nvf.lib.nvim.dag.entriesAfter (tag: string) (afters: list string) (values: [T]) : Dag&lt;T&gt;</code></p>
+</blockquote>
+<p>Creates a DAG with the given values with each entry labeled using the given tag.
+The list of values are placed are placed <em>after</em> each of the attribute names in
+<code>afters</code>. For example</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">foo</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">bar</span>&nbsp;<span style="color:rgb(171,178,191);">=</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(86,182,194);">b</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">0</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(132,139,152);">}</span>&nbsp;<span style="color:rgb(171,178,191);">//</span>&nbsp;<span style="color:rgb(171,178,191);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">dag</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">entriesAfter</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">a</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">b</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(209,154,102);">1</span>&nbsp;<span style="color:rgb(209,154,102);">2</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br></code></pre>
+<p>is equivalent to</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">foo</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">bar</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">b</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">0</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">a-0</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">dag</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">entryAfter</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">b</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span>&nbsp;<span style="color:rgb(209,154,102);">1</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">a-1</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">dag</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">entryAfter</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">a-0</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span>&nbsp;<span style="color:rgb(209,154,102);">2</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h2 id="sec-types-dag-entriesBefore">entriesBefore</h2>
+<blockquote>
+<p><code>nvf.lib.nvim.dag.entriesBefore (tag: string) (befores: list string) (values: [T]) : Dag&lt;T&gt;</code></p>
+</blockquote>
+<p>Creates a DAG with the given values with each entry labeled using the given tag.
+The list of values are placed <em>before</em> each of the attribute names in <code>befores</code>.
+For example</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">foo</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">bar</span>&nbsp;<span style="color:rgb(171,178,191);">=</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(86,182,194);">b</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">0</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(132,139,152);">}</span>&nbsp;<span style="color:rgb(171,178,191);">//</span>&nbsp;<span style="color:rgb(171,178,191);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">dag</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">entriesBefore</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">a</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">b</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(209,154,102);">1</span>&nbsp;<span style="color:rgb(209,154,102);">2</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br></code></pre>
+<p>is equivalent to</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">foo</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">bar</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">b</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">0</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">a-0</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">1</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">a-1</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">dag</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">entryBetween</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">b</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">a-0</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span>&nbsp;<span style="color:rgb(209,154,102);">2</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h2 id="sec-types-dag-entriesBetween">entriesBetween</h2>
+<blockquote>
+<p><code>nvf.lib.nvim.dag.entriesBetween (tag: string) (befores: list string) (afters: list string) (values: [T]) : Dag&lt;T&gt;</code></p>
+</blockquote>
+<p>Creates a DAG with the given values with each entry labeled using the given tag.
+The list of values are placed <em>before</em> each of the attribute names in <code>befores</code>
+and <em>after</em> each of the attribute names in <code>afters</code>. For example</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">foo</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">bar</span>&nbsp;<span style="color:rgb(171,178,191);">=</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(86,182,194);">b</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">0</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(86,182,194);">c</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">3</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(132,139,152);">}</span>&nbsp;<span style="color:rgb(171,178,191);">//</span>&nbsp;<span style="color:rgb(171,178,191);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">dag</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">entriesBetween</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">a</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">b</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">c</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(209,154,102);">1</span>&nbsp;<span style="color:rgb(209,154,102);">2</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br></code></pre>
+<p>is equivalent to</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">foo</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">bar</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">b</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">0</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">c</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">3</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">a-0</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">dag</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">entryAfter</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">c</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span>&nbsp;<span style="color:rgb(209,154,102);">1</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">a-1</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">dag</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">entryBetween</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">b</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">a-0</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span>&nbsp;<span style="color:rgb(209,154,102);">2</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h1 id="ch-dag-entries">DAG entries in nvf</h1>
+<p>From the previous chapter, it should be clear that DAGs are useful, because you
+can add code that relies on other code. However, if you don't know what the
+entries are called, it's hard to do that, so here is a list of the internal
+entries in nvf:</p>
+<h2 id="ch-vim-luaconfigrc"><code>vim.luaConfigRC</code> (top-level DAG)</h2>
+<ol>
+<li>(<code>luaConfigPre</code>) - not a part of the actual DAG, instead, it's simply
+inserted before the rest of the DAG</li>
+<li><code>globalsScript</code> - used to set globals defined in <code>vim.globals</code></li>
+<li><code>basic</code> - used to set basic configuration options</li>
+<li><code>optionsScript</code> - used to set options defined in <code>vim.o</code></li>
+<li><code>theme</code> (this is simply placed before <code>pluginConfigs</code> and <code>lazyConfigs</code>,
+meaning that surrounding entries don't depend on it) - used to set up the
+theme, which has to be done before other plugins</li>
+<li><code>lazyConfigs</code> - <code>lz.n</code> and <code>lzn-auto-require</code> configs. If <code>vim.lazy.enable</code>
+is false, this will contain each plugin's config instead.</li>
+<li><code>pluginConfigs</code> - the result of the nested <code>vim.pluginRC</code> (internal option,
+see the <a href="/index.xhtml#ch-custom-plugins">Custom Plugins</a> page for adding your
+own plugins) DAG, used to set up internal plugins</li>
+<li><code>extraPluginConfigs</code> - the result of <code>vim.extraPlugins</code>, which is not a
+direct DAG, but is converted to, and resolved as one internally</li>
+<li><code>mappings</code> - the result of <code>vim.maps</code></li>
+</ol>
+<h1 id="ch-autocmds-augroups">Autocommands and Autogroups</h1>
+<p>This module allows you to declaratively configure Neovim autocommands and
+autogroups within your Nix configuration.</p>
+<h2 id="sec-vim-augroups">Autogroups (<code>vim.augroups</code>)</h2>
+<p>Autogroups (<code>augroup</code>) organize related autocommands. This allows them to be
+managed collectively, such as clearing them all at once to prevent duplicates.
+Each entry in the list is a submodule with the following options:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Type</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+<th align="left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>enable</code></td>
+<td align="left"><code>bool</code></td>
+<td align="left"><code>true</code></td>
+<td align="left">Enables or disables this autogroup definition.</td>
+<td align="left"><code>true</code></td>
+</tr>
+<tr>
+<td align="left"><code>name</code></td>
+<td align="left"><code>str</code></td>
+<td align="left"><em>None</em></td>
+<td align="left"><strong>Required.</strong> The unique name for the autogroup.</td>
+<td align="left"><code>"MyFormatGroup"</code></td>
+</tr>
+<tr>
+<td align="left"><code>clear</code></td>
+<td align="left"><code>bool</code></td>
+<td align="left"><code>true</code></td>
+<td align="left">Clears any existing autocommands within this group before adding new ones defined in <code>vim.autocmds</code>.</td>
+<td align="left"><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example:</strong></p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">augroups</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">name</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">MyCustomAuGroup</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">clear</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Clear&nbsp;previous&nbsp;autocommands&nbsp;in&nbsp;this&nbsp;group&nbsp;on&nbsp;reload</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">name</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Formatting</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;clear&nbsp;defaults&nbsp;to&nbsp;true</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h2 id="sec-vim-autocmds">Autocommands (<code>vim.autocmds</code>)</h2>
+<p>Autocommands (<code>autocmd</code>) trigger actions based on events happening within Neovim
+(e.g., saving a file, entering a buffer). Each entry in the list is a submodule
+with the following options:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Type</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+<th align="left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>enable</code></td>
+<td align="left"><code>bool</code></td>
+<td align="left"><code>true</code></td>
+<td align="left">Enables or disables this autocommand definition.</td>
+<td align="left"><code>true</code></td>
+</tr>
+<tr>
+<td align="left"><code>event</code></td>
+<td align="left"><code>nullOr (listOf str)</code></td>
+<td align="left"><code>null</code></td>
+<td align="left"><strong>Required.</strong> List of Neovim events that trigger this autocommand (e.g., <code>BufWritePre</code>, <code>FileType</code>).</td>
+<td align="left"><code>[ "BufWritePre" ]</code></td>
+</tr>
+<tr>
+<td align="left"><code>pattern</code></td>
+<td align="left"><code>nullOr (listOf str)</code></td>
+<td align="left"><code>null</code></td>
+<td align="left">List of file patterns (globs) to match against (e.g., <code>*.py</code>, <code>*</code>). If <code>null</code>, matches all files for the given event.</td>
+<td align="left"><code>[ "*.lua", "*.nix" ]</code></td>
+</tr>
+<tr>
+<td align="left"><code>callback</code></td>
+<td align="left"><code>nullOr luaInline</code></td>
+<td align="left"><code>null</code></td>
+<td align="left">A Lua function to execute when the event triggers. Use <code>lib.generators.mkLuaInline</code>. <strong>Cannot be used with <code>command</code>.</strong></td>
+<td align="left"><code>lib.generators.mkLuaInline "function() print('File saved!') end"</code></td>
+</tr>
+<tr>
+<td align="left"><code>command</code></td>
+<td align="left"><code>nullOr str</code></td>
+<td align="left"><code>null</code></td>
+<td align="left">A Vimscript command to execute when the event triggers. <strong>Cannot be used with <code>callback</code>.</strong></td>
+<td align="left"><code>"echo 'File saved!'"</code></td>
+</tr>
+<tr>
+<td align="left"><code>group</code></td>
+<td align="left"><code>nullOr str</code></td>
+<td align="left"><code>null</code></td>
+<td align="left">The name of an <code>augroup</code> (defined in <code>vim.augroups</code>) to associate this autocommand with.</td>
+<td align="left"><code>"MyCustomAuGroup"</code></td>
+</tr>
+<tr>
+<td align="left"><code>desc</code></td>
+<td align="left"><code>nullOr str</code></td>
+<td align="left"><code>null</code></td>
+<td align="left">A description for the autocommand (useful for introspection).</td>
+<td align="left"><code>"Format buffer on save"</code></td>
+</tr>
+<tr>
+<td align="left"><code>once</code></td>
+<td align="left"><code>bool</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">If <code>true</code>, the autocommand runs only once and then automatically removes itself.</td>
+<td align="left"><code>false</code></td>
+</tr>
+<tr>
+<td align="left"><code>nested</code></td>
+<td align="left"><code>bool</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">If <code>true</code>, allows this autocommand to trigger other autocommands.</td>
+<td align="left"><code>false</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You cannot define both <code>callback</code> (for Lua functions) and <code>command</code> (for
+Vimscript) for the same autocommand. Choose one.</p>
+</div>
+<p><strong>Examples:</strong></p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(232,102,113);">lib</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span>&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span><br><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">augroups</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(86,182,194);">name</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">UserSetup</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(132,139,152);">}</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">autocmds</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Example&nbsp;1:&nbsp;Using&nbsp;a&nbsp;Lua&nbsp;callback</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">event</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">BufWritePost</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">pattern</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">*.lua</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">group</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">UserSetup</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">desc</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Notify&nbsp;after&nbsp;saving&nbsp;Lua&nbsp;file</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">callback</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">generators</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">mkLuaInline</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function()</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vim.notify("Lua&nbsp;file&nbsp;saved!",&nbsp;vim.log.levels.INFO)</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Example&nbsp;2:&nbsp;Using&nbsp;a&nbsp;Vim&nbsp;command</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">event</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">FileType</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">pattern</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">markdown</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">group</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">UserSetup</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">desc</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Set&nbsp;spellcheck&nbsp;for&nbsp;Markdown</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">command</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">setlocal&nbsp;spell</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Example&nbsp;3:&nbsp;Autocommand&nbsp;without&nbsp;a&nbsp;specific&nbsp;group</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">event</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">BufEnter</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">pattern</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">*.log</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">desc</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Disable&nbsp;line&nbsp;numbers&nbsp;in&nbsp;log&nbsp;files</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">command</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">setlocal&nbsp;nonumber</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;No&nbsp;'group'&nbsp;specified</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Example&nbsp;4:&nbsp;Using&nbsp;Lua&nbsp;for&nbsp;callback</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">event</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">BufWinEnter</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">pattern</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">*</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">desc</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Simple&nbsp;greeting&nbsp;on&nbsp;entering&nbsp;a&nbsp;buffer&nbsp;window</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">callback</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">generators</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">mkLuaInline</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function(args)</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Entered&nbsp;buffer:&nbsp;"&nbsp;..&nbsp;args.buf)</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Run&nbsp;only&nbsp;once&nbsp;per&nbsp;session&nbsp;trigger</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">once</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>These definitions are automatically translated into the necessary Lua code to
+configure <code>vim.api.nvim_create_augroup</code> and <code>vim.api.nvim_create_autocmd</code> when
+Neovim starts.</p>
+</body></html><!-- deno-fmt-ignore-start --></main>
+      </div>
+
+      <footer>
+  <p>Generated with ndg</p>
+</footer>
+
+    </div>
+
+    
+  </body>
+</html>
