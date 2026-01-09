@@ -22,8 +22,8 @@
 
   Some other settings and commands are now deprecated but are still supported.
 
-  - The `setupOpts.mappings` options were also removed. Use the built-in
-    Neovim settings (nvf's {option}`vim.keymaps`)
+  - The `setupOpts.mappings` options were also removed. Use the built-in Neovim
+    settings (nvf's {option}`vim.keymaps`)
 
 ## Changelog {#sec-release-0-9-changelog}
 
@@ -69,7 +69,8 @@
 
 [jtliang24](https://github.com/jtliang24):
 
-- Updated nix language plugin to use pkgs.nixfmt instead of pkgs.nixfmt-rfc-style
+- Updated nix language plugin to use pkgs.nixfmt instead of
+  pkgs.nixfmt-rfc-style
 
 [alfarel](https://github.com/alfarelcynthesis):
 
@@ -124,3 +125,9 @@
     {command}`:healthcheck` doesn't know that.
   - Remove [which-key.nvim] `<leader>o` `+Notes` description which did not
     actually correspond to any keybinds.
+
+[Clearbloo](https://github.com/Clearbloo):
+
+[ty](https://github.com/astral-sh/ty)
+
+- Add the ty lsp for python
