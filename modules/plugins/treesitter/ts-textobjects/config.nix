@@ -16,7 +16,7 @@ in {
 
       # set up treesitter-textobjects after Treesitter, whose config we're adding to.
       pluginRC.treesitter-textobjects = entryAfter ["treesitter"] ''
-        require("nvim-treesitter.configs").setup({textobjects = ${toLuaObject cfg.setupOpts}})
+        require("nvim-treesitter.config").setup({textobjects = ${toLuaObject cfg.setupOpts}})
       '';
     };
   };

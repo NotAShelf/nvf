@@ -41,7 +41,7 @@
     };
 
     nixfmt = {
-      command = getExe pkgs.nixfmt-rfc-style;
+      command = getExe pkgs.nixfmt;
     };
   };
 
