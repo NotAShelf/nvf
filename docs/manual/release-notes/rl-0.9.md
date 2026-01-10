@@ -6,8 +6,38 @@
   `vimPlugins.nvim-treesitter`. Namely, it changes from the frozen `master`
   branch to the new main branch. This change removes incremental selections, so
   it is no longer available.
+- [obsidian.nvim] now uses a maintained fork which has removed the `dir`
+  setting. Use `workspaces` instead:
+
+  ```nix
+  {
+    workspaces = [
+      {
+        name = "any-string";
+        path = "~/old/dir/path/value";
+      }
+    ];
+  }
+  ```
+
+  Some other settings and commands are now deprecated but are still supported.
+
+  - The `setupOpts.mappings` options were also removed. Use the built-in
+    Neovim settings (nvf's {option}`vim.keymaps`)
 
 ## Changelog {#sec-release-0-9-changelog}
+
+[taylrfnt](https://github.com/taylrfnt)
+
+- Introduce a `darwinModule` option for Darwin users. The ergonomics of
+  importing a `nixosModule` into a Darwin flake were less than ideal, and when
+  users fork and update npins, they are prone to encountering errors like the
+  following:
+
+  ```shell
+  (class: "nixos") cannot be imported into a module 
+  evaluation that expects class "darwin".
+  ```
 
 [suimong](https://github.com/suimong):
 
@@ -49,3 +79,61 @@
           servers = ["vtsls"];
         };
       };`
+
+[jtliang24](https://github.com/jtliang24):
+
+- Updated nix language plugin to use pkgs.nixfmt instead of pkgs.nixfmt-rfc-style
+
+[alfarel](https://github.com/alfarelcynthesis):
+
+[obsidian.nvim]: https://github.com/obsidian-nvim/obsidian.nvim
+[blink.cmp]: https://cmp.saghen.dev/
+[snacks.nvim]: https://github.com/folke/snacks.nvim
+[mini.nvim]: https://nvim-mini.org/mini.nvim/
+[telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
+[fzf-lua]: https://github.com/ibhagwan/fzf-lua
+[render-markdown.nvim]: https://github.com/MeanderingProgrammer/render-markdown.nvim
+[markview.nvim]: https://github.com/OXY2DEV/markview.nvim
+[which-key.nvim]: https://github.com/folke/which-key.nvim
+
+- Upgrade [obsidian.nvim] to use a maintained fork, instead of the unmaintained
+  upstream.
+  - Various upstream improvements:
+    - Support [blink.cmp] and completion plugin autodetection.
+    - Support various pickers for prompts, including [snacks.nvim]'s
+      `snacks.picker`, [mini.nvim]'s `mini.pick`, [telescope.nvim], and
+      [fzf-lua].
+    - Merge commands like `ObsidianBacklinks` into `Obisidian backlinks`. The
+      old format is still supported by default.
+    - Some `setupOpts` options have changed:
+      - `disable_frontmatter` -> `frontmatter.enabled` (and inverted), still
+        supported.
+      - `note_frontmatter_func` -> `frontmatter.func`, still supported.
+      - `statusline` module is now deprecated in favour of `footer`, still
+        supported.
+      - `dir` is no longer supported, use `workspaces`:
+
+        ```nix
+        {
+          workspaces = [
+            {
+              name = "any-string";
+              path = "~/old/dir/path/value";
+            }
+          ];
+        }
+        ```
+
+      - `use_advanced_uri` -> `open.use_advanced_uri`.
+      - Mappings are now expected to be set using the built-in Neovim APIs,
+        managed by `vim.keymaps` in nvf, instead of `mappings` options.
+      - Some option defaults have changed.
+    - And more.
+  - Automatically configure an enabled picker in the order mentioned above, if
+    any are enabled.
+  - Add integration with `snacks.image` for rendering workspace/vault assets.
+  - Detect if [render-markdown.nvim] or [markview.nvim] are enabled and disable
+    the `ui` module if so. It should work without this, but `render-markdown`'s
+    {command}`:healthcheck` doesn't know that.
+  - Remove [which-key.nvim] `<leader>o` `+Notes` description which did not
+    actually correspond to any keybinds.

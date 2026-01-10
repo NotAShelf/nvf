@@ -53,6 +53,11 @@
             ''
             self.nixosModules.nvf;
         };
+
+        darwinModules = {
+          nvf = import ./flake/modules/nixos.nix {inherit lib inputs;};
+          default = self.darwinModules.nvf;
+        };
       };
 
       perSystem = {pkgs, ...}: {
