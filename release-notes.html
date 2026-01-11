@@ -1831,8 +1831,8 @@ setting. Use <code>workspaces</code> instead:</p>
 <pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">workspaces</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">name</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">any-string</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">path</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">~/old/dir/path/value</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
 <p>Some other settings and commands are now deprecated but are still supported.</p>
 <ul>
-<li>The <code>setupOpts.mappings</code> options were also removed. Use the built-in
-Neovim settings (nvf's <a class="option-reference" href="options.html#option-vim-keymaps"><code class="nixos-option">vim.keymaps</code></a>)</li>
+<li>The <code>setupOpts.mappings</code> options were also removed. Use the built-in Neovim
+settings (nvf's <a class="option-reference" href="options.html#option-vim-keymaps"><code class="nixos-option">vim.keymaps</code></a>)</li>
 </ul>
 </li>
 </ul>
@@ -1875,7 +1875,8 @@ hard-coded options as default values.</li>
 </ul>
 <p><a href="https://github.com/jtliang24">jtliang24</a>:</p>
 <ul>
-<li>Updated nix language plugin to use pkgs.nixfmt instead of pkgs.nixfmt-rfc-style</li>
+<li>Updated nix language plugin to use pkgs.nixfmt instead of
+pkgs.nixfmt-rfc-style</li>
 </ul>
 <p><a href="https://github.com/alfarelcynthesis">alfarel</a>:</p>
 <ul>
