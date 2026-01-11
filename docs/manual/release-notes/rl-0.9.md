@@ -124,3 +124,7 @@
     {command}`:healthcheck` doesn't know that.
   - Remove [which-key.nvim] `<leader>o` `+Notes` description which did not
     actually correspond to any keybinds.
+
+[pyrox0](https://github.com/pyrox0):
+
+- Added [rumdl](https://github.com/rvben/rumdl) support to `languages.markdown`
