@@ -29,6 +29,60 @@ in {
         };
       };
 
+      messages = {
+        enabled =
+          mkEnableOption "Noice messages UI"
+          // {
+            default = true;
+          };
+        view = mkOption {
+          description = "view for messages";
+          type = str;
+          default = "notify";
+        };
+        view_error = mkOption {
+          description = "view for error messages";
+          type = str;
+          default = "notify";
+        };
+        view_warn = mkOption {
+          description = "view for warnings";
+          type = str;
+          default = "notify";
+        };
+        view_history = mkOption {
+          description = "view for :messages";
+          type = str;
+          default = "messages";
+        };
+        view_search = mkOption {
+          description = "view for search count messages";
+          type = str;
+          default = "virtualtext";
+        };
+      };
+
+      notify = {
+        enabled =
+          mkEnableOption "vim.notify routing"
+          // {
+            default = true;
+          };
+        view = mkOption {
+          description = "view for vim.notify";
+          type = str;
+          default = "notify";
+        };
+      };
+
+      health = {
+        checker =
+          mkEnableOption "health checks"
+          // {
+            default = true;
+          };
+      };
+
       presets = {
         bottom_search = mkBool true "use a classic bottom cmdline for search";
         command_palette = mkBool true "position the cmdline and popupmenu together";
