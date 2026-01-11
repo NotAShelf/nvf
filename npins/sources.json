@@ -1682,14 +1682,14 @@
       "type": "Git",
       "repository": {
         "type": "GitHub",
-        "owner": "otavioschwanck",
+        "owner": "isaacST08",
         "repo": "new-file-template.nvim"
       },
       "branch": "master",
       "submodules": false,
-      "revision": "6ac66669dbf2dc5cdee184a4fe76d22465ca67e8",
-      "url": "https://github.com/otavioschwanck/new-file-template.nvim/archive/6ac66669dbf2dc5cdee184a4fe76d22465ca67e8.tar.gz",
-      "hash": "0c7378c3w6bniclp666rq15c28akb0sjy58ayva0wpyin4k26hl3"
+      "revision": "dc3a58b1f490c86075c96670b9eb81370c2f2ca1",
+      "url": "https://github.com/isaacST08/new-file-template.nvim/archive/dc3a58b1f490c86075c96670b9eb81370c2f2ca1.tar.gz",
+      "hash": "0y6ip3k6bjaf32x1y1p6mmkwwdi71yvwr6klr26m252jrg8352pf"
     },
     "nix-develop-nvim": {
       "type": "Git",
