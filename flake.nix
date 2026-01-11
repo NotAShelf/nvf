@@ -91,18 +91,29 @@
           # Check if codebase is properly formatted.
           # This can be initiated with `nix build .#checks.<system>.nix-fmt`
           # or with `nix flake check`
-          nix-fmt = pkgs.runCommand "nix-fmt-check" {nativeBuildInputs = [pkgs.alejandra];} ''
-            alejandra --check ${self} < /dev/null
-            touch $out
-          '';
+          nix-fmt =
+            pkgs.runCommand "nix-fmt-check"
+            {
+              src = self;
+              nativeBuildInputs = [pkgs.alejandra pkgs.fd];
+            } ''
+              cd "$src"
+              fd -t f -e nix -x alejandra --check '{}'
+              touch $out
+            '';
 
           # Check if Markdown sources are properly formatted
           # This can be initiated with `nix build .#checks.<system>.md-fmt`
           # or with `nix flake check`
-          md-fmt = pkgs.runCommand "md-fmt-check" {nativeBuildInputs = [pkgs.deno];} ''
-            deno fmt --check ${self} --ext md
-            touch $out
-          '';
+          md-fmt =
+            pkgs.runCommand "md-fmt-check" {
+              src = self;
+              nativeBuildInputs = [pkgs.deno pkgs.fd];
+            } ''
+              cd "$src"
+              fd -t f -e md -x deno fmt --check '{}'
+              touch $out
+            '';
         };
       };
     };
