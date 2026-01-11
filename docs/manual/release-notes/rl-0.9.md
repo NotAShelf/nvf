@@ -128,3 +128,5 @@
 [pyrox0](https://github.com/pyrox0):
 
 - Added [rumdl](https://github.com/rvben/rumdl) support to `languages.markdown`
+
+- Added [sqruff](https://github.com/quarylabs/sqruff) support to `languages.sql`
