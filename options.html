@@ -31907,7 +31907,7 @@ not listed in the docs</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>string</code></div>
-  <div class="option-description"><html><head></head><body><p>SQL dialect for sqlfluff (if used)</p>
+  <div class="option-description"><html><head></head><body><p>SQL dialect for formatters and diagnostics (if used)</p>
 </body></html></div>
   <div class="option-default">Default: <code>"ansi"</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/sql.nix" target="_blank">&lt;nvf/modules/plugins/languages/sql.nix&gt;</a></code></div>
@@ -31944,7 +31944,7 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (value "sqlfluff" (singular enum) or (submodule))</code></div>
+  <div class="option-type">Type: <code>list of (one of "sqlfluff", "sqruff" or (submodule))</code></div>
   <div class="option-description"><html><head></head><body><p>List of SQL diagnostics to enable</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -31971,7 +31971,7 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of value "sqlfluff" (singular enum)) or value "sqlfluff" (singular enum) convertible to it</code></div>
+  <div class="option-type">Type: <code>(list of (one of "sqlfluff", "sqruff")) or (one of "sqlfluff", "sqruff") convertible to it</code></div>
   <div class="option-description"><html><head></head><body><p>SQL formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
