@@ -49,7 +49,12 @@ isMaximal: {
       enableExtraDiagnostics = true;
 
       # Languages that will be supported in default and maximal configurations.
-      nix.enable = true;
+      nix = {
+        enable = true;
+        tabstop = 20;
+        softtabstop = 20;
+        shiftwidth = 20;
+      };
       markdown.enable = true;
 
       # Languages that are enabled in the maximal configuration.

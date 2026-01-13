@@ -207,10 +207,7 @@ in {
       };
     })
 
-    (setLanguageIndent {
-      language = "markdown";
-      indentSize = 6;
-    })
+    # todo
 
   ]);
 }

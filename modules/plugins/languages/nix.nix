@@ -9,8 +9,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum;
-  inherit (lib.types) int;
+  inherit (lib.types) enum int nullOr;
   inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.languages) setLanguageIndent;
@@ -109,10 +108,22 @@ in {
       };
     };
 
-    indentSize = mkOption {
-      description = "Sets the indent size in spaces for .nix files";
-      type = int;
-      default = 10;
+    tabstop = mkOption {
+      description = "Sets the tabstop size in spaces for .nix files";
+      type = nullOr null;
+      default = null;
+    };
+
+    softtabstop = mkOption {
+      description = "Sets the softtabstop size in spaces for .nix files";
+      type = nullOr int;
+      default = null;
+    };
+
+    shiftwidth = mkOption {
+      description = "Sets the shiftwidth in spaces for .nix files";
+      type = nullOr int;
+      default = null;
     };
   };
 
@@ -171,7 +182,9 @@ in {
 
     (setLanguageIndent {
       language = "nix";
-      indentSize = cfg.indentSize;
+      tabstop = cfg.tabstop;
+      softtabstop = cfg.softtabstop;
+      shiftwidth = cfg.shiftwidth;
     })
 
   ]);
