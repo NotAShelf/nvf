@@ -51,9 +51,9 @@ isMaximal: {
       # Languages that will be supported in default and maximal configurations.
       nix = {
         enable = true;
-        tabstop = 20;
-        softtabstop = 20;
-        shiftwidth = 20;
+        tabstop = 8;
+        softtabstop = 8;
+        shiftwidth = 8;
       };
       markdown.enable = true;
 

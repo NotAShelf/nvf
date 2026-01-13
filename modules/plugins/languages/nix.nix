@@ -110,7 +110,7 @@ in {
 
     tabstop = mkOption {
       description = "Sets the tabstop size in spaces for .nix files";
-      type = nullOr null;
+      type = nullOr int;
       default = null;
     };
 
