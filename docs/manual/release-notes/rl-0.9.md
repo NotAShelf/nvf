@@ -134,6 +134,10 @@
 
 - Added [Pyrefly](https://pyrefly.org/) support to `languages.python`
 
+- Added TOML support via {option}`languages.toml` and the
+  [Tombi](https://tombi-toml.github.io/tombi/) language server, linter, and
+  formatter.
+
 [Machshev](https://github.com/machshev):
 
 - Added `ruff` and `ty` LSP support for Python under `programs.python`.
