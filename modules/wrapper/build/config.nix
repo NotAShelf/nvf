@@ -15,7 +15,8 @@
     pin = getPin pname;
     version = builtins.substring 0 8 pin.revision;
   in
-    pin.outPath.overrideAttrs {
+    pin
+    // {
       inherit pname version;
       name = "${pname}-${version}";
 
