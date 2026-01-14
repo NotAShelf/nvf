@@ -8897,6 +8897,92 @@
   
   <li>
     <details class="toc-category">
+      <summary title="vim.languages.toml">
+        <span>vim.languages.toml</span>
+        <span class="toc-count">9</span>
+      </summary>
+      <ul>
+        
+
+        
+        <li>
+          <a href='#option-vim-languages-toml-enable' title="vim.languages.toml.enable">
+            enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-toml-extraDiagnostics-enable' title="vim.languages.toml.extraDiagnostics.enable">
+            extraDiagnostics.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-toml-extraDiagnostics-types' title="vim.languages.toml.extraDiagnostics.types">
+            extraDiagnostics.types
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-toml-format-enable' title="vim.languages.toml.format.enable">
+            format.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-toml-format-type' title="vim.languages.toml.format.type">
+            format.type
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-toml-lsp-enable' title="vim.languages.toml.lsp.enable">
+            lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-toml-lsp-servers' title="vim.languages.toml.lsp.servers">
+            lsp.servers
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-toml-treesitter-enable' title="vim.languages.toml.treesitter.enable">
+            treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-toml-treesitter-package' title="vim.languages.toml.treesitter.package">
+            treesitter.package
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
       <summary title="vim.languages.ts">
         <span>vim.languages.ts</span>
         <span class="toc-count">14</span>
@@ -32254,6 +32340,125 @@ not listed in the docs</p>
 </body></html></div>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.terraform</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/terraform.nix" target="_blank">&lt;nvf/modules/plugins/languages/terraform.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-toml-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-toml-enable" class="option-anchor">vim.languages.toml.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable TOML configuration language support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/toml.nix" target="_blank">&lt;nvf/modules/plugins/languages/toml.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-toml-extraDiagnostics-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-toml-extraDiagnostics-enable" class="option-anchor">vim.languages.toml.extraDiagnostics.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable extra TOML diagnostics.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/toml.nix" target="_blank">&lt;nvf/modules/plugins/languages/toml.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-toml-extraDiagnostics-types">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-toml-extraDiagnostics-types" class="option-anchor">vim.languages.toml.extraDiagnostics.types</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (value "tombi" (singular enum) or (submodule))</code></div>
+  <div class="option-description"><html><head></head><body><p>List of TOML diagnostics to enable</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "tombi"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/toml.nix" target="_blank">&lt;nvf/modules/plugins/languages/toml.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-toml-format-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-toml-format-enable" class="option-anchor">vim.languages.toml.format.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable TOML formatting.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/toml.nix" target="_blank">&lt;nvf/modules/plugins/languages/toml.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-toml-format-type">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-toml-format-type" class="option-anchor">vim.languages.toml.format.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>(list of value "tombi" (singular enum)) or value "tombi" (singular enum) convertible to it</code></div>
+  <div class="option-description"><html><head></head><body><p>TOML formatter to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "tombi"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/toml.nix" target="_blank">&lt;nvf/modules/plugins/languages/toml.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-toml-lsp-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-toml-lsp-enable" class="option-anchor">vim.languages.toml.lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable TOML LSP support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/toml.nix" target="_blank">&lt;nvf/modules/plugins/languages/toml.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-toml-lsp-servers">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-toml-lsp-servers" class="option-anchor">vim.languages.toml.lsp.servers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>(list of value "tombi" (singular enum)) or value "tombi" (singular enum) convertible to it</code></div>
+  <div class="option-description"><html><head></head><body><p>TOML LSP server to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "tombi"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/toml.nix" target="_blank">&lt;nvf/modules/plugins/languages/toml.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-toml-treesitter-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-toml-treesitter-enable" class="option-anchor">vim.languages.toml.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable TOML treesitter.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/toml.nix" target="_blank">&lt;nvf/modules/plugins/languages/toml.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-toml-treesitter-package">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-toml-treesitter-package" class="option-anchor">vim.languages.toml.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>package</code></div>
+  <div class="option-description"><html><head></head><body><p>The toml treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.toml</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/toml.nix" target="_blank">&lt;nvf/modules/plugins/languages/toml.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-ts-enable">
   <h3 class="option-name">
