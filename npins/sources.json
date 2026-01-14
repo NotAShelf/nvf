@@ -598,6 +598,19 @@
       "submodules": false,
       "revision": "ee32e12693d70e66f954d09a504a7371d110fc27"
     },
+    "hlargs-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "m-demare",
+        "repo": "hlargs.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "0b29317c944fb1f76503ce4540d6dceffbb5ccd2",
+      "url": "https://github.com/m-demare/hlargs.nvim/archive/0b29317c944fb1f76503ce4540d6dceffbb5ccd2.tar.gz",
+      "hash": "sha256-WjmVefR0qk2ANWgyHSuYMTuCfzlVTF7tqzAL+uatKkc="
+    },
     "hop.nvim": {
       "type": "GitRelease",
       "repository": {
