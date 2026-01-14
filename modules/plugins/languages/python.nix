@@ -20,6 +20,21 @@
 
   defaultServers = ["basedpyright"];
   servers = {
+    pyrefly = {
+      enable = true;
+      cmd = [(getExe pkgs.pyrefly) "server"];
+      filetypes = ["python"];
+      root_markers = [
+        "pyproject.toml"
+        "pyrefly.toml"
+        "setup.py"
+        "setup.cfg"
+        "requirements.txt"
+        "Pipfile"
+        ".git"
+      ];
+    };
+
     pyright = {
       enable = true;
       cmd = [(getExe' pkgs.pyright "pyright-langserver") "--stdio"];
