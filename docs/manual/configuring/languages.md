@@ -79,6 +79,8 @@ languages have sections under the `vim.languages` attribute.
   [vim.languages.tailwind.enable](./options.html#option-vim-languages-tailwind-enable)
 - Terraform:
   [vim.languages.terraform.enable](./options.html#option-vim-languages-terraform-enable)
+- Tex:
+  [vim.languages.tex.enable](./options.html#option-vim-languages-tex-enable)
 - Typst:
   [vim.languages.typst.enable](./options.html#option-vim-languages-typst-enable)
 - Vala:
