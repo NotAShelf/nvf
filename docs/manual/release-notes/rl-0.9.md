@@ -132,6 +132,8 @@
 
 - Added [sqruff](https://github.com/quarylabs/sqruff) support to `languages.sql`
 
+- Added [Pyrefly](https://pyrefly.org/) support to `languages.python`
+
 [Machshev](https://github.com/machshev):
 
 - Added `ruff` and `ty` LSP support for Python under `programs.python`.
