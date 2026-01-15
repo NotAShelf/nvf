@@ -11,17 +11,6 @@
 
   getPin = flip getAttr (pkgs.callPackages ../../../npins/sources.nix {});
 
-  noBuildPlug = pname: let
-    pin = getPin pname;
-    version = builtins.substring 0 8 pin.revision;
-  in
-    pin.outPath.overrideAttrs {
-      inherit pname version;
-      name = "${pname}-${version}";
-
-      passthru.vimPlugin = false;
-    };
-
   # Build a Vim plugin with the given name and arguments.
   buildPlug = attrs: let
     pin = getPin attrs.pname;
@@ -49,7 +38,7 @@
     # Checkhealth fails to get the plugin's commit and therefore to
     # show the rest of the useful diagnostics if not built like this.
     obsidian-nvim = pkgs.vimUtils.buildVimPlugin {
-      # If set to `"obsidian-nvim"`, this breaks like `buildPlug` and `noBuildPlug`.
+      # If set to `"obsidian-nvim"`, this breaks like `buildPlug` and .
       name = "obsidian.nvim";
       src = getPin "obsidian-nvim";
       nvimSkipModules = [
@@ -80,7 +69,7 @@
             if (lib.isType "flake" plugin)
             then plugin // {name = plug;}
             else plugin)
-        else pluginBuilders.${plug} or (noBuildPlug plug)
+        else pluginBuilders.${plug} or (getPin plug)
       else plug) (
       filter (f: f != null) plugins
     );
