@@ -138,6 +138,9 @@
   [Tombi](https://tombi-toml.github.io/tombi/) language server, linter, and
   formatter.
 
+- Added [hlargs.nvim](https://github.com/m-demare/hlargs.nvim) support as
+  `visuals.hlargs-nvim`.
+
 [Machshev](https://github.com/machshev):
 
 - Added `ruff` and `ty` LSP support for Python under `programs.python`.
