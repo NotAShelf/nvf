@@ -2075,11 +2075,11 @@
         "owner": "nvim-treesitter",
         "repo": "nvim-treesitter-textobjects"
       },
-      "branch": "master",
+      "branch": "main",
       "submodules": false,
-      "revision": "71385f191ec06ffc60e80e6b0c9a9d5daed4824c",
-      "url": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects/archive/71385f191ec06ffc60e80e6b0c9a9d5daed4824c.tar.gz",
-      "hash": "sha256-6hHKcQIdNn93YOSMccI+GFX84iVNHXLlSAxySTnQ6F4="
+      "revision": "baa6b4ec28c8be5e4a96f9b1b6ae9db85ec422f8",
+      "url": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects/archive/baa6b4ec28c8be5e4a96f9b1b6ae9db85ec422f8.tar.gz",
+      "hash": "sha256-kbnZaUtIKXoBj4tFiQWSpGmI6Doke7PjoetqIhsI8lc="
     },
     "nvim-ts-autotag": {
       "type": "Git",
