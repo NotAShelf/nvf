@@ -17,7 +17,9 @@
   inherit (cfg) mappings;
 
   getPluginName = plugin:
-    if typeOf plugin == "string"
+    if cfg.package != null
+      then cfg.package.pname
+    else if typeOf plugin == "string"
     then plugin
     else if (plugin ? pname && (tryEval plugin.pname).success)
     then plugin.pname
@@ -43,9 +45,11 @@ in {
 
   vim = mkIf cfg.enable {
     startPlugins = ["blink-compat"] ++ blinkSourcePlugins ++ (optional cfg.friendly-snippets.enable "friendly-snippets");
-    lazy.plugins = {
-      blink-cmp = {
-        package = "blink-cmp";
+    lazy.plugins = let
+      pluginName = if cfg.package != null then cfg.package.pname else "blink-cmp";
+    in {
+      "${pluginName}" = {
+        package = if cfg.package == null then "blink-cmp" else cfg.package;
         setupModule = "blink.cmp";
         inherit (cfg) setupOpts;
 
