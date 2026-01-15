@@ -1,0 +1,1969 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Release Notes</title>
+     
+    <script>
+      // Apply sidebar state immediately to prevent flash
+      (function () {
+        if (localStorage.getItem("sidebar-collapsed") === "true") {
+          document.documentElement.classList.add("sidebar-collapsed");
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="assets/style.css" />
+    <script defer src="assets/main.js"></script>
+    
+    <script>
+      window.searchNamespace = window.searchNamespace || {};
+      window.searchNamespace.rootPath = "";
+    </script>
+    <script defer src="assets/search.js"></script>
+    
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-left">
+          <h1 class="site-title">
+            <a href="index.html">NVF</a>
+          </h1>
+
+          <nav class="header-nav">
+  <ul>
+    <li >
+      <a href="options.html">Options</a>
+    </li>
+    
+    <li><a href="search.html">Search</a></li>
+    
+  </ul>
+</nav>
+
+        </div>
+        
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Search..." />
+          <div id="search-results" class="search-results"></div>
+        </div>
+        
+      </header>
+
+      <div class="layout">
+        <div class="sidebar-toggle" aria-label="Toggle sidebar">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+          </svg>
+        </div>
+        <nav class="sidebar">
+          <div class="docs-nav">
+            <h2>Documents</h2>
+            <ul>
+              <li><a href="index.html">Introduction</a></li>
+<li><a href="configuring.html">Configuring nvf</a></li>
+<li><a href="hacking.html">Hacking nvf</a></li>
+<li><a href="tips.html">Helpful Tips</a></li>
+<li><a href="quirks.html">Known Issues and Quirks</a></li>
+<li><a href="release-notes.html">Release Notes</a></li>
+<li><a href="search.html">Search</a></li>
+
+            </ul>
+          </div>
+
+          <div class="toc">
+            <h2>Contents</h2>
+            <ul class="toc-list">
+              <li><a href="#ch-release-notes">Release Notes</a>
+<li><a href="#sec-release-0-1">Release 0.1</a>
+<ul><li><a href="#sec-release-0-1-changelog">Changelog</a>
+</ul><li><a href="#sec-release-0-2">Release 0.2</a>
+<ul><li><a href="#sec-release-0-2-changelog">Changelog</a>
+</ul><li><a href="#sec-release-0-3">Release 0.3</a>
+<ul><li><a href="#sec-release-0-3-changelog">Changelog</a>
+</ul><li><a href="#sec-release-0-4">Release 0.4</a>
+<ul><li><a href="#sec-release-0-4-changelog">Changelog</a>
+</ul><li><a href="#sec-release-0-5">Release 0.5</a>
+<ul><li><a href="#sec-release-0-5-changelog">Changelog</a>
+</ul><li><a href="#sec-release-0-6">Release 0.6</a>
+<ul><li><a href="#sec-breaking-changes-and-migration-guide">Breaking Changes and Migration Guide</a>
+<li><a href="#sec-release-0-6-changelog">Changelog</a>
+</ul><li><a href="#sec-release-0-7">Release 0.7</a>
+<ul><li><a href="#sec-breaking-changes-and-migration-guide-0-7">Breaking Changes and Migration Guide</a>
+<ul><li><a href="#sec-vim-configrc-removed">vim.configRC removed</a>
+<li><a href="#sec-vim-maps-rewrite">vim.maps rewrite</a>
+<li><a href="#sec-nvim-code-action-menu-deprecation">vim.lsp.nvimCodeActionMenu removed in favor of vim.ui.fastaction</a>
+<li><a href="#sec-type-based-modules-removed">type based modules removed</a>
+<li><a href="#sec-nixpkgs-fmt-deprecation">nixpkgs-fmt removed in favor of nixfmt</a>
+<li><a href="#sec-leader-changes">leader changes</a>
+<li><a href="#sec-vim-opt-changes">vim.* changes</a>
+</ul><li><a href="#sec-release-0-7-changelog">Changelog</a>
+</ul><li><a href="#sec-release-0-8">Release 0.8</a>
+<ul><li><a href="#breaking-changes">Breaking changes</a>
+<li><a href="#sec-release-0-8-changelog">Changelog</a>
+</ul><li><a href="#sec-release-0-9">Release 0.9</a>
+<ul><li><a href="#breaking-changes">Breaking changes</a>
+<li><a href="#sec-release-0-9-changelog">Changelog</a>
+</li></ul></li>
+            </ul>
+          </div>
+        </nav>
+
+        <main class="content"><html><head></head><body><h1 id="ch-release-notes">Release Notes</h1>
+<p>This section lists the release notes for tagged version of <strong>nvf</strong> and the
+current main current main branch</p>
+<h1 id="sec-release-0-1">Release 0.1</h1>
+<p>This is the current master branch and information here is not final. These are
+changes from the v0.1 tag.</p>
+<p>Special thanks to <a href="https://github.com/nix-community/home-manager/">home-manager</a>
+for this release. Docs/manual generation, the new module evaluation system, and
+DAG implementation are from them.</p>
+<h2 id="sec-release-0-1-changelog">Changelog</h2>
+<p><a href="https://github.com/jordanisaacs">jordanisaacs</a>:</p>
+<ul>
+<li>
+<p>Removed hare language support (lsp/tree-sitter/etc). <code>vim.lsp.hare</code> is no
+longer defined. If you use hare and would like it added back, please file an
+issue.</p>
+</li>
+<li>
+<p><a class="option-reference" href="options.html#option-vim-startPlugins"><code class="nixos-option">vim.startPlugins</code></a> &amp; {option} <code>vim-optPlugins</code> are now an enum of
+<code>string</code> for options sourced from the flake inputs. Users can still provide
+vim plugin packages.</p>
+<ul>
+<li>If you are contributing and adding a new plugin, add the plugin name to
+<code>availablePlugins</code> in [types-plugin.nix].</li>
+</ul>
+</li>
+<li>
+<p><code>neovimBuilder</code> has been removed for configuration. Using an overlay is no
+longer required. See the manual for the new way to configuration.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>Treesitter grammars are now configurable with
+<a class="option-reference" href="options.html#option-vim-treesitter-grammars"><code class="nixos-option">vim.treesitter.grammars</code></a>. Utilizes the nixpkgs <code>nvim-treesitter</code>
+plugin rather than a custom input in order to take advantage of build support
+of pinned versions. See the <a href="https://discourse.nixos.org/t/psa-if-you-are-on-unstable-try-out-nvim-treesitter-withallgrammars/23321?u=snowytrees">relevant discourse post</a> for more information.
+Packages can be found under the <code>vimPlugins.nvim-treesitter.builtGrammars</code>
+namespace.</p>
+</li>
+<li>
+<p><code>vim.configRC</code> and <a class="option-reference" href="options.html#option-vim-luaConfigRC"><code class="nixos-option">vim.luaConfigRC</code></a> are now of type DAG lines. This
+allows for ordering of the config. Usage is the same is in home-manager's
+<code>home.activation</code> option.</p>
+</li>
+</ul>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">luaConfigRC</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">dag</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">entryAnywhere</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">config&nbsp;here</span><span style="color:rgb(152,195,121);">"</span><br></code></pre>
+<p><a href="https://github.com/MoritzBoehme">MoritzBoehme</a>:</p>
+<ul>
+<li><code>catppuccin</code> theme is now available as a neovim theme
+<a class="option-reference" href="options.html#option-vim-theme-style"><code class="nixos-option">vim.theme.style</code></a> and Lualine theme
+<a class="option-reference" href="options.html#option-vim-statusline-lualine-theme"><code class="nixos-option">vim.statusline.lualine.theme</code></a>.</li>
+</ul>
+<h1 id="sec-release-0-2">Release 0.2</h1>
+<p>Release notes for release 0.2</p>
+<h2 id="sec-release-0-2-changelog">Changelog</h2>
+<p><a href="https://github.com/notashelf">notashelf</a>:</p>
+<ul>
+<li>Added two minimap plugins under <code>vim.minimap</code>. <code>codewindow.nvim</code> is enabled by
+default, while <code>minimap.vim</code> is available with its code-minimap dependency.</li>
+<li>A complementary plugin, <code>obsidian.nvim</code> and the Neovim alternative for Emacs'
+orgmode with <code>orgmode.nvim</code> have been added. Both will be disabled by default.</li>
+<li>Smooth scrolling for ANY movement command is now available with
+<code>cinnamon.nvim</code></li>
+<li>You will now notice a dashboard on startup. This is provided by the
+<code>alpha.nvim</code> plugin. You can use any of the three available dashboard plugins,
+or disable them entirely.</li>
+<li>There is now a scrollbar on active buffers, which can highlight errors by
+hooking to your LSPs. This is on by default, but can be toggled off under
+<code>vim.visuals</code> if seen necessary.</li>
+<li>Discord Rich Presence has been added through <code>presence.nvim</code> for those who
+want to flex that they are using the <em>superior</em> text editor.</li>
+<li>An icon picker is now available with telescope integration. You can use
+<code>:IconPickerInsert</code> or <code>:IconPickerYank</code> to add icons to your code.</li>
+<li>A general-purpose cheatsheet has been added through <code>cheatsheet.nvim</code>. Forget
+no longer!</li>
+<li><code>ccc.nvim</code> has been added to the default plugins to allow picking colors with
+ease.</li>
+<li>Most UI components of Neovim have been replaced through the help of
+<code>noice.nvim</code>. There are also notifications and custom UI elements available
+for Neovim messages and prompts.</li>
+<li>A (floating by default) terminal has been added through <code>toggleterm.nvim</code>.</li>
+<li>Harness the power of ethical (<code>tabnine.nvim</code>) and not-so-ethical
+(<code>copilot.lua</code>) AI by those new assistant plugins. Both are off by default,
+TabNine needs to be wrapped before it's working.</li>
+<li>Experimental mouse gestures have been added through <code>gesture.nvim</code>. See plugin
+page and the relevant module for more details on how to use.</li>
+<li>Re-open last visited buffers via <code>nvim-session-manager</code>. Disabled by default
+as deleting buffers seems to be problematic at the moment.</li>
+<li>Most of NvimTree's configuration options have been changed with some options
+being toggled to off by default.</li>
+<li>Lualine had its configuration simplified and style toned down. Less color,
+more info.</li>
+<li>Modules where multiple plugin configurations were in the same directory have
+been simplified. Each plugin inside a single module gets its directory to be
+imported.</li>
+<li>Separate config options with the same parent attribute have been merged into
+one for simplicity.</li>
+</ul>
+<h1 id="sec-release-0-3">Release 0.3</h1>
+<p>Release 0.3 had to come out before I wanted it to due to Neovim 0.9 dropping
+into nixpkgs-unstable. The Treesitter changes have prompted a Treesitter rework,
+which was followed by reworking the languages system. Most of the changes to
+those are downstreamed from the original repository. The feature requests that
+was originally planned for 0.3 have been moved to 0.4, which should come out
+soon.</p>
+<h2 id="sec-release-0-3-changelog">Changelog</h2>
+<ul>
+<li>
+<p>We have transitioned to flake-parts, from flake-utils to extend the
+flexibility of this flake. This means the flake structure is different than
+usual, but the functionality remains the same.</p>
+</li>
+<li>
+<p>We now provide a home-manager module. Do note that it is still far from
+perfect, but it works.</p>
+</li>
+<li>
+<p><code>nodejs_16</code> is now bundled with <code>Copilot.lua</code> if the user has enabled Copilot
+assistant.</p>
+</li>
+<li>
+<p>which-key section titles have been fixed. This is to be changed once again in
+a possible keybind rewrite, but now it should display the correct titles
+instead of <code>+prefix</code></p>
+</li>
+<li>
+<p>Most of <code>presence.nvim</code>'s options have been made fully configurable through
+your configuration file.</p>
+</li>
+<li>
+<p>Most of the modules have been refactored to separate <code>config</code> and <code>options</code>
+attributes.</p>
+</li>
+<li>
+<p>Darwin has been deprecated as the Zig package is marked as broken. We will
+attempt to use the Zig overlay to return Darwin support.</p>
+</li>
+<li>
+<p><code>Fidget.nvim</code> has been added as a neat visual addition for LSP installations.</p>
+</li>
+<li>
+<p><code>diffview.nvim</code> has been added to provide a convenient diff utility.</p>
+</li>
+<li>
+<p>Treesitter grammars are now configurable with
+<a class="option-reference" href="options.html#option-vim-treesitter-grammars"><code class="nixos-option">vim.treesitter.grammars</code></a>. Utilizes the nixpkgs <code>nvim-treesitter</code>
+plugin rather than a custom input in order to take advantage of build support
+of pinned versions. See <a href="https://discourse.nixos.org/t/psa-if-you-are-on-unstable-try-out-nvim-treesitter-withallgrammars/23321?u=snowytrees">discourse</a> for more information. Packages can be
+found under the <code>pkgs.vimPlugins.nvim-treesitter.builtGrammars</code> attribute.
+Treesitter grammars for supported languages should be enabled within the
+module. By default no grammars are installed, thus the following grammars
+which do not have a language section are not included anymore: <strong>comment</strong>,
+<strong>toml</strong>, <strong>make</strong>, <strong>html</strong>, <strong>css</strong>, <strong>graphql</strong>, <strong>json</strong>.</p>
+</li>
+<li>
+<p>A new section has been added for language support: <code>vim.languages.&lt;language&gt;</code>.</p>
+<ul>
+<li>The options <code>enableLSP</code> <a class="option-reference" href="options.html#option-vim-languages-enableTreesitter"><code class="nixos-option">vim.languages.enableTreesitter</code></a>, etc. will
+enable the respective section for all languages that have been enabled.</li>
+<li>All LSP languages have been moved here</li>
+<li><code>plantuml</code> and <code>markdown</code> have been moved here</li>
+<li>A new section has been added for <code>html</code>. The old
+<code>vim.treesitter.autotagHtml</code> can be found at
+<a class="option-reference" href="options.html#option-vim-languages-html-treesitter-autotagHtml"><code class="nixos-option">vim.languages.html.treesitter.autotagHtml</code></a>.</li>
+</ul>
+</li>
+<li>
+<p><code>vim.git.gitsigns.codeActions</code> has been added, allowing you to turn on
+Gitsigns' code actions.</p>
+</li>
+<li>
+<p>Removed the plugins document in the docs. Was too unwieldy to keep updated.</p>
+</li>
+<li>
+<p><code>vim.visual.lspkind</code> has been moved to <a class="option-reference" href="options.html#option-vim-lsp-lspkind-enable"><code class="nixos-option">vim.lsp.lspkind.enable</code></a></p>
+</li>
+<li>
+<p>Improved handling of completion formatting. When setting
+<code>vim.autocomplete.sources</code>, can also include optional menu mapping. And can
+provide your own function with <code>vim.autocomplete.formatting.format</code>.</p>
+</li>
+<li>
+<p>For <code>vim.visuals.indentBlankline.fillChar</code> and
+<code>vim.visuals.indentBlankline.eolChar</code> options, turning them off should be done
+by using <code>null</code> rather than <code>""</code> now.</p>
+</li>
+<li>
+<p>Transparency has been made optional and has been disabled by default.
+<a class="option-reference" href="options.html#option-vim-theme-transparent"><code class="nixos-option">vim.theme.transparent</code></a> option can be used to enable or disable
+transparency for your configuration.</p>
+</li>
+<li>
+<p>Fixed deprecated configuration method for Tokyonight, and added new style
+"moon"</p>
+</li>
+<li>
+<p>Dart language support as well as extended flutter support has been added.
+Thanks to @FlafyDev for his contributions towards Dart language support.</p>
+</li>
+<li>
+<p>Elixir language support has been added through <code>elixir-tools.nvim</code>.</p>
+</li>
+<li>
+<p><code>hop.nvim</code> and <code>leap.nvim</code> have been added for fast navigation.</p>
+</li>
+<li>
+<p><code>modes.nvim</code> has been added to the UI plugins as a minor error highlighter.</p>
+</li>
+<li>
+<p><code>smartcollumn.nvim</code> has been added to dynamically display a colorcolumn when
+the limit has been exceeded, providing per-buftype column position and more.</p>
+</li>
+<li>
+<p><code>project.nvim</code> has been added for better project management inside Neovim.</p>
+</li>
+<li>
+<p>More configuration options have been added to <code>nvim-session-manager</code>.</p>
+</li>
+<li>
+<p>Editorconfig support has been added to the core functionality, with an enable
+option.</p>
+</li>
+<li>
+<p><code>venn-nvim</code> has been dropped due to broken keybinds.</p>
+</li>
+</ul>
+<h1 id="sec-release-0-4">Release 0.4</h1>
+<p>Following the release of v0.3, I have decided to release v0.4 with a massive new
+change: customizable keybinds. As of the 0.4 release, keybinds will no longer be
+hardcoded and instead provided by each module's own keybinds section. The old
+keybind system (<code>vim.keybinds = {}</code>) is now considered deprecated and the new
+lib functions are recommended to be used for adding keybinds for new plugins, or
+adding keybinds to existing plugins.</p>
+<p>Alongside customizable keybinds, there are a few quality of life updates, such
+as <code>lazygit</code> integration and the new experimental Lua loader of Neovim 0.9
+thanks to our awesome contributors who made this update possible during my
+absence.</p>
+<h2 id="sec-release-0-4-changelog">Changelog</h2>
+<p><a href="https://github.com/n3oney">n3oney</a>:</p>
+<ul>
+<li>
+<p>Streamlined keybind adding process towards new functions in extended stdlib.</p>
+</li>
+<li>
+<p>Moved default keybinds into keybinds section of each module</p>
+</li>
+<li>
+<p>Simplified luaConfigRC and configRC setting - they can now just take strings</p>
+</li>
+<li>
+<p>Refactored the resolveDag function - you can just provide a string now, which
+will default to dag.entryAnywhere</p>
+</li>
+<li>
+<p>Fixed formatting sometimes removing parts of files</p>
+</li>
+<li>
+<p>Made formatting synchronous</p>
+</li>
+<li>
+<p>Gave null-ls priority over other formatters</p>
+</li>
+</ul>
+<p><a href="https://github.com/horriblename">horriblename</a>:</p>
+<ul>
+<li>
+<p>Added <code>clangd</code> as alternative lsp for C/++.</p>
+</li>
+<li>
+<p>Added <code>toggleterm</code> integration for <code>lazygit</code>.</p>
+</li>
+<li>
+<p>Added new option <code>enableluaLoader</code> to enable neovim's experimental module
+loader for faster startup time.</p>
+</li>
+<li>
+<p>Fixed bug where flutter-tools can't find <code>dart</code> LSP</p>
+</li>
+<li>
+<p>Added Debug Adapter (DAP) support for clang, rust, go, python and dart.</p>
+</li>
+</ul>
+<p><a href="https://github.com/notashelf">notashelf</a>:</p>
+<ul>
+<li>
+<p>Made Copilot's Node package configurable. It is recommended to keep as
+default, but providing a different NodeJS version is now possible.</p>
+</li>
+<li>
+<p>Added <code>vim.cursorlineOpt</code> for configuring Neovim's <code>vim.o.cursorlineopt</code>.</p>
+</li>
+<li>
+<p>Added <code>filetree.nvimTreeLua.view.cursorline</code>, default false, to enable
+cursorline in nvimtre.</p>
+</li>
+<li>
+<p>Added Fidget.nvim support for the Catppuccin theme.</p>
+</li>
+<li>
+<p>Updated bundled NodeJS version used by <code>Copilot.lua</code>. v16 is now marked as
+insecure on Nixpkgs, and we updated to v18</p>
+</li>
+<li>
+<p>Enabled Catppuccin modules for plugins available by default.</p>
+</li>
+<li>
+<p>Added experimental Svelte support under <code>vim.languages</code>.</p>
+</li>
+<li>
+<p>Removed unnecessary scrollbar element from notifications and codeaction
+warning UI.</p>
+</li>
+<li>
+<p><code>vim.utility.colorizer</code> has been renamed to <code>vim.utility.ccc</code> after the plugin
+it uses</p>
+</li>
+<li>
+<p>Color preview via <code>nvim-colorizer.lua</code></p>
+</li>
+<li>
+<p>Updated Lualine statusline UI</p>
+</li>
+<li>
+<p>Added vim-illuminate for smart highlighting</p>
+</li>
+<li>
+<p>Added a module for enabling Neovim's spellchecker</p>
+</li>
+<li>
+<p>Added prettierd as an alternative formatter to prettier - currently defaults
+to prettier</p>
+</li>
+<li>
+<p>Fixed presence.nvim inheriting the wrong client id</p>
+</li>
+<li>
+<p>Cleaned up documentation</p>
+</li>
+</ul>
+<h1 id="sec-release-0-5">Release 0.5</h1>
+<h2 id="sec-release-0-5-changelog">Changelog</h2>
+<p><a href="https://github.com/vagahbond">vagahbond</a>:</p>
+<ul>
+<li>
+<p>Added phan language server for PHP</p>
+</li>
+<li>
+<p>Added phpactor language server for PHP</p>
+</li>
+</ul>
+<p><a href="https://github.com/horriblename">horriblename</a>:</p>
+<ul>
+<li>
+<p>Added transparency support for tokyonight theme</p>
+</li>
+<li>
+<p>Fixed a bug where cmp's close and scrollDocs mappings wasn't working</p>
+</li>
+<li>
+<p>Streamlined and simplified extra plugin API with the addition of
+<a class="option-reference" href="options.html#option-vim-extraPlugins"><code class="nixos-option">vim.extraPlugins</code></a></p>
+</li>
+<li>
+<p>Allow using command names in place of LSP packages to avoid automatic
+installation</p>
+</li>
+<li>
+<p>Add lua LSP and Treesitter support, and neodev.nvim plugin support</p>
+</li>
+<li>
+<p>Add <a class="option-reference" href="options.html#option-vim-lsp-mappings-toggleFormatOnSave"><code class="nixos-option">vim.lsp.mappings.toggleFormatOnSave</code></a> keybind</p>
+</li>
+</ul>
+<p><a href="https://github.com/amanse">amanse</a>:</p>
+<ul>
+<li>
+<p>Added daily notes options for obsidian plugin</p>
+</li>
+<li>
+<p>Added <code>jdt-language-server</code> for Java</p>
+</li>
+</ul>
+<p><a href="https://github.com/yavko">yavko</a>:</p>
+<ul>
+<li>
+<p>Added Deno Language Server for Javascript/Typescript</p>
+</li>
+<li>
+<p>Added support for multiple languages under <code>vim.spellChecking.languages</code>, and
+added vim-dirtytalk through <code>vim.spellChecking.enableProgrammingWordList</code></p>
+</li>
+</ul>
+<p><a href="https://github.com/FrothyMarrow">frothymarrow</a>:</p>
+<ul>
+<li>
+<p>Renamed <code>vim.visuals.cursorWordline</code> to <code>vim.visuals.cursorline.enable</code></p>
+</li>
+<li>
+<p>Added <code>vim.visuals.cursorline.lineNumbersOnly</code> to display cursorline only in
+the presence of line numbers</p>
+</li>
+<li>
+<p>Added Oxocarbon to the list of available themes.</p>
+</li>
+</ul>
+<p><a href="https://github.com/notashelf">notashelf</a>:</p>
+<ul>
+<li>
+<p>Added GitHub Copilot to nvim-cmp completion sources.</p>
+</li>
+<li>
+<p>Added <a class="option-reference" href="options.html#option-vim-ui-borders-enable"><code class="nixos-option">vim.ui.borders.enable</code></a> for global and individual plugin border
+configuration.</p>
+</li>
+<li>
+<p>LSP integrated breadcrumbs with <a class="option-reference" href="options.html#option-vim-ui-breadcrumbs-enable"><code class="nixos-option">vim.ui.breadcrumbs.enable</code></a> through
+nvim-navic</p>
+</li>
+<li>
+<p>LSP navigation helper with nvim-navbuddy, depends on nvim-navic (automatically
+enabled if navic is enabled)</p>
+</li>
+<li>
+<p>Added nvim-navic integration for Catppuccin theme</p>
+</li>
+<li>
+<p>Fixed mismatching Zig language description</p>
+</li>
+<li>
+<p>Added support for <code>statix</code> and <code>deadnix</code> through
+<a class="option-reference" href="options.html#option-vim-languages-nix-extraDiagnostics-types"><code class="nixos-option">vim.languages.nix.extraDiagnostics.types</code></a></p>
+</li>
+<li>
+<p>Added <code>lsp_lines</code> plugin for showing diagnostic messages</p>
+</li>
+<li>
+<p>Added a configuration option for choosing the leader key</p>
+</li>
+<li>
+<p>The package used for neovim is now customizable by the user, using
+<a class="option-reference" href="options.html#option-vim-package"><code class="nixos-option">vim.package</code></a>. For best results, always use an unwrapped package</p>
+</li>
+<li>
+<p>Added highlight-undo plugin for highlighting undo/redo targets</p>
+</li>
+<li>
+<p>Added bash LSP and formatter support</p>
+</li>
+<li>
+<p>Disabled Lualine LSP status indicator for Toggleterm buffer</p>
+</li>
+<li>
+<p>Added <code>nvim-docs-view</code>, a plugin to display LSP hover documentation in a side
+panel</p>
+</li>
+<li>
+<p>Switched to <code>nixosOptionsDoc</code> in option documentation. To quote home-manager
+commit: "Output is mostly unchanged aside from some minor typographical and
+formatting changes, along with better source links."</p>
+</li>
+<li>
+<p>Updated indent-blankine.nvim to v3 - this comes with a few option changes,
+which will be migrated with <code>renamedOptionModule</code></p>
+</li>
+</ul>
+<p><a href="https://poz.pet">poz</a>:</p>
+<ul>
+<li>
+<p>Fixed scrollOffset not being used</p>
+</li>
+<li>
+<p>Updated clangd to 16</p>
+</li>
+<li>
+<p>Disabled <code>useSystemClipboard</code> by default</p>
+</li>
+</ul>
+<p><a href="https://github.com/ksonj">ksonj</a>:</p>
+<ul>
+<li>
+<p>Add support to change mappings to utility/surround</p>
+</li>
+<li>
+<p>Add black-and-isort python formatter</p>
+</li>
+<li>
+<p>Removed redundant "Enable ..." in <code>mkEnableOption</code> descriptions</p>
+</li>
+<li>
+<p>Add options to modify LSP key bindings and add proper which-key descriptions</p>
+</li>
+<li>
+<p>Changed type of <code>statusline.lualine.activeSection</code> and
+<code>statusline.lualine.inactiveSection</code> from <code>attrsOf str</code> to
+<code>attrsOf (listOf str)</code></p>
+</li>
+<li>
+<p>Added <code>statusline.lualine.extraActiveSection</code> and
+<code>statusline.lualine.extraInactiveSection</code></p>
+</li>
+</ul>
+<h1 id="sec-release-0-6">Release 0.6</h1>
+<p>Release notes for release 0.6</p>
+<h2 id="sec-breaking-changes-and-migration-guide">Breaking Changes and Migration Guide</h2>
+<p>In v0.6 we are introducing <code>setupOpts</code>: many plugin related options are moved
+into their respective <code>setupOpts</code> submodule, e.g. <code>nvimTree.disableNetrw</code> is
+renamed to <code>nvimTree.setupOpts.disable_netrw</code>.</p>
+<p><em>Why?</em> in short, you can now pass in anything to setupOpts and it will be passed
+to your <code>require'plugin'.setup{...}</code>. No need to wait for us to support every
+single plugin option.</p>
+<p>The warnings when you rebuild your config should be enough to guide you through
+what you need to do, if there's an option that was renamed but wasn't listed in
+the warning, please file a bug report!</p>
+<p>To make your migration process less annoying, here's a keybind that will help
+you with renaming stuff from camelCase to snake_case (you'll be doing that a
+lot):</p>
+<pre class="highlight"><code class="language-lua"><span style="color:rgb(92,99,112);font-style: italic;">--&nbsp;paste&nbsp;this&nbsp;in&nbsp;a&nbsp;temp.lua&nbsp;file&nbsp;and&nbsp;load&nbsp;it&nbsp;in&nbsp;vim&nbsp;with&nbsp;:source&nbsp;/path/to/temp.lua</span><br><span style="color:rgb(198,120,221);">function</span>&nbsp;<span style="color:rgb(97,175,239);">camelToSnake</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">--&nbsp;Get&nbsp;the&nbsp;current&nbsp;word&nbsp;under&nbsp;the&nbsp;cursor</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(198,120,221);">local</span>&nbsp;<span style="color:rgb(171,178,191);">word</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">fn</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">expand</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(152,195,121);">"&lt;cword&gt;"</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">--&nbsp;Replace&nbsp;each&nbsp;capital&nbsp;letter&nbsp;with&nbsp;an&nbsp;underscore&nbsp;followed&nbsp;by&nbsp;its&nbsp;lowercase&nbsp;equivalent</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(198,120,221);">local</span>&nbsp;<span style="color:rgb(171,178,191);">snakeCase</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(232,102,113);">string</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">gsub</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">word</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(209,154,102);">%u</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(198,120,221);">function</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(232,102,113);">match</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(198,120,221);">return</span>&nbsp;<span style="color:rgb(152,195,121);">"_"</span>&nbsp;<span style="color:rgb(171,178,191);">..</span>&nbsp;<span style="color:rgb(232,102,113);">string</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">lower</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(232,102,113);">match</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(198,120,221);">end</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">--&nbsp;Remove&nbsp;the&nbsp;leading&nbsp;underscore&nbsp;if&nbsp;present</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(198,120,221);">if</span>&nbsp;<span style="color:rgb(232,102,113);">string</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">sub</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">snakeCase</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(209,154,102);">1</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(209,154,102);">1</span><span style="color:rgb(132,139,152);">)</span>&nbsp;<span style="color:rgb(171,178,191);">==</span>&nbsp;<span style="color:rgb(152,195,121);">"_"</span>&nbsp;<span style="color:rgb(198,120,221);">then</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(171,178,191);">snakeCase</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(232,102,113);">string</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">sub</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">snakeCase</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(209,154,102);">2</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(198,120,221);">end</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">fn</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">setreg</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">v</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">register</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(171,178,191);">snakeCase</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">--&nbsp;Select&nbsp;the&nbsp;word&nbsp;under&nbsp;the&nbsp;cursor&nbsp;and&nbsp;paste</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">cmd</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(152,195,121);">"normal!&nbsp;viwP"</span><span style="color:rgb(132,139,152);">)</span><br><span style="color:rgb(198,120,221);">end</span><br><br><span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">api</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">nvim_set_keymap</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(152,195,121);">'n'</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(152,195,121);">'&lt;leader&gt;a'</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(152,195,121);">':lua&nbsp;camelToSnake()&lt;CR&gt;'</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(229,192,123);font-weight: bold;">{</span>&nbsp;<span style="color:rgb(86,182,194);">noremap</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(86,182,194);">silent</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span>&nbsp;<span style="color:rgb(229,192,123);font-weight: bold;">}</span><span style="color:rgb(132,139,152);">)</span><br></code></pre>
+<h2 id="sec-release-0-6-changelog">Changelog</h2>
+<p><a href="https://github.com/ksonj">ksonj</a>:</p>
+<ul>
+<li>
+<p>Added Terraform language support.</p>
+</li>
+<li>
+<p>Added <code>ChatGPT.nvim</code>, which can be enabled with
+<a class="option-reference" href="options.html#option-vim-assistant-chatgpt-enable"><code class="nixos-option">vim.assistant.chatgpt.enable</code></a>. Do keep in mind that this option
+requires <code>OPENAI_API_KEY</code> environment variable to be set.</p>
+</li>
+</ul>
+<p><a href="https://github.com/donnerinoern">donnerinoern</a>:</p>
+<ul>
+<li>
+<p>Added Gruvbox theme.</p>
+</li>
+<li>
+<p>Added marksman LSP for Markdown.</p>
+</li>
+<li>
+<p>Fixed markdown preview with Glow not working and added an option for changing
+the preview keybind.</p>
+</li>
+<li>
+<p>colorizer.nvim: switched to a maintained fork.</p>
+</li>
+<li>
+<p>Added <code>markdown-preview.nvim</code>, moved <code>glow.nvim</code> to a brand new
+<code>vim.utility.preview</code> category.</p>
+</li>
+</ul>
+<p><a href="https://github.com/elijahimmer">elijahimmer</a></p>
+<ul>
+<li>Added rose-pine theme.</li>
+</ul>
+<p><a href="https://poz.pet">poz</a>:</p>
+<ul>
+<li>Added <code>vim.autocomplete.alwaysComplete</code>. Allows users to have the autocomplete
+window popup only when manually activated.</li>
+</ul>
+<p><a href="https://github.com/horriblename">horriblename</a>:</p>
+<ul>
+<li>
+<p>Fixed empty winbar when breadcrumbs are disabled.</p>
+</li>
+<li>
+<p>Added custom <code>setupOpts</code> for various plugins.</p>
+</li>
+<li>
+<p>Removed support for deprecated plugin "nvim-compe".</p>
+</li>
+<li>
+<p>Moved most plugins to <code>setupOpts</code> method.</p>
+</li>
+</ul>
+<p><a href="https://github.com/frothymarrow">frothymarrow</a>:</p>
+<ul>
+<li>
+<p>Added option <code>vim.luaPackages</code> to wrap neovim with extra Lua packages.</p>
+</li>
+<li>
+<p>Rewrote the entire <code>fidget.nvim</code> module to include extensive configuration
+options. Option <code>vim.fidget-nvim.align.bottom</code> has been removed in favor of
+<code>vim.fidget-nvim.notification.window.align</code>, which now supports <code>top</code> and
+<code>bottom</code> values. <code>vim.fidget-nvim.align.right</code> has no longer any equivalent
+and also has been removed.</p>
+</li>
+<li>
+<p><code>which-key.nvim</code> categories can now be customized through
+<a href="./options.html#option-vim-binds-whichKey-register">vim.binds.whichKey.register</a></p>
+</li>
+<li>
+<p>Added <code>magick</code> to <code>vim.luaPackages</code> for <code>image.nvim</code>.</p>
+</li>
+<li>
+<p>Added <code>alejandra</code> to the default devShell.</p>
+</li>
+<li>
+<p>Migrated neovim-flake to <code>makeNeovimUnstable</code> wrapper.</p>
+</li>
+</ul>
+<p><a href="https://github.com/notashelf">notashelf</a>:</p>
+<ul>
+<li>
+<p>Finished moving to <code>nixosOptionsDoc</code> in the documentation and changelog. All
+documentation options and files are fully free of Asciidoc, and will now use
+Nixpkgs flavored markdown.</p>
+</li>
+<li>
+<p>Bumped plugin inputs to their latest versions.</p>
+</li>
+<li>
+<p>Deprecated <code>presence.nvim</code> in favor of <code>neocord</code>. This means
+<code>vim.rich-presence.presence-nvim</code> is removed and will throw a warning if used.
+You are recommended to rewrite your neocord configuration from scratch based
+on the. <a href="https://github.com/IogaMaster/neocord">official documentation</a></p>
+</li>
+<li>
+<p>Removed Tabnine plugin due to the usage of imperative tarball downloads. If
+you'd like to see it back, please create an issue.</p>
+</li>
+<li>
+<p>Added support for css and tailwindcss through
+vscode-language-servers-extracted &amp; tailwind-language-server. Those can be
+enabled through <code>vim.languages.css</code> and <code>vim.languages.tailwind</code>.</p>
+</li>
+<li>
+<p>Lualine module now allows customizing <code>always_divide_middle</code>, <code>ignore_focus</code>
+and <code>disabled_filetypes</code> through the new options:
+<a href="./options.html#option-vim-statusline-lualine-alwaysDivideMiddle">vim.statusline.lualine.alwaysDivideMiddle</a>,
+<a href="./options.html#option-vim-statusline-lualine-ignoreFocus">vim.statusline.lualine.ignoreFocus</a>
+and
+<a href="./options.html#option-vim-statusline-lualine-disabledFiletypes">vim.statusline.lualine.disabledFiletypes</a>.</p>
+</li>
+<li>
+<p>Updated all plugin inputs to their latest versions (<strong>21.04.2024</strong>) - this
+brought minor color changes to the Catppuccin theme.</p>
+</li>
+<li>
+<p>Moved home-manager module entrypoint to <code>flake/modules</code> and added an
+experimental Nixos module. This requires further testing before it can be
+considered ready for use.</p>
+</li>
+<li>
+<p>Made lib calls explicit. E.g. <code>lib.strings.optionalString</code> instead of
+<code>lib.optionalString</code>. This is a pattern expected to be followed by all
+contributors in the future.</p>
+</li>
+<li>
+<p>Added <code>image.nvim</code> for image previews.</p>
+</li>
+<li>
+<p>The final neovim package is now exposed. This means you can build the neovim
+package that will be added to your package list without rebuilding your system
+to test if your configuration yields a broken package.</p>
+</li>
+<li>
+<p>Changed the tree structure to distinguish between core options and plugin
+options.</p>
+</li>
+<li>
+<p>Added plugin auto-discovery from plugin inputs. This is mostly from
+<a href="https://github.com/jordanisaacs/neovim-flake">JordanIsaac's neovim-flake</a>.
+Allows contributors to add plugin inputs with the <code>plugin-</code> prefix to have
+them automatically discovered for the <code>plugin</code> type in <code>lib/types</code>.</p>
+</li>
+<li>
+<p>Moved internal <code>wrapLuaConfig</code> to the extended library, structured its
+arguments to take <code>luaBefore</code>, <code>luaConfig</code> and <code>luaAfter</code> as strings, which
+are then concatted inside a lua block.</p>
+</li>
+<li>
+<p>Added <a class="option-reference" href="options.html#option-vim-luaConfigPre"><code class="nixos-option">vim.luaConfigPre</code></a> and {option} <code>vim-luaConfigPost</code> for
+inserting verbatim Lua configuration before and after the resolved Lua DAG
+respectively. Both of those options take strings as the type, so you may read
+the contents of a Lua file from a given path.</p>
+</li>
+<li>
+<p>Added <code>vim.spellchecking.ignoredFiletypes</code> and
+<code>vim.spellChecking.programmingWordlist.enable</code> for ignoring certain filetypes
+in spellchecking and enabling <code>vim-dirtytalk</code> respectively. The previously
+used <code>vim.spellcheck.vim-dirtytalk</code> aliases to the latter option.</p>
+</li>
+<li>
+<p>Exposed <code>withRuby</code>, <code>withNodeJs</code>, <code>withPython3</code>, and <code>python3Packages</code> from
+the <code>makeNeovimConfig</code> function under their respective options.</p>
+</li>
+<li>
+<p>Added <a class="option-reference" href="options.html#option-vim-extraPackages"><code class="nixos-option">vim.extraPackages</code></a> for appending additional packages to the
+wrapper PATH, making said packages available while inside the Neovim session.</p>
+</li>
+<li>
+<p>Made Treesitter options configurable, and moved treesitter-context to
+<code>setupOpts</code> while it is enabled.</p>
+</li>
+<li>
+<p>Added <a class="option-reference" href="options.html#option-vim-notify-nvim-notify-setupOpts-render"><code class="nixos-option">vim.notify.nvim-notify.setupOpts.render</code></a> which takes either a
+string of enum, or a Lua function. The default is "compact", but you may
+change it according to nvim-notify documentation.</p>
+</li>
+</ul>
+<h1 id="sec-release-0-7">Release 0.7</h1>
+<p>Release notes for release 0.7</p>
+<h2 id="sec-breaking-changes-and-migration-guide-0-7">Breaking Changes and Migration Guide</h2>
+<h3 id="sec-vim-configrc-removed"><code>vim.configRC</code> removed</h3>
+<p>In v0.7 we are removing <code>vim.configRC</code> in favor of making <code>vim.luaConfigRC</code> the
+top-level DAG, and thereby making the entire configuration Lua based. This
+change introduces a few breaking changes:</p>
+<ul>
+<li><code>vim.configRC</code> has been removed, which means that you have to convert all of
+your custom vimscript-based configuration to Lua. As for how to do that, you
+will have to consult the Neovim documentation and your search engine.</li>
+<li>After migrating your Vimscript-based configuration to Lua, you might not be
+able to use the same entry names in <code>vim.luaConfigRC</code>, because those have also
+slightly changed. See the new <a href="/index.xhtml#ch-dag-entries">DAG entries in nvf manual</a> for more details.</li>
+</ul>
+<p><strong>Why?</strong></p>
+<p>Neovim being an aggressive refactor of Vim, is designed to be mainly Lua based;
+making good use of its extensive Lua API. Additionally, Vimscript is slow and
+brings unnecessary performance overhead while working with different
+configuration formats.</p>
+<h3 id="sec-vim-maps-rewrite"><code>vim.maps</code> rewrite</h3>
+<p>Instead of specifying map modes using submodules (e.g., <code>vim.maps.normal</code>), a
+new <code>vim.keymaps</code> submodule with support for a <code>mode</code> option has been
+introduced. It can be either a string, or a list of strings, where a string
+represents the short-name of the map mode(s), that the mapping should be set
+for. See <code>:help map-modes</code> for more information.</p>
+<p>For example:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">maps</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">normal</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;m</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(232,102,113);">...</span>&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br></code></pre>
+<p>has to be replaced by</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">keymaps</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">key</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;m</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">mode</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">n</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">.</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(132,139,152);">.</span><br><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br></code></pre>
+<h3 id="sec-nvim-code-action-menu-deprecation"><code>vim.lsp.nvimCodeActionMenu</code> removed in favor of <code>vim.ui.fastaction</code></h3>
+<p>The nvim-code-action-menu plugin has been archived and broken for a long time,
+so it's being replaced with a young, but better alternative called
+fastaction.nvim. Simply remove everything set under
+<code>vim.lsp.nvimCodeActionMenu</code>, and set <code>vim.ui.fastaction.enable</code> to <code>true</code>.</p>
+<p>Note that we are looking to add more alternatives in the future like
+dressing.nvim and actions-preview.nvim, in case fastaction doesn't work for
+everyone.</p>
+<h3 id="sec-type-based-modules-removed"><code>type</code> based modules removed</h3>
+<p>As part of the autocompletion rewrite, modules that used to use a <code>type</code> option
+have been replaced by per-plugin modules instead. Since both modules only had
+one type, you can simply change</p>
+<ul>
+<li><code>vim.autocomplete.*</code> -&gt; <code>vim.autocomplete.nvim-cmp.*</code></li>
+<li><code>vim.autopairs.enable</code> -&gt; <code>vim.autopairs.nvim-autopairs.enable</code></li>
+</ul>
+<h3 id="sec-nixpkgs-fmt-deprecation"><code>nixpkgs-fmt</code> removed in favor of <code>nixfmt</code></h3>
+<p><code>nixpkgs-fmt</code> has been archived for a while, and it's finally being removed in
+favor of nixfmt (more information can be found
+<a href="https://github.com/nix-community/nixpkgs-fmt?tab=readme-ov-file#nixpkgs-fmt---nix-code-formatter-for-nixpkgs">here</a>.</p>
+<p>To migrate to <code>nixfmt</code>, simply change <code>vim.languages.nix.format.type</code> to
+<code>nixfmt</code>.</p>
+<h3 id="sec-leader-changes">leader changes</h3>
+<p>This has been deprecated in favor of using the more generic <code>vim.globals</code> (you
+can use <code>vim.globals.mapleader</code> to change this instead).</p>
+<p>Rust specific keymaps now use <code>maplocalleader</code> instead of <code>localleader</code> by
+default. This is to avoid conflicts with other modules. You can change
+<code>maplocalleader</code> with <code>vim.globals.maplocalleader</code>, but it's recommended to set
+it to something other than <code>mapleader</code> to avoid conflicts.</p>
+<h3 id="sec-vim-opt-changes"><code>vim.*</code> changes</h3>
+<p>Inline with the <a href="#sec-leader-changes">leader changes</a>, we have removed some
+options that were under <code>vim</code> as convenient shorthands for <code>vim.o.*</code> options.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>As v0.7 features the addition of <a class="option-reference" href="options.html#option-vim-options"><code class="nixos-option">vim.options</code></a>, those options are now
+considered as deprecated. You should migrate to the appropriate options in the
+<code>vim.options</code> submodule.</p>
+</div>
+<p>The changes are, in no particular order:</p>
+<ul>
+<li>
+<p><code>colourTerm</code>, <code>mouseSupport</code>, <code>cmdHeight</code>, <code>updateTime</code>, <code>mapTime</code>,
+<code>cursorlineOpt</code>, <code>splitBelow</code>, <code>splitRight</code>, <code>autoIndent</code> and <code>wordWrap</code> have
+been mapped to their <a class="option-reference" href="options.html#option-vim-options"><code class="nixos-option">vim.options</code></a> equivalents. Please see the module
+definition for the updated options.</p>
+</li>
+<li>
+<p><code>tabWidth</code> has been <strong>removed</strong> as it lead to confusing behaviour. You can
+replicate the same functionality by setting <code>shiftwidth</code>, <code>tabstop</code> and
+<code>softtabstop</code> under <code>vim.options</code> as you see fit.</p>
+</li>
+</ul>
+<h2 id="sec-release-0-7-changelog">Changelog</h2>
+<p><a href="https://github.com/ItsSorae">ItsSorae</a>:</p>
+<ul>
+<li>Add support for <a href="https://typst.app/">typst</a> under <code>vim.languages.typst</code> This
+will enable the <code>typst-lsp</code> language server, and the <code>typstfmt</code> formatter</li>
+</ul>
+<p><a href="https://github.com/frothymarrow">frothymarrow</a>:</p>
+<ul>
+<li>
+<p>Modified type for
+<a class="option-reference" href="options.html#option-vim-visuals-fidget-nvim-setupOpts-progress-display-overrides"><code class="nixos-option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides</code></a> from
+<code>anything</code> to a <code>submodule</code> for better type checking.</p>
+</li>
+<li>
+<p>Fix null <code>vim.lsp.mappings</code> generating an error and not being filtered out.</p>
+</li>
+<li>
+<p>Add basic transparency support for <code>oxocarbon</code> theme by setting the highlight
+group for <code>Normal</code>, <code>NormalFloat</code>, <code>LineNr</code>, <code>SignColumn</code> and optionally
+<code>NvimTreeNormal</code> to <code>none</code>.</p>
+</li>
+<li>
+<p>Fix <a class="option-reference" href="options.html#option-vim-ui-smartcolumn-setupOpts-custom_colorcolumn"><code class="nixos-option">vim.ui.smartcolumn.setupOpts.custom_colorcolumn</code></a> using the wrong
+type <code>int</code> instead of the expected type <code>string</code>.</p>
+</li>
+</ul>
+<p><a href="https://github.com/horriblename">horriblename</a>:</p>
+<ul>
+<li>Fix broken treesitter-context keybinds in visual mode</li>
+<li>Deprecate use of <code>__empty</code> to define empty tables in Lua. Empty attrset are no
+longer filtered and thus should be used instead.</li>
+<li>Add dap-go for better dap configurations</li>
+<li>Make noice.nvim customizable</li>
+<li>Standardize border style options and add custom borders</li>
+<li>Remove <code>vim.disableDefaultRuntimePaths</code> in wrapper options.
+<ul>
+<li>As nvf uses <code>$NVIM_APP_NAME</code> as of recent changes, we can safely assume any
+configuration in <code>$XDG_CONFIG_HOME/nvf</code> is intentional.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Switch from <a href="https://github.com/simrat39/rust-tools.nvim">rust-tools.nvim</a> to the more feature-packed <a href="https://github.com/mrcjkb/rustaceanvim">rustaceanvim</a>. This
+switch entails a whole bunch of new features and options, so you are
+recommended to go through rustacean.nvim's README to take a closer look at its
+features and usage</li>
+</ul>
+<ul>
+<li>Add <a href="https://github.com/mrcjkb/lz.n">lz.n</a> support and lazy-load some builtin plugins.</li>
+<li>Add simpler helper functions for making keymaps</li>
+</ul>
+<p><a href="https://poz.pet">poz</a>:</p>
+<ul>
+<li>
+<p>Add <a href="https://github.com/ocaml/ocaml-lsp">ocaml-lsp</a> support</p>
+</li>
+<li>
+<p>Fix "Emac" typo</p>
+</li>
+<li>
+<p>Add <a href="https://github.com/otavioschwanck/new-file-template.nvim">new-file-template.nvim</a> to automatically fill new file contents using
+templates</p>
+</li>
+<li>
+<p>Make <a href="https://github.com/nvim-neo-tree/neo-tree.nvim">neo-tree.nvim</a> display file icons properly by enabling
+<code>visuals.nvimWebDevicons</code></p>
+</li>
+</ul>
+<p><a href="https://github.com/diniamo">diniamo</a>:</p>
+<ul>
+<li>
+<p>Move the <code>theme</code> dag entry to before <code>luaScript</code>.</p>
+</li>
+<li>
+<p>Add rustfmt as the default formatter for Rust.</p>
+</li>
+<li>
+<p>Enabled the terminal integration of catppuccin for theming Neovim's built-in
+terminal (this also affects toggleterm).</p>
+</li>
+<li>
+<p>Migrate bufferline to setupOpts for more customizability</p>
+</li>
+<li>
+<p>Use <code>clangd</code> as the default language server for C languages</p>
+</li>
+<li>
+<p>Expose <code>lib.nvim.types.pluginType</code>, which for example allows the user to
+create abstractions for adding plugins</p>
+</li>
+<li>
+<p>Migrate indent-blankline to setupOpts for more customizability. While the
+plugin's options can now be found under <code>indentBlankline.setupOpts</code>, the
+previous iteration of the module also included out of place/broken options,
+which have been removed for the time being. These are:</p>
+<ul>
+<li><code>listChar</code> - this was already unused</li>
+<li><code>fillChar</code> - this had nothing to do with the plugin, please configure it
+yourself by adding <code>vim.opt.listchars:append({ space = '&lt;char&gt;' })</code> to your
+lua configuration</li>
+<li><code>eolChar</code> - this also had nothing to do with the plugin, please configure it
+yourself by adding <code>vim.opt.listchars:append({ eol = '&lt;char&gt;' })</code> to your
+lua configuration</li>
+</ul>
+</li>
+<li>
+<p>Replace <code>vim.lsp.nvimCodeActionMenu</code> with <code>vim.ui.fastaction</code>, see the
+breaking changes section above for more details</p>
+</li>
+<li>
+<p>Add a <code>setupOpts</code> option to nvim-surround, which allows modifying options that
+aren't defined in nvf. Move the alternate nvim-surround keybinds to use
+<code>setupOpts</code>.</p>
+</li>
+<li>
+<p>Remove <code>autopairs.type</code>, and rename <code>autopairs.enable</code> to
+<code>autopairs.nvim-autopairs.enable</code>. The new
+<a class="option-reference" href="options.html#option-vim-autopairs-nvim-autopairs-enable"><code class="nixos-option">vim.autopairs.nvim-autopairs.enable</code></a> supports <code>setupOpts</code> format by
+default.</p>
+</li>
+<li>
+<p>Refactor of <code>nvim-cmp</code> and completion related modules</p>
+<ul>
+<li>Remove <code>autocomplete.type</code> in favor of per-plugin enable options such as
+<a class="option-reference" href="options.html#option-vim-autocomplete-nvim-cmp-enable"><code class="nixos-option">vim.autocomplete.nvim-cmp.enable</code></a>.</li>
+<li>Deprecate legacy Vimsnip in favor of Luasnip, and integrate
+friendly-snippets for bundled snippets.
+<a class="option-reference" href="options.html#option-vim-snippets-luasnip-enable"><code class="nixos-option">vim.snippets.luasnip.enable</code></a> can be used to toggle Luasnip.</li>
+<li>Add sorting function options for completion sources under
+<a class="option-reference" href="options.html#option-vim-autocomplete-nvim-cmp-setupOpts-sorting-comparators"><code class="nixos-option">vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators</code></a></li>
+</ul>
+</li>
+<li>
+<p>Add C# support under <code>vim.languages.csharp</code>, with support for both
+omnisharp-roslyn and csharp-language-server.</p>
+</li>
+<li>
+<p>Add Julia support under <code>vim.languages.julia</code>. Note that the entirety of Julia
+is bundled with nvf, if you enable the module, since there is no way to
+provide only the LSP server.</p>
+</li>
+<li>
+<p>Add <a href="https://github.com/diniamo/run.nvim"><code>run.nvim</code></a> support for running code
+using cached commands.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>Make Neovim's configuration file entirely Lua based. This comes with a few
+breaking changes:</p>
+<ul>
+<li><code>vim.configRC</code> has been removed. You will need to migrate your entries to
+Neovim-compliant Lua code, and add them to <code>vim.luaConfigRC</code> instead.
+Existing vimscript configurations may be preserved in <code>vim.cmd</code> functions.
+Please see <a href="https://neovim.io/doc/user/lua.html#vim.cmd()">Neovim documentation on <code>vim.cmd</code></a></li>
+<li><code>vim.luaScriptRC</code> is now the top-level DAG, and the internal <code>vim.pluginRC</code>
+has been introduced for setting up internal plugins. See the "DAG entries in
+nvf" manual page for more information.</li>
+</ul>
+</li>
+<li>
+<p>Rewrite <code>vim.maps</code>, see the breaking changes section above.</p>
+</li>
+</ul>
+<p><a href="https://github.com/notashelf">NotAShelf</a>:</p>
+<ul>
+<li>
+<p>Add <code>deno fmt</code> as the default Markdown formatter. This will be enabled
+automatically if you have autoformatting enabled, but can be disabled manually
+if you choose to.</p>
+</li>
+<li>
+<p>Add <code>vim.extraLuaFiles</code> for optionally sourcing additional lua files in your
+configuration.</p>
+</li>
+<li>
+<p>Refactor <code>programs.languages.elixir</code> to use lspconfig and none-ls for LSP and
+formatter setups respectively. Diagnostics support is considered, and may be
+added once the <a href="https://github.com/rrrene/credo">credo</a> linter has been added to nixpkgs. A pull request is
+currently open.</p>
+</li>
+<li>
+<p>Remove vim-tidal and friends.</p>
+</li>
+<li>
+<p>Clean up Lualine module to reduce theme dependency on Catppuccin, and fixed
+blending issues in component separators.</p>
+</li>
+<li>
+<p>Add [ts-ereror-translator.nvim] extension of the TS language module, under
+<code>vim.languages.ts.extensions.ts-error-translator</code> to aid with Typescript
+development.</p>
+</li>
+<li>
+<p>Add <a href="https://github.com/nvim-neo-tree/neo-tree.nvim">neo-tree.nvim</a> as an alternative file-tree plugin. It will be available
+under <code>vim.filetree.neo-tree</code>, similar to nvimtree.</p>
+</li>
+<li>
+<p>Add <code>nvf-print-config</code> &amp; <code>nvf-print-config-path</code> helper scripts to Neovim
+closure. Both of those scripts have been automatically added to your PATH upon
+using neovimConfig or <code>programs.nvf.enable</code>.</p>
+<ul>
+<li><code>nvf-print-config</code> will display your <code>init.lua</code>, in full.</li>
+<li><code>nvf-print-config-path</code> will display the path to <em>a clone</em> of your
+<code>init.lua</code>. This is not the path used by the Neovim wrapper, but an
+identical clone.</li>
+</ul>
+</li>
+<li>
+<p>Add <code>vim.ui.breadcrumbs.lualine</code> to allow fine-tuning breadcrumbs behaviour on
+Lualine. Only <code>vim.ui.breadcrumbs.lualine.winbar</code> is supported for the time
+being.</p>
+<ul>
+<li><a class="option-reference" href="options.html#option-vim-ui-breadcrumbs-lualine-winbar-enable"><code class="nixos-option">vim.ui.breadcrumbs.lualine.winbar.enable</code></a> has been added to allow
+controlling the default behaviour of the <code>nvim-navic</code> component on Lualine,
+which used to occupy <code>winbar.lualine_c</code> as long as breadcrumbs are enabled.</li>
+<li><code>vim.ui.breadcrumbs.alwaysRender</code> has been renamed to
+<a class="option-reference" href="options.html#option-vim-ui-breadcrumbs-lualine-winbar-alwaysRender"><code class="nixos-option">vim.ui.breadcrumbs.lualine.winbar.alwaysRender</code></a> to be conform to
+the new format.</li>
+</ul>
+</li>
+<li>
+<p>Add <a href="https://github.com/detachhead/basedpyright">basedpyright</a> as a Python LSP
+server and make it default.</p>
+</li>
+<li>
+<p>Add <a href="https://github.com/python-lsp/python-lsp-server">python-lsp-server</a> as an
+additional Python LSP server.</p>
+</li>
+<li>
+<p>Add <a class="option-reference" href="options.html#option-vim-options"><code class="nixos-option">vim.options</code></a> to set <code>vim.o</code> values in in your nvf configuration
+without using additional Lua. See option documentation for more details.</p>
+</li>
+<li>
+<p>Add <a class="option-reference" href="options.html#option-vim-dashboard-dashboard-nvim-setupOpts"><code class="nixos-option">vim.dashboard.dashboard-nvim.setupOpts</code></a> to allow user
+configuration for <a href="https://github.com/nvimdev/dashboard-nvim">dashboard.nvim</a></p>
+</li>
+<li>
+<p>Update <code>lualine.nvim</code> input and add missing themes:</p>
+<ul>
+<li>Adds <code>ayu</code>, <code>gruvbox_dark</code>, <code>iceberg</code>, <code>moonfly</code>, <code>onedark</code>,
+<code>powerline_dark</code> and <code>solarized_light</code> themes.</li>
+</ul>
+</li>
+<li>
+<p>Add <a class="option-reference" href="options.html#option-vim-spellcheck-extraSpellWords"><code class="nixos-option">vim.spellcheck.extraSpellWords</code></a> to allow adding arbitrary
+spellfiles to Neovim's runtime with ease.</p>
+</li>
+<li>
+<p>Add combined nvf configuration (<code>config.vim</code>) into the final package's
+<code>passthru</code> as <code>passthru.neovimConfiguration</code> for easier debugging.</p>
+</li>
+<li>
+<p>Add support for <a href="https://github.com/rachartier/tiny-devicons-auto-colors.nvim">tiny-devicons-auto-colors</a> under
+<code>vim.visuals.tiny-devicons-auto-colors</code></p>
+</li>
+<li>
+<p>Move options that used to set <code>vim.o</code> values (e.g. <code>vim.wordWrap</code>) into
+<code>vim.options</code> as default values. Some are left as they don't have a direct
+equivalent, but expect a switch eventually.</p>
+</li>
+</ul>
+<p><a href="https://github.com/ppenguin">ppenguin</a>:</p>
+<ul>
+<li>Telescope:
+<ul>
+<li>Fixed <code>project-nvim</code> command and keybinding</li>
+<li>Added default ikeybind/command for <code>Telescope resume</code> (<code>&lt;leader&gt;fr</code>)</li>
+</ul>
+</li>
+<li>Add <code>hcl</code> lsp/formatter (not the same as <code>terraform</code>, which is not useful for
+e.g. <code>nomad</code> config files).</li>
+</ul>
+<p><a href="https://github.com/Soliprem">Soliprem</a>:</p>
+<ul>
+<li>Add LSP and Treesitter support for R under <code>vim.languages.R</code>.
+<ul>
+<li>Add formatter support for R, with styler and formatR as options</li>
+</ul>
+</li>
+<li>Add Otter support under <code>vim.lsp.otter</code> and an assert to prevent conflict with
+ccc</li>
+<li>Fixed typo in Otter's setupOpts</li>
+<li>Add Neorg support under <code>vim.notes.neorg</code></li>
+<li>Add LSP, diagnostics, formatter and Treesitter support for Kotlin under
+<code>vim.languages.kotlin</code></li>
+<li>changed default keybinds for leap.nvim to avoid altering expected behavior</li>
+<li>Add LSP, formatter and Treesitter support for Vala under <code>vim.languages.vala</code></li>
+<li>Add [Tinymist](<a href="https://github.com/Myriad-Dreamin/tinymist%5D">https://github.com/Myriad-Dreamin/tinymist]</a> as a formatter for
+the Typst language module.</li>
+<li>Add LSP and Treesitter support for Assembly under <code>vim.languages.assembly</code></li>
+<li>Move <a href="https://github.com/folke/which-key.nvim">which-key</a> to the new spec</li>
+<li>Add LSP and Treesitter support for Nushell under <code>vim.languages.nu</code></li>
+<li>Add LSP and Treesitter support for Gleam under <code>vim.languages.gleam</code></li>
+</ul>
+<p><a href="https://github.com/Bloxx12">Bloxx12</a></p>
+<ul>
+<li>Add support for <a href="https://github.com/RRethy/base16-nvim">base16 theming</a> under
+<code>vim.theme</code></li>
+<li>Fix internal breakage in <code>elixir-tools</code> setup.</li>
+</ul>
+<p><a href="https://github.com/ksonj">ksonj</a>:</p>
+<ul>
+<li>Add LSP support for Scala via
+<a href="https://github.com/scalameta/nvim-metals">nvim-metals</a></li>
+</ul>
+<p><a href="https://github.com/nezia1">nezia1</a>:</p>
+<ul>
+<li>Add <a href="https://github.com/biomejs/biome">biome</a> support for Typescript, CSS and
+Svelte. Enable them via <a class="option-reference" href="options.html#option-vim-languages-ts-format-type"><code class="nixos-option">vim.languages.ts.format.type</code></a>,
+<a class="option-reference" href="options.html#option-vim-languages-css-format-type"><code class="nixos-option">vim.languages.css.format.type</code></a> and
+<a class="option-reference" href="options.html#option-vim-languages-svelte-format-type"><code class="nixos-option">vim.languages.svelte.format.type</code></a> respectively.</li>
+<li>Replace <a href="https://github.com/nix-community/nixpkgs-fmt">nixpkgs-fmt</a> with
+<a href="https://github.com/NixOS/nixfmt">nixfmt</a> (nixfmt-rfc-style).</li>
+</ul>
+<p><a href="https://github.com/Nowaaru">Nowaaru</a>:</p>
+<ul>
+<li>Add <code>precognition-nvim</code>.</li>
+</ul>
+<p><a href="https://github.com/DamitusThyYeetus123">DamitusThyYeeticus123</a>:</p>
+<ul>
+<li>Add support for <a href="https://astro.build/">Astro</a> language server.</li>
+</ul>
+<h1 id="sec-release-0-8">Release 0.8</h1>
+<h2>Breaking changes</h2>
+<ul>
+<li>
+<p><code>git-conflict</code> keybinds are now prefixed with <code>&lt;leader&gt;</code> to avoid conflicting
+with builtins.</p>
+</li>
+<li>
+<p><code>alpha</code> is now configured with nix, default config removed.</p>
+</li>
+<li>
+<p>Lspsaga module no longer ships default keybindings. The keybind format has
+been changed by upstream, and old keybindings do not have equivalents under
+the new API they provide. Please manually set your keybinds according to
+<a href="https://nvimdev.github.io/lspsaga/">Lspsaga documentation</a> following the new API.</p>
+</li>
+<li>
+<p>none-ls has been updated to the latest version. If you have been using raw Lua
+configuration to <em>manually</em> configure it, some of the formats may become
+unavailable as they have been refactored out of the main none-ls repository
+upstream.</p>
+</li>
+<li>
+<p><code>vim.useSystemClipboard</code> has been deprecated as a part of removing most
+top-level convenience options, and should instead be configured in the new
+module interface. You may set <a class="option-reference" href="options.html#option-vim-clipboard-registers"><code class="nixos-option">vim.clipboard.registers</code></a> appropriately
+to configure Neovim to use the system clipboard.</p>
+</li>
+<li>
+<p>Changed which-key group used for gitsigns from <code>&lt;leader&gt;g</code> to <code>&lt;leader&gt;h</code> to
+align with the "hunks" themed mapping and avoid conflict with the new <a href="https://github.com/NeogitOrg/neogit">neogit</a>
+group.</p>
+</li>
+<li>
+<p>LSP keybinds and related plugin integrations are now attached in an LspAttach
+autocmd event. If you were calling <code>default_on_attach()</code> in your LSP setup you
+can remove them now.</p>
+</li>
+</ul>
+<h2 id="sec-release-0-8-changelog">Changelog</h2>
+<p><a href="https://github.com/notashelf">NotAShelf</a>:</p>
+<ul>
+<li>
+<p>Add <a href="https://github.com/chomosuke/typst-preview.nvim">typst-preview.nvim</a> under
+<code>languages.typst.extensions.typst-preview-nvim</code>.</p>
+</li>
+<li>
+<p>Add a search widget to the options page in the nvf manual.</p>
+</li>
+<li>
+<p>Add <a href="https://github.com/MeanderingProgrammer/render-markdown.nvim">render-markdown.nvim</a> under
+<code>languages.markdown.extensions.render-markdown-nvim</code>.</p>
+</li>
+<li>
+<p>Implement <a class="option-reference" href="options.html#option-vim-git-gitsigns-setupOpts"><code class="nixos-option">vim.git.gitsigns.setupOpts</code></a> for user-specified setup table
+in gitsigns configuration.</p>
+</li>
+<li>
+<p><a class="option-reference" href="options.html#option-vim-options-mouse"><code class="nixos-option">vim.options.mouse</code></a> no longer compares values to an enum of available
+mouse modes. This means you can provide any string without the module system
+warning you that it is invalid. Do keep in mind that this value is no longer
+checked, so you will be responsible for ensuring its validity.</p>
+</li>
+<li>
+<p>Deprecate <code>vim.enableEditorconfig</code> in favor of
+<a class="option-reference" href="options.html#option-vim-globals-editorconfig"><code class="nixos-option">vim.globals.editorconfig</code></a>.</p>
+</li>
+<li>
+<p>Deprecate rnix-lsp as it has been abandoned and archived upstream.</p>
+</li>
+<li>
+<p>Hardcoded indentation values for the Nix language module have been removed. To
+replicate previous behaviour, you must either consolidate Nix indentation in
+your Editorconfig configuration, or use an autocommand to set indentation
+values for buffers with the Nix filetype.</p>
+</li>
+<li>
+<p>Add <a class="option-reference" href="options.html#option-vim-lsp-lightbulb-autocmd-enable"><code class="nixos-option">vim.lsp.lightbulb.autocmd.enable</code></a> for manually managing the
+previously managed lightbulb autocommand.</p>
+<ul>
+<li>A warning will occur if {option} vim-lsp-lightbulb-autocmd-enable) and
+<code>vim.lsp.lightbulb.setupOpts.autocmd.enabled</code> are both set at the same time.
+Pick only one.</li>
+</ul>
+</li>
+<li>
+<p>Add <a href="https://github.com/gbprod/yanky.nvim">yanky.nvim</a> to available plugins, under <code>vim.utility.yanky-nvim</code>.</p>
+</li>
+<li>
+<p>Fix plugin <code>setupOpts</code> for yanky.nvim and assert if shada is configured as a
+backend while shada is disabled in Neovim options.</p>
+</li>
+<li>
+<p>Add <a href="https://github.com/mikavilpas/yazi.nvim">yazi.nvim</a> as a companion plugin for Yazi, the terminal file manager.</p>
+</li>
+<li>
+<p>Add <a class="option-reference" href="options.html#option-vim-autocmds"><code class="nixos-option">vim.autocmds</code></a> and <a class="option-reference" href="options.html#option-vim-augroups"><code class="nixos-option">vim-augroups</code></a> to allow declaring
+autocommands via Nix.</p>
+</li>
+<li>
+<p>Fix plugin <code>setupOpts</code> for yanky.nvim and assert if shada is configured as a
+backend while shada is disabled in Neovim options.</p>
+</li>
+<li>
+<p>Add <a href="https://github.com/mikavilpas/yazi.nvim">yazi.nvim</a> as a companion plugin for Yazi, the terminal file manager.</p>
+</li>
+<li>
+<p>Add <a href="https://github.com/folke/snacks.nvim">snacks.nvim</a> under <code>vim.utility.snacks-nvim</code> as a general-purpose utility
+plugin.</p>
+</li>
+<li>
+<p>Move LSPSaga to <code>setupOpts</code> format, allowing freeform configuration in
+<code>vim.lsp.lspsaga.setupOpts</code>.</p>
+</li>
+<li>
+<p>Lazyload Lspsaga and remove default keybindings for it.</p>
+</li>
+<li>
+<p>Add <a href="https://github.com/xzbdmw/colorful-menu.nvim">colorful-menu.nvim</a> to enhance the completion menus, with optional
+integration for blink-cmp and nvim-cmp</p>
+</li>
+<li>
+<p>Add <a href="https://github.com/stevearc/oil.nvim">oil.nvim</a> as an alternative file explorer. It will be available under
+<code>vim.utility.oil-nvim</code>.</p>
+</li>
+<li>
+<p>Add <code>vim.diagnostics</code> to interact with Neovim's diagnostics module. Available
+options for <code>vim.diagnostic.config()</code> can now be customized through the
+<a class="option-reference" href="options.html#option-vim-diagnostics-config"><code class="nixos-option">vim.diagnostics.config</code></a> in nvf.</p>
+</li>
+<li>
+<p>Add <code>vim.clipboard</code> module for easily managing Neovim clipboard providers and
+relevant packages in a simple UI.</p>
+<ul>
+<li>This deprecates <code>vim.useSystemClipboard</code> as well, see breaking changes
+section above for migration options.</li>
+</ul>
+</li>
+<li>
+<p>Add <a href="https://github.com/julienvincent/hunk.nvim">hunk.nvim</a>, Neovim plugin &amp; tool for splitting diffs in Neovim. Available
+as <code>vim.git.hunk-nvim</code></p>
+</li>
+<li>
+<p>Move <code>crates.nvim</code> into <code>languages.rust.extensions and support</code> <code>setupOpts</code>
+for the plugin. Deprecates the top level "crates" option in <code>languages.rust</code>.</p>
+</li>
+</ul>
+<p><a href="https://github.com/sjcobb2022">sjcobb2022</a>:</p>
+<ul>
+<li>Migrate all current lsp configurations to <code>vim.lsp.server</code> and remove internal
+dependency on <code>nvim-lspconfig</code></li>
+</ul>
+<p><a href="https://github.com/amadaluzia">amadaluzia</a>:</p>
+<ul>
+<li>Add Haskell support under <code>vim.languages.haskell</code> using <a href="https://github.com/MrcJkb/haskell-tools.nvim">haskell-tools.nvim</a>.</li>
+</ul>
+<p><a href="https://github.com/horriblename">horriblename</a>:</p>
+<ul>
+<li>Add [aerial.nvim].</li>
+<li>Add [nvim-ufo].</li>
+<li>Add <a href="https://github.com/saghen/blink.cmp">blink.cmp</a> support.</li>
+<li>Add <code>LazyFile</code> user event.</li>
+<li>Migrate language modules from none-ls to conform/nvim-lint</li>
+<li>Add tsx support in conform and lint</li>
+<li>Moved code setting <code>additionalRuntimePaths</code> and <code>enableLuaLoader</code> out of
+<code>luaConfigPre</code>'s default to prevent being overridden</li>
+<li>Use conform over custom autocmds for LSP format on save</li>
+<li>Move LSP keybinds and other related plugin integrations into an LspAttach
+event.</li>
+<li>Allow multiple formatters in language modules.</li>
+<li>Fixed <code>prettier</code> in astro and svelte, and removed <code>prettierd</code> due to high
+complexity that would be needed to support it.</li>
+</ul>
+<p><a href="https://github.com/diniamo">diniamo</a>:</p>
+<ul>
+<li>
+<p>Add Odin support under <code>vim.languages.odin</code>.</p>
+</li>
+<li>
+<p>Disable the built-in format-on-save feature of zls. Use <code>vim.lsp.formatOnSave</code>
+instead.</p>
+</li>
+</ul>
+<p><a href="https://github.com/LilleAila">LilleAila</a>:</p>
+<ul>
+<li>Remove <code>vim.notes.obsidian.setupOpts.dir</code>, which was set by default. Fixes
+issue with setting the workspace directory.</li>
+<li>Add <code>vim.snippets.luasnip.setupOpts</code>, which was previously missing.</li>
+<li>Add <code>"prettierd"</code> as a formatter option in
+<code>vim.languages.markdown.format.type</code>.</li>
+<li>Add the following plugins from
+<a href="https://github.com/echasnovski/mini.nvim">mini.nvim</a>
+<ul>
+<li><code>mini.ai</code></li>
+<li><code>mini.align</code></li>
+<li><code>mini.animate</code></li>
+<li><code>mini.base16</code></li>
+<li><code>mini.basics</code></li>
+<li><code>mini.bracketed</code></li>
+<li><code>mini.bufremove</code></li>
+<li><code>mini.clue</code></li>
+<li><code>mini.colors</code></li>
+<li><code>mini.comment</code></li>
+<li><code>mini.completion</code></li>
+<li><code>mini.deps</code></li>
+<li><code>mini.diff</code></li>
+<li><code>mini.doc</code></li>
+<li><code>mini.extra</code></li>
+<li><code>mini.files</code></li>
+<li><code>mini.fuzzy</code></li>
+<li><code>mini.git</code></li>
+<li><code>mini.hipatterns</code></li>
+<li><code>mini.hues</code></li>
+<li><code>mini.icons</code></li>
+<li><code>mini.indentscope</code></li>
+<li><code>mini.jump</code></li>
+<li><code>mini.jump2d</code></li>
+<li><code>mini.map</code></li>
+<li><code>mini.misc</code></li>
+<li><code>mini.move</code></li>
+<li><code>mini.notify</code></li>
+<li><code>mini.operators</code></li>
+<li><code>mini.pairs</code></li>
+<li><code>mini.pick</code></li>
+<li><code>mini.sessions</code></li>
+<li><code>mini.snippets</code></li>
+<li><code>mini.splitjoin</code></li>
+<li><code>mini.starter</code></li>
+<li><code>mini.statusline</code></li>
+<li><code>mini.surround</code></li>
+<li><code>mini.tabline</code></li>
+<li><code>mini.test</code></li>
+<li><code>mini.trailspace</code></li>
+<li><code>mini.visits</code></li>
+</ul>
+</li>
+<li>Add <a href="https://github.com/ibhagwan/fzf-lua">fzf-lua</a> in <code>vim.fzf-lua</code></li>
+<li>Add <a href="https://github.com/HiPhish/rainbow-delimiters.nvim">rainbow-delimiters</a>
+in <code>vim.visuals.rainbow-delimiters</code></li>
+<li>Add options to define highlights under <a class="option-reference" href="options.html#option-vim-highlight"><code class="nixos-option">vim.highlight</code></a></li>
+</ul>
+<p><a href="https://github.com/kaktu5">kaktu5</a>:</p>
+<ul>
+<li>Add WGSL support under <code>vim.languages.wgsl</code>.</li>
+</ul>
+<p><a href="https://github.com/tomasguinzburg">tomasguinzburg</a>:</p>
+<ul>
+<li>Add Ruby support under <code>vim.languages.ruby</code> using <a href="https://github.com/castwide/solargraph">solargraph</a>.</li>
+<li>Add <code>nord</code> theme from <a href="https://github.com/gbprod/nord.nvim">gbprod/nord.nvim</a>.</li>
+</ul>
+<p><a href="https://github.com/thamenato">thamenato</a>:</p>
+<ul>
+<li>Add <a href="https://github.com/astral-sh/ruff">ruff</a> as a formatter option in <code>vim.languages.python.format.type</code>.</li>
+<li>Add <a href="https://cuelang.org/">cue</a> support under <code>vim.languages.cue</code>.</li>
+</ul>
+<p><a href="https://github.com/ArmandoCIII">ARCIII</a>:</p>
+<ul>
+<li>Add <code>vim.languages.zig.dap</code> support through pkgs.lldb dap adapter. Code
+Inspiration from <code>vim.languages.clang.dap</code> implementation.</li>
+<li>Add <a href="https://github.com/kawre/leetcode.nvim">leetcode.nvim</a> plugin under <code>vim.utility.leetcode-nvim</code>.</li>
+<li>Add [codecompanion.nvim] plugin under <code>vim.assistant.codecompanion-nvim</code>.</li>
+<li>Fix <a href="https://github.com/olimorris/codecompanion.nvim">codecompanion-nvim</a> plugin: nvim-cmp error and setupOpts defaults.</li>
+</ul>
+<p><a href="https://github.com/nezia1">nezia1</a>:</p>
+<ul>
+<li>Add support for <a href="https://github.com/nix-community/nixd">nixd</a> language server.</li>
+</ul>
+<p><a href="https://github.com/jahanson">jahanson</a>:</p>
+<ul>
+<li>Add <a href="https://github.com/smoka7/multicursors.nvim">multicursors.nvim</a> to
+available plugins, under <code>vim.utility.multicursors</code>.</li>
+<li>Add <a href="https://github.com/nvimtools/hydra.nvim">hydra.nvim</a> as dependency for
+<code>multicursors.nvim</code> and lazy loads by default.</li>
+</ul>
+<p><a href="https://github.com/folospior">folospior</a>:</p>
+<ul>
+<li>
+<p>Fix plugin name for lsp/lspkind.</p>
+</li>
+<li>
+<p>Move <code>vim-illuminate</code> to <code>setupOpts format</code></p>
+</li>
+</ul>
+<p><a href="https://github.com/iynaix">iynaix</a>:</p>
+<ul>
+<li>Add lsp options support for <a href="https://github.com/nix-community/nixd">nixd</a>
+language server.</li>
+</ul>
+<p><a href="https://github.com/Mr-Helpful">Mr-Helpful</a>:</p>
+<ul>
+<li>Corrects pin names used for nvim themes.</li>
+</ul>
+<p><a href="https://github.com/Libadoxon">Libadoxon</a>:</p>
+<ul>
+<li>Add <a href="https://github.com/akinsho/git-conflict.nvim">git-conflict</a> plugin for
+resolving git conflicts.</li>
+<li>Add formatters for go: <a href="https://go.dev/blog/gofmt">gofmt</a>,
+<a href="https://github.com/segmentio/golines">golines</a> and
+<a href="https://github.com/mvdan/gofumpt">gofumpt</a>.</li>
+</ul>
+<p><a href="https://github.com/UltraGhostie">UltraGhostie</a></p>
+<ul>
+<li>Add <a href="https://github.com/ThePrimeagen/harpoon">harpoon</a> plugin for navigation</li>
+</ul>
+<p><a href="https://github.com/TheMaxMur">MaxMur</a>:</p>
+<ul>
+<li>Add YAML support under <code>vim.languages.yaml</code>.</li>
+</ul>
+<p><a href="https://github.com/alfarelcynthesis">alfarel</a>:</p>
+<ul>
+<li>Add missing <code>yazi.nvim</code> dependency (<code>snacks.nvim</code>).</li>
+<li>Add <a href="https://github.com/jghauser/mkdir.nvim">mkdir.nvim</a> plugin for automatic
+creation of parent directories when editing a nested file.</li>
+<li>Add <a href="https://github.com/figsoda/nix-develop.nvim">nix-develop.nvim</a> plugin for
+in-neovim <code>nix develop</code>, <code>nix shell</code> and more.</li>
+<li>Add <a href="https://github.com/direnv/direnv.vim">direnv.vim</a> plugin for automatic
+syncing of nvim shell environment with direnv's.</li>
+<li>Add <a href="https://github.com/saghen/blink.cmp">blink.cmp</a> source options and some default-disabled sources.</li>
+<li>Add <a href="https://github.com/saghen/blink.cmp">blink.cmp</a> option to add
+<a href="https://github.com/rafamadriz/friendly-snippets">friendly-snippets</a> so
+blink.cmp can source snippets from it.</li>
+<li>Fix <a href="https://github.com/saghen/blink.cmp">blink.cmp</a> breaking when built-in sources were modified.</li>
+<li>Fix <a href="https://github.com/stevearc/conform.nvim">conform.nvim</a> not allowing disabling formatting on and after save. Use
+<code>null</code> value to disable them if conform is enabled.</li>
+<li>Add <a href="https://github.com/Feel-ix-343/markdown-oxide">markdown-oxide</a> option to
+markdown language module.</li>
+<li>Fix Helm-YAML language module integration. YAML diagnostics will now remain in
+<code>helmfile</code>s when both are enabled.</li>
+<li>Fix YAML language module not activating LSP keybinds if the Helm language
+module was also enabled.</li>
+<li>Fix <code>json</code> language module (default) language server not activating.</li>
+</ul>
+<p><a href="https://github.com/TheColorman">TheColorman</a>:</p>
+<ul>
+<li>Fix plugin <code>setupOpts</code> for <code>neovim-session-manager</code> having an invalid value
+for <code>autoload_mode</code>.</li>
+</ul>
+<p><a href="https://github.com/esdevries">esdevries</a>:</p>
+<ul>
+<li>Add <code>github-nvim-theme</code> theme from <a href="https://github.com/projekt0n/github-nvim-theme">projekt0n/github-nvim-theme</a>.</li>
+</ul>
+<p><a href="https://github.com/BANanaD3V">BANanaD3V</a>:</p>
+<ul>
+<li><code>alpha</code> is now configured with nix.</li>
+<li>Add <code>markview-nvim</code> markdown renderer.</li>
+</ul>
+<p><a href="https://github.com/viicslen">viicslen</a>:</p>
+<ul>
+<li>Add <code>intelephense</code> language server support under
+<code>vim.languages.php.lsp.server</code></li>
+</ul>
+<p><a href="https://github.com/butzist">Butzist</a>:</p>
+<ul>
+<li>Add Helm chart support under <code>vim.languages.helm</code>.</li>
+</ul>
+<p><a href="https://github.com/rice-cracker-dev">rice-cracker-dev</a>:</p>
+<ul>
+<li><code>eslint_d</code> now checks for configuration files to load.</li>
+<li>Fix an error where <code>eslint_d</code> fails to load.</li>
+<li>Add required files support for linters under
+<code>vim.diagnostics.nvim-lint.linters.*.required_files</code>.</li>
+<li>Add global function <code>nvf_lint</code> under
+<code>vim.diagnostics.nvim-lint.lint_function</code>.</li>
+<li>Deprecate <code>vim.scrollOffset</code> in favor of <code>vim.options.scrolloff</code>.</li>
+<li>Fix <code>svelte-language-server</code> not reloading .js/.ts files on change.</li>
+</ul>
+<p><a href="https://github.com/Sc3l3t0n">Sc3l3t0n</a>:</p>
+<ul>
+<li>Add F# support under <code>vim.languages.fsharp</code>.</li>
+</ul>
+<p><a href="https://github.com/venkyr77">venkyr77</a>:</p>
+<ul>
+<li>Add lint (luacheck) and formatting (stylua) support for Lua.</li>
+<li>Add lint (markdownlint-cli2) support for Markdown.</li>
+<li>Add catppuccin integration for Bufferline, Lspsaga.</li>
+<li>Add <code>neo-tree</code>, <code>snacks.explorer</code> integrations to <code>bufferline</code>.</li>
+<li>Add more applicable filetypes to illuminate denylist.</li>
+<li>Disable mini.indentscope for applicable filetypes.</li>
+<li>Fix fzf-lua having a hard dependency on fzf.</li>
+<li>Enable inlay hints support - <code>config.vim.lsp.inlayHints</code>.</li>
+<li>Add <code>neo-tree</code>, <code>snacks.picker</code> extensions to <code>lualine</code>.</li>
+<li>Add support for <code>vim.lsp.formatOnSave</code> and
+<code>vim.lsp.mappings.toggleFormatOnSave</code></li>
+</ul>
+<p><a href="https://github.com/tebuevd">tebuevd</a>:</p>
+<ul>
+<li>Fix <code>pickers</code> configuration for <code>telescope</code> by nesting it under <code>setupOpts</code></li>
+<li>Fix <code>find_command</code> configuration for <code>telescope</code> by nesting it under
+<code>setupOpts.pickers.find_files</code></li>
+<li>Update default <code>telescope.setupOpts.pickers.find_files.find_command</code> to only
+include files (and therefore exclude directories from results)</li>
+</ul>
+<p><a href="https://github.com/ckoehler">ckoehler</a>:</p>
+<ul>
+<li>Fix oil config referencing snacks</li>
+<li>Add <a href="https://github.com/folke/flash.nvim">flash.nvim</a> plugin to <code>vim.utility.motion.flash-nvim</code></li>
+<li>Fix default telescope ignore list entry for '.git/' to properly match</li>
+<li>Add <a href="https://github.com/linrongbin16/gitlinker.nvim">gitlinker.nvim</a> plugin to <code>vim.git.gitlinker-nvim</code></li>
+<li>Add <a href="https://github.com/nvim-treesitter/nvim-treesitter-textobjects">nvim-treesitter-textobjects</a> plugin to <code>vim.treesitter.textobjects</code></li>
+<li>Default to disabling Conform for Rust if rust-analyzer is used
+<ul>
+<li>To force using Conform, set <code>languages.rust.format.enable = true</code>.</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://github.com/rrvsh">rrvsh</a>:</p>
+<ul>
+<li>Add custom snippet support to <code>vim.snippets.luasnip</code></li>
+<li>Fix namespace of python-lsp-server by changing it to python3Packages</li>
+</ul>
+<p><a href="https://github.com/Noah765">Noah765</a>:</p>
+<ul>
+<li>Add missing <code>flutter-tools.nvim</code> dependency <code>plenary.nvim</code>.</li>
+<li>Add necessary dependency of <code>flutter-tools.nvim</code> on lsp.</li>
+<li>Add the <code>vim.languages.dart.flutter-tools.flutterPackage</code> option.</li>
+<li>Fix the type of the <code>highlight</code> color options.</li>
+<li>Add <a href="https://github.com/tpope/vim-sleuth">vim-sleuth</a> plugin under <code>vim.utility.sleuth</code>.</li>
+</ul>
+<p><a href="https://github.com/howird">howird</a>:</p>
+<ul>
+<li>Change python dap adapter name from <code>python</code> to commonly expected <code>debugpy</code>.</li>
+</ul>
+<p><a href="https://github.com/aionoid">aionoid</a>:</p>
+<ul>
+<li>Fix <a href="https://github.com/MeanderingProgrammer/render-markdown.nvim">render-markdown.nvim</a> file_types option type to list, to accept merging.</li>
+<li>Add <a href="https://github.com/yetone/avante.nvim">avante.nvim</a> plugin under <code>vim.assistant.avante-nvim</code>.</li>
+</ul>
+<p><a href="https://poz.pet">poz</a>:</p>
+<ul>
+<li>Fix gitsigns null-ls issue.</li>
+<li>Add <a href="https://github.com/sainnhe/everforest">everforest</a> theme support.</li>
+<li>Add <a href="https://github.com/refractalize/oil-git-status.nvim">oil-git-status</a> support to <a href="https://github.com/stevearc/oil.nvim">oil</a> module.</li>
+</ul>
+<p><a href="https://github.com/haskex">Haskex</a>:</p>
+<ul>
+<li>Add Plugin <a href="https://github.com/m4xshen/hardtime.nvim">Hardtime.nvim</a> under <code>vim.binds.hardtime-nvim</code> with <code>enable</code> and
+<code>setupOpts</code> options</li>
+</ul>
+<p><a href="https://github.com/taylrfnt">taylrfnt</a>:</p>
+<p><a href="https://github.com/nvim-tree/nvim-tree.lua">nvim-tree</a>:</p>
+<ul>
+<li>Add missing <code>right_align</code> option for existing <code>renderer.icons</code> options.</li>
+<li>Add missing <code>render.icons</code> options (<code>hidden_placement</code>,
+<code>diagnostics_placement</code>, and <code>bookmarks_placement</code>).</li>
+</ul>
+<p><a href="https://github.com/cramt">cramt</a>:</p>
+<ul>
+<li>Add <code>rubylsp</code> option in <code>vim.languages.ruby.lsp.server</code> to use shopify's
+ruby-lsp language server</li>
+</ul>
+<p><a href="https://github.com/haskex">Haskex</a>:</p>
+<ul>
+<li>Add <a href="https://github.com/craftzdog/solarized-osaka.nvim">solarized-osaka.nvim</a> theme</li>
+</ul>
+<ul>
+<li>Add <a href="https://github.com/hakonharnes/img-clip.nvim">img-clip.nvim</a> plugin in <code>vim.utility.images.img-clip</code> with <code>enable</code> and
+<code>setupOpts</code></li>
+<li>Add <code>vim.utility.images.img-clip.enable = isMaximal</code> in configuration.nix</li>
+</ul>
+<p><a href="https://github.com/anil9">anil9</a>:</p>
+<ul>
+<li>Add Clojure support under <code>vim.languages.clojure</code> using <a href="https://github.com/clojure-lsp/clojure-lsp">clojure-lsp</a></li>
+<li>Add code evaluation environment <a href="https://github.com/Olical/conjure">conjure</a> under <code>vim.repl.conjure</code></li>
+</ul>
+<p><a href="https://github.com/CallumGilly">CallumGilly</a>:</p>
+<ul>
+<li>Add missing <code>transparent</code> option for existing
+<a href="https://github.com/navarasu/onedark.nvim">onedark.nvim</a> theme.</li>
+</ul>
+<p><a href="https://github.com/theutz">theutz</a>:</p>
+<ul>
+<li>Added "auto" flavour for catppuccin theme</li>
+</ul>
+<p><a href="https://github.com/lackac">lackac</a>:</p>
+<ul>
+<li>Add <a href="https://github.com/maxmx03/solarized.nvim">solarized.nvim</a> theme with support for multiple variants</li>
+<li>Add <a href="https://github.com/mrjones2014/smart-splits.nvim">smart-splits.nvim</a> for navigating between Neovim windows and terminal
+multiplexer panes. Available at <code>vim.utility.smart-splits</code>.</li>
+<li>Restore vim-dirtytalk plugin and fix ordering with spellcheck in generated
+config.</li>
+<li>Fix lualine separator options</li>
+<li>Add <a href="https://github.com/NeogitOrg/neogit">neogit</a>, an interactive and powerful Git interface for Neovim, inspired
+by Magit</li>
+<li>Allow deregistering which-key binds or groups by setting them to <code>null</code></li>
+</ul>
+<p><a href="https://github.com/justDeeevin">justDeeevin</a>:</p>
+<ul>
+<li>Add <a href="https://github.com/supermaven-inc/supermaven-nvim">supermaven-nvim</a> plugin in <code>vim.assistant.supermaven-nvim</code> with <code>enable</code>
+and <code>setupOpts</code></li>
+</ul>
+<p><a href="https://github.com/trueNAHO">trueNAHO</a>:</p>
+<ul>
+<li>
+<p><code>flake-parts</code>'s <code>nixpkgs-lib</code> input follows nvf's <code>nixpkgs</code> input to reduce
+download size.</p>
+</li>
+<li>
+<p><code>flake-utils</code>'s <code>systems</code> inputs follows nvf's <code>systems</code> input to transitively
+leverage the pattern introduced in commit
+<a href="https://github.com/NotAShelf/nvf/commit/fc8206e7a61d7eb02006f9010e62ebdb3336d0d2">fc8206e7a61d ("flake: utilize
+nix-systems for overridable flake systems")</a>.</p>
+</li>
+</ul>
+<p><a href="https://github.com/soliprem">soliprem</a>:</p>
+<ul>
+<li>fix broken <code>neorg</code> grammars</li>
+<li>remove obsolete warning in the <code>otter</code> module</li>
+<li>add mainProgram attribute to vala language server wrapper</li>
+<li>fix <code>crates-nvim</code>'s completions by using the in-program lsp</li>
+</ul>
+<p><a href="https://github.com/JManch">JManch</a>:</p>
+<ul>
+<li>Fix default <a href="https://github.com/saghen/blink.cmp">blink.cmp</a> sources "path" and "buffer" not working when
+<code>autocomplete.nvim-cmp.enable</code> was disabled and
+<code>autocomplete.nvim-cmp.sources</code> had not been modified.</li>
+</ul>
+<p><a href="https://github.com/poseidon-rises">Poseidon</a>:</p>
+<ul>
+<li>Add <a href="https://github.com/code-biscuits/nvim-biscuits">nvim-biscuits</a> support under <code>vim.utility.nvim-biscuits</code>.</li>
+<li>Add just support under <code>vim.languages.just</code> using <a href="https://github.com/terror/just-lsp">just-lsp</a>.</li>
+<li>Add <a href="https://github.com/dotnet/vscode-csharp">roslyn-ls</a> to the <code>vim.languages.csharp</code> module.</li>
+<li>Add JSON support under <code>vim.languages.json</code> using <a href="https://github.com/microsoft/vscode/tree/1.101.2/extensions/json-language-features/server">jsonls</a> and <a href="https://github.com/caarlos0/jsonfmt">jsonfmt</a>.</li>
+<li>Add advanced HTML support under <code>vim.languages.html</code> using <a href="https://github.com/kristoff-it/superhtml">superhtml</a> and
+<a href="https://github.com/htmlhint/HTMLHint">htmlHINT</a>.</li>
+<li>Add QMK support under <code>vim.utility.qmk-nvim</code> via <a href="https://github.com/codethread/qmk.nvim">qmk-nvim</a>.</li>
+<li>Add QML support under <code>vim.languages.qml</code> using <a href="https://doc.qt.io/qt-6/qtqml-tooling-qmlls.html">qmlls</a> and <a href="https://doc.qt.io/qt-6/qtqml-tooling-qmlformat.html">qmlformat</a>.</li>
+</ul>
+<p><a href="https://github.com/Morsicus">Morsicus</a>:</p>
+<ul>
+<li>Add <a href="https://github.com/connorlay/tree-sitter-eex">EEx Treesitter Grammar</a> for
+Elixir</li>
+<li>Add
+<a href="https://github.com/phoenixframework/tree-sitter-heex">HEEx Treesitter Grammar</a>
+for Elixir</li>
+</ul>
+<p><a href="https://github.com/diced">diced</a>:</p>
+<ul>
+<li>Fixed <code>typescript</code> treesitter grammar not being included by default.</li>
+</ul>
+<p><a href="https://github.com/valterschutz">valterschutz</a>:</p>
+<ul>
+<li>Add [ruff-fix] as a formatter option in <code>vim.languages.python.format.type</code>.</li>
+</ul>
+<p><a href="https://github.com/gmvar">gmvar</a>:</p>
+<ul>
+<li>Add <a href="https://github.com/Automattic/harper">harper-ls</a> to the <code>vim.lsp</code> module.</li>
+</ul>
+<p><a href="https://github.com/derethil">derethil</a>:</p>
+<ul>
+<li>Fix <code>vim.lazy.plugins.&lt;name&gt;.enabled</code> Lua evaluation.</li>
+</ul>
+<p><a href="https://github.com/jules-sommer">Jules</a>:</p>
+<ul>
+<li>
+<p>Add <a href="https://github.com/brenoprata10/nvim-highlight-colors">nvim-highlight-colors</a> plugin in <code>vim.ui.nvim-highlight-colors</code> with
+<code>enable</code> and <code>setupOpts</code></p>
+</li>
+<li>
+<p>Fix <a href="https://github.com/saghen/blink.cmp">blink.cmp</a> keymap preset types to allow alternate cmdline, terminal, etc
+modes to <code>inherit</code> the default mode keymaps. This is an option as per the
+<a href="https://github.com/saghen/blink.cmp">blink.cmp</a> docs and is now supported in nvf.</p>
+</li>
+</ul>
+<p><a href="https://github.com/PartyWumpus">PartyWumpus</a>:</p>
+<ul>
+<li>Add inline typst concealing support under <code>vim.languages.typst</code> using
+<a href="https://github.com/PartyWumpus/typst-concealer">typst-concealer</a>.</li>
+</ul>
+<p><a href="https://github.com/KrappRamiro">KrappRamiro</a>:</p>
+<ul>
+<li>Migrate <a href="https://github.com/hadronized/hop.nvim">phaazon/hop.nvim</a> to <a href="https://github.com/smoka7/hop.nvim">smoka7/hop.nvim</a></li>
+</ul>
+<p><a href="https://github.com/simon-wg">simon-wg</a>:</p>
+<ul>
+<li>Update <code>python</code> language module to use correct lsp binary.</li>
+<li>Fix <code>python</code> pyright and basedpyright language servers not using default on
+attach behavior.</li>
+</ul>
+<p><a href="https://github.com/critical">critical</a>:</p>
+<ul>
+<li>Add <a href="https://github.com/mellow-theme/mellow.nvim">mellow.nvim</a> plugin for vim and lualine theme support</li>
+</ul>
+<p><a href="https://github.com/valyntyler">valyntyler</a>:</p>
+<ul>
+<li>Enable <code>languages.ts.format</code> for <code>.js</code> files</li>
+<li>Add <a href="https://github.com/aca/emmet-ls">emmet-ls</a> to <code>html.lsp.servers</code></li>
+</ul>
+<p><a href="https://github.com/axelbdt">axelbdt</a>:</p>
+<ul>
+<li>Add <a href="https://github.com/monkoose/neocodeium">neocodeium</a> plugin in <code>vim.assistant.neocodeium</code> with <code>enable</code>,
+<code>setupOpts</code> and <code>keymaps</code></li>
+</ul>
+<p><a href="https://github.com/JudahZF">JudahZF</a>:</p>
+<ul>
+<li>Added gitFiles mapping option to telescope</li>
+</ul>
+<h1 id="sec-release-0-9">Release 0.9</h1>
+<h2>Breaking changes</h2>
+<ul>
+<li>
+<p>Nixpkgs has merged a fully incompatible rewrite of
+<code>vimPlugins.nvim-treesitter</code>. Namely, it changes from the frozen <code>master</code>
+branch to the new main branch. This change removes incremental selections, so
+it is no longer available.</p>
+</li>
+<li>
+<p><a href="https://github.com/obsidian-nvim/obsidian.nvim">obsidian.nvim</a> now uses a maintained fork which has removed the <code>dir</code>
+setting. Use <code>workspaces</code> instead:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">workspaces</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">name</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">any-string</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">path</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">~/old/dir/path/value</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>Some other settings and commands are now deprecated but are still supported.</p>
+<ul>
+<li>The <code>setupOpts.mappings</code> options were also removed. Use the built-in Neovim
+settings (nvf's <a class="option-reference" href="options.html#option-vim-keymaps"><code class="nixos-option">vim.keymaps</code></a>)</li>
+</ul>
+</li>
+</ul>
+<h2 id="sec-release-0-9-changelog">Changelog</h2>
+<p><a href="https://github.com/taylrfnt">taylrfnt</a></p>
+<ul>
+<li>
+<p>Introduce a <code>darwinModule</code> option for Darwin users. The ergonomics of
+importing a <code>nixosModule</code> into a Darwin flake were less than ideal, and when
+users fork and update npins, they are prone to encountering errors like the
+following:</p>
+<pre class="highlight"><code class="language-shell"><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(97,175,239);">class:</span>&nbsp;<span style="color:rgb(152,195,121);">"nixos"</span><span style="color:rgb(132,139,152);">)</span>&nbsp;<span style="color:rgb(97,175,239);">cannot</span>&nbsp;<span style="color:rgb(232,102,113);">be</span>&nbsp;<span style="color:rgb(232,102,113);">imported</span>&nbsp;<span style="color:rgb(232,102,113);">into</span>&nbsp;<span style="color:rgb(232,102,113);">a</span>&nbsp;<span style="color:rgb(232,102,113);">module</span>&nbsp;<br><span style="color:rgb(97,175,239);">evaluation</span>&nbsp;<span style="color:rgb(232,102,113);">that</span>&nbsp;<span style="color:rgb(232,102,113);">expects</span>&nbsp;<span style="color:rgb(232,102,113);">class</span>&nbsp;<span style="color:rgb(152,195,121);">"darwin"</span><span style="color:rgb(232,102,113);">.</span><br></code></pre>
+</li>
+</ul>
+<p><a href="https://github.com/suimong">suimong</a>:</p>
+<ul>
+<li>Fix <code>vim.tabline.nvimBufferline</code> where <code>setupOpts.options.hover</code> requires
+<code>vim.opt.mousemoveevent</code> to be set.</li>
+</ul>
+<p><a href="https://github.com/thamenato">thamenato</a>:</p>
+<ul>
+<li>Attempt to adapt nvim-treesitter to (breaking) Nixpkgs changes. Some
+treesitter grammars were changed to prefer <code>grammarPlugins</code> over
+<code>builtGrammars</code>.</li>
+</ul>
+<p><a href="https://github.com/jfeo">jfeo</a>:</p>
+<ul>
+<li>Added <a href="https://github.com/uga-rosa/ccc.nvim">ccc.nvim</a> option <a class="option-reference" href="options.html#option-vim-utility-ccc-setupOpts"><code class="nixos-option">vim.utility.ccc.setupOpts</code></a> with the existing
+hard-coded options as default values.</li>
+</ul>
+<p><a href="https://github.com/Ring-A-Ding-Ding-Baby">Ring-A-Ding-Ding-Baby</a>:</p>
+<ul>
+<li>Aligned <code>codelldb</code> adapter setup with <a href="https://github.com/mrcjkb/rustaceanvim">rustaceanvim</a>’s built-in logic.</li>
+<li>Added <code>languages.rust.dap.backend</code> option to choose between <code>codelldb</code> and
+<code>lldb-dap</code> adapters.</li>
+</ul>
+<p><a href="https://github.com/Libadoxon">Libadoxon</a>:</p>
+<ul>
+<li><code>toggleterm</code> open map now also works when in terminal mode</li>
+</ul>
+<p><a href="https://github.com/jtliang24">jtliang24</a>:</p>
+<ul>
+<li>Updated nix language plugin to use pkgs.nixfmt instead of
+pkgs.nixfmt-rfc-style</li>
+</ul>
+<p><a href="https://github.com/alfarelcynthesis">alfarel</a>:</p>
+<ul>
+<li>Upgrade <a href="https://github.com/obsidian-nvim/obsidian.nvim">obsidian.nvim</a> to use a maintained fork, instead of the unmaintained
+upstream.
+<ul>
+<li>Various upstream improvements:
+<ul>
+<li>Support <a href="https://github.com/saghen/blink.cmp">blink.cmp</a> and completion plugin autodetection.</li>
+<li>Support various pickers for prompts, including <a href="https://github.com/folke/snacks.nvim">snacks.nvim</a>'s
+<code>snacks.picker</code>, <a href="https://nvim-mini.org/mini.nvim/">mini.nvim</a>'s <code>mini.pick</code>, <a href="https://github.com/nvim-telescope/telescope.nvim">telescope.nvim</a>, and
+<a href="https://github.com/ibhagwan/fzf-lua">fzf-lua</a>.</li>
+<li>Merge commands like <code>ObsidianBacklinks</code> into <code>Obisidian backlinks</code>. The
+old format is still supported by default.</li>
+<li>Some <code>setupOpts</code> options have changed:
+<ul>
+<li>
+<p><code>disable_frontmatter</code> -&gt; <code>frontmatter.enabled</code> (and inverted), still
+supported.</p>
+</li>
+<li>
+<p><code>note_frontmatter_func</code> -&gt; <code>frontmatter.func</code>, still supported.</p>
+</li>
+<li>
+<p><code>statusline</code> module is now deprecated in favour of <code>footer</code>, still
+supported.</p>
+</li>
+<li>
+<p><code>dir</code> is no longer supported, use <code>workspaces</code>:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">workspaces</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">name</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">any-string</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">path</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">~/old/dir/path/value</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+</li>
+<li>
+<p><code>use_advanced_uri</code> -&gt; <code>open.use_advanced_uri</code>.</p>
+</li>
+<li>
+<p>Mappings are now expected to be set using the built-in Neovim APIs,
+managed by <code>vim.keymaps</code> in nvf, instead of <code>mappings</code> options.</p>
+</li>
+<li>
+<p>Some option defaults have changed.</p>
+</li>
+</ul>
+</li>
+<li>And more.</li>
+</ul>
+</li>
+<li>Automatically configure an enabled picker in the order mentioned above, if
+any are enabled.</li>
+<li>Add integration with <code>snacks.image</code> for rendering workspace/vault assets.</li>
+<li>Detect if <a href="https://github.com/MeanderingProgrammer/render-markdown.nvim">render-markdown.nvim</a> or <a href="https://github.com/OXY2DEV/markview.nvim">markview.nvim</a> are enabled and disable
+the <code>ui</code> module if so. It should work without this, but <code>render-markdown</code>'s
+<code class="command">:healthcheck</code> doesn't know that.</li>
+<li>Remove <a href="https://github.com/folke/which-key.nvim">which-key.nvim</a> <code>&lt;leader&gt;o</code> <code>+Notes</code> description which did not
+actually correspond to any keybinds.</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://github.com/pyrox0">pyrox0</a>:</p>
+<ul>
+<li>
+<p>Added <a href="https://github.com/rvben/rumdl">rumdl</a> support to <code>languages.markdown</code></p>
+</li>
+<li>
+<p>Added <a href="https://github.com/quarylabs/sqruff">sqruff</a> support to <code>languages.sql</code></p>
+</li>
+<li>
+<p>Added <a href="https://pyrefly.org/">Pyrefly</a> support to <code>languages.python</code></p>
+</li>
+<li>
+<p>Added TOML support via <a class="option-reference" href="options.html#option-languages-toml"><code class="nixos-option">languages.toml</code></a> and the
+<a href="https://tombi-toml.github.io/tombi/">Tombi</a> language server, linter, and
+formatter.</p>
+</li>
+</ul>
+<p><a href="https://github.com/machshev">Machshev</a>:</p>
+<ul>
+<li>Added <code>ruff</code> and <code>ty</code> LSP support for Python under <code>programs.python</code>.</li>
+</ul>
+</body></html></main>
+      </div>
+
+      <footer>
+  <p>Generated with ndg</p>
+</footer>
+
+    </div>
+
+    
+  </body>
+</html>
