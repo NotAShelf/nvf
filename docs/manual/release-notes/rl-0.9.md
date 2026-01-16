@@ -67,6 +67,14 @@
 
 - `toggleterm` open map now also works when in terminal mode
 
+[ppenguin](https://github.com/Libadoxon):
+
+- Improved/harmonized for `terraform` and `hcl`:
+  - formatting (use `terraform fmt` or `tofu fmt` for `tf` files)
+  - LSP config
+  - Added `tofu` and `tofu-ls` as (free) alternative to `terrraform` and
+    `terraform-ls`
+
 [jtliang24](https://github.com/jtliang24):
 
 - Updated nix language plugin to use pkgs.nixfmt instead of
