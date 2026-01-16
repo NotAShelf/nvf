@@ -4,11 +4,11 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames concatStringsSep;
+  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.types) bool enum listOf;
+  inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -57,16 +57,12 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "Terraform LSP server to use (one or more of [${concatStringsSep " " (attrNames servers)}])";
+        description = "Terraform LSP server to use";
       };
     };
 
     format = {
-      enable = mkOption {
-        type = bool;
-        default = config.vim.languages.enableFormat;
-        description = "Enable Terraform formatting";
-      };
+      enable = mkEnableOption "Enable Terraform formatting" // {default = config.vim.languages.enableFormat;};
       type = mkOption {
         type = deprecatedSingleOrListOf "vim.language.terraform.format.type" (enum (attrNames formats));
         default = defaultFormat;
