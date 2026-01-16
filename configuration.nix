@@ -71,6 +71,7 @@ isMaximal: {
         enable = isMaximal;
         extensions.crates-nvim.enable = isMaximal;
       };
+      toml.enable = isMaximal;
 
       # Language modules that are not as common.
       assembly.enable = false;

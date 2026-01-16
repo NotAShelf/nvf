@@ -22,10 +22,22 @@
 
   Some other settings and commands are now deprecated but are still supported.
 
-  - The `setupOpts.mappings` options were also removed. Use the built-in
-    Neovim settings (nvf's {option}`vim.keymaps`)
+  - The `setupOpts.mappings` options were also removed. Use the built-in Neovim
+    settings (nvf's {option}`vim.keymaps`)
 
 ## Changelog {#sec-release-0-9-changelog}
+
+[taylrfnt](https://github.com/taylrfnt)
+
+- Introduce a `darwinModule` option for Darwin users. The ergonomics of
+  importing a `nixosModule` into a Darwin flake were less than ideal, and when
+  users fork and update npins, they are prone to encountering errors like the
+  following:
+
+  ```shell
+  (class: "nixos") cannot be imported into a module 
+  evaluation that expects class "darwin".
+  ```
 
 [suimong](https://github.com/suimong):
 
@@ -65,7 +77,8 @@
 
 [jtliang24](https://github.com/jtliang24):
 
-- Updated nix language plugin to use pkgs.nixfmt instead of pkgs.nixfmt-rfc-style
+- Updated nix language plugin to use pkgs.nixfmt instead of
+  pkgs.nixfmt-rfc-style
 
 [alfarel](https://github.com/alfarelcynthesis):
 
@@ -120,3 +133,22 @@
     {command}`:healthcheck` doesn't know that.
   - Remove [which-key.nvim] `<leader>o` `+Notes` description which did not
     actually correspond to any keybinds.
+
+[pyrox0](https://github.com/pyrox0):
+
+- Added [rumdl](https://github.com/rvben/rumdl) support to `languages.markdown`
+
+- Added [sqruff](https://github.com/quarylabs/sqruff) support to `languages.sql`
+
+- Added [Pyrefly](https://pyrefly.org/) support to `languages.python`
+
+- Added TOML support via {option}`languages.toml` and the
+  [Tombi](https://tombi-toml.github.io/tombi/) language server, linter, and
+  formatter.
+
+- Added [hlargs.nvim](https://github.com/m-demare/hlargs.nvim) support as
+  `visuals.hlargs-nvim`.
+
+[Machshev](https://github.com/machshev):
+
+- Added `ruff` and `ty` LSP support for Python under `programs.python`.

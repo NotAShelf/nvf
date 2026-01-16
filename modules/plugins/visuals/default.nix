@@ -11,6 +11,7 @@ in {
     ./cinnamon-nvim
     ./fidget-nvim
     ./highlight-undo
+    ./hlargs-nvim
     ./indent-blankline
     ./nvim-cursorline
     ./nvim-scrollbar
