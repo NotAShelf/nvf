@@ -11,17 +11,6 @@
 
   getPin = flip getAttr (pkgs.callPackages ../../../npins/sources.nix {});
 
-  noBuildPlug = pname: let
-    pin = getPin pname;
-    version = builtins.substring 0 8 pin.revision;
-  in
-    pin.outPath.overrideAttrs {
-      inherit pname version;
-      name = "${pname}-${version}";
-
-      passthru.vimPlugin = false;
-    };
-
   # Build a Vim plugin with the given name and arguments.
   buildPlug = attrs: let
     pin = getPin attrs.pname;
@@ -46,6 +35,21 @@
       # Disable failing require check hook checks
       doCheck = false;
     };
+    # Checkhealth fails to get the plugin's commit and therefore to
+    # show the rest of the useful diagnostics if not built like this.
+    obsidian-nvim = pkgs.vimUtils.buildVimPlugin {
+      # If set to `"obsidian-nvim"`, this breaks like `buildPlug` and .
+      name = "obsidian.nvim";
+      src = getPin "obsidian-nvim";
+      nvimSkipModules = [
+        "minimal"
+        # require picker plugins
+        "obsidian.picker._telescope"
+        "obsidian.picker._snacks"
+        "obsidian.picker._fzf"
+        "obsidian.picker._mini"
+      ];
+    };
 
     # Get plugins built from source from self.packages
     # If adding a new plugin to be built from source, it must also be inherited
@@ -65,7 +69,7 @@
             if (lib.isType "flake" plugin)
             then plugin // {name = plug;}
             else plugin)
-        else pluginBuilders.${plug} or (noBuildPlug plug)
+        else pluginBuilders.${plug} or (getPin plug)
       else plug) (
       filter (f: f != null) plugins
     );

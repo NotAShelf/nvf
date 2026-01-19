@@ -308,5 +308,39 @@ in {
     ])
     # Migrated via batchRenameOptions. Further batch renames must be below this line.
     renamedVimOpts
+
+    # 2026-01-06
+    [
+      (mkRemovedOptionModule ["vim" "treesitter" "highlight" "disable"] ''
+        Treesitter highlighting is now handled by Neovim natively, and it does not have a disable option.
+      '')
+      (mkRemovedOptionModule ["vim" "treesitter" "highlight" "additionalVimRegexHighlighting"] ''
+        Treesitter highlighting is now handled by Neovim natively, and it does not have a additionalVimRegexHighlighting option.
+      '')
+      (mkRemovedOptionModule ["vim" "treesitter" "indent" "disable"] ''
+        Treesitter indentation is now handled differently, and it does not have a disable option.
+      '')
+      (mkRemovedOptionModule ["vim" "treesitter" "incrementalSelection" "enable"] ''
+        Incremental selection configuration has been removed from nvim-treesitter.
+      '')
+      (mkRemovedOptionModule ["vim" "treesitter" "incrementalSelection" "disable"] ''
+        Incremental selection configuration has been removed from nvim-treesitter.
+      '')
+      (mkRemovedOptionModule ["vim" "treesitter" "mappings" "incrementalSelection" "init"] ''
+        Incremental selection configuration has been removed from nvim-treesitter.
+      '')
+      (mkRemovedOptionModule ["vim" "treesitter" "mappings" "incrementalSelection" "incrementByNode"] ''
+        Incremental selection configuration has been removed from nvim-treesitter.
+      '')
+      (
+        mkRemovedOptionModule ["vim" "treesitter" "mappings" "incrementalSelection" "incrementByScope"]
+        ''
+          Incremental selection configuration has been removed from nvim-treesitter.
+        ''
+      )
+      (mkRemovedOptionModule ["vim" "treesitter" "mappings" "incrementalSelection" "decrementByNode"] ''
+        Incremental selection configuration has been removed from nvim-treesitter.
+      '')
+    ]
   ];
 }

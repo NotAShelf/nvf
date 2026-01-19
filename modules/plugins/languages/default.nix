@@ -38,6 +38,7 @@ in {
     ./svelte.nix
     ./tailwind.nix
     ./terraform.nix
+    ./toml.nix
     ./ts.nix
     ./typst.nix
     ./zig.nix

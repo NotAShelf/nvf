@@ -15,6 +15,7 @@
 
   cfg = config.vim.languages.sql;
   sqlfluffDefault = pkgs.sqlfluff;
+  sqruffDefault = pkgs.sqruff;
 
   defaultServers = ["sqls"];
   servers = {
@@ -39,6 +40,10 @@
       command = getExe sqlfluffDefault;
       append_args = ["--dialect=${cfg.dialect}"];
     };
+    sqruff = {
+      command = getExe sqruffDefault;
+      append_args = ["--dialect=${cfg.dialect}"];
+    };
   };
 
   defaultDiagnosticsProvider = ["sqlfluff"];
@@ -50,6 +55,13 @@
         args = ["lint" "--format=json" "--dialect=${cfg.dialect}"];
       };
     };
+    sqruff = {
+      package = sqruffDefault;
+      config = {
+        cmd = getExe sqruffDefault;
+        args = ["lint" "--format=json" "--dialect=${cfg.dialect}" "-"];
+      };
+    };
   };
 in {
   options.vim.languages.sql = {
@@ -58,7 +70,7 @@ in {
     dialect = mkOption {
       type = str;
       default = "ansi";
-      description = "SQL dialect for sqlfluff (if used)";
+      description = "SQL dialect for formatters and diagnostics (if used)";
     };
 
     treesitter = {
@@ -66,7 +78,7 @@ in {
 
       package = mkOption {
         type = package;
-        default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.sql;
+        default = pkgs.vimPlugins.nvim-treesitter.grammarPlugins.sql;
         description = "SQL treesitter grammar to use";
       };
     };

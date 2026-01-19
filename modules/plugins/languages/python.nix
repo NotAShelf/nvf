@@ -20,6 +20,21 @@
 
   defaultServers = ["basedpyright"];
   servers = {
+    pyrefly = {
+      enable = true;
+      cmd = [(getExe pkgs.pyrefly) "server"];
+      filetypes = ["python"];
+      root_markers = [
+        "pyproject.toml"
+        "pyrefly.toml"
+        "setup.py"
+        "setup.cfg"
+        "requirements.txt"
+        "Pipfile"
+        ".git"
+      ];
+    };
+
     pyright = {
       enable = true;
       cmd = [(getExe' pkgs.pyright "pyright-langserver") "--stdio"];
@@ -116,6 +131,34 @@
     python-lsp-server = {
       enable = true;
       cmd = [(getExe pkgs.python3Packages.python-lsp-server)];
+      filetypes = ["python"];
+      root_markers = [
+        "pyproject.toml"
+        "setup.py"
+        "setup.cfg"
+        "requirements.txt"
+        "Pipfile"
+        ".git"
+      ];
+    };
+
+    ruff = {
+      enable = true;
+      cmd = [(getExe pkgs.ruff) "server"];
+      filetypes = ["python"];
+      root_markers = [
+        "pyproject.toml"
+        "setup.py"
+        "setup.cfg"
+        "requirements.txt"
+        "Pipfile"
+        ".git"
+      ];
+    };
+
+    ty = {
+      enable = true;
+      cmd = [(getExe pkgs.ty) "server"];
       filetypes = ["python"];
       root_markers = [
         "pyproject.toml"
@@ -228,7 +271,7 @@ in {
       package = mkOption {
         description = "Python treesitter grammar to use";
         type = package;
-        default = pkgs.vimPlugins.nvim-treesitter.builtGrammars.python;
+        default = pkgs.vimPlugins.nvim-treesitter.grammarPlugins.python;
       };
     };
 

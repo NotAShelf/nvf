@@ -31,6 +31,13 @@
       filetypes = ["markdown"];
       root_markers = [".git" ".obsidian" ".moxide.toml"];
     };
+
+    rumdl = {
+      enable = true;
+      cmd = [(getExe pkgs.rumdl) "server"];
+      filetypes = ["markdown"];
+      root_markers = [".git" ".rumdl.toml" "rumdl.toml" ".config/rumdl.toml" "pyproject.toml"];
+    };
   };
 
   defaultFormat = ["deno_fmt"];
@@ -42,6 +49,9 @@
     deno_fmt = {
       command = getExe pkgs.deno;
     };
+    rumdl = {
+      command = getExe pkgs.rumdl;
+    };
     prettierd = {
       command = getExe pkgs.prettierd;
     };
@@ -50,6 +60,9 @@
   diagnosticsProviders = {
     markdownlint-cli2 = {
       package = pkgs.markdownlint-cli2;
+    };
+    rumdl = {
+      package = pkgs.rumdl;
     };
   };
 in {
@@ -63,7 +76,7 @@ in {
         description = "Enable Markdown treesitter";
       };
       mdPackage = mkGrammarOption pkgs "markdown";
-      mdInlinePackage = mkGrammarOption pkgs "markdown-inline";
+      mdInlinePackage = mkGrammarOption pkgs "markdown_inline";
     };
 
     lsp = {
