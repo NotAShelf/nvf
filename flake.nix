@@ -19,6 +19,8 @@
       systems = import inputs.systems;
       imports = [
         ./flake/templates
+        ./flake/tests
+
         ./flake/apps.nix
         ./flake/packages.nix
         ./flake/develop.nix
