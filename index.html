@@ -63,10 +63,11 @@
           </svg>
         </div>
         <nav class="sidebar">
-          <div class="docs-nav">
-            <h2>Documents</h2>
-            <ul>
-              <li><a href="index.html">Introduction</a></li>
+          <details class="sidebar-section" data-section="docs" open>
+            <summary>Documents</summary>
+            <div class="sidebar-section-content">
+              <ul>
+                <li><a href="index.html">Introduction</a></li>
 <li><a href="configuring.html">Configuring nvf</a></li>
 <li><a href="hacking.html">Hacking nvf</a></li>
 <li><a href="tips.html">Helpful Tips</a></li>
@@ -74,13 +75,15 @@
 <li><a href="release-notes.html">Release Notes</a></li>
 <li><a href="search.html">Search</a></li>
 
-            </ul>
-          </div>
+              </ul>
+            </div>
+          </details>
 
-          <div class="toc">
-            <h2>Contents</h2>
-            <ul class="toc-list">
-              <li><a href="#nvf-manual">Introduction</a>
+          <details class="sidebar-section" data-section="toc" open>
+            <summary>Contents</summary>
+            <div class="sidebar-section-content">
+              <ul class="toc-list">
+                <li><a href="#nvf-manual">Introduction</a>
 <ul><li><a href="#ch-preface">Preface</a>
 <ul><li><a href="#sec-what-is-it">What is nvf</a>
 </ul><li><a href="#ch-try-it-out">Try it Out</a>
@@ -96,13 +99,15 @@
 <li><a href="#sec-nixos-flakes-usage">Usage</a>
 <li><a href="#sec-example-installation-nixos">Example Installation</a>
 </ul><li><a href="#sec-nixos-flakeless">Without Flakes</a>
+<li><a href="#ch-hm-module">Home Manager Module</a>
 <li><a href="#sec-hm-flakes">With Flakes</a>
 <ul><li><a href="#sec-hm-flakes-usage">Usage</a>
 <li><a href="#sec-example-installation-hm">Example Installation</a>
 </ul><li><a href="#sec-hm-flakeless">Without Flakes</a>
 </li></ul></li>
-            </ul>
-          </div>
+              </ul>
+            </div>
+          </details>
         </nav>
 
         <main class="content"><html><head></head><body><h1 id="nvf-manual">Introduction</h1>
@@ -276,7 +281,7 @@ If you are new to NixOS, I encourage you to look into Flakes and see if they fit
 your use case. Alternatively, look into the aforementioned projects for more
 convenient dependency management mechanisms.</p>
 </div>
-## Home Manager Module {#ch-hm-module}
+<h2 id="ch-hm-module">Home Manager Module</h2>
 <p>The Home Manager module allows us to customize the different <code>vim</code> options from
 inside the Home Manager configuration without having to call for the wrapper
 yourself. It is the recommended way to use <strong>nvf</strong> alongside the NixOS module
@@ -348,6 +353,36 @@ convenient dependency management mechanisms.</p>
 </div>
 </body></html><!-- markdownlint-enable MD014 --><!-- TODO: mention the built-in flake template here when it is added --></main>
       </div>
+
+      <aside class="page-toc">
+        <nav class="page-toc-nav">
+          <h3>On this page</h3>
+          <ul class="page-toc-list">
+            <li><a href="#nvf-manual">Introduction</a>
+<ul><li><a href="#ch-preface">Preface</a>
+<ul><li><a href="#sec-what-is-it">What is nvf</a>
+</ul><li><a href="#ch-try-it-out">Try it Out</a>
+<li><a href="#sec-using-prebuilt-configs">Using Prebuilt Configurations</a>
+<ul><li><a href="#sec-available-configs">Available Configurations</a>
+</ul><li><a href="#ch-installation">Installing nvf</a>
+</ul><li><a href="#ch-standalone-installation">Standalone Installation</a>
+<ul><li><a href="#ch-standalone-nixos">Standalone Installation on NixOS</a>
+<li><a href="#ch-standalone-hm">Standalone Installation on Home-Manager</a>
+</ul><li><a href="#ch-module-installation">Module Installation</a>
+<ul><li><a href="#ch-nixos-module">NixOS Module</a>
+<ul><li><a href="#sec-nixos-flakes">With Flakes</a>
+<li><a href="#sec-nixos-flakes-usage">Usage</a>
+<li><a href="#sec-example-installation-nixos">Example Installation</a>
+</ul><li><a href="#sec-nixos-flakeless">Without Flakes</a>
+<li><a href="#ch-hm-module">Home Manager Module</a>
+<li><a href="#sec-hm-flakes">With Flakes</a>
+<ul><li><a href="#sec-hm-flakes-usage">Usage</a>
+<li><a href="#sec-example-installation-hm">Example Installation</a>
+</ul><li><a href="#sec-hm-flakeless">Without Flakes</a>
+</li></ul></li>
+          </ul>
+        </nav>
+      </aside>
 
       <footer>
   <p>Generated with ndg</p>

@@ -63,10 +63,11 @@
           </svg>
         </div>
         <nav class="sidebar">
-          <div class="docs-nav">
-            <h2>Documents</h2>
-            <ul>
-              <li><a href="index.html">Introduction</a></li>
+          <details class="sidebar-section" data-section="docs" open>
+            <summary>Documents</summary>
+            <div class="sidebar-section-content">
+              <ul>
+                <li><a href="index.html">Introduction</a></li>
 <li><a href="configuring.html">Configuring nvf</a></li>
 <li><a href="hacking.html">Hacking nvf</a></li>
 <li><a href="tips.html">Helpful Tips</a></li>
@@ -74,13 +75,15 @@
 <li><a href="release-notes.html">Release Notes</a></li>
 <li><a href="search.html">Search</a></li>
 
-            </ul>
-          </div>
+              </ul>
+            </div>
+          </details>
 
-          <div class="toc">
-            <h2>Contents</h2>
-            <ul class="toc-list">
-              <li><a href="#ch-release-notes">Release Notes</a>
+          <details class="sidebar-section" data-section="toc" open>
+            <summary>Contents</summary>
+            <div class="sidebar-section-content">
+              <ul class="toc-list">
+                <li><a href="#ch-release-notes">Release Notes</a>
 <li><a href="#sec-release-0-1">Release 0.1</a>
 <ul><li><a href="#sec-release-0-1-changelog">Changelog</a>
 </ul><li><a href="#sec-release-0-2">Release 0.2</a>
@@ -111,8 +114,9 @@
 <ul><li><a href="#breaking-changes">Breaking changes</a>
 <li><a href="#sec-release-0-9-changelog">Changelog</a>
 </li></ul></li>
-            </ul>
-          </div>
+              </ul>
+            </div>
+          </details>
         </nav>
 
         <main class="content"><html><head></head><body><h1 id="ch-release-notes">Release Notes</h1>
@@ -1221,7 +1225,7 @@ Svelte. Enable them via <a class="option-reference" href="options.html#option-vi
 <li>Add support for <a href="https://astro.build/">Astro</a> language server.</li>
 </ul>
 <h1 id="sec-release-0-8">Release 0.8</h1>
-<h2>Breaking changes</h2>
+<h2 id="breaking-changes">Breaking changes</h2>
 <ul>
 <li>
 <p><code>git-conflict</code> keybinds are now prefixed with <code>&lt;leader&gt;</code> to avoid conflicting
@@ -1817,7 +1821,7 @@ attach behavior.</li>
 <li>Added gitFiles mapping option to telescope</li>
 </ul>
 <h1 id="sec-release-0-9">Release 0.9</h1>
-<h2>Breaking changes</h2>
+<h2 id="breaking-changes">Breaking changes</h2>
 <ul>
 <li>
 <p>Nixpkgs has merged a fully incompatible rewrite of
@@ -1961,6 +1965,45 @@ formatter.</p>
 </ul>
 </body></html></main>
       </div>
+
+      <aside class="page-toc">
+        <nav class="page-toc-nav">
+          <h3>On this page</h3>
+          <ul class="page-toc-list">
+            <li><a href="#ch-release-notes">Release Notes</a>
+<li><a href="#sec-release-0-1">Release 0.1</a>
+<ul><li><a href="#sec-release-0-1-changelog">Changelog</a>
+</ul><li><a href="#sec-release-0-2">Release 0.2</a>
+<ul><li><a href="#sec-release-0-2-changelog">Changelog</a>
+</ul><li><a href="#sec-release-0-3">Release 0.3</a>
+<ul><li><a href="#sec-release-0-3-changelog">Changelog</a>
+</ul><li><a href="#sec-release-0-4">Release 0.4</a>
+<ul><li><a href="#sec-release-0-4-changelog">Changelog</a>
+</ul><li><a href="#sec-release-0-5">Release 0.5</a>
+<ul><li><a href="#sec-release-0-5-changelog">Changelog</a>
+</ul><li><a href="#sec-release-0-6">Release 0.6</a>
+<ul><li><a href="#sec-breaking-changes-and-migration-guide">Breaking Changes and Migration Guide</a>
+<li><a href="#sec-release-0-6-changelog">Changelog</a>
+</ul><li><a href="#sec-release-0-7">Release 0.7</a>
+<ul><li><a href="#sec-breaking-changes-and-migration-guide-0-7">Breaking Changes and Migration Guide</a>
+<ul><li><a href="#sec-vim-configrc-removed">vim.configRC removed</a>
+<li><a href="#sec-vim-maps-rewrite">vim.maps rewrite</a>
+<li><a href="#sec-nvim-code-action-menu-deprecation">vim.lsp.nvimCodeActionMenu removed in favor of vim.ui.fastaction</a>
+<li><a href="#sec-type-based-modules-removed">type based modules removed</a>
+<li><a href="#sec-nixpkgs-fmt-deprecation">nixpkgs-fmt removed in favor of nixfmt</a>
+<li><a href="#sec-leader-changes">leader changes</a>
+<li><a href="#sec-vim-opt-changes">vim.* changes</a>
+</ul><li><a href="#sec-release-0-7-changelog">Changelog</a>
+</ul><li><a href="#sec-release-0-8">Release 0.8</a>
+<ul><li><a href="#breaking-changes">Breaking changes</a>
+<li><a href="#sec-release-0-8-changelog">Changelog</a>
+</ul><li><a href="#sec-release-0-9">Release 0.9</a>
+<ul><li><a href="#breaking-changes">Breaking changes</a>
+<li><a href="#sec-release-0-9-changelog">Changelog</a>
+</li></ul></li>
+          </ul>
+        </nav>
+      </aside>
 
       <footer>
   <p>Generated with ndg</p>

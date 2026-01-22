@@ -1,8 +1,8 @@
 // Polyfill for requestIdleCallback for Safari and unsupported browsers
 if (typeof window.requestIdleCallback === "undefined") {
   window.requestIdleCallback = function (cb) {
-    var start = Date.now();
-    var idlePeriod = 50;
+    const start = Date.now();
+    const idlePeriod = 50;
     return setTimeout(function () {
       cb({
         didTimeout: false,
@@ -85,6 +85,127 @@ function createMobileElements() {
   }
 }
 
+// Initialize collapsible sidebar sections with state persistence
+function initCollapsibleSections() {
+  // Target sections in both desktop and mobile sidebars
+  const sections = document.querySelectorAll(
+    ".sidebar .sidebar-section, .mobile-sidebar-content .sidebar-section",
+  );
+
+  sections.forEach((section) => {
+    const sectionId = section.dataset.section;
+    if (!sectionId) return;
+
+    const storageKey = `sidebar-section-${sectionId}`;
+    const savedState = localStorage.getItem(storageKey);
+
+    // Restore saved state (default is open)
+    if (savedState === "closed") {
+      section.removeAttribute("open");
+    }
+
+    // Save state on toggle and sync between desktop/mobile
+    section.addEventListener("toggle", () => {
+      localStorage.setItem(storageKey, section.open ? "open" : "closed");
+
+      // Sync state between desktop and mobile versions
+      const allWithSameSection = document.querySelectorAll(
+        `.sidebar-section[data-section="${sectionId}"]`,
+      );
+      allWithSameSection.forEach((el) => {
+        if (el !== section) {
+          el.open = section.open;
+        }
+      });
+    });
+  });
+}
+
+// Initialize scroll spy
+function initScrollSpy() {
+  const pageToc = document.querySelector(".page-toc");
+  if (!pageToc) return;
+
+  const tocLinks = pageToc.querySelectorAll(".page-toc-list a");
+  const content = document.querySelector(".content");
+  if (!tocLinks.length || !content) return;
+
+  const headings = Array.from(
+    content.querySelectorAll("h1[id], h2[id], h3[id]"),
+  );
+
+  if (!headings.length) return;
+
+  // Build a map of heading IDs to TOC links for quick lookup
+  const linkMap = new Map();
+  tocLinks.forEach((link) => {
+    const href = link.getAttribute("href");
+    if (href && href.startsWith("#")) {
+      linkMap.set(href.slice(1), link);
+    }
+  });
+
+  let activeLink = null;
+
+  // Update active link based on scroll position
+  function updateActiveLink() {
+    const threshold = 120; // threshold from the top of the viewport
+
+    let currentHeading = null;
+
+    // Find the last heading that is at or above the threshold
+    for (const heading of headings) {
+      const rect = heading.getBoundingClientRect();
+      if (rect.top <= threshold) {
+        currentHeading = heading;
+      }
+    }
+
+    // If no heading is above threshold, use first heading if it's in view
+    if (!currentHeading && headings.length > 0) {
+      const firstRect = headings[0].getBoundingClientRect();
+      if (firstRect.top < window.innerHeight) {
+        currentHeading = headings[0];
+      }
+    }
+
+    const newLink = currentHeading ? linkMap.get(currentHeading.id) : null;
+
+    if (newLink !== activeLink) {
+      if (activeLink) {
+        activeLink.classList.remove("active");
+      }
+      if (newLink) {
+        newLink.classList.add("active");
+      }
+      activeLink = newLink;
+    }
+  }
+
+  // Scroll event handler
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateActiveLink();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // Also update on hash change (direct link navigation)
+  window.addEventListener("hashchange", () => {
+    requestAnimationFrame(updateActiveLink);
+  });
+
+  // Set initial active state after a small delay to ensure
+  // browser has completed any hash-based scrolling
+  setTimeout(updateActiveLink, 100);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   // Apply sidebar state immediately before DOM rendering
   if (localStorage.getItem("sidebar-collapsed") === "true") {
@@ -95,6 +216,13 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!document.querySelector(".mobile-sidebar-fab")) {
     createMobileElements();
   }
+
+  // Initialize collapsible sidebar sections
+  // after mobile elements are created
+  initCollapsibleSections();
+
+  // Initialize scroll spy for page TOC
+  initScrollSpy();
 
   // Desktop Sidebar Toggle
   const sidebarToggle = document.querySelector(".sidebar-toggle");
@@ -111,8 +239,9 @@ document.addEventListener("DOMContentLoaded", function () {
       document.body.classList.toggle("sidebar-collapsed");
 
       // Use documentElement to check state and save to localStorage
-      const isCollapsed =
-        document.documentElement.classList.contains("sidebar-collapsed");
+      const isCollapsed = document.documentElement.classList.contains(
+        "sidebar-collapsed",
+      );
       localStorage.setItem("sidebar-collapsed", isCollapsed);
     });
   }
@@ -144,7 +273,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       // Make the entire heading clickable
-      heading.addEventListener("click", function (e) {
+      heading.addEventListener("click", function () {
         const id = this.id;
         history.pushState(null, null, "#" + id);
 
@@ -257,19 +386,10 @@ document.addEventListener("DOMContentLoaded", function () {
     ".mobile-sidebar-container",
   );
   const mobileSidebarFab = document.querySelector(".mobile-sidebar-fab");
-  const mobileSidebarContent = document.querySelector(
-    ".mobile-sidebar-content",
-  );
   const mobileSidebarHandle = document.querySelector(".mobile-sidebar-handle");
-  const desktopSidebar = document.querySelector(".sidebar");
 
   // Always set up FAB if it exists
   if (mobileSidebarFab && mobileSidebarContainer) {
-    // Populate content if desktop sidebar exists
-    if (desktopSidebar && mobileSidebarContent) {
-      mobileSidebarContent.innerHTML = desktopSidebar.innerHTML;
-    }
-
     const openMobileSidebar = () => {
       mobileSidebarContainer.classList.add("active");
       mobileSidebarFab.setAttribute("aria-expanded", "true");
@@ -379,8 +499,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  
-
   // Options filter functionality
   const optionsFilter = document.getElementById("options-filter");
   if (optionsFilter) {
@@ -404,8 +522,8 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     // Detect if we're on a mobile device
-    const isMobile =
-      window.innerWidth < 768 || /Mobi|Android/i.test(navigator.userAgent);
+    const isMobile = window.innerWidth < 768 ||
+      /Mobi|Android/i.test(navigator.userAgent);
 
     // Cache all option elements and their searchable content
     const options = Array.from(document.querySelectorAll(".option"));
@@ -483,7 +601,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Update counter at the very end for best performance
         if (filterResults.visibleCount !== undefined) {
           if (filterResults.visibleCount < totalCount) {
-            filterResults.textContent = `Showing ${filterResults.visibleCount} of ${totalCount} options`;
+            filterResults.textContent =
+              `Showing ${filterResults.visibleCount} of ${totalCount} options`;
             filterResults.style.display = "block";
           } else {
             filterResults.style.display = "none";
@@ -530,8 +649,7 @@ document.addEventListener("DOMContentLoaded", function () {
           isDescMatch = !isTitleMatch && data.description.includes(term);
         } else {
           isTitleMatch = searchTerms.every((term) => data.name.includes(term));
-          isDescMatch =
-            !isTitleMatch &&
+          isDescMatch = !isTitleMatch &&
             searchTerms.every((term) => data.description.includes(term));
         }
         if (isTitleMatch) {

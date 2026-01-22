@@ -63,10 +63,11 @@
           </svg>
         </div>
         <nav class="sidebar">
-          <div class="docs-nav">
-            <h2>Documents</h2>
-            <ul>
-              <li><a href="index.html">Introduction</a></li>
+          <details class="sidebar-section" data-section="docs" open>
+            <summary>Documents</summary>
+            <div class="sidebar-section-content">
+              <ul>
+                <li><a href="index.html">Introduction</a></li>
 <li><a href="configuring.html">Configuring nvf</a></li>
 <li><a href="hacking.html">Hacking nvf</a></li>
 <li><a href="tips.html">Helpful Tips</a></li>
@@ -74,24 +75,28 @@
 <li><a href="release-notes.html">Release Notes</a></li>
 <li><a href="search.html">Search</a></li>
 
-            </ul>
-          </div>
+              </ul>
+            </div>
+          </details>
 
-          <div class="toc">
-            <h2>Contents</h2>
-            <ul class="toc-list">
-              <li><a href="#ch-configuring">Configuring nvf</a>
+          <details class="sidebar-section" data-section="toc" open>
+            <summary>Contents</summary>
+            <div class="sidebar-section-content">
+              <ul class="toc-list">
+                <li><a href="#ch-configuring">Configuring nvf</a>
 <li><a href="#ch-custom-plugins">Custom Plugins</a>
 <ul><li><a href="#ch-adding-plugins">Adding Plugins</a>
 </ul><li><a href="#sec-configuring-plugins">Configuring</a>
 <ul><li><a href="#ch-vim-lazy-plugins">Lazy Plugins</a>
 <li><a href="#ch-vim-extra-plugins">Standard API</a>
 <ul><li><a href="#setup-using-luaconfigrc">Setup using luaConfigRC</a>
-</ul><li><a href="#sec-lazyfile-event">LazyFile event</a>
+</ul></ul><li><a href="#sec-lazy-method">Lazy Method</a>
+<ul><li><a href="#sec-lazyfile-event">LazyFile event</a>
 </ul><li><a href="#sec-non-lazy-method">Non-lazy Method</a>
 <li><a href="#sec-legacy-method">Legacy Method</a>
 <ul><li><a href="#sec-adding-new-plugins">Adding New Plugins</a>
 </ul><li><a href="#ch-overriding-plugins">Overriding plugins</a>
+<li><a href="#ch-languages">Language Support</a>
 <li><a href="#sec-languages-custom-lsp-packages">LSP Custom Packages/Command</a>
 <li><a href="#ch-using-dags">Using DAGs</a>
 <ul><li><a href="#sec-types-dag-entryAnywhere">entryAnywhere</a>
@@ -108,8 +113,9 @@
 <ul><li><a href="#sec-vim-augroups">Autogroups (vim.augroups)</a>
 <li><a href="#sec-vim-autocmds">Autocommands (vim.autocmds)</a>
 </li></ul></li>
-            </ul>
-          </div>
+              </ul>
+            </div>
+          </details>
         </nav>
 
         <main class="content"><html><head></head><body><h1 id="ch-configuring">Configuring nvf</h1>
@@ -186,7 +192,7 @@ use.</p>
 to find out more about the DAG system.</p>
 </div>
 <!-- deno-fmt-ignore-end -->
-# Lazy Method {#sec-lazy-method}
+<h1 id="sec-lazy-method">Lazy Method</h1>
 <p>As of version <strong>0.7</strong>, an API is exposed to allow configuring lazy-loaded
 plugins via <code>lz.n</code> and <code>lzn-auto-require</code>. Below is a comprehensive example of
 how it may be loaded to lazy-load an arbitrary plugin.</p>
@@ -237,7 +243,7 @@ deprecated in newer versions is changed in the plugin's <code>setupOpts</code>. 
 depend on a new version, requesting a version bump in the issues section is a
 more reliable option.</p>
 </div>
-# Language Support {#ch-languages}
+<h1 id="ch-languages">Language Support</h1>
 <p>Language specific support means there is a combination of language specific
 plugins, <code>treesitter</code> support, <code>nvim-lspconfig</code> language servers, <code>conform-nvim</code>
 formatters, and <code>nvim-lint</code> linter integration. This gets you capabilities
@@ -586,6 +592,44 @@ configure <code>vim.api.nvim_create_augroup</code> and <code>vim.api.nvim_create
 Neovim starts.</p>
 </body></html><!-- deno-fmt-ignore-start --></main>
       </div>
+
+      <aside class="page-toc">
+        <nav class="page-toc-nav">
+          <h3>On this page</h3>
+          <ul class="page-toc-list">
+            <li><a href="#ch-configuring">Configuring nvf</a>
+<li><a href="#ch-custom-plugins">Custom Plugins</a>
+<ul><li><a href="#ch-adding-plugins">Adding Plugins</a>
+</ul><li><a href="#sec-configuring-plugins">Configuring</a>
+<ul><li><a href="#ch-vim-lazy-plugins">Lazy Plugins</a>
+<li><a href="#ch-vim-extra-plugins">Standard API</a>
+<ul><li><a href="#setup-using-luaconfigrc">Setup using luaConfigRC</a>
+</ul></ul><li><a href="#sec-lazy-method">Lazy Method</a>
+<ul><li><a href="#sec-lazyfile-event">LazyFile event</a>
+</ul><li><a href="#sec-non-lazy-method">Non-lazy Method</a>
+<li><a href="#sec-legacy-method">Legacy Method</a>
+<ul><li><a href="#sec-adding-new-plugins">Adding New Plugins</a>
+</ul><li><a href="#ch-overriding-plugins">Overriding plugins</a>
+<li><a href="#ch-languages">Language Support</a>
+<li><a href="#sec-languages-custom-lsp-packages">LSP Custom Packages/Command</a>
+<li><a href="#ch-using-dags">Using DAGs</a>
+<ul><li><a href="#sec-types-dag-entryAnywhere">entryAnywhere</a>
+<li><a href="#ch-types-dag-entryAfter">entryAfter</a>
+<li><a href="#ch-types-dag-entryBefore">entryBefore</a>
+<li><a href="#sec-types-dag-entryBetween">entryBetween</a>
+<li><a href="#sec-types-dag-entriesAnywhere">entriesAnywhere</a>
+<li><a href="#sec-types-dag-entriesAfter">entriesAfter</a>
+<li><a href="#sec-types-dag-entriesBefore">entriesBefore</a>
+<li><a href="#sec-types-dag-entriesBetween">entriesBetween</a>
+</ul><li><a href="#ch-dag-entries">DAG entries in nvf</a>
+<ul><li><a href="#ch-vim-luaconfigrc">vim.luaConfigRC (top-level DAG)</a>
+</ul><li><a href="#ch-autocmds-augroups">Autocommands and Autogroups</a>
+<ul><li><a href="#sec-vim-augroups">Autogroups (vim.augroups)</a>
+<li><a href="#sec-vim-autocmds">Autocommands (vim.autocmds)</a>
+</li></ul></li>
+          </ul>
+        </nav>
+      </aside>
 
       <footer>
   <p>Generated with ndg</p>

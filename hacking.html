@@ -63,10 +63,11 @@
           </svg>
         </div>
         <nav class="sidebar">
-          <div class="docs-nav">
-            <h2>Documents</h2>
-            <ul>
-              <li><a href="index.html">Introduction</a></li>
+          <details class="sidebar-section" data-section="docs" open>
+            <summary>Documents</summary>
+            <div class="sidebar-section-content">
+              <ul>
+                <li><a href="index.html">Introduction</a></li>
 <li><a href="configuring.html">Configuring nvf</a></li>
 <li><a href="hacking.html">Hacking nvf</a></li>
 <li><a href="tips.html">Helpful Tips</a></li>
@@ -74,13 +75,15 @@
 <li><a href="release-notes.html">Release Notes</a></li>
 <li><a href="search.html">Search</a></li>
 
-            </ul>
-          </div>
+              </ul>
+            </div>
+          </details>
 
-          <div class="toc">
-            <h2>Contents</h2>
-            <ul class="toc-list">
-              <li><a href="#ch-hacking">Hacking nvf</a>
+          <details class="sidebar-section" data-section="toc" open>
+            <summary>Contents</summary>
+            <div class="sidebar-section-content">
+              <ul class="toc-list">
+                <li><a href="#ch-hacking">Hacking nvf</a>
 <ul><li><a href="#sec-contrib-getting-started">Getting Started</a>
 <li><a href="#sec-guidelines">Guidelines</a>
 <ul><li><a href="#sec-guidelines-formatting">Formatting</a>
@@ -101,8 +104,9 @@
 </ul><li><a href="#sec-keybinds">Keybinds</a>
 <ul><li><a href="#sec-custom-key-mappings">Custom Key Mappings Support for a Plugin</a>
 </li></ul></li></ul></li>
-            </ul>
-          </div>
+              </ul>
+            </div>
+          </details>
         </nav>
 
         <main class="content"><html><head></head><body><h1 id="ch-hacking">Hacking nvf</h1>
@@ -261,7 +265,7 @@ project repository before submitting your pull request.</p>
 <p>While Alejandra is mostly opinionated on how code looks after formatting,
 certain changes are done at the user's discretion based on how the original code
 was structured.</p>
-<h5>Attribute Sets</h5>
+<h5 id="attribute-sets">Attribute Sets</h5>
 <p>Please use one line code for attribute sets that contain only one subset. For
 example:</p>
 <!-- markdownlint-disable MD013 -->
@@ -273,7 +277,7 @@ unfold the whole merged attribute set for you, which we <strong>do not</strong> 
 <p>Though, if the right-hand side is more than a single line, it is okay to move to
 a new line. For example:</p>
 <pre class="highlight"><code class="language-nix"><span style="color:rgb(97,175,239);">module</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;This&nbsp;is&nbsp;okay!</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">key</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(97,175,239);">mkEnableOption</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">some&nbsp;description</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">//</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">default</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">example</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">false</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;...</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
-<h5>Lists</h5>
+<h5 id="lists">Lists</h5>
 <p>For lists, it is mostly up to your own discretion how you want to format them,
 but please try to unfold lists if they contain multiple items and especially if
 they are to include comments.</p>
@@ -320,7 +324,7 @@ HTML manual with various goodies, including a <strong>search page</strong> and a
 page</strong>. The latter, found under <code>options.html</code> contains module options, similar
 to the official Nixpkgs search utility. The supported syntax for NDG can be
 found over at the <a href="https://github.com/feel-co/ndg/blob/main/ndg-commonmark/docs/SYNTAX.md">library documentation</a>.</p>
-<h3>Building the Documentation</h3>
+<h3 id="building-the-documentation">Building the Documentation</h3>
 <p>The HTML version of this documentation, dubbed the "nvf manual", can be
 generated and opened by typing the following in a shell within a clone of the
 <strong>nvf</strong> Git repository:</p>
@@ -333,7 +337,7 @@ documentation:</p>
 request. If the documentation builds, an automatic "preview" build will be
 deployed automatically for your Pull Request. You may use this preview to view
 your changes as your Pull Request is updated.</p>
-<h3>Formatting Changelog Entries</h3>
+<h3 id="formatting-changelog-entries">Formatting Changelog Entries</h3>
 <p>For additions, removals or any general change that concerns the users you must
 add a changelog entry. The changelog entries are later included in the rendered
 manual for users hoping to learn what has changed.</p>
@@ -347,7 +351,7 @@ tense, unlike commit messages.</p>
 <p>While adding a new section, please insert the section at an arbitrary location
 under the <code>## Changelog</code> section rather than the end of the document. This helps
 avoid merge conflicts.</p>
-<h3>Breaking Changes</h3>
+<h3 id="breaking-changes">Breaking Changes</h3>
 <p>If you are introducing <em>breaking</em> changes to the repository, then you must also
 briefly mention what has changed in the breaking changes section of the
 changelog document that you are editing. If this section does not yet exist, you
@@ -490,6 +494,35 @@ you get it done.</p>
 </div>
 </body></html><!-- markdownlint-enable MD013 --><!-- markdownlint-disable MD013  --><!-- markdownlint-enable MD013 --></main>
       </div>
+
+      <aside class="page-toc">
+        <nav class="page-toc-nav">
+          <h3>On this page</h3>
+          <ul class="page-toc-list">
+            <li><a href="#ch-hacking">Hacking nvf</a>
+<ul><li><a href="#sec-contrib-getting-started">Getting Started</a>
+<li><a href="#sec-guidelines">Guidelines</a>
+<ul><li><a href="#sec-guidelines-formatting">Formatting</a>
+<li><a href="#sec-guidelines-commit-message-style">Formatting Commits</a>
+<li><a href="#sec-guidelines-commit-style">Commit Style</a>
+<li><a href="#sec-guidelines-code-style">Code Style</a>
+</ul><li><a href="#sec-testing-changes">Testing Changes</a>
+<li><a href="#sec-guidelines-documentation">Adding Documentation</a>
+<ul><li><a href="#building-the-documentation">Building the Documentation</a>
+<li><a href="#formatting-changelog-entries">Formatting Changelog Entries</a>
+<li><a href="#breaking-changes">Breaking Changes</a>
+</ul><li><a href="#sec-additional-plugins">Adding Plugins</a>
+<ul><li><a href="#sec-npins-for-plugins">With npins</a>
+<li><a href="#sec-pkgs-for-plugins">Packaging Complex Plugins</a>
+<li><a href="#sec-modular-setup-options">Modular Setup Options</a>
+<li><a href="#sec-details-of-toluaobject">Details of toLuaObject</a>
+<li><a href="#sec-lazy-plugins">Lazy Loading Plugins</a>
+</ul><li><a href="#sec-keybinds">Keybinds</a>
+<ul><li><a href="#sec-custom-key-mappings">Custom Key Mappings Support for a Plugin</a>
+</li></ul></li></ul></li>
+          </ul>
+        </nav>
+      </aside>
 
       <footer>
   <p>Generated with ndg</p>

@@ -63,10 +63,11 @@
           </svg>
         </div>
         <nav class="sidebar">
-          <div class="docs-nav">
-            <h2>Documents</h2>
-            <ul>
-              <li><a href="index.html">Introduction</a></li>
+          <details class="sidebar-section" data-section="docs" open>
+            <summary>Documents</summary>
+            <div class="sidebar-section-content">
+              <ul>
+                <li><a href="index.html">Introduction</a></li>
 <li><a href="configuring.html">Configuring nvf</a></li>
 <li><a href="hacking.html">Hacking nvf</a></li>
 <li><a href="tips.html">Helpful Tips</a></li>
@@ -74,19 +75,22 @@
 <li><a href="release-notes.html">Release Notes</a></li>
 <li><a href="search.html">Search</a></li>
 
-            </ul>
-          </div>
+              </ul>
+            </div>
+          </details>
 
-          <div class="toc">
-            <h2>Contents</h2>
-            <ul class="toc-list">
-              <li><a href="#ch-known-issues-quirks">Known Issues and Quirks</a>
+          <details class="sidebar-section" data-section="toc" open>
+            <summary>Contents</summary>
+            <div class="sidebar-section-content">
+              <ul class="toc-list">
+                <li><a href="#ch-known-issues-quirks">Known Issues and Quirks</a>
 <ul><li><a href="#ch-quirks-nodejs">NodeJS</a>
 <ul><li><a href="#sec-eslint-plugin-prettier">eslint-plugin-prettier</a>
 </ul><li><a href="#ch-bugs-suggestions">Bugs &amp; Suggestions</a>
 </li></ul></li>
-            </ul>
-          </div>
+              </ul>
+            </div>
+          </details>
         </nav>
 
         <main class="content"><html><head></head><body><h1 id="ch-known-issues-quirks">Known Issues and Quirks</h1>
@@ -124,6 +128,19 @@ them over at the <a href="https://github.com/notashelf/nvf/issues">issue tracker
 changes that you think are critical over at the <a href="https://github.com/notashelf/nvf/pulls">pull requests tab</a>.</p>
 </body></html></main>
       </div>
+
+      <aside class="page-toc">
+        <nav class="page-toc-nav">
+          <h3>On this page</h3>
+          <ul class="page-toc-list">
+            <li><a href="#ch-known-issues-quirks">Known Issues and Quirks</a>
+<ul><li><a href="#ch-quirks-nodejs">NodeJS</a>
+<ul><li><a href="#sec-eslint-plugin-prettier">eslint-plugin-prettier</a>
+</ul><li><a href="#ch-bugs-suggestions">Bugs &amp; Suggestions</a>
+</li></ul></li>
+          </ul>
+        </nav>
+      </aside>
 
       <footer>
   <p>Generated with ndg</p>
