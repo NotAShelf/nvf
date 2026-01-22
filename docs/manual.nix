@@ -31,13 +31,10 @@ in
 
     # Generate the final manual from a set of parameters. This uses
     # feel-co/ndg to render the web manual.
-    ndg html \
+    ndg --config-file ${./ndg.toml} html \
       --jobs $NIX_BUILD_CORES --title "NVF" \
       --module-options ${optionsJSON}/share/doc/nixos/options.json \
       --manpage-urls ${path}/doc/manpage-urls.json \
-      --options-depth 3 \
-      --generate-search \
-      --highlight-code \
       --input-dir ./manual \
       --output-dir "$out/share/doc"
 

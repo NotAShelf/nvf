@@ -1,0 +1,28 @@
+# NDG Configuration File
+
+# Input directory containing markdown files
+input_dir = "docs"
+
+# Output directory for generated documentation
+output_dir = "build"
+
+# Title for the documentation
+title = "NVF"
+
+# Footer text for the documentation
+footer_text = "Generated with ndg"
+
+generate_anchors = true
+
+# Search configuration
+[search]
+enable = true
+highlight_code = true
+tab_style = "none"
+revision = "main"
+
+# Maximum heading level to index
+max_heading_level = 3
+
+# Depth of parent categories in options TOC
+options_toc_depth = 2
