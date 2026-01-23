@@ -144,3 +144,7 @@
 [Machshev](https://github.com/machshev):
 
 - Added `ruff` and `ty` LSP support for Python under `programs.python`.
+
+[Snoweuph](https://github.com/snoweuph)
+
+- Added Formatting support to the `just` language through its builtin formatter.

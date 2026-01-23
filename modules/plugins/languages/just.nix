@@ -23,6 +23,18 @@
       root_markers = [".git" "justfile"];
     };
   };
+
+  defaultFormat = ["just"];
+
+  formats = {
+    just = {
+      command = getExe pkgs.just;
+      args = [
+        "--unstable"
+        "--fmt"
+      ];
+    };
+  };
 in {
   options.vim.languages.just = {
     enable = mkEnableOption "Just support";
@@ -42,6 +54,16 @@ in {
         description = "Just LSP server to use";
       };
     };
+
+    format = {
+      enable = mkEnableOption "Justfile formatting" // {default = config.vim.languages.enableFormat;};
+
+      type = mkOption {
+        description = "Justfile formatter to use";
+        type = listOf (enum (attrNames formats));
+        default = defaultFormat;
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -59,6 +81,21 @@ in {
           value = servers.${n};
         })
         cfg.lsp.servers;
+    })
+
+    (mkIf cfg.format.enable {
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts = {
+          formatters_by_ft.just = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
+        };
+      };
     })
   ]);
 }
