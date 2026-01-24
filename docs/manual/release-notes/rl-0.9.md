@@ -132,7 +132,8 @@
 
 - Added [sqruff](https://github.com/quarylabs/sqruff) support to `languages.sql`
 
-- Added [Pyrefly](https://pyrefly.org/) support to `languages.python`
+- Added [Pyrefly](https://pyrefly.org/) and [zuban](https://zubanls.com/)
+  support to `languages.python`
 
 - Added TOML support via {option}`languages.toml` and the
   [Tombi](https://tombi-toml.github.io/tombi/) language server, linter, and
