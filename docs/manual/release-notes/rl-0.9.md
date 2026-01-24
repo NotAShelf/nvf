@@ -143,7 +143,8 @@ Some other settings and commands are now deprecated but are still supported.
 
 - Added [sqruff](https://github.com/quarylabs/sqruff) support to `languages.sql`
 
-- Added [Pyrefly](https://pyrefly.org/) support to `languages.python`
+- Added [Pyrefly](https://pyrefly.org/) and [zuban](https://zubanls.com/)
+  support to `languages.python`
 
 - Added TOML support via {option}`languages.toml` and the
   [Tombi](https://tombi-toml.github.io/tombi/) language server, linter, and
@@ -155,3 +156,8 @@ Some other settings and commands are now deprecated but are still supported.
 [Machshev](https://github.com/machshev):
 
 - Added `ruff` and `ty` LSP support for Python under `programs.python`.
+
+[Snoweuph](https://github.com/snoweuph)
+
+- Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
+  `languages.lua`.

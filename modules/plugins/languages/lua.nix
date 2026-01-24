@@ -9,7 +9,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) bool enum listOf;
-  inherit (lib.nvim.types) diagnostics mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption;
   inherit (lib.nvim.dag) entryBefore;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -46,6 +46,9 @@
     luacheck = {
       package = pkgs.luajitPackages.luacheck;
     };
+    selene = {
+      package = pkgs.selene;
+    };
   };
 in {
   imports = [
@@ -79,7 +82,7 @@ in {
         description = "Enable Lua formatting";
       };
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.lua.format.type" (enum (attrNames formats));
+        type = listOf (enum (attrNames formats));
         default = defaultFormat;
         description = "Lua formatter to use";
       };

@@ -169,6 +169,22 @@
         ".git"
       ];
     };
+
+    zuban = {
+      enable = true;
+      cmd = [(getExe pkgs.zuban) "server"];
+      filetypes = ["python"];
+      root_markers = [
+        "pyproject.toml"
+        "setup.py"
+        "setup.cfg"
+        "requirements.txt"
+        "Pipfile"
+        ".git"
+        "mypy.ini"
+        ".mypy.ini"
+      ];
+    };
   };
 
   defaultFormat = ["black"];
