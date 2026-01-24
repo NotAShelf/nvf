@@ -145,3 +145,8 @@
 [Machshev](https://github.com/machshev):
 
 - Added `ruff` and `ty` LSP support for Python under `programs.python`.
+
+[Snoweuph](https://github.com/snoweuph)
+
+- Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
+  `languages.lua`.
