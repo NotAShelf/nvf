@@ -19,11 +19,14 @@
     ];
   }
   ```
+- `languages.{terraform,hcl}`: LSP servers now default to `tofu-ls`. While this
+  is unlikely to cause any noticeable change in behavior or breakage, it's
+  mentioned just in case.
 
-  Some other settings and commands are now deprecated but are still supported.
+Some other settings and commands are now deprecated but are still supported.
 
-  - The `setupOpts.mappings` options were also removed. Use the built-in Neovim
-    settings (nvf's {option}`vim.keymaps`)
+- The `setupOpts.mappings` options were also removed. Use the built-in Neovim
+  settings (nvf's {option}`vim.keymaps`)
 
 ## Changelog {#sec-release-0-9-changelog}
 
@@ -67,7 +70,7 @@
 
 - `toggleterm` open map now also works when in terminal mode
 
-[ppenguin](https://github.com/Libadoxon):
+[ppenguin](https://github.com/ppenguin):
 
 - Improved/harmonized for `terraform` and `hcl`:
   - formatting (use `terraform fmt` or `tofu fmt` for `tf` files)
