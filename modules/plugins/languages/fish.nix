@@ -51,7 +51,7 @@ in {
       enable = mkEnableOption "Fish formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = listOf enum (attrNames formats);
+        type = listOf (enum (attrNames formats));
         default = defaultFormat;
         description = "Fish formatter to use";
       };
