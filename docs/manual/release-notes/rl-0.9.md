@@ -150,5 +150,5 @@
 [fish-lsp]: https://www.fish-lsp.dev/
 [fish_indent]: https://fishshell.com/docs/current/cmds/fish_indent.html
 
-- Add Fish support vai {option}`languages.fish` using [fish-lsp] and
+- Add Fish support via {option}`languages.fish` using [fish-lsp] and
   [fish_indent].
