@@ -150,3 +150,5 @@
 
 - Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
   `languages.lua`.
+
+<!-- vim: set textwidth=80: -->
