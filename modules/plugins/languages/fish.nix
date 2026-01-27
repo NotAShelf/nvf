@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   inherit (builtins) attrNames;
   inherit (lib.meta) getExe;
   inherit (lib.options) mkEnableOption mkOption;
@@ -14,32 +15,43 @@
 
   cfg = config.vim.languages.fish;
 
-  defaultServers = ["fish-lsp"];
+  defaultServers = [ "fish-lsp" ];
   servers = {
     fish-lsp = {
-      cmd = [(getExe pkgs.fish-lsp) "start"];
-      filetypes = ["fish"];
-      root_markers = ["config.fish" ".git"];
+      cmd = [
+        (getExe pkgs.fish-lsp)
+        "start"
+      ];
+      filetypes = [ "fish" ];
+      root_markers = [
+        "config.fish"
+        ".git"
+      ];
     };
   };
 
-  defaultFormat = ["fish_indent"];
+  defaultFormat = [ "fish_indent" ];
   formats = {
     fish_indent = {
       package = pkgs.fish;
       config.command = "${cfg.format.package}/bin/fish_indent";
     };
   };
-in {
+in
+{
   options.vim.languages.fish = {
     enable = mkEnableOption "Fish language support";
     treesitter = {
-      enable = mkEnableOption "Fish treesitter support" // {default = config.vim.languages.enableTreesitter;};
+      enable = mkEnableOption "Fish treesitter support" // {
+        default = config.vim.languages.enableTreesitter;
+      };
       package = mkGrammarOption pkgs "fish";
     };
 
     lsp = {
-      enable = mkEnableOption "Fish LSP support" // {default = config.vim.lsp.enable;};
+      enable = mkEnableOption "Fish LSP support" // {
+        default = config.vim.lsp.enable;
+      };
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
@@ -48,7 +60,9 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "Fish formatting" // {default = config.vim.languages.enableFormat;};
+      enable = mkEnableOption "Fish formatting" // {
+        default = config.vim.languages.enableFormat;
+      };
 
       type = mkOption {
         type = listOf (enum (attrNames formats));
@@ -68,29 +82,25 @@ in {
     (mkIf cfg.treesitter.enable {
       vim.treesitter = {
         enable = true;
-        grammars = [cfg.treesitter.package];
+        grammars = [ cfg.treesitter.package ];
       };
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp.servers = mapListToAttrs (n: {
+        name = n;
+        value = servers.${n};
+      }) cfg.lsp.servers;
     })
 
     (mkIf (cfg.format.enable && !cfg.lsp.enable) {
       vim.formatter.conform-nvim = {
         enable = true;
         setupOpts.formatters_by_ft.fish = cfg.format.type;
-        setupOpts.formatters =
-          mapListToAttrs (name: {
-            inherit name;
-            value = formats.${name};
-          })
-          cfg.format.type;
+        setupOpts.formatters = mapListToAttrs (name: {
+          inherit name;
+          value = formats.${name};
+        }) cfg.format.type;
       };
     })
   ]);

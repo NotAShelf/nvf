@@ -132,7 +132,8 @@
 
 - Added [sqruff](https://github.com/quarylabs/sqruff) support to `languages.sql`
 
-- Added [Pyrefly](https://pyrefly.org/) support to `languages.python`
+- Added [Pyrefly](https://pyrefly.org/) and [zuban](https://zubanls.com/)
+  support to `languages.python`
 
 - Added TOML support via {option}`languages.toml` and the
   [Tombi](https://tombi-toml.github.io/tombi/) language server, linter, and
@@ -150,5 +151,12 @@
 [fish-lsp]: https://www.fish-lsp.dev/
 [fish_indent]: https://fishshell.com/docs/current/cmds/fish_indent.html
 
-- Add Fish support via {option}`languages.fish` using [fish-lsp] and
+- Added Fish support via {option}`languages.fish` using [fish-lsp] and
   [fish_indent].
+
+[Snoweuph](https://github.com/snoweuph)
+
+- Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
+  `languages.lua`.
+
+<!-- vim: set textwidth=80: -->
