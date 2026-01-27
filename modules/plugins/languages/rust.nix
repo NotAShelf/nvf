@@ -11,7 +11,7 @@
   inherit (lib.lists) isList;
   inherit (lib.attrsets) attrNames;
   inherit (lib.types) bool package str listOf either enum int;
-  inherit (lib.nvim.lua) expToLua toLuaObject;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAfter entryAnywhere;
@@ -169,7 +169,7 @@ in {
             server = {
               cmd = ${
               if isList cfg.lsp.package
-              then expToLua cfg.lsp.package
+              then toLuaObject cfg.lsp.package
               else ''{"${cfg.lsp.package}/bin/rust-analyzer"}''
             },
               default_settings = {
