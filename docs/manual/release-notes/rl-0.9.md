@@ -151,4 +151,10 @@
 - Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
   `languages.lua`.
 
+[vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
+https://github.com/gorbit99/codewindow.nvim
+
+- Add [codewindow.nvim] plugin in `vim.assistant.codewindow` with `enable` and
+  `setupOpts`
+
 <!-- vim: set textwidth=80: -->
