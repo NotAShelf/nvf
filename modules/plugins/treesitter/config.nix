@@ -21,18 +21,9 @@ in {
 
       treesitter.grammars = optionals cfg.addDefaultGrammars cfg.defaultGrammars;
 
-      # Define the autogroup for treesitter here rather than in the Lua snippet
-      # to allow overriding more easily. Should be highly unlikely that a user
-      # wants to override, but not impossible.
-      augroups = [
-        {
-          enable = true;
-          name = "nvf_treesitter";
-          clear = true;
-        }
-      ];
-
       pluginRC.treesitter-autocommands = entryAfter ["basic"] ''
+        vim.api.nvim_create_augroup("nvf_treesitter", { clear = true })
+
         ${lib.optionalString cfg.highlight.enable ''
           -- Enable treesitter highlighting for all filetypes
           vim.api.nvim_create_autocmd("FileType", {
@@ -63,7 +54,6 @@ in {
             callback = function()
               vim.wo[0][0].foldmethod = "expr"
               vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-
               -- This is optional, but is set rather as a sane default.
               -- If unset, opened files will be folded by automatically as
               -- the files are opened
