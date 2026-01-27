@@ -6,7 +6,7 @@ documentation, configuring **nvf** with pure Lua and using custom plugin sources
 in **nvf** in this section. For general configuration tips, please see previous
 chapters.
 
-```{=include=} chapters
+```{=include=}
 tips/debugging-nvf.md
 tips/offline-docs.md
 tips/pure-lua-config.md

@@ -1,4 +1,4 @@
-# Release 0.4 {#sec-release-0.4}
+# Release 0.4 {#sec-release-0-4}
 
 Following the release of v0.3, I have decided to release v0.4 with a massive new
 change: customizable keybinds. As of the 0.4 release, keybinds will no longer be
@@ -12,7 +12,7 @@ as `lazygit` integration and the new experimental Lua loader of Neovim 0.9
 thanks to our awesome contributors who made this update possible during my
 absence.
 
-## Changelog {#sec-release-0.4-changelog}
+## Changelog {#sec-release-0-4-changelog}
 
 [n3oney](https://github.com/n3oney):
 

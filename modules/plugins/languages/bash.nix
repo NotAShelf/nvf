@@ -5,38 +5,35 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkOption mkEnableOption literalExpression;
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
-  inherit (lib.types) enum either package listOf str bool;
-  inherit (lib.nvim.types) diagnostics mkGrammarOption;
-  inherit (lib.nvim.lua) expToLua;
+  inherit (lib.types) enum bool;
+  inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.bash;
 
-  defaultServer = "bash-ls";
+  defaultServers = ["bash-ls"];
   servers = {
     bash-ls = {
-      package = pkgs.bash-language-server;
-      lspConfig = ''
-        lspconfig.bashls.setup{
-          capabilities = capabilities;
-          on_attach = default_on_attach;
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/bash-language-server",  "start"}''
+      enable = true;
+      cmd = [(getExe pkgs.bash-language-server) "start"];
+      filetypes = ["bash" "sh"];
+      root_markers = [".git"];
+      settings = {
+        basheIde = {
+          globPattern = mkLuaInline "vim.env.GLOB_PATTERN or '*@(.sh|.inc|.bash|.command)'";
         };
-        }
-      '';
+      };
     };
   };
 
-  defaultFormat = "shfmt";
+  defaultFormat = ["shfmt"];
   formats = {
     shfmt = {
-      package = pkgs.shfmt;
+      command = getExe pkgs.shfmt;
     };
   };
 
@@ -56,38 +53,24 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Enable Bash LSP support" // {default = config.vim.lsp.enable;};
-
-      server = mkOption {
+      enable = mkEnableOption "Bash LSP support" // {default = config.vim.lsp.enable;};
+      servers = mkOption {
+        type = deprecatedSingleOrListOf "vim.language.bash.lsp.servers" (enum (attrNames servers));
+        default = defaultServers;
         description = "Bash LSP server to use";
-        type = enum (attrNames servers);
-        default = defaultServer;
-      };
-
-      package = mkOption {
-        description = "bash-language-server package, or the command to run as a list of strings";
-        example = literalExpression ''[lib.getExe pkgs.bash-language-server "start"]'';
-        type = either package (listOf str);
-        default = pkgs.bash-language-server;
       };
     };
 
     format = {
       enable = mkOption {
-        description = "Enable Bash formatting";
         type = bool;
         default = config.vim.languages.enableFormat;
+        description = "Enable Bash formatting";
       };
       type = mkOption {
-        description = "Bash formatter to use";
-        type = enum (attrNames formats);
+        type = deprecatedSingleOrListOf "vim.language.bash.format.type" (enum (attrNames formats));
         default = defaultFormat;
-      };
-
-      package = mkOption {
-        description = "Bash formatter package";
-        type = package;
-        default = formats.${cfg.format.type}.package;
+        description = "Bash formatter to use";
       };
     };
 
@@ -108,16 +91,25 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.bash-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
 
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.sh = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.sh = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })

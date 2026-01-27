@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  options,
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
@@ -10,8 +11,7 @@
 
   cfg = config.vim.lsp;
 
-  self = import ./otter.nix {inherit lib;};
-  mappingDefinitions = self.options.vim.lsp.otter-nvim.mappings;
+  mappingDefinitions = options.vim.lsp.otter-nvim.mappings;
   mappings = addDescriptionsToMappings cfg.otter-nvim.mappings mappingDefinitions;
 in {
   config = mkIf (cfg.enable && cfg.otter-nvim.enable) {

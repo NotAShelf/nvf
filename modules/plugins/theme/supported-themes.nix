@@ -312,4 +312,13 @@ in {
       vim.cmd.colorscheme("everforest")
     '';
   };
+
+  mellow = {
+    setup = {transparent ? false, ...}: ''
+      -- Mellow configuration
+      vim.g.mellow_transparent = ${boolToString transparent}
+
+      vim.cmd.colorscheme("mellow")
+    '';
+  };
 }

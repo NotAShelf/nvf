@@ -4,10 +4,16 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) package;
   inherit (lib.nvim.types) mkGrammarOption;
+
+  lspOptions = {
+    cmd = [(getExe pkgs.cue) "lsp"];
+    filetypes = ["cue"];
+    root_markers = ["cue.mod" ".git"];
+  };
 
   cfg = config.vim.languages.cue;
 in {
@@ -22,12 +28,6 @@ in {
 
     lsp = {
       enable = mkEnableOption "CUE LSP support" // {default = config.vim.lsp.enable;};
-
-      package = mkOption {
-        type = package;
-        default = pkgs.cue;
-        description = "cue lsp implementation";
-      };
     };
   };
 
@@ -38,14 +38,7 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.cue-lsp = ''
-        lspconfig.cue.setup {
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          cmd = {"${cfg.lsp.package}/bin/cue", "lsp"},
-        }
-      '';
+      vim.lsp.servers.cue = lspOptions;
     })
   ]);
 }

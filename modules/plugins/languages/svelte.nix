@@ -1,4 +1,5 @@
 {
+  self,
   config,
   pkgs,
   lib,
@@ -7,41 +8,65 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) isList;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum either listOf package str;
-  inherit (lib.nvim.lua) expToLua;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.types) enum package coercedTo;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.svelte;
 
-  defaultServer = "svelte";
+  defaultServers = ["svelte"];
   servers = {
     svelte = {
-      package = pkgs.svelte-language-server;
-      lspConfig = ''
-        lspconfig.svelte.setup {
-          capabilities = capabilities;
-          on_attach = attach_keymaps,
-          cmd = ${
-          if isList cfg.lsp.package
-          then expToLua cfg.lsp.package
-          else ''{"${cfg.lsp.package}/bin/svelteserver", "--stdio"}''
-        }
-        }
+      enable = true;
+      cmd = [(getExe pkgs.svelte-language-server) "--stdio"];
+      filetypes = ["svelte"];
+      root_dir = mkLuaInline ''
+        function(bufnr, on_dir)
+          local root_files = { 'package.json', '.git' }
+          local fname = vim.api.nvim_buf_get_name(bufnr)
+          -- Svelte LSP only supports file:// schema. https://github.com/sveltejs/language-tools/issues/2777
+          if vim.uv.fs_stat(fname) ~= nil then
+            on_dir(vim.fs.dirname(vim.fs.find(root_files, { path = fname, upward = true })[1]))
+          end
+        end
+      '';
+      on_attach = mkLuaInline ''
+        function(client, bufnr)
+          vim.api.nvim_create_autocmd('BufWritePost', {
+            pattern = { '*.js', '*.ts' },
+            group = vim.api.nvim_create_augroup('svelte_js_ts_file_watch', {}),
+            callback = function(ctx)
+              -- internal API to sync changes that have not yet been saved to the file system
+              client:notify('$/onDidChangeTsOrJsFile', { uri = ctx.match })
+            end,
+          })
+
+          vim.api.nvim_buf_create_user_command(bufnr, 'LspMigrateToSvelte5', function()
+            client:exec_cmd({
+              command = 'migrate_to_svelte_5',
+              arguments = { vim.uri_from_bufnr(bufnr) },
+            })
+          end, { desc = 'Migrate Component to Svelte 5 Syntax' })
+        end
       '';
     };
   };
 
-  # TODO: specify packages
-  defaultFormat = "prettier";
-  formats = {
+  defaultFormat = ["prettier"];
+  formats = let
+    prettierPlugin = self.packages.${pkgs.stdenv.system}.prettier-plugin-svelte;
+    prettierPluginPath = "${prettierPlugin}/lib/node_modules/prettier-plugin-svelte/plugin.js";
+  in {
     prettier = {
-      package = pkgs.prettier;
+      command = getExe pkgs.nodePackages.prettier;
+      options.ft_parsers.svelte = "svelte";
+      prepend_args = ["--plugin=${prettierPluginPath}"];
     };
 
     biome = {
-      package = pkgs.biome;
+      command = getExe pkgs.biome;
     };
   };
 
@@ -65,6 +90,15 @@
       };
     };
   };
+
+  formatType =
+    deprecatedSingleOrListOf
+    "vim.languages.svelte.format.type"
+    (coercedTo (enum ["prettierd"]) (_:
+      lib.warn
+      "vim.languages.svelte.format.type: prettierd is deprecated, use prettier instead"
+      "prettier")
+    (enum (attrNames formats)));
 in {
   options.vim.languages.svelte = {
     enable = mkEnableOption "Svelte language support";
@@ -78,17 +112,10 @@ in {
     lsp = {
       enable = mkEnableOption "Svelte LSP support" // {default = config.vim.lsp.enable;};
 
-      server = mkOption {
+      servers = mkOption {
+        type = deprecatedSingleOrListOf "vim.language.svelte.lsp.servers" (enum (attrNames servers));
+        default = defaultServers;
         description = "Svelte LSP server to use";
-        type = enum (attrNames servers);
-        default = defaultServer;
-      };
-
-      package = mkOption {
-        description = "Svelte LSP server package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = either package (listOf str);
-        default = servers.${cfg.lsp.server}.package;
       };
     };
 
@@ -96,15 +123,9 @@ in {
       enable = mkEnableOption "Svelte formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        description = "Svelte formatter to use";
-        type = enum (attrNames formats);
+        type = formatType;
         default = defaultFormat;
-      };
-
-      package = mkOption {
-        description = "Svelte formatter package";
-        type = package;
-        default = formats.${cfg.format.type}.package;
+        description = "Svelte formatter to use";
       };
     };
 
@@ -126,16 +147,25 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.svelte-lsp = servers.${cfg.lsp.server}.lspConfig;
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
 
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.svelte = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.svelte = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })

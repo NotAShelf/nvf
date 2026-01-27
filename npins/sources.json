@@ -708,18 +708,21 @@
       "url": "https://github.com/tzachar/highlight-undo.nvim/archive/ee32e12693d70e66f954d09a504a7371d110fc27.tar.gz",
       "hash": "09byybwyl61jxlfii9vsi4i21vy6ngm3mbypqlhsivn8wgg24kn9"
     },
-    "hop-nvim": {
-      "type": "Git",
+    "hop.nvim": {
+      "type": "GitRelease",
       "repository": {
         "type": "GitHub",
-        "owner": "phaazon",
+        "owner": "smoka7",
         "repo": "hop.nvim"
       },
-      "branch": "master",
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
       "submodules": false,
-      "revision": "1a1eceafe54b5081eae4cb91c723abd1d450f34b",
-      "url": "https://github.com/phaazon/hop.nvim/archive/1a1eceafe54b5081eae4cb91c723abd1d450f34b.tar.gz",
-      "hash": "08h18cam2yr57qvfsnf1bra28vbl6013wlchnr5crb757xw8aysa"
+      "version": "v2.7.2",
+      "revision": "08ddca799089ab96a6d1763db0b8adc5320bf050",
+      "url": "https://api.github.com/repos/smoka7/hop.nvim/tarball/v2.7.2",
+      "hash": "07mydcm3x7xc7x6wg5l6kcx8yrrv9bwy2p44y17ajyx37c5lmwwn"
     },
     "hunk-nvim": {
       "type": "GitRelease",
@@ -960,6 +963,19 @@
       "revision": "de79a7626d54d7785436105ef72f37ee8fe8fa16",
       "url": "https://github.com/OXY2DEV/markview.nvim/archive/de79a7626d54d7785436105ef72f37ee8fe8fa16.tar.gz",
       "hash": "032i6m9pld1zyhd7lq49dg4qh98w6vmmzqp2f46drhq0ds26hs4h"
+    },
+    "mellow": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mellow-theme",
+        "repo": "mellow.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "5cd188489bcc7eb512f0a30581ad972070f8e5cd",
+      "url": "https://github.com/mellow-theme/mellow.nvim/archive/5cd188489bcc7eb512f0a30581ad972070f8e5cd.tar.gz",
+      "hash": "0hjfhwvvlc50rrxscg2lbkip7v5s13yaja0pckhhxfkbz17b5v83"
     },
     "mind-nvim": {
       "type": "Git",
@@ -1578,6 +1594,22 @@
       "url": "https://github.com/nvim-neo-tree/neo-tree.nvim/archive/9130e58424ad95bf2dd8b40afbb8cf04d648638c.tar.gz",
       "hash": "0zm40p718cvqg9ngzlnc56pbglrp7yp1580g0f1pfakkwdrvnhdv"
     },
+    "neocodeium": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "monkoose",
+        "repo": "neocodeium"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v1.16.3",
+      "revision": "f67384cee91f8ffc0d2e09d257691b2461725d5b",
+      "url": "https://api.github.com/repos/monkoose/neocodeium/tarball/v1.16.3",
+      "hash": "1zr6rrvk00d3gwg7sf1vqd1z1gw2qwl0h08zcbc30x8v0iradsai"
+    },
     "neocord": {
       "type": "Git",
       "repository": {
@@ -2088,6 +2120,19 @@
       "url": "https://github.com/epwalsh/obsidian.nvim/archive/14e0427bef6c55da0d63f9a313fd9941be3a2479.tar.gz",
       "hash": "15ycmhn48ryaqzch6w3w6llq2qgmjx8xwkb9dn0075z60dybpflr"
     },
+    "oil-git-status.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "refractalize",
+        "repo": "oil-git-status.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "4b5cf53842c17a09420919e655a6a559da3112d7",
+      "url": "https://github.com/refractalize/oil-git-status.nvim/archive/4b5cf53842c17a09420919e655a6a559da3112d7.tar.gz",
+      "hash": "1jzw6lkvi9xxzqy8xz056xlb45byr1arklh87zmyf0nj9plm2nsp"
+    },
     "oil-nvim": {
       "type": "Git",
       "repository": {
@@ -2205,6 +2250,38 @@
       "url": "https://github.com/tris203/precognition.nvim/archive/2aae2687207029b3611a0e19a289f9e1c7efbe16.tar.gz",
       "hash": "0b4yz5jvqd0li373067cs1n761vn9jxkhcvhsrvm9h1snqw1c6nk"
     },
+    "prettier-plugin-astro": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "withastro",
+        "repo": "prettier-plugin-astro"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.14.1",
+      "revision": "57234893ca374c8e401cce1f931180d314e13eac",
+      "url": "https://api.github.com/repos/withastro/prettier-plugin-astro/tarball/v0.14.1",
+      "hash": "14ffwxggcnyc947pdxgsgz1v2q76m5xmybfxg8kyla4l7phg6qsw"
+    },
+    "prettier-plugin-svelte": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "sveltejs",
+        "repo": "prettier-plugin-svelte"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v3.3.2",
+      "revision": "76c04ebfdff4306842e8ab0cd96b1c53c7041dde",
+      "url": "https://api.github.com/repos/sveltejs/prettier-plugin-svelte/tarball/v3.3.2",
+      "hash": "0g6h5lvhyms6nvk83vkd3yi8rvsz2v5g6cw03fqsv2nj45s6cf7r"
+    },
     "project-nvim": {
       "type": "Git",
       "repository": {
@@ -2230,6 +2307,19 @@
       "revision": "119e8961014c9bfaf1487bf3c2a393d254f337e2",
       "url": "https://github.com/kevinhwang91/promise-async/archive/119e8961014c9bfaf1487bf3c2a393d254f337e2.tar.gz",
       "hash": "0q4a0rmy09hka6zvydzjj2gcm2j5mlbrhbxfcdjj33ngpblkmqzm"
+    },
+    "qmk-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "codethread",
+        "repo": "qmk.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "3c804c1480991e4837514900b22b9358cfd64fa1",
+      "url": "https://github.com/codethread/qmk.nvim/archive/3c804c1480991e4837514900b22b9358cfd64fa1.tar.gz",
+      "hash": "03fsx6qsn8b36jp5m0fkdla6gkkzdv2j18y378y3cqpjclgq995a"
     },
     "rainbow-delimiters-nvim": {
       "type": "Git",
@@ -2362,10 +2452,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v2.23.0",
-      "revision": "da230e3ca8146da4b73752daaf0a1d07d343c12d",
-      "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/v2.23.0",
-      "hash": "15zcvxsxkihjk5x0bfa1zgx1ky7icjbi9iihsqw8wbi5jyfwnasm"
+      "version": "v2.30.0",
+      "revision": "a4e46becca45eb65c73a388634b1ce8aad629ae0",
+      "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/v2.30.0",
+      "hash": "0ri4ymm9w3ylawc7dbd7p872697snkwkks5rpwyk239sywdbjvp6"
     },
     "solarized": {
       "type": "GitRelease",

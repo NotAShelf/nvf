@@ -8,5 +8,6 @@
     ./highlight.nix
     ./lsp.nix
     ./spellcheck.nix
+    ./util.nix
   ];
 }

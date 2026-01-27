@@ -43,7 +43,7 @@
         default = ["${pkgs.fd}/bin/fd"];
         description = ''
           Command to use for finding files. If using an executable from {env}`PATH` then you must
-          make sure that the package is available in [](#opt-vim.extraPackages).
+          make sure that the package is available in {option}`vim.extraPackages`.
         '';
       };
 
@@ -208,6 +208,7 @@ in {
       open = mkMappingOption "Open [Telescope]" "<leader>ft";
       resume = mkMappingOption "Resume (previous search) [Telescope]" "<leader>fr";
 
+      gitFiles = mkMappingOption "Git files [Telescope]" "<leader>fvf";
       gitCommits = mkMappingOption "Git commits [Telescope]" "<leader>fvcw";
       gitBufferCommits = mkMappingOption "Git buffer commits [Telescope]" "<leader>fvcb";
       gitBranches = mkMappingOption "Git branches [Telescope]" "<leader>fvb";
