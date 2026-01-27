@@ -53,11 +53,16 @@
             ''
             self.nixosModules.nvf;
         };
+
+        darwinModules = {
+          nvf = import ./flake/modules/nixos.nix {inherit lib inputs;};
+          default = self.darwinModules.nvf;
+        };
       };
 
       perSystem = {pkgs, ...}: {
         # Provides the default formatter for 'nix fmt', which will format the
-        # entire tree with Alejandra. The wrapper script is necessary due to
+        # entire Nix source with Alejandra. The wrapper script is necessary due to
         # changes to the behaviour of Nix, which now encourages wrappers for
         # tree-wide formatting.
         formatter = pkgs.writeShellApplication {
@@ -66,11 +71,17 @@
           runtimeInputs = [
             pkgs.alejandra
             pkgs.fd
+            pkgs.deno
           ];
 
           text = ''
             # Find Nix files in the tree and format them with Alejandra
+            echo "Formatting Nix files"
             fd "$@" -t f -e nix -x alejandra -q '{}'
+
+            # Same for Markdown files, but with deno
+            echo "Formatting Markdown files"
+            fd "$@" -t f -e md -x deno fmt -q '{}'
           '';
         };
 
@@ -80,9 +91,29 @@
           # Check if codebase is properly formatted.
           # This can be initiated with `nix build .#checks.<system>.nix-fmt`
           # or with `nix flake check`
-          nix-fmt = pkgs.runCommand "nix-fmt-check" {nativeBuildInputs = [pkgs.alejandra];} ''
-            alejandra --check ${self} < /dev/null | tee $out
-          '';
+          nix-fmt =
+            pkgs.runCommand "nix-fmt-check"
+            {
+              src = self;
+              nativeBuildInputs = [pkgs.alejandra pkgs.fd];
+            } ''
+              cd "$src"
+              fd -t f -e nix -x alejandra --check '{}'
+              touch $out
+            '';
+
+          # Check if Markdown sources are properly formatted
+          # This can be initiated with `nix build .#checks.<system>.md-fmt`
+          # or with `nix flake check`
+          md-fmt =
+            pkgs.runCommand "md-fmt-check" {
+              src = self;
+              nativeBuildInputs = [pkgs.deno pkgs.fd];
+            } ''
+              cd "$src"
+              fd -t f -e md -x deno fmt --check '{}'
+              touch $out
+            '';
         };
       };
     };
@@ -105,5 +136,11 @@
 
     # Alternate neovim-wrapper
     mnw.url = "github:Gerg-L/mnw";
+
+    # Alternative documentation generator
+    ndg = {
+      url = "github:feel-co/ndg?ref=refs/tags/v2.6.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

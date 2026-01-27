@@ -4,12 +4,24 @@
   lib,
   ...
 }: let
+  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) package;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.types) enum;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.meta) getExe;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.assembly;
+  defaultServers = ["asm-lsp"];
+  servers = {
+    asm-lsp = {
+      enable = true;
+      cmd = [(getExe pkgs.asm-lsp)];
+      filetypes = ["asm" "vmasm"];
+      root_markers = [".asm-lsp.toml" ".git"];
+    };
+  };
 in {
   options.vim.languages.assembly = {
     enable = mkEnableOption "Assembly support";
@@ -20,12 +32,11 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Assembly LSP support (asm-lsp)" // {default = config.vim.lsp.enable;};
-
-      package = mkOption {
-        type = package;
-        default = pkgs.asm-lsp;
-        description = "asm-lsp package";
+      enable = mkEnableOption "Assembly LSP support" // {default = config.vim.lsp.enable;};
+      servers = mkOption {
+        type = deprecatedSingleOrListOf "vim.language.asm.lsp.servers" (enum (attrNames servers));
+        default = defaultServers;
+        description = "Assembly LSP server to use";
       };
     };
   };
@@ -36,14 +47,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.lspconfig.enable = true;
-      vim.lsp.lspconfig.sources.asm-lsp = ''
-        lspconfig.asm_lsp.setup {
-          capabilities = capabilities,
-          on_attach = default_on_attach,
-          cmd = {"${cfg.lsp.package}/bin/asm-lsp"},
-        }
-      '';
+      vim.lsp.servers =
+        mapListToAttrs (n: {
+          name = n;
+          value = servers.${n};
+        })
+        cfg.lsp.servers;
     })
   ]);
 }

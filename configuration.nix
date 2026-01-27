@@ -31,6 +31,7 @@ isMaximal: {
       lspSignature.enable = !isMaximal; # conflicts with blink in maximal
       otter-nvim.enable = isMaximal;
       nvim-docs-view.enable = isMaximal;
+      harper-ls.enable = isMaximal;
     };
 
     debugger = {
@@ -56,6 +57,7 @@ isMaximal: {
       clang.enable = isMaximal;
       css.enable = isMaximal;
       html.enable = isMaximal;
+      json.enable = isMaximal;
       sql.enable = isMaximal;
       java.enable = isMaximal;
       kotlin.enable = isMaximal;
@@ -67,8 +69,9 @@ isMaximal: {
       typst.enable = isMaximal;
       rust = {
         enable = isMaximal;
-        crates.enable = isMaximal;
+        extensions.crates-nvim.enable = isMaximal;
       };
+      toml.enable = isMaximal;
 
       # Language modules that are not as common.
       assembly.enable = false;
@@ -84,8 +87,11 @@ isMaximal: {
       ocaml.enable = false;
       elixir.enable = false;
       haskell.enable = false;
+      hcl.enable = false;
       ruby.enable = false;
       fsharp.enable = false;
+      just.enable = false;
+      qml.enable = false;
 
       tailwind.enable = false;
       svelte.enable = false;
@@ -188,6 +194,7 @@ isMaximal: {
       vim-wakatime.enable = false;
       diffview-nvim.enable = true;
       yanky-nvim.enable = false;
+      qmk-nvim.enable = false; # requires hardware specific options
       icon-picker.enable = isMaximal;
       surround.enable = isMaximal;
       leetcode-nvim.enable = isMaximal;
@@ -208,7 +215,6 @@ isMaximal: {
     };
 
     notes = {
-      obsidian.enable = false; # FIXME: neovim fails to build if obsidian is enabled
       neorg.enable = false;
       orgmode.enable = false;
       mind-nvim.enable = isMaximal;

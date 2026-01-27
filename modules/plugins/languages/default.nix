@@ -21,6 +21,7 @@ in {
     ./html.nix
     ./haskell.nix
     ./java.nix
+    ./json.nix
     ./lua.nix
     ./markdown.nix
     ./nim.nix
@@ -29,6 +30,7 @@ in {
     ./ocaml.nix
     ./php.nix
     ./python.nix
+    ./qml.nix
     ./r.nix
     ./rust.nix
     ./scala.nix
@@ -36,6 +38,7 @@ in {
     ./svelte.nix
     ./tailwind.nix
     ./terraform.nix
+    ./toml.nix
     ./ts.nix
     ./typst.nix
     ./zig.nix
@@ -46,6 +49,7 @@ in {
     ./wgsl.nix
     ./yaml.nix
     ./ruby.nix
+    ./just.nix
 
     # This is now a hard deprecation.
     (mkRenamedOptionModule ["vim" "languages" "enableLSP"] ["vim" "lsp" "enable"])

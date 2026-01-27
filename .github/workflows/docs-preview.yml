@@ -3,7 +3,7 @@ name: Build and Preview Manual
 on:
   workflow_dispatch:
   pull_request_target:
-    types: [opened, synchronize, reopened, closed]
+    types: [opened, synchronize, reopened, labeled, unlabeled, edited]
     paths:
       - ".github/workflows/docs-preview.yml"
       - "modules/**"
@@ -24,11 +24,13 @@ jobs:
   build-preview:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-
-      - name: Checkout
-        uses: actions/checkout@v5
+      - uses: actions/checkout@v6
+      - uses: cachix/install-nix-action@v31.9.0
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            substituters = https://cache.nixos.org/ https://feel-co.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= feel-co.cachix.org-1:nwEFNnwZvtl4KKSH5LDg+/+K7bV0vcs6faMHAJ6xx0w=
 
       - name: Set default git branch (to reduce log spam)
         run: git config --global init.defaultBranch main
@@ -49,7 +51,7 @@ jobs:
           mkdir -p $PREVIEW_DIR
 
           # Copy the build files to the preview subdirectory
-          cp -rvf ../result/share/doc/nvf/* ./$PREVIEW_DIR
+          cp -rvf ../result/share/doc/* ./$PREVIEW_DIR
 
           # Configure git to use the GitHub Actions token for authentication
           git config --global user.name "GitHub Actions"
@@ -71,7 +73,7 @@ jobs:
         id: prelude
         run: |
           PR_NUMBER=${{ github.event.pull_request.number }}
-          URL="https://${{ github.repository_owner }}.github.io/nvf/docs-preview-${PR_NUMBER}/"
+          URL="https:///nvf.notashelf.dev/docs-preview-${PR_NUMBER}/"
 
           # Propagate non-interpolatable environment vars
           echo "URL=$URL" >> "$GITHUB_OUTPUT"
@@ -127,7 +129,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Delete preview for closed/merged PR
         run: |
@@ -164,7 +166,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Double check preview directory deletion
         run: |

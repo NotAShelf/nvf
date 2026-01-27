@@ -28,7 +28,7 @@ jobs:
     outputs:
       should_run: ${{ steps.should_run.outputs.should_run }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: print latest_commit
         run: echo ${{ github.sha }}
 
@@ -43,12 +43,20 @@ jobs:
     if: ${{ needs.check_date.outputs.should_run != 'false' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: actions/checkout@v6
+      - uses: cachix/install-nix-action@v31.9.0
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            substituters = https://cache.nixos.org/ https://feel-co.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= feel-co.cachix.org-1:nwEFNnwZvtl4KKSH5LDg+/+K7bV0vcs6faMHAJ6xx0w=
+
       - run: |
           nix build .#docs -Lv
-          cp -r result/share/doc/nvf public
+          cp -r result/share/doc public
+
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
+          cname: nvf.notashelf.dev

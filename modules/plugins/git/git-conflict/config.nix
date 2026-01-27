@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  options,
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
@@ -10,8 +11,7 @@
 
   cfg = config.vim.git.git-conflict;
 
-  self = import ./git-conflict.nix {inherit lib config;};
-  gcMappingDefinitions = self.options.vim.git.git-conflict.mappings;
+  gcMappingDefinitions = options.vim.git.git-conflict.mappings;
 
   gcMappings = addDescriptionsToMappings cfg.mappings gcMappingDefinitions;
 in {

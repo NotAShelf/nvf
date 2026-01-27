@@ -36,7 +36,7 @@ manner.
 This will add the `nvim` directory, or rather, the _store path_ that will be
 realised after your flake gets copied to the Nix store, to Neovim's runtime
 directory. You may now create a `lua/myconfig` directory within this nvim
-directory, and call it with [](#opt-vim.luaConfigRC).
+directory, and call it with {option}`vim.luaConfigRC`.
 
 ```nix
 {pkgs, ...}: {
@@ -90,7 +90,7 @@ vim.keymap.set("n", " ", "<Nop>", { silent = true, remap = false })
 vim.g.mapleader = " "
 ```
 
-The following Nix configuration via [](#opt-vim.luaConfigRC) will allow loading
+The following Nix configuration via {option}`vim.luaConfigRC` will allow loading
 this
 
 ```nix
@@ -105,7 +105,7 @@ this
 }
 ```
 
-[DAG system]: https://notashelf.github.io/nvf/index.xhtml#ch-using-dags
+[DAG system]: ./configuring.html#ch-using-dags
 
 After you load your custom configuration, you may use an `init.lua` located in
 your custom configuration directory to configure Neovim exactly as you would

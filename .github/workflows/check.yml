@@ -17,24 +17,32 @@ jobs:
     if: "!contains(github.event.pull_request.title, '[skip ci]')"
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+        uses: actions/checkout@v6
+      - uses: cachix/install-nix-action@v31.9.0
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            substituters = https://cache.nixos.org/ https://feel-co.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= feel-co.cachix.org-1:nwEFNnwZvtl4KKSH5LDg+/+K7bV0vcs6faMHAJ6xx0w=
 
       - name: Check Flake
         run: nix flake check
 
-  format-with-alejandra:
+  format-sources:
     name: "Check formatting"
     runs-on: ubuntu-latest
     if: "!contains(github.event.pull_request.title, '[skip ci]')"
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+        uses: cachix/install-nix-action@v31.9.0
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            substituters = https://cache.nixos.org/ https://feel-co.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= feel-co.cachix.org-1:nwEFNnwZvtl4KKSH5LDg+/+K7bV0vcs6faMHAJ6xx0w=
 
       - name: Check formatting via Alejandra
         run: nix run nixpkgs#alejandra -- --check . --exclude npins
@@ -56,7 +64,7 @@ jobs:
     if: "!contains(github.event.pull_request.title, '[skip ci]')"
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Check for typos
         uses: crate-ci/typos@master
@@ -83,11 +91,14 @@ jobs:
           - docs-manpages
           - docs-json
     steps:
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
+      - uses: cachix/install-nix-action@v31.9.0
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            substituters = https://cache.nixos.org/ https://feel-co.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= feel-co.cachix.org-1:nwEFNnwZvtl4KKSH5LDg+/+K7bV0vcs6faMHAJ6xx0w=
 
       - name: Set default git branch (to reduce log spam)
         run: git config --global init.defaultBranch main
@@ -101,7 +112,7 @@ jobs:
         run: echo "date=$(date +'%Y-%m-%d-%H%M%S')" >> ${GITHUB_OUTPUT}
 
       - name: Upload doc artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: "${{ matrix.package }}"
           path: result/share/doc/nvf
@@ -109,13 +120,16 @@ jobs:
   flake-docs-linkcheck:
     name: "Validate hyperlinks in documentation sources"
     runs-on: ubuntu-latest
-    if: "!contains(github.event.pull_request.title, '[skip ci]')"
+    if: false # disabled until we fix ndg docs
     steps:
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
+      - uses: cachix/install-nix-action@v31.9.0
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            substituters = https://cache.nixos.org/ https://feel-co.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= feel-co.cachix.org-1:nwEFNnwZvtl4KKSH5LDg+/+K7bV0vcs6faMHAJ6xx0w=
 
       - name: Build linkcheck package
         run: nix build .#docs-linkcheck -Lv
@@ -126,7 +140,7 @@ jobs:
     if: "!contains(github.event.pull_request.title, '[skip ci]')"
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 2 # slows down checkout, but we need to compare against the previous commit on push events
 
@@ -148,7 +162,12 @@ jobs:
           cat "$HOME/changed_files"
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+        uses: cachix/install-nix-action@v31.9.0
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            substituters = https://cache.nixos.org/ https://feel-co.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= feel-co.cachix.org-1:nwEFNnwZvtl4KKSH5LDg+/+K7bV0vcs6faMHAJ6xx0w=
 
       - name: Checking Editorconfig conformance
         shell: bash

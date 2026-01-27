@@ -24,8 +24,8 @@ it above in your description.
 -->
 
 [editorconfig]: https://editorconfig.org
-[changelog]: https://github.com/NotAShelf/nvf/tree/main/docs/release-notes
-[hacking nvf]: https://notashelf.github.io/nvf/index.xhtml#sec-guidelines
+[changelog]: https://github.com/NotAShelf/nvf/tree/main/docs/manual/release-notes
+[hacking nvf]: https://nvf.notashelf.dev/hacking.html#sec-guidelines
 
 - [ ] I have updated the [changelog] as per my changes
 - [ ] I have tested, and self-reviewed my code

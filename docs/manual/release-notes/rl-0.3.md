@@ -1,4 +1,4 @@
-# Release 0.3 {#sec-release-0.3}
+# Release 0.3 {#sec-release-0-3}
 
 Release 0.3 had to come out before I wanted it to due to Neovim 0.9 dropping
 into nixpkgs-unstable. The Treesitter changes have prompted a Treesitter rework,
@@ -7,7 +7,7 @@ those are downstreamed from the original repository. The feature requests that
 was originally planned for 0.3 have been moved to 0.4, which should come out
 soon.
 
-## Changelog {#sec-release-0.3-changelog}
+## Changelog {#sec-release-0-3-changelog}
 
 - We have transitioned to flake-parts, from flake-utils to extend the
   flexibility of this flake. This means the flake structure is different than
@@ -39,7 +39,7 @@ soon.
   [discourse]: https://discourse.nixos.org/t/psa-if-you-are-on-unstable-try-out-nvim-treesitter-withallgrammars/23321?u=snowytrees
 
 - Treesitter grammars are now configurable with
-  [](#opt-vim.treesitter.grammars). Utilizes the nixpkgs `nvim-treesitter`
+  {option}`vim.treesitter.grammars`. Utilizes the nixpkgs `nvim-treesitter`
   plugin rather than a custom input in order to take advantage of build support
   of pinned versions. See [discourse] for more information. Packages can be
   found under the `pkgs.vimPlugins.nvim-treesitter.builtGrammars` attribute.
@@ -50,20 +50,20 @@ soon.
 
 - A new section has been added for language support: `vim.languages.<language>`.
 
-  - The options `enableLSP` [](#opt-vim.languages.enableTreesitter), etc. will
+  - The options `enableLSP` {option}`vim.languages.enableTreesitter`, etc. will
     enable the respective section for all languages that have been enabled.
   - All LSP languages have been moved here
   - `plantuml` and `markdown` have been moved here
   - A new section has been added for `html`. The old
     `vim.treesitter.autotagHtml` can be found at
-    [](#opt-vim.languages.html.treesitter.autotagHtml).
+    {option}`vim.languages.html.treesitter.autotagHtml`.
 
 - `vim.git.gitsigns.codeActions` has been added, allowing you to turn on
   Gitsigns' code actions.
 
 - Removed the plugins document in the docs. Was too unwieldy to keep updated.
 
-- `vim.visual.lspkind` has been moved to [](#opt-vim.lsp.lspkind.enable)
+- `vim.visual.lspkind` has been moved to {option}`vim.lsp.lspkind.enable`
 
 - Improved handling of completion formatting. When setting
   `vim.autocomplete.sources`, can also include optional menu mapping. And can
@@ -74,7 +74,7 @@ soon.
   by using `null` rather than `""` now.
 
 - Transparency has been made optional and has been disabled by default.
-  [](#opt-vim.theme.transparent) option can be used to enable or disable
+  {option}`vim.theme.transparent` option can be used to enable or disable
   transparency for your configuration.
 
 - Fixed deprecated configuration method for Tokyonight, and added new style

@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  options,
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
@@ -10,9 +11,7 @@
 
   cfg = config.vim.minimap.codewindow;
 
-  self = import ./codewindow.nix {inherit lib;};
-
-  mappingDefinitions = self.options.vim.minimap.codewindow.mappings;
+  mappingDefinitions = options.vim.minimap.codewindow.mappings;
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
 in {
   config = mkIf cfg.enable {
