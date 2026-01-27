@@ -49,4 +49,4 @@ in
     "expToLua"
     "listToLuaTable"
     "attrsetToLuaTable"
-  ] (name: lib.warn "${name} is deprecated use toLuaObject instead" toLuaObject)
+  ] (name: builtins.throw "${name} is deprecated use toLuaObject instead")
