@@ -8,6 +8,7 @@
     ./filetype.nix
     ./highlight.nix
     ./lsp.nix
+    ./mappings.nix
     ./spellcheck.nix
     ./util.nix
   ];
