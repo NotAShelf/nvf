@@ -2498,9 +2498,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "f796014c14b1910e08d42cc2077fef34f08e0295",
-      "url": "https://github.com/craftzdog/solarized-osaka.nvim/archive/f796014c14b1910e08d42cc2077fef34f08e0295.tar.gz",
-      "hash": "sha256-JuIeLpkF7jBCI/wrO3RQPtKbso57eTBglCAI5siEwks="
+      "revision": "5dd1969a7492f3a2c0fde5d9d2472aa751c44d3b",
+      "url": "https://github.com/craftzdog/solarized-osaka.nvim/archive/5dd1969a7492f3a2c0fde5d9d2472aa751c44d3b.tar.gz",
+      "hash": "sha256-bEHBXw7ufHOrqw/frbBSaLv7Kr8F6BK2B7E83dKAsHk="
     },
     "sqls-nvim": {
       "type": "Git",
