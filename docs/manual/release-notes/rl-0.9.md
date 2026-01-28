@@ -44,6 +44,10 @@
 - Fix `vim.tabline.nvimBufferline` where `setupOpts.options.hover` requires
   `vim.opt.mousemoveevent` to be set.
 
+[miaapancake](https://github.com/miaapancake)
+
+- Add vue language support.
+
 [thamenato](https://github.com/thamenato):
 
 - Attempt to adapt nvim-treesitter to (breaking) Nixpkgs changes. Some
