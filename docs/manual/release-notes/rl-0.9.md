@@ -147,6 +147,9 @@
 - Added [hlargs.nvim](https://github.com/m-demare/hlargs.nvim) support as
   `visuals.hlargs-nvim`.
 
+- Lazy-load `nvim-autopairs` plugin when using
+  `vim.autopairs.nvim-autopairs.enable`
+
 [Machshev](https://github.com/machshev):
 
 - Added `ruff` and `ty` LSP support for Python under `programs.python`.
