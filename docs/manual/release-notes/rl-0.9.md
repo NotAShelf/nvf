@@ -132,6 +132,9 @@
 
 - Added [sqruff](https://github.com/quarylabs/sqruff) support to `languages.sql`
 
+- Lazy-load `crates.nvim` plugin when using
+  `vim.languages.rust.extensions.crates-nvim.enable`
+
 - Added [Pyrefly](https://pyrefly.org/) and [zuban](https://zubanls.com/)
   support to `languages.python`
 
