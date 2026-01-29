@@ -142,6 +142,8 @@
   [Tombi](https://tombi-toml.github.io/tombi/) language server, linter, and
   formatter.
 
+- Added Jinja support via `languages.jinja`
+
 - Added [hlargs.nvim](https://github.com/m-demare/hlargs.nvim) support as
   `visuals.hlargs-nvim`.
 
