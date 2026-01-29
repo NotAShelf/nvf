@@ -228,10 +228,17 @@ in {
     (mkIf cfg.extensions.crates-nvim.enable {
       vim = mkMerge [
         {
-          startPlugins = ["crates-nvim"];
-          pluginRC.rust-crates = entryAnywhere ''
-            require("crates").setup(${toLuaObject cfg.extensions.crates-nvim.setupOpts})
-          '';
+          lazy.plugins.crates-nvim = {
+            package = "crates-nvim";
+            setupModule = "crates";
+            setupOpts = cfg.extensions.crates-nvim.setupOpts;
+            event = [
+              {
+                event = "BufRead";
+                pattern = "Cargo.toml";
+              }
+            ];
+          };
         }
       ];
     })

@@ -132,12 +132,17 @@
 
 - Added [sqruff](https://github.com/quarylabs/sqruff) support to `languages.sql`
 
+- Lazy-load `crates.nvim` plugin when using
+  `vim.languages.rust.extensions.crates-nvim.enable`
+
 - Added [Pyrefly](https://pyrefly.org/) and [zuban](https://zubanls.com/)
   support to `languages.python`
 
 - Added TOML support via {option}`languages.toml` and the
   [Tombi](https://tombi-toml.github.io/tombi/) language server, linter, and
   formatter.
+
+- Added Jinja support via `languages.jinja`
 
 - Added [hlargs.nvim](https://github.com/m-demare/hlargs.nvim) support as
   `visuals.hlargs-nvim`.
