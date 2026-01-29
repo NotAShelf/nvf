@@ -5330,7 +5330,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">384</span>
+        <span class="toc-count">389</span>
       </summary>
       <ul>
         
@@ -8299,6 +8299,46 @@
         <li>
           <a href='#option-vim-languages-wgsl-treesitter-package' title="vim.languages.wgsl.treesitter.package">
             wgsl.treesitter.package
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-xml-enable' title="vim.languages.xml.enable">
+            xml.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-xml-lsp-enable' title="vim.languages.xml.lsp.enable">
+            xml.lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-xml-lsp-servers' title="vim.languages.xml.lsp.servers">
+            xml.lsp.servers
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-xml-treesitter-enable' title="vim.languages.xml.treesitter.enable">
+            xml.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-xml-treesitter-package' title="vim.languages.xml.treesitter.package">
+            xml.treesitter.package
             
             
           </a>
@@ -26143,7 +26183,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-type">Type: <code>package</code></div>
   <div class="option-description"><html><head></head><body><p>clang debugger package.</p>
 </body></html></div>
-  <div class="option-default">Default: <code><derivation lldb-21.1.7></code></div>
+  <div class="option-default">Default: <code><derivation lldb-21.1.8></code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/clang.nix" target="_blank">&lt;nvf/modules/plugins/languages/clang.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-clang-enable">
@@ -29219,7 +29259,7 @@ This is a python package with debugpy installed, see <a href="https://nixos.wiki
   <div class="option-type">Type: <code>package</code></div>
   <div class="option-description"><html><head></head><body><p>lldb package</p>
 </body></html></div>
-  <div class="option-default">Default: <code><derivation lldb-21.1.7></code></div>
+  <div class="option-default">Default: <code><derivation lldb-21.1.8></code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_blank">&lt;nvf/modules/plugins/languages/rust.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-rust-enable">
@@ -29422,7 +29462,7 @@ not listed in the docs</p>
   <div class="option-type">Type: <code>package or list of string</code></div>
   <div class="option-description"><html><head></head><body><p>rust-analyzer package, or the command to run as a list of strings</p>
 </body></html></div>
-  <div class="option-default">Default: <code><derivation rust-analyzer-2026-01-12></code></div>
+  <div class="option-default">Default: <code><derivation rust-analyzer-2026-01-19></code></div>
   <div class="option-example">Example: <code>"[lib.getExe pkgs.jdt-language-server \"-data\" \"~/.cache/jdtls/workspace\"]"</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_blank">&lt;nvf/modules/plugins/languages/rust.nix&gt;</a></code></div>
 </div>
@@ -29734,7 +29774,7 @@ not listed in the docs</p>
   <div class="option-type">Type: <code>package</code></div>
   <div class="option-description"><html><head></head><body><p>SQL treesitter grammar to use</p>
 </body></html></div>
-  <div class="option-default">Default: <code><derivation vimplugin-nvim-treesitter-grammar-sql-0.0.0+rev=5129061></code></div>
+  <div class="option-default">Default: <code><derivation vimplugin-nvim-treesitter-grammar-sql-0.0.0+rev=86e3d03></code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/sql.nix" target="_blank">&lt;nvf/modules/plugins/languages/sql.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-svelte-enable">
@@ -30688,6 +30728,71 @@ the plugin.</p>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.wgsl</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/wgsl.nix" target="_blank">&lt;nvf/modules/plugins/languages/wgsl.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim-languages-xml-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-xml-enable" class="option-anchor">vim.languages.xml.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable XML language support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/xml.nix" target="_blank">&lt;nvf/modules/plugins/languages/xml.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-xml-lsp-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-xml-lsp-enable" class="option-anchor">vim.languages.xml.lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable XML LSP support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/xml.nix" target="_blank">&lt;nvf/modules/plugins/languages/xml.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-xml-lsp-servers">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-xml-lsp-servers" class="option-anchor">vim.languages.xml.lsp.servers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "lemminx" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>XML LSP server to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "lemminx"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/xml.nix" target="_blank">&lt;nvf/modules/plugins/languages/xml.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-xml-treesitter-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-xml-treesitter-enable" class="option-anchor">vim.languages.xml.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable XML treesitter.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/xml.nix" target="_blank">&lt;nvf/modules/plugins/languages/xml.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-xml-treesitter-package">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-xml-treesitter-package" class="option-anchor">vim.languages.xml.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>package</code></div>
+  <div class="option-description"><html><head></head><body><p>The xml treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.xml</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/xml.nix" target="_blank">&lt;nvf/modules/plugins/languages/xml.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim-languages-yaml-enable">
   <h3 class="option-name">
     <a href="#option-vim-languages-yaml-enable" class="option-anchor">vim.languages.yaml.enable</a>
@@ -30786,7 +30891,7 @@ the plugin.</p>
   <div class="option-type">Type: <code>package</code></div>
   <div class="option-description"><html><head></head><body><p>Zig debugger package.</p>
 </body></html></div>
-  <div class="option-default">Default: <code><derivation lldb-21.1.7></code></div>
+  <div class="option-default">Default: <code><derivation lldb-21.1.8></code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/zig.nix" target="_blank">&lt;nvf/modules/plugins/languages/zig.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-zig-enable">
