@@ -5330,7 +5330,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">389</span>
+        <span class="toc-count">395</span>
       </summary>
       <ul>
         
@@ -6435,6 +6435,54 @@
         <li>
           <a href='#option-vim-languages-java-treesitter-package' title="vim.languages.java.treesitter.package">
             java.treesitter.package
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-jinja-enable' title="vim.languages.jinja.enable">
+            jinja.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-jinja-lsp-enable' title="vim.languages.jinja.lsp.enable">
+            jinja.lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-jinja-lsp-servers' title="vim.languages.jinja.lsp.servers">
+            jinja.lsp.servers
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-jinja-treesitter-enable' title="vim.languages.jinja.treesitter.enable">
+            jinja.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-jinja-treesitter-inlinePackage' title="vim.languages.jinja.treesitter.inlinePackage">
+            jinja.treesitter.inlinePackage
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-jinja-treesitter-package' title="vim.languages.jinja.treesitter.package">
+            jinja.treesitter.package
             
             
           </a>
@@ -27623,6 +27671,83 @@ missing from <code>PATH</code>", leave this option disabled.</p>
 </body></html></div>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.java</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/java.nix" target="_blank">&lt;nvf/modules/plugins/languages/java.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-jinja-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-jinja-enable" class="option-anchor">vim.languages.jinja.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Jinja template language support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/jinja.nix" target="_blank">&lt;nvf/modules/plugins/languages/jinja.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-jinja-lsp-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-jinja-lsp-enable" class="option-anchor">vim.languages.jinja.lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Jinja LSP support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/jinja.nix" target="_blank">&lt;nvf/modules/plugins/languages/jinja.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-jinja-lsp-servers">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-jinja-lsp-servers" class="option-anchor">vim.languages.jinja.lsp.servers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "jinja-lsp" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Jinja LSP server to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "jinja-lsp"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/jinja.nix" target="_blank">&lt;nvf/modules/plugins/languages/jinja.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-jinja-treesitter-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-jinja-treesitter-enable" class="option-anchor">vim.languages.jinja.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Jinja treesitter.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/jinja.nix" target="_blank">&lt;nvf/modules/plugins/languages/jinja.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-jinja-treesitter-inlinePackage">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-jinja-treesitter-inlinePackage" class="option-anchor">vim.languages.jinja.treesitter.inlinePackage</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>package</code></div>
+  <div class="option-description"><html><head></head><body><p>The jinja_inline treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.jinja_inline</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/jinja.nix" target="_blank">&lt;nvf/modules/plugins/languages/jinja.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-jinja-treesitter-package">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-jinja-treesitter-package" class="option-anchor">vim.languages.jinja.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>package</code></div>
+  <div class="option-description"><html><head></head><body><p>The jinja treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.jinja</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/jinja.nix" target="_blank">&lt;nvf/modules/plugins/languages/jinja.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-json-enable">
   <h3 class="option-name">
