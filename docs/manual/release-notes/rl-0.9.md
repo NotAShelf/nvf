@@ -161,6 +161,9 @@
 
 - Added XML syntax highlighting, LSP support and formatting
 
+- Added [tera](https://keats.github.io/tera/) language support (syntax
+  highlighting only).
+
 [vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
 https://github.com/gorbit99/codewindow.nvim
 
