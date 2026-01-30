@@ -164,6 +164,8 @@
 - Added [tera](https://keats.github.io/tera/) language support (syntax
   highlighting only).
 
+- Added [`golangci-lint`](https://golangci-lint.run/) for more diagnostics.
+
 [vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
 https://github.com/gorbit99/codewindow.nvim
 
