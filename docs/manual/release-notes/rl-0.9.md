@@ -132,6 +132,9 @@
 
 - Added [sqruff](https://github.com/quarylabs/sqruff) support to `languages.sql`
 
+- Lazy-load `crates.nvim` plugin when using
+  `vim.languages.rust.extensions.crates-nvim.enable`
+
 - Added [Pyrefly](https://pyrefly.org/) and [zuban](https://zubanls.com/)
   support to `languages.python`
 
@@ -139,8 +142,13 @@
   [Tombi](https://tombi-toml.github.io/tombi/) language server, linter, and
   formatter.
 
+- Added Jinja support via `languages.jinja`
+
 - Added [hlargs.nvim](https://github.com/m-demare/hlargs.nvim) support as
   `visuals.hlargs-nvim`.
+
+- Lazy-load `nvim-autopairs` plugin when using
+  `vim.autopairs.nvim-autopairs.enable`
 
 [Machshev](https://github.com/machshev):
 
@@ -158,5 +166,16 @@
 
 - Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
   `languages.lua`.
+
+- Added XML syntax highlighting, LSP support and formatting
+
+- Added [tera](https://keats.github.io/tera/) language support (syntax
+  highlighting only).
+
+[vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
+https://github.com/gorbit99/codewindow.nvim
+
+- Add [codewindow.nvim] plugin in `vim.assistant.codewindow` with `enable` and
+  `setupOpts`
 
 <!-- vim: set textwidth=80: -->

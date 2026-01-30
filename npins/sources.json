@@ -973,9 +973,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "de79a7626d54d7785436105ef72f37ee8fe8fa16",
-      "url": "https://github.com/OXY2DEV/markview.nvim/archive/de79a7626d54d7785436105ef72f37ee8fe8fa16.tar.gz",
-      "hash": "sha256-kGhohG4Aw9wMceLiX+s2HCWIyWuJYHoa9D80elM1UQw="
+      "revision": "c81ce9ed129387fc5fdec91abe9818a1b0e6fcac",
+      "url": "https://github.com/OXY2DEV/markview.nvim/archive/c81ce9ed129387fc5fdec91abe9818a1b0e6fcac.tar.gz",
+      "hash": "sha256-CoPfVkPWh5neyIT1rVEHMLo7532lWvbv0Gg/27D0PHw="
     },
     "mellow": {
       "type": "Git",
