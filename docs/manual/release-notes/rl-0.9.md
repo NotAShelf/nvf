@@ -169,5 +169,14 @@ https://github.com/gorbit99/codewindow.nvim
 
 - Add [codewindow.nvim] plugin in `vim.assistant.codewindow` with `enable` and
   `setupOpts`
+  
+  
+[Poseidon](https://github.com/poseidon-rises):
+[docker-language-server]: https://github.com/docker/docker-language-server
+[dockerfmt]: https://github.com/reteps/dockerfmt
+[hadolint]: https://github.com/hadolint/hadolint
+
+- Add dockerfile support using [docker-language-server], [dockerfmt], and
+  [hadolint].
 
 <!-- vim: set textwidth=80: -->

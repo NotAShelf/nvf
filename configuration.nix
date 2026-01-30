@@ -94,6 +94,7 @@ isMaximal: {
       just.enable = false;
       qml.enable = false;
       jinja.enable = false;
+      dockerfile.enable = true;
       tailwind.enable = false;
       svelte.enable = false;
       tera.enable = false;
