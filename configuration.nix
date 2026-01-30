@@ -72,6 +72,7 @@ isMaximal: {
         extensions.crates-nvim.enable = isMaximal;
       };
       toml.enable = isMaximal;
+      xml.enable = isMaximal;
 
       # Language modules that are not as common.
       assembly.enable = false;
@@ -92,10 +93,11 @@ isMaximal: {
       fsharp.enable = false;
       just.enable = false;
       qml.enable = false;
+      jinja.enable = false;
       dockerfile.enable = true;
-
       tailwind.enable = false;
       svelte.enable = false;
+      tera.enable = false;
 
       # Nim LSP is broken on Darwin and therefore
       # should be disabled by default. Users may still enable

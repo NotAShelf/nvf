@@ -11,7 +11,7 @@
   inherit (lib.lists) isList;
   inherit (lib.attrsets) attrNames;
   inherit (lib.types) bool package str listOf either enum int;
-  inherit (lib.nvim.lua) expToLua toLuaObject;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAfter entryAnywhere;
@@ -169,7 +169,7 @@ in {
             server = {
               cmd = ${
               if isList cfg.lsp.package
-              then expToLua cfg.lsp.package
+              then toLuaObject cfg.lsp.package
               else ''{"${cfg.lsp.package}/bin/rust-analyzer"}''
             },
               default_settings = {
@@ -228,10 +228,17 @@ in {
     (mkIf cfg.extensions.crates-nvim.enable {
       vim = mkMerge [
         {
-          startPlugins = ["crates-nvim"];
-          pluginRC.rust-crates = entryAnywhere ''
-            require("crates").setup(${toLuaObject cfg.extensions.crates-nvim.setupOpts})
-          '';
+          lazy.plugins.crates-nvim = {
+            package = "crates-nvim";
+            setupModule = "crates";
+            setupOpts = cfg.extensions.crates-nvim.setupOpts;
+            event = [
+              {
+                event = "BufRead";
+                pattern = "Cargo.toml";
+              }
+            ];
+          };
         }
       ];
     })

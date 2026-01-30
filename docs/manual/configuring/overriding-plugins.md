@@ -14,11 +14,12 @@ vim.pluginOverrides = {
     rev = "";
     hash = "";
   };
+ 
  # It's also possible to use a flake input
  lazydev-nvim = inputs.lazydev-nvim;
  # Or a local path 
  lazydev-nvim = ./lazydev;
- # Or a npins pin... etc
+ # Or a npins pin nvfetcher source, etc.
 };
 ```
 

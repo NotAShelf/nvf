@@ -132,24 +132,51 @@
 
 - Added [sqruff](https://github.com/quarylabs/sqruff) support to `languages.sql`
 
-- Added [Pyrefly](https://pyrefly.org/) support to `languages.python`
+- Lazy-load `crates.nvim` plugin when using
+  `vim.languages.rust.extensions.crates-nvim.enable`
+
+- Added [Pyrefly](https://pyrefly.org/) and [zuban](https://zubanls.com/)
+  support to `languages.python`
 
 - Added TOML support via {option}`languages.toml` and the
   [Tombi](https://tombi-toml.github.io/tombi/) language server, linter, and
   formatter.
 
+- Added Jinja support via `languages.jinja`
+
 - Added [hlargs.nvim](https://github.com/m-demare/hlargs.nvim) support as
   `visuals.hlargs-nvim`.
+
+- Lazy-load `nvim-autopairs` plugin when using
+  `vim.autopairs.nvim-autopairs.enable`
 
 [Machshev](https://github.com/machshev):
 
 - Added `ruff` and `ty` LSP support for Python under `programs.python`.
 
-[Poseidon](https://github.com/poseidon-rises):
+[Snoweuph](https://github.com/snoweuph)
 
+- Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
+  `languages.lua`.
+
+- Added XML syntax highlighting, LSP support and formatting
+
+- Added [tera](https://keats.github.io/tera/) language support (syntax
+  highlighting only).
+
+[vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
+https://github.com/gorbit99/codewindow.nvim
+
+- Add [codewindow.nvim] plugin in `vim.assistant.codewindow` with `enable` and
+  `setupOpts`
+  
+  
+[Poseidon](https://github.com/poseidon-rises):
 [docker-language-server]: https://github.com/docker/docker-language-server
 [dockerfmt]: https://github.com/reteps/dockerfmt
 [hadolint]: https://github.com/hadolint/hadolint
 
 - Add dockerfile support using [docker-language-server], [dockerfmt], and
   [hadolint].
+
+<!-- vim: set textwidth=80: -->
