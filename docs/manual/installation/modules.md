@@ -6,5 +6,6 @@ path collisions if used simultaneously.
 
 ```{=include=} chapters
 modules/nixos.md
+
 modules/home-manager.md
 ```

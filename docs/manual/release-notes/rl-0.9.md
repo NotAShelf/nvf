@@ -170,4 +170,8 @@ https://github.com/gorbit99/codewindow.nvim
 - Add [codewindow.nvim] plugin in `vim.assistant.codewindow` with `enable` and
   `setupOpts`
 
+[JamyGolden](https://github.com/JamyGolden)
+
+- Fix documentation rendering bug
+
 <!-- vim: set textwidth=80: -->
