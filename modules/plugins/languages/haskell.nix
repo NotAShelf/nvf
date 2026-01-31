@@ -20,10 +20,11 @@
 
   defaultServers = ["hls"];
   servers = {
+    # these are a haskell-tools wrapper over the actual lsp options `:help haskell-tools.lsp.ClientOpts`
+    # see https://github.com/mrcjkb/haskell-tools.nvim/blob/v6.2.0/lua/haskell-tools/lsp/init.lua#L131-L173
+    # for the real ones
     hls = {
-      enable = false;
       cmd = [(getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server-wrapper") "--lsp"];
-      filetypes = ["haskell" "lhaskell"];
       on_attach =
         mkLuaInline
         /*
@@ -42,17 +43,6 @@
               end, opts)
               vim.keymap.set('n', '<localleader>rq', ht.repl.quit, opts)
             end
-        '';
-      root_dir =
-        mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function(bufnr, on_dir)
-            local fname = vim.api.nvim_buf_get_name(bufnr)
-            on_dir(util.root_pattern('hie.yaml', 'stack.yaml', 'cabal.project', '*.cabal', 'package.yaml')(fname))
-          end
         '';
       settings = {
         haskell = {

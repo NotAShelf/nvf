@@ -7,6 +7,7 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.strings) toUpper;
   inherit (lib.types) int float bool str enum listOf attrsOf oneOf nullOr submodule;
+  inherit (lib.trivial) warn;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline borderType;
   inherit (lib.generators) mkLuaInline;
 in {
@@ -50,6 +51,16 @@ in {
           default = mkLuaInline ''
             function(msg)
               return msg.lsp_client.name
+            end
+          '';
+        };
+        clear_on_detach = mkOption {
+          description = "Clear notification group when LSP server detaches";
+          type = nullOr luaInline;
+          default = mkLuaInline ''
+            function(client_id)
+              local client = vim.lsp.get_client_by_id(client_id)
+              return client and client.name or nil
             end
           '';
         };
@@ -417,6 +428,20 @@ in {
             type = bool;
             default = true;
           };
+          align = mkOption {
+            description = "Indent messages longer than a single line";
+            type = enum ["message" "annote"];
+            default = "message";
+          };
+          reflow = mkOption {
+            description = ''
+              Reflow (wrap) messages wider than notification window
+
+              The various options determine how wrapping is handled mid-word.
+            '';
+            type = enum ["hard" "hyphenate" "ellipsis" "false"];
+            default = "false";
+          };
           icon_separator = mkOption {
             description = "Separator between group name and icon";
             type = str;
@@ -431,6 +456,16 @@ in {
             description = "Highlight group used for group separator";
             type = str;
             default = "Comment";
+          };
+          line_margin = mkOption {
+            description = ''
+              Spaces to pad both sides of each non-empty line
+
+              Useful for adding a visual gap between notification text
+              and any buffer it may overlap with.
+            '';
+            type = int;
+            default = 1;
           };
           render_message = mkOption {
             description = "How to render notification messages";
@@ -461,6 +496,15 @@ in {
               if config.vim.ui.borders.enable
               then config.vim.ui.borders.globalStyle
               else "none";
+          };
+          border_hl = mkOption {
+            description = ''
+              Highlight group for notification window border
+
+              Set to empty string to keep your theme's default `FloatBorder` highlight.
+            '';
+            type = str;
+            default = "";
           };
           zindex = mkOption {
             description = "Stacking priority of the notification window";
@@ -497,6 +541,16 @@ in {
             type = enum ["editor" "win"];
             default = "editor";
           };
+          tabstop = mkOption {
+            description = "Width of each tab character in the notification window";
+            type = int;
+            default = 8;
+          };
+          avoid = mkOption {
+            description = "Filetypes the notification window should avoid";
+            type = listOf str;
+            default = [];
+          };
         };
       };
 
@@ -505,17 +559,27 @@ in {
           enable = mkOption {
             description = "Integrate with nvim-tree/nvim-tree.lua (if enabled)";
             type = bool;
-            default =
-              if config.vim.filetree.nvimTree.enable
-              then true
-              else false;
+            default = false;
+            visible = false;
+            apply = warn ''
+              Option `vim.visuals.fidget-nvim.setupOpts.integration.nvim-tree.enable`
+              has been deprecated upstream. Use
+              `vim.visuals.fidget-nvim.setupOpts.notification.window.avoid = ["NvimTree"]` instead.
+              This is already set if `vim.filetree.nvimTree.enable == true`.
+            '';
           };
         };
         xcodebuild-nvim = {
           enable = mkOption {
             description = "Integrate with wojciech-kulik/xcodebuild.nvim (if enabled)";
             type = bool;
-            default = true;
+            default = false;
+            visible = false;
+            apply = warn ''
+              Option `vim.visuals.fidget-nvim.setupOpts.integration.xcodebuild-nvim.enable`
+              has been deprecated upstream. Use
+              `vim.visuals.fidget-nvim.setupOpts.notification.window.avoid = ["TestExplorer"]` instead.
+            '';
           };
         };
       };
