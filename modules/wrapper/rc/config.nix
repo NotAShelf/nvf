@@ -37,9 +37,11 @@ in {
       then mkLuaInline keymap.action
       else keymap.action;
 
-    getOpts = keymap: {
-      inherit (keymap) desc silent nowait script expr unique noremap;
-    };
+    getOpts = keymap:
+      {
+        inherit (keymap) desc silent nowait script expr unique noremap;
+      }
+      // {remap = !keymap.noremap;};
 
     toLuaKeymap = bind: "vim.keymap.set(${toLuaObject bind.mode}, ${toLuaObject bind.key}, ${toLuaObject (getAction bind)}, ${toLuaObject (getOpts bind)})";
 

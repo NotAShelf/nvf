@@ -178,4 +178,8 @@ https://github.com/gorbit99/codewindow.nvim
 - Add [codewindow.nvim] plugin in `vim.assistant.codewindow` with `enable` and
   `setupOpts`
 
+[irobot](https://github.com/irobot):
+
+- Add `remap` option to `vim.keymaps`
+
 <!-- vim: set textwidth=80: -->
