@@ -11,9 +11,10 @@
 in {
   config = mkIf (cfg.enable && cfg.harper-ls.enable) {
     vim.lsp.servers.harper-ls = {
-      root_markers = [".git"];
+      root_markers = [".git" ".harper-dictionary.txt"];
       cmd = [(getExe pkgs.harper) "--stdio"];
       settings = {harper-ls = cfg.harper-ls.settings;};
+      filetypes = cfg.harper-ls.filetypes;
     };
   };
 }
