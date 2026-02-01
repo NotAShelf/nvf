@@ -92,6 +92,7 @@ isMaximal: {
       ruby.enable = false;
       fsharp.enable = false;
       just.enable = false;
+      make.enable = false;
       qml.enable = false;
       jinja.enable = false;
       tailwind.enable = false;
