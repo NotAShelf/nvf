@@ -176,6 +176,10 @@
 
 - Added [`golangci-lint`](https://golangci-lint.run/) for more diagnostics.
 
+- updated default filetypes for
+  [harper-ls](https://github.com/Automattic/harper) to match what they are
+  supposed to be.
+
 - Added Makefile support via `languages.make`.
 
 - Added Debugging support to `languages.php`.
