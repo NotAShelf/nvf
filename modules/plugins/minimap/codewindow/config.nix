@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.binds) addDescriptionsToMappings mkSetLuaBinding pushDownDefault;
 
   cfg = config.vim.minimap.codewindow;
@@ -32,9 +33,7 @@ in {
 
       pluginRC.codewindow = entryAnywhere ''
         local codewindow = require('codewindow')
-        codewindow.setup({
-          exclude_filetypes = { 'NvimTree', 'orgagenda', 'Alpha'},
-        })
+        codewindow.setup(${toLuaObject cfg.setupOpts})
       '';
     };
   };
