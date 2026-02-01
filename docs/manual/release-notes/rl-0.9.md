@@ -166,6 +166,9 @@
 
 - Added [`golangci-lint`](https://golangci-lint.run/) for more diagnostics.
 
+- Added config option to [harper-ls](https://github.com/Automattic/harper) to
+  limit it to supported filetypes.
+
 [vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
 https://github.com/gorbit99/codewindow.nvim
 
