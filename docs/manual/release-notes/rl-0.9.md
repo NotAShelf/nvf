@@ -172,6 +172,8 @@
 
 - Added [`golangci-lint`](https://golangci-lint.run/) for more diagnostics.
 
+- Added Makefile support via `languages.make`.
+
 [vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
 https://github.com/gorbit99/codewindow.nvim
 
