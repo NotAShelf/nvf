@@ -2528,6 +2528,19 @@
       "url": "https://github.com/supermaven-inc/supermaven-nvim/archive/07d20fce48a5629686aefb0a7cd4b25e33947d50.tar.gz",
       "hash": "sha256-1z3WKIiikQqoweReUyK5O8MWSRN5y95qcxM6qzlKMME="
     },
+    "syntax-gaslighting": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NotAShelf",
+        "repo": "syntax-gaslighting.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "4cee4c0550e82b31e07424e0c44379920d716d79",
+      "url": "https://github.com/NotAShelf/syntax-gaslighting.nvim/archive/4cee4c0550e82b31e07424e0c44379920d716d79.tar.gz",
+      "hash": "sha256-sRg6UlK4hQubxf3ycGnMLi+tNvX3zvKgnHYVuZgmvOc="
+    },
     "tabular": {
       "type": "Git",
       "repository": {

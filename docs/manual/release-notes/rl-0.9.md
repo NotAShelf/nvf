@@ -176,6 +176,10 @@
 
 - Added Debugging support to `languages.php`.
 
+- Didn't Add
+  [`syntax-gaslighting`](https://github.com/NotAShelf/syntax-gaslighting.nvim),
+  you're crazy.
+
 [vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
 https://github.com/gorbit99/codewindow.nvim
 
