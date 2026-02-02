@@ -25,6 +25,12 @@
   - The `setupOpts.mappings` options were also removed. Use the built-in Neovim
     settings (nvf's {option}`vim.keymaps`)
 
+[Snoweuph](https://github.com/snoweuph)
+
+- Fix `vim.assistant.codecompanion-nvim.setupOpts.display.diff.provider` to only
+  allow valid options. `default` is no longer valid. `inline` and `split` are
+  two new valid options.
+
 ## Changelog {#sec-release-0-9-changelog}
 
 [taylrfnt](https://github.com/taylrfnt)
@@ -171,6 +177,8 @@
 
 - Added [tera](https://keats.github.io/tera/) language support (syntax
   highlighting only).
+
+- Added [`golangci-lint`](https://golangci-lint.run/) for more diagnostics.
 
 [vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
 https://github.com/gorbit99/codewindow.nvim
