@@ -9,7 +9,7 @@
   inherit (lib.trivial) flip;
   inherit (builtins) filter isString hasAttr getAttr;
 
-  getPin = flip getAttr (pkgs.callPackages ../../../npins/sources.nix {});
+  getPin = flip getAttr (inputs.mnw.lib.npinsToPluginsAttrs pkgs ../../../npins/sources.json);
 
   # Build a Vim plugin with the given name and arguments.
   buildPlug = attrs: let
