@@ -160,6 +160,14 @@
 
 - Added `ruff` and `ty` LSP support for Python under `programs.python`.
 
+[Poseidon](https://github.com/poseidon-rises):
+
+[fish-lsp]: https://www.fish-lsp.dev/
+[fish_indent]: https://fishshell.com/docs/current/cmds/fish_indent.html
+
+- Added Fish support via {option}`languages.fish` using [fish-lsp] and
+  [fish_indent].
+
 [Snoweuph](https://github.com/snoweuph)
 
 - Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
