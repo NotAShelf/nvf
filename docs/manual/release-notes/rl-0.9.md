@@ -180,4 +180,9 @@ https://github.com/gorbit99/codewindow.nvim
 - Add [codewindow.nvim] plugin in `vim.assistant.codewindow` with `enable` and
   `setupOpts`
 
+[irobot](https://github.com/irobot):
+
+- Fix non-functional `vim.keymaps.*.noremap`. Now, setting it to false is
+  equivalent to `:lua vim.keymap.set(..., { remap = true })`
+
 <!-- vim: set textwidth=80: -->
