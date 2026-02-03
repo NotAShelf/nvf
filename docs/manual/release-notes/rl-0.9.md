@@ -208,4 +208,8 @@ https://github.com/gorbit99/codewindow.nvim
 
 - Changed `withRuby` to not be enabled by default
 
+[horriblename](https://github.com/horriblename):
+
+- Ignore terminals by default in spell-checking
+
 <!-- vim: set textwidth=80: -->
