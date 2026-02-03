@@ -1,6 +1,6 @@
 {lib, ...}: let
   inherit (lib.options) mkOption literalMD;
-  inherit (lib.types) either str listOf attrsOf nullOr submodule bool;
+  inherit (lib.types) either str listOf attrsOf nullOr submodule;
   inherit (lib.nvim.config) mkBool;
 
   mapConfigOptions = {
@@ -25,12 +25,6 @@
     expr = mkBool false "Means that the action is actually an expression. Equivalent to adding <expr> to a map.";
     unique = mkBool false "Whether to fail if the map is already defined. Equivalent to adding <unique> to a map.";
     noremap = mkBool true "Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.";
-    remap = mkOption {
-      default = false;
-      type = bool;
-      internal = true;
-      description = "'noremap' is on by default. This option is used internally when noremap is set to false.";
-    };
   };
 
   mapType = submodule {

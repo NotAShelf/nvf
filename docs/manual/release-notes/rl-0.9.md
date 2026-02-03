@@ -180,6 +180,7 @@ https://github.com/gorbit99/codewindow.nvim
 
 [irobot](https://github.com/irobot):
 
-- Add `remap` option to `vim.keymaps`
+- Fix non-functional `vim.keymaps.*.noremap`. Now, setting it to false is
+  equivalent to `:lua vim.keymap.set(..., { remap = true })`
 
 <!-- vim: set textwidth=80: -->
