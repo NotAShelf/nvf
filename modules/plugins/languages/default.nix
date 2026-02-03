@@ -52,6 +52,7 @@ in {
     ./yaml.nix
     ./ruby.nix
     ./just.nix
+    ./make.nix
     ./xml.nix
 
     # This is now a hard deprecation.
