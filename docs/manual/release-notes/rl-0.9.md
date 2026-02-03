@@ -180,4 +180,8 @@ https://github.com/gorbit99/codewindow.nvim
 - Add [codewindow.nvim] plugin in `vim.assistant.codewindow` with `enable` and
   `setupOpts`
 
+[horriblename](https://github.com/horriblename):
+
+- Ignore terminals by default in spell-checking
+
 <!-- vim: set textwidth=80: -->
