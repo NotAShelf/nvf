@@ -5330,7 +5330,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">400</span>
+        <span class="toc-count">407</span>
       </summary>
       <ul>
         
@@ -6771,6 +6771,62 @@
         <li>
           <a href='#option-vim-languages-lua-treesitter-package' title="vim.languages.lua.treesitter.package">
             lua.treesitter.package
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-make-enable' title="vim.languages.make.enable">
+            make.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-make-extraDiagnostics-enable' title="vim.languages.make.extraDiagnostics.enable">
+            make.extraDiagnostics.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-make-extraDiagnostics-types' title="vim.languages.make.extraDiagnostics.types">
+            make.extraDiagnostics.types
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-make-format-enable' title="vim.languages.make.format.enable">
+            make.format.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-make-format-type' title="vim.languages.make.format.type">
+            make.format.type
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-make-treesitter-enable' title="vim.languages.make.treesitter.enable">
+            make.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-make-treesitter-package' title="vim.languages.make.treesitter.package">
+            make.treesitter.package
             
             
           </a>
@@ -28270,6 +28326,98 @@ package to Julia in your devshells.</p>
 </body></html></div>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.lua</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lua.nix" target="_blank">&lt;nvf/modules/plugins/languages/lua.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-make-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-make-enable" class="option-anchor">vim.languages.make.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Make support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/make.nix" target="_blank">&lt;nvf/modules/plugins/languages/make.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-make-extraDiagnostics-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-make-extraDiagnostics-enable" class="option-anchor">vim.languages.make.extraDiagnostics.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable extra Make diagnostics.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/make.nix" target="_blank">&lt;nvf/modules/plugins/languages/make.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-make-extraDiagnostics-types">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-make-extraDiagnostics-types" class="option-anchor">vim.languages.make.extraDiagnostics.types</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (value "checkmake" (singular enum) or (submodule))</code></div>
+  <div class="option-description"><html><head></head><body><p>List of Make diagnostics to enable</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "checkmake"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/make.nix" target="_blank">&lt;nvf/modules/plugins/languages/make.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-make-format-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-make-format-enable" class="option-anchor">vim.languages.make.format.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Make formatting.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/make.nix" target="_blank">&lt;nvf/modules/plugins/languages/make.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-make-format-type">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-make-format-type" class="option-anchor">vim.languages.make.format.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "bake" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>make formatter to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "bake"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/make.nix" target="_blank">&lt;nvf/modules/plugins/languages/make.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-make-treesitter-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-make-treesitter-enable" class="option-anchor">vim.languages.make.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Make treesitter.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/make.nix" target="_blank">&lt;nvf/modules/plugins/languages/make.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-make-treesitter-package">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-make-treesitter-package" class="option-anchor">vim.languages.make.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>package</code></div>
+  <div class="option-description"><html><head></head><body><p>The make treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.make</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/make.nix" target="_blank">&lt;nvf/modules/plugins/languages/make.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-markdown-enable">
   <h3 class="option-name">
