@@ -2007,6 +2007,11 @@ highlighting only).</p>
 <li>Add [codewindow.nvim] plugin in <code>vim.assistant.codewindow</code> with <code>enable</code> and
 <code>setupOpts</code></li>
 </ul>
+<p><a href="https://github.com/irobot">irobot</a>:</p>
+<ul>
+<li>Fix non-functional <code>vim.keymaps.*.noremap</code>. Now, setting it to false is
+equivalent to <code>:lua vim.keymap.set(..., { remap = true })</code></li>
+</ul>
 <!-- vim: set textwidth=80: -->
 </body></html></main>
       </div>
