@@ -169,6 +169,8 @@
 - Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
   `languages.lua`.
 
+- Added [`mdformat`](https://mdformat.rtfd.io/) support to `languages.python`.
+
 - Added XML syntax highlighting, LSP support and formatting
 
 - Added [tera](https://keats.github.io/tera/) language support (syntax
