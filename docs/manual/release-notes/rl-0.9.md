@@ -173,6 +173,9 @@
 
 - Added XML syntax highlighting, LSP support and formatting
 
+- Added [mypy](https://www.mypy-lang.org/) to `languages.python` for extra
+  diagnostics.
+
 - Added [tera](https://keats.github.io/tera/) language support (syntax
   highlighting only).
 
