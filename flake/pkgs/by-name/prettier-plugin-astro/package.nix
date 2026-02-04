@@ -3,6 +3,8 @@
   fetchFromGitHub,
   nodejs,
   pnpm_9,
+  pnpmConfigHook,
+  fetchPnpmDeps,
   pins,
 }: let
   pin = pins.prettier-plugin-astro;
@@ -17,7 +19,8 @@ in
       sha256 = pin.hash;
     };
 
-    pnpmDeps = pnpm_9.fetchDeps {
+    pnpmDeps = fetchPnpmDeps {
+      pnpm = pnpm_9;
       inherit (finalAttrs) pname src;
       fetcherVersion = 2;
       hash = "sha256-K7pIWLkIIbUKDIcysfEtcf/eVMX9ZgyFHdqcuycHCNE=";
@@ -25,7 +28,9 @@ in
 
     nativeBuildInputs = [
       nodejs
-      pnpm_9.configHook
+      (pnpmConfigHook.overrideAttrs {
+        propagatedBuildInputs = [pnpm_9];
+      })
     ];
 
     buildPhase = ''
