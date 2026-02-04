@@ -4,11 +4,12 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
+  inherit (builtins) attrNames toString toFile;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum;
+  inherit (lib.types) enum int attrs;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.generators) mkLuaInline;
@@ -82,6 +83,28 @@ in {
         description = "PHP LSP server to use";
       };
     };
+
+    dap = {
+      enable = mkEnableOption "Enable PHP Debug Adapter" // {default = config.vim.languages.enableDAP;};
+      xdebug = {
+        adapter = mkOption {
+          type = attrs;
+          default = {
+            type = "executable";
+            command = "${pkgs.nodePackages_latest.nodejs}/bin/node";
+            args = [
+              "${pkgs.vscode-extensions.xdebug.php-debug}/share/vscode/extensions/xdebug.php-debug/out/phpDebug.js"
+            ];
+          };
+          description = "XDebug adapter to use for nvim-dap";
+        };
+        port = mkOption {
+          type = int;
+          default = 9003;
+          description = "Port to use for XDebug";
+        };
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -97,6 +120,25 @@ in {
           value = servers.${n};
         })
         cfg.lsp.servers;
+    })
+
+    (mkIf cfg.dap.enable {
+      vim = {
+        debugger.nvim-dap = {
+          enable = true;
+          sources.php-debugger = ''
+            dap.adapters.xdebug = ${toLuaObject cfg.dap.xdebug.adapter}
+            dap.configurations.php = {
+              {
+                  type = 'xdebug',
+                  request = 'launch',
+                  name = 'Listen for XDebug',
+                  port = ${toString cfg.dap.xdebug.port},
+              },
+            }
+          '';
+        };
+      };
     })
   ]);
 }
