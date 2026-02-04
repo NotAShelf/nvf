@@ -16,6 +16,36 @@
 
   cfg = config.vim.lsp;
 
+  # NOTE: Used to notify and redirect deprecated lsp servers
+  mkDeprecated = {
+    old,
+    new ? null,
+    message ? (
+      if new == null
+      then "${old} is deprecated."
+      else "${old} was renamed to ${new}. Please update it accordingly."
+    ),
+  }: (
+    lib.warnIf
+    (cfg.servers.${old}
+      != {})
+    message
+    {
+      ${old}.enable = false;
+    }
+    // (mkIf (new != null) {
+      ${new} = cfg.servers.${old};
+    })
+  );
+
+  servers =
+    cfg.servers
+    # Deprecated lsp servers
+    // (mkDeprecated {
+      old = "roslyn_ls";
+      new = "roslyn";
+    });
+
   # TODO: lspConfigurations filter on enabledServers instead of cfg.servers?
   lspConfigurations =
     mapAttrsToList (
@@ -23,9 +53,9 @@
         vim.lsp.config["${name}"] = ${toLuaObject value}
       ''
     )
-    cfg.servers;
+    servers;
 
-  enabledServers = filterAttrs (_: u: u.enable) cfg.servers;
+  enabledServers = filterAttrs (_: u: u.enable) servers;
 in {
   options = {
     vim.lsp = {
