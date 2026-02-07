@@ -7,11 +7,14 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum;
+  inherit (lib.types) enum package;
+  inherit (lib.nvim.dag) entryAfter;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
+
+  cfg = config.vim.languages.odin;
 
   defaultServers = ["ols"];
   servers = {
@@ -32,7 +35,19 @@
     };
   };
 
-  cfg = config.vim.languages.odin;
+  defaultDebugger = "codelldb";
+  debuggers = {
+    codelldb = {
+      package = pkgs.lldb;
+      dapConfig = ''
+        dap.adapters.codelldb = {
+          type = 'executable',
+          command = '${cfg.dap.package}/bin/lldb-dap',
+          name = 'codelldb'
+        }
+      '';
+    };
+  };
 in {
   options.vim.languages.odin = {
     enable = mkEnableOption "Odin language support";
@@ -51,6 +66,22 @@ in {
         description = "Odin LSP server to use";
       };
     };
+
+    dap = {
+      enable = mkEnableOption "Enable Odin Debug Adapter" // {default = config.vim.languages.enableDAP;};
+
+      debugger = mkOption {
+        description = "Odin debugger to use";
+        type = enum (attrNames debuggers);
+        default = defaultDebugger;
+      };
+
+      package = mkOption {
+        description = "Odin debugger package.";
+        type = package;
+        default = debuggers.${cfg.dap.debugger}.package;
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -66,6 +97,17 @@ in {
           value = servers.${n};
         })
         cfg.lsp.servers;
+    })
+
+    (mkIf cfg.dap.enable {
+      vim = {
+        startPlugins = ["nvim-dap-odin"];
+        debugger.nvim-dap.sources.odin-debugger = debuggers.${cfg.dap.debugger}.dapConfig;
+        pluginRC.nvim-dap-odin = entryAfter ["nvim-dap"] ''
+          require('nvim-dap-odin').setup()
+        '';
+        debugger.nvim-dap.enable = true;
+      };
     })
   ]);
 }

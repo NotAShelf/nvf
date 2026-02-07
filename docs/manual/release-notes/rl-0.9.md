@@ -170,6 +170,9 @@
 - Added [tera](https://keats.github.io/tera/) language support (syntax
   highlighting only).
 
+- Added Debugging support to `languages.odin` with
+  [nvim-dap-odin](https://github.com/NANDquark/nvim-dap-odin).
+
 - Added [`golangci-lint`](https://golangci-lint.run/) for more diagnostics.
 
 - Added Makefile support via `languages.make`.
