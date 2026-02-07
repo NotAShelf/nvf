@@ -174,6 +174,8 @@
 
 - Added Makefile support via `languages.make`.
 
+- Added Debugging support to `languages.php`.
+
 [vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
 https://github.com/gorbit99/codewindow.nvim
 
