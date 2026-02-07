@@ -4,11 +4,11 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames toString toFile;
+  inherit (builtins) attrNames toString;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum int attrs;
+  inherit (lib.types) enum int attrs listOf;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
@@ -65,6 +65,21 @@
       root_markers = ["composer.json" ".git"];
     };
   };
+
+  defaultFormat = ["php_cs_fixer"];
+  formats = {
+    php_cs_fixer = {
+      /*
+      Using 8.4 instead of 8.5 because of compatibility:
+      ```logs
+      2026-02-08 00:42:23[ERROR] Formatter 'php_cs_fixer' error: PHP CS Fixer 3.87.2
+      PHP runtime: 8.5.2
+      PHP CS Fixer currently supports PHP syntax only up to PHP 8.4, current PHP version: 8.5.2.
+      ```
+      */
+      command = "${pkgs.php84Packages.php-cs-fixer}/bin/php-cs-fixer";
+    };
+  };
 in {
   options.vim.languages.php = {
     enable = mkEnableOption "PHP language support";
@@ -81,6 +96,16 @@ in {
         type = deprecatedSingleOrListOf "vim.language.php.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
         description = "PHP LSP server to use";
+      };
+    };
+
+    format = {
+      enable = mkEnableOption "PHP formatting" // {default = config.vim.languages.enableFormat;};
+
+      type = mkOption {
+        description = "PHP formatter to use";
+        type = listOf (enum (attrNames formats));
+        default = defaultFormat;
       };
     };
 
@@ -120,6 +145,21 @@ in {
           value = servers.${n};
         })
         cfg.lsp.servers;
+    })
+
+    (mkIf cfg.format.enable {
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts = {
+          formatters_by_ft.php = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
+        };
+      };
     })
 
     (mkIf cfg.dap.enable {
