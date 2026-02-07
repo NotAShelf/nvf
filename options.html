@@ -5330,7 +5330,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">407</span>
+        <span class="toc-count">410</span>
       </summary>
       <ul>
         
@@ -7219,6 +7219,30 @@
         <li>
           <a href='#option-vim-languages-odin-treesitter-package' title="vim.languages.odin.treesitter.package">
             odin.treesitter.package
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-php-dap-enable' title="vim.languages.php.dap.enable">
+            php.dap.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-php-dap-xdebug-adapter' title="vim.languages.php.dap.xdebug.adapter">
+            php.dap.xdebug.adapter
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-php-dap-xdebug-port' title="vim.languages.php.dap.xdebug.port">
+            php.dap.xdebug.port
             
             
           </a>
@@ -29062,6 +29086,49 @@ have any of these filetypes.</p>
 </body></html></div>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.odin</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/odin.nix" target="_blank">&lt;nvf/modules/plugins/languages/odin.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-php-dap-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-php-dap-enable" class="option-anchor">vim.languages.php.dap.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Enable PHP Debug Adapter.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/php.nix" target="_blank">&lt;nvf/modules/plugins/languages/php.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-php-dap-xdebug-adapter">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-php-dap-xdebug-adapter" class="option-anchor">vim.languages.php.dap.xdebug.adapter</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>attribute set</code></div>
+  <div class="option-description"><html><head></head><body><p>XDebug adapter to use for nvim-dap</p>
+</body></html></div>
+  <div class="option-default">Default: <code>{
+  args = [
+    "\${pkgs.vscode-extensions.xdebug.php-debug}/share/vscode/extensions/xdebug.php-debug/out/phpDebug.js"
+  ];
+  command = "\${pkgs.nodePackages_latest.nodejs}/bin/node";
+  type = "executable";
+}</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/php.nix" target="_blank">&lt;nvf/modules/plugins/languages/php.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-php-dap-xdebug-port">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-php-dap-xdebug-port" class="option-anchor">vim.languages.php.dap.xdebug.port</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>signed integer</code></div>
+  <div class="option-description"><html><head></head><body><p>Port to use for XDebug</p>
+</body></html></div>
+  <div class="option-default">Default: <code>9003</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/php.nix" target="_blank">&lt;nvf/modules/plugins/languages/php.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-php-enable">
   <h3 class="option-name">
