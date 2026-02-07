@@ -162,23 +162,46 @@
 
 [Snoweuph](https://github.com/snoweuph)
 
-- Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
-  `languages.lua`.
+- Languages Tools
 
-- Added XML syntax highlighting, LSP support and formatting
+  - Added `languages.tera` for [Tera](https://keats.github.io/tera/) support.
 
-- Added [tera](https://keats.github.io/tera/) language support (syntax
-  highlighting only).
+    - Syntax highlighting.
 
-- Added [`golangci-lint`](https://golangci-lint.run/) for more diagnostics.
+  - Added `languages.xml` for [XML](https://wikipedia.org/wiki/XML) support.
 
-- Added Makefile support via `languages.make`.
+    - Syntax highlighting.
 
-- Added Debugging support to `languages.php`.
+    - LSP support via [LemMinX](https://github.com/eclipse-lemminx/lemminx).
+      LemMinX supports formatting via LSP.
 
-- Didn't Add
-  [`syntax-gaslighting`](https://github.com/NotAShelf/syntax-gaslighting.nvim),
-  you're crazy.
+  - Added `languages.make` for [Makefile](https://www.gnu.org/software/make/)
+    support.
+
+    - Syntax highlighting.
+
+    - Formatting via [🍞 mbake](https://github.com/EbodShojaei/bake).
+
+    - Diagnostics via [checkmake](https://github.com/checkmake/checkmake).
+
+  - Extended `languages.lua`.
+
+    - Added [Selenen](https://github.com/kampfkarren/selene) for more
+      diagnostics.
+
+  - Extended `languages.go`.
+
+    - Added [Golangci-lint](https://golangci-lint.run/) for more diagnostics.
+
+  - Extended `languages.php`.
+
+    - Added Debugging via [XDebug](https://xdebug.org/).
+
+- Plugins
+
+  - Didn't Add
+    [`syntax-gaslighting`](https://github.com/NotAShelf/syntax-gaslighting.nvim),
+    you're crazy.
 
 [vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
 https://github.com/gorbit99/codewindow.nvim
