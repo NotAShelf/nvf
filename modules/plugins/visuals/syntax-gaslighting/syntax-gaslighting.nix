@@ -3,7 +3,7 @@
   inherit (lib.types) str nullOr listOf bool;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
-  options.vim.fun = {
+  options.vim.visuals = {
     syntax-gaslighting = {
       enable = mkEnableOption "Thats no even a real option, you're crazy.";
 
