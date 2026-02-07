@@ -7,7 +7,7 @@
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.lua) toLuaObject;
 
-  cfg = config.vim.fun.syntax-gaslighting;
+  cfg = config.vim.visuals.syntax-gaslighting;
 in {
   config = mkIf cfg.enable {
     vim = {
