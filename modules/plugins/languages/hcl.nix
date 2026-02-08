@@ -76,9 +76,10 @@ in {
           end
         })
 
-        local ft = require('Comment.ft')
-        ft
-          .set('hcl', '#%s')
+        if "${toString config.vim.comments.comment-nvim.enable}" == "true" then
+          local ft = require('Comment.ft')
+          ft.set('hcl', '#%s')
+        end
       '';
     }
     (mkIf cfg.treesitter.enable {
