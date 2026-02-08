@@ -172,6 +172,9 @@
 
 - Added [`golangci-lint`](https://golangci-lint.run/) for more diagnostics.
 
+- Added [`gopher.nvim`](https://github.com/olexsmir/gopher.nvim) for extra
+  actions in `languages.go`.
+
 - Added Makefile support via `languages.make`.
 
 - Added Debugging support to `languages.php`.
