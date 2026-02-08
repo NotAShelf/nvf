@@ -191,4 +191,9 @@ https://github.com/gorbit99/codewindow.nvim
 - Fix non-functional `vim.keymaps.*.noremap`. Now, setting it to false is
   equivalent to `:lua vim.keymap.set(..., { remap = true })`
 
+[CaueAnjos](https://github.com/caueanjos)
+
+- Rename `roslyn_ls` to `roslyn` (required by roslyn-nvim).
+- Add razor support for `roslyn` and `csharp_ls`
+
 <!-- vim: set textwidth=80: -->
