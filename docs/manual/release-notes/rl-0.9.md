@@ -193,7 +193,7 @@ https://github.com/gorbit99/codewindow.nvim
 
 [kazimazi](https://github.com/kazimazi):
 
-- Added [`grug-far.nvim`](https://github.com/MagicDuck/grug-far.nvim)
-  the find and replace tool for neovim.
+- Added [`grug-far.nvim`](https://github.com/MagicDuck/grug-far.nvim) the find
+  and replace tool for neovim.
 
 <!-- vim: set textwidth=80: -->
