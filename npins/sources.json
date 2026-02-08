@@ -643,6 +643,19 @@
       "url": "https://github.com/ellisonleao/glow.nvim/archive/5d5954b2f22e109d4a6eba8b2618c5b96e4ee7a2.tar.gz",
       "hash": "sha256-CvBcmVWBgI+m+PS7p7PmsiPtTEfqx2kpIzz4mImONIc="
     },
+    "grug-far-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "MagicDuck",
+        "repo": "grug-far.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "275dbedc96e61a6b8d1dfb28ba51586ddd233dcf",
+      "url": "https://github.com/MagicDuck/grug-far.nvim/archive/275dbedc96e61a6b8d1dfb28ba51586ddd233dcf.tar.gz",
+      "hash": "sha256-qn1BTNCX0Sm158Lv5JfHThqlJX9ualCIlc+RCjWa+t8="
+    },
     "gruvbox": {
       "type": "Git",
       "repository": {

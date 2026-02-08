@@ -9,6 +9,7 @@
     ./harpoon
     ./icon-picker
     ./images
+    ./grug-far-nvim
     ./leetcode-nvim
     ./mkdir
     ./motion
