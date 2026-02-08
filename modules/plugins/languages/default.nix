@@ -23,6 +23,7 @@ in {
     ./kotlin.nix
     ./html.nix
     ./tera.nix
+    ./twig.nix
     ./haskell.nix
     ./java.nix
     ./jinja.nix
