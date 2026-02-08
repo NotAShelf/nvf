@@ -205,6 +205,7 @@ isMaximal: {
       smart-splits.enable = isMaximal;
       undotree.enable = isMaximal;
       nvim-biscuits.enable = isMaximal;
+      grug-far-nvim.enable = isMaximal;
 
       motion = {
         hop.enable = true;
