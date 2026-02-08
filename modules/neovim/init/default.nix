@@ -5,8 +5,10 @@
     ./clipboard.nix
     ./debug.nix
     ./diagnostics.nix
+    ./filetype.nix
     ./highlight.nix
     ./lsp.nix
+    ./mappings.nix
     ./spellcheck.nix
     ./util.nix
   ];
