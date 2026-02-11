@@ -106,16 +106,9 @@ in {
       '';
     };
 
-    # This defaults to `true` in the wrapper
-    # and since we pass this value to the wrapper
-    # with an inherit, it should be `true` here as well
-    withRuby =
-      mkEnableOption ''
-        Ruby support in the Neovim wrapper.
-      ''
-      // {
-        default = true;
-      };
+    withRuby = mkEnableOption ''
+      Ruby support in the Neovim wrapper
+    '';
 
     withNodeJs = mkEnableOption ''
       NodeJS support in the Neovim wrapper
