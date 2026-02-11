@@ -176,6 +176,9 @@
 
 - Added Debugging support to `languages.php`.
 
+- Added Formatting support to `languages.php` via
+  [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer).
+
 - Didn't Add
   [`syntax-gaslighting`](https://github.com/NotAShelf/syntax-gaslighting.nvim),
   you're crazy.
