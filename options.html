@@ -46564,19 +46564,18 @@ not listed in the docs</p>
   </h3>
   <div class="option-type">Type: <code>attribute set of (attribute set)</code></div>
   <div class="option-description"><html><head></head><body><p>Your personal icon overrides.</p>
-<p>You can specify color or cterm_color instead of specifying
-both of them. DevIcon will be appended to <code>name</code></p>
+<p>You can specify color or <code>cterm_color</code> instead of specifying both of
+them. <code>DevIcon</code> will be appended to <code>name</code></p>
 </body></html></div>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-example">Example: <pre><code>{
   zsh = {
-    name = "Zsh";
-    icon = "";
     color = "#428850";
     cterm_color = "65";
+    icon = "";
+    name = "Zsh";
   };
-}
-</code></pre></div>
+}</code></pre></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/visuals/nvim-web-devicons/nvim-web-devicons.nix" target="_blank">&lt;nvf/modules/plugins/visuals/nvim-web-devicons/nvim-web-devicons.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-visuals-nvim-web-devicons-setupOpts-variant">
