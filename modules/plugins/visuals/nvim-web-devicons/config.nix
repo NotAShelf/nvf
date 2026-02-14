@@ -13,7 +13,7 @@ in {
 
       vim.lazy.plugins.icon-picker-nvim = {
         package = "nvim-web-devicons";
-        setupModule = "nvim-web-deviconsr";
+        setupModule = "nvim-web-devicons";
         event = ["DeferredUIEnter"];
         inherit (cfg) setupOpts;
       };
