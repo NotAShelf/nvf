@@ -4,8 +4,6 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.visuals.nvim-web-devicons;
 in {
@@ -13,9 +11,12 @@ in {
     vim = {
       startPlugins = ["nvim-web-devicons"];
 
-      pluginRC.nvim-web-devicons = entryAnywhere ''
-        require("nvim-web-devicons").setup(${toLuaObject cfg.setupOpts})
-      '';
+      vim.lazy.plugins.icon-picker-nvim = {
+        package = "nvim-web-devicons";
+        setupModule = "nvim-web-deviconsr";
+        event = ["DeferredUIEnter"];
+        inherit (cfg) setupOpts;
+      };
     };
   };
 }
