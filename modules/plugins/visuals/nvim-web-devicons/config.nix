@@ -9,9 +9,7 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = ["nvim-web-devicons"];
-
-      vim.lazy.plugins.icon-picker-nvim = {
+      lazy.plugins.icon-picker-nvim = {
         package = "nvim-web-devicons";
         setupModule = "nvim-web-devicons";
         event = ["DeferredUIEnter"];

@@ -6,8 +6,6 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.lists) optionals;
-  inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.ui.noice;
   tscfg = config.vim.treesitter;
@@ -16,16 +14,15 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = [
-        "noice-nvim"
-        "nui-nvim"
-      ];
-
+      startPlugins = ["nui-nvim"];
       treesitter.grammars = optionals tscfg.addDefaultGrammars defaultGrammars;
 
-      pluginRC.noice-nvim = entryAnywhere ''
-        require("noice").setup(${toLuaObject cfg.setupOpts})
-      '';
+      lazy.plugins.noice-nvim = {
+        package = "noice-nvim";
+        setupModule = "noice";
+        event = ["DeferredUIEnter"];
+        inherit (cfg) setupOpts;
+      };
     };
   };
 }
