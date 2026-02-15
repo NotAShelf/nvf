@@ -2129,9 +2129,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "b8221e42cf7287c4dcde81f232f58d7b947c210d",
-      "url": "https://github.com/nvim-tree/nvim-web-devicons/archive/b8221e42cf7287c4dcde81f232f58d7b947c210d.tar.gz",
-      "hash": "sha256-lVrakFrpIP9lp7sMfMb33KeMPIkcn1qBFVytJzKCfuE="
+      "revision": "746ffbb17975ebd6c40142362eee1b0249969c5c",
+      "url": "https://github.com/nvim-tree/nvim-web-devicons/archive/746ffbb17975ebd6c40142362eee1b0249969c5c.tar.gz",
+      "hash": "sha256-jXWBPcfLwSkWQ/eRbxVDWC7kFOODSsCRmzC3rHKQLhQ="
     },
     "obsidian-nvim": {
       "type": "GitRelease",

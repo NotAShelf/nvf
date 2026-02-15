@@ -3,17 +3,18 @@
   stdenv,
   rustPlatform,
   fetchFromGitHub,
+  rust-jemalloc-sys,
   writeShellScriptBin,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "blink-cmp";
-  version = "1.8.0";
+  version = "1.9.1";
 
   src = fetchFromGitHub {
     owner = "Saghen";
     repo = "blink.cmp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-JjlcPj7v9J+v1SDBYIub6jFEslLhZGHmsipV1atUAFo=";
+    hash = "sha256-GgodXdWpQoF2z1g1/WvnSpfuhskw0aMcOoyZM5l66q8=";
   };
 
   forceShare = [
@@ -30,6 +31,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mkdir -p "$out/target"
     mv "$out/lib" "$out/target/release"
   '';
+
+  # From the blink.cmp flake
+  buildInputs = lib.optionals stdenv.hostPlatform.isAarch64 [rust-jemalloc-sys];
+
+  # NOTE: The only change in frizbee 0.7.0 was nixpkgs incompatible rust semantic changes
+  # Patch just reverts https://github.com/saghen/blink.cmp/commit/cc824ec85b789a54d05241389993c6ab8c040810
+  # Taken from Nixpkgs' blink.cmp derivation, available under the MIT license
+  cargoPatches = [
+    ./patches/0001-pin-frizbee.patch
+  ];
 
   cargoHash = "sha256-Qdt8O7IGj2HySb1jxsv3m33ZxJg96Ckw26oTEEyQjfs=";
 

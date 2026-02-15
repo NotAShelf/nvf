@@ -56,6 +56,10 @@
   treesitter grammars were changed to prefer `grammarPlugins` over
   `builtGrammars`.
 
+[NotAShelf](https://github.com/notashelf):
+
+- Lazyload noice.nvim and nvim-web-devicons on `DeferredUIEnter`
+
 [jfeo](https://github.com/jfeo):
 
 [ccc.nvim]: https://github.com/uga-rosa/ccc.nvim
