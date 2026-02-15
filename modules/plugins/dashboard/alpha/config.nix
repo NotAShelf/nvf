@@ -11,10 +11,8 @@
   layoutDefined = cfg.layout != [];
 in {
   config = mkIf cfg.enable {
-    vim.startPlugins = [
-      "alpha-nvim"
-      "nvim-web-devicons"
-    ];
+    vim.startPlugins = ["alpha-nvim"];
+    visuals.nvim-web-devicons.enable = true;
 
     vim.pluginRC.alpha = let
       setupOpts =
