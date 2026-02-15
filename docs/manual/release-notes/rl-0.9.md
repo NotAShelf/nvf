@@ -202,6 +202,7 @@ https://github.com/gorbit99/codewindow.nvim
 
 - Added [`grug-far.nvim`](https://github.com/MagicDuck/grug-far.nvim) the find
   and replace tool for neovim.
+- Fix lsp `client.supports_method` deprecation warning in nvim v0.12.
 
 [Ladas552](https://github.com/Ladas552)
 
