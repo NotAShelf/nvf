@@ -11,19 +11,21 @@
   layoutDefined = cfg.layout != [];
 in {
   config = mkIf cfg.enable {
-    vim.startPlugins = ["alpha-nvim"];
-    visuals.nvim-web-devicons.enable = true;
+    vim = {
+      startPlugins = ["alpha-nvim"];
+      visuals.nvim-web-devicons.enable = true;
 
-    vim.pluginRC.alpha = let
-      setupOpts =
-        if themeDefined
-        then lib.generators.mkLuaInline "require'alpha.themes.${cfg.theme}'.config"
-        else {
-          inherit (cfg) layout opts;
-        };
-    in ''
-      require('alpha').setup(${toLuaObject setupOpts})
-    '';
+      pluginRC.alpha = let
+        setupOpts =
+          if themeDefined
+          then lib.generators.mkLuaInline "require'alpha.themes.${cfg.theme}'.config"
+          else {
+            inherit (cfg) layout opts;
+          };
+      in ''
+        require('alpha').setup(${toLuaObject setupOpts})
+      '';
+    };
 
     assertions = [
       {
