@@ -244,7 +244,9 @@ https://github.com/gorbit99/codewindow.nvim
 [poz](https://poz.pet):
 
 [neocmakelsp]: https://github.com/neocmakelsp/neocmakelsp
+[arduino-language-server]: https://github.com/arduino/arduino-language-server
 
 - Add CMake support with [neocmakelsp].
+- Add Arduino support with [arduino-language-server].
 
 <!-- vim: set textwidth=80: -->

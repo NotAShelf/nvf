@@ -76,6 +76,7 @@ isMaximal: {
       xml.enable = isMaximal;
 
       # Language modules that are not as common.
+      arduino.enable = false;
       assembly.enable = false;
       astro.enable = false;
       nu.enable = false;
