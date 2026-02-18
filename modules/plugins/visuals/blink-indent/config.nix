@@ -4,18 +4,16 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.visuals.blink-indent;
 in {
   config = mkIf cfg.enable {
-    vim = {
-      startPlugins = ["blink-indent"];
+    vim.lazy.plugins.blink-indent = {
+      package = "blink-indent";
+      setupModule = "blink.indent";
+      inherit (cfg) setupOpts;
 
-      pluginRC.blink-indent = entryAnywhere ''
-        require("blink.indent").setup(${toLuaObject cfg.setupOpts})
-      '';
+      event = ["BufEnter"];
     };
   };
 }
