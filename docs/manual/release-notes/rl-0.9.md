@@ -27,6 +27,20 @@
 
 [Snoweuph](https://github.com/snoweuph)
 
+- "Correct `languages.go.treesitter` to contain all Go file types.
+  `languages.go.treesitter.package` is now `languages.go.treesitter.goPackage`.
+  New are:
+
+  - `languages.go.treesitter.goPackage`.
+
+  - `languages.go.treesitter.gomodPackage`.
+
+  - `languages.go.treesitter.gosumPackage`.
+
+  - `languages.go.treesitter.goworkPackage`.
+
+  - `languages.go.treesitter.gotmplPackage`.
+
 - Fix `vim.assistant.codecompanion-nvim.setupOpts.display.diff.provider` to only
   allow valid options. `default` is no longer valid. `inline` and `split` are
   two new valid options.
