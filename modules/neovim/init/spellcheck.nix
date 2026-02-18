@@ -4,13 +4,14 @@
   lib,
   ...
 }: let
+  inherit (builtins) length;
   inherit (lib.modules) mkIf mkRenamedOptionModule;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.strings) concatLines concatStringsSep optionalString;
+  inherit (lib.strings) concatLines concatStringsSep;
   inherit (lib.attrsets) mapAttrsToList;
-  inherit (lib.types) listOf str attrsOf;
-  inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.dag) entryAfter;
+  inherit (lib.types) listOf str attrsOf bool;
+  inherit (lib.lists) optional;
+  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.spellcheck;
 in {
@@ -86,6 +87,12 @@ in {
       '';
     };
 
+    ignoreTerminal = mkOption {
+      type = bool;
+      default = true;
+      description = "Disable spell checking in terminal.";
+    };
+
     programmingWordlist.enable = mkEnableOption ''
       vim-dirtytalk, a wordlist for programmers containing
       common programming terms.
@@ -144,20 +151,25 @@ in {
         spelllang = concatStringsSep "," cfg.languages;
       };
 
-      # Register an autocommand to disable spellchecking in buffers with given filetypes.
-      # If the list is empty, the autocommand does not need to be registered.
-      luaConfigRC.spellcheck = entryAfter ["basic"] (optionalString (cfg.ignoredFiletypes != []) ''
-        -- Disable spellchecking for certain filetypes
-        -- as configured by `vim.spellcheck.ignoredFiletypes`
-        vim.api.nvim_create_augroup("nvf_autocmds", {clear = false})
-        vim.api.nvim_create_autocmd({ "FileType" }, {
-          group = "nvf_autocmds",
-          pattern = ${toLuaObject cfg.ignoredFiletypes},
-          callback = function()
-            vim.opt_local.spell = false
-          end,
+      augroups = [{name = "nvf_spellcheck";}];
+      autocmds =
+        (optional cfg.ignoreTerminal {
+          event = ["TermOpen"];
+          group = "nvf_spellcheck";
+          callback = mkLuaInline ''
+            function() vim.opt_local.spell = false end
+          '';
         })
-      '');
+        ++ (optional (length cfg.ignoredFiletypes > 0) {
+          event = ["FileType"];
+          group = "nvf_spellcheck";
+          pattern = cfg.ignoredFiletypes;
+          callback = mkLuaInline ''
+            function()
+              vim.opt_local.spell = false
+            end
+          '';
+        });
     };
   };
 }

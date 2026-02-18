@@ -20,7 +20,7 @@
   servers = {
     gopls = {
       cmd = [(getExe pkgs.gopls)];
-      filetypes = ["go" "gomod" "gowork" "gotmpl"];
+      filetypes = ["go" "gomod" "gosum" "gowork" "gotmpl"];
       root_dir = mkLuaInline ''
         function(bufnr, on_dir)
           local fname = vim.api.nvim_buf_get_name(bufnr)
@@ -170,7 +170,11 @@ in {
     treesitter = {
       enable = mkEnableOption "Go treesitter" // {default = config.vim.languages.enableTreesitter;};
 
-      package = mkGrammarOption pkgs "go";
+      goPackage = mkGrammarOption pkgs "go";
+      gomodPackage = mkGrammarOption pkgs "gomod";
+      gosumPackage = mkGrammarOption pkgs "gosum";
+      goworkPackage = mkGrammarOption pkgs "gowork";
+      gotmplPackage = mkGrammarOption pkgs "gotmpl";
     };
 
     lsp = {
@@ -232,7 +236,13 @@ in {
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      vim.treesitter.grammars = [
+        cfg.treesitter.goPackage
+        cfg.treesitter.gomodPackage
+        cfg.treesitter.gosumPackage
+        cfg.treesitter.goworkPackage
+        cfg.treesitter.gotmplPackage
+      ];
     })
 
     (mkIf cfg.lsp.enable {

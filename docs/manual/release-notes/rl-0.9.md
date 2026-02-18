@@ -27,6 +27,20 @@
 
 [Snoweuph](https://github.com/snoweuph)
 
+- "Correct `languages.go.treesitter` to contain all Go file types.
+  `languages.go.treesitter.package` is now `languages.go.treesitter.goPackage`.
+  New are:
+
+  - `languages.go.treesitter.goPackage`.
+
+  - `languages.go.treesitter.gomodPackage`.
+
+  - `languages.go.treesitter.gosumPackage`.
+
+  - `languages.go.treesitter.goworkPackage`.
+
+  - `languages.go.treesitter.gotmplPackage`.
+
 - Fix `vim.assistant.codecompanion-nvim.setupOpts.display.diff.provider` to only
   allow valid options. `default` is no longer valid. `inline` and `split` are
   two new valid options.
@@ -169,14 +183,29 @@
 - Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
   `languages.lua`.
 
+- Added [`mdformat`](https://mdformat.rtfd.io/) support to `languages.python`.
+
 - Added XML syntax highlighting, LSP support and formatting
+
+- Added [mypy](https://www.mypy-lang.org/) to `languages.python` for extra
+  diagnostics.
 
 - Added [tera](https://keats.github.io/tera/) language support (syntax
   highlighting only).
 
+- Added Debugging support to `languages.odin` with
+  [nvim-dap-odin](https://github.com/NANDquark/nvim-dap-odin).
+
 - Added [`golangci-lint`](https://golangci-lint.run/) for more diagnostics.
 
+- updated default filetypes for
+  [harper-ls](https://github.com/Automattic/harper) to match what they are
+  supposed to be.
+
 - Added Makefile support via `languages.make`.
+
+- Fix `languages.hcl` init, depending on `comment-nvim` by checking if it is
+  enabled. Fixes a crash (#1350).
 
 - Added Debugging support to `languages.php`.
 
@@ -207,5 +236,19 @@ https://github.com/gorbit99/codewindow.nvim
 [Ladas552](https://github.com/Ladas552)
 
 - Changed `withRuby` to not be enabled by default
+
+[horriblename](https://github.com/horriblename):
+
+- Ignore terminals by default in spell-checking
+
+[poz](https://poz.pet):
+
+[neocmakelsp]: https://github.com/neocmakelsp/neocmakelsp
+[arduino-language-server]: https://github.com/arduino/arduino-language-server
+[glsl_analyzer]: https://github.com/nolanderc/glsl_analyzer
+
+- Add CMake support with [neocmakelsp].
+- Add Arduino support with [arduino-language-server].
+- Add GLSL support with [glsl_analyzer].
 
 <!-- vim: set textwidth=80: -->

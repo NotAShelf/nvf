@@ -55,6 +55,7 @@ isMaximal: {
       # Languages that are enabled in the maximal configuration.
       bash.enable = isMaximal;
       clang.enable = isMaximal;
+      cmake.enable = isMaximal;
       css.enable = isMaximal;
       html.enable = isMaximal;
       json.enable = isMaximal;
@@ -75,6 +76,7 @@ isMaximal: {
       xml.enable = isMaximal;
 
       # Language modules that are not as common.
+      arduino.enable = false;
       assembly.enable = false;
       astro.enable = false;
       nu.enable = false;
@@ -84,6 +86,7 @@ isMaximal: {
       scala.enable = false;
       r.enable = false;
       gleam.enable = false;
+      glsl.enable = false;
       dart.enable = false;
       ocaml.enable = false;
       elixir.enable = false;

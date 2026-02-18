@@ -1873,6 +1873,19 @@
       "url": "https://github.com/leoluz/nvim-dap-go/archive/b4421153ead5d726603b02743ea40cf26a51ed5f.tar.gz",
       "hash": "sha256-wg9kiW2eAMmg4bvgqaAS9kt7qaVsIWl36BNqRbhZIgo="
     },
+    "nvim-dap-odin": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NANDquark",
+        "repo": "nvim-dap-odin"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "4df40d467f4ea5195e2f3b813d970eb15172b052",
+      "url": "https://github.com/NANDquark/nvim-dap-odin/archive/4df40d467f4ea5195e2f3b813d970eb15172b052.tar.gz",
+      "hash": "sha256-/bW22gWrPamK4jDMJYDv/3od+vIUb/eYICnHWnv8MVU="
+    },
     "nvim-dap-ui": {
       "type": "Git",
       "repository": {
