@@ -91,6 +91,19 @@
       "url": "https://github.com/moyiz/blink-emoji.nvim/archive/f22ce8cac02a6ece05368220f1e38bd34fe376f9.tar.gz",
       "hash": "sha256-pPHESNsByHg2liNUYkUEVR1wP1MZcil1sKTqrNI53e4="
     },
+    "blink-indent": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "saghen",
+        "repo": "blink.indent"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "9c80820ca77218a8d28e70075d6f44a1609911fe",
+      "url": "https://github.com/saghen/blink.indent/archive/9c80820ca77218a8d28e70075d6f44a1609911fe.tar.gz",
+      "hash": "sha256-SS66JZFCX8viYxYaObASlwtrG5h7yHbVvRBVXBNXkng="
+    },
     "blink-ripgrep-nvim": {
       "type": "Git",
       "repository": {

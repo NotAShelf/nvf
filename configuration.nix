@@ -118,6 +118,7 @@ isMaximal: {
       fidget-nvim.enable = true;
 
       highlight-undo.enable = true;
+      blink-indent.enable = true;
       indent-blankline.enable = true;
 
       # Fun
