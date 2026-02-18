@@ -5330,7 +5330,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">415</span>
+        <span class="toc-count">417</span>
       </summary>
       <ul>
         
@@ -7355,6 +7355,22 @@
         <li>
           <a href='#option-vim-languages-python-enable' title="vim.languages.python.enable">
             python.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-python-extraDiagnostics-enable' title="vim.languages.python.extraDiagnostics.enable">
+            python.extraDiagnostics.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-python-extraDiagnostics-types' title="vim.languages.python.extraDiagnostics.types">
+            python.extraDiagnostics.types
             
             
           </a>
@@ -29404,6 +29420,33 @@ This is a python package with debugpy installed, see <a href="https://nixos.wiki
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/python.nix" target="_blank">&lt;nvf/modules/plugins/languages/python.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-python-extraDiagnostics-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-python-extraDiagnostics-enable" class="option-anchor">vim.languages.python.extraDiagnostics.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable extra Python diagnostics.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/python.nix" target="_blank">&lt;nvf/modules/plugins/languages/python.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-python-extraDiagnostics-types">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-python-extraDiagnostics-types" class="option-anchor">vim.languages.python.extraDiagnostics.types</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (value "mypy" (singular enum) or (submodule))</code></div>
+  <div class="option-description"><html><head></head><body><p>List of Python diagnostics to enable</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "mypy"
+]</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/python.nix" target="_blank">&lt;nvf/modules/plugins/languages/python.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-python-format-enable">
