@@ -245,8 +245,10 @@ https://github.com/gorbit99/codewindow.nvim
 
 [neocmakelsp]: https://github.com/neocmakelsp/neocmakelsp
 [arduino-language-server]: https://github.com/arduino/arduino-language-server
+[glsl_analyzer]: https://github.com/nolanderc/glsl_analyzer
 
 - Add CMake support with [neocmakelsp].
 - Add Arduino support with [arduino-language-server].
+- Add GLSL support with [glsl_analyzer].
 
 <!-- vim: set textwidth=80: -->

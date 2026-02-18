@@ -86,6 +86,7 @@ isMaximal: {
       scala.enable = false;
       r.enable = false;
       gleam.enable = false;
+      glsl.enable = false;
       dart.enable = false;
       ocaml.enable = false;
       elixir.enable = false;
