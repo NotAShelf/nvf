@@ -204,6 +204,9 @@
 
 - Added Makefile support via `languages.make`.
 
+- Fix `languages.hcl` init, depending on `comment-nvim` by checking if it is
+  enabled. Fixes a crash (#1350).
+
 - Added Debugging support to `languages.php`.
 
 - Added Formatting support to `languages.php` via
