@@ -55,6 +55,7 @@ isMaximal: {
       # Languages that are enabled in the maximal configuration.
       bash.enable = isMaximal;
       clang.enable = isMaximal;
+      cmake.enable = isMaximal;
       css.enable = isMaximal;
       html.enable = isMaximal;
       json.enable = isMaximal;

@@ -241,4 +241,10 @@ https://github.com/gorbit99/codewindow.nvim
 
 - Ignore terminals by default in spell-checking
 
+[poz](https://poz.pet):
+
+[neocmakelsp]: https://github.com/neocmakelsp/neocmakelsp
+
+- Add CMake support with [neocmakelsp].
+
 <!-- vim: set textwidth=80: -->
