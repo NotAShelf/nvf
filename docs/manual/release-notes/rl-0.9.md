@@ -253,4 +253,11 @@ https://github.com/gorbit99/codewindow.nvim
 - Add Arduino support with [arduino-language-server].
 - Add GLSL support with [glsl_analyzer].
 
+[itscrystalline](https://github.com/itscrystalline):
+
+[img-clip.nvim]: https://github.com/hakonharnes/img-clip.nvim
+
+- [img-clip.nvim]'s configuration now has it's own DAG entry, seperate from
+  image-nvim.
+
 <!-- vim: set textwidth=80: -->

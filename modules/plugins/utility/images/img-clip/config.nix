@@ -15,7 +15,7 @@ in {
         "img-clip"
       ];
 
-      pluginRC.image-nvim = entryAnywhere ''
+      pluginRC.img-clip = entryAnywhere ''
         require("img-clip").setup(${toLuaObject cfg.setupOpts})
       '';
     };
