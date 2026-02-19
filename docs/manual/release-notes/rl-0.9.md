@@ -232,7 +232,7 @@ https://github.com/gorbit99/codewindow.nvim
 - Added [`grug-far.nvim`](https://github.com/MagicDuck/grug-far.nvim) the find
   and replace tool for neovim.
 - Fix lsp `client.supports_method` deprecation warning in nvim v0.12.
-- Add [`blink.indent`](https://github.com/saghen/blink.indent) indent guidline
+- Add [`blink.indent`](https://github.com/saghen/blink.indent) indent guideline
   plugin.
 
 [Ladas552](https://github.com/Ladas552)
@@ -257,7 +257,7 @@ https://github.com/gorbit99/codewindow.nvim
 
 [img-clip.nvim]: https://github.com/hakonharnes/img-clip.nvim
 
-- [img-clip.nvim]'s configuration now has it's own DAG entry, seperate from
+- [img-clip.nvim]'s configuration now has it's own DAG entry, separate from
   image-nvim.
 
 <!-- vim: set textwidth=80: -->
