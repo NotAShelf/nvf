@@ -196,6 +196,10 @@
 - Added Debugging support to `languages.odin` with
   [nvim-dap-odin](https://github.com/NANDquark/nvim-dap-odin).
 
+- Disabled notifications for
+  [nvim-dap-odin](https://github.com/NANDquark/nvim-dap-odin), because it
+  contain no use full information, only spam, and it can't be made lazy.
+
 - Added [`golangci-lint`](https://golangci-lint.run/) for more diagnostics.
 
 - updated default filetypes for
