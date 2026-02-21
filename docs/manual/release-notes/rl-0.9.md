@@ -216,6 +216,11 @@
 - Added Formatting support to `languages.php` via
   [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer).
 
+- Added minimal `languages.twig`. Currently using [djlint](https://djlint.com/)
+  for most options, as better alternatives like
+  [twig-cs-fixer](https://github.com/VincentLanglet/Twig-CS-Fixer) aren't
+  packaged for nix.
+
 - Didn't Add
   [`syntax-gaslighting`](https://github.com/NotAShelf/syntax-gaslighting.nvim),
   you're crazy.
