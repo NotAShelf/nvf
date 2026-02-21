@@ -1,19 +1,31 @@
-{lib, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit (lib.modules) mkMerge;
   inherit (lib.options) mkOption literalMD;
   inherit (lib.types) either str listOf attrsOf nullOr submodule;
+  inherit (lib.attrsets) mapAttrsToList;
+  inherit (lib.lists) flatten;
+  inherit (lib.trivial) pipe;
   inherit (lib.nvim.config) mkBool;
 
   mapConfigOptions = {
     desc = mkOption {
       type = nullOr str;
       default = null;
-      description = "A description of this keybind, to be shown in which-key, if you have it enabled.";
+      description = ''
+        Description for the keybind, to be shown in which-key, if you have enabled
+        in the module system.
+      '';
     };
 
     action = mkOption {
       type = str;
       description = "The command to execute.";
     };
+
     lua = mkBool false ''
       If true, `action` is considered to be lua code.
       Thus, it will not be wrapped in `""`.
@@ -55,6 +67,22 @@
       });
       default = {};
     };
+
+  legacyMapModes = {
+    normal = ["n"];
+    insert = ["i"];
+    select = ["s"];
+    visual = ["v"];
+    terminal = ["t"];
+    normalVisualOp = ["n" "v" "o"];
+    visualOnly = ["n" "x"];
+    operator = ["o"];
+    insertCommand = ["i" "c"];
+    lang = ["l"];
+    command = ["c"];
+  };
+
+  cfg = config.vim;
 in {
   options.vim = {
     keymaps = mkOption {
@@ -93,5 +121,28 @@ in {
       lang = legacyMapOption "insert, command-line and lang-arg";
       command = legacyMapOption "command-line";
     };
+  };
+
+  config = {
+    vim.keymaps = mkMerge [
+      (
+        pipe cfg.maps
+        [
+          (mapAttrsToList (
+            oldMode: keybinds:
+              mapAttrsToList (
+                key: bind:
+                  bind
+                  // {
+                    inherit key;
+                    mode = legacyMapModes.${oldMode};
+                  }
+              )
+              keybinds
+          ))
+          flatten
+        ]
+      )
+    ];
   };
 }
