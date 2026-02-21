@@ -91,6 +91,19 @@
 
 - `toggleterm` open map now also works when in terminal mode
 
+[sumrdev](https://github.com/sumrdev):
+
+- Added `vtsls` typescript language server with vue integration
+- Add with
+  `nix
+      vim.languages.ts = {
+        enable = true;
+        extraVueSupport = true;
+        lsp = {
+          servers = ["vtsls"];
+        };
+      };`
+
 [jtliang24](https://github.com/jtliang24):
 
 - Updated nix language plugin to use pkgs.nixfmt instead of
