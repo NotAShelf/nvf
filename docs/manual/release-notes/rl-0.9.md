@@ -45,6 +45,9 @@
   allow valid options. `default` is no longer valid. `inline` and `split` are
   two new valid options.
 
+- Split SCSS from `languages.css` into `languages.scss` and add extra tools for
+  SCSS/SASS.
+
 ## Changelog {#sec-release-0-9-changelog}
 
 [taylrfnt](https://github.com/taylrfnt)
