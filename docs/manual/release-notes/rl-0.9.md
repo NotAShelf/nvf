@@ -220,6 +220,9 @@
   [`syntax-gaslighting`](https://github.com/NotAShelf/syntax-gaslighting.nvim),
   you're crazy.
 
+- Added neovim theme `gruber-darker`
+  <https://github.com/blazkowolf/gruber-darker.nvim>.
+
 [vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
 https://github.com/gorbit99/codewindow.nvim
 
