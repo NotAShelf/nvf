@@ -242,6 +242,7 @@ https://github.com/gorbit99/codewindow.nvim
 [Ladas552](https://github.com/Ladas552)
 
 - Changed `withRuby` to not be enabled by default
+- Fix virtualtext mode in colorizer
 
 [horriblename](https://github.com/horriblename):
 
