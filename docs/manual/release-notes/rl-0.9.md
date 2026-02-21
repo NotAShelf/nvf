@@ -45,6 +45,9 @@
   allow valid options. `default` is no longer valid. `inline` and `split` are
   two new valid options.
 
+- Added [taplo](https://taplo.tamasfe.dev/) as the default formatter and lsp for
+  `languages.toml` so we don't default to AI-Slop.
+
 ## Changelog {#sec-release-0-9-changelog}
 
 [taylrfnt](https://github.com/taylrfnt)
