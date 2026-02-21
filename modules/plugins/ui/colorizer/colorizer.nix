@@ -80,7 +80,7 @@
 
       mode = mkOption {
         description = "Set the display mode";
-        type = nullOr (enum ["foreground" "background"]);
+        type = nullOr (enum ["foreground" "background" "virtualtext"]);
         default = null;
       };
 
