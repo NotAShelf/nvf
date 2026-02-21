@@ -105,7 +105,7 @@ in {
         debugger.nvim-dap.sources.odin-debugger = debuggers.${cfg.dap.debugger}.dapConfig;
         pluginRC.nvim-dap-odin = entryAfter ["nvim-dap"] ''
           require('nvim-dap-odin').setup({
-            notifications = false -- contains no usefull information
+            notifications = false -- contains no useful information
           })
         '';
         debugger.nvim-dap.enable = true;
