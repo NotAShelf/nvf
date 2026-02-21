@@ -65,7 +65,10 @@ in {
 
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = [cfg.name];
+      startPlugins =
+        if (supportedThemes.${cfg.name} ? builtin) && supportedThemes.${cfg.name}.builtin
+        then []
+        else [cfg.name];
       luaConfigRC.theme = entryBefore ["pluginConfigs" "lazyConfigs"] ''
         ${cfg.extraConfig}
         ${supportedThemes.${cfg.name}.setup {inherit (cfg) style transparent base16-colors;}}
