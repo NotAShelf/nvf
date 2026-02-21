@@ -58,6 +58,10 @@
   (class: "nixos") cannot be imported into a module 
   evaluation that expects class "darwin".
   ```
+- Add support for `solarized-osaka` style options. The default style (named
+  `default`) was previously applied without user specification. The addition of
+  the `light` style now requires users to specify if they want to use `default`
+  or `light`.
 
 [suimong](https://github.com/suimong):
 
