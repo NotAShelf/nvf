@@ -13,6 +13,7 @@ in {
     ./clojure.nix
     ./cmake.nix
     ./css.nix
+    ./dockerfile.nix
     ./elixir.nix
     ./fsharp.nix
     ./gleam.nix
