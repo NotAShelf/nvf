@@ -19,6 +19,8 @@ in {
         "<leader>t" = "+NvimTree";
       };
 
+      visuals.fidget-nvim.setupOpts.notification.window.avoid = ["NvimTree"];
+
       lazy.plugins.nvim-tree-lua = {
         package = "nvim-tree-lua";
         setupModule = "nvim-tree";
