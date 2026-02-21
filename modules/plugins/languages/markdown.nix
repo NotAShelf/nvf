@@ -13,6 +13,7 @@
   inherit (lib.nvim.types) diagnostics mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.languages) setLanguageIndent;
   inherit (lib.trivial) warn;
 
   cfg = config.vim.languages.markdown;
@@ -226,5 +227,8 @@ in {
           cfg.extraDiagnostics.types);
       };
     })
+
+    # todo
+
   ]);
 }

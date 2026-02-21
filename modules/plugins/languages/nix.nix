@@ -4,14 +4,15 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
+  inherit (builtins) attrNames toString;
   inherit (lib) concatStringsSep;
   inherit (lib.meta) getExe;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum;
+  inherit (lib.types) enum int nullOr;
   inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.languages) setLanguageIndent;
 
   cfg = config.vim.languages.nix;
 
@@ -106,6 +107,24 @@ in {
         inherit defaultDiagnosticsProvider;
       };
     };
+
+    tabstop = mkOption {
+      description = "Sets the tabstop size in spaces for .nix files";
+      type = nullOr int;
+      default = null;
+    };
+
+    softtabstop = mkOption {
+      description = "Sets the softtabstop size in spaces for .nix files";
+      type = nullOr int;
+      default = null;
+    };
+
+    shiftwidth = mkOption {
+      description = "Sets the shiftwidth in spaces for .nix files";
+      type = nullOr int;
+      default = null;
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -160,5 +179,13 @@ in {
           cfg.extraDiagnostics.types);
       };
     })
+
+    (setLanguageIndent {
+      language = "nix";
+      tabstop = cfg.tabstop;
+      softtabstop = cfg.softtabstop;
+      shiftwidth = cfg.shiftwidth;
+    })
+
   ]);
 }

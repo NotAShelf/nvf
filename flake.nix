@@ -27,6 +27,7 @@
       flake = {
         lib = {
           inherit (lib) nvim;
+          inherit (lib) generators;
           inherit (lib.nvim) neovimConfiguration;
         };
 
