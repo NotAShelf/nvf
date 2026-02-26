@@ -9,11 +9,8 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = [
-        # dependencies
-        "nui-nvim" # ui library
-        "nvim-web-devicons" # glyphs
-      ];
+      startPlugins = ["nui-nvim"];
+      visuals.nvim-web-devicons.enable = true;
 
       lazy.plugins = {
         "hunk-nvim" = {

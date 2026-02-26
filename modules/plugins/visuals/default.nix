@@ -7,6 +7,7 @@ in {
       toggles under individual options.
     '')
 
+    ./blink-indent
     ./cellular-automaton
     ./cinnamon-nvim
     ./fidget-nvim

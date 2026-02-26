@@ -27,6 +27,20 @@
 
 [Snoweuph](https://github.com/snoweuph)
 
+- "Correct `languages.go.treesitter` to contain all Go file types.
+  `languages.go.treesitter.package` is now `languages.go.treesitter.goPackage`.
+  New are:
+
+  - `languages.go.treesitter.goPackage`.
+
+  - `languages.go.treesitter.gomodPackage`.
+
+  - `languages.go.treesitter.gosumPackage`.
+
+  - `languages.go.treesitter.goworkPackage`.
+
+  - `languages.go.treesitter.gotmplPackage`.
+
 - Fix `vim.assistant.codecompanion-nvim.setupOpts.display.diff.provider` to only
   allow valid options. `default` is no longer valid. `inline` and `split` are
   two new valid options.
@@ -169,14 +183,36 @@
 - Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
   `languages.lua`.
 
+- Added [`mdformat`](https://mdformat.rtfd.io/) support to `languages.markdown`
+  with the extensions for [GFM](https://github.github.com/gfm/),
+  [front matter](https://www.markdownlang.com/advanced/frontmatter.html) and
+  [footnotes](https://www.markdownguide.org/extended-syntax/#footnotes).
+
 - Added XML syntax highlighting, LSP support and formatting
+
+- Added [mypy](https://www.mypy-lang.org/) to `languages.python` for extra
+  diagnostics.
 
 - Added [tera](https://keats.github.io/tera/) language support (syntax
   highlighting only).
 
+- Added Debugging support to `languages.odin` with
+  [nvim-dap-odin](https://github.com/NANDquark/nvim-dap-odin).
+
+- Disabled notifications for
+  [nvim-dap-odin](https://github.com/NANDquark/nvim-dap-odin), because it
+  contain no use full information, only spam, and it can't be made lazy.
+
 - Added [`golangci-lint`](https://golangci-lint.run/) for more diagnostics.
 
+- updated default filetypes for
+  [harper-ls](https://github.com/Automattic/harper) to match what they are
+  supposed to be.
+
 - Added Makefile support via `languages.make`.
+
+- Fix `languages.hcl` init, depending on `comment-nvim` by checking if it is
+  enabled. Fixes a crash (#1350).
 
 - Added Debugging support to `languages.php`.
 
@@ -202,9 +238,34 @@ https://github.com/gorbit99/codewindow.nvim
 
 - Added [`grug-far.nvim`](https://github.com/MagicDuck/grug-far.nvim) the find
   and replace tool for neovim.
+- Fix lsp `client.supports_method` deprecation warning in nvim v0.12.
+- Add [`blink.indent`](https://github.com/saghen/blink.indent) indent guideline
+  plugin.
 
 [Ladas552](https://github.com/Ladas552)
 
 - Changed `withRuby` to not be enabled by default
+- Fix virtualtext mode in colorizer
+
+[horriblename](https://github.com/horriblename):
+
+- Ignore terminals by default in spell-checking
+
+[poz](https://poz.pet):
+
+[neocmakelsp]: https://github.com/neocmakelsp/neocmakelsp
+[arduino-language-server]: https://github.com/arduino/arduino-language-server
+[glsl_analyzer]: https://github.com/nolanderc/glsl_analyzer
+
+- Add CMake support with [neocmakelsp].
+- Add Arduino support with [arduino-language-server].
+- Add GLSL support with [glsl_analyzer].
+
+[itscrystalline](https://github.com/itscrystalline):
+
+[img-clip.nvim]: https://github.com/hakonharnes/img-clip.nvim
+
+- [img-clip.nvim]'s configuration now has it's own DAG entry, separate from
+  image-nvim.
 
 <!-- vim: set textwidth=80: -->

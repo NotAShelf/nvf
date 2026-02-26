@@ -3,6 +3,7 @@
   inherit (lib.nvim.languages) mkEnable;
 in {
   imports = [
+    ./arduino.nix
     ./asm.nix
     ./astro.nix
     ./bash.nix
@@ -10,10 +11,12 @@ in {
     ./dart.nix
     ./clang.nix
     ./clojure.nix
+    ./cmake.nix
     ./css.nix
     ./elixir.nix
     ./fsharp.nix
     ./gleam.nix
+    ./glsl.nix
     ./go.nix
     ./hcl.nix
     ./helm.nix

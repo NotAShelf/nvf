@@ -11,7 +11,8 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = ["tiny-devicons-auto-colors-nvim" "nvim-web-devicons"];
+      startPlugins = ["tiny-devicons-auto-colors-nvim"];
+      visuals.nvim-web-devicons.enable = true;
 
       pluginRC.tiny-devicons-auto-colors = entryAnywhere ''
         require("tiny-devicons-auto-colors").setup(${toLuaObject cfg.setupOpts})

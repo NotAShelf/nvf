@@ -94,7 +94,7 @@
       nodeJs.enable = config.vim.withNodeJs;
       python3 = {
         enable = config.vim.withPython3;
-        extraPackages = ps: map (flip builtins.getAttr ps) config.vim.python3Packages;
+        extraPackages = ps: (map (flip builtins.getAttr ps) config.vim.python3Packages) ++ [ps.pynvim];
       };
     };
 

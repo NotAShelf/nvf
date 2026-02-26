@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      - uses: cachix/install-nix-action@v31.9.0
+      - uses: cachix/install-nix-action@v31.9.1
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
@@ -37,7 +37,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v31.9.0
+        uses: cachix/install-nix-action@v31.9.1
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
@@ -93,12 +93,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      - uses: cachix/install-nix-action@v31.9.0
+      - uses: cachix/install-nix-action@v31.9.1
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
             substituters = https://cache.nixos.org/ https://feel-co.cachix.org
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= feel-co.cachix.org-1:nwEFNnwZvtl4KKSH5LDg+/+K7bV0vcs6faMHAJ6xx0w=
+
+      - uses: cachix/cachix-action@v16
+        with:
+          authToken: ${{ secrets.CACHIX_TOKEN }}
+          extraPullNames: nix-community
+          name: nvf
+          pushFilter: '(ndg-\d+\.\d+\.\d+$)'
 
       - name: Set default git branch (to reduce log spam)
         run: git config --global init.defaultBranch main
@@ -124,7 +131,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      - uses: cachix/install-nix-action@v31.9.0
+      - uses: cachix/install-nix-action@v31.9.1
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
@@ -162,7 +169,7 @@ jobs:
           cat "$HOME/changed_files"
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v31.9.0
+        uses: cachix/install-nix-action@v31.9.1
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |

@@ -4,7 +4,6 @@
   rustPlatform,
   fetchFromGitHub,
   rust-jemalloc-sys,
-  writeShellScriptBin,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "blink-cmp";
@@ -21,6 +20,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "man"
     "info"
   ];
+
+  # Tries to call git
+  preBuild = ''
+    rm build.rs
+  '';
 
   postInstall = ''
     cp -r {lua,plugin} "$out"
@@ -43,10 +47,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   cargoHash = "sha256-Qdt8O7IGj2HySb1jxsv3m33ZxJg96Ckw26oTEEyQjfs=";
-
-  nativeBuildInputs = [
-    (writeShellScriptBin "git" "exit 1")
-  ];
 
   env = {
     RUSTC_BOOTSTRAP = true;
