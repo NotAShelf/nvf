@@ -28,6 +28,29 @@ Some other settings and commands are now deprecated but are still supported.
 - The `setupOpts.mappings` options were also removed. Use the built-in Neovim
   settings (nvf's {option}`vim.keymaps`)
 
+[Snoweuph](https://github.com/snoweuph)
+
+- "Correct `languages.go.treesitter` to contain all Go file types.
+  `languages.go.treesitter.package` is now `languages.go.treesitter.goPackage`.
+  New are:
+
+  - `languages.go.treesitter.goPackage`.
+
+  - `languages.go.treesitter.gomodPackage`.
+
+  - `languages.go.treesitter.gosumPackage`.
+
+  - `languages.go.treesitter.goworkPackage`.
+
+  - `languages.go.treesitter.gotmplPackage`.
+
+- Fix `vim.assistant.codecompanion-nvim.setupOpts.display.diff.provider` to only
+  allow valid options. `default` is no longer valid. `inline` and `split` are
+  two new valid options.
+
+- Added [taplo](https://taplo.tamasfe.dev/) as the default formatter and lsp for
+  `languages.toml` so we don't default to AI-Slop.
+
 ## Changelog {#sec-release-0-9-changelog}
 
 [taylrfnt](https://github.com/taylrfnt)
@@ -52,6 +75,10 @@ Some other settings and commands are now deprecated but are still supported.
 - Attempt to adapt nvim-treesitter to (breaking) Nixpkgs changes. Some
   treesitter grammars were changed to prefer `grammarPlugins` over
   `builtGrammars`.
+
+[NotAShelf](https://github.com/notashelf):
+
+- Lazyload noice.nvim and nvim-web-devicons on `DeferredUIEnter`
 
 [jfeo](https://github.com/jfeo):
 
@@ -143,6 +170,9 @@ Some other settings and commands are now deprecated but are still supported.
 
 - Added [sqruff](https://github.com/quarylabs/sqruff) support to `languages.sql`
 
+- Lazy-load `crates.nvim` plugin when using
+  `vim.languages.rust.extensions.crates-nvim.enable`
+
 - Added [Pyrefly](https://pyrefly.org/) and [zuban](https://zubanls.com/)
   support to `languages.python`
 
@@ -150,8 +180,13 @@ Some other settings and commands are now deprecated but are still supported.
   [Tombi](https://tombi-toml.github.io/tombi/) language server, linter, and
   formatter.
 
+- Added Jinja support via `languages.jinja`
+
 - Added [hlargs.nvim](https://github.com/m-demare/hlargs.nvim) support as
   `visuals.hlargs-nvim`.
+
+- Lazy-load `nvim-autopairs` plugin when using
+  `vim.autopairs.nvim-autopairs.enable`
 
 [Machshev](https://github.com/machshev):
 
@@ -161,3 +196,90 @@ Some other settings and commands are now deprecated but are still supported.
 
 - Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
   `languages.lua`.
+
+- Added [`mdformat`](https://mdformat.rtfd.io/) support to `languages.markdown`
+  with the extensions for [GFM](https://github.github.com/gfm/),
+  [front matter](https://www.markdownlang.com/advanced/frontmatter.html) and
+  [footnotes](https://www.markdownguide.org/extended-syntax/#footnotes).
+
+- Added XML syntax highlighting, LSP support and formatting
+
+- Added [mypy](https://www.mypy-lang.org/) to `languages.python` for extra
+  diagnostics.
+
+- Added [tera](https://keats.github.io/tera/) language support (syntax
+  highlighting only).
+
+- Added Debugging support to `languages.odin` with
+  [nvim-dap-odin](https://github.com/NANDquark/nvim-dap-odin).
+
+- Disabled notifications for
+  [nvim-dap-odin](https://github.com/NANDquark/nvim-dap-odin), because it
+  contain no use full information, only spam, and it can't be made lazy.
+
+- Added [`golangci-lint`](https://golangci-lint.run/) for more diagnostics.
+
+- updated default filetypes for
+  [harper-ls](https://github.com/Automattic/harper) to match what they are
+  supposed to be.
+
+- Added Makefile support via `languages.make`.
+
+- Fix `languages.hcl` init, depending on `comment-nvim` by checking if it is
+  enabled. Fixes a crash (#1350).
+
+- Added Debugging support to `languages.php`.
+
+- Added Formatting support to `languages.php` via
+  [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer).
+
+- Didn't Add
+  [`syntax-gaslighting`](https://github.com/NotAShelf/syntax-gaslighting.nvim),
+  you're crazy.
+
+[vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
+https://github.com/gorbit99/codewindow.nvim
+
+- Add [codewindow.nvim] plugin in `vim.assistant.codewindow` with `enable` and
+  `setupOpts`
+
+[irobot](https://github.com/irobot):
+
+- Fix non-functional `vim.keymaps.*.noremap`. Now, setting it to false is
+  equivalent to `:lua vim.keymap.set(..., { remap = true })`
+
+[kazimazi](https://github.com/kazimazi):
+
+- Added [`grug-far.nvim`](https://github.com/MagicDuck/grug-far.nvim) the find
+  and replace tool for neovim.
+- Fix lsp `client.supports_method` deprecation warning in nvim v0.12.
+- Add [`blink.indent`](https://github.com/saghen/blink.indent) indent guideline
+  plugin.
+
+[Ladas552](https://github.com/Ladas552)
+
+- Changed `withRuby` to not be enabled by default
+- Fix virtualtext mode in colorizer
+
+[horriblename](https://github.com/horriblename):
+
+- Ignore terminals by default in spell-checking
+
+[poz](https://poz.pet):
+
+[neocmakelsp]: https://github.com/neocmakelsp/neocmakelsp
+[arduino-language-server]: https://github.com/arduino/arduino-language-server
+[glsl_analyzer]: https://github.com/nolanderc/glsl_analyzer
+
+- Add CMake support with [neocmakelsp].
+- Add Arduino support with [arduino-language-server].
+- Add GLSL support with [glsl_analyzer].
+
+[itscrystalline](https://github.com/itscrystalline):
+
+[img-clip.nvim]: https://github.com/hakonharnes/img-clip.nvim
+
+- [img-clip.nvim]'s configuration now has it's own DAG entry, separate from
+  image-nvim.
+
+<!-- vim: set textwidth=80: -->

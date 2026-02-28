@@ -91,6 +91,19 @@
       "url": "https://github.com/moyiz/blink-emoji.nvim/archive/f22ce8cac02a6ece05368220f1e38bd34fe376f9.tar.gz",
       "hash": "sha256-pPHESNsByHg2liNUYkUEVR1wP1MZcil1sKTqrNI53e4="
     },
+    "blink-indent": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "saghen",
+        "repo": "blink.indent"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "9c80820ca77218a8d28e70075d6f44a1609911fe",
+      "url": "https://github.com/saghen/blink.indent/archive/9c80820ca77218a8d28e70075d6f44a1609911fe.tar.gz",
+      "hash": "sha256-SS66JZFCX8viYxYaObASlwtrG5h7yHbVvRBVXBNXkng="
+    },
     "blink-ripgrep-nvim": {
       "type": "Git",
       "repository": {
@@ -643,6 +656,19 @@
       "url": "https://github.com/ellisonleao/glow.nvim/archive/5d5954b2f22e109d4a6eba8b2618c5b96e4ee7a2.tar.gz",
       "hash": "sha256-CvBcmVWBgI+m+PS7p7PmsiPtTEfqx2kpIzz4mImONIc="
     },
+    "grug-far-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "MagicDuck",
+        "repo": "grug-far.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "275dbedc96e61a6b8d1dfb28ba51586ddd233dcf",
+      "url": "https://github.com/MagicDuck/grug-far.nvim/archive/275dbedc96e61a6b8d1dfb28ba51586ddd233dcf.tar.gz",
+      "hash": "sha256-qn1BTNCX0Sm158Lv5JfHThqlJX9ualCIlc+RCjWa+t8="
+    },
     "gruvbox": {
       "type": "Git",
       "repository": {
@@ -973,9 +999,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "de79a7626d54d7785436105ef72f37ee8fe8fa16",
-      "url": "https://github.com/OXY2DEV/markview.nvim/archive/de79a7626d54d7785436105ef72f37ee8fe8fa16.tar.gz",
-      "hash": "sha256-kGhohG4Aw9wMceLiX+s2HCWIyWuJYHoa9D80elM1UQw="
+      "revision": "c81ce9ed129387fc5fdec91abe9818a1b0e6fcac",
+      "url": "https://github.com/OXY2DEV/markview.nvim/archive/c81ce9ed129387fc5fdec91abe9818a1b0e6fcac.tar.gz",
+      "hash": "sha256-CoPfVkPWh5neyIT1rVEHMLo7532lWvbv0Gg/27D0PHw="
     },
     "mellow": {
       "type": "Git",
@@ -1860,6 +1886,19 @@
       "url": "https://github.com/leoluz/nvim-dap-go/archive/b4421153ead5d726603b02743ea40cf26a51ed5f.tar.gz",
       "hash": "sha256-wg9kiW2eAMmg4bvgqaAS9kt7qaVsIWl36BNqRbhZIgo="
     },
+    "nvim-dap-odin": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NANDquark",
+        "repo": "nvim-dap-odin"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "4df40d467f4ea5195e2f3b813d970eb15172b052",
+      "url": "https://github.com/NANDquark/nvim-dap-odin/archive/4df40d467f4ea5195e2f3b813d970eb15172b052.tar.gz",
+      "hash": "sha256-/bW22gWrPamK4jDMJYDv/3od+vIUb/eYICnHWnv8MVU="
+    },
     "nvim-dap-ui": {
       "type": "Git",
       "repository": {
@@ -2116,9 +2155,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "b8221e42cf7287c4dcde81f232f58d7b947c210d",
-      "url": "https://github.com/nvim-tree/nvim-web-devicons/archive/b8221e42cf7287c4dcde81f232f58d7b947c210d.tar.gz",
-      "hash": "sha256-lVrakFrpIP9lp7sMfMb33KeMPIkcn1qBFVytJzKCfuE="
+      "revision": "746ffbb17975ebd6c40142362eee1b0249969c5c",
+      "url": "https://github.com/nvim-tree/nvim-web-devicons/archive/746ffbb17975ebd6c40142362eee1b0249969c5c.tar.gz",
+      "hash": "sha256-jXWBPcfLwSkWQ/eRbxVDWC7kFOODSsCRmzC3rHKQLhQ="
     },
     "obsidian-nvim": {
       "type": "GitRelease",
@@ -2527,6 +2566,19 @@
       "revision": "07d20fce48a5629686aefb0a7cd4b25e33947d50",
       "url": "https://github.com/supermaven-inc/supermaven-nvim/archive/07d20fce48a5629686aefb0a7cd4b25e33947d50.tar.gz",
       "hash": "sha256-1z3WKIiikQqoweReUyK5O8MWSRN5y95qcxM6qzlKMME="
+    },
+    "syntax-gaslighting": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NotAShelf",
+        "repo": "syntax-gaslighting.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "4cee4c0550e82b31e07424e0c44379920d716d79",
+      "url": "https://github.com/NotAShelf/syntax-gaslighting.nvim/archive/4cee4c0550e82b31e07424e0c44379920d716d79.tar.gz",
+      "hash": "sha256-sRg6UlK4hQubxf3ycGnMLi+tNvX3zvKgnHYVuZgmvOc="
     },
     "tabular": {
       "type": "Git",

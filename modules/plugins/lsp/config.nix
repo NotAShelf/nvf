@@ -48,7 +48,7 @@ in {
                 default_on_attach(client, bufnr)
 
                 ${optionalString cfg.inlayHints.enable ''
-                if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+                if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
                   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
                 end
               ''}

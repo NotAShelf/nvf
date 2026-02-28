@@ -4,11 +4,12 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
+  inherit (builtins) attrNames toString;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum;
+  inherit (lib.types) enum int attrs listOf;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.generators) mkLuaInline;
@@ -64,6 +65,21 @@
       root_markers = ["composer.json" ".git"];
     };
   };
+
+  defaultFormat = ["php_cs_fixer"];
+  formats = {
+    php_cs_fixer = {
+      /*
+      Using 8.4 instead of 8.5 because of compatibility:
+      ```logs
+      2026-02-08 00:42:23[ERROR] Formatter 'php_cs_fixer' error: PHP CS Fixer 3.87.2
+      PHP runtime: 8.5.2
+      PHP CS Fixer currently supports PHP syntax only up to PHP 8.4, current PHP version: 8.5.2.
+      ```
+      */
+      command = "${pkgs.php84Packages.php-cs-fixer}/bin/php-cs-fixer";
+    };
+  };
 in {
   options.vim.languages.php = {
     enable = mkEnableOption "PHP language support";
@@ -82,6 +98,38 @@ in {
         description = "PHP LSP server to use";
       };
     };
+
+    format = {
+      enable = mkEnableOption "PHP formatting" // {default = config.vim.languages.enableFormat;};
+
+      type = mkOption {
+        description = "PHP formatter to use";
+        type = listOf (enum (attrNames formats));
+        default = defaultFormat;
+      };
+    };
+
+    dap = {
+      enable = mkEnableOption "Enable PHP Debug Adapter" // {default = config.vim.languages.enableDAP;};
+      xdebug = {
+        adapter = mkOption {
+          type = attrs;
+          default = {
+            type = "executable";
+            command = "${pkgs.nodePackages_latest.nodejs}/bin/node";
+            args = [
+              "${pkgs.vscode-extensions.xdebug.php-debug}/share/vscode/extensions/xdebug.php-debug/out/phpDebug.js"
+            ];
+          };
+          description = "XDebug adapter to use for nvim-dap";
+        };
+        port = mkOption {
+          type = int;
+          default = 9003;
+          description = "Port to use for XDebug";
+        };
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -97,6 +145,40 @@ in {
           value = servers.${n};
         })
         cfg.lsp.servers;
+    })
+
+    (mkIf cfg.format.enable {
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts = {
+          formatters_by_ft.php = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
+        };
+      };
+    })
+
+    (mkIf cfg.dap.enable {
+      vim = {
+        debugger.nvim-dap = {
+          enable = true;
+          sources.php-debugger = ''
+            dap.adapters.xdebug = ${toLuaObject cfg.dap.xdebug.adapter}
+            dap.configurations.php = {
+              {
+                  type = 'xdebug',
+                  request = 'launch',
+                  name = 'Listen for XDebug',
+                  port = ${toString cfg.dap.xdebug.port},
+              },
+            }
+          '';
+        };
+      };
     })
   ]);
 }

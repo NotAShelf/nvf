@@ -7,6 +7,7 @@ in {
       toggles under individual options.
     '')
 
+    ./blink-indent
     ./cellular-automaton
     ./cinnamon-nvim
     ./fidget-nvim
@@ -18,5 +19,6 @@ in {
     ./nvim-web-devicons
     ./rainbow-delimiters
     ./tiny-devicons-auto-colors
+    ./syntax-gaslighting
   ];
 }
