@@ -208,6 +208,9 @@
 
 - Added [`golangci-lint`](https://golangci-lint.run/) for more diagnostics.
 
+- Added [`gopher.nvim`](https://github.com/olexsmir/gopher.nvim) for extra
+  actions in `languages.go`.
+
 - updated default filetypes for
   [harper-ls](https://github.com/Automattic/harper) to match what they are
   supposed to be.

@@ -656,6 +656,22 @@
       "url": "https://github.com/ellisonleao/glow.nvim/archive/5d5954b2f22e109d4a6eba8b2618c5b96e4ee7a2.tar.gz",
       "hash": "sha256-CvBcmVWBgI+m+PS7p7PmsiPtTEfqx2kpIzz4mImONIc="
     },
+    "gopher-nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "olexsmir",
+        "repo": "gopher.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.6.0",
+      "revision": "95fdeb571d837af9efae27fea1c0131fa756ab43",
+      "url": "https://api.github.com/repos/olexsmir/gopher.nvim/tarball/refs/tags/v0.6.0",
+      "hash": "sha256-7aDjMFMCiqub/zCDJIWUIX9Zc6+vyPQOczuOFdc/6S0="
+    },
     "grug-far-nvim": {
       "type": "Git",
       "repository": {
