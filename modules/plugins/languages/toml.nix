@@ -8,12 +8,12 @@
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) bool enum;
+  inherit (lib.types) enum;
   inherit (lib.nvim.types) diagnostics mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.toml;
-  defaultServers = ["tombi"];
+  defaultServers = ["taplo"];
   servers = {
     tombi = {
       enable = true;
@@ -27,12 +27,33 @@
         ".git"
       ];
     };
+    taplo = {
+      enable = true;
+      cmd = [
+        (getExe pkgs.taplo)
+        "lsp"
+        "stdio"
+      ];
+      filetypes = ["toml"];
+      root_markers = [
+        ".git"
+      ];
+    };
   };
 
-  defaultFormat = ["tombi"];
+  defaultFormat = ["taplo"];
   formats = {
     tombi = {
       command = getExe pkgs.tombi;
+      args = [
+        "format"
+        "--stdin-filepath"
+        "$FILENAME"
+        "-"
+      ];
+    };
+    taplo = {
+      command = getExe pkgs.taplo;
       args = [
         "format"
         "--stdin-filepath"
