@@ -27860,9 +27860,10 @@ missing from <code>PATH</code>", leave this option disabled.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Enable Go Debug Adapter via nvim-dap-go plugin</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Go Debug Adapter (DAP) via `nvim-dap-go.</p>
 </body></html></div>
-  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableDAP</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/go.nix" target="_blank">&lt;nvf/modules/plugins/languages/go.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-go-dap-package">
@@ -27938,7 +27939,7 @@ not listed in the docs</p>
   <div class="option-type">Type: <code>string</code></div>
   <div class="option-description"><html><head></head><body><p>gomodifytags binary to use</p>
 </body></html></div>
-  <div class="option-default">Default: <code>"\${pkgs.gomodifytags.out}/bin/gomodifytags"</code></div>
+  <div class="option-default">Default: <code>getExe pkgs.gomodifytags</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/go.nix" target="_blank">&lt;nvf/modules/plugins/languages/go.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-go-extensions-gopher-nvim-setupOpts-commands-gotests">
@@ -27950,7 +27951,7 @@ not listed in the docs</p>
   <div class="option-type">Type: <code>string</code></div>
   <div class="option-description"><html><head></head><body><p>gotests binary to use</p>
 </body></html></div>
-  <div class="option-default">Default: <code>"\${pkgs.gotests.out}/bin/gotests"</code></div>
+  <div class="option-default">Default: <code>getExe pkgs.gotests</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/go.nix" target="_blank">&lt;nvf/modules/plugins/languages/go.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-go-extensions-gopher-nvim-setupOpts-commands-iferr">
@@ -27962,7 +27963,7 @@ not listed in the docs</p>
   <div class="option-type">Type: <code>string</code></div>
   <div class="option-description"><html><head></head><body><p>iferr binary to use</p>
 </body></html></div>
-  <div class="option-default">Default: <code>"\${pkgs.iferr.out}/bin/iferr"</code></div>
+  <div class="option-default">Default: <code>getExe pkgs.iferr</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/go.nix" target="_blank">&lt;nvf/modules/plugins/languages/go.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-go-extensions-gopher-nvim-setupOpts-commands-impl">
@@ -27974,7 +27975,7 @@ not listed in the docs</p>
   <div class="option-type">Type: <code>string</code></div>
   <div class="option-description"><html><head></head><body><p>impl binary to use</p>
 </body></html></div>
-  <div class="option-default">Default: <code>"\${pkgs.impl.out}/bin/impl"</code></div>
+  <div class="option-default">Default: <code>getExe pkgs.impl</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/go.nix" target="_blank">&lt;nvf/modules/plugins/languages/go.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-go-extensions-gopher-nvim-setupOpts-commands-json2go">
@@ -27998,7 +27999,7 @@ not listed in the docs</p>
   <div class="option-type">Type: <code>boolean</code></div>
   <div class="option-description"><html><head></head><body><p>Whether to enable extra Go diagnostics.</p>
 </body></html></div>
-  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableExtraDiagnostic</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/go.nix" target="_blank">&lt;nvf/modules/plugins/languages/go.nix&gt;</a></code></div>
 </div>
@@ -28053,7 +28054,7 @@ not listed in the docs</p>
   <div class="option-type">Type: <code>boolean</code></div>
   <div class="option-description"><html><head></head><body><p>Whether to enable Go LSP support.</p>
 </body></html></div>
-  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-default">Default: <code>config.vim.lsp.enable</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/go.nix" target="_blank">&lt;nvf/modules/plugins/languages/go.nix&gt;</a></code></div>
 </div>
@@ -28080,7 +28081,7 @@ not listed in the docs</p>
   <div class="option-type">Type: <code>boolean</code></div>
   <div class="option-description"><html><head></head><body><p>Whether to enable Go treesitter.</p>
 </body></html></div>
-  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/go.nix" target="_blank">&lt;nvf/modules/plugins/languages/go.nix&gt;</a></code></div>
 </div>
