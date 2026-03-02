@@ -18,6 +18,18 @@ in {
           package = "codecompanion-nvim";
           setupModule = "codecompanion";
           inherit (cfg) setupOpts;
+
+          # Register commands with lz.n so Neovim recognizes them immediately
+          cmd = [
+            "CodeCompanion"
+            "CodeCompanionChat"
+            "CodeCompanionActions"
+            "CodeCompanionCmd"
+          ];
+
+          # Ensure the plugin loads when entering Insert/Cmdline mode
+          # so the module is ready when blink.cmp requests it
+          event = ["InsertEnter" "CmdlineEnter"];
         };
       };
 
@@ -33,9 +45,20 @@ in {
         ];
       };
 
-      autocomplete.nvim-cmp = {
-        sources = {codecompanion-nvim = "[codecompanion]";};
-        sourcePlugins = ["codecompanion-nvim"];
+      autocomplete = {
+        nvim-cmp = {
+          sources = {codecompanion-nvim = "[codecompanion]";};
+          sourcePlugins = ["codecompanion-nvim"];
+        };
+        blink-cmp = {
+          setupOpts.sources = {
+            default = ["codecompanion"];
+            providers.codecompanion = {
+              name = "CodeCompanion";
+              module = "codecompanion.providers.completion.blink";
+            };
+          };
+        };
       };
     };
   };
