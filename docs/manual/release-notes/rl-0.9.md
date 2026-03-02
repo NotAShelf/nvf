@@ -271,4 +271,8 @@ https://github.com/gorbit99/codewindow.nvim
 - [img-clip.nvim]'s configuration now has it's own DAG entry, separate from
   image-nvim.
 
+[alv-around](https://github.com/alv-around):
+
+- Fix `vim.assistant.codecompanion-nvim` lazy loading with [blink-cmp]
+
 <!-- vim: set textwidth=80: -->
