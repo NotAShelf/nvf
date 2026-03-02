@@ -1,16 +1,17 @@
 {
+  inputs,
   config,
   pkgs,
   lib,
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption literalMD;
+  inherit (lib.options) mkEnableOption mkOption literalMD literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.types) bool enum package;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
+  inherit (lib.types) bool enum package str;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -231,6 +232,45 @@ in {
         inherit defaultDiagnosticsProvider;
       };
     };
+    extensions = {
+      gopher-nvim = {
+        enable = mkEnableOption "Minimalistic plugin for Go development";
+        setupOpts = mkPluginSetupOption "gopher-nvim" {
+          commands = {
+            go = mkOption {
+              type = str;
+              default = "go";
+              description = "Go binary to use";
+            };
+            gomodifytags = mkOption {
+              type = str;
+              default = getExe pkgs.gomodifytags;
+              description = "gomodifytags binary to use";
+            };
+            gotests = mkOption {
+              type = str;
+              default = getExe pkgs.gotests;
+              description = "gotests binary to use";
+            };
+            impl = mkOption {
+              type = str;
+              default = getExe pkgs.impl;
+              description = "impl binary to use";
+            };
+            iferr = mkOption {
+              type = str;
+              default = getExe pkgs.iferr;
+              description = "iferr binary to use";
+            };
+            json2go = mkOption {
+              type = str;
+              default = literalExpression "getExe inputs.self.packages.$${pkgs.stdenv.hostPlatform.system}.json2go";
+              description = "json2go binary to use";
+            };
+          };
+        };
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -290,6 +330,15 @@ in {
         linters =
           mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
             cfg.extraDiagnostics.types);
+      };
+    })
+
+    (mkIf cfg.extensions.gopher-nvim.enable {
+      vim.lazy.plugins.gopher-nvim = {
+        package = "gopher-nvim";
+        setupModule = "gopher";
+        inherit (cfg.extensions.gopher-nvim) setupOpts;
+        ft = ["go"];
       };
     })
   ]);
