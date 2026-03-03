@@ -274,6 +274,12 @@ https://github.com/gorbit99/codewindow.nvim
 - [img-clip.nvim]'s configuration now has it's own DAG entry, separate from
   image-nvim.
 
+[phanirithvij](https://github.com/phanirithvij):
+
+[elm-language-server]: https://github.com/elm-tooling/elm-language-server
+
+- Add Elm support with [elm-language-server]
+
 [alv-around](https://github.com/alv-around):
 
 - Fix `vim.assistant.codecompanion-nvim` lazy loading with [blink-cmp]
