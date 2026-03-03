@@ -1,16 +1,17 @@
 {
+  inputs,
   config,
   pkgs,
   lib,
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption literalMD;
+  inherit (lib.options) mkEnableOption mkOption literalMD literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.types) bool enum package;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
+  inherit (lib.types) bool enum package str;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -64,9 +65,11 @@
     gofmt = {
       command = "${pkgs.go}/bin/gofmt";
     };
+
     gofumpt = {
       command = getExe pkgs.gofumpt;
     };
+
     golines = {
       command = "${pkgs.golines}/bin/golines";
     };
@@ -168,7 +171,12 @@ in {
     enable = mkEnableOption "Go language support";
 
     treesitter = {
-      enable = mkEnableOption "Go treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Go treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
 
       goPackage = mkGrammarOption pkgs "go";
       gomodPackage = mkGrammarOption pkgs "gomod";
@@ -178,7 +186,12 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Go LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Go LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.go.lsp.servers" (enum (attrNames servers));
@@ -198,51 +211,111 @@ in {
         };
 
       type = mkOption {
-        description = "Go formatter to use";
         type = deprecatedSingleOrListOf "vim.language.go.format.type" (enum (attrNames formats));
         default = defaultFormat;
+        description = "Go formatter to use";
       };
     };
 
     dap = {
-      enable = mkOption {
-        description = "Enable Go Debug Adapter via nvim-dap-go plugin";
-        type = bool;
-        default = config.vim.languages.enableDAP;
-      };
+      enable =
+        mkEnableOption "Go Debug Adapter (DAP) via `nvim-dap-go"
+        // {
+          default = config.vim.languages.enableDAP;
+          defaultText = literalExpression "config.vim.languages.enableDAP";
+        };
 
       debugger = mkOption {
-        description = "Go debugger to use";
         type = enum (attrNames debuggers);
         default = defaultDebugger;
+        description = "Go debugger to use";
       };
 
       package = mkOption {
-        description = "Go debugger package.";
         type = package;
         default = debuggers.${cfg.dap.debugger}.package;
+        description = "Go debugger package.";
       };
     };
+
     extraDiagnostics = {
-      enable = mkEnableOption "extra Go diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      enable =
+        mkEnableOption "extra Go diagnostics"
+        // {
+          default = config.vim.languages.enableExtraDiagnostics;
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostic";
+        };
+
       types = diagnostics {
         langDesc = "Go";
         inherit diagnosticsProviders;
         inherit defaultDiagnosticsProvider;
       };
     };
+
+    extensions = {
+      gopher-nvim = {
+        enable = mkEnableOption "Minimalistic plugin for Go development";
+        setupOpts = mkPluginSetupOption "gopher-nvim" {
+          commands = {
+            go = mkOption {
+              type = str;
+              default = "go";
+              description = "Go binary to use";
+            };
+
+            gomodifytags = mkOption {
+              type = str;
+              default = getExe pkgs.gomodifytags;
+              defaultText = literalExpression "getExe pkgs.gomodifytags";
+              description = "gomodifytags binary to use";
+            };
+
+            gotests = mkOption {
+              type = str;
+              default = getExe pkgs.gotests;
+              defaultText = literalExpression "getExe pkgs.gotests";
+              description = "gotests binary to use";
+            };
+
+            impl = mkOption {
+              type = str;
+              default = getExe pkgs.impl;
+              defaultText = literalExpression "getExe pkgs.impl";
+              description = "impl binary to use";
+            };
+
+            iferr = mkOption {
+              type = str;
+              default = getExe pkgs.iferr;
+              defaultText = literalExpression "getExe pkgs.iferr";
+              description = "iferr binary to use";
+            };
+
+            json2go = mkOption {
+              type = str;
+              default = getExe inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.json2go;
+              defaultText = literalExpression "getExe inputs.self.packages.$${pkgs.stdenv.hostPlatform.system}.json2go";
+              description = "json2go binary to use";
+            };
+          };
+        };
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [
-        cfg.treesitter.goPackage
-        cfg.treesitter.gomodPackage
-        cfg.treesitter.gosumPackage
-        cfg.treesitter.goworkPackage
-        cfg.treesitter.gotmplPackage
-      ];
+      vim.treesitter = {
+        enable = true;
+        grammars = [
+          cfg.treesitter.goPackage
+          cfg.treesitter.gomodPackage
+          cfg.treesitter.gosumPackage
+          cfg.treesitter.goworkPackage
+          cfg.treesitter.gotmplPackage
+        ];
+      };
     })
 
     (mkIf cfg.lsp.enable {
@@ -290,6 +363,15 @@ in {
         linters =
           mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
             cfg.extraDiagnostics.types);
+      };
+    })
+
+    (mkIf cfg.extensions.gopher-nvim.enable {
+      vim.lazy.plugins.gopher-nvim = {
+        package = "gopher-nvim";
+        setupModule = "gopher";
+        inherit (cfg.extensions.gopher-nvim) setupOpts;
+        ft = ["go"];
       };
     })
   ]);

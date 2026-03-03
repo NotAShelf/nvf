@@ -208,6 +208,9 @@
 
 - Added [`golangci-lint`](https://golangci-lint.run/) for more diagnostics.
 
+- Added [`gopher.nvim`](https://github.com/olexsmir/gopher.nvim) for extra
+  actions in `languages.go`.
+
 - updated default filetypes for
   [harper-ls](https://github.com/Automattic/harper) to match what they are
   supposed to be.
@@ -276,5 +279,9 @@ https://github.com/gorbit99/codewindow.nvim
 [elm-language-server]: https://github.com/elm-tooling/elm-language-server
 
 - Add Elm support with [elm-language-server]
+
+[alv-around](https://github.com/alv-around):
+
+- Fix `vim.assistant.codecompanion-nvim` lazy loading with [blink-cmp]
 
 <!-- vim: set textwidth=80: -->
