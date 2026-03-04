@@ -14,6 +14,7 @@ in {
     ./cmake.nix
     ./css.nix
     ./elixir.nix
+    ./elm.nix
     ./fsharp.nix
     ./gleam.nix
     ./glsl.nix
