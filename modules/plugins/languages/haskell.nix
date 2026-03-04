@@ -57,7 +57,7 @@
       settings = {
         haskell = {
           formattingProvider = "ormolu";
-          cabalFormattingProvider = "cabalfmt";
+          cabalFormattingProvider = "cabal-fmt";
         };
       };
     };
