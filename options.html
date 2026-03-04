@@ -5330,7 +5330,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">453</span>
+        <span class="toc-count">462</span>
       </summary>
       <ul>
         
@@ -8555,6 +8555,78 @@
         <li>
           <a href='#option-vim-languages-ts-treesitter-tsxPackage' title="vim.languages.ts.treesitter.tsxPackage">
             ts.treesitter.tsxPackage
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-twig-enable' title="vim.languages.twig.enable">
+            twig.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-twig-extraDiagnostics-enable' title="vim.languages.twig.extraDiagnostics.enable">
+            twig.extraDiagnostics.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-twig-extraDiagnostics-types' title="vim.languages.twig.extraDiagnostics.types">
+            twig.extraDiagnostics.types
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-twig-format-enable' title="vim.languages.twig.format.enable">
+            twig.format.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-twig-format-type' title="vim.languages.twig.format.type">
+            twig.format.type
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-twig-lsp-enable' title="vim.languages.twig.lsp.enable">
+            twig.lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-twig-lsp-servers' title="vim.languages.twig.lsp.servers">
+            twig.lsp.servers
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-twig-treesitter-enable' title="vim.languages.twig.treesitter.enable">
+            twig.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-twig-treesitter-package' title="vim.languages.twig.treesitter.package">
+            twig.treesitter.package
             
             
           </a>
@@ -31712,6 +31784,125 @@ not listed in the docs</p>
 </body></html></div>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.tsx</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/ts.nix" target="_blank">&lt;nvf/modules/plugins/languages/ts.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-twig-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-twig-enable" class="option-anchor">vim.languages.twig.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Twig templating language support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/twig.nix" target="_blank">&lt;nvf/modules/plugins/languages/twig.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-twig-extraDiagnostics-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-twig-extraDiagnostics-enable" class="option-anchor">vim.languages.twig.extraDiagnostics.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable extra Twig diagnostics.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/twig.nix" target="_blank">&lt;nvf/modules/plugins/languages/twig.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-twig-extraDiagnostics-types">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-twig-extraDiagnostics-types" class="option-anchor">vim.languages.twig.extraDiagnostics.types</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (value "djlint" (singular enum) or (submodule))</code></div>
+  <div class="option-description"><html><head></head><body><p>List of Twig diagnostics to enable</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "djlint"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/twig.nix" target="_blank">&lt;nvf/modules/plugins/languages/twig.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-twig-format-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-twig-format-enable" class="option-anchor">vim.languages.twig.format.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable PHP formatting.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/twig.nix" target="_blank">&lt;nvf/modules/plugins/languages/twig.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-twig-format-type">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-twig-format-type" class="option-anchor">vim.languages.twig.format.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "djlint" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Twig formatter to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "djlint"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/twig.nix" target="_blank">&lt;nvf/modules/plugins/languages/twig.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-twig-lsp-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-twig-lsp-enable" class="option-anchor">vim.languages.twig.lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Twig LSP support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/twig.nix" target="_blank">&lt;nvf/modules/plugins/languages/twig.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-twig-lsp-servers">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-twig-lsp-servers" class="option-anchor">vim.languages.twig.lsp.servers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "twig-language-server" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Twig LSP server to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "twig-language-server"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/twig.nix" target="_blank">&lt;nvf/modules/plugins/languages/twig.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-twig-treesitter-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-twig-treesitter-enable" class="option-anchor">vim.languages.twig.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Twig treesitter.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/twig.nix" target="_blank">&lt;nvf/modules/plugins/languages/twig.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-twig-treesitter-package">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-twig-treesitter-package" class="option-anchor">vim.languages.twig.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>package</code></div>
+  <div class="option-description"><html><head></head><body><p>The twig treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.twig</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/twig.nix" target="_blank">&lt;nvf/modules/plugins/languages/twig.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-typst-enable">
   <h3 class="option-name">
