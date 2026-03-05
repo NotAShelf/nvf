@@ -48,6 +48,9 @@
 - Added [taplo](https://taplo.tamasfe.dev/) as the default formatter and lsp for
   `languages.toml` so we don't default to AI-Slop.
 
+- Split SCSS from `languages.css` into `languages.scss` and add extra tools for
+  SCSS/SASS.
+
 ## Changelog {#sec-release-0-9-changelog}
 
 [taylrfnt](https://github.com/taylrfnt)
