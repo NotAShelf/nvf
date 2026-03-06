@@ -48,6 +48,8 @@
 - Added [taplo](https://taplo.tamasfe.dev/) as the default formatter and lsp for
   `languages.toml` so we don't default to AI-Slop.
 
+- Added `json5` into `languages.json`. Some options where renamed.
+
 ## Changelog {#sec-release-0-9-changelog}
 
 [taylrfnt](https://github.com/taylrfnt)
