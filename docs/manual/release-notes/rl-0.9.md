@@ -188,6 +188,10 @@
 - Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
   `languages.lua`.
 
+- Added `languages.docker` for Docker and Docker-Compose support. Thanks to
+  [poseidon-rises](https://github.com/poseidon-rises) for creating most of it in
+  [!1104](https://github.com/NotAShelf/nvf/pull/1104).
+
 - Added [`mdformat`](https://mdformat.rtfd.io/) support to `languages.markdown`
   with the extensions for [GFM](https://github.github.com/gfm/),
   [front matter](https://www.markdownlang.com/advanced/frontmatter.html) and
