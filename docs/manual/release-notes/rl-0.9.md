@@ -222,6 +222,9 @@
 - Fix `languages.hcl` init, depending on `comment-nvim` by checking if it is
   enabled. Fixes a crash (#1350).
 
+- Add `languages.fluent` using the official plugin. This only provides
+  highlighting.
+
 - Added Debugging support to `languages.php`.
 
 - Added Formatting support to `languages.php` via
