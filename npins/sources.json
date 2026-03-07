@@ -539,6 +539,19 @@
       "url": "https://github.com/folke/flash.nvim/archive/b68bda044d68e4026c4e1ec6df3c5afd7eb8e341.tar.gz",
       "hash": "sha256-7isgZdploAGK5l8TxVxL277CH6kPbcBnMwfZeqPHjq4="
     },
+    "fluent-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "projectfluent",
+        "repo": "fluent.vim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "94c1ef622187032778f546d2f8ad821661475172",
+      "url": "https://github.com/projectfluent/fluent.vim/archive/94c1ef622187032778f546d2f8ad821661475172.tar.gz",
+      "hash": "sha256-tOYxOUKa6Zn2Yq5peqGDEdCkpl+b+VKkSmZx7+kHZJ0="
+    },
     "flutter-tools-nvim": {
       "type": "Git",
       "repository": {
