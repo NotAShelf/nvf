@@ -8,7 +8,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum listOf;
+  inherit (lib.types) enum listOf nonEmptyListOf;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
@@ -91,7 +91,7 @@
     };
   };
   formatType =
-    enum (attrNames formats);
+    nonEmptyListOf (enum (attrNames formats));
 in {
   _file = ./vue.nix;
   options.vim.languages.vue = {
