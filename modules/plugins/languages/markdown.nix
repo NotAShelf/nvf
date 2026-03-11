@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.meta) getExe;
+  inherit (lib.meta) getExe getExe';
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) bool enum listOf str nullOr;
@@ -54,6 +54,15 @@
     };
     prettierd = {
       command = getExe pkgs.prettierd;
+    };
+    mdformat = {
+      command = getExe' (pkgs.python313Packages.python.withPackages (p:
+        with p; [
+          mdformat
+          mdformat-gfm
+          mdformat-frontmatter
+          mdformat-footnote
+        ])) "mdformat";
     };
   };
   defaultDiagnosticsProvider = ["markdownlint-cli2"];

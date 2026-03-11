@@ -11,7 +11,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum package bool;
   inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.types) deprecatedSingleOrListOf;
+  inherit (lib.nvim.types) deprecatedSingleOrListOf diagnostics;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryBefore;
   inherit (lib.trivial) warn;
@@ -169,6 +169,22 @@
         ".git"
       ];
     };
+
+    zuban = {
+      enable = true;
+      cmd = [(getExe pkgs.zuban) "server"];
+      filetypes = ["python"];
+      root_markers = [
+        "pyproject.toml"
+        "setup.py"
+        "setup.cfg"
+        "requirements.txt"
+        "Pipfile"
+        ".git"
+        "mypy.ini"
+        ".mypy.ini"
+      ];
+    };
   };
 
   defaultFormat = ["black"];
@@ -262,6 +278,14 @@
       '';
     };
   };
+  defaultDiagnosticsProvider = ["mypy"];
+  diagnosticsProviders = {
+    mypy = {
+      config = {
+        cmd = getExe' pkgs.mypy "mypy";
+      };
+    };
+  };
 in {
   options.vim.languages.python = {
     enable = mkEnableOption "Python language support";
@@ -317,6 +341,15 @@ in {
           Python debugger package.
           This is a python package with debugpy installed, see https://nixos.wiki/wiki/Python#Install_Python_Packages.
         '';
+      };
+    };
+
+    extraDiagnostics = {
+      enable = mkEnableOption "extra Python diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      types = diagnostics {
+        langDesc = "Python";
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
@@ -387,6 +420,16 @@ in {
     (mkIf cfg.dap.enable {
       vim.debugger.nvim-dap.enable = true;
       vim.debugger.nvim-dap.sources.python-debugger = debuggers.${cfg.dap.debugger}.dapConfig;
+    })
+
+    (mkIf cfg.extraDiagnostics.enable {
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.python = cfg.extraDiagnostics.types;
+        linters =
+          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
+            cfg.extraDiagnostics.types);
+      };
     })
   ]);
 }

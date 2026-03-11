@@ -19,7 +19,7 @@ hooks should do what you need.
 ```nix
 {
   config.vim.lazy.plugins = {
-    aerial.nvim = {
+    "aerial.nvim" = {
     # ^^^^^^^^^ this name should match the package.pname or package.name
       package = aerial-nvim;
 

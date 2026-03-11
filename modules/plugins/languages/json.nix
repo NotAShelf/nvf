@@ -18,7 +18,7 @@
   servers = {
     jsonls = {
       cmd = [(getExe' pkgs.vscode-langservers-extracted "vscode-json-language-server") "--stdio"];
-      filetypes = ["json" "jsonc"];
+      filetypes = ["json" "jsonc" "json5"];
       init_options = {provideFormatter = true;};
       root_markers = [".git"];
     };
@@ -39,7 +39,8 @@ in {
     treesitter = {
       enable = mkEnableOption "JSON treesitter" // {default = config.vim.languages.enableTreesitter;};
 
-      package = mkGrammarOption pkgs "json";
+      jsonPackage = mkGrammarOption pkgs "json";
+      json5Package = mkGrammarOption pkgs "json5";
     };
 
     lsp = {
@@ -66,7 +67,10 @@ in {
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      vim.treesitter.grammars = [
+        cfg.treesitter.jsonPackage
+        cfg.treesitter.json5Package
+      ];
     })
 
     (mkIf cfg.lsp.enable {
@@ -83,6 +87,7 @@ in {
         enable = true;
         setupOpts = {
           formatters_by_ft.json = cfg.format.type;
+          formatters_by_ft.json5 = cfg.format.type;
           formatters =
             mapListToAttrs (name: {
               inherit name;

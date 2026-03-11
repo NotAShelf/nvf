@@ -59,8 +59,8 @@ in {
             };
 
             provider = mkOption {
-              type = enum ["default" "mini_diff"];
-              default = "default";
+              type = enum ["inline" "split" "mini_diff"];
+              default = "inline";
               description = "The preferred kind of provider.";
             };
           };

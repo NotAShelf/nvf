@@ -3,6 +3,7 @@
   inherit (lib.nvim.languages) mkEnable;
 in {
   imports = [
+    ./arduino.nix
     ./asm.nix
     ./astro.nix
     ./bash.nix
@@ -10,17 +11,23 @@ in {
     ./dart.nix
     ./clang.nix
     ./clojure.nix
+    ./cmake.nix
     ./css.nix
     ./elixir.nix
+    ./elm.nix
     ./fsharp.nix
     ./gleam.nix
+    ./glsl.nix
     ./go.nix
     ./hcl.nix
     ./helm.nix
     ./kotlin.nix
     ./html.nix
+    ./tera.nix
+    ./twig.nix
     ./haskell.nix
     ./java.nix
+    ./jinja.nix
     ./json.nix
     ./lua.nix
     ./markdown.nix
@@ -51,6 +58,9 @@ in {
     ./ruby.nix
     ./just.nix
     ./vue.nix
+    ./make.nix
+    ./xml.nix
+    ./fluent.nix
 
     # This is now a hard deprecation.
     (mkRenamedOptionModule ["vim" "languages" "enableLSP"] ["vim" "lsp" "enable"])
