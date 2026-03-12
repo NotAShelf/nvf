@@ -892,15 +892,16 @@
     "leap-nvim": {
       "type": "Git",
       "repository": {
-        "type": "GitHub",
-        "owner": "ggandor",
+        "type": "Forgejo",
+        "server": "https://codeberg.org/",
+        "owner": "andyg",
         "repo": "leap.nvim"
       },
       "branch": "main",
       "submodules": false,
-      "revision": "07304103f6bd923004fdef9262d9a4d7925fb70a",
-      "url": "https://github.com/ggandor/leap.nvim/archive/07304103f6bd923004fdef9262d9a4d7925fb70a.tar.gz",
-      "hash": "sha256-AImK8kLWBdA1IFeTt52UF8+j+BBmQmz00VW4EWCVQdg="
+      "revision": "774c452da3521d4434f912b6ca6dd97318aca4b0",
+      "url": "https://codeberg.org/andyg/leap.nvim/archive/774c452da3521d4434f912b6ca6dd97318aca4b0.tar.gz",
+      "hash": "sha256-HkLmYb0+Vu65JalaE2JuMJM74/fWAS3QJRQb4BW5esw="
     },
     "leetcode-nvim": {
       "type": "Git",
