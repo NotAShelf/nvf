@@ -57,6 +57,7 @@ in {
     ./yaml.nix
     ./ruby.nix
     ./just.nix
+    ./vue.nix
     ./make.nix
     ./xml.nix
     ./fluent.nix
