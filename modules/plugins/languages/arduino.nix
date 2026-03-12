@@ -8,7 +8,7 @@
   inherit (lib.generators) mkLuaInline;
   inherit (lib.meta) getExe getExe';
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum listOf str;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) mkGrammarOption;
@@ -57,12 +57,22 @@ in {
     enable = mkEnableOption "Arduino support";
 
     treesitter = {
-      enable = mkEnableOption "Arduino treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Arduino treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "arduino";
     };
 
     lsp = {
-      enable = mkEnableOption "Arduino LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Arduino LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;

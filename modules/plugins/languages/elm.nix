@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
@@ -33,6 +33,7 @@ in {
         mkEnableOption "Elm treesitter"
         // {
           default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
         };
       package = mkGrammarOption pkgs "elm";
     };
@@ -42,6 +43,7 @@ in {
         mkEnableOption "Elm LSP support"
         // {
           default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
         };
 
       servers = mkOption {

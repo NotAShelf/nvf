@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum;
@@ -151,7 +151,12 @@ in {
     enable = mkEnableOption "Tailwindcss language support";
 
     lsp = {
-      enable = mkEnableOption "Tailwindcss LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Tailwindcss LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.tailwind.lsp.servers" (enum (attrNames servers));

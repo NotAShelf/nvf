@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.meta) getExe' getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum;
@@ -37,14 +37,24 @@ in {
     enable = mkEnableOption "JSON language support";
 
     treesitter = {
-      enable = mkEnableOption "JSON treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "JSON treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
 
       jsonPackage = mkGrammarOption pkgs "json";
       json5Package = mkGrammarOption pkgs "json5";
     };
 
     lsp = {
-      enable = mkEnableOption "JSON LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "JSON LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.json.lsp.servers" (enum (attrNames servers));
@@ -54,7 +64,12 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "JSON formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "JSON formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
 
       type = mkOption {
         description = "JSON formatter to use";

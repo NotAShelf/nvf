@@ -7,7 +7,7 @@
   inherit (builtins) attrNames;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum;
   inherit (lib.nvim.types) diagnostics mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
@@ -78,6 +78,7 @@ in {
         mkEnableOption "TOML treesitter"
         // {
           default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
         };
       package = mkGrammarOption pkgs "toml";
     };
@@ -87,6 +88,7 @@ in {
         mkEnableOption "TOML LSP support"
         // {
           default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
         };
 
       servers = mkOption {
@@ -101,6 +103,7 @@ in {
         mkEnableOption "TOML formatting"
         // {
           default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
         };
 
       type = mkOption {
@@ -115,6 +118,7 @@ in {
         mkEnableOption "extra TOML diagnostics"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
       types = diagnostics {
         langDesc = "TOML";

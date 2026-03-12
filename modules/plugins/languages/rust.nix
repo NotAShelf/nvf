@@ -6,7 +6,7 @@
 }: let
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.options) mkOption mkEnableOption literalMD;
+  inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
   inherit (lib.strings) optionalString;
   inherit (lib.lists) isList;
   inherit (lib.attrsets) attrNames;
@@ -29,12 +29,22 @@ in {
     enable = mkEnableOption "Rust language support";
 
     treesitter = {
-      enable = mkEnableOption "Rust treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Rust treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "rust";
     };
 
     lsp = {
-      enable = mkEnableOption "Rust LSP support (rust-analyzer with extra tools)" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Rust LSP support (rust-analyzer with extra tools)"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       package = mkOption {
         description = "rust-analyzer package, or the command to run as a list of strings";
         example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
@@ -80,6 +90,7 @@ in {
         description = "Rust Debug Adapter support";
         type = bool;
         default = config.vim.languages.enableDAP;
+        defaultText = literalExpression "config.vim.languages.enableDAP";
       };
 
       package = mkOption {
@@ -108,14 +119,39 @@ in {
 
         setupOpts = mkPluginSetupOption "crates-nvim" {
           lsp = {
-            enabled = mkEnableOption "crates.nvim's in-process language server" // {default = cfg.extensions.crates-nvim.enable;};
-            actions = mkEnableOption "actions for crates-nvim's in-process language server" // {default = cfg.extensions.crates-nvim.enable;};
-            completion = mkEnableOption "completion for crates-nvim's in-process language server" // {default = cfg.extensions.crates-nvim.enable;};
-            hover = mkEnableOption "hover actions for crates-nvim's in-process language server" // {default = cfg.extensions.crates-nvim.enable;};
+            enabled =
+              mkEnableOption "crates.nvim's in-process language server"
+              // {
+                default = cfg.extensions.crates-nvim.enable;
+                defaultText = literalExpression "config.vim.languages.rust.extensions.crates-nvim.enable";
+              };
+            actions =
+              mkEnableOption "actions for crates-nvim's in-process language server"
+              // {
+                default = cfg.extensions.crates-nvim.enable;
+                defaultText = literalExpression "config.vim.languages.rust.extensions.crates-nvim.enable";
+              };
+            completion =
+              mkEnableOption "completion for crates-nvim's in-process language server"
+              // {
+                default = cfg.extensions.crates-nvim.enable;
+                defaultText = literalExpression "config.vim.languages.rust.extensions.crates-nvim.enable";
+              };
+            hover =
+              mkEnableOption "hover actions for crates-nvim's in-process language server"
+              // {
+                default = cfg.extensions.crates-nvim.enable;
+                defaultText = literalExpression "config.vim.languages.rust.extensions.crates-nvim.enable";
+              };
           };
           completion = {
             crates = {
-              enabled = mkEnableOption "completion for crates-nvim's in-process language server" // {default = cfg.extensions.crates-nvim.enable;};
+              enabled =
+                mkEnableOption "completion for crates-nvim's in-process language server"
+                // {
+                  default = cfg.extensions.crates-nvim.enable;
+                  defaultText = literalExpression "config.vim.languages.rust.extensions.crates-nvim.enable";
+                };
               max_results = mkOption {
                 description = "The maximum number of search results to display";
                 type = int;

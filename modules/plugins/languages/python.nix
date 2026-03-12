@@ -291,7 +291,12 @@ in {
     enable = mkEnableOption "Python language support";
 
     treesitter = {
-      enable = mkEnableOption "Python treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Python treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkOption {
         description = "Python treesitter grammar to use";
         type = package;
@@ -300,7 +305,12 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Python LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Python LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.python.lsp.servers" (enum (attrNames servers));
@@ -310,7 +320,12 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "Python formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "Python formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
 
       type = mkOption {
         type = deprecatedSingleOrListOf "vim.language.python.format.type" (enum (attrNames formats));
@@ -324,6 +339,7 @@ in {
       enable = mkOption {
         type = bool;
         default = config.vim.languages.enableDAP;
+        defaultText = literalExpression "config.vim.languages.enableDAP";
         description = "Enable Python Debug Adapter";
       };
 
@@ -345,7 +361,12 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkEnableOption "extra Python diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      enable =
+        mkEnableOption "extra Python diagnostics"
+        // {
+          default = config.vim.languages.enableExtraDiagnostics;
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
+        };
       types = diagnostics {
         langDesc = "Python";
         inherit diagnosticsProviders;

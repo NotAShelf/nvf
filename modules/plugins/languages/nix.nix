@@ -7,7 +7,7 @@
   inherit (builtins) attrNames;
   inherit (lib) concatStringsSep;
   inherit (lib.meta) getExe;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum;
   inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
@@ -74,12 +74,22 @@ in {
     enable = mkEnableOption "Nix language support";
 
     treesitter = {
-      enable = mkEnableOption "Nix treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Nix treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "nix";
     };
 
     lsp = {
-      enable = mkEnableOption "Nix LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Nix LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.nix.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
@@ -88,7 +98,12 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "Nix formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "Nix formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
 
       type = mkOption {
         description = "Nix formatter to use";
@@ -98,7 +113,12 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkEnableOption "extra Nix diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      enable =
+        mkEnableOption "extra Nix diagnostics"
+        // {
+          default = config.vim.languages.enableExtraDiagnostics;
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
+        };
 
       types = diagnostics {
         langDesc = "Nix";

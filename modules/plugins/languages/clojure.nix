@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum listOf;
@@ -28,12 +28,22 @@ in {
     enable = mkEnableOption "Clojure language support";
 
     treesitter = {
-      enable = mkEnableOption "Clojure treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Clojure treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "clojure";
     };
 
     lsp = {
-      enable = mkEnableOption "Clojure LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Clojure LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;

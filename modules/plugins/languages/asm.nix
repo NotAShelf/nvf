@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
@@ -27,12 +27,22 @@ in {
     enable = mkEnableOption "Assembly support";
 
     treesitter = {
-      enable = mkEnableOption "Assembly treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Assembly treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "asm";
     };
 
     lsp = {
-      enable = mkEnableOption "Assembly LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Assembly LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.asm.lsp.servers" (enum (attrNames servers));
         default = defaultServers;

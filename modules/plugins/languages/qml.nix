@@ -6,7 +6,7 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.meta) getExe';
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
@@ -37,12 +37,22 @@ in {
   options.vim.languages.qml = {
     enable = mkEnableOption "QML language support";
     treesitter = {
-      enable = mkEnableOption "QML treesitter support" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "QML treesitter support"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "qmljs";
     };
 
     lsp = {
-      enable = mkEnableOption "QML LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "QML LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.qml.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
@@ -51,7 +61,12 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "QML formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "QML formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
 
       type = mkOption {
         type = deprecatedSingleOrListOf "vim.language.qml.format.type" (enum (attrNames formats));

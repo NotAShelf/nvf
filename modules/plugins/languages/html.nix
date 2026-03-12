@@ -6,7 +6,7 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.meta) getExe;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) bool enum;
   inherit (lib.lists) optional;
@@ -48,7 +48,12 @@ in {
   options.vim.languages.html = {
     enable = mkEnableOption "HTML language support";
     treesitter = {
-      enable = mkEnableOption "HTML treesitter support" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "HTML treesitter support"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "html";
       autotagHtml = mkOption {
         type = bool;
@@ -58,7 +63,12 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "HTML LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "HTML LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.html.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
@@ -67,7 +77,12 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "HTML formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "HTML formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
 
       type = mkOption {
         type = deprecatedSingleOrListOf "vim.language.html.format.type" (enum (attrNames formats));
@@ -77,7 +92,12 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkEnableOption "extra HTML diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      enable =
+        mkEnableOption "extra HTML diagnostics"
+        // {
+          default = config.vim.languages.enableExtraDiagnostics;
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
+        };
 
       types = diagnostics {
         langDesc = "HTML";

@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum;
   inherit (lib.meta) getExe;
@@ -65,12 +65,22 @@ in {
     enable = mkEnableOption "R language support";
 
     treesitter = {
-      enable = mkEnableOption "R treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "R treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "r";
     };
 
     lsp = {
-      enable = mkEnableOption "R LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "R LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.r.lsp.servers" (enum (attrNames servers));
@@ -80,7 +90,12 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "R formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "R formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
 
       type = mkOption {
         type = deprecatedSingleOrListOf "vim.language.r.format.type" (enum (attrNames formats));

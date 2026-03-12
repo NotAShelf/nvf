@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption;
+  inherit (lib.options) mkEnableOption literalExpression;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption;
@@ -21,13 +21,23 @@ in {
     enable = mkEnableOption "CUE language support";
 
     treesitter = {
-      enable = mkEnableOption "CUE treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "CUE treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
 
       package = mkGrammarOption pkgs "cue";
     };
 
     lsp = {
-      enable = mkEnableOption "CUE LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "CUE LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
     };
   };
 

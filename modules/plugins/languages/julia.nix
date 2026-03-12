@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.types) enum;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
@@ -90,12 +90,22 @@ in {
       enable = mkEnableOption "Julia language support";
 
       treesitter = {
-        enable = mkEnableOption "Julia treesitter" // {default = config.vim.languages.enableTreesitter;};
+        enable =
+          mkEnableOption "Julia treesitter"
+          // {
+            default = config.vim.languages.enableTreesitter;
+            defaultText = literalExpression "config.vim.languages.enableTreesitter";
+          };
         package = mkGrammarOption pkgs "julia";
       };
 
       lsp = {
-        enable = mkEnableOption "Julia LSP support" // {default = config.vim.lsp.enable;};
+        enable =
+          mkEnableOption "Julia LSP support"
+          // {
+            default = config.vim.lsp.enable;
+            defaultText = literalExpression "config.vim.lsp.enable";
+          };
         servers = mkOption {
           type = deprecatedSingleOrListOf "vim.language.julia.lsp.servers" (enum (attrNames servers));
           default = defaultServers;

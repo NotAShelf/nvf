@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum;
@@ -67,12 +67,22 @@ in {
     enable = mkEnableOption "Vala language support";
 
     treesitter = {
-      enable = mkEnableOption "Vala treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Vala treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "vala";
     };
 
     lsp = {
-      enable = mkEnableOption "Vala LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Vala LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.vala.lsp.servers" (enum (attrNames servers));
         default = defaultServers;

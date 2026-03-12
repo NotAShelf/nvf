@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames toString;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum int attrs listOf;
@@ -85,12 +85,22 @@ in {
     enable = mkEnableOption "PHP language support";
 
     treesitter = {
-      enable = mkEnableOption "PHP treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "PHP treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "php";
     };
 
     lsp = {
-      enable = mkEnableOption "PHP LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "PHP LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.php.lsp.servers" (enum (attrNames servers));
@@ -100,7 +110,12 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "PHP formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "PHP formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
 
       type = mkOption {
         description = "PHP formatter to use";
@@ -110,7 +125,12 @@ in {
     };
 
     dap = {
-      enable = mkEnableOption "Enable PHP Debug Adapter" // {default = config.vim.languages.enableDAP;};
+      enable =
+        mkEnableOption "Enable PHP Debug Adapter"
+        // {
+          default = config.vim.languages.enableDAP;
+          defaultText = literalExpression "config.vim.languages.enableDAP";
+        };
       xdebug = {
         adapter = mkOption {
           type = attrs;

@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.meta) getExe';
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum;
@@ -48,12 +48,22 @@ in {
     enable = mkEnableOption "Nim language support";
 
     treesitter = {
-      enable = mkEnableOption "Nim treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Nim treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "nim";
     };
 
     lsp = {
-      enable = mkEnableOption "Nim LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Nim LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.nim.lsp.servers" (enum (attrNames servers));
@@ -63,7 +73,12 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "Nim formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "Nim formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
       type = mkOption {
         type = deprecatedSingleOrListOf "vim.language.nim.format.type" (enum (attrNames formats));
         default = defaultFormat;

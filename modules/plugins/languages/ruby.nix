@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
@@ -67,12 +67,22 @@ in {
     enable = mkEnableOption "Ruby language support";
 
     treesitter = {
-      enable = mkEnableOption "Ruby treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Ruby treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "ruby";
     };
 
     lsp = {
-      enable = mkEnableOption "Ruby LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Ruby LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.ruby.lsp.servers" (enum (attrNames servers));

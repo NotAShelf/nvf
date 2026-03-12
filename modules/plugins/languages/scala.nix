@@ -10,7 +10,7 @@
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption luaInline;
-  inherit (lib.options) mkOption mkEnableOption mkPackageOption;
+  inherit (lib.options) mkOption mkEnableOption mkPackageOption literalExpression;
   inherit (lib.strings) optionalString;
   inherit (lib.types) attrsOf anything bool;
 
@@ -28,12 +28,22 @@ in {
     enable = mkEnableOption "Scala language support";
 
     treesitter = {
-      enable = mkEnableOption "Scala treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Scala treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "scala";
     };
 
     lsp = {
-      enable = mkEnableOption "Scala LSP support (metals)" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Scala LSP support (metals)"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       package = mkPackageOption pkgs "metals" {
         default = ["metals"];
       };

@@ -7,7 +7,7 @@
   inherit (builtins) attrNames;
   inherit (lib.meta) getExe getExe';
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.types) bool enum listOf str nullOr;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) diagnostics mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
@@ -82,6 +82,7 @@ in {
       enable = mkOption {
         type = bool;
         default = config.vim.languages.enableTreesitter;
+        defaultText = literalExpression "config.vim.languages.enableTreesitter";
         description = "Enable Markdown treesitter";
       };
       mdPackage = mkGrammarOption pkgs "markdown";
@@ -89,7 +90,12 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "Markdown LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Markdown LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         description = "Markdown LSP server to use";
@@ -99,7 +105,12 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "Markdown formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "Markdown formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
 
       type = mkOption {
         type = deprecatedSingleOrListOf "vim.language.markdown.format.type" (enum (attrNames formats));
@@ -154,7 +165,12 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkEnableOption "extra Markdown diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      enable =
+        mkEnableOption "extra Markdown diagnostics"
+        // {
+          default = config.vim.languages.enableExtraDiagnostics;
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
+        };
       types = diagnostics {
         langDesc = "Markdown";
         inherit diagnosticsProviders;

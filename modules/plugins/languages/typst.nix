@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) nullOr enum attrsOf listOf package str bool int;
   inherit (lib.attrsets) attrNames;
@@ -104,12 +104,22 @@ in {
     enable = mkEnableOption "Typst language support";
 
     treesitter = {
-      enable = mkEnableOption "Typst treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Typst treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "typst";
     };
 
     lsp = {
-      enable = mkEnableOption "Typst LSP support (typst-lsp)" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Typst LSP support (typst-lsp)"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.typst.lsp.servers" (enum (attrNames servers));
@@ -119,7 +129,12 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "Typst document formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "Typst document formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
 
       type = mkOption {
         type = deprecatedSingleOrListOf "vim.language.typst.format.type" (enum (attrNames formats));

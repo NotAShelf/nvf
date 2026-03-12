@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum coercedTo;
@@ -89,13 +89,23 @@ in {
     enable = mkEnableOption "Astro language support";
 
     treesitter = {
-      enable = mkEnableOption "Astro treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Astro treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
 
       astroPackage = mkGrammarOption pkgs "astro";
     };
 
     lsp = {
-      enable = mkEnableOption "Astro LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Astro LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.astro.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
@@ -104,7 +114,12 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "Astro formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "Astro formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
 
       type = mkOption {
         type = formatType;
@@ -114,7 +129,12 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkEnableOption "extra Astro diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      enable =
+        mkEnableOption "extra Astro diagnostics"
+        // {
+          default = config.vim.languages.enableExtraDiagnostics;
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
+        };
 
       types = diagnostics {
         langDesc = "Astro";

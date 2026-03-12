@@ -7,7 +7,7 @@
   inherit (builtins) attrNames;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum listOf;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.attrsets) mapListToAttrs;
@@ -28,12 +28,22 @@ in {
     enable = mkEnableOption "GLSL language support";
 
     treesitter = {
-      enable = mkEnableOption "GLSL treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "GLSL treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "glsl";
     };
 
     lsp = {
-      enable = mkEnableOption "GLSL LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "GLSL LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = listOf (enum (attrNames servers));

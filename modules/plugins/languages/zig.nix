@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge mkDefault;
   inherit (lib.types) bool package enum;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
@@ -59,12 +59,22 @@ in {
     enable = mkEnableOption "Zig language support";
 
     treesitter = {
-      enable = mkEnableOption "Zig treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Zig treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "zig";
     };
 
     lsp = {
-      enable = mkEnableOption "Zig LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Zig LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.zig.lsp.servers" (enum (attrNames servers));
@@ -77,6 +87,7 @@ in {
       enable = mkOption {
         type = bool;
         default = config.vim.languages.enableDAP;
+        defaultText = literalExpression "config.vim.languages.enableDAP";
         description = "Enable Zig Debug Adapter";
       };
 

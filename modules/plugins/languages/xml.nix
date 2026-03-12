@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum listOf;
@@ -30,12 +30,22 @@ in {
     enable = mkEnableOption "XML language support";
 
     treesitter = {
-      enable = mkEnableOption "XML treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "XML treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "xml";
     };
 
     lsp = {
-      enable = mkEnableOption "XML LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "XML LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;

@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames head;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.modules) mkDefault mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum;
@@ -44,12 +44,22 @@ in {
     enable = mkEnableOption "Helm language support";
 
     treesitter = {
-      enable = mkEnableOption "Helm treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Helm treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "helm";
     };
 
     lsp = {
-      enable = mkEnableOption "Helm LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Helm LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.helm.lsp.servers" (enum (attrNames servers));
         default = defaultServers;

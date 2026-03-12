@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) listOf enum;
@@ -45,12 +45,22 @@ in {
     enable = mkEnableOption "Twig templating language support";
 
     treesitter = {
-      enable = mkEnableOption "Twig treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Twig treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "twig";
     };
 
     lsp = {
-      enable = mkEnableOption "Twig LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Twig LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
@@ -59,7 +69,12 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "PHP formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "PHP formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
       type = mkOption {
         description = "Twig formatter to use";
         type = listOf (enum (attrNames formats));
@@ -68,7 +83,12 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkEnableOption "extra Twig diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      enable =
+        mkEnableOption "extra Twig diagnostics"
+        // {
+          default = config.vim.languages.enableExtraDiagnostics;
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
+        };
       types = diagnostics {
         langDesc = "Twig";
         inherit diagnosticsProviders;

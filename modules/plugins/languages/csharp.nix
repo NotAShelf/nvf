@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (builtins) attrNames concatMap;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
@@ -177,12 +177,22 @@ in {
       enable = mkEnableOption "C# language support";
 
       treesitter = {
-        enable = mkEnableOption "C# treesitter" // {default = config.vim.languages.enableTreesitter;};
+        enable =
+          mkEnableOption "C# treesitter"
+          // {
+            default = config.vim.languages.enableTreesitter;
+            defaultText = literalExpression "config.vim.languages.enableTreesitter";
+          };
         package = mkGrammarOption pkgs "c_sharp";
       };
 
       lsp = {
-        enable = mkEnableOption "C# LSP support" // {default = config.vim.lsp.enable;};
+        enable =
+          mkEnableOption "C# LSP support"
+          // {
+            default = config.vim.lsp.enable;
+            defaultText = literalExpression "config.vim.lsp.enable";
+          };
         servers = mkOption {
           description = "C# LSP server to use";
           type = deprecatedSingleOrListOf "vim.language.csharp.lsp.servers" (enum (attrNames servers));

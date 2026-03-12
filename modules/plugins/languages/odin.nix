@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum package;
   inherit (lib.nvim.dag) entryAfter;
@@ -53,12 +53,22 @@ in {
     enable = mkEnableOption "Odin language support";
 
     treesitter = {
-      enable = mkEnableOption "Odin treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Odin treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "odin";
     };
 
     lsp = {
-      enable = mkEnableOption "Odin LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Odin LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.odin.lsp.servers" (enum (attrNames servers));
@@ -68,7 +78,12 @@ in {
     };
 
     dap = {
-      enable = mkEnableOption "Enable Odin Debug Adapter" // {default = config.vim.languages.enableDAP;};
+      enable =
+        mkEnableOption "Enable Odin Debug Adapter"
+        // {
+          default = config.vim.languages.enableDAP;
+          defaultText = literalExpression "config.vim.languages.enableDAP";
+        };
 
       debugger = mkOption {
         description = "Odin debugger to use";

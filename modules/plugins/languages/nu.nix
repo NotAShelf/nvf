@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
@@ -38,12 +38,22 @@ in {
     enable = mkEnableOption "Nu language support";
 
     treesitter = {
-      enable = mkEnableOption "Nu treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Nu treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "nu";
     };
 
     lsp = {
-      enable = mkEnableOption "Nu LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Nu LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.nu.lsp.servers" (enum (attrNames servers));

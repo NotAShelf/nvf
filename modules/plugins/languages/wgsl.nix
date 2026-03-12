@@ -7,7 +7,7 @@
   inherit (builtins) attrNames;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.attrsets) mapListToAttrs;
@@ -29,12 +29,22 @@ in {
     enable = mkEnableOption "WGSL language support";
 
     treesitter = {
-      enable = mkEnableOption "WGSL treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "WGSL treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "wgsl";
     };
 
     lsp = {
-      enable = mkEnableOption "WGSL LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "WGSL LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.wgsl.lsp.servers" (enum (attrNames servers));

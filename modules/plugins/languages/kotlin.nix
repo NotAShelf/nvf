@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe' getExe;
   inherit (builtins) attrNames;
@@ -56,12 +56,22 @@ in {
     enable = mkEnableOption "Kotlin/HCL support";
 
     treesitter = {
-      enable = mkEnableOption "Kotlin treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Kotlin treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "kotlin";
     };
 
     lsp = {
-      enable = mkEnableOption "Kotlin LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Kotlin LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
@@ -70,7 +80,12 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkEnableOption "extra Kotlin diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      enable =
+        mkEnableOption "extra Kotlin diagnostics"
+        // {
+          default = config.vim.languages.enableExtraDiagnostics;
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
+        };
 
       types = diagnostics {
         langDesc = "Kotlin";
