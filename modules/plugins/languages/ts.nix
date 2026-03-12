@@ -66,8 +66,43 @@
         end
       '';
     };
+    vtsls = {
+      cmd = [(getExe pkgs.vtsls) "--stdio"];
+      filetypes = [
+        "javascript"
+        "javascriptreact"
+        "javascript.jsx"
+        "typescript"
+        "typescriptreact"
+        "typescript.tsx"
+        "vue"
+      ];
+      root_markers = ["tsconfig.json" "jsconfig.json" "package.json" ".git"];
+      settings = {
+        vtsls = {
+          tsserver.globalPlugins = [
+            {
+              name = "@vue/typescript-plugin";
+              location = "${lib.getBin pkgs.vue-language-server}/lib/language-tools/packages/language-server";
+              languages = ["vue"];
+              configNamespace = "typescript";
+            }
+          ];
+        };
+      };
+      on_attach = mkLuaInline ''
+        function(client, bufnr)
+          -- Disable semantic tokens for Vue files to prevent highlighting conflicts
+          if vim.bo[bufnr].filetype == 'vue' then
+            client.server_capabilities.semanticTokensProvider = nil
+          else
+            client.server_capabilities.semanticTokensProvider.full = true
+          end
+        end
+      '';
+    };
   in {
-    inherit ts_ls;
+    inherit ts_ls vtsls;
     # Here for backwards compatibility. Still consider tsserver a valid
     # configuration in the enum, but assert if it's set to *properly*
     # redirect the user to the correct server.
@@ -213,6 +248,7 @@ in {
   _file = ./ts.nix;
   options.vim.languages.ts = {
     enable = mkEnableOption "Typescript/Javascript language support";
+    extraVueSupport = mkEnableOption "Vue support for vtsls";
 
     treesitter = {
       enable =
@@ -224,6 +260,7 @@ in {
       tsPackage = mkGrammarOption pkgs "typescript";
       tsxPackage = mkGrammarOption pkgs "tsx";
       jsPackage = mkGrammarOption pkgs "javascript";
+      vuePackage = mkGrammarOption pkgs "vue";
     };
 
     lsp = {
@@ -290,11 +327,13 @@ in {
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
-      vim.treesitter.grammars = [
-        cfg.treesitter.tsPackage
-        cfg.treesitter.tsxPackage
-        cfg.treesitter.jsPackage
-      ];
+      vim.treesitter.grammars =
+        [
+          cfg.treesitter.tsPackage
+          cfg.treesitter.tsxPackage
+          cfg.treesitter.jsPackage
+        ]
+        ++ lib.optional cfg.extraVueSupport cfg.treesitter.vuePackage;
     })
 
     (mkIf cfg.lsp.enable {
