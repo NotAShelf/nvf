@@ -7,6 +7,7 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.strings) toUpper;
   inherit (lib.types) int float bool str enum listOf attrsOf oneOf nullOr submodule;
+  inherit (lib.trivial) warn;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline borderType;
   inherit (lib.generators) mkLuaInline;
 in {
@@ -25,69 +26,78 @@ in {
     setupOpts = mkPluginSetupOption "Fidget" {
       progress = {
         poll_rate = mkOption {
-          description = "How frequently to poll for LSP progress messages";
           type = int;
           default = 0;
+          description = "How frequently to poll for LSP progress messages";
         };
         suppress_on_insert = mkOption {
-          description = "Suppress new messages when in insert mode";
           type = bool;
           default = false;
+          description = "Suppress new messages when in insert mode";
         };
         ignore_done_already = mkOption {
-          description = "Ignore new tasks that are already done";
           type = bool;
           default = false;
+          description = "Ignore new tasks that are already done";
         };
         ignore_empty_message = mkOption {
-          description = "Ignore new tasks with empty messages";
           type = bool;
           default = false;
+          description = "Ignore new tasks with empty messages";
         };
         notification_group = mkOption {
-          description = "How to get a progress message's notification group key";
           type = luaInline;
           default = mkLuaInline ''
             function(msg)
               return msg.lsp_client.name
             end
           '';
+          description = "How to get a progress message's notification group key";
+        };
+        clear_on_detach = mkOption {
+          type = nullOr luaInline;
+          default = mkLuaInline ''
+            function(client_id)
+              local client = vim.lsp.get_client_by_id(client_id)
+              return client and client.name or nil
+            end
+          '';
+          description = "Clear notification group when LSP server detaches";
         };
         ignore = mkOption {
-          description = "Ignore LSP servers by name";
           type = listOf str;
           default = [];
+          description = "Ignore LSP servers by name";
         };
 
         display = {
           render_limit = mkOption {
-            description = "Maximum number of messages to render";
             type = int;
             default = 16;
+            description = "Maximum number of messages to render";
           };
           done_ttl = mkOption {
-            description = "How long a message should persist when complete";
             type = int;
             default = 3;
+            description = "How long a message should persist when complete";
           };
           done_icon = mkOption {
-            description = "Icon shown when LSP progress tasks are completed";
             type = str;
             default = "✓";
+            description = "Icon shown when LSP progress tasks are completed";
           };
           done_style = mkOption {
-            description = "Highlight group for completed LSP tasks";
             type = str;
             default = "Constant";
+            description = "Highlight group for completed LSP tasks";
           };
           progress_ttl = mkOption {
-            description = "How long a message should persist when in progress";
             type = int;
             default = 99999;
+            description = "How long a message should persist when in progress";
           };
           progress_icon = {
             pattern = mkOption {
-              description = "Pattern shown when LSP progress tasks are in progress";
               type = enum [
                 "dots"
                 "dots_negative"
@@ -124,60 +134,208 @@ in {
                 "meter"
               ];
               default = "dots";
+              description = "Pattern shown when LSP progress tasks are in progress";
             };
             period = mkOption {
-              description = "Period of the pattern";
               type = int;
               default = 1;
+              description = "Period of the pattern";
             };
           };
           progress_style = mkOption {
-            description = "Highlight group for in-progress LSP tasks";
             type = str;
             default = "WarningMsg";
+            description = "Highlight group for in-progress LSP tasks";
           };
           group_style = mkOption {
-            description = "Highlight group for group name (LSP server name)";
             type = str;
             default = "Title";
+            description = "Highlight group for group name (LSP server name)";
           };
           icon_style = mkOption {
-            description = "Highlight group for group icons";
             type = str;
             default = "Question";
+            description = "Highlight group for group icons";
           };
           priority = mkOption {
-            description = "Priority of the progress notification";
             type = int;
             default = 30;
+            description = "Priority of the progress notification";
           };
           skip_history = mkOption {
-            description = "Skip adding messages to history";
             type = bool;
             default = true;
+            description = "Skip adding messages to history";
           };
           format_message = mkOption {
-            description = "How to format a progress message";
             type = luaInline;
             default = mkLuaInline ''
               require("fidget.progress.display").default_format_message
             '';
+            description = "How to format a progress message";
           };
           format_annote = mkOption {
-            description = "How to format a progress annotation";
             type = luaInline;
             default = mkLuaInline ''
               function(msg) return msg.title end
             '';
+            description = "How to format a progress annotation";
           };
           format_group_name = mkOption {
-            description = "How to format a progress notification group's name";
             type = luaInline;
             default = mkLuaInline ''
               function(group) return tostring(group) end
             '';
+            description = "How to format a progress notification group's name";
           };
           overrides = mkOption {
+            type = attrsOf (submodule {
+              options = {
+                name = mkOption {
+                  type = nullOr (oneOf [str luaInline]);
+                  default = null;
+                  description = ''
+                    Name of the group, displayed in the notification window.
+                    Can be a string or a function that returns a string.
+
+                    If a function, it is invoked every render cycle with the items
+                    list, useful for rendering animations and other dynamic content.
+
+                    ::: {.note}
+                    If you're looking for detailed information into the function
+                    signature, you can refer to the fidget API documentation available
+                    [here](https://github.com/j-hui/fidget.nvim/blob/1ba38e4cbb24683973e00c2e36f53ae64da38ef5/doc/fidget-api.txt#L70-L77)
+                    :::
+                  '';
+                };
+                icon = mkOption {
+                  type = nullOr (oneOf [str luaInline]);
+                  default = null;
+                  description = ''
+                    Icon of the group, displayed in the notification window.
+                    Can be a string or a function that returns a string.
+
+                    If a function, it is invoked every render cycle with the items
+                    list, useful for rendering animations and other dynamic content.
+
+                    ::: {.note}
+                    If you're looking for detailed information into the function
+                    signature, you can refer to the fidget API documentation available
+                    [here](https://github.com/j-hui/fidget.nvim/blob/1ba38e4cbb24683973e00c2e36f53ae64da38ef5/doc/fidget-api.txt#L70-L77)
+                    :::
+                  '';
+                };
+                icon_on_left = mkOption {
+                  type = nullOr bool;
+                  default = null;
+                  description = "If true, icon is rendered on the left instead of right";
+                };
+                annote_separator = mkOption {
+                  type = nullOr str;
+                  default = " ";
+                  description = "Separator between message from annote";
+                };
+                ttl = mkOption {
+                  type = nullOr int;
+                  default = 5;
+                  description = "How long a notification item should exist";
+                };
+                render_limit = mkOption {
+                  type = nullOr int;
+                  default = null;
+                  description = "How many notification items to show at once";
+                };
+                group_style = mkOption {
+                  type = nullOr str;
+                  default = "Title";
+                  description = "Style used to highlight group name";
+                };
+                icon_style = mkOption {
+                  type = nullOr str;
+                  default = null;
+                  description = "Style used to highlight icon, if null, use group_style";
+                };
+                annote_style = mkOption {
+                  type = nullOr str;
+                  default = "Question";
+                  description = "Default style used to highlight item annotes";
+                };
+                debug_style = mkOption {
+                  type = nullOr str;
+                  default = null;
+                  description = "Style used to highlight debug item annotes";
+                };
+                info_style = mkOption {
+                  type = nullOr str;
+                  default = null;
+                  description = "Style used to highlight info item annotes";
+                };
+                warn_style = mkOption {
+                  type = nullOr str;
+                  default = null;
+                  description = "Style used to highlight warn item annotes";
+                };
+                error_style = mkOption {
+                  type = nullOr str;
+                  default = null;
+                  description = "Style used to highlight error item annotes";
+                };
+                debug_annote = mkOption {
+                  type = nullOr str;
+                  default = null;
+                  description = "Default annotation for debug items";
+                };
+                info_annote = mkOption {
+                  type = nullOr str;
+                  default = null;
+                  description = "Default annotation for info items";
+                };
+                warn_annote = mkOption {
+                  type = nullOr str;
+                  default = null;
+                  description = "Default annotation for warn items";
+                };
+                error_annote = mkOption {
+                  type = nullOr str;
+                  default = null;
+                  description = "Default annotation for error items";
+                };
+                priority = mkOption {
+                  type = nullOr int;
+                  default = 50;
+                  description = "Order in which group should be displayed";
+                };
+                skip_history = mkOption {
+                  type = nullOr bool;
+                  default = null;
+                  description = "Whether messages should be preserved in history";
+                };
+                update_hook = mkOption {
+                  type = nullOr (oneOf [bool luaInline]);
+                  default = false;
+                  description = ''
+                    Called when an item is updated.
+
+                    If false, no action is taken.
+                    If a function, it is invoked with the item being updated.
+
+                    ::: {.note}
+                    If you're looking for detailed information into the function
+                    signature, you can refer to the fidget API documentation available
+                    [here](https://github.com/j-hui/fidget.nvim/blob/1ba38e4cbb24683973e00c2e36f53ae64da38ef5/doc/fidget-api.txt#L114)
+                    :::
+                  '';
+                };
+              };
+            });
+            default = {};
+            example = literalExpression ''
+              {
+                rust_analyzer = {
+                  name = "Rust Analyzer";
+                };
+              }
+            '';
             description = ''
               Overrides the default configuration for a notification group defined
               in {option}`vim.visuals.fidget-nvim.setupOpts.notification.configs`.
@@ -208,199 +366,51 @@ in {
                  }
               ```
             '';
-            type = attrsOf (submodule {
-              options = {
-                name = mkOption {
-                  description = ''
-                    Name of the group, displayed in the notification window.
-                    Can be a string or a function that returns a string.
-
-                    If a function, it is invoked every render cycle with the items
-                    list, useful for rendering animations and other dynamic content.
-
-                    ::: {.note}
-                    If you're looking for detailed information into the function
-                    signature, you can refer to the fidget API documentation available
-                    [here](https://github.com/j-hui/fidget.nvim/blob/1ba38e4cbb24683973e00c2e36f53ae64da38ef5/doc/fidget-api.txt#L70-L77)
-                    :::
-                  '';
-                  type = nullOr (oneOf [str luaInline]);
-                  default = null;
-                };
-                icon = mkOption {
-                  description = ''
-                    Icon of the group, displayed in the notification window.
-                    Can be a string or a function that returns a string.
-
-                    If a function, it is invoked every render cycle with the items
-                    list, useful for rendering animations and other dynamic content.
-
-                    ::: {.note}
-                    If you're looking for detailed information into the function
-                    signature, you can refer to the fidget API documentation available
-                    [here](https://github.com/j-hui/fidget.nvim/blob/1ba38e4cbb24683973e00c2e36f53ae64da38ef5/doc/fidget-api.txt#L70-L77)
-                    :::
-                  '';
-                  type = nullOr (oneOf [str luaInline]);
-                  default = null;
-                };
-                icon_on_left = mkOption {
-                  description = "If true, icon is rendered on the left instead of right";
-                  type = nullOr bool;
-                  default = null;
-                };
-                annote_separator = mkOption {
-                  description = "Separator between message from annote";
-                  type = nullOr str;
-                  default = " ";
-                };
-                ttl = mkOption {
-                  description = "How long a notification item should exist";
-                  type = nullOr int;
-                  default = 5;
-                };
-                render_limit = mkOption {
-                  description = "How many notification items to show at once";
-                  type = nullOr int;
-                  default = null;
-                };
-                group_style = mkOption {
-                  description = "Style used to highlight group name";
-                  type = nullOr str;
-                  default = "Title";
-                };
-                icon_style = mkOption {
-                  description = "Style used to highlight icon, if null, use group_style";
-                  type = nullOr str;
-                  default = null;
-                };
-                annote_style = mkOption {
-                  description = "Default style used to highlight item annotes";
-                  type = nullOr str;
-                  default = "Question";
-                };
-                debug_style = mkOption {
-                  description = "Style used to highlight debug item annotes";
-                  type = nullOr str;
-                  default = null;
-                };
-                info_style = mkOption {
-                  description = "Style used to highlight info item annotes";
-                  type = nullOr str;
-                  default = null;
-                };
-                warn_style = mkOption {
-                  description = "Style used to highlight warn item annotes";
-                  type = nullOr str;
-                  default = null;
-                };
-                error_style = mkOption {
-                  description = "Style used to highlight error item annotes";
-                  type = nullOr str;
-                  default = null;
-                };
-                debug_annote = mkOption {
-                  description = "Default annotation for debug items";
-                  type = nullOr str;
-                  default = null;
-                };
-                info_annote = mkOption {
-                  description = "Default annotation for info items";
-                  type = nullOr str;
-                  default = null;
-                };
-                warn_annote = mkOption {
-                  description = "Default annotation for warn items";
-                  type = nullOr str;
-                  default = null;
-                };
-                error_annote = mkOption {
-                  description = "Default annotation for error items";
-                  type = nullOr str;
-                  default = null;
-                };
-                priority = mkOption {
-                  description = "Order in which group should be displayed";
-                  type = nullOr int;
-                  default = 50;
-                };
-                skip_history = mkOption {
-                  description = "Whether messages should be preserved in history";
-                  type = nullOr bool;
-                  default = null;
-                };
-                update_hook = mkOption {
-                  description = ''
-                    Called when an item is updated.
-
-                    If false, no action is taken.
-                    If a function, it is invoked with the item being updated.
-
-                    ::: {.note}
-                    If you're looking for detailed information into the function
-                    signature, you can refer to the fidget API documentation available
-                    [here](https://github.com/j-hui/fidget.nvim/blob/1ba38e4cbb24683973e00c2e36f53ae64da38ef5/doc/fidget-api.txt#L114)
-                    :::
-                  '';
-                  type = nullOr (oneOf [bool luaInline]);
-                  default = false;
-                };
-              };
-            });
-            default = {};
-            example = literalExpression ''
-              {
-                rust_analyzer = {
-                  name = "Rust Analyzer";
-                };
-              }
-            '';
           };
         };
 
         lsp = {
           progress_ringbuf_size = mkOption {
-            description = "Nvim's LSP client ring buffer size";
             type = int;
             default = 100;
+            description = "Nvim's LSP client ring buffer size";
           };
           log_handler = mkOption {
-            description = "Log `$/progress` handler invocations";
             type = bool;
             default = false;
+            description = "Log `$/progress` handler invocations";
           };
         };
       };
 
       notification = {
         poll_rate = mkOption {
-          description = "How frequently to update and render notifications";
           type = int;
           default = 10;
+          description = "How frequently to update and render notifications";
         };
         filter = mkOption {
-          description = "Minimum notifications level";
           type = enum ["debug" "info" "warn" "error"];
           default = "info";
+          description = "Minimum notifications level";
           apply = filter: mkLuaInline "vim.log.levels.${toUpper filter}";
         };
         history_size = mkOption {
-          description = "Number of removed messages to retain in history";
           type = int;
           default = 128;
+          description = "Number of removed messages to retain in history";
         };
         override_vim_notify = mkOption {
-          description = "Automatically override vim.notify() with Fidget";
           type = bool;
           default = false;
+          description = "Automatically override vim.notify() with Fidget";
         };
         configs = mkOption {
-          description = "How to configure notification groups when instantiated";
           type = attrsOf luaInline;
           default = {default = mkLuaInline "require('fidget.notification').default_config";};
+          description = "How to configure notification groups when instantiated";
         };
         redirect = mkOption {
-          description = "Conditionally redirect notifications to another backend";
           type = luaInline;
           default = mkLuaInline ''
             function(msg, level, opts)
@@ -409,93 +419,137 @@ in {
               end
             end
           '';
+          description = "Conditionally redirect notifications to another backend";
         };
 
         view = {
           stack_upwards = mkOption {
-            description = "Display notification items from bottom to top";
             type = bool;
             default = true;
+            description = "Display notification items from bottom to top";
+          };
+          align = mkOption {
+            type = enum ["message" "annote"];
+            default = "message";
+            description = "Indent messages longer than a single line";
+          };
+          reflow = mkOption {
+            type = enum ["hard" "hyphenate" "ellipsis" "false"];
+            default = "false";
+            description = ''
+              Reflow (wrap) messages wider than notification window
+
+              The various options determine how wrapping is handled mid-word.
+            '';
           };
           icon_separator = mkOption {
-            description = "Separator between group name and icon";
             type = str;
             default = " ";
+            description = "Separator between group name and icon";
           };
           group_separator = mkOption {
-            description = "Separator between notification groups";
             type = str;
             default = "---";
+            description = "Separator between notification groups";
           };
           group_separator_hl = mkOption {
-            description = "Highlight group used for group separator";
             type = str;
             default = "Comment";
+            description = "Highlight group used for group separator";
+          };
+          line_margin = mkOption {
+            type = int;
+            default = 1;
+            description = ''
+              Spaces to pad both sides of each non-empty line
+
+              Useful for adding a visual gap between notification text
+              and any buffer it may overlap with.
+            '';
           };
           render_message = mkOption {
-            description = "How to render notification messages";
             type = luaInline;
             default = mkLuaInline ''
               function(msg, cnt)
                 return cnt == 1 and msg or string.format("(%dx) %s", cnt, msg)
               end
             '';
+            description = "How to render notification messages";
           };
         };
 
         window = {
           normal_hl = mkOption {
-            description = "Base highlight group in the notification window";
             type = str;
             default = "Comment";
+            description = "Base highlight group in the notification window";
           };
           winblend = mkOption {
-            description = "Background color opacity in the notification window";
             type = int;
             default = 100;
+            description = "Background color opacity in the notification window";
           };
           border = mkOption {
-            description = "Border style of the notification window";
             type = borderType;
             default =
               if config.vim.ui.borders.enable
               then config.vim.ui.borders.globalStyle
               else "none";
+            description = "Border style of the notification window";
+          };
+          border_hl = mkOption {
+            type = str;
+            default = "";
+            description = ''
+              Highlight group for notification window border
+
+              Set to empty string to keep your theme's default `FloatBorder` highlight.
+            '';
           };
           zindex = mkOption {
-            description = "Stacking priority of the notification window";
             type = int;
             default = 45;
+            description = "Stacking priority of the notification window";
           };
           max_width = mkOption {
-            description = "Maximum width of the notification window";
             type = int;
             default = 0;
+            description = "Maximum width of the notification window";
           };
           max_height = mkOption {
-            description = "Maximum height of the notification window";
             type = int;
             default = 0;
+            description = "Maximum height of the notification window";
           };
           x_padding = mkOption {
-            description = "Padding from right edge of window boundary";
             type = int;
             default = 1;
+            description = "Padding from right edge of window boundary";
           };
           y_padding = mkOption {
-            description = "Padding from bottom edge of window boundary";
             type = int;
             default = 0;
+            description = "Padding from bottom edge of window boundary";
           };
           align = mkOption {
-            description = "How to align the notification window";
             type = enum ["top" "bottom"];
             default = "bottom";
+            description = "How to align the notification window";
           };
           relative = mkOption {
-            description = "What the notification window position is relative to";
             type = enum ["editor" "win"];
             default = "editor";
+            description = "What the notification window position is relative to";
+          };
+          tabstop = mkOption {
+            type = int;
+            default = 8;
+            description = "Width of each tab character in the notification window";
+          };
+          avoid = mkOption {
+            type = listOf str;
+            default = [];
+            description = "Filetypes the notification window should avoid";
           };
         };
       };
@@ -503,46 +557,56 @@ in {
       integration = {
         nvim-tree = {
           enable = mkOption {
-            description = "Integrate with nvim-tree/nvim-tree.lua (if enabled)";
             type = bool;
-            default =
-              if config.vim.filetree.nvimTree.enable
-              then true
-              else false;
+            default = false;
+            description = "Integrate with nvim-tree/nvim-tree.lua (if enabled)";
+            visible = false;
+            apply = warn ''
+              Option `vim.visuals.fidget-nvim.setupOpts.integration.nvim-tree.enable`
+              has been deprecated upstream. Use
+              `vim.visuals.fidget-nvim.setupOpts.notification.window.avoid = ["NvimTree"]` instead.
+              This is already set if `vim.filetree.nvimTree.enable == true`.
+            '';
           };
         };
         xcodebuild-nvim = {
           enable = mkOption {
-            description = "Integrate with wojciech-kulik/xcodebuild.nvim (if enabled)";
             type = bool;
-            default = true;
+            default = false;
+            description = "Integrate with wojciech-kulik/xcodebuild.nvim (if enabled)";
+            visible = false;
+            apply = warn ''
+              Option `vim.visuals.fidget-nvim.setupOpts.integration.xcodebuild-nvim.enable`
+              has been deprecated upstream. Use
+              `vim.visuals.fidget-nvim.setupOpts.notification.window.avoid = ["TestExplorer"]` instead.
+            '';
           };
         };
       };
 
       logger = {
         level = mkOption {
-          description = "Minimum logging level";
           type = enum ["debug" "error" "info" "trace" "warn" "off"];
           default = "warn";
+          description = "Minimum logging level";
           apply = logLevel: mkLuaInline "vim.log.levels.${toUpper logLevel}";
         };
         max_size = mkOption {
-          description = "Maximum log file size, in KB";
           type = int;
           default = 10000;
+          description = "Maximum log file size, in KB";
         };
         float_precision = mkOption {
-          description = "Limit the number of decimals displayed for floats";
           type = float;
           default = 0.01;
+          description = "Limit the number of decimals displayed for floats";
         };
         path = mkOption {
-          description = "Where Fidget writes its logs to";
           type = luaInline;
           default = mkLuaInline ''
             string.format("%s/fidget.nvim.log", vim.fn.stdpath("cache"))
           '';
+          description = "Where Fidget writes its logs to";
         };
       };
     };
