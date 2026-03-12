@@ -18,7 +18,7 @@
   servers = {
     neocmakelsp = {
       enable = true;
-      cmd = [(getExe pkgs.neocmakelsp) "--stdio"];
+      cmd = [(getExe pkgs.neocmakelsp) "stdio"];
       filetypes = ["cmake"];
       root_markers = [".gersemirc" ".git" "build" "cmake"];
       capabilities = {
