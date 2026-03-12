@@ -6,6 +6,7 @@
   `vimPlugins.nvim-treesitter`. Namely, it changes from the frozen `master`
   branch to the new main branch. This change removes incremental selections, so
   it is no longer available.
+
 - [obsidian.nvim] now uses a maintained fork which has removed the `dir`
   setting. Use `workspaces` instead:
 
@@ -78,6 +79,8 @@
 [NotAShelf](https://github.com/notashelf):
 
 - Lazyload noice.nvim and nvim-web-devicons on `DeferredUIEnter`
+- Allow nulling treesitter packages for various language modules, filter `null`
+  values in `vim.treesitter.grammars`.
 
 [jfeo](https://github.com/jfeo):
 
