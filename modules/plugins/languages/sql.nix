@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum package str;
@@ -74,7 +74,12 @@ in {
     };
 
     treesitter = {
-      enable = mkEnableOption "SQL treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "SQL treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
 
       package = mkOption {
         type = package;
@@ -84,7 +89,12 @@ in {
     };
 
     lsp = {
-      enable = mkEnableOption "SQL LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "SQL LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.sql.lsp.servers" (enum (attrNames servers));
@@ -94,7 +104,12 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "SQL formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "SQL formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
 
       type = mkOption {
         type = deprecatedSingleOrListOf "vim.language.sql.format.type" (enum (attrNames formats));
@@ -104,7 +119,12 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkEnableOption "extra SQL diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      enable =
+        mkEnableOption "extra SQL diagnostics"
+        // {
+          default = config.vim.languages.enableExtraDiagnostics;
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
+        };
 
       types = diagnostics {
         langDesc = "SQL";

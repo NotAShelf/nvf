@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (builtins) attrNames;
@@ -65,12 +65,22 @@ in {
     enable = mkEnableOption "Java language support";
 
     treesitter = {
-      enable = mkEnableOption "Java treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Java treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "java";
     };
 
     lsp = {
-      enable = mkEnableOption "Java LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Java LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;

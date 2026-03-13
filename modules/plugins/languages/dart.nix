@@ -8,7 +8,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.trivial) boolToString;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum package nullOr str bool;
   inherit (lib.strings) optionalString;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
@@ -45,12 +45,22 @@ in {
     enable = mkEnableOption "Dart language support";
 
     treesitter = {
-      enable = mkEnableOption "Dart treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Dart treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "dart";
     };
 
     lsp = {
-      enable = mkEnableOption "Dart LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Dart LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.dart.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
@@ -63,6 +73,7 @@ in {
         description = "Enable Dart DAP support via flutter-tools";
         type = bool;
         default = config.vim.languages.enableDAP;
+        defaultText = literalExpression "config.vim.languages.enableDAP";
       };
     };
 
@@ -70,6 +81,7 @@ in {
       enable = mkOption {
         type = bool;
         default = config.vim.lsp.enable;
+        defaultText = literalExpression "config.vim.lsp.enable";
         description = "Enable flutter-tools for flutter support";
       };
 

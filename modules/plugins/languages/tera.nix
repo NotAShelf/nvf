@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption;
+  inherit (lib.options) mkEnableOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption;
 
@@ -14,7 +14,12 @@ in {
     enable = mkEnableOption "Tera templating language support";
 
     treesitter = {
-      enable = mkEnableOption "Tera treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Tera treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "tera";
     };
   };

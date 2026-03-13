@@ -6,7 +6,7 @@
 }: let
   inherit (builtins) isList attrNames;
   inherit (lib.types) either package enum listOf str;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.strings) optionalString;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption;
@@ -57,7 +57,7 @@
       settings = {
         haskell = {
           formattingProvider = "ormolu";
-          cabalFormattingProvider = "cabalfmt";
+          cabalFormattingProvider = "cabal-fmt";
         };
       };
     };
@@ -67,12 +67,22 @@ in {
     enable = mkEnableOption "Haskell support";
 
     treesitter = {
-      enable = mkEnableOption "Treesitter support for Haskell" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Treesitter support for Haskell"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "haskell";
     };
 
     lsp = {
-      enable = mkEnableOption "Haskell LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Haskell LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
@@ -81,7 +91,12 @@ in {
     };
 
     dap = {
-      enable = mkEnableOption "DAP support for Haskell" // {default = config.vim.languages.enableDAP;};
+      enable =
+        mkEnableOption "DAP support for Haskell"
+        // {
+          default = config.vim.languages.enableDAP;
+          defaultText = literalExpression "config.vim.languages.enableDAP";
+        };
       package = mkOption {
         default = haskellPackages.haskell-debug-adapter;
         type = either package (listOf str);

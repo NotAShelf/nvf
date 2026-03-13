@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.meta) getExe;
   inherit (lib.types) listOf enum;
   inherit (lib.modules) mkIf mkMerge;
@@ -34,12 +34,22 @@ in {
     enable = mkEnableOption "Make support";
 
     treesitter = {
-      enable = mkEnableOption "Make treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Make treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "make";
     };
 
     format = {
-      enable = mkEnableOption "Make formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "Make formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
       type = mkOption {
         description = "make formatter to use";
         type = listOf (enum (attrNames formats));
@@ -48,7 +58,12 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkEnableOption "extra Make diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      enable =
+        mkEnableOption "extra Make diagnostics"
+        // {
+          default = config.vim.languages.enableExtraDiagnostics;
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
+        };
       types = diagnostics {
         langDesc = "Make";
         inherit diagnosticsProviders;

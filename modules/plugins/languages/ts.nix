@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames elem;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum package bool;
@@ -215,14 +215,24 @@ in {
     enable = mkEnableOption "Typescript/Javascript language support";
 
     treesitter = {
-      enable = mkEnableOption "Typescript/Javascript treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Typescript/Javascript treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       tsPackage = mkGrammarOption pkgs "typescript";
       tsxPackage = mkGrammarOption pkgs "tsx";
       jsPackage = mkGrammarOption pkgs "javascript";
     };
 
     lsp = {
-      enable = mkEnableOption "Typescript/Javascript LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Typescript/Javascript LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.ts.lsp.servers" (enum (attrNames servers));
@@ -232,7 +242,12 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "Typescript/Javascript formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "Typescript/Javascript formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
 
       type = mkOption {
         description = "Typescript/Javascript formatter to use";

@@ -5,123 +5,92 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.meta) getExe;
-  inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (lib.types) enum;
-  inherit (lib.nvim.types) diagnostics mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.meta) getExe;
+  inherit (lib.types) listOf enum;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
-  cfg = config.vim.languages.toml;
-  defaultServers = ["taplo"];
+  cfg = config.vim.languages.twig;
+
+  defaultServers = ["twig-language-server"];
   servers = {
-    tombi = {
+    twig-language-server = {
       enable = true;
-      cmd = [
-        (getExe pkgs.tombi)
-        "lsp"
-      ];
-      filetypes = ["toml"];
-      root_markers = [
-        "tombi.toml"
-        ".git"
-      ];
-    };
-    taplo = {
-      enable = true;
-      cmd = [
-        (getExe pkgs.taplo)
-        "lsp"
-        "stdio"
-      ];
-      filetypes = ["toml"];
-      root_markers = [
-        ".git"
-      ];
+      cmd = [(getExe pkgs.twig-language-server) "--stdio"];
+      filetypes = ["twig"];
+      root_markers = [".git"];
     };
   };
 
-  defaultFormat = ["taplo"];
+  defaultFormat = ["djlint"];
   formats = {
-    tombi = {
-      command = getExe pkgs.tombi;
-      args = [
-        "format"
-        "--stdin-filepath"
-        "$FILENAME"
-        "-"
-      ];
+    djlint = {
+      command = getExe pkgs.djlint;
     };
-    taplo = {
-      command = getExe pkgs.taplo;
-      args = [
-        "format"
-        "--stdin-filepath"
-        "$FILENAME"
-        "-"
-      ];
-    };
+    # TODO: if twig-cs-fixer gets packaged for nix, add it and default to it.
   };
-  defaultDiagnosticsProvider = ["tombi"];
+  defaultDiagnosticsProvider = ["djlint"];
   diagnosticsProviders = {
-    tombi = {
-      package = pkgs.tombi;
-      args = ["lint"];
+    djlint = {
+      config = {
+        cmd = getExe pkgs.djlint;
+      };
     };
+    # TODO: if curlylint gets packaged for nix, add it.
   };
 in {
-  options.vim.languages.toml = {
-    enable = mkEnableOption "TOML configuration language support";
+  options.vim.languages.twig = {
+    enable = mkEnableOption "Twig templating language support";
 
     treesitter = {
       enable =
-        mkEnableOption "TOML treesitter"
+        mkEnableOption "Twig treesitter"
         // {
           default = config.vim.languages.enableTreesitter;
           defaultText = literalExpression "config.vim.languages.enableTreesitter";
         };
-      package = mkGrammarOption pkgs "toml";
+      package = mkGrammarOption pkgs "twig";
     };
 
     lsp = {
       enable =
-        mkEnableOption "TOML LSP support"
+        mkEnableOption "Twig LSP support"
         // {
           default = config.vim.lsp.enable;
           defaultText = literalExpression "config.vim.lsp.enable";
         };
-
       servers = mkOption {
-        description = "TOML LSP server to use";
-        type = deprecatedSingleOrListOf "vim.language.toml.lsp.servers" (enum (attrNames servers));
+        type = listOf (enum (attrNames servers));
         default = defaultServers;
+        description = "Twig LSP server to use";
       };
     };
 
     format = {
       enable =
-        mkEnableOption "TOML formatting"
+        mkEnableOption "PHP formatting"
         // {
           default = config.vim.languages.enableFormat;
           defaultText = literalExpression "config.vim.languages.enableFormat";
         };
-
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.toml.format.type" (enum (attrNames formats));
+        description = "Twig formatter to use";
+        type = listOf (enum (attrNames formats));
         default = defaultFormat;
-        description = "TOML formatter to use.";
       };
     };
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra TOML diagnostics"
+        mkEnableOption "extra Twig diagnostics"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
       types = diagnostics {
-        langDesc = "TOML";
+        langDesc = "Twig";
         inherit diagnosticsProviders;
         inherit defaultDiagnosticsProvider;
       };
@@ -131,9 +100,7 @@ in {
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
-      vim.treesitter.grammars = [
-        cfg.treesitter.package
-      ];
+      vim.treesitter.grammars = [cfg.treesitter.package];
     })
 
     (mkIf cfg.lsp.enable {
@@ -149,7 +116,7 @@ in {
       vim.formatter.conform-nvim = {
         enable = true;
         setupOpts = {
-          formatters_by_ft.toml = cfg.format.type;
+          formatters_by_ft.twig = cfg.format.type;
           formatters =
             mapListToAttrs (name: {
               inherit name;
@@ -163,13 +130,10 @@ in {
     (mkIf cfg.extraDiagnostics.enable {
       vim.diagnostics.nvim-lint = {
         enable = true;
-        linters_by_ft.toml = cfg.extraDiagnostics.types;
-        linters = mkMerge (
-          map (name: {
-            ${name}.cmd = getExe diagnosticsProviders.${name}.package;
-          })
-          cfg.extraDiagnostics.types
-        );
+        linters_by_ft.twig = cfg.extraDiagnostics.types;
+        linters =
+          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
+            cfg.extraDiagnostics.types);
       };
     })
   ]);

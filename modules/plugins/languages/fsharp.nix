@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
@@ -65,12 +65,22 @@ in {
       enable = mkEnableOption "F# language support";
 
       treesitter = {
-        enable = mkEnableOption "F# treesitter" // {default = config.vim.languages.enableTreesitter;};
+        enable =
+          mkEnableOption "F# treesitter"
+          // {
+            default = config.vim.languages.enableTreesitter;
+            defaultText = literalExpression "config.vim.languages.enableTreesitter";
+          };
         package = mkGrammarOption pkgs "fsharp";
       };
 
       lsp = {
-        enable = mkEnableOption "F# LSP support" // {default = config.vim.lsp.enable;};
+        enable =
+          mkEnableOption "F# LSP support"
+          // {
+            default = config.vim.lsp.enable;
+            defaultText = literalExpression "config.vim.lsp.enable";
+          };
         servers = mkOption {
           type = deprecatedSingleOrListOf "vim.language.fsharp.lsp.servers" (enum (attrNames servers));
           default = defaultServer;

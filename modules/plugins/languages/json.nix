@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.meta) getExe' getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum;
@@ -18,7 +18,7 @@
   servers = {
     jsonls = {
       cmd = [(getExe' pkgs.vscode-langservers-extracted "vscode-json-language-server") "--stdio"];
-      filetypes = ["json" "jsonc"];
+      filetypes = ["json" "jsonc" "json5"];
       init_options = {provideFormatter = true;};
       root_markers = [".git"];
     };
@@ -37,13 +37,24 @@ in {
     enable = mkEnableOption "JSON language support";
 
     treesitter = {
-      enable = mkEnableOption "JSON treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "JSON treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
 
-      package = mkGrammarOption pkgs "json";
+      jsonPackage = mkGrammarOption pkgs "json";
+      json5Package = mkGrammarOption pkgs "json5";
     };
 
     lsp = {
-      enable = mkEnableOption "JSON LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "JSON LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.json.lsp.servers" (enum (attrNames servers));
@@ -53,7 +64,12 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "JSON formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "JSON formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
 
       type = mkOption {
         description = "JSON formatter to use";
@@ -66,7 +82,10 @@ in {
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      vim.treesitter.grammars = [
+        cfg.treesitter.jsonPackage
+        cfg.treesitter.json5Package
+      ];
     })
 
     (mkIf cfg.lsp.enable {
@@ -83,6 +102,7 @@ in {
         enable = true;
         setupOpts = {
           formatters_by_ft.json = cfg.format.type;
+          formatters_by_ft.json5 = cfg.format.type;
           formatters =
             mapListToAttrs (name: {
               inherit name;

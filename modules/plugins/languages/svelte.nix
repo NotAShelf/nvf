@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum package coercedTo;
@@ -104,13 +104,23 @@ in {
     enable = mkEnableOption "Svelte language support";
 
     treesitter = {
-      enable = mkEnableOption "Svelte treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Svelte treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
 
       sveltePackage = mkGrammarOption pkgs "svelte";
     };
 
     lsp = {
-      enable = mkEnableOption "Svelte LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Svelte LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.svelte.lsp.servers" (enum (attrNames servers));

@@ -539,6 +539,19 @@
       "url": "https://github.com/folke/flash.nvim/archive/b68bda044d68e4026c4e1ec6df3c5afd7eb8e341.tar.gz",
       "hash": "sha256-7isgZdploAGK5l8TxVxL277CH6kPbcBnMwfZeqPHjq4="
     },
+    "fluent-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "projectfluent",
+        "repo": "fluent.vim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "94c1ef622187032778f546d2f8ad821661475172",
+      "url": "https://github.com/projectfluent/fluent.vim/archive/94c1ef622187032778f546d2f8ad821661475172.tar.gz",
+      "hash": "sha256-tOYxOUKa6Zn2Yq5peqGDEdCkpl+b+VKkSmZx7+kHZJ0="
+    },
     "flutter-tools-nvim": {
       "type": "Git",
       "repository": {
@@ -655,6 +668,22 @@
       "revision": "5d5954b2f22e109d4a6eba8b2618c5b96e4ee7a2",
       "url": "https://github.com/ellisonleao/glow.nvim/archive/5d5954b2f22e109d4a6eba8b2618c5b96e4ee7a2.tar.gz",
       "hash": "sha256-CvBcmVWBgI+m+PS7p7PmsiPtTEfqx2kpIzz4mImONIc="
+    },
+    "gopher-nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "olexsmir",
+        "repo": "gopher.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.6.0",
+      "revision": "95fdeb571d837af9efae27fea1c0131fa756ab43",
+      "url": "https://api.github.com/repos/olexsmir/gopher.nvim/tarball/refs/tags/v0.6.0",
+      "hash": "sha256-7aDjMFMCiqub/zCDJIWUIX9Zc6+vyPQOczuOFdc/6S0="
     },
     "grug-far-nvim": {
       "type": "Git",
@@ -863,15 +892,16 @@
     "leap-nvim": {
       "type": "Git",
       "repository": {
-        "type": "GitHub",
-        "owner": "ggandor",
+        "type": "Forgejo",
+        "server": "https://codeberg.org/",
+        "owner": "andyg",
         "repo": "leap.nvim"
       },
       "branch": "main",
       "submodules": false,
-      "revision": "07304103f6bd923004fdef9262d9a4d7925fb70a",
-      "url": "https://github.com/ggandor/leap.nvim/archive/07304103f6bd923004fdef9262d9a4d7925fb70a.tar.gz",
-      "hash": "sha256-AImK8kLWBdA1IFeTt52UF8+j+BBmQmz00VW4EWCVQdg="
+      "revision": "774c452da3521d4434f912b6ca6dd97318aca4b0",
+      "url": "https://codeberg.org/andyg/leap.nvim/archive/774c452da3521d4434f912b6ca6dd97318aca4b0.tar.gz",
+      "hash": "sha256-HkLmYb0+Vu65JalaE2JuMJM74/fWAS3QJRQb4BW5esw="
     },
     "leetcode-nvim": {
       "type": "Git",

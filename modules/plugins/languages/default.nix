@@ -14,6 +14,7 @@ in {
     ./cmake.nix
     ./css.nix
     ./elixir.nix
+    ./elm.nix
     ./fsharp.nix
     ./gleam.nix
     ./glsl.nix
@@ -23,6 +24,7 @@ in {
     ./kotlin.nix
     ./html.nix
     ./tera.nix
+    ./twig.nix
     ./haskell.nix
     ./java.nix
     ./jinja.nix
@@ -57,6 +59,7 @@ in {
     ./just.nix
     ./make.nix
     ./xml.nix
+    ./fluent.nix
 
     # This is now a hard deprecation.
     (mkRenamedOptionModule ["vim" "languages" "enableLSP"] ["vim" "lsp" "enable"])

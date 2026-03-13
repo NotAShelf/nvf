@@ -48,6 +48,8 @@
 - Added [taplo](https://taplo.tamasfe.dev/) as the default formatter and lsp for
   `languages.toml` so we don't default to AI-Slop.
 
+- Added `json5` into `languages.json`. Some options where renamed.
+
 ## Changelog {#sec-release-0-9-changelog}
 
 [taylrfnt](https://github.com/taylrfnt)
@@ -208,6 +210,9 @@
 
 - Added [`golangci-lint`](https://golangci-lint.run/) for more diagnostics.
 
+- Added [`gopher.nvim`](https://github.com/olexsmir/gopher.nvim) for extra
+  actions in `languages.go`.
+
 - updated default filetypes for
   [harper-ls](https://github.com/Automattic/harper) to match what they are
   supposed to be.
@@ -217,10 +222,18 @@
 - Fix `languages.hcl` init, depending on `comment-nvim` by checking if it is
   enabled. Fixes a crash (#1350).
 
+- Add `languages.fluent` using the official plugin. This only provides
+  highlighting.
+
 - Added Debugging support to `languages.php`.
 
 - Added Formatting support to `languages.php` via
   [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer).
+
+- Added minimal `languages.twig`. Currently using [djlint](https://djlint.com/)
+  for most options, as better alternatives like
+  [twig-cs-fixer](https://github.com/VincentLanglet/Twig-CS-Fixer) aren't
+  packaged for nix.
 
 - Didn't Add
   [`syntax-gaslighting`](https://github.com/NotAShelf/syntax-gaslighting.nvim),
@@ -270,5 +283,15 @@ https://github.com/gorbit99/codewindow.nvim
 
 - [img-clip.nvim]'s configuration now has it's own DAG entry, separate from
   image-nvim.
+
+[phanirithvij](https://github.com/phanirithvij):
+
+[elm-language-server]: https://github.com/elm-tooling/elm-language-server
+
+- Add Elm support with [elm-language-server]
+
+[alv-around](https://github.com/alv-around):
+
+- Fix `vim.assistant.codecompanion-nvim` lazy loading with [blink-cmp]
 
 <!-- vim: set textwidth=80: -->

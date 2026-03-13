@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum;
@@ -28,12 +28,22 @@ in {
     enable = mkEnableOption "Gleam language support";
 
     treesitter = {
-      enable = mkEnableOption "Gleam treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Gleam treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "gleam";
     };
 
     lsp = {
-      enable = mkEnableOption "Gleam LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Gleam LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.gleam.lsp.servers" (enum (attrNames servers));
         default = defaultServers;

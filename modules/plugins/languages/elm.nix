@@ -1,55 +1,55 @@
 {
   config,
-  lib,
   pkgs,
+  lib,
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
-  cfg = config.vim.languages.wgsl;
+  cfg = config.vim.languages.elm;
 
-  defaultServers = ["wgsl-analyzer"];
+  defaultServers = ["elm-language-server"];
   servers = {
-    wgsl-analyzer = {
+    elm-language-server = {
       enable = true;
-      cmd = [(getExe pkgs.wgsl-analyzer)];
-      filetypes = ["wgsl"];
-      root_markers = [".git"];
-      settings = {};
+      cmd = [(getExe pkgs.elmPackages.elm-language-server)];
+      filetypes = ["elm"];
+      root_markers = ["elm.json"];
+      workspace_required = false;
     };
   };
 in {
-  options.vim.languages.wgsl = {
-    enable = mkEnableOption "WGSL language support";
+  options.vim.languages.elm = {
+    enable = mkEnableOption "Elm language support";
 
     treesitter = {
       enable =
-        mkEnableOption "WGSL treesitter"
+        mkEnableOption "Elm treesitter"
         // {
           default = config.vim.languages.enableTreesitter;
           defaultText = literalExpression "config.vim.languages.enableTreesitter";
         };
-      package = mkGrammarOption pkgs "wgsl";
+      package = mkGrammarOption pkgs "elm";
     };
 
     lsp = {
       enable =
-        mkEnableOption "WGSL LSP support"
+        mkEnableOption "Elm LSP support"
         // {
           default = config.vim.lsp.enable;
           defaultText = literalExpression "config.vim.lsp.enable";
         };
 
       servers = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.wgsl.lsp.servers" (enum (attrNames servers));
+        type = deprecatedSingleOrListOf "vim.language.elm.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
-        description = "WGSL LSP server to use";
+        description = "Elm LSP servers to use";
       };
     };
   };
@@ -63,12 +63,14 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim = {
+        lsp.servers =
+          mapListToAttrs (n: {
+            name = n;
+            value = servers.${n};
+          })
+          cfg.lsp.servers;
+      };
     })
   ]);
 }

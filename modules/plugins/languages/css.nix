@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum;
@@ -49,13 +49,23 @@ in {
     enable = mkEnableOption "CSS language support";
 
     treesitter = {
-      enable = mkEnableOption "CSS treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "CSS treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
 
       package = mkGrammarOption pkgs "css";
     };
 
     lsp = {
-      enable = mkEnableOption "CSS LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "CSS LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.css.lsp.servers" (enum (attrNames servers));

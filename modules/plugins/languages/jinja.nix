@@ -7,7 +7,7 @@
   inherit (builtins) attrNames;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.attrsets) mapListToAttrs;
@@ -29,13 +29,23 @@ in {
     enable = mkEnableOption "Jinja template language support";
 
     treesitter = {
-      enable = mkEnableOption "Jinja treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Jinja treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "jinja";
       inlinePackage = mkGrammarOption pkgs "jinja_inline";
     };
 
     lsp = {
-      enable = mkEnableOption "Jinja LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Jinja LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         description = "Jinja LSP server to use";
         type = listOf (enum (attrNames servers));

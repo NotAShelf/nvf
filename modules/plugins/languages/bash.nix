@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum bool;
@@ -48,12 +48,22 @@ in {
     enable = mkEnableOption "Bash language support";
 
     treesitter = {
-      enable = mkEnableOption "Bash treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "Bash treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "bash";
     };
 
     lsp = {
-      enable = mkEnableOption "Bash LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Bash LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.bash.lsp.servers" (enum (attrNames servers));
         default = defaultServers;
@@ -65,6 +75,7 @@ in {
       enable = mkOption {
         type = bool;
         default = config.vim.languages.enableFormat;
+        defaultText = literalExpression "config.vim.languages.enableFormat";
         description = "Enable Bash formatting";
       };
       type = mkOption {
@@ -75,7 +86,12 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkEnableOption "extra Bash diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      enable =
+        mkEnableOption "extra Bash diagnostics"
+        // {
+          default = config.vim.languages.enableExtraDiagnostics;
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
+        };
       types = diagnostics {
         langDesc = "Bash";
         inherit diagnosticsProviders;

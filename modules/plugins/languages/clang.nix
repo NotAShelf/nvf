@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) bool enum package;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
@@ -184,13 +184,23 @@ in {
     };
 
     treesitter = {
-      enable = mkEnableOption "C/C++ treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "C/C++ treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       cPackage = mkGrammarOption pkgs "c";
       cppPackage = mkGrammarOption pkgs "cpp";
     };
 
     lsp = {
-      enable = mkEnableOption "clang LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "clang LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       servers = mkOption {
         description = "The clang LSP server to use";
@@ -204,6 +214,7 @@ in {
         description = "Enable clang Debug Adapter";
         type = bool;
         default = config.vim.languages.enableDAP;
+        defaultText = literalExpression "config.vim.languages.enableDAP";
       };
       debugger = mkOption {
         description = "clang debugger to use";

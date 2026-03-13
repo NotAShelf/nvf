@@ -6,7 +6,7 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum;
@@ -51,13 +51,23 @@ in {
     enable = mkEnableOption "YAML language support";
 
     treesitter = {
-      enable = mkEnableOption "YAML treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "YAML treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
 
       package = mkGrammarOption pkgs "yaml";
     };
 
     lsp = {
-      enable = mkEnableOption "Yaml LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "Yaml LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = deprecatedSingleOrListOf "vim.language.yaml.lsp.servers" (enum (attrNames servers));
         default = defaultServers;

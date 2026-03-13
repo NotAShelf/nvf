@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum listOf package;
@@ -18,7 +18,7 @@
   servers = {
     neocmakelsp = {
       enable = true;
-      cmd = [(getExe pkgs.neocmakelsp) "--stdio"];
+      cmd = [(getExe pkgs.neocmakelsp) "stdio"];
       filetypes = ["cmake"];
       root_markers = [".gersemirc" ".git" "build" "cmake"];
       capabilities = {
@@ -38,12 +38,22 @@ in {
     enable = mkEnableOption "CMake language support";
 
     treesitter = {
-      enable = mkEnableOption "CMake treesitter" // {default = config.vim.languages.enableTreesitter;};
+      enable =
+        mkEnableOption "CMake treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       package = mkGrammarOption pkgs "cmake";
     };
 
     lsp = {
-      enable = mkEnableOption "CMake LSP support" // {default = config.vim.lsp.enable;};
+      enable =
+        mkEnableOption "CMake LSP support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
@@ -52,7 +62,12 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "CMake formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "CMake formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
 
       type = mkOption {
         description = "CMake formatter to use";
