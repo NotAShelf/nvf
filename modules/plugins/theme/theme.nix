@@ -103,7 +103,7 @@ in {
         };
 
         description = ''
-          New theme configuration option for v0.8 and above. This system allows
+          New theme configuration option for v0.9 and above. This system allows
           you to set multiple themes at once, where **all** enabled themes will
           be loaded in the configuration. While {option}`vim.theme.default` is
           set, the default theme will be set automatically in the configuration.
