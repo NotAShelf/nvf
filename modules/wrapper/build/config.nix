@@ -24,7 +24,10 @@
     );
 
   # Build a given Treesitter grammar.
-  buildTreesitterPlug = grammars: vimPlugins.nvim-treesitter.withPlugins (_: grammars);
+  buildTreesitterPlug = grammars:
+    vimPlugins.nvim-treesitter.withPlugins (
+      _: builtins.filter (g: g != null) grammars
+    );
 
   pluginBuilders = {
     nvim-treesitter = buildTreesitterPlug config.vim.treesitter.grammars;
