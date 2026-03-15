@@ -6,8 +6,8 @@
 }: let
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) int str listOf float bool either enum submodule attrsOf anything package;
-  inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
+  inherit (config.vim.lib) mkMappingOption;
 
   cfg = config.vim.telescope;
   setupOptions = {

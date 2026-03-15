@@ -54,7 +54,9 @@ in {
             end
           })
 
-          vim.keymap.set('n', ${toLuaObject cfg.lazygit.mappings.open}, function() lazygit:toggle() end, {silent = true, noremap = true, desc = '${lazygitMapDesc}'})
+          ${optionalString (cfg.lazygit.mappings.open != null) ''
+            vim.keymap.set('n', ${toLuaObject cfg.lazygit.mappings.open}, function() lazygit:toggle() end, {silent = true, noremap = true, desc = '${lazygitMapDesc}'})
+          ''}
         '';
       };
     };

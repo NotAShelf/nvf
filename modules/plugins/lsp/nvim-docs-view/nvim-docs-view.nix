@@ -1,9 +1,13 @@
-{lib, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.types) mkPluginSetupOption;
   inherit (lib.types) enum int;
   inherit (lib.modules) mkRenamedOptionModule;
+  inherit (config.vim.lib) mkMappingOption;
 in {
   imports = let
     renamedSetupOption = oldPath: newPath:

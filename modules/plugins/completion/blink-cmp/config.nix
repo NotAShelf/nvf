@@ -5,7 +5,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.strings) optionalString;
-  inherit (lib.attrsets) optionalAttrs;
+  inherit (lib.attrsets) mapAttrs' optionalAttrs;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.attrsets) attrValues filterAttrs mapAttrsToList;
   inherit (lib.lists) map optional optionals elem;
@@ -98,51 +98,57 @@ in {
           preset = "luasnip";
         };
 
-        keymap = {
-          ${mappings.complete} = ["show" "fallback"];
-          ${mappings.close} = ["hide" "fallback"];
-          ${mappings.scrollDocsUp} = ["scroll_documentation_up" "fallback"];
-          ${mappings.scrollDocsDown} = ["scroll_documentation_down" "fallback"];
-          ${mappings.confirm} = ["accept" "fallback"];
+        keymap =
+          mapAttrs' (mapping-name: action: {
+            name = mappings.${mapping-name};
+            value = action;
+          }) (filterAttrs (mapping-name: _action: mappings.${mapping-name} != null) {
+            complete = ["show" "fallback"];
+            close = ["hide" "fallback"];
+            scrollDocsUp = ["scroll_documentation_up" "fallback"];
+            scrollDocsDown = ["scroll_documentation_down" "fallback"];
+            confirm = ["accept" "fallback"];
+            next = [
+              "select_next"
+              "snippet_forward"
+              (mkLuaInline
+                # lua
+                ''
+                  function(cmp)
+                    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+                    has_words_before = col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 
-          ${mappings.next} = [
-            "select_next"
-            "snippet_forward"
-            (mkLuaInline
-              # lua
-              ''
-                function(cmp)
-                  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-                  has_words_before = col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-
-                  if has_words_before then
-                    return cmp.show()
+                    if has_words_before then
+                      return cmp.show()
+                    end
                   end
-                end
-              '')
-            "fallback"
-          ];
-          ${mappings.previous} = [
-            "select_prev"
-            "snippet_backward"
-            "fallback"
-          ];
-        };
+                '')
+              "fallback"
+            ];
+            previous = [
+              "select_prev"
+              "snippet_backward"
+              "fallback"
+            ];
+          });
 
         # cmdline is not enabled by default, we're just providing keymaps in
         # case the user enables them
-        cmdline.keymap = {
-          ${mappings.complete} = ["show" "fallback"];
-          ${mappings.close} = ["hide" "fallback"];
-          ${mappings.scrollDocsUp} = ["scroll_documentation_up" "fallback"];
-          ${mappings.scrollDocsDown} = ["scroll_documentation_down" "fallback"];
-          # NOTE: mappings.confirm is skipped because our default, <CR> would
-          # lead to accidental triggers of blink.accept instead of executing
-          # the cmd
-
-          ${mappings.next} = ["select_next" "show" "fallback"];
-          ${mappings.previous} = ["select_prev" "fallback"];
-        };
+        cmdline.keymap =
+          mapAttrs' (mapping-name: action: {
+            name = mappings.${mapping-name};
+            value = action;
+          }) (filterAttrs (mapping-name: _action: mappings.${mapping-name} != null) {
+            complete = ["show" "fallback"];
+            close = ["hide" "fallback"];
+            scrollDocsUp = ["scroll_documentation_up" "fallback"];
+            scrollDocsDown = ["scroll_documentation_down" "fallback"];
+            # NOTE: mappings.confirm is skipped because our default, <CR> would
+            # lead to accidental triggers of blink.accept instead of executing
+            # the cmd
+            next = ["select_next" "show" "fallback"];
+            previous = ["select_prev" "fallback"];
+          });
       };
     };
   };

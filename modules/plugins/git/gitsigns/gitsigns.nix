@@ -5,8 +5,8 @@
 }: let
   inherit (lib.options) mkEnableOption;
   inherit (lib.modules) mkRenamedOptionModule;
-  inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.types) mkPluginSetupOption;
+  inherit (config.vim.lib) mkMappingOption;
 in {
   imports = [
     (mkRenamedOptionModule ["vim" "git" "gitsigns" "codeActions" "vim" "gitsigns" "codeActions"] ["vim" "git" "gitsigns" "codeActions" "enable"])

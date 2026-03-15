@@ -6,13 +6,13 @@
 }: let
   inherit (lib.generators) mkLuaInline;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption luaInline;
   inherit (lib.options) mkOption mkEnableOption mkPackageOption literalExpression;
   inherit (lib.strings) optionalString;
   inherit (lib.types) attrsOf anything bool;
+  inherit (config.vim.lib) mkMappingOption;
 
   listCommandsAction =
     if config.vim.telescope.enable
@@ -117,7 +117,9 @@ in {
 
             local attach_metals_keymaps = function(client, bufnr)
               attach_keymaps(client, bufnr)  -- from lsp-setup
+              ${optionalString (cfg.lsp.extraMappings.listCommands != null) ''
               vim.api.nvim_buf_set_keymap(bufnr, 'n', '${cfg.lsp.extraMappings.listCommands}', '<cmd>lua ${listCommandsAction}<CR>', {noremap=true, silent=true, desc='Show all Metals commands'})
+            ''}
             end
 
             metals_config = require('metals').bare_config()

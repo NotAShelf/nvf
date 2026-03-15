@@ -1,4 +1,8 @@
-{lib, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit
     (lib.types)
     nullOr
@@ -10,30 +14,16 @@
     ;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
+  inherit (config.vim.lib) mkMappingOption;
 in {
   options.vim.assistant.supermaven-nvim = {
     enable = mkEnableOption "Supermaven AI assistant";
 
     setupOpts = mkPluginSetupOption "Supermaven" {
       keymaps = {
-        accept_suggestion = mkOption {
-          type = nullOr str;
-          default = null;
-          example = "<Tab>";
-          description = "The key to accept a suggestion";
-        };
-        clear_suggestion = mkOption {
-          type = nullOr str;
-          default = null;
-          example = "<C-]>";
-          description = "The key to clear a suggestion";
-        };
-        accept_word = mkOption {
-          type = nullOr str;
-          default = null;
-          example = "<C-j>";
-          description = "The key to accept a word";
-        };
+        accept_suggestion = mkMappingOption "The key to accept a suggestion" null // {example = "<Tab>";};
+        clear_suggestion = mkMappingOption "The key to clear a suggestion" null // {example = "<C-]>";};
+        accept_word = mkMappingOption "The key to accept a word" null // {example = "<C-j>";};
       };
       ignore_file = mkOption {
         type = nullOr (attrsOf bool);
