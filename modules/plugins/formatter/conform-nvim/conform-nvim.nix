@@ -1,7 +1,7 @@
 {lib, ...}: let
   inherit (lib.generators) mkLuaInline;
   inherit (lib.options) mkOption mkEnableOption literalMD;
-  inherit (lib.types) attrs either nullOr listOf submodule str;
+  inherit (lib.types) attrs attrsOf either nullOr listOf submodule str;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) luaInline mkPluginSetupOption;
 
@@ -49,7 +49,7 @@ in {
     enable = mkEnableOption "lightweight yet powerful formatter plugin for Neovim [conform-nvim]";
     setupOpts = mkPluginSetupOption "conform.nvim" {
       formatters = mkOption {
-        type = formattersType;
+        type = attrsOf formattersType;
         default = {};
         description = "Custom formatters and overrides for built-in formatters.";
       };
