@@ -104,7 +104,7 @@ jobs:
         with:
           authToken: ${{ secrets.CACHIX_TOKEN }}
           extraPullNames: nix-community
-          name: nvf
+          name: horriblename
           pushFilter: '(ndg-\d+\.\d+\.\d+$)'
 
       - name: Set default git branch (to reduce log spam)
