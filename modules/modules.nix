@@ -57,6 +57,7 @@
       "rc"
       "warnings"
       "lazy"
+      "lib"
     ];
 
     # Extra modules, such as deprecation warnings
