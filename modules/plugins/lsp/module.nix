@@ -1,6 +1,10 @@
-{lib, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib.options) mkEnableOption;
-  inherit (lib.nvim.binds) mkMappingOption;
+  inherit (config.vim.lib) mkMappingOption;
 in {
   options.vim.lsp = {
     formatOnSave = mkEnableOption "format on save";

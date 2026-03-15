@@ -13,8 +13,9 @@
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.binds) mkKeymap mkMappingOption;
+  inherit (lib.nvim.binds) mkKeymap;
   inherit (lib.generators) mkLuaInline;
+  inherit (config.vim.lib) mkMappingOption;
 
   cfg = config.vim.languages.typst;
 

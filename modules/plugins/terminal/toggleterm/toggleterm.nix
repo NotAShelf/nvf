@@ -1,14 +1,15 @@
 {
+  config,
   pkgs,
   lib,
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.types) nullOr str enum bool package either int;
   inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   inherit (lib.generators) mkLuaInline;
+  inherit (config.vim.lib) mkMappingOption;
 in {
   imports = [
     (mkRenamedOptionModule ["vim" "terminal" "toggleterm" "direction"] ["vim" "terminal" "toggleterm" "setupOpts" "direction"])

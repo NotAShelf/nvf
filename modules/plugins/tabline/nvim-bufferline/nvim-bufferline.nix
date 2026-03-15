@@ -6,8 +6,8 @@
   inherit (lib.options) mkOption mkEnableOption literalExpression literalMD;
   inherit (lib.types) enum bool either nullOr str int listOf attrs;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
+  inherit (config.vim.lib) mkMappingOption;
 in {
   options.vim.tabline.nvimBufferline = {
     enable = mkEnableOption "neovim bufferline";

@@ -1,9 +1,13 @@
-{lib, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) bool;
-  inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   inherit (lib.generators) mkLuaInline;
+  inherit (config.vim.lib) mkMappingOption;
 in {
   options.vim.navigation.harpoon = {
     mappings = {

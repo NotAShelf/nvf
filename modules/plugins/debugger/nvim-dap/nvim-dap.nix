@@ -1,8 +1,12 @@
-{lib, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) bool attrsOf str;
-  inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.types) mkPluginSetupOption;
+  inherit (config.vim.lib) mkMappingOption;
 in {
   options.vim.debugger.nvim-dap = {
     enable = mkEnableOption "debugging via nvim-dap";

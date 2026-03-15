@@ -768,7 +768,7 @@ usage should look something like this:
 # pluginDefinition.nix
 {lib, ...}: let
   inherit (lib.options) mkEnableOption;
-  inherit (lib.nvim.binds) mkMappingOption;
+  inherit (config.vim.lib) mkMappingOption;
 in {
   options.vim.plugin = {
     enable = mkEnableOption "Enable plugin";

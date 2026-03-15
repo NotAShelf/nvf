@@ -6,9 +6,9 @@
   inherit (lib.options) mkEnableOption mkOption literalMD;
   inherit (lib.types) str attrsOf nullOr either listOf;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline mergelessListOf pluginType;
   inherit (lib.nvim.lua) toLuaObject;
+  inherit (config.vim.lib) mkMappingOption;
   inherit (builtins) isString;
 
   cfg = config.vim.autocomplete.nvim-cmp;
