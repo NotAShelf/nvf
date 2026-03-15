@@ -1,9 +1,13 @@
-{lib, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.nvim.types) luaInline;
-  inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.generators) mkLuaInline;
+  inherit (config.vim.lib) mkMappingOption;
 in {
   imports = [
     (mkRenamedOptionModule ["vim" "visuals" "cellularAutomaton"] ["vim" "visuals" "cellular-automaton"])

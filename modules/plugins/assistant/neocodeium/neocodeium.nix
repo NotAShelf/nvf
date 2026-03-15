@@ -1,4 +1,8 @@
-{lib, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit
     (lib.types)
     nullOr
@@ -11,7 +15,7 @@
     ;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
-  inherit (lib.nvim.binds) mkMappingOption;
+  inherit (config.vim.lib) mkMappingOption;
 in {
   options.vim.assistant.neocodeium = {
     enable = mkEnableOption "NeoCodeium AI completion";
