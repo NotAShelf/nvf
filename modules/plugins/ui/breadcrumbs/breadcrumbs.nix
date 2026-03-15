@@ -7,6 +7,8 @@
   inherit (lib.types) nullOr listOf enum bool str int;
   inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.nvim.types) mkPluginSetupOption borderType;
+  inherit (config.vim.lib) mkMappingOption;
+
   mkSimpleIconOption = default:
     mkOption {
       inherit default;
@@ -83,167 +85,33 @@ in {
     navbuddy = {
       enable = mkEnableOption "navbuddy LSP helper UI. Enabling this option automatically loads and enables nvim-navic";
       mappings = {
-        close = mkOption {
-          type = str;
-          default = "<esc>";
-          description = "Close and return the cursor to its original location.";
-        };
-
-        nextSibling = mkOption {
-          type = str;
-          default = "j";
-          description = "Navigate to the next sibling node.";
-        };
-
-        previousSibling = mkOption {
-          type = str;
-          default = "k";
-          description = "Navigate to the previous sibling node.";
-        };
-
-        parent = mkOption {
-          type = str;
-          default = "h";
-          description = "Navigate to the parent node.";
-        };
-
-        children = mkOption {
-          type = str;
-          default = "l";
-          description = "Navigate to the child node.";
-        };
-
-        root = mkOption {
-          type = str;
-          default = "0";
-          description = "Navigate to the root node.";
-        };
-
-        visualName = mkOption {
-          type = str;
-          default = "v";
-          description = "Select the name visually.";
-        };
-
-        visualScope = mkOption {
-          type = str;
-          default = "V";
-          description = "Select the scope visually.";
-        };
-
-        yankName = mkOption {
-          type = str;
-          default = "y";
-          description = "Yank the name to system clipboard.";
-        };
-
-        yankScope = mkOption {
-          type = str;
-          default = "Y";
-          description = "Yank the scope to system clipboard.";
-        };
-
-        insertName = mkOption {
-          type = str;
-          default = "i";
-          description = "Insert at the start of name.";
-        };
-
-        insertScope = mkOption {
-          type = str;
-          default = "I";
-          description = "Insert at the start of scope.";
-        };
-
-        appendName = mkOption {
-          type = str;
-          default = "a";
-          description = "Insert at the end of name.";
-        };
-
-        appendScope = mkOption {
-          type = str;
-          default = "A";
-          description = "Insert at the end of scope.";
-        };
-
-        rename = mkOption {
-          type = str;
-          default = "r";
-          description = "Rename the node.";
-        };
-
-        delete = mkOption {
-          type = str;
-          default = "d";
-          description = "Delete the node.";
-        };
-
-        foldCreate = mkOption {
-          type = str;
-          default = "f";
-          description = "Create a new fold of the node.";
-        };
-
-        foldDelete = mkOption {
-          type = str;
-          default = "F";
-          description = "Delete the current fold of the node.";
-        };
-
-        comment = mkOption {
-          type = str;
-          default = "c";
-          description = "Comment the node.";
-        };
-
-        select = mkOption {
-          type = str;
-          default = "<enter>";
-          description = "Goto the node.";
-        };
-
-        moveDown = mkOption {
-          type = str;
-          default = "J";
-          description = "Move the node down.";
-        };
-
-        moveUp = mkOption {
-          type = str;
-          default = "K";
-          description = "Move the node up.";
-        };
-
-        togglePreview = mkOption {
-          type = str;
-          default = "s";
-          description = "Toggle the preview.";
-        };
-
-        vsplit = mkOption {
-          type = str;
-          default = "<C-v>";
-          description = "Open the node in a vertical split.";
-        };
-
-        hsplit = mkOption {
-          type = str;
-          default = "<C-s>";
-          description = "Open the node in a horizontal split.";
-        };
-
-        telescope = mkOption {
-          type = str;
-          default = "t";
-          description = "Start fuzzy finder at the current level.";
-        };
-
-        help = mkOption {
-          type = str;
-          default = "g?";
-          description = "Open the mappings help window.";
-        };
+        close = mkMappingOption "Close and return the cursor to its original location." "<esc>";
+        nextSibling = mkMappingOption "Navigate to the next sibling node." "j";
+        previousSibling = mkMappingOption "Navigate to the previous sibling node." "k";
+        parent = mkMappingOption "Navigate to the parent node." "h";
+        children = mkMappingOption "Navigate to the child node." "l";
+        root = mkMappingOption "Navigate to the root node." "0";
+        visualName = mkMappingOption "Select the name visually." "v";
+        visualScope = mkMappingOption "Select the scope visually." "V";
+        yankName = mkMappingOption "Yank the name to system clipboard." "y";
+        yankScope = mkMappingOption "Yank the scope to system clipboard." "Y";
+        insertName = mkMappingOption "Insert at the start of name." "i";
+        insertScope = mkMappingOption "Insert at the start of scope." "I";
+        appendName = mkMappingOption "Insert at the end of name." "a";
+        appendScope = mkMappingOption "Insert at the end of scope." "A";
+        rename = mkMappingOption "Rename the node." "r";
+        delete = mkMappingOption "Delete the node." "d";
+        foldCreate = mkMappingOption "Create a new fold of the node." "f";
+        foldDelete = mkMappingOption "Delete the current fold of the node." "F";
+        comment = mkMappingOption "Comment the node." "c";
+        select = mkMappingOption "Goto the node." "<enter>";
+        moveDown = mkMappingOption "Move the node down." "J";
+        moveUp = mkMappingOption "Move the node up." "K";
+        togglePreview = mkMappingOption "Toggle the preview." "s";
+        vsplit = mkMappingOption "Open the node in a vertical split." "<C-v>";
+        hsplit = mkMappingOption "Open the node in a horizontal split." "<C-s>";
+        telescope = mkMappingOption "Start fuzzy finder at the current level." "t";
+        help = mkMappingOption "Open the mappings help window." "g?";
       };
 
       setupOpts = mkPluginSetupOption "navbuddy" {
