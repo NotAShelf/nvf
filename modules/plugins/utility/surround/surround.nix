@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (lib.options) mkOption;
+  inherit (lib.options) literalExpression mkOption;
   inherit (lib.types) bool str;
   inherit (lib.nvim.types) mkPluginSetupOption;
 
@@ -64,7 +64,8 @@ in {
 
     useVendoredKeybindings = mkOption {
       type = bool;
-      default = true;
+      default = config.vim.useNvfKeymaps;
+      defaultText = literalExpression "config.vim.useNvfKeymaps";
       description = ''
         Use alternative set of keybindings that avoids conflicts with other popular plugins, e.g. nvim-leap
       '';

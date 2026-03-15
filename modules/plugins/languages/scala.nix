@@ -117,7 +117,9 @@ in {
 
             local attach_metals_keymaps = function(client, bufnr)
               attach_keymaps(client, bufnr)  -- from lsp-setup
+              ${optionalString (cfg.lsp.extraMappings.listCommands != null) ''
               vim.api.nvim_buf_set_keymap(bufnr, 'n', '${cfg.lsp.extraMappings.listCommands}', '<cmd>lua ${listCommandsAction}<CR>', {noremap=true, silent=true, desc='Show all Metals commands'})
+            ''}
             end
 
             metals_config = require('metals').bare_config()
