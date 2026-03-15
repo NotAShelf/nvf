@@ -10,12 +10,11 @@
   cfg = config.vim.ui.modes-nvim;
 in {
   config = mkIf cfg.enable {
-    vim.startPlugins = [
-      "modes-nvim"
-    ];
-
-    vim.pluginRC.modes-nvim = entryAnywhere ''
-      require('modes').setup(${toLuaObject cfg.setupOpts})
-    '';
+    vim = {
+      startPlugins = ["modes-nvim"];
+      pluginRC.modes-nvim = entryAnywhere ''
+        require('modes').setup(${toLuaObject cfg.setupOpts})
+      '';
+    };
   };
 }
