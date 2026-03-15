@@ -157,6 +157,7 @@
     {command}`:healthcheck` doesn't know that.
   - Remove [which-key.nvim] `<leader>o` `+Notes` description which did not
     actually correspond to any keybinds.
+- Allow disabling nvf's vendored keymaps by toggling `useNvfKeymaps`.
 
 [pyrox0](https://github.com/pyrox0):
 
