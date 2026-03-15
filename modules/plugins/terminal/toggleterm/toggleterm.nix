@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) nullOr str enum bool package either int;
+  inherit (lib.types) nullOr enum bool package either int;
   inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   inherit (lib.generators) mkLuaInline;
@@ -19,11 +19,7 @@ in {
   options.vim.terminal.toggleterm = {
     enable = mkEnableOption "toggleterm as a replacement to built-in terminal command";
     mappings = {
-      open = mkOption {
-        type = nullOr str;
-        description = "The keymapping to open toggleterm";
-        default = "<c-t>";
-      };
+      open = mkMappingOption "Open toggleterm" "<c-t>";
     };
 
     setupOpts = mkPluginSetupOption "ToggleTerm" {

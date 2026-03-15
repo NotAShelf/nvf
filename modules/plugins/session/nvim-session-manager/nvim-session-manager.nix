@@ -1,10 +1,15 @@
-{lib, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.strings) isString;
   inherit (lib.types) nullOr str bool int enum listOf either;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) luaInline mkPluginSetupOption;
+  inherit (config.vim.lib) mkMappingOption;
 in {
   imports = let
     renameSetupOpt = oldPath: newPath:
@@ -26,29 +31,10 @@ in {
     enable = mkEnableOption "nvim-session-manager: manage sessions like folders in VSCode";
 
     mappings = {
-      loadSession = mkOption {
-        type = nullOr str;
-        description = "Load session";
-        default = "<leader>sl";
-      };
-
-      deleteSession = mkOption {
-        type = nullOr str;
-        description = "Delete session";
-        default = "<leader>sd";
-      };
-
-      saveCurrentSession = mkOption {
-        type = nullOr str;
-        description = "Save current session";
-        default = "<leader>sc";
-      };
-
-      loadLastSession = mkOption {
-        type = nullOr str;
-        description = "Load last session";
-        default = "<leader>slt";
-      };
+      loadSession = mkMappingOption "Load session" "<leader>sl";
+      deleteSession = mkMappingOption "Delete session" "<leader>sd";
+      saveCurrentSession = mkMappingOption "Save current session" "<leader>sc";
+      loadLastSession = mkMappingOption "Load last session" "<leader>slt";
     };
 
     usePicker = mkOption {
