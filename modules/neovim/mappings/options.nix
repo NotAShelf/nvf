@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib.options) mkOption literalMD;
+  inherit (lib.options) mkEnableOption mkOption literalMD;
   inherit (lib.types) either str listOf attrsOf nullOr submodule;
   inherit (lib.nvim.config) mkBool;
 
@@ -57,6 +57,13 @@
     };
 in {
   options.vim = {
+    vendoredKeymaps.enable =
+      mkEnableOption "this project's vendored keymaps by default"
+      // {
+        default = true;
+        example = false;
+      };
+
     keymaps = mkOption {
       type = listOf mapType;
       description = "Custom keybindings.";
