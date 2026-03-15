@@ -297,4 +297,8 @@ https://github.com/gorbit99/codewindow.nvim
 
 - Fix `vim.assistant.codecompanion-nvim` lazy loading with [blink-cmp]
 
+[foobar14](https://github.com/foobar14):
+
+- Fix `vim.formatter.conform-nvim.setupOpts.formatters` type for correct merging
+
 <!-- vim: set textwidth=80: -->
