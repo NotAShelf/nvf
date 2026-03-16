@@ -57,6 +57,11 @@
 
 ## Changelog {#sec-release-0-9-changelog}
 
+[midischwarz12](https://github.com/midischwarz12):
+
+- Changed the prettier-plugin-astro build to use `writableTmpDirAsHomeHook` to
+  avoid pnpm hook failures in sandboxed builds.
+
 [taylrfnt](https://github.com/taylrfnt)
 
 - Introduce a `darwinModule` option for Darwin users. The ergonomics of

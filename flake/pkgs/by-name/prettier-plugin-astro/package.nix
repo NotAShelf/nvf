@@ -6,6 +6,7 @@
   pnpmConfigHook,
   fetchPnpmDeps,
   pins,
+  writableTmpDirAsHomeHook,
 }: let
   pin = pins.prettier-plugin-astro;
 in
@@ -28,6 +29,7 @@ in
 
     nativeBuildInputs = [
       nodejs
+      writableTmpDirAsHomeHook
       (pnpmConfigHook.overrideAttrs {
         propagatedBuildInputs = [pnpm_9];
       })
