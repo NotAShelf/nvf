@@ -11,10 +11,8 @@
   cfg = config.vim.languages.tex;
 in {
   imports = [
-    ./build
     ./formatter.nix
     ./lsp.nix
-    ./pdfViewer.nix
     ./treesitter.nix
   ];
 
