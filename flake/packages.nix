@@ -117,6 +117,11 @@
         nix = buildPkg false;
         maximal = buildPkg true;
         default = config.packages.nix;
+
+        gcc-symlink = pkgs.runCommand "gcc-symlink" {} ''
+          mkdir -p $out
+          ln -s ${pkgs.gcc} $out/gcc
+        '';
       };
   };
 }
