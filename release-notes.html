@@ -1833,12 +1833,17 @@ it is no longer available.</p>
 <p><a href="https://github.com/obsidian-nvim/obsidian.nvim">obsidian.nvim</a> now uses a maintained fork which has removed the <code>dir</code>
 setting. Use <code>workspaces</code> instead:</p>
 <pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">workspaces</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">name</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">any-string</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">path</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">~/old/dir/path/value</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+</li>
+<li>
+<p><code>languages.{terraform,hcl}</code>: LSP servers now default to <code>tofu-ls</code>. While this
+is unlikely to cause any noticeable change in behavior or breakage, it's
+mentioned just in case.</p>
+</li>
+</ul>
 <p>Some other settings and commands are now deprecated but are still supported.</p>
 <ul>
 <li>The <code>setupOpts.mappings</code> options were also removed. Use the built-in Neovim
 settings (nvf's <a class="option-reference" href="options.html#option-vim-keymaps"><code class="nixos-option">vim.keymaps</code></a>)</li>
-</ul>
-</li>
 </ul>
 <p><a href="https://github.com/snoweuph">Snoweuph</a></p>
 <ul>
@@ -1919,6 +1924,17 @@ hard-coded options as default values.</li>
 <p><a href="https://github.com/Libadoxon">Libadoxon</a>:</p>
 <ul>
 <li><code>toggleterm</code> open map now also works when in terminal mode</li>
+</ul>
+<p><a href="https://github.com/ppenguin">ppenguin</a>:</p>
+<ul>
+<li>Improved/harmonized for <code>terraform</code> and <code>hcl</code>:
+<ul>
+<li>formatting (use <code>terraform fmt</code> or <code>tofu fmt</code> for <code>tf</code> files)</li>
+<li>LSP config</li>
+<li>Added <code>tofu</code> and <code>tofu-ls</code> as (free) alternative to <code>terrraform</code> and
+<code>terraform-ls</code></li>
+</ul>
+</li>
 </ul>
 <p><a href="https://github.com/jtliang24">jtliang24</a>:</p>
 <ul>

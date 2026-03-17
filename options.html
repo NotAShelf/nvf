@@ -5330,7 +5330,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">464</span>
+        <span class="toc-count">466</span>
       </summary>
       <ul>
         
@@ -8355,6 +8355,22 @@
         <li>
           <a href='#option-vim-languages-terraform-enable' title="vim.languages.terraform.enable">
             terraform.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-terraform-format-enable' title="vim.languages.terraform.format.enable">
+            terraform.format.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-terraform-format-type' title="vim.languages.terraform.format.type">
+            terraform.format.type
             
             
           </a>
@@ -28473,7 +28489,7 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of value "hclfmt" (singular enum)) or value "hclfmt" (singular enum) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of (one of "hclfmt", "nomad-fmt")</code></div>
   <div class="option-description"><html><head></head><body><p>HCL formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -28500,11 +28516,11 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of value "terraform-ls" (singular enum)</code></div>
+  <div class="option-type">Type: <code>list of (one of "terraformls-hcl", "tofuls-hcl")</code></div>
   <div class="option-description"><html><head></head><body><p>HCL LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
-  "terraform-ls"
+  "tofuls-hcl"
 ]</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/hcl.nix" target="_blank">&lt;nvf/modules/plugins/languages/hcl.nix&gt;</a></code></div>
 </div>
@@ -31466,10 +31482,37 @@ not listed in the docs</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Whether to enable Terraform/HCL support.</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Terraform support.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/terraform.nix" target="_blank">&lt;nvf/modules/plugins/languages/terraform.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-terraform-format-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-terraform-format-enable" class="option-anchor">vim.languages.terraform.format.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Enable Terraform formatting.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableFormat</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/terraform.nix" target="_blank">&lt;nvf/modules/plugins/languages/terraform.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-terraform-format-type">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-terraform-format-type" class="option-anchor">vim.languages.terraform.format.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (one of "terraform-fmt", "tofu-fmt")</code></div>
+  <div class="option-description"><html><head></head><body><p>Terraform formatter to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "tofu-fmt"
+]</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/terraform.nix" target="_blank">&lt;nvf/modules/plugins/languages/terraform.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-terraform-lsp-enable">
@@ -31491,11 +31534,11 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of value "terraformls" (singular enum)</code></div>
+  <div class="option-type">Type: <code>list of (one of "terraformls-tf", "tofuls-tf")</code></div>
   <div class="option-description"><html><head></head><body><p>Terraform LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
-  "terraformls"
+  "tofuls-tf"
 ]</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/terraform.nix" target="_blank">&lt;nvf/modules/plugins/languages/terraform.nix&gt;</a></code></div>
 </div>
