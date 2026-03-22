@@ -5330,7 +5330,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">466</span>
+        <span class="toc-count">474</span>
       </summary>
       <ul>
         
@@ -8403,6 +8403,70 @@
         <li>
           <a href='#option-vim-languages-terraform-treesitter-package' title="vim.languages.terraform.treesitter.package">
             terraform.treesitter.package
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-tex-enable' title="vim.languages.tex.enable">
+            tex.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-tex-format-enable' title="vim.languages.tex.format.enable">
+            tex.format.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-tex-format-type' title="vim.languages.tex.format.type">
+            tex.format.type
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-tex-lsp-enable' title="vim.languages.tex.lsp.enable">
+            tex.lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-tex-lsp-servers' title="vim.languages.tex.lsp.servers">
+            tex.lsp.servers
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-tex-treesitter-bibtexPackage' title="vim.languages.tex.treesitter.bibtexPackage">
+            tex.treesitter.bibtexPackage
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-tex-treesitter-enable' title="vim.languages.tex.treesitter.enable">
+            tex.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-tex-treesitter-latexPackage' title="vim.languages.tex.treesitter.latexPackage">
+            tex.treesitter.latexPackage
             
             
           </a>
@@ -31566,6 +31630,109 @@ not listed in the docs</p>
 </body></html></div>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.terraform</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/terraform.nix" target="_blank">&lt;nvf/modules/plugins/languages/terraform.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-tex-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-tex-enable" class="option-anchor">vim.languages.tex.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable TeX language support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tex.nix" target="_blank">&lt;nvf/modules/plugins/languages/tex.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-tex-format-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-tex-format-enable" class="option-anchor">vim.languages.tex.format.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable TeX formatting.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableFormat</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tex.nix" target="_blank">&lt;nvf/modules/plugins/languages/tex.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-tex-format-type">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-tex-format-type" class="option-anchor">vim.languages.tex.format.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (one of "latexindent", "tex-fmt")</code></div>
+  <div class="option-description"><html><head></head><body><p>TeX formatter to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "tex-fmt"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tex.nix" target="_blank">&lt;nvf/modules/plugins/languages/tex.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-tex-lsp-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-tex-lsp-enable" class="option-anchor">vim.languages.tex.lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable TeX LSP support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.lsp.enable</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tex.nix" target="_blank">&lt;nvf/modules/plugins/languages/tex.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-tex-lsp-servers">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-tex-lsp-servers" class="option-anchor">vim.languages.tex.lsp.servers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "texlab" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>TeX LSP server to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "texlab"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tex.nix" target="_blank">&lt;nvf/modules/plugins/languages/tex.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-tex-treesitter-bibtexPackage">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-tex-treesitter-bibtexPackage" class="option-anchor">vim.languages.tex.treesitter.bibtexPackage</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or package</code></div>
+  <div class="option-description"><html><head></head><body><p>The bibtex treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.bibtex</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tex.nix" target="_blank">&lt;nvf/modules/plugins/languages/tex.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-tex-treesitter-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-tex-treesitter-enable" class="option-anchor">vim.languages.tex.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Enable TeX treesitter</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tex.nix" target="_blank">&lt;nvf/modules/plugins/languages/tex.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-tex-treesitter-latexPackage">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-tex-treesitter-latexPackage" class="option-anchor">vim.languages.tex.treesitter.latexPackage</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or package</code></div>
+  <div class="option-description"><html><head></head><body><p>The latex treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.latex</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tex.nix" target="_blank">&lt;nvf/modules/plugins/languages/tex.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-toml-enable">
   <h3 class="option-name">
