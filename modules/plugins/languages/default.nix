@@ -60,6 +60,7 @@ in {
     ./just.nix
     ./make.nix
     ./xml.nix
+    ./gettext.nix
     ./fluent.nix
     ./openscad.nix
 

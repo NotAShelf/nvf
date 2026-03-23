@@ -104,6 +104,7 @@ isMaximal: {
       svelte.enable = false;
       tera.enable = false;
       twig.enable = false;
+      gettext.enable = false;
       fluent.enable = false;
 
       # Nim LSP is broken on Darwin and therefore
