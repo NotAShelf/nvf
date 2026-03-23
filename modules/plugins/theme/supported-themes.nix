@@ -307,8 +307,13 @@ in {
   };
 
   solarized-osaka = {
-    setup = {transparent ? false, ...}: ''
+    setup = {
+      style ? "default",
+      transparent ? false,
+      ...
+    }: ''
       require("solarized-osaka").setup({
+        style = "${style}",
         transparent = ${boolToString transparent},
         styles = {
           comments = { italic = false },
@@ -318,6 +323,7 @@ in {
 
       vim.cmd.colorscheme("solarized-osaka")
     '';
+    styles = ["default" "light"];
   };
 
   everforest = {
