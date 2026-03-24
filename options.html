@@ -5330,7 +5330,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">477</span>
+        <span class="toc-count">480</span>
       </summary>
       <ul>
         
@@ -6203,6 +6203,30 @@
         <li>
           <a href='#option-vim-languages-fsharp-treesitter-package' title="vim.languages.fsharp.treesitter.package">
             fsharp.treesitter.package
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-gettext-enable' title="vim.languages.gettext.enable">
+            gettext.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-gettext-treesitter-enable' title="vim.languages.gettext.treesitter.enable">
+            gettext.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-gettext-treesitter-package' title="vim.languages.gettext.treesitter.package">
+            gettext.treesitter.package
             
             
           </a>
@@ -28162,6 +28186,44 @@ missing from <code>PATH</code>", leave this option disabled.</p>
 </body></html></div>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.fsharp</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fsharp.nix" target="_blank">&lt;nvf/modules/plugins/languages/fsharp.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-gettext-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-gettext-enable" class="option-anchor">vim.languages.gettext.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable gettext portable object language support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/gettext.nix" target="_blank">&lt;nvf/modules/plugins/languages/gettext.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-gettext-treesitter-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-gettext-treesitter-enable" class="option-anchor">vim.languages.gettext.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable gettext portable object language treesitter.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/gettext.nix" target="_blank">&lt;nvf/modules/plugins/languages/gettext.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-gettext-treesitter-package">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-gettext-treesitter-package" class="option-anchor">vim.languages.gettext.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or package</code></div>
+  <div class="option-description"><html><head></head><body><p>The po treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.po</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/gettext.nix" target="_blank">&lt;nvf/modules/plugins/languages/gettext.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-gleam-enable">
   <h3 class="option-name">
