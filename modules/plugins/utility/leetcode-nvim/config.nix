@@ -11,7 +11,6 @@ in {
     vim = {
       startPlugins = [
         "plenary-nvim"
-        "fzf-lua"
         "nui-nvim"
       ];
 

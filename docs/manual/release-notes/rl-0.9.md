@@ -64,6 +64,10 @@
 - Changed the prettier-plugin-astro build to use `writableTmpDirAsHomeHook` to
   avoid pnpm hook failures in sandboxed builds.
 
+- Fix `vim.utility.leetcode-nvim` adding `fzf-lua` to `vim.startPlugins` when
+  `vim.fzf-lua` already manages the plugin lazily, avoiding duplicate `/start`
+  and `/opt` installs and the corresponding `mnw` evaluation warning.
+
 [taylrfnt](https://github.com/taylrfnt)
 
 - Introduce a `darwinModule` option for Darwin users. The ergonomics of
