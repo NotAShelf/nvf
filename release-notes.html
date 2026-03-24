@@ -1890,8 +1890,15 @@ two new valid options.</p>
 <h2 id="sec-release-0-9-changelog">Changelog</h2>
 <p><a href="https://github.com/midischwarz12">midischwarz12</a>:</p>
 <ul>
-<li>Changed the prettier-plugin-astro build to use <code>writableTmpDirAsHomeHook</code> to
-avoid pnpm hook failures in sandboxed builds.</li>
+<li>
+<p>Changed the prettier-plugin-astro build to use <code>writableTmpDirAsHomeHook</code> to
+avoid pnpm hook failures in sandboxed builds.</p>
+</li>
+<li>
+<p>Fix <code>vim.utility.leetcode-nvim</code> adding <code>fzf-lua</code> to <code>vim.startPlugins</code> when
+<code>vim.fzf-lua</code> already manages the plugin lazily, avoiding duplicate <code>/start</code>
+and <code>/opt</code> installs and the corresponding <code>mnw</code> evaluation warning.</p>
+</li>
 </ul>
 <p><a href="https://github.com/taylrfnt">taylrfnt</a></p>
 <ul>
