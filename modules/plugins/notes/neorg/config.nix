@@ -4,9 +4,7 @@
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.binds) pushDownDefault;
-  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.notes.neorg;
 in {
@@ -19,17 +17,21 @@ in {
           "nvim-nio"
           "pathlib-nvim"
           "plenary-nvim"
-          "neorg"
           "neorg-telescope"
         ];
+
+        lazy.plugins.neorg = {
+          package = "neorg";
+          setupModule = "neorg";
+          inherit (cfg) setupOpts;
+
+          ft = ["norg"];
+          cmd = ["Neorg"];
+        };
 
         binds.whichKey.register = pushDownDefault {
           "<leader>o" = "+Notes";
         };
-
-        pluginRC.neorg = entryAnywhere ''
-          require('neorg').setup(${toLuaObject cfg.setupOpts})
-        '';
       };
     }
 

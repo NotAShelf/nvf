@@ -78,6 +78,11 @@ in {
     };
   };
 
+  # Alias vim.options as vim.opts.
+  # This is a convenience for people using frameworks like flake-parts or Den that use lib.types.deferredModule
+  # and users would set `vim.options` but error when Nix confuses it with Nix Module's options-definitions.
+  imports = [(lib.mkAliasOptionModule ["vim" "opts"] ["vim" "options"])];
+
   config.vim = {
     # Set options that were previously interpolated in 'luaConfigRC.basic' as vim.options (vim.o)
     # and 'vim.globals' (vim.g). Future options, if possible, should be added here instead of the

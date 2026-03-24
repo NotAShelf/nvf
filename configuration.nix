@@ -13,6 +13,9 @@ isMaximal: {
       logFile = "/tmp/nvim.log";
     };
 
+    # vim.opts and vim.options are aliased
+    opts.expandtab = true;
+
     spellcheck = {
       enable = true;
       programmingWordlist.enable = isMaximal;

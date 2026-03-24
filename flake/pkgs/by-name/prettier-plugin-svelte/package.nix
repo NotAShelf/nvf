@@ -15,5 +15,5 @@ in
       sha256 = pin.hash;
     };
 
-    npmDepsHash = "sha256-D+gDdKiIG38jV+M/BqTKf0yYj1KXpbIodtQFdzocpn8=";
+    npmDepsHash = "sha256-XVyLW0XDCvZCZxu8g1fP7fRfeU3Hz81o5FCi/i4BKQw=";
   })

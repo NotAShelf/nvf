@@ -7,13 +7,13 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "blink-cmp";
-  version = "1.9.1";
+  version = "1.10.1";
 
   src = fetchFromGitHub {
     owner = "Saghen";
     repo = "blink.cmp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-GgodXdWpQoF2z1g1/WvnSpfuhskw0aMcOoyZM5l66q8=";
+    hash = "sha256-y8f+bmPkb3M6DzcUkJMxd2woDLoBYslne7aB8A0ejCk=";
   };
 
   forceShare = [
@@ -39,18 +39,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # From the blink.cmp flake
   buildInputs = lib.optionals stdenv.hostPlatform.isAarch64 [rust-jemalloc-sys];
 
-  # NOTE: The only change in frizbee 0.7.0 was nixpkgs incompatible rust semantic changes
-  # Patch just reverts https://github.com/saghen/blink.cmp/commit/cc824ec85b789a54d05241389993c6ab8c040810
-  # Taken from Nixpkgs' blink.cmp derivation, available under the MIT license
-  cargoPatches = [
-    ./patches/0001-pin-frizbee.patch
-  ];
-
-  cargoHash = "sha256-Qdt8O7IGj2HySb1jxsv3m33ZxJg96Ckw26oTEEyQjfs=";
+  cargoHash = "sha256-3o2n4xwNF9Fc3VlPKf3lnvmN7FVus5jQB8gcXXwz50c=";
 
   env = {
-    RUSTC_BOOTSTRAP = true;
-
     # Those are the Linker args used by upstream. Without those, the build fails.
     # See:
     #  <https://github.com/saghen/blink.cmp/blob/main/.cargo/config.toml#L1C1-L11C2>
