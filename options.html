@@ -27785,7 +27785,7 @@ missing from <code>PATH</code>", leave this option disabled.</p>
   <div class="option-type">Type: <code>null or package</code></div>
   <div class="option-description"><html><head></head><body><p>Flutter package, or null to detect the flutter path at runtime instead.</p>
 </body></html></div>
-  <div class="option-default">Default: <code><derivation flutter-wrapped-3.41.0-sdk-links></code></div>
+  <div class="option-default">Default: <code><derivation flutter-wrapped-3.41.5-sdk-links></code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/dart.nix" target="_blank">&lt;nvf/modules/plugins/languages/dart.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-dart-lsp-enable">
@@ -28389,7 +28389,7 @@ missing from <code>PATH</code>", leave this option disabled.</p>
   <div class="option-type">Type: <code>package</code></div>
   <div class="option-description"><html><head></head><body><p>Go debugger package.</p>
 </body></html></div>
-  <div class="option-default">Default: <code><derivation delve-1.26.0></code></div>
+  <div class="option-default">Default: <code><derivation delve-1.26.1></code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/go.nix" target="_blank">&lt;nvf/modules/plugins/languages/go.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-go-enable">
@@ -30628,7 +30628,7 @@ have any of these filetypes.</p>
   <div class="option-description"><html><head></head><body><p>Python debugger package.
 This is a python package with debugpy installed, see <a href="https://nixos.wiki/wiki/Python#Install_Python_Packages">https://nixos.wiki/wiki/Python#Install_Python_Packages</a>.</p>
 </body></html></div>
-  <div class="option-default">Default: <code><derivation python3-3.13.11-env></code></div>
+  <div class="option-default">Default: <code><derivation python3-3.13.12-env></code></div>
   <div class="option-example">Example: <code>with pkgs; python39.withPackages (ps: with ps; [debugpy])</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/python.nix" target="_blank">&lt;nvf/modules/plugins/languages/python.nix&gt;</a></code></div>
 </div>
@@ -31295,7 +31295,7 @@ not listed in the docs</p>
   <div class="option-type">Type: <code>package or list of string</code></div>
   <div class="option-description"><html><head></head><body><p>rust-analyzer package, or the command to run as a list of strings</p>
 </body></html></div>
-  <div class="option-default">Default: <code><derivation rust-analyzer-2026-02-09></code></div>
+  <div class="option-default">Default: <code><derivation rust-analyzer-2026-03-16></code></div>
   <div class="option-example">Example: <code>"[lib.getExe pkgs.jdt-language-server \"-data\" \"~/.cache/jdtls/workspace\"]"</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_blank">&lt;nvf/modules/plugins/languages/rust.nix&gt;</a></code></div>
 </div>
@@ -31607,7 +31607,7 @@ not listed in the docs</p>
   <div class="option-type">Type: <code>package</code></div>
   <div class="option-description"><html><head></head><body><p>SQL treesitter grammar to use</p>
 </body></html></div>
-  <div class="option-default">Default: <code><derivation vimplugin-nvim-treesitter-grammar-sql-0.0.0+rev=86e3d03></code></div>
+  <div class="option-default">Default: <code><derivation vimplugin-nvim-treesitter-grammar-sql-0.0.0+rev=851e9cb></code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/sql.nix" target="_blank">&lt;nvf/modules/plugins/languages/sql.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-svelte-enable">
@@ -31632,7 +31632,7 @@ not listed in the docs</p>
   <div class="option-type">Type: <code>boolean</code></div>
   <div class="option-description"><html><head></head><body><p>Whether to enable extra Svelte diagnostics.</p>
 </body></html></div>
-  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableExtraDiagnostics</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/svelte.nix" target="_blank">&lt;nvf/modules/plugins/languages/svelte.nix&gt;</a></code></div>
 </div>
@@ -31659,7 +31659,7 @@ not listed in the docs</p>
   <div class="option-type">Type: <code>boolean</code></div>
   <div class="option-description"><html><head></head><body><p>Whether to enable Svelte formatting.</p>
 </body></html></div>
-  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableFormat</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/svelte.nix" target="_blank">&lt;nvf/modules/plugins/languages/svelte.nix&gt;</a></code></div>
 </div>
@@ -41375,7 +41375,7 @@ Make sure that color is set to <code>never</code> because telescope does not yet
   <div class="option-type">Type: <code>null or package</code></div>
   <div class="option-description"><html><head></head><body><p>The package that should be used for lazygit. Setting it to null will attempt to use lazygit from your PATH</p>
 </body></html></div>
-  <div class="option-default">Default: <code><derivation lazygit-0.59.0></code></div>
+  <div class="option-default">Default: <code><derivation lazygit-0.60.0></code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/terminal/toggleterm/toggleterm.nix" target="_blank">&lt;nvf/modules/plugins/terminal/toggleterm/toggleterm.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-terminal-toggleterm-mappings-open">
@@ -46499,7 +46499,7 @@ not listed in the docs</p>
   <div class="option-description"><html><head></head><body><p>The package that should be used for wakatime-cli.
 Set as null to use the default path in <code class="env-var">$XDG_DATA_HOME</code></p>
 </body></html></div>
-  <div class="option-default">Default: <code><derivation wakatime-cli-1.139.1></code></div>
+  <div class="option-default">Default: <code><derivation wakatime-cli-1.139.2></code></div>
   <div class="option-example">Example: <code>null</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/wakatime/vim-wakatime.nix" target="_blank">&lt;nvf/modules/plugins/utility/wakatime/vim-wakatime.nix&gt;</a></code></div>
 </div>
