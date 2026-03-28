@@ -5330,7 +5330,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">487</span>
+        <span class="toc-count">490</span>
       </summary>
       <ul>
         
@@ -7075,6 +7075,30 @@
         <li>
           <a href='#option-vim-languages-kotlin-treesitter-package' title="vim.languages.kotlin.treesitter.package">
             kotlin.treesitter.package
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-liquid-enable' title="vim.languages.liquid.enable">
+            liquid.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-liquid-treesitter-enable' title="vim.languages.liquid.treesitter.enable">
+            liquid.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-liquid-treesitter-package' title="vim.languages.liquid.treesitter.package">
+            liquid.treesitter.package
             
             
           </a>
@@ -29662,6 +29686,44 @@ package to Julia in your devshells.</p>
 </body></html></div>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.kotlin</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/kotlin.nix" target="_blank">&lt;nvf/modules/plugins/languages/kotlin.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-liquid-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-liquid-enable" class="option-anchor">vim.languages.liquid.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Liquid templating language support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/liquid.nix" target="_blank">&lt;nvf/modules/plugins/languages/liquid.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-liquid-treesitter-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-liquid-treesitter-enable" class="option-anchor">vim.languages.liquid.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Liquid treesitter.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/liquid.nix" target="_blank">&lt;nvf/modules/plugins/languages/liquid.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-liquid-treesitter-package">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-liquid-treesitter-package" class="option-anchor">vim.languages.liquid.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or package</code></div>
+  <div class="option-description"><html><head></head><body><p>The liquid treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.liquid</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/liquid.nix" target="_blank">&lt;nvf/modules/plugins/languages/liquid.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-lua-enable">
   <h3 class="option-name">
