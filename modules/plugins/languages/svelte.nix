@@ -9,7 +9,7 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum package coercedTo;
+  inherit (lib.types) enum coercedTo;
   inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.generators) mkLuaInline;
@@ -60,7 +60,7 @@
     prettierPluginPath = "${prettierPlugin}/lib/node_modules/prettier-plugin-svelte/plugin.js";
   in {
     prettier = {
-      command = getExe pkgs.nodePackages.prettier;
+      command = getExe pkgs.prettier;
       options.ft_parsers.svelte = "svelte";
       prepend_args = ["--plugin=${prettierPluginPath}"];
     };
@@ -130,7 +130,12 @@ in {
     };
 
     format = {
-      enable = mkEnableOption "Svelte formatting" // {default = config.vim.languages.enableFormat;};
+      enable =
+        mkEnableOption "Svelte formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
 
       type = mkOption {
         type = formatType;
@@ -140,7 +145,12 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkEnableOption "extra Svelte diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+      enable =
+        mkEnableOption "extra Svelte diagnostics"
+        // {
+          default = config.vim.languages.enableExtraDiagnostics;
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
+        };
 
       types = diagnostics {
         langDesc = "Svelte";

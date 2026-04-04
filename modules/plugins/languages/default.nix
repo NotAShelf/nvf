@@ -25,12 +25,14 @@ in {
     ./html.nix
     ./tera.nix
     ./twig.nix
+    ./liquid.nix
     ./haskell.nix
     ./java.nix
     ./jinja.nix
     ./json.nix
     ./lua.nix
     ./markdown.nix
+    ./tex.nix
     ./nim.nix
     ./vala.nix
     ./nix.nix
@@ -59,7 +61,10 @@ in {
     ./just.nix
     ./make.nix
     ./xml.nix
+    ./gettext.nix
     ./fluent.nix
+    ./openscad.nix
+    ./jq.nix
 
     # This is now a hard deprecation.
     (mkRenamedOptionModule ["vim" "languages" "enableLSP"] ["vim" "lsp" "enable"])

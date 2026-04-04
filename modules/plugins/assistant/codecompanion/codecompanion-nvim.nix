@@ -1,6 +1,6 @@
 {lib, ...}: let
-  inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) int str enum nullOr attrs;
+  inherit (lib.options) mkOption mkEnableOption literalExpression;
+  inherit (lib.types) int str enum nullOr attrs either submodule;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
 in {
   options.vim.assistant = {
@@ -202,9 +202,23 @@ in {
         strategies = {
           chat = {
             adapter = mkOption {
-              type = nullOr str;
               default = null;
               description = "Adapter used for the chat strategy.";
+              type = nullOr (either str (submodule {
+                options = {
+                  name = mkOption {
+                    type = nullOr str;
+                    default = null;
+                    description = "Name of the Adapter";
+                  };
+
+                  model = mkOption {
+                    type = nullOr str;
+                    default = null;
+                    description = "Model used for Adapter.";
+                  };
+                };
+              }));
             };
 
             keymaps = mkOption {
@@ -253,9 +267,23 @@ in {
 
           inline = {
             adapter = mkOption {
-              type = nullOr str;
               default = null;
               description = "Adapter used for the inline strategy.";
+              type = nullOr (either str (submodule {
+                options = {
+                  name = mkOption {
+                    type = nullOr str;
+                    default = null;
+                    description = "Name of the Adapter";
+                  };
+
+                  model = mkOption {
+                    type = nullOr str;
+                    default = null;
+                    description = "Model used for Adapter.";
+                  };
+                };
+              }));
             };
 
             variables = mkOption {

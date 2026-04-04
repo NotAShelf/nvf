@@ -5,22 +5,32 @@
 }: let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.dag) entryAnywhere;
-  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.notes.obsidian;
 in {
   config = mkIf cfg.enable {
     vim = {
       startPlugins = [
-        "obsidian-nvim"
         "vim-markdown"
         "tabular"
+        "plenary-nvim"
       ];
 
-      pluginRC.obsidian = entryAnywhere ''
-        require("obsidian").setup(${toLuaObject cfg.setupOpts})
-      '';
+      lazy.plugins.obsidian-nvim = {
+        package = "obsidian-nvim";
+        # NOTE: packaged plugin directory is `obsidian.nvim`; loading by the
+        # spec key (`obsidian-nvim`) misses and makes `require("obsidian")`
+        # resolve to a loader function via lzn-auto-require.
+        # I don't love this, but I can't think of anything better
+        load = ''
+          vim.cmd.packadd("obsidian.nvim")
+        '';
+        setupModule = "obsidian";
+        inherit (cfg) setupOpts;
+
+        ft = ["markdown"];
+        cmd = ["Obsidian"];
+      };
 
       notes.obsidian.setupOpts = let
         # may not be defined

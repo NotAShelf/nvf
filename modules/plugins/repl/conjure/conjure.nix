@@ -14,6 +14,32 @@ in {
   };
 
   config = mkIf cfg.enable {
-    vim.startPlugins = [pkgs.vimPlugins.conjure];
+    vim.lazy.plugins.conjure = {
+      package = pkgs.vimPlugins.conjure;
+      ft = [
+        "clojure"
+        "fennel"
+        "janet"
+        "hy"
+        "julia"
+        "racket"
+        "scheme"
+        "lua"
+        "lisp"
+        "python"
+        "rust"
+        "sql"
+        "javascript"
+        "typescript"
+        "php"
+        "r"
+      ];
+      cmd = [
+        "ConjureSchool"
+        "ConjureEval"
+        "ConjureConnect"
+        "ConjureClientState"
+      ];
+    };
   };
 }

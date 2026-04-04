@@ -136,7 +136,7 @@ in {
           type = attrs;
           default = {
             type = "executable";
-            command = "${pkgs.nodePackages_latest.nodejs}/bin/node";
+            command = getExe pkgs.nodejs;
             args = [
               "${pkgs.vscode-extensions.xdebug.php-debug}/share/vscode/extensions/xdebug.php-debug/out/phpDebug.js"
             ];

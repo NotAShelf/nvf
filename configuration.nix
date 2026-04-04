@@ -13,6 +13,9 @@ isMaximal: {
       logFile = "/tmp/nvim.log";
     };
 
+    # vim.opts and vim.options are aliased
+    opts.expandtab = true;
+
     spellcheck = {
       enable = true;
       programmingWordlist.enable = isMaximal;
@@ -74,8 +77,10 @@ isMaximal: {
       };
       toml.enable = isMaximal;
       xml.enable = isMaximal;
+      tex.enable = isMaximal;
 
       # Language modules that are not as common.
+      openscad.enable = false;
       arduino.enable = false;
       assembly.enable = false;
       astro.enable = false;
@@ -100,9 +105,12 @@ isMaximal: {
       jinja.enable = false;
       tailwind.enable = false;
       svelte.enable = false;
+      liquid.enable = false;
       tera.enable = false;
       twig.enable = false;
+      gettext.enable = false;
       fluent.enable = false;
+      jq.enable = false;
 
       # Nim LSP is broken on Darwin and therefore
       # should be disabled by default. Users may still enable

@@ -21,7 +21,7 @@
     marksman = {
       enable = true;
       cmd = [(getExe pkgs.marksman) "server"];
-      filetypes = ["markdown" "markdown.mdx"];
+      filetypes = ["markdown" "mdx"];
       root_markers = [".marksman.toml" ".git"];
     };
 

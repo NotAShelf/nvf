@@ -8,26 +8,38 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) bool enum listOf;
+  inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.hcl;
 
-  defaultServers = ["terraform-ls"];
+  defaultServers = ["tofuls-hcl"];
   servers = {
-    terraform-ls = {
+    terraformls-hcl = {
       enable = true;
       cmd = [(getExe pkgs.terraform-ls) "serve"];
-      filetypes = ["terraform" "terraform-vars"];
+      filetypes = ["hcl"];
+      root_markers = [".git"];
+    };
+    tofuls-hcl = {
+      enable = true;
+      cmd = [(getExe pkgs.tofu-ls) "serve"];
+      filetypes = ["hcl"];
       root_markers = [".terraform" ".git"];
     };
+    # TODO: package nomad-lsp and offer as an option here too
   };
 
   defaultFormat = ["hclfmt"];
   formats = {
     hclfmt = {
       command = getExe pkgs.hclfmt;
+    };
+    nomad-fmt = {
+      command = getExe pkgs.nomad;
+      args = ["fmt" "$FILENAME"];
+      stdin = false;
     };
   };
 in {
@@ -66,7 +78,7 @@ in {
           defaultText = literalExpression "config.vim.languages.enableFormat";
         };
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.hcl.format.type" (enum (attrNames formats));
+        type = listOf (enum (attrNames formats));
         default = defaultFormat;
         description = "HCL formatter to use";
       };
@@ -97,18 +109,21 @@ in {
         }
       '';
     }
+
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.package];
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim = {
+        lsp.servers =
+          mapListToAttrs (n: {
+            name = n;
+            value = servers.${n};
+          })
+          cfg.lsp.servers;
+      };
     })
 
     (mkIf cfg.format.enable {

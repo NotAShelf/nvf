@@ -1,55 +1,57 @@
 {
   config,
-  pkgs,
   lib,
+  pkgs,
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum listOf package;
+  inherit (lib.types) enum listOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) mkGrammarOption;
 
-  cfg = config.vim.languages.cmake;
+  cfg = config.vim.languages.jq;
 
-  defaultServers = ["neocmakelsp"];
+  defaultServers = ["jq-lsp"];
   servers = {
-    neocmakelsp = {
+    jq-lsp = {
       enable = true;
-      cmd = [(getExe pkgs.neocmakelsp) "stdio"];
-      filetypes = ["cmake"];
-      root_markers = [".gersemirc" ".git" "build" "cmake"];
-      capabilities = {
-        textDocument.completion.completionItem.snippetSupport = true;
-      };
+      cmd = [(getExe pkgs.jq-lsp)];
+      filetypes = ["jq"];
+      root_markers = [".git"];
     };
   };
 
-  defaultFormat = "gersemi";
+  defaultFormat = ["jqfmt"];
   formats = {
-    gersemi = {
-      package = pkgs.gersemi;
+    jqfmt = {
+      command = getExe pkgs.jqfmt;
+      args = [
+        "-ob"
+        "-ar"
+        "-op=pipe"
+      ];
     };
   };
 in {
-  options.vim.languages.cmake = {
-    enable = mkEnableOption "CMake language support";
+  options.vim.languages.jq = {
+    enable = mkEnableOption "JQ support";
 
     treesitter = {
       enable =
-        mkEnableOption "CMake treesitter"
+        mkEnableOption "JQ treesitter"
         // {
           default = config.vim.languages.enableTreesitter;
           defaultText = literalExpression "config.vim.languages.enableTreesitter";
         };
-      package = mkGrammarOption pkgs "cmake";
+      package = mkGrammarOption pkgs "jq";
     };
 
     lsp = {
       enable =
-        mkEnableOption "CMake LSP support"
+        mkEnableOption "JQ LSP support"
         // {
           default = config.vim.lsp.enable;
           defaultText = literalExpression "config.vim.lsp.enable";
@@ -57,36 +59,32 @@ in {
       servers = mkOption {
         type = listOf (enum (attrNames servers));
         default = defaultServers;
-        description = "CMake LSP servers to use";
+        description = "JQ LSP server to use";
       };
     };
 
     format = {
       enable =
-        mkEnableOption "CMake formatting"
+        mkEnableOption "JQ formatting"
         // {
           default = config.vim.languages.enableFormat;
           defaultText = literalExpression "config.vim.languages.enableFormat";
         };
 
       type = mkOption {
-        description = "CMake formatter to use";
-        type = enum (attrNames formats);
+        description = "JQ formatter to use";
+        type = listOf (enum (attrNames formats));
         default = defaultFormat;
-      };
-
-      package = mkOption {
-        description = "CMake formatter package";
-        type = package;
-        default = formats.${cfg.format.type}.package;
       };
     };
   };
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      vim.treesitter = {
+        enable = true;
+        grammars = [cfg.treesitter.package];
+      };
     })
 
     (mkIf cfg.lsp.enable {
@@ -101,9 +99,14 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.cmake = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
+        setupOpts = {
+          formatters_by_ft.jq = cfg.format.type;
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
         };
       };
     })

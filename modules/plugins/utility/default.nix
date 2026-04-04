@@ -30,5 +30,6 @@
     ./yanky-nvim
     ./yazi-nvim
     ./undotree
+    ./crazy-coverage
   ];
 }

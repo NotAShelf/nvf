@@ -342,5 +342,10 @@ in {
         Incremental selection configuration has been removed from nvim-treesitter.
       '')
     ]
+
+    # 2026-03-19
+    [
+      (mkRenamedOptionModule ["vim" "treesitter" "foldByDefault"] ["vim" "options" "foldenable"])
+    ]
   ];
 }
