@@ -11,7 +11,7 @@ in {
         type = bool;
         default = false;
         description = ''
-          Whether to enable nable cursorline initially, and disable cursorline
+          Whether to enable cursorline initially, and disable cursorline
           for inactive windows or ignored filetypes.
         '';
       };
