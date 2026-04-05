@@ -14778,7 +14778,7 @@
     <details class="toc-category">
       <summary title="vim.ui">
         <span>vim.ui</span>
-        <span class="toc-count">167</span>
+        <span class="toc-count">175</span>
       </summary>
       <ul>
         
@@ -16115,6 +16115,70 @@
         <li>
           <a href='#option-vim-ui-smartcolumn-setupOpts-disabled_filetypes' title="vim.ui.smartcolumn.setupOpts.disabled_filetypes">
             smartcolumn.setupOpts.disabled_filetypes
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-ui-ui2-enable' title="vim.ui.ui2.enable">
+            ui2.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-ui-ui2-setupOpts' title="vim.ui.ui2.setupOpts">
+            ui2.setupOpts
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-ui-ui2-setupOpts-msg-cmd-height' title="vim.ui.ui2.setupOpts.msg.cmd.height">
+            ui2.setupOpts.msg.cmd.height
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-ui-ui2-setupOpts-msg-dialog-height' title="vim.ui.ui2.setupOpts.msg.dialog.height">
+            ui2.setupOpts.msg.dialog.height
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-ui-ui2-setupOpts-msg-msg-height' title="vim.ui.ui2.setupOpts.msg.msg.height">
+            ui2.setupOpts.msg.msg.height
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-ui-ui2-setupOpts-msg-msg-timeout' title="vim.ui.ui2.setupOpts.msg.msg.timeout">
+            ui2.setupOpts.msg.msg.timeout
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-ui-ui2-setupOpts-msg-pager-height' title="vim.ui.ui2.setupOpts.msg.pager.height">
+            ui2.setupOpts.msg.pager.height
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-ui-ui2-setupOpts-msg-targets' title="vim.ui.ui2.setupOpts.msg.targets">
+            ui2.setupOpts.msg.targets
             
             
           </a>
@@ -44346,6 +44410,114 @@ not listed in the docs</p>
   "alpha"
 ]</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/ui/smartcolumn/smartcolumn.nix" target="_blank">&lt;nvf/modules/plugins/ui/smartcolumn/smartcolumn.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-ui-ui2-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-ui-ui2-enable" class="option-anchor">vim.ui.ui2.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Neovim 0.12+ experimental built-in UI overhaul.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/ui/ui2/ui2.nix" target="_blank">&lt;nvf/modules/plugins/ui/ui2/ui2.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-ui-ui2-setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim-ui-ui2-setupOpts" class="option-anchor">vim.ui.ui2.setupOpts</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>open submodule of anything</code></div>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of ui2</p>
+<p>You can pass in any additional options even if they're
+not listed in the docs</p>
+</body></html></div>
+  <div class="option-default">Default: <code>{ }</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/ui/ui2/ui2.nix" target="_blank">&lt;nvf/modules/plugins/ui/ui2/ui2.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-ui-ui2-setupOpts-msg-cmd-height">
+  <h3 class="option-name">
+    <a href="#option-vim-ui-ui2-setupOpts-msg-cmd-height" class="option-anchor">vim.ui.ui2.setupOpts.msg.cmd.height</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>signed integer or floating point number</code></div>
+  <div class="option-description"><html><head></head><body><p>Maximum height for the cmdline window</p>
+</body></html></div>
+  <div class="option-default">Default: <code>0.5</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/ui/ui2/ui2.nix" target="_blank">&lt;nvf/modules/plugins/ui/ui2/ui2.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-ui-ui2-setupOpts-msg-dialog-height">
+  <h3 class="option-name">
+    <a href="#option-vim-ui-ui2-setupOpts-msg-dialog-height" class="option-anchor">vim.ui.ui2.setupOpts.msg.dialog.height</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>signed integer or floating point number</code></div>
+  <div class="option-description"><html><head></head><body><p>Maximum height for the dialog window</p>
+</body></html></div>
+  <div class="option-default">Default: <code>0.5</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/ui/ui2/ui2.nix" target="_blank">&lt;nvf/modules/plugins/ui/ui2/ui2.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-ui-ui2-setupOpts-msg-msg-height">
+  <h3 class="option-name">
+    <a href="#option-vim-ui-ui2-setupOpts-msg-msg-height" class="option-anchor">vim.ui.ui2.setupOpts.msg.msg.height</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>signed integer or floating point number</code></div>
+  <div class="option-description"><html><head></head><body><p>Maximum height for the msg window</p>
+</body></html></div>
+  <div class="option-default">Default: <code>0.5</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/ui/ui2/ui2.nix" target="_blank">&lt;nvf/modules/plugins/ui/ui2/ui2.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-ui-ui2-setupOpts-msg-msg-timeout">
+  <h3 class="option-name">
+    <a href="#option-vim-ui-ui2-setupOpts-msg-msg-timeout" class="option-anchor">vim.ui.ui2.setupOpts.msg.msg.timeout</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>signed integer</code></div>
+  <div class="option-description"><html><head></head><body><p>Time a message is visible in the message window</p>
+</body></html></div>
+  <div class="option-default">Default: <code>4000</code></div>
+  <div class="option-example">Example: <code>1500</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/ui/ui2/ui2.nix" target="_blank">&lt;nvf/modules/plugins/ui/ui2/ui2.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-ui-ui2-setupOpts-msg-pager-height">
+  <h3 class="option-name">
+    <a href="#option-vim-ui-ui2-setupOpts-msg-pager-height" class="option-anchor">vim.ui.ui2.setupOpts.msg.pager.height</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>signed integer or floating point number</code></div>
+  <div class="option-description"><html><head></head><body><p>Maximum height for the pager window</p>
+</body></html></div>
+  <div class="option-default">Default: <code>1</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/ui/ui2/ui2.nix" target="_blank">&lt;nvf/modules/plugins/ui/ui2/ui2.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-ui-ui2-setupOpts-msg-targets">
+  <h3 class="option-name">
+    <a href="#option-vim-ui-ui2-setupOpts-msg-targets" class="option-anchor">vim.ui.ui2.setupOpts.msg.targets</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or one of "cmd", "msg" or attribute set of (one of "cmd", "msg", "pager")</code></div>
+  <div class="option-description"><html><head></head><body><p>Default message target, either commandline or a separate window.
+Can alternatively specify different targets for different kinds of messages as an attrset.
+See <a href="https://neovim.io/doc/user/api-ui-events/#ui-messages"><code>:h ui-messages</code></a>
+for the different message types you can use in this configuration.
+Separating the message types also allows sending to a 'pager' output.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>"cmd"</code></div>
+  <div class="option-example">Example: <pre><code>{
+  bufwrite = "cmd";
+  quickfix = "msg";
+}</code></pre></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/ui/ui2/ui2.nix" target="_blank">&lt;nvf/modules/plugins/ui/ui2/ui2.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-undoFile-enable">
   <h3 class="option-name">
