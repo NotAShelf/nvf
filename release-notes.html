@@ -1849,6 +1849,13 @@ mentioned just in case.</p>
 controlled via <code>vim.options.foldenable</code> directly instead. RIP
 <code>vim.treesitter.foldByDefault</code> 2026-03-19 - 2026-03-19.</p>
 </li>
+<li>
+<p><code>vim.assistant.codecompanion-nvim.setupOpts.strategies</code> has been renamed to
+<code>vim.assistant.codecompanion-nvim.setupOpts.interactions</code> to match the
+upstream codecompanion.nvim v19 rename. If you set options like
+<code>setupOpts.strategies.chat.adapter</code>, rename them to
+<code>setupOpts.interactions.chat.adapter</code>.</p>
+</li>
 </ul>
 <p><a href="https://github.com/snoweuph">Snoweuph</a></p>
 <ul>
@@ -1888,6 +1895,13 @@ two new valid options.</p>
 </li>
 </ul>
 <h2 id="sec-release-0-9-changelog">Changelog</h2>
+<p><a href="https://github.com/SecBear">SecBear</a>:</p>
+<ul>
+<li>Renamed <code>setupOpts.strategies</code> to <code>setupOpts.interactions</code> in the
+codecompanion-nvim module to match the upstream v19 rename. The old key
+triggered a migration shim that silently discarded user <code>interactions</code>
+overrides.</li>
+</ul>
 <p><a href="https://github.com/midischwarz12">midischwarz12</a>:</p>
 <ul>
 <li>
