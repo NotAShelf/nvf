@@ -1,5 +1,5 @@
-{lib, ...}: let
-  inherit (lib.options) mkEnableOption mkOption literalMD;
+{lib, pkgs, ...}: let
+  inherit (lib.options) mkEnableOption mkOption mkPackageOption literalMD;
   inherit (lib.types) bool listOf str either attrsOf submodule enum anything int nullOr;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline pluginType;
   inherit (lib.nvim.binds) mkMappingOption;
@@ -29,6 +29,7 @@
 in {
   options.vim.autocomplete.blink-cmp = {
     enable = mkEnableOption "blink.cmp";
+    package = mkPackageOption pkgs ["vimPlugins" "blink-cmp"] { nullable = true; };
     setupOpts = mkPluginSetupOption "blink.cmp" {
       sources = {
         default = mkOption {
