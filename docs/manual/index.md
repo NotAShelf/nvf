@@ -15,6 +15,8 @@ project allows you to configure a fully featured Neovim instance with a few
 lines of Nix while leaving all kinds of doors open for integrating Lua in your
 configurations _whether you are a beginner or an advanced user_.
 
+Test.
+
 ## Try it Out {#ch-try-it-out}
 
 Thanks to the portability of Nix, you can try out **nvf** without actually
