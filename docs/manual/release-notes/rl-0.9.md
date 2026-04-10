@@ -304,6 +304,8 @@
 
 - Added `languages.jq`. Supports highlighting, formatting and lsp.
 
+- Extend `languages.asm` to support more filetypes out of the box.
+
 - Didn't Add
   [`syntax-gaslighting`](https://github.com/NotAShelf/syntax-gaslighting.nvim),
   you're crazy.
@@ -380,5 +382,9 @@ https://github.com/gorbit99/codewindow.nvim
 [tlvince](https://github.com/tlvince):
 
 - Added configuration option for `foldenable`
+
+[CaueAnjos](https://github.com/caueanjos)
+
+- Add razor support for `roslyn_ls` and `csharp_ls`
 
 <!-- vim: set textwidth=80: -->

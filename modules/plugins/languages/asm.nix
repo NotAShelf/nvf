@@ -18,7 +18,7 @@
     asm-lsp = {
       enable = true;
       cmd = [(getExe pkgs.asm-lsp)];
-      filetypes = ["asm" "vmasm"];
+      filetypes = ["asm" "nasm" "masm" "vmasm" "fasm" "tasm" "tiasm" "asm68k" "asm8300"];
       root_markers = [".asm-lsp.toml" ".git"];
     };
   };
@@ -33,7 +33,9 @@ in {
           default = config.vim.languages.enableTreesitter;
           defaultText = literalExpression "config.vim.languages.enableTreesitter";
         };
-      package = mkGrammarOption pkgs "asm";
+      packageASM = mkGrammarOption pkgs "asm";
+      packageNASM = mkGrammarOption pkgs "nasm";
+      packagePicoASM = mkGrammarOption pkgs "picoasm";
     };
 
     lsp = {
@@ -53,7 +55,11 @@ in {
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      vim.treesitter.grammars = [
+        cfg.treesitter.packageASM
+        cfg.treesitter.packageNASM
+        cfg.treesitter.packagePicoASM
+      ];
     })
 
     (mkIf cfg.lsp.enable {
