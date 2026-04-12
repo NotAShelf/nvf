@@ -390,4 +390,10 @@ https://github.com/gorbit99/codewindow.nvim
 
 - Add razor support for `roslyn_ls` and `csharp_ls`
 
+[suiiii](https://github.com/suicide)
+
+- Fix `languages.svelte` formatting to use an isolated Conform formatter id and
+  a wrapped Prettier package, so enabling Svelte support no longer overrides
+  TypeScript formatting or breaks Svelte plugin resolution at runtime.
+
 <!-- vim: set textwidth=80: -->

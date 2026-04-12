@@ -8,13 +8,21 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.meta) getExe;
+  inherit (lib.meta) getExe getExe';
   inherit (lib.types) enum coercedTo;
   inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.svelte;
+
+  formatterNames = {
+    prettier = "prettier_svelte";
+    biome = "biome";
+  };
+
+  mapFormatterName = name: formatterNames.${name};
+  configuredFormatters = map mapFormatterName cfg.format.type;
 
   defaultServers = ["svelte"];
   servers = {
@@ -56,13 +64,12 @@
 
   defaultFormat = ["prettier"];
   formats = let
-    prettierPlugin = inputs.self.packages.${pkgs.stdenv.system}.prettier-plugin-svelte;
-    prettierPluginPath = "${prettierPlugin}/lib/node_modules/prettier-plugin-svelte/plugin.js";
+    prettierWithSvelte = inputs.self.packages.${pkgs.stdenv.system}.prettier-plugin-svelte;
   in {
-    prettier = {
-      command = getExe pkgs.prettier;
+    prettier_svelte = {
+      command = getExe' prettierWithSvelte "prettier";
       options.ft_parsers.svelte = "svelte";
-      prepend_args = ["--plugin=${prettierPluginPath}"];
+      prepend_args = ["--plugin=${prettierWithSvelte}/lib/node_modules/prettier-plugin-svelte/plugin.js"];
     };
 
     biome = {
@@ -98,7 +105,7 @@
       lib.warn
       "vim.languages.svelte.format.type: prettierd is deprecated, use prettier instead"
       "prettier")
-    (enum (attrNames formats)));
+    (enum (attrNames formatterNames)));
 in {
   options.vim.languages.svelte = {
     enable = mkEnableOption "Svelte language support";
@@ -179,13 +186,13 @@ in {
       vim.formatter.conform-nvim = {
         enable = true;
         setupOpts = {
-          formatters_by_ft.svelte = cfg.format.type;
+          formatters_by_ft.svelte = configuredFormatters;
           formatters =
             mapListToAttrs (name: {
               inherit name;
               value = formats.${name};
             })
-            cfg.format.type;
+            configuredFormatters;
         };
       };
     })
