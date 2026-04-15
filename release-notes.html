@@ -426,7 +426,7 @@ actually correspond to any keybinds.</p>
 support to <code>languages.python</code></p>
 </li>
 <li>
-<p>Added TOML support via <a class="option-reference" href="options.html#option-languages-toml"><code class="nixos-option">languages.toml</code></a> and the
+<p>Added TOML support via <a class="option-reference" href="options.html#option-vim-languages-toml-enable"><code class="nixos-option">vim.languages.toml.enable</code></a> and the
 <a href="https://tombi-toml.github.io/tombi/">Tombi</a> language server, linter, and
 formatter.</p>
 </li>
@@ -1254,7 +1254,7 @@ your custom vimscript-based configuration to Lua. As for how to do that, you
 will have to consult the Neovim documentation and your search engine.</li>
 <li>After migrating your Vimscript-based configuration to Lua, you might not be
 able to use the same entry names in <code>vim.luaConfigRC</code>, because those have also
-slightly changed. See the new <a href="/index.xhtml#ch-dag-entries">DAG entries in nvf manual</a> for more details.</li>
+slightly changed. See the new <a href="./configuring.html#ch-dag-entries">DAG entries in nvf manual</a> for more details.</li>
 </ul>
 <p><strong>Why?</strong></p>
 <p>Neovim being an aggressive refactor of Vim, is designed to be mainly Lua based;
