@@ -195,6 +195,63 @@ two new valid options.</p>
 <li>
 <p>Added <code>json5</code> into <code>languages.json</code>. Some options where renamed.</p>
 </li>
+<li>
+<p>Moved <code>vim.lsp.harper-ls</code> to <code>vim.lsp.presets.haper</code>.</p>
+</li>
+<li>
+<p>Removed <code>typst_lsp</code> from <code>languages.typst.lsp.servers</code>, because it is
+deprecated and thus was pulled from nixpkgs.
+<a href="https://github.com/NixOS/nixpkgs/commit/bf24296bbe2e31ac7147b02ea645922390ca8f4b">https://github.com/NixOS/nixpkgs/commit/bf24296bbe2e31ac7147b02ea645922390ca8f4b</a></p>
+</li>
+<li>
+<p>Renamed <code>ts_ls</code> to <code>typescript-language-server</code>.</p>
+</li>
+<li>
+<p>Renamed <code>denols</code> to <code>deno</code>.</p>
+</li>
+<li>
+<p>Renamed <code>tsgo</code> to <code>typescript-go</code>.</p>
+</li>
+<li>
+<p>Renamed <code>vala_ls</code> to <code>vala-language-server</code>.</p>
+</li>
+<li>
+<p>Renamed <code>terraformls-tf</code> and <code>terraformls-hcl</code> to <code>terraform-ls</code>.</p>
+</li>
+<li>
+<p>Renamed <code>tofuls-tf</code> and <code>tofuls-hcl</code> to <code>tofu-ls</code>.</p>
+</li>
+<li>
+<p>Renamed <code>ruby_lsp</code> to <code>ruby-lsp</code>.</p>
+</li>
+<li>
+<p>Renamed <code>r_language_server</code> to <code>r-languageserver</code>.</p>
+</li>
+<li>
+<p>Renamed <code>julials</code> to <code>julia-languageserver</code>.</p>
+</li>
+<li>
+<p>Renamed <code>astro</code> to <code>astro-language-server</code>.</p>
+</li>
+<li>
+<p>Renamed <code>bash-ls</code> to <code>bash-language-server</code>.</p>
+</li>
+<li>
+<p>Renamed <code>jsonls</code> to <code>vscode-json-language-server</code>.</p>
+</li>
+<li>
+<p>Renamed <code>cssls</code> to <code>vscode-css-language-server</code>.</p>
+</li>
+<li>
+<p>Renamed <code>jdtls</code> to <code>jdt-language-server</code>.</p>
+</li>
+<li>
+<p>Renamed <code>elixirls</code> to <code>elixir-ls</code>.</p>
+</li>
+<li>
+<p>Removed <code>languages.tailwind</code> which only provided an LSP. Use
+<code>lsp.presets.tailwindcss-language-server</code> instead.</p>
+</li>
 </ul>
 <h2 id="sec-release-0-9-changelog">Changelog</h2>
 <p><a href="https://github.com/SecBear">SecBear</a>:</p>
@@ -276,8 +333,9 @@ pkgs.nixfmt-rfc-style</li>
 </ul>
 <p><a href="https://github.com/alfarelcynthesis">alfarel</a>:</p>
 <ul>
-<li>Upgrade <a href="https://github.com/obsidian-nvim/obsidian.nvim">obsidian.nvim</a> to use a maintained fork, instead of the unmaintained
-upstream.
+<li>
+<p>Upgrade <a href="https://github.com/obsidian-nvim/obsidian.nvim">obsidian.nvim</a> to use a maintained fork, instead of the unmaintained
+upstream.</p>
 <ul>
 <li>
 <p>Various upstream improvements:</p>
@@ -347,7 +405,9 @@ actually correspond to any keybinds.</p>
 </li>
 </ul>
 </li>
-<li>Allow disabling nvf's vendored keymaps by toggling <code>vendoredKeymaps.enable</code>.</li>
+<li>
+<p>Allow disabling nvf's vendored keymaps by toggling <code>vendoredKeymaps.enable</code>.</p>
+</li>
 </ul>
 <p><a href="https://github.com/pyrox0">pyrox0</a>:</p>
 <ul>
@@ -391,6 +451,15 @@ formatter.</p>
 </ul>
 <p><a href="https://github.com/snoweuph">Snoweuph</a></p>
 <ul>
+<li>
+<p>Added <code>vim.lsp.presets.&lt;name&gt;</code> to contain LSP configurations. This allows for
+more flexibility in nvf and reuse of LSPs across languages. Dropped
+<code>deprecatedSingleOrListOf</code> in favor of <code>listOf</code> for the affected LSP options.</p>
+</li>
+<li>
+<p>Fix <code>vim.lsp.presets.vala-language-server</code> to be wrapped correctly with
+<code>uncrustify</code>.</p>
+</li>
 <li>
 <p>Fix <code>tressiter</code> to allow <code>null</code> in grammar options, so they can be filtered
 out.</p>
