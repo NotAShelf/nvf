@@ -5330,7 +5330,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">493</span>
+        <span class="toc-count">497</span>
       </summary>
       <ul>
         
@@ -7137,6 +7137,22 @@
         </li>
         
         <li>
+          <a href='#option-vim-languages-liquid-lsp-enable' title="vim.languages.liquid.lsp.enable">
+            liquid.lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-liquid-lsp-servers' title="vim.languages.liquid.lsp.servers">
+            liquid.lsp.servers
+            
+            
+          </a>
+        </li>
+        
+        <li>
           <a href='#option-vim-languages-liquid-treesitter-enable' title="vim.languages.liquid.treesitter.enable">
             liquid.treesitter.enable
             
@@ -8483,6 +8499,22 @@
         <li>
           <a href='#option-vim-languages-tera-enable' title="vim.languages.tera.enable">
             tera.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-tera-lsp-enable' title="vim.languages.tera.lsp.enable">
+            tera.lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-tera-lsp-servers' title="vim.languages.tera.lsp.servers">
+            tera.lsp.servers
             
             
           </a>
@@ -27787,7 +27819,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (value "astro-language-server" (singular enum) or value "astro" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of ((one of "astro-language-server", "emmet-ls") or value "astro" (singular enum) convertible to it)</code></div>
   <div class="option-description"><html><head></head><body><p>Astro LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -29987,7 +30019,7 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of value "jinja-lsp" (singular enum)</code></div>
+  <div class="option-type">Type: <code>list of (one of "jinja-lsp", "emmet-ls")</code></div>
   <div class="option-description"><html><head></head><body><p>Jinja LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -30471,6 +30503,31 @@ package to Julia in your devshells.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/liquid.nix" target="_blank">&lt;nvf/modules/plugins/languages/liquid.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-liquid-lsp-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-liquid-lsp-enable" class="option-anchor">vim.languages.liquid.lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Liquid LSP support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.lsp.enable</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/liquid.nix" target="_blank">&lt;nvf/modules/plugins/languages/liquid.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-liquid-lsp-servers">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-liquid-lsp-servers" class="option-anchor">vim.languages.liquid.lsp.servers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "emmet-ls" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Liquid LSP server to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[ ]</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/liquid.nix" target="_blank">&lt;nvf/modules/plugins/languages/liquid.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-liquid-treesitter-enable">
@@ -32725,6 +32782,31 @@ not listed in the docs</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tera.nix" target="_blank">&lt;nvf/modules/plugins/languages/tera.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim-languages-tera-lsp-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-tera-lsp-enable" class="option-anchor">vim.languages.tera.lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Tera LSP support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.lsp.enable</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tera.nix" target="_blank">&lt;nvf/modules/plugins/languages/tera.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-tera-lsp-servers">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-tera-lsp-servers" class="option-anchor">vim.languages.tera.lsp.servers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "emmet-ls" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Tera LSP server to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[ ]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tera.nix" target="_blank">&lt;nvf/modules/plugins/languages/tera.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim-languages-tera-treesitter-enable">
   <h3 class="option-name">
     <a href="#option-vim-languages-tera-treesitter-enable" class="option-anchor">vim.languages.tera.treesitter.enable</a>
@@ -33334,7 +33416,7 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of value "twig-language-server" (singular enum)</code></div>
+  <div class="option-type">Type: <code>list of (one of "twig-language-server", "emmet-ls")</code></div>
   <div class="option-description"><html><head></head><body><p>Twig LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
