@@ -11,6 +11,7 @@
     ./nvim-scrollbar
     ./nvim-web-devicons
     ./rainbow-delimiters
+    ./satellite-nvim
     ./syntax-gaslighting
     ./tiny-devicons-auto-colors
   ];

@@ -136,6 +136,7 @@ isMaximal: {
 
     visuals = {
       nvim-scrollbar.enable = isMaximal;
+      satellite-nvim.enable = false;
       nvim-web-devicons.enable = true;
       nvim-cursorline.enable = true;
       cinnamon-nvim.enable = true;
