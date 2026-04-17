@@ -43903,9 +43903,10 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>signed integer</code></div>
+  <div class="option-type">Type: <code>signed integer or string</code></div>
   <div class="option-description"><html><head></head><body><p>How many lines the window should span.</p>
-<p>Values &gt;= 0 mean there will be no limit.</p>
+<p>Can be an absolute line number (given as int) or a percentage (given as string, e.g. "20%").</p>
+<p>Values &lt;= 0 mean there will be no limit.</p>
 </body></html></div>
   <div class="option-default">Default: <code>0</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/ts-context/context.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/ts-context/context.nix&gt;</a></code></div>
