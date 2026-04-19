@@ -9494,7 +9494,7 @@
     <details class="toc-category">
       <summary title="vim.lsp">
         <span>vim.lsp</span>
-        <span class="toc-count">148</span>
+        <span class="toc-count">149</span>
       </summary>
       <ul>
         
@@ -9991,6 +9991,14 @@
         <li>
           <a href='#option-vim-lsp-otter-nvim-setupOpts-strip_wrapping_quote_characters' title="vim.lsp.otter-nvim.setupOpts.strip_wrapping_quote_characters">
             otter-nvim.setupOpts.strip_wrapping_quote_characters
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-lsp-presets-angular-language-server-enable' title="vim.lsp.presets.angular-language-server.enable">
+            presets.angular-language-server.enable
             
             
           </a>
@@ -29877,7 +29885,7 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (one of "superhtml", "emmet-ls")</code></div>
+  <div class="option-type">Type: <code>list of (one of "superhtml", "emmet-ls", "angular-language-server")</code></div>
   <div class="option-description"><html><head></head><body><p>HTML LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -33392,7 +33400,7 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of ((one of "typescript-language-server", "deno", "typescript-go") or (one of "denols", "ts_ls", "tsgo") convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of ((one of "typescript-language-server", "deno", "typescript-go", "angular-language-server") or (one of "denols", "ts_ls", "tsgo") convertible to it)</code></div>
   <div class="option-description"><html><head></head><body><p>Typescript/Javascript LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -35212,6 +35220,22 @@ for less performant but more instant diagnostic updates</p>
   "`"
 ]</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/otter/otter.nix" target="_blank">&lt;nvf/modules/plugins/lsp/otter/otter.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-lsp-presets-angular-language-server-enable">
+  <h3 class="option-name">
+    <a href="#option-vim-lsp-presets-angular-language-server-enable" class="option-anchor">vim.lsp.presets.angular-language-server.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Angular Template Language Server.
+Default <code>filetypes = [ ]</code>.
+Use <code class="nixos-option">vim.lsp.servers.angular-language-server</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/angular-language-server.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/angular-language-server.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-lsp-presets-arduino-language-server-enable">
   <h3 class="option-name">
