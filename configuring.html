@@ -114,7 +114,8 @@
 </ul><li><a href="#ch-autocmds-augroups">Autocommands and Autogroups</a>
 <ul><li><a href="#sec-vim-augroups">Autogroups (vim.augroups)</a>
 <li><a href="#sec-vim-autocmds">Autocommands (vim.autocmds)</a>
-</li></ul></li>
+</ul><li><a href="#queries--vim-treesitter-queries">Queries (vim.treesitter.queries)</a>
+</li>
               </ul>
             </div>
           </details>
@@ -609,6 +610,20 @@ Vimscript) for the same autocommand. Choose one.</p>
 <p>These definitions are automatically translated into the necessary Lua code to
 configure <code>vim.api.nvim_create_augroup</code> and <code>vim.api.nvim_create_autocmd</code> when
 Neovim starts.</p>
+<h1 id="queries--vim-treesitter-queries">Queries (<code>vim.treesitter.queries</code>)</h1>
+<p>Queries allow you to change Neovim's behavior based on Tree-sitter.<br>
+Read more about it in the
+<a href="https://neovim.io/doc/user/treesitter/#_treesitter-queries">neovim docs</a>.</p>
+<p><strong>Example:</strong></p>
+<p>In the following example, we are creating a custom injection, to highlight the
+Lua string after <code>mkLuaInline</code>.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(97,175,239);">foo</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">mkLuaInline</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;function&nbsp;bar()</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;'foobar'</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;end</span><br><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br></code></pre>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">treesitter</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">queries</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">type</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">injections</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">filetypes</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">nix</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">content</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;&nbsp;extends</span><br><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((apply_expression</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function:&nbsp;(variable_expression</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name:&nbsp;(identifier)&nbsp;@_func</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(#eq?&nbsp;@_func&nbsp;"mkLuaInline"))</span><br><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;argument:&nbsp;(indented_string_expression</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(string_fragment)&nbsp;@injection.content)</span><br><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(#set!&nbsp;injection.language&nbsp;"lua")</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(#set!&nbsp;injection.combined)))</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<p>This will generate a <code>queries/nix/injections.scm</code> in a Neovim runtime directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When multiple queries match the same <code>filetype</code> and <code>type</code>, they are merged.</p>
+</div>
 </body></html><!-- deno-fmt-ignore-start --></main>
       </div>
 
@@ -647,7 +662,8 @@ Neovim starts.</p>
 </ul><li><a href="#ch-autocmds-augroups">Autocommands and Autogroups</a>
 <ul><li><a href="#sec-vim-augroups">Autogroups (vim.augroups)</a>
 <li><a href="#sec-vim-autocmds">Autocommands (vim.autocmds)</a>
-</li></ul></li>
+</ul><li><a href="#queries--vim-treesitter-queries">Queries (vim.treesitter.queries)</a>
+</li>
           </ul>
         </nav>
       </aside>

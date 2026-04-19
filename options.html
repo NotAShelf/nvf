@@ -15228,7 +15228,7 @@
     <details class="toc-category">
       <summary title="vim.treesitter">
         <span>vim.treesitter</span>
-        <span class="toc-count">21</span>
+        <span class="toc-count">25</span>
       </summary>
       <ul>
         
@@ -15381,6 +15381,38 @@
         <li>
           <a href='#option-vim-treesitter-indent-pattern' title="vim.treesitter.indent.pattern">
             indent.pattern
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-treesitter-queries' title="vim.treesitter.queries">
+            queries
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-treesitter-queries-*-content' title="vim.treesitter.queries.*.content">
+            queries.*.content
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-treesitter-queries-*-filetypes' title="vim.treesitter.queries.*.filetypes">
+            queries.*.filetypes
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-treesitter-queries-*-type' title="vim.treesitter.queries.*.type">
+            queries.*.type
             
             
           </a>
@@ -44111,6 +44143,52 @@ the required grammars to this.</p>
 </body></html></div>
   <div class="option-default">Default: <code>"*"</code></div>
   <div class="option-example">Example: <code>["lua" "nix"]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-treesitter-queries">
+  <h3 class="option-name">
+    <a href="#option-vim-treesitter-queries" class="option-anchor">vim.treesitter.queries</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (submodule)</code></div>
+  <div class="option-description"><html><head></head><body><p>A list of Neovim treesitter queries to be registered.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[ ]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-treesitter-queries-*-content">
+  <h3 class="option-name">
+    <a href="#option-vim-treesitter-queries-*-content" class="option-anchor">vim.treesitter.queries.*.content</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>strings concatenated with "\n"</code></div>
+  <div class="option-description"><html><head></head><body><p>The queries scm script.</p>
+</body></html></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-treesitter-queries-*-filetypes">
+  <h3 class="option-name">
+    <a href="#option-vim-treesitter-queries-*-filetypes" class="option-anchor">vim.treesitter.queries.*.filetypes</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of string</code></div>
+  <div class="option-description"><html><head></head><body><p>The filetypes for which the query should be registered.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[ ]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-treesitter-queries-*-type">
+  <h3 class="option-name">
+    <a href="#option-vim-treesitter-queries-*-type" class="option-anchor">vim.treesitter.queries.*.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>one of "injections", "highlights", "folds", "locals", "indents"</code></div>
+  <div class="option-description"><html><head></head><body><p>The kind of query to register.</p>
+</body></html></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-treesitter-textobjects-enable">
