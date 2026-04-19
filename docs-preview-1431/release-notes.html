@@ -455,6 +455,13 @@ formatter.</p>
 <p><a href="https://github.com/snoweuph">Snoweuph</a></p>
 <ul>
 <li>
+<p>Added <a class="option-reference" href="options.html#option-vim-treesitter-queries"><code class="nixos-option">vim.treesitter.queries</code></a> to support adding custom queries.</p>
+</li>
+<li>
+<p>Added injections for <code>vim.treesitter.queries.*.content</code> as <code>query</code> and
+<code>mkLualine ""</code> as <code>lua</code>.</p>
+</li>
+<li>
 <p>Added <code>vim.lsp.presets.&lt;name&gt;</code> to contain LSP configurations. This allows for
 more flexibility in nvf and reuse of LSPs across languages. Dropped
 <code>deprecatedSingleOrListOf</code> in favor of <code>listOf</code> for the affected LSP options.</p>
