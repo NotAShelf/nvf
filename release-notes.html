@@ -255,6 +255,11 @@ deprecated and thus was pulled from nixpkgs.
 <li>
 <p>Renamed <code>languages.ts</code> to <code>languages.typescript</code>.</p>
 </li>
+<li>
+<p>Added <a class="option-reference" href="options.html#option-vim-languages-go-treesitter-gotmpl-injection"><code class="nixos-option">vim.languages.go.treesitter.gotmpl.injection</code></a> and Renamed
+<code>languages.go.treesitter.gotmplPackage</code> to
+<a class="option-reference" href="options.html#option-vim-languages-go-treesitter-gotmpl-package"><code class="nixos-option">vim.languages.go.treesitter.gotmpl.package</code></a></p>
+</li>
 </ul>
 <h2 id="sec-release-0-9-changelog">Changelog</h2>
 <p><a href="https://github.com/SecBear">SecBear</a>:</p>
@@ -459,7 +464,11 @@ formatter.</p>
 </li>
 <li>
 <p>Added injections for <code>vim.treesitter.queries.*.content</code> as <code>query</code> and
-<code>mkLualine ""</code> as <code>lua</code>.</p>
+<code>mkLualine</code>, <code>entryAnywhere</code>, <code>entryBefore</code>, <code>entryAfter</code> as <code>lua</code> in nix.</p>
+</li>
+<li>
+<p>Added <a class="option-reference" href="options.html#option-vim-languages-tera-treesitter-injection"><code class="nixos-option">vim.languages.tera.treesitter.injection</code></a> to configure, what
+language the content is.</p>
 </li>
 <li>
 <p>Added <code>vim.lsp.presets.&lt;name&gt;</code> to contain LSP configurations. This allows for

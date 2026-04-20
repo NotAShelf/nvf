@@ -5330,7 +5330,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">497</span>
+        <span class="toc-count">499</span>
       </summary>
       <ul>
         
@@ -6537,8 +6537,16 @@
         </li>
         
         <li>
-          <a href='#option-vim-languages-go-treesitter-gotmplPackage' title="vim.languages.go.treesitter.gotmplPackage">
-            go.treesitter.gotmplPackage
+          <a href='#option-vim-languages-go-treesitter-gotmpl-injection' title="vim.languages.go.treesitter.gotmpl.injection">
+            go.treesitter.gotmpl.injection
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-go-treesitter-gotmpl-package' title="vim.languages.go.treesitter.gotmpl.package">
+            go.treesitter.gotmpl.package
             
             
           </a>
@@ -8523,6 +8531,14 @@
         <li>
           <a href='#option-vim-languages-tera-treesitter-enable' title="vim.languages.tera.treesitter.enable">
             tera.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim-languages-tera-treesitter-injection' title="vim.languages.tera.treesitter.injection">
+            tera.treesitter.injection
             
             
           </a>
@@ -29568,9 +29584,21 @@ not listed in the docs</p>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.gosum</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/go.nix" target="_blank">&lt;nvf/modules/plugins/languages/go.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-vim-languages-go-treesitter-gotmplPackage">
+<div class="option" id="option-vim-languages-go-treesitter-gotmpl-injection">
   <h3 class="option-name">
-    <a href="#option-vim-languages-go-treesitter-gotmplPackage" class="option-anchor">vim.languages.go.treesitter.gotmplPackage</a>
+    <a href="#option-vim-languages-go-treesitter-gotmpl-injection" class="option-anchor">vim.languages.go.treesitter.gotmpl.injection</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>string</code></div>
+  <div class="option-description"><html><head></head><body><p>Treesitter language to inject in Go templates</p>
+</body></html></div>
+  <div class="option-default">Default: <code>"html"</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/go.nix" target="_blank">&lt;nvf/modules/plugins/languages/go.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-go-treesitter-gotmpl-package">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-go-treesitter-gotmpl-package" class="option-anchor">vim.languages.go.treesitter.gotmpl.package</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -32866,6 +32894,18 @@ not listed in the docs</p>
 </body></html></div>
   <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
   <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tera.nix" target="_blank">&lt;nvf/modules/plugins/languages/tera.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim-languages-tera-treesitter-injection">
+  <h3 class="option-name">
+    <a href="#option-vim-languages-tera-treesitter-injection" class="option-anchor">vim.languages.tera.treesitter.injection</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>string</code></div>
+  <div class="option-description"><html><head></head><body><p>Treesitter language to inject in Tera templates</p>
+</body></html></div>
+  <div class="option-default">Default: <code>"html"</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tera.nix" target="_blank">&lt;nvf/modules/plugins/languages/tera.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim-languages-tera-treesitter-package">
