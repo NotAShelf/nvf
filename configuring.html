@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Configuring nvf</title>
      
+    
     <script>
       // Apply sidebar state immediately to prevent flash
       (function () {
-        if (localStorage.getItem("sidebar-collapsed") === "true") {
-          document.documentElement.classList.add("sidebar-collapsed");
+        try {
+          if (localStorage.getItem("sidebar-collapsed") === "true") {
+            document.documentElement.classList.add("sidebar-collapsed");
+          }
+        } catch (e) {
+          // localStorage unavailable
         }
       })();
     </script>
@@ -129,7 +134,7 @@ nvf for your convenience. You might also be interested in the
 supported by nvf.</p>
 <p>Note that this section does not cover module <em>options</em>. For an overview of all
 module options provided by nvf, please visit the <a href="./options.html">options reference</a></p>
-<!-- ndg: could not include file: ./manual/configuring/custom-package.md -->
+<!-- ndg: could not include file: ./configuring/custom-package.md -->
 <h1 id="ch-custom-plugins">Custom Plugins</h1>
 <p><strong>nvf</strong> exposes a very wide variety of plugins by default, which are consumed by
 module options. This is done for your convenience, and to bundle all necessary
@@ -147,7 +152,7 @@ as a module.</p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p>To add a plugin to your runtime, you will need to add it to
-<a class="option-reference" href="options.html#option-vim-startPlugins"><code class="nixos-option">vim.startPlugins</code></a> list in your configuration. This is akin to cloning a
+<a class="option-reference" href="options.html#option-vim.startPlugins"><code class="nixos-option">vim.startPlugins</code></a> list in your configuration. This is akin to cloning a
 plugin to <code>~/.config/nvim</code>, but they are only ever placed in the Nix store and
 never exposed to the outside world for purity and full isolation.</p>
 </div>
@@ -210,20 +215,20 @@ three of those events: <code>["BufReadPost" "BufNewFile" "BufWritePre"]</code></
 <h1 id="sec-non-lazy-method">Non-lazy Method</h1>
 <p>As of version <strong>0.5</strong>, we have a more extensive API for configuring plugins that
 should be preferred over the legacy method. This API is available as
-<a class="option-reference" href="options.html#option-vim-extraPlugins"><code class="nixos-option">vim.extraPlugins</code></a>. Instead of using DAGs exposed by the library
+<a class="option-reference" href="options.html#option-vim.extraPlugins"><code class="nixos-option">vim.extraPlugins</code></a>. Instead of using DAGs exposed by the library
 <em>directly</em>, you may use the extra plugin module as follows:</p>
 <pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(232,102,113);">pkgs</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">extraPlugins</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">aerial</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">package</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">aerial-nvim</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">setup</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;require('aerial').setup&nbsp;{</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;some&nbsp;lua&nbsp;configuration&nbsp;here</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">harpoon</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">package</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">harpoon</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">setup</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">require('harpoon').setup&nbsp;{}</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">after</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">aerial</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
 <p>This provides a level of abstraction over the DAG system for faster iteration.</p>
 <h1 id="sec-legacy-method">Legacy Method</h1>
 <p>Prior to version <strong>0.5</strong>, the method of adding new plugins was adding the plugin
-package to <a class="option-reference" href="options.html#option-vim-startPlugins"><code class="nixos-option">vim.startPlugins</code></a> and adding its configuration as a DAG
-under one of <code>vim.configRC</code> or <a class="option-reference" href="options.html#option-vim-luaConfigRC"><code class="nixos-option">vim.luaConfigRC</code></a>. While <code>configRC</code> has
+package to <a class="option-reference" href="options.html#option-vim.startPlugins"><code class="nixos-option">vim.startPlugins</code></a> and adding its configuration as a DAG
+under one of <code>vim.configRC</code> or <a class="option-reference" href="options.html#option-vim.luaConfigRC"><code class="nixos-option">vim.luaConfigRC</code></a>. While <code>configRC</code> has
 been deprecated, users who have not yet updated to 0.5 or those who prefer a
 more hands-on approach may choose to use the old method where the load order of
 the plugins is explicitly determined by DAGs without internal abstractions.</p>
 <h2 id="sec-adding-new-plugins">Adding New Plugins</h2>
 <p>To add a plugin not available in <strong>nvf</strong> as a module to your configuration using
-the legacy method, you must add it to <a class="option-reference" href="options.html#option-vim-startPlugins"><code class="nixos-option">vim.startPlugins</code></a> in order to
+the legacy method, you must add it to <a class="option-reference" href="options.html#option-vim.startPlugins"><code class="nixos-option">vim.startPlugins</code></a> in order to
 make it available to Neovim at runtime.</p>
 <pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(232,102,113);">pkgs</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Add&nbsp;a&nbsp;Neovim&nbsp;plugin&nbsp;from&nbsp;Nixpkgs&nbsp;to&nbsp;the&nbsp;runtime.</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;This&nbsp;does&nbsp;not&nbsp;need&nbsp;to&nbsp;come&nbsp;explicitly&nbsp;from&nbsp;packages.&nbsp;'vim.startPlugins'</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;takes&nbsp;a&nbsp;list&nbsp;of&nbsp;*string*&nbsp;(to&nbsp;load&nbsp;internal&nbsp;plugins)&nbsp;or&nbsp;*package*&nbsp;to&nbsp;load</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;a&nbsp;Neovim&nbsp;package&nbsp;from&nbsp;any&nbsp;source.</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">startPlugins</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">aerial-nvim</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
 <p>Once the package is available in Neovim's runtime, you may use the <code>luaConfigRC</code>
@@ -253,85 +258,67 @@ formatters, and <code>nvim-lint</code> linter integration. This gets you capabil
 ranging from autocompletion to formatting to diagnostics. The following
 languages have sections under the <code>vim.languages</code> attribute.</p>
 <ul>
-<li>Rust:
-<a href="./options.html#option-vim-languages-rust-enable">vim.languages.rust.enable</a></li>
-<li>Nix:
-<a href="./options.html#option-vim-languages-nix-enable">vim.languages.nix.enable</a></li>
-<li>SQL:
-<a href="./options.html#option-vim-languages-sql-enable">vim.languages.sql.enable</a></li>
-<li>C/C++:
-<a href="./options.html#option-vim-languages-clang-enable">vim.languages.clang.enable</a></li>
-<li>Typescript/Javascript:
-<a href="./options.html#option-vim-languages-ts-enable">vim.languages.ts.enable</a></li>
-<li>Python:
-<a href="./options.html#option-vim-languages-python-enable">vim.languages.python.enable</a>:</li>
-<li>Zig:
-<a href="./options.html#option-vim-languages-zig-enable">vim.languages.zig.enable</a></li>
-<li>Markdown:
-<a href="./options.html#option-vim-languages-markdown-enable">vim.languages.markdown.enable</a></li>
-<li>HTML:
-<a href="./options.html#option-vim-languages-html-enable">vim.languages.html.enable</a></li>
-<li>Dart:
-<a href="./options.html#option-vim-languages-dart-enable">vim.languages.dart.enable</a></li>
-<li>Go: <a href="./options.html#option-vim-languages-go-enable">vim.languages.go.enable</a></li>
-<li>Lua:
-<a href="./options.html#option-vim-languages-lua-enable">vim.languages.lua.enable</a></li>
-<li>PHP:
-<a href="./options.html#option-vim-languages-php-enable">vim.languages.php.enable</a></li>
-<li>F#:
-<a href="./options.html#option-vim-languages-fsharp-enable">vim.languages.fsharp.enable</a></li>
-<li>Assembly:
-<a href="./options.html#option-vim-languages-assembly-enable">vim.languages.assembly.enable</a></li>
-<li>Astro:
-<a href="./options.html#option-vim-languages-astro-enable">vim.languages.astro.enable</a></li>
-<li>Bash:
-<a href="./options.html#option-vim-languages-bash-enable">vim.languages.bash.enable</a></li>
-<li>Clang:
-<a href="./options.html#option-vim-languages-clang-enable">vim.languages.clang.enable</a></li>
-<li>Clojure:
-<a href="./options.html#option-vim-languages-clojure-enable">vim.languages.clojure.enable</a></li>
-<li>C#:
-<a href="./options.html#option-vim-languages-csharp-enable">vim.languages.csharp.enable</a></li>
-<li>CSS:
-<a href="./options.html#option-vim-languages-css-enable">vim.languages.css.enable</a></li>
-<li>CUE:
-<a href="./options.html#option-vim-languages-cue-enable">vim.languages.cue.enable</a></li>
-<li>Elixir:
-<a href="./options.html#option-vim-languages-elixir-enable">vim.languages.elixir.enable</a></li>
-<li>Gleam:
-<a href="./options.html#option-vim-languages-gleam-enable">vim.languages.gleam.enable</a></li>
-<li>HCL:
-<a href="./options.html#option-vim-languages-hcl-enable">vim.languages.hcl.enable</a></li>
-<li>Helm:
-<a href="./options.html#option-vim-languages-helm-enable">vim.languages.helm.enable</a></li>
-<li>Julia:
-<a href="./options.html#option-vim-languages-julia-enable">vim.languages.julia.enable</a></li>
-<li>Kotlin:
-<a href="./options.html#option-vim-languages-kotlin-enable">vim.languages.kotlin.enable</a></li>
-<li>Nim:
-<a href="./options.html#option-vim-languages-nim-enable">vim.languages.nim.enable</a></li>
-<li>Nu: <a href="./options.html#option-vim-languages-nu-enable">vim.languages.nu.enable</a></li>
-<li>OCaml:
-<a href="./options.html#option-vim-languages-ocaml-enable">vim.languages.ocaml.enable</a></li>
-<li>Odin:
-<a href="./options.html#option-vim-languages-odin-enable">vim.languages.odin.enable</a></li>
-<li>R: <a href="./options.html#option-vim-languages-r-enable">vim.languages.r.enable</a></li>
-<li>Ruby:
-<a href="./options.html#option-vim-languages-ruby-enable">vim.languages.ruby.enable</a></li>
-<li>Scala:
-<a href="./options.html#option-vim-languages-scala-enable">vim.languages.scala.enable</a></li>
-<li>Svelte:
-<a href="./options.html#option-vim-languages-svelte-enable">vim.languages.svelte.enable</a></li>
-<li>Terraform:
-<a href="./options.html#option-vim-languages-terraform-enable">vim.languages.terraform.enable</a></li>
-<li>Typst:
-<a href="./options.html#option-vim-languages-typst-enable">vim.languages.typst.enable</a></li>
-<li>Vala:
-<a href="./options.html#option-vim-languages-vala-enable">vim.languages.vala.enable</a></li>
-<li>WGSL:
-<a href="./options.html#option-vim-languages-wgsl-enable">vim.languages.wgsl.enable</a></li>
-<li>YAML:
-<a href="./options.html#option-vim-languages-yaml-enable">vim.languages.yaml.enable</a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.arduino.enable"><code class="nixos-option">vim.languages.arduino.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.assembly.enable"><code class="nixos-option">vim.languages.assembly.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.astro.enable"><code class="nixos-option">vim.languages.astro.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.bash.enable"><code class="nixos-option">vim.languages.bash.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.clang.enable"><code class="nixos-option">vim.languages.clang.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.clojure.enable"><code class="nixos-option">vim.languages.clojure.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.cmake.enable"><code class="nixos-option">vim.languages.cmake.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.csharp.enable"><code class="nixos-option">vim.languages.csharp.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.css.enable"><code class="nixos-option">vim.languages.css.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.cue.enable"><code class="nixos-option">vim.languages.cue.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.dart.enable"><code class="nixos-option">vim.languages.dart.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.elixir.enable"><code class="nixos-option">vim.languages.elixir.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.elm.enable"><code class="nixos-option">vim.languages.elm.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.fluent.enable"><code class="nixos-option">vim.languages.fluent.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.fsharp.enable"><code class="nixos-option">vim.languages.fsharp.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.gettext.enable"><code class="nixos-option">vim.languages.gettext.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.gleam.enable"><code class="nixos-option">vim.languages.gleam.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.glsl.enable"><code class="nixos-option">vim.languages.glsl.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.go.enable"><code class="nixos-option">vim.languages.go.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.haskell.enable"><code class="nixos-option">vim.languages.haskell.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.hcl.enable"><code class="nixos-option">vim.languages.hcl.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.helm.enable"><code class="nixos-option">vim.languages.helm.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.html.enable"><code class="nixos-option">vim.languages.html.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.java.enable"><code class="nixos-option">vim.languages.java.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.jinja.enable"><code class="nixos-option">vim.languages.jinja.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.jq.enable"><code class="nixos-option">vim.languages.jq.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.json.enable"><code class="nixos-option">vim.languages.json.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.julia.enable"><code class="nixos-option">vim.languages.julia.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.just.enable"><code class="nixos-option">vim.languages.just.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.kotlin.enable"><code class="nixos-option">vim.languages.kotlin.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.liquid.enable"><code class="nixos-option">vim.languages.liquid.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.lua.enable"><code class="nixos-option">vim.languages.lua.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.make.enable"><code class="nixos-option">vim.languages.make.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.markdown.enable"><code class="nixos-option">vim.languages.markdown.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.nim.enable"><code class="nixos-option">vim.languages.nim.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.nix.enable"><code class="nixos-option">vim.languages.nix.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.nu.enable"><code class="nixos-option">vim.languages.nu.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.ocaml.enable"><code class="nixos-option">vim.languages.ocaml.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.odin.enable"><code class="nixos-option">vim.languages.odin.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.openscad.enable"><code class="nixos-option">vim.languages.openscad.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.php.enable"><code class="nixos-option">vim.languages.php.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.python.enable"><code class="nixos-option">vim.languages.python.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.qml.enable"><code class="nixos-option">vim.languages.qml.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.r.enable"><code class="nixos-option">vim.languages.r.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.ruby.enable"><code class="nixos-option">vim.languages.ruby.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.rust.enable"><code class="nixos-option">vim.languages.rust.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.scala.enable"><code class="nixos-option">vim.languages.scala.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.sql.enable"><code class="nixos-option">vim.languages.sql.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.svelte.enable"><code class="nixos-option">vim.languages.svelte.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.tera.enable"><code class="nixos-option">vim.languages.tera.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.terraform.enable"><code class="nixos-option">vim.languages.terraform.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.tex.enable"><code class="nixos-option">vim.languages.tex.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.toml.enable"><code class="nixos-option">vim.languages.toml.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.twig.enable"><code class="nixos-option">vim.languages.twig.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.typescript.enable"><code class="nixos-option">vim.languages.typescript.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.typst.enable"><code class="nixos-option">vim.languages.typst.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.vala.enable"><code class="nixos-option">vim.languages.vala.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.wgsl.enable"><code class="nixos-option">vim.languages.wgsl.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.xml.enable"><code class="nixos-option">vim.languages.xml.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.yaml.enable"><code class="nixos-option">vim.languages.yaml.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.zig.enable"><code class="nixos-option">vim.languages.zig.enable</code></a></li>
 </ul>
 <p>Adding support for more languages, and improving support for existing ones are
 great places where you can contribute with a PR.</p>
@@ -351,7 +338,7 @@ has introduced a new <code>vim.lsp</code> API that can be used to register custo
 servers with ease. In <strong>nvf</strong>, this translates to the custom <code>vim.lsp</code> API that
 can be used to register servers that are not present in existing language
 modules.</p>
-<p>The <a class="option-reference" href="options.html#option-vim-lsp-servers"><code class="nixos-option">vim.lsp.servers</code></a> submodule can be used to modify existing LSP
+<p>The <a class="option-reference" href="options.html#option-vim.lsp.servers"><code class="nixos-option">vim.lsp.servers</code></a> submodule can be used to modify existing LSP
 definitions OR register your own custom LSPs respectively. For example, if you'd
 like to avoid having NVF pull the LSP packages you may modify the start command
 to use a string, which will cause the LSP API to discover LSP servers from
@@ -359,10 +346,10 @@ to use a string, which will cause the LSP API to discover LSP servers from
 <pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(232,102,113);">lib</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(132,139,152);">{</span>&nbsp;<br>&nbsp;&nbsp;vim<span style="color:rgb(132,139,152);">.</span>lsp<span style="color:rgb(132,139,152);">.</span>servers&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Get&nbsp;`basedpyright-langserver`&nbsp;from&nbsp;PATH,&nbsp;e.g.,&nbsp;a&nbsp;dev&nbsp;shell.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">basedpyright</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">cmd</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">mkForce</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">basedpyright-langserver</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--stdio</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Define&nbsp;a&nbsp;custom&nbsp;LSP&nbsp;entry&nbsp;using&nbsp;`vim.lsp.servers`:</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">ty</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">cmd</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">mkDefault</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">getExe</span>&nbsp;<span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">ty</span><span style="color:rgb(132,139,152);">)</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">server</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">filetypes</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">python</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">root_markers</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">.git</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">pyproject.toml</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">setup.cfg</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">requirements.txt</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Pipfile</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">pyrightconfig.json</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;If&nbsp;your&nbsp;LSP&nbsp;accepts&nbsp;custom&nbsp;settings.&nbsp;See&nbsp;`:help&nbsp;lsp-config`&nbsp;for&nbsp;more&nbsp;details</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;on&nbsp;available&nbsp;fields.&nbsp;This&nbsp;is&nbsp;a&nbsp;freeform&nbsp;field.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">settings</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">ty</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">/*&nbsp;...&nbsp;*/</span>&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
 <h1 id="ch-keymaps">Custom keymaps</h1>
 <p>Some plugin modules provide keymap options for your convenience. These can be
-disabled by toggling <a class="option-reference" href="options.html#option-vim-vendoredKeymaps-enable"><code class="nixos-option">vim.vendoredKeymaps.enable</code></a>. It is also possible
+disabled by toggling <a class="option-reference" href="options.html#option-vim.vendoredKeymaps.enable"><code class="nixos-option">vim.vendoredKeymaps.enable</code></a>. It is also possible
 to disable individual keymaps with options by setting them to <code>null</code>. If a
 keymap is not provided by a module, you may easily register your own custom
-keymaps via <a class="option-reference" href="options.html#option-vim-keymaps"><code class="nixos-option">vim.keymaps</code></a>.</p>
+keymaps via <a class="option-reference" href="options.html#option-vim.keymaps"><code class="nixos-option">vim.keymaps</code></a>.</p>
 <pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">keymaps</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">key</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;m</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">mode</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">n</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">silent</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">action</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">:make&lt;CR&gt;</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">key</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;l</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">mode</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">n</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">x</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">silent</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">action</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;cmd&gt;cnext&lt;CR&gt;</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">key</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;k</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">mode</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">n</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">x</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;While&nbsp;`lua`&nbsp;is&nbsp;`true`,&nbsp;`action`&nbsp;is&nbsp;expected&nbsp;to&nbsp;be</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;a&nbsp;valid&nbsp;Lua&nbsp;expression.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">lua</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">action</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function()</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;require('foo').do_thing()</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print('did&nbsp;thing')</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
 <h1 id="ch-using-dags">Using DAGs</h1>
 <p>We conform to the NixOS options types for the most part, however, a noteworthy

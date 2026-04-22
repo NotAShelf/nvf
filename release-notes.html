@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Release Notes</title>
      
+    
     <script>
       // Apply sidebar state immediately to prevent flash
       (function () {
-        if (localStorage.getItem("sidebar-collapsed") === "true") {
-          document.documentElement.classList.add("sidebar-collapsed");
+        try {
+          if (localStorage.getItem("sidebar-collapsed") === "true") {
+            document.documentElement.classList.add("sidebar-collapsed");
+          }
+        } catch (e) {
+          // localStorage unavailable
         }
       })();
     </script>
@@ -138,7 +143,7 @@ setting. Use <code>workspaces</code> instead:</p>
 <p>Some other settings and commands are now deprecated but are still supported.</p>
 <ul>
 <li>The <code>setupOpts.mappings</code> options were also removed. Use the built-in Neovim
-settings (nvf's <a class="option-reference" href="options.html#option-vim-keymaps"><code class="nixos-option">vim.keymaps</code></a>)</li>
+settings (nvf's <a class="option-reference" href="options.html#option-vim.keymaps"><code class="nixos-option">vim.keymaps</code></a>)</li>
 </ul>
 </li>
 <li>
@@ -256,9 +261,9 @@ deprecated and thus was pulled from nixpkgs.
 <p>Renamed <code>languages.ts</code> to <code>languages.typescript</code>.</p>
 </li>
 <li>
-<p>Added <a class="option-reference" href="options.html#option-vim-languages-go-treesitter-gotmpl-injection"><code class="nixos-option">vim.languages.go.treesitter.gotmpl.injection</code></a> and Renamed
+<p>Added <a class="option-reference" href="options.html#option-vim.languages.go.treesitter.gotmpl.injection"><code class="nixos-option">vim.languages.go.treesitter.gotmpl.injection</code></a> and Renamed
 <code>languages.go.treesitter.gotmplPackage</code> to
-<a class="option-reference" href="options.html#option-vim-languages-go-treesitter-gotmpl-package"><code class="nixos-option">vim.languages.go.treesitter.gotmpl.package</code></a></p>
+<a class="option-reference" href="options.html#option-vim.languages.go.treesitter.gotmpl.package"><code class="nixos-option">vim.languages.go.treesitter.gotmpl.package</code></a></p>
 </li>
 </ul>
 <h2 id="sec-release-0-9-changelog">Changelog</h2>
@@ -310,7 +315,7 @@ values in <code>vim.treesitter.grammars</code>.</li>
 </ul>
 <p><a href="https://github.com/jfeo">jfeo</a>:</p>
 <ul>
-<li>Added <a href="https://github.com/uga-rosa/ccc.nvim">ccc.nvim</a> option <a class="option-reference" href="options.html#option-vim-utility-ccc-setupOpts"><code class="nixos-option">vim.utility.ccc.setupOpts</code></a> with the existing
+<li>Added <a href="https://github.com/uga-rosa/ccc.nvim">ccc.nvim</a> option <a class="option-reference" href="options.html#option-vim.utility.ccc.setupOpts"><code class="nixos-option">vim.utility.ccc.setupOpts</code></a> with the existing
 hard-coded options as default values.</li>
 </ul>
 <p><a href="https://github.com/Ring-A-Ding-Ding-Baby">Ring-A-Ding-Ding-Baby</a>:</p>
@@ -434,7 +439,7 @@ actually correspond to any keybinds.</p>
 support to <code>languages.python</code></p>
 </li>
 <li>
-<p>Added TOML support via <a class="option-reference" href="options.html#option-vim-languages-toml-enable"><code class="nixos-option">vim.languages.toml.enable</code></a> and the
+<p>Added TOML support via <a class="option-reference" href="options.html#option-vim.languages.toml.enable"><code class="nixos-option">vim.languages.toml.enable</code></a> and the
 <a href="https://tombi-toml.github.io/tombi/">Tombi</a> language server, linter, and
 formatter.</p>
 </li>
@@ -460,14 +465,14 @@ formatter.</p>
 <p><a href="https://github.com/snoweuph">Snoweuph</a></p>
 <ul>
 <li>
-<p>Added <a class="option-reference" href="options.html#option-vim-treesitter-queries"><code class="nixos-option">vim.treesitter.queries</code></a> to support adding custom queries.</p>
+<p>Added <a class="option-reference" href="options.html#option-vim.treesitter.queries"><code class="nixos-option">vim.treesitter.queries</code></a> to support adding custom queries.</p>
 </li>
 <li>
 <p>Added injections for <code>vim.treesitter.queries.*.content</code> as <code>query</code> and
 <code>mkLualine</code>, <code>entryAnywhere</code>, <code>entryBefore</code>, <code>entryAfter</code> as <code>lua</code> in nix.</p>
 </li>
 <li>
-<p>Added <a class="option-reference" href="options.html#option-vim-languages-tera-treesitter-injection"><code class="nixos-option">vim.languages.tera.treesitter.injection</code></a> to configure, what
+<p>Added <a class="option-reference" href="options.html#option-vim.languages.tera.treesitter.injection"><code class="nixos-option">vim.languages.tera.treesitter.injection</code></a> to configure, what
 language the content is.</p>
 </li>
 <li>
@@ -476,7 +481,7 @@ more flexibility in nvf and reuse of LSPs across languages. Dropped
 <code>deprecatedSingleOrListOf</code> in favor of <code>listOf</code> for the affected LSP options.</p>
 </li>
 <li>
-<p>Added <a class="option-reference" href="options.html#option-vim-lsp-presets-angular-language-server-enable"><code class="nixos-option">vim.lsp.presets.angular-language-server.enable</code></a> for Angular
+<p>Added <a class="option-reference" href="options.html#option-vim.lsp.presets.angular-language-server.enable"><code class="nixos-option">vim.lsp.presets.angular-language-server.enable</code></a> for Angular
 Template support.</p>
 </li>
 <li>
@@ -488,7 +493,7 @@ Template support.</p>
 out.</p>
 </li>
 <li>
-<p>Fix <a class="option-reference" href="options.html#option-vim-utility-nvim-biscuits-enable"><code class="nixos-option">vim.utility.nvim-biscuits.enable</code></a> by upgrading, to fix
+<p>Fix <a class="option-reference" href="options.html#option-vim.utility.nvim-biscuits.enable"><code class="nixos-option">vim.utility.nvim-biscuits.enable</code></a> by upgrading, to fix
 tree-sitter incompatibilities.</p>
 </li>
 <li>
@@ -605,11 +610,11 @@ previewing yet.</p>
 <p>Extend <code>languages.asm</code> to support more filetypes out of the box.</p>
 </li>
 <li>
-<p>Added <a class="option-reference" href="options.html#option-vim-languages-java-extensions-maven-nvim-enable"><code class="nixos-option">vim.languages.java.extensions.maven-nvim.enable</code></a> for Maven
+<p>Added <a class="option-reference" href="options.html#option-vim.languages.java.extensions.maven-nvim.enable"><code class="nixos-option">vim.languages.java.extensions.maven-nvim.enable</code></a> for Maven
 support;</p>
 </li>
 <li>
-<p>Added <a class="option-reference" href="options.html#option-vim-languages-java-extensions-gradle-nvim-enable"><code class="nixos-option">vim.languages.java.extensions.gradle-nvim.enable</code></a> for Gradle
+<p>Added <a class="option-reference" href="options.html#option-vim.languages.java.extensions.gradle-nvim.enable"><code class="nixos-option">vim.languages.java.extensions.gradle-nvim.enable</code></a> for Gradle
 support;</p>
 </li>
 <li>
@@ -725,7 +730,7 @@ upstream.</p>
 <li>
 <p><code>vim.useSystemClipboard</code> has been deprecated as a part of removing most
 top-level convenience options, and should instead be configured in the new
-module interface. You may set <a class="option-reference" href="options.html#option-vim-clipboard-registers"><code class="nixos-option">vim.clipboard.registers</code></a> appropriately
+module interface. You may set <a class="option-reference" href="options.html#option-vim.clipboard.registers"><code class="nixos-option">vim.clipboard.registers</code></a> appropriately
 to configure Neovim to use the system clipboard.</p>
 </li>
 <li>
@@ -754,18 +759,18 @@ can remove them now.</p>
 <code>languages.markdown.extensions.render-markdown-nvim</code>.</p>
 </li>
 <li>
-<p>Implement <a class="option-reference" href="options.html#option-vim-git-gitsigns-setupOpts"><code class="nixos-option">vim.git.gitsigns.setupOpts</code></a> for user-specified setup table
+<p>Implement <a class="option-reference" href="options.html#option-vim.git.gitsigns.setupOpts"><code class="nixos-option">vim.git.gitsigns.setupOpts</code></a> for user-specified setup table
 in gitsigns configuration.</p>
 </li>
 <li>
-<p><a class="option-reference" href="options.html#option-vim-options-mouse"><code class="nixos-option">vim.options.mouse</code></a> no longer compares values to an enum of available
+<p><a class="option-reference" href="options.html#option-vim.options.mouse"><code class="nixos-option">vim.options.mouse</code></a> no longer compares values to an enum of available
 mouse modes. This means you can provide any string without the module system
 warning you that it is invalid. Do keep in mind that this value is no longer
 checked, so you will be responsible for ensuring its validity.</p>
 </li>
 <li>
 <p>Deprecate <code>vim.enableEditorconfig</code> in favor of
-<a class="option-reference" href="options.html#option-vim-globals-editorconfig"><code class="nixos-option">vim.globals.editorconfig</code></a>.</p>
+<a class="option-reference" href="options.html#option-vim.globals.editorconfig"><code class="nixos-option">vim.globals.editorconfig</code></a>.</p>
 </li>
 <li>
 <p>Deprecate rnix-lsp as it has been abandoned and archived upstream.</p>
@@ -777,7 +782,7 @@ your Editorconfig configuration, or use an autocommand to set indentation
 values for buffers with the Nix filetype.</p>
 </li>
 <li>
-<p>Add <a class="option-reference" href="options.html#option-vim-lsp-lightbulb-autocmd-enable"><code class="nixos-option">vim.lsp.lightbulb.autocmd.enable</code></a> for manually managing the
+<p>Add <a class="option-reference" href="options.html#option-vim.lsp.lightbulb.autocmd.enable"><code class="nixos-option">vim.lsp.lightbulb.autocmd.enable</code></a> for manually managing the
 previously managed lightbulb autocommand.</p>
 <ul>
 <li>A warning will occur if {option} vim-lsp-lightbulb-autocmd-enable) and
@@ -796,7 +801,7 @@ backend while shada is disabled in Neovim options.</p>
 <p>Add <a href="https://github.com/mikavilpas/yazi.nvim">yazi.nvim</a> as a companion plugin for Yazi, the terminal file manager.</p>
 </li>
 <li>
-<p>Add <a class="option-reference" href="options.html#option-vim-autocmds"><code class="nixos-option">vim.autocmds</code></a> and <a class="option-reference" href="options.html#option-vim-augroups"><code class="nixos-option">vim-augroups</code></a> to allow declaring
+<p>Add <a class="option-reference" href="options.html#option-vim.autocmds"><code class="nixos-option">vim.autocmds</code></a> and <a class="option-reference" href="options.html#option-vim.augroups"><code class="nixos-option">vim.augroups</code></a> to allow declaring
 autocommands via Nix.</p>
 </li>
 <li>
@@ -828,7 +833,7 @@ integration for blink-cmp and nvim-cmp</p>
 <li>
 <p>Add <code>vim.diagnostics</code> to interact with Neovim's diagnostics module. Available
 options for <code>vim.diagnostic.config()</code> can now be customized through the
-<a class="option-reference" href="options.html#option-vim-diagnostics-config"><code class="nixos-option">vim.diagnostics.config</code></a> in nvf.</p>
+<a class="option-reference" href="options.html#option-vim.diagnostics.config"><code class="nixos-option">vim.diagnostics.config</code></a> in nvf.</p>
 </li>
 <li>
 <p>Add <code>vim.clipboard</code> module for easily managing Neovim clipboard providers and
@@ -939,7 +944,7 @@ issue with setting the workspace directory.</li>
 <li>Add <a href="https://github.com/ibhagwan/fzf-lua">fzf-lua</a> in <code>vim.fzf-lua</code></li>
 <li>Add <a href="https://github.com/HiPhish/rainbow-delimiters.nvim">rainbow-delimiters</a>
 in <code>vim.visuals.rainbow-delimiters</code></li>
-<li>Add options to define highlights under <a class="option-reference" href="options.html#option-vim-highlight"><code class="nixos-option">vim.highlight</code></a></li>
+<li>Add options to define highlights under <a class="option-reference" href="options.html#option-vim.highlight"><code class="nixos-option">vim.highlight</code></a></li>
 </ul>
 <p><a href="https://github.com/kaktu5">kaktu5</a>:</p>
 <ul>
@@ -1360,7 +1365,7 @@ it to something other than <code>mapleader</code> to avoid conflicts.</p>
 options that were under <code>vim</code> as convenient shorthands for <code>vim.o.*</code> options.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>As v0.7 features the addition of <a class="option-reference" href="options.html#option-vim-options"><code class="nixos-option">vim.options</code></a>, those options are now
+<p>As v0.7 features the addition of <a class="option-reference" href="options.html#option-vim.options"><code class="nixos-option">vim.options</code></a>, those options are now
 considered as deprecated. You should migrate to the appropriate options in the
 <code>vim.options</code> submodule.</p>
 </div>
@@ -1369,7 +1374,7 @@ considered as deprecated. You should migrate to the appropriate options in the
 <li>
 <p><code>colourTerm</code>, <code>mouseSupport</code>, <code>cmdHeight</code>, <code>updateTime</code>, <code>mapTime</code>,
 <code>cursorlineOpt</code>, <code>splitBelow</code>, <code>splitRight</code>, <code>autoIndent</code> and <code>wordWrap</code> have
-been mapped to their <a class="option-reference" href="options.html#option-vim-options"><code class="nixos-option">vim.options</code></a> equivalents. Please see the module
+been mapped to their <a class="option-reference" href="options.html#option-vim.options"><code class="nixos-option">vim.options</code></a> equivalents. Please see the module
 definition for the updated options.</p>
 </li>
 <li>
@@ -1388,7 +1393,7 @@ will enable the <code>typst-lsp</code> language server, and the <code>typstfmt</
 <ul>
 <li>
 <p>Modified type for
-<a class="option-reference" href="options.html#option-vim-visuals-fidget-nvim-setupOpts-progress-display-overrides"><code class="nixos-option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides</code></a> from
+<a class="option-reference" href="options.html#option-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides"><code class="nixos-option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides</code></a> from
 <code>anything</code> to a <code>submodule</code> for better type checking.</p>
 </li>
 <li>
@@ -1400,7 +1405,7 @@ group for <code>Normal</code>, <code>NormalFloat</code>, <code>LineNr</code>, <c
 <code>NvimTreeNormal</code> to <code>none</code>.</p>
 </li>
 <li>
-<p>Fix <a class="option-reference" href="options.html#option-vim-ui-smartcolumn-setupOpts-custom_colorcolumn"><code class="nixos-option">vim.ui.smartcolumn.setupOpts.custom_colorcolumn</code></a> using the wrong
+<p>Fix <a class="option-reference" href="options.html#option-vim.ui.smartcolumn.setupOpts.custom_colorcolumn"><code class="nixos-option">vim.ui.smartcolumn.setupOpts.custom_colorcolumn</code></a> using the wrong
 type <code>int</code> instead of the expected type <code>string</code>.</p>
 </li>
 </ul>
@@ -1495,19 +1500,19 @@ aren't defined in nvf. Move the alternate nvim-surround keybinds to use
 <li>
 <p>Remove <code>autopairs.type</code>, and rename <code>autopairs.enable</code> to
 <code>autopairs.nvim-autopairs.enable</code>. The new
-<a class="option-reference" href="options.html#option-vim-autopairs-nvim-autopairs-enable"><code class="nixos-option">vim.autopairs.nvim-autopairs.enable</code></a> supports <code>setupOpts</code> format by
+<a class="option-reference" href="options.html#option-vim.autopairs.nvim-autopairs.enable"><code class="nixos-option">vim.autopairs.nvim-autopairs.enable</code></a> supports <code>setupOpts</code> format by
 default.</p>
 </li>
 <li>
 <p>Refactor of <code>nvim-cmp</code> and completion related modules</p>
 <ul>
 <li>Remove <code>autocomplete.type</code> in favor of per-plugin enable options such as
-<a class="option-reference" href="options.html#option-vim-autocomplete-nvim-cmp-enable"><code class="nixos-option">vim.autocomplete.nvim-cmp.enable</code></a>.</li>
+<a class="option-reference" href="options.html#option-vim.autocomplete.nvim-cmp.enable"><code class="nixos-option">vim.autocomplete.nvim-cmp.enable</code></a>.</li>
 <li>Deprecate legacy Vimsnip in favor of Luasnip, and integrate
 friendly-snippets for bundled snippets.
-<a class="option-reference" href="options.html#option-vim-snippets-luasnip-enable"><code class="nixos-option">vim.snippets.luasnip.enable</code></a> can be used to toggle Luasnip.</li>
+<a class="option-reference" href="options.html#option-vim.snippets.luasnip.enable"><code class="nixos-option">vim.snippets.luasnip.enable</code></a> can be used to toggle Luasnip.</li>
 <li>Add sorting function options for completion sources under
-<a class="option-reference" href="options.html#option-vim-autocomplete-nvim-cmp-setupOpts-sorting-comparators"><code class="nixos-option">vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators</code></a></li>
+<a class="option-reference" href="options.html#option-vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators"><code class="nixos-option">vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators</code></a></li>
 </ul>
 </li>
 <li>
@@ -1591,11 +1596,11 @@ identical clone.</li>
 Lualine. Only <code>vim.ui.breadcrumbs.lualine.winbar</code> is supported for the time
 being.</p>
 <ul>
-<li><a class="option-reference" href="options.html#option-vim-ui-breadcrumbs-lualine-winbar-enable"><code class="nixos-option">vim.ui.breadcrumbs.lualine.winbar.enable</code></a> has been added to allow
+<li><a class="option-reference" href="options.html#option-vim.ui.breadcrumbs.lualine.winbar.enable"><code class="nixos-option">vim.ui.breadcrumbs.lualine.winbar.enable</code></a> has been added to allow
 controlling the default behaviour of the <code>nvim-navic</code> component on Lualine,
 which used to occupy <code>winbar.lualine_c</code> as long as breadcrumbs are enabled.</li>
 <li><code>vim.ui.breadcrumbs.alwaysRender</code> has been renamed to
-<a class="option-reference" href="options.html#option-vim-ui-breadcrumbs-lualine-winbar-alwaysRender"><code class="nixos-option">vim.ui.breadcrumbs.lualine.winbar.alwaysRender</code></a> to be conform to
+<a class="option-reference" href="options.html#option-vim.ui.breadcrumbs.lualine.winbar.alwaysRender"><code class="nixos-option">vim.ui.breadcrumbs.lualine.winbar.alwaysRender</code></a> to be conform to
 the new format.</li>
 </ul>
 </li>
@@ -1608,11 +1613,11 @@ server and make it default.</p>
 additional Python LSP server.</p>
 </li>
 <li>
-<p>Add <a class="option-reference" href="options.html#option-vim-options"><code class="nixos-option">vim.options</code></a> to set <code>vim.o</code> values in in your nvf configuration
+<p>Add <a class="option-reference" href="options.html#option-vim.options"><code class="nixos-option">vim.options</code></a> to set <code>vim.o</code> values in in your nvf configuration
 without using additional Lua. See option documentation for more details.</p>
 </li>
 <li>
-<p>Add <a class="option-reference" href="options.html#option-vim-dashboard-dashboard-nvim-setupOpts"><code class="nixos-option">vim.dashboard.dashboard-nvim.setupOpts</code></a> to allow user
+<p>Add <a class="option-reference" href="options.html#option-vim.dashboard.dashboard-nvim.setupOpts"><code class="nixos-option">vim.dashboard.dashboard-nvim.setupOpts</code></a> to allow user
 configuration for <a href="https://github.com/nvimdev/dashboard-nvim">dashboard.nvim</a></p>
 </li>
 <li>
@@ -1623,7 +1628,7 @@ configuration for <a href="https://github.com/nvimdev/dashboard-nvim">dashboard.
 </ul>
 </li>
 <li>
-<p>Add <a class="option-reference" href="options.html#option-vim-spellcheck-extraSpellWords"><code class="nixos-option">vim.spellcheck.extraSpellWords</code></a> to allow adding arbitrary
+<p>Add <a class="option-reference" href="options.html#option-vim.spellcheck.extraSpellWords"><code class="nixos-option">vim.spellcheck.extraSpellWords</code></a> to allow adding arbitrary
 spellfiles to Neovim's runtime with ease.</p>
 </li>
 <li>
@@ -1687,9 +1692,9 @@ the Typst language module.</li>
 <p><a href="https://github.com/nezia1">nezia1</a>:</p>
 <ul>
 <li>Add <a href="https://github.com/biomejs/biome">biome</a> support for Typescript, CSS and
-Svelte. Enable them via <a class="option-reference" href="options.html#option-vim-languages-typescript-format-type"><code class="nixos-option">vim.languages.typescript.format.type</code></a>,
-<a class="option-reference" href="options.html#option-vim-languages-css-format-type"><code class="nixos-option">vim.languages.css.format.type</code></a> and
-<a class="option-reference" href="options.html#option-vim-languages-svelte-format-type"><code class="nixos-option">vim.languages.svelte.format.type</code></a> respectively.</li>
+Svelte. Enable them via <a class="option-reference" href="options.html#option-vim.languages.typescript.format.type"><code class="nixos-option">vim.languages.typescript.format.type</code></a>,
+<a class="option-reference" href="options.html#option-vim.languages.css.format.type"><code class="nixos-option">vim.languages.css.format.type</code></a> and
+<a class="option-reference" href="options.html#option-vim.languages.svelte.format.type"><code class="nixos-option">vim.languages.svelte.format.type</code></a> respectively.</li>
 <li>Replace <a href="https://github.com/nix-community/nixpkgs-fmt">nixpkgs-fmt</a> with
 <a href="https://github.com/NixOS/nixfmt">nixfmt</a> (nixfmt-rfc-style).</li>
 </ul>
@@ -1725,7 +1730,7 @@ lot):</p>
 </li>
 <li>
 <p>Added <code>ChatGPT.nvim</code>, which can be enabled with
-<a class="option-reference" href="options.html#option-vim-assistant-chatgpt-enable"><code class="nixos-option">vim.assistant.chatgpt.enable</code></a>. Do keep in mind that this option
+<a class="option-reference" href="options.html#option-vim.assistant.chatgpt.enable"><code class="nixos-option">vim.assistant.chatgpt.enable</code></a>. Do keep in mind that this option
 requires <code>OPENAI_API_KEY</code> environment variable to be set.</p>
 </li>
 </ul>
@@ -1787,7 +1792,7 @@ and also has been removed.</p>
 </li>
 <li>
 <p><code>which-key.nvim</code> categories can now be customized through
-<a href="./options.html#option-vim-binds-whichKey-register">vim.binds.whichKey.register</a></p>
+<a class="option-reference" href="options.html#option-vim.binds.whichKey.register"><code class="nixos-option">vim.binds.whichKey.register</code></a></p>
 </li>
 <li>
 <p>Added <code>magick</code> to <code>vim.luaPackages</code> for <code>image.nvim</code>.</p>
@@ -1827,10 +1832,9 @@ enabled through <code>vim.languages.css</code> and <code>vim.languages.tailwind<
 <li>
 <p>Lualine module now allows customizing <code>always_divide_middle</code>, <code>ignore_focus</code>
 and <code>disabled_filetypes</code> through the new options:
-<a href="./options.html#option-vim-statusline-lualine-alwaysDivideMiddle">vim.statusline.lualine.alwaysDivideMiddle</a>,
-<a href="./options.html#option-vim-statusline-lualine-ignoreFocus">vim.statusline.lualine.ignoreFocus</a>
-and
-<a href="./options.html#option-vim-statusline-lualine-disabledFiletypes">vim.statusline.lualine.disabledFiletypes</a>.</p>
+<a class="option-reference" href="options.html#option-vim.statusline.lualine.alwaysDivideMiddle"><code class="nixos-option">vim.statusline.lualine.alwaysDivideMiddle</code></a>,
+<a class="option-reference" href="options.html#option-vim.statusline.lualine.ignoreFocus"><code class="nixos-option">vim.statusline.lualine.ignoreFocus</code></a> and
+<a class="option-reference" href="options.html#option-vim.statusline.lualine.disabledFiletypes"><code class="nixos-option">vim.statusline.lualine.disabledFiletypes</code></a>).</p>
 </li>
 <li>
 <p>Updated all plugin inputs to their latest versions (<strong>21.04.2024</strong>) - this
@@ -1870,7 +1874,7 @@ arguments to take <code>luaBefore</code>, <code>luaConfig</code> and <code>luaAf
 are then concatted inside a lua block.</p>
 </li>
 <li>
-<p>Added <a class="option-reference" href="options.html#option-vim-luaConfigPre"><code class="nixos-option">vim.luaConfigPre</code></a> and {option} <code>vim-luaConfigPost</code> for
+<p>Added <a class="option-reference" href="options.html#option-vim.luaConfigPre"><code class="nixos-option">vim.luaConfigPre</code></a> and {option} <code>vim-luaConfigPost</code> for
 inserting verbatim Lua configuration before and after the resolved Lua DAG
 respectively. Both of those options take strings as the type, so you may read
 the contents of a Lua file from a given path.</p>
@@ -1886,7 +1890,7 @@ used <code>vim.spellcheck.vim-dirtytalk</code> aliases to the latter option.</p>
 the <code>makeNeovimConfig</code> function under their respective options.</p>
 </li>
 <li>
-<p>Added <a class="option-reference" href="options.html#option-vim-extraPackages"><code class="nixos-option">vim.extraPackages</code></a> for appending additional packages to the
+<p>Added <a class="option-reference" href="options.html#option-vim.extraPackages"><code class="nixos-option">vim.extraPackages</code></a> for appending additional packages to the
 wrapper PATH, making said packages available while inside the Neovim session.</p>
 </li>
 <li>
@@ -1894,7 +1898,7 @@ wrapper PATH, making said packages available while inside the Neovim session.</p
 <code>setupOpts</code> while it is enabled.</p>
 </li>
 <li>
-<p>Added <a class="option-reference" href="options.html#option-vim-notify-nvim-notify-setupOpts-render"><code class="nixos-option">vim.notify.nvim-notify.setupOpts.render</code></a> which takes either a
+<p>Added <a class="option-reference" href="options.html#option-vim.notify.nvim-notify.setupOpts.render"><code class="nixos-option">vim.notify.nvim-notify.setupOpts.render</code></a> which takes either a
 string of enum, or a Lua function. The default is "compact", but you may
 change it according to nvim-notify documentation.</p>
 </li>
@@ -1920,7 +1924,7 @@ change it according to nvim-notify documentation.</p>
 </li>
 <li>
 <p>Streamlined and simplified extra plugin API with the addition of
-<a class="option-reference" href="options.html#option-vim-extraPlugins"><code class="nixos-option">vim.extraPlugins</code></a></p>
+<a class="option-reference" href="options.html#option-vim.extraPlugins"><code class="nixos-option">vim.extraPlugins</code></a></p>
 </li>
 <li>
 <p>Allow using command names in place of LSP packages to avoid automatic
@@ -1930,7 +1934,7 @@ installation</p>
 <p>Add lua LSP and Treesitter support, and neodev.nvim plugin support</p>
 </li>
 <li>
-<p>Add <a class="option-reference" href="options.html#option-vim-lsp-mappings-toggleFormatOnSave"><code class="nixos-option">vim.lsp.mappings.toggleFormatOnSave</code></a> keybind</p>
+<p>Add <a class="option-reference" href="options.html#option-vim.lsp.mappings.toggleFormatOnSave"><code class="nixos-option">vim.lsp.mappings.toggleFormatOnSave</code></a> keybind</p>
 </li>
 </ul>
 <p><a href="https://github.com/amanse">amanse</a>:</p>
@@ -1971,11 +1975,11 @@ the presence of line numbers</p>
 <p>Added GitHub Copilot to nvim-cmp completion sources.</p>
 </li>
 <li>
-<p>Added <a class="option-reference" href="options.html#option-vim-ui-borders-enable"><code class="nixos-option">vim.ui.borders.enable</code></a> for global and individual plugin border
+<p>Added <a class="option-reference" href="options.html#option-vim.ui.borders.enable"><code class="nixos-option">vim.ui.borders.enable</code></a> for global and individual plugin border
 configuration.</p>
 </li>
 <li>
-<p>LSP integrated breadcrumbs with <a class="option-reference" href="options.html#option-vim-ui-breadcrumbs-enable"><code class="nixos-option">vim.ui.breadcrumbs.enable</code></a> through
+<p>LSP integrated breadcrumbs with <a class="option-reference" href="options.html#option-vim.ui.breadcrumbs.enable"><code class="nixos-option">vim.ui.breadcrumbs.enable</code></a> through
 nvim-navic</p>
 </li>
 <li>
@@ -1990,7 +1994,7 @@ enabled if navic is enabled)</p>
 </li>
 <li>
 <p>Added support for <code>statix</code> and <code>deadnix</code> through
-<a class="option-reference" href="options.html#option-vim-languages-nix-extraDiagnostics-types"><code class="nixos-option">vim.languages.nix.extraDiagnostics.types</code></a></p>
+<a class="option-reference" href="options.html#option-vim.languages.nix.extraDiagnostics.types"><code class="nixos-option">vim.languages.nix.extraDiagnostics.types</code></a></p>
 </li>
 <li>
 <p>Added <code>lsp_lines</code> plugin for showing diagnostic messages</p>
@@ -2000,7 +2004,7 @@ enabled if navic is enabled)</p>
 </li>
 <li>
 <p>The package used for neovim is now customizable by the user, using
-<a class="option-reference" href="options.html#option-vim-package"><code class="nixos-option">vim.package</code></a>. For best results, always use an unwrapped package</p>
+<a class="option-reference" href="options.html#option-vim.package"><code class="nixos-option">vim.package</code></a>. For best results, always use an unwrapped package</p>
 </li>
 <li>
 <p>Added highlight-undo plugin for highlighting undo/redo targets</p>
@@ -2221,7 +2225,7 @@ attempt to use the Zig overlay to return Darwin support.</p>
 </li>
 <li>
 <p>Treesitter grammars are now configurable with
-<a class="option-reference" href="options.html#option-vim-treesitter-grammars"><code class="nixos-option">vim.treesitter.grammars</code></a>. Utilizes the nixpkgs <code>nvim-treesitter</code>
+<a class="option-reference" href="options.html#option-vim.treesitter.grammars"><code class="nixos-option">vim.treesitter.grammars</code></a>. Utilizes the nixpkgs <code>nvim-treesitter</code>
 plugin rather than a custom input in order to take advantage of build support
 of pinned versions. See <a href="https://discourse.nixos.org/t/psa-if-you-are-on-unstable-try-out-nvim-treesitter-withallgrammars/23321?u=snowytrees">discourse</a> for more information. Packages can be
 found under the <code>pkgs.vimPlugins.nvim-treesitter.builtGrammars</code> attribute.
@@ -2233,13 +2237,13 @@ which do not have a language section are not included anymore: <strong>comment</
 <li>
 <p>A new section has been added for language support: <code>vim.languages.&lt;language&gt;</code>.</p>
 <ul>
-<li>The options <code>enableLSP</code> <a class="option-reference" href="options.html#option-vim-languages-enableTreesitter"><code class="nixos-option">vim.languages.enableTreesitter</code></a>, etc. will
+<li>The options <code>enableLSP</code> <a class="option-reference" href="options.html#option-vim.languages.enableTreesitter"><code class="nixos-option">vim.languages.enableTreesitter</code></a>, etc. will
 enable the respective section for all languages that have been enabled.</li>
 <li>All LSP languages have been moved here</li>
 <li><code>plantuml</code> and <code>markdown</code> have been moved here</li>
 <li>A new section has been added for <code>html</code>. The old
 <code>vim.treesitter.autotagHtml</code> can be found at
-<a class="option-reference" href="options.html#option-vim-languages-html-treesitter-autotagHtml"><code class="nixos-option">vim.languages.html.treesitter.autotagHtml</code></a>.</li>
+<a class="option-reference" href="options.html#option-vim.languages.html.treesitter.autotagHtml"><code class="nixos-option">vim.languages.html.treesitter.autotagHtml</code></a>.</li>
 </ul>
 </li>
 <li>
@@ -2250,7 +2254,7 @@ Gitsigns' code actions.</p>
 <p>Removed the plugins document in the docs. Was too unwieldy to keep updated.</p>
 </li>
 <li>
-<p><code>vim.visual.lspkind</code> has been moved to <a class="option-reference" href="options.html#option-vim-lsp-lspkind-enable"><code class="nixos-option">vim.lsp.lspkind.enable</code></a></p>
+<p><code>vim.visual.lspkind</code> has been moved to <a class="option-reference" href="options.html#option-vim.lsp.lspkind.enable"><code class="nixos-option">vim.lsp.lspkind.enable</code></a></p>
 </li>
 <li>
 <p>Improved handling of completion formatting. When setting
@@ -2264,7 +2268,7 @@ by using <code>null</code> rather than <code>""</code> now.</p>
 </li>
 <li>
 <p>Transparency has been made optional and has been disabled by default.
-<a class="option-reference" href="options.html#option-vim-theme-transparent"><code class="nixos-option">vim.theme.transparent</code></a> option can be used to enable or disable
+<a class="option-reference" href="options.html#option-vim.theme.transparent"><code class="nixos-option">vim.theme.transparent</code></a> option can be used to enable or disable
 transparency for your configuration.</p>
 </li>
 <li>
@@ -2363,7 +2367,7 @@ longer defined. If you use hare and would like it added back, please file an
 issue.</p>
 </li>
 <li>
-<p><a class="option-reference" href="options.html#option-vim-startPlugins"><code class="nixos-option">vim.startPlugins</code></a> &amp; {option} <code>vim-optPlugins</code> are now an enum of
+<p><a class="option-reference" href="options.html#option-vim.startPlugins"><code class="nixos-option">vim.startPlugins</code></a> &amp; <a class="option-reference" href="options.html#option-vim.optPlugins"><code class="nixos-option">vim.optPlugins</code></a> are now an enum of
 <code>string</code> for options sourced from the flake inputs. Users can still provide
 vim plugin packages.</p>
 <ul>
@@ -2379,14 +2383,14 @@ longer required. See the manual for the new way to configuration.</p>
 <ul>
 <li>
 <p>Treesitter grammars are now configurable with
-<a class="option-reference" href="options.html#option-vim-treesitter-grammars"><code class="nixos-option">vim.treesitter.grammars</code></a>. Utilizes the nixpkgs <code>nvim-treesitter</code>
+<a class="option-reference" href="options.html#option-vim.treesitter.grammars"><code class="nixos-option">vim.treesitter.grammars</code></a>. Utilizes the nixpkgs <code>nvim-treesitter</code>
 plugin rather than a custom input in order to take advantage of build support
 of pinned versions. See the <a href="https://discourse.nixos.org/t/psa-if-you-are-on-unstable-try-out-nvim-treesitter-withallgrammars/23321?u=snowytrees">relevant discourse post</a> for more information.
 Packages can be found under the <code>vimPlugins.nvim-treesitter.builtGrammars</code>
 namespace.</p>
 </li>
 <li>
-<p><code>vim.configRC</code> and <a class="option-reference" href="options.html#option-vim-luaConfigRC"><code class="nixos-option">vim.luaConfigRC</code></a> are now of type DAG lines. This
+<p><code>vim.configRC</code> and <a class="option-reference" href="options.html#option-vim.luaConfigRC"><code class="nixos-option">vim.luaConfigRC</code></a> are now of type DAG lines. This
 allows for ordering of the config. Usage is the same is in home-manager's
 <code>home.activation</code> option.</p>
 </li>
@@ -2395,8 +2399,8 @@ allows for ordering of the config. Usage is the same is in home-manager's
 <p><a href="https://github.com/MoritzBoehme">MoritzBoehme</a>:</p>
 <ul>
 <li><code>catppuccin</code> theme is now available as a neovim theme
-<a class="option-reference" href="options.html#option-vim-theme-style"><code class="nixos-option">vim.theme.style</code></a> and Lualine theme
-<a class="option-reference" href="options.html#option-vim-statusline-lualine-theme"><code class="nixos-option">vim.statusline.lualine.theme</code></a>.</li>
+<a class="option-reference" href="options.html#option-vim.theme.style"><code class="nixos-option">vim.theme.style</code></a> and Lualine theme
+<a class="option-reference" href="options.html#option-vim.statusline.lualine.theme"><code class="nixos-option">vim.statusline.lualine.theme</code></a>.</li>
 </ul>
 </body></html></main>
       </div>

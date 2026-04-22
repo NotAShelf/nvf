@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Introduction</title>
      
+    
     <script>
       // Apply sidebar state immediately to prevent flash
       (function () {
-        if (localStorage.getItem("sidebar-collapsed") === "true") {
-          document.documentElement.classList.add("sidebar-collapsed");
+        try {
+          if (localStorage.getItem("sidebar-collapsed") === "true") {
+            document.documentElement.classList.add("sidebar-collapsed");
+          }
+        } catch (e) {
+          // localStorage unavailable
         }
       })();
     </script>
@@ -111,7 +116,7 @@
         </nav>
 
         <main class="content"><html><head></head><body><h1 id="nvf-manual">Introduction</h1>
-<p>Generated for nvf v0.9</p>
+<p>Generated for nvf unstable</p>
 <h2 id="ch-preface">Preface</h2>
 <h3 id="sec-what-is-it">What is nvf</h3>
 <p><strong>nvf</strong> is a highly modular, configurable, extensible and <em>easy to use</em> Neovim
@@ -264,7 +269,7 @@ configure <strong>nvf</strong>.</p>
 <p class="admonition-title">Note</p>
 <p><strong>nvf</strong> exposes a lot of options, most of which are not referenced in the
 installation sections of the manual. You may find all available options in the
-<a href="https://notashelf.github.io/nvf/options">appendix</a></p>
+<a href="https://notashelf.github.io/nvf/options.html">appendix</a></p>
 </div>
 <h2 id="sec-nixos-flakeless">Without Flakes</h2>
 <p>As of v0.8, it is possible to install <strong>nvf</strong> on a system if you are not using
@@ -334,7 +339,7 @@ configure <strong>nvf</strong>.</p>
 <p class="admonition-title">Note</p>
 <p><strong>nvf</strong> exposes a lot of options, most of which are not referenced in the
 installation sections of the manual. You may find all available options in the
-<a href="https://notashelf.github.io/nvf/options">appendix</a></p>
+<a href="https://notashelf.github.io/nvf/options.html">appendix</a></p>
 </div>
 <h2 id="sec-hm-flakeless">Without Flakes</h2>
 <p>As of v0.8, it is possible to install <strong>nvf</strong> on a system if you are not using

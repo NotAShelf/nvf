@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NVF - Search</title>
      
+    
     <script>
       // Apply sidebar state immediately to prevent flash
       (function () {
-        if (localStorage.getItem("sidebar-collapsed") === "true") {
-          document.documentElement.classList.add("sidebar-collapsed");
+        try {
+          if (localStorage.getItem("sidebar-collapsed") === "true") {
+            document.documentElement.classList.add("sidebar-collapsed");
+          }
+        } catch (e) {
+          // localStorage unavailable
         }
       })();
     </script>
@@ -41,8 +46,20 @@
 </nav>
 
         <div class="search-container">
-          <input type="text" id="search-input" placeholder="Search..." />
-          <div id="search-results" class="search-results"></div>
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Search..."
+            aria-label="Search"
+            autocomplete="off"
+          />
+          <div
+            id="search-results"
+            class="search-results"
+            role="region"
+            aria-live="polite"
+            aria-label="Search results"
+          ></div>
         </div>
       </header>
 
@@ -85,13 +102,26 @@
           <div class="search-page">
             <div class="search-form">
               <input
-                type="text"
+                type="search"
                 id="search-page-input"
                 placeholder="Search..."
+                aria-label="Search"
+                autocomplete="off"
                 autofocus
               />
             </div>
-            <div id="search-page-results" class="search-page-results"></div>
+            <div class="search-keyboard-hints" role="note" aria-label="Keyboard shortcuts">
+              <span class="hint-item"><kbd>↑</kbd> <kbd>↓</kbd> to navigate</span>
+              <span class="hint-item"><kbd>Enter</kbd> to select</span>
+              <span class="hint-item"><kbd>Esc</kbd> to clear</span>
+            </div>
+            <div
+              id="search-page-results"
+              class="search-page-results"
+              role="region"
+              aria-live="polite"
+              aria-label="Search results"
+            ></div>
           </div>
           <div class="footnotes-container">
             <!-- Footnotes will be appended here -->

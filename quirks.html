@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Known Issues and Quirks</title>
      
+    
     <script>
       // Apply sidebar state immediately to prevent flash
       (function () {
-        if (localStorage.getItem("sidebar-collapsed") === "true") {
-          document.documentElement.classList.add("sidebar-collapsed");
+        try {
+          if (localStorage.getItem("sidebar-collapsed") === "true") {
+            document.documentElement.classList.add("sidebar-collapsed");
+          }
+        } catch (e) {
+          // localStorage unavailable
         }
       })();
     </script>
