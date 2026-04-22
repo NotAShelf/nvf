@@ -5335,7 +5335,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">505</span>
+        <span class="toc-count">514</span>
       </summary>
       <ul>
         
@@ -9198,6 +9198,78 @@
         </li>
         
         <li>
+          <a href='#option-vim.languages.vue.enable' title="vim.languages.vue.enable">
+            vue.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.vue.extraDiagnostics.enable' title="vim.languages.vue.extraDiagnostics.enable">
+            vue.extraDiagnostics.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.vue.extraDiagnostics.types' title="vim.languages.vue.extraDiagnostics.types">
+            vue.extraDiagnostics.types
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.vue.format.enable' title="vim.languages.vue.format.enable">
+            vue.format.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.vue.format.type' title="vim.languages.vue.format.type">
+            vue.format.type
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.vue.lsp.enable' title="vim.languages.vue.lsp.enable">
+            vue.lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.vue.lsp.servers' title="vim.languages.vue.lsp.servers">
+            vue.lsp.servers
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.vue.treesitter.enable' title="vim.languages.vue.treesitter.enable">
+            vue.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.vue.treesitter.package' title="vim.languages.vue.treesitter.package">
+            vue.treesitter.package
+            
+            
+          </a>
+        </li>
+        
+        <li>
           <a href='#option-vim.languages.wgsl.enable' title="vim.languages.wgsl.enable">
             wgsl.enable
             
@@ -9563,7 +9635,7 @@
     <details class="toc-category">
       <summary title="vim.lsp">
         <span>vim.lsp</span>
-        <span class="toc-count">149</span>
+        <span class="toc-count">151</span>
       </summary>
       <ul>
         
@@ -10604,6 +10676,22 @@
         <li>
           <a href='#option-vim.lsp.presets.vscode-json-language-server.enable' title="vim.lsp.presets.vscode-json-language-server.enable">
             presets.vscode-json-language-server.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.lsp.presets.vtsls.enable' title="vim.lsp.presets.vtsls.enable">
+            presets.vtsls.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.lsp.presets.vue-language-server.enable' title="vim.lsp.presets.vue-language-server.enable">
+            presets.vue-language-server.enable
             
             
           </a>
@@ -34036,6 +34124,128 @@ the plugin.</p>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.vala</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vala.nix" target="_blank">&lt;nvf/modules/plugins/languages/vala.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.languages.vue.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vue.enable" class="option-anchor">vim.languages.vue.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Vue.js language support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vue.nix" target="_blank">&lt;nvf/modules/plugins/languages/vue.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.vue.extraDiagnostics.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vue.extraDiagnostics.enable" class="option-anchor">vim.languages.vue.extraDiagnostics.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable extra Vue.js diagnostics.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableExtraDiagnostics</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vue.nix" target="_blank">&lt;nvf/modules/plugins/languages/vue.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.vue.extraDiagnostics.types">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vue.extraDiagnostics.types" class="option-anchor">vim.languages.vue.extraDiagnostics.types</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (value "biomejs" (singular enum) or (submodule))</code></div>
+  <div class="option-description"><html><head></head><body><p>List of Vue.js diagnostics to enable</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "biomejs"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vue.nix" target="_blank">&lt;nvf/modules/plugins/languages/vue.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.vue.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vue.format.enable" class="option-anchor">vim.languages.vue.format.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Vue.js formatting.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableFormat</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vue.nix" target="_blank">&lt;nvf/modules/plugins/languages/vue.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.vue.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vue.format.type" class="option-anchor">vim.languages.vue.format.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (one of "biome", "biome-check", "biome-organize-imports")</code></div>
+  <div class="option-description"><html><head></head><body><p>Vue.js formatter to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "biome"
+  "biome-check"
+  "biome-organize-imports"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vue.nix" target="_blank">&lt;nvf/modules/plugins/languages/vue.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.vue.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vue.lsp.enable" class="option-anchor">vim.languages.vue.lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Vue.js LSP support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.lsp.enable</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vue.nix" target="_blank">&lt;nvf/modules/plugins/languages/vue.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.vue.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vue.lsp.servers" class="option-anchor">vim.languages.vue.lsp.servers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (one of "vue-language-server", "vtsls", "typescript-language-server")</code></div>
+  <div class="option-description"><html><head></head><body><p>Vue.js LSP server to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "vue-language-server"
+  "vtsls"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vue.nix" target="_blank">&lt;nvf/modules/plugins/languages/vue.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.vue.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vue.treesitter.enable" class="option-anchor">vim.languages.vue.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Vue.js treesitter.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vue.nix" target="_blank">&lt;nvf/modules/plugins/languages/vue.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.vue.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vue.treesitter.package" class="option-anchor">vim.languages.vue.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or package</code></div>
+  <div class="option-description"><html><head></head><body><p>The vue treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.vue</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vue.nix" target="_blank">&lt;nvf/modules/plugins/languages/vue.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.languages.wgsl.enable">
   <h3 class="option-name">
     <a href="#option-vim.languages.wgsl.enable" class="option-anchor">vim.languages.wgsl.enable</a>
@@ -36528,6 +36738,43 @@ Use <code class="nixos-option">vim.lsp.servers.vscode-json-language-server</code
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/vscode-json-language-server.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/vscode-json-language-server.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.lsp.presets.vtsls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.vtsls.enable" class="option-anchor">vim.lsp.presets.vtsls.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Vue.js Typescript Language Server.
+Default <code>filetypes = [ ]</code>.
+Use <code class="nixos-option">vim.lsp.servers.vtsls</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/vtsls.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/vtsls.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.lsp.presets.vue-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.vue-language-server.enable" class="option-anchor">vim.lsp.presets.vue-language-server.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Vue.js Language Server.</p>
+<p>This LSP doesn't work standalone and requires either
+<a class="option-reference" href="options.html#option-vim.lsp.presets.vtsls.enable"><code class="nixos-option">vim.lsp.presets.vtsls.enable</code></a>
+or
+<a class="option-reference" href="options.html#option-vim.lsp.presets.typescript-language-server.enable"><code class="nixos-option">vim.lsp.presets.typescript-language-server.enable</code></a>
+to work as expected.</p>
+<p>Default <code>filetypes = [ ]</code>. <br>
+Use <code class="nixos-option">vim.lsp.servers.vue-language-server</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/vue-language-server.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/vue-language-server.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.lsp.presets.wgsl-analyzer.enable">
   <h3 class="option-name">
