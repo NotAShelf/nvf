@@ -5,14 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit
-    (lib.types)
-    either
-    package
-    enum
-    listOf
-    str
-    ;
+  inherit (lib.types) either package enum listOf str;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption;
@@ -27,14 +20,8 @@
   servers = {
     hls = {
       enable = false;
-      cmd = [
-        (getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server-wrapper")
-        "--lsp"
-      ];
-      filetypes = [
-        "haskell"
-        "lhaskell"
-      ];
+      cmd = [(getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server-wrapper") "--lsp"];
+      filetypes = ["haskell" "lhaskell"];
       on_attach =
         mkLuaInline
         /*
