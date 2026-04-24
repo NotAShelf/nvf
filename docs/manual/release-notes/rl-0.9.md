@@ -201,6 +201,13 @@
 - Updated nix language plugin to use pkgs.nixfmt instead of
   pkgs.nixfmt-rfc-style
 
+[dathegreat](https://github.com/dathegreat):
+
+- Fixed invalid keys in the haskell-tools configuration
+- Changed the default haskell formatter to
+  [fourmolu](https://github.com/fourmolu/fourmolu), matching the
+  [haskell-tools default](https://github.com/mrcjkb/haskell-tools.nvim/blob/9ea030aa67f3875753e70e1eb59701f7020479a0/lua/haskell-tools/config/internal.lua#L131)
+
 [alfarel](https://github.com/alfarelcynthesis):
 
 [obsidian.nvim]: https://github.com/obsidian-nvim/obsidian.nvim
