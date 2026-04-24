@@ -4,61 +4,23 @@
   pkgs,
   ...
 }: let
-  inherit (builtins) attrNames;
+  inherit (builtins) attrNames isList;
+  inherit (lib) genAttrs;
   inherit (lib.types) either package enum listOf str;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib.strings) optionalString;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.meta) getExe';
-  inherit (lib.generators) mkLuaInline;
   inherit (pkgs) haskellPackages;
 
   cfg = config.vim.languages.haskell;
 
   defaultServers = ["hls"];
   servers = {
-    hls = {
-      enable = false;
-      cmd = [(getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server-wrapper") "--lsp"];
-      filetypes = ["haskell" "lhaskell"];
-      on_attach =
-        mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function(client, bufnr)
-              local ht = require("haskell-tools")
-              local opts = { noremap = true, silent = true, buffer = bufnr }
-              vim.keymap.set('n', '<localleader>cl', vim.lsp.codelens.run, opts)
-              vim.keymap.set('n', '<localleader>hs', ht.hoogle.hoogle_signature, opts)
-              vim.keymap.set('n', '<localleader>ea', ht.lsp.buf_eval_all, opts)
-              vim.keymap.set('n', '<localleader>rr', ht.repl.toggle, opts)
-              vim.keymap.set('n', '<localleader>rf', function()
-                ht.repl.toggle(vim.api.nvim_buf_get_name(0))
-              end, opts)
-              vim.keymap.set('n', '<localleader>rq', ht.repl.quit, opts)
-            end
-        '';
-      root_dir =
-        mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function(bufnr, on_dir)
-            local fname = vim.api.nvim_buf_get_name(bufnr)
-            on_dir(util.root_pattern('hie.yaml', 'stack.yaml', 'cabal.project', '*.cabal', 'package.yaml')(fname))
-          end
-        '';
-      settings = {
-        haskell = {
-          formattingProvider = "ormolu";
-          cabalFormattingProvider = "cabal-fmt";
-        };
-      };
-    };
+    hls = {};
   };
 in {
   options.vim.languages.haskell = {
@@ -86,6 +48,11 @@ in {
         default = defaultServers;
         description = "Haskell LSP server to use";
       };
+      formattingProvider = mkOption {
+        type = enum ["ormolu" "fourmolu" "stylish-haskell" "brittany" "floskell" "none"];
+        default = "ormolu";
+        description = "Formatter used by HLS";
+      };
     };
 
     dap = {
@@ -101,6 +68,12 @@ in {
         description = "Haskell DAP package or command to run the Haskell DAP";
       };
     };
+
+    extensions = {
+      haskell-tools = {
+        enable = mkEnableOption "haskell-tools.nvim";
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -111,7 +84,17 @@ in {
       };
     })
 
-    (mkIf (cfg.dap.enable || cfg.lsp.enable) {
+    (mkIf (cfg.lsp.enable && !cfg.extensions.haskell-tools.enable) {
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["haskell" "lhaskell"];
+          settings.haskell.formattingProvider = cfg.lsp.formattingProvider;
+        });
+      };
+    })
+
+    (mkIf cfg.extensions.haskell-tools.enable {
       vim = {
         startPlugins = ["haskell-tools-nvim"];
         luaConfigRC.haskell-tools-nvim = entryAfter ["lsp-servers"] ''
@@ -141,20 +124,22 @@ in {
                   vim.cmd('Haskell repl quit')
                 end, opts)
               end,
-              settings = function(project_root)
-                local ht = require("haskell-tools")
-                return ht.lsp.load_hls_settings(project_root)
-              end,
-              default_settings = {
+              settings = {
                 haskell = {
-                  formattingProvider = "fourmolu",
+                  formattingProvider = "${cfg.lsp.formattingProvider}",
                   cabalFormattingProvider = "cabal-fmt",
                 },
               },
             },
+            ${optionalString cfg.dap.enable ''
             dap = {
-              cmd = {"${getExe' haskellPackages.haskell-debug-adapter "haskell-debug-adapter"}"},
+              cmd = ${
+              if isList cfg.dap.package
+              then toLuaObject cfg.dap.package
+              else ''{"${cfg.dap.package}/bin/haskell-debug-adapter"}''
             },
+            },
+          ''}
           }
         '';
       };

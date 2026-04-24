@@ -22,6 +22,7 @@
     ./gopls.nix
     ./harper.nix
     ./helm-ls.nix
+    ./hls.nix
     ./intelephense.nix
     ./jdt-language-server.nix
     ./jinja-lsp.nix
