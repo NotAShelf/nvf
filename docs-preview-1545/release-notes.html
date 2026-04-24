@@ -468,12 +468,29 @@ formatter.</p>
 <p>Added <a class="option-reference" href="options.html#option-vim.treesitter.queries"><code class="nixos-option">vim.treesitter.queries</code></a> to support adding custom queries.</p>
 </li>
 <li>
-<p>Added injections for <code>vim.treesitter.queries.*.content</code> as <code>query</code> and
-<code>mkLualine</code>, <code>entryAnywhere</code>, <code>entryBefore</code>, <code>entryAfter</code> as <code>lua</code> in nix.</p>
+<p>Added injections for <code>query = '' ... ''</code> as <code>query</code> and <code>mkLualine '' ... ''</code>,
+<code>entryAnywhere '' ... ''</code>, <code>entryBefore ] '' ... ''</code>,
+<code>entryAfter ] '' ... ''</code> as <code>lua</code> in nix.</p>
 </li>
 <li>
 <p>Added <a class="option-reference" href="options.html#option-vim.languages.tera.treesitter.injection"><code class="nixos-option">vim.languages.tera.treesitter.injection</code></a> to configure, what
 language the content is.</p>
+</li>
+<li>
+<p>Added <a class="option-reference" href="options.html#option-vim.languages.jinja.treesitter.injection"><code class="nixos-option">vim.languages.jinja.treesitter.injection</code></a> to configure, what
+language the content is.</p>
+</li>
+<li>
+<p>Added <a class="option-reference" href="options.html#option-vim.treesitter.filetypeMappings"><code class="nixos-option">vim.treesitter.filetypeMappings</code></a> to support mappings similar to
+<a href="https://github.com/nvim-treesitter/nvim-treesitter/blob/main/plugin/filetypes.lua">https://github.com/nvim-treesitter/nvim-treesitter/blob/main/plugin/filetypes.lua</a>.
+This is mostly use full for Markdown code block injections.</p>
+</li>
+<li>
+<p>Added some Tree-sitter filetype mappings for:</p>
+<ul>
+<li><code>bash</code> = <code>ash</code>, <code>dash</code>, <code>zsh</code></li>
+<li><code>yaml</code> = <code>yaml</code></li>
+</ul>
 </li>
 <li>
 <p>Added <code>vim.lsp.presets.&lt;name&gt;</code> to contain LSP configurations. This allows for

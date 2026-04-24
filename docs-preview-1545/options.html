@@ -5335,7 +5335,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">514</span>
+        <span class="toc-count">515</span>
       </summary>
       <ul>
         
@@ -6912,6 +6912,14 @@
         <li>
           <a href='#option-vim.languages.jinja.treesitter.enable' title="vim.languages.jinja.treesitter.enable">
             jinja.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.jinja.treesitter.injection' title="vim.languages.jinja.treesitter.injection">
+            jinja.treesitter.injection
             
             
           </a>
@@ -15385,7 +15393,7 @@
     <details class="toc-category">
       <summary title="vim.treesitter">
         <span>vim.treesitter</span>
-        <span class="toc-count">25</span>
+        <span class="toc-count">26</span>
       </summary>
       <ul>
         
@@ -15496,6 +15504,14 @@
         </li>
         
         <li>
+          <a href='#option-vim.treesitter.filetypeMappings' title="vim.treesitter.filetypeMappings">
+            filetypeMappings
+            
+            
+          </a>
+        </li>
+        
+        <li>
           <a href='#option-vim.treesitter.fold' title="vim.treesitter.fold">
             fold
             
@@ -15552,16 +15568,16 @@
         </li>
         
         <li>
-          <a href='#option-vim.treesitter.queries._.content' title="vim.treesitter.queries.*.content">
-            queries.*.content
+          <a href='#option-vim.treesitter.queries._.filetypes' title="vim.treesitter.queries.*.filetypes">
+            queries.*.filetypes
             
             
           </a>
         </li>
         
         <li>
-          <a href='#option-vim.treesitter.queries._.filetypes' title="vim.treesitter.queries.*.filetypes">
-            queries.*.filetypes
+          <a href='#option-vim.treesitter.queries._.query' title="vim.treesitter.queries.*.query">
+            queries.*.query
             
             
           </a>
@@ -30344,6 +30360,18 @@ not listed in the docs</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/jinja.nix" target="_blank">&lt;nvf/modules/plugins/languages/jinja.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.languages.jinja.treesitter.injection">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.jinja.treesitter.injection" class="option-anchor">vim.languages.jinja.treesitter.injection</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>string</code></div>
+  <div class="option-description"><html><head></head><body><p>Treesitter language to inject in Jinja templates</p>
+</body></html></div>
+  <div class="option-default">Default: <code>"html"</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/jinja.nix" target="_blank">&lt;nvf/modules/plugins/languages/jinja.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.languages.jinja.treesitter.inlinePackage">
   <h3 class="option-name">
     <a href="#option-vim.languages.jinja.treesitter.inlinePackage" class="option-anchor">vim.languages.jinja.treesitter.inlinePackage</a>
@@ -44491,6 +44519,26 @@ there are at least 2 lines above cursorline.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.treesitter.filetypeMappings">
+  <h3 class="option-name">
+    <a href="#option-vim.treesitter.filetypeMappings" class="option-anchor">vim.treesitter.filetypeMappings</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>attribute set of list of string</code></div>
+  <div class="option-description"><html><head></head><body><p>For each parser, registers a list of alternative filetypes.
+For more information see <code>:h vim.treesitter.language.register()</code>.
+See treesitter builtin mappings here: &lt;<a href="https://github.com/nvim-treesitter/nvim-treesitter/blob/main/plugin/filetypes.lua">https://github.com/nvim-treesitter/nvim-treesitter/blob/main/plugin/filetypes.lua</a>&gt;</p>
+</body></html></div>
+  <div class="option-default">Default: <code>{ }</code></div>
+  <div class="option-example">Example: <pre><code>{
+  sh = [
+    "ash"
+    "dash"
+  ];
+}</code></pre></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.treesitter.fold">
   <h3 class="option-name">
     <a href="#option-vim.treesitter.fold" class="option-anchor">vim.treesitter.fold</a>
@@ -44591,17 +44639,6 @@ the required grammars to this.</p>
   <div class="option-default">Default: <code>[ ]</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-vim.treesitter.queries._.content">
-  <h3 class="option-name">
-    <a href="#option-vim.treesitter.queries._.content" class="option-anchor">vim.treesitter.queries.*.content</a>
-    <span class="copy-link" title="Copy link to this option"></span>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-type">Type: <code>strings concatenated with "\n"</code></div>
-  <div class="option-description"><html><head></head><body><p>The queries scm script.</p>
-</body></html></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
-</div>
 <div class="option" id="option-vim.treesitter.queries._.filetypes">
   <h3 class="option-name">
     <a href="#option-vim.treesitter.queries._.filetypes" class="option-anchor">vim.treesitter.queries.*.filetypes</a>
@@ -44612,6 +44649,17 @@ the required grammars to this.</p>
   <div class="option-description"><html><head></head><body><p>The filetypes for which the query should be registered.</p>
 </body></html></div>
   <div class="option-default">Default: <code>[ ]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.treesitter.queries._.query">
+  <h3 class="option-name">
+    <a href="#option-vim.treesitter.queries._.query" class="option-anchor">vim.treesitter.queries.*.query</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>strings concatenated with "\n"</code></div>
+  <div class="option-description"><html><head></head><body><p>The queries scm script.</p>
+</body></html></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.treesitter.queries._.type">
