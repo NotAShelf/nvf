@@ -15,6 +15,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    vim.extraPackages = [pkgs.haskellPackages.cabal-fmt];
     vim.lsp.servers.haskell-language-server = {
       enable = true;
       cmd = [(getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server-wrapper") "--lsp"];

@@ -98,6 +98,7 @@ in {
 
     (mkIf cfg.extensions.haskell-tools.enable {
       vim = {
+        extraPackages = [haskellPackages.cabal-fmt];
         startPlugins = ["haskell-tools-nvim"];
         luaConfigRC.haskell-tools-nvim = entryAfter ["lsp-servers"] ''
           vim.g.haskell_tools = {
