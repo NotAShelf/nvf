@@ -18,9 +18,9 @@
 
   cfg = config.vim.languages.haskell;
 
-  defaultServers = ["hls"];
+  defaultServers = ["haskell-language-server"];
   servers = {
-    hls = {};
+    haskell-language-server = {};
   };
 in {
   options.vim.languages.haskell = {
@@ -84,6 +84,8 @@ in {
       };
     })
 
+    # haskell-tools prefers to manage the lsp directly,
+    # so we only configure the lsp ourselves if haskell-tools is disabled
     (mkIf (cfg.lsp.enable && !cfg.extensions.haskell-tools.enable) {
       vim.lsp = {
         presets = genAttrs cfg.lsp.servers (_: {enable = true;});

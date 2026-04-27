@@ -204,9 +204,9 @@
 [dathegreat](https://github.com/dathegreat):
 
 - Fixed invalid keys in the haskell-tools configuration
-- Changed the default haskell formatter to
-  [fourmolu](https://github.com/fourmolu/fourmolu), matching the
-  [haskell-tools default](https://github.com/mrcjkb/haskell-tools.nvim/blob/9ea030aa67f3875753e70e1eb59701f7020479a0/lua/haskell-tools/config/internal.lua#L131)
+- Split haskell configuration into `lsp/presets/haskell-language-server.nix` and
+  `languages/haskell.nix`
+- Made the haskell LSP and formatter configurable
 
 [alfarel](https://github.com/alfarelcynthesis):
 
