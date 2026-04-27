@@ -14,5 +14,6 @@
     ./satellite-nvim
     ./syntax-gaslighting
     ./tiny-devicons-auto-colors
+    ./twilight-nvim
   ];
 }
