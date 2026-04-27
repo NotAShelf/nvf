@@ -57,7 +57,7 @@
     # Get plugins built from source from self.packages
     # If adding a new plugin to be built from source, it must also be inherited
     # here.
-    inherit (inputs.self.packages.${pkgs.stdenv.system}) blink-cmp avante-nvim;
+    inherit (inputs.self.packages.${pkgs.stdenv.system}) blink-cmp avante-nvim cord-nvim;
   };
 
   buildConfigPlugins = plugins:
