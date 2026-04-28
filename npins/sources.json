@@ -514,6 +514,19 @@
       "url": "https://github.com/stevearc/dressing.nvim/archive/2d7c2db2507fa3c4956142ee607431ddb2828639.tar.gz",
       "hash": "sha256-dBz+/gZA6O6fJy/GSgM6ZHGAR3MTGt/W1olzzTYRlgM="
     },
+    "dropbar-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Bekaboo",
+        "repo": "dropbar.nvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "808ba31cde89aec8833e9789f5e04557cd31c9e1",
+      "url": "https://github.com/Bekaboo/dropbar.nvim/archive/808ba31cde89aec8833e9789f5e04557cd31c9e1.tar.gz",
+      "hash": "sha256-S9TD5PkHKHoo2jfjOXkQoNtyr/PNtR/eljXB+8PtGU8="
+    },
     "elixir-tools-nvim": {
       "type": "Git",
       "repository": {

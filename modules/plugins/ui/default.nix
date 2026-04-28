@@ -4,6 +4,7 @@
     ./colorful-menu-nvim
     ./nvim-highlight-colors
     ./colorizer
+    ./dropbar-nvim
     ./fastaction
     ./illuminate
     ./modes-nvim
