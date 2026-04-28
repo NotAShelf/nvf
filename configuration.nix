@@ -267,6 +267,7 @@ isMaximal: {
 
     ui = {
       borders.enable = true;
+      dropbar-nvim.enable = false;
       noice.enable = true;
       colorizer.enable = true;
       modes-nvim.enable = false; # the theme looks terrible with catppuccin
