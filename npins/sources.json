@@ -809,6 +809,19 @@
       "url": "https://github.com/ellisonleao/gruvbox.nvim/archive/154eb5ff5b96d0641307113fa385eaf0d36d9796.tar.gz",
       "hash": "sha256-SogU3DStdWDN6qRjOnbGzoZ9Vc+fqnNYZF7XEqFeMUw="
     },
+    "guess-indent-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NMAC427",
+        "repo": "guess-indent.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "84a4987ff36798c2fc1169cbaff67960aed9776f",
+      "url": "https://github.com/NMAC427/guess-indent.nvim/archive/84a4987ff36798c2fc1169cbaff67960aed9776f.tar.gz",
+      "hash": "sha256-M/FkwCXXhojVFEcCuHo/GkuCCSX9GlVYHBUECSZxBjs="
+    },
     "hardtime-nvim": {
       "type": "Git",
       "repository": {
