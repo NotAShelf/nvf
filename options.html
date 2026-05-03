@@ -5335,7 +5335,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">526</span>
+        <span class="toc-count">535</span>
       </summary>
       <ul>
         
@@ -8502,6 +8502,78 @@
         </li>
         
         <li>
+          <a href='#option-vim.languages.scss.enable' title="vim.languages.scss.enable">
+            scss.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.scss.extraDiagnostics.enable' title="vim.languages.scss.extraDiagnostics.enable">
+            scss.extraDiagnostics.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.scss.extraDiagnostics.types' title="vim.languages.scss.extraDiagnostics.types">
+            scss.extraDiagnostics.types
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.scss.format.enable' title="vim.languages.scss.format.enable">
+            scss.format.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.scss.format.type' title="vim.languages.scss.format.type">
+            scss.format.type
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.scss.lsp.enable' title="vim.languages.scss.lsp.enable">
+            scss.lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.scss.lsp.servers' title="vim.languages.scss.lsp.servers">
+            scss.lsp.servers
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.scss.treesitter.enable' title="vim.languages.scss.treesitter.enable">
+            scss.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.scss.treesitter.package' title="vim.languages.scss.treesitter.package">
+            scss.treesitter.package
+            
+            
+          </a>
+        </li>
+        
+        <li>
           <a href='#option-vim.languages.sql.dialect' title="vim.languages.sql.dialect">
             sql.dialect
             
@@ -9731,7 +9803,7 @@
     <details class="toc-category">
       <summary title="vim.lsp">
         <span>vim.lsp</span>
-        <span class="toc-count">154</span>
+        <span class="toc-count">155</span>
       </summary>
       <ul>
         
@@ -10660,6 +10732,14 @@
         <li>
           <a href='#option-vim.lsp.presets.solargraph.enable' title="vim.lsp.presets.solargraph.enable">
             presets.solargraph.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.lsp.presets.some-sass-language-server.enable' title="vim.lsp.presets.some-sass-language-server.enable">
+            presets.some-sass-language-server.enable
             
             
           </a>
@@ -33003,6 +33083,125 @@ not listed in the docs</p>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.scala</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/scala.nix" target="_blank">&lt;nvf/modules/plugins/languages/scala.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.languages.scss.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.scss.enable" class="option-anchor">vim.languages.scss.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable SCSS/SASS language support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/scss.nix" target="_blank">&lt;nvf/modules/plugins/languages/scss.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.scss.extraDiagnostics.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.scss.extraDiagnostics.enable" class="option-anchor">vim.languages.scss.extraDiagnostics.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable extra SCSS/SASS diagnostics.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableExtraDiagnostics</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/scss.nix" target="_blank">&lt;nvf/modules/plugins/languages/scss.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.scss.extraDiagnostics.types">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.scss.extraDiagnostics.types" class="option-anchor">vim.languages.scss.extraDiagnostics.types</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (value "stylelint" (singular enum) or (submodule))</code></div>
+  <div class="option-description"><html><head></head><body><p>List of SCSS diagnostics to enable</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "stylelint"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/scss.nix" target="_blank">&lt;nvf/modules/plugins/languages/scss.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.scss.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.scss.format.enable" class="option-anchor">vim.languages.scss.format.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable SCSS/SASS formatting.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableFormat</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/scss.nix" target="_blank">&lt;nvf/modules/plugins/languages/scss.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.scss.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.scss.format.type" class="option-anchor">vim.languages.scss.format.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (one of "prettier", "prettierd")</code></div>
+  <div class="option-description"><html><head></head><body><p>SCSS/SASS formatter to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "prettier"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/scss.nix" target="_blank">&lt;nvf/modules/plugins/languages/scss.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.scss.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.scss.lsp.enable" class="option-anchor">vim.languages.scss.lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable SCSS/SASS LSP support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.lsp.enable</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/scss.nix" target="_blank">&lt;nvf/modules/plugins/languages/scss.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.scss.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.scss.lsp.servers" class="option-anchor">vim.languages.scss.lsp.servers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (one of "some-sass-language-server", "vscode-css-language-server")</code></div>
+  <div class="option-description"><html><head></head><body><p>SCSS/SASS LSP server to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "some-sass-language-server"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/scss.nix" target="_blank">&lt;nvf/modules/plugins/languages/scss.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.scss.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.scss.treesitter.enable" class="option-anchor">vim.languages.scss.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable SCSS/SASS treesitter.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/scss.nix" target="_blank">&lt;nvf/modules/plugins/languages/scss.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.scss.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.scss.treesitter.package" class="option-anchor">vim.languages.scss.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or package</code></div>
+  <div class="option-description"><html><head></head><body><p>The scss treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.scss</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/scss.nix" target="_blank">&lt;nvf/modules/plugins/languages/scss.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.languages.sql.dialect">
   <h3 class="option-name">
     <a href="#option-vim.languages.sql.dialect" class="option-anchor">vim.languages.sql.dialect</a>
@@ -36694,6 +36893,22 @@ Use <code class="nixos-option">vim.lsp.servers.solargraph</code> for customizati
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/solargraph.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/solargraph.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.lsp.presets.some-sass-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.some-sass-language-server.enable" class="option-anchor">vim.lsp.presets.some-sass-language-server.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Some Sass Language Server.
+Default <code>filetypes = [ ]</code>.
+Use <code class="nixos-option">vim.lsp.servers.some-sass-language-server</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/some-sass-language-server.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/some-sass-language-server.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.lsp.presets.sqls.enable">
   <h3 class="option-name">
