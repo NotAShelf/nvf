@@ -1,5 +1,6 @@
 {
   imports = [
+    ./auto-indent-nvim
     ./binds
     ./ccc
     ./csvview
