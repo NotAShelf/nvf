@@ -1874,6 +1874,22 @@
       "url": "https://github.com/nvim-neorg/neorg-telescope/archive/7fb6ca6a632c3c095601d379a664c0c1f802dc6c.tar.gz",
       "hash": "sha256-tvbskEQ3+uOUlGKdqAFMlbF5Vw0A08XTwuWEs2aP64o="
     },
+    "neoscroll-nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "karb94",
+        "repo": "neoscroll.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "0.2.0",
+      "revision": "a731f66f1d39ec6175fd201c5bf849e54abda99c",
+      "url": "https://api.github.com/repos/karb94/neoscroll.nvim/tarball/refs/tags/0.2.0",
+      "hash": "sha256-0QhlWNgUw+MtzbWHkaLCJ/hTmZKaYboch3nNYPErLrk="
+    },
     "neovim-session-manager": {
       "type": "Git",
       "repository": {
