@@ -265,6 +265,11 @@ deprecated and thus was pulled from nixpkgs.
 <code>languages.go.treesitter.gotmplPackage</code> to
 <a class="option-reference" href="options.html#option-vim.languages.go.treesitter.gotmpl.package"><code class="nixos-option">vim.languages.go.treesitter.gotmpl.package</code></a></p>
 </li>
+<li>
+<p>Split SCSS from <code>languages.css</code> into <code>languages.scss</code> and add extra tools for
+SCSS/SASS. This also changes the default LSP to <code>some-sass-language-server</code>
+for SCSS/SASS.</p>
+</li>
 </ul>
 <p><a href="https://github.com/caueanjos">CaueAnjos</a></p>
 <ul>
@@ -513,6 +518,9 @@ Template support.</p>
 <li>
 <p>Added <a class="option-reference" href="options.html#option-vim.lsp.presets.vue-language-server.enable"><code class="nixos-option">vim.lsp.presets.vue-language-server.enable</code></a> for Vue Template
 support.</p>
+</li>
+<li>
+<p>Added <a class="option-reference" href="options.html#option-vim.lsp.presets.some-sass-language-server.enable"><code class="nixos-option">vim.lsp.presets.some-sass-language-server.enable</code></a>.</p>
 </li>
 <li>
 <p>Fix <code>vim.lsp.presets.vala-language-server</code> to be wrapped correctly with
