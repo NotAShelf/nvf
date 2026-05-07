@@ -53,10 +53,11 @@ in {
 
           > [!NOTE]
           >
-          > Since HLS is very picky about the GHC version, we do not provide
-          > a default HLS. You'll have to install your own. It is recommended
-          > to install `haskell-language-server` in a devShell, along with the
-          > GHC version you need.
+          > Since HLS is very sensitive about the GHC version, there's a very
+          > high chance that the default HLS we use is not compatible with your
+          > project. It is highly recommended to set
+          > {option}`vim.languages.haskell.extensions.haskell-tools-nvim.setupOpts.hls.cmd`
+          > to `null` and install HLS separately in a `devShell`.
         '';
       };
     };

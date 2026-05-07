@@ -1,13 +1,16 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
   inherit (lib.generators) mkLuaInline;
+  inherit (lib.trivial) warn;
 
   cfg = config.vim.lsp.presets.haskell-tools;
+  lspCfg = config.vim.lsp.servers.haskell-tools;
 in {
   options.vim.lsp.presets.haskell-tools = {
     enable = mkLspPresetEnableOption "haskell-tools-nvim" "Haskell" ["haskell"];
@@ -43,6 +46,24 @@ in {
 
       languages.haskell.extensions.haskell-tools-nvim = {
         enable = true;
+        setupOpts = {
+          hls = {
+            cmd =
+              if (lspCfg.cmd != null)
+              then
+                warn ''
+                  config.vim.lsp.servers.haskell-tools.cmd: this option is
+                  ignored by haskell-tools, use
+                  vim.languages.haskell.extensions.haskell-tools-nvim.setupOpts.hls.cmd
+                  instead.
+                ''
+                lspCfg.cmd
+              else [
+                "${pkgs.haskellPackages.haskell-language-server}/bin/haskell-language-server"
+                "--lsp"
+              ];
+          };
+        };
       };
     };
   };
