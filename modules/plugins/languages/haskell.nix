@@ -10,17 +10,24 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.strings) optionalString;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryAfter;
-  inherit (lib.meta) getExe';
+  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.meta) getExe getExe';
   inherit (pkgs) haskellPackages;
 
   cfg = config.vim.languages.haskell;
 
   defaultServers = ["haskell-language-server"];
-  servers = {
-    haskell-language-server = {};
+  servers = ["haskell-language-server"];
+
+  defaultFormat = ["ormolu"];
+  formats = {
+    ormolu = {command = getExe haskellPackages.ormolu;};
+    fourmolu = {command = getExe haskellPackages.fourmolu;};
+    stylish-haskell = {command = getExe haskellPackages.stylish-haskell;};
+    floskell = {command = getExe haskellPackages.floskell;};
   };
 in {
   options.vim.languages.haskell = {
@@ -44,14 +51,23 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Haskell LSP server to use";
       };
-      formattingProvider = mkOption {
-        type = enum ["ormolu" "fourmolu" "stylish-haskell" "brittany" "floskell" "none"];
-        default = "ormolu";
-        description = "Formatter used by HLS";
+    };
+
+    format = {
+      enable =
+        mkEnableOption "Haskell formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
+      type = mkOption {
+        type = deprecatedSingleOrListOf "vim.languages.haskell.format.type" (enum (attrNames formats));
+        default = defaultFormat;
+        description = "Haskell formatter to use";
       };
     };
 
@@ -77,6 +93,27 @@ in {
   };
 
   config = mkIf cfg.enable (mkMerge [
+    {
+      assertions = [
+        {
+          assertion = !(cfg.lsp.enable && cfg.extensions.haskell-tools.enable);
+          message = ''
+            vim.languages.haskell: haskell-tools.nvim manages the LSP directly and
+            is incompatible with vim.languages.haskell.lsp.enable. Disable one or
+            the other. See https://github.com/mrcjkb/haskell-tools.nvim/blob/fe9ed6e6adfa6311e06c84569d8536190f172030/doc/haskell-tools.txt#L22
+          '';
+        }
+        {
+          assertion = !(cfg.dap.enable && !cfg.extensions.haskell-tools.enable);
+          message = ''
+            vim.languages.haskell: DAP support requires haskell-tools.nvim, which
+            handles adapter registration and launch configuration discovery.
+            Enable vim.languages.haskell.extensions.haskell-tools to use DAP.
+          '';
+        }
+      ];
+    }
+
     (mkIf cfg.treesitter.enable {
       vim.treesitter = {
         enable = true;
@@ -84,15 +121,30 @@ in {
       };
     })
 
-    # haskell-tools prefers to manage the lsp directly,
-    # so we only configure the lsp ourselves if haskell-tools is disabled
-    (mkIf (cfg.lsp.enable && !cfg.extensions.haskell-tools.enable) {
+    (mkIf cfg.lsp.enable {
       vim.lsp = {
         presets = genAttrs cfg.lsp.servers (_: {enable = true;});
         servers = genAttrs cfg.lsp.servers (_: {
           filetypes = ["haskell" "lhaskell"];
-          settings.haskell.formattingProvider = cfg.lsp.formattingProvider;
         });
+      };
+    })
+
+    (mkIf cfg.format.enable {
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts = {
+          formatters_by_ft = {
+            haskell = cfg.format.type;
+            lhaskell = cfg.format.type;
+          };
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
+        };
       };
     })
 
@@ -129,7 +181,7 @@ in {
               end,
               settings = {
                 haskell = {
-                  formattingProvider = "${cfg.lsp.formattingProvider}",
+                  formattingProvider = "none",
                   cabalFormattingProvider = "cabal-fmt",
                 },
               },
