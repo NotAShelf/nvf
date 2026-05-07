@@ -4,14 +4,14 @@
   pkgs,
   ...
 }: let
-  inherit (builtins) isList attrNames;
-  inherit (lib.types) either package enum listOf str;
+  inherit (builtins) isList;
+  inherit (lib.attrsets) genAttrs;
+  inherit (lib.types) either package listOf str;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption enumWithRename;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.custom) enumWithRename;
   inherit (pkgs) haskellPackages;
 
   cfg = config.vim.languages.haskell;
@@ -43,7 +43,7 @@ in {
         type = listOf (
           enumWithRename
           "vim.languages.haskell.lsp.servers"
-          (attrNames servers)
+          servers
           {hls = "haskell-tools";}
         );
         default = defaultServers;
@@ -53,9 +53,10 @@ in {
 
           > [!NOTE]
           >
-          > HLS is extremely picky about your GHC version - most likely you'll
-          > have to install your specific HLS version in a devShell that matches
-          > your GHC version.
+          > Since HLS is very picky about the GHC version, we do not provide
+          > a default HLS. You'll have to install your own. It is recommended
+          > to install `haskell-language-server` in a devShell, along with the
+          > GHC version you need.
         '';
       };
     };
@@ -90,6 +91,15 @@ in {
       };
     })
 
+    (mkIf cfg.lsp.enable {
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["haskell" "lhaskell"];
+        });
+      };
+    })
+
     (mkIf cfg.dap.enable {
       vim.languages.haskell.extensions.haskell-tools-nvim = {
         enable = true;
@@ -107,12 +117,7 @@ in {
     (mkIf cfg.extensions.haskell-tools-nvim.enable {
       vim = {
         startPlugins = ["haskell-tools-nvim"];
-        luaConfigRC.haskell-tools-nvim =
-          entryAfter
-          ["lsp-servers"]
-          ''
-            vim.g.haskell_tools = ${cfg.extensions.haskell-tools-nvim.setupOpts}
-          '';
+        globals.haskell_tools = cfg.extensions.haskell-tools-nvim.setupOpts;
       };
     })
   ]);

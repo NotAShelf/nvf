@@ -21,6 +21,7 @@
     ./glsl_analyzer.nix
     ./gopls.nix
     ./harper.nix
+    ./haskell-tools.nix
     ./helm-ls.nix
     ./intelephense.nix
     ./jdt-language-server.nix
