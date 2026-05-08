@@ -33,8 +33,6 @@ in {
       root_markers = ["hie.yaml" "stack.yaml" "cabal.project" "*.cabal" "package.yaml"];
       settings = {
         haskell = {
-          # formatting is handled by conform-nvim; disable HLS's built-in formatter
-          formattingProvider = "none";
           # cabal-fmt is an external tool; it is wrapped into the LSP binary's PATH above
           cabalFormattingProvider = "cabal-fmt";
         };
