@@ -406,6 +406,8 @@
 
 - Added `asmfmt` and `nasmfmt` formatters to `languages.asm`.
 
+- Added `astyle`, `indent` and `clang-format` to `languages.clang` formatters.
+
 - Added `biome-check` and `biome-organize-imports` formatters to `languages.ts`.
 
 - Added [`biomejs`](https://biomejs.dev/) as extra diagnostics provider to
