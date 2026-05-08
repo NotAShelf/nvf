@@ -102,10 +102,17 @@ in {
       default = true;
     };
 
-    disabledFiletypes = mkOption {
-      type = listOf str;
-      description = "Filetypes to disable lualine on";
-      default = ["alpha"];
+    disabledFiletypes = {
+      statusline = mkOption {
+        type = listOf str;
+        default = ["alpha"];
+        description = "Filetypes to disable lualine on for statusline";
+      };
+      winbar = mkOption {
+        type = listOf str;
+        default = [ ];
+        description = "Filetypes to disable lualine on for winbar";
+      };
     };
 
     ignoreFocus = mkOption {
