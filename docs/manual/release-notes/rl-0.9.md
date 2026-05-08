@@ -120,6 +120,13 @@
 
 ## Changelog {#sec-release-0-9-changelog}
 
+[ErinaYip](https://github.com/ErinaYip):
+
+- Added separate `disabledFiletypes.statusline` and `disabledFiletypes.winbar`
+  options in the lualine module, allowing users to configure which filetypes
+  should disable lualine for each component independently. Also exposed
+  `ignoreFocus` option.
+
 [SecBear](https://github.com/SecBear):
 
 - Renamed `setupOpts.strategies` to `setupOpts.interactions` in the

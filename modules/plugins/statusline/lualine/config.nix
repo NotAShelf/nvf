@@ -68,6 +68,8 @@ in {
             globalstatus = mkDefault cfg.globalStatus;
             refresh = mkDefault cfg.refresh;
             always_divide_middle = mkDefault cfg.alwaysDivideMiddle;
+            ignore_focus = mkDefault cfg.ignoreFocus;
+            disabled_filetypes = mkDefault cfg.disabledFiletypes;
           };
 
           sections = {
