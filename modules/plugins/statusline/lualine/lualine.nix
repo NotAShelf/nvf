@@ -110,7 +110,7 @@ in {
       };
       winbar = mkOption {
         type = listOf str;
-        default = [ ];
+        default = [];
         description = "Filetypes to disable lualine on for winbar";
       };
     };
