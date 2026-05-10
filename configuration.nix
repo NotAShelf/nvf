@@ -236,7 +236,6 @@ isMaximal: {
     notes = {
       neorg.enable = false;
       orgmode.enable = false;
-      mind-nvim.enable = isMaximal;
       todo-comments.enable = true;
     };
 

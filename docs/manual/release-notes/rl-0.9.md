@@ -41,6 +41,12 @@
 
 [Snoweuph](https://github.com/snoweuph)
 
+- Remove `mind.nvim`. This plugin doesn't exist anymore. The original author
+  deleted all their GitHub repositories and moved to
+  [sourcehut](https://sr.ht/~hadronized/). Some repositories where migrated.
+  `mind.nvim` wasn't one of them. More can be read in
+  [his blog post](https://strongly-typed-thoughts.net/blog/final-bye-github).
+
 - "Correct `languages.go.treesitter` to contain all Go file types.
   `languages.go.treesitter.package` is now `languages.go.treesitter.goPackage`.
   New are:

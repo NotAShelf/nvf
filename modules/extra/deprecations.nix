@@ -364,5 +364,14 @@ in {
       (mkRenamedOptionModule ["vim" "utility" "vim-wakatime" "cli-path"] ["vim" "utility" "vim-wakatime" "setupOpts" "cli_path"])
       (mkRenamedOptionModule ["vim" "languages" "go" "treesitter" "gotmplPackage"] ["vim" "languages" "go" "treesitter" "gotmpl" "package"])
     ]
+
+    # 2026-05-09
+    [
+      (mkRemovedOptionModule ["vim" "notes" "mind-nvim" "enable"] ''
+        mind.nvim was deprecated 3 years ago, and the repository was recrently deleted by the author, in his move to sourcehut.
+        they migrated some repositories, but mind.nvim wasn't one of them. More information can be found here:
+        <https://strongly-typed-thoughts.net/blog/final-bye-github>
+      '')
+    ]
   ];
 }

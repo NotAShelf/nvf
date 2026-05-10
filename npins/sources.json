@@ -1102,19 +1102,6 @@
       "url": "https://github.com/mellow-theme/mellow.nvim/archive/5cd188489bcc7eb512f0a30581ad972070f8e5cd.tar.gz",
       "hash": "sha256-A+2yTvhrug7hZBcoqfwIuuxz41xUPKZ7zqAwujeHTkI="
     },
-    "mind-nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "phaazon",
-        "repo": "mind.nvim"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "002137dd7cf97865ebd01b6a260209d2daf2da66",
-      "url": "https://github.com/phaazon/mind.nvim/archive/002137dd7cf97865ebd01b6a260209d2daf2da66.tar.gz",
-      "hash": "sha256-JIhAhQYGLLRucwlhzfckQYU5qjqbHtNH52JlGS5a79w="
-    },
     "mini-ai": {
       "type": "Git",
       "repository": {
