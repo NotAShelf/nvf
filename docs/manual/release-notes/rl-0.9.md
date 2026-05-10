@@ -39,6 +39,9 @@
   `setupOpts.strategies.chat.adapter`, rename them to
   `setupOpts.interactions.chat.adapter`.
 
+- Haskell LSP now defaults to haskell-language-server, haskell-tools based LSP
+  support is moved to `vim.languages.haskell.extensions.haskell-tools`
+
 [Snoweuph](https://github.com/snoweuph)
 
 - Remove `mind.nvim`. This plugin doesn't exist anymore. The original author
