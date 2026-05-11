@@ -36,7 +36,7 @@ order to configure the added plugin,
 in {
   # luaConfigRC takes Lua configuration verbatim and inserts it at an arbitrary
   # position by default or if 'entryAnywhere' is used.
-  vim.luaConfigRC.aerial-nvim= entryAnywhere ''
+  vim.luaConfigRC.aerial-nvim = entryAnywhere ''
     require('aerial').setup {
       -- your configuration here
     }

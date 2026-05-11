@@ -10,11 +10,15 @@ In the following example, we are creating a custom injection, to highlight the
 Lua string after `mkLuaInline`.
 
 ```nix
-foo = mkLuaInline ''
-  function bar()
-    return 'foobar'
-  end
-'';
+let
+  inherit (lib.generators) mkLuaInline;
+in {
+  foo = mkLuaInline ''
+    function bar()
+      return 'foobar'
+    end
+  '';
+}
 ```
 
 ```nix

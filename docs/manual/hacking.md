@@ -650,9 +650,11 @@ As you've seen above, `toLuaObject` is used to convert our nix attrSet
    that return specific values as expected by the plugins.
 
    ```nix
-   {
+   let 
+     inherit (lib.generators) mkLuaInline;
+   in {
       vim.your-plugin.setupOpts = {
-        on_init = lib.generators.mkLuaInline ''
+        on_init = mkLuaInline ''
           function()
             print('we can write lua!')
           end

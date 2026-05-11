@@ -4,6 +4,7 @@
   stdenvNoCC,
   optionsJSON,
   jaq,
+  gnused,
 } @ args: let
   manual-release = args.release or "unstable";
 in
@@ -18,6 +19,7 @@ in
         doCheck = false;
       })
       jaq
+      gnused
     ];
 
     patchPhase = ''
@@ -37,6 +39,23 @@ in
     '';
 
     buildPhase = ''
+      mkdir -p queries/nix
+
+      # apply nix injections
+      sed -n -f /dev/stdin ${../modules/plugins/languages/nix.nix} <<'EOF' > ./queries/nix/injections.scm
+      /type = "injections"/,/^[[:space:]]*};/ {
+        /query = '''/,/^[[:space:]]*''';/ {
+          /query = '''/d
+          /^[[:space:]]*''';/d
+          p
+        }
+      }
+      EOF
+
+      # Syntactica doesnt support `query` so we patch it with the closest it does,
+      # which is `haskell` :bwaa:
+      sed -i 's|#set! injection\.language "query"|#set! injection.language "haskell"|' ./queries/nix/injections.scm
+
       # Generate the final manual from a set of parameters. This uses
       # feel-co/ndg to render the web manual.
       ndg --config-file ${./ndg.toml} html \

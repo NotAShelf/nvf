@@ -338,6 +338,8 @@
 
 - Added {option}`vim.languages.java.dap.enable` with the `jls` DAP.
 
+- Use nvf nix Tree-sitter injections in the docs.
+
 - Allow the usage of `pks.tree-sitter-grammars` in
   {option}`vim.treesitter.grammars` and language module tree-sitter package
   options created via `mkGrammarOption`.
