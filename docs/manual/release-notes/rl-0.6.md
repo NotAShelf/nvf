@@ -127,7 +127,7 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
   and `disabled_filetypes` through the new options:
   {option}`vim.statusline.lualine.alwaysDivideMiddle`,
   {option}`vim.statusline.lualine.ignoreFocus` and
-  {option}`vim.statusline.lualine.disabledFiletypes`).
+  {option}`vim.statusline.lualine.disabledFiletypes.statusline`).
 
 - Updated all plugin inputs to their latest versions (**21.04.2024**) - this
   brought minor color changes to the Catppuccin theme.
