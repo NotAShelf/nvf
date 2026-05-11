@@ -346,6 +346,11 @@
 
 - Added `phpantom` LSP preset and into `languages.php`.
 
+- Moved extra diagnostic modules under `diagnostics.presets.<name>` this will
+  allow for more flexibility in the future for nvf.
+
+- Added {option}`vim.diagnostics.presets.cpplint.enable`.
+
 - Added {option}`vim.treesitter.queries` to support adding custom queries.
 
 - Added injections for `query = '' ... ''` as `query` and `mkLualine '' ... ''`,

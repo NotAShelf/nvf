@@ -11,7 +11,7 @@
   inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum coercedTo listOf;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.svelte;
@@ -35,26 +35,8 @@
     };
   };
 
-  # TODO: specify packages
   defaultDiagnosticsProvider = ["eslint_d"];
-  diagnosticsProviders = {
-    eslint_d = let
-      pkg = pkgs.eslint_d;
-    in {
-      package = pkg;
-      config = {
-        cmd = getExe pkg;
-        required_files = [
-          "eslint.config.js"
-          "eslint.config.mjs"
-          ".eslintrc"
-          ".eslintrc.json"
-          ".eslintrc.js"
-          ".eslintrc.yml"
-        ];
-      };
-    };
-  };
+  diagnosticsProviders = ["eslint_d"];
 
   formatType =
     deprecatedSingleOrListOf
@@ -111,16 +93,16 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra Svelte diagnostics"
+        mkEnableOption "extra Svelte diagnostics via nvim-lint"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
 
-      types = diagnostics {
-        langDesc = "Svelte";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra Svelte diagnostics providers";
       };
     };
   };
@@ -156,12 +138,12 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics.nvim-lint = {
-        enable = true;
-        linters_by_ft.svelte = cfg.extraDiagnostics.types;
-        linters =
-          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
-            cfg.extraDiagnostics.types);
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+        nvim-lint = {
+          enable = true;
+          linters_by_ft.svelte = cfg.extraDiagnostics.types;
+        };
       };
     })
   ]);

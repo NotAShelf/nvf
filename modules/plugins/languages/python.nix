@@ -8,11 +8,11 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.lists) flatten;
   inherit (lib) genAttrs;
-  inherit (lib.meta) getExe getExe';
+  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum package bool listOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.types) deprecatedSingleOrListOf diagnostics;
+  inherit (lib.nvim.types) deprecatedSingleOrListOf;
   inherit (lib.trivial) warn;
 
   cfg = config.vim.languages.python;
@@ -112,13 +112,7 @@
     };
   };
   defaultDiagnosticsProvider = ["mypy"];
-  diagnosticsProviders = {
-    mypy = {
-      config = {
-        cmd = getExe' pkgs.mypy "mypy";
-      };
-    };
-  };
+  diagnosticsProviders = ["mypy"];
 in {
   options.vim.languages.python = {
     enable = mkEnableOption "Python language support";
@@ -195,15 +189,15 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra Python diagnostics"
+        mkEnableOption "extra Python diagnostics via nvim-lint"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
-      types = diagnostics {
-        langDesc = "Python";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra Python diagnostics providers";
       };
     };
   };
@@ -261,12 +255,12 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics.nvim-lint = {
-        enable = true;
-        linters_by_ft.python = cfg.extraDiagnostics.types;
-        linters =
-          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
-            cfg.extraDiagnostics.types);
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+        nvim-lint = {
+          enable = true;
+          linters_by_ft.python = cfg.extraDiagnostics.types;
+        };
       };
     })
   ]);

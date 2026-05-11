@@ -4,13 +4,12 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
-  inherit (lib) genAttrs;
+  inherit (lib.attrsets) attrNames genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.docker;
@@ -26,17 +25,7 @@
   };
 
   defaultDiagnosticsProvider = ["hadolint"];
-  diagnosticsProviders = {
-    hadolint = {
-      config.cmd = getExe (
-        pkgs.writeShellApplication {
-          name = "hadolint";
-          runtimeInputs = [pkgs.hadolint];
-          text = "hadolint -";
-        }
-      );
-    };
-  };
+  diagnosticsProviders = ["hadolint"];
 in {
   options.vim.languages.docker = {
     enable = mkEnableOption "Docker language support";
@@ -81,15 +70,16 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra Dockerfile diagnostics"
+        mkEnableOption "extra Docker diagnostics via nvim-lint"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostic";
         };
 
-      types = diagnostics {
-        langDesc = "Dockerfile";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra Docker diagnostics providers";
       };
     };
   };
@@ -151,15 +141,12 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics.nvim-lint = {
-        enable = true;
-        linters_by_ft.dockerfile = cfg.extraDiagnostics.types;
-        linters = mkMerge (
-          map (name: {
-            ${name} = diagnosticsProviders.${name}.config;
-          })
-          cfg.extraDiagnostics.types
-        );
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+        nvim-lint = {
+          enable = true;
+          linters_by_ft.dockerfile = cfg.extraDiagnostics.types;
+        };
       };
     })
   ]);

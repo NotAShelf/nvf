@@ -388,5 +388,13 @@ in {
         nvim-tree.lua removed system_open and now uses Neovim's vim.ui.open().
       '')
     ]
+
+    # 2026-06-12
+    [
+      (mkRemovedOptionModule ["vim" "languages" "sql" "dialect"] ''
+        This option interfered with project level configurations.
+        Linters can still be customized via `vim.diagnostics.nvim-lint.<name>.args`
+      '')
+    ]
   ];
 }
