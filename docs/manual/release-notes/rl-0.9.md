@@ -132,10 +132,11 @@
 
 [ErinaYip](https://github.com/ErinaYip):
 
-- Added separate `disabledFiletypes.statusline` and `disabledFiletypes.winbar`
-  options in the lualine module, allowing users to configure which filetypes
-  should disable lualine for each component independently. Also exposed
-  `ignoreFocus` option.
+- Fixed and updated `lualine` options:
+  - Enabled the previously unmapped
+    {option}`vim.statusline.lualine.ignoreFocus`.
+  - Added {option}`vim.statusline.lualine.disabledFiletypes.statusline` and
+    {option}`vim.statusline.lualine.disabledFiletypes.winbar`.
 
 [SecBear](https://github.com/SecBear):
 
