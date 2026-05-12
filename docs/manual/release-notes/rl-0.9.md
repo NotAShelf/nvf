@@ -476,6 +476,7 @@ https://github.com/gorbit99/codewindow.nvim
 - Add Arduino support with [arduino-language-server].
 - Add GLSL support with [glsl_analyzer].
 - Update fidget-nvim setupOpts and fix NvimTree issue.
+- Fix asm-lsp's filetypes (`asm8300` -> `asmh8300`).
 
 [itscrystalline](https://github.com/itscrystalline):
 

@@ -57,7 +57,7 @@ in {
       vim.lsp = {
         presets = genAttrs cfg.lsp.servers (_: {enable = true;});
         servers = genAttrs cfg.lsp.servers (_: {
-          filetypes = ["asm" "nasm" "masm" "vmasm" "fasm" "tasm" "tiasm" "asm68k" "asm8300"];
+          filetypes = ["asm" "nasm" "masm" "vmasm" "fasm" "tasm" "tiasm" "asm68k" "asmh8300"];
         });
       };
     })
