@@ -482,6 +482,8 @@ https://github.com/gorbit99/codewindow.nvim
   `geom`, `comp`).
 - Remove invalid filetype from go lsp config (`gotmpl`).
 - Remove invalid filetype from markdown lsp config (`mdx`).
+- Remove invalid filetypes from ocaml lsp config (`menhir`, `ocamlinterface`,
+  `ocamllex` and `reason`).
 
 [itscrystalline](https://github.com/itscrystalline):
 
