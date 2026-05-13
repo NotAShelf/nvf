@@ -480,6 +480,7 @@ https://github.com/gorbit99/codewindow.nvim
 - Remove invalid filetypes from bash lsp config (`ash` and `dash`).
 - Remove invalid filetypes from glsl lsp config (`vert`, `tesc`, `tese`, `frag`,
   `geom`, `comp`).
+- Remove invalid filetype from go lsp config (`gotmpl`).
 
 [itscrystalline](https://github.com/itscrystalline):
 
