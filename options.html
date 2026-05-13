@@ -5335,7 +5335,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">535</span>
+        <span class="toc-count">537</span>
       </summary>
       <ul>
         
@@ -5392,6 +5392,22 @@
         <li>
           <a href='#option-vim.languages.assembly.enable' title="vim.languages.assembly.enable">
             assembly.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.assembly.format.enable' title="vim.languages.assembly.format.enable">
+            assembly.format.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.assembly.format.type' title="vim.languages.assembly.format.type">
+            assembly.format.type
             
             
           </a>
@@ -27972,6 +27988,33 @@ Thus, it will not be wrapped in <code>""</code>.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/asm.nix" target="_blank">&lt;nvf/modules/plugins/languages/asm.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.assembly.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.assembly.format.enable" class="option-anchor">vim.languages.assembly.format.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Assembly formatting.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableFormat</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/asm.nix" target="_blank">&lt;nvf/modules/plugins/languages/asm.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.assembly.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.assembly.format.type" class="option-anchor">vim.languages.assembly.format.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (one of "asmfmt", "nasmfmt")</code></div>
+  <div class="option-description"><html><head></head><body><p>Assembly formatter to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "asmfmt"
+]</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/asm.nix" target="_blank">&lt;nvf/modules/plugins/languages/asm.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.assembly.lsp.enable">
