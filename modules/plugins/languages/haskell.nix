@@ -12,7 +12,7 @@
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.meta) getExe';
+  inherit (lib.meta) getExe getExe';
   inherit (lib.generators) mkLuaInline;
   inherit (pkgs) haskellPackages;
 
@@ -21,9 +21,7 @@
   defaultServers = ["hls"];
   servers = {
     hls = {
-      enable = false;
-      cmd = [(getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server-wrapper") "--lsp"];
-      filetypes = ["haskell" "lhaskell"];
+      cmd = [(getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server") "--lsp"];
       on_attach =
         mkLuaInline
         /*
@@ -42,17 +40,6 @@
               end, opts)
               vim.keymap.set('n', '<localleader>rq', ht.repl.quit, opts)
             end
-        '';
-      root_dir =
-        mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function(bufnr, on_dir)
-            local fname = vim.api.nvim_buf_get_name(bufnr)
-            on_dir(util.root_pattern('hie.yaml', 'stack.yaml', 'cabal.project', '*.cabal', 'package.yaml')(fname))
-          end
         '';
       settings = {
         haskell = {
@@ -122,12 +109,6 @@ in {
           ''
             vim.g.haskell_tools = {
             ${optionalString cfg.lsp.enable ''
-              -- LSP
-              tools = {
-                hover = {
-                  enable = true,
-                },
-              },
               hls = ${toLuaObject servers.hls},
             ''}
             ${optionalString cfg.dap.enable ''
@@ -135,7 +116,7 @@ in {
                 cmd = ${
                 if isList cfg.dap.package
                 then toLuaObject cfg.dap.package
-                else ''{"${cfg.dap.package}/bin/haskell-debug-adapter"}''
+                else ''{"${getExe cfg.dap.package}"}''
               },
               },
             ''}
