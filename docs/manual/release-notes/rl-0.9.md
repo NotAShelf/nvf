@@ -484,6 +484,7 @@ https://github.com/gorbit99/codewindow.nvim
 - Remove invalid filetype from markdown lsp config (`mdx`).
 - Remove invalid filetypes from ocaml lsp config (`menhir`, `ocamlinterface`,
   `ocamllex` and `reason`).
+- Remove invalid filetypes from html lsp config (`shtml` and `htm`).
 
 [itscrystalline](https://github.com/itscrystalline):
 
