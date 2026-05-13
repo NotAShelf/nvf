@@ -481,6 +481,7 @@ https://github.com/gorbit99/codewindow.nvim
 - Remove invalid filetypes from glsl lsp config (`vert`, `tesc`, `tese`, `frag`,
   `geom`, `comp`).
 - Remove invalid filetype from go lsp config (`gotmpl`).
+- Remove invalid filetype from markdown lsp config (`mdx`).
 
 [itscrystalline](https://github.com/itscrystalline):
 
