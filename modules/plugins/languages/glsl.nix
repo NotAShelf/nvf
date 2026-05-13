@@ -56,7 +56,7 @@ in {
       vim.lsp = {
         presets = genAttrs cfg.lsp.servers (_: {enable = true;});
         servers = genAttrs cfg.lsp.servers (_: {
-          filetypes = ["glsl" "vert" "tesc" "tese" "frag" "geom" "comp"];
+          filetypes = ["glsl"];
         });
       };
     })

@@ -478,6 +478,8 @@ https://github.com/gorbit99/codewindow.nvim
 - Update fidget-nvim setupOpts and fix NvimTree issue.
 - Fix asm-lsp's filetypes (`asm8300` -> `asmh8300`).
 - Remove invalid filetypes from bash lsp config (`ash` and `dash`).
+- Remove invalid filetypes from glsl lsp config (`vert`, `tesc`, `tese`, `frag`,
+  `geom`, `comp`).
 
 [itscrystalline](https://github.com/itscrystalline):
 
