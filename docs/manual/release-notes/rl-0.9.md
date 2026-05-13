@@ -485,6 +485,8 @@ https://github.com/gorbit99/codewindow.nvim
 - Remove invalid filetypes from ocaml lsp config (`menhir`, `ocamlinterface`,
   `ocamllex` and `reason`).
 - Remove invalid filetypes from html lsp config (`shtml` and `htm`).
+- Remove invalid filetypes from typescript lsp config (`typescript.tsx`,
+  `javascript.jsx`).
 
 [itscrystalline](https://github.com/itscrystalline):
 

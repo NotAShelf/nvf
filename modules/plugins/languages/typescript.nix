@@ -175,9 +175,7 @@ in {
             "typescript"
             # TODO: move to a React module
             "typescriptreact"
-            "typescript.tsx"
             "javascriptreact"
-            "javascript.jsx"
             # TODO: move to a JavaScript module
             "javascript"
           ];
