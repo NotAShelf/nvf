@@ -476,6 +476,7 @@ https://github.com/gorbit99/codewindow.nvim
 - Add Arduino support with [arduino-language-server].
 - Add GLSL support with [glsl_analyzer].
 - Update fidget-nvim setupOpts and fix NvimTree issue.
+- Remove invalid filetypes from bash lsp config (`ash` and `dash`).
 
 [itscrystalline](https://github.com/itscrystalline):
 
