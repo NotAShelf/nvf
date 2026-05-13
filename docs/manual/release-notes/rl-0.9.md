@@ -477,6 +477,7 @@ https://github.com/gorbit99/codewindow.nvim
 - Add GLSL support with [glsl_analyzer].
 - Update fidget-nvim setupOpts and fix NvimTree issue.
 - Fix asm-lsp's filetypes (`asm8300` -> `asmh8300`).
+- Remove invalid filetypes from bash lsp config (`ash` and `dash`).
 
 [itscrystalline](https://github.com/itscrystalline):
 

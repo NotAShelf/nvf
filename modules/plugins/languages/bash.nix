@@ -107,7 +107,7 @@ in {
       vim.lsp = {
         presets = genAttrs cfg.lsp.servers (_: {enable = true;});
         servers = genAttrs cfg.lsp.servers (_: {
-          filetypes = ["bash" "sh" "ash" "dash" "zsh"];
+          filetypes = ["bash" "sh" "zsh"];
         });
       };
     })
