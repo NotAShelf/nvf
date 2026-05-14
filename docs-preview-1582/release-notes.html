@@ -516,6 +516,10 @@ more flexibility in nvf and reuse of LSPs across languages. Dropped
 <code>deprecatedSingleOrListOf</code> in favor of <code>listOf</code> for the affected LSP options.</p>
 </li>
 <li>
+<p>Added <a class="option-reference" href="options.html#option-vim.lsp.presets.docker-language-server.enable"><code class="nixos-option">vim.lsp.presets.docker-language-server.enable</code></a> for Docker
+support.</p>
+</li>
+<li>
 <p>Added <a class="option-reference" href="options.html#option-vim.lsp.presets.angular-language-server.enable"><code class="nixos-option">vim.lsp.presets.angular-language-server.enable</code></a> for Angular
 Template support.</p>
 </li>
@@ -523,8 +527,7 @@ Template support.</p>
 <p>Added <a class="option-reference" href="options.html#option-vim.lsp.presets.vtsls.enable"><code class="nixos-option">vim.lsp.presets.vtsls.enable</code></a> for Vue TypeScript support.</p>
 </li>
 <li>
-<p>Added <a class="option-reference" href="options.html#option-vim.lsp.presets.vue-language-server.enable"><code class="nixos-option">vim.lsp.presets.vue-language-server.enable</code></a> for Vue Template
-support.</p>
+<p>Added <a class="option-reference" href="options.html#option-vim.lsp.presets.vue-language-server.enable"><code class="nixos-option">vim.lsp.presets.vue-language-server.enable</code></a> for Vue Template</p>
 </li>
 <li>
 <p>Added <a class="option-reference" href="options.html#option-vim.lsp.presets.some-sass-language-server.enable"><code class="nixos-option">vim.lsp.presets.some-sass-language-server.enable</code></a>.</p>
@@ -547,6 +550,11 @@ tree-sitter incompatibilities.</p>
 <li>
 <p>Added <a href="https://github.com/kampfkarren/selene">Selenen</a> for more diagnostics in
 <code>languages.lua</code>.</p>
+</li>
+<li>
+<p>Added <code>languages.docker</code> for Docker and Docker-Compose support. Thanks to
+<a href="https://github.com/poseidon-rises">poseidon-rises</a> for creating most of it in
+<a href="https://github.com/NotAShelf/nvf/pull/1104">!1104</a>.</p>
 </li>
 <li>
 <p>Added <a href="https://mdformat.rtfd.io/"><code>mdformat</code></a> support to <code>languages.markdown</code>
