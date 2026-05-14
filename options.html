@@ -5335,7 +5335,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">537</span>
+        <span class="toc-count">546</span>
       </summary>
       <ul>
         
@@ -6144,6 +6144,78 @@
         <li>
           <a href='#option-vim.languages.dart.treesitter.package' title="vim.languages.dart.treesitter.package">
             dart.treesitter.package
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.docker.enable' title="vim.languages.docker.enable">
+            docker.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.docker.extraDiagnostics.enable' title="vim.languages.docker.extraDiagnostics.enable">
+            docker.extraDiagnostics.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.docker.extraDiagnostics.types' title="vim.languages.docker.extraDiagnostics.types">
+            docker.extraDiagnostics.types
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.docker.format.enable' title="vim.languages.docker.format.enable">
+            docker.format.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.docker.format.type' title="vim.languages.docker.format.type">
+            docker.format.type
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.docker.lsp.enable' title="vim.languages.docker.lsp.enable">
+            docker.lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.docker.lsp.servers' title="vim.languages.docker.lsp.servers">
+            docker.lsp.servers
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.docker.treesitter.enable' title="vim.languages.docker.treesitter.enable">
+            docker.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.docker.treesitter.package' title="vim.languages.docker.treesitter.package">
+            docker.treesitter.package
             
             
           </a>
@@ -9819,7 +9891,7 @@
     <details class="toc-category">
       <summary title="vim.lsp">
         <span>vim.lsp</span>
-        <span class="toc-count">155</span>
+        <span class="toc-count">156</span>
       </summary>
       <ul>
         
@@ -10420,6 +10492,14 @@
         <li>
           <a href='#option-vim.lsp.presets.deno.enable' title="vim.lsp.presets.deno.enable">
             presets.deno.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.lsp.presets.docker-language-server.enable' title="vim.lsp.presets.docker-language-server.enable">
+            presets.docker-language-server.enable
             
             
           </a>
@@ -29253,6 +29333,125 @@ missing from <code>PATH</code>", leave this option disabled.</p>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.dart</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/dart.nix" target="_blank">&lt;nvf/modules/plugins/languages/dart.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.languages.docker.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.docker.enable" class="option-anchor">vim.languages.docker.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Docker language support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/docker.nix" target="_blank">&lt;nvf/modules/plugins/languages/docker.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.docker.extraDiagnostics.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.docker.extraDiagnostics.enable" class="option-anchor">vim.languages.docker.extraDiagnostics.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable extra Dockerfile diagnostics.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/docker.nix" target="_blank">&lt;nvf/modules/plugins/languages/docker.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.docker.extraDiagnostics.types">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.docker.extraDiagnostics.types" class="option-anchor">vim.languages.docker.extraDiagnostics.types</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (value "hadolint" (singular enum) or (submodule))</code></div>
+  <div class="option-description"><html><head></head><body><p>List of Dockerfile diagnostics to enable</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "hadolint"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/docker.nix" target="_blank">&lt;nvf/modules/plugins/languages/docker.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.docker.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.docker.format.enable" class="option-anchor">vim.languages.docker.format.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Dockerfile formatting.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableFormat</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/docker.nix" target="_blank">&lt;nvf/modules/plugins/languages/docker.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.docker.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.docker.format.type" class="option-anchor">vim.languages.docker.format.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "dockerfmt" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Dockerfile formatter to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "dockerfmt"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/docker.nix" target="_blank">&lt;nvf/modules/plugins/languages/docker.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.docker.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.docker.lsp.enable" class="option-anchor">vim.languages.docker.lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Docker LSP support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.lsp.enable</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/docker.nix" target="_blank">&lt;nvf/modules/plugins/languages/docker.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.docker.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.docker.lsp.servers" class="option-anchor">vim.languages.docker.lsp.servers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "docker-language-server" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Docker LSP server to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "docker-language-server"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/docker.nix" target="_blank">&lt;nvf/modules/plugins/languages/docker.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.docker.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.docker.treesitter.enable" class="option-anchor">vim.languages.docker.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Docker treesitter support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/docker.nix" target="_blank">&lt;nvf/modules/plugins/languages/docker.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.docker.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.docker.treesitter.package" class="option-anchor">vim.languages.docker.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or package</code></div>
+  <div class="option-description"><html><head></head><body><p>The dockerfile treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.dockerfile</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/docker.nix" target="_blank">&lt;nvf/modules/plugins/languages/docker.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.languages.elixir.elixir-tools.enable">
   <h3 class="option-name">
     <a href="#option-vim.languages.elixir.elixir-tools.enable" class="option-anchor">vim.languages.elixir.elixir-tools.enable</a>
@@ -30233,7 +30432,7 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of ((one of "terraform-ls", "tofu-ls") or (one of "terraformls-hcl", "tofuls-hcl") convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of ((one of "terraform-ls", "tofu-ls", "docker-language-server") or (one of "terraformls-hcl", "tofuls-hcl") convertible to it)</code></div>
   <div class="option-description"><html><head></head><body><p>HCL LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -36312,6 +36511,22 @@ Use <code class="nixos-option">vim.lsp.servers.deno</code> for customization
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/deno.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/deno.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.lsp.presets.docker-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.docker-language-server.enable" class="option-anchor">vim.lsp.presets.docker-language-server.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Docker Language Server.
+Default <code>filetypes = [ ]</code>.
+Use <code class="nixos-option">vim.lsp.servers.docker-language-server</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/docker-language-server.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/docker-language-server.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.lsp.presets.elixir-ls.enable">
   <h3 class="option-name">
