@@ -5335,7 +5335,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">553</span>
+        <span class="toc-count">556</span>
       </summary>
       <ul>
         
@@ -6368,6 +6368,30 @@
         <li>
           <a href='#option-vim.languages.enableTreesitter' title="vim.languages.enableTreesitter">
             enableTreesitter
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.env.enable' title="vim.languages.env.enable">
+            env.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.env.extraDiagnostics.enable' title="vim.languages.env.extraDiagnostics.enable">
+            env.extraDiagnostics.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.env.extraDiagnostics.types' title="vim.languages.env.extraDiagnostics.types">
+            env.extraDiagnostics.types
             
             
           </a>
@@ -29757,6 +29781,46 @@ missing from <code>PATH</code>", leave this option disabled.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages" target="_blank">&lt;nvf/modules/plugins/languages&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.env.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.env.enable" class="option-anchor">vim.languages.env.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Env language support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/env.nix" target="_blank">&lt;nvf/modules/plugins/languages/env.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.env.extraDiagnostics.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.env.extraDiagnostics.enable" class="option-anchor">vim.languages.env.extraDiagnostics.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable extra Env diagnostics.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableExtraDiagnostics</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/env.nix" target="_blank">&lt;nvf/modules/plugins/languages/env.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.env.extraDiagnostics.types">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.env.extraDiagnostics.types" class="option-anchor">vim.languages.env.extraDiagnostics.types</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (value "dotenv-linter" (singular enum) or (submodule))</code></div>
+  <div class="option-description"><html><head></head><body><p>List of Env diagnostics to enable</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "dotenv-linter"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/env.nix" target="_blank">&lt;nvf/modules/plugins/languages/env.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.fish.enable">
   <h3 class="option-name">
