@@ -6,14 +6,14 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib) genAttrs;
-  inherit (lib.types) either package enum listOf str nullOr;
+  inherit (lib) genAttrs optional;
+  inherit (lib.types) either package enum listOf str nullOr attrsOf anything;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf mkMerge mkDefault;
   inherit (config.vim.lib) mkMappingOption;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.binds) addDescriptionsToMappings;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf mkPluginSetupOption luaInline;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption luaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
@@ -30,6 +30,12 @@
     fourmolu = {command = getExe haskellPackages.fourmolu;};
     stylish-haskell = {command = getExe haskellPackages.stylish-haskell;};
     floskell = {command = getExe haskellPackages.floskell;};
+  };
+
+  defaultCabalFormat = "cabal-fmt";
+  cabalFormats = {
+    cabal-fmt = haskellPackages.cabal-fmt;
+    cabal-gild = haskellPackages.cabal-gild;
   };
 in {
   options.vim.languages.haskell = {
@@ -67,9 +73,23 @@ in {
           defaultText = literalExpression "config.vim.languages.enableFormat";
         };
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.languages.haskell.format.type" (enum (attrNames formats));
+        type = listOf (enum (attrNames formats));
         default = defaultFormat;
         description = "Haskell formatter to use";
+      };
+    };
+
+    cabalFormat = {
+      enable =
+        mkEnableOption "Haskell cabal file formatting via HLS"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
+      type = mkOption {
+        type = enum (attrNames cabalFormats);
+        default = defaultCabalFormat;
+        description = "Haskell cabal file formatter to use via HLS";
       };
     };
 
@@ -105,7 +125,7 @@ in {
             cmd = mkOption {
               type = nullOr (listOf str);
               default = [
-                "${pkgs.haskellPackages.haskell-language-server}/bin/haskell-language-server"
+                "${pkgs.haskellPackages.haskell-language-server}/bin/haskell-language-server-wrapper"
                 "--lsp"
               ];
               description = ''
@@ -125,6 +145,12 @@ in {
               description = "Function to run when HLS is attached. When null, mappings from the mappings option are used.";
               default = null;
               defaultText = literalExpression "Generated from vim.languages.haskell.extensions.haskell-tools.mappings";
+            };
+
+            settings = mkOption {
+              type = nullOr (attrsOf anything);
+              default = null;
+              description = "Settings passed to HLS. When null, generated from vim.languages.haskell.cabalFormat.";
             };
           };
 
@@ -198,7 +224,7 @@ in {
 
     (mkIf cfg.extensions.haskell-tools.enable {
       vim = {
-        extraPackages = [haskellPackages.cabal-fmt];
+        extraPackages = optional cfg.cabalFormat.enable cabalFormats.${cfg.cabalFormat.type};
         startPlugins = ["haskell-tools-nvim"];
         globals.haskell_tools = cfg.extensions.haskell-tools.setupOpts;
         languages.haskell.extensions.haskell-tools.setupOpts = {
@@ -223,6 +249,12 @@ in {
                   ${mkBinding mappings.replQuit "function() vim.cmd('Haskell repl quit') end"}
                 end
               '';
+            settings = mkIf cfg.cabalFormat.enable (mkDefault {
+              haskell = {
+                cabalFormattingProvider = cfg.cabalFormat.type;
+                plugin.${cfg.cabalFormat.type}.config.path = getExe cabalFormats.${cfg.cabalFormat.type};
+              };
+            });
           };
         };
       };
