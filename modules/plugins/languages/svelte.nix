@@ -17,7 +17,7 @@
   cfg = config.vim.languages.svelte;
 
   defaultServers = ["svelte-language-server"];
-  servers = ["svelte-language-server"];
+  servers = ["svelte-language-server" "emmet-ls"];
 
   defaultFormat = ["prettier"];
   formats = let

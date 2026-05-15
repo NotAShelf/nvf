@@ -16,7 +16,7 @@
   cfg = config.vim.languages.hcl;
 
   defaultServers = ["tofu-ls"];
-  servers = ["terraform-ls" "tofu-ls"];
+  servers = ["terraform-ls" "tofu-ls" "docker-language-server"];
 
   defaultFormat = ["hclfmt"];
   formats = {

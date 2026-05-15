@@ -301,6 +301,8 @@
 
 [Snoweuph](https://github.com/snoweuph)
 
+- Add `emmet-ls` to the supported LSPs for all languages it supports.
+
 - Added {option}`vim.treesitter.queries` to support adding custom queries.
 
 - Added injections for `query = '' ... ''` as `query` and `mkLualine '' ... ''`,
@@ -325,13 +327,15 @@
   more flexibility in nvf and reuse of LSPs across languages. Dropped
   `deprecatedSingleOrListOf` in favor of `listOf` for the affected LSP options.
 
+- Added {option}`vim.lsp.presets.docker-language-server.enable` for Docker
+  support.
+
 - Added {option}`vim.lsp.presets.angular-language-server.enable` for Angular
   Template support.
 
 - Added {option}`vim.lsp.presets.vtsls.enable` for Vue TypeScript support.
 
 - Added {option}`vim.lsp.presets.vue-language-server.enable` for Vue Template
-  support.
 
 - Added {option}`vim.lsp.presets.some-sass-language-server.enable`.
 
@@ -348,6 +352,10 @@
 
 - Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
   `languages.lua`.
+
+- Added `languages.docker` for Docker and Docker-Compose support. Thanks to
+  [poseidon-rises](https://github.com/poseidon-rises) for creating most of it in
+  [!1104](https://github.com/NotAShelf/nvf/pull/1104).
 
 - Added [`mdformat`](https://mdformat.rtfd.io/) support to `languages.markdown`
   with the extensions for [GFM](https://github.github.com/gfm/),
@@ -397,6 +405,8 @@
   `languages.ts`.
 
 - Fix `languages.ts` registration of formatters.
+
+- Added `asmfmt` and `nasmfmt` formatters to `languages.asm`.
 
 - Added `biome-check` and `biome-organize-imports` formatters to `languages.ts`.
 
@@ -481,10 +491,17 @@ https://github.com/gorbit99/codewindow.nvim
 [neocmakelsp]: https://github.com/neocmakelsp/neocmakelsp
 [arduino-language-server]: https://github.com/arduino/arduino-language-server
 [glsl_analyzer]: https://github.com/nolanderc/glsl_analyzer
+[fish-lsp]: https://www.fish-lsp.dev/
+[fish_indent]: https://fishshell.com/docs/current/cmds/fish_indent.html
 
 - Add CMake support with [neocmakelsp].
 - Add Arduino support with [arduino-language-server].
 - Add GLSL support with [glsl_analyzer].
+- Update fidget-nvim setupOpts and fix NvimTree issue.
+- Add Fish support via {option}`vim.languages.fish.enable` using [fish-lsp] and
+  [fish_indent]. Most of the work done by
+  [poseidon-rises](https://github.com/poseidon-rises) in
+  [!1107](https://github.com/NotAShelf/nvf/pull/1107).
 
 [itscrystalline](https://github.com/itscrystalline):
 

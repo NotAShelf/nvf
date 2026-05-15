@@ -18,7 +18,7 @@
   cfg = config.vim.languages.typescript;
 
   defaultServers = ["typescript-language-server"];
-  servers = ["typescript-language-server" "deno" "typescript-go" "angular-language-server"];
+  servers = ["typescript-language-server" "deno" "typescript-go" "angular-language-server" "emmet-ls"];
 
   # TODO: specify packages
   defaultFormat = ["prettier"];

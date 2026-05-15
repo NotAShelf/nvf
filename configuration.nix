@@ -79,6 +79,7 @@ isMaximal: {
       toml.enable = isMaximal;
       xml.enable = isMaximal;
       tex.enable = isMaximal;
+      docker.enable = isMaximal;
 
       # Language modules that are not as common.
       openscad.enable = false;
@@ -112,10 +113,11 @@ isMaximal: {
       gettext.enable = false;
       fluent.enable = false;
       jq.enable = false;
+      fish.enable = false;
 
       # Nim LSP is broken on Darwin and therefore
       # should be disabled by default. Users may still enable
-      # `vim.languages.vim` to enable it, this does not restrict
+      # `vim.languages.nim` to enable it, this does not restrict
       # that.
       # See: <https://github.com/PMunch/nimlsp/issues/178#issue-2128106096>
       nim.enable = false;
