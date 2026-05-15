@@ -5335,7 +5335,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">546</span>
+        <span class="toc-count">553</span>
       </summary>
       <ul>
         
@@ -6368,6 +6368,62 @@
         <li>
           <a href='#option-vim.languages.enableTreesitter' title="vim.languages.enableTreesitter">
             enableTreesitter
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.fish.enable' title="vim.languages.fish.enable">
+            fish.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.fish.format.enable' title="vim.languages.fish.format.enable">
+            fish.format.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.fish.format.type' title="vim.languages.fish.format.type">
+            fish.format.type
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.fish.lsp.enable' title="vim.languages.fish.lsp.enable">
+            fish.lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.fish.lsp.servers' title="vim.languages.fish.lsp.servers">
+            fish.lsp.servers
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.fish.treesitter.enable' title="vim.languages.fish.treesitter.enable">
+            fish.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.fish.treesitter.package' title="vim.languages.fish.treesitter.package">
+            fish.treesitter.package
             
             
           </a>
@@ -9891,7 +9947,7 @@
     <details class="toc-category">
       <summary title="vim.lsp">
         <span>vim.lsp</span>
-        <span class="toc-count">156</span>
+        <span class="toc-count">157</span>
       </summary>
       <ul>
         
@@ -10524,6 +10580,14 @@
         <li>
           <a href='#option-vim.lsp.presets.emmet-ls.enable' title="vim.lsp.presets.emmet-ls.enable">
             presets.emmet-ls.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.lsp.presets.fish-lsp.enable' title="vim.lsp.presets.fish-lsp.enable">
+            presets.fish-lsp.enable
             
             
           </a>
@@ -29694,6 +29758,97 @@ missing from <code>PATH</code>", leave this option disabled.</p>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages" target="_blank">&lt;nvf/modules/plugins/languages&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.languages.fish.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.fish.enable" class="option-anchor">vim.languages.fish.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Fish language support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fish.nix" target="_blank">&lt;nvf/modules/plugins/languages/fish.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.fish.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.fish.format.enable" class="option-anchor">vim.languages.fish.format.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Enable Fish formatting</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableFormat</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fish.nix" target="_blank">&lt;nvf/modules/plugins/languages/fish.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.fish.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.fish.format.type" class="option-anchor">vim.languages.fish.format.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "fish_indent" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Fish formatter to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "fish_indent"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fish.nix" target="_blank">&lt;nvf/modules/plugins/languages/fish.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.fish.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.fish.lsp.enable" class="option-anchor">vim.languages.fish.lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Fish LSP support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.lsp.enable</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fish.nix" target="_blank">&lt;nvf/modules/plugins/languages/fish.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.fish.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.fish.lsp.servers" class="option-anchor">vim.languages.fish.lsp.servers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "fish-lsp" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Fish LSP server to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "fish-lsp"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fish.nix" target="_blank">&lt;nvf/modules/plugins/languages/fish.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.fish.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.fish.treesitter.enable" class="option-anchor">vim.languages.fish.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Fish treesitter.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fish.nix" target="_blank">&lt;nvf/modules/plugins/languages/fish.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.fish.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.fish.treesitter.package" class="option-anchor">vim.languages.fish.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or package</code></div>
+  <div class="option-description"><html><head></head><body><p>The fish treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.fish</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fish.nix" target="_blank">&lt;nvf/modules/plugins/languages/fish.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.languages.fluent.enable">
   <h3 class="option-name">
     <a href="#option-vim.languages.fluent.enable" class="option-anchor">vim.languages.fluent.enable</a>
@@ -36575,6 +36730,22 @@ Use <code class="nixos-option">vim.lsp.servers.emmet-ls</code> for customization
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/emmet-ls.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/emmet-ls.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.lsp.presets.fish-lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.fish-lsp.enable" class="option-anchor">vim.lsp.presets.fish-lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Fish Language Server.
+Default <code>filetypes = [ ]</code>.
+Use <code class="nixos-option">vim.lsp.servers.fish-lsp</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/fish-lsp.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/fish-lsp.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.lsp.presets.fsautocomplete.enable">
   <h3 class="option-name">
