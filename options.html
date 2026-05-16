@@ -5335,7 +5335,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">556</span>
+        <span class="toc-count">561</span>
       </summary>
       <ul>
         
@@ -9534,6 +9534,46 @@
         </li>
         
         <li>
+          <a href='#option-vim.languages.vhdl.enable' title="vim.languages.vhdl.enable">
+            vhdl.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.vhdl.lsp.enable' title="vim.languages.vhdl.lsp.enable">
+            vhdl.lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.vhdl.lsp.servers' title="vim.languages.vhdl.lsp.servers">
+            vhdl.lsp.servers
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.vhdl.treesitter.enable' title="vim.languages.vhdl.treesitter.enable">
+            vhdl.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.vhdl.treesitter.package' title="vim.languages.vhdl.treesitter.package">
+            vhdl.treesitter.package
+            
+            
+          </a>
+        </li>
+        
+        <li>
           <a href='#option-vim.languages.vue.enable' title="vim.languages.vue.enable">
             vue.enable
             
@@ -9971,7 +10011,7 @@
     <details class="toc-category">
       <summary title="vim.lsp">
         <span>vim.lsp</span>
-        <span class="toc-count">157</span>
+        <span class="toc-count">158</span>
       </summary>
       <ul>
         
@@ -11044,6 +11084,14 @@
         <li>
           <a href='#option-vim.lsp.presets.vala-language-server.enable' title="vim.lsp.presets.vala-language-server.enable">
             presets.vala-language-server.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.lsp.presets.vhdl-ls.enable' title="vim.lsp.presets.vhdl-ls.enable">
+            presets.vhdl-ls.enable
             
             
           </a>
@@ -34996,6 +35044,71 @@ the plugin.</p>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.vala</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vala.nix" target="_blank">&lt;nvf/modules/plugins/languages/vala.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.languages.vhdl.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vhdl.enable" class="option-anchor">vim.languages.vhdl.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable VHDL language support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vhdl.nix" target="_blank">&lt;nvf/modules/plugins/languages/vhdl.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.vhdl.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vhdl.lsp.enable" class="option-anchor">vim.languages.vhdl.lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable VHDL LSP support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.lsp.enable</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vhdl.nix" target="_blank">&lt;nvf/modules/plugins/languages/vhdl.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.vhdl.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vhdl.lsp.servers" class="option-anchor">vim.languages.vhdl.lsp.servers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "vhdl-ls" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>VHDL LSP server to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "vhdl-ls"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vhdl.nix" target="_blank">&lt;nvf/modules/plugins/languages/vhdl.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.vhdl.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vhdl.treesitter.enable" class="option-anchor">vim.languages.vhdl.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable VHDL treesitter.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vhdl.nix" target="_blank">&lt;nvf/modules/plugins/languages/vhdl.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.vhdl.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vhdl.treesitter.package" class="option-anchor">vim.languages.vhdl.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or package</code></div>
+  <div class="option-description"><html><head></head><body><p>The vhdl treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.vhdl</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vhdl.nix" target="_blank">&lt;nvf/modules/plugins/languages/vhdl.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.languages.vue.enable">
   <h3 class="option-name">
     <a href="#option-vim.languages.vue.enable" class="option-anchor">vim.languages.vue.enable</a>
@@ -37674,6 +37787,22 @@ Use <code class="nixos-option">vim.lsp.servers.vala-language-server</code> for c
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/vala-language-server.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/vala-language-server.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.lsp.presets.vhdl-ls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.vhdl-ls.enable" class="option-anchor">vim.lsp.presets.vhdl-ls.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the VHDL Language Server.
+Default <code>filetypes = [ ]</code>.
+Use <code class="nixos-option">vim.lsp.servers.vhdl-ls</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/vhdl-ls.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/vhdl-ls.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.lsp.presets.vscode-css-language-server.enable">
   <h3 class="option-name">
