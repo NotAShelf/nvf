@@ -5335,7 +5335,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">561</span>
+        <span class="toc-count">568</span>
       </summary>
       <ul>
         
@@ -8822,6 +8822,62 @@
         </li>
         
         <li>
+          <a href='#option-vim.languages.standard-ml.enable' title="vim.languages.standard-ml.enable">
+            standard-ml.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.standard-ml.format.enable' title="vim.languages.standard-ml.format.enable">
+            standard-ml.format.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.standard-ml.format.type' title="vim.languages.standard-ml.format.type">
+            standard-ml.format.type
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.standard-ml.lsp.enable' title="vim.languages.standard-ml.lsp.enable">
+            standard-ml.lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.standard-ml.lsp.servers' title="vim.languages.standard-ml.lsp.servers">
+            standard-ml.lsp.servers
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.standard-ml.treesitter.enable' title="vim.languages.standard-ml.treesitter.enable">
+            standard-ml.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.standard-ml.treesitter.package' title="vim.languages.standard-ml.treesitter.package">
+            standard-ml.treesitter.package
+            
+            
+          </a>
+        </li>
+        
+        <li>
           <a href='#option-vim.languages.svelte.enable' title="vim.languages.svelte.enable">
             svelte.enable
             
@@ -10011,7 +10067,7 @@
     <details class="toc-category">
       <summary title="vim.lsp">
         <span>vim.lsp</span>
-        <span class="toc-count">158</span>
+        <span class="toc-count">159</span>
       </summary>
       <ul>
         
@@ -10788,6 +10844,14 @@
         <li>
           <a href='#option-vim.lsp.presets.marksman.enable' title="vim.lsp.presets.marksman.enable">
             presets.marksman.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.lsp.presets.millet.enable' title="vim.lsp.presets.millet.enable">
+            presets.millet.enable
             
             
           </a>
@@ -33874,6 +33938,98 @@ not listed in the docs</p>
   <div class="option-default">Default: <code>&lt;derivation vimplugin-nvim-treesitter-grammar-sql-0.0.0+rev=851e9cb&gt;</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/sql.nix" target="_blank">&lt;nvf/modules/plugins/languages/sql.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.languages.standard-ml.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.standard-ml.enable" class="option-anchor">vim.languages.standard-ml.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Standard ML support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/standard-ml.nix" target="_blank">&lt;nvf/modules/plugins/languages/standard-ml.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.standard-ml.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.standard-ml.format.enable" class="option-anchor">vim.languages.standard-ml.format.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Standard ML formatting.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableFormat</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/standard-ml.nix" target="_blank">&lt;nvf/modules/plugins/languages/standard-ml.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.standard-ml.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.standard-ml.format.type" class="option-anchor">vim.languages.standard-ml.format.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "smlfmt" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Standard ML formatter to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "smlfmt"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/standard-ml.nix" target="_blank">&lt;nvf/modules/plugins/languages/standard-ml.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.standard-ml.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.standard-ml.lsp.enable" class="option-anchor">vim.languages.standard-ml.lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Standard ML LSP support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.lsp.enable</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/standard-ml.nix" target="_blank">&lt;nvf/modules/plugins/languages/standard-ml.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.standard-ml.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.standard-ml.lsp.servers" class="option-anchor">vim.languages.standard-ml.lsp.servers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "millet" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Standard ML LSP server to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "millet"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/standard-ml.nix" target="_blank">&lt;nvf/modules/plugins/languages/standard-ml.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.standard-ml.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.standard-ml.treesitter.enable" class="option-anchor">vim.languages.standard-ml.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Standard ML treesitter.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/standard-ml.nix" target="_blank">&lt;nvf/modules/plugins/languages/standard-ml.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.standard-ml.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.standard-ml.treesitter.package" class="option-anchor">vim.languages.standard-ml.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or package</code></div>
+  <div class="option-description"><html><head></head><body><p>The sml treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.tree-sitter-grammars.tree-sitter-sml</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/standard-ml.nix" target="_blank">&lt;nvf/modules/plugins/languages/standard-ml.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.languages.svelte.enable">
   <h3 class="option-name">
     <a href="#option-vim.languages.svelte.enable" class="option-anchor">vim.languages.svelte.enable</a>
@@ -37195,6 +37351,22 @@ Use <code class="nixos-option">vim.lsp.servers.marksman</code> for customization
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/marksman.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/marksman.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.lsp.presets.millet.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.millet.enable" class="option-anchor">vim.lsp.presets.millet.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Millet Standard ML Language Server.
+Default <code>filetypes = [ ]</code>.
+Use <code class="nixos-option">vim.lsp.servers.millet</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/millet.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/millet.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.lsp.presets.neocmakelsp.enable">
   <h3 class="option-name">
@@ -45616,8 +45788,13 @@ See treesitter builtin mappings here: &lt;<a href="https://github.com/nvim-trees
   </h3>
   <div class="option-type">Type: <code>list of (null or package)</code></div>
   <div class="option-description"><html><head></head><body><p>List of treesitter grammars to install. For grammars to be installed properly,
-you must use grammars from <code>pkgs.vimPlugins.nvim-treesitter.parsers</code> or <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins</code>.
-You can use <code>pkgs.vimPlugins.nvim-treesitter.allGrammars</code> to install all grammars.</p>
+you must use grammars from one of those:</p>
+<ul>
+<li><code>pkgs.vimPlugins.nvim-treesitter.parsers</code></li>
+<li><code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins</code></li>
+<li><code>pkgs.tree-sitter-grammars</code> (mostly untested)</li>
+</ul>
+<p>You can use <code>pkgs.vimPlugins.nvim-treesitter.allGrammars</code> to install all grammars shipped with <code>nvim-treesitter</code>.</p>
 <p>For languages already supported by nvf, you may use
 <code class="nixos-option">vim.language.&lt;lang&gt;.treesitter</code> options, which will automatically add
 the required grammars to this.</p>
