@@ -1,0 +1,25 @@
+From 85c43d3f45b6a5d301b66fe52c0c92b16ddfbc95 Mon Sep 17 00:00:00 2001
+From: alfarel <alfarelcynthesis@proton.me>
+Date: Sun, 17 May 2026 22:42:21 -0400
+Subject: [PATCH] fix: don't touch git state while building
+
+---
+ package.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package.json b/package.json
+index 9151c4f..5508237 100644
+--- a/package.json
++++ b/package.json
+@@ -6,7 +6,7 @@
+     "clean": "git clean -fdx",
+     "build:clean": "git clean -fdx dist",
+     "build:code": "tsup-node",
+-    "build": "run-s build:clean build:code",
++    "build": "run-s build:code",
+     "docs:build": "vitepress build docs",
+     "docs:dev": "vitepress dev docs",
+     "docs:serve": "vitepress serve docs --port 5173",
+-- 
+2.53.0
+
