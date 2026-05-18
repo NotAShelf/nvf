@@ -2395,6 +2395,22 @@
       "url": "https://api.github.com/repos/withastro/prettier-plugin-astro/tarball/refs/tags/v0.14.1",
       "hash": "sha256-XGPz4D2UKOonet0tX3up5mCxw3/69XYPScxb9l7nzpE="
     },
+    "prettier-plugin-pug": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "prettier",
+        "repo": "plugin-pug"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "3.4.2",
+      "revision": "33c86341f0addf48b09968f2545efcf18331d046",
+      "url": "https://api.github.com/repos/prettier/plugin-pug/tarball/refs/tags/3.4.2",
+      "hash": "sha256-4CsKMj8Xnq+dlGzLAG2hV8jTCMYBYhaV/uoKAfztSGs="
+    },
     "prettier-plugin-svelte": {
       "type": "GitRelease",
       "repository": {
