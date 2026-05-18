@@ -271,6 +271,9 @@
 
 - Allow disabling nvf's vendored keymaps by toggling `vendoredKeymaps.enable`.
 
+- Add {option}`vim.languages.pug.enable`, which adds the treesitter grammar and
+  enables `emmet-ls` for pug files.
+
 [pyrox0](https://github.com/pyrox0):
 
 - Added [rumdl](https://github.com/rvben/rumdl) support to `languages.markdown`
