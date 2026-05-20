@@ -5335,7 +5335,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">576</span>
+        <span class="toc-count">578</span>
       </summary>
       <ul>
         
@@ -5640,6 +5640,22 @@
         <li>
           <a href='#option-vim.languages.clang.enable' title="vim.languages.clang.enable">
             clang.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.clang.format.enable' title="vim.languages.clang.format.enable">
+            clang.format.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.clang.format.type' title="vim.languages.clang.format.type">
+            clang.format.type
             
             
           </a>
@@ -28738,6 +28754,33 @@ Thus, it will not be wrapped in <code>""</code>.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/clang.nix" target="_blank">&lt;nvf/modules/plugins/languages/clang.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.clang.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.clang.format.enable" class="option-anchor">vim.languages.clang.format.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable C formatting.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableFormat</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/clang.nix" target="_blank">&lt;nvf/modules/plugins/languages/clang.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.clang.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.clang.format.type" class="option-anchor">vim.languages.clang.format.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (one of "astyle", "clang-format", "indent")</code></div>
+  <div class="option-description"><html><head></head><body><p>C formatter to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "clang-format"
+]</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/clang.nix" target="_blank">&lt;nvf/modules/plugins/languages/clang.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.clang.lsp.enable">
