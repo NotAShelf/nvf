@@ -8,13 +8,11 @@
     systems = nixpkgs.lib.systems.flakeExposed;
 
     # Provide simple per-system abstraction
-    # either giving you the system directly
-    # or the package set for that system.
-    eachSystem = nixpkgs.lib.genAttrs systems;
-
-    eachSystemPkgs = f:
+    # giving you the system and
+    # the package set for that system directly.
+    eachSystem = f:
       nixpkgs.lib.genAttrs systems
-      (system: f nixpkgs.legacyPackages.${system});
+      (system: f system nixpkgs.legacyPackages.${system});
 
     # Call the extended library with `inputs`.
     # inputs is used to get the original standard library, and to pass inputs
@@ -59,8 +57,8 @@
     # entire Nix source with Alejandra. The wrapper script is necessary due to
     # changes to the behaviour of Nix, which now encourages wrappers for
     # tree-wide formatting.
-    formatter = eachSystemPkgs (
-      pkgs:
+    formatter = eachSystem (
+      _: pkgs:
         pkgs.writeShellApplication {
           name = "nix3-fmt-wrapper";
 
@@ -84,7 +82,7 @@
 
     # Provides checks to be built an ran on 'nix flake check'. They can also
     # be built individually with 'nix build' as described below.
-    checks = eachSystemPkgs (pkgs: {
+    checks = eachSystem (_: pkgs: {
       # Check if codebase is properly formatted.
       # This can be initiated with `nix build .#checks.<system>.nix-fmt`
       # or with `nix flake check`
@@ -115,7 +113,7 @@
 
     templates = import ./flake/templates;
 
-    apps = eachSystem (system: let
+    apps = eachSystem (system: _: let
       inherit (lib.meta) getExe;
     in {
       nix = {
@@ -135,8 +133,8 @@
       inherit (lib.attrsets) recursiveUpdate;
     in
       recursiveUpdate
-      (eachSystem (system: import ./flake/packages.nix {inherit inputs lib self system;}))
-      (eachSystemPkgs (pkgs: {
+      (eachSystem (system: _: import ./flake/packages.nix {inherit inputs lib self system;}))
+      (eachSystem (_: pkgs: {
         # This package exists to make development easier by providing the place and
         # boilerplate to build a test nvf configuration. Feel free to use this for
         # testing, but make sure to discard the changes before creating a pull
@@ -156,7 +154,7 @@
           customNeovim.neovim;
       }));
 
-    devShells = eachSystemPkgs (pkgs: {
+    devShells = eachSystem (_: pkgs: {
       # The default dev shell provides packages required to interact with
       # the codebase as described by the contributing guidelines. It includes the
       # formatters required, and a few additional goodies for linting work.
