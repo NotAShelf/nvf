@@ -561,4 +561,10 @@ https://github.com/gorbit99/codewindow.nvim
 
 - Fix `golangci-lint` to lint at the package level.
 
+[Poseidon](https://github.com/poseidon-rises)
+
+[PHPStan]: https://github.com/phpstan/phpstan
+
+- Add [PHPStan] as a formatter for `vim.languages.php`.
+
 <!-- vim: set textwidth=80: -->
