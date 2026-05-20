@@ -7,70 +7,72 @@ in {
     ./asm.nix
     ./astro.nix
     ./bash.nix
-    ./env.nix
-    ./cue.nix
-    ./dart.nix
     ./clang.nix
     ./clojure.nix
     ./cmake.nix
+    ./csharp.nix
     ./css.nix
-    ./standard-ml.nix
-    ./scss.nix
+    ./cue.nix
+    ./dart.nix
+    ./docker.nix
     ./elixir.nix
     ./elm.nix
+    ./env.nix
     ./fish.nix
+    ./fluent.nix
     ./fsharp.nix
+    ./gettext.nix
     ./gleam.nix
     ./glsl.nix
     ./go.nix
+    ./haskell.nix
     ./hcl.nix
     ./helm.nix
-    ./kotlin.nix
     ./html.nix
-    ./tera.nix
-    ./twig.nix
-    ./liquid.nix
-    ./haskell.nix
     ./java.nix
     ./jinja.nix
+    ./jq.nix
     ./json.nix
+    ./julia.nix
+    ./just.nix
+    ./kotlin.nix
+    ./liquid.nix
     ./lua.nix
+    ./make.nix
     ./markdown.nix
-    ./tex.nix
     ./nim.nix
-    ./vala.nix
     ./nix.nix
+    ./nu.nix
     ./ocaml.nix
+    ./odin.nix
+    ./openscad.nix
     ./php.nix
     ./python.nix
     ./qml.nix
     ./r.nix
+    ./ruby.nix
     ./rust.nix
     ./scala.nix
+    ./scss.nix
+    ./scss.nix
     ./sql.nix
+    ./standard-ml.nix
     ./svelte.nix
-    ./vhdl.nix
-    ./vue.nix
+    ./tera.nix
     ./terraform.nix
+    ./tex.nix
     ./toml.nix
+    ./tsx.nix
+    ./twig.nix
     ./typescript.nix
     ./typst.nix
-    ./zig.nix
-    ./csharp.nix
-    ./julia.nix
-    ./nu.nix
-    ./odin.nix
+    ./vala.nix
+    ./vhdl.nix
+    ./vue.nix
     ./wgsl.nix
-    ./yaml.nix
-    ./ruby.nix
-    ./just.nix
-    ./make.nix
     ./xml.nix
-    ./gettext.nix
-    ./fluent.nix
-    ./openscad.nix
-    ./jq.nix
-    ./docker.nix
+    ./yaml.nix
+    ./zig.nix
 
     # This is now a hard deprecation.
     (mkRenamedOptionModule ["vim" "languages" "enableLSP"] ["vim" "lsp" "enable"])

@@ -85,7 +85,6 @@ in {
           defaultText = literalExpression "config.vim.languages.enableTreesitter";
         };
       tsPackage = mkGrammarOption pkgs "typescript";
-      tsxPackage = mkGrammarOption pkgs "tsx";
       jsPackage = mkGrammarOption pkgs "javascript";
     };
 
@@ -162,7 +161,6 @@ in {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [
         cfg.treesitter.tsPackage
-        cfg.treesitter.tsxPackage
         cfg.treesitter.jsPackage
       ];
     })
@@ -173,11 +171,6 @@ in {
         servers = genAttrs cfg.lsp.servers (_: {
           filetypes = [
             "typescript"
-            # TODO: move to a React module
-            "typescriptreact"
-            "typescript.tsx"
-            "javascriptreact"
-            "javascript.jsx"
             # TODO: move to a JavaScript module
             "javascript"
           ];
@@ -192,8 +185,6 @@ in {
           formatters_by_ft = {
             typescript = cfg.format.type;
             javascript = cfg.format.type;
-            # .tsx/.jsx files
-            typescriptreact = cfg.format.type;
           };
           formatters =
             mapListToAttrs (name: {
@@ -209,8 +200,6 @@ in {
       vim.diagnostics.nvim-lint = {
         enable = true;
         linters_by_ft.typescript = cfg.extraDiagnostics.types;
-        linters_by_ft.typescriptreact = cfg.extraDiagnostics.types;
-
         linters =
           mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
             cfg.extraDiagnostics.types);
