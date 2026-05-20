@@ -118,6 +118,10 @@
   SCSS/SASS. This also changes the default LSP to `some-sass-language-server`
   for SCSS/SASS.
 
+- Split React/TSX from `languages.typescript` into `languages.tsx`. This new
+  module provides jsx/tsx support. This is a step of cleaning up the Typescript
+  module for the future.
+
 [CaueAnjos](https://github.com/caueanjos)
 
 - Renamed `roslyn_ls` to `roslyn-ls`
@@ -401,6 +405,8 @@
 - Fix `languages.ts` registration of formatters.
 
 - Added `asmfmt` and `nasmfmt` formatters to `languages.asm`.
+
+- Added `astyle`, `indent` and `clang-format` to `languages.clang` formatters.
 
 - Added `biome-check` and `biome-organize-imports` formatters to `languages.ts`.
 

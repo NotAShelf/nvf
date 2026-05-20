@@ -8,9 +8,12 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) bool enum package listOf;
   inherit (lib) genAttrs;
+  inherit (lib.meta) getExe getExe';
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryAfter;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.clang;
 
@@ -44,6 +47,54 @@
         dap.configurations.c = dap.configurations.cpp
       '';
     };
+  };
+
+  defaultFormat = ["clang-format"];
+  formats = {
+    astyle = {
+      command = getExe pkgs.astyle;
+      stdin = false;
+      args = mkLuaInline ''
+        function(self, ctx)
+          local args = {
+            "$FILENAME",
+          }
+
+          if not vim.bo[ctx.buf].expandtab then
+            table.insert(args, "--indent=tab=" .. ctx.shiftwidth)
+          else
+            table.insert(args, "--indent=spaces=" .. ctx.shiftwidth)
+          end
+
+          return args
+        end
+      '';
+    };
+    indent = {
+      command = getExe pkgs.indent;
+      stdin = true;
+      args = mkLuaInline ''
+        function(self, ctx)
+          local args = {
+            "--indent-level", ctx.shiftwidth,
+            "--tab-size", ctx.shiftwidth,
+          }
+
+          if not vim.bo[ctx.buf].expandtab then
+            table.insert(args, "--use-tabs")
+          else
+            table.insert(args, "--no-tabs")
+          end
+
+          return args
+        end
+      '';
+      # Default is GNU style. Nobody likes that one.
+      # This is under `append_args`, to allow easy editing of this argument,
+      # without having to redefine everything as a user.
+      append_args = ["--linux-style"];
+    };
+    clang-format.command = getExe' pkgs.clang-tools "clang-format";
   };
 in {
   options.vim.languages.clang = {
@@ -102,6 +153,21 @@ in {
         default = debuggers.${cfg.dap.debugger}.package;
       };
     };
+
+    format = {
+      enable =
+        mkEnableOption "C formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
+
+      type = mkOption {
+        type = listOf (enum (attrNames formats));
+        default = defaultFormat;
+        description = "C formatter to use";
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -126,6 +192,24 @@ in {
     (mkIf cfg.dap.enable {
       vim.debugger.nvim-dap.enable = true;
       vim.debugger.nvim-dap.sources.clang-debugger = debuggers.${cfg.dap.debugger}.dapConfig;
+    })
+
+    (mkIf cfg.format.enable {
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts = {
+          formatters_by_ft = {
+            c = cfg.format.type;
+            cpp = cfg.format.type;
+          };
+          formatters =
+            mapListToAttrs (name: {
+              inherit name;
+              value = formats.${name};
+            })
+            cfg.format.type;
+        };
+      };
     })
   ]);
 }
