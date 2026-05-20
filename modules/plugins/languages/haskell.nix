@@ -116,11 +116,22 @@ in {
             cmd = mkOption {
               type = nullOr (listOf str);
               default = [
-                "${pkgs.haskellPackages.haskell-language-server}/bin/haskell-language-server-wrapper"
+                (getExe (pkgs.symlinkJoin {
+                  name = "haskell-language-server-wrapper";
+                  paths = [pkgs.haskellPackages.haskell-language-server];
+                  meta.mainProgram = "haskell-language-server-wrapper";
+                  buildInputs = [pkgs.makeBinaryWrapper];
+                  # wrap HLS-wrapper so it can find the actual binary
+                  postBuild = ''
+                    wrapProgram $out/bin/haskell-language-server-wrapper \
+                      --prefix PATH : ${haskellPackages.haskell-language-server}/bin
+                  '';
+                }))
                 "--lsp"
               ];
               description = "Command for haskell-language-server.";
             };
+
             on_attach = mkOption {
               type = nullOr luaInline;
               description = "Function to run when HLS is attached. When null, mappings from the mappings option are used.";
