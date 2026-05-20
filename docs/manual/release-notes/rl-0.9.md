@@ -566,5 +566,7 @@ https://github.com/gorbit99/codewindow.nvim
 [PHPStan]: https://github.com/phpstan/phpstan
 
 - Add [PHPStan] as a formatter for `vim.languages.php`.
+- Add `prettier` and `prettierd` as supported formatters to
+  `vim.languages.json`.
 
 <!-- vim: set textwidth=80: -->
