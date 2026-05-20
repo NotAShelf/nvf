@@ -561,4 +561,6 @@ https://github.com/gorbit99/codewindow.nvim
 
 - Fix `golangci-lint` to lint at the package level.
 
+[Poseidon](https://github.com/poseidon-rises)
+
 <!-- vim: set textwidth=80: -->
