@@ -135,7 +135,26 @@ in {
             on_attach = mkOption {
               type = nullOr luaInline;
               description = "Function to run when HLS is attached. When null, mappings from the mappings option are used.";
-              default = null;
+              default = let
+                htCfg = cfg.extensions.haskell-tools;
+                keymapDefinitions = options.vim.languages.haskell.extensions.haskell-tools.mappings;
+                mappings = addDescriptionsToMappings htCfg.mappings keymapDefinitions;
+                mkBinding = binding: action:
+                  if binding.value != null
+                  then "vim.keymap.set('n', ${toLuaObject binding.value}, ${action}, {buffer=bufnr, noremap=true, silent=true, desc=${toLuaObject binding.description}})"
+                  else "";
+              in
+                mkLuaInline ''
+                  function(client, bufnr)
+                    local ht = require("haskell-tools")
+                    ${mkBinding mappings.codeLensRun "vim.lsp.codelens.run"}
+                    ${mkBinding mappings.hoogleSignature "ht.hoogle.hoogle_signature"}
+                    ${mkBinding mappings.evalAll "ht.lsp.buf_eval_all"}
+                    ${mkBinding mappings.replToggle "function() vim.cmd('Haskell repl toggle') end"}
+                    ${mkBinding mappings.replToggleFile "function() vim.cmd('Haskell repl toggle ' .. vim.api.nvim_buf_get_name(0)) end"}
+                    ${mkBinding mappings.replQuit "function() vim.cmd('Haskell repl quit') end"}
+                  end
+                '';
               defaultText = literalExpression "Generated from vim.languages.haskell.extensions.haskell-tools.mappings";
             };
 
@@ -231,30 +250,6 @@ in {
       vim = {
         startPlugins = ["haskell-tools-nvim"];
         globals.haskell_tools = cfg.extensions.haskell-tools.setupOpts;
-        languages.haskell.extensions.haskell-tools.setupOpts = {
-          hls = {
-            on_attach = let
-              htCfg = cfg.extensions.haskell-tools;
-              keymapDefinitions = options.vim.languages.haskell.extensions.haskell-tools.mappings;
-              mappings = addDescriptionsToMappings htCfg.mappings keymapDefinitions;
-              mkBinding = binding: action:
-                if binding.value != null
-                then "vim.keymap.set('n', ${toLuaObject binding.value}, ${action}, {buffer=bufnr, noremap=true, silent=true, desc=${toLuaObject binding.description}})"
-                else "";
-            in
-              mkLuaInline ''
-                function(client, bufnr)
-                  local ht = require("haskell-tools")
-                  ${mkBinding mappings.codeLensRun "vim.lsp.codelens.run"}
-                  ${mkBinding mappings.hoogleSignature "ht.hoogle.hoogle_signature"}
-                  ${mkBinding mappings.evalAll "ht.lsp.buf_eval_all"}
-                  ${mkBinding mappings.replToggle "function() vim.cmd('Haskell repl toggle') end"}
-                  ${mkBinding mappings.replToggleFile "function() vim.cmd('Haskell repl toggle ' .. vim.api.nvim_buf_get_name(0)) end"}
-                  ${mkBinding mappings.replQuit "function() vim.cmd('Haskell repl quit') end"}
-                end
-              '';
-          };
-        };
       };
     })
   ]);
