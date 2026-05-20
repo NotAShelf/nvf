@@ -128,17 +128,7 @@ in {
                 "${pkgs.haskellPackages.haskell-language-server}/bin/haskell-language-server-wrapper"
                 "--lsp"
               ];
-              description = ''
-                Command for haskell-language-server.
-
-                > [!NOTE]
-                >
-                > Since HLS is very sensitive about the GHC version, there's a
-                > very high chance that the default HLS we use is not
-                > compatible with your project. It is highly recommended to set
-                > this option to `null` and install HLS separately in a
-                > `devShell`.
-              '';
+              description = "Command for haskell-language-server.";
             };
             on_attach = mkOption {
               type = nullOr luaInline;
