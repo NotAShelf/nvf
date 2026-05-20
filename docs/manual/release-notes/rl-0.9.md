@@ -567,6 +567,9 @@
   `vim.formatter.conform-nvim.presets` instead of defining formatter
   configurations inline.
 
+- Added new package `docs-zim`, which produces a `.zim` which can be used with
+  `services.kiwix-serve`.
+
 [vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
 https://github.com/gorbit99/codewindow.nvim
 
