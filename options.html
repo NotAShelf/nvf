@@ -5335,7 +5335,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">578</span>
+        <span class="toc-count">580</span>
       </summary>
       <ul>
         
@@ -8112,6 +8112,22 @@
         <li>
           <a href='#option-vim.languages.php.enable' title="vim.languages.php.enable">
             php.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.php.extraDiagnostics.enable' title="vim.languages.php.extraDiagnostics.enable">
+            php.extraDiagnostics.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.php.extraDiagnostics.types' title="vim.languages.php.extraDiagnostics.types">
+            php.extraDiagnostics.types
             
             
           </a>
@@ -32833,6 +32849,33 @@ have any of these filetypes.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/php.nix" target="_blank">&lt;nvf/modules/plugins/languages/php.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.php.extraDiagnostics.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.php.extraDiagnostics.enable" class="option-anchor">vim.languages.php.extraDiagnostics.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable extra PHP diagnostics.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableExtraDiagnostic</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/php.nix" target="_blank">&lt;nvf/modules/plugins/languages/php.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.php.extraDiagnostics.types">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.php.extraDiagnostics.types" class="option-anchor">vim.languages.php.extraDiagnostics.types</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (value "phpstan" (singular enum) or (submodule))</code></div>
+  <div class="option-description"><html><head></head><body><p>List of PHP diagnostics to enable</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "phpstan"
+]</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/php.nix" target="_blank">&lt;nvf/modules/plugins/languages/php.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.php.format.enable">
