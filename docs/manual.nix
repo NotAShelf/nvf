@@ -51,6 +51,8 @@ in
       mkdir -p $out/share/doc
       cp -r build/* $out/share/doc/
 
+      cp ./logo.png $out/share/doc/assets/logo.png
+
       # Hydra support. Probably not necessary.
       mkdir -p $out/nix-support/
       echo "doc manual $out/share/doc index.html" >> $out/nix-support/hydra-build-products

@@ -118,6 +118,31 @@
             fi
           '';
 
+        docs-zim = pkgs.stdenv.mkDerivation {
+          name = "nvf-docs-zim";
+          dontUnpack = true;
+
+          buildInputs = [pkgs.zim-tools];
+
+          installPhase = ''
+            mkdir -p $out
+
+            zimwriterfs \
+              --welcome 'index.html' \
+              --illustration 'assets/logo.png' \
+              --language 'eng' \
+              --name 'mvf-manual' \
+              --title 'NVF Manual' \
+              --description 'nvf is a modular and extensible Neovim configuration framework built for Nix' \
+              --longDescription 'nvf is a highly modular, configurable, extensible and easy to use Neovim configuration framework built for and designed to be used with Nix. Boasting flexibility, robustness and ease of use (among other positive traits), this project allows you to configure a fully featured Neovim instance with a few lines of Nix while leaving all kinds of doors open for integrating Lua in your configurations whether you are a beginner or an advanced user.' \
+              -c 'NotAShelf and NVF Contributors' \
+              -p 'NotAShelf and NVF Contributors' \
+              --tags 'devdocs;nix' \
+              --source 'https://nvf.notashelf.dev/' \
+              --scraper 'ndg' \
+              ${docs.manual.html}/share/doc $out/nvf.zim
+          '';
+        };
         # Exposed neovim configurations
         nix = buildPkg false;
         maximal = buildPkg true;

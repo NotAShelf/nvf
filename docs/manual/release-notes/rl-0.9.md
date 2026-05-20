@@ -462,6 +462,9 @@
 - Added coverage support (`vim.utility.crazy-coverage`) via
   [`crazy-coverage.nvim`](https://github.com/mr-u0b0dy/crazy-coverage.nvim).
 
+- Added new package `docs-zim`, which produces a `.zim` which can be used with
+  `services.kiwix-serve`.
+
 [vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
 https://github.com/gorbit99/codewindow.nvim
 
