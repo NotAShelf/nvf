@@ -5,6 +5,27 @@
   inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.lists) flatten;
 in {
+  /**
+    Build a boolean NixOS option with the given default value and description.
+
+    # Type
+
+    ```
+    mkBool :: Bool -> String -> Option
+    ```
+
+    # Arguments
+
+    - `value`: Default boolean value for the option.
+    - `description`: Documentation string for the option.
+
+    # Example
+
+    ```nix
+    mkBool true "Enable feature X"
+    => mkOption { type = bool; default = true; description = "Enable feature X"; }
+    ```
+  */
   mkBool = value: description:
     mkOption {
       type = bool;

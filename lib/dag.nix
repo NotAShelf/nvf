@@ -19,7 +19,7 @@ in {
   isDag = dag:
     isAttrs dag && all isEntry (attrValues dag);
 
-  /*
+  /**
   Takes an attribute set containing entries built by entryAnywhere,
   entryAfter, and entryBefore to a topologically sorted list of
   entries.
@@ -100,12 +100,98 @@ in {
   # Applies a function to each element of the given DAG.
   map = f: mapAttrs (n: v: v // {data = f n v.data;});
 
+  /**
+    Create a DAG entry with explicit before and after dependency lists.
+
+    # Type
+
+    ```
+    entryBetween :: [String] -> [String] -> a -> DagEntry a
+    ```
+
+    # Arguments
+
+    - `before`: List of entry names this entry must come before.
+    - `after`: List of entry names this entry must come after.
+    - `data`: Payload for this DAG entry.
+
+    # Example
+
+    ```nix
+    entryBetween [ "c" ] [ "a" ] "payload"
+    => { data = "payload"; before = [ "c" ]; after = [ "a" ]; }
+    ```
+  */
   entryBetween = before: after: data: {inherit data before after;};
 
-  # Create a DAG entry with no particular dependency information.
+  /**
+    Create a DAG entry with no ordering constraints.
+
+    The entry may be placed anywhere in the topological sort result.
+
+    # Type
+
+    ```
+    entryAnywhere :: a -> DagEntry a
+    ```
+
+    # Arguments
+
+    - `data`: Payload for this DAG entry.
+
+    # Example
+
+    ```nix
+    entryAnywhere "lua code here"
+    => { data = "lua code here"; before = []; after = []; }
+    ```
+  */
   entryAnywhere = entryBetween [] [];
 
+  /**
+    Create a DAG entry that must come after the listed entries.
+
+    # Type
+
+    ```
+    entryAfter :: [String] -> a -> DagEntry a
+    ```
+
+    # Arguments
+
+    - `after`: List of entry names this entry must follow.
+    - `data`: Payload for this DAG entry.
+
+    # Example
+
+    ```nix
+    entryAfter [ "init" ] "setup code"
+    => { data = "setup code"; before = []; after = [ "init" ]; }
+    ```
+  */
   entryAfter = entryBetween [];
+
+  /**
+    Create a DAG entry that must come before the listed entries.
+
+    # Type
+
+    ```
+    entryBefore :: [String] -> a -> DagEntry a
+    ```
+
+    # Arguments
+
+    - `before`: List of entry names this entry must precede.
+    - `data`: Payload for this DAG entry.
+
+    # Example
+
+    ```nix
+    entryBefore [ "teardown" ] "cleanup code"
+    => { data = "cleanup code"; before = [ "teardown" ]; after = []; }
+    ```
+  */
   entryBefore = before: entryBetween before [];
 
   # Given a list of entries, this function places them in order within the DAG.

@@ -6,6 +6,32 @@
   inherit (lib.nvim.types) luaInline;
 in {
   # TODO: remove
+  /**
+    Convert a list of diagnostic provider entries to a DAG-compatible attribute set.
+
+    Accepts either plain strings (provider type names) or attrsets with `type`
+    and `package` fields, and produces named entries suitable for merging into
+    a null-ls/none-ls DAG.
+
+    # Type
+
+    ```
+    diagnosticsToLua :: { lang :: String; config :: [String | { type :: String; package :: Derivation }]; diagnosticsProviders :: AttrSet } -> AttrSet
+    ```
+
+    # Arguments
+
+    - `lang`: Language identifier used to prefix generated entry names.
+    - `config`: List of provider names (strings) or `{ type; package }` records.
+    - `diagnosticsProviders`: Attribute set mapping provider type names to `{ package; nullConfig }` records.
+
+    # Example
+
+    ```nix
+    diagnosticsToLua { lang = "python"; config = [ "flake8" ]; diagnosticsProviders = { flake8 = { package = pkgs.python3Packages.flake8; nullConfig = pkg: "..."; }; }; }
+    => { "python-diagnostics-flake8" = "..."; }
+    ```
+  */
   diagnosticsToLua = {
     lang,
     config,
@@ -27,6 +53,26 @@ in {
     })
     config;
 
+  /**
+    Build a boolean NixOS option that enables a language feature for all enabled languages.
+
+    # Type
+
+    ```
+    mkEnable :: String -> Option
+    ```
+
+    # Arguments
+
+    - `desc`: Short description of the feature being enabled (interpolated into the option description).
+
+    # Example
+
+    ```nix
+    mkEnable "LSP support"
+    => mkOption { default = false; type = bool; description = "Turn on LSP support for enabled languages by default"; }
+    ```
+  */
   mkEnable = desc:
     mkOption {
       default = false;
@@ -34,6 +80,28 @@ in {
       description = "Turn on ${desc} for enabled languages by default";
     };
 
+  /**
+    A freeform submodule type for LSP server options.
+
+    Provides a structured set of well-known LSP configuration fields
+    (`enable`, `capabilities`, `on_attach`, `filetypes`, `cmd`, `root_markers`)
+    while allowing arbitrary extra fields via `freeformType`.
+
+    # Type
+
+    ```
+    lspOptions :: SubmoduleType
+    ```
+
+    # Example
+
+    ```nix
+    vim.languages.rust.lsp.options = {
+      enable = true;
+      root_markers = [ "Cargo.toml" ];
+    };
+    ```
+  */
   lspOptions = submodule {
     freeformType = attrsOf anything;
     options = {
