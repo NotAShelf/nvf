@@ -563,4 +563,8 @@ https://github.com/gorbit99/codewindow.nvim
 
 [Poseidon](https://github.com/poseidon-rises)
 
+[PHPStan]: https://github.com/phpstan/phpstan
+
+- Add [PHPStan] as a formatter for `vim.languages.php`.
+
 <!-- vim: set textwidth=80: -->
