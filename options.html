@@ -41952,9 +41952,9 @@ If populated, this option will set vim options in the built <code class="nixos-o
 after <code>basic</code> and before <code>pluginConfigs</code> DAG entries.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code>{foo = "bar";}</code> will set <code>vim.o.foo</code> to "bar", where the type of <code>bar</code> in the
-resulting Lua value will be inferred from the type of the value in the
-<code>{name = value;}</code> pair passed to the option.</p>
+<p><code>{foo = "bar";}</code> will set <code>vim.opt.foo</code> to "bar", where the type of
+<code>bar</code> in the resulting Lua value will be inferred from the type of the
+value in the <code>{name = value;}</code> pair passed to the option.</p>
 </div>
 </body></html></div>
   <div class="option-default">Default: <code>{ }</code></div>
