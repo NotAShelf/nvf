@@ -266,9 +266,9 @@ in {
         after `basic` and before `pluginConfigs` DAG entries.
 
         ::: {.note}
-        `{foo = "bar";}` will set `vim.o.foo` to "bar", where the type of `bar` in the
-        resulting Lua value will be inferred from the type of the value in the
-        `{name = value;}` pair passed to the option.
+        `{foo = "bar";}` will set `vim.opt.foo` to "bar", where the type of
+        `bar` in the resulting Lua value will be inferred from the type of the
+        value in the `{name = value;}` pair passed to the option.
         :::
       '';
     };
