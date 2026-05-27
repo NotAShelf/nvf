@@ -10,7 +10,7 @@
 in {
   inherit (typesDag) dagOf;
   inherit (typesPlugin) pluginsOpt extraPluginType mkPluginSetupOption luaInline pluginType borderType;
-  inherit (typesLanguage) diagnostics mkGrammarOption;
+  inherit (typesLanguage) diagnostics mkGrammarOption mkTreesitterGrammarOption;
   inherit (typesLsp) mkLspPresetEnableOption;
   inherit (customTypes) char hexColor mergelessListOf deprecatedSingleOrListOf enumWithRename;
 }

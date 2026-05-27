@@ -373,5 +373,10 @@ in {
         <https://strongly-typed-thoughts.net/blog/final-bye-github>
       '')
     ]
+
+    # 2026-05-16
+    [
+      (mkRenamedOptionModule ["vim" "languages" "typescript" "treesitter" "tsxPackage"] ["vim" "languages" "tsx" "treesitter" "package"])
+    ]
   ];
 }

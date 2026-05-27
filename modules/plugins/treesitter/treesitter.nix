@@ -41,8 +41,12 @@ in {
       '';
       description = ''
         List of treesitter grammars to install. For grammars to be installed properly,
-        you must use grammars from `pkgs.vimPlugins.nvim-treesitter.parsers` or `pkgs.vimPlugins.nvim-treesitter.grammarPlugins`.
-        You can use `pkgs.vimPlugins.nvim-treesitter.allGrammars` to install all grammars.
+        you must use grammars from one of those:
+        - `pkgs.vimPlugins.nvim-treesitter.parsers`
+        - `pkgs.vimPlugins.nvim-treesitter.grammarPlugins`
+        - `pkgs.tree-sitter-grammars` (mostly untested)
+
+        You can use `pkgs.vimPlugins.nvim-treesitter.allGrammars` to install all grammars shipped with `nvim-treesitter`.
 
         For languages already supported by nvf, you may use
         {option}`vim.language.<lang>.treesitter` options, which will automatically add

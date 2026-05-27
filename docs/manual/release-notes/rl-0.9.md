@@ -121,6 +121,10 @@
   SCSS/SASS. This also changes the default LSP to `some-sass-language-server`
   for SCSS/SASS.
 
+- Split React/TSX from `languages.typescript` into `languages.tsx`. This new
+  module provides jsx/tsx support. This is a step of cleaning up the Typescript
+  module for the future.
+
 [CaueAnjos](https://github.com/caueanjos)
 
 - Renamed `roslyn_ls` to `roslyn-ls`
@@ -301,6 +305,10 @@
 
 [Snoweuph](https://github.com/snoweuph)
 
+- Allow the usage of `pks.tree-sitter-grammars` in
+  {option}`vim.treesitter.grammars` and language module tree-sitter package
+  options created via `mkGrammarOption`.
+
 - Add `emmet-ls` to the supported LSPs for all languages it supports.
 
 - Added {option}`vim.treesitter.queries` to support adding custom queries.
@@ -408,10 +416,14 @@
 
 - Added `asmfmt` and `nasmfmt` formatters to `languages.asm`.
 
+- Added `astyle`, `indent` and `clang-format` to `languages.clang` formatters.
+
 - Added `biome-check` and `biome-organize-imports` formatters to `languages.ts`.
 
 - Added [`biomejs`](https://biomejs.dev/) as extra diagnostics provider to
   `languages.ts`.
+
+- Added `languages.standard-ml`.
 
 - Added `languages.vue`.
 
@@ -419,6 +431,8 @@
   highlighting.
 
 - Add `languages.gettext`. This only provides highlighting.
+
+- Add `languages.env`. This provides extra filetype hooks and diagnostics.
 
 - Add `languages.openscad` using
   [`openscad-lsp`](https://github.com/Leathong/openscad-LSP). This currently
@@ -503,6 +517,12 @@ https://github.com/gorbit99/codewindow.nvim
   [poseidon-rises](https://github.com/poseidon-rises) in
   [!1107](https://github.com/NotAShelf/nvf/pull/1107).
 
+[emo-mruczek](https://emo-mruczek.pet):
+
+[vhdl-ls]: https://github.com/VHDL-LS/rust_hdl
+
+- Add VHDL support with [vhdl-ls].
+
 [itscrystalline](https://github.com/itscrystalline):
 
 [img-clip.nvim]: https://github.com/hakonharnes/img-clip.nvim
@@ -546,5 +566,17 @@ https://github.com/gorbit99/codewindow.nvim
   indentation does not work good
 - Allow `vim.treesitter.context.setupOpts.max_lines` to also be given as a
   string in order to allow percentage values like `"20%"`
+
+[RoastedCheese](https://github.com/roastedcheese):
+
+- Fix `golangci-lint` to lint at the package level.
+
+[Poseidon](https://github.com/poseidon-rises)
+
+[PHPStan]: https://github.com/phpstan/phpstan
+
+- Add [PHPStan] as a formatter for `vim.languages.php`.
+- Add `prettier` and `prettierd` as supported formatters to
+  `vim.languages.json`.
 
 <!-- vim: set textwidth=80: -->

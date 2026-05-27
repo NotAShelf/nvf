@@ -36,6 +36,7 @@
     ./lua-language-server.nix
     ./markdown-oxide.nix
     ./marksman.nix
+    ./millet.nix
     ./neocmakelsp.nix
     ./nil.nix
     ./nimlsp.nix
@@ -73,6 +74,7 @@
     ./typescript-go.nix
     ./typescript-language-server.nix
     ./vala-language-server.nix
+    ./vhdl-ls.nix
     ./vscode-css-language-server.nix
     ./vscode-json-language-server.nix
     ./vtsls.nix

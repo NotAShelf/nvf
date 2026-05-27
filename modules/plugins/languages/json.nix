@@ -25,6 +25,14 @@
       command = getExe pkgs.jsonfmt;
       args = ["-w" "-"];
     };
+
+    prettier = {
+      command = getExe pkgs.prettier;
+    };
+
+    prettierd = {
+      command = getExe pkgs.prettierd;
+    };
   };
 in {
   options.vim.languages.json = {

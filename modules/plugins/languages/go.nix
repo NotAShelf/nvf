@@ -67,7 +67,21 @@
           "--output.junit-xml.path="
           "--output.teamcity.path="
           "--output.sarif.path="
+          (mkLuaInline ''
+            -- Run on current file only if go.mod is missing
+            function()
+              local fnmod = ":p";
+              local cmd = {"${getExe pkgs.go}", "env", "GOMOD"};
+              local ok, gomod = pcall(vim.fn.system, cmd);
+              gomod = gomod:gsub("%s+", "")
+              if ok and gomod ~= "" and gomod ~= "/dev/null" then
+                fnmod = ":h";
+              end
+              return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), fnmod)
+            end
+          '')
         ];
+        append_fname = false;
         parser = mkLuaInline ''
           function(output, bufnr)
             local SOURCE = "golangci-lint";
@@ -111,15 +125,19 @@
                 local normalized = issue.Severity:lower()
                 sev = severity_map[normalized] or vim.diagnostic.severity.ERROR
               end
-              table.insert(diagnostics, {
-                bufnr = bufnr,
-                lnum = issue.Pos.Line - 1,
-                col = issue.Pos.Column - 1,
-                message = issue.Text,
-                code = issue.FromLinter,
-                severity = sev,
-                source = SOURCE,
-              })
+
+              local buffer = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":p")
+              if vim.fs.normalize(buffer) == vim.fs.normalize(issue.Pos.Filename) then
+                table.insert(diagnostics, {
+                  bufnr = bufnr,
+                  lnum = issue.Pos.Line - 1,
+                  col = issue.Pos.Column - 1,
+                  message = issue.Text,
+                  code = issue.FromLinter,
+                  severity = sev,
+                  source = SOURCE,
+                })
+              end
             end
             return diagnostics
           end
