@@ -21,6 +21,7 @@
         ./flake/templates
         ./flake/apps.nix
         ./flake/packages.nix
+        ./flake/checks.nix
         ./flake/develop.nix
       ];
 
@@ -136,11 +137,5 @@
 
     # Alternate neovim-wrapper
     mnw.url = "github:Gerg-L/mnw";
-
-    # Alternative documentation generator
-    ndg = {
-      url = "github:feel-co/ndg?ref=refs/tags/v2.8.0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 }
