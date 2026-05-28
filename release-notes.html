@@ -290,6 +290,17 @@ module for the future.</p>
 <li>Turned <code>csharpls-extended-lsp-nvim</code> into an extension disabled by default</li>
 </ul>
 <h2 id="sec-release-0-9-changelog">Changelog</h2>
+<p><a href="https://github.com/ErinaYip">ErinaYip</a>:</p>
+<ul>
+<li>Fixed and updated <code>lualine</code> options:
+<ul>
+<li>Enabled the previously unmapped
+<a class="option-reference" href="options.html#option-vim.statusline.lualine.ignoreFocus"><code class="nixos-option">vim.statusline.lualine.ignoreFocus</code></a>.</li>
+<li>Added <a class="option-reference" href="options.html#option-vim.statusline.lualine.disabledFiletypes.statusline"><code class="nixos-option">vim.statusline.lualine.disabledFiletypes.statusline</code></a> and
+<a class="option-reference" href="options.html#option-vim.statusline.lualine.disabledFiletypes.winbar"><code class="nixos-option">vim.statusline.lualine.disabledFiletypes.winbar</code></a>.</li>
+</ul>
+</li>
+</ul>
 <p><a href="https://github.com/SecBear">SecBear</a>:</p>
 <ul>
 <li>Renamed <code>setupOpts.strategies</code> to <code>setupOpts.interactions</code> in the
@@ -1938,7 +1949,7 @@ enabled through <code>vim.languages.css</code> and <code>vim.languages.tailwind<
 and <code>disabled_filetypes</code> through the new options:
 <a class="option-reference" href="options.html#option-vim.statusline.lualine.alwaysDivideMiddle"><code class="nixos-option">vim.statusline.lualine.alwaysDivideMiddle</code></a>,
 <a class="option-reference" href="options.html#option-vim.statusline.lualine.ignoreFocus"><code class="nixos-option">vim.statusline.lualine.ignoreFocus</code></a> and
-<a class="option-reference" href="options.html#option-vim.statusline.lualine.disabledFiletypes"><code class="nixos-option">vim.statusline.lualine.disabledFiletypes</code></a>).</p>
+<a class="option-reference" href="options.html#option-vim.statusline.lualine.disabledFiletypes.statusline"><code class="nixos-option">vim.statusline.lualine.disabledFiletypes.statusline</code></a>).</p>
 </li>
 <li>
 <p>Updated all plugin inputs to their latest versions (<strong>21.04.2024</strong>) - this
