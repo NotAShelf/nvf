@@ -5,90 +5,89 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption diagnostics;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
-  cfg = config.vim.languages.scss;
+  cfg = config.vim.languages.docker;
 
-  defaultServer = ["some-sass-language-server"];
-  servers = ["some-sass-language-server" "vscode-css-language-server" "emmet-ls"];
+  defaultServers = ["docker-language-server"];
+  servers = ["docker-language-server"];
 
-  defaultFormat = ["prettier"];
+  defaultFormat = ["dockerfmt"];
   formats = {
-    prettier = {
-      command = getExe pkgs.prettier;
-    };
-
-    prettierd = {
-      command = getExe pkgs.prettierd;
+    dockerfmt = {
+      command = getExe pkgs.dockerfmt;
     };
   };
 
-  defaultDiagnosticsProvider = ["stylelint"];
+  defaultDiagnosticsProvider = ["hadolint"];
   diagnosticsProviders = {
-    stylelint = {
-      config = {
-        cmd = getExe pkgs.stylelint;
-      };
+    hadolint = {
+      config.cmd = getExe (
+        pkgs.writeShellApplication {
+          name = "hadolint";
+          runtimeInputs = [pkgs.hadolint];
+          text = "hadolint -";
+        }
+      );
     };
   };
 in {
-  options.vim.languages.scss = {
-    enable = mkEnableOption "SCSS/SASS language support";
-
+  options.vim.languages.docker = {
+    enable = mkEnableOption "Docker language support";
     treesitter = {
       enable =
-        mkEnableOption "SCSS/SASS treesitter"
+        mkEnableOption "Docker treesitter support"
         // {
           default = config.vim.languages.enableTreesitter;
           defaultText = literalExpression "config.vim.languages.enableTreesitter";
         };
-      package = mkGrammarOption pkgs "scss";
+      package = mkGrammarOption pkgs "dockerfile";
     };
 
     lsp = {
       enable =
-        mkEnableOption "SCSS/SASS LSP support"
+        mkEnableOption "Docker LSP support"
         // {
           default = config.vim.lsp.enable;
           defaultText = literalExpression "config.vim.lsp.enable";
         };
-
       servers = mkOption {
         type = listOf (enum servers);
-        default = defaultServer;
-        description = "SCSS/SASS LSP server to use";
+        default = defaultServers;
+        description = "Docker LSP server to use";
       };
     };
 
     format = {
       enable =
-        mkEnableOption "SCSS/SASS formatting"
+        mkEnableOption "Dockerfile formatting"
         // {
           default = config.vim.languages.enableFormat;
           defaultText = literalExpression "config.vim.languages.enableFormat";
         };
+
       type = mkOption {
-        description = "SCSS/SASS formatter to use";
         type = listOf (enum (attrNames formats));
         default = defaultFormat;
+        description = "Dockerfile formatter to use";
       };
     };
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra SCSS/SASS diagnostics"
+        mkEnableOption "extra Dockerfile diagnostics"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
-          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
+
       types = diagnostics {
-        langDesc = "SCSS";
+        langDesc = "Dockerfile";
         inherit diagnosticsProviders;
         inherit defaultDiagnosticsProvider;
       };
@@ -96,9 +95,29 @@ in {
   };
 
   config = mkIf cfg.enable (mkMerge [
+    {
+      vim.autocmds = [
+        # Without this the LSP doesn't understand them correctly
+        # and there are conflicts with the YAML LSP
+        {
+          desc = "Set Docker Compose filetype";
+          event = ["BufRead" "BufNewFile"];
+          pattern = [
+            "compose.yml"
+            "compose.yaml"
+            "docker-compose.yml"
+            "docker-compose.yaml"
+          ];
+          command = "set filetype=dockercompose";
+        }
+      ];
+    }
+
     (mkIf cfg.treesitter.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      vim.treesitter = {
+        enable = true;
+        grammars = [cfg.treesitter.package];
+      };
     })
 
     (mkIf cfg.lsp.enable {
@@ -106,8 +125,8 @@ in {
         presets = genAttrs cfg.lsp.servers (_: {enable = true;});
         servers = genAttrs cfg.lsp.servers (_: {
           filetypes = [
-            "scss"
-            "sass"
+            "dockerfile"
+            "dockercompose"
           ];
         });
       };
@@ -117,8 +136,7 @@ in {
       vim.formatter.conform-nvim = {
         enable = true;
         setupOpts = {
-          formatters_by_ft.scss = cfg.format.type;
-          formatters_by_ft.sass = cfg.format.type;
+          formatters_by_ft.dockerfile = cfg.format.type;
           formatters =
             mapListToAttrs (name: {
               inherit name;
@@ -132,11 +150,13 @@ in {
     (mkIf cfg.extraDiagnostics.enable {
       vim.diagnostics.nvim-lint = {
         enable = true;
-        linters_by_ft.scss = cfg.extraDiagnostics.types;
-        linters_by_ft.sass = cfg.extraDiagnostics.types;
-        linters =
-          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
-            cfg.extraDiagnostics.types);
+        linters_by_ft.dockerfile = cfg.extraDiagnostics.types;
+        linters = mkMerge (
+          map (name: {
+            ${name} = diagnosticsProviders.${name}.config;
+          })
+          cfg.extraDiagnostics.types
+        );
       };
     })
   ]);

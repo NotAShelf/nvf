@@ -11,7 +11,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum int attrs listOf;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.php;
@@ -31,6 +31,14 @@
       ```
       */
       command = "${pkgs.php84Packages.php-cs-fixer}/bin/php-cs-fixer";
+    };
+  };
+
+  defaultDiagnosticsProvider = ["phpstan"];
+
+  diagnosticsProviders = {
+    phpstan = {
+      config.cmd = getExe pkgs.phpstan;
     };
   };
 in {
@@ -103,6 +111,21 @@ in {
         };
       };
     };
+
+    extraDiagnostics = {
+      enable =
+        mkEnableOption "extra PHP diagnostics"
+        // {
+          default = config.vim.languages.enableExtraDiagnostics;
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostic";
+        };
+
+      types = diagnostics {
+        langDesc = "PHP";
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -152,6 +175,16 @@ in {
             }
           '';
         };
+      };
+    })
+
+    (mkIf cfg.extraDiagnostics.enable {
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.php = cfg.extraDiagnostics.types;
+        linters =
+          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
+            cfg.extraDiagnostics.types);
       };
     })
   ]);

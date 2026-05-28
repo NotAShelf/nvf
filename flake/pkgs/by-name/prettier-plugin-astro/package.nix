@@ -1,14 +1,16 @@
 {
+  pins,
   stdenv,
   fetchFromGitHub,
   nodejs,
   pnpm_9,
   pnpmConfigHook,
+  zstd,
   fetchPnpmDeps,
-  pins,
   writableTmpDirAsHomeHook,
 }: let
   pin = pins.prettier-plugin-astro;
+  pnpm = pnpm_9;
 in
   stdenv.mkDerivation (finalAttrs: {
     pname = "prettier-plugin-astro";
@@ -21,18 +23,20 @@ in
     };
 
     pnpmDeps = fetchPnpmDeps {
-      pnpm = pnpm_9;
-      inherit (finalAttrs) pname src;
-      fetcherVersion = 2;
-      hash = "sha256-K7pIWLkIIbUKDIcysfEtcf/eVMX9ZgyFHdqcuycHCNE=";
+      inherit pnpm;
+      inherit (finalAttrs) pname version src;
+      hash = "sha256-vs7KOsX+jmnY2+RKJlhSWDVyTUxAO2af3lyao9AYFr8=";
+      fetcherVersion = 3; # https://nixos.org/manual/nixpkgs/stable/#javascript-pnpm-fetcherVersion
     };
 
     nativeBuildInputs = [
       nodejs
       writableTmpDirAsHomeHook
-      (pnpmConfigHook.overrideAttrs {
-        propagatedBuildInputs = [pnpm_9];
+      (pnpmConfigHook.override {
+        inherit pnpm;
       })
+      pnpm
+      zstd
     ];
 
     buildPhase = ''
@@ -43,13 +47,8 @@ in
       runHook postBuild
     '';
 
-    installPhase = ''
-      runHook preInstall
-
-      # mkdir -p $out/dist
+    preInstall = ''
       cp -r dist/ $out
       cp -r node_modules $out
-
-      runHook postInstall
     '';
   })

@@ -118,6 +118,10 @@
   SCSS/SASS. This also changes the default LSP to `some-sass-language-server`
   for SCSS/SASS.
 
+- Split React/TSX from `languages.typescript` into `languages.tsx`. This new
+  module provides jsx/tsx support. This is a step of cleaning up the Typescript
+  module for the future.
+
 [CaueAnjos](https://github.com/caueanjos)
 
 - Renamed `roslyn_ls` to `roslyn-ls`
@@ -299,6 +303,12 @@
 
 [Snoweuph](https://github.com/snoweuph)
 
+- Allow the usage of `pks.tree-sitter-grammars` in
+  {option}`vim.treesitter.grammars` and language module tree-sitter package
+  options created via `mkGrammarOption`.
+
+- Add `emmet-ls` to the supported LSPs for all languages it supports.
+
 - Added {option}`vim.treesitter.queries` to support adding custom queries.
 
 - Added injections for `query = '' ... ''` as `query` and `mkLualine '' ... ''`,
@@ -323,13 +333,15 @@
   more flexibility in nvf and reuse of LSPs across languages. Dropped
   `deprecatedSingleOrListOf` in favor of `listOf` for the affected LSP options.
 
+- Added {option}`vim.lsp.presets.docker-language-server.enable` for Docker
+  support.
+
 - Added {option}`vim.lsp.presets.angular-language-server.enable` for Angular
   Template support.
 
 - Added {option}`vim.lsp.presets.vtsls.enable` for Vue TypeScript support.
 
 - Added {option}`vim.lsp.presets.vue-language-server.enable` for Vue Template
-  support.
 
 - Added {option}`vim.lsp.presets.some-sass-language-server.enable`.
 
@@ -346,6 +358,10 @@
 
 - Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
   `languages.lua`.
+
+- Added `languages.docker` for Docker and Docker-Compose support. Thanks to
+  [poseidon-rises](https://github.com/poseidon-rises) for creating most of it in
+  [!1104](https://github.com/NotAShelf/nvf/pull/1104).
 
 - Added [`mdformat`](https://mdformat.rtfd.io/) support to `languages.markdown`
   with the extensions for [GFM](https://github.github.com/gfm/),
@@ -396,10 +412,16 @@
 
 - Fix `languages.ts` registration of formatters.
 
+- Added `asmfmt` and `nasmfmt` formatters to `languages.asm`.
+
+- Added `astyle`, `indent` and `clang-format` to `languages.clang` formatters.
+
 - Added `biome-check` and `biome-organize-imports` formatters to `languages.ts`.
 
 - Added [`biomejs`](https://biomejs.dev/) as extra diagnostics provider to
   `languages.ts`.
+
+- Added `languages.standard-ml`.
 
 - Added `languages.vue`.
 
@@ -407,6 +429,8 @@
   highlighting.
 
 - Add `languages.gettext`. This only provides highlighting.
+
+- Add `languages.env`. This provides extra filetype hooks and diagnostics.
 
 - Add `languages.openscad` using
   [`openscad-lsp`](https://github.com/Leathong/openscad-LSP). This currently
@@ -479,10 +503,23 @@ https://github.com/gorbit99/codewindow.nvim
 [neocmakelsp]: https://github.com/neocmakelsp/neocmakelsp
 [arduino-language-server]: https://github.com/arduino/arduino-language-server
 [glsl_analyzer]: https://github.com/nolanderc/glsl_analyzer
+[fish-lsp]: https://www.fish-lsp.dev/
+[fish_indent]: https://fishshell.com/docs/current/cmds/fish_indent.html
 
 - Add CMake support with [neocmakelsp].
 - Add Arduino support with [arduino-language-server].
 - Add GLSL support with [glsl_analyzer].
+- Update fidget-nvim setupOpts and fix NvimTree issue.
+- Add Fish support via {option}`vim.languages.fish.enable` using [fish-lsp] and
+  [fish_indent]. Most of the work done by
+  [poseidon-rises](https://github.com/poseidon-rises) in
+  [!1107](https://github.com/NotAShelf/nvf/pull/1107).
+
+[emo-mruczek](https://emo-mruczek.pet):
+
+[vhdl-ls]: https://github.com/VHDL-LS/rust_hdl
+
+- Add VHDL support with [vhdl-ls].
 
 [itscrystalline](https://github.com/itscrystalline):
 
@@ -527,5 +564,17 @@ https://github.com/gorbit99/codewindow.nvim
   indentation does not work good
 - Allow `vim.treesitter.context.setupOpts.max_lines` to also be given as a
   string in order to allow percentage values like `"20%"`
+
+[RoastedCheese](https://github.com/roastedcheese):
+
+- Fix `golangci-lint` to lint at the package level.
+
+[Poseidon](https://github.com/poseidon-rises)
+
+[PHPStan]: https://github.com/phpstan/phpstan
+
+- Add [PHPStan] as a formatter for `vim.languages.php`.
+- Add `prettier` and `prettierd` as supported formatters to
+  `vim.languages.json`.
 
 <!-- vim: set textwidth=80: -->

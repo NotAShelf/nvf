@@ -16,7 +16,7 @@
   cfg = config.vim.languages.vue;
 
   defaultServers = ["vue-language-server" "vtsls"];
-  servers = ["vue-language-server" "vtsls" "typescript-language-server"];
+  servers = ["vue-language-server" "vtsls" "typescript-language-server" "emmet-ls"];
 
   defaultFormat = ["biome" "biome-check" "biome-organize-imports"];
   formats = {

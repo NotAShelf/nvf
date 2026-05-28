@@ -4,19 +4,18 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
-  inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (lib) genAttrs;
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.attrsets) attrNames genAttrs;
+  inherit (lib.meta) getExe;
   inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics;
 
-  cfg = config.vim.languages.scss;
+  cfg = config.vim.languages.tsx;
 
-  defaultServer = ["some-sass-language-server"];
-  servers = ["some-sass-language-server" "vscode-css-language-server" "emmet-ls"];
+  defaultServers = ["typescript-language-server"];
+  servers = ["typescript-language-server" "deno" "typescript-go" "emmet-ls"];
 
   defaultFormat = ["prettier"];
   formats = {
@@ -27,68 +26,79 @@
     prettierd = {
       command = getExe pkgs.prettierd;
     };
+
+    biome = {
+      command = getExe pkgs.biome;
+    };
+
+    biome-check = {
+      command = getExe pkgs.biome;
+    };
+
+    biome-organize-imports = {
+      command = getExe pkgs.biome;
+    };
   };
 
-  defaultDiagnosticsProvider = ["stylelint"];
+  defaultDiagnosticsProvider = ["biomejs"];
   diagnosticsProviders = {
-    stylelint = {
+    biomejs = let
+      pkg = pkgs.biome;
+    in {
+      package = pkg;
       config = {
-        cmd = getExe pkgs.stylelint;
+        cmd = getExe pkg;
       };
     };
   };
 in {
-  options.vim.languages.scss = {
-    enable = mkEnableOption "SCSS/SASS language support";
+  options.vim.languages.tsx = {
+    enable = mkEnableOption "Typescript XML (TSX) language support";
 
     treesitter = {
       enable =
-        mkEnableOption "SCSS/SASS treesitter"
+        mkEnableOption "Typescript XML (TSX) treesitter"
         // {
           default = config.vim.languages.enableTreesitter;
           defaultText = literalExpression "config.vim.languages.enableTreesitter";
         };
-      package = mkGrammarOption pkgs "scss";
+      package = mkGrammarOption pkgs "tsx";
     };
 
     lsp = {
       enable =
-        mkEnableOption "SCSS/SASS LSP support"
+        mkEnableOption "Typescript XML (TSX) LSP support"
         // {
           default = config.vim.lsp.enable;
           defaultText = literalExpression "config.vim.lsp.enable";
         };
-
       servers = mkOption {
         type = listOf (enum servers);
-        default = defaultServer;
-        description = "SCSS/SASS LSP server to use";
+        default = defaultServers;
+        description = "Typescript XML (TSX) LSP server to use";
       };
     };
 
     format = {
       enable =
-        mkEnableOption "SCSS/SASS formatting"
+        mkEnableOption "Typescript XML (TSX) formatting"
         // {
           default = config.vim.languages.enableFormat;
           defaultText = literalExpression "config.vim.languages.enableFormat";
         };
+
       type = mkOption {
-        description = "SCSS/SASS formatter to use";
+        description = "Typescript XML (TSX) formatter to use";
         type = listOf (enum (attrNames formats));
         default = defaultFormat;
       };
     };
 
     extraDiagnostics = {
-      enable =
-        mkEnableOption "extra SCSS/SASS diagnostics"
-        // {
-          default = config.vim.languages.enableExtraDiagnostics;
-          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
-        };
+      enable = mkEnableOption "extra Typescript XML (TSX) diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
+
       types = diagnostics {
-        langDesc = "SCSS";
+        langDesc = "Typescript XML (TSX)";
         inherit diagnosticsProviders;
         inherit defaultDiagnosticsProvider;
       };
@@ -97,8 +107,10 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      vim.treesitter = {
+        enable = true;
+        grammars = [cfg.treesitter.package];
+      };
     })
 
     (mkIf cfg.lsp.enable {
@@ -106,8 +118,8 @@ in {
         presets = genAttrs cfg.lsp.servers (_: {enable = true;});
         servers = genAttrs cfg.lsp.servers (_: {
           filetypes = [
-            "scss"
-            "sass"
+            "typescriptreact"
+            "javascriptreact"
           ];
         });
       };
@@ -117,8 +129,10 @@ in {
       vim.formatter.conform-nvim = {
         enable = true;
         setupOpts = {
-          formatters_by_ft.scss = cfg.format.type;
-          formatters_by_ft.sass = cfg.format.type;
+          formatters_by_ft = {
+            typescriptreact = cfg.format.type;
+            javascriptreact = cfg.format.type;
+          };
           formatters =
             mapListToAttrs (name: {
               inherit name;
@@ -132,8 +146,10 @@ in {
     (mkIf cfg.extraDiagnostics.enable {
       vim.diagnostics.nvim-lint = {
         enable = true;
-        linters_by_ft.scss = cfg.extraDiagnostics.types;
-        linters_by_ft.sass = cfg.extraDiagnostics.types;
+        linters_by_ft = {
+          typescriptreact = cfg.extraDiagnostics.types;
+          javascriptreact = cfg.extraDiagnostics.types;
+        };
         linters =
           mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
             cfg.extraDiagnostics.types);
