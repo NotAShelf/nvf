@@ -4,6 +4,7 @@
   gitMinimal,
   pnpm_9,
   pnpmConfigHook,
+  zstd,
   fetchPnpmDeps,
   pins,
   fetchFromGitHub,
@@ -36,25 +37,21 @@ in
       nodejs
       gitMinimal
       writableTmpDirAsHomeHook
-      (pnpmConfigHook.overrideAttrs {
-        propagatedBuildInputs = [pnpm_9];
+      (pnpmConfigHook.override {
+        pnpm = pnpm_9;
       })
+      pnpm_9
+      zstd
     ];
 
     buildPhase = ''
       runHook preBuild
-
       pnpm run build
-
       runHook postBuild
     '';
 
-    installPhase = ''
-      runHook preInstall
-
+    preInstall = ''
       cp -r dist/ $out
       cp -r node_modules $out
-
-      runHook postInstall
     '';
   })
