@@ -14,7 +14,7 @@
   cfg = config.vim.languages.java;
 
   defaultServers = ["jdt-language-server"];
-  servers = ["jdt-language-server"];
+  servers = ["jdt-language-server" "jls"];
 in {
   options.vim.languages.java = {
     enable = mkEnableOption "Java language support";

@@ -323,6 +323,9 @@
 
 [Snoweuph](https://github.com/snoweuph)
 
+- Added {option}`vim.lsp.presets.jls.enable` and made it available under
+  `vim.languages.java.lsp.servers`.
+
 - Allow the usage of `pks.tree-sitter-grammars` in
   {option}`vim.treesitter.grammars` and language module tree-sitter package
   options created via `mkGrammarOption`.
