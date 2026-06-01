@@ -47,6 +47,7 @@ in {
     ./odin.nix
     ./openscad.nix
     ./php.nix
+    ./pug.nix
     ./python.nix
     ./qml.nix
     ./r.nix

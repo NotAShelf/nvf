@@ -133,6 +133,14 @@
 
 ## Changelog {#sec-release-0-9-changelog}
 
+[ErinaYip](https://github.com/ErinaYip):
+
+- Fixed and updated `lualine` options:
+  - Enabled the previously unmapped
+    {option}`vim.statusline.lualine.ignoreFocus`.
+  - Added {option}`vim.statusline.lualine.disabledFiletypes.statusline` and
+    {option}`vim.statusline.lualine.disabledFiletypes.winbar`.
+
 [SecBear](https://github.com/SecBear):
 
 - Renamed `setupOpts.strategies` to `setupOpts.interactions` in the
@@ -272,6 +280,9 @@
     actually correspond to any keybinds.
 
 - Allow disabling nvf's vendored keymaps by toggling `vendoredKeymaps.enable`.
+
+- Add {option}`vim.languages.pug.enable`, which adds the treesitter grammar and
+  enables `emmet-ls` for pug files.
 
 [pyrox0](https://github.com/pyrox0):
 
