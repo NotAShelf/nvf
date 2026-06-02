@@ -14,6 +14,16 @@
   inherit (options.vim.filetree.nvimTree) mappings;
 in {
   config = mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = !(cfg.setupOpts ? system_open);
+        message = ''
+          vim.filetree.nvimTree.setupOpts.system_open was removed by nvim-tree.lua.
+          Use Neovim's vim.ui.open() instead. See nvf issue #1621.
+        '';
+      }
+    ];
+
     vim = {
       binds.whichKey.register = pushDownDefault {
         "<leader>t" = "+NvimTree";

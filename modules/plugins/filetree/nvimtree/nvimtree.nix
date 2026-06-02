@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib.modules) mkRemovedOptionModule;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.types) str bool int submodule listOf enum oneOf attrs addCheck;
   inherit (lib.nvim.types) mkPluginSetupOption;
@@ -28,10 +29,6 @@
     reloadOnBufEnter = "reload_on_buf_enter";
     respectBufCwd = "respect_buf_cwd";
     hijackDirectories = "hijack_directories";
-    systemOpen = {
-      args = "args";
-      cmd = "cmd";
-    };
     diagnostics = "diagnostics";
     git = {
       enable = "enable";
@@ -72,8 +69,18 @@
     ["vim" "filetree" "nvimTree"]
     ["vim" "filetree" "nvimTree" "setupOpts"]
     migrationTable;
+
+  systemOpenRemovedMessage = ''
+    nvim-tree.lua removed system_open and now uses Neovim's vim.ui.open().
+    See nvf issue #1621.
+  '';
 in {
-  imports = renamedSetupOpts;
+  imports =
+    renamedSetupOpts
+    ++ [
+      (mkRemovedOptionModule ["vim" "filetree" "nvimTree" "systemOpen" "args"] systemOpenRemovedMessage)
+      (mkRemovedOptionModule ["vim" "filetree" "nvimTree" "systemOpen" "cmd"] systemOpenRemovedMessage)
+    ];
   options.vim.filetree.nvimTree = {
     enable = mkEnableOption "filetree via nvim-tree.lua";
 
@@ -225,25 +232,6 @@ in {
             Opens the tree if the tree was previously closed.
           '';
           default = false;
-        };
-      };
-
-      system_open = {
-        args = mkOption {
-          default = [];
-          description = "Optional argument list.";
-          type = listOf str;
-        };
-
-        cmd = mkOption {
-          default =
-            if pkgs.stdenv.isDarwin
-            then "open"
-            else if pkgs.stdenv.isLinux
-            then "${pkgs.xdg-utils}/bin/xdg-open"
-            else throw "NvimTree: No default system open command for this platform, please set `vim.filetree.nvimTree.systemOpen.cmd`";
-          description = "The open command itself";
-          type = str;
         };
       };
 
