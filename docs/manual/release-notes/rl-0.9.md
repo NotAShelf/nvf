@@ -130,6 +130,11 @@
 
 ## Changelog {#sec-release-0-9-changelog}
 
+[bovf](https://github.com/bovf):
+
+- Removed the deprecated `system_open` setup option from `nvim-tree.lua` to
+  avoid startup warnings now that upstream uses `vim.ui.open()`.
+
 [ErinaYip](https://github.com/ErinaYip):
 
 - Fixed and updated `lualine` options:
