@@ -5,7 +5,6 @@
   ...
 }: let
   inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (lib.modules) mkRemovedOptionModule;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.types) str bool int submodule listOf enum oneOf attrs addCheck;
   inherit (lib.nvim.types) mkPluginSetupOption;
@@ -69,18 +68,8 @@
     ["vim" "filetree" "nvimTree"]
     ["vim" "filetree" "nvimTree" "setupOpts"]
     migrationTable;
-
-  systemOpenRemovedMessage = ''
-    nvim-tree.lua removed system_open and now uses Neovim's vim.ui.open().
-    See nvf issue #1621.
-  '';
 in {
-  imports =
-    renamedSetupOpts
-    ++ [
-      (mkRemovedOptionModule ["vim" "filetree" "nvimTree" "systemOpen" "args"] systemOpenRemovedMessage)
-      (mkRemovedOptionModule ["vim" "filetree" "nvimTree" "systemOpen" "cmd"] systemOpenRemovedMessage)
-    ];
+  imports = renamedSetupOpts;
   options.vim.filetree.nvimTree = {
     enable = mkEnableOption "filetree via nvim-tree.lua";
 
