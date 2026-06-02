@@ -383,11 +383,9 @@ in {
     [
       (mkRemovedOptionModule ["vim" "filetree" "nvimTree" "systemOpen" "args"] ''
         nvim-tree.lua removed system_open and now uses Neovim's vim.ui.open().
-        See nvf issue #1621.
       '')
       (mkRemovedOptionModule ["vim" "filetree" "nvimTree" "systemOpen" "cmd"] ''
         nvim-tree.lua removed system_open and now uses Neovim's vim.ui.open().
-        See nvf issue #1621.
       '')
     ]
   ];
