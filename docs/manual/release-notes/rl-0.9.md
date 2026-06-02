@@ -132,7 +132,8 @@
 
 [bovf](https://github.com/bovf):
 
-- Removed the deprecated `system_open` setup option from `nvim-tree.lua` to avoid startup warnings now that upstream uses `vim.ui.open()`.
+- Removed the deprecated `system_open` setup option from `nvim-tree.lua` to
+  avoid startup warnings now that upstream uses `vim.ui.open()`.
 
 [ErinaYip](https://github.com/ErinaYip):
 
