@@ -22,6 +22,7 @@ in {
   # https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26.
 
   config = mkIf cfg.enable {
+    # Taken from https://github.com/neovim/nvim-lspconfig/blob/07dff35e7c95288861200b788ef32d6103f107f0/lsp/rust_analyzer.lua
     vim.luaConfigRC.rust-util = entryBefore ["lsp-servers"] ''
       local function rust_reload_workspace(bufnr)
         local clients = vim.lsp.get_clients { bufnr = bufnr, name = 'rust-analyzer' }

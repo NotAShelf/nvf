@@ -282,6 +282,7 @@ in {
 
     (mkIf cfg.extensions.rustaceanvim.enable {
       vim = {
+        # TODO: Determine if mkForce is the best thing here, and if we should consider a warning instead? Or use priority settings.
         lsp.servers.rust-analyzer.enable = lib.mkForce false;
         lsp.servers.rust-analyzer.root_dir = lib.mkForce null; # let rustaceanvim determine root
         lsp.servers.rust-analyzer.on_attach = lib.mkForce null; # let rustaceanvim determine attach funcs
