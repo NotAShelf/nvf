@@ -11,7 +11,7 @@
   inherit (lib.attrsets) attrNames;
   inherit (lib.types) bool package listOf enum int;
   inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.dag) entryAfter entryAnywhere;
+  inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
   inherit (lib.strings) optionalString;
