@@ -39,9 +39,6 @@
   `setupOpts.strategies.chat.adapter`, rename them to
   `setupOpts.interactions.chat.adapter`.
 
-- Haskell LSP now defaults to haskell-language-server, haskell-tools based LSP
-  support is moved to `vim.languages.haskell.extensions.haskell-tools`
-
 [Snoweuph](https://github.com/snoweuph)
 
 - Remove `mind.nvim`. This plugin doesn't exist anymore. The original author
@@ -124,6 +121,11 @@
 - Split React/TSX from `languages.typescript` into `languages.tsx`. This new
   module provides jsx/tsx support. This is a step of cleaning up the Typescript
   module for the future.
+
+[dathegreat](https://github.com/dathegreat):
+
+- Haskell LSP now defaults to haskell-language-server, haskell-tools based LSP
+  support is moved to `vim.languages.haskell.extensions.haskell-tools`
 
 [CaueAnjos](https://github.com/caueanjos)
 
