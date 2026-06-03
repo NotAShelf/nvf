@@ -1,66 +1,40 @@
 {
   config,
   lib,
+  options,
   pkgs,
   ...
 }: let
-  inherit (builtins) isList attrNames;
-  inherit (lib.types) either package enum listOf str;
+  inherit (builtins) attrNames;
+  inherit (lib) genAttrs;
+  inherit (lib.types) either package enum listOf str nullOr attrsOf anything;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (lib.strings) optionalString;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.dag) entryAfter;
+  inherit (config.vim.lib) mkMappingOption;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.meta) getExe';
+  inherit (lib.nvim.binds) addDescriptionsToMappings;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption luaInline;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
   inherit (pkgs) haskellPackages;
 
   cfg = config.vim.languages.haskell;
 
-  defaultServers = ["hls"];
-  servers = {
-    hls = {
-      enable = false;
-      cmd = [(getExe' pkgs.haskellPackages.haskell-language-server "haskell-language-server-wrapper") "--lsp"];
-      filetypes = ["haskell" "lhaskell"];
-      on_attach =
-        mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function(client, bufnr)
-              local ht = require("haskell-tools")
-              local opts = { noremap = true, silent = true, buffer = bufnr }
-              vim.keymap.set('n', '<localleader>cl', vim.lsp.codelens.run, opts)
-              vim.keymap.set('n', '<localleader>hs', ht.hoogle.hoogle_signature, opts)
-              vim.keymap.set('n', '<localleader>ea', ht.lsp.buf_eval_all, opts)
-              vim.keymap.set('n', '<localleader>rr', ht.repl.toggle, opts)
-              vim.keymap.set('n', '<localleader>rf', function()
-                ht.repl.toggle(vim.api.nvim_buf_get_name(0))
-              end, opts)
-              vim.keymap.set('n', '<localleader>rq', ht.repl.quit, opts)
-            end
-        '';
-      root_dir =
-        mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function(bufnr, on_dir)
-            local fname = vim.api.nvim_buf_get_name(bufnr)
-            on_dir(util.root_pattern('hie.yaml', 'stack.yaml', 'cabal.project', '*.cabal', 'package.yaml')(fname))
-          end
-        '';
-      settings = {
-        haskell = {
-          formattingProvider = "ormolu";
-          cabalFormattingProvider = "cabal-fmt";
-        };
-      };
-    };
+  defaultServers = ["haskell-language-server"];
+  servers = ["haskell-language-server"];
+
+  defaultFormat = ["ormolu"];
+  formats = {
+    ormolu = {command = getExe haskellPackages.ormolu;};
+    fourmolu = {command = getExe haskellPackages.fourmolu;};
+    stylish-haskell = {command = getExe haskellPackages.stylish-haskell;};
+    floskell = {command = getExe haskellPackages.floskell;};
+  };
+
+  defaultCabalFormat = ["cabal-fmt"];
+  cabalFormats = {
+    cabal-fmt = {command = getExe haskellPackages.cabal-fmt;};
   };
 in {
   options.vim.languages.haskell = {
@@ -84,9 +58,29 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Haskell LSP server to use";
+      };
+    };
+
+    format = {
+      enable =
+        mkEnableOption "Haskell formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
+      type = mkOption {
+        type = listOf (enum (attrNames formats));
+        default = defaultFormat;
+        description = "Haskell formatter to use";
+      };
+
+      cabalFormatters = mkOption {
+        type = listOf (enum (attrNames cabalFormats));
+        default = defaultCabalFormat;
+        description = "Cabal file formatter to use";
       };
     };
 
@@ -103,9 +97,108 @@ in {
         description = "Haskell DAP package or command to run the Haskell DAP";
       };
     };
+
+    extensions = {
+      haskell-tools = {
+        enable = mkEnableOption "haskell-tools.nvim";
+
+        mappings = {
+          codeLensRun = mkMappingOption "Run code lens [haskell-tools.nvim]" "<localleader>cl";
+          hoogleSignature = mkMappingOption "Hoogle signature [haskell-tools.nvim]" "<localleader>hs";
+          evalAll = mkMappingOption "Evaluate all [haskell-tools.nvim]" "<localleader>ea";
+          replToggle = mkMappingOption "Toggle REPL [haskell-tools.nvim]" "<localleader>rr";
+          replToggleFile = mkMappingOption "Toggle REPL for current file [haskell-tools.nvim]" "<localleader>rf";
+          replQuit = mkMappingOption "Quit REPL [haskell-tools.nvim]" "<localleader>rq";
+        };
+
+        setupOpts = mkPluginSetupOption "haskell-tools.nvim" {
+          hls = {
+            cmd = mkOption {
+              type = nullOr (listOf str);
+              default = [
+                (getExe (pkgs.symlinkJoin {
+                  name = "haskell-language-server-wrapper";
+                  paths = [pkgs.haskellPackages.haskell-language-server];
+                  meta.mainProgram = "haskell-language-server-wrapper";
+                  buildInputs = [pkgs.makeBinaryWrapper];
+                  # wrap HLS-wrapper so it can find the actual binary
+                  postBuild = ''
+                    wrapProgram $out/bin/haskell-language-server-wrapper \
+                      --prefix PATH : ${haskellPackages.haskell-language-server}/bin
+                  '';
+                }))
+                "--lsp"
+              ];
+              description = "Command for haskell-language-server.";
+            };
+
+            on_attach = mkOption {
+              type = nullOr luaInline;
+              description = "Function to run when HLS is attached. When null, mappings from the mappings option are used.";
+              default = let
+                htCfg = cfg.extensions.haskell-tools;
+                keymapDefinitions = options.vim.languages.haskell.extensions.haskell-tools.mappings;
+                mappings = addDescriptionsToMappings htCfg.mappings keymapDefinitions;
+                mkBinding = binding: action:
+                  if binding.value != null
+                  then "vim.keymap.set('n', ${toLuaObject binding.value}, ${action}, {buffer=bufnr, noremap=true, silent=true, desc=${toLuaObject binding.description}})"
+                  else "";
+              in
+                mkLuaInline ''
+                  function(client, bufnr)
+                    local ht = require("haskell-tools")
+                    ${mkBinding mappings.codeLensRun "vim.lsp.codelens.run"}
+                    ${mkBinding mappings.hoogleSignature "ht.hoogle.hoogle_signature"}
+                    ${mkBinding mappings.evalAll "ht.lsp.buf_eval_all"}
+                    ${mkBinding mappings.replToggle "function() vim.cmd('Haskell repl toggle') end"}
+                    ${mkBinding mappings.replToggleFile "function() vim.cmd('Haskell repl toggle ' .. vim.api.nvim_buf_get_name(0)) end"}
+                    ${mkBinding mappings.replQuit "function() vim.cmd('Haskell repl quit') end"}
+                  end
+                '';
+              defaultText = literalExpression "Generated from vim.languages.haskell.extensions.haskell-tools.mappings";
+            };
+
+            settings = mkOption {
+              type = nullOr (attrsOf anything);
+              default = null;
+              description = "Settings passed to HLS. When null, generated from vim.languages.haskell.cabalFormat.";
+            };
+          };
+
+          dap = {
+            cmd = mkOption {
+              type = nullOr (listOf str);
+              default = null;
+              description = "Debug adapter command";
+            };
+          };
+        };
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
+    {
+      assertions = [
+        {
+          assertion = !(cfg.lsp.enable && cfg.extensions.haskell-tools.enable);
+          message = ''
+            vim.languages.haskell: haskell-tools.nvim manages the LSP directly and
+            is incompatible with vim.languages.haskell.lsp.enable. Disable one or
+            the other. See https://github.com/mrcjkb/haskell-tools.nvim/blob/fe9ed6e6adfa6311e06c84569d8536190f172030/doc/haskell-tools.txt#L22
+          '';
+        }
+        {
+          assertion = !(cfg.dap.enable && !cfg.extensions.haskell-tools.enable);
+          message = ''
+            vim.languages.haskell: DAP support requires haskell-tools.nvim, which
+            handles adapter registration and launch configuration discovery.
+            Enable vim.languages.haskell.extensions.haskell-tools to use DAP.
+          '';
+        }
+      ];
+    }
+
     (mkIf cfg.treesitter.enable {
       vim.treesitter = {
         enable = true;
@@ -113,34 +206,50 @@ in {
       };
     })
 
-    (mkIf (cfg.dap.enable || cfg.lsp.enable) {
+    (mkIf cfg.lsp.enable {
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["haskell" "lhaskell"];
+        });
+      };
+    })
+
+    (mkIf cfg.format.enable {
+      vim.formatter.conform-nvim = {
+        enable = true;
+        setupOpts = {
+          formatters_by_ft = {
+            haskell = cfg.format.type;
+            lhaskell = cfg.format.type;
+            cabal = cfg.format.cabalFormatters;
+          };
+          formatters = mkMerge [
+            (
+              mapListToAttrs
+              (name: {
+                inherit name;
+                value = formats.${name};
+              })
+              cfg.format.type
+            )
+            (
+              mapListToAttrs
+              (name: {
+                inherit name;
+                value = cabalFormats.${name};
+              })
+              cfg.format.cabalFormatters
+            )
+          ];
+        };
+      };
+    })
+
+    (mkIf cfg.extensions.haskell-tools.enable {
       vim = {
         startPlugins = ["haskell-tools-nvim"];
-        luaConfigRC.haskell-tools-nvim =
-          entryAfter
-          ["lsp-servers"]
-          ''
-            vim.g.haskell_tools = {
-            ${optionalString cfg.lsp.enable ''
-              -- LSP
-              tools = {
-                hover = {
-                  enable = true,
-                },
-              },
-              hls = ${toLuaObject servers.hls},
-            ''}
-            ${optionalString cfg.dap.enable ''
-              dap = {
-                cmd = ${
-                if isList cfg.dap.package
-                then toLuaObject cfg.dap.package
-                else ''{"${cfg.dap.package}/bin/haskell-debug-adapter"}''
-              },
-              },
-            ''}
-            }
-          '';
+        globals.haskell_tools = cfg.extensions.haskell-tools.setupOpts;
       };
     })
   ]);
