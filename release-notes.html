@@ -283,6 +283,11 @@ module provides jsx/tsx support. This is a step of cleaning up the Typescript
 module for the future.</p>
 </li>
 </ul>
+<p><a href="https://github.com/dathegreat">dathegreat</a>:</p>
+<ul>
+<li>Haskell LSP now defaults to haskell-language-server, haskell-tools based LSP
+support is moved to <code>vim.languages.haskell.extensions.haskell-tools</code></li>
+</ul>
 <p><a href="https://github.com/caueanjos">CaueAnjos</a></p>
 <ul>
 <li>Renamed <code>roslyn_ls</code> to <code>roslyn-ls</code></li>
@@ -382,6 +387,13 @@ hard-coded options as default values.</li>
 <ul>
 <li>Updated nix language plugin to use pkgs.nixfmt instead of
 pkgs.nixfmt-rfc-style</li>
+</ul>
+<p><a href="https://github.com/dathegreat">dathegreat</a>:</p>
+<ul>
+<li>Fixed invalid keys in the haskell-tools configuration</li>
+<li>Split haskell configuration into <code>lsp/presets/haskell-language-server.nix</code> and
+<code>languages/haskell.nix</code></li>
+<li>Made the haskell LSP and formatter configurable</li>
 </ul>
 <p><a href="https://github.com/alfarelcynthesis">alfarel</a>:</p>
 <ul>
@@ -762,6 +774,7 @@ plugin.</li>
 <p><a href="https://github.com/horriblename">horriblename</a>:</p>
 <ul>
 <li>Ignore terminals by default in spell-checking</li>
+<li>Add default error filter to lsp-signature that prevents error spam.</li>
 </ul>
 <p><a href="https://poz.pet">poz</a>:</p>
 <ul>
