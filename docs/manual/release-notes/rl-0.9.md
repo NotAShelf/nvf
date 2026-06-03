@@ -517,6 +517,7 @@ https://github.com/gorbit99/codewindow.nvim
 [horriblename](https://github.com/horriblename):
 
 - Ignore terminals by default in spell-checking
+- Add default error filter to lsp-signature that prevents error spam.
 
 [poz](https://poz.pet):
 
