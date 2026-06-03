@@ -74,6 +74,7 @@ isMaximal: {
       typst.enable = isMaximal;
       rust = {
         enable = isMaximal;
+        extensions.rustaceanvim.enable = isMaximal;
         extensions.crates-nvim.enable = isMaximal;
       };
       toml.enable = isMaximal;
