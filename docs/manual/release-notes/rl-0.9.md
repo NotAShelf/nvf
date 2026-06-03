@@ -128,6 +128,12 @@
 - Turned `omnisharp-extended-lsp-nvim` into an extension disabled by default
 - Turned `csharpls-extended-lsp-nvim` into an extension disabled by default
 
+[sjcobb2022](https://github.com/caueanjos)
+
+- Rust module is now no longer dependant on `rustaceanvim` by default. Use
+  `vim.languages.rust.extensions.rustaceanvim.enable` if it is necessary in the
+  workflow.
+
 ## Changelog {#sec-release-0-9-changelog}
 
 [ErinaYip](https://github.com/ErinaYip):
@@ -579,5 +585,11 @@ https://github.com/gorbit99/codewindow.nvim
 - Add [PHPStan] as a formatter for `vim.languages.php`.
 - Add `prettier` and `prettierd` as supported formatters to
   `vim.languages.json`.
+
+[sjcobb2022](https://github.com/caueanjos)
+
+- Modernize rust toolchain by defaulting to a `rustaceanvim` free default
+  configuration. Enabled via configuration
+  `vim.languages.rust.extensions.rustaceanvim.enable`.
 
 <!-- vim: set textwidth=80: -->
