@@ -16,11 +16,13 @@ in {
     enable = mkLspPresetEnableOption "rust-analyzer" "rust-analyzer" [];
   };
 
+  # TODO: rust-analyzer depends heavily on various other components such as rustc and cargo. This means that without these components available in path, rust-analyzer has minimal function other than highlighting. Should we add a minimal rustc/cargo in linked to stable for the meantime? Or set a warning up? The same is true for the config below, as they include references to cargo and rustc.
+
   # Note: do not set `init_options` for this LS config, it will be automatically populated by the contents of settings["rust-analyzer"] per
   # https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26.
 
   config = mkIf cfg.enable {
-    luaConfigRC.rust-util = entryBefore ["lsp-servers"] ''
+    vim.luaConfigRC.rust-util = entryBefore ["lsp-servers"] ''
       local function rust_reload_workspace(bufnr)
         local clients = vim.lsp.get_clients { bufnr = bufnr, name = 'rust-analyzer' }
         for _, client in ipairs(clients) do
@@ -42,7 +44,7 @@ in {
       local function rust_default_sysroot_src()
         local sysroot = vim.tbl_get(vim.lsp.config['rust-analyzer'], 'settings', 'rust-analyzer', 'cargo', 'sysroot')
         if not sysroot then
-          local rustc = ${getExe pkgs.rustc}
+          local rustc = '${getExe pkgs.rustc}'
           local result = vim.system({ rustc, '--print', 'sysroot' }, { text = true }):wait()
 
           local stdout = result.stdout
@@ -51,7 +53,7 @@ in {
               if #stdout > 1 then
                 sysroot = string.sub(stdout, 1, #stdout - 1)
               else
-                sysroot = '''''';
+                sysroot = '''
               end
             else
               sysroot = stdout
@@ -71,7 +73,7 @@ in {
         local rustup_home = os.getenv 'RUSTUP_HOME' or user_home .. '/.rustup'
         local toolchains = rustup_home .. '/toolchains'
 
-        local sysroot_src = rust_user_sysroot_src() or default_sysroot_src()
+        local sysroot_src = rust_user_sysroot_src() or rust_default_sysroot_src()
 
         for _, item in ipairs { toolchains, registry, git_registry, sysroot_src } do
           if item and vim.fs.relpath(item, fname) then
