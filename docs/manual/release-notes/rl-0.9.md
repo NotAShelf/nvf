@@ -326,6 +326,8 @@
 - Added {option}`vim.lsp.presets.jls.enable` and made it available under
   `vim.languages.java.lsp.servers`.
 
+- Added {option}`vim.languages.java.dap.enable` with the `jls` DAP.
+
 - Allow the usage of `pks.tree-sitter-grammars` in
   {option}`vim.treesitter.grammars` and language module tree-sitter package
   options created via `mkGrammarOption`.
