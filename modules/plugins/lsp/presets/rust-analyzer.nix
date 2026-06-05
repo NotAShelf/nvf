@@ -13,17 +13,12 @@
   cfg = config.vim.lsp.presets.rust-analyzer;
 in {
   options.vim.lsp.presets.rust-analyzer = {
-    enable = mkLspPresetEnableOption "rust-analyzer" "rust-analyzer" [];
+    enable = mkLspPresetEnableOption "rust-analyzer" "Rust Analyzer" [];
   };
-
-  # TODO: rust-analyzer depends heavily on various other components such as rustc and cargo. This means that without these components available in path, rust-analyzer has minimal function other than highlighting. Should we add a minimal rustc/cargo in linked to stable for the meantime? Or set a warning up? The same is true for the config below, as they include references to cargo and rustc.
-
-  # Note: do not set `init_options` for this LS config, it will be automatically populated by the contents of settings["rust-analyzer"] per
-  # https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26.
 
   config = mkIf cfg.enable {
     # Taken from https://github.com/neovim/nvim-lspconfig/blob/07dff35e7c95288861200b788ef32d6103f107f0/lsp/rust_analyzer.lua
-    vim.luaConfigRC.rust-util = entryBefore ["lsp-servers"] ''
+    vim.luaConfigRC.rust-analyzer = entryBefore ["lsp-servers"] ''
       local function rust_reload_workspace(bufnr)
         local clients = vim.lsp.get_clients { bufnr = bufnr, name = 'rust-analyzer' }
         for _, client in ipairs(clients) do
