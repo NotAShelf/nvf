@@ -290,17 +290,11 @@ in {
         startPlugins = ["rustaceanvim"];
         pluginRC.rustaceanvim = entryAfter ["lsp-setup"] ''
           vim.g.rustaceanvim = function()
-            return {
-              tools = ${toLuaObject cfg.extensions.rustaceanvim.setupOpts.tools},
-              server = ${toLuaObject cfg.extensions.rustaceanvim.setupOpts.server},
-              dap = ${toLuaObject cfg.extensions.rustaceanvim.setupOpts.dap},
-            }
+            return ${toLuaObject cfg.extensions.rustaceanvim.setupOpts}
           end
         '';
       };
     })
-
-    (mkIf cfg.extensions.rustaceanvim {})
 
     (mkIf cfg.extensions.crates-nvim.enable {
       vim = mkMerge [
