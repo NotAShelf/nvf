@@ -329,6 +329,8 @@
 
 - Add `emmet-ls` to the supported LSPs for all languages it supports.
 
+- Added `phpantom` LSP preset and into `languages.php`.
+
 - Added {option}`vim.treesitter.queries` to support adding custom queries.
 
 - Added injections for `query = '' ... ''` as `query` and `mkLualine '' ... ''`,

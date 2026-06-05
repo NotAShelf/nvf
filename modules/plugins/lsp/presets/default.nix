@@ -48,6 +48,7 @@
     ./openscad-lsp.nix
     ./phan.nix
     ./phpactor.nix
+    ./phpantom.nix
     ./pyrefly.nix
     ./pyright.nix
     ./python-lsp-server.nix
