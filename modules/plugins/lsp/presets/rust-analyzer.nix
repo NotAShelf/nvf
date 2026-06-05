@@ -18,6 +18,8 @@ in {
 
   config = mkIf cfg.enable {
     # Taken from https://github.com/neovim/nvim-lspconfig/blob/07dff35e7c95288861200b788ef32d6103f107f0/lsp/rust_analyzer.lua
+
+    # This code provides utility for cargo workspace functionality, as it is not wired by default.
     vim.luaConfigRC.rust-analyzer = entryBefore ["lsp-servers"] ''
       local function rust_reload_workspace(bufnr)
         local clients = vim.lsp.get_clients { bufnr = bufnr, name = 'rust-analyzer' }
@@ -37,6 +39,7 @@ in {
         return vim.tbl_get(vim.lsp.config['rust-analyzer'], 'settings', 'rust-analyzer', 'cargo', 'sysrootSrc')
       end
 
+      -- Determine location of sysroot for stdlib
       local function rust_default_sysroot_src()
         local sysroot = vim.tbl_get(vim.lsp.config['rust-analyzer'], 'settings', 'rust-analyzer', 'cargo', 'sysroot')
         if not sysroot then
@@ -60,6 +63,7 @@ in {
         return sysroot and vim.fs.joinpath(sysroot, 'lib/rustlib/src/rust/library') or nil
       end
 
+      -- Determine if a given file belongs to an external library or our own code.
       local function rust_is_library(fname)
         local user_home = vim.fs.normalize(vim.env.HOME)
         local cargo_home = os.getenv 'CARGO_HOME' or user_home .. '/.cargo'
@@ -92,6 +96,36 @@ in {
         end
       '';
 
+      # Sends init_params beforehand according to rust-analyzer spec.
+      before_init = mkLuaInline ''
+        function(init_params, config)
+          See https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26
+          if config.settings and config.settings['rust-analyzer'] then
+            init_params.initializationOptions = config.settings['rust-analyzer']
+          end
+
+          -- Allow for a single run of a program
+          vim.lsp.commands['rust-analyzer.runSingle'] = function(command)
+            local r = command.arguments[1]
+            local cmd = { 'cargo', unpack(r.args.cargoArgs) }
+            if r.args.executableArgs and #r.args.executableArgs > 0 then
+              vim.list_extend(cmd, { '--', unpack(r.args.executableArgs) })
+            end
+
+            local proc = vim.system(cmd, { cwd = r.args.cwd, env = r.args.environment })
+
+            local result = proc:wait()
+
+            if result.code == 0 then
+              vim.notify(result.stdout, vim.log.levels.INFO)
+            else
+              vim.notify(result.stderr, vim.log.levels.ERROR)
+            end
+          end
+        end
+      '';
+
+      # eval root dir taking workspaces into consideration
       root_dir = mkLuaInline ''
         function(bufnr, on_dir)
           local fname = vim.api.nvim_buf_get_name(bufnr)
