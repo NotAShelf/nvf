@@ -292,8 +292,8 @@ in {
 
       assertions = [
         {
-          assertion = !cfg.lsp.enable;
-          message = "rustaceanvim and `vim.languages.rust.lsp.enable` are mutually exclusive. Please ensure `vim.lsp.rust-analyzer.enable` is false, or disable `vim.languages.rust.lsp.enable`.";
+          assertion = !(builtins.elem "rust-analyzer" cfg.lsp.server) && !config.vim.lsp.rust-analyzer.enable;
+          message = "rustaceanvim and rust-analyzer are mutually exclusive. Please ensure that rust-analyzer is disabled.";
         }
       ];
     })
