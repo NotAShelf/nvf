@@ -6,14 +6,15 @@
 }: let
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
-  inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.nvim.types) mkLspPresetEnableOptionWithDesc;
   inherit (lib.nvim.dag) entryBefore;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.rust-analyzer;
 in {
   options.vim.lsp.presets.rust-analyzer = {
-    enable = mkLspPresetEnableOption "rust-analyzer" "Rust Analyzer" [];
+    enable =
+      mkLspPresetEnableOptionWithDesc "rust-analyzer" "Rust Analyzer" [] ''Note: do not set `init_options` for this LS config, it will be automatically populated by the contents of settings["rust-analyzer"] per https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26'';
   };
 
   config = mkIf cfg.enable {
@@ -43,7 +44,7 @@ in {
       local function rust_default_sysroot_src()
         local sysroot = vim.tbl_get(vim.lsp.config['rust-analyzer'], 'settings', 'rust-analyzer', 'cargo', 'sysroot')
         if not sysroot then
-          local rustc = '${getExe pkgs.rustc}'
+          local rustc = os.getenv 'RUSTC' or 'rustc'
           local result = vim.system({ rustc, '--print', 'sysroot' }, { text = true }):wait()
 
           local stdout = result.stdout
@@ -97,9 +98,9 @@ in {
       '';
 
       # Sends init_params beforehand according to rust-analyzer spec.
+      # See https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26
       before_init = mkLuaInline ''
         function(init_params, config)
-          See https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26
           if config.settings and config.settings['rust-analyzer'] then
             init_params.initializationOptions = config.settings['rust-analyzer']
           end
@@ -147,7 +148,7 @@ in {
           end
 
           local cmd = {
-            '${getExe pkgs.cargo}',
+            'cargo',
             'metadata',
             '--no-deps',
             '--format-version',
