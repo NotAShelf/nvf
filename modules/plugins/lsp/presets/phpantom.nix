@@ -17,7 +17,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.phpantom = {
       enable = true;
-      cmd = [(getExe pkgs.phpantom)];
+      cmd = [(getExe pkgs.phpantom-lsp)];
       root_markers = [".phpantom.toml" "composer.json" ".php-version" ".git"];
     };
   };
