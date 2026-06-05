@@ -9,7 +9,7 @@
       type = lib.types.bool;
       default = false;
       description = lib.removeSuffix "\n" (''
-          the ${display} Language Server.
+          The ${display} Language Server.
           Default `filetypes = ${lib.generators.toPretty {} fileTypes}`.
           Use {option}`vim.lsp.servers.${option}` for customization.
         ''
