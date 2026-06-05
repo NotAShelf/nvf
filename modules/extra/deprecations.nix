@@ -378,5 +378,11 @@ in {
     [
       (mkRenamedOptionModule ["vim" "languages" "typescript" "treesitter" "tsxPackage"] ["vim" "languages" "tsx" "treesitter" "package"])
     ]
+
+    # 2026-06-05
+    [
+      (mkRemovedLspPackage "rust")
+      (mkRemovedLspOpt "rust")
+    ]
   ];
 }
