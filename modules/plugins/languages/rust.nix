@@ -293,7 +293,7 @@ in {
       assertions = [
         {
           assertion = !cfg.lsp.enable;
-          message = "rustaceanvim and vim.languages.rust.lsp.enable are mutually exclusive. Please ensure `vim.lsp.rust-analyzer.enable` is false, or disable `vim.languages.rust.lsp.enable`.";
+          message = "rustaceanvim and `vim.languages.rust.lsp.enable` are mutually exclusive. Please ensure `vim.lsp.rust-analyzer.enable` is false, or disable `vim.languages.rust.lsp.enable`.";
         }
       ];
     })
