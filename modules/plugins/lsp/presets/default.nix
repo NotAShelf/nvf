@@ -61,6 +61,7 @@
     ./solargraph.nix
     ./some-sass-language-server.nix
     ./sqls.nix
+    ./stimulus-language-server.nix
     ./superhtml.nix
     ./svelte-language-server.nix
     ./tailwindcss-language-server.nix

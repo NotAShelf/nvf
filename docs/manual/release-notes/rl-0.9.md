@@ -378,6 +378,9 @@
 - Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
   `languages.lua`.
 
+- Added the [Stimulus LSP](https://github.com/marcoroth/stimulus-lsp) as LSP
+  preset.
+
 - Added `languages.docker` for Docker and Docker-Compose support. Thanks to
   [poseidon-rises](https://github.com/poseidon-rises) for creating most of it in
   [!1104](https://github.com/NotAShelf/nvf/pull/1104).
