@@ -17,7 +17,7 @@
   cfg = config.vim.languages.php;
 
   defaultServers = ["phpactor"];
-  servers = ["phpactor" "phan" "intelephense"];
+  servers = ["phpactor" "phan" "intelephense" "phpantom"];
 
   defaultFormat = ["php_cs_fixer"];
   formats = {

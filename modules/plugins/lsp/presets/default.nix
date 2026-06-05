@@ -24,6 +24,7 @@
     ./gopls.nix
     ./harper.nix
     ./helm-ls.nix
+    ./haskell-language-server.nix
     ./intelephense.nix
     ./jdt-language-server.nix
     ./jinja-lsp.nix
@@ -47,6 +48,7 @@
     ./openscad-lsp.nix
     ./phan.nix
     ./phpactor.nix
+    ./phpantom.nix
     ./pyrefly.nix
     ./pyright.nix
     ./python-lsp-server.nix
