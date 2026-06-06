@@ -293,7 +293,10 @@ in {
       assertions = [
         {
           assertion = !(builtins.elem "rust-analyzer" cfg.lsp.server) && !config.vim.lsp.rust-analyzer.enable;
-          message = "rustaceanvim and rust-analyzer are mutually exclusive. Please ensure that rust-analyzer is disabled.";
+          message = ''
+            Rustaceanvim fully manages its own rust-analyzer.
+            Therefore you can't use vim.langauges.rust.extensions.rustaceanvim.enable with rust-analyzer enabled.
+          '';
         }
       ];
     })
