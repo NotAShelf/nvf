@@ -388,7 +388,7 @@ in {
         nvim-tree.lua removed system_open and now uses Neovim's vim.ui.open().
       '')
     ]
-    
+
     # 2026-06-05
     [
       (mkRemovedLspPackage "rust")
