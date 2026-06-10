@@ -117,6 +117,9 @@ in {
       vim.treesitter = {
         enable = true;
         grammars = [cfg.treesitter.package];
+        filetypeMappings = {
+          yaml = ["dockercompose"];
+        };
       };
     })
 
