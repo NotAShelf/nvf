@@ -1,19 +1,22 @@
 {lib}: let
+  inherit (lib.generators) toPretty;
   inherit (lib.options) mkOption;
+  inherit (lib.strings) removeSuffix optionalString;
+  inherit (lib.types) bool;
 
   mkLspPresetEnableOption = option: display: fileTypes:
     mkLspPresetEnableOptionWithDesc option display fileTypes "";
 
   mkLspPresetEnableOptionWithDesc = option: display: fileTypes: description:
     mkOption {
-      type = lib.types.bool;
+      type = bool;
       default = false;
-      description = lib.removeSuffix "\n" (''
+      description = removeSuffix "\n" (''
           The ${display} Language Server.
-          Default `filetypes = ${lib.generators.toPretty {} fileTypes}`.
+          Default `filetypes = ${toPretty {} fileTypes}`.
           Use {option}`vim.lsp.servers.${option}` for customization.
         ''
-        + lib.optionalString (description != "") ''
+        + optionalString (description != "") ''
 
           ${description}
         '');

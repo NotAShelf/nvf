@@ -5,12 +5,11 @@
   ...
 }: let
   inherit (lib.meta) getExe;
-  inherit (lib) genAttrs;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
   inherit (lib.attrsets) attrNames;
   inherit (lib.types) bool package listOf enum int;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.attrsets) mapListToAttrs genAttrs;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
@@ -295,7 +294,7 @@ in {
           assertion = !(builtins.elem "rust-analyzer" cfg.lsp.server) && !config.vim.lsp.rust-analyzer.enable;
           message = ''
             Rustaceanvim fully manages its own rust-analyzer.
-            Therefore you can't use vim.langauges.rust.extensions.rustaceanvim.enable with rust-analyzer enabled.
+            Therefore you can't use vim.languages.rust.extensions.rustaceanvim.enable with rust-analyzer enabled.
           '';
         }
       ];
