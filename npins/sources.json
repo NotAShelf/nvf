@@ -530,6 +530,19 @@
       "url": "https://github.com/Chaitanyabsprip/fastaction.nvim/archive/b147d91727cb35be4f722f17e7d4ed5b4a5801d8.tar.gz",
       "hash": "sha256-va00sqM2Ap9faUXww5CpWJQyCixN9fIwh8p8oSLQMy8="
     },
+    "fff-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "dmtrKovalenko",
+        "repo": "fff"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "7d7910b6ba78ea8406671eaac8cdb5eb9850d9d1",
+      "url": "https://github.com/dmtrKovalenko/fff/archive/7d7910b6ba78ea8406671eaac8cdb5eb9850d9d1.tar.gz",
+      "hash": "sha256-q/RfjfVZMM8RyfOP1o2NjUP6NrOh7D2ribgq5Dvwxkc="
+    },
     "fidget-nvim": {
       "type": "Git",
       "repository": {

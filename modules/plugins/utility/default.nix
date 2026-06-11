@@ -4,6 +4,7 @@
     ./ccc
     ./diffview
     ./direnv
+    ./fff-nvim
     ./fzf-lua
     ./gestures
     ./harpoon
