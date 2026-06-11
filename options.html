@@ -5319,7 +5319,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">602</span>
+        <span class="toc-count">605</span>
       </summary>
       <ul>
         
@@ -7168,6 +7168,30 @@
         <li>
           <a href='#option-vim.languages.html.treesitter.package' title="vim.languages.html.treesitter.package">
             html.treesitter.package
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.java.dap.debugger' title="vim.languages.java.dap.debugger">
+            java.dap.debugger
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.java.dap.enable' title="vim.languages.java.dap.enable">
+            java.dap.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.java.dap.package' title="vim.languages.java.dap.package">
+            java.dap.package
             
             
           </a>
@@ -10323,7 +10347,7 @@
     <details class="toc-category">
       <summary title="vim.lsp">
         <span>vim.lsp</span>
-        <span class="toc-count">162</span>
+        <span class="toc-count">164</span>
       </summary>
       <ul>
         
@@ -11058,6 +11082,14 @@
         </li>
         
         <li>
+          <a href='#option-vim.lsp.presets.jls.enable' title="vim.lsp.presets.jls.enable">
+            presets.jls.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
           <a href='#option-vim.lsp.presets.jq-lsp.enable' title="vim.lsp.presets.jq-lsp.enable">
             presets.jq-lsp.enable
             
@@ -11316,6 +11348,14 @@
         <li>
           <a href='#option-vim.lsp.presets.sqls.enable' title="vim.lsp.presets.sqls.enable">
             presets.sqls.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.lsp.presets.stimulus-language-server.enable' title="vim.lsp.presets.stimulus-language-server.enable">
+            presets.stimulus-language-server.enable
             
             
           </a>
@@ -30612,7 +30652,7 @@ missing from <code>PATH</code>", leave this option disabled.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Whether to enable Go Debug Adapter (DAP) via `nvim-dap-go.</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Go Debug Adapter.</p>
 </body></html></div>
   <div class="option-default">Default: <code>config.vim.languages.enableDAP</code></div>
   <div class="option-example">Example: <code>true</code></div>
@@ -30627,7 +30667,7 @@ missing from <code>PATH</code>", leave this option disabled.</p>
   <div class="option-type">Type: <code>package</code></div>
   <div class="option-description"><html><head></head><body><p>Go debugger package.</p>
 </body></html></div>
-  <div class="option-default">Default: <code>&lt;derivation delve-1.26.1&gt;</code></div>
+  <div class="option-default">Default: <code>&lt;derivation delve-1.26.3&gt;</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/go.nix" target="_blank">&lt;nvf/modules/plugins/languages/go.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.go.enable">
@@ -31068,7 +31108,7 @@ not listed in the docs</p>
   <div class="option-description"><html><head></head><body><p>Command for haskell-language-server.</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
-  "/nix/store/d95vbnsn7i1xw62rmvzhf0wkw877zmjy-haskell-language-server-wrapper/bin/haskell-language-server-wrapper"
+  "/nix/store/z416ljchbky47g72k5fgkmc6gkx3jixf-haskell-language-server-wrapper/bin/haskell-language-server-wrapper"
   "--lsp"
 ]</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/haskell.nix" target="_blank">&lt;nvf/modules/plugins/languages/haskell.nix&gt;</a></code></div>
@@ -31433,7 +31473,7 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (one of "superhtml", "emmet-ls", "angular-language-server")</code></div>
+  <div class="option-type">Type: <code>list of (one of "superhtml", "emmet-ls", "angular-language-server", "stimulus-language-server")</code></div>
   <div class="option-description"><html><head></head><body><p>HTML LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -31477,6 +31517,66 @@ not listed in the docs</p>
 </body></html></div>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.html</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/html.nix" target="_blank">&lt;nvf/modules/plugins/languages/html.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.java.dap.debugger">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.java.dap.debugger" class="option-anchor">vim.languages.java.dap.debugger</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>value "jls" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Java debugger to use.</p>
+<p><strong>JLS</strong></p>
+<p>For <code>jls</code> to work, you need to run your application with debug symbols and networking.</p>
+<p>The <code>jls</code> configuration is hardcoded to listen on port <code>5005</code>.
+This matches the configuration described <a href="https://github.com/idelice/jls#usage">upstream</a>.
+You can change this by modifying <code>vim.debugger.nvim-dap.sources.java-debugger</code>.</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">debugger</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim-dap</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">sources</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">java-debugger</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">/*&nbsp;lua&nbsp;*/</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(171,178,191);">dap</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">adapters</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">jls</span><span style="color:rgb(171,178,191);">=</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(229,192,123);font-weight: bold;">{</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(86,182,194);">type</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(171,178,191);">=</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">'executable'</span><span style="color:rgb(132,139,152);">,</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(86,182,194);">command</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(171,178,191);">=</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">'</span><span style="color:rgb(232,102,113);">${</span><span style="color:rgb(97,175,239);">getExe'</span>&nbsp;<span style="color:rgb(171,178,191);">inputs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">self</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">packages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(232,102,113);">${</span><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">stdenv</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">hostPlatform</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">system</span><span style="color:rgb(232,102,113);">}</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">jls</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">jls-dap</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(232,102,113);">}</span><span style="color:rgb(152,195,121);">'</span><span style="color:rgb(132,139,152);">,</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(229,192,123);font-weight: bold;">}</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(171,178,191);">dap</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">configurations</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">java</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(171,178,191);">=</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(229,192,123);font-weight: bold;">{</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(229,192,123);font-weight: bold;">{</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(86,182,194);">type</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(171,178,191);">=</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">"jls"</span><span style="color:rgb(132,139,152);">,</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(86,182,194);">request</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(171,178,191);">=</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">"attach"</span><span style="color:rgb(132,139,152);">,</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(86,182,194);">name</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(171,178,191);">=</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">"Attach"</span><span style="color:rgb(132,139,152);">,</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(86,182,194);">hostName</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(171,178,191);">=</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">"localhost"</span><span style="color:rgb(132,139,152);">,</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(86,182,194);">port</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(171,178,191);">=</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(209,154,102);">6969</span><span style="color:rgb(132,139,152);">,</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(92,99,112);font-style: italic;">--&nbsp;your&nbsp;custom&nbsp;port</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(86,182,194);">sourceRoots</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(171,178,191);">=</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">fn</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">glob</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(152,195,121);">"**/src/main/java"</span><span style="color:rgb(132,139,152);">,</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">,</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">)</span><span style="color:rgb(132,139,152);">,</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(229,192,123);font-weight: bold;">}</span><span style="color:rgb(132,139,152);">,</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(229,192,123);font-weight: bold;">}</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br></code></pre>
+<p><em>Examples:</em></p>
+<ul>
+<li>Manual:
+<ol>
+<li>Build with debug symbols.
+<pre class="highlight"><code class="language-sh"><span style="color:rgb(97,175,239);">javac</span>&nbsp;<span style="color:rgb(232,102,113);">-g</span>&nbsp;<span style="color:rgb(232,102,113);">...</span><br></code></pre>
+</li>
+<li>Run with debug socket.
+<pre class="highlight"><code class="language-sh"><span style="color:rgb(97,175,239);">java</span>&nbsp;<span style="color:rgb(232,102,113);">-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005</span>&nbsp;<span style="color:rgb(232,102,113);">-jar</span>&nbsp;<span style="color:rgb(232,102,113);">your.jar</span><br></code></pre>
+</li>
+</ol>
+</li>
+<li>Springboot Maven:
+For Springboot you can just pass the JVM args directly into the <code>spring-boot:run</code>.
+<pre class="highlight"><code class="language-sh"><span style="color:rgb(97,175,239);">mvn</span>&nbsp;<span style="color:rgb(232,102,113);">spring-boot:run</span>&nbsp;<span style="color:rgb(232,102,113);">-Dspring-boot.run.jvmArguments=</span><span style="color:rgb(152,195,121);">"-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"</span><br></code></pre>
+</li>
+</ul>
+</body></html></div>
+  <div class="option-default">Default: <code>"jls"</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/java.nix" target="_blank">&lt;nvf/modules/plugins/languages/java.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.java.dap.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.java.dap.enable" class="option-anchor">vim.languages.java.dap.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Java Debug Adapter.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableDAP</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/java.nix" target="_blank">&lt;nvf/modules/plugins/languages/java.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.java.dap.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.java.dap.package" class="option-anchor">vim.languages.java.dap.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>package</code></div>
+  <div class="option-description"><html><head></head><body><p>Java debugger package.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>&lt;derivation jls-0.6.1&gt;</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/java.nix" target="_blank">&lt;nvf/modules/plugins/languages/java.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.java.enable">
   <h3 class="option-name">
@@ -31597,7 +31697,7 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (value "jdt-language-server" (singular enum) or value "jdtls" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of ((one of "jdt-language-server", "jls") or value "jdtls" (singular enum) convertible to it)</code></div>
   <div class="option-description"><html><head></head><body><p>Java LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -31662,7 +31762,7 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (one of "jinja-lsp", "emmet-ls")</code></div>
+  <div class="option-type">Type: <code>list of (one of "jinja-lsp", "emmet-ls", "stimulus-language-server")</code></div>
   <div class="option-description"><html><head></head><body><p>Jinja LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -33442,7 +33542,7 @@ have any of these filetypes.</p>
   <div class="option-description"><html><head></head><body><p>Python debugger package.
 This is a python package with debugpy installed, see <a href="https://nixos.wiki/wiki/Python#Install_Python_Packages">https://nixos.wiki/wiki/Python#Install_Python_Packages</a>.</p>
 </body></html></div>
-  <div class="option-default">Default: <code>&lt;derivation python3-3.13.12-env&gt;</code></div>
+  <div class="option-default">Default: <code>&lt;derivation python3-3.13.13-env&gt;</code></div>
   <div class="option-example">Example: <code>with pkgs; python39.withPackages (ps: with ps; [debugpy])</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/python.nix" target="_blank">&lt;nvf/modules/plugins/languages/python.nix&gt;</a></code></div>
 </div>
@@ -33835,7 +33935,7 @@ This is a python package with debugpy installed, see <a href="https://nixos.wiki
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of ((one of "ruby-lsp", "solargraph") or value "ruby_lsp" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of ((one of "ruby-lsp", "solargraph", "stimulus-language-server") or value "ruby_lsp" (singular enum) convertible to it)</code></div>
   <div class="option-description"><html><head></head><body><p>Ruby LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -34109,7 +34209,7 @@ not listed in the docs</p>
   <div class="option-type">Type: <code>package or list of string</code></div>
   <div class="option-description"><html><head></head><body><p>rust-analyzer package, or the command to run as a list of strings</p>
 </body></html></div>
-  <div class="option-default">Default: <code>&lt;derivation rust-analyzer-2026-04-27&gt;</code></div>
+  <div class="option-default">Default: <code>&lt;derivation rust-analyzer-2026-06-01&gt;</code></div>
   <div class="option-example">Example: <code>"[lib.getExe pkgs.jdt-language-server \"-data\" \"~/.cache/jdtls/workspace\"]"</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_blank">&lt;nvf/modules/plugins/languages/rust.nix&gt;</a></code></div>
 </div>
@@ -34786,7 +34886,7 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of value "emmet-ls" (singular enum)</code></div>
+  <div class="option-type">Type: <code>list of (one of "emmet-ls", "stimulus-language-server")</code></div>
   <div class="option-description"><html><head></head><body><p>Tera LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[ ]</code></div>
@@ -35348,7 +35448,7 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (one of "twig-language-server", "emmet-ls")</code></div>
+  <div class="option-type">Type: <code>list of (one of "twig-language-server", "emmet-ls", "stimulus-language-server")</code></div>
   <div class="option-description"><html><head></head><body><p>Twig LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -37965,6 +38065,22 @@ Use <code class="nixos-option">vim.lsp.servers.jinja-lsp</code> for customizatio
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/jinja-lsp.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/jinja-lsp.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.lsp.presets.jls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.jls.enable" class="option-anchor">vim.lsp.presets.jls.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the NeoVim Java Language Server.
+Default <code>filetypes = [ ]</code>.
+Use <code class="nixos-option">vim.lsp.servers.jls</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/jls.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/jls.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.lsp.presets.jq-lsp.enable">
   <h3 class="option-name">
     <a href="#option-vim.lsp.presets.jq-lsp.enable" class="option-anchor">vim.lsp.presets.jq-lsp.enable</a>
@@ -38492,6 +38608,22 @@ Use <code class="nixos-option">vim.lsp.servers.sqls</code> for customization
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/sqls.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/sqls.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.lsp.presets.stimulus-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.stimulus-language-server.enable" class="option-anchor">vim.lsp.presets.stimulus-language-server.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Stimulus Language Server.
+Default <code>filetypes = [ ]</code>.
+Use <code class="nixos-option">vim.lsp.servers.stimulus-language-server</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/stimulus-language-server.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/stimulus-language-server.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.lsp.presets.superhtml.enable">
   <h3 class="option-name">

@@ -520,6 +520,13 @@ formatter.</p>
 <p><a href="https://github.com/snoweuph">Snoweuph</a></p>
 <ul>
 <li>
+<p>Added <a class="option-reference" href="options.html#option-vim.lsp.presets.jls.enable"><code class="nixos-option">vim.lsp.presets.jls.enable</code></a> and made it available under
+<code>vim.languages.java.lsp.servers</code>.</p>
+</li>
+<li>
+<p>Added <a class="option-reference" href="options.html#option-vim.languages.java.dap.enable"><code class="nixos-option">vim.languages.java.dap.enable</code></a> with the <code>jls</code> DAP.</p>
+</li>
+<li>
 <p>Allow the usage of <code>pks.tree-sitter-grammars</code> in
 <a class="option-reference" href="options.html#option-vim.treesitter.grammars"><code class="nixos-option">vim.treesitter.grammars</code></a> and language module tree-sitter package
 options created via <code>mkGrammarOption</code>.</p>
@@ -564,10 +571,6 @@ more flexibility in nvf and reuse of LSPs across languages. Dropped
 <code>deprecatedSingleOrListOf</code> in favor of <code>listOf</code> for the affected LSP options.</p>
 </li>
 <li>
-<p>Added <a class="option-reference" href="options.html#option-vim.lsp.presets.docker-language-server.enable"><code class="nixos-option">vim.lsp.presets.docker-language-server.enable</code></a> for Docker
-support.</p>
-</li>
-<li>
 <p>Added <a class="option-reference" href="options.html#option-vim.lsp.presets.angular-language-server.enable"><code class="nixos-option">vim.lsp.presets.angular-language-server.enable</code></a> for Angular
 Template support.</p>
 </li>
@@ -600,9 +603,20 @@ tree-sitter incompatibilities.</p>
 <code>languages.lua</code>.</p>
 </li>
 <li>
+<p>Added the <a href="https://github.com/marcoroth/stimulus-lsp">Stimulus LSP</a> as LSP
+preset.</p>
+</li>
+<li>
 <p>Added <code>languages.docker</code> for Docker and Docker-Compose support. Thanks to
 <a href="https://github.com/poseidon-rises">poseidon-rises</a> for creating most of it in
 <a href="https://github.com/NotAShelf/nvf/pull/1104">!1104</a>.</p>
+</li>
+<li>
+<p>Added <a class="option-reference" href="options.html#option-vim.lsp.presets.docker-language-server.enable"><code class="nixos-option">vim.lsp.presets.docker-language-server.enable</code></a> for Docker
+support.</p>
+</li>
+<li>
+<p>Mapped <code>dockercompose</code> to be highlighted by treesitter as <code>yaml</code>.</p>
 </li>
 <li>
 <p>Added <a href="https://mdformat.rtfd.io/"><code>mdformat</code></a> support to <code>languages.markdown</code>
