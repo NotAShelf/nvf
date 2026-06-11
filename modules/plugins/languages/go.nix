@@ -205,7 +205,7 @@ in {
 
     dap = {
       enable =
-        mkEnableOption "Go Debug Adapter (DAP) via `nvim-dap-go"
+        mkEnableOption "Go Debug Adapter"
         // {
           default = config.vim.languages.enableDAP;
           defaultText = literalExpression "config.vim.languages.enableDAP";

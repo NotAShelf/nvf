@@ -28,6 +28,7 @@
     ./intelephense.nix
     ./jdt-language-server.nix
     ./jinja-lsp.nix
+    ./jls.nix
     ./jq-lsp.nix
     ./julia-languageserver.nix
     ./just-lsp.nix
