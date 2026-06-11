@@ -1,0 +1,15 @@
+--- a/package.json
++++ b/package.json
+@@ -13,3 +13,3 @@
+   "dependencies": {
+-    "@hotwired/stimulus": "https://github.com/hotwired/dev-builds/archive/refs/tags/@hotwired/stimulus/8cbca6d.tar.gz",
++    "@hotwired/stimulus": "file:./hotwired-stimulus.tar.gz",
+     "dedent": "^1.5.1",
+--- a/yarn.lock
++++ b/yarn.lock
+@@ -27,3 +27,3 @@
+-"@hotwired/stimulus@https://github.com/hotwired/dev-builds/archive/refs/tags/@hotwired/stimulus/8cbca6d.tar.gz":
++"@hotwired/stimulus@file:./hotwired-stimulus.tar.gz":
+   version "3.2.2"
+-  resolved "https://github.com/hotwired/dev-builds/archive/refs/tags/@hotwired/stimulus/8cbca6d.tar.gz#bcca3015d4e1a7e6defad94db626e11dc97e69e5"
++  resolved "file:./hotwired-stimulus.tar.gz"
