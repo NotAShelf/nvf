@@ -10323,7 +10323,7 @@
     <details class="toc-category">
       <summary title="vim.lsp">
         <span>vim.lsp</span>
-        <span class="toc-count">162</span>
+        <span class="toc-count">163</span>
       </summary>
       <ul>
         
@@ -11316,6 +11316,14 @@
         <li>
           <a href='#option-vim.lsp.presets.sqls.enable' title="vim.lsp.presets.sqls.enable">
             presets.sqls.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.lsp.presets.stimulus-language-server.enable' title="vim.lsp.presets.stimulus-language-server.enable">
+            presets.stimulus-language-server.enable
             
             
           </a>
@@ -31433,7 +31441,7 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (one of "superhtml", "emmet-ls", "angular-language-server")</code></div>
+  <div class="option-type">Type: <code>list of (one of "superhtml", "emmet-ls", "angular-language-server", "stimulus-language-server")</code></div>
   <div class="option-description"><html><head></head><body><p>HTML LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -31662,7 +31670,7 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (one of "jinja-lsp", "emmet-ls")</code></div>
+  <div class="option-type">Type: <code>list of (one of "jinja-lsp", "emmet-ls", "stimulus-language-server")</code></div>
   <div class="option-description"><html><head></head><body><p>Jinja LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -33835,7 +33843,7 @@ This is a python package with debugpy installed, see <a href="https://nixos.wiki
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of ((one of "ruby-lsp", "solargraph") or value "ruby_lsp" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of ((one of "ruby-lsp", "solargraph", "stimulus-language-server") or value "ruby_lsp" (singular enum) convertible to it)</code></div>
   <div class="option-description"><html><head></head><body><p>Ruby LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -34786,7 +34794,7 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of value "emmet-ls" (singular enum)</code></div>
+  <div class="option-type">Type: <code>list of (one of "emmet-ls", "stimulus-language-server")</code></div>
   <div class="option-description"><html><head></head><body><p>Tera LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[ ]</code></div>
@@ -35348,7 +35356,7 @@ not listed in the docs</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (one of "twig-language-server", "emmet-ls")</code></div>
+  <div class="option-type">Type: <code>list of (one of "twig-language-server", "emmet-ls", "stimulus-language-server")</code></div>
   <div class="option-description"><html><head></head><body><p>Twig LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -38492,6 +38500,22 @@ Use <code class="nixos-option">vim.lsp.servers.sqls</code> for customization
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/sqls.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/sqls.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.lsp.presets.stimulus-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.stimulus-language-server.enable" class="option-anchor">vim.lsp.presets.stimulus-language-server.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Stimulus Language Server.
+Default <code>filetypes = [ ]</code>.
+Use <code class="nixos-option">vim.lsp.servers.stimulus-language-server</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/stimulus-language-server.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/stimulus-language-server.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.lsp.presets.superhtml.enable">
   <h3 class="option-name">
