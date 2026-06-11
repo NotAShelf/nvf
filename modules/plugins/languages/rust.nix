@@ -7,9 +7,9 @@
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
-  inherit (lib.attrsets) attrNames;
+  inherit (lib.attrsets) attrNames genAttrs;
   inherit (lib.types) bool package listOf enum int;
-  inherit (lib.nvim.attrsets) mapListToAttrs genAttrs;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
