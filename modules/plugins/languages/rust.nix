@@ -7,16 +7,19 @@
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
-  inherit (lib.strings) optionalString;
-  inherit (lib.lists) isList;
-  inherit (lib.attrsets) attrNames;
-  inherit (lib.types) bool package str listOf either enum int;
-  inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.attrsets) attrNames genAttrs;
+  inherit (lib.types) bool package listOf enum int;
   inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.dag) entryAfter;
+  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
-  inherit (lib.nvim.dag) entryAfter entryAnywhere;
+  inherit (lib.strings) optionalString;
+  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.rust;
+
+  servers = ["rust-analyzer"];
+  defaultServers = ["rust-analyzer"];
 
   defaultFormat = ["rustfmt"];
   formats = {
@@ -40,31 +43,16 @@ in {
 
     lsp = {
       enable =
-        mkEnableOption "Rust LSP support (rust-analyzer with extra tools)"
+        mkEnableOption "Rust LSP support"
         // {
           default = config.vim.lsp.enable;
           defaultText = literalExpression "config.vim.lsp.enable";
         };
-      package = mkOption {
-        description = "rust-analyzer package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = either package (listOf str);
-        default = pkgs.rust-analyzer;
-      };
 
-      opts = mkOption {
-        description = "Options to pass to rust analyzer";
-        type = str;
-        default = "";
-        example = ''
-          ['rust-analyzer'] = {
-            cargo = {allFeature = true},
-            checkOnSave = true,
-            procMacro = {
-              enable = true,
-            },
-          },
-        '';
+      servers = mkOption {
+        type = listOf (enum servers);
+        default = defaultServers;
+        description = "Rust LSP server to use";
       };
     };
 
@@ -166,6 +154,96 @@ in {
           };
         };
       };
+
+      rustaceanvim = {
+        enable = mkEnableOption "additional rust support [rustaceanvim]";
+        setupOpts = mkPluginSetupOption "rustaceanvim" {
+          tools = mkOption {
+            description = "Plugin configuration";
+            default = {
+              hover_actions = {
+                replace_builtin_hover = false;
+              };
+            };
+            example = {
+              hover_actions = {
+                replace_builtin_hover = true;
+              };
+            };
+          };
+          server = mkOption {
+            description = "LSP configuration";
+            default = {
+              # For some reason rustaceanvim needs the command set explicitly, and does not pick up on vim.lsp.config settings.
+              cmd = [(getExe pkgs.rust-analyzer)];
+
+              on_attach = mkLuaInline ''
+                function(client, bufnr)
+                    default_on_attach(client, bufnr)
+                    local opts = { noremap=true, silent=true, buffer = bufnr }
+
+                    ${optionalString config.vim.vendoredKeymaps.enable ''
+                  vim.keymap.set("n", "<localleader>rr", ":RustLsp runnables<CR>", opts)
+                  vim.keymap.set("n", "<localleader>rp", ":RustLsp parentModule<CR>", opts)
+                  vim.keymap.set("n", "<localleader>rm", ":RustLsp expandMacro<CR>", opts)
+                  vim.keymap.set("n", "<localleader>rc", ":RustLsp openCargo", opts)
+                  vim.keymap.set("n", "<localleader>rg", ":RustLsp crateGraph x11", opts)
+                ''}
+
+                    ${optionalString (cfg.dap.enable && config.vim.vendoredKeymaps.enable) ''
+                  vim.keymap.set("n", "<localleader>rd", ":RustLsp debuggables<cr>", opts)
+                ''}
+
+                    ${optionalString (cfg.dap.enable && config.vim.debugger.nvim-dap.mappings.continue != null) ''
+                  vim.keymap.set(
+                  "n", "${config.vim.debugger.nvim-dap.mappings.continue}",
+                  function()
+                    local dap = require("dap")
+                    if dap.status() == "" then
+                      vim.cmd "RustLsp debuggables"
+                    else
+                      dap.continue()
+                    end
+                  end,
+                  opts
+                  )
+                ''}
+                end
+              '';
+            };
+            example = {
+              on_attach = mkLuaInline ''
+                function(client, bufnr)
+                      -- you can also put keymaps in here
+                end,
+              '';
+            };
+          };
+          dap = mkOption {
+            description = "DAP configuration";
+            default = {
+              adapter =
+                if cfg.dap.adapter == "lldb-dap"
+                then
+                  mkLuaInline ''
+                    {
+                      type = "executable",
+                      command = "${cfg.dap.package}/bin/lldb-dap",
+                      name = "rustacean_lldb",
+                    }''
+                else let
+                  codelldb = pkgs.vscode-extensions.vadimcn.vscode-lldb.adapter;
+                  codelldbPath = "${codelldb}/bin/codelldb";
+                  liblldbPath = "${codelldb}/share/lldb/lib/liblldb.so";
+                in
+                  mkLuaInline ''
+                    require("rustaceanvim.config").get_codelldb_adapter("${codelldbPath}", "${liblldbPath}")
+                  '';
+            };
+            example = {};
+          };
+        };
+      };
     };
   };
 
@@ -190,82 +268,36 @@ in {
       };
     })
 
-    (mkIf (cfg.lsp.enable || cfg.dap.enable) {
+    (mkIf cfg.lsp.enable {
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = [
+            "rust"
+          ];
+        });
+      };
+    })
+
+    (mkIf cfg.extensions.rustaceanvim.enable {
       vim = {
         startPlugins = ["rustaceanvim"];
         pluginRC.rustaceanvim = entryAfter ["lsp-setup"] ''
-          vim.g.rustaceanvim = {
-          ${optionalString cfg.lsp.enable ''
-            -- LSP
-            tools = {
-              hover_actions = {
-                replace_builtin_hover = false
-              },
-            },
-            server = {
-              cmd = ${
-              if isList cfg.lsp.package
-              then toLuaObject cfg.lsp.package
-              else ''{"${cfg.lsp.package}/bin/rust-analyzer"}''
-            },
-              default_settings = {
-                ${cfg.lsp.opts}
-              },
-              on_attach = function(client, bufnr)
-                default_on_attach(client, bufnr)
-                local opts = { noremap=true, silent=true, buffer = bufnr }
-
-                ${optionalString config.vim.vendoredKeymaps.enable ''
-              vim.keymap.set("n", "<localleader>rr", ":RustLsp runnables<CR>", opts)
-              vim.keymap.set("n", "<localleader>rp", ":RustLsp parentModule<CR>", opts)
-              vim.keymap.set("n", "<localleader>rm", ":RustLsp expandMacro<CR>", opts)
-              vim.keymap.set("n", "<localleader>rc", ":RustLsp openCargo", opts)
-              vim.keymap.set("n", "<localleader>rg", ":RustLsp crateGraph x11", opts)
-            ''}
-
-                ${optionalString (cfg.dap.enable && config.vim.vendoredKeymaps.enable) ''
-              vim.keymap.set("n", "<localleader>rd", ":RustLsp debuggables<cr>", opts)
-            ''}
-
-                ${optionalString (cfg.dap.enable && config.vim.debugger.nvim-dap.mappings.continue != null) ''
-              vim.keymap.set(
-              "n", "${config.vim.debugger.nvim-dap.mappings.continue}",
-              function()
-                local dap = require("dap")
-                if dap.status() == "" then
-                  vim.cmd "RustLsp debuggables"
-                else
-                  dap.continue()
-                end
-              end,
-              opts
-              )
-            ''}
-              end
-            },
-          ''}
-
-            ${optionalString cfg.dap.enable ''
-            dap = {
-              adapter = ${
-              if cfg.dap.adapter == "lldb-dap"
-              then ''
-                {
-                  type = "executable",
-                  command = "${cfg.dap.package}/bin/lldb-dap",
-                  name = "rustacean_lldb",
-                }''
-              else let
-                codelldb = pkgs.vscode-extensions.vadimcn.vscode-lldb.adapter;
-                codelldbPath = "${codelldb}/bin/codelldb";
-                liblldbPath = "${codelldb}/share/lldb/lib/liblldb.so";
-              in ''require("rustaceanvim.config").get_codelldb_adapter("${codelldbPath}", "${liblldbPath}")''
-            },
-            },
-          ''}
-          }
+          vim.g.rustaceanvim = function()
+            return ${toLuaObject cfg.extensions.rustaceanvim.setupOpts}
+          end
         '';
       };
+
+      assertions = [
+        {
+          assertion = !(builtins.elem "rust-analyzer" cfg.lsp.server) && !config.vim.lsp.rust-analyzer.enable;
+          message = ''
+            Rustaceanvim fully manages its own rust-analyzer.
+            Therefore you can't use vim.languages.rust.extensions.rustaceanvim.enable with rust-analyzer enabled.
+          '';
+        }
+      ];
     })
 
     (mkIf cfg.extensions.crates-nvim.enable {

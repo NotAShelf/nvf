@@ -59,6 +59,7 @@
     ./ruby-lsp.nix
     ./ruff.nix
     ./rumdl.nix
+    ./rust-analyzer.nix
     ./solargraph.nix
     ./some-sass-language-server.nix
     ./sqls.nix
