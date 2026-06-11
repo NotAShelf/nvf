@@ -2,6 +2,7 @@
   imports = [
     ./binds
     ./ccc
+    ./csvview
     ./diffview
     ./direnv
     ./fzf-lua
