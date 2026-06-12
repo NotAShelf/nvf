@@ -192,6 +192,11 @@
 - Lazyload noice.nvim and nvim-web-devicons on `DeferredUIEnter`
 - Allow nulling treesitter packages for various language modules, filter `null`
   values in `vim.treesitter.grammars`.
+- Added {option}`vim.filetype` module option for registering custom filetypes
+  via `vim.filetype.add()`, placed in the DAG before `lazyConfigs` so plugins
+  can lazy-load on registered filetypes.
+- Moved `neovim/mappings` to `neovim/init/mappings.nix` to consolidate core
+  Neovim init options.
 
 [jfeo](https://github.com/jfeo):
 
