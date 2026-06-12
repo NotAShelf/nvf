@@ -410,6 +410,9 @@ in {
         Also see `vim.debugger.nvim-dap.configurations.python` if you want
         to use a custom python/additional libraries as your debuggee
       '')
+      (mkRemovedOptionModule ["vim" "languages" "odin" "dap" "package"] ''
+        Please use `vim.debugger.nvim-dap.adapters.<debugger>.command` instead.
+      '')
     ]
   ];
 }
