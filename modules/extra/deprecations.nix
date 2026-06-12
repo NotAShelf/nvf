@@ -402,6 +402,9 @@ in {
       (mkRemovedOptionModule ["vim" "languages" "clang" "dap" "package"] ''
         Please use `vim.debugger.nvim-dap.adapters.<debugger>.command` instead.
       '')
+      (mkRemovedOptionModule ["vim" "languages" "zig" "dap" "package"] ''
+        Please use `vim.debugger.nvim-dap.adapters.<debugger>.command` instead.
+      '')
     ]
   ];
 }
