@@ -356,6 +356,11 @@ treesitter grammars were changed to prefer <code>grammarPlugins</code> over
 <li>Lazyload noice.nvim and nvim-web-devicons on <code>DeferredUIEnter</code></li>
 <li>Allow nulling treesitter packages for various language modules, filter <code>null</code>
 values in <code>vim.treesitter.grammars</code>.</li>
+<li>Added <a class="option-reference" href="options.html#option-vim.filetype"><code class="nixos-option">vim.filetype</code></a> module option for registering custom filetypes
+via <code>vim.filetype.add()</code>, placed in the DAG before <code>lazyConfigs</code> so plugins
+can lazy-load on registered filetypes.</li>
+<li>Moved <code>neovim/mappings</code> to <code>neovim/init/mappings.nix</code> to consolidate core
+Neovim init options.</li>
 </ul>
 <p><a href="https://github.com/jfeo">jfeo</a>:</p>
 <ul>

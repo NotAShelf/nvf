@@ -4475,6 +4475,52 @@
   
   <li>
     <details class="toc-category">
+      <summary title="vim.filetype">
+        <span>vim.filetype</span>
+        <span class="toc-count">4</span>
+      </summary>
+      <ul>
+        
+        <li>
+          <a href='#option-vim.filetype' class="parent-option" title="vim.filetype">
+            vim.filetype
+            
+            
+          </a>
+        </li>
+        
+
+        
+        <li>
+          <a href='#option-vim.filetype.extension' title="vim.filetype.extension">
+            extension
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.filetype.filename' title="vim.filetype.filename">
+            filename
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.filetype.pattern' title="vim.filetype.pattern">
+            pattern
+            
+            
+          </a>
+        </li>
+        
+      </ul>
+    </details>
+  </li>
+  
+  <li>
+    <details class="toc-category">
       <summary title="vim.formatter">
         <span>vim.formatter</span>
         <span class="toc-count">11</span>
@@ -27242,6 +27288,100 @@ longest line.</p>
 </code></pre></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/filetree/nvimtree/nvimtree.nix" target="_blank">&lt;nvf/modules/plugins/filetree/nvimtree/nvimtree.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.filetype">
+  <h3 class="option-name">
+    <a href="#option-vim.filetype" class="option-anchor">vim.filetype</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>submodule</code></div>
+  <div class="option-description"><html><head></head><body><p>Additional filetypes to be registered through <code>vim.filetype.add()</code></p>
+<p>Filetype mappings can be added either by extension or by filename. The
+key can be either the "tail" or the full file path. The full file path
+is checked first, followed by the file name. If a match is not found
+using the filename, then the filename is matched against the list of
+Lua patterns (sorted by priority) until a match is found.</p>
+<p>If a pattern matching does not find a filetype, then the file extension
+is used.</p>
+<p>See <code>:h vim.filetype.add()</code> for more details.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>{ }</code></div>
+  <div class="option-example">Example: <pre><code>{
+  extension = {
+    bar = {
+      _type = "lua-inline";
+      expr = ''
+        {
+          bar = function(path, bufnr)
+            if some_condition() then
+              return 'barscript', function(bufnr)
+                -- Set a buffer variable
+                vim.b[bufnr].barscript_version = 2
+              end
+            end
+            return 'bar'
+          end,
+        }
+      '';
+    };
+    mdx = "markdown";
+  };
+  filename = {
+    ".foorc" = "toml";
+    "/etc/foo/config" = "toml";
+    "todo.txt" = "todotxt";
+  };
+  pattern = {
+    ".*%.scm" = "query";
+    ".*README.(%a+)" = ''
+      function(path, bufnr, ext)
+        if ext == 'md' then
+          return 'markdown'
+        elseif ext == 'rst' then
+          return 'rst'
+        end
+      end,
+    '';
+  };
+}</code></pre></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/filetype.nix" target="_blank">&lt;nvf/modules/neovim/init/filetype.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.filetype.extension">
+  <h3 class="option-name">
+    <a href="#option-vim.filetype.extension" class="option-anchor">vim.filetype.extension</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or (attribute set of (string or (luaInline) or list of (string or (luaInline) or (submodule))))</code></div>
+  <div class="option-description"><html><head></head><body><p>register a new filetype by extension</p>
+</body></html></div>
+  <div class="option-default">Default: <code>null</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/filetype.nix" target="_blank">&lt;nvf/modules/neovim/init/filetype.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.filetype.filename">
+  <h3 class="option-name">
+    <a href="#option-vim.filetype.filename" class="option-anchor">vim.filetype.filename</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or (attribute set of (string or (luaInline) or list of (string or (luaInline) or (submodule))))</code></div>
+  <div class="option-description"><html><head></head><body><p>register a new filetype by file name</p>
+</body></html></div>
+  <div class="option-default">Default: <code>null</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/filetype.nix" target="_blank">&lt;nvf/modules/neovim/init/filetype.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.filetype.pattern">
+  <h3 class="option-name">
+    <a href="#option-vim.filetype.pattern" class="option-anchor">vim.filetype.pattern</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or (attribute set of (string or (luaInline) or list of (string or (luaInline) or (submodule))))</code></div>
+  <div class="option-description"><html><head></head><body><p>register a new filetype by pattern</p>
+</body></html></div>
+  <div class="option-default">Default: <code>null</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/filetype.nix" target="_blank">&lt;nvf/modules/neovim/init/filetype.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.formatter.conform-nvim.enable">
   <h3 class="option-name">
     <a href="#option-vim.formatter.conform-nvim.enable" class="option-anchor">vim.formatter.conform-nvim.enable</a>
@@ -28353,7 +28493,7 @@ for more details on configuring EditorConfig behaviour.</p>
     }
   ];
 ''</code></pre></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.keymaps._.action">
   <h3 class="option-name">
@@ -28364,7 +28504,7 @@ for more details on configuring EditorConfig behaviour.</p>
   <div class="option-type">Type: <code>string</code></div>
   <div class="option-description"><html><head></head><body><p>The command to execute.</p>
 </body></html></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.keymaps._.desc">
   <h3 class="option-name">
@@ -28373,10 +28513,11 @@ for more details on configuring EditorConfig behaviour.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>null or string</code></div>
-  <div class="option-description"><html><head></head><body><p>A description of this keybind, to be shown in which-key, if you have it enabled.</p>
+  <div class="option-description"><html><head></head><body><p>Description for the keybind, to be shown in which-key, if you have enabled
+in the module system.</p>
 </body></html></div>
   <div class="option-default">Default: <code>null</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.keymaps._.expr">
   <h3 class="option-name">
@@ -28388,7 +28529,7 @@ for more details on configuring EditorConfig behaviour.</p>
   <div class="option-description"><html><head></head><body><p>Means that the action is actually an expression. Equivalent to adding &lt;expr&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.keymaps._.key">
   <h3 class="option-name">
@@ -28400,7 +28541,7 @@ for more details on configuring EditorConfig behaviour.</p>
   <div class="option-description"><html><head></head><body><p>The key that triggers this keybind.</p>
 </body></html></div>
   <div class="option-default">Default: <code>null</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.keymaps._.lua">
   <h3 class="option-name">
@@ -28413,7 +28554,7 @@ for more details on configuring EditorConfig behaviour.</p>
 Thus, it will not be wrapped in <code>""</code>.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.keymaps._.mode">
   <h3 class="option-name">
@@ -28426,7 +28567,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
 <p>See <code>:help map-modes</code> for a list of modes.</p>
 </body></html></div>
   <div class="option-example">Example: <code>`["n" "v" "c"]` for normal, visual and command mode</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.keymaps._.noremap">
   <h3 class="option-name">
@@ -28438,7 +28579,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.keymaps._.nowait">
   <h3 class="option-name">
@@ -28450,7 +28591,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to wait for extra input on ambiguous mappings. Equivalent to adding &lt;nowait&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.keymaps._.script">
   <h3 class="option-name">
@@ -28462,7 +28603,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Equivalent to adding &lt;script&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.keymaps._.silent">
   <h3 class="option-name">
@@ -28474,7 +28615,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether this mapping should be silent. Equivalent to adding &lt;silent&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.keymaps._.unique">
   <h3 class="option-name">
@@ -28486,7 +28627,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to fail if the map is already defined. Equivalent to adding &lt;unique&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.arduino.enable">
   <h3 class="option-name">
@@ -39297,7 +39438,7 @@ vim.opt.expandtab = true
   <div class="option-description"><html><head></head><body><p>Mappings for command-line mode</p>
 </body></html></div>
   <div class="option-default">Default: <code>{ }</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.command._name_.action">
   <h3 class="option-name">
@@ -39308,7 +39449,7 @@ vim.opt.expandtab = true
   <div class="option-type">Type: <code>string</code></div>
   <div class="option-description"><html><head></head><body><p>The command to execute.</p>
 </body></html></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.command._name_.desc">
   <h3 class="option-name">
@@ -39317,10 +39458,11 @@ vim.opt.expandtab = true
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>null or string</code></div>
-  <div class="option-description"><html><head></head><body><p>A description of this keybind, to be shown in which-key, if you have it enabled.</p>
+  <div class="option-description"><html><head></head><body><p>Description for the keybind, to be shown in which-key, if you have enabled
+in the module system.</p>
 </body></html></div>
   <div class="option-default">Default: <code>null</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.command._name_.expr">
   <h3 class="option-name">
@@ -39332,7 +39474,7 @@ vim.opt.expandtab = true
   <div class="option-description"><html><head></head><body><p>Means that the action is actually an expression. Equivalent to adding &lt;expr&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.command._name_.lua">
   <h3 class="option-name">
@@ -39345,7 +39487,7 @@ vim.opt.expandtab = true
 Thus, it will not be wrapped in <code>""</code>.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.command._name_.noremap">
   <h3 class="option-name">
@@ -39357,7 +39499,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.command._name_.nowait">
   <h3 class="option-name">
@@ -39369,7 +39511,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to wait for extra input on ambiguous mappings. Equivalent to adding &lt;nowait&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.command._name_.script">
   <h3 class="option-name">
@@ -39381,7 +39523,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Equivalent to adding &lt;script&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.command._name_.silent">
   <h3 class="option-name">
@@ -39393,7 +39535,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether this mapping should be silent. Equivalent to adding &lt;silent&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.command._name_.unique">
   <h3 class="option-name">
@@ -39405,7 +39547,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to fail if the map is already defined. Equivalent to adding &lt;unique&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insert">
   <h3 class="option-name">
@@ -39417,7 +39559,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Mappings for insert mode</p>
 </body></html></div>
   <div class="option-default">Default: <code>{ }</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insert._name_.action">
   <h3 class="option-name">
@@ -39428,7 +39570,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-type">Type: <code>string</code></div>
   <div class="option-description"><html><head></head><body><p>The command to execute.</p>
 </body></html></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insert._name_.desc">
   <h3 class="option-name">
@@ -39437,10 +39579,11 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>null or string</code></div>
-  <div class="option-description"><html><head></head><body><p>A description of this keybind, to be shown in which-key, if you have it enabled.</p>
+  <div class="option-description"><html><head></head><body><p>Description for the keybind, to be shown in which-key, if you have enabled
+in the module system.</p>
 </body></html></div>
   <div class="option-default">Default: <code>null</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insert._name_.expr">
   <h3 class="option-name">
@@ -39452,7 +39595,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Means that the action is actually an expression. Equivalent to adding &lt;expr&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insert._name_.lua">
   <h3 class="option-name">
@@ -39465,7 +39608,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
 Thus, it will not be wrapped in <code>""</code>.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insert._name_.noremap">
   <h3 class="option-name">
@@ -39477,7 +39620,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insert._name_.nowait">
   <h3 class="option-name">
@@ -39489,7 +39632,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to wait for extra input on ambiguous mappings. Equivalent to adding &lt;nowait&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insert._name_.script">
   <h3 class="option-name">
@@ -39501,7 +39644,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Equivalent to adding &lt;script&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insert._name_.silent">
   <h3 class="option-name">
@@ -39513,7 +39656,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether this mapping should be silent. Equivalent to adding &lt;silent&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insert._name_.unique">
   <h3 class="option-name">
@@ -39525,7 +39668,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to fail if the map is already defined. Equivalent to adding &lt;unique&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insertCommand">
   <h3 class="option-name">
@@ -39537,7 +39680,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Mappings for insert and command-line mode</p>
 </body></html></div>
   <div class="option-default">Default: <code>{ }</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insertCommand._name_.action">
   <h3 class="option-name">
@@ -39548,7 +39691,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-type">Type: <code>string</code></div>
   <div class="option-description"><html><head></head><body><p>The command to execute.</p>
 </body></html></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insertCommand._name_.desc">
   <h3 class="option-name">
@@ -39557,10 +39700,11 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>null or string</code></div>
-  <div class="option-description"><html><head></head><body><p>A description of this keybind, to be shown in which-key, if you have it enabled.</p>
+  <div class="option-description"><html><head></head><body><p>Description for the keybind, to be shown in which-key, if you have enabled
+in the module system.</p>
 </body></html></div>
   <div class="option-default">Default: <code>null</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insertCommand._name_.expr">
   <h3 class="option-name">
@@ -39572,7 +39716,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Means that the action is actually an expression. Equivalent to adding &lt;expr&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insertCommand._name_.lua">
   <h3 class="option-name">
@@ -39585,7 +39729,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
 Thus, it will not be wrapped in <code>""</code>.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insertCommand._name_.noremap">
   <h3 class="option-name">
@@ -39597,7 +39741,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insertCommand._name_.nowait">
   <h3 class="option-name">
@@ -39609,7 +39753,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to wait for extra input on ambiguous mappings. Equivalent to adding &lt;nowait&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insertCommand._name_.script">
   <h3 class="option-name">
@@ -39621,7 +39765,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Equivalent to adding &lt;script&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insertCommand._name_.silent">
   <h3 class="option-name">
@@ -39633,7 +39777,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether this mapping should be silent. Equivalent to adding &lt;silent&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.insertCommand._name_.unique">
   <h3 class="option-name">
@@ -39645,7 +39789,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to fail if the map is already defined. Equivalent to adding &lt;unique&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.lang">
   <h3 class="option-name">
@@ -39657,7 +39801,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Mappings for insert, command-line and lang-arg mode</p>
 </body></html></div>
   <div class="option-default">Default: <code>{ }</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.lang._name_.action">
   <h3 class="option-name">
@@ -39668,7 +39812,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-type">Type: <code>string</code></div>
   <div class="option-description"><html><head></head><body><p>The command to execute.</p>
 </body></html></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.lang._name_.desc">
   <h3 class="option-name">
@@ -39677,10 +39821,11 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>null or string</code></div>
-  <div class="option-description"><html><head></head><body><p>A description of this keybind, to be shown in which-key, if you have it enabled.</p>
+  <div class="option-description"><html><head></head><body><p>Description for the keybind, to be shown in which-key, if you have enabled
+in the module system.</p>
 </body></html></div>
   <div class="option-default">Default: <code>null</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.lang._name_.expr">
   <h3 class="option-name">
@@ -39692,7 +39837,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Means that the action is actually an expression. Equivalent to adding &lt;expr&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.lang._name_.lua">
   <h3 class="option-name">
@@ -39705,7 +39850,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
 Thus, it will not be wrapped in <code>""</code>.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.lang._name_.noremap">
   <h3 class="option-name">
@@ -39717,7 +39862,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.lang._name_.nowait">
   <h3 class="option-name">
@@ -39729,7 +39874,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to wait for extra input on ambiguous mappings. Equivalent to adding &lt;nowait&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.lang._name_.script">
   <h3 class="option-name">
@@ -39741,7 +39886,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Equivalent to adding &lt;script&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.lang._name_.silent">
   <h3 class="option-name">
@@ -39753,7 +39898,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether this mapping should be silent. Equivalent to adding &lt;silent&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.lang._name_.unique">
   <h3 class="option-name">
@@ -39765,7 +39910,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to fail if the map is already defined. Equivalent to adding &lt;unique&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normal">
   <h3 class="option-name">
@@ -39777,7 +39922,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Mappings for normal mode</p>
 </body></html></div>
   <div class="option-default">Default: <code>{ }</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normal._name_.action">
   <h3 class="option-name">
@@ -39788,7 +39933,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-type">Type: <code>string</code></div>
   <div class="option-description"><html><head></head><body><p>The command to execute.</p>
 </body></html></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normal._name_.desc">
   <h3 class="option-name">
@@ -39797,10 +39942,11 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>null or string</code></div>
-  <div class="option-description"><html><head></head><body><p>A description of this keybind, to be shown in which-key, if you have it enabled.</p>
+  <div class="option-description"><html><head></head><body><p>Description for the keybind, to be shown in which-key, if you have enabled
+in the module system.</p>
 </body></html></div>
   <div class="option-default">Default: <code>null</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normal._name_.expr">
   <h3 class="option-name">
@@ -39812,7 +39958,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Means that the action is actually an expression. Equivalent to adding &lt;expr&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normal._name_.lua">
   <h3 class="option-name">
@@ -39825,7 +39971,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
 Thus, it will not be wrapped in <code>""</code>.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normal._name_.noremap">
   <h3 class="option-name">
@@ -39837,7 +39983,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normal._name_.nowait">
   <h3 class="option-name">
@@ -39849,7 +39995,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to wait for extra input on ambiguous mappings. Equivalent to adding &lt;nowait&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normal._name_.script">
   <h3 class="option-name">
@@ -39861,7 +40007,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Equivalent to adding &lt;script&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normal._name_.silent">
   <h3 class="option-name">
@@ -39873,7 +40019,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether this mapping should be silent. Equivalent to adding &lt;silent&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normal._name_.unique">
   <h3 class="option-name">
@@ -39885,7 +40031,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to fail if the map is already defined. Equivalent to adding &lt;unique&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normalVisualOp">
   <h3 class="option-name">
@@ -39897,7 +40043,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Mappings for normal, visual, select and operator-pending (same as plain 'map') mode</p>
 </body></html></div>
   <div class="option-default">Default: <code>{ }</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normalVisualOp._name_.action">
   <h3 class="option-name">
@@ -39908,7 +40054,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-type">Type: <code>string</code></div>
   <div class="option-description"><html><head></head><body><p>The command to execute.</p>
 </body></html></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normalVisualOp._name_.desc">
   <h3 class="option-name">
@@ -39917,10 +40063,11 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>null or string</code></div>
-  <div class="option-description"><html><head></head><body><p>A description of this keybind, to be shown in which-key, if you have it enabled.</p>
+  <div class="option-description"><html><head></head><body><p>Description for the keybind, to be shown in which-key, if you have enabled
+in the module system.</p>
 </body></html></div>
   <div class="option-default">Default: <code>null</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normalVisualOp._name_.expr">
   <h3 class="option-name">
@@ -39932,7 +40079,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Means that the action is actually an expression. Equivalent to adding &lt;expr&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normalVisualOp._name_.lua">
   <h3 class="option-name">
@@ -39945,7 +40092,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
 Thus, it will not be wrapped in <code>""</code>.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normalVisualOp._name_.noremap">
   <h3 class="option-name">
@@ -39957,7 +40104,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normalVisualOp._name_.nowait">
   <h3 class="option-name">
@@ -39969,7 +40116,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to wait for extra input on ambiguous mappings. Equivalent to adding &lt;nowait&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normalVisualOp._name_.script">
   <h3 class="option-name">
@@ -39981,7 +40128,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Equivalent to adding &lt;script&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normalVisualOp._name_.silent">
   <h3 class="option-name">
@@ -39993,7 +40140,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether this mapping should be silent. Equivalent to adding &lt;silent&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.normalVisualOp._name_.unique">
   <h3 class="option-name">
@@ -40005,7 +40152,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to fail if the map is already defined. Equivalent to adding &lt;unique&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.operator">
   <h3 class="option-name">
@@ -40017,7 +40164,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Mappings for operator-pending mode</p>
 </body></html></div>
   <div class="option-default">Default: <code>{ }</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.operator._name_.action">
   <h3 class="option-name">
@@ -40028,7 +40175,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-type">Type: <code>string</code></div>
   <div class="option-description"><html><head></head><body><p>The command to execute.</p>
 </body></html></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.operator._name_.desc">
   <h3 class="option-name">
@@ -40037,10 +40184,11 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>null or string</code></div>
-  <div class="option-description"><html><head></head><body><p>A description of this keybind, to be shown in which-key, if you have it enabled.</p>
+  <div class="option-description"><html><head></head><body><p>Description for the keybind, to be shown in which-key, if you have enabled
+in the module system.</p>
 </body></html></div>
   <div class="option-default">Default: <code>null</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.operator._name_.expr">
   <h3 class="option-name">
@@ -40052,7 +40200,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Means that the action is actually an expression. Equivalent to adding &lt;expr&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.operator._name_.lua">
   <h3 class="option-name">
@@ -40065,7 +40213,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
 Thus, it will not be wrapped in <code>""</code>.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.operator._name_.noremap">
   <h3 class="option-name">
@@ -40077,7 +40225,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.operator._name_.nowait">
   <h3 class="option-name">
@@ -40089,7 +40237,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to wait for extra input on ambiguous mappings. Equivalent to adding &lt;nowait&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.operator._name_.script">
   <h3 class="option-name">
@@ -40101,7 +40249,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Equivalent to adding &lt;script&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.operator._name_.silent">
   <h3 class="option-name">
@@ -40113,7 +40261,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether this mapping should be silent. Equivalent to adding &lt;silent&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.operator._name_.unique">
   <h3 class="option-name">
@@ -40125,7 +40273,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to fail if the map is already defined. Equivalent to adding &lt;unique&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.select">
   <h3 class="option-name">
@@ -40137,7 +40285,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Mappings for select mode</p>
 </body></html></div>
   <div class="option-default">Default: <code>{ }</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.select._name_.action">
   <h3 class="option-name">
@@ -40148,7 +40296,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-type">Type: <code>string</code></div>
   <div class="option-description"><html><head></head><body><p>The command to execute.</p>
 </body></html></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.select._name_.desc">
   <h3 class="option-name">
@@ -40157,10 +40305,11 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>null or string</code></div>
-  <div class="option-description"><html><head></head><body><p>A description of this keybind, to be shown in which-key, if you have it enabled.</p>
+  <div class="option-description"><html><head></head><body><p>Description for the keybind, to be shown in which-key, if you have enabled
+in the module system.</p>
 </body></html></div>
   <div class="option-default">Default: <code>null</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.select._name_.expr">
   <h3 class="option-name">
@@ -40172,7 +40321,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Means that the action is actually an expression. Equivalent to adding &lt;expr&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.select._name_.lua">
   <h3 class="option-name">
@@ -40185,7 +40334,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
 Thus, it will not be wrapped in <code>""</code>.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.select._name_.noremap">
   <h3 class="option-name">
@@ -40197,7 +40346,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.select._name_.nowait">
   <h3 class="option-name">
@@ -40209,7 +40358,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to wait for extra input on ambiguous mappings. Equivalent to adding &lt;nowait&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.select._name_.script">
   <h3 class="option-name">
@@ -40221,7 +40370,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Equivalent to adding &lt;script&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.select._name_.silent">
   <h3 class="option-name">
@@ -40233,7 +40382,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether this mapping should be silent. Equivalent to adding &lt;silent&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.select._name_.unique">
   <h3 class="option-name">
@@ -40245,7 +40394,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to fail if the map is already defined. Equivalent to adding &lt;unique&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.terminal">
   <h3 class="option-name">
@@ -40257,7 +40406,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Mappings for terminal mode</p>
 </body></html></div>
   <div class="option-default">Default: <code>{ }</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.terminal._name_.action">
   <h3 class="option-name">
@@ -40268,7 +40417,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-type">Type: <code>string</code></div>
   <div class="option-description"><html><head></head><body><p>The command to execute.</p>
 </body></html></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.terminal._name_.desc">
   <h3 class="option-name">
@@ -40277,10 +40426,11 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>null or string</code></div>
-  <div class="option-description"><html><head></head><body><p>A description of this keybind, to be shown in which-key, if you have it enabled.</p>
+  <div class="option-description"><html><head></head><body><p>Description for the keybind, to be shown in which-key, if you have enabled
+in the module system.</p>
 </body></html></div>
   <div class="option-default">Default: <code>null</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.terminal._name_.expr">
   <h3 class="option-name">
@@ -40292,7 +40442,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Means that the action is actually an expression. Equivalent to adding &lt;expr&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.terminal._name_.lua">
   <h3 class="option-name">
@@ -40305,7 +40455,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
 Thus, it will not be wrapped in <code>""</code>.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.terminal._name_.noremap">
   <h3 class="option-name">
@@ -40317,7 +40467,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.terminal._name_.nowait">
   <h3 class="option-name">
@@ -40329,7 +40479,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to wait for extra input on ambiguous mappings. Equivalent to adding &lt;nowait&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.terminal._name_.script">
   <h3 class="option-name">
@@ -40341,7 +40491,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Equivalent to adding &lt;script&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.terminal._name_.silent">
   <h3 class="option-name">
@@ -40353,7 +40503,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether this mapping should be silent. Equivalent to adding &lt;silent&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.terminal._name_.unique">
   <h3 class="option-name">
@@ -40365,7 +40515,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to fail if the map is already defined. Equivalent to adding &lt;unique&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visual">
   <h3 class="option-name">
@@ -40377,7 +40527,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Mappings for visual and select mode</p>
 </body></html></div>
   <div class="option-default">Default: <code>{ }</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visual._name_.action">
   <h3 class="option-name">
@@ -40388,7 +40538,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-type">Type: <code>string</code></div>
   <div class="option-description"><html><head></head><body><p>The command to execute.</p>
 </body></html></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visual._name_.desc">
   <h3 class="option-name">
@@ -40397,10 +40547,11 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>null or string</code></div>
-  <div class="option-description"><html><head></head><body><p>A description of this keybind, to be shown in which-key, if you have it enabled.</p>
+  <div class="option-description"><html><head></head><body><p>Description for the keybind, to be shown in which-key, if you have enabled
+in the module system.</p>
 </body></html></div>
   <div class="option-default">Default: <code>null</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visual._name_.expr">
   <h3 class="option-name">
@@ -40412,7 +40563,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Means that the action is actually an expression. Equivalent to adding &lt;expr&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visual._name_.lua">
   <h3 class="option-name">
@@ -40425,7 +40576,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
 Thus, it will not be wrapped in <code>""</code>.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visual._name_.noremap">
   <h3 class="option-name">
@@ -40437,7 +40588,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visual._name_.nowait">
   <h3 class="option-name">
@@ -40449,7 +40600,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to wait for extra input on ambiguous mappings. Equivalent to adding &lt;nowait&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visual._name_.script">
   <h3 class="option-name">
@@ -40461,7 +40612,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Equivalent to adding &lt;script&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visual._name_.silent">
   <h3 class="option-name">
@@ -40473,7 +40624,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether this mapping should be silent. Equivalent to adding &lt;silent&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visual._name_.unique">
   <h3 class="option-name">
@@ -40485,7 +40636,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to fail if the map is already defined. Equivalent to adding &lt;unique&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visualOnly">
   <h3 class="option-name">
@@ -40497,7 +40648,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Mappings for visual only mode</p>
 </body></html></div>
   <div class="option-default">Default: <code>{ }</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visualOnly._name_.action">
   <h3 class="option-name">
@@ -40508,7 +40659,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-type">Type: <code>string</code></div>
   <div class="option-description"><html><head></head><body><p>The command to execute.</p>
 </body></html></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visualOnly._name_.desc">
   <h3 class="option-name">
@@ -40517,10 +40668,11 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>null or string</code></div>
-  <div class="option-description"><html><head></head><body><p>A description of this keybind, to be shown in which-key, if you have it enabled.</p>
+  <div class="option-description"><html><head></head><body><p>Description for the keybind, to be shown in which-key, if you have enabled
+in the module system.</p>
 </body></html></div>
   <div class="option-default">Default: <code>null</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visualOnly._name_.expr">
   <h3 class="option-name">
@@ -40532,7 +40684,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Means that the action is actually an expression. Equivalent to adding &lt;expr&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visualOnly._name_.lua">
   <h3 class="option-name">
@@ -40545,7 +40697,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
 Thus, it will not be wrapped in <code>""</code>.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visualOnly._name_.noremap">
   <h3 class="option-name">
@@ -40557,7 +40709,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visualOnly._name_.nowait">
   <h3 class="option-name">
@@ -40569,7 +40721,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to wait for extra input on ambiguous mappings. Equivalent to adding &lt;nowait&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visualOnly._name_.script">
   <h3 class="option-name">
@@ -40581,7 +40733,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Equivalent to adding &lt;script&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visualOnly._name_.silent">
   <h3 class="option-name">
@@ -40593,7 +40745,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether this mapping should be silent. Equivalent to adding &lt;silent&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.maps.visualOnly._name_.unique">
   <h3 class="option-name">
@@ -40605,7 +40757,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-description"><html><head></head><body><p>Whether to fail if the map is already defined. Equivalent to adding &lt;unique&gt; to a map.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.mini.ai.enable">
   <h3 class="option-name">
@@ -51419,7 +51571,7 @@ not listed in the docs</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
   <div class="option-example">Example: <code>false</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/mappings/options.nix" target="_blank">&lt;nvf/modules/neovim/mappings/options.nix&gt;</a></code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.viAlias">
   <h3 class="option-name">
