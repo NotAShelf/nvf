@@ -10,7 +10,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum bool listOf;
   inherit (lib) genAttrs;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption deprecatedSingleOrListOf enumWithRename;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.bash;
@@ -26,7 +26,11 @@
   };
 
   defaultDiagnosticsProvider = ["shellcheck"];
-  diagnosticsProviders = ["shellcheck"];
+  diagnosticsProviders = {
+    shellcheck = {
+      package = pkgs.shellcheck;
+    };
+  };
 in {
   options.vim.languages.bash = {
     enable = mkEnableOption "Bash language support";
@@ -76,16 +80,15 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra Shell diagnostics via nvim-lint"
+        mkEnableOption "extra Bash diagnostics"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
-
-      types = mkOption {
-        type = listOf (enum diagnosticsProviders);
-        default = defaultDiagnosticsProvider;
-        description = "extra Shell diagnostics providers";
+      types = diagnostics {
+        langDesc = "Bash";
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
@@ -125,16 +128,13 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics = {
-        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
-        nvim-lint = {
-          enable = true;
-          linters_by_ft = {
-            sh = cfg.extraDiagnostics.types;
-            bash = cfg.extraDiagnostics.types;
-            zsh = cfg.extraDiagnostics.types;
-          };
-        };
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.sh = cfg.extraDiagnostics.types;
+        linters = mkMerge (map (name: {
+            ${name}.cmd = getExe diagnosticsProviders.${name}.package;
+          })
+          cfg.extraDiagnostics.types);
       };
     })
   ]);

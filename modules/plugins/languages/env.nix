@@ -1,33 +1,42 @@
 {
   config,
+  pkgs,
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption literalExpression mkOption;
+  inherit (lib.options) mkEnableOption literalExpression;
+  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.attrsets) genAttrs;
-  inherit (lib.types) enum listOf;
+  inherit (lib.nvim.types) diagnostics;
 
   cfg = config.vim.languages.env;
 
   defaultDiagnosticsProvider = ["dotenv-linter"];
-  diagnosticsProviders = ["dotenv-linter"];
+  diagnosticsProviders = {
+    dotenv-linter = let
+      pkg = pkgs.dotenv-linter;
+    in {
+      package = pkg;
+      config = {
+        cmd = getExe pkg;
+      };
+    };
+  };
 in {
   options.vim.languages.env = {
     enable = mkEnableOption "Env language support";
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra Env diagnostics via nvim-lint"
+        mkEnableOption "extra Env diagnostics"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
-          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostic";
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
-
-      types = mkOption {
-        type = listOf (enum diagnosticsProviders);
-        default = defaultDiagnosticsProvider;
-        description = "extra Env diagnostics providers";
+      types = diagnostics {
+        langDesc = "Env";
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
@@ -49,12 +58,12 @@ in {
     }
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics = {
-        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
-        nvim-lint = {
-          enable = true;
-          linters_by_ft.env = cfg.extraDiagnostics.types;
-        };
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.env = cfg.extraDiagnostics.types;
+        linters =
+          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
+            cfg.extraDiagnostics.types);
       };
     })
   ]);

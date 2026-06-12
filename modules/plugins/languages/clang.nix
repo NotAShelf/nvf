@@ -96,9 +96,6 @@
     };
     clang-format.command = getExe' pkgs.clang-tools "clang-format";
   };
-
-  defaultDiagnosticsProvider = ["cpplint"];
-  diagnosticsProviders = ["cpplint"];
 in {
   options.vim.languages.clang = {
     enable = mkEnableOption "C/C++ language support";
@@ -171,21 +168,6 @@ in {
         description = "C formatter to use";
       };
     };
-
-    extraDiagnostics = {
-      enable =
-        mkEnableOption "extra C/C++ diagnostics via nvim-lint"
-        // {
-          default = config.vim.languages.enableExtraDiagnostics;
-          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
-        };
-
-      types = mkOption {
-        type = listOf (enum diagnosticsProviders);
-        default = defaultDiagnosticsProvider;
-        description = "extra C/C++ diagnostics providers";
-      };
-    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -226,19 +208,6 @@ in {
               value = formats.${name};
             })
             cfg.format.type;
-        };
-      };
-    })
-
-    (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics = {
-        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
-        nvim-lint = {
-          enable = true;
-          linters_by_ft = {
-            c = cfg.extraDiagnostics.types;
-            cpp = cfg.extraDiagnostics.types;
-          };
         };
       };
     })

@@ -6,9 +6,11 @@
 }: let
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.meta) getExe;
   inherit (lib) genAttrs;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.kotlin;
 
@@ -16,7 +18,11 @@
   servers = ["kotlin-language-server"];
 
   defaultDiagnosticsProvider = ["ktlint"];
-  diagnosticsProviders = ["ktlint"];
+  diagnosticsProviders = {
+    ktlint = {
+      package = pkgs.ktlint;
+    };
+  };
 in {
   options.vim.languages.kotlin = {
     enable = mkEnableOption "Kotlin/HCL support";
@@ -47,16 +53,16 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra Kotlin diagnostics via nvim-lint"
+        mkEnableOption "extra Kotlin diagnostics"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
 
-      types = mkOption {
-        type = listOf (enum diagnosticsProviders);
-        default = defaultDiagnosticsProvider;
-        description = "extra Kotlin diagnostics providers";
+      types = diagnostics {
+        langDesc = "Kotlin";
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
@@ -67,12 +73,13 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics = {
-        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
-        nvim-lint = {
-          enable = true;
-          linters_by_ft.kotlin = cfg.extraDiagnostics.types;
-        };
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.kotlin = cfg.extraDiagnostics.types;
+        linters = mkMerge (map (name: {
+            ${name}.cmd = getExe diagnosticsProviders.${name}.package;
+          })
+          cfg.extraDiagnostics.types);
       };
     })
 

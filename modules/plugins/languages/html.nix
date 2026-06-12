@@ -5,12 +5,13 @@
   ...
 }: let
   inherit (builtins) attrNames;
+  inherit (lib.meta) getExe;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) bool enum listOf;
   inherit (lib) genAttrs;
   inherit (lib.lists) optional;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -28,7 +29,11 @@
   };
 
   defaultDiagnosticsProvider = ["htmlhint"];
-  diagnosticsProviders = ["htmlhint"];
+  diagnosticsProviders = {
+    htmlhint = {
+      config.cmd = getExe pkgs.htmlhint;
+    };
+  };
 in {
   options.vim.languages.html = {
     enable = mkEnableOption "HTML language support";
@@ -78,16 +83,16 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra HTML diagnostics via nvim-lint"
+        mkEnableOption "extra HTML diagnostics"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
 
-      types = mkOption {
-        type = listOf (enum diagnosticsProviders);
-        default = defaultDiagnosticsProvider;
-        description = "extra HTML diagnostics providers";
+      types = diagnostics {
+        langDesc = "HTML";
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
@@ -133,12 +138,13 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics = {
-        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
-        nvim-lint = {
-          enable = true;
-          linters_by_ft.html = cfg.extraDiagnostics.types;
-        };
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.html = cfg.extraDiagnostics.types;
+        linters = mkMerge (map (name: {
+            ${name} = diagnosticsProviders.${name}.config;
+          })
+          cfg.extraDiagnostics.types);
       };
     })
   ]);

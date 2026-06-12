@@ -1,6 +1,3 @@
 {
-  imports = [
-    ./nvim-lint
-    ./presets
-  ];
+  imports = [./nvim-lint];
 }

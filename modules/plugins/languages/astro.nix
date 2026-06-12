@@ -11,7 +11,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.types) enum coercedTo listOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf enumWithRename;
   inherit (lib) genAttrs;
 
   cfg = config.vim.languages.astro;
@@ -35,7 +35,24 @@
   };
 
   defaultDiagnosticsProvider = ["eslint_d"];
-  diagnosticsProviders = ["eslint_d"];
+  diagnosticsProviders = {
+    eslint_d = let
+      pkg = pkgs.eslint_d;
+    in {
+      package = pkg;
+      config = {
+        cmd = getExe pkg;
+        required_files = [
+          "eslint.config.js"
+          "eslint.config.mjs"
+          ".eslintrc"
+          ".eslintrc.json"
+          ".eslintrc.js"
+          ".eslintrc.yml"
+        ];
+      };
+    };
+  };
 
   formatType =
     deprecatedSingleOrListOf
@@ -96,16 +113,16 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra Astro diagnostics via nvim-lint"
+        mkEnableOption "extra Astro diagnostics"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
 
-      types = mkOption {
-        type = listOf (enum diagnosticsProviders);
-        default = defaultDiagnosticsProvider;
-        description = "extra Astro diagnostics providers";
+      types = diagnostics {
+        langDesc = "Astro";
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
@@ -141,12 +158,12 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics = {
-        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
-        nvim-lint = {
-          enable = true;
-          linters_by_ft.astro = cfg.extraDiagnostics.types;
-        };
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.astro = cfg.extraDiagnostics.types;
+        linters =
+          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
+            cfg.extraDiagnostics.types);
       };
     })
   ]);

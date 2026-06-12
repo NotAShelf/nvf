@@ -9,7 +9,7 @@
   inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf enumWithRename;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -28,7 +28,11 @@
   };
 
   defaultDiagnosticsProvider = ["rubocop"];
-  diagnosticsProviders = ["rubocop"];
+  diagnosticsProviders = {
+    rubocop = {
+      package = pkgs.rubyPackages.rubocop;
+    };
+  };
 in {
   options.vim.languages.ruby = {
     enable = mkEnableOption "Ruby language support";
@@ -75,13 +79,13 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "Ruby extra diagnostics via nvim-lint"
+        mkEnableOption "Ruby extra diagnostics support"
         // {default = config.vim.languages.enableExtraDiagnostics;};
 
-      types = mkOption {
-        type = listOf (enum diagnosticsProviders);
-        default = defaultDiagnosticsProvider;
-        description = "extra Ruby diagnostics providers";
+      types = diagnostics {
+        langDesc = "Ruby";
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
@@ -117,15 +121,13 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics = {
-        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
-        nvim-lint = {
-          enable = true;
-          linters_by_ft = {
-            ruby = cfg.extraDiagnostics.types;
-            eruby = cfg.extraDiagnostics.types;
-          };
-        };
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.ruby = cfg.extraDiagnostics.types;
+        linters = mkMerge (map (name: {
+            ${name}.cmd = getExe diagnosticsProviders.${name}.package;
+          })
+          cfg.extraDiagnostics.types);
       };
     })
   ]);

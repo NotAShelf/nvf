@@ -10,7 +10,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.types) diagnostics mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.toml;
@@ -39,7 +39,12 @@
     };
   };
   defaultDiagnosticsProvider = ["tombi"];
-  diagnosticsProviders = ["tombi" "taplo"];
+  diagnosticsProviders = {
+    tombi = {
+      package = pkgs.tombi;
+      args = ["lint"];
+    };
+  };
 in {
   options.vim.languages.toml = {
     enable = mkEnableOption "TOML configuration language support";
@@ -86,15 +91,15 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra TOML diagnostics via nvim-lint"
+        mkEnableOption "extra TOML diagnostics"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
-      types = mkOption {
-        type = listOf (enum diagnosticsProviders);
-        default = defaultDiagnosticsProvider;
-        description = "extra TOML diagnostics providers";
+      types = diagnostics {
+        langDesc = "TOML";
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
@@ -132,12 +137,15 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics = {
-        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
-        nvim-lint = {
-          enable = true;
-          linters_by_ft.toml = cfg.extraDiagnostics.types;
-        };
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.toml = cfg.extraDiagnostics.types;
+        linters = mkMerge (
+          map (name: {
+            ${name}.cmd = getExe diagnosticsProviders.${name}.package;
+          })
+          cfg.extraDiagnostics.types
+        );
       };
     })
   ]);

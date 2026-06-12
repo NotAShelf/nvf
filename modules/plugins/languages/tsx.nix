@@ -10,7 +10,7 @@
   inherit (lib.attrsets) attrNames genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics;
 
   cfg = config.vim.languages.tsx;
 
@@ -41,7 +41,16 @@
   };
 
   defaultDiagnosticsProvider = ["biomejs"];
-  diagnosticsProviders = ["biomejs"];
+  diagnosticsProviders = {
+    biomejs = let
+      pkg = pkgs.biome;
+    in {
+      package = pkg;
+      config = {
+        cmd = getExe pkg;
+      };
+    };
+  };
 in {
   options.vim.languages.tsx = {
     enable = mkEnableOption "Typescript XML (TSX) language support";
@@ -86,12 +95,12 @@ in {
     };
 
     extraDiagnostics = {
-      enable = mkEnableOption "extra Typescript XML (TSX) diagnostics via nvim-lint" // {default = config.vim.languages.enableExtraDiagnostics;};
+      enable = mkEnableOption "extra Typescript XML (TSX) diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
 
-      types = mkOption {
-        type = listOf (enum diagnosticsProviders);
-        default = defaultDiagnosticsProvider;
-        description = "extra Typescript XML (TSX) diagnostics providers";
+      types = diagnostics {
+        langDesc = "Typescript XML (TSX)";
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
@@ -135,15 +144,15 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics = {
-        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
-        nvim-lint = {
-          enable = true;
-          linters_by_ft = {
-            typescriptreact = cfg.extraDiagnostics.types;
-            javascriptreact = cfg.extraDiagnostics.types;
-          };
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft = {
+          typescriptreact = cfg.extraDiagnostics.types;
+          javascriptreact = cfg.extraDiagnostics.types;
         };
+        linters =
+          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
+            cfg.extraDiagnostics.types);
       };
     })
   ]);

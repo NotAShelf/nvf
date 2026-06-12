@@ -9,8 +9,8 @@
   inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum package listOf;
-  inherit (lib.nvim.types) deprecatedSingleOrListOf;
+  inherit (lib.types) enum package str listOf;
+  inherit (lib.nvim.types) diagnostics deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.sql;
@@ -24,17 +24,40 @@
   formats = {
     sqlfluff = {
       command = getExe sqlfluffDefault;
+      append_args = ["--dialect=${cfg.dialect}"];
     };
     sqruff = {
       command = getExe sqruffDefault;
+      append_args = ["--dialect=${cfg.dialect}"];
     };
   };
 
   defaultDiagnosticsProvider = ["sqlfluff"];
-  diagnosticsProviders = ["sqlfluff" "sqruff"];
+  diagnosticsProviders = {
+    sqlfluff = {
+      package = sqlfluffDefault;
+      config = {
+        cmd = getExe sqlfluffDefault;
+        args = ["lint" "--format=json" "--dialect=${cfg.dialect}"];
+      };
+    };
+    sqruff = {
+      package = sqruffDefault;
+      config = {
+        cmd = getExe sqruffDefault;
+        args = ["lint" "--format=json" "--dialect=${cfg.dialect}" "-"];
+      };
+    };
+  };
 in {
   options.vim.languages.sql = {
     enable = mkEnableOption "SQL language support";
+
+    dialect = mkOption {
+      type = str;
+      default = "ansi";
+      description = "SQL dialect for formatters and diagnostics (if used)";
+    };
 
     treesitter = {
       enable =
@@ -83,16 +106,16 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra SQL diagnostics via nvim-lint"
+        mkEnableOption "extra SQL diagnostics"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
 
-      types = mkOption {
-        type = listOf (enum diagnosticsProviders);
-        default = defaultDiagnosticsProvider;
-        description = "extra SQL diagnostics providers";
+      types = diagnostics {
+        langDesc = "SQL";
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
@@ -130,14 +153,12 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics = {
-        presets = genAttrs cfg.extraDiagnostics.types (_: {
-          enable = true;
-        });
-        nvim-lint = {
-          enable = true;
-          linters_by_ft.sql = cfg.extraDiagnostics.types;
-        };
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.sql = cfg.extraDiagnostics.types;
+        linters =
+          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
+            cfg.extraDiagnostics.types);
       };
     })
   ]);

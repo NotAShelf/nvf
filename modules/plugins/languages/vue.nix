@@ -10,7 +10,7 @@
   inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption diagnostics;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.vue;
@@ -34,7 +34,16 @@
   };
 
   defaultDiagnosticsProvider = ["biomejs"];
-  diagnosticsProviders = ["biomejs"];
+  diagnosticsProviders = {
+    biomejs = let
+      pkg = pkgs.biome;
+    in {
+      package = pkg;
+      config = {
+        cmd = getExe pkg;
+      };
+    };
+  };
 in {
   options.vim.languages.vue = {
     enable = mkEnableOption "Vue.js language support";
@@ -82,16 +91,16 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra Vue.js diagnostics via nvim-lint"
+        mkEnableOption "extra Vue.js diagnostics"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
 
-      types = mkOption {
-        type = listOf (enum diagnosticsProviders);
-        default = defaultDiagnosticsProvider;
-        description = "extra Vue.js diagnostics providers";
+      types = diagnostics {
+        langDesc = "Vue.js";
+        inherit diagnosticsProviders;
+        inherit defaultDiagnosticsProvider;
       };
     };
   };
@@ -127,12 +136,15 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics = {
-        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
-        nvim-lint = {
-          enable = true;
-          linters_by_ft.vue = cfg.extraDiagnostics.types;
-        };
+      vim.diagnostics.nvim-lint = {
+        enable = true;
+        linters_by_ft.vue = cfg.extraDiagnostics.types;
+        linters = mkMerge (
+          map (name: {
+            ${name}.cmd = getExe diagnosticsProviders.${name}.package;
+          })
+          cfg.extraDiagnostics.types
+        );
       };
     })
   ]);
