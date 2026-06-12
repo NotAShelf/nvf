@@ -10,7 +10,7 @@
   inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.types) listOf enum;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.twig;
@@ -26,14 +26,8 @@
     # TODO: if twig-cs-fixer gets packaged for nix, add it and default to it.
   };
   defaultDiagnosticsProvider = ["djlint"];
-  diagnosticsProviders = {
-    djlint = {
-      config = {
-        cmd = getExe pkgs.djlint;
-      };
-    };
-    # TODO: if curlylint gets packaged for nix, add it.
-  };
+  # TODO: if curlylint gets packaged for nix, add it.
+  diagnosticsProviders = ["djlint"];
 in {
   options.vim.languages.twig = {
     enable = mkEnableOption "Twig templating language support";
@@ -78,15 +72,15 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra Twig diagnostics"
+        mkEnableOption "extra Twig diagnostics via nvim-lint"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
-      types = diagnostics {
-        langDesc = "Twig";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra Twig diagnostics providers";
       };
     };
   };
@@ -122,12 +116,12 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics.nvim-lint = {
-        enable = true;
-        linters_by_ft.twig = cfg.extraDiagnostics.types;
-        linters =
-          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
-            cfg.extraDiagnostics.types);
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+        nvim-lint = {
+          enable = true;
+          linters_by_ft.twig = cfg.extraDiagnostics.types;
+        };
       };
     })
   ]);

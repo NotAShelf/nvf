@@ -1,42 +1,33 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption literalExpression;
-  inherit (lib.meta) getExe;
+  inherit (lib.options) mkEnableOption literalExpression mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) diagnostics;
+  inherit (lib.attrsets) genAttrs;
+  inherit (lib.types) enum listOf;
 
   cfg = config.vim.languages.env;
 
   defaultDiagnosticsProvider = ["dotenv-linter"];
-  diagnosticsProviders = {
-    dotenv-linter = let
-      pkg = pkgs.dotenv-linter;
-    in {
-      package = pkg;
-      config = {
-        cmd = getExe pkg;
-      };
-    };
-  };
+  diagnosticsProviders = ["dotenv-linter"];
 in {
   options.vim.languages.env = {
     enable = mkEnableOption "Env language support";
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra Env diagnostics"
+        mkEnableOption "extra Env diagnostics via nvim-lint"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
-          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostic";
         };
-      types = diagnostics {
-        langDesc = "Env";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra Env diagnostics providers";
       };
     };
   };
@@ -58,12 +49,12 @@ in {
     }
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics.nvim-lint = {
-        enable = true;
-        linters_by_ft.env = cfg.extraDiagnostics.types;
-        linters =
-          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
-            cfg.extraDiagnostics.types);
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+        nvim-lint = {
+          enable = true;
+          linters_by_ft.env = cfg.extraDiagnostics.types;
+        };
       };
     })
   ]);

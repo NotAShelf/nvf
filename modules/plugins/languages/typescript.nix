@@ -12,7 +12,7 @@
   inherit (lib.types) enum bool listOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics mkPluginSetupOption enumWithRename;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption enumWithRename;
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.languages.typescript;
@@ -44,35 +44,8 @@
     };
   };
 
-  # TODO: specify packages
   defaultDiagnosticsProvider = ["eslint_d"];
-  diagnosticsProviders = {
-    eslint_d = let
-      pkg = pkgs.eslint_d;
-    in {
-      package = pkg;
-      config = {
-        cmd = getExe pkg;
-        required_files = [
-          "eslint.config.js"
-          "eslint.config.mjs"
-          ".eslintrc"
-          ".eslintrc.cjs"
-          ".eslintrc.json"
-          ".eslintrc.js"
-          ".eslintrc.yml"
-        ];
-      };
-    };
-    biomejs = let
-      pkg = pkgs.biome;
-    in {
-      package = pkg;
-      config = {
-        cmd = getExe pkg;
-      };
-    };
-  };
+  diagnosticsProviders = ["eslint_d" "biomejs"];
 in {
   options.vim.languages.typescript = {
     enable = mkEnableOption "Typescript/Javascript language support";
@@ -128,10 +101,10 @@ in {
     extraDiagnostics = {
       enable = mkEnableOption "extra Typescript/Javascript diagnostics" // {default = config.vim.languages.enableExtraDiagnostics;};
 
-      types = diagnostics {
-        langDesc = "Typescript/Javascript";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra Typescript/Javascript diagnostics providers";
       };
     };
 
@@ -197,12 +170,14 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics.nvim-lint = {
-        enable = true;
-        linters_by_ft.typescript = cfg.extraDiagnostics.types;
-        linters =
-          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
-            cfg.extraDiagnostics.types);
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+        nvim-lint = {
+          enable = true;
+          linters_by_ft = {
+            typescript = cfg.extraDiagnostics.types;
+          };
+        };
       };
     })
 

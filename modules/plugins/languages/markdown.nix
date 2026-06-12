@@ -11,7 +11,7 @@
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.types) bool enum listOf str nullOr;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.types) diagnostics mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.trivial) warn;
@@ -46,14 +46,7 @@
     };
   };
   defaultDiagnosticsProvider = ["markdownlint-cli2"];
-  diagnosticsProviders = {
-    markdownlint-cli2 = {
-      package = pkgs.markdownlint-cli2;
-    };
-    rumdl = {
-      package = pkgs.rumdl;
-    };
-  };
+  diagnosticsProviders = ["markdownlint-cli2" "rumdl"];
 in {
   options.vim.languages.markdown = {
     enable = mkEnableOption "Markdown markup language support";
@@ -146,15 +139,15 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra Markdown diagnostics"
+        mkEnableOption "extra Markdown diagnostics via nvim-lint"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
-      types = diagnostics {
-        langDesc = "Markdown";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra Markdown diagnostics providers";
       };
     };
   };
@@ -214,13 +207,12 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics.nvim-lint = {
-        enable = true;
-        linters_by_ft.markdown = cfg.extraDiagnostics.types;
-        linters = mkMerge (map (name: {
-            ${name}.cmd = getExe diagnosticsProviders.${name}.package;
-          })
-          cfg.extraDiagnostics.types);
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+        nvim-lint = {
+          enable = true;
+          linters_by_ft.markdown = cfg.extraDiagnostics.types;
+        };
       };
     })
   ]);
