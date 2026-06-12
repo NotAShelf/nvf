@@ -227,6 +227,31 @@
       inherit enrich_config;
     };
   };
+
+  configurationType = submodule {
+    freeformType = attrsOf anything;
+    # These 3 options are required, everything else is passed to the debug
+    # adapter
+    options = {
+      type = mkOption {
+        type = str;
+        description = "Which debug adapter to use";
+      };
+
+      request = mkOption {
+        type = enum ["attach" "launch"];
+        description = ''
+          Indicates whether the debug adapter should launch a debuggee or attach
+          to one that is already running.
+        '';
+      };
+
+      name = mkOption {
+        type = str;
+        description = "A user-readable name for the configuration";
+      };
+    };
+  };
 in {
   options.vim.debugger.nvim-dap = {
     enable = mkEnableOption "debugging via nvim-dap";
@@ -264,10 +289,10 @@ in {
     };
 
     configurations = mkOption {
-      type = attrsOf (listOf anything);
+      type = attrsOf (listOf configurationType);
       default = {};
       description = ''
-        Mapping of filetype to list of possible `Configuration`.
+        Mapping of filetype to list of debuggee configurations.
 
         See `:help dap-configuration`.
       '';
