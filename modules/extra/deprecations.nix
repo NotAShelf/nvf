@@ -405,6 +405,11 @@ in {
       (mkRemovedOptionModule ["vim" "languages" "zig" "dap" "package"] ''
         Please use `vim.debugger.nvim-dap.adapters.<debugger>.command` instead.
       '')
+      (mkRemovedOptionModule ["vim" "languages" "python" "dap" "package"] ''
+        Please use `vim.debugger.nvim-dap.adapters.<debugger>.command` instead.
+        Also see `vim.debugger.nvim-dap.configurations.python` if you want
+        to use a custom python/additional libraries as your debuggee
+      '')
     ]
   ];
 }
