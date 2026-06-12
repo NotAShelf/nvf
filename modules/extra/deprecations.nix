@@ -396,5 +396,12 @@ in {
         Linters can still be customized via `vim.diagnostics.nvim-lint.<name>.args`
       '')
     ]
+
+    # 2026-06-13
+    [
+      (mkRemovedOptionModule ["vim" "languages" "clang" "dap" "package"] ''
+        Please use `vim.debugger.nvim-dap.adapters.<debugger>.command` instead.
+      '')
+    ]
   ];
 }

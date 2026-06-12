@@ -6,47 +6,38 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (lib.types) bool enum package listOf;
+  inherit (lib.types) bool enum listOf;
   inherit (lib) genAttrs;
   inherit (lib.meta) getExe getExe';
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.types) deprecatedSingleOrListOf enumWithRename;
 
   cfg = config.vim.languages.clang;
 
   defaultServers = ["clangd"];
   servers = ["ccls" "clangd"];
 
-  defaultDebugger = "lldb-vscode";
-  debuggers = {
-    lldb-vscode = {
-      package = pkgs.lldb;
-      dapConfig = ''
-        dap.adapters.lldb = {
-          type = 'executable',
-          command = '${cfg.dap.package}/bin/lldb-dap',
-          name = 'lldb'
-        }
-        dap.configurations.cpp = {
-          {
-            name = 'Launch',
-            type = 'lldb',
-            request = 'launch',
-            program = function()
-              return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-            end,
-            cwd = "''${workspaceFolder}",
-            stopOnEntry = false,
-            args = {},
-          },
-        }
-
-        dap.configurations.c = dap.configurations.cpp
-      '';
-    };
+  defaultDebugger = ["lldb"];
+  dapConfigurations = {
+    lldb = [
+      {
+        name = "Launch";
+        type = "lldb";
+        request = "launch";
+        program = mkLuaInline ''
+          function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          end
+        '';
+        cwd = "\${workspaceFolder}";
+        stopOnEntry = false;
+        args = [];
+      }
+    ];
   };
 
   defaultFormat = ["clang-format"];
@@ -147,13 +138,12 @@ in {
       };
       debugger = mkOption {
         description = "clang debugger to use";
-        type = enum (attrNames debuggers);
+        type =
+          deprecatedSingleOrListOf "vim.languages.clang.dap.debugger"
+          (enumWithRename "vim.languages.clang.dap.debugger" (attrNames dapConfigurations) {
+            lldb-vscode = "lldb";
+          });
         default = defaultDebugger;
-      };
-      package = mkOption {
-        description = "clang debugger package.";
-        type = package;
-        default = debuggers.${cfg.dap.debugger}.package;
       };
     };
 
@@ -208,8 +198,16 @@ in {
     })
 
     (mkIf cfg.dap.enable {
-      vim.debugger.nvim-dap.enable = true;
-      vim.debugger.nvim-dap.sources.clang-debugger = debuggers.${cfg.dap.debugger}.dapConfig;
+      vim.debugger.nvim-dap = let
+        conf = mkMerge (map (name: dapConfigurations.${name}) cfg.dap.debugger);
+      in {
+        enable = true;
+        presets = mkMerge (map (name: {${name}.enable = true;}) cfg.dap.debugger);
+        configurations = {
+          c = conf;
+          cpp = conf;
+        };
+      };
     })
 
     (mkIf cfg.format.enable {
