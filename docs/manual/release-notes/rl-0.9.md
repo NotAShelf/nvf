@@ -39,6 +39,8 @@
   `setupOpts.strategies.chat.adapter`, rename them to
   `setupOpts.interactions.chat.adapter`.
 
+- `vim.maps` is deprecated, use `vim.keymaps` instead.
+
 [Snoweuph](https://github.com/snoweuph)
 
 - Remove `mind.nvim`. This plugin doesn't exist anymore. The original author
