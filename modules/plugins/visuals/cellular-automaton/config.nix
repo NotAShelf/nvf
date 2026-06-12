@@ -7,7 +7,7 @@
   inherit (lib.strings) optionalString;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryAnywhere entryAfter;
-  inherit (lib.nvim.binds) mkBinding;
+  inherit (lib.nvim.binds) mkKeymap;
 
   cfg = config.vim.visuals.cellular-automaton;
 in {
@@ -15,7 +15,9 @@ in {
     vim = {
       startPlugins = ["cellular-automaton-nvim"];
 
-      maps.normal = mkBinding cfg.mappings.makeItRain "<cmd>CellularAutomaton make_it_rain<CR>" "Make it rain";
+      keymaps = [
+        (mkKeymap "n" cfg.mappings.makeItRain "<cmd>CellularAutomaton make_it_rain<CR>" {desc = "Make it rain";})
+      ];
 
       pluginRC = {
         # XXX: This has no error handling. User can set

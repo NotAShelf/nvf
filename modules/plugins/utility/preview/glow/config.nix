@@ -5,25 +5,25 @@
   options,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.binds) mkBinding pushDownDefault;
+  inherit (lib.modules) mkIf;
+  inherit (lib.nvim.binds) mkKeymap pushDownDefault;
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.utility.preview.glow;
   inherit (options.vim.utility.preview.glow) mappings;
 in {
-  config = mkIf cfg.enable {
-    vim.startPlugins = ["glow-nvim"];
+  config.vim = mkIf cfg.enable {
+    startPlugins = ["glow-nvim"];
 
-    vim.maps.normal = mkMerge [
-      (mkBinding cfg.mappings.openPreview ":Glow<CR>" mappings.openPreview.description)
+    keymaps = [
+      (mkKeymap "n" cfg.mappings.openPreview ":Glow<CR>" {desc = mappings.openPreview.description;})
     ];
 
-    vim.binds.whichKey.register = pushDownDefault {
+    binds.whichKey.register = pushDownDefault {
       "<leader>pm" = "+Preview Markdown";
     };
 
-    vim.pluginRC.glow = entryAnywhere ''
+    pluginRC.glow = entryAnywhere ''
       require('glow').setup({
         glow_path = "${pkgs.glow}/bin/glow"
       });
