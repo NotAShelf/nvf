@@ -192,6 +192,11 @@
 - Lazyload noice.nvim and nvim-web-devicons on `DeferredUIEnter`
 - Allow nulling treesitter packages for various language modules, filter `null`
   values in `vim.treesitter.grammars`.
+- Added {option}`vim.filetype` module option for registering custom filetypes
+  via `vim.filetype.add()`, placed in the DAG before `lazyConfigs` so plugins
+  can lazy-load on registered filetypes.
+- Moved `neovim/mappings` to `neovim/init/mappings.nix` to consolidate core
+  Neovim init options.
 
 [jfeo](https://github.com/jfeo):
 
@@ -323,6 +328,11 @@
 
 [Snoweuph](https://github.com/snoweuph)
 
+- Added {option}`vim.lsp.presets.jls.enable` and made it available under
+  `vim.languages.java.lsp.servers`.
+
+- Added {option}`vim.languages.java.dap.enable` with the `jls` DAP.
+
 - Allow the usage of `pks.tree-sitter-grammars` in
   {option}`vim.treesitter.grammars` and language module tree-sitter package
   options created via `mkGrammarOption`.
@@ -355,9 +365,6 @@
   more flexibility in nvf and reuse of LSPs across languages. Dropped
   `deprecatedSingleOrListOf` in favor of `listOf` for the affected LSP options.
 
-- Added {option}`vim.lsp.presets.docker-language-server.enable` for Docker
-  support.
-
 - Added {option}`vim.lsp.presets.angular-language-server.enable` for Angular
   Template support.
 
@@ -381,9 +388,17 @@
 - Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
   `languages.lua`.
 
+- Added the [Stimulus LSP](https://github.com/marcoroth/stimulus-lsp) as LSP
+  preset.
+
 - Added `languages.docker` for Docker and Docker-Compose support. Thanks to
   [poseidon-rises](https://github.com/poseidon-rises) for creating most of it in
   [!1104](https://github.com/NotAShelf/nvf/pull/1104).
+
+- Added {option}`vim.lsp.presets.docker-language-server.enable` for Docker
+  support.
+
+- Mapped `dockercompose` to be highlighted by treesitter as `yaml`.
 
 - Added [`mdformat`](https://mdformat.rtfd.io/) support to `languages.markdown`
   with the extensions for [GFM](https://github.github.com/gfm/),

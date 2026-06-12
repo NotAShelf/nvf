@@ -16,7 +16,7 @@
   cfg = config.vim.languages.ruby;
 
   defaultServers = ["solargraph"];
-  servers = ["ruby-lsp" "solargraph"];
+  servers = ["ruby-lsp" "solargraph" "stimulus-language-server"];
 
   # testing
 

@@ -13,7 +13,7 @@
   cfg = config.vim.languages.tera;
 
   defaultServers = [];
-  servers = ["emmet-ls"];
+  servers = ["emmet-ls" "stimulus-language-server"];
 in {
   options.vim.languages.tera = {
     enable = mkEnableOption "Tera templating language support";

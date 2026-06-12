@@ -28,6 +28,7 @@
     ./intelephense.nix
     ./jdt-language-server.nix
     ./jinja-lsp.nix
+    ./jls.nix
     ./jq-lsp.nix
     ./julia-languageserver.nix
     ./just-lsp.nix
@@ -61,6 +62,7 @@
     ./solargraph.nix
     ./some-sass-language-server.nix
     ./sqls.nix
+    ./stimulus-language-server.nix
     ./superhtml.nix
     ./svelte-language-server.nix
     ./tailwindcss-language-server.nix
