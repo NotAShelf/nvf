@@ -11,6 +11,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum package bool listOf;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) deprecatedSingleOrListOf;
   inherit (lib.trivial) warn;
@@ -49,67 +50,37 @@
     };
   };
 
-  defaultDebugger = "debugpy";
-  debuggers = {
-    debugpy = {
-      # idk if this is the best way to install/run debugpy
-      package = pkgs.python3.withPackages (ps: with ps; [debugpy]);
-      dapConfig = ''
-        dap.adapters.debugpy = function(cb, config)
-          if config.request == 'attach' then
-            ---@diagnostic disable-next-line: undefined-field
-            local port = (config.connect or config).port
-            ---@diagnostic disable-next-line: undefined-field
-            local host = (config.connect or config).host or '127.0.0.1'
-            cb({
-              type = 'server',
-              port = assert(port, '`connect.port` is required for a python `attach` configuration'),
-              host = host,
-              options = {
-                source_filetype = 'python',
-              },
-            })
-          else
-            cb({
-              type = 'executable',
-              command = '${getExe cfg.dap.package}',
-              args = { '-m', 'debugpy.adapter' },
-              options = {
-                source_filetype = 'python',
-              },
-            })
+  defaultDebugger = ["debugpy"];
+  dapConfigurations = {
+    debugpy = [
+      {
+        # The first three options are required by nvim-dap
+        type = "debugpy"; # the type here established the link to the adapter definition: `dap.adapters.debugpy`
+        request = "launch";
+        name = "Launch file";
+
+        # Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
+
+        program = "\${file}"; # This configuration will launch the current file if used.
+        pythonPath = mkLuaInline ''
+          function()
+            -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
+            -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
+            -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
+            local cwd = vim.fn.getcwd()
+            if vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
+              return cwd .. "/venv/bin/python"
+            elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
+              return cwd .. "/.venv/bin/python"
+            elseif vim.fn.executable("python") == 1 then
+              return vim.fn.exepath("python")
+            else -- WARNING this package has NO libraries other than builtins
+              return "${getExe pkgs.python3}"
+            end
           end
-        end
-
-        dap.configurations.python = {
-          {
-            -- The first three options are required by nvim-dap
-            type = 'debugpy'; -- the type here established the link to the adapter definition: `dap.adapters.debugpy`
-            request = 'launch';
-            name = "Launch file";
-
-            -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
-
-            program = "''${file}"; -- This configuration will launch the current file if used.
-            pythonPath = function()
-              -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
-              -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
-              -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
-              local cwd = vim.fn.getcwd()
-              if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
-                return cwd .. '/venv/bin/python'
-              elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
-                return cwd .. '/.venv/bin/python'
-              elseif vim.fn.executable("python") == 1 then
-                return vim.fn.exepath("python")
-              else -- WARNING cfg.dap.package probably has NO libraries other than builtins and debugpy
-                return '${getExe cfg.dap.package}'
-              end
-            end;
-          },
-        }
-      '';
-    };
+        '';
+      }
+    ];
   };
   defaultDiagnosticsProvider = ["mypy"];
   diagnosticsProviders = ["mypy"];
@@ -171,19 +142,9 @@ in {
       };
 
       debugger = mkOption {
-        type = enum (attrNames debuggers);
+        type = deprecatedSingleOrListOf "vim.languages.python.dap.debugger" (enum (attrNames dapConfigurations));
         default = defaultDebugger;
         description = "Python debugger to use";
-      };
-
-      package = mkOption {
-        type = package;
-        default = debuggers.${cfg.dap.debugger}.package;
-        example = literalExpression "with pkgs; python39.withPackages (ps: with ps; [debugpy])";
-        description = ''
-          Python debugger package.
-          This is a python package with debugpy installed, see https://nixos.wiki/wiki/Python#Install_Python_Packages.
-        '';
       };
     };
 
@@ -250,8 +211,11 @@ in {
     })
 
     (mkIf cfg.dap.enable {
-      vim.debugger.nvim-dap.enable = true;
-      vim.debugger.nvim-dap.sources.python-debugger = debuggers.${cfg.dap.debugger}.dapConfig;
+      vim.debugger.nvim-dap = {
+        enable = true;
+        presets = mkMerge (map (name: {${name}.enable = true;}) cfg.dap.debugger);
+        configurations.python = flatten (map (name: dapConfigurations.${name}) cfg.dap.debugger);
+      };
     })
 
     (mkIf cfg.extraDiagnostics.enable {
