@@ -413,6 +413,9 @@ in {
       (mkRemovedOptionModule ["vim" "languages" "odin" "dap" "package"] ''
         Please use `vim.debugger.nvim-dap.adapters.<debugger>.command` instead.
       '')
+      (mkRemovedOptionModule ["vim" "languages" "java" "dap" "package"] ''
+        Please use `vim.debugger.nvim-dap.adapters.<debugger>.command` instead.
+      '')
     ]
   ];
 }
