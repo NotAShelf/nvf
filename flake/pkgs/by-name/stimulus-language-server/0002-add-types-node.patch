@@ -1,0 +1,22 @@
+--- a/package.json
++++ b/package.json
+@@ -38,2 +38,3 @@
+   "devDependencies": {
++    "@types/node": "^20.0.0",
+     "@types/estree": "^1.0.5",
+--- a/yarn.lock
++++ b/yarn.lock
+@@ -307,4 +307,13 @@
+ vscode-uri@^3.1.0:
+   version "3.1.0"
+   resolved "https://registry.yarnpkg.com/vscode-uri/-/vscode-uri-3.1.0.tgz#dd09ec5a66a38b5c3fffc774015713496d14e09c"
+   integrity sha512-/BpdSx+yCQGnCvecbyXdxHDkuk55/G3xwnC0GqY4gmQ3j+A+g8kzzgB4Nk/SINjqn6+waqw3EgbVF2QKExkRxQ==
++
++"@types/node@^20.0.0":
++  version "20.19.0"
++  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.19.0.tgz#7006b097b15dfea06695c3bbdba98b268797f65b"
++
++undici-types@~6.19.2:
++  version "6.19.8"
++  resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-6.19.8.tgz#35111c9d1437ab83a7cdc0abae2f26d88eda0a02"
++  integrity sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==
