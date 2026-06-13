@@ -45399,6 +45399,25 @@ the required grammars to this.</p>
   <div class="option-type">Type: <code>strings concatenated with "\n"</code></div>
   <div class="option-description"><html><head></head><body><p>The queries scm script.</p>
 </body></html></div>
+  <div class="option-example">Example: <pre><code>```nix
+{
+  query = ''
+    ;; extends
+
+    ((apply_expression
+      function: (variable_expression
+        name: (identifier) @_func
+        (#eq? @_func "mkLuaInline"))
+
+      argument: (indented_string_expression
+        (string_fragment) @injection.content)
+
+      (#set! injection.language "lua")
+      (#set! injection.combined)))
+  '';
+}
+```
+</code></pre></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.treesitter.queries._.type">
