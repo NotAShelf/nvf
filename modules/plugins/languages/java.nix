@@ -53,7 +53,8 @@
         port = 5005;
         sourceRoots = mkLuaInline ''
           function()
-            local path = vim.fn.input(
+            local path = nvf_dap_cached_input(
+              "java_jls_attach_root",
               "Path to src/main/java: ",
               vim.fn.getcwd() .. "/",
               "dir"

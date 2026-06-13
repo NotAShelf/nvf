@@ -31,6 +31,14 @@ in {
               local dap = require("dap")
               vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "ErrorMsg", linehl = "", numhl = "" })
 
+              local nvf_dap_input_cache= {}
+              local function nvf_dap_cached_input(cache_key, prompt, default, completion)
+                default = nvf_dap_input_cache[cache_key] or default
+                nvf_dap_input_cache[cache_key] =
+                  vim.fn.input(prompt, default, completion)
+                return nvf_dap_input_cache[cache_key]
+              end
+
               ${
                 concatStringsSep "\n"
                 (mapAttrsToList (name: opts: ''
