@@ -32,10 +32,44 @@
           {
             type = "jls",
             request = "attach",
-            name = "Attach",
+            name = "Attach Auto",
             hostName = "localhost",
             port = 5005,
-            sourceRoots = vim.fn.glob("**/src/main/java", true, true),
+            sourceRoots = function()
+              local matches = {}
+
+              -- only look max 3 deep, due to performance reasons
+              for _, pattern in ipairs({
+                "src/main/java",
+                "*/src/main/java",
+                "*/*/src/main/java",
+                "*/*/*/src/main/java",
+              }) do
+                vim.list_extend(matches, vim.fn.glob(pattern, true, true))
+              end
+
+              return matches
+            end,
+          },
+          {
+            type = "jls",
+            request = "attach",
+            name = "Attach Manual",
+            hostName = "localhost",
+            port = 5005,
+            sourceRoots = function()
+              local path = vim.fn.input(
+                "Path to src/main/java: ",
+                vim.fn.getcwd() .. "/",
+                "dir"
+              )
+
+              if path == "" then
+                return {}
+              end
+
+              return { vim.fn.fnamemodify(path, ":p") }
+            end,
           },
         }
       '';
@@ -97,20 +131,7 @@ in {
           You can change this by modifying `vim.debugger.nvim-dap.sources.java-debugger`.
           ```nix
           vim.debugger.nvim-dap.sources.java-debugger = /* lua */ '''
-            dap.adapters.jls= {
-              type = 'executable',
-              command = ''\'''${getExe' inputs.self.packages.''${pkgs.stdenv.hostPlatform.system}.jls "jls-dap"}',
-            }
-            dap.configurations.java = {
-              {
-                type = "jls",
-                request = "attach",
-                name = "Attach",
-                hostName = "localhost",
-                port = 6969, -- your custom port
-                sourceRoots = vim.fn.glob("**/src/main/java", true, true),
-              },
-            }
+            ${debuggers.jls.config}
           ''';
           ```
 
