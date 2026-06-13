@@ -3,11 +3,34 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
-  inherit (lib.types) package bool str listOf attrsOf;
+  inherit
+    (lib.options)
+    mkOption
+    mkEnableOption
+    literalMD
+    literalExpression
+    ;
+  inherit
+    (lib.types)
+    package
+    bool
+    str
+    listOf
+    attrsOf
+    ;
   inherit (lib.nvim.types) pluginsOpt extraPluginType;
 in {
   options.vim = {
+    appName = mkOption {
+      type = str;
+      default = "nvf";
+      description = ''
+        The neovim application name corresponding to the
+        `NVIM_APPNAME`
+        [environment variable](https://neovim.io/doc/user/starting/#_nvim_appname).
+      '';
+    };
+
     package = mkOption {
       type = package;
       default = pkgs.neovim-unwrapped;
@@ -99,7 +122,7 @@ in {
     extraPackages = mkOption {
       type = listOf package;
       default = [];
-      example = ''[pkgs.fzf pkgs.ripgrep]'';
+      example = "[pkgs.fzf pkgs.ripgrep]";
       description = ''
         List of additional packages to make available to the Neovim
         wrapper.

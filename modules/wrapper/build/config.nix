@@ -4,17 +4,25 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   inherit (pkgs) vimPlugins;
   inherit (lib.trivial) flip;
-  inherit (builtins) filter isString hasAttr getAttr;
+  inherit (builtins)
+    filter
+    isString
+    hasAttr
+    getAttr
+    ;
 
   getPin = flip getAttr (inputs.mnw.lib.npinsToPluginsAttrs pkgs ../../../npins/sources.json);
 
   # Build a Vim plugin with the given name and arguments.
-  buildPlug = attrs: let
-    pin = getPin attrs.pname;
-  in
+  buildPlug =
+    attrs:
+    let
+      pin = getPin attrs.pname;
+    in
     pkgs.vimUtils.buildVimPlugin (
       {
         version = pin.revision or "dirty";
@@ -24,16 +32,14 @@
     );
 
   # Build a given Treesitter grammar.
-  buildTreesitterPlug = grammars:
-    vimPlugins.nvim-treesitter.withPlugins (
-      _: builtins.filter (g: g != null) grammars
-    );
+  buildTreesitterPlug =
+    grammars: vimPlugins.nvim-treesitter.withPlugins (_: builtins.filter (g: g != null) grammars);
 
   pluginBuilders = {
     nvim-treesitter = buildTreesitterPlug config.vim.treesitter.grammars;
     flutter-tools-patched = buildPlug {
       pname = "flutter-tools-nvim";
-      patches = [./patches/flutter-tools.patch];
+      patches = [ ./patches/flutter-tools.patch ];
 
       # Disable failing require check hook checks
       doCheck = false;
@@ -60,27 +66,28 @@
     inherit (inputs.self.packages.${pkgs.stdenv.system}) blink-cmp avante-nvim;
   };
 
-  buildConfigPlugins = plugins:
-    map (plug:
-      if (isString plug)
-      then
-        if hasAttr plug config.vim.pluginOverrides
-        then
-          (let
-            plugin = config.vim.pluginOverrides.${plug};
-          in
-            if (lib.isType "flake" plugin)
-            then plugin // {name = plug;}
-            else plugin)
-        else pluginBuilders.${plug} or (getPin plug)
-      else plug) (
-      filter (f: f != null) plugins
-    );
+  buildConfigPlugins =
+    plugins:
+    map (
+      plug:
+      if (isString plug) then
+        if hasAttr plug config.vim.pluginOverrides then
+          (
+            let
+              plugin = config.vim.pluginOverrides.${plug};
+            in
+            if (lib.isType "flake" plugin) then plugin // { name = plug; } else plugin
+          )
+        else
+          pluginBuilders.${plug} or (getPin plug)
+      else
+        plug
+    ) (filter (f: f != null) plugins);
 
   # Wrap the user's desired (unwrapped) Neovim package with arguments that'll be used to
   # generate a wrapped Neovim package.
-  neovim-wrapped = inputs.mnw.lib.wrap {inherit pkgs;} {
-    appName = "nvf";
+  neovim-wrapped = inputs.mnw.lib.wrap { inherit pkgs; } {
+    appName = config.vim.appName;
     neovim = config.vim.package;
     initLua = config.vim.builtLuaConfigRC;
     luaFiles = config.vim.extraLuaFiles;
@@ -97,7 +104,7 @@
       nodeJs.enable = config.vim.withNodeJs;
       python3 = {
         enable = config.vim.withPython3;
-        extraPackages = ps: (map (flip builtins.getAttr ps) config.vim.python3Packages) ++ [ps.pynvim];
+        extraPackages = ps: (map (flip builtins.getAttr ps) config.vim.python3Packages) ++ [ ps.pynvim ];
       };
     };
 
@@ -121,7 +128,11 @@
   # or module consumption.
   neovim = pkgs.symlinkJoin {
     name = "nvf-with-helpers";
-    paths = [neovim-wrapped printConfig printConfigPath];
+    paths = [
+      neovim-wrapped
+      printConfig
+      printConfigPath
+    ];
     postBuild = "echo Helpers added";
 
     passthru = {
@@ -142,13 +153,12 @@
       mnwConfigDir = neovim-wrapped.passthru.configDir;
     };
 
-    meta =
-      neovim-wrapped.meta
-      // {
-        description = "Wrapped Neovim package with helper scripts to print the config (path)";
-      };
+    meta = neovim-wrapped.meta // {
+      description = "Wrapped Neovim package with helper scripts to print the config (path)";
+    };
   };
-in {
+in
+{
   config.vim.build = {
     finalPackage = neovim;
   };
