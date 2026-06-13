@@ -7,7 +7,13 @@
 }: let
   inherit (pkgs) vimPlugins;
   inherit (lib.trivial) flip;
-  inherit (builtins) filter isString hasAttr getAttr;
+  inherit
+    (builtins)
+    filter
+    isString
+    hasAttr
+    getAttr
+    ;
 
   getPin = flip getAttr (pkgs.callPackages ../../../npins/sources.nix {});
 
@@ -52,21 +58,23 @@
   };
 
   buildConfigPlugins = plugins:
-    map (plug:
-      if (isString plug)
-      then
-        if hasAttr plug config.vim.pluginOverrides
+    map (
+      plug:
+        if (isString plug)
         then
-          (let
-            plugin = config.vim.pluginOverrides.${plug};
-          in
-            if (lib.isType "flake" plugin)
-            then plugin // {name = plug;}
-            else plugin)
-        else pluginBuilders.${plug} or (noBuildPlug plug)
-      else plug) (
-      filter (f: f != null) plugins
-    );
+          if hasAttr plug config.vim.pluginOverrides
+          then
+            (
+              let
+                plugin = config.vim.pluginOverrides.${plug};
+              in
+                if (lib.isType "flake" plugin)
+                then plugin // {name = plug;}
+                else plugin
+            )
+          else pluginBuilders.${plug} or (noBuildPlug plug)
+        else plug
+    ) (filter (f: f != null) plugins);
 
   # Wrap the user's desired (unwrapped) Neovim package with arguments that'll be used to
   # generate a wrapped Neovim package.
@@ -76,7 +84,7 @@
       start = buildConfigPlugins config.vim.startPlugins;
       opt = buildConfigPlugins config.vim.optPlugins;
     };
-    appName = "nvf";
+    appName = config.vim.appName;
     extraBinPath = config.vim.extraPackages;
     initLua = config.vim.builtLuaConfigRC;
     luaFiles = config.vim.extraLuaFiles;
@@ -103,7 +111,11 @@
   # or module consumption.
   neovim = pkgs.symlinkJoin {
     name = "nvf-with-helpers";
-    paths = [neovim-wrapped printConfig printConfigPath];
+    paths = [
+      neovim-wrapped
+      printConfig
+      printConfigPath
+    ];
     postBuild = "echo Helpers added";
 
     # Allow evaluating config.vim, i.e., config.vim from the packages' passthru
