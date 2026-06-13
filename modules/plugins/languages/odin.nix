@@ -26,7 +26,11 @@
         request = "launch";
         program = mkLuaInline ''
           function()
-            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+            return nvf_dap_cached_input(
+              'odin_lldb_launch_exe',
+              "Path to executable: ",
+              vim.fn.getcwd() .. "/",
+              "file")
           end
         '';
         cwd = "\${workspaceFolder}";
