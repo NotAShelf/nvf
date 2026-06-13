@@ -416,6 +416,13 @@ in {
       (mkRemovedOptionModule ["vim" "languages" "java" "dap" "package"] ''
         Please use `vim.debugger.nvim-dap.adapters.<debugger>.command` instead.
       '')
+      (mkRenamedOptionModule
+        ["vim" "languages" "php" "dap" "xdebug" "adapter"]
+        ["vim" "debugger" "nvim-dap" "adapters" "xdebug"])
+      (mkRemovedOptionModule ["vim" "languages" "php" "dap" "xdebug" "port"] ''
+        Please use a custom `vim.debugger.nvim-dap.configurations.php`
+        instead.
+      '')
     ]
   ];
 }
