@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption mkEnableOption literalExpression;
+  inherit (lib.options) mkOption mkEnableOption literalExpression literalMD;
   inherit (lib.types) listOf nullOr package bool str lines enum submodule oneOf attrsOf;
 
   queriesType = submodule {
@@ -20,6 +20,26 @@
       query = mkOption {
         type = lines;
         description = "The queries scm script.";
+        example = literalMD ''
+          ```nix
+          {
+            query = '''
+              ;; extends
+
+              ((apply_expression
+                function: (variable_expression
+                  name: (identifier) @_func
+                  (#eq? @_func "mkLuaInline"))
+
+                argument: (indented_string_expression
+                  (string_fragment) @injection.content)
+
+                (#set! injection.language "lua")
+                (#set! injection.combined)))
+            ''';
+          }
+          ```
+        '';
       };
     };
   };

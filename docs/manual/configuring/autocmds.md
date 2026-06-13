@@ -60,8 +60,9 @@ Vimscript) for the same autocommand. Choose one.
 **Examples:**
 
 ```nix
-{ lib, ... }:
-{
+{ lib, ... }: let
+  inherit (lib.generators) mkLuaInline;
+in {
   vim.augroups = [ { name = "UserSetup"; } ];
 
   vim.autocmds = [
@@ -71,7 +72,7 @@ Vimscript) for the same autocommand. Choose one.
       pattern = [ "*.lua" ];
       group = "UserSetup";
       desc = "Notify after saving Lua file";
-      callback = lib.generators.mkLuaInline ''
+      callback = mkLuaInline ''
         function()
           vim.notify("Lua file saved!", vim.log.levels.INFO)
         end
@@ -101,7 +102,7 @@ Vimscript) for the same autocommand. Choose one.
       event = [ "BufWinEnter" ];
       pattern = [ "*" ];
       desc = "Simple greeting on entering a buffer window";
-      callback = lib.generators.mkLuaInline ''
+      callback = mkLuaInline ''
         function(args)
           print("Entered buffer: " .. args.buf)
         end
