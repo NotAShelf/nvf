@@ -2,6 +2,8 @@
 
 ## Breaking changes
 
+- Upgrade to nixpkgs 26.06.
+
 - Nixpkgs has merged a fully incompatible rewrite of
   `vimPlugins.nvim-treesitter`. Namely, it changes from the frozen `master`
   branch to the new main branch. This change removes incremental selections, so
