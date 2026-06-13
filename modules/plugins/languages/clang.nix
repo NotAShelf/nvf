@@ -23,8 +23,8 @@
 
   defaultDebugger = ["lldb"];
   dapConfigurations = {
-    lldb = [
-      {
+    lldb = let
+      baseConfig = {
         name = "Launch";
         type = "lldb";
         request = "launch";
@@ -36,7 +36,16 @@
         cwd = "\${workspaceFolder}";
         stopOnEntry = false;
         args = [];
-      }
+      };
+    in [
+      baseConfig
+      (baseConfig
+        // {
+          name = "Launch with console";
+          # Without dap-ui, this opens a terminal session on debugging start
+          # which might be annoying
+          console = "integratedTerminal";
+        })
     ];
   };
 

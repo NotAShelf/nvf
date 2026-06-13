@@ -20,8 +20,8 @@
 
   defaultDebugger = ["lldb"];
   dapConfigurations = {
-    lldb = [
-      {
+    lldb = let
+      baseConfig = {
         name = "Launch";
         type = "lldb";
         request = "launch";
@@ -33,7 +33,14 @@
         cwd = "\${workspaceFolder}";
         stopOnEntry = false;
         args = [];
-      }
+      };
+    in [
+      baseConfig
+      (baseConfig
+        // {
+          name = "Launch with console";
+          console = "integratedTerminal";
+        })
     ];
   };
 in {
