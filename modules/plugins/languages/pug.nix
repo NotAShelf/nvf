@@ -2,15 +2,12 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }: let
-  inherit (lib.attrsets) attrNames genAttrs;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib) genAttrs optionalAttrs elem;
   inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.pug;
@@ -19,15 +16,7 @@
   servers = ["emmet-ls"];
 
   defaultFormat = ["prettier"];
-  formats = {
-    prettier = {
-      command = getExe pkgs.prettier;
-      options.ft_parsers.pug = "pug";
-      prepend_args = let
-        parser = "${inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.prettier-plugin-pug}/index.js";
-      in ["--plugin=${parser}"];
-    };
-  };
+  formats = ["prettier"];
 in {
   options.vim.languages.pug = {
     enable = mkEnableOption "Pug language support";
@@ -65,7 +54,7 @@ in {
         };
 
       type = mkOption {
-        type = listOf (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "Pug formatter to use";
       };
@@ -90,15 +79,12 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.pug = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets =
+          genAttrs cfg.format.type (_: {enable = true;})
+          // optionalAttrs (elem "prettier" cfg.format.type) {
+            prettier.plugins = ["pug"];
+          };
+        setupOpts.formatters_by_ft.pug = cfg.format.type;
       };
     })
   ]);
