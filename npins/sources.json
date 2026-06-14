@@ -381,6 +381,19 @@
       "url": "https://github.com/zbirenbaum/copilot.lua/archive/407349117f176789df6ec1c23bca72f34e15b4e8.tar.gz",
       "hash": "sha256-+hQ4Og0ZZS/tvs4z5733qRu5+W4D24HgHHPIL5vd0Eo="
     },
+    "cord-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "vyfor",
+        "repo": "cord.nvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "0be090969e978f7442870ef227e09eff7bf3480d",
+      "url": "https://github.com/vyfor/cord.nvim/archive/0be090969e978f7442870ef227e09eff7bf3480d.tar.gz",
+      "hash": "sha256-J1Hc38vrltbRQi+ztiMMu1G6z3N1PVtFxQ7qMGsgq00="
+    },
     "crates-nvim": {
       "type": "Git",
       "repository": {
