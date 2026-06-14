@@ -57,7 +57,7 @@
     ./taplo.nix
     # ./terraform.nix
     # ./tex-fmt.nix
-    # ./tofu.nix
+    ./opentofu.nix
     ./tombi.nix
     # ./typstyle.nix
   ];
