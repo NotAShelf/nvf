@@ -5,7 +5,7 @@
     # ./astyle.nix
     # ./bake.nix
     ./biome.nix
-    # ./black.nix
+    ./black.nix
     # ./cabal-fmt.nix
     # ./clang-format.nix
     # ./csharpier.nix
