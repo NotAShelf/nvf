@@ -29,7 +29,7 @@
     ./jsonfmt.nix
     # ./latexindent.nix
     # ./mdformat.nix
-    # ./mix.nix
+    ./mix.nix
     ./nasmfmt.nix
     # ./nimpretty.nix
     # ./nixfmt.nix
