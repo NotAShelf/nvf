@@ -23,7 +23,7 @@
     ./golines.nix
     ./hclfmt.nix
     # ./indent.nix
-    # ./isort.nix
+    ./isort.nix
     ./jqfmt.nix
     ./jsonfmt.nix
     # ./latexindent.nix
