@@ -4,13 +4,10 @@
   pkgs,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.meta) getExe;
   inherit (lib) genAttrs;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.jq;
@@ -19,16 +16,7 @@
   servers = ["jq-lsp"];
 
   defaultFormat = ["jqfmt"];
-  formats = {
-    jqfmt = {
-      command = getExe pkgs.jqfmt;
-      args = [
-        "-ob"
-        "-ar"
-        "-op=pipe"
-      ];
-    };
-  };
+  formats = ["jqfmt"];
 in {
   options.vim.languages.jq = {
     enable = mkEnableOption "JQ support";
@@ -67,7 +55,7 @@ in {
 
       type = mkOption {
         description = "JQ formatter to use";
-        type = listOf (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
       };
     };
@@ -93,15 +81,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.jq = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.jq = cfg.format.type;
       };
     })
   ]);
