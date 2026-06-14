@@ -22,13 +22,11 @@ in {
       command = "${pkgs.isort}/bin/isort";
       args = mkLuaInline ''
         function(self, ctx)
-          local style = vim.bo[ctx.buf].expandtab and string.rep(" ", vim.bo[ctx.buf].shiftwidth) or "\t"
+          local indent = vim.bo[ctx.buf].expandtab and string.rep(" ", vim.bo[ctx.buf].shiftwidth) or "\t"
           return {
             "--stdout",
-            "--indent",
-            style,
-            "--filename",
-            "$FILENAME",
+            "--indent", indent,
+            "--filename", "$FILENAME",
             "-",
           }
         end
