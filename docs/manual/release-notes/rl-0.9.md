@@ -566,6 +566,7 @@ https://github.com/gorbit99/codewindow.nvim
   [fish_indent]. Most of the work done by
   [poseidon-rises](https://github.com/poseidon-rises) in
   [!1107](https://github.com/NotAShelf/nvf/pull/1107).
+- Remove `flake-parts` and `nix-systems` from flake.
 
 [emo-mruczek](https://emo-mruczek.pet):
 
