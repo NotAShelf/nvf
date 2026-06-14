@@ -33,6 +33,7 @@
     ./nasmfmt.nix
     # ./nimpretty.nix
     ./nixfmt.nix
+    ./nixfmt-rs.nix
     ./nomad.nix
     # ./ocalformat.nix
     # ./ormolu.nix
