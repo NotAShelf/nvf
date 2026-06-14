@@ -1,6 +1,6 @@
 {
   imports = [
-    # ./alejandra.nix
+    ./alejandra.nix
     ./asmfmt.nix
     # ./astyle.nix
     ./mbake.nix
