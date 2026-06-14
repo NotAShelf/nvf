@@ -17,6 +17,7 @@
 
   defaultFormat = ["prettier"];
   formats = ["prettier" "biome" "biome-check" "biome-organize-imports" "deno"];
+
   defaultDiagnosticsProvider = ["eslint_d"];
   diagnosticsProviders = ["eslint_d"];
 
