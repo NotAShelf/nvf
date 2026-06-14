@@ -139,7 +139,7 @@
 
     # Alternative documentation generator
     ndg = {
-      url = "github:feel-co/ndg?ref=refs/tags/v2.8.0";
+      url = "github:feel-co/ndg?ref=refs/tags/v2.8.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
