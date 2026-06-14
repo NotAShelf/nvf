@@ -22,10 +22,7 @@ in {
       command = "${pkgs.stylua}/bin/stylua";
       args = mkLuaInline ''
         function(self, ctx)
-          local style = "Spaces"
-          if not vim.bo[ctx.buf].expandtab then
-            style = "Tabs"
-          end
+          local style = vim.bo[ctx.buf].expandtab and "Spaces" or "Tabs"
           return {
             "--search-parent-directories",
             "--respect-ignores",
