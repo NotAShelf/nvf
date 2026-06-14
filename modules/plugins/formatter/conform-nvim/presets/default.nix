@@ -4,9 +4,7 @@
     # ./asmfmt.nix
     # ./astyle.nix
     # ./bake.nix
-    # ./biome-check.nix
-    # ./biome-organize-imports.nix
-    # ./biome.nix
+    ./biome.nix
     # ./black.nix
     # ./cabal-fmt.nix
     # ./clang-format.nix
