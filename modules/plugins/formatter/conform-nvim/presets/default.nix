@@ -22,7 +22,7 @@
     # ./gersemi.nix
     ./gofmt.nix
     ./gofumpt.nix
-    # ./golines.nix
+    ./golines.nix
     ./hclfmt.nix
     # ./indent.nix
     # ./isort.nix
