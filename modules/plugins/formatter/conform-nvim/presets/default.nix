@@ -55,7 +55,7 @@
     # ./stylua.nix
     ./superhtml.nix
     ./taplo.nix
-    # ./terraform.nix
+    ./terraform.nix
     # ./tex-fmt.nix
     ./opentofu.nix
     ./tombi.nix
