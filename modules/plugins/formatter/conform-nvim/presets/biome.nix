@@ -19,13 +19,15 @@ in {
     biome-check = {
       enable = mkFormatterPresetEnableOption {
         option = "biome-check";
-        display = "Biome check";
+        display = "Biome";
+        extra = "This variant runs automatic linter fixes.";
       };
     };
     biome-organize-imports = {
       enable = mkFormatterPresetEnableOption {
         option = "biome-organize-imports";
-        display = "Biome organize imports";
+        display = "Biome";
+        extra = "This variant organizes imports.";
       };
     };
   };

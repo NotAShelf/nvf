@@ -42,8 +42,7 @@
     # ./prettierd.nix
     # ./qmlformat.nix
     # ./rubocop.nix
-    # ./ruff.nix
-    # ./ruff-check.nix
+    ./ruff.nix
     # ./rumdl.nix
     # ./rustfmt.nix
     # ./shfmt.nix
