@@ -59,6 +59,6 @@
     # ./tex-fmt.nix
     ./opentofu.nix
     ./tombi.nix
-    # ./typstyle.nix
+    ./typstyle.nix
   ];
 }
