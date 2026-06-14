@@ -17,7 +17,7 @@
     # ./floskell.nix
     # ./format-r.nix
     # ./fourmolu.nix
-    # ./gersemi.nix
+    ./gersemi.nix
     ./gofmt.nix
     ./gofumpt.nix
     ./goimports.nix
