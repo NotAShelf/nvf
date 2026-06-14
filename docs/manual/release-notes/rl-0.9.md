@@ -329,6 +329,9 @@
 
 - Added support for neovim 0.12's `ui2` feature via `vim.ui.ui2`
 
+- Added support for the `qml-language-server` package in `languages.qml` and the
+  new LSP preset for it
+
 [Machshev](https://github.com/machshev):
 
 - Added `ruff` and `ty` LSP support for Python under `programs.python`.

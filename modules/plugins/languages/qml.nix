@@ -17,7 +17,10 @@
   qmlPackage = pkgs.kdePackages.qtdeclarative;
 
   defaultServers = ["qmlls"];
-  servers = ["qmlls"];
+  servers = [
+    "qml-language-server"
+    "qmlls"
+  ];
 
   defaultFormat = ["qmlformat"];
   formats = {
