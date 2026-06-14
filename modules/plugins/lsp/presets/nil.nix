@@ -19,6 +19,7 @@ in {
       enable = true;
       cmd = [(getExe pkgs.nil)];
       root_markers = [".git"];
+      settings.nil.nix.autoArchive = true;
     };
   };
 }

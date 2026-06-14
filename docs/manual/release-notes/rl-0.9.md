@@ -521,6 +521,8 @@
 - Added coverage support (`vim.utility.crazy-coverage`) via
   [`crazy-coverage.nvim`](https://github.com/mr-u0b0dy/crazy-coverage.nvim).
 
+- Enable `nil.settings.nil.nix.autoArchive` by default.
+
 [vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
 https://github.com/gorbit99/codewindow.nvim
 
