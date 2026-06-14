@@ -53,7 +53,7 @@
     # ./styler.nix
     # ./stylish-haskell.nix
     # ./stylua.nix
-    # ./superhtml.nix
+    ./superhtml.nix
     ./taplo.nix
     # ./terraform.nix
     # ./tex-fmt.nix
