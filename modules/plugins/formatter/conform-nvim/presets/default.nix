@@ -30,7 +30,7 @@
     # ./latexindent.nix
     # ./mdformat.nix
     # ./mix.nix
-    # ./nasmfmt.nix
+    ./nasmfmt.nix
     # ./nimpretty.nix
     # ./nixfmt.nix
     ./nomad.nix
