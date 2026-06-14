@@ -6,6 +6,7 @@
   typesPlugin = import ./plugins.nix {inherit lib self;};
   typesLanguage = import ./languages.nix {inherit lib;};
   typesLsp = import ./lsp.nix {inherit lib;};
+  typesFormatter = import ./formatter.nix {inherit lib;};
   typesDiagnostics = import ./diagnostics.nix {inherit lib;};
   customTypes = import ./custom.nix {inherit lib;};
 in {
@@ -13,6 +14,7 @@ in {
   inherit (typesPlugin) pluginsOpt extraPluginType mkPluginSetupOption luaInline pluginType borderType;
   inherit (typesLanguage) mkGrammarOption mkTreesitterGrammarOption;
   inherit (typesLsp) mkLspPresetEnableOption;
+  inherit (typesFormatter) mkFormatterPresetEnableOption;
   inherit (typesDiagnostics) mkDiagnosticsPresetEnableOption;
   inherit (customTypes) char hexColor mergelessListOf deprecatedSingleOrListOf enumWithRename;
 }

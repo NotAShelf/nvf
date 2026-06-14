@@ -7,13 +7,11 @@
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) nullOr enum attrsOf listOf str bool int;
-  inherit (lib.attrsets) attrNames;
   inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.binds) mkKeymap;
   inherit (config.vim.lib) mkMappingOption;
 
@@ -23,12 +21,7 @@
   servers = ["tinymist"];
 
   defaultFormat = ["typstyle"];
-  formats = {
-    # https://github.com/Enter-tainer/typstyle
-    typstyle = {
-      command = getExe pkgs.typstyle;
-    };
-  };
+  formats = ["typstyle"];
 in {
   options.vim.languages.typst = {
     enable = mkEnableOption "Typst language support";
@@ -67,7 +60,7 @@ in {
         };
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.typst.format.type" (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.typst.format.type" (enum formats);
         default = defaultFormat;
         description = "Typst formatter to use";
       };
@@ -177,15 +170,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.typst = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.typst = cfg.format.type;
       };
     })
 

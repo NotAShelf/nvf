@@ -4,33 +4,19 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib) genAttrs;
-  inherit (lib.meta) getExe;
-  inherit (lib.types) enum listOf;
+  inherit (lib.types) listOf;
   inherit (lib.nvim.types) mkGrammarOption enumWithRename;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.terraform;
 
   defaultServers = ["tofu-ls"];
   servers = ["terraform-ls" "tofu-ls"];
 
-  defaultFormat = ["tofu-fmt"];
-  formats = {
-    tofu-fmt = {
-      command = "${getExe pkgs.opentofu}";
-      args = ["fmt" "$FILENAME"];
-      stdin = false;
-    };
-    terraform-fmt = {
-      command = "${getExe pkgs.terraform}";
-      args = ["fmt" "$FILENAME"];
-      stdin = false;
-    };
-  };
+  defaultFormat = ["opentofu"];
+  formats = ["opentofu" "terraform"];
 in {
   options.vim.languages.terraform = {
     enable = mkEnableOption "Terraform support";
@@ -73,7 +59,13 @@ in {
           defaultText = literalExpression "config.vim.languages.enableFormat";
         };
       type = mkOption {
-        type = listOf (enum (attrNames formats));
+        type = listOf (enumWithRename
+          "vim.languages.hcl.format.type"
+          formats
+          {
+            tofu-fmt = "opentofu";
+            terraoform-fmt = "terraform";
+          });
         default = defaultFormat;
         description = "Terraform formatter to use";
       };
@@ -98,15 +90,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.terraform = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.terraform = cfg.format.type;
       };
     })
   ]);

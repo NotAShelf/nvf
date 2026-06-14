@@ -1,18 +1,14 @@
 {
-  inputs,
   config,
   pkgs,
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.meta) getExe;
   inherit (lib.types) enum coercedTo listOf;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
-  inherit (lib) genAttrs;
+  inherit (lib) genAttrs optionalAttrs elem;
 
   cfg = config.vim.languages.astro;
 
@@ -20,19 +16,7 @@
   servers = ["astro-language-server" "emmet-ls"];
 
   defaultFormat = ["prettier"];
-  formats = let
-    parser = "${inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.prettier-plugin-astro}/index.js";
-  in {
-    prettier = {
-      command = getExe pkgs.prettier;
-      options.ft_parsers.astro = "astro";
-      prepend_args = ["--plugin=${parser}"];
-    };
-
-    biome = {
-      command = getExe pkgs.biome;
-    };
-  };
+  formats = ["prettier" "biome" "biome-check" "biome-organize-imports"];
 
   defaultDiagnosticsProvider = ["eslint_d"];
   diagnosticsProviders = ["eslint_d"];
@@ -44,7 +28,7 @@
       lib.warn
       "vim.languages.astro.format.type: prettierd is deprecated, use prettier instead"
       "prettier")
-    (enum (attrNames formats)));
+    (enum formats));
 in {
   options.vim.languages.astro = {
     enable = mkEnableOption "Astro language support";
@@ -128,15 +112,12 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.astro = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets =
+          genAttrs cfg.format.type (_: {enable = true;})
+          // optionalAttrs (elem "prettier" cfg.format.type) {
+            prettier.plugins = ["astro"];
+          };
+        setupOpts.formatters_by_ft.astro = cfg.format.type;
       };
     })
 
