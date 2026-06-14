@@ -3,7 +3,7 @@
     # ./alejandra.nix
     # ./asmfmt.nix
     # ./astyle.nix
-    # ./bake.nix
+    ./mbake.nix
     ./biome.nix
     ./black.nix
     # ./cabal-fmt.nix
