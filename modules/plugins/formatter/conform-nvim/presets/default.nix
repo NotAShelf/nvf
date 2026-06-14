@@ -25,7 +25,7 @@
     # ./indent.nix
     # ./isort.nix
     ./jqfmt.nix
-    # ./jsonfmt.nix
+    ./jsonfmt.nix
     # ./latexindent.nix
     # ./mdformat.nix
     # ./mix.nix
