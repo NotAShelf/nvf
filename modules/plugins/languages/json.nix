@@ -4,14 +4,11 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum listOf;
+  inherit (lib.types) enum coercedTo listOf;
   inherit (lib) genAttrs;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.json;
 
@@ -19,21 +16,16 @@
   servers = ["vscode-json-language-server"];
 
   defaultFormat = ["jsonfmt"];
+  formats = ["jsonfmt" "prettier" "biome" "deno"];
 
-  formats = {
-    jsonfmt = {
-      command = getExe pkgs.jsonfmt;
-      args = ["-w" "-"];
-    };
-
-    prettier = {
-      command = getExe pkgs.prettier;
-    };
-
-    prettierd = {
-      command = getExe pkgs.prettierd;
-    };
-  };
+  formatType =
+    deprecatedSingleOrListOf
+    "vim.languages.json.format.type"
+    (coercedTo (enum ["prettierd"]) (_:
+      lib.warn
+      "vim.languages.json.format.type: prettierd is deprecated, use prettier instead"
+      "prettier")
+    (enum formats));
 in {
   options.vim.languages.json = {
     enable = mkEnableOption "JSON language support";
@@ -80,7 +72,7 @@ in {
 
       type = mkOption {
         description = "JSON formatter to use";
-        type = deprecatedSingleOrListOf "vim.language.json.format.type" (enum (attrNames formats));
+        type = formatType;
         default = defaultFormat;
       };
     };
@@ -107,15 +99,11 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.json = cfg.format.type;
-          formatters_by_ft.json5 = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft = {
+          json = cfg.format.type;
+          jsonc = cfg.format.type;
+          json5 = cfg.format.type;
         };
       };
     })
