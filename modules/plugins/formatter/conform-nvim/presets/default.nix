@@ -34,7 +34,7 @@
     # ./nasmfmt.nix
     # ./nimpretty.nix
     # ./nixfmt.nix
-    # ./nomad.nix
+    ./nomad.nix
     # ./ocalformat.nix
     # ./ormolu.nix
     # ./php-cs-fixer.nix
