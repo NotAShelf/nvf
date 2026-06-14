@@ -54,17 +54,17 @@
 in
   maven.buildMavenPackage (finalAttrs: {
     pname = "jls";
-    version = "0.6.1";
+    version = "0.7.0";
 
     src = fetchFromGitHub {
       owner = "idelice";
       repo = "jls";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-kZ96OsCMtpS3diUT/4+TEnzNb2G4LfDdrrSKuhIM9NU=";
+      hash = "sha256-1PyosKSVD1/RnG2AVOfG57jSZDmu24aeJq/PWOK9dfo=";
     };
 
     mvnJdk = jdk;
-    mvnHash = "sha256-E/ZNOGIB/00dfhPsagwJUV6TWHCY7Jb5Ewlvyxs3sRI=";
+    mvnHash = "sha256-dIfpoJKDBj00SGNCcElZp0ykKdxrc/bWIa9kbPt6GnI=";
     mvnParameters = "-DskipTests";
 
     nativeBuildInputs = [
