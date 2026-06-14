@@ -4,15 +4,12 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.meta) getExe;
   inherit (lib) genAttrs;
   inherit (lib.types) bool enum listOf;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryBefore;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.lua;
 
@@ -20,11 +17,7 @@
   servers = ["lua-language-server"];
 
   defaultFormat = ["stylua"];
-  formats = {
-    stylua = {
-      command = getExe pkgs.stylua;
-    };
-  };
+  formats = ["stylua"];
 
   defaultDiagnosticsProvider = ["luacheck"];
   diagnosticsProviders = ["luacheck" "selene"];
@@ -71,7 +64,7 @@ in {
         description = "Enable Lua formatting";
       };
       type = mkOption {
-        type = listOf (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "Lua formatter to use";
       };
@@ -123,15 +116,8 @@ in {
       (mkIf cfg.format.enable {
         vim.formatter.conform-nvim = {
           enable = true;
-          setupOpts = {
-            formatters_by_ft.lua = cfg.format.type;
-            formatters =
-              mapListToAttrs (name: {
-                inherit name;
-                value = formats.${name};
-              })
-              cfg.format.type;
-          };
+          presets = genAttrs cfg.format.type (_: {enable = true;});
+          setupOpts.formatters_by_ft.lua = cfg.format.type;
         };
       })
 
