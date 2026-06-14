@@ -20,7 +20,7 @@
     # ./format-r.nix
     # ./fourmolu.nix
     # ./gersemi.nix
-    # ./gofmt.nix
+    ./gofmt.nix
     # ./gofumpt.nix
     # ./golines.nix
     ./hclfmt.nix
