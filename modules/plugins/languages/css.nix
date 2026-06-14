@@ -4,14 +4,11 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib) genAttrs;
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum listOf;
+  inherit (lib.types) enum coercedTo listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.css;
 
@@ -19,19 +16,16 @@
   servers = ["vscode-css-language-server" "emmet-ls"];
 
   defaultFormat = ["prettier"];
-  formats = {
-    prettier = {
-      command = getExe pkgs.prettier;
-    };
+  formats = ["prettier" "biome" "biome-check" "biome-organize-imports" "deno"];
 
-    prettierd = {
-      command = getExe pkgs.prettierd;
-    };
-
-    biome = {
-      command = getExe pkgs.biome;
-    };
-  };
+  formatType =
+    deprecatedSingleOrListOf
+    "vim.languages.css.format.type"
+    (coercedTo (enum ["prettierd"]) (_:
+      lib.warn
+      "vim.languages.css.format.type: prettierd is deprecated, use prettier instead"
+      "prettier")
+    (enum formats));
 in {
   options.vim.languages.css = {
     enable = mkEnableOption "CSS language support";
@@ -72,7 +66,7 @@ in {
 
       type = mkOption {
         description = "CSS formatter to use";
-        type = deprecatedSingleOrListOf "vim.language.css.format.type" (enum (attrNames formats));
+        type = formatType;
         default = defaultFormat;
       };
     };
@@ -100,15 +94,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.css = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.css = cfg.format.type;
       };
     })
   ]);
