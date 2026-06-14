@@ -21,7 +21,7 @@
     # ./fourmolu.nix
     # ./gersemi.nix
     ./gofmt.nix
-    # ./gofumpt.nix
+    ./gofumpt.nix
     # ./golines.nix
     ./hclfmt.nix
     # ./indent.nix
