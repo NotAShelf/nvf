@@ -6,10 +6,8 @@
 }: let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (lib.types) enum listOf;
-  inherit (lib.attrsets) attrNames genAttrs;
-  inherit (lib.meta) getExe;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.types) enum coercedTo listOf;
+  inherit (lib.attrsets) genAttrs;
   inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.tsx;
@@ -18,27 +16,12 @@
   servers = ["typescript-language-server" "deno" "typescript-go" "emmet-ls"];
 
   defaultFormat = ["prettier"];
-  formats = {
-    prettier = {
-      command = getExe pkgs.prettier;
-    };
-
-    prettierd = {
-      command = getExe pkgs.prettierd;
-    };
-
-    biome = {
-      command = getExe pkgs.biome;
-    };
-
-    biome-check = {
-      command = getExe pkgs.biome;
-    };
-
-    biome-organize-imports = {
-      command = getExe pkgs.biome;
-    };
-  };
+  formats = ["prettier" "biome" "biome-check" "biome-organize-imports" "deno"];
+  formatType = listOf (coercedTo (enum ["prettierd"]) (_:
+    lib.warn
+    "vim.languages.tsx.format.type: prettierd is deprecated, use prettier instead"
+    "prettier")
+  (enum formats));
 
   defaultDiagnosticsProvider = ["biomejs"];
   diagnosticsProviders = ["biomejs"];
@@ -80,7 +63,7 @@ in {
 
       type = mkOption {
         description = "Typescript XML (TSX) formatter to use";
-        type = listOf (enum (attrNames formats));
+        type = formatType;
         default = defaultFormat;
       };
     };
@@ -124,17 +107,10 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft = {
-            typescriptreact = cfg.format.type;
-            javascriptreact = cfg.format.type;
-          };
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft = {
+          typescriptreact = cfg.format.type;
+          javascriptreact = cfg.format.type;
         };
       };
     })
