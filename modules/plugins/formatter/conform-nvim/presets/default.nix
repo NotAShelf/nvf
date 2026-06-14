@@ -52,7 +52,7 @@
     # ./sqruff.nix
     # ./styler.nix
     # ./stylish-haskell.nix
-    # ./stylua.nix
+    ./stylua.nix
     ./superhtml.nix
     ./taplo.nix
     ./terraform.nix
