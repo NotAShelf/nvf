@@ -4,47 +4,20 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib) genAttrs;
-  inherit (lib.meta) getExe getExe';
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.types) bool enum listOf str nullOr;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf enumWithRename;
   inherit (lib.nvim.dag) entryAnywhere;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.trivial) warn;
 
   cfg = config.vim.languages.markdown;
   defaultServers = ["marksman"];
   servers = ["marksman" "markdown-oxide" "rumdl"];
 
-  defaultFormat = ["deno_fmt"];
-  formats = {
-    # for backwards compatibility
-    denofmt = {
-      command = getExe pkgs.deno;
-    };
-    deno_fmt = {
-      command = getExe pkgs.deno;
-    };
-    rumdl = {
-      command = getExe pkgs.rumdl;
-    };
-    prettierd = {
-      command = getExe pkgs.prettierd;
-    };
-    mdformat = {
-      command = getExe' (pkgs.python313Packages.python.withPackages (p:
-        with p; [
-          mdformat
-          mdformat-gfm
-          mdformat-frontmatter
-          mdformat-footnote
-        ])) "mdformat";
-    };
-  };
+  defaultFormat = ["deno"];
+  formats = ["deno" "prettier" "rumdl" "mdformat"];
   defaultDiagnosticsProvider = ["markdownlint-cli2"];
   diagnosticsProviders = ["markdownlint-cli2" "rumdl"];
 in {
@@ -86,15 +59,19 @@ in {
         };
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.markdown.format.type" (enum (attrNames formats));
+        type =
+          deprecatedSingleOrListOf
+          "vim.languages.markdown.format.type"
+          (enumWithRename
+            "vim.languages.markdown.format.type"
+            formats
+            {
+              denofmt = "deno";
+              deno_fmt = "deno";
+              prettierd = "prettier";
+            });
         default = defaultFormat;
-        description = "Markdown formatter to use. `denofmt` is deprecated and currently aliased to deno_fmt.";
-      };
-
-      extraFiletypes = mkOption {
-        type = listOf str;
-        default = [];
-        description = "Extra filetypes to format with the Markdown formatter";
+        description = "Markdown formatter to use";
       };
     };
 
@@ -174,24 +151,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.markdown = cfg.format.type;
-          formatters = let
-            names = map (name:
-              if name == "denofmt"
-              then
-                warn ''
-                  vim.languages.markdown.format.type: "denofmt" is renamed to "deno_fmt".
-                '' "deno_fmt"
-              else name)
-            cfg.format.type;
-          in
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            names;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.markdown = cfg.format.type;
       };
     })
 

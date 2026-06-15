@@ -433,6 +433,11 @@ in {
         Use `vim.formatter.conform-nvim.presets.gersemi.enable` to enable it,
         and `vim.formatter.conform-nvim.setupOpts.formatters.gersemi.command` to customize its command.
       '')
+      (mkRemovedOptionModule ["vim" "languages" "markdown" "format" "extraFiletypes"] ''
+        `vim.languages.markdown.format.extraFiletypes` is removed.
+        Filetype association is now handled automatically by the conform-nvim presets.
+        Use `vim.formatter.conform-nvim.setupOpts.formatters_by_ft.<ft> = ["<formatter>", ...]` to register extra formatters per filetype.
+      '')
     ]
   ];
 }
