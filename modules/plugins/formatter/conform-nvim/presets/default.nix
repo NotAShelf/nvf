@@ -43,7 +43,7 @@
     # ./qmlformat.nix
     # ./rubocop.nix
     ./ruff.nix
-    # ./rumdl.nix
+    ./rumdl.nix
     # ./rustfmt.nix
     # ./shfmt.nix
     # ./smlfmt.nix
