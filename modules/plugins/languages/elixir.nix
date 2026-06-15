@@ -4,14 +4,12 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib) genAttrs;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
   inherit (lib.nvim.dag) entryAnywhere;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.elixir;
 
@@ -19,11 +17,7 @@
   servers = ["elixir-ls"];
 
   defaultFormat = ["mix"];
-  formats = {
-    mix = {
-      command = "${pkgs.elixir}/bin/mix";
-    };
-  };
+  formats = ["mix"];
 in {
   options.vim.languages.elixir = {
     enable = mkEnableOption "Elixir language support";
@@ -63,7 +57,7 @@ in {
       enable = mkEnableOption "Elixir formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.elixir.format.type" (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.elixir.format.type" (enum formats);
         default = defaultFormat;
         description = "Elixir formatter to use";
       };
@@ -96,15 +90,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.elixir = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.elixir = cfg.format.type;
       };
     })
 
