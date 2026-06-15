@@ -4,25 +4,19 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib) genAttrs;
-  inherit (lib.meta) getExe;
-  inherit (lib.types) enum listOf package;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.types) enum listOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
 
   cfg = config.vim.languages.cmake;
 
   defaultServers = ["neocmakelsp"];
   servers = ["neocmakelsp"];
 
-  defaultFormat = "gersemi";
-  formats = {
-    gersemi = {
-      package = pkgs.gersemi;
-    };
-  };
+  defaultFormat = ["gersemi"];
+  formats = ["gersemi"];
 in {
   options.vim.languages.cmake = {
     enable = mkEnableOption "CMake language support";
@@ -61,14 +55,8 @@ in {
 
       type = mkOption {
         description = "CMake formatter to use";
-        type = enum (attrNames formats);
+        type = deprecatedSingleOrListOf "vim.languages.cmake.format.type" (enum formats);
         default = defaultFormat;
-      };
-
-      package = mkOption {
-        description = "CMake formatter package";
-        type = package;
-        default = formats.${cfg.format.type}.package;
       };
     };
   };
@@ -92,10 +80,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts.formatters_by_ft.cmake = [cfg.format.type];
-        setupOpts.formatters.${cfg.format.type} = {
-          command = getExe cfg.format.package;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.cmake = cfg.format.type;
       };
     })
   ]);
