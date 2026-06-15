@@ -9,7 +9,7 @@
     # ./cabal-fmt.nix
     # ./clang-format.nix
     # ./csharpier.nix
-    # ./deno.nix
+    ./deno.nix
     # ./djlint.nix
     # ./dockerfmt.nix
     # ./fantomas.nix
