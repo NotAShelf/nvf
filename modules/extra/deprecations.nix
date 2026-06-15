@@ -424,5 +424,15 @@ in {
         instead.
       '')
     ]
+
+    # 2026-06-15
+    [
+      (mkRemovedOptionModule ["vim" "languages" "cmake" "format" "package"] ''
+        `vim.languages.cmake.format.package` is removed.
+        The package is now managed by the conform-nvim preset.
+        Use `vim.formatter.conform-nvim.presets.gersemi.enable` to enable it,
+        and `vim.formatter.conform-nvim.setupOpts.formatters.gersemi.command` to customize its command.
+      '')
+    ]
   ];
 }
