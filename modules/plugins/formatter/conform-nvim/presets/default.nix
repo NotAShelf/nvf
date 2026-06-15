@@ -28,7 +28,7 @@
     ./jqfmt.nix
     ./jsonfmt.nix
     # ./latexindent.nix
-    # ./mdformat.nix
+    ./mdformat.nix
     ./mix.nix
     ./nasmfmt.nix
     # ./nimpretty.nix
@@ -39,7 +39,6 @@
     # ./ormolu.nix
     # ./php-cs-fixer.nix
     ./prettier.nix
-    # ./prettierd.nix
     # ./qmlformat.nix
     # ./rubocop.nix
     ./ruff.nix
