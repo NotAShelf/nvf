@@ -45,7 +45,7 @@
     ./rumdl.nix
     # ./rustfmt.nix
     # ./shfmt.nix
-    # ./smlfmt.nix
+    ./smlfmt.nix
     # ./sqlfluff.nix
     # ./sqruff.nix
     # ./styler.nix
