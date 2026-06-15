@@ -119,7 +119,7 @@ in {
 
         setupOpts = mkPluginSetupOption "ts-error-translator" {
           # This is the default configuration behaviour.
-          auto_override_publish_diagnostics = mkOption {
+          auto_attach = mkOption {
             description = "Automatically override the publish_diagnostics handler";
             type = bool;
             default = true;
