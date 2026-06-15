@@ -631,4 +631,9 @@ https://github.com/gorbit99/codewindow.nvim
 - Add `prettier` and `prettierd` as supported formatters to
   `vim.languages.json`.
 
+[BrockoliniMorgan](https://github.com/BrockoliniMorgan)
+
+- Renamed
+  `languages.typescript.extensions.ts-error-translator.auto_override_publish_diagnostics`
+
 <!-- vim: set textwidth=80: -->
