@@ -7,10 +7,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum listOf;
-  inherit (lib.attrsets) attrNames genAttrs;
-  inherit (lib.generators) mkLuaInline;
-  inherit (lib.meta) getExe;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib) genAttrs;
   inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.assembly;
@@ -18,22 +15,7 @@
   servers = ["asm-lsp"];
 
   defaultFormat = ["asmfmt"];
-  formats = {
-    asmfmt = {
-      command = getExe pkgs.asmfmt;
-    };
-    nasmfmt = {
-      command = getExe pkgs.nasmfmt;
-      args = mkLuaInline ''
-        function(self, ctx)
-          return {
-            "--ii", ctx.shiftwidth,
-            "$FILENAME",
-          }
-        end
-      '';
-    };
-  };
+  formats = ["asmfmt" "nasmfmt"];
 in {
   options.vim.languages.assembly = {
     enable = mkEnableOption "Assembly support";
@@ -72,7 +54,7 @@ in {
           defaultText = literalExpression "config.vim.languages.enableFormat";
         };
       type = mkOption {
-        type = listOf (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "Assembly formatter to use";
       };
@@ -110,23 +92,16 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft = {
-            asm = cfg.format.type;
-            nasm = cfg.format.type;
-            masm = cfg.format.type;
-            vmasm = cfg.format.type;
-            tasm = cfg.format.type;
-            tiasm = cfg.format.type;
-            asm68k = cfg.format.type;
-            asmh8300 = cfg.format.type;
-          };
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft = {
+          asm = cfg.format.type;
+          nasm = cfg.format.type;
+          masm = cfg.format.type;
+          vmasm = cfg.format.type;
+          tasm = cfg.format.type;
+          tiasm = cfg.format.type;
+          asm68k = cfg.format.type;
+          asmh8300 = cfg.format.type;
         };
       };
     })
