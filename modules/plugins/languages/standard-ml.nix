@@ -7,10 +7,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.types) enum listOf;
-  inherit (lib.attrsets) attrNames genAttrs;
-  inherit (lib.generators) mkLuaInline;
-  inherit (lib.meta) getExe;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib) genAttrs;
   inherit (lib.nvim.types) mkTreesitterGrammarOption;
 
   cfg = config.vim.languages.standard-ml;
@@ -19,22 +16,7 @@
   servers = ["millet"];
 
   defaultFormat = ["smlfmt"];
-  formats = {
-    smlfmt = {
-      command = getExe pkgs.smlfmt;
-      stdin = false;
-      args = mkLuaInline ''
-        function(self, ctx)
-          return {
-            "--force",
-            "-tab-width", ctx.shiftwidth,
-            "-indent-width", ctx.shiftwidth,
-            "$FILENAME",
-          }
-        end
-      '';
-    };
-  };
+  formats = ["smlfmt"];
 in {
   options.vim.languages.standard-ml = {
     enable = mkEnableOption "Standard ML support";
@@ -73,7 +55,7 @@ in {
 
       type = mkOption {
         description = "Standard ML formatter to use";
-        type = listOf (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
       };
     };
@@ -99,15 +81,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.sml = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.sml = cfg.format.type;
       };
     })
   ]);
