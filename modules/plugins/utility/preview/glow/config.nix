@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   lib,
   options,
@@ -8,6 +7,7 @@
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.binds) mkKeymap pushDownDefault;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.utility.preview.glow;
   inherit (options.vim.utility.preview.glow) mappings;
@@ -24,9 +24,7 @@ in {
     };
 
     pluginRC.glow = entryAnywhere ''
-      require('glow').setup({
-        glow_path = "${pkgs.glow}/bin/glow"
-      });
+      require('glow').setup(${toLuaObject cfg.setupOpts})
     '';
   };
 }
