@@ -40,7 +40,7 @@
     # ./php-cs-fixer.nix
     ./prettier.nix
     ./qmlformat.nix
-    # ./rubocop.nix
+    ./rubocop.nix
     ./ruff.nix
     ./rumdl.nix
     # ./rustfmt.nix
