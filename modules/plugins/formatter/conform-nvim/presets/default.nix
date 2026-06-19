@@ -47,7 +47,7 @@
     ./shfmt.nix
     ./smlfmt.nix
     ./sqlfluff.nix
-    # ./sqruff.nix
+    ./sqruff.nix
     # ./styler.nix
     # ./stylish-haskell.nix
     ./stylua.nix
