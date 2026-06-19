@@ -348,6 +348,8 @@
 
 - Add `emmet-ls` to the supported LSPs for all languages it supports.
 
+- Added `gitlab-ci-ls`.
+
 - Added `phpantom` LSP preset and into `languages.php`.
 
 - Moved extra diagnostic modules under `diagnostics.presets.<name>` this will

@@ -86,21 +86,13 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
-      vim.autocmds = [
-        # Without this the LSP doesn't understand them correctly
-        # and there are conflicts with the YAML LSP
-        {
-          desc = "Set Docker Compose filetype";
-          event = ["BufRead" "BufNewFile"];
-          pattern = [
-            "compose.yml"
-            "compose.yaml"
-            "docker-compose.yml"
-            "docker-compose.yaml"
-          ];
-          command = "set filetype=dockercompose";
-        }
-      ];
+      # Without this the LSP doesn't understand them correctly
+      # and there are conflicts with the YAML LSP,
+      # thus this module is "stealing" those files.
+      vim.filetype.pattern = {
+        "compose%.ya?ml" = "dockercompose";
+        "docker%-compose%.ya?ml" = "dockercompose";
+      };
     }
 
     (mkIf cfg.treesitter.enable {
