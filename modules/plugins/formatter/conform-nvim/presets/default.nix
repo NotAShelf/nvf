@@ -39,7 +39,7 @@
     # ./ormolu.nix
     # ./php-cs-fixer.nix
     ./prettier.nix
-    # ./qmlformat.nix
+    ./qmlformat.nix
     # ./rubocop.nix
     ./ruff.nix
     ./rumdl.nix
