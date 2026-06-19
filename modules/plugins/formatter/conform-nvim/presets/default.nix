@@ -8,7 +8,7 @@
     ./black.nix
     # ./cabal-fmt.nix
     # ./clang-format.nix
-    # ./csharpier.nix
+    ./csharpier.nix
     ./deno.nix
     ./djlint.nix
     ./dockerfmt.nix
