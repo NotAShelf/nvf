@@ -4,43 +4,16 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum listOf;
+  inherit (lib.types) listOf;
   inherit (lib) genAttrs;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.types) mkGrammarOption enumWithRename;
 
   cfg = config.vim.languages.r;
 
-  defaultFormat = ["format_r"];
-  formats = {
-    styler = {
-      command = let
-        pkg = pkgs.rWrapper.override {packages = [pkgs.rPackages.styler];};
-      in "${pkg}/bin/R";
-    };
-
-    format_r = {
-      command = let
-        pkg = pkgs.rWrapper.override {
-          packages = [pkgs.rPackages.formatR];
-        };
-      in "${pkg}/bin/R";
-      stdin = true;
-      args = [
-        "--slave"
-        "--no-restore"
-        "--no-save"
-        "-s"
-        "-e"
-        ''formatR::tidy_source(source="stdin")''
-      ];
-      # TODO: range_args seem to be possible
-      # https://github.com/nvimtools/none-ls.nvim/blob/main/lua/null-ls/builtins/formatting/format_r.lua
-    };
-  };
+  defaultFormat = ["format-r"];
+  formats = ["styler" "format-r"];
 
   defaultServers = ["r-languageserver"];
   servers = ["r-languageserver"];
@@ -87,7 +60,12 @@ in {
         };
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.r.format.type" (enum (attrNames formats));
+        type = listOf (enumWithRename
+          "vim.languages.r.format.type"
+          formats
+          {
+            format_r = "format-r";
+          });
         default = defaultFormat;
         description = "R formatter to use";
       };
@@ -103,15 +81,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.r = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.r = cfg.format.type;
       };
     })
 
