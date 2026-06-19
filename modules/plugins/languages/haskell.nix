@@ -5,7 +5,6 @@
   pkgs,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib) genAttrs;
   inherit (lib.types) either package enum listOf str nullOr attrsOf anything;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
@@ -14,7 +13,6 @@
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.binds) addDescriptionsToMappings;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption luaInline;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
   inherit (pkgs) haskellPackages;
@@ -25,17 +23,10 @@
   servers = ["haskell-language-server"];
 
   defaultFormat = ["ormolu"];
-  formats = {
-    ormolu = {command = getExe haskellPackages.ormolu;};
-    fourmolu = {command = getExe haskellPackages.fourmolu;};
-    stylish-haskell = {command = getExe haskellPackages.stylish-haskell;};
-    floskell = {command = getExe haskellPackages.floskell;};
-  };
+  formats = ["ormolu" "fourmolu" "stylish-haskell" "floskell"];
 
   defaultCabalFormat = ["cabal-fmt"];
-  cabalFormats = {
-    cabal-fmt = {command = getExe haskellPackages.cabal-fmt;};
-  };
+  cabalFormats = ["cabal-fmt"];
 in {
   options.vim.languages.haskell = {
     enable = mkEnableOption "Haskell support";
@@ -72,13 +63,13 @@ in {
           defaultText = literalExpression "config.vim.languages.enableFormat";
         };
       type = mkOption {
-        type = listOf (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "Haskell formatter to use";
       };
 
       cabalFormatters = mkOption {
-        type = listOf (enum (attrNames cabalFormats));
+        type = listOf (enum cabalFormats);
         default = defaultCabalFormat;
         description = "Cabal file formatter to use";
       };
@@ -218,30 +209,11 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft = {
-            haskell = cfg.format.type;
-            lhaskell = cfg.format.type;
-            cabal = cfg.format.cabalFormatters;
-          };
-          formatters = mkMerge [
-            (
-              mapListToAttrs
-              (name: {
-                inherit name;
-                value = formats.${name};
-              })
-              cfg.format.type
-            )
-            (
-              mapListToAttrs
-              (name: {
-                inherit name;
-                value = cabalFormats.${name};
-              })
-              cfg.format.cabalFormatters
-            )
-          ];
+        presets = genAttrs (cfg.format.type ++ cfg.format.cabalFormatters) (_: {enable = true;});
+        setupOpts.formatters_by_ft = {
+          haskell = cfg.format.type;
+          lhaskell = cfg.format.type;
+          cabal = cfg.format.cabalFormatters;
         };
       };
     })
