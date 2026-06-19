@@ -4,29 +4,19 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib) genAttrs;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.qml;
-
-  qmlPackage = pkgs.kdePackages.qtdeclarative;
 
   defaultServers = ["qmlls"];
   servers = ["qmlls"];
 
   defaultFormat = ["qmlformat"];
-  formats = {
-    qmlformat = {
-      command = "${qmlPackage}/bin/qmlformat";
-      args = ["-i" "$FILENAME"];
-      stdin = false;
-    };
-  };
+  formats = ["qmlformat"];
 in {
   options.vim.languages.qml = {
     enable = mkEnableOption "QML language support";
@@ -63,7 +53,7 @@ in {
         };
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.qml.format.type" (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.qml.format.type" (enum formats);
         default = defaultFormat;
         description = "QML formatter to use";
       };
@@ -90,15 +80,8 @@ in {
     (mkIf (cfg.format.enable && !cfg.lsp.enable) {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.qml = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.qml = cfg.format.type;
       };
     })
   ]);
