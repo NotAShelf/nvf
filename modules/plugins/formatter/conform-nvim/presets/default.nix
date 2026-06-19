@@ -37,7 +37,7 @@
     ./nomad.nix
     ./ocamlformat.nix
     # ./ormolu.nix
-    # ./php-cs-fixer.nix
+    ./php-cs-fixer.nix
     ./prettier.nix
     ./qmlformat.nix
     ./rubocop.nix
