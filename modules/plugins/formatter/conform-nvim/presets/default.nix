@@ -46,7 +46,7 @@
     ./rustfmt.nix
     ./shfmt.nix
     ./smlfmt.nix
-    # ./sqlfluff.nix
+    ./sqlfluff.nix
     # ./sqruff.nix
     # ./styler.nix
     # ./stylish-haskell.nix
