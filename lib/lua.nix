@@ -1,56 +1,56 @@
 # Helpers for converting values to lua
 {lib}: let
   /**
-    Test whether an object is a `luaInline` value (i.e. has `_type == "lua-inline"`).
+  Test whether an object is a `luaInline` value (i.e. has `_type == "lua-inline"`).
 
-    # Type
+  # Type
 
-    ```
-    isLuaInline :: Any -> Bool
-    ```
+  ```
+  isLuaInline :: Any -> Bool
+  ```
 
-    # Arguments
+  # Arguments
 
-    - `object`: Any Nix value.
+  - `object`: Any Nix value.
 
-    # Example
+  # Example
 
-    ```nix
-    isLuaInline (lib.mkLuaInline "vim.fn.getcwd()")
-    => true
+  ```nix
+  isLuaInline (lib.mkLuaInline "vim.fn.getcwd()")
+  => true
 
-    isLuaInline "just a string"
-    => false
-    ```
+  isLuaInline "just a string"
+  => false
+  ```
   */
   isLuaInline = object: (object._type or null) == "lua-inline";
 
   /**
-    Recursively convert a Nix value to its Lua representation as a string.
+  Recursively convert a Nix value to its Lua representation as a string.
 
-    Handles all primitive Nix types as well as lists, attribute sets,
-    derivations (rendered as their store path string), and `luaInline` values
-    (rendered verbatim). Null attributes are stripped from sets.
+  Handles all primitive Nix types as well as lists, attribute sets,
+  derivations (rendered as their store path string), and `luaInline` values
+  (rendered verbatim). Null attributes are stripped from sets.
 
-    # Type
+  # Type
 
-    ```
-    toLuaObject :: Any -> String
-    ```
+  ```
+  toLuaObject :: Any -> String
+  ```
 
-    # Arguments
+  # Arguments
 
-    - `args`: Any Nix value to convert.
+  - `args`: Any Nix value to convert.
 
-    # Example
+  # Example
 
-    ```nix
-    toLuaObject { a = 1; b = true; c = null; }
-    => ''{["a"] = 1,\n["b"] = true}''
+  ```nix
+  toLuaObject { a = 1; b = true; c = null; }
+  => ''{["a"] = 1,\n["b"] = true}''
 
-    toLuaObject [ "x" "y" ]
-    => ''{"x",\n"y"}''
-    ```
+  toLuaObject [ "x" "y" ]
+  => ''{"x",\n"y"}''
+  ```
   */
   toLuaObject = args:
     {
@@ -94,27 +94,27 @@ in
     inherit isLuaInline toLuaObject;
 
     /**
-      Convert a list of Lua expression strings into a Lua table string.
+    Convert a list of Lua expression strings into a Lua table string.
 
-      Each element is wrapped with `mkLuaInline` before conversion so that
-      strings are treated as raw Lua rather than quoted string literals.
+    Each element is wrapped with `mkLuaInline` before conversion so that
+    strings are treated as raw Lua rather than quoted string literals.
 
-      # Type
+    # Type
 
-      ```
-      luaTable :: [String] -> String
-      ```
+    ```
+    luaTable :: [String] -> String
+    ```
 
-      # Arguments
+    # Arguments
 
-      - `x`: List of Lua expression strings.
+    - `x`: List of Lua expression strings.
 
-      # Example
+    # Example
 
-      ```nix
-      luaTable [ "vim.fn.getcwd()" "vim.fn.expand('%')" ]
-      => ''{vim.fn.getcwd(),\nvim.fn.expand('%')}''
-      ```
+    ```nix
+    luaTable [ "vim.fn.getcwd()" "vim.fn.expand('%')" ]
+    => ''{vim.fn.getcwd(),\nvim.fn.expand('%')}''
+    ```
     */
     luaTable = x: (toLuaObject (map lib.mkLuaInline x));
   }

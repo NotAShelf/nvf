@@ -6,25 +6,25 @@
   inherit (lib.lists) flatten;
 in {
   /**
-    Build a boolean NixOS option with the given default value and description.
+  Build a boolean NixOS option with the given default value and description.
 
-    # Type
+  # Type
 
-    ```
-    mkBool :: Bool -> String -> Option
-    ```
+  ```
+  mkBool :: Bool -> String -> Option
+  ```
 
-    # Arguments
+  # Arguments
 
-    - `value`: Default boolean value for the option.
-    - `description`: Documentation string for the option.
+  - `value`: Default boolean value for the option.
+  - `description`: Documentation string for the option.
 
-    # Example
+  # Example
 
-    ```nix
-    mkBool true "Enable feature X"
-    => mkOption { type = bool; default = true; description = "Enable feature X"; }
-    ```
+  ```nix
+  mkBool true "Enable feature X"
+  => mkOption { type = bool; default = true; description = "Enable feature X"; }
+  ```
   */
   mkBool = value: description:
     mkOption {

@@ -7,30 +7,30 @@
 in {
   # TODO: remove
   /**
-    Convert a list of diagnostic provider entries to a DAG-compatible attribute set.
+  Convert a list of diagnostic provider entries to a DAG-compatible attribute set.
 
-    Accepts either plain strings (provider type names) or attrsets with `type`
-    and `package` fields, and produces named entries suitable for merging into
-    a null-ls/none-ls DAG.
+  Accepts either plain strings (provider type names) or attrsets with `type`
+  and `package` fields, and produces named entries suitable for merging into
+  a null-ls/none-ls DAG.
 
-    # Type
+  # Type
 
-    ```
-    diagnosticsToLua :: { lang :: String; config :: [String | { type :: String; package :: Derivation }]; diagnosticsProviders :: AttrSet } -> AttrSet
-    ```
+  ```
+  diagnosticsToLua :: { lang :: String; config :: [String | { type :: String; package :: Derivation }]; diagnosticsProviders :: AttrSet } -> AttrSet
+  ```
 
-    # Arguments
+  # Arguments
 
-    - `lang`: Language identifier used to prefix generated entry names.
-    - `config`: List of provider names (strings) or `{ type; package }` records.
-    - `diagnosticsProviders`: Attribute set mapping provider type names to `{ package; nullConfig }` records.
+  - `lang`: Language identifier used to prefix generated entry names.
+  - `config`: List of provider names (strings) or `{ type; package }` records.
+  - `diagnosticsProviders`: Attribute set mapping provider type names to `{ package; nullConfig }` records.
 
-    # Example
+  # Example
 
-    ```nix
-    diagnosticsToLua { lang = "python"; config = [ "flake8" ]; diagnosticsProviders = { flake8 = { package = pkgs.python3Packages.flake8; nullConfig = pkg: "..."; }; }; }
-    => { "python-diagnostics-flake8" = "..."; }
-    ```
+  ```nix
+  diagnosticsToLua { lang = "python"; config = [ "flake8" ]; diagnosticsProviders = { flake8 = { package = pkgs.python3Packages.flake8; nullConfig = pkg: "..."; }; }; }
+  => { "python-diagnostics-flake8" = "..."; }
+  ```
   */
   diagnosticsToLua = {
     lang,
@@ -54,24 +54,24 @@ in {
     config;
 
   /**
-    Build a boolean NixOS option that enables a language feature for all enabled languages.
+  Build a boolean NixOS option that enables a language feature for all enabled languages.
 
-    # Type
+  # Type
 
-    ```
-    mkEnable :: String -> Option
-    ```
+  ```
+  mkEnable :: String -> Option
+  ```
 
-    # Arguments
+  # Arguments
 
-    - `desc`: Short description of the feature being enabled (interpolated into the option description).
+  - `desc`: Short description of the feature being enabled (interpolated into the option description).
 
-    # Example
+  # Example
 
-    ```nix
-    mkEnable "LSP support"
-    => mkOption { default = false; type = bool; description = "Turn on LSP support for enabled languages by default"; }
-    ```
+  ```nix
+  mkEnable "LSP support"
+  => mkOption { default = false; type = bool; description = "Turn on LSP support for enabled languages by default"; }
+  ```
   */
   mkEnable = desc:
     mkOption {
@@ -81,26 +81,26 @@ in {
     };
 
   /**
-    A freeform submodule type for LSP server options.
+  A freeform submodule type for LSP server options.
 
-    Provides a structured set of well-known LSP configuration fields
-    (`enable`, `capabilities`, `on_attach`, `filetypes`, `cmd`, `root_markers`)
-    while allowing arbitrary extra fields via `freeformType`.
+  Provides a structured set of well-known LSP configuration fields
+  (`enable`, `capabilities`, `on_attach`, `filetypes`, `cmd`, `root_markers`)
+  while allowing arbitrary extra fields via `freeformType`.
 
-    # Type
+  # Type
 
-    ```
-    lspOptions :: SubmoduleType
-    ```
+  ```
+  lspOptions :: SubmoduleType
+  ```
 
-    # Example
+  # Example
 
-    ```nix
-    vim.languages.rust.lsp.options = {
-      enable = true;
-      root_markers = [ "Cargo.toml" ];
-    };
-    ```
+  ```nix
+  vim.languages.rust.lsp.options = {
+    enable = true;
+    root_markers = [ "Cargo.toml" ];
+  };
+  ```
   */
   lspOptions = submodule {
     freeformType = attrsOf anything;

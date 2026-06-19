@@ -6,26 +6,26 @@
 
   binds = rec {
     /**
-      Create a silent Lua keybinding wrapped in `mkIf` to guard against null keys.
+    Create a silent Lua keybinding wrapped in `mkIf` to guard against null keys.
 
-      # Type
+    # Type
 
-      ```
-      mkLuaBinding :: String | Null -> String -> String -> AttrSet
-      ```
+    ```
+    mkLuaBinding :: String | Null -> String -> String -> AttrSet
+    ```
 
-      # Arguments
+    # Arguments
 
-      - `key`: The key sequence to bind, or `null` to disable.
-      - `action`: Lua expression to execute on keypress.
-      - `desc`: Human-readable description of the binding.
+    - `key`: The key sequence to bind, or `null` to disable.
+    - `action`: Lua expression to execute on keypress.
+    - `desc`: Human-readable description of the binding.
 
-      # Example
+    # Example
 
-      ```nix
-      mkLuaBinding "<leader>f" "require('telescope').find_files" "Find files"
-      => { "<leader>f" = { action = "require('telescope').find_files"; desc = "Find files"; lua = true; silent = true; }; }
-      ```
+    ```nix
+    mkLuaBinding "<leader>f" "require('telescope').find_files" "Find files"
+    => { "<leader>f" = { action = "require('telescope').find_files"; desc = "Find files"; lua = true; silent = true; }; }
+    ```
     */
     mkLuaBinding = key: action: desc:
       mkIf (key != null) {
@@ -37,26 +37,26 @@
       };
 
     /**
-      Create a silent expression-mode Lua keybinding wrapped in `mkIf`.
+    Create a silent expression-mode Lua keybinding wrapped in `mkIf`.
 
-      # Type
+    # Type
 
-      ```
-      mkExprBinding :: String | Null -> String -> String -> AttrSet
-      ```
+    ```
+    mkExprBinding :: String | Null -> String -> String -> AttrSet
+    ```
 
-      # Arguments
+    # Arguments
 
-      - `key`: The key sequence to bind, or `null` to disable.
-      - `action`: Lua expression evaluated as a Vim expression.
-      - `desc`: Human-readable description of the binding.
+    - `key`: The key sequence to bind, or `null` to disable.
+    - `action`: Lua expression evaluated as a Vim expression.
+    - `desc`: Human-readable description of the binding.
 
-      # Example
+    # Example
 
-      ```nix
-      mkExprBinding "<C-n>" "v:count == 0 ? 'j' : 'gj'" "Smart down"
-      => { "<C-n>" = { action = "v:count == 0 ? 'j' : 'gj'"; desc = "Smart down"; lua = true; silent = true; expr = true; }; }
-      ```
+    ```nix
+    mkExprBinding "<C-n>" "v:count == 0 ? 'j' : 'gj'" "Smart down"
+    => { "<C-n>" = { action = "v:count == 0 ? 'j' : 'gj'"; desc = "Smart down"; lua = true; silent = true; expr = true; }; }
+    ```
     */
     mkExprBinding = key: action: desc:
       mkIf (key != null) {
@@ -69,26 +69,26 @@
       };
 
     /**
-      Create a silent (non-Lua) keybinding wrapped in `mkIf` to guard against null keys.
+    Create a silent (non-Lua) keybinding wrapped in `mkIf` to guard against null keys.
 
-      # Type
+    # Type
 
-      ```
-      mkBinding :: String | Null -> String -> String -> AttrSet
-      ```
+    ```
+    mkBinding :: String | Null -> String -> String -> AttrSet
+    ```
 
-      # Arguments
+    # Arguments
 
-      - `key`: The key sequence to bind, or `null` to disable.
-      - `action`: Vimscript command or mapping string to execute.
-      - `desc`: Human-readable description of the binding.
+    - `key`: The key sequence to bind, or `null` to disable.
+    - `action`: Vimscript command or mapping string to execute.
+    - `desc`: Human-readable description of the binding.
 
-      # Example
+    # Example
 
-      ```nix
-      mkBinding "<leader>w" ":w<CR>" "Save file"
-      => { "<leader>w" = { action = ":w<CR>"; desc = "Save file"; silent = true; }; }
-      ```
+    ```nix
+    mkBinding "<leader>w" ":w<CR>" "Save file"
+    => { "<leader>w" = { action = ":w<CR>"; desc = "Save file"; silent = true; }; }
+    ```
     */
     mkBinding = key: action: desc:
       mkIf (key != null) {
@@ -99,25 +99,25 @@
       };
 
     /**
-      Build a nullable string NixOS option suitable for storing a keybinding value.
+    Build a nullable string NixOS option suitable for storing a keybinding value.
 
-      # Type
+    # Type
 
-      ```
-      mkMappingOption :: String -> String | Null -> Option
-      ```
+    ```
+    mkMappingOption :: String -> String | Null -> Option
+    ```
 
-      # Arguments
+    # Arguments
 
-      - `description`: Documentation string for the option.
-      - `default`: Default key value, or `null` for no binding.
+    - `description`: Documentation string for the option.
+    - `default`: Default key value, or `null` for no binding.
 
-      # Example
+    # Example
 
-      ```nix
-      mkMappingOption "Toggle file tree" "<leader>e"
-      => mkOption { type = nullOr str; default = "<leader>e"; description = "Toggle file tree"; }
-      ```
+    ```nix
+    mkMappingOption "Toggle file tree" "<leader>e"
+    => mkOption { type = nullOr str; default = "<leader>e"; description = "Toggle file tree"; }
+    ```
     */
     mkMappingOption = description: default:
       mkOption {
@@ -126,29 +126,29 @@
       };
 
     /**
-      Merge actual mapping values with their description metadata.
+    Merge actual mapping values with their description metadata.
 
-      Takes two attribute sets: one mapping keys to values and another mapping
-      keys to `{ description }` records. Produces an attribute set mapping
-      keys to `{ value; description }` records. Nesting is handled recursively.
+    Takes two attribute sets: one mapping keys to values and another mapping
+    keys to `{ description }` records. Produces an attribute set mapping
+    keys to `{ value; description }` records. Nesting is handled recursively.
 
-      # Type
+    # Type
 
-      ```
-      addDescriptionsToMappings :: AttrSet -> AttrSet -> AttrSet
-      ```
+    ```
+    addDescriptionsToMappings :: AttrSet -> AttrSet -> AttrSet
+    ```
 
-      # Arguments
+    # Arguments
 
-      - `actualMappings`: Attribute set of key → value pairs.
-      - `mappingDefinitions`: Attribute set of key → `{ description }` pairs.
+    - `actualMappings`: Attribute set of key → value pairs.
+    - `mappingDefinitions`: Attribute set of key → `{ description }` pairs.
 
-      # Example
+    # Example
 
-      ```nix
-      addDescriptionsToMappings { someKey = "some_value"; } { someKey = { description = "Some Description"; }; }
-      => { someKey = { value = "some_value"; description = "Some Description"; }; }
-      ```
+    ```nix
+    addDescriptionsToMappings { someKey = "some_value"; } { someKey = { description = "Some Description"; }; }
+    => { someKey = { value = "some_value"; description = "Some Description"; }; }
+    ```
     */
     addDescriptionsToMappings = actualMappings: mappingDefinitions:
       mapAttrs (name: value: let
@@ -165,124 +165,124 @@
       actualMappings;
 
     /**
-      Create a non-Lua keybinding from a structured binding record produced by `mkMappingOption`.
+    Create a non-Lua keybinding from a structured binding record produced by `mkMappingOption`.
 
-      # Type
+    # Type
 
-      ```
-      mkSetBinding :: { value :: String | Null; description :: String } -> String -> AttrSet
-      ```
+    ```
+    mkSetBinding :: { value :: String | Null; description :: String } -> String -> AttrSet
+    ```
 
-      # Arguments
+    # Arguments
 
-      - `binding`: Binding record with `value` (key) and `description` fields.
-      - `action`: Vimscript command or mapping string to execute.
+    - `binding`: Binding record with `value` (key) and `description` fields.
+    - `action`: Vimscript command or mapping string to execute.
 
-      # Example
+    # Example
 
-      ```nix
-      mkSetBinding { value = "<leader>w"; description = "Save file"; } ":w<CR>"
-      => mkBinding "<leader>w" ":w<CR>" "Save file"
-      ```
+    ```nix
+    mkSetBinding { value = "<leader>w"; description = "Save file"; } ":w<CR>"
+    => mkBinding "<leader>w" ":w<CR>" "Save file"
+    ```
     */
     mkSetBinding = binding: action:
       mkBinding binding.value action binding.description;
 
     /**
-      Create an expression-mode Lua keybinding from a structured binding record.
+    Create an expression-mode Lua keybinding from a structured binding record.
 
-      # Type
+    # Type
 
-      ```
-      mkSetExprBinding :: { value :: String | Null; description :: String } -> String -> AttrSet
-      ```
+    ```
+    mkSetExprBinding :: { value :: String | Null; description :: String } -> String -> AttrSet
+    ```
 
-      # Arguments
+    # Arguments
 
-      - `binding`: Binding record with `value` (key) and `description` fields.
-      - `action`: Lua expression evaluated as a Vim expression.
+    - `binding`: Binding record with `value` (key) and `description` fields.
+    - `action`: Lua expression evaluated as a Vim expression.
 
-      # Example
+    # Example
 
-      ```nix
-      mkSetExprBinding { value = "<C-n>"; description = "Smart down"; } "v:count == 0 ? 'j' : 'gj'"
-      => mkExprBinding "<C-n>" "v:count == 0 ? 'j' : 'gj'" "Smart down"
-      ```
+    ```nix
+    mkSetExprBinding { value = "<C-n>"; description = "Smart down"; } "v:count == 0 ? 'j' : 'gj'"
+    => mkExprBinding "<C-n>" "v:count == 0 ? 'j' : 'gj'" "Smart down"
+    ```
     */
     mkSetExprBinding = binding: action:
       mkExprBinding binding.value action binding.description;
 
     /**
-      Create a silent Lua keybinding from a structured binding record.
+    Create a silent Lua keybinding from a structured binding record.
 
-      # Type
+    # Type
 
-      ```
-      mkSetLuaBinding :: { value :: String | Null; description :: String } -> String -> AttrSet
-      ```
+    ```
+    mkSetLuaBinding :: { value :: String | Null; description :: String } -> String -> AttrSet
+    ```
 
-      # Arguments
+    # Arguments
 
-      - `binding`: Binding record with `value` (key) and `description` fields.
-      - `action`: Lua expression to execute on keypress.
+    - `binding`: Binding record with `value` (key) and `description` fields.
+    - `action`: Lua expression to execute on keypress.
 
-      # Example
+    # Example
 
-      ```nix
-      mkSetLuaBinding { value = "<leader>f"; description = "Find files"; } "require('telescope').find_files"
-      => mkLuaBinding "<leader>f" "require('telescope').find_files" "Find files"
-      ```
+    ```nix
+    mkSetLuaBinding { value = "<leader>f"; description = "Find files"; } "require('telescope').find_files"
+    => mkLuaBinding "<leader>f" "require('telescope').find_files" "Find files"
+    ```
     */
     mkSetLuaBinding = binding: action:
       mkLuaBinding binding.value action binding.description;
 
     /**
-      Apply `mkDefault` to every value in an attribute set.
+    Apply `mkDefault` to every value in an attribute set.
 
-      Useful for lowering the priority of a set of option defaults so they can
-      be overridden by user configuration.
+    Useful for lowering the priority of a set of option defaults so they can
+    be overridden by user configuration.
 
-      # Type
+    # Type
 
-      ```
-      pushDownDefault :: AttrSet -> AttrSet
-      ```
+    ```
+    pushDownDefault :: AttrSet -> AttrSet
+    ```
 
-      # Arguments
+    # Arguments
 
-      - `attr`: Attribute set whose values should be wrapped with `mkDefault`.
+    - `attr`: Attribute set whose values should be wrapped with `mkDefault`.
 
-      # Example
+    # Example
 
-      ```nix
-      pushDownDefault { a = true; b = "hello"; }
-      => { a = mkDefault true; b = mkDefault "hello"; }
-      ```
+    ```nix
+    pushDownDefault { a = true; b = "hello"; }
+    => { a = mkDefault true; b = mkDefault "hello"; }
+    ```
     */
     pushDownDefault = attr: mapAttrs (_: mkDefault) attr;
 
     /**
-      Build a keymap record by merging extra options with mode, key, and action fields.
+    Build a keymap record by merging extra options with mode, key, and action fields.
 
-      # Type
+    # Type
 
-      ```
-      mkKeymap :: String -> String -> String -> AttrSet -> AttrSet
-      ```
+    ```
+    mkKeymap :: String -> String -> String -> AttrSet -> AttrSet
+    ```
 
-      # Arguments
+    # Arguments
 
-      - `mode`: Vim mode string (e.g. `"n"`, `"v"`, `"i"`).
-      - `key`: Key sequence to bind.
-      - `action`: Action to execute on keypress.
-      - `opt`: Extra options merged into the resulting record.
+    - `mode`: Vim mode string (e.g. `"n"`, `"v"`, `"i"`).
+    - `key`: Key sequence to bind.
+    - `action`: Action to execute on keypress.
+    - `opt`: Extra options merged into the resulting record.
 
-      # Example
+    # Example
 
-      ```nix
-      mkKeymap "n" "<leader>w" ":w<CR>" { silent = true; }
-      => { mode = "n"; key = "<leader>w"; action = ":w<CR>"; silent = true; }
-      ```
+    ```nix
+    mkKeymap "n" "<leader>w" ":w<CR>" { silent = true; }
+    => { mode = "n"; key = "<leader>w"; action = ":w<CR>"; silent = true; }
+    ```
     */
     mkKeymap = mode: key: action: opt: opt // {inherit mode key action;};
   };

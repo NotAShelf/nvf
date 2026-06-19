@@ -2,25 +2,25 @@
   inherit (builtins) listToAttrs;
 in {
   /**
-    Map over a list and convert the result to an attribute set.
+  Map over a list and convert the result to an attribute set.
 
-    # Type
+  # Type
 
-    ```
-    mapListToAttrs :: (a -> { name :: String; value :: b }) -> [a] -> AttrSet
-    ```
+  ```
+  mapListToAttrs :: (a -> { name :: String; value :: b }) -> [a] -> AttrSet
+  ```
 
-    # Arguments
+  # Arguments
 
-    - `f`: Function mapping each list element to a `{ name; value }` pair.
-    - `list`: The list to map over.
+  - `f`: Function mapping each list element to a `{ name; value }` pair.
+  - `list`: The list to map over.
 
-    # Example
+  # Example
 
-    ```nix
-    mapListToAttrs (x: { name = x; value = x; }) ["a" "b"]
-    => { a = "a"; b = "b"; }
-    ```
+  ```nix
+  mapListToAttrs (x: { name = x; value = x; }) ["a" "b"]
+  => { a = "a"; b = "b"; }
+  ```
   */
   mapListToAttrs = f: list: listToAttrs (map f list);
 }
