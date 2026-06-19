@@ -49,7 +49,7 @@
     ./sqlfluff.nix
     ./sqruff.nix
     ./styler.nix
-    # ./stylish-haskell.nix
+    ./stylish-haskell.nix
     ./stylua.nix
     ./superhtml.nix
     ./taplo.nix
