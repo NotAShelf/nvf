@@ -3,10 +3,9 @@
     ./alejandra.nix
     ./asmfmt.nix
     ./astyle.nix
-    ./mbake.nix
     ./biome.nix
     ./black.nix
-    # ./cabal-fmt.nix
+    ./cabal-fmt.nix
     ./clang-format.nix
     ./csharpier.nix
     ./deno.nix
@@ -28,14 +27,16 @@
     ./jqfmt.nix
     ./jsonfmt.nix
     ./latexindent.nix
+    ./mbake.nix
     ./mdformat.nix
     ./mix.nix
     ./nasmfmt.nix
     ./nimpretty.nix
-    ./nixfmt.nix
     ./nixfmt-rs.nix
+    ./nixfmt.nix
     ./nomad.nix
     ./ocamlformat.nix
+    ./opentofu.nix
     ./ormolu.nix
     ./php-cs-fixer.nix
     ./prettier.nix
@@ -55,7 +56,6 @@
     ./taplo.nix
     ./terraform.nix
     ./tex-fmt.nix
-    ./opentofu.nix
     ./tombi.nix
     ./typstyle.nix
   ];
