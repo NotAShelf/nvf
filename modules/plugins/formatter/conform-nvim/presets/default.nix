@@ -43,7 +43,7 @@
     ./rubocop.nix
     ./ruff.nix
     ./rumdl.nix
-    # ./rustfmt.nix
+    ./rustfmt.nix
     ./shfmt.nix
     ./smlfmt.nix
     # ./sqlfluff.nix
