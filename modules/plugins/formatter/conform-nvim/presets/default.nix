@@ -31,7 +31,7 @@
     ./mdformat.nix
     ./mix.nix
     ./nasmfmt.nix
-    # ./nimpretty.nix
+    ./nimpretty.nix
     ./nixfmt.nix
     ./nixfmt-rs.nix
     ./nomad.nix
