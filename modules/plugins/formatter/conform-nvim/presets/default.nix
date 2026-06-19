@@ -10,7 +10,7 @@
     # ./clang-format.nix
     # ./csharpier.nix
     ./deno.nix
-    # ./djlint.nix
+    ./djlint.nix
     # ./dockerfmt.nix
     # ./fantomas.nix
     # ./fish-indent.nix
