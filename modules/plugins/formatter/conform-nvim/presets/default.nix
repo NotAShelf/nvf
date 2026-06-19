@@ -15,7 +15,7 @@
     ./fantomas.nix
     ./fish-indent.nix
     # ./floskell.nix
-    # ./format-r.nix
+    ./format-r.nix
     # ./fourmolu.nix
     ./gersemi.nix
     ./gofmt.nix
