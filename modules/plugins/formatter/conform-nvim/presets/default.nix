@@ -16,7 +16,7 @@
     ./fish-indent.nix
     # ./floskell.nix
     ./format-r.nix
-    # ./fourmolu.nix
+    ./fourmolu.nix
     ./gersemi.nix
     ./gofmt.nix
     ./gofumpt.nix
