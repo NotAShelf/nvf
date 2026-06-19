@@ -5,6 +5,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.mini.colors;
 in {
@@ -12,7 +13,7 @@ in {
     startPlugins = ["mini-colors"];
 
     pluginRC.mini-colors = entryAnywhere ''
-      require("mini.colors").setup()
+      require("mini.colors").setup(${toLuaObject cfg.setupOpts})
     '';
   };
 }

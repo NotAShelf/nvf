@@ -5,6 +5,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.mini.extra;
 in {
@@ -12,7 +13,7 @@ in {
     startPlugins = ["mini-extra"];
 
     pluginRC.mini-extra = entryAnywhere ''
-      require("mini.extra").setup()
+      require("mini.extra").setup(${toLuaObject cfg.setupOpts})
     '';
   };
 }
