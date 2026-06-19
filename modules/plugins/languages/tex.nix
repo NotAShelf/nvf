@@ -4,28 +4,18 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib) genAttrs;
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.types) bool enum listOf;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.tex;
   defaultServers = ["texlab"];
   servers = ["texlab"];
 
   defaultFormat = ["tex-fmt"];
-  formats = {
-    tex-fmt = {
-      command = getExe pkgs.tex-fmt;
-    };
-    latexindent = {
-      command = "${pkgs.texlive.withPackages (ps: [ps.latexindent])}/bin/latexindent";
-    };
-  };
+  formats = ["tex-fmt" "latexindent"];
 in {
   options.vim.languages.tex = {
     enable = mkEnableOption "TeX language support";
@@ -65,7 +55,7 @@ in {
         };
 
       type = mkOption {
-        type = listOf (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "TeX formatter to use";
       };
@@ -93,15 +83,10 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.tex = cfg.format.type;
-          formatters_by_ft.plaintex = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft = {
+          tex = cfg.format.type;
+          plaintex = cfg.format.type;
         };
       };
     })
