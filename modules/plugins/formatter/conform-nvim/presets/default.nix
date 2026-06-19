@@ -2,7 +2,7 @@
   imports = [
     ./alejandra.nix
     ./asmfmt.nix
-    # ./astyle.nix
+    ./astyle.nix
     ./mbake.nix
     ./biome.nix
     ./black.nix
