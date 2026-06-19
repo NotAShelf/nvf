@@ -4,13 +4,11 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum listOf;
   inherit (lib) genAttrs;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.nim;
 
@@ -18,11 +16,7 @@
   servers = ["nimlsp"];
 
   defaultFormat = ["nimpretty"];
-  formats = {
-    nimpretty = {
-      command = "${pkgs.nim}/bin/nimpretty";
-    };
-  };
+  formats = ["nimpretty"];
 in {
   options.vim.languages.nim = {
     enable = mkEnableOption "Nim language support";
@@ -60,7 +54,7 @@ in {
           defaultText = literalExpression "config.vim.languages.enableFormat";
         };
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.nim.format.type" (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.nim.format.type" (enum formats);
         default = defaultFormat;
         description = "Nim formatter to use";
       };
@@ -94,15 +88,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.nim = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.nim = cfg.format.type;
       };
     })
   ]);
