@@ -4,14 +4,11 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum bool listOf;
   inherit (lib) genAttrs;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.bash;
 
@@ -19,11 +16,7 @@
   servers = ["bash-language-server"];
 
   defaultFormat = ["shfmt"];
-  formats = {
-    shfmt = {
-      command = getExe pkgs.shfmt;
-    };
-  };
+  formats = ["shfmt"];
 
   defaultDiagnosticsProvider = ["shellcheck"];
   diagnosticsProviders = ["shellcheck"];
@@ -68,7 +61,7 @@ in {
         description = "Enable Bash formatting";
       };
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.bash.format.type" (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.bash.format.type" (enum formats);
         default = defaultFormat;
         description = "Bash formatter to use";
       };
@@ -112,15 +105,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.sh = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.sh = cfg.format.type;
       };
     })
 
