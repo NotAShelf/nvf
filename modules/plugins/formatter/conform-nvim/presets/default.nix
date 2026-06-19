@@ -11,7 +11,7 @@
     # ./csharpier.nix
     ./deno.nix
     ./djlint.nix
-    # ./dockerfmt.nix
+    ./dockerfmt.nix
     # ./fantomas.nix
     # ./fish-indent.nix
     # ./floskell.nix
