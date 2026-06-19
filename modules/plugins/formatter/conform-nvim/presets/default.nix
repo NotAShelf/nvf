@@ -44,7 +44,7 @@
     ./ruff.nix
     ./rumdl.nix
     # ./rustfmt.nix
-    # ./shfmt.nix
+    ./shfmt.nix
     ./smlfmt.nix
     # ./sqlfluff.nix
     # ./sqruff.nix
