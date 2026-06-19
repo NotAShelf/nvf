@@ -126,6 +126,18 @@
   module provides jsx/tsx support. This is a step of cleaning up the Typescript
   module for the future.
 
+- Removed `vim.languages.<lang>.format.package` options across 20 languages.
+  Support for custom formatter packages is dropped; use
+  `vim.formatter.conform-nvim.setupOpts.formatters.<name>.command` to customize
+  the formatter binary instead.
+
+- Renamed `ruff-check` formatter to `ruff-fix`.
+
+- Renamed `denofmt`/`deno_fmt` formatters to `deno`.
+
+- `prettierd` formatter is dropped entirely in the last few modules, use
+  `prettier` instead.
+
 [dathegreat](https://github.com/dathegreat):
 
 - Haskell LSP now defaults to haskell-language-server, haskell-tools based LSP
@@ -528,6 +540,14 @@
   [`crazy-coverage.nvim`](https://github.com/mr-u0b0dy/crazy-coverage.nvim).
 
 - Enable `nil.settings.nil.nix.autoArchive` by default.
+
+- Added `vim.formatter.conform-nvim.presets.<name>` to contain formatter
+  configurations. This allows for more flexibility in nvf and reuse of
+  formatters across languages.
+
+- Refactored all language modules to consume formatter presets via
+  `vim.formatter.conform-nvim.presets` instead of defining formatter
+  configurations inline.
 
 [vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
 https://github.com/gorbit99/codewindow.nvim
