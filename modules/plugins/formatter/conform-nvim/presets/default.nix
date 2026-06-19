@@ -13,7 +13,7 @@
     ./djlint.nix
     ./dockerfmt.nix
     # ./fantomas.nix
-    # ./fish-indent.nix
+    ./fish-indent.nix
     # ./floskell.nix
     # ./format-r.nix
     # ./fourmolu.nix
