@@ -18,6 +18,9 @@
   defaultServers = ["jdt-language-server"];
   servers = ["jdt-language-server" "jls"];
 
+  defaultFormat = ["astyle"];
+  formats = ["astyle"];
+
   defaultDebugger = ["jls"];
   dapConfigurations = {
     jls = [
@@ -100,6 +103,21 @@ in {
           });
         default = defaultServers;
         description = "Java LSP server to use";
+      };
+    };
+
+    format = {
+      enable =
+        mkEnableOption "Java formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
+
+      type = mkOption {
+        type = listOf (enum formats);
+        default = defaultFormat;
+        description = "Java formatter to use";
       };
     };
 
@@ -208,6 +226,14 @@ in {
         servers = genAttrs cfg.lsp.servers (_: {
           filetypes = ["java"];
         });
+      };
+    })
+
+    (mkIf cfg.format.enable {
+      vim.formatter.conform-nvim = {
+        enable = true;
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.java = cfg.format.type;
       };
     })
 
