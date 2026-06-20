@@ -138,6 +138,7 @@ jobs:
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= feel-co.cachix.org-1:nwEFNnwZvtl4KKSH5LDg+/+K7bV0vcs6faMHAJ6xx0w= nvf.cachix.org-1:GMQWiUhZ6ux9D5CvFFMwnc2nFrUHTeGaXRlVBXo+naI=
 
       - name: Build linkcheck package
+        continue-on-error: true # FIXME: remove when nixpkgs has atleast ndg 2.9.1
         run: nix build .#docs-linkcheck -Lv
 
   check-editorconfig:
