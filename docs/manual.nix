@@ -1,9 +1,9 @@
 {
-  inputs,
   path,
   stdenvNoCC,
   optionsJSON,
   jaq,
+  ndg,
   gnused,
 } @ args: let
   manual-release = args.release or "unstable";
@@ -14,10 +14,7 @@ in
     src = ./manual;
 
     nativeBuildInputs = [
-      (inputs.ndg.packages.${stdenvNoCC.system}.ndg.overrideAttrs {
-        # FIXME: the tests take too long to build
-        doCheck = false;
-      })
+      ndg
       jaq
       gnused
     ];
