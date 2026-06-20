@@ -7969,7 +7969,7 @@
     <details class="toc-category">
       <summary title="vim.lsp">
         <span>vim.lsp</span>
-        <span class="toc-count">146</span>
+        <span class="toc-count">147</span>
       </summary>
       <ul>
         
@@ -8482,6 +8482,14 @@
         <li>
           <a href='#option-vim.lsp.presets.fsautocomplete.enable' title="vim.lsp.presets.fsautocomplete.enable">
             presets.fsautocomplete.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.lsp.presets.gitlab-ci-ls.enable' title="vim.lsp.presets.gitlab-ci-ls.enable">
+            presets.gitlab-ci-ls.enable
             
             
           </a>
@@ -25581,7 +25589,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of value "yaml-language-server" (singular enum)</code></div>
+  <div class="option-type">Type: <code>list of (one of "yaml-language-server", "gitlab-ci-ls")</code></div>
   <div class="option-description"><html><head></head><body><p>Yaml LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -26935,6 +26943,22 @@ Use <code class="nixos-option">vim.lsp.servers.fsautocomplete</code> for customi
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/fsautocomplete.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/fsautocomplete.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.lsp.presets.gitlab-ci-ls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.gitlab-ci-ls.enable" class="option-anchor">vim.lsp.presets.gitlab-ci-ls.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the GitLab CI Language Server.
+Default <code>filetypes = [ ]</code>.
+Use <code class="nixos-option">vim.lsp.servers.gitlab-ci-ls</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/gitlab-ci-ls.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/gitlab-ci-ls.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.lsp.presets.gleam.enable">
   <h3 class="option-name">
