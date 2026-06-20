@@ -19,12 +19,13 @@
     ./emmet-ls.nix
     ./fish-lsp.nix
     ./fsautocomplete.nix
+    ./gitlab-ci-ls.nix
     ./gleam.nix
     ./glsl_analyzer.nix
     ./gopls.nix
     ./harper.nix
-    ./helm-ls.nix
     ./haskell-language-server.nix
+    ./helm-ls.nix
     ./intelephense.nix
     ./jdt-language-server.nix
     ./jinja-lsp.nix
