@@ -6,15 +6,19 @@
 }: let
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
-  inherit (lib.nvim.types) mkLspPresetEnableOptionWithDesc;
+  inherit (lib.nvim.types) mkLspPresetEnableOptionWith;
   inherit (lib.nvim.dag) entryBefore;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.rust-analyzer;
 in {
   options.vim.lsp.presets.rust-analyzer = {
-    enable =
-      mkLspPresetEnableOptionWithDesc "rust-analyzer" "Rust Analyzer" [] ''Note: do not set `init_options` for this LS config, it will be automatically populated by the contents of settings["rust-analyzer"] per https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26'';
+    enable = mkLspPresetEnableOptionWith {
+      option = "rust-analyzer";
+      display = "Rust Analyzer";
+      fileTypes = [];
+      description = ''Note: do not set `init_options` for this LS config, it will be automatically populated by the contents of settings["rust-analyzer"] per https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26'';
+    };
   };
 
   config = mkIf cfg.enable {

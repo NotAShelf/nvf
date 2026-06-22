@@ -11,6 +11,6 @@ in {
   inherit (typesDag) dagOf;
   inherit (typesPlugin) pluginsOpt extraPluginType mkPluginSetupOption luaInline pluginType borderType;
   inherit (typesLanguage) diagnostics mkGrammarOption mkTreesitterGrammarOption;
-  inherit (typesLsp) mkLspPresetEnableOption mkLspPresetEnableOptionWithDesc;
+  inherit (typesLsp) mkLspPresetEnableOption mkLspPresetEnableOptionWith;
   inherit (customTypes) char hexColor mergelessListOf deprecatedSingleOrListOf enumWithRename;
 }

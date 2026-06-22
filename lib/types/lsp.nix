@@ -5,9 +5,17 @@
   inherit (lib.types) bool;
 
   mkLspPresetEnableOption = option: display: fileTypes:
-    mkLspPresetEnableOptionWithDesc option display fileTypes "";
+    mkLspPresetEnableOptionWith {
+      inherit option display fileTypes;
+      description = "";
+    };
 
-  mkLspPresetEnableOptionWithDesc = option: display: fileTypes: description:
+  mkLspPresetEnableOptionWith = {
+    option,
+    display,
+    fileTypes,
+    description,
+  }:
     mkOption {
       type = bool;
       default = false;
@@ -22,5 +30,5 @@
         '');
     };
 in {
-  inherit mkLspPresetEnableOption mkLspPresetEnableOptionWithDesc;
+  inherit mkLspPresetEnableOption mkLspPresetEnableOptionWith;
 }
