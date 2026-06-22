@@ -33,6 +33,10 @@
     golines = {
       command = "${pkgs.golines}/bin/golines";
     };
+
+    goimports = {
+      command = "${pkgs.gotools}/bin/goimports";
+    };
   };
 
   defaultDebugger = "delve";
