@@ -9,14 +9,14 @@
   inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf enumWithRename;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.ruby;
 
   defaultServers = ["solargraph"];
-  servers = ["ruby-lsp" "solargraph"];
+  servers = ["ruby-lsp" "solargraph" "stimulus-language-server"];
 
   # testing
 
@@ -28,11 +28,7 @@
   };
 
   defaultDiagnosticsProvider = ["rubocop"];
-  diagnosticsProviders = {
-    rubocop = {
-      package = pkgs.rubyPackages.rubocop;
-    };
-  };
+  diagnosticsProviders = ["rubocop"];
 in {
   options.vim.languages.ruby = {
     enable = mkEnableOption "Ruby language support";
@@ -79,13 +75,13 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "Ruby extra diagnostics support"
+        mkEnableOption "Ruby extra diagnostics via nvim-lint"
         // {default = config.vim.languages.enableExtraDiagnostics;};
 
-      types = diagnostics {
-        langDesc = "Ruby";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra Ruby diagnostics providers";
       };
     };
   };
@@ -121,13 +117,15 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics.nvim-lint = {
-        enable = true;
-        linters_by_ft.ruby = cfg.extraDiagnostics.types;
-        linters = mkMerge (map (name: {
-            ${name}.cmd = getExe diagnosticsProviders.${name}.package;
-          })
-          cfg.extraDiagnostics.types);
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+        nvim-lint = {
+          enable = true;
+          linters_by_ft = {
+            ruby = cfg.extraDiagnostics.types;
+            eruby = cfg.extraDiagnostics.types;
+          };
+        };
       };
     })
   ]);

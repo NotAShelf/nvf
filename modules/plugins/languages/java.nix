@@ -2,19 +2,79 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: let
-  inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib) genAttrs;
-  inherit (lib.types) listOf str;
-  inherit (lib.meta) getExe;
+  inherit (lib.options) literalExpression mkEnableOption mkOption;
+  inherit (lib.types) listOf str enum package;
+  inherit (lib.attrsets) attrNames genAttrs;
+  inherit (lib.meta) getExe getExe';
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption enumWithRename;
 
   cfg = config.vim.languages.java;
 
   defaultServers = ["jdt-language-server"];
-  servers = ["jdt-language-server"];
+  servers = ["jdt-language-server" "jls"];
+
+  defaultDebugger = "jls";
+  debuggers = {
+    jls = let
+      pkg = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.jls;
+    in {
+      package = pkg;
+      config = ''
+        dap.adapters.jls= {
+          type = 'executable',
+          command = '${getExe' pkg "jls-dap"}',
+        }
+        dap.configurations.java = {
+          {
+            type = "jls",
+            request = "attach",
+            name = "Attach Auto",
+            hostName = "localhost",
+            port = 5005,
+            sourceRoots = function()
+              local matches = {}
+
+              -- only look max 3 deep, due to performance reasons
+              for _, pattern in ipairs({
+                "src/main/java",
+                "*/src/main/java",
+                "*/*/src/main/java",
+                "*/*/*/src/main/java",
+              }) do
+                vim.list_extend(matches, vim.fn.glob(pattern, true, true))
+              end
+
+              return matches
+            end,
+          },
+          {
+            type = "jls",
+            request = "attach",
+            name = "Attach Manual",
+            hostName = "localhost",
+            port = 5005,
+            sourceRoots = function()
+              local path = vim.fn.input(
+                "Path to src/main/java: ",
+                vim.fn.getcwd() .. "/",
+                "dir"
+              )
+
+              if path == "" then
+                return {}
+              end
+
+              return { vim.fn.fnamemodify(path, ":p") }
+            end,
+          },
+        }
+      '';
+    };
+  };
 in {
   options.vim.languages.java = {
     enable = mkEnableOption "Java language support";
@@ -45,6 +105,59 @@ in {
           });
         default = defaultServers;
         description = "Java LSP server to use";
+      };
+    };
+
+    dap = {
+      enable =
+        mkEnableOption "Java Debug Adapter"
+        // {
+          default = config.vim.languages.enableDAP;
+          defaultText = literalExpression "config.vim.languages.enableDAP";
+        };
+
+      debugger = mkOption {
+        type = enum (attrNames debuggers);
+        default = defaultDebugger;
+        description = ''
+          Java debugger to use.
+
+          **JLS**
+
+          For `jls` to work, you need to run your application with debug symbols and networking.
+
+          The `jls` configuration is hardcoded to listen on port `5005`.
+          This matches the configuration described [upstream](https://github.com/idelice/jls#usage).
+          You can change this by modifying `vim.debugger.nvim-dap.sources.java-debugger`.
+          ```nix
+          vim.debugger.nvim-dap.sources.java-debugger = /* lua */ '''
+            ${debuggers.jls.config}
+          ''';
+          ```
+
+          *Examples:*
+
+          - Manual:
+            1. Build with debug symbols.
+               ```sh
+               javac -g ...
+               ```
+            1. Run with debug socket.
+               ```sh
+               java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -jar your.jar
+               ```
+          - Springboot Maven:
+            For Springboot you can just pass the JVM args directly into the `spring-boot:run`.
+            ```sh
+            mvn spring-boot:run -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
+            ```
+        '';
+      };
+
+      package = mkOption {
+        type = package;
+        default = debuggers.${cfg.dap.debugger}.package;
+        description = "Java debugger package.";
       };
     };
 
@@ -88,6 +201,11 @@ in {
   };
 
   config = mkIf cfg.enable (mkMerge [
+    (mkIf cfg.treesitter.enable {
+      vim.treesitter.enable = true;
+      vim.treesitter.grammars = [cfg.treesitter.package];
+    })
+
     (mkIf cfg.lsp.enable {
       vim.lsp = {
         presets = genAttrs cfg.lsp.servers (_: {enable = true;});
@@ -97,9 +215,11 @@ in {
       };
     })
 
-    (mkIf cfg.treesitter.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+    (mkIf cfg.dap.enable {
+      vim.debugger.nvim-dap = {
+        enable = true;
+        sources.java-debugger = debuggers.${cfg.dap.debugger}.config;
+      };
     })
 
     (mkIf cfg.extensions.maven-nvim.enable {

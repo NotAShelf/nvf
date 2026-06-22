@@ -16,9 +16,10 @@
         default = null;
         description = "Action to trigger.";
       };
+
       lua = mkBool false ''
-        If true, `action` is considered to be lua code.
-        Thus, it will not be wrapped in `""`.
+        If true, `action` is considered to be lua code. Thus, it will not be
+        wrapped in `""`.
       '';
 
       desc = mkOption {
@@ -70,7 +71,7 @@
         description = ''
           Plugin package.
 
-          If null, a custom load function must be provided
+          If `null`, a custom load function must be provided
         '';
       };
 
@@ -90,29 +91,56 @@
       };
 
       setupOpts = mkOption {
-        type = attrsOf anything;
+        type = either (attrsOf anything) luaInline;
         default = {};
-        description = "Options to pass to the setup function";
+        description = ''
+          Options to pass to the setup function.
+
+          Accepts either an attribute set or a raw Lua expression via
+          `lib.mkLuaInline`. When set to a `luaInline` value, the expression
+          is passed verbatim as the argument to `setup()`.
+        '';
+      };
+
+      setupCond = mkOption {
+        type = nullOr lines;
+        default = null;
+        description = ''
+          A Lua expression used as the condition for calling setup. When set,
+          the setup call is wrapped as `if (condition) then ... end`, allowing
+          runtime-conditional plugin initialization.
+
+          For example, `"not vim.g.vscode"` will only call setup when not running
+          inside VSCode with vscode-neovim.
+        '';
       };
 
       # lz.n options
-
       enabled = mkOption {
         type = nullOr (either bool luaInline);
         default = null;
-        description = "When false, or if the lua function returns false, this plugin will not be included in the spec";
+        description = ''
+          When `false`, or if the Lua function returns false, this plugin will
+          not be included in the spec.
+        '';
       };
 
       beforeAll = mkOption {
         type = nullOr lines;
         default = null;
-        description = "Lua code to run before any plugins are loaded. This will be wrapped in a function.";
+        description = ''
+          Lua code to run before any plugins are loaded. This will be wrapped
+          in a function.
+        '';
       };
 
       before = mkOption {
         type = nullOr lines;
         default = null;
-        description = "Lua code to run before plugin is loaded. This will be wrapped in a function.";
+        description = ''
+          Lua code to run before plugin is loaded. This will be wrapped in a
+          function.
+        '';
       };
 
       after = mkOption {

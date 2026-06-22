@@ -9,13 +9,6 @@ on:
       - "modules/**"
       - "docs/**"
 
-# Defining permissions here passes it to all jobs.
-# https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
-permissions:
-  contents: write
-  pull-requests: write
-  issues: write
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -23,8 +16,15 @@ concurrency:
 jobs:
   build-preview:
     runs-on: ubuntu-latest
+    # NOTE: This job runs untrusted code.
+    # Don't give it any permissions.
+    permissions: {}
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+
       - uses: cachix/install-nix-action@v31.10.6
         with:
           nix_path: nixpkgs=channel:nixos-unstable
@@ -44,6 +44,25 @@ jobs:
       - name: Build documentation packages
         run: nix build .#docs-html --print-build-logs || exit 1
 
+      - name: Upload built docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-html
+          path: result/share/doc/
+          retention-days: 1
+
+  deploy-preview:
+    needs: build-preview
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download built docs
+        uses: actions/download-artifact@v4
+        with:
+          name: docs-html
+          path: built-docs
+
       - name: Deploy to GitHub Pages preview
         run: |
           PR_NUMBER=${{ github.event.pull_request.number }}
@@ -57,7 +76,7 @@ jobs:
           mkdir -p $PREVIEW_DIR
 
           # Copy the build files to the preview subdirectory
-          cp -rvf ../result/share/doc/* ./$PREVIEW_DIR
+          cp -rvf ../built-docs/* ./$PREVIEW_DIR
 
           # Configure git to use the GitHub Actions token for authentication
           git config --global user.name "GitHub Actions"
@@ -71,9 +90,11 @@ jobs:
           git commit -m "Deploy PR #${PR_NUMBER} preview" || echo "No changes to commit"
           git push --force origin $BRANCH_NAME
 
-  comment-url:
-    needs: build-preview
+  comment:
+    needs: deploy-preview
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - name: Prepare Environment
         id: prelude
@@ -130,9 +151,11 @@ jobs:
               <p>Reruns: ${{ env.RUNS }}</p>
             </details>
 
-  cleanup:
+  cleanup-preview:
     if: ${{ github.event.pull_request.merged == true || github.event.pull_request.state == 'closed' }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -168,8 +191,10 @@ jobs:
           git push origin $BRANCH_NAME
 
   cleanup-comment:
-    needs: cleanup
+    needs: cleanup-preview
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6

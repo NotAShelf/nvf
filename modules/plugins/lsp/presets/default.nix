@@ -19,15 +19,17 @@
     ./emmet-ls.nix
     ./fish-lsp.nix
     ./fsautocomplete.nix
+    ./gitlab-ci-ls.nix
     ./gleam.nix
     ./glsl_analyzer.nix
     ./gopls.nix
     ./harper.nix
-    ./helm-ls.nix
     ./haskell-language-server.nix
+    ./helm-ls.nix
     ./intelephense.nix
     ./jdt-language-server.nix
     ./jinja-lsp.nix
+    ./jls.nix
     ./jq-lsp.nix
     ./julia-languageserver.nix
     ./just-lsp.nix
@@ -62,6 +64,7 @@
     ./solargraph.nix
     ./some-sass-language-server.nix
     ./sqls.nix
+    ./stimulus-language-server.nix
     ./superhtml.nix
     ./svelte-language-server.nix
     ./tailwindcss-language-server.nix

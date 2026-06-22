@@ -13,7 +13,7 @@
   cfg = config.vim.languages.yaml;
 
   defaultServers = ["yaml-language-server"];
-  servers = ["yaml-language-server"];
+  servers = ["yaml-language-server" "gitlab-ci-ls"];
 in {
   options.vim.languages.yaml = {
     enable = mkEnableOption "YAML language support";
@@ -45,11 +45,21 @@ in {
   };
 
   config = mkIf cfg.enable (mkMerge [
+    {
+      # The GitLab CI LSP ignores all filetypes which aren't `yaml.gitlab`.
+      vim.filetype.pattern = {
+        "%.gitlab%-ci%.ya?ml" = "yaml.gitlab";
+        "%.gitlab/.*%.ya?ml" = "yaml.gitlab";
+        "templates/.*%.ya?ml" = "yaml.gitlab";
+        "templates/.*/template%.ya?ml" = "yaml.gitlab";
+      };
+    }
+
     (mkIf cfg.treesitter.enable {
       vim.treesitter = {
         enable = true;
         grammars = [cfg.treesitter.package];
-        filetypeMappings.yaml = ["yml"];
+        filetypeMappings.yaml = ["yml" "yaml.gitlab"];
       };
     })
 
@@ -57,7 +67,7 @@ in {
       vim.lsp = {
         presets = genAttrs cfg.lsp.servers (_: {enable = true;});
         servers = genAttrs cfg.lsp.servers (_: {
-          filetypes = ["yaml"];
+          filetypes = ["yaml" "yaml.gitlab"];
         });
       };
     })

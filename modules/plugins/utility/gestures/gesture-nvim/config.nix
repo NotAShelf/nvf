@@ -4,26 +4,33 @@
   options,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetLuaBinding;
+  inherit (lib.modules) mkIf;
+  inherit (lib.lists) optional;
+  inherit (lib.nvim.binds) mkKeymap;
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.gestures.gesture-nvim;
 
-  mappingDefinitions = options.vim.gestures.gesture-nvim.mappings;
-  mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
+  inherit (options.vim.gestures.gesture-nvim) mappings;
 in {
   config = mkIf cfg.enable {
     vim = {
       startPlugins = ["gesture-nvim"];
 
-      maps.normal = mkMerge [
-        (mkSetLuaBinding mappings.draw "require('gesture').draw")
-        (mkSetLuaBinding mappings.finish "require('gesture').finish")
-        (mkIf (mappings.draw.value == "<RightDrag>") {
-          "<RightMouse>" = {action = "<Nop>";};
-        })
-      ];
+      keymaps =
+        [
+          (mkKeymap "n" cfg.mappings.draw "require('gesture').draw" {
+            desc = mappings.draw.description;
+            lua = true;
+          })
+          (mkKeymap "n" cfg.mappings.finish "require('gesture').finish" {
+            desc = mappings.finish.description;
+            lua = true;
+          })
+        ]
+        ++ optional
+        (cfg.mappings.draw == "<RightDrag>")
+        (mkKeymap "n" "<RightMouse>" "<Nop>" {desc = "Disable right mouse";});
 
       options.mouse = "a";
       pluginRC.gesture-nvim = entryAnywhere ''

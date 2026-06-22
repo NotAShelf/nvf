@@ -4,22 +4,21 @@
   options,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetBinding;
+  inherit (lib.nvim.binds) mkKeymap;
 
   cfg = config.vim.lsp;
 
-  mappingDefinitions = options.vim.lsp.otter-nvim.mappings;
-  mappings = addDescriptionsToMappings cfg.otter-nvim.mappings mappingDefinitions;
+  inherit (options.vim.lsp.otter-nvim) mappings;
 in {
   config = mkIf (cfg.enable && cfg.otter-nvim.enable) {
     vim = {
       startPlugins = ["otter-nvim"];
 
-      maps.normal = mkMerge [
-        (mkSetBinding mappings.toggle "<cmd>lua require'otter'.activate()<CR>")
+      keymaps = [
+        (mkKeymap "n" cfg.otter-nvim.mappings.toggle "<cmd>lua require'otter'.activate()<CR>" {desc = mappings.toggle.description;})
       ];
 
       pluginRC.otter-nvim = entryAnywhere ''

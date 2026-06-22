@@ -10,7 +10,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.scss;
@@ -30,13 +30,7 @@
   };
 
   defaultDiagnosticsProvider = ["stylelint"];
-  diagnosticsProviders = {
-    stylelint = {
-      config = {
-        cmd = getExe pkgs.stylelint;
-      };
-    };
-  };
+  diagnosticsProviders = ["stylelint"];
 in {
   options.vim.languages.scss = {
     enable = mkEnableOption "SCSS/SASS language support";
@@ -82,15 +76,15 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra SCSS/SASS diagnostics"
+        mkEnableOption "extra SCSS/SASS diagnostics via nvim-lint"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
-      types = diagnostics {
-        langDesc = "SCSS";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra SCSS/SASS diagnostics providers";
       };
     };
   };
@@ -130,13 +124,15 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics.nvim-lint = {
-        enable = true;
-        linters_by_ft.scss = cfg.extraDiagnostics.types;
-        linters_by_ft.sass = cfg.extraDiagnostics.types;
-        linters =
-          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
-            cfg.extraDiagnostics.types);
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+        nvim-lint = {
+          enable = true;
+          linters_by_ft = {
+            scss = cfg.extraDiagnostics.types;
+            sass = cfg.extraDiagnostics.types;
+          };
+        };
       };
     })
   ]);

@@ -423,6 +423,19 @@
       "url": "https://github.com/Decodetalkers/csharpls-extended-lsp.nvim/archive/be8093d19af1538aad9ee77dc5589e55b083967a.tar.gz",
       "hash": "sha256-MDr3n9LaQ/YTHD7egDohQ7YmT2+itWXNoMLigmZp3KQ="
     },
+    "csvview-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hat0uma",
+        "repo": "csvview.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "5c22774c3ecc7f8883af5d143b366e45b1f0875d",
+      "url": "https://github.com/hat0uma/csvview.nvim/archive/5c22774c3ecc7f8883af5d143b366e45b1f0875d.tar.gz",
+      "hash": "sha256-JJZCrLhUzausIs61UfsE4472B1KzgZyI+BlbZH+gUn0="
+    },
     "dashboard-nvim": {
       "type": "Git",
       "repository": {

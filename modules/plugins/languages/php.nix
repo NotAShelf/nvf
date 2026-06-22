@@ -4,14 +4,14 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames toString;
+  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum int attrs listOf;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.php;
@@ -35,12 +35,7 @@
   };
 
   defaultDiagnosticsProvider = ["phpstan"];
-
-  diagnosticsProviders = {
-    phpstan = {
-      config.cmd = getExe pkgs.phpstan;
-    };
-  };
+  diagnosticsProviders = ["phpstan"];
 in {
   options.vim.languages.php = {
     enable = mkEnableOption "PHP language support";
@@ -114,16 +109,15 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra PHP diagnostics"
+        mkEnableOption "extra PHP diagnostics via nvim-lint"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
-          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostic";
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
-
-      types = diagnostics {
-        langDesc = "PHP";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra PHP diagnostics providers";
       };
     };
   };
@@ -179,12 +173,12 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics.nvim-lint = {
-        enable = true;
-        linters_by_ft.php = cfg.extraDiagnostics.types;
-        linters =
-          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
-            cfg.extraDiagnostics.types);
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+        nvim-lint = {
+          enable = true;
+          linters_by_ft.php = cfg.extraDiagnostics.types;
+        };
       };
     })
   ]);

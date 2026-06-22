@@ -103,7 +103,9 @@ in {
     setupOpts = mkPluginSetupOption "colorizer" {
       filetypes = mkOption {
         type = attrsOf settingSubmodule;
-        default = {};
+        default = {
+          "*" = {};
+        };
         example = {
           "*" = {};
           "!vim" = {};

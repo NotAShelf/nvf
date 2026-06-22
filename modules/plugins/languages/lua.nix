@@ -10,7 +10,7 @@
   inherit (lib.meta) getExe;
   inherit (lib) genAttrs;
   inherit (lib.types) bool enum listOf;
-  inherit (lib.nvim.types) diagnostics mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryBefore;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -27,14 +27,7 @@
   };
 
   defaultDiagnosticsProvider = ["luacheck"];
-  diagnosticsProviders = {
-    luacheck = {
-      package = pkgs.luajitPackages.luacheck;
-    };
-    selene = {
-      package = pkgs.selene;
-    };
-  };
+  diagnosticsProviders = ["luacheck" "selene"];
 in {
   imports = [
     (lib.mkRemovedOptionModule ["vim" "languages" "lua" "lsp" "neodev"] ''
@@ -86,15 +79,15 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra Lua diagnostics"
+        mkEnableOption "extra Lua diagnostics via nvim-lint"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
-      types = diagnostics {
-        langDesc = "Lua";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra Lua diagnostics providers";
       };
     };
   };
@@ -143,13 +136,12 @@ in {
       })
 
       (mkIf cfg.extraDiagnostics.enable {
-        vim.diagnostics.nvim-lint = {
-          enable = true;
-          linters_by_ft.lua = cfg.extraDiagnostics.types;
-          linters = mkMerge (map (name: {
-              ${name}.cmd = getExe diagnosticsProviders.${name}.package;
-            })
-            cfg.extraDiagnostics.types);
+        vim.diagnostics = {
+          presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+          nvim-lint = {
+            enable = true;
+            linters_by_ft.lua = cfg.extraDiagnostics.types;
+          };
         };
       })
     ]))

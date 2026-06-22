@@ -1,6 +1,6 @@
 {
   imports = [
+    ./csvview.nix
     ./config.nix
-    ./options.nix
   ];
 }

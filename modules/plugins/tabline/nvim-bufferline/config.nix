@@ -4,8 +4,8 @@
   options,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.binds) mkLuaBinding mkBinding pushDownDefault;
+  inherit (lib.modules) mkIf;
+  inherit (lib.nvim.binds) mkKeymap pushDownDefault;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.lua) toLuaObject;
 
@@ -29,30 +29,30 @@ in {
         mousemoveevent = true;
       };
 
-      maps.normal = mkMerge [
+      keymaps = [
         (
-          mkLuaBinding cfg.mappings.closeCurrent "require(\"bufdelete\").bufdelete"
-          mappings.closeCurrent.description
+          mkKeymap "n" cfg.mappings.closeCurrent "require('bufdelete').bufdelete"
+          {
+            desc = mappings.closeCurrent.description;
+            lua = true;
+          }
         )
-        (mkBinding cfg.mappings.cycleNext ":BufferLineCycleNext<CR>" mappings.cycleNext.description)
-        (mkBinding cfg.mappings.cycleNext ":BufferLineCycleNext<CR>" mappings.cycleNext.description)
-        (mkBinding cfg.mappings.cyclePrevious ":BufferLineCyclePrev<CR>" mappings.cyclePrevious.description)
-        (mkBinding cfg.mappings.pick ":BufferLinePick<CR>" mappings.pick.description)
+        (mkKeymap "n" cfg.mappings.cycleNext ":BufferLineCycleNext<CR>" {desc = mappings.cycleNext.description;})
+        (mkKeymap "n" cfg.mappings.cycleNext ":BufferLineCycleNext<CR>" {desc = mappings.cycleNext.description;})
+        (mkKeymap "n" cfg.mappings.cyclePrevious ":BufferLineCyclePrev<CR>" {desc = mappings.cyclePrevious.description;})
+        (mkKeymap "n" cfg.mappings.pick ":BufferLinePick<CR>" {desc = mappings.pick.description;})
+        (mkKeymap "n" cfg.mappings.sortByExtension ":BufferLineSortByExtension<CR>" {desc = mappings.sortByExtension.description;})
+        (mkKeymap "n" cfg.mappings.sortByDirectory ":BufferLineSortByDirectory<CR>" {desc = mappings.sortByDirectory.description;})
         (
-          mkBinding cfg.mappings.sortByExtension ":BufferLineSortByExtension<CR>"
-          mappings.sortByExtension.description
+          mkKeymap "n" cfg.mappings.sortById
+          "function() require('bufferline').sort_buffers_by(function (buf_a, buf_b) return buf_a.id < buf_b.id end) end"
+          {
+            desc = mappings.sortById.description;
+            lua = true;
+          }
         )
-        (
-          mkBinding cfg.mappings.sortByDirectory ":BufferLineSortByDirectory<CR>"
-          mappings.sortByDirectory.description
-        )
-        (
-          mkLuaBinding cfg.mappings.sortById
-          "function() require(\"bufferline\").sort_buffers_by(function (buf_a, buf_b) return buf_a.id < buf_b.id end) end"
-          mappings.sortById.description
-        )
-        (mkBinding cfg.mappings.moveNext ":BufferLineMoveNext<CR>" mappings.moveNext.description)
-        (mkBinding cfg.mappings.movePrevious ":BufferLineMovePrev<CR>" mappings.movePrevious.description)
+        (mkKeymap "n" cfg.mappings.moveNext ":BufferLineMoveNext<CR>" {desc = mappings.moveNext.description;})
+        (mkKeymap "n" cfg.mappings.movePrevious ":BufferLineMovePrev<CR>" {desc = mappings.movePrevious.description;})
       ];
 
       binds.whichKey.register = pushDownDefault {

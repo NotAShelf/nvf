@@ -1,19 +1,33 @@
-{lib, ...}: let
-  inherit (lib.options) mkEnableOption mkOption literalMD;
+{
+  options,
+  config,
+  lib,
+  ...
+}: let
+  inherit (lib.modules) mkMerge;
+  inherit (lib.options) mkOption literalMD showFiles;
   inherit (lib.types) either str listOf attrsOf nullOr submodule;
+  inherit (lib.attrsets) mapAttrsToList;
+  inherit (lib.lists) flatten optional;
+  inherit (lib.trivial) pipe;
+  inherit (lib.options) mkEnableOption;
   inherit (lib.nvim.config) mkBool;
 
   mapConfigOptions = {
     desc = mkOption {
       type = nullOr str;
       default = null;
-      description = "A description of this keybind, to be shown in which-key, if you have it enabled.";
+      description = ''
+        Description for the keybind, to be shown in which-key, if you have enabled
+        in the module system.
+      '';
     };
 
     action = mkOption {
       type = str;
       description = "The command to execute.";
     };
+
     lua = mkBool false ''
       If true, `action` is considered to be lua code.
       Thus, it will not be wrapped in `""`.
@@ -50,11 +64,27 @@
   legacyMapOption = mode:
     mkOption {
       description = "Mappings for ${mode} mode";
+      visible = false;
       type = attrsOf (submodule {
         options = mapConfigOptions;
       });
-      default = {};
     };
+
+  legacyMapModes = {
+    normal = ["n"];
+    insert = ["i"];
+    select = ["s"];
+    visual = ["v"];
+    terminal = ["t"];
+    normalVisualOp = ["n" "v" "o"];
+    visualOnly = ["n" "x"];
+    operator = ["o"];
+    insertCommand = ["i" "c"];
+    lang = ["l"];
+    command = ["c"];
+  };
+
+  cfg = config.vim;
 in {
   options.vim = {
     vendoredKeymaps.enable =
@@ -100,5 +130,37 @@ in {
       lang = legacyMapOption "insert, command-line and lang-arg";
       command = legacyMapOption "command-line";
     };
+  };
+
+  config = {
+    vim.keymaps = mkMerge [
+      (
+        pipe cfg.maps
+        [
+          (mapAttrsToList (
+            oldMode: keybinds:
+              mapAttrsToList (
+                key: bind:
+                  bind
+                  // {
+                    inherit key;
+                    mode = legacyMapModes.${oldMode};
+                  }
+              )
+              keybinds
+          ))
+          flatten
+        ]
+      )
+    ];
+
+    # 2026-06-12
+    warnings = mkMerge (mapAttrsToList (
+        name: option:
+          optional
+          option.isDefined
+          "The option `vim.maps.${name}` defined in ${showFiles option.files} is deprecated, please use `vim.keymaps` instead. "
+      )
+      options.vim.maps);
   };
 }

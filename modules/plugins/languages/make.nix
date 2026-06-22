@@ -6,10 +6,10 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
-  inherit (lib.meta) getExe;
   inherit (lib.types) listOf enum;
+  inherit (lib) genAttrs;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics;
+  inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.make;
@@ -22,13 +22,7 @@
   };
 
   defaultDiagnosticsProvider = ["checkmake"];
-  diagnosticsProviders = {
-    checkmake = {
-      config = {
-        cmd = getExe pkgs.checkmake;
-      };
-    };
-  };
+  diagnosticsProviders = ["checkmake"];
 in {
   options.vim.languages.make = {
     enable = mkEnableOption "Make support";
@@ -59,15 +53,15 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra Make diagnostics"
+        mkEnableOption "extra Make diagnostics via nvim-lint"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
-      types = diagnostics {
-        langDesc = "Make";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra Make diagnostics providers";
       };
     };
   };
@@ -96,12 +90,12 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics.nvim-lint = {
-        enable = true;
-        linters_by_ft.make = cfg.extraDiagnostics.types;
-        linters =
-          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
-            cfg.extraDiagnostics.types);
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+        nvim-lint = {
+          enable = true;
+          linters_by_ft.make = cfg.extraDiagnostics.types;
+        };
       };
     })
   ]);
