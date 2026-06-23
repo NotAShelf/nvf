@@ -153,6 +153,10 @@ in {
   };
 
   config = mkIf cfg.enable (mkMerge [
+    {
+      vim.filetype.extension.mdx = "markdown";
+    }
+
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.mdPackage cfg.treesitter.mdInlinePackage];
@@ -162,7 +166,7 @@ in {
       vim.lsp = {
         presets = genAttrs cfg.lsp.servers (_: {enable = true;});
         servers = genAttrs cfg.lsp.servers (_: {
-          filetypes = ["markdown" "mdx"];
+          filetypes = ["markdown"];
         });
       };
     })
