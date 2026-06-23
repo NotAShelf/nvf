@@ -18,11 +18,18 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.astro-language-server = {
       enable = true;
-      cmd = [(getExe pkgs.astro-language-server) "--stdio"];
+      cmd = [
+        (getExe (pkgs.symlinkJoin {
+          name = "astro-ls-wrapper";
+          paths = [pkgs.astro-language-server];
+          meta.mainProgram = "astro-ls";
+          buildInputs = [pkgs.makeBinaryWrapper];
+          postBuild = "wrapProgram $out/bin/astro-ls --prefix NODE_PATH : '${pkgs.typescript}/lib/node_modules'";
+        }))
+        "--stdio"
+      ];
       root_markers = [".git" "package.json" "tsconfig.json" "jsconfig.json"];
-      init_options = {
-        typescript = {};
-      };
+      init_options.typescript = {};
       before_init = mkLuaInline ''
         function(_, config)
           if config.init_options and config.init_options.typescript and not config.init_options.typescript.tsdk then
