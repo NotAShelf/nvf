@@ -7,43 +7,39 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge mkDefault;
-  inherit (lib) genAttrs;
-  inherit (lib.types) bool package enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.generators) mkLuaInline;
+  inherit (lib.attrsets) genAttrs;
+  inherit (lib.lists) flatten;
+  inherit (lib.types) bool enum listOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
 
   cfg = config.vim.languages.zig;
 
   defaultServers = ["zls"];
   servers = ["zls"];
 
-  # TODO: dap.adapter.lldb is duplicated when enabling the
-  # vim.languages.clang.dap module. This does not cause
-  # breakage... but could be cleaner.
-  defaultDebugger = "lldb-vscode";
-  debuggers = {
-    lldb-vscode = {
-      package = pkgs.lldb;
-      dapConfig = ''
-        dap.adapters.lldb = {
-          type = 'executable',
-          command = '${cfg.dap.package}/bin/lldb-dap',
-          name = 'lldb'
-        }
-        dap.configurations.zig = {
-          {
-            name = 'Launch',
-            type = 'lldb',
-            request = 'launch',
-            program = function()
-              return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-            end,
-            cwd = "''${workspaceFolder}",
-            stopOnEntry = false,
-            args = {},
-          },
-        }
-      '';
-    };
+  defaultDebugger = ["lldb"];
+  dapConfigurations = {
+    lldb = [
+      {
+        name = "Launch";
+        type = "lldb";
+        request = "launch";
+        program = mkLuaInline ''
+          function()
+            return nvf_dap_cached_input(
+              'zig_lldb_launch_exe',
+              'Path to executable: ',
+              vim.fn.getcwd() .. '/',
+              'file'
+            )
+          end
+        '';
+        cwd = "\${workspaceFolder}";
+        stopOnEntry = false;
+        args = [];
+      }
+    ];
   };
 in {
   options.vim.languages.zig = {
@@ -83,15 +79,13 @@ in {
       };
 
       debugger = mkOption {
-        type = enum (attrNames debuggers);
+        type =
+          deprecatedSingleOrListOf "vim.languages.zig.dap.debugger"
+          (enumWithRename "vim.languages.zig.dap.debugger" (attrNames dapConfigurations) {
+            lldb-vscode = "lldb";
+          });
         default = defaultDebugger;
         description = "Zig debugger to use";
-      };
-
-      package = mkOption {
-        type = package;
-        default = debuggers.${cfg.dap.debugger}.package;
-        description = "Zig debugger package.";
       };
     };
   };
@@ -119,9 +113,10 @@ in {
     })
 
     (mkIf cfg.dap.enable {
-      vim = {
-        debugger.nvim-dap.enable = true;
-        debugger.nvim-dap.sources.zig-debugger = debuggers.${cfg.dap.debugger}.dapConfig;
+      vim.debugger.nvim-dap = {
+        enable = true;
+        presets = genAttrs cfg.dap.debugger (_: {enable = true;});
+        configurations.zig = flatten (map (name: dapConfigurations.${name}) cfg.dap.debugger);
       };
     })
   ]);
