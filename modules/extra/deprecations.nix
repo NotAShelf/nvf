@@ -396,5 +396,33 @@ in {
         Linters can still be customized via `vim.diagnostics.nvim-lint.<name>.args`
       '')
     ]
+
+    # 2026-06-13
+    [
+      (mkRemovedOptionModule ["vim" "languages" "clang" "dap" "package"] ''
+        Please use `vim.debugger.nvim-dap.adapters.<debugger>.command` instead.
+      '')
+      (mkRemovedOptionModule ["vim" "languages" "zig" "dap" "package"] ''
+        Please use `vim.debugger.nvim-dap.adapters.<debugger>.command` instead.
+      '')
+      (mkRemovedOptionModule ["vim" "languages" "python" "dap" "package"] ''
+        Please use `vim.debugger.nvim-dap.adapters.<debugger>.command` instead.
+        Also see `vim.debugger.nvim-dap.configurations.python` if you want
+        to use a custom python/additional libraries as your debuggee
+      '')
+      (mkRemovedOptionModule ["vim" "languages" "odin" "dap" "package"] ''
+        Please use `vim.debugger.nvim-dap.adapters.<debugger>.command` instead.
+      '')
+      (mkRemovedOptionModule ["vim" "languages" "java" "dap" "package"] ''
+        Please use `vim.debugger.nvim-dap.adapters.<debugger>.command` instead.
+      '')
+      (mkRenamedOptionModule
+        ["vim" "languages" "php" "dap" "xdebug" "adapter"]
+        ["vim" "debugger" "nvim-dap" "adapters" "xdebug"])
+      (mkRemovedOptionModule ["vim" "languages" "php" "dap" "xdebug" "port"] ''
+        Please use a custom `vim.debugger.nvim-dap.configurations.php`
+        instead.
+      '')
+    ]
   ];
 }

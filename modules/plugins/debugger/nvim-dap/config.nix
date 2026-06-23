@@ -4,11 +4,13 @@
   lib,
   ...
 }: let
+  inherit (builtins) concatStringsSep;
   inherit (lib.strings) optionalString;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.attrsets) mapAttrs;
+  inherit (lib.attrsets) mapAttrs mapAttrsToList;
   inherit (lib.nvim.binds) mkKeymap;
   inherit (lib.nvim.dag) entryAnywhere entryAfter;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.debugger.nvim-dap;
   opt = {
@@ -28,6 +30,30 @@ in {
             nvim-dap = entryAnywhere ''
               local dap = require("dap")
               vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "ErrorMsg", linehl = "", numhl = "" })
+
+              local nvf_dap_input_cache= {}
+              local function nvf_dap_cached_input(cache_key, prompt, default, completion)
+                default = nvf_dap_input_cache[cache_key] or default
+                nvf_dap_input_cache[cache_key] =
+                  vim.fn.input(prompt, default, completion)
+                return nvf_dap_input_cache[cache_key]
+              end
+
+              ${
+                concatStringsSep "\n"
+                (mapAttrsToList (name: opts: ''
+                    dap.adapters[${toLuaObject name}] = ${toLuaObject opts}
+                  '')
+                  cfg.adapters)
+              }
+
+              ${
+                concatStringsSep "\n"
+                (mapAttrsToList (ft: opts: ''
+                    dap.configurations[${toLuaObject ft}] = ${toLuaObject opts}
+                  '')
+                  cfg.configurations)
+              }
             '';
           }
           // mapAttrs (_: v: (entryAfter ["nvim-dap"] v)) cfg.sources;
