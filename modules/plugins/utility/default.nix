@@ -3,6 +3,7 @@
     ./binds
     ./ccc
     ./csvview
+    ./dadbod
     ./diffview
     ./direnv
     ./fzf-lua

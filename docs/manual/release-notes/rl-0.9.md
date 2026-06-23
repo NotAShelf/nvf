@@ -242,6 +242,9 @@
 - Added [csvview.nvim](https://github.com/hat0uma/csvview.nvim) support under
   `vim.utility.csvview` for rendering CSV/TSV files as aligned tables.
 
+- Added [vim-dadbod](https://github.com/tpope/vim-dadbod) support under
+  `vim.utility.dadbod`, which uses the `:DB` command to interact with databases.
+
 [alfarel](https://github.com/alfarelcynthesis):
 
 [obsidian.nvim]: https://github.com/obsidian-nvim/obsidian.nvim

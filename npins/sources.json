@@ -2840,6 +2840,19 @@
       "url": "https://github.com/mbbill/undotree/archive/6fa6b57cda8459e1e4b2ca34df702f55242f4e4d.tar.gz",
       "hash": "sha256-0fSCkozz9UWkkV1PsCCnIimOHsmXw9jLd9/oF9dLjMk="
     },
+    "vim-dadbod": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "tpope",
+        "repo": "vim-dadbod"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "6d1d41da4873a445c5605f2005ad2c68c99d8770",
+      "url": "https://github.com/tpope/vim-dadbod/archive/6d1d41da4873a445c5605f2005ad2c68c99d8770.tar.gz",
+      "hash": "sha256-1CA+H8wXDcA5sQLpHsJHHn9hNhWNyzZHHkVx3LqSPeA="
+    },
     "vim-dirtytalk": {
       "type": "Git",
       "repository": {
