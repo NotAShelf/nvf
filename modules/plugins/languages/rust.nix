@@ -124,12 +124,6 @@ in {
         defaultText = literalExpression "config.vim.languages.enableDAP";
       };
 
-      package = mkOption {
-        description = "lldb package, used when the lldb debugger is selected";
-        type = package;
-        default = pkgs.lldb;
-      };
-
       debugger = mkOption {
         description = ''
           Rust debugger to use.
@@ -274,7 +268,7 @@ in {
                   mkLuaInline ''
                     {
                       type = "executable",
-                      command = "${cfg.dap.package}/bin/lldb-dap",
+                      command = "${pkgs.lldb}/bin/lldb-dap",
                       name = "rustacean_lldb",
                     }''
                 else let
@@ -345,7 +339,7 @@ in {
 
       assertions = [
         {
-          assertion = !(builtins.elem "rust-analyzer" cfg.lsp.servers) && !config.vim.lsp.rust-analyzer.enable;
+          assertion = !cfg.lsp.enable || (!(builtins.elem "rust-analyzer" cfg.lsp.servers) && !config.vim.lsp.rust-analyzer.enable);
           message = ''
             Rustaceanvim fully manages its own rust-analyzer.
             Therefore you can't use vim.languages.rust.extensions.rustaceanvim.enable with rust-analyzer enabled.
