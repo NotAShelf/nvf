@@ -45,6 +45,17 @@ in {
   };
 
   config = mkIf cfg.enable (mkMerge [
+    {
+      vim.filetype.extension = {
+        vert = "glsl";
+        tesc = "glsl";
+        tese = "glsl";
+        frag = "glsl";
+        geom = "glsl";
+        comp = "glsl";
+      };
+    }
+
     (mkIf cfg.treesitter.enable {
       vim.treesitter = {
         enable = true;
@@ -56,7 +67,7 @@ in {
       vim.lsp = {
         presets = genAttrs cfg.lsp.servers (_: {enable = true;});
         servers = genAttrs cfg.lsp.servers (_: {
-          filetypes = ["glsl" "vert" "tesc" "tese" "frag" "geom" "comp"];
+          filetypes = ["glsl"];
         });
       };
     })

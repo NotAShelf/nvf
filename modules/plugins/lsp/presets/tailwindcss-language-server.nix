@@ -39,7 +39,6 @@
     "leaf"
     "liquid"
     "markdown"
-    "mdx"
     "mustache"
     "njk"
     "nunjucks"

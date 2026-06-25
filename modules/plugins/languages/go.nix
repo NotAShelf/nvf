@@ -190,6 +190,13 @@ in {
   };
 
   config = mkIf cfg.enable (mkMerge [
+    {
+      vim.filetype.extension = {
+        gohtml = "gotmpl";
+        tmpl = "gotmpl";
+      };
+    }
+
     (mkIf cfg.treesitter.enable {
       vim.treesitter = {
         enable = true;
