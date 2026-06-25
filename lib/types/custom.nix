@@ -46,7 +46,7 @@ in {
   # Example:
   #
   # vim.languages.typescript.lsp.servers = mkOption {
-  #   type = renamedEnum
+  #   type = enumWithRename
   #     "vim.languages.typescript.lsp.servers"
   #     ["typescript-language-server" "some-other-server"]
   #     { ts_ls = "typescript-language-server"; };
