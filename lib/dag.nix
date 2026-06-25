@@ -203,20 +203,21 @@ in {
   # The entries as a whole can be given a relation to other DAG nodes. All
   # generated nodes are then placed before or after those dependencies.
   entriesBetween = tag: let
-    go = i: before: after: entries: let
-      name = "${tag}-${toString i}";
-    in
+    go = i: before: after: entries:
       if entries == []
       then empty
-      else if length entries == 1
-      then {
-        "${name}" = entryBetween before after (head entries);
-      }
-      else
-        {
-          "${name}" = entryAfter after (head entries);
+      else let
+        name = "${tag}-${toString i}";
+      in
+        if length entries == 1
+        then {
+          "${name}" = entryBetween before after (head entries);
         }
-        // go (i + 1) before [name] (tail entries);
+        else
+          {
+            "${name}" = entryAfter after (head entries);
+          }
+          // go (i + 1) before [name] (tail entries);
   in
     go 0;
 
