@@ -8,8 +8,8 @@
 #  - the addition of the function `entryBefore` indicating a "wanted
 #    by" relationship.
 {lib}: let
-  inherit (builtins) isAttrs attrValues attrNames elem all head tail length toJSON isString removeAttrs;
-  inherit (lib.attrsets) filterAttrs mapAttrs;
+  inherit (builtins) isAttrs filter attrValues attrNames elem all head tail length toJSON isString removeAttrs;
+  inherit (lib.attrsets) mapAttrs;
   inherit (lib.lists) toposort;
   inherit (lib.nvim.dag) empty isEntry entryBetween entryAfter entriesBetween entryAnywhere topoSort;
 in {
@@ -81,14 +81,14 @@ in {
     before = a: b: elem a.name b.after;
   in
     dag: let
-      dagBefore = dag: name:
-        attrNames
-        (filterAttrs (_n: v: elem name v.before) dag);
+      names = attrNames dag;
+      dagBefore = name:
+        filter (n: elem name dag.${n}.before) names;
       normalizedDag =
         mapAttrs (n: v: {
           name = n;
           inherit (v) data;
-          after = v.after ++ dagBefore dag n;
+          after = v.after ++ dagBefore n;
         })
         dag;
       sorted = toposort before (attrValues normalizedDag);
