@@ -4,10 +4,11 @@
     ./config.nix
     ./module.nix
 
+    ./presets
+
     ./lspconfig
     ./lspsaga
     ./null-ls
-    ./harper-ls
 
     # lsp plugins
     ./lspsaga

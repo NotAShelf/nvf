@@ -6,72 +6,35 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum package str;
-  inherit (lib.nvim.types) diagnostics deprecatedSingleOrListOf;
+  inherit (lib.types) enum package listOf;
+  inherit (lib.nvim.types) deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.sql;
   sqlfluffDefault = pkgs.sqlfluff;
   sqruffDefault = pkgs.sqruff;
 
   defaultServers = ["sqls"];
-  servers = {
-    sqls = {
-      enable = true;
-      cmd = [(getExe pkgs.sqls)];
-      filetypes = ["sql" "mysql"];
-      root_markers = ["config.yml"];
-      settings = {};
-      on_attach = mkLuaInline ''
-        function(client, bufnr)
-          client.server_capabilities.execute_command = true
-          require'sqls'.setup{}
-        end
-      '';
-    };
-  };
+  servers = ["sqls"];
 
   defaultFormat = ["sqlfluff"];
   formats = {
     sqlfluff = {
       command = getExe sqlfluffDefault;
-      append_args = ["--dialect=${cfg.dialect}"];
     };
     sqruff = {
       command = getExe sqruffDefault;
-      append_args = ["--dialect=${cfg.dialect}"];
     };
   };
 
   defaultDiagnosticsProvider = ["sqlfluff"];
-  diagnosticsProviders = {
-    sqlfluff = {
-      package = sqlfluffDefault;
-      config = {
-        cmd = getExe sqlfluffDefault;
-        args = ["lint" "--format=json" "--dialect=${cfg.dialect}"];
-      };
-    };
-    sqruff = {
-      package = sqruffDefault;
-      config = {
-        cmd = getExe sqruffDefault;
-        args = ["lint" "--format=json" "--dialect=${cfg.dialect}" "-"];
-      };
-    };
-  };
+  diagnosticsProviders = ["sqlfluff" "sqruff"];
 in {
   options.vim.languages.sql = {
     enable = mkEnableOption "SQL language support";
-
-    dialect = mkOption {
-      type = str;
-      default = "ansi";
-      description = "SQL dialect for formatters and diagnostics (if used)";
-    };
 
     treesitter = {
       enable =
@@ -97,7 +60,7 @@ in {
         };
 
       servers = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.sql.lsp.servers" (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
         description = "SQL LSP server to use";
       };
@@ -120,16 +83,16 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra SQL diagnostics"
+        mkEnableOption "extra SQL diagnostics via nvim-lint"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
 
-      types = diagnostics {
-        langDesc = "SQL";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra SQL diagnostics providers";
       };
     };
   };
@@ -142,14 +105,12 @@ in {
 
     (mkIf cfg.lsp.enable {
       vim = {
-        startPlugins = ["sqls-nvim"];
-
-        lsp.servers =
-          mapListToAttrs (n: {
-            name = n;
-            value = servers.${n};
-          })
-          cfg.lsp.servers;
+        lsp = {
+          presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+          servers = genAttrs cfg.lsp.servers (_: {
+            filetypes = ["sql" "mysql" "msql" "plsql"];
+          });
+        };
       };
     })
 
@@ -169,12 +130,14 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics.nvim-lint = {
-        enable = true;
-        linters_by_ft.sql = cfg.extraDiagnostics.types;
-        linters =
-          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
-            cfg.extraDiagnostics.types);
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {
+          enable = true;
+        });
+        nvim-lint = {
+          enable = true;
+          linters_by_ft.sql = cfg.extraDiagnostics.types;
+        };
       };
     })
   ]);

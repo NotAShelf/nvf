@@ -6,7 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption mkEnableOption mkPackageOption;
-  inherit (lib.types) str submodule;
+  inherit (lib.types) submodule enum;
   inherit (lib.attrsets) mapAttrs mapAttrsToList filterAttrs;
   cfg = config.vim.clipboard;
 in {
@@ -20,7 +20,7 @@ in {
         '';
 
         registers = mkOption {
-          type = str;
+          type = enum ["" "unnamedplus" "unnamed" "unnamed,unnamedplus"];
           default = "";
           example = "unnamedplus";
           description = ''

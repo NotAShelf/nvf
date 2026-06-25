@@ -5,41 +5,17 @@
   ...
 }: let
   inherit (builtins) attrNames;
+  inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (lib.types) enum;
-  inherit (lib.nvim.types) diagnostics mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.types) enum listOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.toml;
   defaultServers = ["taplo"];
-  servers = {
-    tombi = {
-      enable = true;
-      cmd = [
-        (getExe pkgs.tombi)
-        "lsp"
-      ];
-      filetypes = ["toml"];
-      root_markers = [
-        "tombi.toml"
-        ".git"
-      ];
-    };
-    taplo = {
-      enable = true;
-      cmd = [
-        (getExe pkgs.taplo)
-        "lsp"
-        "stdio"
-      ];
-      filetypes = ["toml"];
-      root_markers = [
-        ".git"
-      ];
-    };
-  };
+  servers = ["taplo" "tombi"];
 
   defaultFormat = ["taplo"];
   formats = {
@@ -63,12 +39,7 @@
     };
   };
   defaultDiagnosticsProvider = ["tombi"];
-  diagnosticsProviders = {
-    tombi = {
-      package = pkgs.tombi;
-      args = ["lint"];
-    };
-  };
+  diagnosticsProviders = ["tombi" "taplo"];
 in {
   options.vim.languages.toml = {
     enable = mkEnableOption "TOML configuration language support";
@@ -93,7 +64,7 @@ in {
 
       servers = mkOption {
         description = "TOML LSP server to use";
-        type = deprecatedSingleOrListOf "vim.language.toml.lsp.servers" (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
       };
     };
@@ -115,15 +86,15 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra TOML diagnostics"
+        mkEnableOption "extra TOML diagnostics via nvim-lint"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
-      types = diagnostics {
-        langDesc = "TOML";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra TOML diagnostics providers";
       };
     };
   };
@@ -137,12 +108,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["toml"];
+        });
+      };
     })
 
     (mkIf cfg.format.enable {
@@ -161,15 +132,12 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics.nvim-lint = {
-        enable = true;
-        linters_by_ft.toml = cfg.extraDiagnostics.types;
-        linters = mkMerge (
-          map (name: {
-            ${name}.cmd = getExe diagnosticsProviders.${name}.package;
-          })
-          cfg.extraDiagnostics.types
-        );
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+        nvim-lint = {
+          enable = true;
+          linters_by_ft.toml = cfg.extraDiagnostics.types;
+        };
       };
     })
   ]);

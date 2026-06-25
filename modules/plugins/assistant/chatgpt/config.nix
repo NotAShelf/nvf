@@ -4,29 +4,14 @@
   options,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf;
   inherit (lib.nvim.dag) entryAnywhere;
-  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetBinding;
+  inherit (lib.nvim.binds) mkKeymap;
   inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.assistant.chatgpt;
 
-  mappingDefinitions = options.vim.assistant.chatgpt.mappings;
-  mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
-  maps = mkMerge [
-    (mkSetBinding mappings.editWithInstructions "<cmd>ChatGPTEditWithInstruction<CR>")
-    (mkSetBinding mappings.grammarCorrection "<cmd>ChatGPTRun grammar_correction<CR>")
-    (mkSetBinding mappings.translate "<cmd>ChatGPTRun translate<CR>")
-    (mkSetBinding mappings.keyword "<cmd>ChatGPTRun keywords<CR>")
-    (mkSetBinding mappings.docstring "<cmd>ChatGPTRun docstring<CR>")
-    (mkSetBinding mappings.addTests "<cmd>ChatGPTRun add_tests<CR>")
-    (mkSetBinding mappings.optimize "<cmd>ChatGPTRun optimize_code<CR>")
-    (mkSetBinding mappings.summarize "<cmd>ChatGPTRun summarize<CR>")
-    (mkSetBinding mappings.fixBugs "<cmd>ChatGPTRun fix_bugs<CR>")
-    (mkSetBinding mappings.explain "<cmd>ChatGPTRun explain_code<CR>")
-    (mkSetBinding mappings.roxygenEdit "<cmd>ChatGPTRun roxygen_edit<CR>")
-    (mkSetBinding mappings.readabilityanalysis "<cmd>ChatGPTRun code_readability_analysis<CR>")
-  ];
+  inherit (options.vim.assistant.chatgpt) mappings;
 in {
   config = mkIf cfg.enable {
     vim = {
@@ -45,13 +30,21 @@ in {
         require("chatgpt").setup(${toLuaObject cfg.setupOpts})
       '';
 
-      maps = {
-        visual = maps;
-        normal = mkMerge [
-          (mkSetBinding mappings.chatGpt "<cmd>ChatGPT<CR>")
-          maps
-        ];
-      };
+      keymaps = [
+        (mkKeymap ["n" "v"] cfg.mappings.editWithInstructions "<cmd>ChatGPTEditWithInstruction<CR>" {desc = mappings.editWithInstructions.description;})
+        (mkKeymap ["n" "v"] cfg.mappings.grammarCorrection "<cmd>ChatGPTRun grammar_correction<CR>" {desc = mappings.grammarCorrection.description;})
+        (mkKeymap ["n" "v"] cfg.mappings.translate "<cmd>ChatGPTRun translate<CR>" {desc = mappings.translate.description;})
+        (mkKeymap ["n" "v"] cfg.mappings.keyword "<cmd>ChatGPTRun keywords<CR>" {desc = mappings.keyword.description;})
+        (mkKeymap ["n" "v"] cfg.mappings.docstring "<cmd>ChatGPTRun docstring<CR>" {desc = mappings.docstring.description;})
+        (mkKeymap ["n" "v"] cfg.mappings.addTests "<cmd>ChatGPTRun add_tests<CR>" {desc = mappings.addTests.description;})
+        (mkKeymap ["n" "v"] cfg.mappings.optimize "<cmd>ChatGPTRun optimize_code<CR>" {desc = mappings.optimize.description;})
+        (mkKeymap ["n" "v"] cfg.mappings.summarize "<cmd>ChatGPTRun summarize<CR>" {desc = mappings.summarize.description;})
+        (mkKeymap ["n" "v"] cfg.mappings.fixBugs "<cmd>ChatGPTRun fix_bugs<CR>" {desc = mappings.fixBugs.description;})
+        (mkKeymap ["n" "v"] cfg.mappings.explain "<cmd>ChatGPTRun explain_code<CR>" {desc = mappings.explain.description;})
+        (mkKeymap ["n" "v"] cfg.mappings.roxygenEdit "<cmd>ChatGPTRun roxygen_edit<CR>" {desc = mappings.roxygenEdit.description;})
+        (mkKeymap ["n" "v"] cfg.mappings.readabilityanalysis "<cmd>ChatGPTRun code_readability_analysis<CR>" {desc = mappings.readabilityanalysis.description;})
+        (mkKeymap "n" cfg.mappings.chatGpt "<cmd>ChatGPT<CR>" {desc = mappings.chatGpt.description;})
+      ];
     };
   };
 }

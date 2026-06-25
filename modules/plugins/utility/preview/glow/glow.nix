@@ -1,7 +1,14 @@
-{lib, ...}: let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   inherit (lib.modules) mkRenamedOptionModule;
-  inherit (lib.options) mkEnableOption;
-  inherit (lib.nvim.binds) mkMappingOption;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.types) str;
+  inherit (lib.nvim.types) mkPluginSetupOption;
+  inherit (config.vim.lib) mkMappingOption;
 in {
   imports = [
     (mkRenamedOptionModule ["vim" "languages" "markdown" "glow" "enable"] ["vim" "utility" "preview" "glow" "enable"])
@@ -11,6 +18,14 @@ in {
     glow = {
       enable = mkEnableOption "markdown preview in neovim with glow";
       mappings.openPreview = mkMappingOption "Open preview" "<leader>p";
+      setupOpts = mkPluginSetupOption "glow.nvim" {
+        glow_path = mkOption {
+          type = str;
+          default = "${pkgs.glow}/bin/glow";
+          example = "glow";
+          description = "Path to the glow binary.";
+        };
+      };
     };
   };
 }

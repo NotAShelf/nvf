@@ -43,7 +43,7 @@ unsure about any of the items, please ask.
 We provide instructions for a healthy contribution to nvf. This includes
 **styling**, **commit formats**, **how-to guides for common contributions**. You
 are strongly encouraged to read the contributing guidelines in full over at
-[the documentation](https://notashelf.github.io/nvf#hacking).
+[the documentation](https://nvf.notashelf.dev/hacking.html).
 
 A general gist of our requirements is that you must
 

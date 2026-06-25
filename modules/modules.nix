@@ -10,7 +10,6 @@
     # such as spellchecking, mappings, and the init script (init.vim).
     neovim = map (p: ./neovim + "/${p}") [
       "init"
-      "mappings"
     ];
 
     # Individual plugin modules, separated by the type of plugin.
@@ -57,6 +56,7 @@
       "rc"
       "warnings"
       "lazy"
+      "lib"
     ];
 
     # Extra modules, such as deprecation warnings

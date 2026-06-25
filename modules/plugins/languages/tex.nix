@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (builtins) attrNames;
+  inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
@@ -14,14 +15,7 @@
 
   cfg = config.vim.languages.tex;
   defaultServers = ["texlab"];
-  servers = {
-    texlab = {
-      enable = true;
-      cmd = [(getExe pkgs.texlab) "run"];
-      filetypes = ["plaintex" "tex" "bib"];
-      root_markers = [".git" ".latexmkrc" "latexmkrc" ".texlabroot" "texlabroot" ".texstudio" "Tectonic.toml"];
-    };
-  };
+  servers = ["texlab"];
 
   defaultFormat = ["tex-fmt"];
   formats = {
@@ -57,7 +51,7 @@ in {
 
       servers = mkOption {
         description = "TeX LSP server to use";
-        type = listOf (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
       };
     };
@@ -88,12 +82,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["plaintex" "tex" "bib"];
+        });
+      };
     })
 
     (mkIf cfg.format.enable {

@@ -85,7 +85,7 @@
 
 - Add [yazi.nvim] as a companion plugin for Yazi, the terminal file manager.
 
-- Add {option}`vim.autocmds` and {option}`vim-augroups` to allow declaring
+- Add {option}`vim.autocmds` and {option}`vim.augroups` to allow declaring
   autocommands via Nix.
 
 - Fix plugin `setupOpts` for yanky.nvim and assert if shada is configured as a

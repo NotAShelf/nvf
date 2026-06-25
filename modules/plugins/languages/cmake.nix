@@ -7,25 +7,15 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
+  inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum listOf package;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.cmake;
 
   defaultServers = ["neocmakelsp"];
-  servers = {
-    neocmakelsp = {
-      enable = true;
-      cmd = [(getExe pkgs.neocmakelsp) "stdio"];
-      filetypes = ["cmake"];
-      root_markers = [".gersemirc" ".git" "build" "cmake"];
-      capabilities = {
-        textDocument.completion.completionItem.snippetSupport = true;
-      };
-    };
-  };
+  servers = ["neocmakelsp"];
 
   defaultFormat = "gersemi";
   formats = {
@@ -55,7 +45,7 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
         description = "CMake LSP servers to use";
       };
@@ -90,12 +80,13 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["cmake"];
+          root_markers = ["build" "cmake"];
+        });
+      };
     })
 
     (mkIf cfg.format.enable {

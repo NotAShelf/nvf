@@ -15,5 +15,14 @@ in
       sha256 = pin.hash;
     };
 
-    npmDepsHash = "sha256-XVyLW0XDCvZCZxu8g1fP7fRfeU3Hz81o5FCi/i4BKQw=";
+    npmDepsHash = "sha256-zejYnwkj6CBWOqA6LBYBEXMg0jT2vJqinBwzKdWIqpY=";
+
+    dontNpmPrune = true;
+
+    # Fixes error: Cannot find module 'prettier'
+    postInstall = ''
+      pushd "$nodeModulesPath"
+      find -mindepth 1 -maxdepth 1 -type d -print0 | grep --null-data -Exv "\./(ulid|prettier)" | xargs -0 rm -rfv
+      popd
+    '';
   })

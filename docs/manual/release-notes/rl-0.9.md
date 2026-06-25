@@ -2,6 +2,8 @@
 
 ## Breaking changes
 
+- Upgrade to nixpkgs 26.06.
+
 - Nixpkgs has merged a fully incompatible rewrite of
   `vimPlugins.nvim-treesitter`. Namely, it changes from the frozen `master`
   branch to the new main branch. This change removes incremental selections, so
@@ -33,7 +35,21 @@
   controlled via `vim.options.foldenable` directly instead. RIP
   `vim.treesitter.foldByDefault` 2026-03-19 - 2026-03-19.
 
+- `vim.assistant.codecompanion-nvim.setupOpts.strategies` has been renamed to
+  `vim.assistant.codecompanion-nvim.setupOpts.interactions` to match the
+  upstream codecompanion.nvim v19 rename. If you set options like
+  `setupOpts.strategies.chat.adapter`, rename them to
+  `setupOpts.interactions.chat.adapter`.
+
+- `vim.maps` is deprecated, use `vim.keymaps` instead.
+
 [Snoweuph](https://github.com/snoweuph)
+
+- Remove `mind.nvim`. This plugin doesn't exist anymore. The original author
+  deleted all their GitHub repositories and moved to
+  [sourcehut](https://sr.ht/~hadronized/). Some repositories where migrated.
+  `mind.nvim` wasn't one of them. More can be read in
+  [his blog post](https://strongly-typed-thoughts.net/blog/final-bye-github).
 
 - "Correct `languages.go.treesitter` to contain all Go file types.
   `languages.go.treesitter.package` is now `languages.go.treesitter.goPackage`.
@@ -57,7 +73,91 @@
 
 - Added `json5` into `languages.json`. Some options where renamed.
 
+- Moved `vim.lsp.harper-ls` to `vim.lsp.presets.haper`.
+
+- Removed `typst_lsp` from `languages.typst.lsp.servers`, because it is
+  deprecated and thus was pulled from nixpkgs.
+  <https://github.com/NixOS/nixpkgs/commit/bf24296bbe2e31ac7147b02ea645922390ca8f4b>
+
+- Renamed `ts_ls` to `typescript-language-server`.
+
+- Renamed `denols` to `deno`.
+
+- Renamed `tsgo` to `typescript-go`.
+
+- Renamed `vala_ls` to `vala-language-server`.
+
+- Renamed `terraformls-tf` and `terraformls-hcl` to `terraform-ls`.
+
+- Renamed `tofuls-tf` and `tofuls-hcl` to `tofu-ls`.
+
+- Renamed `ruby_lsp` to `ruby-lsp`.
+
+- Renamed `r_language_server` to `r-languageserver`.
+
+- Renamed `julials` to `julia-languageserver`.
+
+- Renamed `astro` to `astro-language-server`.
+
+- Renamed `bash-ls` to `bash-language-server`.
+
+- Renamed `jsonls` to `vscode-json-language-server`.
+
+- Renamed `cssls` to `vscode-css-language-server`.
+
+- Renamed `jdtls` to `jdt-language-server`.
+
+- Renamed `elixirls` to `elixir-ls`.
+
+- Removed `languages.tailwind` which only provided an LSP. Use
+  `lsp.presets.tailwindcss-language-server` instead.
+
+- Renamed `languages.ts` to `languages.typescript`.
+
+- Added {option}`vim.languages.go.treesitter.gotmpl.injection` and Renamed
+  `languages.go.treesitter.gotmplPackage` to
+  {option}`vim.languages.go.treesitter.gotmpl.package`
+
+- Split SCSS from `languages.css` into `languages.scss` and add extra tools for
+  SCSS/SASS. This also changes the default LSP to `some-sass-language-server`
+  for SCSS/SASS.
+
+- Split React/TSX from `languages.typescript` into `languages.tsx`. This new
+  module provides jsx/tsx support. This is a step of cleaning up the Typescript
+  module for the future.
+
+[dathegreat](https://github.com/dathegreat):
+
+- Haskell LSP now defaults to haskell-language-server, haskell-tools based LSP
+  support is moved to `vim.languages.haskell.extensions.haskell-tools`
+
+[CaueAnjos](https://github.com/caueanjos)
+
+- Renamed `roslyn_ls` to `roslyn-ls`
+- Turned `omnisharp-extended-lsp-nvim` into an extension disabled by default
+- Turned `csharpls-extended-lsp-nvim` into an extension disabled by default
+
 ## Changelog {#sec-release-0-9-changelog}
+
+[bovf](https://github.com/bovf):
+
+- Removed the deprecated `system_open` setup option from `nvim-tree.lua` to
+  avoid startup warnings now that upstream uses `vim.ui.open()`.
+
+[ErinaYip](https://github.com/ErinaYip):
+
+- Fixed and updated `lualine` options:
+  - Enabled the previously unmapped
+    {option}`vim.statusline.lualine.ignoreFocus`.
+  - Added {option}`vim.statusline.lualine.disabledFiletypes.statusline` and
+    {option}`vim.statusline.lualine.disabledFiletypes.winbar`.
+
+[SecBear](https://github.com/SecBear):
+
+- Renamed `setupOpts.strategies` to `setupOpts.interactions` in the
+  codecompanion-nvim module to match the upstream v19 rename. The old key
+  triggered a migration shim that silently discarded user `interactions`
+  overrides.
 
 [midischwarz12](https://github.com/midischwarz12):
 
@@ -96,6 +196,11 @@
 - Lazyload noice.nvim and nvim-web-devicons on `DeferredUIEnter`
 - Allow nulling treesitter packages for various language modules, filter `null`
   values in `vim.treesitter.grammars`.
+- Added {option}`vim.filetype` module option for registering custom filetypes
+  via `vim.filetype.add()`, placed in the DAG before `lazyConfigs` so plugins
+  can lazy-load on registered filetypes.
+- Moved `neovim/mappings` to `neovim/init/mappings.nix` to consolidate core
+  Neovim init options.
 
 [jfeo](https://github.com/jfeo):
 
@@ -126,6 +231,16 @@
 
 - Updated nix language plugin to use pkgs.nixfmt instead of
   pkgs.nixfmt-rfc-style
+
+[dathegreat](https://github.com/dathegreat):
+
+- Fixed invalid keys in the haskell-tools configuration
+- Split haskell configuration into `lsp/presets/haskell-language-server.nix` and
+  `languages/haskell.nix`
+- Made the haskell LSP and formatter configurable
+
+- Added [csvview.nvim](https://github.com/hat0uma/csvview.nvim) support under
+  `vim.utility.csvview` for rendering CSV/TSV files as aligned tables.
 
 [alfarel](https://github.com/alfarelcynthesis):
 
@@ -183,6 +298,11 @@
   - Remove [which-key.nvim] `<leader>o` `+Notes` description which did not
     actually correspond to any keybinds.
 
+- Allow disabling nvf's vendored keymaps by toggling `vendoredKeymaps.enable`.
+
+- Add {option}`vim.languages.pug.enable`, which adds the treesitter grammar and
+  enables `emmet-ls` for pug files.
+
 [pyrox0](https://github.com/pyrox0):
 
 - Added [rumdl](https://github.com/rvben/rumdl) support to `languages.markdown`
@@ -195,7 +315,7 @@
 - Added [Pyrefly](https://pyrefly.org/) and [zuban](https://zubanls.com/)
   support to `languages.python`
 
-- Added TOML support via {option}`languages.toml` and the
+- Added TOML support via {option}`vim.languages.toml.enable` and the
   [Tombi](https://tombi-toml.github.io/tombi/) language server, linter, and
   formatter.
 
@@ -207,14 +327,98 @@
 - Lazy-load `nvim-autopairs` plugin when using
   `vim.autopairs.nvim-autopairs.enable`
 
+- Added support for neovim 0.12's `ui2` feature via `vim.ui.ui2`
+
 [Machshev](https://github.com/machshev):
 
 - Added `ruff` and `ty` LSP support for Python under `programs.python`.
 
 [Snoweuph](https://github.com/snoweuph)
 
+- Added {option}`vim.lsp.presets.jls.enable` and made it available under
+  `vim.languages.java.lsp.servers`.
+
+- Added {option}`vim.languages.java.dap.enable` with the `jls` DAP.
+
+- Use nvf nix Tree-sitter injections in the docs.
+
+- Allow the usage of `pks.tree-sitter-grammars` in
+  {option}`vim.treesitter.grammars` and language module tree-sitter package
+  options created via `mkGrammarOption`.
+
+- Add `emmet-ls` to the supported LSPs for all languages it supports.
+
+- Added `gitlab-ci-ls`.
+
+- Added `phpantom` LSP preset and into `languages.php`.
+
+- Moved extra diagnostic modules under `diagnostics.presets.<name>` this will
+  allow for more flexibility in the future for nvf.
+
+- Added {option}`vim.diagnostics.presets.cpplint.enable`.
+
+- Added {option}`vim.treesitter.queries` to support adding custom queries.
+
+- Added injections for `query = '' ... ''` as `query` and `mkLualine '' ... ''`,
+  `entryAnywhere '' ... ''`, `entryBefore [] '' ... ''`,
+  `entryAfter [] '' ... ''` as `lua` in nix.
+
+- Added {option}`vim.languages.tera.treesitter.injection` to configure, what
+  language the content is.
+
+- Added {option}`vim.languages.jinja.treesitter.injection` to configure, what
+  language the content is.
+
+- Added {option}`vim.treesitter.filetypeMappings` to support mappings similar to
+  <https://github.com/nvim-treesitter/nvim-treesitter/blob/main/plugin/filetypes.lua>.
+  This is mostly use full for Markdown code block injections.
+
+- Added some Tree-sitter filetype mappings for:
+  - `bash` = `ash`, `dash`, `zsh`
+  - `yaml` = `yaml`
+
+- Fix `astro-language-server` missing typescript.
+
+- Fixed broken filetypes.
+
+- Added `vim.lsp.presets.<name>` to contain LSP configurations. This allows for
+  more flexibility in nvf and reuse of LSPs across languages. Dropped
+  `deprecatedSingleOrListOf` in favor of `listOf` for the affected LSP options.
+
+- Added {option}`vim.lsp.presets.angular-language-server.enable` for Angular
+  Template support.
+
+- Added {option}`vim.lsp.presets.vtsls.enable` for Vue TypeScript support.
+
+- Added {option}`vim.lsp.presets.vue-language-server.enable` for Vue Template
+
+- Added {option}`vim.lsp.presets.some-sass-language-server.enable`.
+
+- Fix `vim.lsp.presets.vala-language-server` to be wrapped correctly with
+  `uncrustify`.
+
+- Fix `tressiter` to allow `null` in grammar options, so they can be filtered
+  out.
+
+- Fix {option}`vim.utility.nvim-biscuits.enable` by upgrading, to fix
+  tree-sitter incompatibilities.
+
+- Fix image.nvim processor configuration and cleanup module.
+
 - Added [Selenen](https://github.com/kampfkarren/selene) for more diagnostics in
   `languages.lua`.
+
+- Added the [Stimulus LSP](https://github.com/marcoroth/stimulus-lsp) as LSP
+  preset.
+
+- Added `languages.docker` for Docker and Docker-Compose support. Thanks to
+  [poseidon-rises](https://github.com/poseidon-rises) for creating most of it in
+  [!1104](https://github.com/NotAShelf/nvf/pull/1104).
+
+- Added {option}`vim.lsp.presets.docker-language-server.enable` for Docker
+  support.
+
+- Mapped `dockercompose` to be highlighted by treesitter as `yaml`.
 
 - Added [`mdformat`](https://mdformat.rtfd.io/) support to `languages.markdown`
   with the extensions for [GFM](https://github.github.com/gfm/),
@@ -250,6 +454,13 @@
 
 - Added Makefile support via `languages.make`.
 
+- Add `lsp.presets.emmet-ls` as supported LSP to
+  - `languages.jinja`
+  - `languages.liquid`
+  - `languages.tera`
+  - `languages.twig`
+  - `languages.astro`
+
 - Fix `languages.hcl` init, depending on `comment-nvim` by checking if it is
   enabled. Fixes a crash (#1350).
 
@@ -258,15 +469,25 @@
 
 - Fix `languages.ts` registration of formatters.
 
+- Added `asmfmt` and `nasmfmt` formatters to `languages.asm`.
+
+- Added `astyle`, `indent` and `clang-format` to `languages.clang` formatters.
+
 - Added `biome-check` and `biome-organize-imports` formatters to `languages.ts`.
 
 - Added [`biomejs`](https://biomejs.dev/) as extra diagnostics provider to
   `languages.ts`.
 
+- Added `languages.standard-ml`.
+
+- Added `languages.vue`.
+
 - Add `languages.fluent` using the official plugin. This only provides
   highlighting.
 
 - Add `languages.gettext`. This only provides highlighting.
+
+- Add `languages.env`. This provides extra filetype hooks and diagnostics.
 
 - Add `languages.openscad` using
   [`openscad-lsp`](https://github.com/Leathong/openscad-LSP). This currently
@@ -288,6 +509,14 @@
 
 - Added `languages.jq`. Supports highlighting, formatting and lsp.
 
+- Extend `languages.asm` to support more filetypes out of the box.
+
+- Added {option}`vim.languages.java.extensions.maven-nvim.enable` for Maven
+  support;
+
+- Added {option}`vim.languages.java.extensions.gradle-nvim.enable` for Gradle
+  support;
+
 - Didn't Add
   [`syntax-gaslighting`](https://github.com/NotAShelf/syntax-gaslighting.nvim),
   you're crazy.
@@ -297,6 +526,8 @@
 
 - Added coverage support (`vim.utility.crazy-coverage`) via
   [`crazy-coverage.nvim`](https://github.com/mr-u0b0dy/crazy-coverage.nvim).
+
+- Enable `nil.settings.nil.nix.autoArchive` by default.
 
 [vagahbond](https://github.com/vagahbond): [codewindow.nvim]:
 https://github.com/gorbit99/codewindow.nvim
@@ -325,16 +556,30 @@ https://github.com/gorbit99/codewindow.nvim
 [horriblename](https://github.com/horriblename):
 
 - Ignore terminals by default in spell-checking
+- Add default error filter to lsp-signature that prevents error spam.
 
 [poz](https://poz.pet):
 
 [neocmakelsp]: https://github.com/neocmakelsp/neocmakelsp
 [arduino-language-server]: https://github.com/arduino/arduino-language-server
 [glsl_analyzer]: https://github.com/nolanderc/glsl_analyzer
+[fish-lsp]: https://www.fish-lsp.dev/
+[fish_indent]: https://fishshell.com/docs/current/cmds/fish_indent.html
 
 - Add CMake support with [neocmakelsp].
 - Add Arduino support with [arduino-language-server].
 - Add GLSL support with [glsl_analyzer].
+- Update fidget-nvim setupOpts and fix NvimTree issue.
+- Add Fish support via {option}`vim.languages.fish.enable` using [fish-lsp] and
+  [fish_indent]. Most of the work done by
+  [poseidon-rises](https://github.com/poseidon-rises) in
+  [!1107](https://github.com/NotAShelf/nvf/pull/1107).
+
+[emo-mruczek](https://emo-mruczek.pet):
+
+[vhdl-ls]: https://github.com/VHDL-LS/rust_hdl
+
+- Add VHDL support with [vhdl-ls].
 
 [itscrystalline](https://github.com/itscrystalline):
 
@@ -364,5 +609,37 @@ https://github.com/gorbit99/codewindow.nvim
 [tlvince](https://github.com/tlvince):
 
 - Added configuration option for `foldenable`
+
+[CaueAnjos](https://github.com/caueanjos)
+
+- Added razor support for `roslyn_ls` and `csharp_ls`
+- Added `csharpier` formatter to csharp language
+
+[mputz86](https://github.com/mputz86)
+
+- Add `vim.treesitter.indent.pattern` to specify file pattern(s) for which
+  treesitter indentation should be used
+- Add `vim.treesitter.indent.excludes` to exclude filetypes from the treesitter
+  indentation; e.g. useful for Haskell and PureScript, for which treesitter
+  indentation does not work good
+- Allow `vim.treesitter.context.setupOpts.max_lines` to also be given as a
+  string in order to allow percentage values like `"20%"`
+
+[RoastedCheese](https://github.com/roastedcheese):
+
+- Fix `golangci-lint` to lint at the package level.
+
+[Poseidon](https://github.com/poseidon-rises)
+
+[PHPStan]: https://github.com/phpstan/phpstan
+
+- Add [PHPStan] as a formatter for `vim.languages.php`.
+- Add `prettier` and `prettierd` as supported formatters to
+  `vim.languages.json`.
+
+[BrockoliniMorgan](https://github.com/BrockoliniMorgan)
+
+- Renamed
+  `languages.typescript.extensions.ts-error-translator.auto_override_publish_diagnostics`
 
 <!-- vim: set textwidth=80: -->

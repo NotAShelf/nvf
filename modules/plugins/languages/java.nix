@@ -4,61 +4,71 @@
   lib,
   ...
 }: let
-  inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.options) literalExpression mkEnableOption mkOption;
+  inherit (lib.types) listOf str enum;
+  inherit (lib.attrsets) attrNames genAttrs;
+  inherit (lib.lists) flatten;
   inherit (lib.meta) getExe;
-  inherit (builtins) attrNames;
-  inherit (lib.types) listOf enum;
-  inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.dag) entryBefore;
-  inherit (lib.generators) mkLuaInline;
+  inherit (lib.generators) mkLuaInline toPretty;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf enumWithRename;
 
   cfg = config.vim.languages.java;
 
-  defaultServers = ["jdtls"];
-  servers = {
-    jdtls = {
-      enable = true;
-      cmd =
-        mkLuaInline
-        /*
-        lua
-        */
-        ''
-          {
-            '${getExe pkgs.jdt-language-server}',
-            '-configuration',
-            get_jdtls_config_dir(),
-            '-data',
-            get_jdtls_workspace_dir(),
-            get_jdtls_jvm_args(),
-          }
+  defaultServers = ["jdt-language-server"];
+  servers = ["jdt-language-server" "jls"];
+
+  defaultDebugger = ["jls"];
+  dapConfigurations = {
+    jls = [
+      {
+        type = "jls";
+        request = "attach";
+        name = "Attach Auto";
+        hostName = "localhost";
+        port = 5005;
+        sourceRoots = mkLuaInline ''
+          function()
+            local matches = {}
+
+            -- only look max 3 deep, due to performance reasons
+            for _, pattern in ipairs({
+              "src/main/java",
+              "*/src/main/java",
+              "*/*/src/main/java",
+              "*/*/*/src/main/java",
+            }) do
+              vim.list_extend(matches, vim.fn.glob(pattern, true, true))
+            end
+
+            return matches
+          end
         '';
-      filetypes = ["java"];
-      root_markers = [
-        # Multi-module projects
-        ".git"
-        "build.gradle"
-        "build.gradle.kts"
-        # Single-module projects
-        "build.xml" # Ant
-        "pom.xml" # Maven
-        "settings.gradle" # Gradle
-        "settings.gradle.kts" # Gradle
-      ];
-      init_options = {
-        workspace = mkLuaInline "get_jdtls_workspace_dir()";
-        jvm_args = {};
-        os_config = mkLuaInline "nil";
-      };
-      handlers = {
-        "textDocument/codeAction" = mkLuaInline "jdtls_on_textdocument_codeaction";
-        "textDocument/rename" = mkLuaInline "jdtls_on_textdocument_rename";
-        "workspace/applyEdit" = mkLuaInline "jdtls_on_workspace_applyedit";
-        "language/status" = mkLuaInline "vim.schedule_wrap(jdtls_on_language_status)";
-      };
-    };
+      }
+      {
+        type = "jls";
+        request = "attach";
+        name = "Attach Manual";
+        hostName = "localhost";
+        port = 5005;
+        sourceRoots = mkLuaInline ''
+          function()
+            local path = nvf_dap_cached_input(
+              "java_jls_attach_root",
+              "Path to src/main/java: ",
+              vim.fn.getcwd() .. "/",
+              "dir"
+            )
+
+            if path == "" then
+              return {}
+            end
+
+            return { vim.fn.fnamemodify(path, ":p") }
+          end
+        '';
+      }
+    ];
   };
 in {
   options.vim.languages.java = {
@@ -82,110 +92,157 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = listOf (enumWithRename
+          "vim.languages.java.lsp.servers"
+          servers
+          {
+            jdtls = "jdt-language-server";
+          });
         default = defaultServers;
         description = "Java LSP server to use";
+      };
+    };
+
+    dap = {
+      enable =
+        mkEnableOption "Java Debug Adapter"
+        // {
+          default = config.vim.languages.enableDAP;
+          defaultText = literalExpression "config.vim.languages.enableDAP";
+        };
+
+      debugger = mkOption {
+        type =
+          deprecatedSingleOrListOf "vim.languages.java.dap.debugger"
+          (enum (attrNames dapConfigurations));
+        default = defaultDebugger;
+        description = ''
+          Java debugger to use.
+
+          **JLS**
+
+          For `jls` to work, you need to run your application with debug
+          symbols and networking.
+
+          The `jls` configuration is hardcoded to listen on port `5005`. This
+          matches the configuration described
+          [upstream](https://github.com/idelice/jls#usage). You can change this
+          by modifying {option}`vim.debugger.nvim-dap.configurations.java`.
+          ```nix
+          # mkForce can be omitted if you want to retain our default
+          # configurations
+          vim.debugger.nvim-dap.configurations.java =
+            lib.mkForce
+            ${toPretty {indent = "  ";} dapConfigurations.jls};
+          ```
+
+          *Examples:*
+
+          - Manual:
+            1. Build with debug symbols.
+               ```sh
+               javac -g ...
+               ```
+            1. Run with debug socket.
+               ```sh
+               java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -jar your.jar
+               ```
+          - Springboot Maven:
+            For Springboot you can just pass the JVM args directly into the
+            `spring-boot:run`.
+            ```sh
+            mvn spring-boot:run -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
+            ```
+        '';
+      };
+    };
+
+    extensions = {
+      maven-nvim = {
+        enable = mkEnableOption "maven integration";
+        setupOpts = mkPluginSetupOption "maven-nvim" {
+          mvn_executable = mkOption {
+            type = str;
+            default = getExe pkgs.maven;
+            defaultText = literalExpression "getExe pkgs.maven";
+            description = ''
+              The maven executable to use.
+            '';
+            example = ''
+              - `"mvn"`: to use the maven from the `PATH`.
+              - `"./mvnw"`: to use the projects maven.
+              - `"$${getExe pkgs.maven}"`: to use maven from a nix package.
+            '';
+          };
+        };
+      };
+      gradle-nvim = {
+        enable = mkEnableOption "gradle integration";
+        setupOpts = mkPluginSetupOption "gradle-nvim" {
+          gadle_executable = mkOption {
+            type = str;
+            default = getExe pkgs.gradle;
+            defaultText = literalExpression "getExe pkgs.gradle";
+            description = ''
+              The gradle executable to use.
+            '';
+            example = ''
+              - `"gradle"`: to use the gradle from the `PATH`.
+              - `"$${getExe pkgs.gradle}"`: to use gradle from a nix package.
+            '';
+          };
+        };
       };
     };
   };
 
   config = mkIf cfg.enable (mkMerge [
-    (mkIf cfg.lsp.enable {
-      vim.luaConfigRC.jdtls-util =
-        entryBefore ["lsp-servers"]
-        /*
-        lua
-        */
-        ''
-          local jdtls_handlers = require 'vim.lsp.handlers'
-
-          local jdtls_env = {
-            HOME = vim.uv.os_homedir(),
-            XDG_CACHE_HOME = os.getenv 'XDG_CACHE_HOME',
-            JDTLS_JVM_ARGS = os.getenv 'JDTLS_JVM_ARGS',
-          }
-
-          local function get_cache_dir()
-            return jdtls_env.XDG_CACHE_HOME and jdtls_env.XDG_CACHE_HOME or jdtls_env.HOME .. '/.cache'
-          end
-
-          local function get_jdtls_cache_dir()
-            return get_cache_dir() .. '/jdtls'
-          end
-
-          local function get_jdtls_config_dir()
-            return get_jdtls_cache_dir() .. '/config'
-          end
-
-          local function get_jdtls_workspace_dir()
-            return get_jdtls_cache_dir() .. '/workspace'
-          end
-
-          local function get_jdtls_jvm_args()
-            local args = {}
-            for a in string.gmatch((jdtls_env.JDTLS_JVM_ARGS or '''), '%S+') do
-              local arg = string.format('--jvm-arg=%s', a)
-              table.insert(args, arg)
-            end
-            return unpack(args)
-          end
-
-          -- TextDocument version is reported as 0, override with nil so that
-          -- the client doesn't think the document is newer and refuses to update
-          -- See: https://github.com/eclipse/eclipse.jdt.ls/issues/1695
-          local function jdtls_fix_zero_version(workspace_edit)
-            if workspace_edit and workspace_edit.documentChanges then
-              for _, change in pairs(workspace_edit.documentChanges) do
-                local text_document = change.textDocument
-                if text_document and text_document.version and text_document.version == 0 then
-                  text_document.version = nil
-                end
-              end
-            end
-            return workspace_edit
-          end
-
-          local function jdtls_on_textdocument_codeaction(err, actions, ctx)
-            for _, action in ipairs(actions) do
-              -- TODO: (steelsojka) Handle more than one edit?
-              if action.command == 'java.apply.workspaceEdit' then -- 'action' is Command in java format
-                action.edit = jdtls_fix_zero_version(action.edit or action.arguments[1])
-              elseif type(action.command) == 'table' and action.command.command == 'java.apply.workspaceEdit' then -- 'action' is CodeAction in java format
-                action.edit = jdtls_fix_zero_version(action.edit or action.command.arguments[1])
-              end
-            end
-
-            jdtls_handlers[ctx.method](err, actions, ctx)
-          end
-
-          local function jdtls_on_textdocument_rename(err, workspace_edit, ctx)
-            jdtls_handlers[ctx.method](err, jdtls_fix_zero_version(workspace_edit), ctx)
-          end
-
-          local function jdtls_on_workspace_applyedit(err, workspace_edit, ctx)
-            jdtls_handlers[ctx.method](err, jdtls_fix_zero_version(workspace_edit), ctx)
-          end
-
-          -- Non-standard notification that can be used to display progress
-          local function jdtls_on_language_status(_, result)
-            local command = vim.api.nvim_command
-            command 'echohl ModeMsg'
-            command(string.format('echo "%s"', result.message))
-            command 'echohl None'
-          end
-        '';
-
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
-    })
-
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.package];
+    })
+
+    (mkIf cfg.lsp.enable {
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["java"];
+        });
+      };
+    })
+
+    (mkIf cfg.dap.enable {
+      vim.debugger.nvim-dap = {
+        enable = true;
+        presets = genAttrs cfg.dap.debugger (_: {enable = true;});
+        configurations.java = flatten (map (name: dapConfigurations.${name}) cfg.dap.debugger);
+      };
+    })
+
+    (mkIf cfg.extensions.maven-nvim.enable {
+      vim = mkMerge [
+        {
+          startPlugins = ["nui-nvim" "plenary-nvim"];
+          lazy.plugins.maven-nvim = {
+            package = "maven-nvim";
+            setupModule = "maven";
+            setupOpts = cfg.extensions.maven-nvim.setupOpts;
+          };
+        }
+      ];
+    })
+
+    (mkIf cfg.extensions.gradle-nvim.enable {
+      vim = mkMerge [
+        {
+          startPlugins = ["nui-nvim" "plenary-nvim"];
+          lazy.plugins.gradle-nvim = {
+            package = "gradle-nvim";
+            setupModule = "gradle";
+            setupOpts = cfg.extensions.gradle-nvim.setupOpts;
+          };
+        }
+      ];
     })
   ]);
 }

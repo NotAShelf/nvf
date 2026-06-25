@@ -91,7 +91,7 @@ consistency and to avoid clashing opinions on how formatters should behave, we
 are very opinionated on how those files should be formatted.
 
 - Nix files **must** be formatted with the Alejandra formatter, following some
-  specific tips found in [Nix style section](#nix-sec-code-style-nix).
+  specific tips found in [Nix style section](#sec-code-style-nix).
 - Markdown files **must** be formatted with the `deno fmt` command, as described
   in the [Markdown style section](#sec-code-style-markdown).
 
@@ -650,9 +650,11 @@ As you've seen above, `toLuaObject` is used to convert our nix attrSet
    that return specific values as expected by the plugins.
 
    ```nix
-   {
+   let 
+     inherit (lib.generators) mkLuaInline;
+   in {
       vim.your-plugin.setupOpts = {
-        on_init = lib.generators.mkLuaInline ''
+        on_init = mkLuaInline ''
           function()
             print('we can write lua!')
           end
@@ -717,7 +719,7 @@ require('lz.n').load({
 })
 ```
 
-[`vim.lazy.plugins` spec]: ./options.html#option-vim-lazy-plugins
+[`vim.lazy.plugins` spec]: ./options.html#option-vim.lazy.plugins
 
 A full list of options can be found in the [`vim.lazy.plugins` spec] on the
 rendered manual.
@@ -750,7 +752,7 @@ keybinding can look like this:
 }
 ```
 
-[module option documentation]: options.html#option-vim-keymaps
+[module option documentation]: options.html#option-vim.keymaps
 
 There are many other settings available in the keymap module. Please refer to
 the [module option documentation] for a full and up-to-date list of them.
@@ -768,7 +770,7 @@ usage should look something like this:
 # pluginDefinition.nix
 {lib, ...}: let
   inherit (lib.options) mkEnableOption;
-  inherit (lib.nvim.binds) mkMappingOption;
+  inherit (config.vim.lib) mkMappingOption;
 in {
   options.vim.plugin = {
     enable = mkEnableOption "Enable plugin";

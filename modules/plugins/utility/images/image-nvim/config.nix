@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib.modules) mkIf;
@@ -15,8 +16,12 @@ in {
         "image-nvim"
       ];
 
-      luaPackages = [
+      luaPackages = mkIf (cfg.setupOpts.processor == "magick_rock") [
         "magick"
+      ];
+
+      extraPackages = mkIf (cfg.setupOpts.processor == "magick_cli") [
+        pkgs.imagemagick
       ];
 
       pluginRC.image-nvim = entryAnywhere ''

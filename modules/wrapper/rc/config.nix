@@ -18,7 +18,7 @@ in {
       mapAttrsToList (name: value: "vim.g.${name} = ${toLuaObject value}") cfg.globals;
 
     optionsScript =
-      mapAttrsToList (name: value: "vim.o.${name} = ${toLuaObject value}") cfg.options;
+      mapAttrsToList (name: value: "vim.opt.${name} = ${toLuaObject value}") cfg.options;
 
     extraPluginConfigs = resolveDag {
       name = "extra plugin configs";

@@ -6,29 +6,17 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.types) enum listOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.css;
 
-  defaultServer = ["cssls"];
-  servers = {
-    cssls = {
-      cmd = ["${pkgs.vscode-langservers-extracted}/bin/vscode-css-language-server" "--stdio"];
-      filetypes = ["css" "scss" "less"];
-      # needed to enable formatting
-      init_options = {provideFormatter = true;};
-      root_markers = [".git" "package.json"];
-      settings = {
-        css.validate = true;
-        scss.validate = true;
-        less.validate = true;
-      };
-    };
-  };
+  defaultServer = ["vscode-css-language-server"];
+  servers = ["vscode-css-language-server" "emmet-ls"];
 
   defaultFormat = ["prettier"];
   formats = {
@@ -68,7 +56,12 @@ in {
         };
 
       servers = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.css.lsp.servers" (enum (attrNames servers));
+        type = listOf (enumWithRename
+          "vim.languages.css.lsp.servers"
+          servers
+          {
+            cssls = "vscode-css-language-server";
+          });
         default = defaultServer;
         description = "CSS LSP server to use";
       };
@@ -92,12 +85,16 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (name: {
-          inherit name;
-          value = servers.${name};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = [
+            "css"
+            # TODO: split in their own modules
+            "less"
+          ];
+        });
+      };
     })
 
     (mkIf cfg.format.enable {

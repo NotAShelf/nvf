@@ -12,5 +12,6 @@
     ./notifications
     ./nvim-ufo
     ./smartcolumn
+    ./ui2
   ];
 }

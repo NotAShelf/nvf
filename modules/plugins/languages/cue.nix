@@ -4,16 +4,14 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption literalExpression;
-  inherit (lib.meta) getExe;
+  inherit (lib.options) mkEnableOption literalExpression mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.types) enum listOf;
+  inherit (lib) genAttrs;
 
-  lspOptions = {
-    cmd = [(getExe pkgs.cue) "lsp"];
-    filetypes = ["cue"];
-    root_markers = ["cue.mod" ".git"];
-  };
+  defaultServers = ["cue"];
+  servers = ["cue"];
 
   cfg = config.vim.languages.cue;
 in {
@@ -38,6 +36,12 @@ in {
           default = config.vim.lsp.enable;
           defaultText = literalExpression "config.vim.lsp.enable";
         };
+
+      servers = mkOption {
+        type = listOf (enum servers);
+        default = defaultServers;
+        description = "CUE LSP server to use";
+      };
     };
   };
 
@@ -48,7 +52,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers.cue = lspOptions;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["cue"];
+        });
+      };
     })
   ]);
 }

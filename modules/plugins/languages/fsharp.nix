@@ -6,50 +6,15 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (lib.types) enum;
+  inherit (lib.types) enum listOf;
+  inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   defaultServer = ["fsautocomplete"];
-  servers = {
-    fsautocomplete = {
-      cmd = [(getExe pkgs.fsautocomplete) "--adaptive-lsp-server-enabled"];
-      filetypes = ["fsharp"];
-      root_dir = mkLuaInline ''
-        function(bufnr, on_dir)
-          on_dir(vim.fs.root(bufnr, function(name, path)
-            return name == ".git" or name:match("%.sln$") or name:match("%.fsproj$")
-          end))
-        end
-      '';
-      init_options = {
-        AutomaticWorkspaceInit = true;
-      };
-      settings = {
-        FSharp = {
-          keywordsAutocomplete = true;
-          ExternalAutocomplete = false;
-          Linter = true;
-          UnionCaseStubGeneration = true;
-          UnionCaseStubGenerationBody = ''failwith "Not Implemented"'';
-          RecordStubGeneration = true;
-          RecordStubGenerationBody = ''failwith "Not Implemented"'';
-          InterfaceStubGeneration = true;
-          InterfaceStubGenerationObjectIdentifier = "this";
-          InterfaceStubGenerationMethodBody = ''failwith "Not Implemented"'';
-          UnusedOpensAnalyzer = true;
-          UnusedDeclarationsAnalyzer = true;
-          UseSdkScripts = true;
-          SimplifyNameAnalyzer = true;
-          ResolveNamespaces = true;
-          EnableReferenceCodeLens = true;
-        };
-      };
-    };
-  };
+  servers = ["fsautocomplete"];
 
   defaultFormat = ["fantomas"];
   formats = {
@@ -82,7 +47,7 @@ in {
             defaultText = literalExpression "config.vim.lsp.enable";
           };
         servers = mkOption {
-          type = deprecatedSingleOrListOf "vim.language.fsharp.lsp.servers" (enum (attrNames servers));
+          type = listOf (enum servers);
           default = defaultServer;
           description = "F# LSP server to use";
         };
@@ -106,12 +71,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (name: {
-          inherit name;
-          value = servers.${name};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["fsharp"];
+        });
+      };
     })
 
     (mkIf cfg.format.enable {

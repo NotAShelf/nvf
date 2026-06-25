@@ -11,12 +11,9 @@
   uiKindSetupOpts =
     if config.vim.theme.enable && config.vim.theme.name == "catppuccin"
     then {
-      ui.kind =
-        mkLuaInline
-        # lua
-        ''
-          require("catppuccin.groups.integrations.lsp_saga").custom_kind()
-        '';
+      ui.kind = mkLuaInline ''
+        require("catppuccin.groups.integrations.lsp_saga").custom_kind()
+      '';
     }
     else {};
 in {

@@ -5,40 +5,20 @@
   ...
 }: let
   inherit (builtins) attrNames;
+  inherit (lib) genAttrs;
   inherit (lib.meta) getExe getExe';
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.types) bool enum listOf str nullOr;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.types) diagnostics mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.trivial) warn;
 
   cfg = config.vim.languages.markdown;
   defaultServers = ["marksman"];
-  servers = {
-    marksman = {
-      enable = true;
-      cmd = [(getExe pkgs.marksman) "server"];
-      filetypes = ["markdown" "mdx"];
-      root_markers = [".marksman.toml" ".git"];
-    };
-
-    markdown-oxide = {
-      enable = true;
-      cmd = [(getExe pkgs.markdown-oxide)];
-      filetypes = ["markdown"];
-      root_markers = [".git" ".obsidian" ".moxide.toml"];
-    };
-
-    rumdl = {
-      enable = true;
-      cmd = [(getExe pkgs.rumdl) "server"];
-      filetypes = ["markdown"];
-      root_markers = [".git" ".rumdl.toml" "rumdl.toml" ".config/rumdl.toml" "pyproject.toml"];
-    };
-  };
+  servers = ["marksman" "markdown-oxide" "rumdl"];
 
   defaultFormat = ["deno_fmt"];
   formats = {
@@ -66,14 +46,7 @@
     };
   };
   defaultDiagnosticsProvider = ["markdownlint-cli2"];
-  diagnosticsProviders = {
-    markdownlint-cli2 = {
-      package = pkgs.markdownlint-cli2;
-    };
-    rumdl = {
-      package = pkgs.rumdl;
-    };
-  };
+  diagnosticsProviders = ["markdownlint-cli2" "rumdl"];
 in {
   options.vim.languages.markdown = {
     enable = mkEnableOption "Markdown markup language support";
@@ -99,7 +72,7 @@ in {
 
       servers = mkOption {
         description = "Markdown LSP server to use";
-        type = deprecatedSingleOrListOf "vim.language.markdown.lsp.servers" (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
       };
     };
@@ -166,32 +139,36 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra Markdown diagnostics"
+        mkEnableOption "extra Markdown diagnostics via nvim-lint"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
-      types = diagnostics {
-        langDesc = "Markdown";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra Markdown diagnostics providers";
       };
     };
   };
 
   config = mkIf cfg.enable (mkMerge [
+    {
+      vim.filetype.extension.mdx = "markdown";
+    }
+
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.mdPackage cfg.treesitter.mdInlinePackage];
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["markdown"];
+        });
+      };
     })
 
     (mkIf cfg.format.enable {
@@ -234,13 +211,12 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics.nvim-lint = {
-        enable = true;
-        linters_by_ft.markdown = cfg.extraDiagnostics.types;
-        linters = mkMerge (map (name: {
-            ${name}.cmd = getExe diagnosticsProviders.${name}.package;
-          })
-          cfg.extraDiagnostics.types);
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+        nvim-lint = {
+          enable = true;
+          linters_by_ft.markdown = cfg.extraDiagnostics.types;
+        };
       };
     })
   ]);

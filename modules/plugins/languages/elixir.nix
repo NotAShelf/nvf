@@ -7,38 +7,16 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.meta) getExe;
-  inherit (lib.types) enum;
-  inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib) genAttrs;
+  inherit (lib.types) enum listOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.elixir;
 
-  defaultServers = ["elixirls"];
-  servers = {
-    elixirls = {
-      enable = true;
-      cmd = [(getExe pkgs.elixir-ls)];
-      filetypes = ["elixir" "eelixir" "heex" "surface"];
-      root_dir =
-        mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function(bufnr, on_dir)
-            local fname = vim.api.nvim_buf_get_name(bufnr)
-            local matches = vim.fs.find({ 'mix.exs' }, { upward = true, limit = 2, path = fname })
-            local child_or_root_path, maybe_umbrella_path = unpack(matches)
-            local root_dir = vim.fs.dirname(maybe_umbrella_path or child_or_root_path)
-
-            on_dir(root_dir)
-          end
-        '';
-    };
-  };
+  defaultServers = ["elixir-ls"];
+  servers = ["elixir-ls"];
 
   defaultFormat = ["mix"];
   formats = {
@@ -70,7 +48,12 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.elixir.lsp.servers" (enum (attrNames servers));
+        type = listOf (enumWithRename
+          "vim.languages.elixir.lsp.servers"
+          servers
+          {
+            elixirls = "elixir-ls";
+          });
         default = defaultServers;
         description = "Elixir LSP server to use";
       };
@@ -102,12 +85,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["elixir" "eelixir" "heex" "surface"];
+        });
+      };
     })
 
     (mkIf cfg.format.enable {

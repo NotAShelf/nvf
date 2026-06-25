@@ -26,7 +26,7 @@ startup.
 }
 ```
 
-[`vim.extraPlugins`]: ./options.html#option-vim-extraPlugins
+[`vim.extraPlugins`]: ./options.html#option-vim.extraPlugins
 
 This will fetch aerial.nvim from nixpkgs, and add it to Neovim's runtime path to
 be loaded manually. Although for plugins that require manual setup, you are

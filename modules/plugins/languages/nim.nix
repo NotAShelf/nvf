@@ -6,36 +6,16 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (lib.meta) getExe';
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum;
+  inherit (lib.types) enum listOf;
+  inherit (lib) genAttrs;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
-  inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.nim;
 
   defaultServers = ["nimlsp"];
-  servers = {
-    nimlsp = {
-      enable = true;
-      cmd = [(getExe' pkgs.nimlsp "nimlsp")];
-      filetypes = ["nim"];
-      root_dir =
-        mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function(bufnr, on_dir)
-              local fname = vim.api.nvim_buf_get_name(bufnr)
-              on_dir(
-                util.root_pattern '*.nimble'(fname) or vim.fs.dirname(vim.fs.find('.git', { path = fname, upward = true })[1])
-              )
-          end
-        '';
-    };
-  };
+  servers = ["nimlsp"];
 
   defaultFormat = ["nimpretty"];
   formats = {
@@ -66,7 +46,7 @@ in {
         };
 
       servers = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.nim.lsp.servers" (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Nim LSP server to use";
       };
@@ -103,12 +83,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["nim"];
+        });
+      };
     })
 
     (mkIf cfg.format.enable {

@@ -4,54 +4,16 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
-  inherit (lib.generators) mkLuaInline;
-  inherit (lib.meta) getExe getExe';
+  inherit (lib) genAttrs;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum listOf str;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.arduino;
 
   defaultServers = ["arduino-language-server"];
-  servers = {
-    arduino-language-server = {
-      enable = true;
-      cmd =
-        [
-          (getExe pkgs.arduino-language-server)
-          "-clangd"
-          (getExe' pkgs.clang-tools "clangd")
-          "-cli"
-          (getExe pkgs.arduino-cli)
-          "-cli-config"
-          "$HOME/.arduino15/arduino-cli.yaml"
-        ]
-        ++ cfg.lsp.extraArgs;
-      filetypes = ["arduino"];
-      root_dir =
-        mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function(bufnr, on_dir)
-            local fname = vim.api.nvim_buf_get_name(bufnr)
-            on_dir(util.root_pattern("*.ino")(fname))
-          end
-        '';
-      capabilities = {
-        textDocument = {
-          semanticTokens = mkLuaInline "vim.NIL";
-        };
-        workspace = {
-          semanticTokens = mkLuaInline "vim.NIL";
-        };
-      };
-    };
-  };
+  servers = ["arduino-language-server"];
 in {
   options.vim.languages.arduino = {
     enable = mkEnableOption "Arduino support";
@@ -74,7 +36,7 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Arduino LSP servers to use";
       };
@@ -94,12 +56,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["arduino"];
+        });
+      };
     })
   ]);
 }

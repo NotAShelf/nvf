@@ -4,25 +4,16 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.meta) getExe;
-  inherit (lib.types) enum;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib) genAttrs;
+  inherit (lib.types) enum listOf;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.gleam;
 
   defaultServers = ["gleam"];
-  servers = {
-    gleam = {
-      enable = true;
-      cmd = [(getExe pkgs.gleam) "lsp"];
-      filetypes = ["gleam"];
-      root_markers = ["gleam.toml" ".git"];
-    };
-  };
+  servers = ["gleam"];
 in {
   options.vim.languages.gleam = {
     enable = mkEnableOption "Gleam language support";
@@ -45,7 +36,7 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.gleam.lsp.servers" (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Gleam LSP server to use";
       };
@@ -59,12 +50,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["gleam"];
+        });
+      };
     })
   ]);
 }

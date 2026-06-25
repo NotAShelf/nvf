@@ -7,46 +7,37 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum package;
-  inherit (lib.nvim.dag) entryAfter;
-  inherit (lib.meta) getExe;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.types) enum listOf;
+  inherit (lib.attrsets) genAttrs;
+  inherit (lib.lists) flatten;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
 
   cfg = config.vim.languages.odin;
 
   defaultServers = ["ols"];
-  servers = {
-    ols = {
-      enable = true;
-      cmd = [(getExe pkgs.ols)];
-      filetypes = ["odin"];
-      root_dir =
-        mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function(bufnr, on_dir)
-            local fname = vim.api.nvim_buf_get_name(bufnr)
-            on_dir(util.root_pattern('ols.json', '.git', '*.odin')(fname))
-          end'';
-    };
-  };
-
-  defaultDebugger = "codelldb";
-  debuggers = {
-    codelldb = {
-      package = pkgs.lldb;
-      dapConfig = ''
-        dap.adapters.codelldb = {
-          type = 'executable',
-          command = '${cfg.dap.package}/bin/lldb-dap',
-          name = 'codelldb'
-        }
-      '';
-    };
+  servers = ["ols"];
+  defaultDebugger = ["lldb"];
+  dapConfigurations = {
+    lldb = [
+      {
+        name = "Launch";
+        type = "lldb";
+        request = "launch";
+        program = mkLuaInline ''
+          function()
+            return nvf_dap_cached_input(
+              'odin_lldb_launch_exe',
+              "Path to executable: ",
+              vim.fn.getcwd() .. "/",
+              "file")
+          end
+        '';
+        cwd = "\${workspaceFolder}";
+        stopOnEntry = false;
+        args = [];
+      }
+    ];
   };
 in {
   options.vim.languages.odin = {
@@ -71,7 +62,7 @@ in {
         };
 
       servers = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.odin.lsp.servers" (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Odin LSP server to use";
       };
@@ -87,14 +78,13 @@ in {
 
       debugger = mkOption {
         description = "Odin debugger to use";
-        type = enum (attrNames debuggers);
-        default = defaultDebugger;
-      };
+        type =
+          deprecatedSingleOrListOf "vim.languages.clang.dap.debugger"
+          (enumWithRename "vim.languages.clang.dap.debugger" (attrNames dapConfigurations) {
+            codelldb = "lldb";
+          });
 
-      package = mkOption {
-        description = "Odin debugger package.";
-        type = package;
-        default = debuggers.${cfg.dap.debugger}.package;
+        default = defaultDebugger;
       };
     };
   };
@@ -106,24 +96,19 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["odin"];
+        });
+      };
     })
 
     (mkIf cfg.dap.enable {
-      vim = {
-        startPlugins = ["nvim-dap-odin"];
-        debugger.nvim-dap.sources.odin-debugger = debuggers.${cfg.dap.debugger}.dapConfig;
-        pluginRC.nvim-dap-odin = entryAfter ["nvim-dap"] ''
-          require('nvim-dap-odin').setup({
-            notifications = false -- contains no useful information
-          })
-        '';
-        debugger.nvim-dap.enable = true;
+      vim.debugger.nvim-dap = {
+        enable = true;
+        presets = genAttrs cfg.dap.debugger (_: {enable = true;});
+        configurations.odin = flatten (map (name: dapConfigurations.${name}) cfg.dap.debugger);
       };
     })
   ]);

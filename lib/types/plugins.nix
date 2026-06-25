@@ -6,6 +6,7 @@
   inherit (lib.attrsets) attrNames mapAttrs' filterAttrs nameValuePair;
   inherit (lib.strings) hasPrefix removePrefix;
   inherit (lib.types) submodule either package enum str lines anything listOf nullOr;
+  inherit (lib.nvim.types) luaInline;
 
   # Get the names of all flake inputs that start with the given prefix.
   fromInputs = {
@@ -82,19 +83,27 @@ in {
   }
   ```
   */
-  mkPluginSetupOption = pluginName: opts:
-    mkOption {
-      description = ''
-        Option table to pass into the setup function of ${pluginName}
-
-        You can pass in any additional options even if they're
-        not listed in the docs
-      '';
-
-      default = {};
-      type = submodule {
+  mkPluginSetupOption = pluginName: opts: let
+    luaOrModule =
+      either (submodule {
         freeformType = anything;
         options = opts;
-      };
+      })
+      luaInline;
+  in
+    mkOption {
+      type = luaOrModule;
+      default = {};
+
+      description = ''
+        Option table to pass into the setup function of ${pluginName}.
+
+        Accepts either an attribute set of options, or a raw Lua expression
+        via `lib.mkLuaInline`. When set to a `luaInline` value, the
+        expression is passed verbatim as the argument to `setup()`.
+
+        You can pass in any additional options even if they're not listed
+        in the docs.
+      '';
     };
 }

@@ -21,6 +21,7 @@
         ./flake/templates
         ./flake/apps.nix
         ./flake/packages.nix
+        ./flake/checks.nix
         ./flake/develop.nix
       ];
 
@@ -122,7 +123,7 @@
     systems.url = "github:nix-systems/default";
 
     ## Basic Inputs
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-26.05";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -136,11 +137,5 @@
 
     # Alternate neovim-wrapper
     mnw.url = "github:Gerg-L/mnw";
-
-    # Alternative documentation generator
-    ndg = {
-      url = "github:feel-co/ndg?ref=refs/tags/v2.6.0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 }

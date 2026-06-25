@@ -4,48 +4,16 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
-  inherit (lib.generators) mkLuaInline;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.meta) getExe;
-  inherit (lib.types) enum;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib) genAttrs;
+  inherit (lib.types) enum listOf;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.yaml;
 
-  on_attach =
-    if config.vim.languages.helm.lsp.enable && config.vim.languages.helm.enable
-    then
-      mkLuaInline ''
-        function(client, bufnr)
-          local filetype = vim.bo[bufnr].filetype
-          if filetype == "helm" then
-            client.stop()
-          end
-        end
-      ''
-    else null;
-
   defaultServers = ["yaml-language-server"];
-  servers = {
-    yaml-language-server = {
-      enable = true;
-      cmd = [(getExe pkgs.yaml-language-server) "--stdio"];
-      filetypes = ["yaml" "yaml.docker-compose" "yaml.gitlab" "yaml.helm-values"];
-      root_markers = [".git"];
-      inherit on_attach;
-      # -- https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting
-      settings = {
-        redhat = {
-          telemetry = {
-            enabled = false;
-          };
-        };
-      };
-    };
-  };
+  servers = ["yaml-language-server" "gitlab-ci-ls"];
 in {
   options.vim.languages.yaml = {
     enable = mkEnableOption "YAML language support";
@@ -69,7 +37,7 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.yaml.lsp.servers" (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Yaml LSP server to use";
       };
@@ -77,18 +45,31 @@ in {
   };
 
   config = mkIf cfg.enable (mkMerge [
+    {
+      # The GitLab CI LSP ignores all filetypes which aren't `yaml.gitlab`.
+      vim.filetype.pattern = {
+        "%.gitlab%-ci%.ya?ml" = "yaml.gitlab";
+        "%.gitlab/.*%.ya?ml" = "yaml.gitlab";
+        "templates/.*%.ya?ml" = "yaml.gitlab";
+        "templates/.*/template%.ya?ml" = "yaml.gitlab";
+      };
+    }
+
     (mkIf cfg.treesitter.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      vim.treesitter = {
+        enable = true;
+        grammars = [cfg.treesitter.package];
+        filetypeMappings.yaml = ["yml" "yaml.gitlab"];
+      };
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["yaml" "yaml.gitlab"];
+        });
+      };
     })
   ]);
 }

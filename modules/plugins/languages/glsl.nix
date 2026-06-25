@@ -4,25 +4,16 @@
   pkgs,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum listOf;
-  inherit (lib.meta) getExe;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib) genAttrs;
 
   cfg = config.vim.languages.glsl;
 
   defaultServers = ["glsl_analyzer"];
-  servers = {
-    glsl_analyzer = {
-      enable = true;
-      cmd = [(getExe pkgs.glsl_analyzer)];
-      filetypes = ["glsl" "vert" "tesc" "tese" "frag" "geom" "comp"];
-      root_markers = [".git"];
-    };
-  };
+  servers = ["glsl_analyzer"];
 in {
   options.vim.languages.glsl = {
     enable = mkEnableOption "GLSL language support";
@@ -46,7 +37,7 @@ in {
         };
 
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
         description = "GLSL LSP server to use";
       };
@@ -54,6 +45,17 @@ in {
   };
 
   config = mkIf cfg.enable (mkMerge [
+    {
+      vim.filetype.extension = {
+        vert = "glsl";
+        tesc = "glsl";
+        tese = "glsl";
+        frag = "glsl";
+        geom = "glsl";
+        comp = "glsl";
+      };
+    }
+
     (mkIf cfg.treesitter.enable {
       vim.treesitter = {
         enable = true;
@@ -62,12 +64,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["glsl"];
+        });
+      };
     })
   ]);
 }

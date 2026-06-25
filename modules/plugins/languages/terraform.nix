@@ -7,28 +7,16 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
+  inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption enumWithRename;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.terraform;
 
-  defaultServers = ["tofuls-tf"];
-  servers = {
-    terraformls-tf = {
-      enable = true;
-      cmd = [(getExe pkgs.terraform-ls) "serve"];
-      filetypes = ["terraform" "terraform-vars" "tf"];
-      root_markers = [".terraform" ".git"];
-    };
-    tofuls-tf = {
-      enable = true;
-      cmd = [(getExe pkgs.tofu-ls) "serve"];
-      filetypes = ["terraform" "terraform-vars" "tf"];
-      root_markers = [".terraform" ".git"];
-    };
-  };
+  defaultServers = ["tofu-ls"];
+  servers = ["terraform-ls" "tofu-ls"];
 
   defaultFormat = ["tofu-fmt"];
   formats = {
@@ -65,7 +53,13 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = listOf (enumWithRename
+          "vim.languages.terraform.lsp.servers"
+          servers
+          {
+            terraformls-tf = "terraform-ls";
+            tofuls-tf = "tofu-ls";
+          });
         default = defaultServers;
         description = "Terraform LSP server to use";
       };
@@ -93,13 +87,11 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim = {
-        lsp.servers =
-          mapListToAttrs (n: {
-            name = n;
-            value = servers.${n};
-          })
-          cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["terraform" "terraform-vars" "tf"];
+        });
       };
     })
 

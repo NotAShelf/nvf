@@ -74,11 +74,16 @@
             inherit site;
 
             remap = {
-              "https://notashelf.github.io/nvf/" = site;
+              "https://notashelf.github.io/nvf/" = "${site}/share/doc/";
+              "https://nvf.notashelf.dev/" = "${site}/share/doc/";
             };
 
             extraConfig = {
-              exclude = [];
+              exclude = [
+                # This is not an email, but just part of an SCM query inside a nix code block.
+                # The leading escaped non breaking space is there on purpose.
+                "%C2%A0@injection.content"
+              ];
               include_mail = true;
               include_verbatim = true;
             };

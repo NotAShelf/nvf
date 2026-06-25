@@ -7,17 +7,12 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum;
-  inherit (lib.meta) getExe;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.types) enum listOf;
+  inherit (lib) genAttrs;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
   inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.r;
-
-  r-with-languageserver = pkgs.rWrapper.override {
-    packages = [pkgs.rPackages.languageserver];
-  };
 
   defaultFormat = ["format_r"];
   formats = {
@@ -47,19 +42,8 @@
     };
   };
 
-  defaultServers = ["r_language_server"];
-  servers = {
-    r_language_server = {
-      enable = true;
-      cmd = [(getExe r-with-languageserver) "--no-echo" "-e" "languageserver::run()"];
-      filetypes = ["r" "rmd" "quarto"];
-      root_dir = mkLuaInline ''
-        function(bufnr, on_dir)
-          on_dir(vim.fs.root(bufnr, '.git') or vim.uv.os_homedir())
-        end
-      '';
-    };
-  };
+  defaultServers = ["r-languageserver"];
+  servers = ["r-languageserver"];
 in {
   options.vim.languages.r = {
     enable = mkEnableOption "R language support";
@@ -83,7 +67,12 @@ in {
         };
 
       servers = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.r.lsp.servers" (enum (attrNames servers));
+        type = listOf (enumWithRename
+          "vim.languages.r.lsp.servers"
+          servers
+          {
+            r_language_server = "r-languageserver";
+          });
         default = defaultServers;
         description = "R LSP server to use";
       };
@@ -127,12 +116,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["r" "rmd" "quarto"];
+        });
+      };
     })
   ]);
 }

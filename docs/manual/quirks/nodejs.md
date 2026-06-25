@@ -9,8 +9,6 @@ When working with NodeJS, which is _obviously_ known for its meticulous
 standards, most things are bound to work as expected but some projects, tools
 and settings may fool the default configurations of tools provided by **nvf**.
 
-If
-
 If [eslint-plugin-prettier] or similar is included, you might get a situation
 where your Eslint configuration diagnoses your formatting according to its own
 config (usually `.eslintrc.js`). The issue there is your formatting is made via

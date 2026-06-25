@@ -29,7 +29,7 @@
       then spec.package.pname
       else spec.package.name;
   in
-    (removeAttrs spec ["package" "setupModule" "setupOpts" "keys"])
+    (removeAttrs spec ["package" "setupModule" "setupOpts" "setupCond" "keys"])
     // {
       "@1" =
         if spec.package != null && packageName != name && spec.load == null
@@ -73,14 +73,20 @@
       after =
         if spec.setupModule == null && spec.after == null
         then null
-        else
+        else let
+          setupCall = "require(${toJSON spec.setupModule}).setup(${toLuaObject spec.setupOpts})";
+          conditionalSetup =
+            if spec.setupCond != null
+            then ''
+              if (${spec.setupCond}) then
+                ${setupCall}
+              end''
+            else setupCall;
+        in
           mkLuaInline ''
             function()
               ${optionalString (spec.beforeSetup != null) spec.beforeSetup}
-              ${
-              optionalString (spec.setupModule != null)
-              "require(${toJSON spec.setupModule}).setup(${toLuaObject spec.setupOpts})"
-            }
+              ${optionalString (spec.setupModule != null) conditionalSetup}
               ${optionalString (spec.after != null) spec.after}
             end
           '';
@@ -105,11 +111,19 @@
 
   pluginPackages = filter (x: x != null) (mapAttrsToList (_: plugin: plugin.package) cfg.plugins);
 
-  specToNotLazyConfig = _: spec: ''
+  specToNotLazyConfig = _: spec: let
+    setupCall = "require(${toJSON spec.setupModule}).setup(${toLuaObject spec.setupOpts})";
+    conditionalSetup =
+      if spec.setupCond != null
+      then ''
+        if (${spec.setupCond}) then
+          ${setupCall}
+        end''
+      else setupCall;
+  in ''
     do
       ${optionalString (spec.before != null) spec.before}
-      ${optionalString (spec.setupModule != null)
-      "require(${toJSON spec.setupModule}).setup(${toLuaObject spec.setupOpts})"}
+      ${optionalString (spec.setupModule != null) conditionalSetup}
       ${optionalString (spec.after != null) spec.after}
     end
   '';

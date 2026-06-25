@@ -8,31 +8,16 @@
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
+  inherit (lib) genAttrs;
   inherit (lib.types) bool enum listOf;
-  inherit (lib.nvim.types) diagnostics mkGrammarOption;
+  inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryBefore;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.lua;
 
   defaultServers = ["lua-language-server"];
-  servers = {
-    lua-language-server = {
-      enable = true;
-      cmd = [(getExe pkgs.lua-language-server)];
-      filetypes = ["lua"];
-      root_markers = [
-        ".luarc.json"
-        ".luarc.jsonc"
-        ".luacheckrc"
-        ".stylua.toml"
-        "stylua.toml"
-        "selene.toml"
-        "selene.yml"
-        ".git"
-      ];
-    };
-  };
+  servers = ["lua-language-server"];
 
   defaultFormat = ["stylua"];
   formats = {
@@ -42,14 +27,7 @@
   };
 
   defaultDiagnosticsProvider = ["luacheck"];
-  diagnosticsProviders = {
-    luacheck = {
-      package = pkgs.luajitPackages.luacheck;
-    };
-    selene = {
-      package = pkgs.selene;
-    };
-  };
+  diagnosticsProviders = ["luacheck" "selene"];
 in {
   imports = [
     (lib.mkRemovedOptionModule ["vim" "languages" "lua" "lsp" "neodev"] ''
@@ -77,7 +55,7 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Lua LSP server to use";
       };
@@ -101,15 +79,15 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra Lua diagnostics"
+        mkEnableOption "extra Lua diagnostics via nvim-lint"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
-      types = diagnostics {
-        langDesc = "Lua";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra Lua diagnostics providers";
       };
     };
   };
@@ -122,12 +100,12 @@ in {
 
     (mkIf cfg.enable (mkMerge [
       (mkIf cfg.lsp.enable {
-        vim.lsp.servers =
-          mapListToAttrs (n: {
-            name = n;
-            value = servers.${n};
-          })
-          cfg.lsp.servers;
+        vim.lsp = {
+          presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+          servers = genAttrs cfg.lsp.servers (_: {
+            filetypes = ["lua"];
+          });
+        };
       })
 
       (mkIf cfg.lsp.lazydev.enable {
@@ -158,13 +136,12 @@ in {
       })
 
       (mkIf cfg.extraDiagnostics.enable {
-        vim.diagnostics.nvim-lint = {
-          enable = true;
-          linters_by_ft.lua = cfg.extraDiagnostics.types;
-          linters = mkMerge (map (name: {
-              ${name}.cmd = getExe diagnosticsProviders.${name}.package;
-            })
-            cfg.extraDiagnostics.types);
+        vim.diagnostics = {
+          presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+          nvim-lint = {
+            enable = true;
+            linters_by_ft.lua = cfg.extraDiagnostics.types;
+          };
         };
       })
     ]))

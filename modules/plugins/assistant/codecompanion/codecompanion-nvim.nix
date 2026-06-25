@@ -199,11 +199,11 @@ in {
           description = "An adapter is what connects Neovim to an LLM.";
         };
 
-        strategies = {
+        interactions = {
           chat = {
             adapter = mkOption {
               default = null;
-              description = "Adapter used for the chat strategy.";
+              description = "Adapter used for the chat interaction.";
               type = nullOr (either str (submodule {
                 options = {
                   name = mkOption {
@@ -268,7 +268,7 @@ in {
           inline = {
             adapter = mkOption {
               default = null;
-              description = "Adapter used for the inline strategy.";
+              description = "Adapter used for the inline interaction.";
               type = nullOr (either str (submodule {
                 options = {
                   name = mkOption {

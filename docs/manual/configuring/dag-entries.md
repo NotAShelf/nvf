@@ -18,8 +18,8 @@ entries in nvf:
 6. `lazyConfigs` - `lz.n` and `lzn-auto-require` configs. If `vim.lazy.enable`
    is false, this will contain each plugin's config instead.
 7. `pluginConfigs` - the result of the nested `vim.pluginRC` (internal option,
-   see the [Custom Plugins](/index.xhtml#ch-custom-plugins) page for adding your
-   own plugins) DAG, used to set up internal plugins
+   see the [Custom Plugins](./configuring.html#ch-custom-plugins) page for
+   adding your own plugins) DAG, used to set up internal plugins
 8. `extraPluginConfigs` - the result of `vim.extraPlugins`, which is not a
    direct DAG, but is converted to, and resolved as one internally
 9. `mappings` - the result of `vim.maps`

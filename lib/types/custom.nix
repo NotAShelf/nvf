@@ -1,9 +1,9 @@
 {lib}: let
-  inherit (builtins) toJSON;
+  inherit (builtins) toJSON attrNames;
   inherit (lib.options) mergeEqualOption;
   inherit (lib.lists) singleton;
   inherit (lib.strings) isString stringLength match;
-  inherit (lib.types) listOf mkOptionType coercedTo;
+  inherit (lib.types) listOf mkOptionType coercedTo enum;
   inherit (lib.trivial) warn;
 in {
   mergelessListOf = elemType:
@@ -39,4 +39,28 @@ in {
       ''
       (singleton x))
     (listOf t);
+
+  # Create an enum type for `values`, which additionally accepts deprecated
+  # values listed in the `renames` attrset as `old = new` pairs.
+  #
+  # Example:
+  #
+  # vim.languages.typescript.lsp.servers = mkOption {
+  #   type = enumWithRename
+  #     "vim.languages.typescript.lsp.servers"
+  #     ["typescript-language-server" "some-other-server"]
+  #     { ts_ls = "typescript-language-server"; };
+  # }
+  #
+  # With this option definition, when users enter `ts_ls`, they
+  # get a warning "`ts_ls` is deprecated, use `typescript-language-server`
+  # instead", and typescript-language-server is automatically used.
+  enumWithRename = option: values: renames:
+    coercedTo (enum (attrNames renames)) (
+      old:
+        warn
+        "${option}: `${old}` is deprecated, use `${renames.${old}}` instead"
+        renames.${old}
+    )
+    (enum values);
 }

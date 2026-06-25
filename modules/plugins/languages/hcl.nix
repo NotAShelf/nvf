@@ -6,30 +6,17 @@
 }: let
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption enumWithRename;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.hcl;
 
-  defaultServers = ["tofuls-hcl"];
-  servers = {
-    terraformls-hcl = {
-      enable = true;
-      cmd = [(getExe pkgs.terraform-ls) "serve"];
-      filetypes = ["hcl"];
-      root_markers = [".git"];
-    };
-    tofuls-hcl = {
-      enable = true;
-      cmd = [(getExe pkgs.tofu-ls) "serve"];
-      filetypes = ["hcl"];
-      root_markers = [".terraform" ".git"];
-    };
-    # TODO: package nomad-lsp and offer as an option here too
-  };
+  defaultServers = ["tofu-ls"];
+  servers = ["terraform-ls" "tofu-ls" "docker-language-server"];
 
   defaultFormat = ["hclfmt"];
   formats = {
@@ -64,7 +51,13 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = listOf (enumWithRename
+          "vim.languages.hcl.lsp.servers"
+          servers
+          {
+            terraformls-hcl = "terraform-ls";
+            tofuls-hcl = "tofu-ls";
+          });
         default = defaultServers;
         description = "HCL LSP server to use";
       };
@@ -116,13 +109,11 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim = {
-        lsp.servers =
-          mapListToAttrs (n: {
-            name = n;
-            value = servers.${n};
-          })
-          cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["hcl"];
+        });
       };
     })
 

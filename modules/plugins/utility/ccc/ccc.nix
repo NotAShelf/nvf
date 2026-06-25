@@ -1,9 +1,13 @@
-{lib, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) anything attrsOf listOf enum;
-  inherit (lib.nvim.binds) mkMappingOption;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   inherit (lib.generators) mkLuaInline;
+  inherit (config.vim.lib) mkMappingOption;
 in {
   options.vim.utility.ccc = {
     enable = mkEnableOption "ccc color picker for neovim";

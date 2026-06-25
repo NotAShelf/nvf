@@ -4,25 +4,16 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.meta) getExe;
+  inherit (lib) genAttrs;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.clojure;
 
   defaultServers = ["clojure-lsp"];
-  servers = {
-    clojure-lsp = {
-      enable = true;
-      cmd = [(getExe pkgs.clojure-lsp)];
-      filetypes = ["clojure" "edn"];
-      root_markers = ["project.clj" "deps.edn" "build.boot" "shadow-cljs.edn" ".git" "bb.edn"];
-    };
-  };
+  servers = ["clojure-lsp"];
 in {
   options.vim.languages.clojure = {
     enable = mkEnableOption "Clojure language support";
@@ -45,7 +36,7 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Clojure LSP server to use";
       };
@@ -54,12 +45,13 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["clojure" "edn"];
+          root_markers = ["deps.edn" "build.boot" "shadow-cljs.edn" "bb.edn"];
+        });
+      };
     })
 
     (mkIf cfg.treesitter.enable {

@@ -9,37 +9,15 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum coercedTo;
+  inherit (lib.types) enum coercedTo listOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
-  inherit (lib.generators) mkLuaInline;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
+  inherit (lib) genAttrs;
 
   cfg = config.vim.languages.astro;
 
-  defaultServers = ["astro"];
-  servers = {
-    astro = {
-      enable = true;
-      cmd = [(getExe pkgs.astro-language-server) "--stdio"];
-      filetypes = ["astro"];
-      root_markers = ["package.json" "tsconfig.json" "jsconfig.json" ".git"];
-      init_options = {
-        typescript = {};
-      };
-      before_init =
-        mkLuaInline
-        /*
-        lua
-        */
-        ''
-          function(_, config)
-            if config.init_options and config.init_options.typescript and not config.init_options.typescript.tsdk then
-              config.init_options.typescript.tsdk = util.get_typescript_server_path(config.root_dir)
-            end
-          end
-        '';
-    };
-  };
+  defaultServers = ["astro-language-server"];
+  servers = ["astro-language-server" "emmet-ls"];
 
   defaultFormat = ["prettier"];
   formats = let
@@ -57,24 +35,7 @@
   };
 
   defaultDiagnosticsProvider = ["eslint_d"];
-  diagnosticsProviders = {
-    eslint_d = let
-      pkg = pkgs.eslint_d;
-    in {
-      package = pkg;
-      config = {
-        cmd = getExe pkg;
-        required_files = [
-          "eslint.config.js"
-          "eslint.config.mjs"
-          ".eslintrc"
-          ".eslintrc.json"
-          ".eslintrc.js"
-          ".eslintrc.yml"
-        ];
-      };
-    };
-  };
+  diagnosticsProviders = ["eslint_d"];
 
   formatType =
     deprecatedSingleOrListOf
@@ -107,7 +68,12 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.astro.lsp.servers" (enum (attrNames servers));
+        type = listOf (enumWithRename
+          "vim.languages.astro.lsp.servers"
+          servers
+          {
+            astro = "astro-language-server";
+          });
         default = defaultServers;
         description = "Astro LSP server to use";
       };
@@ -130,16 +96,16 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra Astro diagnostics"
+        mkEnableOption "extra Astro diagnostics via nvim-lint"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
 
-      types = diagnostics {
-        langDesc = "Astro";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra Astro diagnostics providers";
       };
     };
   };
@@ -151,12 +117,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["astro"];
+        });
+      };
     })
 
     (mkIf cfg.format.enable {
@@ -175,12 +141,12 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics.nvim-lint = {
-        enable = true;
-        linters_by_ft.astro = cfg.extraDiagnostics.types;
-        linters =
-          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
-            cfg.extraDiagnostics.types);
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+        nvim-lint = {
+          enable = true;
+          linters_by_ft.astro = cfg.extraDiagnostics.types;
+        };
       };
     })
   ]);

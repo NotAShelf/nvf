@@ -5,10 +5,10 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.meta) getExe';
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum;
+  inherit (lib) genAttrs;
+  inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
@@ -17,13 +17,7 @@
   qmlPackage = pkgs.kdePackages.qtdeclarative;
 
   defaultServers = ["qmlls"];
-  servers = {
-    qmlls = {
-      cmd = [(getExe' qmlPackage "qmlls")];
-      filetypes = ["qml" "qmljs"];
-      rootmarkers = [".git"];
-    };
-  };
+  servers = ["qmlls"];
 
   defaultFormat = ["qmlformat"];
   formats = {
@@ -54,7 +48,7 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.qml.lsp.servers" (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
         description = "QML LSP server to use";
       };
@@ -83,13 +77,14 @@ in {
         grammars = [cfg.treesitter.package];
       };
     })
+
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["qml"];
+        });
+      };
     })
 
     (mkIf (cfg.format.enable && !cfg.lsp.enable) {

@@ -5,30 +5,19 @@
   ...
 }: let
   inherit (builtins) attrNames;
-  inherit (lib.meta) getExe;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) bool enum;
+  inherit (lib.types) bool enum listOf;
+  inherit (lib) genAttrs;
   inherit (lib.lists) optional;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.html;
 
   defaultServers = ["superhtml"];
-  servers = {
-    superhtml = {
-      cmd = [(getExe pkgs.superhtml) "lsp"];
-      filetypes = ["html" "shtml" "htm"];
-      root_markers = ["index.html" ".git"];
-    };
-    emmet-ls = {
-      cmd = [(getExe pkgs.emmet-ls) "--stdio"];
-      filetypes = ["html" "shtml" "htm"];
-      root_markers = ["index.html" ".git"];
-    };
-  };
+  servers = ["superhtml" "emmet-ls" "angular-language-server" "stimulus-language-server"];
 
   defaultFormat = ["superhtml"];
   formats = {
@@ -39,11 +28,7 @@
   };
 
   defaultDiagnosticsProvider = ["htmlhint"];
-  diagnosticsProviders = {
-    htmlhint = {
-      config.cmd = getExe pkgs.htmlhint;
-    };
-  };
+  diagnosticsProviders = ["htmlhint"];
 in {
   options.vim.languages.html = {
     enable = mkEnableOption "HTML language support";
@@ -70,7 +55,7 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.html.lsp.servers" (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
         description = "HTML LSP server to use";
       };
@@ -93,16 +78,16 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra HTML diagnostics"
+        mkEnableOption "extra HTML diagnostics via nvim-lint"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
 
-      types = diagnostics {
-        langDesc = "HTML";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra HTML diagnostics providers";
       };
     };
   };
@@ -124,12 +109,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["html" "xhtml"];
+        });
+      };
     })
 
     (mkIf (cfg.format.enable && !cfg.lsp.enable) {
@@ -148,13 +133,12 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics.nvim-lint = {
-        enable = true;
-        linters_by_ft.html = cfg.extraDiagnostics.types;
-        linters = mkMerge (map (name: {
-            ${name} = diagnosticsProviders.${name}.config;
-          })
-          cfg.extraDiagnostics.types);
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+        nvim-lint = {
+          enable = true;
+          linters_by_ft.html = cfg.extraDiagnostics.types;
+        };
       };
     })
   ]);

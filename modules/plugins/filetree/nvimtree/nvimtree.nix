@@ -1,13 +1,15 @@
 {
+  config,
   pkgs,
   lib,
   ...
 }: let
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.types) nullOr str bool int submodule listOf enum oneOf attrs addCheck;
+  inherit (lib.types) str bool int submodule listOf enum oneOf attrs addCheck;
   inherit (lib.nvim.types) mkPluginSetupOption;
   inherit (lib.nvim.config) batchRenameOptions;
+  inherit (config.vim.lib) mkMappingOption;
 
   migrationTable = {
     disableNetrw = "disable_netrw";
@@ -26,10 +28,6 @@
     reloadOnBufEnter = "reload_on_buf_enter";
     respectBufCwd = "respect_buf_cwd";
     hijackDirectories = "hijack_directories";
-    systemOpen = {
-      args = "args";
-      cmd = "cmd";
-    };
     diagnostics = "diagnostics";
     git = {
       enable = "enable";
@@ -76,26 +74,10 @@ in {
     enable = mkEnableOption "filetree via nvim-tree.lua";
 
     mappings = {
-      toggle = mkOption {
-        type = nullOr str;
-        default = "<leader>t";
-        description = "Toggle NvimTree";
-      };
-      refresh = mkOption {
-        type = nullOr str;
-        default = "<leader>tr";
-        description = "Refresh NvimTree";
-      };
-      findFile = mkOption {
-        type = nullOr str;
-        default = "<leader>tg";
-        description = "Find file in NvimTree";
-      };
-      focus = mkOption {
-        type = nullOr str;
-        default = "<leader>tf";
-        description = "Focus NvimTree";
-      };
+      toggle = mkMappingOption "Toggle NvimTree" "<leader>t";
+      refresh = mkMappingOption "Refresh NvimTree" "<leader>tr";
+      findFile = mkMappingOption "Find file in NvimTree" "<leader>tg";
+      focus = mkMappingOption "Focus NvimTree" "<leader>tf";
     };
 
     setupOpts = mkPluginSetupOption "Nvim Tree" {
@@ -239,25 +221,6 @@ in {
             Opens the tree if the tree was previously closed.
           '';
           default = false;
-        };
-      };
-
-      system_open = {
-        args = mkOption {
-          default = [];
-          description = "Optional argument list.";
-          type = listOf str;
-        };
-
-        cmd = mkOption {
-          default =
-            if pkgs.stdenv.isDarwin
-            then "open"
-            else if pkgs.stdenv.isLinux
-            then "${pkgs.xdg-utils}/bin/xdg-open"
-            else throw "NvimTree: No default system open command for this platform, please set `vim.filetree.nvimTree.systemOpen.cmd`";
-          description = "The open command itself";
-          type = str;
         };
       };
 

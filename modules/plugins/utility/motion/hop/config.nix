@@ -5,21 +5,23 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.nvim.binds) addDescriptionsToMappings mkSetBinding;
+  inherit (lib.nvim.binds) mkKeymap;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.utility.motion.hop;
 
-  mappingDefinitions = options.vim.utility.motion.hop.mappings;
-  mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
+  inherit (options.vim.utility.motion.hop) mappings;
 in {
-  config = mkIf cfg.enable {
-    vim.startPlugins = ["hop.nvim"];
+  config.vim = mkIf cfg.enable {
+    startPlugins = ["hop.nvim"];
 
-    vim.maps.normal = mkSetBinding mappings.hop "<cmd> HopPattern<CR>";
+    keymaps = [
+      (mkKeymap "n" cfg.mappings.hop "<cmd>HopPattern<CR>" {desc = mappings.hop.description;})
+    ];
 
-    vim.pluginRC.hop-nvim = entryAnywhere ''
-      require('hop').setup()
+    pluginRC.hop-nvim = entryAnywhere ''
+      require('hop').setup(${toLuaObject cfg.setupOpts})
     '';
   };
 }

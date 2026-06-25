@@ -8,51 +8,16 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
+  inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
-  inherit (lib.types) enum coercedTo;
-  inherit (lib.nvim.types) mkGrammarOption diagnostics deprecatedSingleOrListOf;
+  inherit (lib.types) enum coercedTo listOf;
+  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.languages.svelte;
 
-  defaultServers = ["svelte"];
-  servers = {
-    svelte = {
-      enable = true;
-      cmd = [(getExe pkgs.svelte-language-server) "--stdio"];
-      filetypes = ["svelte"];
-      root_dir = mkLuaInline ''
-        function(bufnr, on_dir)
-          local root_files = { 'package.json', '.git' }
-          local fname = vim.api.nvim_buf_get_name(bufnr)
-          -- Svelte LSP only supports file:// schema. https://github.com/sveltejs/language-tools/issues/2777
-          if vim.uv.fs_stat(fname) ~= nil then
-            on_dir(vim.fs.dirname(vim.fs.find(root_files, { path = fname, upward = true })[1]))
-          end
-        end
-      '';
-      on_attach = mkLuaInline ''
-        function(client, bufnr)
-          vim.api.nvim_create_autocmd('BufWritePost', {
-            pattern = { '*.js', '*.ts' },
-            group = vim.api.nvim_create_augroup('svelte_js_ts_file_watch', {}),
-            callback = function(ctx)
-              -- internal API to sync changes that have not yet been saved to the file system
-              client:notify('$/onDidChangeTsOrJsFile', { uri = ctx.match })
-            end,
-          })
-
-          vim.api.nvim_buf_create_user_command(bufnr, 'LspMigrateToSvelte5', function()
-            client:exec_cmd({
-              command = 'migrate_to_svelte_5',
-              arguments = { vim.uri_from_bufnr(bufnr) },
-            })
-          end, { desc = 'Migrate Component to Svelte 5 Syntax' })
-        end
-      '';
-    };
-  };
+  defaultServers = ["svelte-language-server"];
+  servers = ["svelte-language-server" "emmet-ls"];
 
   defaultFormat = ["prettier"];
   formats = let
@@ -70,26 +35,8 @@
     };
   };
 
-  # TODO: specify packages
   defaultDiagnosticsProvider = ["eslint_d"];
-  diagnosticsProviders = {
-    eslint_d = let
-      pkg = pkgs.eslint_d;
-    in {
-      package = pkg;
-      config = {
-        cmd = getExe pkg;
-        required_files = [
-          "eslint.config.js"
-          "eslint.config.mjs"
-          ".eslintrc"
-          ".eslintrc.json"
-          ".eslintrc.js"
-          ".eslintrc.yml"
-        ];
-      };
-    };
-  };
+  diagnosticsProviders = ["eslint_d"];
 
   formatType =
     deprecatedSingleOrListOf
@@ -123,7 +70,7 @@ in {
         };
 
       servers = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.svelte.lsp.servers" (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Svelte LSP server to use";
       };
@@ -146,16 +93,16 @@ in {
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra Svelte diagnostics"
+        mkEnableOption "extra Svelte diagnostics via nvim-lint"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
 
-      types = diagnostics {
-        langDesc = "Svelte";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra Svelte diagnostics providers";
       };
     };
   };
@@ -167,12 +114,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["svelte"];
+        });
+      };
     })
 
     (mkIf cfg.format.enable {
@@ -191,12 +138,12 @@ in {
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics.nvim-lint = {
-        enable = true;
-        linters_by_ft.svelte = cfg.extraDiagnostics.types;
-        linters =
-          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
-            cfg.extraDiagnostics.types);
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+        nvim-lint = {
+          enable = true;
+          linters_by_ft.svelte = cfg.extraDiagnostics.types;
+        };
       };
     })
   ]);

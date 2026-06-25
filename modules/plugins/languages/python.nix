@@ -7,185 +7,19 @@
   inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.lists) flatten;
-  inherit (lib.meta) getExe getExe';
+  inherit (lib) genAttrs;
+  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum package bool;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.types) deprecatedSingleOrListOf diagnostics;
+  inherit (lib.types) enum package bool listOf;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.dag) entryBefore;
+  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.types) deprecatedSingleOrListOf;
   inherit (lib.trivial) warn;
 
   cfg = config.vim.languages.python;
 
   defaultServers = ["basedpyright"];
-  servers = {
-    pyrefly = {
-      enable = true;
-      cmd = [(getExe pkgs.pyrefly) "server"];
-      filetypes = ["python"];
-      root_markers = [
-        "pyproject.toml"
-        "pyrefly.toml"
-        "setup.py"
-        "setup.cfg"
-        "requirements.txt"
-        "Pipfile"
-        ".git"
-      ];
-    };
-
-    pyright = {
-      enable = true;
-      cmd = [(getExe' pkgs.pyright "pyright-langserver") "--stdio"];
-      filetypes = ["python"];
-      root_markers = [
-        "pyproject.toml"
-        "setup.py"
-        "setup.cfg"
-        "requirements.txt"
-        "Pipfile"
-        "pyrightconfig.json"
-        ".git"
-      ];
-      settings = {
-        python = {
-          analysis = {
-            autoSearchPaths = true;
-            useLibraryCodeForTypes = true;
-            diagnosticMode = "openFilesOnly";
-          };
-        };
-      };
-      on_attach = mkLuaInline ''
-        function(client, bufnr)
-          vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightOrganizeImports', function()
-            local params = {
-              command = 'pyright.organizeimports',
-              arguments = { vim.uri_from_bufnr(bufnr) },
-            }
-
-            -- Using client.request() directly because "pyright.organizeimports" is private
-            -- (not advertised via capabilities), which client:exec_cmd() refuses to call.
-            -- https://github.com/neovim/neovim/blob/c333d64663d3b6e0dd9aa440e433d346af4a3d81/runtime/lua/vim/lsp/client.lua#L1024-L1030
-            client.request('workspace/executeCommand', params, nil, bufnr)
-          end, {
-            desc = 'Organize Imports',
-          })
-          vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightSetPythonPath', set_python_path, {
-            desc = 'Reconfigure basedpyright with the provided python path',
-            nargs = 1,
-            complete = 'file',
-          })
-        end
-      '';
-    };
-
-    basedpyright = {
-      enable = true;
-      cmd = [(getExe' pkgs.basedpyright "basedpyright-langserver") "--stdio"];
-      filetypes = ["python"];
-      root_markers = [
-        "pyproject.toml"
-        "setup.py"
-        "setup.cfg"
-        "requirements.txt"
-        "Pipfile"
-        "pyrightconfig.json"
-        ".git"
-      ];
-      settings = {
-        basedpyright = {
-          analysis = {
-            autoSearchPaths = true;
-            useLibraryCodeForTypes = true;
-            diagnosticMode = "openFilesOnly";
-          };
-        };
-      };
-      on_attach = mkLuaInline ''
-        function(client, bufnr)
-          vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightOrganizeImports', function()
-            local params = {
-              command = 'basedpyright.organizeimports',
-              arguments = { vim.uri_from_bufnr(bufnr) },
-            }
-
-            -- Using client.request() directly because "basedpyright.organizeimports" is private
-            -- (not advertised via capabilities), which client:exec_cmd() refuses to call.
-            -- https://github.com/neovim/neovim/blob/c333d64663d3b6e0dd9aa440e433d346af4a3d81/runtime/lua/vim/lsp/client.lua#L1024-L1030
-            client.request('workspace/executeCommand', params, nil, bufnr)
-          end, {
-            desc = 'Organize Imports',
-          })
-
-          vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightSetPythonPath', set_python_path, {
-            desc = 'Reconfigure basedpyright with the provided python path',
-            nargs = 1,
-            complete = 'file',
-          })
-        end
-      '';
-    };
-
-    python-lsp-server = {
-      enable = true;
-      cmd = [(getExe pkgs.python3Packages.python-lsp-server)];
-      filetypes = ["python"];
-      root_markers = [
-        "pyproject.toml"
-        "setup.py"
-        "setup.cfg"
-        "requirements.txt"
-        "Pipfile"
-        ".git"
-      ];
-    };
-
-    ruff = {
-      enable = true;
-      cmd = [(getExe pkgs.ruff) "server"];
-      filetypes = ["python"];
-      root_markers = [
-        "pyproject.toml"
-        "setup.py"
-        "setup.cfg"
-        "requirements.txt"
-        "Pipfile"
-        ".git"
-      ];
-    };
-
-    ty = {
-      enable = true;
-      cmd = [(getExe pkgs.ty) "server"];
-      filetypes = ["python"];
-      root_markers = [
-        "pyproject.toml"
-        "setup.py"
-        "setup.cfg"
-        "requirements.txt"
-        "Pipfile"
-        ".git"
-      ];
-    };
-
-    zuban = {
-      enable = true;
-      cmd = [(getExe pkgs.zuban) "server"];
-      filetypes = ["python"];
-      root_markers = [
-        "pyproject.toml"
-        "setup.py"
-        "setup.cfg"
-        "requirements.txt"
-        "Pipfile"
-        ".git"
-        "mypy.ini"
-        ".mypy.ini"
-      ];
-    };
-  };
+  servers = ["pyrefly" "pyright" "basedpyright" "python-lsp-server" "ruff" "ty" "zuban"];
 
   defaultFormat = ["black"];
   formats = {
@@ -216,76 +50,37 @@
     };
   };
 
-  defaultDebugger = "debugpy";
-  debuggers = {
-    debugpy = {
-      # idk if this is the best way to install/run debugpy
-      package = pkgs.python3.withPackages (ps: with ps; [debugpy]);
-      dapConfig = ''
-        dap.adapters.debugpy = function(cb, config)
-          if config.request == 'attach' then
-            ---@diagnostic disable-next-line: undefined-field
-            local port = (config.connect or config).port
-            ---@diagnostic disable-next-line: undefined-field
-            local host = (config.connect or config).host or '127.0.0.1'
-            cb({
-              type = 'server',
-              port = assert(port, '`connect.port` is required for a python `attach` configuration'),
-              host = host,
-              options = {
-                source_filetype = 'python',
-              },
-            })
-          else
-            cb({
-              type = 'executable',
-              command = '${getExe cfg.dap.package}',
-              args = { '-m', 'debugpy.adapter' },
-              options = {
-                source_filetype = 'python',
-              },
-            })
+  defaultDebugger = ["debugpy"];
+  dapConfigurations = {
+    debugpy = [
+      {
+        type = "debugpy";
+        request = "launch";
+        name = "Launch file";
+
+        program = "\${file}";
+        pythonPath = mkLuaInline ''
+          function()
+            -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
+            -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
+            -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
+            local cwd = vim.fn.getcwd()
+            if vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
+              return cwd .. "/venv/bin/python"
+            elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
+              return cwd .. "/.venv/bin/python"
+            elseif vim.fn.executable("python") == 1 then
+              return vim.fn.exepath("python")
+            else -- this uses the same python package as the debugger
+              return nil
+            end
           end
-        end
-
-        dap.configurations.python = {
-          {
-            -- The first three options are required by nvim-dap
-            type = 'debugpy'; -- the type here established the link to the adapter definition: `dap.adapters.debugpy`
-            request = 'launch';
-            name = "Launch file";
-
-            -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
-
-            program = "''${file}"; -- This configuration will launch the current file if used.
-            pythonPath = function()
-              -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
-              -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
-              -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
-              local cwd = vim.fn.getcwd()
-              if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
-                return cwd .. '/venv/bin/python'
-              elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
-                return cwd .. '/.venv/bin/python'
-              elseif vim.fn.executable("python") == 1 then
-                return vim.fn.exepath("python")
-              else -- WARNING cfg.dap.package probably has NO libraries other than builtins and debugpy
-                return '${getExe cfg.dap.package}'
-              end
-            end;
-          },
-        }
-      '';
-    };
+        '';
+      }
+    ];
   };
   defaultDiagnosticsProvider = ["mypy"];
-  diagnosticsProviders = {
-    mypy = {
-      config = {
-        cmd = getExe' pkgs.mypy "mypy";
-      };
-    };
-  };
+  diagnosticsProviders = ["mypy"];
 in {
   options.vim.languages.python = {
     enable = mkEnableOption "Python language support";
@@ -313,7 +108,7 @@ in {
         };
 
       servers = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.python.lsp.servers" (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Python LSP server to use";
       };
@@ -344,33 +139,23 @@ in {
       };
 
       debugger = mkOption {
-        type = enum (attrNames debuggers);
+        type = deprecatedSingleOrListOf "vim.languages.python.dap.debugger" (enum (attrNames dapConfigurations));
         default = defaultDebugger;
         description = "Python debugger to use";
-      };
-
-      package = mkOption {
-        type = package;
-        default = debuggers.${cfg.dap.debugger}.package;
-        example = literalExpression "with pkgs; python39.withPackages (ps: with ps; [debugpy])";
-        description = ''
-          Python debugger package.
-          This is a python package with debugpy installed, see https://nixos.wiki/wiki/Python#Install_Python_Packages.
-        '';
       };
     };
 
     extraDiagnostics = {
       enable =
-        mkEnableOption "extra Python diagnostics"
+        mkEnableOption "extra Python diagnostics via nvim-lint"
         // {
           default = config.vim.languages.enableExtraDiagnostics;
           defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
         };
-      types = diagnostics {
-        langDesc = "Python";
-        inherit diagnosticsProviders;
-        inherit defaultDiagnosticsProvider;
+      types = mkOption {
+        type = listOf (enum diagnosticsProviders);
+        default = defaultDiagnosticsProvider;
+        description = "extra Python diagnostics providers";
       };
     };
   };
@@ -382,35 +167,19 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.luaConfigRC.python-util =
-        entryBefore ["lsp-servers"]
-        /*
-        lua
-        */
-        ''
-          local function set_python_path(server_name, command)
-            local path = command.args
-            local clients = vim.lsp.get_clients {
-              bufnr = vim.api.nvim_get_current_buf(),
-              name = server_name,
-            }
-            for _, client in ipairs(clients) do
-              if client.settings then
-                client.settings.python = vim.tbl_deep_extend('force', client.settings.python or {}, { pythonPath = path })
-              else
-                client.config.settings = vim.tbl_deep_extend('force', client.config.settings, { python = { pythonPath = path } })
-              end
-              client:notify('workspace/didChangeConfiguration', { settings = nil })
-            end
-          end
-        '';
-
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["python"];
+          root_markers = [
+            "Pipfile"
+            "pyproject.toml"
+            "requirements.txt"
+            "setup.cfg"
+            "setup.py"
+          ];
+        });
+      };
     })
 
     (mkIf cfg.format.enable {
@@ -439,17 +208,20 @@ in {
     })
 
     (mkIf cfg.dap.enable {
-      vim.debugger.nvim-dap.enable = true;
-      vim.debugger.nvim-dap.sources.python-debugger = debuggers.${cfg.dap.debugger}.dapConfig;
+      vim.debugger.nvim-dap = {
+        enable = true;
+        presets = genAttrs cfg.dap.debugger (_: {enable = true;});
+        configurations.python = flatten (map (name: dapConfigurations.${name}) cfg.dap.debugger);
+      };
     })
 
     (mkIf cfg.extraDiagnostics.enable {
-      vim.diagnostics.nvim-lint = {
-        enable = true;
-        linters_by_ft.python = cfg.extraDiagnostics.types;
-        linters =
-          mkMerge (map (name: {${name} = diagnosticsProviders.${name}.config;})
-            cfg.extraDiagnostics.types);
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+        nvim-lint = {
+          enable = true;
+          linters_by_ft.python = cfg.extraDiagnostics.types;
+        };
       };
     })
   ]);

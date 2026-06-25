@@ -21,4 +21,5 @@ configuring/keybinds.md
 configuring/dags.md
 configuring/dag-entries.md
 configuring/autocmds.md
+configuring/queries.md
 ```

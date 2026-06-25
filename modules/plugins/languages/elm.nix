@@ -4,26 +4,16 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
-  inherit (lib.meta) getExe;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.types) enum listOf;
+  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib) genAttrs;
 
   cfg = config.vim.languages.elm;
 
   defaultServers = ["elm-language-server"];
-  servers = {
-    elm-language-server = {
-      enable = true;
-      cmd = [(getExe pkgs.elmPackages.elm-language-server)];
-      filetypes = ["elm"];
-      root_markers = ["elm.json"];
-      workspace_required = false;
-    };
-  };
+  servers = ["elm-language-server"];
 in {
   options.vim.languages.elm = {
     enable = mkEnableOption "Elm language support";
@@ -47,7 +37,7 @@ in {
         };
 
       servers = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.elm.lsp.servers" (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Elm LSP servers to use";
       };
@@ -63,13 +53,11 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim = {
-        lsp.servers =
-          mapListToAttrs (n: {
-            name = n;
-            value = servers.${n};
-          })
-          cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["elm"];
+        });
       };
     })
   ]);

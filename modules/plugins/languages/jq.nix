@@ -8,6 +8,7 @@
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
+  inherit (lib) genAttrs;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) mkGrammarOption;
@@ -15,14 +16,7 @@
   cfg = config.vim.languages.jq;
 
   defaultServers = ["jq-lsp"];
-  servers = {
-    jq-lsp = {
-      enable = true;
-      cmd = [(getExe pkgs.jq-lsp)];
-      filetypes = ["jq"];
-      root_markers = [".git"];
-    };
-  };
+  servers = ["jq-lsp"];
 
   defaultFormat = ["jqfmt"];
   formats = {
@@ -57,7 +51,7 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = listOf (enum (attrNames servers));
+        type = listOf (enum servers);
         default = defaultServers;
         description = "JQ LSP server to use";
       };
@@ -88,12 +82,12 @@ in {
     })
 
     (mkIf cfg.lsp.enable {
-      vim.lsp.servers =
-        mapListToAttrs (n: {
-          name = n;
-          value = servers.${n};
-        })
-        cfg.lsp.servers;
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["jq"];
+        });
+      };
     })
 
     (mkIf cfg.format.enable {

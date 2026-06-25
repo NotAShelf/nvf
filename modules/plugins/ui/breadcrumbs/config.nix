@@ -3,6 +3,7 @@
   lib,
   ...
 }: let
+  inherit (lib.attrsets) filterAttrs mapAttrs';
   inherit (lib.strings) optionalString;
   inherit (lib.modules) mkIf;
   inherit (lib.lists) optionals;
@@ -30,57 +31,62 @@ in {
       ];
 
     vim.ui.breadcrumbs.navbuddy.setupOpts = {
-      mappings = {
-        ${cfg.navbuddy.mappings.close} = mkLuaInline "actions.close()";
-        ${cfg.navbuddy.mappings.nextSibling} = mkLuaInline "actions.next_sibling()";
-        ${cfg.navbuddy.mappings.previousSibling} = mkLuaInline "actions.previous_sibling()";
-        ${cfg.navbuddy.mappings.parent} = mkLuaInline "actions.parent()";
-        ${cfg.navbuddy.mappings.children} = mkLuaInline "actions.children()";
-        ${cfg.navbuddy.mappings.root} = mkLuaInline "actions.root()";
+      mappings =
+        mapAttrs' (mapping-name: action: {
+          name = cfg.navbuddy.mappings.${mapping-name};
+          value = action;
+        }) (filterAttrs (mapping-name: _action: cfg.navbuddy.mappings.${mapping-name} != null)
+          {
+            close = mkLuaInline "actions.close()";
+            nextSibling = mkLuaInline "actions.next_sibling()";
+            previousSibling = mkLuaInline "actions.previous_sibling()";
+            parent = mkLuaInline "actions.parent()";
+            children = mkLuaInline "actions.children()";
+            root = mkLuaInline "actions.root()";
 
-        ${cfg.navbuddy.mappings.visualName} = mkLuaInline "actions.visual_name()";
-        ${cfg.navbuddy.mappings.visualScope} = mkLuaInline "actions.visual_scope()";
+            visualName = mkLuaInline "actions.visual_name()";
+            visualScope = mkLuaInline "actions.visual_scope()";
 
-        ${cfg.navbuddy.mappings.yankName} = mkLuaInline "actions.yank_name()";
-        ${cfg.navbuddy.mappings.yankScope} = mkLuaInline "actions.yank_scope()";
+            yankName = mkLuaInline "actions.yank_name()";
+            yankScope = mkLuaInline "actions.yank_scope()";
 
-        ${cfg.navbuddy.mappings.insertName} = mkLuaInline "actions.insert_name()";
-        ${cfg.navbuddy.mappings.insertScope} = mkLuaInline "actions.insert_scope()";
+            insertName = mkLuaInline "actions.insert_name()";
+            insertScope = mkLuaInline "actions.insert_scope()";
 
-        ${cfg.navbuddy.mappings.appendName} = mkLuaInline "actions.append_name()";
-        ${cfg.navbuddy.mappings.appendScope} = mkLuaInline "actions.append_scope()";
+            appendName = mkLuaInline "actions.append_name()";
+            appendScope = mkLuaInline "actions.append_scope()";
 
-        ${cfg.navbuddy.mappings.rename} = mkLuaInline "actions.rename()";
+            rename = mkLuaInline "actions.rename()";
 
-        ${cfg.navbuddy.mappings.delete} = mkLuaInline "actions.delete()";
+            delete = mkLuaInline "actions.delete()";
 
-        ${cfg.navbuddy.mappings.foldCreate} = mkLuaInline "actions.fold_create()";
-        ${cfg.navbuddy.mappings.foldDelete} = mkLuaInline "actions.fold_delete()";
+            foldCreate = mkLuaInline "actions.fold_create()";
+            foldDelete = mkLuaInline "actions.fold_delete()";
 
-        ${cfg.navbuddy.mappings.comment} = mkLuaInline "actions.comment()";
+            comment = mkLuaInline "actions.comment()";
 
-        ${cfg.navbuddy.mappings.select} = mkLuaInline "actions.select()";
+            select = mkLuaInline "actions.select()";
 
-        ${cfg.navbuddy.mappings.moveDown} = mkLuaInline "actions.move_down()";
-        ${cfg.navbuddy.mappings.moveUp} = mkLuaInline "actions.move_up()";
+            moveDown = mkLuaInline "actions.move_down()";
+            moveUp = mkLuaInline "actions.move_up()";
 
-        ${cfg.navbuddy.mappings.togglePreview} = mkLuaInline "actions.toggle_preview()";
+            togglePreview = mkLuaInline "actions.toggle_preview()";
 
-        ${cfg.navbuddy.mappings.vsplit} = mkLuaInline "actions.vsplit()";
-        ${cfg.navbuddy.mappings.hsplit} = mkLuaInline "actions.hsplit()";
+            vsplit = mkLuaInline "actions.vsplit()";
+            hsplit = mkLuaInline "actions.hsplit()";
 
-        ${cfg.navbuddy.mappings.telescope} = mkLuaInline ''
-          actions.telescope({
-            layout_strategy = "horizontal",
-            layout_config = {
-              height = 0.60,
-              width = 0.75,
-              prompt_position = "top",
-              preview_width = 0.50
-            },
-          })'';
-        ${cfg.navbuddy.mappings.help} = mkLuaInline "actions.help()";
-      };
+            telescope = mkLuaInline ''
+              actions.telescope({
+                layout_strategy = "horizontal",
+                layout_config = {
+                  height = 0.60,
+                  width = 0.75,
+                  prompt_position = "top",
+                  preview_width = 0.50
+                },
+              })'';
+            help = mkLuaInline "actions.help()";
+          });
     };
 
     vim.pluginRC.breadcrumbs = entryAfter ["lspconfig"] ''

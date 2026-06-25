@@ -21,11 +21,11 @@
   '';
 
   mkLuaKeymap = mode: key: action: desc: opts:
-    opts
-    // {
-      inherit mode key action desc;
-      lua = true;
-    };
+    mkIf (key != null) (opts
+      // {
+        inherit mode key action desc;
+        lua = true;
+      });
 in {
   config = mkIf cfg.enable {
     vim = {

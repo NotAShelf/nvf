@@ -8,6 +8,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) nullOr str enum float;
   inherit (lib.nvim.types) mkPluginSetupOption;
+  inherit (config.vim.lib) mkMappingOption;
 
   cfg = config.vim.assistant.copilot;
 in {
@@ -59,72 +60,19 @@ in {
 
     mappings = {
       panel = {
-        jumpPrev = mkOption {
-          type = nullOr str;
-          default = "[[";
-          description = "Jump to previous suggestion";
-        };
-
-        jumpNext = mkOption {
-          type = nullOr str;
-          default = "]]";
-          description = "Jump to next suggestion";
-        };
-
-        accept = mkOption {
-          type = nullOr str;
-          default = "<CR>";
-          description = "Accept suggestion";
-        };
-
-        refresh = mkOption {
-          type = nullOr str;
-          default = "gr";
-          description = "Refresh suggestions";
-        };
-
-        open = mkOption {
-          type = nullOr str;
-          default = "<M-CR>";
-          description = "Open suggestions";
-        };
+        jumpPrev = mkMappingOption "Jump to previous suggestion" "[[";
+        jumpNext = mkMappingOption "Jump to next suggestion" "]]";
+        accept = mkMappingOption "Accept suggestion" "<CR>";
+        refresh = mkMappingOption "Refresh suggestions" "gr";
+        open = mkMappingOption "Open suggestions" "<M-CR>";
       };
       suggestion = {
-        accept = mkOption {
-          type = nullOr str;
-          default = "<M-l>";
-          description = "Accept suggestion";
-        };
-
-        acceptWord = mkOption {
-          type = nullOr str;
-          default = null;
-          description = "Accept next word";
-        };
-
-        acceptLine = mkOption {
-          type = nullOr str;
-          default = null;
-          description = "Accept next line";
-        };
-
-        prev = mkOption {
-          type = nullOr str;
-          default = "<M-[>";
-          description = "Previous suggestion";
-        };
-
-        next = mkOption {
-          type = nullOr str;
-          default = "<M-]>";
-          description = "Next suggestion";
-        };
-
-        dismiss = mkOption {
-          type = nullOr str;
-          default = "<C-]>";
-          description = "Dismiss suggestion";
-        };
+        accept = mkMappingOption "Accept suggestion" "<M-l>";
+        acceptWord = mkMappingOption "Accept next word" null;
+        acceptLine = mkMappingOption "Accept next line" null;
+        prev = mkMappingOption "Previous suggestion" "<M-[>";
+        next = mkMappingOption "Next suggestion" "<M-]>";
+        dismiss = mkMappingOption "Dismiss suggestion" "<C-]>";
       };
     };
   };

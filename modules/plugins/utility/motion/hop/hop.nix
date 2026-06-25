@@ -1,6 +1,11 @@
-{lib, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib.options) mkEnableOption;
-  inherit (lib.nvim.binds) mkMappingOption;
+  inherit (lib.nvim.types) mkPluginSetupOption;
+  inherit (config.vim.lib) mkMappingOption;
 in {
   options.vim.utility.motion.hop = {
     mappings = {
@@ -8,5 +13,6 @@ in {
     };
 
     enable = mkEnableOption "Hop.nvim plugin (easy motion)";
+    setupOpts = mkPluginSetupOption "hop.nvim" {};
   };
 }

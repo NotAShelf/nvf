@@ -14,6 +14,9 @@ footer_text = "Generated with ndg"
 
 generate_anchors = true
 
+# For our custom queries
+syntax_queries_path = "queries"
+
 # Search configuration
 [search]
 enable = true

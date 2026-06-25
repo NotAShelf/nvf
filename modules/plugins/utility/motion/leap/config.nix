@@ -14,8 +14,8 @@ in {
       lazy.plugins.leap-nvim = {
         package = "leap-nvim";
         keys = [
-          (mkKeymap ["n" "o" "x"] cfg.mappings.leapForwardTo "<Plug>(leap-forward-to)" {desc = "Leap forward to";})
-          (mkKeymap ["n" "o" "x"] cfg.mappings.leapBackwardTo "<Plug>(leap-backward-to)" {desc = "Leap backward to";})
+          (mkKeymap ["n" "o" "x"] cfg.mappings.leapForwardTo "<Plug>(leap-forward)" {desc = "Leap forward";})
+          (mkKeymap ["n" "o" "x"] cfg.mappings.leapBackwardTo "<Plug>(leap-backward)" {desc = "Leap backward";})
           (mkKeymap ["n" "o" "x"] cfg.mappings.leapForwardTill "<Plug>(leap-forward-till)" {desc = "Leap forward till";})
           (mkKeymap ["n" "o" "x"] cfg.mappings.leapBackwardTill "<Plug>(leap-backward-till)" {desc = "Leap backward till";})
           (mkKeymap ["n" "o" "x"] cfg.mappings.leapFromWindow "<Plug>(leap-from-window)" {desc = "Leap from window";})

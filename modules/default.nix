@@ -10,7 +10,7 @@
   extraModules ? [],
   configuration ? {},
 }: let
-  inherit (lib.strings) toString;
+  inherit (builtins) toString;
   inherit (lib.lists) concatLists;
 
   # import modules.nix with `check`, `pkgs` and `lib` as arguments
