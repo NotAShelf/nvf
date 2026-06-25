@@ -1,6 +1,7 @@
 {
   pkgs,
   self,
+  system,
   ...
 }: {
   nvf-nix = pkgs.testers.runNixOSTest {
@@ -8,7 +9,7 @@
     nodes.machine = {
       virtualisation.graphics = false;
       virtualisation.memorySize = 512;
-      environment.systemPackages = [self.packages.${pkgs.stdenv.hostPlatform.system}.nix];
+      environment.systemPackages = [self.packages.${system}.nix];
     };
 
     testScript = ''
@@ -23,7 +24,7 @@
     nodes.machine = {
       virtualisation.graphics = false;
       virtualisation.memorySize = 512;
-      environment.systemPackages = [self.packages.${pkgs.stdenv.hostPlatform.system}.maximal];
+      environment.systemPackages = [self.packages.${system}.maximal];
     };
 
     testScript = ''
