@@ -1,6 +1,6 @@
 {
   imports = [
-    ./modes.nix
+    ./modes-nvim.nix
     ./config.nix
   ];
 }

@@ -7,7 +7,7 @@
     ./colorizer
     ./fastaction
     ./illuminate
-    ./modes
+    ./modes-nvim
     ./noice
     ./notifications
     ./nvim-ufo
