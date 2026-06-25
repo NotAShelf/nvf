@@ -8,11 +8,12 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
   inherit (lib.attrsets) attrNames genAttrs;
+  inherit (lib.lists) flatten;
   inherit (lib.types) bool package listOf enum int;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf enumWithRename;
   inherit (lib.strings) optionalString;
   inherit (lib.generators) mkLuaInline;
 
@@ -26,6 +27,48 @@
     rustfmt = {
       command = getExe pkgs.rustfmt;
     };
+  };
+
+  defaultDebugger = ["codelldb"];
+  dapConfigurations = {
+    lldb = [
+      {
+        name = "Launch file";
+        type = "lldb";
+        request = "launch";
+        program = mkLuaInline ''
+          function()
+            return nvf_dap_cached_input(
+              'rust_lldb_launch_exe',
+              "Path to executable: ",
+              vim.fn.getcwd() .. "/target/debug/",
+              "file")
+          end
+        '';
+        cwd = "\${workspaceFolder}";
+        stopOnEntry = false;
+        args = [];
+      }
+    ];
+    codelldb = [
+      {
+        name = "Launch file";
+        type = "codelldb";
+        request = "launch";
+        program = mkLuaInline ''
+          function()
+            return nvf_dap_cached_input(
+              'rust_codelldb_launch_exe',
+              "Path to executable: ",
+              vim.fn.getcwd() .. "/target/debug/",
+              "file")
+          end
+        '';
+        cwd = "\${workspaceFolder}";
+        stopOnEntry = false;
+        args = [];
+      }
+    ];
   };
 in {
   options.vim.languages.rust = {
@@ -82,22 +125,25 @@ in {
       };
 
       package = mkOption {
-        description = "lldb package";
+        description = "lldb package, used when the lldb debugger is selected";
         type = package;
         default = pkgs.lldb;
       };
 
-      adapter = mkOption {
-        type = enum ["lldb-dap" "codelldb"];
-        default = "codelldb";
+      debugger = mkOption {
         description = ''
-          Select which LLDB-based debug adapter to use:
+          Rust debugger to use.
 
-          - "codelldb": use the CodeLLDB adapter from the vadimcn.vscode-lldb extension.
-          - "lldb-dap": use the LLDB DAP implementation shipped with LLVM (lldb-dap).
-
-          The default "codelldb" backend generally provides a better debugging experience for Rust.
+          - `"codelldb"`: use the CodeLLDB adapter from the vadimcn.vscode-lldb extension.
+            Generally provides a better debugging experience for Rust.
+          - `"lldb"`: use the LLDB DAP implementation shipped with LLVM (`lldb-dap`).
         '';
+        type =
+          deprecatedSingleOrListOf "vim.languages.rust.dap.debugger"
+          (enumWithRename "vim.languages.rust.dap.debugger" (attrNames dapConfigurations) {
+            "lldb-dap" = "lldb";
+          });
+        default = defaultDebugger;
       };
     };
 
@@ -223,7 +269,7 @@ in {
             description = "DAP configuration";
             default = {
               adapter =
-                if cfg.dap.adapter == "lldb-dap"
+                if builtins.elem "lldb" cfg.dap.debugger
                 then
                   mkLuaInline ''
                     {
@@ -276,6 +322,14 @@ in {
             "rust"
           ];
         });
+      };
+    })
+
+    (mkIf cfg.dap.enable {
+      vim.debugger.nvim-dap = {
+        enable = true;
+        presets = genAttrs cfg.dap.debugger (_: {enable = true;});
+        configurations.rust = flatten (map (name: dapConfigurations.${name}) cfg.dap.debugger);
       };
     })
 
