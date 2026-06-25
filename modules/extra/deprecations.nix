@@ -430,5 +430,14 @@ in {
         instead.
       '')
     ]
+
+    # 2026-06-25
+    [
+      (mkRemovedOptionModule ["vim" "languages" "rust" "dap" "adapter"] ''
+        `vim.languages.rust.dap.adapter` has been renamed to `vim.languages.rust.dap.debugger`
+        and now accepts a list of debuggers. The old value "lldb-dap" maps to "lldb".
+        Example: `vim.languages.rust.dap.debugger = [ "codelldb" ];`
+      '')
+    ]
   ];
 }
