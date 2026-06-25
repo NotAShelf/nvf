@@ -77,25 +77,27 @@ in {
                }
      true
   */
-  topoSort = dag: let
-    dagBefore = dag: name:
-      attrNames
-      (filterAttrs (_n: v: elem name v.before) dag);
-    normalizedDag =
-      mapAttrs (n: v: {
-        name = n;
-        inherit (v) data;
-        after = v.after ++ dagBefore dag n;
-      })
-      dag;
+  topoSort = let
     before = a: b: elem a.name b.after;
-    sorted = toposort before (attrValues normalizedDag);
   in
-    if sorted ? result
-    then {
-      result = map (v: {inherit (v) name data;}) sorted.result;
-    }
-    else sorted;
+    dag: let
+      dagBefore = dag: name:
+        attrNames
+        (filterAttrs (_n: v: elem name v.before) dag);
+      normalizedDag =
+        mapAttrs (n: v: {
+          name = n;
+          inherit (v) data;
+          after = v.after ++ dagBefore dag n;
+        })
+        dag;
+      sorted = toposort before (attrValues normalizedDag);
+    in
+      if sorted ? result
+      then {
+        result = map (v: {inherit (v) name data;}) sorted.result;
+      }
+      else sorted;
 
   # Applies a function to each element of the given DAG.
   map = f: mapAttrs (n: v: v // {data = f n v.data;});
