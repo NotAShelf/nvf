@@ -277,7 +277,14 @@ in {
                   liblldbPath = "${codelldb}/share/lldb/lib/liblldb.so";
                 in
                   mkLuaInline ''
-                    require("rustaceanvim.config").get_codelldb_adapter("${codelldbPath}", "${liblldbPath}")
+                    {
+                      type = "server",
+                      port = "''${port}",
+                      executable = {
+                        command = "${codelldbPath}",
+                        args = { "--liblldb", "${liblldbPath}", "--port", "''${port}" },
+                      },
+                    }
                   '';
             };
             example = {};
