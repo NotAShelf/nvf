@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkEnableOption;
+  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.debugger.nvim-dap.presets.codelldb;
   codelldb = pkgs.vscode-extensions.vadimcn.vscode-lldb.adapter;
@@ -20,16 +21,18 @@ in {
     '';
   };
 
-  # Taken from rustaceanvim internal setup. Unsure if all of these are required.
+  # Use mkLuaInline to avoid oneOf submodule resolution picking execAdapterType
+  # (which lacks the nested executable option) before reaching serverAdapterType.
   config.vim.debugger.nvim-dap.adapters = mkIf cfg.enable {
-    codelldb = {
-      type = "server";
-      host = "127.0.0.1";
-      port = "\${port}";
-      executable = {
-        command = "${codelldb}/bin/codelldb";
-        args = ["--liblldb" "${codelldb}/share/lldb/lib/liblldb.so" "--port" "\${port}"];
-      };
-    };
+    codelldb = mkLuaInline ''
+      {
+        type = "server",
+        port = "''${port}",
+        executable = {
+          command = "${codelldb}/bin/codelldb",
+          args = { "--liblldb", "${codelldb}/share/lldb/lib/liblldb.so", "--port", "''${port}" },
+        }
+      }
+    '';
   };
 }
