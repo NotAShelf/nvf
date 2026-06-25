@@ -291,7 +291,7 @@ in {
 
       assertions = [
         {
-          assertion = !(builtins.elem "rust-analyzer" cfg.lsp.server) && !config.vim.lsp.rust-analyzer.enable;
+          assertion = !(builtins.elem "rust-analyzer" cfg.lsp.servers) && !config.vim.lsp.rust-analyzer.enable;
           message = ''
             Rustaceanvim fully manages its own rust-analyzer.
             Therefore you can't use vim.languages.rust.extensions.rustaceanvim.enable with rust-analyzer enabled.
