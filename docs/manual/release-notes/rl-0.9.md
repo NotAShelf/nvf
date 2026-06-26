@@ -394,6 +394,8 @@
 
 - Added {option}`vim.lsp.presets.some-sass-language-server.enable`.
 
+- Added JetBrains HTTP language support with the optional kulala extension.
+
 - Fix `vim.lsp.presets.vala-language-server` to be wrapped correctly with
   `uncrustify`.
 

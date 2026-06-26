@@ -118,6 +118,7 @@ isMaximal: {
       fish.enable = false;
       standard-ml.enable = false;
       pug.enable = false;
+      http.enable = false;
 
       # Nim LSP is broken on Darwin and therefore
       # should be disabled by default. Users may still enable
