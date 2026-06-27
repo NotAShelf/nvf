@@ -642,4 +642,8 @@ https://github.com/gorbit99/codewindow.nvim
 - Renamed
   `languages.typescript.extensions.ts-error-translator.auto_override_publish_diagnostics`
 
+[marciosobel](https://github.com/marciosobel)
+
+- Added `goimports` as supported formatters to `vim.languages.go`.
+
 <!-- vim: set textwidth=80: -->
