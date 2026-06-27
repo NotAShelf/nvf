@@ -22,6 +22,7 @@
     # ./gersemi.nix
     ./gofmt.nix
     ./gofumpt.nix
+    ./goimports.nix
     ./golines.nix
     ./hclfmt.nix
     # ./indent.nix
