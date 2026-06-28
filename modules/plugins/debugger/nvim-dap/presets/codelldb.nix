@@ -6,7 +6,6 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkEnableOption;
-  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.debugger.nvim-dap.presets.codelldb;
   codelldb = pkgs.vscode-extensions.vadimcn.vscode-lldb.adapter;
@@ -24,15 +23,13 @@ in {
   # Use mkLuaInline to avoid oneOf submodule resolution picking execAdapterType
   # (which lacks the nested executable option) before reaching serverAdapterType.
   config.vim.debugger.nvim-dap.adapters = mkIf cfg.enable {
-    codelldb = mkLuaInline ''
-      {
-        type = "server",
-        port = "''${port}",
-        executable = {
-          command = "${codelldb}/bin/codelldb",
-          args = { "--liblldb", "${codelldb}/share/lldb/lib/liblldb.so", "--port", "''${port}" },
-        }
-      }
-    '';
+    codelldb = {
+      type = "server";
+      port = "\${port}";
+      executable = {
+        command = "${codelldb}/bin/codelldb";
+        args = ["--liblldb" "${codelldb}/share/lldb/lib/liblldb.so" "--port" "\${port}"];
+      };
+    };
   };
 }
