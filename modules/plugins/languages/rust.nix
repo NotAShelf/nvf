@@ -33,7 +33,7 @@
   dapConfigurations = {
     lldb = [
       {
-        name = "Launch file";
+        name = "Launch file (lldb)";
         type = "lldb";
         request = "launch";
         program = mkLuaInline ''
@@ -52,7 +52,7 @@
     ];
     codelldb = [
       {
-        name = "Launch file";
+        name = "Launch file (codelldb)";
         type = "codelldb";
         request = "launch";
         program = mkLuaInline ''
@@ -125,13 +125,7 @@ in {
       };
 
       debugger = mkOption {
-        description = ''
-          Rust debugger to use.
-
-          - `"codelldb"`: use the CodeLLDB adapter from the vadimcn.vscode-lldb extension.
-            Generally provides a better debugging experience for Rust.
-          - `"lldb"`: use the LLDB DAP implementation shipped with LLVM (`lldb-dap`).
-        '';
+        description = "Rust debugger to use.";
         type =
           deprecatedSingleOrListOf "vim.languages.rust.dap.debugger"
           (enumWithRename "vim.languages.rust.dap.debugger" (attrNames dapConfigurations) {
@@ -350,6 +344,15 @@ in {
           message = ''
             Rustaceanvim fully manages its own rust-analyzer.
             Therefore you can't use vim.languages.rust.extensions.rustaceanvim.enable with rust-analyzer enabled.
+            To fix this, set vim.languages.rust.lsp.enable to false.
+          '';
+        }
+        {
+          assertion = !cfg.dap.enable || !(builtins.any (name: config.vim.debugger.nvim-dap.presets.${name}.enable) cfg.dap.debugger);
+          message = ''
+            Rustaceanvim fully manages its own DAP adapter.
+            Therefore you can't use vim.languages.rust.extensions.rustaceanvim.enable with DAP debugger presets enabled separately.
+            To fix this, set vim.languages.rust.dap.enable to false.
           '';
         }
       ];
