@@ -84,6 +84,9 @@ jobs:
     runs-on: ubuntu-latest
     if: "!contains(github.event.pull_request.title, '[skip ci]')"
     strategy:
+      # avoid having 2 jobs building ndg when no cache is available
+      # TODO: there is probably a better way
+      max-parallel: 1
       matrix:
         package:
           - docs

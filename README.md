@@ -243,8 +243,6 @@ better prepare for breaking changes.
 
 **A**: Quite possibly. **nvf** started as "neovim-flake", which does mean it is
 and will remain flakes-first but we might consider non-flakes compatibility.
-Though keep in mind that **nvf** under non-flake environments would lose
-customizability of plugin inputs, which is one of our primary features.
 
 **Q**: I prefer working with Lua, can I use nvf as a plugin manager while I use
 an imperative path (e.g., `~/.config/nvim`) for my Neovim configuration instead
