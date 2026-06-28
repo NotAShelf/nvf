@@ -76,7 +76,10 @@ in {
     extraDiagnostics = {
       enable =
         mkEnableOption "Ruby extra diagnostics via nvim-lint"
-        // {default = config.vim.languages.enableExtraDiagnostics;};
+        // {
+          default = config.vim.languages.enableExtraDiagnostics;
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
+        };
 
       types = mkOption {
         type = listOf (enum diagnosticsProviders);
