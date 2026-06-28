@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.kotlin-language-server;
 in {
   options.vim.lsp.presets.kotlin-language-server = {
-    enable = mkLspPresetEnableOption "kotlin-language-server" "Kotlin" [];
+    enable = mkLspPresetEnableOption {
+      option = "kotlin-language-server";
+      display = "Kotlin";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.fsautocomplete;
 in {
   options.vim.lsp.presets.fsautocomplete = {
-    enable = mkLspPresetEnableOption "fsautocomplete" "F# Autocomplete" [];
+    enable = mkLspPresetEnableOption {
+      option = "fsautocomplete";
+      display = "F# Autocomplete";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

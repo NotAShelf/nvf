@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.nixd;
 in {
   options.vim.lsp.presets.nixd = {
-    enable = mkLspPresetEnableOption "nixd" "Nixd" [];
+    enable = mkLspPresetEnableOption {
+      option = "nixd";
+      display = "Nixd";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

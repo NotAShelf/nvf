@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.tombi;
 in {
   options.vim.lsp.presets.tombi = {
-    enable = mkLspPresetEnableOption "tombi" "Tombi (AI Slop)" [];
+    enable = mkLspPresetEnableOption {
+      option = "tombi";
+      display = "Tombi (AI Slop)";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.helm-ls;
 in {
   options.vim.lsp.presets.helm-ls = {
-    enable = mkLspPresetEnableOption "helm-ls" "Helm" [];
+    enable = mkLspPresetEnableOption {
+      option = "helm-ls";
+      display = "Helm";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

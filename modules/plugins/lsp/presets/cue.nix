@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.cue;
 in {
   options.vim.lsp.presets.cue = {
-    enable = mkLspPresetEnableOption "cue" "Cue" [];
+    enable = mkLspPresetEnableOption {
+      option = "cue";
+      display = "Cue";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

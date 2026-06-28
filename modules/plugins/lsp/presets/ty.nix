@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.ty;
 in {
   options.vim.lsp.presets.ty = {
-    enable = mkLspPresetEnableOption "ty" "ty" [];
+    enable = mkLspPresetEnableOption {
+      option = "ty";
+      display = "ty";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

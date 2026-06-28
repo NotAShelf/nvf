@@ -13,7 +13,11 @@
   cfg = config.vim.lsp.presets.basedpyright;
 in {
   options.vim.lsp.presets.basedpyright = {
-    enable = mkLspPresetEnableOption "basedpyright" "Based Pyright" [];
+    enable = mkLspPresetEnableOption {
+      option = "basedpyright";
+      display = "Based Pyright";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

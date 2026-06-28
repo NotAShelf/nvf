@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.vala-language-server;
 in {
   options.vim.lsp.presets.vala-language-server = {
-    enable = mkLspPresetEnableOption "vala-language-server" "Vala" [];
+    enable = mkLspPresetEnableOption {
+      option = "vala-language-server";
+      display = "Vala";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

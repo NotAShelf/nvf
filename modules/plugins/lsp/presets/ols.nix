@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.ols;
 in {
   options.vim.lsp.presets.ols = {
-    enable = mkLspPresetEnableOption "ols" "Odin" [];
+    enable = mkLspPresetEnableOption {
+      option = "ols";
+      display = "Odin";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

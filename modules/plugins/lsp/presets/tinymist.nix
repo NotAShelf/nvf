@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.tinymist;
 in {
   options.vim.lsp.presets.tinymist = {
-    enable = mkLspPresetEnableOption "tinymist" "Tinymist" [];
+    enable = mkLspPresetEnableOption {
+      option = "tinymist";
+      display = "Tinymist";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

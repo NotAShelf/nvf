@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.vhdl-ls;
 in {
   options.vim.lsp.presets.vhdl-ls = {
-    enable = mkLspPresetEnableOption "vhdl-ls" "VHDL" [];
+    enable = mkLspPresetEnableOption {
+      option = "vhdl-ls";
+      display = "VHDL";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

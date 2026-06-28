@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.tofu-ls;
 in {
   options.vim.lsp.presets.tofu-ls = {
-    enable = mkLspPresetEnableOption "tofu-ls" "OpenTofu" [];
+    enable = mkLspPresetEnableOption {
+      option = "tofu-ls";
+      display = "OpenTofu";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.typescript-language-server;
 in {
   options.vim.lsp.presets.typescript-language-server = {
-    enable = mkLspPresetEnableOption "typescript-language-server" "TypeScript" [];
+    enable = mkLspPresetEnableOption {
+      option = "typescript-language-server";
+      display = "TypeScript";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

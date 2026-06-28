@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.fish-lsp;
 in {
   options.vim.lsp.presets.fish-lsp = {
-    enable = mkLspPresetEnableOption "fish-lsp" "Fish" [];
+    enable = mkLspPresetEnableOption {
+      option = "fish-lsp";
+      display = "Fish";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

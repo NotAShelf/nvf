@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.ruby-lsp;
 in {
   options.vim.lsp.presets.ruby-lsp = {
-    enable = mkLspPresetEnableOption "ruby-lsp" "Ruby" [];
+    enable = mkLspPresetEnableOption {
+      option = "ruby-lsp";
+      display = "Ruby";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

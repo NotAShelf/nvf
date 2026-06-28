@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.clojure-lsp;
 in {
   options.vim.lsp.presets.clojure-lsp = {
-    enable = mkLspPresetEnableOption "clojure-lsp" "Clojure" [];
+    enable = mkLspPresetEnableOption {
+      option = "clojure-lsp";
+      display = "Clojure";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.elm-language-server;
 in {
   options.vim.lsp.presets.elm-language-server = {
-    enable = mkLspPresetEnableOption "elm-language-server" "Elm" [];
+    enable = mkLspPresetEnableOption {
+      option = "elm-language-server";
+      display = "Elm";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

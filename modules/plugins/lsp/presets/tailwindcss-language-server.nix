@@ -68,7 +68,12 @@
   ];
 in {
   options.vim.lsp.presets.tailwindcss-language-server = {
-    enable = mkLspPresetEnableOption "tailwindcss-language-server" "Tailwind CSS" filetypes;
+    enable = mkLspPresetEnableOption {
+      option = "tailwindcss-language-server";
+      display = "Tailwind CSS";
+      fileTypes = filetypes;
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

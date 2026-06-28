@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.vscode-json-language-server;
 in {
   options.vim.lsp.presets.vscode-json-language-server = {
-    enable = mkLspPresetEnableOption "vscode-json-language-server" "VSCode JSON" [];
+    enable = mkLspPresetEnableOption {
+      option = "vscode-json-language-server";
+      display = "VSCode JSON";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

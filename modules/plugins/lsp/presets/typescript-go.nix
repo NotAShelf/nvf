@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.typescript-go;
 in {
   options.vim.lsp.presets.typescript-go = {
-    enable = mkLspPresetEnableOption "typescript-go" "experimental TypeScript Go" [];
+    enable = mkLspPresetEnableOption {
+      option = "typescript-go";
+      display = "experimental TypeScript Go";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

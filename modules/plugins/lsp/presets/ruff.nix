@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.ruff;
 in {
   options.vim.lsp.presets.ruff = {
-    enable = mkLspPresetEnableOption "ruff" "Ruff" [];
+    enable = mkLspPresetEnableOption {
+      option = "ruff";
+      display = "Ruff";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

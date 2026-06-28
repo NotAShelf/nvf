@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.zls;
 in {
   options.vim.lsp.presets.zls = {
-    enable = mkLspPresetEnableOption "zls" "Zig" [];
+    enable = mkLspPresetEnableOption {
+      option = "zls";
+      display = "Zig";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

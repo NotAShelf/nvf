@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.openscad-lsp;
 in {
   options.vim.lsp.presets.openscad-lsp = {
-    enable = mkLspPresetEnableOption "openscad-lsp" "Open SCAD" [];
+    enable = mkLspPresetEnableOption {
+      option = "openscad-lsp";
+      display = "Open SCAD";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

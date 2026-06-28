@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.emmet-ls;
 in {
   options.vim.lsp.presets.emmet-ls = {
-    enable = mkLspPresetEnableOption "emmet-ls" "Emmet" [];
+    enable = mkLspPresetEnableOption {
+      option = "emmet-ls";
+      display = "Emmet";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

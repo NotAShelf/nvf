@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.r-languageserver;
 in {
   options.vim.lsp.presets.r-languageserver = {
-    enable = mkLspPresetEnableOption "r-languageserver" "R" [];
+    enable = mkLspPresetEnableOption {
+      option = "r-languageserver";
+      display = "R";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

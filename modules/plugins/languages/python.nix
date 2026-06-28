@@ -168,7 +168,14 @@ in {
 
     (mkIf cfg.lsp.enable {
       vim.lsp = {
-        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        presets = genAttrs cfg.lsp.servers (_: {
+          enable = [
+            {
+              value = true;
+              src = ["vim" "languages" "python" "lsp" "servers"];
+            }
+          ];
+        });
         servers = genAttrs cfg.lsp.servers (_: {
           filetypes = ["python"];
           root_markers = [

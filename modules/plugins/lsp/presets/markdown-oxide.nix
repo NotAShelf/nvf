@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.markdown-oxide;
 in {
   options.vim.lsp.presets.markdown-oxide = {
-    enable = mkLspPresetEnableOption "markdown-oxide" "Markdown Oxide" [];
+    enable = mkLspPresetEnableOption {
+      option = "markdown-oxide";
+      display = "Markdown Oxide";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

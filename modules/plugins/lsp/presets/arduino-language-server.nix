@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.arduino-language-server;
 in {
   options.vim.lsp.presets.arduino-language-server = {
-    enable = mkLspPresetEnableOption "arduino-language-server" "Arduino" [];
+    enable = mkLspPresetEnableOption {
+      option = "arduino-language-server";
+      display = "Arduino";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

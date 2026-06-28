@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.nushell;
 in {
   options.vim.lsp.presets.nushell = {
-    enable = mkLspPresetEnableOption "nushell" "NuShell" [];
+    enable = mkLspPresetEnableOption {
+      option = "nushell";
+      display = "NuShell";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

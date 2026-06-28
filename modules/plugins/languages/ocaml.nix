@@ -66,7 +66,14 @@ in {
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.lsp.enable {
       vim.lsp = {
-        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        presets = genAttrs cfg.lsp.servers (_: {
+          enable = [
+            {
+              value = true;
+              src = ["vim" "languages" "ocaml" "lsp" "servers"];
+            }
+          ];
+        });
         servers = genAttrs cfg.lsp.servers (_: {
           filetypes = ["ocaml" "menhir" "ocamlinterface" "ocamllex" "reason" "dune"];
         });

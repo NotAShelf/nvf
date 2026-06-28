@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.vscode-css-language-server;
 in {
   options.vim.lsp.presets.vscode-css-language-server = {
-    enable = mkLspPresetEnableOption "vscode-css-language-server" "VSCode CSS" [];
+    enable = mkLspPresetEnableOption {
+      option = "vscode-css-language-server";
+      display = "VSCode CSS";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

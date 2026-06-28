@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.neocmakelsp;
 in {
   options.vim.lsp.presets.neocmakelsp = {
-    enable = mkLspPresetEnableOption "neocmakelsp" "NeoCmake" [];
+    enable = mkLspPresetEnableOption {
+      option = "neocmakelsp";
+      display = "NeoCmake";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

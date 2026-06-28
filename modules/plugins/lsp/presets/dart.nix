@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.dart;
 in {
   options.vim.lsp.presets.dart = {
-    enable = mkLspPresetEnableOption "dart" "Dart" [];
+    enable = mkLspPresetEnableOption {
+      option = "dart";
+      display = "Dart";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

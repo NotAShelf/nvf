@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.lemminx;
 in {
   options.vim.lsp.presets.lemminx = {
-    enable = mkLspPresetEnableOption "lemminx" "Lemminx" [];
+    enable = mkLspPresetEnableOption {
+      option = "lemminx";
+      display = "Lemminx";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.superhtml;
 in {
   options.vim.lsp.presets.superhtml = {
-    enable = mkLspPresetEnableOption "superhtml" "SuperHTML" [];
+    enable = mkLspPresetEnableOption {
+      option = "superhtml";
+      display = "SuperHTML";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

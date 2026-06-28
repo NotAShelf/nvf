@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.ocaml-lsp;
 in {
   options.vim.lsp.presets.ocaml-lsp = {
-    enable = mkLspPresetEnableOption "ocaml-lsp" "OCaml" [];
+    enable = mkLspPresetEnableOption {
+      option = "ocaml-lsp";
+      display = "OCaml";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

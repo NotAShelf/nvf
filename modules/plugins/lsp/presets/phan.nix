@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.phan;
 in {
   options.vim.lsp.presets.phan = {
-    enable = mkLspPresetEnableOption "phan" "Phan" [];
+    enable = mkLspPresetEnableOption {
+      option = "phan";
+      display = "Phan";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

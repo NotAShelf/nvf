@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.vtsls;
 in {
   options.vim.lsp.presets.vtsls = {
-    enable = mkLspPresetEnableOption "vtsls" "Vue.js Typescript" [];
+    enable = mkLspPresetEnableOption {
+      option = "vtsls";
+      display = "Vue.js Typescript";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

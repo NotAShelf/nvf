@@ -13,7 +13,11 @@
   cfg = config.vim.lsp.presets.julia-languageserver;
 in {
   options.vim.lsp.presets.julia-languageserver = {
-    enable = mkLspPresetEnableOption "julia-languageserver" "Julia" [];
+    enable = mkLspPresetEnableOption {
+      option = "julia-languageserver";
+      display = "Julia";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

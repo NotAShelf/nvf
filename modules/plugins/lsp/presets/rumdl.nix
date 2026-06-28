@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.rumdl;
 in {
   options.vim.lsp.presets.rumdl = {
-    enable = mkLspPresetEnableOption "rumdl" "Rumdl" [];
+    enable = mkLspPresetEnableOption {
+      option = "rumdl";
+      display = "Rumdl";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

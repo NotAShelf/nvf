@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.gopls;
 in {
   options.vim.lsp.presets.gopls = {
-    enable = mkLspPresetEnableOption "gopls" "Go" [];
+    enable = mkLspPresetEnableOption {
+      option = "gopls";
+      display = "Go";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

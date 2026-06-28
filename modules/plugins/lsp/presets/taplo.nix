@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.taplo;
 in {
   options.vim.lsp.presets.taplo = {
-    enable = mkLspPresetEnableOption "taplo" "Taplo" [];
+    enable = mkLspPresetEnableOption {
+      option = "taplo";
+      display = "Taplo";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

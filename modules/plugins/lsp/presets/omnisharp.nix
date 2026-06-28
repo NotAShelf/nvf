@@ -13,7 +13,11 @@
 in {
   # HACK: this server should be named `omnisharp-roslyn`, but the extension `omnisharp-extended-lsp-nvim` only works if it is named `omnisharp`
   options.vim.lsp.presets.omnisharp = {
-    enable = mkLspPresetEnableOption "omnisharp" "OmniSharp Roslyn" [];
+    enable = mkLspPresetEnableOption {
+      option = "omnisharp";
+      display = "OmniSharp Roslyn";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

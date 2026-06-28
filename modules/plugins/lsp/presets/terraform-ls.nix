@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.terraform-ls;
 in {
   options.vim.lsp.presets.terraform-ls = {
-    enable = mkLspPresetEnableOption "terraform-ls" "Terraform" [];
+    enable = mkLspPresetEnableOption {
+      option = "terraform-ls";
+      display = "Terraform";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

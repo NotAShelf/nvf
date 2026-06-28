@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.docker-language-server;
 in {
   options.vim.lsp.presets.docker-language-server = {
-    enable = mkLspPresetEnableOption "docker-language-server" "Docker" [];
+    enable = mkLspPresetEnableOption {
+      option = "docker-language-server";
+      display = "Docker";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

@@ -13,7 +13,11 @@
   cfg = config.vim.lsp.presets.jdt-language-server;
 in {
   options.vim.lsp.presets.jdt-language-server = {
-    enable = mkLspPresetEnableOption "jdt-language-server" "Eclipse JDT" [];
+    enable = mkLspPresetEnableOption {
+      option = "jdt-language-server";
+      display = "Eclipse JDT";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

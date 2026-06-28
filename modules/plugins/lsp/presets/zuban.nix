@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.zuban;
 in {
   options.vim.lsp.presets.zuban = {
-    enable = mkLspPresetEnableOption "zuban" "Zuban" [];
+    enable = mkLspPresetEnableOption {
+      option = "zuban";
+      display = "Zuban";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

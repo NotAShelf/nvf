@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.millet;
 in {
   options.vim.lsp.presets.millet = {
-    enable = mkLspPresetEnableOption "millet" "Millet Standard ML" [];
+    enable = mkLspPresetEnableOption {
+      option = "millet";
+      display = "Millet Standard ML";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.astro-language-server;
 in {
   options.vim.lsp.presets.astro-language-server = {
-    enable = mkLspPresetEnableOption "astro-language-server" "Astro" [];
+    enable = mkLspPresetEnableOption {
+      option = "astro-language-server";
+      display = "Astro";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

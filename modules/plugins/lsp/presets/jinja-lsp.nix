@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.jinja-lsp;
 in {
   options.vim.lsp.presets.jinja-lsp = {
-    enable = mkLspPresetEnableOption "jinja-lsp" "Jinja" [];
+    enable = mkLspPresetEnableOption {
+      option = "jinja-lsp";
+      display = "Jinja";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

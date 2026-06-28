@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.svelte-language-server;
 in {
   options.vim.lsp.presets.svelte-language-server = {
-    enable = mkLspPresetEnableOption "svelte-language-server" "Svelte" [];
+    enable = mkLspPresetEnableOption {
+      option = "svelte-language-server";
+      display = "Svelte";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

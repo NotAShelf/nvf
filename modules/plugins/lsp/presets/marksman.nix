@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.marksman;
 in {
   options.vim.lsp.presets.marksman = {
-    enable = mkLspPresetEnableOption "marksman" "Marksman" [];
+    enable = mkLspPresetEnableOption {
+      option = "marksman";
+      display = "Marksman";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

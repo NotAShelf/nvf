@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.python-lsp-server;
 in {
   options.vim.lsp.presets.python-lsp-server = {
-    enable = mkLspPresetEnableOption "python-lsp-server" "Python" [];
+    enable = mkLspPresetEnableOption {
+      option = "python-lsp-server";
+      display = "Python";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

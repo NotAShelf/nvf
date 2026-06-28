@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.just-lsp;
 in {
   options.vim.lsp.presets.just-lsp = {
-    enable = mkLspPresetEnableOption "just-lsp" "Just" [];
+    enable = mkLspPresetEnableOption {
+      option = "just-lsp";
+      display = "Just";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

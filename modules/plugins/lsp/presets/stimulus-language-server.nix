@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.stimulus-language-server;
 in {
   options.vim.lsp.presets.stimulus-language-server = {
-    enable = mkLspPresetEnableOption "stimulus-language-server" "Stimulus" [];
+    enable = mkLspPresetEnableOption {
+      option = "stimulus-language-server";
+      display = "Stimulus";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

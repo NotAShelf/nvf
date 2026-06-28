@@ -6,24 +6,24 @@
 }: let
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
-  inherit (lib.options) mkEnableOption;
+  inherit (lib.nvim.types) mkLspPresetEnableOption;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.vue-language-server;
 in {
   options.vim.lsp.presets.vue-language-server = {
-    enable = mkEnableOption ''
-      the Vue.js Language Server.
-
-      This LSP doesn't work standalone and requires either
-      {option}`vim.lsp.presets.vtsls.enable`
-      or
-      {option}`vim.lsp.presets.typescript-language-server.enable`
-      to work as expected.
-
-      Default `filetypes = ${lib.generators.toPretty {} []}`. \
-      Use {option}`vim.lsp.servers.vue-language-server` for customization
-    '';
+    enable = mkLspPresetEnableOption {
+      option = "vue-language-server";
+      display = "Vue.js";
+      extraDescription = ''
+        This LSP doesn't work standalone and requires either
+        {option}`vim.lsp.presets.vtsls.enable`
+        or
+        {option}`vim.lsp.presets.typescript-language-server.enable`
+        to work as expected.
+      '';
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

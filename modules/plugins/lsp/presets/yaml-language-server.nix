@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.yaml-language-server;
 in {
   options.vim.lsp.presets.yaml-language-server = {
-    enable = mkLspPresetEnableOption "yaml-language-server" "YAML" [];
+    enable = mkLspPresetEnableOption {
+      option = "yaml-language-server";
+      display = "YAML";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

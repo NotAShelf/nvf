@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.haskell-language-server;
 in {
   options.vim.lsp.presets.haskell-language-server = {
-    enable = mkLspPresetEnableOption "haskell-language-server" "Haskell" [];
+    enable = mkLspPresetEnableOption {
+      option = "haskell-language-server";
+      display = "Haskell";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

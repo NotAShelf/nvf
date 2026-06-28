@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.gleam;
 in {
   options.vim.lsp.presets.gleam = {
-    enable = mkLspPresetEnableOption "gleam" "Gleam" [];
+    enable = mkLspPresetEnableOption {
+      option = "gleam";
+      display = "Gleam";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

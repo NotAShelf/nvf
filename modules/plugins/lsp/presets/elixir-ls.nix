@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.elixir-ls;
 in {
   options.vim.lsp.presets.elixir-ls = {
-    enable = mkLspPresetEnableOption "elixir-ls" "Elixir" [];
+    enable = mkLspPresetEnableOption {
+      option = "elixir-ls";
+      display = "Elixir";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

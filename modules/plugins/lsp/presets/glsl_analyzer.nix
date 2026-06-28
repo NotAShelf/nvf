@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.glsl_analyzer;
 in {
   options.vim.lsp.presets.glsl_analyzer = {
-    enable = mkLspPresetEnableOption "glsl_analyzer" "GLSL Analyzer" [];
+    enable = mkLspPresetEnableOption {
+      option = "glsl_analyzer";
+      display = "GLSL Analyzer";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

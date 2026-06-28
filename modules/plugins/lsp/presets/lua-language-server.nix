@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.lua-language-server;
 in {
   options.vim.lsp.presets.lua-language-server = {
-    enable = mkLspPresetEnableOption "lua-language-server" "Lua" [];
+    enable = mkLspPresetEnableOption {
+      option = "lua-language-server";
+      display = "Lua";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

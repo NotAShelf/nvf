@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.wgsl-analyzer;
 in {
   options.vim.lsp.presets.wgsl-analyzer = {
-    enable = mkLspPresetEnableOption "wgsl-analyzer" "WGSL Analyzer" [];
+    enable = mkLspPresetEnableOption {
+      option = "wgsl-analyzer";
+      display = "WGSL Analyzer";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

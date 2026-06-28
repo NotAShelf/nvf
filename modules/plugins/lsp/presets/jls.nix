@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.jls;
 in {
   options.vim.lsp.presets.jls = {
-    enable = mkLspPresetEnableOption "jls" "NeoVim Java" [];
+    enable = mkLspPresetEnableOption {
+      option = "jls";
+      display = "NeoVim Java";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

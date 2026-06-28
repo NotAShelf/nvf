@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.nil;
 in {
   options.vim.lsp.presets.nil = {
-    enable = mkLspPresetEnableOption "nil" "Nil" [];
+    enable = mkLspPresetEnableOption {
+      option = "nil";
+      display = "Nil";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

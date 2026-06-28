@@ -13,7 +13,11 @@
 in {
   # HACK: this server should be named `csharp-ls`, but the extension `csharpls-extended-lsp-nvim` only works if it is named `csharp_ls`
   options.vim.lsp.presets.csharp_ls = {
-    enable = mkLspPresetEnableOption "csharp_ls" "C#" [];
+    enable = mkLspPresetEnableOption {
+      option = "csharp_ls";
+      display = "C#";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.sqls;
 in {
   options.vim.lsp.presets.sqls = {
-    enable = mkLspPresetEnableOption "sqls" "SQL" [];
+    enable = mkLspPresetEnableOption {
+      option = "sqls";
+      display = "SQL";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

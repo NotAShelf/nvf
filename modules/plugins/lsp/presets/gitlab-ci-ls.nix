@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.gitlab-ci-ls;
 in {
   options.vim.lsp.presets.gitlab-ci-ls = {
-    enable = mkLspPresetEnableOption "gitlab-ci-ls" "GitLab CI" [];
+    enable = mkLspPresetEnableOption {
+      option = "gitlab-ci-ls";
+      display = "GitLab CI";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

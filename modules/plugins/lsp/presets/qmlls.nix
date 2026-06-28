@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.qmlls;
 in {
   options.vim.lsp.presets.qmlls = {
-    enable = mkLspPresetEnableOption "qmlls" "QML" [];
+    enable = mkLspPresetEnableOption {
+      option = "qmlls";
+      display = "QML";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

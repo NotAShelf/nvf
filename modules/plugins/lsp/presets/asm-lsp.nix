@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.asm-lsp;
 in {
   options.vim.lsp.presets.asm-lsp = {
-    enable = mkLspPresetEnableOption "asm-lsp" "Assembly" [];
+    enable = mkLspPresetEnableOption {
+      option = "asm-lsp";
+      display = "Assembly";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

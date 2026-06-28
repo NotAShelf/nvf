@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.phpantom;
 in {
   options.vim.lsp.presets.phpantom = {
-    enable = mkLspPresetEnableOption "phpantom" "PHPantom" [];
+    enable = mkLspPresetEnableOption {
+      option = "phpantom";
+      display = "PHPantom";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

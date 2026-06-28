@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.nimlsp;
 in {
   options.vim.lsp.presets.nimlsp = {
-    enable = mkLspPresetEnableOption "nimlsp" "Nim" [];
+    enable = mkLspPresetEnableOption {
+      option = "nimlsp";
+      display = "Nim";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

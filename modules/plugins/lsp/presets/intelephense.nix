@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.intelephense;
 in {
   options.vim.lsp.presets.intelephense = {
-    enable = mkLspPresetEnableOption "intelephense" "Intelephense" [];
+    enable = mkLspPresetEnableOption {
+      option = "intelephense";
+      display = "Intelephense";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.ccls;
 in {
   options.vim.lsp.presets.ccls = {
-    enable = mkLspPresetEnableOption "ccls" "CC" [];
+    enable = mkLspPresetEnableOption {
+      option = "ccls";
+      display = "CC";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

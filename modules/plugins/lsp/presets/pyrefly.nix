@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.pyrefly;
 in {
   options.vim.lsp.presets.pyrefly = {
-    enable = mkLspPresetEnableOption "pyrefly" "Pyrefly" [];
+    enable = mkLspPresetEnableOption {
+      option = "pyrefly";
+      display = "Pyrefly";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

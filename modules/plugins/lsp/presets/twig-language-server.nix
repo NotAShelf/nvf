@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.twig-language-server;
 in {
   options.vim.lsp.presets.twig-language-server = {
-    enable = mkLspPresetEnableOption "twig-language-server" "Twig" [];
+    enable = mkLspPresetEnableOption {
+      option = "twig-language-server";
+      display = "Twig";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.roslyn-ls;
 in {
   options.vim.lsp.presets.roslyn-ls = {
-    enable = mkLspPresetEnableOption "roslyn-ls" "Roslyn" [];
+    enable = mkLspPresetEnableOption {
+      option = "roslyn-ls";
+      display = "Roslyn";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.angular-language-server;
 in {
   options.vim.lsp.presets.angular-language-server = {
-    enable = mkLspPresetEnableOption "angular-language-server" "Angular Template" [];
+    enable = mkLspPresetEnableOption {
+      option = "angular-language-server";
+      display = "Angular Template";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

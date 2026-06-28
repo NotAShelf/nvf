@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.some-sass-language-server;
 in {
   options.vim.lsp.presets.some-sass-language-server = {
-    enable = mkLspPresetEnableOption "some-sass-language-server" "Some Sass" [];
+    enable = mkLspPresetEnableOption {
+      option = "some-sass-language-server";
+      display = "Some Sass";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

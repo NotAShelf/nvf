@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.jq-lsp;
 in {
   options.vim.lsp.presets.jq-lsp = {
-    enable = mkLspPresetEnableOption "jq-lsp" "JQ" [];
+    enable = mkLspPresetEnableOption {
+      option = "jq-lsp";
+      display = "JQ";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

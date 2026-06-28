@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.solargraph;
 in {
   options.vim.lsp.presets.solargraph = {
-    enable = mkLspPresetEnableOption "solargraph" "Solargraph" [];
+    enable = mkLspPresetEnableOption {
+      option = "solargraph";
+      display = "Solargraph";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

@@ -385,6 +385,8 @@
   more flexibility in nvf and reuse of LSPs across languages. Dropped
   `deprecatedSingleOrListOf` in favor of `listOf` for the affected LSP options.
 
+- Made LSP presets throw more precise errors on conflicts.
+
 - Added {option}`vim.lsp.presets.angular-language-server.enable` for Angular
   Template support.
 

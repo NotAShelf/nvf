@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.clangd;
 in {
   options.vim.lsp.presets.clangd = {
-    enable = mkLspPresetEnableOption "clangd" "Clangd" [];
+    enable = mkLspPresetEnableOption {
+      option = "clangd";
+      display = "Clangd";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

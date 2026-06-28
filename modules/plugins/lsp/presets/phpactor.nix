@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.phpactor;
 in {
   options.vim.lsp.presets.phpactor = {
-    enable = mkLspPresetEnableOption "phpactor" "PHPActor" [];
+    enable = mkLspPresetEnableOption {
+      option = "phpactor";
+      display = "PHPActor";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

@@ -11,7 +11,11 @@
   cfg = config.vim.lsp.presets.texlab;
 in {
   options.vim.lsp.presets.texlab = {
-    enable = mkLspPresetEnableOption "texlab" "TeXLab" [];
+    enable = mkLspPresetEnableOption {
+      option = "texlab";
+      display = "TeXLab";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

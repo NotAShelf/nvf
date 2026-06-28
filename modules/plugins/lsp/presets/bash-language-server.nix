@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.bash-language-server;
 in {
   options.vim.lsp.presets.bash-language-server = {
-    enable = mkLspPresetEnableOption "bash-language-server" "Bash" [];
+    enable = mkLspPresetEnableOption {
+      option = "bash-language-server";
+      display = "Bash";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

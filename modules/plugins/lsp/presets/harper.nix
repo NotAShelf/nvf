@@ -38,7 +38,12 @@
   ];
 in {
   options.vim.lsp.presets.harper = {
-    enable = mkLspPresetEnableOption "harper" "Harper" filetypes;
+    enable = mkLspPresetEnableOption {
+      option = "harper";
+      display = "Harper";
+      fileTypes = filetypes;
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {

@@ -12,7 +12,11 @@
   cfg = config.vim.lsp.presets.deno;
 in {
   options.vim.lsp.presets.deno = {
-    enable = mkLspPresetEnableOption "deno" "Deno" [];
+    enable = mkLspPresetEnableOption {
+      option = "deno";
+      display = "Deno";
+      inherit config;
+    };
   };
 
   config = mkIf cfg.enable {
