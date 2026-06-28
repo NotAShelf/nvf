@@ -4,6 +4,19 @@
   inherit (lib.nvim.types) dagOf;
 in {
   options.vim = {
+    appname = mkOption {
+      type = str;
+      default = "nvf";
+      description = ''
+        Sets the {env}`NVIM_APPNAME` variable.
+
+        In traditional Neovim setups, standard directories can be further configured
+        by the {env}`NVIM_APPNAME` environment variable. This variable controls the
+        sub-directory that Nvim will read from (and auto-create) in each of the base
+        directories. See `:help $NVIM_APPNAME` for more details.
+      '';
+    };
+
     enableLuaLoader = mkOption {
       type = bool;
       default = false;
