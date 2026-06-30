@@ -646,4 +646,10 @@ https://github.com/gorbit99/codewindow.nvim
 
 - Added `goimports` as supported formatters to `vim.languages.go`.
 
+[Adam0](https://github.com/adam01110):
+
+[cord.nvim]: https://github.com/vyfor/cord.nvim
+
+- Add [cord.nvim] plugin in `vim.presence.cord` with `enable` and `setupOpts`
+
 <!-- vim: set textwidth=80: -->
