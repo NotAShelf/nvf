@@ -123,7 +123,7 @@
     systems.url = "github:nix-systems/default";
 
     ## Basic Inputs
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-26.05";
+    nixpkgs.url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.xz";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
