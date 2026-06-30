@@ -2,7 +2,7 @@
   stdenv,
   nodejs,
   gitMinimal,
-  pnpm_9,
+  pnpm_11,
   pnpmConfigHook,
   zstd,
   fetchPnpmDeps,
@@ -27,9 +27,9 @@ in
     };
 
     pnpmDeps = fetchPnpmDeps {
-      pnpm = pnpm_9;
+      pnpm = pnpm_11;
       inherit (finalAttrs) pname version src;
-      hash = "sha256-NBetqPzn99W0mvv2niL9bJ3iOexOB4VAIGA7CmUn00M=";
+      hash = "sha256-vpbevN2jgde4qsoRvWMEvkXBYDTeZEggpY0FlAAJomo=";
       fetcherVersion = 3;
     };
 
@@ -38,9 +38,9 @@ in
       gitMinimal
       writableTmpDirAsHomeHook
       (pnpmConfigHook.override {
-        pnpm = pnpm_9;
+        pnpm = pnpm_11;
       })
-      pnpm_9
+      pnpm_11
       zstd
     ];
 
