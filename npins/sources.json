@@ -932,6 +932,22 @@
       "url": "https://github.com/lukas-reineke/indent-blankline.nvim/archive/d28a3f70721c79e3c5f6693057ae929f3d9c0a03.tar.gz",
       "hash": "sha256-Vc79ff416uJFqKH8zlM1y208SxaQGpQPqGVbiz5Vflg="
     },
+    "kulala-nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mistweaverco",
+        "repo": "kulala.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v6.19.0",
+      "revision": "0b09e6b66d11908e0c00b98b39e40dcbef836489",
+      "url": "https://api.github.com/repos/mistweaverco/kulala.nvim/tarball/refs/tags/v6.19.0",
+      "hash": "sha256-HDCvuNqOgl4nIJQhBU3U1qjA8gevdYLVjTaNC5OZRQo="
+    },
     "lazydev-nvim": {
       "type": "Git",
       "repository": {
