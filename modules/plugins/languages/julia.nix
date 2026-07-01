@@ -51,12 +51,15 @@ in {
             The entirety of Julia is bundled with nvf, if you enable this
             option, since there is no way to provide only the LSP server.
 
-            If you want to avoid that, you have to change
-            {option}`vim.lsp.servers.julials.cmd` to use
-            the Julia binary in {env}`PATH`, and add the `LanguageServer`
-            package to Julia in your devshells.
+            Since the LSP server is a julia package that needs to be bundled
+            within a Julia binary, there is no way for us to provide only the
+            LSP server. By default, you'll just have to add the `LanguageServer`
+            package to Julia in your devshells (or general environment), and be
+            good to go.
 
-            Check the source file of this option for the full `cmd`.
+            If you want to have the entirety of Julia bundled within nvf, you can
+            change {option}`vim.lsp.servers.presets.julia-languageserver.usePathBin`
+            to `false` to have nvf bundle julia and the lsp.
             :::
           '';
         };
