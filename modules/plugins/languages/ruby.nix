@@ -4,28 +4,19 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib) genAttrs;
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.ruby;
 
   defaultServers = ["solargraph"];
   servers = ["ruby-lsp" "solargraph" "stimulus-language-server"];
 
-  # testing
-
   defaultFormat = ["rubocop"];
-  formats = {
-    rubocop = {
-      command = getExe pkgs.rubyPackages.rubocop;
-    };
-  };
+  formats = ["rubocop"];
 
   defaultDiagnosticsProvider = ["rubocop"];
   diagnosticsProviders = ["rubocop"];
@@ -67,7 +58,7 @@ in {
       enable = mkEnableOption "Ruby formatter support" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.ruby.format.type" (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.ruby.format.type" (enum formats);
         default = defaultFormat;
         description = "Ruby formatter to use";
       };
@@ -107,15 +98,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.ruby = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.ruby = cfg.format.type;
       };
     })
 

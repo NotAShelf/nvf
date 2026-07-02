@@ -14,6 +14,9 @@
 
   defaultServers = ["yaml-language-server"];
   servers = ["yaml-language-server" "gitlab-ci-ls"];
+
+  defaultFormat = ["prettier"];
+  formats = ["prettier" "deno"];
 in {
   options.vim.languages.yaml = {
     enable = mkEnableOption "YAML language support";
@@ -40,6 +43,21 @@ in {
         type = listOf (enum servers);
         default = defaultServers;
         description = "Yaml LSP server to use";
+      };
+    };
+
+    format = {
+      enable =
+        mkEnableOption "YAML formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
+
+      type = mkOption {
+        type = listOf (enum formats);
+        default = defaultFormat;
+        description = "YAML formatter to use";
       };
     };
   };
@@ -69,6 +87,14 @@ in {
         servers = genAttrs cfg.lsp.servers (_: {
           filetypes = ["yaml" "yaml.gitlab"];
         });
+      };
+    })
+
+    (mkIf cfg.format.enable {
+      vim.formatter.conform-nvim = {
+        enable = true;
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.yaml = cfg.format.type;
       };
     })
   ]);

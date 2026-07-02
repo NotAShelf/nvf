@@ -4,14 +4,11 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib) genAttrs;
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum listOf;
+  inherit (lib.types) listOf;
   inherit (lib.nvim.types) mkGrammarOption enumWithRename;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.hcl;
 
@@ -19,16 +16,7 @@
   servers = ["terraform-ls" "tofu-ls" "docker-language-server"];
 
   defaultFormat = ["hclfmt"];
-  formats = {
-    hclfmt = {
-      command = getExe pkgs.hclfmt;
-    };
-    nomad-fmt = {
-      command = getExe pkgs.nomad;
-      args = ["fmt" "$FILENAME"];
-      stdin = false;
-    };
-  };
+  formats = ["hclfmt" "nomad" "opentofu" "terraform"];
 in {
   options.vim.languages.hcl = {
     enable = mkEnableOption "HCL support";
@@ -71,7 +59,12 @@ in {
           defaultText = literalExpression "config.vim.languages.enableFormat";
         };
       type = mkOption {
-        type = listOf (enum (attrNames formats));
+        type = listOf (enumWithRename
+          "vim.languages.hcl.format.type"
+          formats
+          {
+            nomad-fmt = "nomad";
+          });
         default = defaultFormat;
         description = "HCL formatter to use";
       };
@@ -80,6 +73,7 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
+      # TODO: remove, in favor of editorconfig, or move to nix syntax instead of inline lua.
       # hcl style official: https://developer.hashicorp.com/terraform/language/style#code-formatting
       vim.pluginRC.hcl = ''
         vim.api.nvim_create_autocmd("FileType", {
@@ -120,15 +114,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.hcl = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.hcl = cfg.format.type;
       };
     })
   ]);

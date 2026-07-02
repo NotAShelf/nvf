@@ -4,40 +4,19 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib) genAttrs;
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.toml;
   defaultServers = ["taplo"];
   servers = ["taplo" "tombi"];
 
   defaultFormat = ["taplo"];
-  formats = {
-    tombi = {
-      command = getExe pkgs.tombi;
-      args = [
-        "format"
-        "--stdin-filepath"
-        "$FILENAME"
-        "-"
-      ];
-    };
-    taplo = {
-      command = getExe pkgs.taplo;
-      args = [
-        "format"
-        "--stdin-filepath"
-        "$FILENAME"
-        "-"
-      ];
-    };
-  };
+  formats = ["taplo" "tombi"];
+
   defaultDiagnosticsProvider = ["tombi"];
   diagnosticsProviders = ["tombi" "taplo"];
 in {
@@ -78,7 +57,7 @@ in {
         };
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.toml.format.type" (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.toml.format.type" (enum formats);
         default = defaultFormat;
         description = "TOML formatter to use.";
       };
@@ -119,15 +98,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.toml = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.toml = cfg.format.type;
       };
     })
 

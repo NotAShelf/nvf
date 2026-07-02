@@ -13,7 +13,6 @@
   inherit (lib.types) enum package str listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAfter;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.go;
 
@@ -21,23 +20,7 @@
   servers = ["gopls"];
 
   defaultFormat = ["gofmt"];
-  formats = {
-    gofmt = {
-      command = "${pkgs.go}/bin/gofmt";
-    };
-
-    gofumpt = {
-      command = getExe pkgs.gofumpt;
-    };
-
-    golines = {
-      command = "${pkgs.golines}/bin/golines";
-    };
-
-    goimports = {
-      command = "${pkgs.gotools}/bin/goimports";
-    };
-  };
+  formats = ["gofmt" "gofumpt" "golines" "goimports"];
 
   defaultDebugger = "delve";
   debuggers = {
@@ -100,7 +83,7 @@ in {
         };
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.go.format.type" (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.go.format.type" (enum formats);
         default = defaultFormat;
         description = "Go formatter to use";
       };
@@ -240,15 +223,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.go = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.go = cfg.format.type;
       };
     })
 
