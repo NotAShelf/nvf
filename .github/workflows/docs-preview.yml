@@ -45,7 +45,7 @@ jobs:
         run: nix build .#docs-html --print-build-logs || exit 1
 
       - name: Upload built docs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: docs-html
           path: result/share/doc/
