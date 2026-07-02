@@ -389,6 +389,12 @@ in {
       '')
     ]
 
+    # 2026-06-05
+    [
+      (mkRemovedLspPackage "rust")
+      (mkRemovedLspOpt "rust")
+    ]
+
     # 2026-06-12
     [
       (mkRemovedOptionModule ["vim" "languages" "sql" "dialect"] ''
@@ -422,6 +428,20 @@ in {
       (mkRemovedOptionModule ["vim" "languages" "php" "dap" "xdebug" "port"] ''
         Please use a custom `vim.debugger.nvim-dap.configurations.php`
         instead.
+      '')
+    ]
+
+    # 2026-06-25
+    [
+      (mkRemovedOptionModule ["vim" "languages" "rust" "dap" "adapter"] ''
+        `vim.languages.rust.dap.adapter` has been renamed to `vim.languages.rust.dap.debugger`
+        and now accepts a list of debuggers. The old value "lldb-dap" maps to "lldb".
+        Example: `vim.languages.rust.dap.debugger = [ "codelldb" ];`
+      '')
+      (mkRemovedOptionModule ["vim" "languages" "rust" "dap" "package"] ''
+        `vim.languages.rust.dap.adapter` has been renamed to `vim.languages.rust.dap.debugger`
+        and now accepts a list of debuggers. The old value "lldb-dap" maps to "lldb".
+        Example: `vim.languages.rust.dap.debugger = [ "codelldb" ];`
       '')
     ]
   ];

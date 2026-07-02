@@ -12,7 +12,7 @@ in {
   inherit (typesDag) dagOf;
   inherit (typesPlugin) pluginsOpt extraPluginType mkPluginSetupOption luaInline pluginType borderType;
   inherit (typesLanguage) mkGrammarOption mkTreesitterGrammarOption;
-  inherit (typesLsp) mkLspPresetEnableOption;
+  inherit (typesLsp) mkLspPresetEnableOption mkLspPresetEnableOptionWith;
   inherit (typesDiagnostics) mkDiagnosticsPresetEnableOption;
   inherit (customTypes) char hexColor mergelessListOf deprecatedSingleOrListOf enumWithRename;
 }
