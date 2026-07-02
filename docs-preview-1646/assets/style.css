@@ -414,6 +414,27 @@ header {
   flex: 1;
 }
 
+.js .layout {
+  padding-left: 300px;
+}
+
+.js.sidebar-collapsed .layout,
+.js .sidebar-collapsed .layout {
+  padding-left: 0;
+}
+
+.no-js .js-only {
+  display: none !important;
+}
+
+.noscript-message {
+  padding: var(--space-4);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--sidebar-bg);
+  color: var(--text-muted);
+}
+
 /* Content container  */
 .content {
   max-width: 800px;
@@ -468,7 +489,9 @@ header {
     display: block;
     padding: var(--space-2) var(--space-3);
     border-radius: var(--radius-md);
-    transition: all var(--transition-fast);
+    transition:
+      color var(--transition-fast),
+      background-color var(--transition-fast);
     font-size: 0.875rem;
 
     &:hover,
@@ -487,6 +510,15 @@ header {
   .sidebar-collapsed-init & {
     transform: translateX(-100%);
   }
+}
+
+.no-js .sidebar {
+  position: sticky;
+  flex: 0 0 300px;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+  transform: none !important;
+  z-index: 1;
 }
 
 /* Sidebar Toggle Button */
@@ -784,7 +816,7 @@ img {
 .search-container.has-results #search-input {
   outline: none;
   background-color: rgba(255, 255, 255, 0.15);
-  width: 300px;
+  width: 350px;
 }
 
 .search-results {
@@ -1130,50 +1162,6 @@ mark {
   }
 }
 
-/* Table of Contents*/
-.toc-list {
-  list-style-type: none;
-  padding-left: 0;
-  border-left: 2px solid var(--border-color);
-  margin: var(--space-6) 0;
-  transition: border-color var(--transition);
-  background-color: var(--sidebar-bg);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  padding: var(--space-4) 0;
-
-  ul {
-    list-style-type: none;
-    padding-left: var(--space-2);
-    margin: var(--space-2) 0;
-  }
-
-  li {
-    margin-bottom: var(--space-2);
-    padding-left: var(--space-2);
-  }
-
-  a {
-    color: var(--text-color);
-    text-decoration: none;
-    display: block;
-    padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-md);
-    transition: all var(--transition-fast);
-    font-size: 0.75rem;
-  }
-
-  a:hover,
-  a.active {
-    color: var(--link-color);
-    background-color: var(--sidebar-hover);
-  }
-
-  a.active {
-    background-color: var(--sidebar-active);
-    font-weight: 500;
-  }
-}
-
 /* Admonition styling */
 .admonition {
   margin: var(--space-6) 0;
@@ -1405,6 +1393,7 @@ mark {
     background-color var(--transition),
     border-color var(--transition);
   box-shadow: var(--shadow-sm);
+  min-width: 0;
 }
 
 .option:target,
@@ -1433,6 +1422,7 @@ mark {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex: 0 0 auto;
   width: 24px;
   height: 24px;
   margin-left: var(--space-2);
@@ -1515,6 +1505,12 @@ h6:hover .copy-link {
 
 /* Responsive Design */
 @media (max-width: 800px) {
+  .layout,
+  .js .layout {
+    display: block;
+    padding-left: 0;
+  }
+
   .sidebar {
     top: 60px;
     height: calc(100vh - 60px);
@@ -1562,6 +1558,24 @@ h6:hover .copy-link {
   .content {
     padding: var(--space-6) var(--space-4);
     width: 100%;
+    max-width: 100%;
+  }
+
+  header {
+    gap: var(--space-3);
+  }
+
+  .header-left {
+    min-width: 0;
+  }
+
+  .header-nav ul {
+    gap: var(--space-3);
+  }
+
+  .option,
+  .lib-entry {
+    padding: var(--space-4);
   }
 
   /* Mobile search styles */
@@ -1582,7 +1596,9 @@ h6:hover .copy-link {
     background-size: 18px;
     background-repeat: no-repeat;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all var(--transition-fast);
+    transition:
+      background-color var(--transition-fast),
+      border-color var(--transition-fast);
   }
 
   .search-container #search-input::placeholder {
@@ -1707,7 +1723,9 @@ h6:hover .copy-link {
   display: block;
   padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
   font-size: 0.875rem;
   white-space: nowrap;
   overflow: hidden;
@@ -1843,11 +1861,18 @@ h6:hover .copy-link {
   margin-top: 0;
   display: flex;
   align-items: center;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: thin;
 }
 
 .option-anchor {
   color: var(--heading-color);
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .option-anchor:hover {
@@ -1863,6 +1888,8 @@ h6:hover .copy-link {
 
 .option-type {
   margin-bottom: var(--space-3);
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 .option-description {
@@ -1873,6 +1900,13 @@ h6:hover .copy-link {
 .option-example,
 .option-declared {
   margin-top: var(--space-3);
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.no-js .copy-link,
+.no-js .copy-feedback {
+  display: none;
 }
 
 /* Lib entry specific styling */
@@ -2152,8 +2186,24 @@ h6:hover .copy-link {
     display: none;
   }
 
+  .no-js .sidebar {
+    display: block;
+    position: static;
+    width: 100%;
+    height: auto;
+    max-height: none;
+    transform: none !important;
+    border-right: 0;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: none;
+  }
+
   .mobile-sidebar-container {
     display: flex;
+  }
+
+  .no-js .mobile-sidebar-container {
+    display: none;
   }
 
   .content {
@@ -2284,6 +2334,27 @@ h6:hover .copy-link {
   overflow: hidden;
 }
 
+.sidebar-section-content > ul {
+  margin: var(--space-1) 0 0;
+}
+
+.sidebar-section-content > .toc-list {
+  border-left: 0;
+  background-color: transparent;
+  border-radius: 0;
+  padding: 0;
+}
+
+.sidebar-section-content > .toc-list ul {
+  margin: 0;
+  padding-left: var(--space-3);
+}
+
+.sidebar-section-content > .toc-list li {
+  margin-bottom: var(--space-1);
+  padding-left: 0;
+}
+
 /* Right-side Page Table of Contents */
 .page-toc {
   position: fixed;
@@ -2302,6 +2373,10 @@ h6:hover .copy-link {
   right: var(--space-4);
 }
 
+.no-js .page-toc {
+  display: none !important;
+}
+
 .page-toc-nav h3 {
   font-size: 0.75rem;
   text-transform: uppercase;
@@ -2316,7 +2391,6 @@ h6:hover .copy-link {
   list-style: none;
   padding: 0;
   margin: 0;
-  border-left: 2px solid var(--border-color);
 }
 
 .page-toc-list ul {
@@ -2338,7 +2412,6 @@ h6:hover .copy-link {
     color var(--transition-fast),
     border-color var(--transition-fast);
   border-left: 2px solid transparent;
-  margin-left: -2px;
 }
 
 .page-toc-list a:hover {
@@ -2352,7 +2425,7 @@ h6:hover .copy-link {
 }
 
 /* Show page-toc only on wide screens */
-@media (min-width: 1400px) {
+@media (min-width: 1600px) {
   .page-toc {
     display: block;
   }

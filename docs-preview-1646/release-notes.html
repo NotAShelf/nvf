@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +7,8 @@
      
     
     <script>
+      document.documentElement.classList.remove("no-js");
+      document.documentElement.classList.add("js");
       // Apply sidebar state immediately to prevent flash
       (function () {
         try {
@@ -49,7 +51,7 @@
 
         </div>
         
-        <div class="search-container">
+        <div class="search-container js-only">
           <input type="text" id="search-input" placeholder="Search..." />
           <div id="search-results" class="search-results"></div>
         </div>
@@ -57,7 +59,7 @@
       </header>
 
       <div class="layout">
-        <div class="sidebar-toggle" aria-label="Toggle sidebar">
+        <div class="sidebar-toggle js-only" aria-label="Toggle sidebar">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -592,8 +594,8 @@ allow for more flexibility in the future for nvf.</p>
 </li>
 <li>
 <p>Added injections for <code>query = '' ... ''</code> as <code>query</code> and <code>mkLualine '' ... ''</code>,
-<code>entryAnywhere '' ... ''</code>, <code>entryBefore ] '' ... ''</code>,
-<code>entryAfter ] '' ... ''</code> as <code>lua</code> in nix.</p>
+<code>entryAnywhere '' ... ''</code>, <code>entryBefore [] '' ... ''</code>,
+<code>entryAfter [] '' ... ''</code> as <code>lua</code> in nix.</p>
 </li>
 <li>
 <p>Added <a class="option-reference" href="options.html#option-vim.languages.tera.treesitter.injection"><code class="nixos-option">vim.languages.tera.treesitter.injection</code></a> to configure, what
@@ -1625,8 +1627,8 @@ will enable the <code>typst-lsp</code> language server, and the <code>typstfmt</
 <ul>
 <li>
 <p>Modified type for
-<a class="option-reference" href="options.html#option-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides"><code class="nixos-option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides</code></a> from
-<code>anything</code> to a <code>submodule</code> for better type checking.</p>
+<code>vim.visuals.fidget-nvim.setupOpts.progress.display.overrides</code> from <code>anything</code>
+to a <code>submodule</code> for better type checking.</p>
 </li>
 <li>
 <p>Fix null <code>vim.lsp.mappings</code> generating an error and not being filtered out.</p>
@@ -1637,8 +1639,8 @@ group for <code>Normal</code>, <code>NormalFloat</code>, <code>LineNr</code>, <c
 <code>NvimTreeNormal</code> to <code>none</code>.</p>
 </li>
 <li>
-<p>Fix <a class="option-reference" href="options.html#option-vim.ui.smartcolumn.setupOpts.custom_colorcolumn"><code class="nixos-option">vim.ui.smartcolumn.setupOpts.custom_colorcolumn</code></a> using the wrong
-type <code>int</code> instead of the expected type <code>string</code>.</p>
+<p>Fix <code>vim.ui.smartcolumn.setupOpts.custom_colorcolumn</code> using the wrong type
+<code>int</code> instead of the expected type <code>string</code>.</p>
 </li>
 </ul>
 <p><a href="https://github.com/horriblename">horriblename</a>:</p>
@@ -1744,7 +1746,7 @@ default.</p>
 friendly-snippets for bundled snippets.
 <a class="option-reference" href="options.html#option-vim.snippets.luasnip.enable"><code class="nixos-option">vim.snippets.luasnip.enable</code></a> can be used to toggle Luasnip.</li>
 <li>Add sorting function options for completion sources under
-<a class="option-reference" href="options.html#option-vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators"><code class="nixos-option">vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators</code></a></li>
+<code>vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators</code></li>
 </ul>
 </li>
 <li>
@@ -2130,9 +2132,9 @@ wrapper PATH, making said packages available while inside the Neovim session.</p
 <code>setupOpts</code> while it is enabled.</p>
 </li>
 <li>
-<p>Added <a class="option-reference" href="options.html#option-vim.notify.nvim-notify.setupOpts.render"><code class="nixos-option">vim.notify.nvim-notify.setupOpts.render</code></a> which takes either a
-string of enum, or a Lua function. The default is "compact", but you may
-change it according to nvim-notify documentation.</p>
+<p>Added <code>vim.notify.nvim-notify.setupOpts.render</code> which takes either a string of
+enum, or a Lua function. The default is "compact", but you may change it
+according to nvim-notify documentation.</p>
 </li>
 </ul>
 <h1 id="sec-release-0-5">Release 0.5</h1>

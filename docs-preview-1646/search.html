@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +7,8 @@
      
     
     <script>
+      document.documentElement.classList.remove("no-js");
+      document.documentElement.classList.add("js");
       // Apply sidebar state immediately to prevent flash
       (function () {
         try {
@@ -45,7 +47,7 @@
   </ul>
 </nav>
 
-        <div class="search-container">
+        <div class="search-container js-only">
           <input
             type="search"
             id="search-input"
@@ -64,7 +66,7 @@
       </header>
 
       <div class="layout">
-        <div class="sidebar-toggle" aria-label="Toggle sidebar">
+        <div class="sidebar-toggle js-only" aria-label="Toggle sidebar">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -100,7 +102,12 @@
         <main class="content">
           <h1>Search</h1>
           <div class="search-page">
-            <div class="search-form">
+            <noscript>
+              <p class="noscript-message">
+                Search requires JavaScript. Use the document navigation links instead.
+              </p>
+            </noscript>
+            <div class="search-form js-only">
               <input
                 type="search"
                 id="search-page-input"
@@ -110,14 +117,14 @@
                 autofocus
               />
             </div>
-            <div class="search-keyboard-hints" role="note" aria-label="Keyboard shortcuts">
+            <div class="search-keyboard-hints js-only" role="note" aria-label="Keyboard shortcuts">
               <span class="hint-item"><kbd>↑</kbd> <kbd>↓</kbd> to navigate</span>
               <span class="hint-item"><kbd>Enter</kbd> to select</span>
               <span class="hint-item"><kbd>Esc</kbd> to clear</span>
             </div>
             <div
               id="search-page-results"
-              class="search-page-results"
+              class="search-page-results js-only"
               role="region"
               aria-live="polite"
               aria-label="Search results"

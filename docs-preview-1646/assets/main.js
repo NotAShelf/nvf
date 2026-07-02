@@ -150,14 +150,32 @@ function initScrollSpy() {
 
   if (!headings.length) return;
 
-  // Build a map of heading IDs to TOC links for quick lookup
-  const linkMap = new Map();
+  // Build ordered (heading, tocLink) pairs. Using a queue per ID handles
+  // duplicate heading text correctly: the first TOC link for a given href
+  // is paired with the first heading carrying that ID in document order, the
+  // second TOC link with the second heading, etc.
+  const headingQueues = new Map();
+  headings.forEach((h) => {
+    if (!headingQueues.has(h.id)) headingQueues.set(h.id, []);
+    headingQueues.get(h.id).push(h);
+  });
+
+  const pairs = [];
   tocLinks.forEach((link) => {
     const href = link.getAttribute("href");
-    if (href && href.startsWith("#")) {
-      linkMap.set(href.slice(1), link);
+    if (!href || !href.startsWith("#")) return;
+    const id = href.slice(1);
+    const queue = headingQueues.get(id);
+    if (queue?.length) {
+      pairs.push({ heading: queue.shift(), link });
     }
   });
+
+  // Ensure pairs are sorted by document position in case the TOC order ever
+  // diverges from heading order.
+  pairs.sort(
+    (a, b) => headings.indexOf(a.heading) - headings.indexOf(b.heading),
+  );
 
   let activeLink = null;
 
@@ -165,25 +183,25 @@ function initScrollSpy() {
   function updateActiveLink() {
     const threshold = 120; // threshold from the top of the viewport
 
-    let currentHeading = null;
+    let currentPair = null;
 
     // Find the last heading that is at or above the threshold
-    for (const heading of headings) {
-      const rect = heading.getBoundingClientRect();
+    for (const pair of pairs) {
+      const rect = pair.heading.getBoundingClientRect();
       if (rect.top <= threshold) {
-        currentHeading = heading;
+        currentPair = pair;
       }
     }
 
     // If no heading is above threshold, use first heading if it's in view
-    if (!currentHeading && headings.length > 0) {
-      const firstRect = headings[0].getBoundingClientRect();
+    if (!currentPair && pairs.length > 0) {
+      const firstRect = pairs[0].heading.getBoundingClientRect();
       if (firstRect.top < window.innerHeight) {
-        currentHeading = headings[0];
+        currentPair = pairs[0];
       }
     }
 
-    const newLink = currentHeading ? linkMap.get(currentHeading.id) : null;
+    const newLink = currentPair?.link ?? null;
 
     if (newLink !== activeLink) {
       if (activeLink) {
