@@ -17,7 +17,7 @@ jobs:
     if: "!contains(github.event.pull_request.title, '[skip ci]')"
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31.10.6
         with:
           nix_path: nixpkgs=channel:nixos-unstable
@@ -34,7 +34,7 @@ jobs:
     if: "!contains(github.event.pull_request.title, '[skip ci]')"
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install Nix
         uses: cachix/install-nix-action@v31.10.6
@@ -64,7 +64,7 @@ jobs:
     if: "!contains(github.event.pull_request.title, '[skip ci]')"
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Check for typos
         uses: crate-ci/typos@master
@@ -92,7 +92,7 @@ jobs:
           - docs-json
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31.10.6
         with:
           nix_path: nixpkgs=channel:nixos-unstable
@@ -129,7 +129,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31.10.6
         with:
           nix_path: nixpkgs=channel:nixos-unstable
@@ -146,7 +146,7 @@ jobs:
     if: "!contains(github.event.pull_request.title, '[skip ci]')"
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 2 # slows down checkout, but we need to compare against the previous commit on push events
 
