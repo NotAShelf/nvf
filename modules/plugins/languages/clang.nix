@@ -92,8 +92,8 @@
     clang-format.command = getExe' pkgs.clang-tools "clang-format";
   };
 
-  defaultDiagnosticsProvider = ["cpplint"];
-  diagnosticsProviders = ["cpplint"];
+  defaultDiagnosticsProvider = ["clangtidy"];
+  diagnosticsProviders = ["cpplint" "clangtidy"];
 in {
   options.vim.languages.clang = {
     enable = mkEnableOption "C/C++ language support";
