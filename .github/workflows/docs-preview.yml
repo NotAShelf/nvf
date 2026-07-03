@@ -24,6 +24,9 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           persist-credentials: false
+          # NOTE: Only doing this, because we set `permissions: {}`
+          # to ensure, no secrets can leak here.
+          allow-unsafe-pr-checkout: true
 
       - uses: cachix/install-nix-action@v31.10.6
         with:
