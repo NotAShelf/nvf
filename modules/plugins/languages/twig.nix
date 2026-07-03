@@ -4,14 +4,11 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib) genAttrs;
-  inherit (lib.meta) getExe;
   inherit (lib.types) listOf enum;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.twig;
 
@@ -19,12 +16,8 @@
   servers = ["twig-language-server" "emmet-ls" "stimulus-language-server"];
 
   defaultFormat = ["djlint"];
-  formats = {
-    djlint = {
-      command = getExe pkgs.djlint;
-    };
-    # TODO: if twig-cs-fixer gets packaged for nix, add it and default to it.
-  };
+  formats = ["djlint"];
+
   defaultDiagnosticsProvider = ["djlint"];
   # TODO: if curlylint gets packaged for nix, add it.
   diagnosticsProviders = ["djlint"];
@@ -65,7 +58,7 @@ in {
         };
       type = mkOption {
         description = "Twig formatter to use";
-        type = listOf (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
       };
     };
@@ -103,15 +96,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.twig = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.twig = cfg.format.type;
       };
     })
 

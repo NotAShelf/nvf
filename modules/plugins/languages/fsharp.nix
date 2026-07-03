@@ -4,24 +4,17 @@
   config,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum listOf;
   inherit (lib) genAttrs;
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   defaultServer = ["fsautocomplete"];
   servers = ["fsautocomplete"];
 
   defaultFormat = ["fantomas"];
-  formats = {
-    fantomas = {
-      command = getExe pkgs.fantomas;
-    };
-  };
+  formats = ["fantomas"];
 
   cfg = config.vim.languages.fsharp;
 in {
@@ -56,7 +49,7 @@ in {
         enable = mkEnableOption "F# formatting" // {default = config.vim.languages.enableFormat;};
 
         type = mkOption {
-          type = deprecatedSingleOrListOf "vim.language.fsharp.format.type" (enum (attrNames formats));
+          type = deprecatedSingleOrListOf "vim.language.fsharp.format.type" (enum formats);
           default = defaultFormat;
           description = "F# formatter to use";
         };
@@ -82,15 +75,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.fsharp = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.fsharp = cfg.format.type;
       };
     })
   ]);

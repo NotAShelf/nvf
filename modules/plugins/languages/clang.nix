@@ -8,12 +8,10 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) bool enum listOf;
   inherit (lib) genAttrs;
-  inherit (lib.meta) getExe getExe';
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryAfter;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) deprecatedSingleOrListOf enumWithRename;
 
   cfg = config.vim.languages.clang;
@@ -45,52 +43,7 @@
   };
 
   defaultFormat = ["clang-format"];
-  formats = {
-    astyle = {
-      command = getExe pkgs.astyle;
-      stdin = false;
-      args = mkLuaInline ''
-        function(self, ctx)
-          local args = {
-            "$FILENAME",
-          }
-
-          if not vim.bo[ctx.buf].expandtab then
-            table.insert(args, "--indent=tab=" .. ctx.shiftwidth)
-          else
-            table.insert(args, "--indent=spaces=" .. ctx.shiftwidth)
-          end
-
-          return args
-        end
-      '';
-    };
-    indent = {
-      command = getExe pkgs.indent;
-      stdin = true;
-      args = mkLuaInline ''
-        function(self, ctx)
-          local args = {
-            "--indent-level", ctx.shiftwidth,
-            "--tab-size", ctx.shiftwidth,
-          }
-
-          if not vim.bo[ctx.buf].expandtab then
-            table.insert(args, "--use-tabs")
-          else
-            table.insert(args, "--no-tabs")
-          end
-
-          return args
-        end
-      '';
-      # Default is GNU style. Nobody likes that one.
-      # This is under `append_args`, to allow easy editing of this argument,
-      # without having to redefine everything as a user.
-      append_args = ["--linux-style"];
-    };
-    clang-format.command = getExe' pkgs.clang-tools "clang-format";
-  };
+  formats = ["clang-format" "indent" "astyle"];
 
   defaultDiagnosticsProvider = ["cpplint"];
   diagnosticsProviders = ["cpplint"];
@@ -160,7 +113,7 @@ in {
         };
 
       type = mkOption {
-        type = listOf (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "C formatter to use";
       };
@@ -217,17 +170,10 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft = {
-            c = cfg.format.type;
-            cpp = cfg.format.type;
-          };
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft = {
+          c = cfg.format.type;
+          cpp = cfg.format.type;
         };
       };
     })

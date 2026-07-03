@@ -4,14 +4,11 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib) genAttrs;
-  inherit (lib.meta) getExe;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.ocaml;
 
@@ -19,11 +16,7 @@
   servers = ["ocaml-lsp"];
 
   defaultFormat = ["ocamlformat"];
-  formats = {
-    ocamlformat = {
-      command = getExe pkgs.ocamlPackages.ocamlformat;
-    };
-  };
+  formats = ["ocamlformat"];
 in {
   options.vim.languages.ocaml = {
     enable = mkEnableOption "OCaml language support";
@@ -56,7 +49,7 @@ in {
     format = {
       enable = mkEnableOption "OCaml formatting support (ocamlformat)" // {default = config.vim.languages.enableFormat;};
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.ocaml.format.type" (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.ocaml.format.type" (enum formats);
         default = defaultFormat;
         description = "OCaml formatter to use";
       };
@@ -81,15 +74,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.ocaml = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.ocaml = cfg.format.type;
       };
     })
   ]);

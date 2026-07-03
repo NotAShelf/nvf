@@ -4,26 +4,20 @@
   lib,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
   inherit (lib.strings) optionalString;
   inherit (lib.lists) isList;
-  inherit (lib.attrsets) attrNames;
+  inherit (lib) genAttrs;
   inherit (lib.types) bool package str listOf either enum int;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
-  inherit (lib.nvim.dag) entryAfter entryAnywhere;
+  inherit (lib.nvim.dag) entryAfter;
 
   cfg = config.vim.languages.rust;
 
   defaultFormat = ["rustfmt"];
-  formats = {
-    rustfmt = {
-      command = getExe pkgs.rustfmt;
-    };
-  };
+  formats = ["rustfmt"];
 in {
   options.vim.languages.rust = {
     enable = mkEnableOption "Rust language support";
@@ -80,7 +74,7 @@ in {
 
       type = mkOption {
         description = "Rust formatter to use";
-        type = deprecatedSingleOrListOf "vim.language.rust.format.type" (enum (attrNames formats));
+        type = deprecatedSingleOrListOf "vim.language.rust.format.type" (enum formats);
         default = defaultFormat;
       };
     };
@@ -178,15 +172,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.rust = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.rust = cfg.format.type;
       };
     })
 
