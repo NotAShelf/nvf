@@ -290,6 +290,22 @@ for SCSS/SASS.</p>
 module provides jsx/tsx support. This is a step of cleaning up the Typescript
 module for the future.</p>
 </li>
+<li>
+<p>Removed <code>vim.languages.&lt;lang&gt;.format.package</code> options across 20 languages.
+Support for custom formatter packages is dropped; use
+<code>vim.formatter.conform-nvim.setupOpts.formatters.&lt;name&gt;.command</code> to customize
+the formatter binary instead.</p>
+</li>
+<li>
+<p>Renamed <code>ruff-check</code> formatter to <code>ruff-fix</code>.</p>
+</li>
+<li>
+<p>Renamed <code>denofmt</code>/<code>deno_fmt</code> formatters to <code>deno</code>.</p>
+</li>
+<li>
+<p><code>prettierd</code> formatter is dropped entirely in the last few modules, use
+<code>prettier</code> instead.</p>
+</li>
 </ul>
 <p><a href="https://github.com/dathegreat">dathegreat</a>:</p>
 <ul>
@@ -807,6 +823,16 @@ you're crazy.</p>
 </li>
 <li>
 <p>Enable <code>nil.settings.nil.nix.autoArchive</code> by default.</p>
+</li>
+<li>
+<p>Added <code>vim.formatter.conform-nvim.presets.&lt;name&gt;</code> to contain formatter
+configurations. This allows for more flexibility in nvf and reuse of
+formatters across languages.</p>
+</li>
+<li>
+<p>Refactored all language modules to consume formatter presets via
+<code>vim.formatter.conform-nvim.presets</code> instead of defining formatter
+configurations inline.</p>
 </li>
 </ul>
 <p><a href="https://github.com/vagahbond">vagahbond</a>: [codewindow.nvim]:
