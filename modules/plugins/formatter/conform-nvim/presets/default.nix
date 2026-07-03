@@ -26,6 +26,7 @@
     ./isort.nix
     ./jqfmt.nix
     ./jsonfmt.nix
+    ./just.nix
     ./latexindent.nix
     ./mbake.nix
     ./mdformat.nix
