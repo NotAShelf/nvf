@@ -47,6 +47,24 @@
   mkRemovedFormatPackage = lang: (mkRemovedOptionModule ["vim" "languages" lang "format" "package"] ''
     `vim.languages.${lang}.format.package` is removed, please use `vim.formatter.conform-nvim.formatters.<formatter_name>.command` instead.
   '');
+
+  mkRemovedEnumListOption = optionPath: removedValue: msg: {
+    config,
+    lib,
+    ...
+  }: let
+    inherit (lib) elem attrByPath concatStringsSep;
+  in {
+    config.assertions = [
+      {
+        assertion = !(elem removedValue (attrByPath optionPath [] config));
+        message = ''
+          The value `${removedValue}` was removed from `${concatStringsSep "." optionPath}`.
+          ${msg}
+        '';
+      }
+    ];
+  };
 in {
   imports = concatLists [
     [
@@ -437,6 +455,16 @@ in {
         `vim.languages.markdown.format.extraFiletypes` is removed.
         Filetype association is now handled automatically by the conform-nvim presets.
         Use `vim.formatter.conform-nvim.setupOpts.formatters_by_ft.<ft> = ["<formatter>", ...]` to register extra formatters per filetype.
+      '')
+    ]
+
+    # 2026-07-03
+    [
+      (mkRemovedEnumListOption ["vim" "languages" "html" "lsp" "servers"] "angular-language-server" ''
+        Use `languages.angular.lsp.servers` instead.
+      '')
+      (mkRemovedEnumListOption ["vim" "languages" "typescript" "lsp" "servers"] "angular-language-server" ''
+        Use `languages.angular.lsp.servers` instead.
       '')
     ]
   ];

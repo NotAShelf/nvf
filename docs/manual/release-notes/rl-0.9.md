@@ -45,6 +45,8 @@
 
 [Snoweuph](https://github.com/snoweuph)
 
+- Moved all angular related stuff into its own language module.
+
 - Remove `mind.nvim`. This plugin doesn't exist anymore. The original author
   deleted all their GitHub repositories and moved to
   [sourcehut](https://sr.ht/~hadronized/). Some repositories where migrated.
