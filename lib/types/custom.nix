@@ -30,15 +30,18 @@ in {
   };
 
   # no compound types please
-  deprecatedSingleOrListOf = option: t:
-    coercedTo
-    t
-    (x:
-      warn ''
-        ${option} no longer accepts non-list values, use [${toJSON x}] instead
-      ''
-      (singleton x))
-    (listOf t);
+  deprecatedSingleOrListOf = option: t: let
+    targetType = listOf t;
+  in
+    (coercedTo
+      t
+      (x:
+        warn ''
+          ${option} no longer accepts non-list values, use [${toJSON x}] instead
+        ''
+        (singleton x))
+      targetType)
+    // {inherit (targetType) description descriptionClass;};
 
   # Create an enum type for `values`, which additionally accepts deprecated
   # values listed in the `renames` attrset as `old = new` pairs.
@@ -55,12 +58,15 @@ in {
   # With this option definition, when users enter `ts_ls`, they
   # get a warning "`ts_ls` is deprecated, use `typescript-language-server`
   # instead", and typescript-language-server is automatically used.
-  enumWithRename = option: values: renames:
-    coercedTo (enum (attrNames renames)) (
-      old:
-        warn
-        "${option}: `${old}` is deprecated, use `${renames.${old}}` instead"
-        renames.${old}
-    )
-    (enum values);
+  enumWithRename = option: values: renames: let
+    targetType = enum values;
+  in
+    (coercedTo (enum (attrNames renames)) (
+        old:
+          warn
+          "${option}: `${old}` is deprecated, use `${renames.${old}}` instead"
+          renames.${old}
+      )
+      targetType)
+    // {inherit (targetType) description descriptionClass;};
 }
