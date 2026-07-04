@@ -14,6 +14,9 @@
 
   defaultServers = ["just-lsp"];
   servers = ["just-lsp"];
+
+  defaultFormat = ["just"];
+  formats = ["just"];
 in {
   options.vim.languages.just = {
     enable = mkEnableOption "Just support";
@@ -41,6 +44,21 @@ in {
         description = "Just LSP server to use";
       };
     };
+
+    format = {
+      enable =
+        mkEnableOption "Just formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
+
+      type = mkOption {
+        type = listOf (enum formats);
+        default = defaultFormat;
+        description = "Just formatter to use";
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -57,6 +75,14 @@ in {
         servers = genAttrs cfg.lsp.servers (_: {
           filetypes = ["just"];
         });
+      };
+    })
+
+    (mkIf cfg.format.enable {
+      vim.formatter.conform-nvim = {
+        enable = true;
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.just = cfg.format.type;
       };
     })
   ]);

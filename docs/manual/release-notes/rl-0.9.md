@@ -347,6 +347,9 @@
 
 [Snoweuph](https://github.com/snoweuph)
 
+- Added {option}`vim.formatter.conform-nvim.presets.just.enable` for justfile
+  formatting.
+
 - Added {option}`vim.lsp.presets.jls.enable` and made it available under
   `vim.languages.java.lsp.servers`.
 
