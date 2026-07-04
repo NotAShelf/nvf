@@ -560,6 +560,10 @@ https://github.com/gorbit99/codewindow.nvim
 - Fix non-functional `vim.keymaps.*.noremap`. Now, setting it to false is
   equivalent to `:lua vim.keymap.set(..., { remap = true })`
 
+[mad-moss](https://github.com/mad-moss):
+
+- Add [mini.cmdline](https://github.com/nvim-mini/mini.cmdline)
+
 [kazimazi](https://github.com/kazimazi):
 
 - Added [`grug-far.nvim`](https://github.com/MagicDuck/grug-far.nvim) the find
