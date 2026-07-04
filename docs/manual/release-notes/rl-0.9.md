@@ -354,6 +354,8 @@
 
 [Snoweuph](https://github.com/snoweuph)
 
+- Split of `zsh` from `languages.bash` into its own language module.
+
 - Fix automatic path resolution for JLS, to always be absolute.
 
 - Added {option}`vim.healthchecks`.
