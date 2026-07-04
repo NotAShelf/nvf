@@ -1219,6 +1219,19 @@
       "url": "https://github.com/echasnovski/mini.clue/archive/f6978fb031023ee0b0aeb2abdb44abb87577bf38.tar.gz",
       "hash": "sha256-xayesclebU/xcaFSrsfsnQabs54hUWFwrrqZeNq0OiQ="
     },
+    "mini-cmdline": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvim-mini",
+        "repo": "mini.cmdline"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "8e3fe6ee41a960226bc0dc663120363a40bc18bd",
+      "url": "https://github.com/nvim-mini/mini.cmdline/archive/8e3fe6ee41a960226bc0dc663120363a40bc18bd.tar.gz",
+      "hash": "sha256-WCsFDbk4/Cql9kJ44m++YlanasLE7ptYaaGrLoSpxYw="
+    },
     "mini-colors": {
       "type": "Git",
       "repository": {

@@ -8,6 +8,7 @@
     ./bracketed
     ./bufremove
     ./clue
+    ./cmdline
     ./colors
     ./comment
     ./completion
