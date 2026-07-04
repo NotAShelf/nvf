@@ -562,7 +562,7 @@ https://github.com/gorbit99/codewindow.nvim
 
 [mad-moss](https://github.com/mad-moss):
 
-- Add [mini.cmdline](https://github.com/nvim-mini/mini.cmdline) 
+- Add [mini.cmdline](https://github.com/nvim-mini/mini.cmdline)
 
 [kazimazi](https://github.com/kazimazi):
 
