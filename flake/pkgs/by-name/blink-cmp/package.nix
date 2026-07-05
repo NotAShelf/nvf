@@ -7,13 +7,13 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "blink-cmp";
-  version = "1.10.1";
+  version = "1.10.2";
 
   src = fetchFromGitHub {
     owner = "Saghen";
     repo = "blink.cmp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-y8f+bmPkb3M6DzcUkJMxd2woDLoBYslne7aB8A0ejCk=";
+    hash = "sha256-C1FpyGw0f35NdHvDUGPXxmKdOgw3SpIteK1gAjVy6Ns=";
   };
 
   forceShare = [
@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # From the blink.cmp flake
   buildInputs = lib.optionals stdenv.hostPlatform.isAarch64 [rust-jemalloc-sys];
 
-  cargoHash = "sha256-3o2n4xwNF9Fc3VlPKf3lnvmN7FVus5jQB8gcXXwz50c=";
+  cargoHash = "sha256-z8koRYVM9mkgKB6rdZAKIfjZfinVUUpYAW0IvPgmjZ4=";
 
   env = {
     # Those are the Linker args used by upstream. Without those, the build fails.
