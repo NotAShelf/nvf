@@ -1941,7 +1941,7 @@
     <details class="toc-category">
       <summary title="vim.diagnostics">
         <span>vim.diagnostics</span>
-        <span class="toc-count">48</span>
+        <span class="toc-count">50</span>
       </summary>
       <ul>
         
@@ -2222,6 +2222,22 @@
         <li>
           <a href='#option-vim.diagnostics.presets.luacheck.enable' title="vim.diagnostics.presets.luacheck.enable">
             presets.luacheck.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.diagnostics.presets.mago_analyze.enable' title="vim.diagnostics.presets.mago_analyze.enable">
+            presets.mago_analyze.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.diagnostics.presets.mago_lint.enable' title="vim.diagnostics.presets.mago_lint.enable">
+            presets.mago_lint.enable
             
             
           </a>
@@ -2517,7 +2533,7 @@
     <details class="toc-category">
       <summary title="vim.formatter">
         <span>vim.formatter</span>
-        <span class="toc-count">67</span>
+        <span class="toc-count">69</span>
       </summary>
       <ul>
         
@@ -2766,6 +2782,22 @@
         <li>
           <a href='#option-vim.formatter.conform-nvim.presets.latexindent.enable' title="vim.formatter.conform-nvim.presets.latexindent.enable">
             conform-nvim.presets.latexindent.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.formatter.conform-nvim.presets.mago-fix.enable' title="vim.formatter.conform-nvim.presets.mago-fix.enable">
+            conform-nvim.presets.mago-fix.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.formatter.conform-nvim.presets.mago.enable' title="vim.formatter.conform-nvim.presets.mago.enable">
+            conform-nvim.presets.mago.enable
             
             
           </a>
@@ -17179,6 +17211,36 @@ Use <code class="nixos-option">vim.diagnostics.nvim-lint.linters.luacheck</code>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/presets/luacheck.nix" target="_blank">&lt;nvf/modules/plugins/diagnostics/presets/luacheck.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.diagnostics.presets.mago_analyze.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.diagnostics.presets.mago_analyze.enable" class="option-anchor">vim.diagnostics.presets.mago_analyze.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Mago analyzer Diagnostics Provider.
+Use <code class="nixos-option">vim.diagnostics.nvim-lint.linters.mago</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/presets/mago.nix" target="_blank">&lt;nvf/modules/plugins/diagnostics/presets/mago.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.diagnostics.presets.mago_lint.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.diagnostics.presets.mago_lint.enable" class="option-anchor">vim.diagnostics.presets.mago_lint.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Mago lint Diagnostics Provider.
+Use <code class="nixos-option">vim.diagnostics.nvim-lint.linters.mago</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/presets/mago.nix" target="_blank">&lt;nvf/modules/plugins/diagnostics/presets/mago.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.diagnostics.presets.markdownlint-cli2.enable">
   <h3 class="option-name">
     <a href="#option-vim.diagnostics.presets.markdownlint-cli2.enable" class="option-anchor">vim.diagnostics.presets.markdownlint-cli2.enable</a>
@@ -18197,6 +18259,37 @@ is used.</p>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/formatter/conform-nvim/presets/latexindent.nix" target="_blank">&lt;nvf/modules/plugins/formatter/conform-nvim/presets/latexindent.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.formatter.conform-nvim.presets.mago-fix.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.formatter.conform-nvim.presets.mago-fix.enable" class="option-anchor">vim.formatter.conform-nvim.presets.mago-fix.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Mago formatter.</p>
+<p>This variant runs automatic linter fixes.</p>
+<p>Use <code>vim.formatter.conform-nvim.setupOpts.formatters.mago-fix</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/formatter/conform-nvim/presets/mago.nix" target="_blank">&lt;nvf/modules/plugins/formatter/conform-nvim/presets/mago.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.formatter.conform-nvim.presets.mago.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.formatter.conform-nvim.presets.mago.enable" class="option-anchor">vim.formatter.conform-nvim.presets.mago.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Mago formatter.</p>
+<p>Use <code>vim.formatter.conform-nvim.setupOpts.formatters.mago</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/formatter/conform-nvim/presets/mago.nix" target="_blank">&lt;nvf/modules/plugins/formatter/conform-nvim/presets/mago.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.formatter.conform-nvim.presets.mbake.enable">
   <h3 class="option-name">
@@ -20070,7 +20163,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of ((one of "prettier", "biome", "biome-check", "biome-organize-imports", "astro") or value "prettierd" (singular enum) convertible to it)) or ((one of "prettier", "biome", "biome-check", "biome-organize-imports", "astro") or value "prettierd" (singular enum) convertible to it) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of ((one of "prettier", "biome", "biome-check", "biome-organize-imports", "astro") or value "prettierd" (singular enum) convertible to it)</code></div>
   <div class="option-description"><html><head></head><body><p>Astro formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -20097,7 +20190,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of ((one of "astro-language-server", "emmet-ls") or value "astro" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of (one of "astro-language-server", "emmet-ls")</code></div>
   <div class="option-description"><html><head></head><body><p>Astro LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -20188,7 +20281,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of value "shfmt" (singular enum)) or value "shfmt" (singular enum) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of value "shfmt" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>Bash formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -20215,7 +20308,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (value "bash-language-server" (singular enum) or value "bash-ls" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of value "bash-language-server" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>Bash LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -20267,7 +20360,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of (value "lldb" (singular enum) or value "lldb-vscode" (singular enum) convertible to it)) or (value "lldb" (singular enum) or value "lldb-vscode" (singular enum) convertible to it) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of value "lldb" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>clang debugger to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -20515,7 +20608,7 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of value "gersemi" (singular enum)) or value "gersemi" (singular enum) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of value "gersemi" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>CMake formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -20764,7 +20857,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of ((one of "csharp_ls", "omnisharp", "roslyn-ls") or value "roslyn_ls" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of (one of "csharp_ls", "omnisharp", "roslyn-ls")</code></div>
   <div class="option-description"><html><head></head><body><p>C# LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -20841,7 +20934,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of ((one of "prettier", "biome", "biome-check", "biome-organize-imports", "deno") or value "prettierd" (singular enum) convertible to it)) or ((one of "prettier", "biome", "biome-check", "biome-organize-imports", "deno") or value "prettierd" (singular enum) convertible to it) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of ((one of "prettier", "biome", "biome-check", "biome-organize-imports", "deno") or value "prettierd" (singular enum) convertible to it)</code></div>
   <div class="option-description"><html><head></head><body><p>CSS formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -20868,7 +20961,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of ((one of "vscode-css-language-server", "emmet-ls") or value "cssls" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of (one of "vscode-css-language-server", "emmet-ls")</code></div>
   <div class="option-description"><html><head></head><body><p>CSS LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -21313,7 +21406,7 @@ missing from <code>PATH</code>", leave this option disabled.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of value "mix" (singular enum)) or value "mix" (singular enum) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of value "mix" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>Elixir formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -21340,7 +21433,7 @@ missing from <code>PATH</code>", leave this option disabled.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (value "elixir-ls" (singular enum) or value "elixirls" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of value "elixir-ls" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>Elixir LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -21581,7 +21674,7 @@ missing from <code>PATH</code>", leave this option disabled.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (value "fish-indent" (singular enum) or value "fish_indent" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of value "fish-indent" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>Fish formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -21686,7 +21779,7 @@ missing from <code>PATH</code>", leave this option disabled.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of value "fantomas" (singular enum)) or value "fantomas" (singular enum) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of value "fantomas" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>F# formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -22041,7 +22134,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of (one of "gofmt", "gofumpt", "golines", "goimports")) or (one of "gofmt", "gofumpt", "golines", "goimports") convertible to it</code></div>
+  <div class="option-type">Type: <code>list of (one of "gofmt", "gofumpt", "golines", "goimports")</code></div>
   <div class="option-description"><html><head></head><body><p>Go formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -22426,7 +22519,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of ((one of "hclfmt", "nomad", "opentofu", "terraform") or value "nomad-fmt" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of (one of "hclfmt", "nomad", "opentofu", "terraform")</code></div>
   <div class="option-description"><html><head></head><body><p>HCL formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -22453,7 +22546,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of ((one of "terraform-ls", "tofu-ls", "docker-language-server") or (one of "terraformls-hcl", "tofuls-hcl") convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of (one of "terraform-ls", "tofu-ls", "docker-language-server")</code></div>
   <div class="option-description"><html><head></head><body><p>HCL LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -22610,7 +22703,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of (one of "superhtml", "biome", "prettier", "deno")) or (one of "superhtml", "biome", "prettier", "deno") convertible to it</code></div>
+  <div class="option-type">Type: <code>list of (one of "superhtml", "biome", "prettier", "deno")</code></div>
   <div class="option-description"><html><head></head><body><p>HTML formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -22688,7 +22781,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of value "jls" (singular enum)) or value "jls" (singular enum) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of value "jls" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>Java debugger to use.</p>
 <p><strong>JLS</strong></p>
 <p>For <code>jls</code> to work, you need to run your application with debug
@@ -22854,7 +22947,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of ((one of "jdt-language-server", "jls") or value "jdtls" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of (one of "jdt-language-server", "jls")</code></div>
   <div class="option-description"><html><head></head><body><p>Java LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -23100,7 +23193,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of ((one of "jsonfmt", "prettier", "biome", "deno") or value "prettierd" (singular enum) convertible to it)) or ((one of "jsonfmt", "prettier", "biome", "deno") or value "prettierd" (singular enum) convertible to it) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of ((one of "jsonfmt", "prettier", "biome", "deno") or value "prettierd" (singular enum) convertible to it)</code></div>
   <div class="option-description"><html><head></head><body><p>JSON formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -23127,7 +23220,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (value "vscode-json-language-server" (singular enum) or value "jsonls" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of value "vscode-json-language-server" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>JSON LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -23204,7 +23297,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (value "julia-languageserver" (singular enum) or value "julials" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of value "julia-languageserver" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>Julia LSP Server to Use</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -23684,7 +23777,7 @@ package to Julia in your devshells.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (value "mbake" (singular enum) or value "bake" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of value "mbake" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>make formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -23836,7 +23929,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of ((one of "deno", "prettier", "rumdl", "mdformat") or (one of "deno_fmt", "denofmt", "prettierd") convertible to it)) or ((one of "deno", "prettier", "rumdl", "mdformat") or (one of "deno_fmt", "denofmt", "prettierd") convertible to it) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of (one of "deno", "prettier", "rumdl", "mdformat")</code></div>
   <div class="option-description"><html><head></head><body><p>Markdown formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -23939,7 +24032,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of value "nimpretty" (singular enum)) or value "nimpretty" (singular enum) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of value "nimpretty" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>Nim formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -24059,7 +24152,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of (one of "alejandra", "nixfmt", "nixfmt-rs")) or (one of "alejandra", "nixfmt", "nixfmt-rs") convertible to it</code></div>
+  <div class="option-type">Type: <code>list of (one of "alejandra", "nixfmt", "nixfmt-rs")</code></div>
   <div class="option-description"><html><head></head><body><p>Nix formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -24216,7 +24309,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of value "ocamlformat" (singular enum)) or value "ocamlformat" (singular enum) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of value "ocamlformat" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>OCaml formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -24282,7 +24375,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of (value "lldb" (singular enum) or value "codelldb" (singular enum) convertible to it)) or (value "lldb" (singular enum) or value "codelldb" (singular enum) convertible to it) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of value "lldb" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>Odin debugger to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -24467,7 +24560,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of value "phpstan" (singular enum)</code></div>
+  <div class="option-type">Type: <code>list of (one of "phpstan", "mago_lint", "mago_analyze")</code></div>
   <div class="option-description"><html><head></head><body><p>extra PHP diagnostics providers</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -24494,7 +24587,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (value "php-cs-fixer" (singular enum) or value "php_cs_fixer" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of (one of "php-cs-fixer", "mago", "mago-fix")</code></div>
   <div class="option-description"><html><head></head><body><p>PHP formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -24652,7 +24745,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of value "debugpy" (singular enum)) or value "debugpy" (singular enum) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of value "debugpy" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>Python debugger to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -24731,7 +24824,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of ((one of "black", "isort", "ruff", "ruff-fix", "black-and-isort") or value "ruff-check" (singular enum) convertible to it)) or ((one of "black", "isort", "ruff", "ruff-fix", "black-and-isort") or value "ruff-check" (singular enum) convertible to it) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of (one of "black", "isort", "ruff", "ruff-fix", "black-and-isort")</code></div>
   <div class="option-description"><html><head></head><body><p>Python formatters to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -24823,7 +24916,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of value "qmlformat" (singular enum)) or value "qmlformat" (singular enum) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of value "qmlformat" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>QML formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -24915,7 +25008,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of ((one of "styler", "format-r") or value "format_r" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of (one of "styler", "format-r")</code></div>
   <div class="option-description"><html><head></head><body><p>R formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -24942,7 +25035,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (value "r-languageserver" (singular enum) or value "r_language_server" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of value "r-languageserver" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>R LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -25034,7 +25127,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of value "rubocop" (singular enum)) or value "rubocop" (singular enum) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of value "rubocop" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>Ruby formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -25061,7 +25154,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of ((one of "ruby-lsp", "solargraph", "stimulus-language-server") or value "ruby_lsp" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of (one of "ruby-lsp", "solargraph", "stimulus-language-server")</code></div>
   <div class="option-description"><html><head></head><body><p>Ruby LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -25198,7 +25291,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of value "rustfmt" (singular enum)) or value "rustfmt" (singular enum) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of value "rustfmt" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>Rust formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -25611,7 +25704,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of (one of "sqlfluff", "sqruff")) or (one of "sqlfluff", "sqruff") convertible to it</code></div>
+  <div class="option-type">Type: <code>list of (one of "sqlfluff", "sqruff")</code></div>
   <div class="option-description"><html><head></head><body><p>SQL formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -25822,7 +25915,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of ((one of "prettier", "biome", "biome-check", "biome-organize-imports", "deno") or value "prettierd" (singular enum) convertible to it)) or ((one of "prettier", "biome", "biome-check", "biome-organize-imports", "deno") or value "prettierd" (singular enum) convertible to it) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of ((one of "prettier", "biome", "biome-check", "biome-organize-imports", "deno") or value "prettierd" (singular enum) convertible to it)</code></div>
   <div class="option-description"><html><head></head><body><p>Svelte formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -25989,7 +26082,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of ((one of "opentofu", "terraform") or (one of "terraoform-fmt", "tofu-fmt") convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of (one of "opentofu", "terraform")</code></div>
   <div class="option-description"><html><head></head><body><p>Terraform formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -26016,7 +26109,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of ((one of "terraform-ls", "tofu-ls") or (one of "terraformls-tf", "tofuls-tf") convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of (one of "terraform-ls", "tofu-ls")</code></div>
   <div class="option-description"><html><head></head><body><p>Terraform LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -26211,7 +26304,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of (one of "taplo", "tombi")) or (one of "taplo", "tombi") convertible to it</code></div>
+  <div class="option-type">Type: <code>list of (one of "taplo", "tombi")</code></div>
   <div class="option-description"><html><head></head><body><p>TOML formatter to use.</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -26627,7 +26720,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of ((one of "typescript-language-server", "deno", "typescript-go", "angular-language-server", "emmet-ls") or (one of "denols", "ts_ls", "tsgo") convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of (one of "typescript-language-server", "deno", "typescript-go", "angular-language-server", "emmet-ls")</code></div>
   <div class="option-description"><html><head></head><body><p>Typescript/Javascript LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -26780,7 +26873,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of value "typstyle" (singular enum)) or value "typstyle" (singular enum) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of value "typstyle" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>Typst formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -26872,7 +26965,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (value "vala-language-server" (singular enum) or value "vala_ls" (singular enum) convertible to it)</code></div>
+  <div class="option-type">Type: <code>list of value "vala-language-server" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>Vala LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -27320,7 +27413,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>(list of (value "lldb" (singular enum) or value "lldb-vscode" (singular enum) convertible to it)) or (value "lldb" (singular enum) or value "lldb-vscode" (singular enum) convertible to it) convertible to it</code></div>
+  <div class="option-type">Type: <code>list of value "lldb" (singular enum)</code></div>
   <div class="option-description"><html><head></head><body><p>Zig debugger to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
