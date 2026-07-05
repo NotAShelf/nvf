@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
   inherit (lib.generators) mkLuaInline;
@@ -12,13 +11,16 @@
   cfg = config.vim.lsp.presets.svelte-language-server;
 in {
   options.vim.lsp.presets.svelte-language-server = {
-    enable = mkLspPresetEnableOption "svelte-language-server" "Svelte" [];
+    enable = mkLspPresetEnableOption {
+      option = "svelte-language-server";
+      display = "Svelte";
+    };
   };
 
   config = mkIf cfg.enable {
     vim.lsp.servers.svelte-language-server = {
       enable = true;
-      cmd = [(getExe pkgs.svelte-language-server) "--stdio"];
+      cmd = ["${pkgs.svelte-language-server}/bin/svelteserver" "--stdio"];
       root_dir = mkLuaInline ''
         function(bufnr, on_dir)
           local root_files = { 'package.json', '.git' }

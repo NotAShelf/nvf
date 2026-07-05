@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
   inherit (lib.generators) mkLuaInline;
@@ -13,7 +12,10 @@
   cfg = config.vim.lsp.presets.jdt-language-server;
 in {
   options.vim.lsp.presets.jdt-language-server = {
-    enable = mkLspPresetEnableOption "jdt-language-server" "Eclipse JDT" [];
+    enable = mkLspPresetEnableOption {
+      option = "jdt-language-server";
+      display = "Eclipse JDT";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -22,7 +24,7 @@ in {
         enable = true;
         cmd = mkLuaInline ''
           {
-            '${getExe pkgs.jdt-language-server}',
+            '${pkgs.jdt-language-server}/bin/jdtls',
             '-configuration',
             get_jdtls_config_dir(),
             '-data',

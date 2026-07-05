@@ -5,20 +5,22 @@
   inputs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
 
   cfg = config.vim.lsp.presets.jls;
 in {
   options.vim.lsp.presets.jls = {
-    enable = mkLspPresetEnableOption "jls" "NeoVim Java" [];
+    enable = mkLspPresetEnableOption {
+      option = "jls";
+      display = "NeoVim Java";
+    };
   };
 
   config = mkIf cfg.enable {
     vim.lsp.servers.jls = {
       enable = true;
-      cmd = [(getExe inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.jls)];
+      cmd = ["${inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.jls}/bin/jls"];
       root_markers = [
         ".git"
         ".java-version"

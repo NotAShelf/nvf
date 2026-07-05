@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
   inherit (lib.generators) mkLuaInline;
@@ -12,13 +11,16 @@
   cfg = config.vim.lsp.presets.deno;
 in {
   options.vim.lsp.presets.deno = {
-    enable = mkLspPresetEnableOption "deno" "Deno" [];
+    enable = mkLspPresetEnableOption {
+      option = "deno";
+      display = "Deno";
+    };
   };
 
   config = mkIf cfg.enable {
     vim.lsp.servers.deno = {
       enable = true;
-      cmd = [(getExe pkgs.deno) "lsp"];
+      cmd = ["${pkgs.deno}/bin/deno" "lsp"];
       cmd_env = {NO_COLOR = true;};
       root_markers = ["deno.json" "deno.jsonc" ".git"];
       settings = {

@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
   inherit (lib.generators) mkLuaInline;
@@ -13,7 +12,10 @@
   cfg = config.vim.lsp.presets.julia-languageserver;
 in {
   options.vim.lsp.presets.julia-languageserver = {
-    enable = mkLspPresetEnableOption "julia-languageserver" "Julia" [];
+    enable = mkLspPresetEnableOption {
+      option = "julia-languageserver";
+      display = "Julia";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -23,7 +25,7 @@ in {
         root_markers = ["Project.toml" "JuliaProject.toml"];
         cmd = mkLuaInline ''
           {
-            '${getExe (pkgs.julia.withPackages ["LanguageServer"])}',
+            '${pkgs.julia.withPackages ["LanguageServer"]}/bin/julia',
             '--startup-file=no',
             '--history-file=no',
             '-e',
