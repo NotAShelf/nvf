@@ -9769,7 +9769,7 @@
     <details class="toc-category">
       <summary title="vim.mini">
         <span>vim.mini</span>
-        <span class="toc-count">81</span>
+        <span class="toc-count">83</span>
       </summary>
       <ul>
         
@@ -9912,6 +9912,14 @@
         </li>
         
         <li>
+          <a href='#option-vim.mini.colors.setupOpts' title="vim.mini.colors.setupOpts">
+            colors.setupOpts
+            
+            
+          </a>
+        </li>
+        
+        <li>
           <a href='#option-vim.mini.comment.enable' title="vim.mini.comment.enable">
             comment.enable
             
@@ -9994,6 +10002,14 @@
         <li>
           <a href='#option-vim.mini.extra.enable' title="vim.mini.extra.enable">
             extra.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.mini.extra.setupOpts' title="vim.mini.extra.setupOpts">
+            extra.setupOpts
             
             
           </a>
@@ -30364,6 +30380,23 @@ in the docs.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/mini/colors/colors.nix" target="_blank">&lt;nvf/modules/plugins/mini/colors/colors.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.mini.colors.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.mini.colors.setupOpts" class="option-anchor">vim.mini.colors.setupOpts</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>(open submodule of anything) or (luaInline)</code></div>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of mini.colors.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>{ }</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/mini/colors/colors.nix" target="_blank">&lt;nvf/modules/plugins/mini/colors/colors.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.mini.comment.enable">
   <h3 class="option-name">
     <a href="#option-vim.mini.comment.enable" class="option-anchor">vim.mini.comment.enable</a>
@@ -30525,6 +30558,23 @@ in the docs.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/mini/extra/extra.nix" target="_blank">&lt;nvf/modules/plugins/mini/extra/extra.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.mini.extra.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.mini.extra.setupOpts" class="option-anchor">vim.mini.extra.setupOpts</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>(open submodule of anything) or (luaInline)</code></div>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of mini.extra.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/mini/extra/extra.nix" target="_blank">&lt;nvf/modules/plugins/mini/extra/extra.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.mini.files.enable">
