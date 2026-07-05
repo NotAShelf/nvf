@@ -16,7 +16,7 @@
   servers = ["astro-language-server" "emmet-ls"];
 
   defaultFormat = ["prettier"];
-  formats = ["prettier" "biome" "biome-check" "biome-organize-imports" "astro"];
+  formats = ["prettier" "biome" "biome-check" "biome-organize-imports" "deno"];
 
   defaultDiagnosticsProvider = ["eslint_d"];
   diagnosticsProviders = ["eslint_d"];
