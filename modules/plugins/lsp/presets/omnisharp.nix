@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
   inherit (lib.generators) mkLuaInline;
@@ -13,14 +12,17 @@
 in {
   # HACK: this server should be named `omnisharp-roslyn`, but the extension `omnisharp-extended-lsp-nvim` only works if it is named `omnisharp`
   options.vim.lsp.presets.omnisharp = {
-    enable = mkLspPresetEnableOption "omnisharp" "OmniSharp Roslyn" [];
+    enable = mkLspPresetEnableOption {
+      option = "omnisharp";
+      display = "OmniSharp Roslyn";
+    };
   };
 
   config = mkIf cfg.enable {
     vim.lsp.servers.omnisharp = {
       cmd = mkLuaInline ''
         {
-          '${getExe pkgs.omnisharp-roslyn}',
+          '${pkgs.omnisharp-roslyn}/bin/OmniSharp',
           '-z', -- https://github.com/OmniSharp/omnisharp-vscode/pull/4300
           '--hostPID',
           tostring(vim.fn.getpid()),

@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe';
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
   inherit (lib.generators) mkLuaInline;
@@ -13,14 +12,17 @@
   cfg = config.vim.lsp.presets.pyright;
 in {
   options.vim.lsp.presets.pyright = {
-    enable = mkLspPresetEnableOption "pyright" "Pyright" [];
+    enable = mkLspPresetEnableOption {
+      option = "pyright";
+      display = "Pyright";
+    };
   };
 
   config = mkIf cfg.enable {
     vim = {
       lsp.servers.pyright = {
         enable = true;
-        cmd = [(getExe' pkgs.pyright "pyright-langserver") "--stdio"];
+        cmd = ["${pkgs.pyright}/bin/pyright-langserver" "--stdio"];
         root_markers = [".git" "pyrightconfig.json"];
         settings = {
           python = {

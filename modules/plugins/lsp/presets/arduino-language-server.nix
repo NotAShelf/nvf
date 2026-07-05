@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe getExe';
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
   inherit (lib.generators) mkLuaInline;
@@ -12,18 +11,21 @@
   cfg = config.vim.lsp.presets.arduino-language-server;
 in {
   options.vim.lsp.presets.arduino-language-server = {
-    enable = mkLspPresetEnableOption "arduino-language-server" "Arduino" [];
+    enable = mkLspPresetEnableOption {
+      option = "arduino-language-server";
+      display = "Arduino";
+    };
   };
 
   config = mkIf cfg.enable {
     vim.lsp.servers.arduino-language-server = {
       enable = true;
       cmd = [
-        (getExe pkgs.arduino-language-server)
+        "${pkgs.arduino-language-server}/bin/arduino-language-server"
         "-clangd"
-        (getExe' pkgs.clang-tools "clangd")
+        "${pkgs.clang-tools}/bin/clangd"
         "-cli"
-        (getExe pkgs.arduino-cli)
+        "${pkgs.arduino-cli}/bin/arduino-cli"
         "-cli-config"
         "$HOME/.arduino15/arduino-cli.yaml"
       ];

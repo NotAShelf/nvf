@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
   inherit (lib.generators) mkLuaInline;
@@ -12,13 +11,16 @@
   cfg = config.vim.lsp.presets.nimlsp;
 in {
   options.vim.lsp.presets.nimlsp = {
-    enable = mkLspPresetEnableOption "nimlsp" "Nim" [];
+    enable = mkLspPresetEnableOption {
+      option = "nimlsp";
+      display = "Nim";
+    };
   };
 
   config = mkIf cfg.enable {
     vim.lsp.servers.nimlsp = {
       enable = true;
-      cmd = [(getExe pkgs.nimlsp)];
+      cmd = ["${pkgs.nimlsp}/bin/nimlsp"];
       root_dir = mkLuaInline ''
         function(bufnr, on_dir)
           local fname = vim.api.nvim_buf_get_name(bufnr)

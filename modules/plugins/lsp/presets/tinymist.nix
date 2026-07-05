@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
   inherit (lib.generators) mkLuaInline;
@@ -12,13 +11,16 @@
   cfg = config.vim.lsp.presets.tinymist;
 in {
   options.vim.lsp.presets.tinymist = {
-    enable = mkLspPresetEnableOption "tinymist" "Tinymist" [];
+    enable = mkLspPresetEnableOption {
+      option = "tinymist";
+      display = "Tinymist";
+    };
   };
 
   config = mkIf cfg.enable {
     vim.lsp.servers.tinymist = {
       enable = true;
-      cmd = [(getExe pkgs.tinymist)];
+      cmd = ["${pkgs.tinymist}/bin/tinymist"];
       root_markers = [".git"];
       on_attach = mkLuaInline ''
         function(client, bufnr)

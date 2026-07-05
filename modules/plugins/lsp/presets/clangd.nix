@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe';
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
   inherit (lib.generators) mkLuaInline;
@@ -12,13 +11,16 @@
   cfg = config.vim.lsp.presets.clangd;
 in {
   options.vim.lsp.presets.clangd = {
-    enable = mkLspPresetEnableOption "clangd" "Clangd" [];
+    enable = mkLspPresetEnableOption {
+      option = "clangd";
+      display = "Clangd";
+    };
   };
 
   config = mkIf cfg.enable {
     vim.lsp.servers.clangd = {
       enable = true;
-      cmd = [(getExe' pkgs.clang-tools "clangd")];
+      cmd = ["${pkgs.clang-tools}/bin/clangd"];
       root_markers = [
         ".git"
         ".clangd"

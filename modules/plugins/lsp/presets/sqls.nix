@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
   inherit (lib.generators) mkLuaInline;
@@ -12,7 +11,10 @@
   cfg = config.vim.lsp.presets.sqls;
 in {
   options.vim.lsp.presets.sqls = {
-    enable = mkLspPresetEnableOption "sqls" "SQL" [];
+    enable = mkLspPresetEnableOption {
+      option = "sqls";
+      display = "SQL";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -20,7 +22,7 @@ in {
       startPlugins = ["sqls-nvim"];
       lsp.servers.sqls = {
         enable = true;
-        cmd = [(getExe pkgs.sqls)];
+        cmd = ["${pkgs.sqls}/bin/sqls"];
         root_markers = ["config.yml"];
         on_attach = mkLuaInline ''
           function(client, bufnr)

@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
   inherit (lib.generators) mkLuaInline;
@@ -12,13 +11,16 @@
   cfg = config.vim.lsp.presets.bash-language-server;
 in {
   options.vim.lsp.presets.bash-language-server = {
-    enable = mkLspPresetEnableOption "bash-language-server" "Bash" [];
+    enable = mkLspPresetEnableOption {
+      option = "bash-language-server";
+      display = "Bash";
+    };
   };
 
   config = mkIf cfg.enable {
     vim.lsp.servers.bash-language-server = {
       enable = true;
-      cmd = [(getExe pkgs.bash-language-server) "start"];
+      cmd = ["${pkgs.bash-language-server}/bin/bash-language-server" "start"];
       root_markers = [".git"];
       settings = {
         bashIde = {

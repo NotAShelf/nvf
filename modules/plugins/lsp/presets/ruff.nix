@@ -4,20 +4,22 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
 
   cfg = config.vim.lsp.presets.ruff;
 in {
   options.vim.lsp.presets.ruff = {
-    enable = mkLspPresetEnableOption "ruff" "Ruff" [];
+    enable = mkLspPresetEnableOption {
+      option = "ruff";
+      display = "Ruff";
+    };
   };
 
   config = mkIf cfg.enable {
     vim.lsp.servers.ruff = {
       enable = true;
-      cmd = [(getExe pkgs.ruff) "server"];
+      cmd = ["${pkgs.ruff}/bin/ruff" "server"];
       root_markers = [".git"];
     };
   };

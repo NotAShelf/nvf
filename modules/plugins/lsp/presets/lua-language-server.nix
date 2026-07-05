@@ -4,20 +4,22 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
 
   cfg = config.vim.lsp.presets.lua-language-server;
 in {
   options.vim.lsp.presets.lua-language-server = {
-    enable = mkLspPresetEnableOption "lua-language-server" "Lua" [];
+    enable = mkLspPresetEnableOption {
+      option = "lua-language-server";
+      display = "Lua";
+    };
   };
 
   config = mkIf cfg.enable {
     vim.lsp.servers.lua-language-server = {
       enable = true;
-      cmd = [(getExe pkgs.lua-language-server)];
+      cmd = ["${pkgs.lua-language-server}/bin/lua-language-server"];
       root_markers = [
         ".luarc.json"
         ".luarc.jsonc"

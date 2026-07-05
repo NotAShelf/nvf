@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
   inherit (lib.generators) mkLuaInline;
@@ -12,13 +11,16 @@
   cfg = config.vim.lsp.presets.ccls;
 in {
   options.vim.lsp.presets.ccls = {
-    enable = mkLspPresetEnableOption "ccls" "CC" [];
+    enable = mkLspPresetEnableOption {
+      option = "ccls";
+      display = "CC";
+    };
   };
 
   config = mkIf cfg.enable {
     vim.lsp.servers.ccls = {
       enable = true;
-      cmd = [(getExe pkgs.ccls)];
+      cmd = ["${pkgs.ccls}/bin/ccls"];
       offset_encoding = "utf-32";
       root_markers = [".git" ".ccls" "compile_commands.json"];
       workspace_required = true;
