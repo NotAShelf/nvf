@@ -357,6 +357,8 @@
 
 - Use nvf nix Tree-sitter injections in the docs.
 
+- Added Mago for PHP formatting and linting.
+
 - Allow the usage of `pks.tree-sitter-grammars` in
   {option}`vim.treesitter.grammars` and language module tree-sitter package
   options created via `mkGrammarOption`.

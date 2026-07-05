@@ -28,6 +28,7 @@
     ./jsonfmt.nix
     ./just.nix
     ./latexindent.nix
+    ./mago.nix
     ./mbake.nix
     ./mdformat.nix
     ./mix.nix
