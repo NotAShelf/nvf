@@ -113,3 +113,7 @@ appropriate modules for NixOS and Home Manager as described in the
 installation/custom-configuration.md
 installation/modules.md
 ```
+
+```{=include=} chapters
+lib.md
+```
