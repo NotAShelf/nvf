@@ -10,12 +10,15 @@
   cfg = config.vim.diagnostics.presets;
 in {
   options.vim.diagnostics.presets = {
-    mago_lint = {
-      enable = mkDiagnosticsPresetEnableOption "mago" "Mago lint";
+    mago_lint.enable = mkDiagnosticsPresetEnableOption {
+      option = "mago";
+      display = "Mago";
+      extra = "Only the linter. use `mago_analyze` for the full results.";
     };
-
-    mago_analyze = {
-      enable = mkDiagnosticsPresetEnableOption "mago" "Mago analyzer";
+    mago_analyze.enable = mkDiagnosticsPresetEnableOption {
+      option = "mago";
+      display = "Mago";
+      extra = "Slower, but full analysis. use `mago_lint` for faster, but less precise results.";
     };
   };
 

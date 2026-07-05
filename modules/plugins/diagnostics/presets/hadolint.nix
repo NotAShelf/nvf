@@ -4,17 +4,19 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
 
   cfg = config.vim.diagnostics.presets.hadolint;
 in {
   options.vim.diagnostics.presets.hadolint = {
-    enable = mkDiagnosticsPresetEnableOption "hadolint" "Hadolint";
+    enable = mkDiagnosticsPresetEnableOption {
+      option = "hadolint";
+      display = "Hadolint";
+    };
   };
 
   config = mkIf cfg.enable {
-    vim.diagnostics.nvim-lint.linters.hadolint.cmd = getExe pkgs.hadolint;
+    vim.diagnostics.nvim-lint.linters.hadolint.cmd = "${pkgs.hadolint}/bin/hadolint";
   };
 }
