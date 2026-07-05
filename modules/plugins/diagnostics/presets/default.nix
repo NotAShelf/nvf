@@ -12,6 +12,7 @@
     ./htmlhint.nix
     ./ktlint.nix
     ./luacheck.nix
+    ./mago.nix
     ./markdownlint-cli2.nix
     ./mypy.nix
     ./phpstan.nix

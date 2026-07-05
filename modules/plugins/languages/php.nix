@@ -21,7 +21,7 @@
   formats = ["php-cs-fixer" "mago" "mago-fix"];
 
   defaultDiagnosticsProvider = ["phpstan"];
-  diagnosticsProviders = ["phpstan"];
+  diagnosticsProviders = ["phpstan" "mago_lint" "mago_analyze"];
 
   defaultDebugger = ["xdebug"];
   dapConfigurations = {
