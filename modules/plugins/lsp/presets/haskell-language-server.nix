@@ -25,10 +25,21 @@ in {
           paths = [pkgs.haskellPackages.haskell-language-server];
           meta.mainProgram = "haskell-language-server-wrapper";
           buildInputs = [pkgs.makeBinaryWrapper];
-          # wrap HLS-wrapper so it can find the actual binary
+          /*
+          Wrap HLS-wrapper so it can find the actual GHC-specific binary.
+
+          HLS binaries are incredibly picky about which GHC version they run against
+          -- even failing between two GHC builds with identical version numbers, because one has a newer ABI.
+
+          Because of this, we shouldn't assume our provided HLS version is the right
+          one for a given project. Appending to PATH with `--suffix` takes advantage
+          of PATH's first-match lookup, so an existing HLS already in
+          the user's dev environment is found first and takes precedence over ours.
+          This way we provide a useful default without clobbering existing setups.
+          */
           postBuild = ''
             wrapProgram $out/bin/haskell-language-server-wrapper \
-              --prefix PATH : ${pkgs.haskellPackages.haskell-language-server}/bin
+              --suffix PATH : ${pkgs.haskellPackages.haskell-language-server}/bin
           '';
         })}/bin/haskell-language-server-wrapper"
         "--lsp"
