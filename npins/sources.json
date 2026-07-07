@@ -2379,6 +2379,19 @@
       "url": "https://github.com/pysan3/pathlib.nvim/archive/57e5598af6fe253761c1b48e0b59b7cd6699e2c1.tar.gz",
       "hash": "sha256-YhCJeNKlcjgg3q51UWFhuIEPzNueC8YTpeuPPJDndvw="
     },
+    "persisted": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "olimorris",
+        "repo": "persisted.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "1a8e9dcf277d61105619498b2002c287c50424b8",
+      "url": "https://github.com/olimorris/persisted.nvim/archive/1a8e9dcf277d61105619498b2002c287c50424b8.tar.gz",
+      "hash": "sha256-L9gCb+Dg8ox+WoidCxmMgJnfgWFAJyphN5INHCtEXuQ="
+    },
     "plenary-nvim": {
       "type": "Git",
       "repository": {
