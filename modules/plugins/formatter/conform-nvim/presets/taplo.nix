@@ -28,7 +28,7 @@ in {
             "--stdin-filepath",
             "$FILENAME",
             "--option=align_entries=true",
-            "--option=inden_string=" .. indent,
+            "--option=indent_string=" .. indent,
             "-"
           }
         end
