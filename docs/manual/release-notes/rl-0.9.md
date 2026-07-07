@@ -676,4 +676,8 @@ https://github.com/gorbit99/codewindow.nvim
 
 - Added `goimports` as supported formatters to `vim.languages.go`.
 
+[kruziikrel13](https://github.com/kruziikrel13)
+
+- Added persisted as session plugin to vim.session as `vim.session.persisted`
+
 <!-- vim: set textwidth=80: -->
