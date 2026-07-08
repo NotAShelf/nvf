@@ -3823,11 +3823,67 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">570</span>
+        <span class="toc-count">577</span>
       </summary>
       <ul>
         
 
+        
+        <li>
+          <a href='#option-vim.languages.angular.enable' title="vim.languages.angular.enable">
+            angular.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.angular.format.enable' title="vim.languages.angular.format.enable">
+            angular.format.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.angular.format.type' title="vim.languages.angular.format.type">
+            angular.format.type
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.angular.lsp.enable' title="vim.languages.angular.lsp.enable">
+            angular.lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.angular.lsp.servers' title="vim.languages.angular.lsp.servers">
+            angular.lsp.servers
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.angular.treesitter.enable' title="vim.languages.angular.treesitter.enable">
+            angular.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.angular.treesitter.package' title="vim.languages.angular.treesitter.package">
+            angular.treesitter.package
+            
+            
+          </a>
+        </li>
         
         <li>
           <a href='#option-vim.languages.arduino.enable' title="vim.languages.arduino.enable">
@@ -19961,6 +20017,98 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/mappings.nix" target="_blank">&lt;nvf/modules/neovim/init/mappings.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.languages.angular.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.angular.enable" class="option-anchor">vim.languages.angular.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Angular language support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/angular.nix" target="_blank">&lt;nvf/modules/plugins/languages/angular.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.angular.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.angular.format.enable" class="option-anchor">vim.languages.angular.format.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Angular formatting.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableFormat</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/angular.nix" target="_blank">&lt;nvf/modules/plugins/languages/angular.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.angular.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.angular.format.type" class="option-anchor">vim.languages.angular.format.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (one of "prettier", "deno")</code></div>
+  <div class="option-description"><html><head></head><body><p>Angular formatter to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "prettier"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/angular.nix" target="_blank">&lt;nvf/modules/plugins/languages/angular.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.angular.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.angular.lsp.enable" class="option-anchor">vim.languages.angular.lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Angular LSP support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.lsp.enable</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/angular.nix" target="_blank">&lt;nvf/modules/plugins/languages/angular.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.angular.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.angular.lsp.servers" class="option-anchor">vim.languages.angular.lsp.servers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (one of "angular-language-server", "emmet-ls")</code></div>
+  <div class="option-description"><html><head></head><body><p>Angular LSP server to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "angular-language-server"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/angular.nix" target="_blank">&lt;nvf/modules/plugins/languages/angular.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.angular.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.angular.treesitter.enable" class="option-anchor">vim.languages.angular.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Angular treesitter support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/angular.nix" target="_blank">&lt;nvf/modules/plugins/languages/angular.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.angular.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.angular.treesitter.package" class="option-anchor">vim.languages.angular.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or package</code></div>
+  <div class="option-description"><html><head></head><body><p>The angular treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.angular</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/angular.nix" target="_blank">&lt;nvf/modules/plugins/languages/angular.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.languages.arduino.enable">
   <h3 class="option-name">
     <a href="#option-vim.languages.arduino.enable" class="option-anchor">vim.languages.arduino.enable</a>
@@ -22780,7 +22928,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (one of "superhtml", "emmet-ls", "angular-language-server", "stimulus-language-server")</code></div>
+  <div class="option-type">Type: <code>list of (one of "superhtml", "emmet-ls", "stimulus-language-server", "angular-language-server")</code></div>
   <div class="option-description"><html><head></head><body><p>HTML LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
@@ -26770,7 +26918,7 @@ in the docs.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (one of "typescript-language-server", "deno", "typescript-go", "angular-language-server", "emmet-ls")</code></div>
+  <div class="option-type">Type: <code>list of (one of "typescript-language-server", "deno", "typescript-go", "emmet-ls", "angular-language-server")</code></div>
   <div class="option-description"><html><head></head><body><p>Typescript/Javascript LSP server to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
