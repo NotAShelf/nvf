@@ -15,7 +15,13 @@
   cfg = config.vim.languages.html;
 
   defaultServers = ["superhtml"];
-  servers = ["superhtml" "emmet-ls" "angular-language-server" "stimulus-language-server"];
+  servers = [
+    "superhtml"
+    "emmet-ls"
+    "stimulus-language-server"
+    # deprecated
+    "angular-language-server"
+  ];
 
   defaultFormat = ["superhtml"];
   formats = ["superhtml" "biome" "prettier" "deno"];

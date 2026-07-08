@@ -21,6 +21,7 @@ in {
       enable = true;
       cmd = ["${pkgs.angular-language-server}/bin/ngserver" "--stdio"];
       root_markers = ["angular.json" "nx.json"];
+      workspace_required = true;
     };
   };
 }
