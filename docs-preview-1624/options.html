@@ -29614,7 +29614,9 @@ Default <code>filetypes = [ ]</code>.</p>
   <div class="option-type">Type: <code>boolean</code></div>
   <div class="option-description"><html><head></head><body><p>Whether to enable the Rust Analyzer Language Server.
 Default <code>filetypes = [ ]</code>.</p>
-<p>Note: do not set <code>init_options</code> for this LS config, it will be automatically populated by the contents of settings["rust-analyzer"] per <a href="https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26">https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26</a></p>
+<p>&gt; [!IMPORTANT]
+&gt; Don't set <code>init_options</code> for this LS config, it will be automatically populated by the contents of <code>settings["rust-analyzer"]</code> per
+&gt; &lt;<a href="https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26">https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26</a>&gt;</p>
 <p>Use <code class="nixos-option">vim.lsp.servers.rust-analyzer</code> for customization
 .</p>
 </body></html></div>
