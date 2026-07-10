@@ -357,6 +357,8 @@
 
 - Added {option}`vim.languages.java.dap.enable` with the `jls` DAP.
 
+- Fix tailwind LSP running on non tailwind projects.
+
 - Use nvf nix Tree-sitter injections in the docs.
 
 - Added Mago for PHP formatting and linting.
