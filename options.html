@@ -1695,7 +1695,7 @@
     <details class="toc-category">
       <summary title="vim.debugger">
         <span>vim.debugger</span>
-        <span class="toc-count">29</span>
+        <span class="toc-count">30</span>
       </summary>
       <ul>
         
@@ -1864,6 +1864,14 @@
         <li>
           <a href='#option-vim.debugger.nvim-dap.mappings.toggleRepl' title="vim.debugger.nvim-dap.mappings.toggleRepl">
             nvim-dap.mappings.toggleRepl
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.debugger.nvim-dap.presets.codelldb.enable' title="vim.debugger.nvim-dap.presets.codelldb.enable">
+            nvim-dap.presets.codelldb.enable
             
             
           </a>
@@ -7070,8 +7078,8 @@
         </li>
         
         <li>
-          <a href='#option-vim.languages.rust.dap.adapter' title="vim.languages.rust.dap.adapter">
-            rust.dap.adapter
+          <a href='#option-vim.languages.rust.dap.debugger' title="vim.languages.rust.dap.debugger">
+            rust.dap.debugger
             
             
           </a>
@@ -7080,14 +7088,6 @@
         <li>
           <a href='#option-vim.languages.rust.dap.enable' title="vim.languages.rust.dap.enable">
             rust.dap.enable
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-vim.languages.rust.dap.package' title="vim.languages.rust.dap.package">
-            rust.dap.package
             
             
           </a>
@@ -7118,6 +7118,22 @@
         </li>
         
         <li>
+          <a href='#option-vim.languages.rust.extensions.rustaceanvim.enable' title="vim.languages.rust.extensions.rustaceanvim.enable">
+            rust.extensions.rustaceanvim.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.rust.extensions.rustaceanvim.setupOpts' title="vim.languages.rust.extensions.rustaceanvim.setupOpts">
+            rust.extensions.rustaceanvim.setupOpts
+            
+            
+          </a>
+        </li>
+        
+        <li>
           <a href='#option-vim.languages.rust.format.enable' title="vim.languages.rust.format.enable">
             rust.format.enable
             
@@ -7142,16 +7158,8 @@
         </li>
         
         <li>
-          <a href='#option-vim.languages.rust.lsp.opts' title="vim.languages.rust.lsp.opts">
-            rust.lsp.opts
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-vim.languages.rust.lsp.package' title="vim.languages.rust.lsp.package">
-            rust.lsp.package
+          <a href='#option-vim.languages.rust.lsp.servers' title="vim.languages.rust.lsp.servers">
+            rust.lsp.servers
             
             
           </a>
@@ -8635,7 +8643,7 @@
     <details class="toc-category">
       <summary title="vim.lsp">
         <span>vim.lsp</span>
-        <span class="toc-count">147</span>
+        <span class="toc-count">148</span>
       </summary>
       <ul>
         
@@ -9476,6 +9484,14 @@
         <li>
           <a href='#option-vim.lsp.presets.rumdl.enable' title="vim.lsp.presets.rumdl.enable">
             presets.rumdl.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.lsp.presets.rust-analyzer.enable' title="vim.lsp.presets.rust-analyzer.enable">
+            presets.rust-analyzer.enable
             
             
           </a>
@@ -16617,6 +16633,23 @@ to one that is already running.</p>
 </body></html></div>
   <div class="option-default">Default: <code>"&lt;leader&gt;dr"</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/debugger/nvim-dap/nvim-dap.nix" target="_blank">&lt;nvf/modules/plugins/debugger/nvim-dap/nvim-dap.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.debugger.nvim-dap.presets.codelldb.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.debugger.nvim-dap.presets.codelldb.enable" class="option-anchor">vim.debugger.nvim-dap.presets.codelldb.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable adapter configuration for CodeLLDB using the vadimcn.vscode-lldb extension.
+Use <code class="nixos-option">vim.debugger.nvim-dap.adapters.codelldb</code> for customization.</p>
+<p>A configuration is also needed for your filetype in
+<a class="option-reference" href="options.html#option-vim.debugger.nvim-dap.configurations"><code class="nixos-option">vim.debugger.nvim-dap.configurations</code></a>
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/debugger/nvim-dap/presets/codelldb.nix" target="_blank">&lt;nvf/modules/plugins/debugger/nvim-dap/presets/codelldb.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.debugger.nvim-dap.presets.debugpy.enable">
   <h3 class="option-name">
@@ -25385,21 +25418,18 @@ in the docs.</p>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.ruby</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/ruby.nix" target="_blank">&lt;nvf/modules/plugins/languages/ruby.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-vim.languages.rust.dap.adapter">
+<div class="option" id="option-vim.languages.rust.dap.debugger">
   <h3 class="option-name">
-    <a href="#option-vim.languages.rust.dap.adapter" class="option-anchor">vim.languages.rust.dap.adapter</a>
+    <a href="#option-vim.languages.rust.dap.debugger" class="option-anchor">vim.languages.rust.dap.debugger</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>one of "lldb-dap", "codelldb"</code></div>
-  <div class="option-description"><html><head></head><body><p>Select which LLDB-based debug adapter to use:</p>
-<ul>
-<li>"codelldb": use the CodeLLDB adapter from the vadimcn.vscode-lldb extension.</li>
-<li>"lldb-dap": use the LLDB DAP implementation shipped with LLVM (lldb-dap).</li>
-</ul>
-<p>The default "codelldb" backend generally provides a better debugging experience for Rust.</p>
+  <div class="option-type">Type: <code>list of (one of "codelldb", "lldb")</code></div>
+  <div class="option-description"><html><head></head><body><p>Rust debugger to use.</p>
 </body></html></div>
-  <div class="option-default">Default: <code>"codelldb"</code></div>
+  <div class="option-default">Default: <code>[
+  "codelldb"
+]</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_blank">&lt;nvf/modules/plugins/languages/rust.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.rust.dap.enable">
@@ -25412,18 +25442,6 @@ in the docs.</p>
   <div class="option-description"><html><head></head><body><p>Rust Debug Adapter support</p>
 </body></html></div>
   <div class="option-default">Default: <code>config.vim.languages.enableDAP</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_blank">&lt;nvf/modules/plugins/languages/rust.nix&gt;</a></code></div>
-</div>
-<div class="option" id="option-vim.languages.rust.dap.package">
-  <h3 class="option-name">
-    <a href="#option-vim.languages.rust.dap.package" class="option-anchor">vim.languages.rust.dap.package</a>
-    <span class="copy-link" title="Copy link to this option"></span>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-type">Type: <code>package</code></div>
-  <div class="option-description"><html><head></head><body><p>lldb package</p>
-</body></html></div>
-  <div class="option-default">Default: <code>&lt;derivation lldb-21.1.8&gt;</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_blank">&lt;nvf/modules/plugins/languages/rust.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.rust.enable">
@@ -25469,6 +25487,36 @@ in the docs.</p>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_blank">&lt;nvf/modules/plugins/languages/rust.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.languages.rust.extensions.rustaceanvim.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.rust.extensions.rustaceanvim.enable" class="option-anchor">vim.languages.rust.extensions.rustaceanvim.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable additional rust support [rustaceanvim].</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_blank">&lt;nvf/modules/plugins/languages/rust.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.rust.extensions.rustaceanvim.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.rust.extensions.rustaceanvim.setupOpts" class="option-anchor">vim.languages.rust.extensions.rustaceanvim.setupOpts</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>(open submodule of anything) or (luaInline)</code></div>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of rustaceanvim.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>{ }</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_blank">&lt;nvf/modules/plugins/languages/rust.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.languages.rust.format.enable">
   <h3 class="option-name">
     <a href="#option-vim.languages.rust.format.enable" class="option-anchor">vim.languages.rust.format.enable</a>
@@ -25504,44 +25552,24 @@ in the docs.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Whether to enable Rust LSP support (rust-analyzer with extra tools).</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Rust LSP support.</p>
 </body></html></div>
   <div class="option-default">Default: <code>config.vim.lsp.enable</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_blank">&lt;nvf/modules/plugins/languages/rust.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-vim.languages.rust.lsp.opts">
+<div class="option" id="option-vim.languages.rust.lsp.servers">
   <h3 class="option-name">
-    <a href="#option-vim.languages.rust.lsp.opts" class="option-anchor">vim.languages.rust.lsp.opts</a>
+    <a href="#option-vim.languages.rust.lsp.servers" class="option-anchor">vim.languages.rust.lsp.servers</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>string</code></div>
-  <div class="option-description"><html><head></head><body><p>Options to pass to rust analyzer</p>
+  <div class="option-type">Type: <code>list of value "rust-analyzer" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Rust LSP server to use</p>
 </body></html></div>
-  <div class="option-default">Default: <code>""</code></div>
-  <div class="option-example">Example: <pre><code>''
-  ['rust-analyzer'] = {
-    cargo = {allFeature = true},
-    checkOnSave = true,
-    procMacro = {
-      enable = true,
-    },
-  },
-''</code></pre></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_blank">&lt;nvf/modules/plugins/languages/rust.nix&gt;</a></code></div>
-</div>
-<div class="option" id="option-vim.languages.rust.lsp.package">
-  <h3 class="option-name">
-    <a href="#option-vim.languages.rust.lsp.package" class="option-anchor">vim.languages.rust.lsp.package</a>
-    <span class="copy-link" title="Copy link to this option"></span>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-type">Type: <code>package or list of string</code></div>
-  <div class="option-description"><html><head></head><body><p>rust-analyzer package, or the command to run as a list of strings</p>
-</body></html></div>
-  <div class="option-default">Default: <code>&lt;derivation rust-analyzer-2026-04-27&gt;</code></div>
-  <div class="option-example">Example: <code>"[lib.getExe pkgs.jdt-language-server \"-data\" \"~/.cache/jdtls/workspace\"]"</code></div>
+  <div class="option-default">Default: <code>[
+  "rust-analyzer"
+]</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_blank">&lt;nvf/modules/plugins/languages/rust.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.rust.treesitter.enable">
@@ -29576,6 +29604,25 @@ Default <code>filetypes = [ ]</code>.</p>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/rumdl.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/rumdl.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.lsp.presets.rust-analyzer.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.rust-analyzer.enable" class="option-anchor">vim.lsp.presets.rust-analyzer.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Rust Analyzer Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>&gt; [!IMPORTANT]
+&gt; Don't set <code>init_options</code> for this LS config, it will be automatically populated by the contents of <code>settings["rust-analyzer"]</code> per
+&gt; &lt;<a href="https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26">https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26</a>&gt;</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.rust-analyzer</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/rust-analyzer.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/rust-analyzer.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.lsp.presets.solargraph.enable">
   <h3 class="option-name">

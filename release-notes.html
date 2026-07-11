@@ -321,6 +321,11 @@ support is moved to <code>vim.languages.haskell.extensions.haskell-tools</code><
 <li>Turned <code>omnisharp-extended-lsp-nvim</code> into an extension disabled by default</li>
 <li>Turned <code>csharpls-extended-lsp-nvim</code> into an extension disabled by default</li>
 </ul>
+<p><a href="https://github.com/caueanjos">sjcobb2022</a></p>
+<ul>
+<li>Rust module is now no longer dependant on <code>rustaceanvim</code> by default. Use
+<code>vim.languages.rust.extensions.rustaceanvim.enable</code> if needed.</li>
+</ul>
 <h2 id="sec-release-0-9-changelog">Changelog</h2>
 <p><a href="https://github.com/bovf">bovf</a>:</p>
 <ul>
@@ -946,6 +951,12 @@ string in order to allow percentage values like <code>"20%"</code></li>
 <li>Add <a href="https://github.com/phpstan/phpstan">PHPStan</a> as a formatter for <code>vim.languages.php</code>.</li>
 <li>Add <code>prettier</code> and <code>prettierd</code> as supported formatters to
 <code>vim.languages.json</code>.</li>
+</ul>
+<p><a href="https://github.com/sjcobb2022">sjcobb2022</a></p>
+<ul>
+<li>Modernize rust toolchain by defaulting to a <code>rustaceanvim</code> free default
+configuration. Enabled via configuration
+<code>vim.languages.rust.extensions.rustaceanvim.enable</code>.</li>
 </ul>
 <p><a href="https://github.com/BrockoliniMorgan">BrockoliniMorgan</a></p>
 <ul>
