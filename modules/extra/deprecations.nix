@@ -407,6 +407,12 @@ in {
       '')
     ]
 
+    # 2026-06-05
+    [
+      (mkRemovedLspPackage "rust")
+      (mkRemovedLspOpt "rust")
+    ]
+
     # 2026-06-12
     [
       (mkRemovedOptionModule ["vim" "languages" "sql" "dialect"] ''
@@ -456,6 +462,12 @@ in {
         Filetype association is now handled automatically by the conform-nvim presets.
         Use `vim.formatter.conform-nvim.setupOpts.formatters_by_ft.<ft> = ["<formatter>", ...]` to register extra formatters per filetype.
       '')
+    ]
+
+    # 2026-06-25
+    [
+      (mkRenamedOptionModule ["vim" "languages" "rust" "dap" "adapter"] ["vim" "languages" "rust" "dap" "debugger"])
+      (mkRenamedOptionModule ["vim" "languages" "rust" "dap" "package"] ["vim" "languages" "rust" "dap" "debugger"])
     ]
 
     # 2026-07-03
