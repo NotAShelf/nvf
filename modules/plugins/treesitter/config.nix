@@ -6,7 +6,7 @@
 }: let
   inherit (lib) mkIf foldl' mapAttrsToList;
   inherit (lib.strings) optionalString;
-  inherit (lib.lists) optionals;
+  inherit (lib.lists) optionals optional partition;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
 
@@ -75,39 +75,41 @@ in {
         '';
       };
 
-      additionalRuntimePaths = mkIf (cfg.queries != []) [
-        (let
-          grouped =
-            foldl'
-            (
-              acc: entry:
-                foldl'
-                (
-                  inner: filetype: let
-                    path = "queries/${filetype}/${entry.type}.scm";
-                    prev = inner.${path} or "";
-                  in
-                    inner
-                    // {
-                      ${path} = prev + entry.query;
-                    }
-                )
-                acc
-                entry.filetypes
-            )
+      additionalRuntimePaths = mkIf (cfg.queries != []) (
+        let
+          mkQueryGroup = entries:
+            foldl' (acc: entry:
+              foldl' (inner: filetype: let
+                path = "queries/${filetype}/${entry.type}.scm";
+                prev = inner.${path} or "";
+                query = ''${optionalString (entry.loadtype == "extends") "; extends"} ${entry.query} '';
+              in
+                inner // {${path} = prev + query;})
+              acc
+              entry.filetypes)
             {}
-            cfg.queries;
+            entries;
 
-          files =
-            mapAttrsToList
-            (path: query: {
-              name = path;
-              path = pkgs.writeText path query;
-            })
-            grouped;
+          mkQueryRuntimePath = name: queries:
+            pkgs.linkFarm "treesitter-queries-${name}" (mapAttrsToList (path: query: {
+                name = path;
+                path = pkgs.writeText path query;
+              })
+              queries);
+
+          inherit (partition (entry: entry.loadtype == "overwrite") cfg.queries) right wrong;
+          overwriteQueries = mkQueryGroup right;
+          extendsQueries = mkQueryGroup wrong;
         in
-          pkgs.linkFarm "treesitter-queries" files)
-      ];
+          optional (overwriteQueries != {}) {
+            path = mkQueryRuntimePath "overwrite" overwriteQueries;
+            position = "prepend";
+          }
+          ++ optional (extendsQueries != {}) {
+            path = mkQueryRuntimePath "extends" extendsQueries;
+            position = "append";
+          }
+      );
     };
   };
 }

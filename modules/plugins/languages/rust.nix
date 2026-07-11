@@ -316,9 +316,8 @@ in {
           {
             type = "injections";
             filetypes = ["rust"];
+            loadtype = "extends";
             query = ''
-              ; extends
-
               (macro_invocation
                 macro: (scoped_identifier
                   path: (identifier) @_path

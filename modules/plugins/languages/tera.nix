@@ -57,9 +57,8 @@ in {
           {
             type = "injections";
             filetypes = ["tera"];
+            loadtype = "extends";
             query = ''
-              ;; extends
-
               ((content) @injection.content
                 (#set! injection.language "${cfg.treesitter.injection}")
                 (#set! injection.combined)

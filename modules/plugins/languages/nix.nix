@@ -101,9 +101,8 @@ in {
           {
             type = "injections";
             filetypes = ["nix"];
+            loadtype = "extends";
             query = ''
-              ;; extends
-
               ((binding
                 attrpath: (attrpath
                   (identifier) @_path)
@@ -131,9 +130,8 @@ in {
           {
             type = "injections";
             filetypes = ["nix"];
+            loadtype = "extends";
             query = ''
-              ;; extends
-
               ((apply_expression
                 function: (variable_expression
                   name: (identifier) @_func
