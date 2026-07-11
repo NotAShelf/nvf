@@ -22,6 +22,16 @@ in {
         sourcePlugins = ["cmp-treesitter"];
       };
 
+      extraPackages = mkIf cfg.vendorCLI [
+        (pkgs.symlinkJoin {
+          name = "tree-sitter";
+          paths = [pkgs.tree-sitter];
+          meta.mainProgram = "tree-sitter";
+          buildInputs = [pkgs.makeBinaryWrapper];
+          postBuild = "wrapProgram $out/bin/tree-sitter --prefix PATH : ${pkgs.gcc}/bin";
+        })
+      ];
+
       treesitter.grammars = optionals cfg.addDefaultGrammars cfg.defaultGrammars;
 
       pluginRC = {
