@@ -34,8 +34,8 @@ in
     pnpmDeps = fetchPnpmDeps {
       inherit pnpm;
       inherit (finalAttrs) pname version src postPatch;
-      hash = "sha256-2qTJMX5nnBhhQaLSfsXf5d1gN6LJufm1D5j/VuymJU0=";
-      fetcherVersion = 3; # https://nixos.org/manual/nixpkgs/stable/#javascript-pnpm-fetcherVersion
+      hash = "sha256-ODVuEvZbFDXDWUl2Bfp4inG37frUbbRM7bCQxRa2bpM=";
+      fetcherVersion = 4; # https://nixos.org/manual/nixpkgs/stable/#javascript-pnpm-fetcherVersion
     };
 
     nativeBuildInputs = [
