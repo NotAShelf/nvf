@@ -6,8 +6,9 @@
 }: let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
-  inherit (lib) attrNames genAttrs;
-  inherit (lib.lists) flatten getExe;
+  inherit (lib.meta) getExe;
+  inherit (lib.attrsets) attrNames genAttrs;
+  inherit (lib.lists) flatten;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.strings) optionalString;
   inherit (lib.types) bool listOf enum int;

@@ -5,8 +5,9 @@
   inherit (lib.options) mkOption;
   inherit (lib.attrsets) attrNames mapAttrs' filterAttrs nameValuePair;
   inherit (lib.strings) hasPrefix removePrefix;
-  inherit (lib.types) submodule either package enum str lines anything listOf nullOr;
+  inherit (lib.types) submodule either package enum str lines anything listOf nullOr addCheck;
   inherit (lib.nvim.types) luaInline;
+  inherit (lib.nvim.lua) isLuaInline;
 
   # Get the names of all flake inputs that start with the given prefix.
   fromInputs = {
@@ -84,12 +85,21 @@ in {
   ```
   */
   mkPluginSetupOption = pluginName: opts: let
-    luaOrModule =
-      either (submodule {
+    submoduleType =
+      addCheck
+      (submodule {
         freeformType = anything;
         options = opts;
       })
-      luaInline;
+      (x: !(isLuaInline x));
+
+    luaOrModule =
+      (either luaInline submoduleType)
+      // {
+        getSubOptions = prefix: submoduleType.getSubOptions prefix;
+        inherit (submoduleType) getSubModules;
+        substSubModules = _: luaOrModule;
+      };
   in
     mkOption {
       type = luaOrModule;
