@@ -372,6 +372,8 @@
 
 - Added Mago for PHP formatting and linting.
 
+- Added ferris.nvim as a rust extensions.
+
 - Allow the usage of `pks.tree-sitter-grammars` in
   {option}`vim.treesitter.grammars` and language module tree-sitter package
   options created via `mkGrammarOption`.
