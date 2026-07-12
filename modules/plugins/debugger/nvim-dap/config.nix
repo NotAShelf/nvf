@@ -4,13 +4,13 @@
   lib,
   ...
 }: let
-  inherit (builtins) concatStringsSep;
+  inherit (builtins) concatStringsSep filter;
   inherit (lib.strings) optionalString;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.attrsets) mapAttrs mapAttrsToList;
   inherit (lib.nvim.binds) mkKeymap;
   inherit (lib.nvim.dag) entryAnywhere entryAfter;
-  inherit (lib.nvim.lua) toLuaObject;
+  inherit (lib.nvim.lua) toLuaObject isLuaInline;
 
   cfg = config.vim.debugger.nvim-dap;
   opt = {
@@ -18,6 +18,31 @@
     lua = true;
   };
   inherit (options.vim.debugger.nvim-dap) mappings;
+
+  checkAdapter = name: adapter:
+    if isLuaInline adapter
+    then null
+    else if adapter.type == "executable"
+    then {
+      assertion = adapter.command != null;
+      message = ''
+        `vim.debugger.nvim-dap.adapters.${name}.command` must be set if type="executable"
+      '';
+    }
+    else if adapter.type == "server"
+    then {
+      assertion = adapter.port != null;
+      message = ''
+        `vim.debugger.nvim-dap.adapters.${name}.port` must be set if type="server"
+      '';
+    }
+    # type = "pipe"
+    else {
+      assertion = adapter.pipe != null;
+      message = ''
+        `vim.debugger.nvim-dap.adapters.${name}.pipe` must be set if type="pipe"
+      '';
+    };
 in {
   config = mkMerge [
     (mkIf cfg.enable {
@@ -78,6 +103,8 @@ in {
           (mkKeymap "n" cfg.mappings.goDown "require('dap').down" (opt // {desc = mappings.goDown.description;}))
         ];
       };
+
+      assertions = filter (x: x != null) (mapAttrsToList checkAdapter cfg.adapters);
     })
     (mkIf (cfg.enable && cfg.ui.enable) {
       vim = {
