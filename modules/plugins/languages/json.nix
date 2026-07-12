@@ -9,6 +9,7 @@
   inherit (lib.types) enum coercedTo listOf;
   inherit (lib) genAttrs;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.json;
 
@@ -43,12 +44,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "JSON LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "json";
+        display = "JSON";
+      };
 
       servers = mkOption {
         type = listOf (enumWithRename

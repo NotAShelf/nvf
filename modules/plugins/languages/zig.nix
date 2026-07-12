@@ -12,6 +12,7 @@
   inherit (lib.lists) flatten;
   inherit (lib.types) bool enum listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.zig;
 
@@ -56,12 +57,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Zig LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "zig";
+        display = "Zig";
+      };
 
       servers = mkOption {
         type = listOf (enum servers);

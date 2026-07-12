@@ -9,6 +9,7 @@
   inherit (lib.types) listOf;
   inherit (lib) genAttrs;
   inherit (lib.nvim.types) mkGrammarOption enumWithRename;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.r;
 
@@ -32,12 +33,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "R LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "r";
+        display = "R";
+      };
 
       servers = mkOption {
         type = listOf (enumWithRename

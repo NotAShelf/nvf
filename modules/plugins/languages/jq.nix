@@ -9,6 +9,7 @@
   inherit (lib) genAttrs;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.jq;
 
@@ -32,12 +33,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "JQ LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "jq";
+        display = "JQ";
+      };
       servers = mkOption {
         type = listOf (enum servers);
         default = defaultServers;

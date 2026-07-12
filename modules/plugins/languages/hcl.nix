@@ -9,6 +9,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) listOf;
   inherit (lib.nvim.types) mkGrammarOption enumWithRename;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.hcl;
 
@@ -32,12 +33,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "HCL LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "hcl";
+        display = "HCL";
+      };
       servers = mkOption {
         type = listOf (enumWithRename
           "vim.languages.hcl.lsp.servers"

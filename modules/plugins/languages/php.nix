@@ -11,6 +11,7 @@
   inherit (lib.lists) flatten;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption enumWithRename;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.php;
 
@@ -51,12 +52,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "PHP LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "php";
+        display = "PHP";
+      };
 
       servers = mkOption {
         type = listOf (enum servers);

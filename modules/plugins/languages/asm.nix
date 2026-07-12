@@ -9,6 +9,7 @@
   inherit (lib.types) enum listOf;
   inherit (lib) genAttrs;
   inherit (lib.nvim.types) mkGrammarOption;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.assembly;
   defaultServers = ["asm-lsp"];
@@ -33,12 +34,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Assembly LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "asm";
+        display = "Assembly";
+      };
       servers = mkOption {
         type = listOf (enum servers);
         default = defaultServers;

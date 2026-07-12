@@ -13,6 +13,7 @@
   inherit (lib.strings) optionalString;
   inherit (lib.types) attrsOf anything bool;
   inherit (config.vim.lib) mkMappingOption;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   listCommandsAction =
     if config.vim.telescope.enable
@@ -38,12 +39,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Scala LSP support (metals)"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "scala";
+        display = "Scala (metals)";
+      };
       package = mkPackageOption pkgs "metals" {
         default = ["metals"];
       };

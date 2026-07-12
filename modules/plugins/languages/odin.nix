@@ -12,6 +12,7 @@
   inherit (lib.lists) flatten;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.odin;
 
@@ -54,12 +55,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Odin LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "odin";
+        display = "Odin";
+      };
 
       servers = mkOption {
         type = listOf (enum servers);

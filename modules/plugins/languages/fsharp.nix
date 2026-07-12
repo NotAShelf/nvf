@@ -9,6 +9,7 @@
   inherit (lib) genAttrs;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   defaultServer = ["fsautocomplete"];
   servers = ["fsautocomplete"];
@@ -33,12 +34,10 @@ in {
       };
 
       lsp = {
-        enable =
-          mkEnableOption "F# LSP support"
-          // {
-            default = config.vim.lsp.enable;
-            defaultText = literalExpression "config.vim.lsp.enable";
-          };
+        enable = mkLanguageLspEnableOption {
+          option = "fsharp";
+          display = "F#";
+        };
         servers = mkOption {
           type = listOf (enum servers);
           default = defaultServer;

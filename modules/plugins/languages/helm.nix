@@ -9,6 +9,7 @@
   inherit (lib) genAttrs;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.helm;
 
@@ -29,12 +30,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Helm LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "helm";
+        display = "Helm";
+      };
       servers = mkOption {
         type = listOf (enum servers);
         default = defaultServers;

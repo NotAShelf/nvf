@@ -9,6 +9,7 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum listOf str;
   inherit (lib.nvim.types) mkGrammarOption;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.arduino;
 
@@ -29,12 +30,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Arduino LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "arduino";
+        display = "Arduino";
+      };
       servers = mkOption {
         type = listOf (enum servers);
         default = defaultServers;

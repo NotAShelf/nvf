@@ -9,6 +9,7 @@
   inherit (lib.types) enum listOf;
   inherit (lib) genAttrs elem;
   inherit (lib.nvim.types) mkGrammarOption;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.pug;
 
@@ -32,12 +33,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Pug LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "pug";
+        display = "Pug";
+      };
       servers = mkOption {
         type = listOf (enum servers);
         default = defaultServers;

@@ -4,13 +4,12 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum bool listOf;
+  inherit (lib.types) enum listOf;
   inherit (lib) genAttrs;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.vhdl;
 
@@ -31,12 +30,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "VHDL LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "vhdl";
+        display = "VHDL";
+      };
       servers = mkOption {
         type = listOf (enum servers);
         default = defaultServers;

@@ -13,6 +13,7 @@
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.types) deprecatedSingleOrListOf enumWithRename;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.clang;
 
@@ -72,12 +73,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "clang LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "clang";
+        display = "clang";
+      };
 
       servers = mkOption {
         description = "The clang LSP server to use";

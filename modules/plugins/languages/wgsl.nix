@@ -9,6 +9,7 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum listOf;
   inherit (lib) genAttrs;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.wgsl;
 
@@ -29,12 +30,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "WGSL LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "wgsl";
+        display = "WGSL";
+      };
 
       servers = mkOption {
         type = listOf (enum servers);

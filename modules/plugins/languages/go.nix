@@ -13,6 +13,7 @@
   inherit (lib.types) enum package str listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAfter;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.go;
 
@@ -58,12 +59,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Go LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "go";
+        display = "Go";
+      };
 
       servers = mkOption {
         type = listOf (enum servers);

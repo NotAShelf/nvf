@@ -9,6 +9,7 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.toml;
   defaultServers = ["taplo"];
@@ -34,12 +35,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "TOML LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "toml";
+        display = "TOML";
+      };
 
       servers = mkOption {
         description = "TOML LSP server to use";

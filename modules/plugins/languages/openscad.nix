@@ -1,13 +1,13 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum listOf;
   inherit (lib) genAttrs;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.openscad;
   /*
@@ -26,12 +26,10 @@ in {
     enable = mkEnableOption "OpenSCAD language support";
 
     lsp = {
-      enable =
-        mkEnableOption "OpenSCAD LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "openscad";
+        display = "OpenSCAD";
+      };
 
       servers = mkOption {
         type = listOf (enum servers);

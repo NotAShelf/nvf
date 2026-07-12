@@ -9,6 +9,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum coercedTo listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.css;
 
@@ -42,12 +43,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "CSS LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "css";
+        display = "CSS";
+      };
 
       servers = mkOption {
         type = listOf (enumWithRename

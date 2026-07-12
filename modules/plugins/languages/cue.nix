@@ -9,6 +9,7 @@
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.types) enum listOf;
   inherit (lib) genAttrs;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   defaultServers = ["cue"];
   servers = ["cue"];
@@ -30,12 +31,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "CUE LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "cue";
+        display = "CUE";
+      };
 
       servers = mkOption {
         type = listOf (enum servers);

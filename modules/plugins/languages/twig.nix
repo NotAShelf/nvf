@@ -9,6 +9,7 @@
   inherit (lib) genAttrs;
   inherit (lib.types) listOf enum;
   inherit (lib.nvim.types) mkGrammarOption;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.twig;
 
@@ -36,12 +37,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Twig LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "twig";
+        display = "Twig";
+      };
       servers = mkOption {
         type = listOf (enum servers);
         default = defaultServers;

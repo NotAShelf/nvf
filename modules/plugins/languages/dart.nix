@@ -12,6 +12,7 @@
   inherit (lib.strings) optionalString;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryAfter;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.dart;
   ftcfg = cfg.flutter-tools;
@@ -33,12 +34,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Dart LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "dart";
+        display = "Dart";
+      };
       servers = mkOption {
         type = listOf (enum servers);
         default = defaultServers;

@@ -13,6 +13,7 @@
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) deprecatedSingleOrListOf enumWithRename;
   inherit (lib.trivial) warn;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.python;
 
@@ -72,12 +73,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Python LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "python";
+        display = "Python";
+      };
 
       servers = mkOption {
         type = listOf (enum servers);

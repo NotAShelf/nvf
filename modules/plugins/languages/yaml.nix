@@ -9,6 +9,7 @@
   inherit (lib) genAttrs;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.yaml;
 
@@ -33,12 +34,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Yaml LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "yaml";
+        display = "Yaml";
+      };
       servers = mkOption {
         type = listOf (enum servers);
         default = defaultServers;

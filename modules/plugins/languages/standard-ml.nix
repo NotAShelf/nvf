@@ -9,6 +9,7 @@
   inherit (lib.types) enum listOf;
   inherit (lib) genAttrs;
   inherit (lib.nvim.types) mkTreesitterGrammarOption;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.standard-ml;
 
@@ -32,12 +33,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Standard ML LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "standard-ml";
+        display = "Standard ML";
+      };
       servers = mkOption {
         type = listOf (enum servers);
         default = defaultServers;

@@ -9,6 +9,7 @@
   inherit (lib) genAttrs elem;
   inherit (lib.types) enum coercedTo listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.svelte;
 
@@ -45,12 +46,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Svelte LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "svelte";
+        display = "Svelte";
+      };
 
       servers = mkOption {
         type = listOf (enum servers);

@@ -9,6 +9,7 @@
   inherit (lib.types) enum coercedTo listOf;
   inherit (lib.attrsets) genAttrs;
   inherit (lib.nvim.types) mkGrammarOption;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.tsx;
 
@@ -40,12 +41,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Typescript XML (TSX) LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "tsx";
+        display = "Typescript XML (TSX)";
+      };
       servers = mkOption {
         type = listOf (enum servers);
         default = defaultServers;

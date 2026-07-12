@@ -16,6 +16,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
   inherit (pkgs) haskellPackages;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.haskell;
 
@@ -42,12 +43,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Haskell LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "haskell";
+        display = "Haskell";
+      };
       servers = mkOption {
         type = listOf (enum servers);
         default = defaultServers;

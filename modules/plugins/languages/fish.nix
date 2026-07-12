@@ -9,6 +9,7 @@
   inherit (lib.types) enum bool listOf;
   inherit (lib) genAttrs;
   inherit (lib.nvim.types) mkGrammarOption enumWithRename;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.fish;
 
@@ -32,12 +33,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Fish LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "fish";
+        display = "Fish";
+      };
       servers = mkOption {
         type = listOf (enum servers);
         default = defaultServers;

@@ -10,6 +10,7 @@
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.elixir;
 
@@ -35,12 +36,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Elixir LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "elixir";
+        display = "Elixir";
+      };
       servers = mkOption {
         type = listOf (enumWithRename
           "vim.languages.elixir.lsp.servers"

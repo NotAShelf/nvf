@@ -11,6 +11,7 @@
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption enumWithRename;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.typescript;
 
@@ -50,12 +51,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Typescript/Javascript LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "typescript";
+        display = "Typescript/Javascript";
+      };
 
       servers = mkOption {
         type = listOf (enumWithRename

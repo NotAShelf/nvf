@@ -16,6 +16,7 @@
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.binds) addDescriptionsToMappings;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   defaultServers = ["csharp_ls"];
   servers = ["csharp_ls" "omnisharp" "roslyn-ls"];
@@ -146,12 +147,10 @@ in {
       };
 
       lsp = {
-        enable =
-          mkEnableOption "C# LSP support"
-          // {
-            default = config.vim.lsp.enable;
-            defaultText = literalExpression "config.vim.lsp.enable";
-          };
+        enable = mkLanguageLspEnableOption {
+          option = "csharp";
+          display = "C#";
+        };
         servers = mkOption {
           description = "C# LSP server to use";
           type = listOf (enumWithRename

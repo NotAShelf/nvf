@@ -11,6 +11,7 @@
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf enumWithRename;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.markdown;
   defaultServers = ["marksman"];
@@ -36,12 +37,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Markdown LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "markdown";
+        display = "Markdown";
+      };
 
       servers = mkOption {
         description = "Markdown LSP server to use";

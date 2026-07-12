@@ -9,6 +9,7 @@
   inherit (lib.types) enum bool listOf;
   inherit (lib) genAttrs;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.bash;
 
@@ -35,12 +36,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Bash LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "bash";
+        display = "Bash";
+      };
       servers = mkOption {
         type = listOf (enumWithRename
           "vim.languages.bash.lsp.servers"

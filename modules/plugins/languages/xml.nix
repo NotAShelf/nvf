@@ -9,6 +9,7 @@
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib) genAttrs;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.xml;
 
@@ -29,12 +30,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "XML LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "xml";
+        display = "XML";
+      };
       servers = mkOption {
         type = listOf (enum servers);
         default = defaultServers;

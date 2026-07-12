@@ -9,6 +9,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.docker;
 
@@ -34,12 +35,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Docker LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "docker";
+        display = "Docker";
+      };
       servers = mkOption {
         type = listOf (enum servers);
         default = defaultServers;

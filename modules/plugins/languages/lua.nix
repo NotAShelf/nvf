@@ -10,6 +10,7 @@
   inherit (lib.types) bool enum listOf;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryBefore;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.lua;
 
@@ -41,12 +42,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Lua LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "lua";
+        display = "Lua";
+      };
       servers = mkOption {
         type = listOf (enum servers);
         default = defaultServers;

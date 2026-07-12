@@ -9,6 +9,7 @@
   inherit (lib) genAttrs;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.qml;
 
@@ -31,12 +32,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "QML LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "qml";
+        display = "QML";
+      };
       servers = mkOption {
         type = listOf (enum servers);
         default = defaultServers;

@@ -12,6 +12,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline toPretty;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf enumWithRename;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.java;
 
@@ -88,12 +89,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Java LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "java";
+        display = "Java";
+      };
       servers = mkOption {
         type = listOf (enumWithRename
           "vim.languages.java.lsp.servers"

@@ -14,6 +14,7 @@
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf enumWithRename;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.rust;
 
@@ -79,12 +80,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Rust LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "rust";
+        display = "Rust";
+      };
 
       servers = mkOption {
         type = listOf (enum servers);

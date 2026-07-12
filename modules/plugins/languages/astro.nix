@@ -9,6 +9,7 @@
   inherit (lib.types) enum coercedTo listOf;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
   inherit (lib) genAttrs elem;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.astro;
 
@@ -45,12 +46,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Astro LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "astro";
+        display = "Astro";
+      };
       servers = mkOption {
         type = listOf (enumWithRename
           "vim.languages.astro.lsp.servers"

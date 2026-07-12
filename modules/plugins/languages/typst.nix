@@ -14,6 +14,7 @@
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.binds) mkKeymap;
   inherit (config.vim.lib) mkMappingOption;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.typst;
 
@@ -37,12 +38,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Typst LSP support (typst-lsp)"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "typst";
+        display = "Typst";
+      };
 
       servers = mkOption {
         type = listOf (enum servers);

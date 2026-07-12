@@ -9,6 +9,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum package listOf;
   inherit (lib.nvim.types) deprecatedSingleOrListOf;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.sql;
 
@@ -40,12 +41,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "SQL LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "sql";
+        display = "SQL";
+      };
 
       servers = mkOption {
         type = listOf (enum servers);

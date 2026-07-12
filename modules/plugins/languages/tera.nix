@@ -9,6 +9,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum listOf str;
   inherit (lib.nvim.types) mkGrammarOption;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.tera;
 
@@ -34,12 +35,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "Tera LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "tera";
+        display = "Tera";
+      };
       servers = mkOption {
         description = "Tera LSP server to use";
         type = listOf (enum servers);

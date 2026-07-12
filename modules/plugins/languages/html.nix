@@ -11,6 +11,7 @@
   inherit (lib.lists) optional;
   inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
   inherit (lib.nvim.dag) entryAnywhere;
+  inherit (config.vim.lib) mkLanguageLspEnableOption;
 
   cfg = config.vim.languages.html;
 
@@ -47,12 +48,10 @@ in {
     };
 
     lsp = {
-      enable =
-        mkEnableOption "HTML LSP support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+      enable = mkLanguageLspEnableOption {
+        option = "html";
+        display = "HTML";
+      };
       servers = mkOption {
         type = listOf (enum servers);
         default = defaultServers;
