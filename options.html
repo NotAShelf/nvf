@@ -2743,7 +2743,7 @@
     <details class="toc-category">
       <summary title="vim.debugger">
         <span>vim.debugger</span>
-        <span class="toc-count">30</span>
+        <span class="toc-count">36</span>
       </summary>
       <ul>
         
@@ -2752,6 +2752,54 @@
         <li>
           <a href='#option-vim.debugger.nvim-dap.adapters' title="vim.debugger.nvim-dap.adapters">
             nvim-dap.adapters
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.debugger.nvim-dap.adapters._name_.args' title="vim.debugger.nvim-dap.adapters.&lt;name&gt;.args">
+            nvim-dap.adapters.&lt;name&gt;.args
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.debugger.nvim-dap.adapters._name_.command' title="vim.debugger.nvim-dap.adapters.&lt;name&gt;.command">
+            nvim-dap.adapters.&lt;name&gt;.command
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.debugger.nvim-dap.adapters._name_.host' title="vim.debugger.nvim-dap.adapters.&lt;name&gt;.host">
+            nvim-dap.adapters.&lt;name&gt;.host
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.debugger.nvim-dap.adapters._name_.pipe' title="vim.debugger.nvim-dap.adapters.&lt;name&gt;.pipe">
+            nvim-dap.adapters.&lt;name&gt;.pipe
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.debugger.nvim-dap.adapters._name_.port' title="vim.debugger.nvim-dap.adapters.&lt;name&gt;.port">
+            nvim-dap.adapters.&lt;name&gt;.port
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.debugger.nvim-dap.adapters._name_.type' title="vim.debugger.nvim-dap.adapters.&lt;name&gt;.type">
+            nvim-dap.adapters.&lt;name&gt;.type
             
             
           </a>
@@ -24598,11 +24646,84 @@ set by the <code>verbose</code> option.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>attribute set of ((luaInline) or (submodule) or (submodule) or (submodule))</code></div>
+  <div class="option-type">Type: <code>attribute set of ((luaInline) or (open submodule of attribute set of anything))</code></div>
   <div class="option-description"><html><head></head><body><p>Adapter configurations. See <code>:help dap-adapter</code></p>
 </body></html></div>
   <div class="option-default">Default: <code>{ }</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/debugger/nvim-dap/nvim-dap.nix" target="_blank">&lt;nvf/modules/plugins/debugger/nvim-dap/nvim-dap.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.debugger.nvim-dap.adapters._name_.args">
+  <h3 class="option-name">
+    <a href="#option-vim.debugger.nvim-dap.adapters._name_.args" class="option-anchor">vim.debugger.nvim-dap.adapters.&lt;name&gt;.args</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or (list of string)</code></div>
+  <div class="option-description"><html><head></head><body><p>Argument to the command</p>
+</body></html></div>
+  <div class="option-default">Default: <code>null</code></div>
+  <div class="option-declared">Declared in: <code>vim.debugger.nvim-dap.adapters.<name>.args</code></div>
+</div>
+<div class="option" id="option-vim.debugger.nvim-dap.adapters._name_.command">
+  <h3 class="option-name">
+    <a href="#option-vim.debugger.nvim-dap.adapters._name_.command" class="option-anchor">vim.debugger.nvim-dap.adapters.&lt;name&gt;.command</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or string</code></div>
+  <div class="option-description"><html><head></head><body><p>Command to invoke</p>
+</body></html></div>
+  <div class="option-default">Default: <code>null</code></div>
+  <div class="option-declared">Declared in: <code>vim.debugger.nvim-dap.adapters.<name>.command</code></div>
+</div>
+<div class="option" id="option-vim.debugger.nvim-dap.adapters._name_.host">
+  <h3 class="option-name">
+    <a href="#option-vim.debugger.nvim-dap.adapters._name_.host" class="option-anchor">vim.debugger.nvim-dap.adapters.&lt;name&gt;.host</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or string</code></div>
+  <div class="option-description"><html><head></head><body><p>Host to connect to</p>
+</body></html></div>
+  <div class="option-default">Default: <code>"127.0.0.1"</code></div>
+  <div class="option-declared">Declared in: <code>vim.debugger.nvim-dap.adapters.<name>.host</code></div>
+</div>
+<div class="option" id="option-vim.debugger.nvim-dap.adapters._name_.pipe">
+  <h3 class="option-name">
+    <a href="#option-vim.debugger.nvim-dap.adapters._name_.pipe" class="option-anchor">vim.debugger.nvim-dap.adapters.&lt;name&gt;.pipe</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or string</code></div>
+  <div class="option-description"><html><head></head><body><p>Absolute path to the pipe file. Use "${pipe}" for a dynamically
+generated temporary filename</p>
+</body></html></div>
+  <div class="option-default">Default: <code>null</code></div>
+  <div class="option-declared">Declared in: <code>vim.debugger.nvim-dap.adapters.<name>.pipe</code></div>
+</div>
+<div class="option" id="option-vim.debugger.nvim-dap.adapters._name_.port">
+  <h3 class="option-name">
+    <a href="#option-vim.debugger.nvim-dap.adapters._name_.port" class="option-anchor">vim.debugger.nvim-dap.adapters.&lt;name&gt;.port</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or signed integer or value "${port}" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Port to connect to. Use "${port}" for a dynamically resolved free
+port. This is intended to be used with executable.args.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>null</code></div>
+  <div class="option-declared">Declared in: <code>vim.debugger.nvim-dap.adapters.<name>.port</code></div>
+</div>
+<div class="option" id="option-vim.debugger.nvim-dap.adapters._name_.type">
+  <h3 class="option-name">
+    <a href="#option-vim.debugger.nvim-dap.adapters._name_.type" class="option-anchor">vim.debugger.nvim-dap.adapters.&lt;name&gt;.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>one of "executable", "server", "pipe"</code></div>
+  <div class="option-description"><html><head></head><body><p>Type of adapter</p>
+</body></html></div>
+  <div class="option-declared">Declared in: <code>vim.debugger.nvim-dap.adapters.<name>.type</code></div>
 </div>
 <div class="option" id="option-vim.debugger.nvim-dap.configurations">
   <h3 class="option-name">
