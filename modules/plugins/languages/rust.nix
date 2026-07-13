@@ -285,8 +285,45 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      vim.treesitter = {
+        enable = true;
+        grammars = [cfg.treesitter.package];
+        queries = [
+          # sqlx macros
+          # This injections highlighting is flakey as rust strings and SQL highlights both use a priority of 100.
+          # Changing priorities of highlights via injections is not possible.
+          # To fix this highlight priority race condition we would need to vendor the full rust `highlights.scm` and patch it.
+          # That would suck a lot to maintain.
+          # So fuck it and live with a flakey highlight.
+          # The tree is always updated correctly, just the highlight has the race condition.
+          # This is a known problem <https://github.com/nvim-treesitter/nvim-treesitter/issues/3110>
+          {
+            type = "injections";
+            filetypes = ["rust"];
+            query = ''
+              ; extends
+
+              (macro_invocation
+                macro: (scoped_identifier
+                  path: (identifier) @_path
+                  (#eq? @_path "sqlx")
+                  name: (identifier) @_macro
+                  (#any-of? @_macro
+                    "query"               "query_unchecked"
+                    "query_as"         "query_as_unchecked"
+                    "query_scalar" "query_scalar_unchecked"))
+              (token_tree
+                [
+                  (string_literal
+                    (string_content) @injection.content)
+                  (raw_string_literal
+                    (string_content) @injection.content)
+                ]
+                (#set! injection.language "sql")))
+            '';
+          }
+        ];
+      };
     })
 
     (mkIf cfg.format.enable {

@@ -407,6 +407,8 @@
 
 - Fixed broken filetypes.
 
+- Added Treesitter injections for `sqlx` in the `languages.rust` module.
+
 - Added `vim.lsp.presets.<name>` to contain LSP configurations. This allows for
   more flexibility in nvf and reuse of LSPs across languages. Dropped
   `deprecatedSingleOrListOf` in favor of `listOf` for the affected LSP options.
