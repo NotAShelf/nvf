@@ -356,6 +356,8 @@
 
 - Added {option}`vim.healthchecks`.
 
+- Added healthcheck to clipboard providers.
+
 - Added {option}`vim.formatter.conform-nvim.presets.just.enable` for justfile
   formatting.
 

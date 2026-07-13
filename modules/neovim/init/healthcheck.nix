@@ -5,12 +5,11 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.options) mkOption;
-  inherit (lib.strings) concatStringsSep replaceStrings trim;
+  inherit (lib.options) mkOption literalExpression;
+  inherit (lib.strings) concatStringsSep trim;
   inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.types) attrsOf;
   inherit (lib.nvim.types) luaInline;
-  inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.healthchecks;
 in {
@@ -18,17 +17,31 @@ in {
     type = attrsOf (attrsOf luaInline);
     default = {};
     description = "custom healthchecks to register";
-    example = {
-      nvf = {
-        "Executables" = mkLuaInline ''
-          if vim.fn.executable("git") == 1 then
-            vim.health.ok("git found")
-          else
-            vim.health.error("git not found")
-          end
-        '';
-      };
-    };
+    example = literalExpression ''
+      let
+        inherit (lib.generators) mkLuaInline;
+      in
+      {
+        nvf = {
+          "Executables" = mkLuaInline '''
+            if vim.fn.executable("git") == 1 then
+              vim.health.ok("git found")
+            else
+              vim.health.error("git not found")
+            end
+
+            if vim.fn.executable("pijul") == 1 then
+              vim.health.ok("pijul found")
+            else
+              vim.health.error("pijul not found")
+            end
+          ''';
+          "Nixvim" = mkLuaInline '''
+            vim.health.ok("NVF is better than nixvim")
+          ''';
+        };
+      }
+    '';
   };
 
   config = mkIf (cfg != {}) {
@@ -41,7 +54,7 @@ in {
             M.check = function()
               ${concatStringsSep "\n" (mapAttrsToList (name: check: ''
                 vim.health.start("${name}")
-                ${"  " + replaceStrings ["\n"] ["\n  "] (trim check.expr)}
+                ${trim check.expr}
               '')
               checks)}
             end
