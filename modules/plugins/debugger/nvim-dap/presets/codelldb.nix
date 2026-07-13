@@ -5,19 +5,17 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.options) mkEnableOption;
+  inherit (lib.nvim.types) mkDapPresetEnableOption;
 
   cfg = config.vim.debugger.nvim-dap.presets.codelldb;
   codelldb = pkgs.vscode-extensions.vadimcn.vscode-lldb.adapter;
 in {
   options.vim.debugger.nvim-dap.presets.codelldb = {
-    enable = mkEnableOption ''
-      adapter configuration for CodeLLDB using the vadimcn.vscode-lldb extension.
-      Use {option}`vim.debugger.nvim-dap.adapters.codelldb` for customization.
-
-      A configuration is also needed for your filetype in
-      {option}`vim.debugger.nvim-dap.configurations`
-    '';
+    enable = mkDapPresetEnableOption {
+      option = "codelldb";
+      display = "CodeLLDB";
+      extra = "Uses the vadimcn.vscode-lldb extension under the hood.";
+    };
   };
 
   config.vim.debugger.nvim-dap.adapters = mkIf cfg.enable {
