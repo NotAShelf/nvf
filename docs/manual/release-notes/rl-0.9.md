@@ -508,6 +508,8 @@
 
 - Added `languages.vue`.
 
+- Added `languages.query`.
+
 - Add `languages.fluent` using the official plugin. This only provides
   highlighting.
 

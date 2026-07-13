@@ -74,6 +74,7 @@
     ./tinymist.nix
     ./tofu-ls.nix
     ./tombi.nix
+    ./ts-query-ls.nix
     ./twig-language-server.nix
     ./ty.nix
     ./typescript-go.nix

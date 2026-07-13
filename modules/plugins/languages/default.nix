@@ -51,6 +51,7 @@ in {
     ./pug.nix
     ./python.nix
     ./qml.nix
+    ./query.nix
     ./r.nix
     ./ruby.nix
     ./rust.nix
