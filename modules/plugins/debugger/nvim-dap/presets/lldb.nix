@@ -5,18 +5,16 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.options) mkEnableOption;
+  inherit (lib.nvim.types) mkDapPresetEnableOption;
 
   cfg = config.vim.debugger.nvim-dap.presets.lldb;
 in {
   options.vim.debugger.nvim-dap.presets.lldb = {
-    enable = mkEnableOption ''
-      adapter configuration for LLDB using `lldb-dap`.
-      Use {option}`vim.debugger.nvim-dap.adapters.lldb` for customization.
-
-      A configuration is also needed for your filetype in
-      {option}`vim.debugger.nvim-dap.configurations`
-    '';
+    enable = mkDapPresetEnableOption {
+      option = "lldb";
+      display = "LLDB";
+      extra = "Uses `lldb-dap` under the hood.";
+    };
   };
 
   config.vim.debugger.nvim-dap.adapters = mkIf cfg.enable {
