@@ -354,6 +354,8 @@
 
 [Snoweuph](https://github.com/snoweuph)
 
+- Added {option}`vim.healthchecks`.
+
 - Added {option}`vim.formatter.conform-nvim.presets.just.enable` for justfile
   formatting.
 
