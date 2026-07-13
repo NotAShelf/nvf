@@ -6247,7 +6247,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">614</span>
+        <span class="toc-count">619</span>
       </summary>
       <ul>
         
@@ -9494,6 +9494,46 @@
         </li>
         
         <li>
+          <a href='#option-vim.languages.query.enable' title="vim.languages.query.enable">
+            query.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.query.lsp.enable' title="vim.languages.query.lsp.enable">
+            query.lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.query.lsp.servers' title="vim.languages.query.lsp.servers">
+            query.lsp.servers
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.query.treesitter.enable' title="vim.languages.query.treesitter.enable">
+            query.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.query.treesitter.package' title="vim.languages.query.treesitter.package">
+            query.treesitter.package
+            
+            
+          </a>
+        </li>
+        
+        <li>
           <a href='#option-vim.languages.r.enable' title="vim.languages.r.enable">
             r.enable
             
@@ -11355,7 +11395,7 @@
     <details class="toc-category">
       <summary title="vim.lsp">
         <span>vim.lsp</span>
-        <span class="toc-count">166</span>
+        <span class="toc-count">167</span>
       </summary>
       <ul>
         
@@ -12452,6 +12492,14 @@
         <li>
           <a href='#option-vim.lsp.presets.tombi.enable' title="vim.lsp.presets.tombi.enable">
             presets.tombi.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.lsp.presets.ts-query-ls.enable' title="vim.lsp.presets.ts-query-ls.enable">
+            presets.ts-query-ls.enable
             
             
           </a>
@@ -35950,6 +35998,71 @@ have any of these filetypes.</p>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.qmljs</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/qml.nix" target="_blank">&lt;nvf/modules/plugins/languages/qml.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.languages.query.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.query.enable" class="option-anchor">vim.languages.query.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Treesitter Query support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/query.nix" target="_blank">&lt;nvf/modules/plugins/languages/query.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.query.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.query.lsp.enable" class="option-anchor">vim.languages.query.lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Treesitter Query LSP support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.lsp.enable</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/query.nix" target="_blank">&lt;nvf/modules/plugins/languages/query.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.query.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.query.lsp.servers" class="option-anchor">vim.languages.query.lsp.servers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "ts-query-ls" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Treesitter Query LSP server to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "ts-query-ls"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/query.nix" target="_blank">&lt;nvf/modules/plugins/languages/query.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.query.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.query.treesitter.enable" class="option-anchor">vim.languages.query.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Treesitter Query treesitter.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/query.nix" target="_blank">&lt;nvf/modules/plugins/languages/query.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.query.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.query.treesitter.package" class="option-anchor">vim.languages.query.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or package</code></div>
+  <div class="option-description"><html><head></head><body><p>The query treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.query</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/query.nix" target="_blank">&lt;nvf/modules/plugins/languages/query.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.languages.r.enable">
   <h3 class="option-name">
     <a href="#option-vim.languages.r.enable" class="option-anchor">vim.languages.r.enable</a>
@@ -41149,6 +41262,22 @@ Default <code>filetypes = [ ]</code>.</p>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/tombi.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/tombi.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.lsp.presets.ts-query-ls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.ts-query-ls.enable" class="option-anchor">vim.lsp.presets.ts-query-ls.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Treesitter Query Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.ts-query-ls</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/ts-query-ls.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/ts-query-ls.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.lsp.presets.twig-language-server.enable">
   <h3 class="option-name">
