@@ -2695,6 +2695,19 @@
       "url": "https://github.com/lewis6991/satellite.nvim/archive/87843c9c8f28b54332497302de380a6d94c9e82b.tar.gz",
       "hash": "sha256-2kvs9HgNcLy7ym2C2XZRv3Qa2ttNLdpa9l7oRYy8KLQ="
     },
+    "smart-paste-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nemanjamalesija",
+        "repo": "smart-paste.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "a81e5511adc6fc145a7a71b08819440fd059af34",
+      "url": "https://github.com/nemanjamalesija/smart-paste.nvim/archive/a81e5511adc6fc145a7a71b08819440fd059af34.tar.gz",
+      "hash": "sha256-t8wt46sOcBdRcjpA4ii0EaycLAg3aLDdHapNJvSMyxM="
+    },
     "smart-splits": {
       "type": "GitRelease",
       "repository": {

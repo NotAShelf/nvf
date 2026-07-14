@@ -23,6 +23,7 @@
     ./preview
     ./qmk-nvim
     ./sleuth
+    ./smart-paste-nvim
     ./smart-splits
     ./snacks-nvim
     ./surround
