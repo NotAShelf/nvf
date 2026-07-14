@@ -80,7 +80,7 @@
   # Wrap the user's desired (unwrapped) Neovim package with arguments that'll be used to
   # generate a wrapped Neovim package.
   neovim-wrapped = inputs.mnw.lib.wrap {inherit pkgs;} {
-    appName = "nvf";
+    appName = config.vim.appname;
     neovim = config.vim.package;
     initLua = config.vim.builtLuaConfigRC;
     luaFiles = config.vim.extraLuaFiles;
