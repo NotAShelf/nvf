@@ -45,6 +45,9 @@
 
 [Snoweuph](https://github.com/snoweuph)
 
+- Added `position` option to additional runtime paths, allowing for prepending
+  paths, rather than just appending.
+
 - Moved all angular related stuff into its own language module.
 
 - Remove `mind.nvim`. This plugin doesn't exist anymore. The original author
