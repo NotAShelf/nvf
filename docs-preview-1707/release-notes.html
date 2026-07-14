@@ -179,6 +179,10 @@ upstream codecompanion.nvim v19 rename. If you set options like
 paths, rather than just appending.</p>
 </li>
 <li>
+<p>Added required field <code>loadtype</code> for entries into
+<a class="option-reference" href="options.html#option-vim.treesitter.queries"><code class="nixos-option">vim.treesitter.queries</code></a>, to allow for real overriding of queries.</p>
+</li>
+<li>
 <p>Moved all angular related stuff into its own language module.</p>
 </li>
 <li>
@@ -431,20 +435,12 @@ pkgs.nixfmt-rfc-style</li>
 </ul>
 <p><a href="https://github.com/dathegreat">dathegreat</a>:</p>
 <ul>
-<li>
-<p>Fixed invalid keys in the haskell-tools configuration</p>
-</li>
-<li>
-<p>Split haskell configuration into <code>lsp/presets/haskell-language-server.nix</code> and
-<code>languages/haskell.nix</code></p>
-</li>
-<li>
-<p>Made the haskell LSP and formatter configurable</p>
-</li>
-<li>
-<p>Added <a href="https://github.com/hat0uma/csvview.nvim">csvview.nvim</a> support under
-<code>vim.utility.csvview</code> for rendering CSV/TSV files as aligned tables.</p>
-</li>
+<li>Fixed invalid keys in the haskell-tools configuration</li>
+<li>Split haskell configuration into <code>lsp/presets/haskell-language-server.nix</code> and
+<code>languages/haskell.nix</code></li>
+<li>Made the haskell LSP and formatter configurable</li>
+<li>Added <a href="https://github.com/hat0uma/csvview.nvim">csvview.nvim</a> support under
+<code>vim.utility.csvview</code> for rendering CSV/TSV files as aligned tables.</li>
 </ul>
 <p><a href="https://github.com/alfarelcynthesis">alfarel</a>:</p>
 <ul>
