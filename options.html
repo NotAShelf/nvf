@@ -135,6 +135,14 @@
   </li>
   
   <li>
+    <a href='#option-vim.healthchecks' title="vim.healthchecks">
+      vim.healthchecks
+      
+      
+    </a>
+  </li>
+  
+  <li>
     <a href='#option-vim.hideSearchHighlight' title="vim.hideSearchHighlight">
       vim.hideSearchHighlight
       
@@ -30171,6 +30179,42 @@ for more details on configuring EditorConfig behaviour.</p>
 </body></html></div>
   <div class="option-default">Default: <code>","</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_blank">&lt;nvf/modules/wrapper/rc/options.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.healthchecks">
+  <h3 class="option-name">
+    <a href="#option-vim.healthchecks" class="option-anchor">vim.healthchecks</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>attribute set of attribute set of (luaInline)</code></div>
+  <div class="option-description"><html><head></head><body><p>custom healthchecks to register</p>
+</body></html></div>
+  <div class="option-default">Default: <code>{ }</code></div>
+  <div class="option-example">Example: <pre><code>let
+  inherit (lib.generators) mkLuaInline;
+in
+{
+  nvf = {
+    "Executables" = mkLuaInline ''
+      if vim.fn.executable("git") == 1 then
+        vim.health.ok("git found")
+      else
+        vim.health.error("git not found")
+      end
+
+      if vim.fn.executable("pijul") == 1 then
+        vim.health.ok("pijul found")
+      else
+        vim.health.error("pijul not found")
+      end
+    '';
+    "Nixvim" = mkLuaInline ''
+      vim.health.ok("NVF is better than nixvim")
+    '';
+  };
+}
+</code></pre></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/healthcheck.nix" target="_blank">&lt;nvf/modules/neovim/init/healthcheck.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.hideSearchHighlight">
   <h3 class="option-name">
