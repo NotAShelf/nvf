@@ -556,6 +556,22 @@
       "url": "https://github.com/Chaitanyabsprip/fastaction.nvim/archive/b147d91727cb35be4f722f17e7d4ed5b4a5801d8.tar.gz",
       "hash": "sha256-va00sqM2Ap9faUXww5CpWJQyCixN9fIwh8p8oSLQMy8="
     },
+    "ferris-nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "vxpm",
+        "repo": "ferris.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "0.5.0",
+      "revision": "275865530d753a205740804f1ce163af2322db57",
+      "url": "https://api.github.com/repos/vxpm/ferris.nvim/tarball/refs/tags/0.5.0",
+      "hash": "sha256-6wQi4yurKTSPxYDxKnQJlVMLI41RB9Kj8htlRNeiF0I="
+    },
     "fidget-nvim": {
       "type": "Git",
       "repository": {

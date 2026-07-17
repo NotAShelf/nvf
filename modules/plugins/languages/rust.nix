@@ -11,7 +11,7 @@
   inherit (lib.lists) flatten;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.strings) optionalString;
-  inherit (lib.types) bool listOf enum int;
+  inherit (lib.types) bool listOf enum int str;
   inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf enumWithRename;
@@ -280,6 +280,22 @@ in {
           };
         };
       };
+
+      ferris-nvim = {
+        enable = mkEnableOption "additional rust support [ferris.nvim]";
+        setupOpts = mkPluginSetupOption "ferris-nvim" {
+          create_commands = mkOption {
+            type = bool;
+            default = true;
+            description = "Enable automatically creating commands for each LSP method";
+          };
+          url_handler = mkOption {
+            type = str;
+            default = "xdg-open";
+            description = "Handler for URL's";
+          };
+        };
+      };
     };
   };
 
@@ -399,6 +415,14 @@ in {
           };
         }
       ];
+    })
+
+    (mkIf cfg.extensions.crates-nvim.enable {
+      vim.lazy.plugins.ferris-nvim = {
+        package = "ferris-nvim";
+        setupModule = "ferris";
+        setupOpts = cfg.extensions.ferris-nvim.setupOpts;
+      };
     })
   ]);
 }
