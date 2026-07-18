@@ -41,7 +41,15 @@
               "*/*/src/main/java",
               "*/*/*/src/main/java",
             }) do
-              vim.list_extend(matches, vim.fn.glob(pattern, true, true))
+              vim.list_extend(
+                matches,
+                vim.tbl_map(
+                  function(path)
+                    return vim.fn.fnamemodify(path, ":p")
+                  end,
+                  vim.fn.glob(pattern, true, true)
+                )
+              )
             end
 
             return matches
