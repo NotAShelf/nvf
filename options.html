@@ -6255,7 +6255,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">623</span>
+        <span class="toc-count">630</span>
       </summary>
       <ul>
         
@@ -11240,6 +11240,62 @@
         <li>
           <a href='#option-vim.languages.zig.treesitter.package' title="vim.languages.zig.treesitter.package">
             zig.treesitter.package
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.zsh.enable' title="vim.languages.zsh.enable">
+            zsh.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.zsh.format.enable' title="vim.languages.zsh.format.enable">
+            zsh.format.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.zsh.format.type' title="vim.languages.zsh.format.type">
+            zsh.format.type
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.zsh.lsp.enable' title="vim.languages.zsh.lsp.enable">
+            zsh.lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.zsh.lsp.servers' title="vim.languages.zsh.lsp.servers">
+            zsh.lsp.servers
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.zsh.treesitter.enable' title="vim.languages.zsh.treesitter.enable">
+            zsh.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.zsh.treesitter.package' title="vim.languages.zsh.treesitter.package">
+            zsh.treesitter.package
             
             
           </a>
@@ -31157,9 +31213,10 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Enable Bash formatting</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Bash formatting.</p>
 </body></html></div>
   <div class="option-default">Default: <code>config.vim.languages.enableFormat</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/bash.nix" target="_blank">&lt;nvf/modules/plugins/languages/bash.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.bash.format.type">
@@ -39054,6 +39111,98 @@ the plugin.</p>
 </body></html></div>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.zig</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/zig.nix" target="_blank">&lt;nvf/modules/plugins/languages/zig.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.zsh.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.zsh.enable" class="option-anchor">vim.languages.zsh.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Z Shell language support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/zsh.nix" target="_blank">&lt;nvf/modules/plugins/languages/zsh.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.zsh.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.zsh.format.enable" class="option-anchor">vim.languages.zsh.format.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Z Shell formatting.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableFormat</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/zsh.nix" target="_blank">&lt;nvf/modules/plugins/languages/zsh.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.zsh.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.zsh.format.type" class="option-anchor">vim.languages.zsh.format.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "shfmt" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Z Shell formatter to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "shfmt"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/zsh.nix" target="_blank">&lt;nvf/modules/plugins/languages/zsh.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.zsh.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.zsh.lsp.enable" class="option-anchor">vim.languages.zsh.lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Z Shell LSP support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.lsp.enable</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/zsh.nix" target="_blank">&lt;nvf/modules/plugins/languages/zsh.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.zsh.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.zsh.lsp.servers" class="option-anchor">vim.languages.zsh.lsp.servers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "bash-language-server" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Z Shell LSP server to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "bash-language-server"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/zsh.nix" target="_blank">&lt;nvf/modules/plugins/languages/zsh.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.zsh.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.zsh.treesitter.enable" class="option-anchor">vim.languages.zsh.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Z Shell treesitter.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/zsh.nix" target="_blank">&lt;nvf/modules/plugins/languages/zsh.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.zsh.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.zsh.treesitter.package" class="option-anchor">vim.languages.zsh.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or package</code></div>
+  <div class="option-description"><html><head></head><body><p>The zsh treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.zsh</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/zsh.nix" target="_blank">&lt;nvf/modules/plugins/languages/zsh.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.lazy.enable">
   <h3 class="option-name">
