@@ -87,12 +87,12 @@ in {
     };
 
     dap = {
-      enable = mkOption {
-        description = "Enable clang Debug Adapter";
-        type = bool;
-        default = config.vim.languages.enableDAP;
-        defaultText = literalExpression "config.vim.languages.enableDAP";
-      };
+      enable =
+        mkEnableOption "clang Debug Adapter"
+        // {
+          default = config.vim.languages.enableDAP;
+          defaultText = literalExpression "config.vim.languages.enableDAP";
+        };
       debugger = mkOption {
         description = "clang debugger to use";
         type =

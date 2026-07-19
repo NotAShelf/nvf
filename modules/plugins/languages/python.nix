@@ -9,7 +9,7 @@
   inherit (lib.lists) flatten;
   inherit (lib) genAttrs;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum package bool listOf;
+  inherit (lib.types) enum package listOf;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) deprecatedSingleOrListOf enumWithRename;
   inherit (lib.trivial) warn;
@@ -111,12 +111,12 @@ in {
 
     # TODO this implementation is very bare bones, I don't know enough python to implement everything
     dap = {
-      enable = mkOption {
-        type = bool;
-        default = config.vim.languages.enableDAP;
-        defaultText = literalExpression "config.vim.languages.enableDAP";
-        description = "Enable Python Debug Adapter";
-      };
+      enable =
+        mkEnableOption "Python Debug Adapter"
+        // {
+          default = config.vim.languages.enableDAP;
+          defaultText = literalExpression "config.vim.languages.enableDAP";
+        };
 
       debugger = mkOption {
         type = deprecatedSingleOrListOf "vim.languages.python.dap.debugger" (enum (attrNames dapConfigurations));

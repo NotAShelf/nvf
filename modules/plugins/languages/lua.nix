@@ -7,7 +7,7 @@
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib) genAttrs;
-  inherit (lib.types) bool enum listOf;
+  inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryBefore;
 
@@ -57,12 +57,12 @@ in {
     };
 
     format = {
-      enable = mkOption {
-        type = bool;
-        default = config.vim.languages.enableFormat;
-        defaultText = literalExpression "config.vim.languages.enableFormat";
-        description = "Enable Lua formatting";
-      };
+      enable =
+        mkEnableOption "Lua formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
       type = mkOption {
         type = listOf (enum formats);
         default = defaultFormat;

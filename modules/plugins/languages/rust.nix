@@ -112,12 +112,12 @@ in {
     };
 
     dap = {
-      enable = mkOption {
-        description = "Rust Debug Adapter support";
-        type = bool;
-        default = config.vim.languages.enableDAP;
-        defaultText = literalExpression "config.vim.languages.enableDAP";
-      };
+      enable =
+        mkEnableOption "Rust Debug Adapter"
+        // {
+          default = config.vim.languages.enableDAP;
+          defaultText = literalExpression "config.vim.languages.enableDAP";
+        };
 
       debugger = mkOption {
         description = "Rust debugger to use.";

@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption;
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.attrsets) attrNames;
   inherit (lib.strings) hasPrefix;
   inherit (lib.types) bool lines enum;
@@ -33,10 +33,7 @@
     numbers;
 in {
   options.vim.theme = {
-    enable = mkOption {
-      type = bool;
-      description = "Enable theming";
-    };
+    enable = mkEnableOption "theming";
     name = mkOption {
       type = enum (attrNames supportedThemes);
       description = ''

@@ -1,22 +1,18 @@
 {lib, ...}: let
-  inherit (lib.options) mkOption;
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) attrsOf bool listOf str;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
   options.vim.utility.new-file-template = {
-    enable = mkOption {
-      type = bool;
-      default = false;
-      description = ''
-        new-file-template.nvim: Automatically insert a template on new files in neovim.
-        ::: {.note}
-        For custom templates add a directory containing `lua/templates/*.lua`
-        to `vim.additionalRuntimePaths`.
-        :::
-        [custom-template-docs]: https://github.com/otavioschwanck/new-file-template.nvim?tab=readme-ov-file#creating-new-templates
-        More documentation on the templates available at [custom-template-docs]
-      '';
-    };
+    enable = mkEnableOption ''
+      new-file-template.nvim: Automatically insert a template on new files in neovim.
+      ::: {.note}
+      For custom templates add a directory containing `lua/templates/*.lua`
+      to `vim.additionalRuntimePaths`.
+      :::
+      [custom-template-docs]: https://github.com/otavioschwanck/new-file-template.nvim?tab=readme-ov-file#creating-new-templates
+      More documentation on the templates available at [custom-template-docs]
+    '';
 
     setupOpts = mkPluginSetupOption "nvim-file-template.nvim" {
       disableInsert = mkOption {

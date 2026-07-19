@@ -7,7 +7,7 @@
   inherit (lib) genAttrs;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
-  inherit (lib.types) bool enum listOf;
+  inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.tex;
@@ -21,12 +21,12 @@ in {
     enable = mkEnableOption "TeX language support";
 
     treesitter = {
-      enable = mkOption {
-        type = bool;
-        default = config.vim.languages.enableTreesitter;
-        defaultText = literalExpression "config.vim.languages.enableTreesitter";
-        description = "Enable TeX treesitter";
-      };
+      enable =
+        mkEnableOption "TeX treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       latexPackage = mkGrammarOption pkgs "latex";
       bibtexPackage = mkGrammarOption pkgs "bibtex";
     };
