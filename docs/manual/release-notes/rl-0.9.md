@@ -354,6 +354,8 @@
 
 [Snoweuph](https://github.com/snoweuph)
 
+- Fix automatic path resolution for JLS, to always be absolute.
+
 - Added {option}`vim.healthchecks`.
 
 - Added healthcheck to clipboard providers.
