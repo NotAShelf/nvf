@@ -6,7 +6,7 @@
 }: let
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum bool listOf;
+  inherit (lib.types) enum listOf;
   inherit (lib) genAttrs;
   inherit (lib.nvim.types) mkGrammarOption enumWithRename;
 
@@ -46,12 +46,12 @@ in {
     };
 
     format = {
-      enable = mkOption {
-        type = bool;
-        default = config.vim.languages.enableFormat;
-        defaultText = literalExpression "config.vim.languages.enableFormat";
-        description = "Enable Fish formatting";
-      };
+      enable =
+        mkEnableOption "Fish formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
       type = mkOption {
         type = listOf (enumWithRename
           "vim.languages.fish.format.type"

@@ -7,7 +7,7 @@
   inherit (lib) genAttrs;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
-  inherit (lib.types) bool enum listOf str nullOr;
+  inherit (lib.types) enum listOf str nullOr;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf enumWithRename;
   inherit (lib.nvim.dag) entryAnywhere;
@@ -25,12 +25,12 @@ in {
     enable = mkEnableOption "Markdown markup language support";
 
     treesitter = {
-      enable = mkOption {
-        type = bool;
-        default = config.vim.languages.enableTreesitter;
-        defaultText = literalExpression "config.vim.languages.enableTreesitter";
-        description = "Enable Markdown treesitter";
-      };
+      enable =
+        mkEnableOption "Markdown treesitter"
+        // {
+          default = config.vim.languages.enableTreesitter;
+          defaultText = literalExpression "config.vim.languages.enableTreesitter";
+        };
       mdPackage = mkGrammarOption pkgs "markdown";
       mdInlinePackage = mkGrammarOption pkgs "markdown_inline";
     };
