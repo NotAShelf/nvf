@@ -365,7 +365,7 @@ generated and opened by typing the following in a shell within a clone of the
 <p>Additionally, if you are adding new links to the documentation it is <strong>generally
 recommended</strong> that you run the package that identifies dead URLs in the
 documentation:</p>
-<pre class="highlight"><code class="language-sh"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Build&nbsp;the&nbsp;link&nbsp;checker&nbsp;package</span><br><span style="color:rgb(97,175,239);">%</span>&nbsp;<span style="color:rgb(232,102,113);">nix</span>&nbsp;<span style="color:rgb(232,102,113);">build</span>&nbsp;<span style="color:rgb(232,102,113);">.#docs-linkcheck</span><br></code></pre>
+<pre class="highlight"><code class="language-sh"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Build&nbsp;the&nbsp;link&nbsp;checker&nbsp;package</span><br><span style="color:rgb(232,102,113);">$</span>&nbsp;<span style="color:rgb(171,178,191);">nix</span>&nbsp;<span style="color:rgb(232,102,113);">build</span>&nbsp;<span style="color:rgb(232,102,113);">.#docs-linkcheck</span><br></code></pre>
 <p>You must ensure that the <strong>HTML Documentation</strong> builds before submitting a pull
 request. If the documentation builds, an automatic "preview" build will be
 deployed automatically for your Pull Request. You may use this preview to view
