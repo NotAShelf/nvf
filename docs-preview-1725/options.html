@@ -26595,9 +26595,10 @@ in the docs.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Change the working directory when changing directories in the tree.</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable changing the working directory when changing directories in the tree.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code>vim.filetree.nvimTree.setupOpts.actions.change_dir.enable</code></div>
 </div>
 <div class="option" id="option-vim.filetree.nvimTree.setupOpts.actions.change_dir.global">
@@ -26776,9 +26777,10 @@ Avoids hanging neovim when running this action on very large folders.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Enable the window picker. If this feature is not enabled, files will open in window from which you last opened the tree.</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the window picker. If this feature is not enabled, files will open in window from which you last opened the tree.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code>vim.filetree.nvimTree.setupOpts.actions.open_file.window_picker.enable</code></div>
 </div>
 <div class="option" id="option-vim.filetree.nvimTree.setupOpts.actions.open_file.window_picker.exclude.buftype">
@@ -27078,9 +27080,10 @@ performance.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Enable filesystem watchers.</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable filesystem watchers.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code>vim.filetree.nvimTree.setupOpts.filesystem_watchers.enable</code></div>
 </div>
 <div class="option" id="option-vim.filetree.nvimTree.setupOpts.filesystem_watchers.ignore_dirs">
@@ -27270,10 +27273,12 @@ Git integration will be disabled after 10 git jobs exceed this timeout.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Enable the <code>hijack_directories</code> feature. Disable this option if you use vim-dirvish or dirbuf.nvim.
-If <code>hijack_netrw</code> and <code>disable_netrw</code> are <code>false</code>, this feature will be disabled.</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the <code>hijack_directories</code> feature. Disable this option if you use vim-dirvish or dirbuf.nvim.
+If <code>hijack_netrw</code> and <code>disable_netrw</code> are <code>false</code>, this feature will be disabled
+.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code>vim.filetree.nvimTree.setupOpts.hijack_directories.enable</code></div>
 </div>
 <div class="option" id="option-vim.filetree.nvimTree.setupOpts.hijack_netrw">
@@ -28130,9 +28135,10 @@ until it finds the file.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>update focused file</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable updating focused files.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code>vim.filetree.nvimTree.setupOpts.update_focused_file.enable</code></div>
 </div>
 <div class="option" id="option-vim.filetree.nvimTree.setupOpts.update_focused_file.ignore_list">
@@ -28233,9 +28239,10 @@ Increase if you experience performance issues around screen refresh.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>If true, tree window will be floating.</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable floating tree windows.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code>vim.filetree.nvimTree.setupOpts.view.float.enable</code></div>
 </div>
 <div class="option" id="option-vim.filetree.nvimTree.setupOpts.view.float.open_win_config">
@@ -31319,9 +31326,10 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Enable clang Debug Adapter</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable clang Debug Adapter.</p>
 </body></html></div>
   <div class="option-default">Default: <code>config.vim.languages.enableDAP</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/clang.nix" target="_blank">&lt;nvf/modules/plugins/languages/clang.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.clang.enable">
@@ -32069,9 +32077,10 @@ in the docs.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Enable Dart DAP support via flutter-tools</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Dart DAP support via flutter-tools.</p>
 </body></html></div>
   <div class="option-default">Default: <code>config.vim.languages.enableDAP</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/dart.nix" target="_blank">&lt;nvf/modules/plugins/languages/dart.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.dart.enable">
@@ -32156,9 +32165,10 @@ in the docs.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Enable flutter-tools for flutter support</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable flutter-tools for flutter support.</p>
 </body></html></div>
   <div class="option-default">Default: <code>config.vim.lsp.enable</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/dart.nix" target="_blank">&lt;nvf/modules/plugins/languages/dart.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.dart.flutter-tools.enableNoResolvePatch">
@@ -32666,9 +32676,10 @@ missing from <code>PATH</code>", leave this option disabled.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Enable Fish formatting</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Fish formatting.</p>
 </body></html></div>
   <div class="option-default">Default: <code>config.vim.languages.enableFormat</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/fish.nix" target="_blank">&lt;nvf/modules/plugins/languages/fish.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.fish.format.type">
@@ -34793,9 +34804,10 @@ package to Julia in your devshells.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Enable Lua formatting</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Lua formatting.</p>
 </body></html></div>
   <div class="option-default">Default: <code>config.vim.languages.enableFormat</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lua.nix" target="_blank">&lt;nvf/modules/plugins/languages/lua.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.lua.format.type">
@@ -35144,9 +35156,10 @@ have any of these filetypes.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Enable Markdown treesitter</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Markdown treesitter.</p>
 </body></html></div>
   <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/markdown.nix" target="_blank">&lt;nvf/modules/plugins/languages/markdown.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.markdown.treesitter.mdInlinePackage">
@@ -35933,9 +35946,10 @@ have any of these filetypes.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Enable Python Debug Adapter</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Python Debug Adapter.</p>
 </body></html></div>
   <div class="option-default">Default: <code>config.vim.languages.enableDAP</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/python.nix" target="_blank">&lt;nvf/modules/plugins/languages/python.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.python.enable">
@@ -36446,9 +36460,10 @@ have any of these filetypes.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Rust Debug Adapter support</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Rust Debug Adapter.</p>
 </body></html></div>
   <div class="option-default">Default: <code>config.vim.languages.enableDAP</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/rust.nix" target="_blank">&lt;nvf/modules/plugins/languages/rust.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.rust.enable">
@@ -37698,9 +37713,10 @@ in the docs.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Enable TeX treesitter</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable TeX treesitter.</p>
 </body></html></div>
   <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tex.nix" target="_blank">&lt;nvf/modules/plugins/languages/tex.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.tex.treesitter.latexPackage">
@@ -39042,9 +39058,10 @@ the plugin.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Enable Zig Debug Adapter</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Zig Debug Adapter.</p>
 </body></html></div>
   <div class="option-default">Default: <code>config.vim.languages.enableDAP</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/zig.nix" target="_blank">&lt;nvf/modules/plugins/languages/zig.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.zig.enable">
@@ -41876,6 +41893,7 @@ on the underlying API.</p>
   <div class="option-description"><html><head></head><body><p>Whether to enable this LSP server.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/lsp.nix" target="_blank">&lt;nvf/modules/neovim/init/lsp.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.lsp.servers._name_.filetypes">
@@ -48231,8 +48249,10 @@ in the docs.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Enable theming</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable theming.</p>
 </body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/theme/theme.nix" target="_blank">&lt;nvf/modules/plugins/theme/theme.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.theme.extraConfig">
@@ -52400,15 +52420,17 @@ in the docs.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>new-file-template.nvim: Automatically insert a template on new files in neovim.</p>
+  <div class="option-description"><html><head></head><body><p>Whether to enable new-file-template.nvim: Automatically insert a template on new files in neovim.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>For custom templates add a directory containing <code>lua/templates/*.lua</code>
 to <code>vim.additionalRuntimePaths</code>.</p>
 </div>
-<p>More documentation on the templates available at <a href="https://github.com/otavioschwanck/new-file-template.nvim?tab=readme-ov-file#creating-new-templates">custom-template-docs</a></p>
+<p>More documentation on the templates available at <a href="https://github.com/otavioschwanck/new-file-template.nvim?tab=readme-ov-file#creating-new-templates">custom-template-docs</a>
+.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/new-file-template/new-file-template.nix" target="_blank">&lt;nvf/modules/plugins/utility/new-file-template/new-file-template.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.utility.new-file-template.setupOpts">
@@ -52917,9 +52939,11 @@ see &lt;<a href="https://github.com/codethread/qmk.nvim?tab=readme-ov-file#Layou
   <div class="option-type">Type: <code>boolean</code></div>
   <div class="option-description"><html><head></head><body><p>Whether to enable smart-splits.nvim, a Neovim plugin for smart,
 seamless, directional navigation and resizing of splits.</p>
-<p>Supports tmux, Wezterm, Kitty, and Zellij multiplexer integrations.</p>
+<p>Supports tmux, Wezterm, Kitty, and Zellij multiplexer integrations
+.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/smart-splits/smart-splits.nix" target="_blank">&lt;nvf/modules/plugins/utility/smart-splits/smart-splits.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.utility.smart-splits.keymaps.move_cursor_down">
