@@ -16555,7 +16555,7 @@
     <details class="toc-category">
       <summary title="vim.treesitter">
         <span>vim.treesitter</span>
-        <span class="toc-count">26</span>
+        <span class="toc-count">27</span>
       </summary>
       <ul>
         
@@ -16732,6 +16732,14 @@
         <li>
           <a href='#option-vim.treesitter.queries._.filetypes' title="vim.treesitter.queries.*.filetypes">
             queries.*.filetypes
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.treesitter.queries._.loadtype' title="vim.treesitter.queries.*.loadtype">
+            queries.*.loadtype
             
             
           </a>
@@ -48601,6 +48609,27 @@ the required grammars to this.</p>
   <div class="option-description"><html><head></head><body><p>A list of Neovim treesitter queries to be registered.</p>
 </body></html></div>
   <div class="option-default">Default: <code>[ ]</code></div>
+  <div class="option-example">Example: <pre><code>[
+  {
+    filetypes = [
+      "nix"
+    ];
+    loadtype = "extends";
+    query = ''
+      ((apply_expression
+        function: (variable_expression
+          name: (identifier) @_func
+          (#eq? @_func "mkLuaInline"))
+      
+        argument: (indented_string_expression
+          (string_fragment) @injection.content)
+      
+        (#set! injection.language "lua")
+        (#set! injection.combined)))
+    '';
+    type = "injections";
+  }
+]</code></pre></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.treesitter.queries._.filetypes">
@@ -48615,6 +48644,17 @@ the required grammars to this.</p>
   <div class="option-default">Default: <code>[ ]</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.treesitter.queries._.loadtype">
+  <h3 class="option-name">
+    <a href="#option-vim.treesitter.queries._.loadtype" class="option-anchor">vim.treesitter.queries.*.loadtype</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>one of "overwrite", "extends"</code></div>
+  <div class="option-description"><html><head></head><body><p>Define how this query should be loaded</p>
+</body></html></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.treesitter.queries._.query">
   <h3 class="option-name">
     <a href="#option-vim.treesitter.queries._.query" class="option-anchor">vim.treesitter.queries.*.query</a>
@@ -48624,11 +48664,7 @@ the required grammars to this.</p>
   <div class="option-type">Type: <code>strings concatenated with "\n"</code></div>
   <div class="option-description"><html><head></head><body><p>The queries scm script.</p>
 </body></html></div>
-  <div class="option-example">Example: <pre><code>```nix
-{
-  query = ''
-    ;; extends
-
+  <div class="option-example">Example: <pre><code>```haskell
     ((apply_expression
       function: (variable_expression
         name: (identifier) @_func
@@ -48639,8 +48675,6 @@ the required grammars to this.</p>
 
       (#set! injection.language "lua")
       (#set! injection.combined)))
-  '';
-}
 ```
 </code></pre></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/treesitter/treesitter.nix" target="_blank">&lt;nvf/modules/plugins/treesitter/treesitter.nix&gt;</a></code></div>
