@@ -50,6 +50,11 @@ in {
     fold = mkEnableOption "fold with treesitter";
     autotagHtml = mkEnableOption "autoclose and rename html tag";
 
+    vendorCLI = mkEnableOption ''
+      bundling the treesitter CLI.
+      This is required to compile and install custom parsers outside the nix configuration.
+    '';
+
     grammars = mkOption {
       type = listOf (nullOr package);
       default = [];
