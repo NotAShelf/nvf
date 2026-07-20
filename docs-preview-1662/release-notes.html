@@ -175,6 +175,10 @@ upstream codecompanion.nvim v19 rename. If you set options like
 <p><a href="https://github.com/snoweuph">Snoweuph</a></p>
 <ul>
 <li>
+<p>Added <code>position</code> option to additional runtime paths, allowing for prepending
+paths, rather than just appending.</p>
+</li>
+<li>
 <p>Moved all angular related stuff into its own language module.</p>
 </li>
 <li>
@@ -572,6 +576,18 @@ formatter.</p>
 <p><a href="https://github.com/snoweuph">Snoweuph</a></p>
 <ul>
 <li>
+<p>Split of <code>zsh</code> from <code>languages.bash</code> into its own language module.</p>
+</li>
+<li>
+<p>Fix automatic path resolution for JLS, to always be absolute.</p>
+</li>
+<li>
+<p>Added <a class="option-reference" href="options.html#option-vim.healthchecks"><code class="nixos-option">vim.healthchecks</code></a>.</p>
+</li>
+<li>
+<p>Added healthcheck to clipboard providers.</p>
+</li>
+<li>
 <p>Added <a class="option-reference" href="options.html#option-vim.formatter.conform-nvim.presets.just.enable"><code class="nixos-option">vim.formatter.conform-nvim.presets.just.enable</code></a> for justfile
 formatting.</p>
 </li>
@@ -590,6 +606,9 @@ formatting.</p>
 </li>
 <li>
 <p>Added Mago for PHP formatting and linting.</p>
+</li>
+<li>
+<p>Added ferris.nvim as a rust extensions.</p>
 </li>
 <li>
 <p>Allow the usage of <code>pks.tree-sitter-grammars</code> in
