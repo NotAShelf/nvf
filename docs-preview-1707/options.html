@@ -20954,12 +20954,15 @@ the <code class="nixos-option">nixpkgs.pkgs</code> option.</li>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>list of (absolute path or string or (submodule))</code></div>
-  <div class="option-description"><html><head></head><body><p>Additional runtime paths that will be appended to the active
+  <div class="option-description"><html><head></head><body><p>Additional runtime paths that will be appended or prepended to the active
 runtimepath of the Neovim. This can be used to add additional
 lookup paths for configs, plugins, spell languages and other
 things you would generally place in your <code class="file-path">$HOME/.config/nvim</code>.</p>
 <p>This is meant as a declarative alternative to throwing files into
 <code class="file-path">~/.config/nvim</code> and having the Neovim wrapper pick them up.</p>
+<p>&gt; [!NOTE]
+&gt; When not explicitly defining a position via the attribute set,
+&gt; nvf defaults to appending.</p>
 <p>For more details on <code>vim.o.runtimepath</code>, and what paths to use, please see
 <a href="https://neovim.io/doc/user/options.html#'runtimepath'">the official documentation</a>.</p>
 </body></html></div>
