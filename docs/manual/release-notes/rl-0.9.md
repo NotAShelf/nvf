@@ -362,6 +362,9 @@
 
 - Split of `zsh` from `languages.bash` into its own language module.
 
+- Telling the `vscode-json-language-server` that `json5` is `jsonc` instead of
+  the default fallback of `json`, for more accurate results.
+
 - Fix automatic path resolution for JLS, to always be absolute.
 
 - Added {option}`vim.healthchecks`.
