@@ -424,6 +424,8 @@
 
 - Fix `astro-language-server` missing typescript.
 
+- Fix typo in `biome-organize-imports` formatting preset.
+
 - Fixed broken filetypes.
 
 - Added Treesitter injections for `sqlx` in the `languages.rust` module.
