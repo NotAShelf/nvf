@@ -6,16 +6,25 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.nvim.config) mkBool;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryBefore;
 
   cfg = config.vim.lsp.presets.julia-languageserver;
+  julials_bin =
+    if cfg.usePathBin
+    then "julia"
+    else ''${pkgs.julia.withPackages ["LanguageServer"]}/bin/julia'';
 in {
   options.vim.lsp.presets.julia-languageserver = {
     enable = mkLspPresetEnableOption {
       option = "julia-languageserver";
       display = "Julia";
     };
+    usePathBin = mkBool true ''
+      use julia taken from PATH, instead of bundling it within nvf.
+      You'll need to add "LanguageServer" to your Julia instance for this to work
+    '';
   };
 
   config = mkIf cfg.enable {
@@ -25,7 +34,7 @@ in {
         root_markers = ["Project.toml" "JuliaProject.toml"];
         cmd = mkLuaInline ''
           {
-            '${pkgs.julia.withPackages ["LanguageServer"]}/bin/julia',
+            '${julials_bin}',
             '--startup-file=no',
             '--history-file=no',
             '-e',
