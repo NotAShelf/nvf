@@ -39,7 +39,7 @@ in {
     biome-check = mkIf cfg.biome-check.enable {
       command = "${pkgs.biome}/bin/biome";
     };
-    biome-organize-impors = mkIf cfg.biome-organize-imports.enable {
+    biome-organize-imports = mkIf cfg.biome-organize-imports.enable {
       command = "${pkgs.biome}/bin/biome";
     };
   };
