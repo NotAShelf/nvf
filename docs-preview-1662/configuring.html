@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +7,8 @@
      
     
     <script>
+      document.documentElement.classList.remove("no-js");
+      document.documentElement.classList.add("js");
       // Apply sidebar state immediately to prevent flash
       (function () {
         try {
@@ -49,7 +51,7 @@
 
         </div>
         
-        <div class="search-container">
+        <div class="search-container js-only">
           <input type="text" id="search-input" placeholder="Search..." />
           <div id="search-results" class="search-results"></div>
         </div>
@@ -57,7 +59,7 @@
       </header>
 
       <div class="layout">
-        <div class="sidebar-toggle" aria-label="Toggle sidebar">
+        <div class="sidebar-toggle js-only" aria-label="Toggle sidebar">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -259,6 +261,7 @@ formatters, and <code>nvim-lint</code> linter integration. This gets you capabil
 ranging from autocompletion to formatting to diagnostics. The following
 languages have sections under the <code>vim.languages</code> attribute.</p>
 <ul>
+<li><a class="option-reference" href="options.html#option-vim.languages.angular.enable"><code class="nixos-option">vim.languages.angular.enable</code></a></li>
 <li><a class="option-reference" href="options.html#option-vim.languages.arduino.enable"><code class="nixos-option">vim.languages.arduino.enable</code></a></li>
 <li><a class="option-reference" href="options.html#option-vim.languages.assembly.enable"><code class="nixos-option">vim.languages.assembly.enable</code></a></li>
 <li><a class="option-reference" href="options.html#option-vim.languages.astro.enable"><code class="nixos-option">vim.languages.astro.enable</code></a></li>
@@ -306,6 +309,7 @@ languages have sections under the <code>vim.languages</code> attribute.</p>
 <li><a class="option-reference" href="options.html#option-vim.languages.pug.enable"><code class="nixos-option">vim.languages.pug.enable</code></a></li>
 <li><a class="option-reference" href="options.html#option-vim.languages.python.enable"><code class="nixos-option">vim.languages.python.enable</code></a></li>
 <li><a class="option-reference" href="options.html#option-vim.languages.qml.enable"><code class="nixos-option">vim.languages.qml.enable</code></a></li>
+<li><a class="option-reference" href="options.html#option-vim.languages.query.enable"><code class="nixos-option">vim.languages.query.enable</code></a></li>
 <li><a class="option-reference" href="options.html#option-vim.languages.r.enable"><code class="nixos-option">vim.languages.r.enable</code></a></li>
 <li><a class="option-reference" href="options.html#option-vim.languages.ruby.enable"><code class="nixos-option">vim.languages.ruby.enable</code></a></li>
 <li><a class="option-reference" href="options.html#option-vim.languages.rust.enable"><code class="nixos-option">vim.languages.rust.enable</code></a></li>
@@ -619,6 +623,7 @@ Lua string after <code>mkLuaInline</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When multiple queries match the same <code>filetype</code> and <code>type</code>, they are merged.</p>
+<!-- ndg:include-boundary -->
 </div>
 </body></html><!-- deno-fmt-ignore-start --></main>
       </div>

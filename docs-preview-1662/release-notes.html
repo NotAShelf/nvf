@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +7,8 @@
      
     
     <script>
+      document.documentElement.classList.remove("no-js");
+      document.documentElement.classList.add("js");
       // Apply sidebar state immediately to prevent flash
       (function () {
         try {
@@ -49,7 +51,7 @@
 
         </div>
         
-        <div class="search-container">
+        <div class="search-container js-only">
           <input type="text" id="search-input" placeholder="Search..." />
           <div id="search-results" class="search-results"></div>
         </div>
@@ -57,7 +59,7 @@
       </header>
 
       <div class="layout">
-        <div class="sidebar-toggle" aria-label="Toggle sidebar">
+        <div class="sidebar-toggle js-only" aria-label="Toggle sidebar">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -131,6 +133,9 @@ current main current main branch</p>
 <h2 id="breaking-changes">Breaking changes</h2>
 <ul>
 <li>
+<p>Upgrade to nixpkgs 26.06.</p>
+</li>
+<li>
 <p>Nixpkgs has merged a fully incompatible rewrite of
 <code>vimPlugins.nvim-treesitter</code>. Namely, it changes from the frozen <code>master</code>
 branch to the new main branch. This change removes incremental selections, so
@@ -169,6 +174,9 @@ upstream codecompanion.nvim v19 rename. If you set options like
 </ul>
 <p><a href="https://github.com/snoweuph">Snoweuph</a></p>
 <ul>
+<li>
+<p>Moved all angular related stuff into its own language module.</p>
+</li>
 <li>
 <p>Remove <code>mind.nvim</code>. This plugin doesn't exist anymore. The original author
 deleted all their GitHub repositories and moved to
@@ -285,6 +293,22 @@ for SCSS/SASS.</p>
 module provides jsx/tsx support. This is a step of cleaning up the Typescript
 module for the future.</p>
 </li>
+<li>
+<p>Removed <code>vim.languages.&lt;lang&gt;.format.package</code> options across 20 languages.
+Support for custom formatter packages is dropped; use
+<code>vim.formatter.conform-nvim.setupOpts.formatters.&lt;name&gt;.command</code> to customize
+the formatter binary instead.</p>
+</li>
+<li>
+<p>Renamed <code>ruff-check</code> formatter to <code>ruff-fix</code>.</p>
+</li>
+<li>
+<p>Renamed <code>denofmt</code>/<code>deno_fmt</code> formatters to <code>deno</code>.</p>
+</li>
+<li>
+<p><code>prettierd</code> formatter is dropped entirely in the last few modules, use
+<code>prettier</code> instead.</p>
+</li>
 </ul>
 <p><a href="https://github.com/horriblename">horriblename</a>:</p>
 <ul>
@@ -301,6 +325,11 @@ support is moved to <code>vim.languages.haskell.extensions.haskell-tools</code><
 <li>Renamed <code>roslyn_ls</code> to <code>roslyn-ls</code></li>
 <li>Turned <code>omnisharp-extended-lsp-nvim</code> into an extension disabled by default</li>
 <li>Turned <code>csharpls-extended-lsp-nvim</code> into an extension disabled by default</li>
+</ul>
+<p><a href="https://github.com/caueanjos">sjcobb2022</a></p>
+<ul>
+<li>Rust module is now no longer dependant on <code>rustaceanvim</code> by default. Use
+<code>vim.languages.rust.extensions.rustaceanvim.enable</code> if needed.</li>
 </ul>
 <h2 id="sec-release-0-9-changelog">Changelog</h2>
 <p><a href="https://github.com/bovf">bovf</a>:</p>
@@ -543,6 +572,10 @@ formatter.</p>
 <p><a href="https://github.com/snoweuph">Snoweuph</a></p>
 <ul>
 <li>
+<p>Added <a class="option-reference" href="options.html#option-vim.formatter.conform-nvim.presets.just.enable"><code class="nixos-option">vim.formatter.conform-nvim.presets.just.enable</code></a> for justfile
+formatting.</p>
+</li>
+<li>
 <p>Added <a class="option-reference" href="options.html#option-vim.lsp.presets.jls.enable"><code class="nixos-option">vim.lsp.presets.jls.enable</code></a> and made it available under
 <code>vim.languages.java.lsp.servers</code>.</p>
 </li>
@@ -550,7 +583,13 @@ formatter.</p>
 <p>Added <a class="option-reference" href="options.html#option-vim.languages.java.dap.enable"><code class="nixos-option">vim.languages.java.dap.enable</code></a> with the <code>jls</code> DAP.</p>
 </li>
 <li>
+<p>Fix tailwind LSP running on non tailwind projects.</p>
+</li>
+<li>
 <p>Use nvf nix Tree-sitter injections in the docs.</p>
+</li>
+<li>
+<p>Added Mago for PHP formatting and linting.</p>
 </li>
 <li>
 <p>Allow the usage of <code>pks.tree-sitter-grammars</code> in
@@ -559,6 +598,9 @@ options created via <code>mkGrammarOption</code>.</p>
 </li>
 <li>
 <p>Add <code>emmet-ls</code> to the supported LSPs for all languages it supports.</p>
+</li>
+<li>
+<p>Added <code>gitlab-ci-ls</code>.</p>
 </li>
 <li>
 <p>Added <code>phpantom</code> LSP preset and into <code>languages.php</code>.</p>
@@ -575,8 +617,8 @@ allow for more flexibility in the future for nvf.</p>
 </li>
 <li>
 <p>Added injections for <code>query = '' ... ''</code> as <code>query</code> and <code>mkLualine '' ... ''</code>,
-<code>entryAnywhere '' ... ''</code>, <code>entryBefore ] '' ... ''</code>,
-<code>entryAfter ] '' ... ''</code> as <code>lua</code> in nix.</p>
+<code>entryAnywhere '' ... ''</code>, <code>entryBefore [] '' ... ''</code>,
+<code>entryAfter [] '' ... ''</code> as <code>lua</code> in nix.</p>
 </li>
 <li>
 <p>Added <a class="option-reference" href="options.html#option-vim.languages.tera.treesitter.injection"><code class="nixos-option">vim.languages.tera.treesitter.injection</code></a> to configure, what
@@ -597,6 +639,15 @@ This is mostly use full for Markdown code block injections.</p>
 <li><code>bash</code> = <code>ash</code>, <code>dash</code>, <code>zsh</code></li>
 <li><code>yaml</code> = <code>yaml</code></li>
 </ul>
+</li>
+<li>
+<p>Fix <code>astro-language-server</code> missing typescript.</p>
+</li>
+<li>
+<p>Fixed broken filetypes.</p>
+</li>
+<li>
+<p>Added Treesitter injections for <code>sqlx</code> in the <code>languages.rust</code> module.</p>
 </li>
 <li>
 <p>Added <code>vim.lsp.presets.&lt;name&gt;</code> to contain LSP configurations. This allows for
@@ -737,6 +788,9 @@ enabled. Fixes a crash (#1350).</p>
 <p>Added <code>languages.vue</code>.</p>
 </li>
 <li>
+<p>Added <code>languages.query</code>.</p>
+</li>
+<li>
 <p>Add <code>languages.fluent</code> using the official plugin. This only provides
 highlighting.</p>
 </li>
@@ -796,6 +850,19 @@ you're crazy.</p>
 <p>Added coverage support (<code>vim.utility.crazy-coverage</code>) via
 <a href="https://github.com/mr-u0b0dy/crazy-coverage.nvim"><code>crazy-coverage.nvim</code></a>.</p>
 </li>
+<li>
+<p>Enable <code>nil.settings.nil.nix.autoArchive</code> by default.</p>
+</li>
+<li>
+<p>Added <code>vim.formatter.conform-nvim.presets.&lt;name&gt;</code> to contain formatter
+configurations. This allows for more flexibility in nvf and reuse of
+formatters across languages.</p>
+</li>
+<li>
+<p>Refactored all language modules to consume formatter presets via
+<code>vim.formatter.conform-nvim.presets</code> instead of defining formatter
+configurations inline.</p>
+</li>
 </ul>
 <p><a href="https://github.com/vagahbond">vagahbond</a>: [codewindow.nvim]:
 <a href="https://github.com/gorbit99/codewindow.nvim">https://github.com/gorbit99/codewindow.nvim</a></p>
@@ -807,6 +874,10 @@ you're crazy.</p>
 <ul>
 <li>Fix non-functional <code>vim.keymaps.*.noremap</code>. Now, setting it to false is
 equivalent to <code>:lua vim.keymap.set(..., { remap = true })</code></li>
+</ul>
+<p><a href="https://github.com/mad-moss">mad-moss</a>:</p>
+<ul>
+<li>Add <a href="https://github.com/nvim-mini/mini.cmdline">mini.cmdline</a></li>
 </ul>
 <p><a href="https://github.com/kazimazi">kazimazi</a>:</p>
 <ul>
@@ -836,6 +907,7 @@ plugin.</li>
 <a href="https://fishshell.com/docs/current/cmds/fish_indent.html">fish_indent</a>. Most of the work done by
 <a href="https://github.com/poseidon-rises">poseidon-rises</a> in
 <a href="https://github.com/NotAShelf/nvf/pull/1107">!1107</a>.</li>
+<li>Remove <code>flake-parts</code> and <code>nix-systems</code> from flake.</li>
 </ul>
 <p><a href="https://emo-mruczek.pet">emo-mruczek</a>:</p>
 <ul>
@@ -890,6 +962,29 @@ string in order to allow percentage values like <code>"20%"</code></li>
 <li>Add <a href="https://github.com/phpstan/phpstan">PHPStan</a> as a formatter for <code>vim.languages.php</code>.</li>
 <li>Add <code>prettier</code> and <code>prettierd</code> as supported formatters to
 <code>vim.languages.json</code>.</li>
+</ul>
+<p><a href="https://github.com/sjcobb2022">sjcobb2022</a></p>
+<ul>
+<li>Modernize rust toolchain by defaulting to a <code>rustaceanvim</code> free default
+configuration. Enabled via configuration
+<code>vim.languages.rust.extensions.rustaceanvim.enable</code>.</li>
+</ul>
+<p><a href="https://github.com/BrockoliniMorgan">BrockoliniMorgan</a></p>
+<ul>
+<li>Renamed
+<code>languages.typescript.extensions.ts-error-translator.auto_override_publish_diagnostics</code></li>
+</ul>
+<p><a href="https://github.com/marciosobel">marciosobel</a></p>
+<ul>
+<li>Added <code>goimports</code> as supported formatters to <code>vim.languages.go</code>.</li>
+</ul>
+<p><a href="https://github.com/kruziikrel13">kruziikrel13</a></p>
+<ul>
+<li>Added persisted as session plugin to vim.session as <code>vim.session.persisted</code></li>
+</ul>
+<p><a href="https://github.com/adam01110">Adam0</a>:</p>
+<ul>
+<li>Add <a href="https://github.com/vyfor/cord.nvim">cord.nvim</a> plugin in <code>vim.presence.cord</code> with <code>enable</code> and <code>setupOpts</code></li>
 </ul>
 <!-- vim: set textwidth=80: -->
 <h1 id="sec-release-0-8">Release 0.8</h1>
@@ -1580,8 +1675,8 @@ will enable the <code>typst-lsp</code> language server, and the <code>typstfmt</
 <ul>
 <li>
 <p>Modified type for
-<a class="option-reference" href="options.html#option-vim.visuals.fidget-nvim.setupOpts.progress.display.overrides"><code class="nixos-option">vim.visuals.fidget-nvim.setupOpts.progress.display.overrides</code></a> from
-<code>anything</code> to a <code>submodule</code> for better type checking.</p>
+<code>vim.visuals.fidget-nvim.setupOpts.progress.display.overrides</code> from <code>anything</code>
+to a <code>submodule</code> for better type checking.</p>
 </li>
 <li>
 <p>Fix null <code>vim.lsp.mappings</code> generating an error and not being filtered out.</p>
@@ -1592,8 +1687,8 @@ group for <code>Normal</code>, <code>NormalFloat</code>, <code>LineNr</code>, <c
 <code>NvimTreeNormal</code> to <code>none</code>.</p>
 </li>
 <li>
-<p>Fix <a class="option-reference" href="options.html#option-vim.ui.smartcolumn.setupOpts.custom_colorcolumn"><code class="nixos-option">vim.ui.smartcolumn.setupOpts.custom_colorcolumn</code></a> using the wrong
-type <code>int</code> instead of the expected type <code>string</code>.</p>
+<p>Fix <code>vim.ui.smartcolumn.setupOpts.custom_colorcolumn</code> using the wrong type
+<code>int</code> instead of the expected type <code>string</code>.</p>
 </li>
 </ul>
 <p><a href="https://github.com/horriblename">horriblename</a>:</p>
@@ -1699,7 +1794,7 @@ default.</p>
 friendly-snippets for bundled snippets.
 <a class="option-reference" href="options.html#option-vim.snippets.luasnip.enable"><code class="nixos-option">vim.snippets.luasnip.enable</code></a> can be used to toggle Luasnip.</li>
 <li>Add sorting function options for completion sources under
-<a class="option-reference" href="options.html#option-vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators"><code class="nixos-option">vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators</code></a></li>
+<code>vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators</code></li>
 </ul>
 </li>
 <li>
@@ -2085,9 +2180,9 @@ wrapper PATH, making said packages available while inside the Neovim session.</p
 <code>setupOpts</code> while it is enabled.</p>
 </li>
 <li>
-<p>Added <a class="option-reference" href="options.html#option-vim.notify.nvim-notify.setupOpts.render"><code class="nixos-option">vim.notify.nvim-notify.setupOpts.render</code></a> which takes either a
-string of enum, or a Lua function. The default is "compact", but you may
-change it according to nvim-notify documentation.</p>
+<p>Added <code>vim.notify.nvim-notify.setupOpts.render</code> which takes either a string of
+enum, or a Lua function. The default is "compact", but you may change it
+according to nvim-notify documentation.</p>
 </li>
 </ul>
 <h1 id="sec-release-0-5">Release 0.5</h1>

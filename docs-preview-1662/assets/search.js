@@ -46,14 +46,12 @@ class SearchEngine {
       ];
 
       let response = null;
-      let usedPath = "";
 
       for (const path of possiblePaths) {
         try {
           const testResponse = await fetch(path);
           if (testResponse.ok) {
             response = testResponse;
-            usedPath = path;
             break;
           }
         } catch {
@@ -360,6 +358,50 @@ class SearchEngine {
     return Array.from(new Set(tokens));
   }
 
+  isOptionDocument(doc) {
+    return (
+      doc?.title?.toLowerCase().startsWith("option: ") ||
+      doc?.path?.startsWith("options.html#")
+    );
+  }
+
+  normalizeSearchText(text) {
+    return (typeof text === "string" ? text : "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim()
+      .replace(/\s+/g, " ");
+  }
+
+  anchorSearchText(anchor) {
+    return `${anchor?.text || ""} ${anchor?.id || ""}`;
+  }
+
+  textMatchInfo(text, rawQuery, searchTerms) {
+    const lowerText = typeof text === "string" ? text.toLowerCase() : "";
+    const normalizedText = this.normalizeSearchText(text);
+    const normalizedQuery = this.normalizeSearchText(rawQuery);
+    const exactText = lowerText === rawQuery || normalizedText === normalizedQuery;
+    const exactPhrase =
+      lowerText.includes(rawQuery) || normalizedText.includes(normalizedQuery);
+    const matchedTerms = searchTerms.filter(
+      (term) => lowerText.includes(term) || normalizedText.includes(term),
+    );
+
+    return {
+      exactText,
+      exactPhrase,
+      matchedTerms,
+      allTerms:
+        searchTerms.length > 0 && matchedTerms.length === searchTerms.length,
+      anyTerm: matchedTerms.length > 0,
+    };
+  }
+
+  updateBestRank(match, rank) {
+    match.bestRank = Math.min(match.bestRank, rank);
+  }
+
   // Advanced search with ranking
   async search(query, limit = 10, options = {}) {
     if (!query || typeof query !== "string" || !query.trim()) {
@@ -383,6 +425,17 @@ class SearchEngine {
       return [];
     }
 
+    if (this.useWebWorker) {
+      if (options.signal?.aborted) return [];
+      try {
+        const results = await this.searchWithWorker(query, limit);
+        if (options.signal?.aborted) return [];
+        return results;
+      } catch {
+        // Worker failed; fall through to main-thread search
+      }
+    }
+
     const searchTerms = this.tokenize(query);
     const rawQuery = query.toLowerCase();
 
@@ -398,6 +451,33 @@ class SearchEngine {
       if (this.tokenMap.has(term)) {
         const docIds = this.tokenMap.get(term);
         docIds.forEach((docId) => candidateDocIds.add(docId));
+      }
+    });
+
+    // Tokenization keeps some Nix-ish identifiers whole, such as
+    // redis-test-hook or services.nginx.enable. Fall back to substring
+    // candidate discovery so exact visible text still searches successfully.
+    this.lowercaseCache.forEach((cached, docId) => {
+      const doc = this.documents[docId];
+      const title = cached?.title || "";
+      const content = cached?.content || "";
+      const anchors = Array.isArray(doc?.anchors) ? doc.anchors : [];
+      const anchorText = anchors
+        .map((anchor) => this.normalizeSearchText(this.anchorSearchText(anchor)))
+        .join(" ");
+      const normalizedQuery = this.normalizeSearchText(rawQuery);
+      if (
+        title.includes(rawQuery) ||
+        content.includes(rawQuery) ||
+        anchorText.includes(normalizedQuery) ||
+        searchTerms.some(
+          (term) =>
+            title.includes(term) ||
+            content.includes(term) ||
+            anchorText.includes(term),
+        )
+      ) {
+        candidateDocIds.add(docId);
       }
     });
 
@@ -427,7 +507,7 @@ class SearchEngine {
       const doc = this.documents[docIdx];
       let match = pageMatches.get(docIdx);
       if (!match) {
-        match = { doc, pageScore: 0, matchingAnchors: [] };
+        match = { doc, pageScore: 0, matchingAnchors: [], bestRank: 99 };
         pageMatches.set(docIdx, match);
       }
 
@@ -439,31 +519,43 @@ class SearchEngine {
         cached?.content ??
         (typeof doc.content === "string" ? doc.content : "").toLowerCase();
 
-      if (useFuzzySearch) {
-        const fuzzyTitleScore = this.fuzzyMatch(rawQuery, lowerTitle);
+      const titleMatch = this.textMatchInfo(lowerTitle, rawQuery, searchTerms);
+      const contentMatch = this.textMatchInfo(lowerContent, rawQuery, searchTerms);
 
-        if (fuzzyTitleScore !== null) {
-          match.pageScore += fuzzyTitleScore * this.config.boostTitle;
-        }
-
-        const fuzzyContentScore = this.fuzzyMatch(rawQuery, lowerContent);
-
-        if (fuzzyContentScore !== null) {
-          match.pageScore += fuzzyContentScore * this.config.boostContent;
-        }
+      if (titleMatch.exactText) {
+        match.pageScore += this.config.boostTitle * 3;
+        this.updateBestRank(match, this.isOptionDocument(doc) ? 3 : 0);
+      } else if (titleMatch.exactPhrase) {
+        match.pageScore += this.config.boostTitle * 2;
+        this.updateBestRank(match, this.isOptionDocument(doc) ? 4 : 1);
+      } else if (titleMatch.allTerms) {
+        match.pageScore += this.config.boostTitle;
+        this.updateBestRank(match, this.isOptionDocument(doc) ? 5 : 2);
+      } else if (titleMatch.anyTerm) {
+        match.pageScore +=
+          titleMatch.matchedTerms.length * (this.config.boostTitle / 10);
+        this.updateBestRank(match, this.isOptionDocument(doc) ? 8 : 6);
       }
 
-      searchTerms.forEach((term) => {
-        if (lowerTitle.includes(term)) {
-          match.pageScore +=
-            lowerTitle === term
-              ? this.config.boostTitle / 5
-              : this.config.boostTitle / 10;
-        }
-        if (lowerContent.includes(term)) {
-          match.pageScore += this.config.boostContent / 15;
-        }
-      });
+      if (contentMatch.exactPhrase) {
+        match.pageScore += this.config.boostContent;
+        this.updateBestRank(match, this.isOptionDocument(doc) ? 9 : 7);
+      } else if (contentMatch.allTerms) {
+        match.pageScore += this.config.boostContent / 2;
+        this.updateBestRank(match, this.isOptionDocument(doc) ? 10 : 8);
+      } else if (contentMatch.anyTerm) {
+        match.pageScore +=
+          contentMatch.matchedTerms.length * (this.config.boostContent / 10);
+        this.updateBestRank(match, this.isOptionDocument(doc) ? 11 : 9);
+      }
+
+      if (
+        this.isOptionDocument(doc) &&
+        !titleMatch.exactPhrase &&
+        !titleMatch.anyTerm
+      ) {
+        match.pageScore *= 0.25;
+      }
     }
 
     if (options.signal?.aborted) {
@@ -486,12 +578,15 @@ class SearchEngine {
       doc.anchors.forEach((anchor) => {
         if (!anchor || !anchor.text) return;
 
-        const anchorText = anchor.text.toLowerCase();
+        const anchorText = this.anchorSearchText(anchor).toLowerCase();
+        const anchorMatch = this.textMatchInfo(anchorText, rawQuery, searchTerms);
         let anchorMatches = false;
 
-        if (useFuzzySearch) {
+        if (anchorMatch.exactPhrase || anchorMatch.allTerms) {
+          anchorMatches = true;
+        } else if (useFuzzySearch) {
           const fuzzyScore = this.fuzzyMatch(rawQuery, anchorText);
-          if (fuzzyScore !== null && fuzzyScore >= 0.4) {
+          if (fuzzyScore !== null && fuzzyScore >= 0.8) {
             anchorMatches = true;
           }
         }
@@ -506,6 +601,20 @@ class SearchEngine {
 
         if (anchorMatches) {
           anchorSet.add(anchor.id);
+
+          if (anchorMatch.exactText) {
+            match.pageScore += this.config.boostTitle * 3;
+            this.updateBestRank(match, 0);
+          } else if (anchorMatch.exactPhrase) {
+            match.pageScore += this.config.boostTitle * 2;
+            this.updateBestRank(match, 1);
+          } else if (anchorMatch.allTerms) {
+            match.pageScore += this.config.boostTitle;
+            this.updateBestRank(match, 2);
+          } else {
+            match.pageScore += this.config.boostAnchor;
+            this.updateBestRank(match, 6);
+          }
         }
       });
 
@@ -540,7 +649,14 @@ class SearchEngine {
 
     const results = Array.from(pageMatches.values())
       .filter((m) => m.pageScore > 5)
-      .sort((a, b) => b.pageScore - a.pageScore)
+      .sort((a, b) => {
+        if (a.bestRank !== b.bestRank) return a.bestRank - b.bestRank;
+        if (b.pageScore !== a.pageScore) return b.pageScore - a.pageScore;
+        return (
+          Number(this.isOptionDocument(a.doc)) -
+          Number(this.isOptionDocument(b.doc))
+        );
+      })
       .slice(0, limit);
 
     return results;
@@ -718,8 +834,7 @@ class SearchEngine {
       worker.postMessage({
         messageId,
         type: "search",
-        data: { query, limit },
-        documents: this.documents,
+        data: { query, limit, documents: this.documents },
       });
     });
   }
@@ -1035,9 +1150,7 @@ function initializeSearchWorker() {
 
   try {
     const rootPath = window.searchNamespace?.rootPath || "";
-    const workerPath = rootPath
-      ? `${rootPath}assets/search-worker.js`
-      : "/assets/search-worker.js";
+    const workerPath = `${rootPath}assets/search-worker.js`;
     searchWorker = new Worker(workerPath);
     return searchWorker;
   } catch (error) {
