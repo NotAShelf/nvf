@@ -109,9 +109,6 @@
 <li><a href="#sec-lsp-customization">LSP Customizations</a>
 <ul><li><a href="#ch-configuring-lsp-presets">Configuring LSP presets</a>
 <li><a href="#ch-custom-lsp">Adding custom LSP Servers</a>
-</ul><li><a href="#ch-autocmds-augroups">Autocommands and Autogroups</a>
-<ul><li><a href="#sec-vim-augroups">Autogroups (vim.augroups)</a>
-<li><a href="#sec-vim-autocmds">Autocommands (vim.autocmds)</a>
 </ul><li><a href="#ch-keymaps">Custom keymaps</a>
 <li><a href="#ch-using-dags">Using DAGs</a>
 <ul><li><a href="#sec-types-dag-entryAnywhere">entryAnywhere</a>
@@ -404,139 +401,6 @@ discover LSP servers from <code class="env-var">PATH</code>.</p>
 <p><a class="option-reference" href="options.html#option-vim.lsp.servers"><code class="nixos-option">vim.lsp.servers</code></a> is also used to add your custom LSP definitions.</p>
 <p>Example:</p>
 <pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(232,102,113);">lib</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lsp</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">servers</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Define&nbsp;a&nbsp;custom&nbsp;LSP&nbsp;entry&nbsp;using&nbsp;`vim.lsp.servers`:</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">ty</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">cmd</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">mkDefault</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">getExe</span>&nbsp;<span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">ty</span><span style="color:rgb(132,139,152);">)</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">server</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">filetypes</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">python</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">root_markers</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">.git</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">pyproject.toml</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">setup.cfg</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">requirements.txt</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Pipfile</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">pyrightconfig.json</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;If&nbsp;your&nbsp;LSP&nbsp;accepts&nbsp;custom&nbsp;settings.&nbsp;See&nbsp;`:help&nbsp;lsp-config`&nbsp;for&nbsp;more</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;details&nbsp;on&nbsp;available&nbsp;fields.&nbsp;This&nbsp;is&nbsp;a&nbsp;freeform&nbsp;field.</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">settings</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">ty</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">/*&nbsp;...&nbsp;*/</span>&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
-<h1 id="ch-autocmds-augroups">Autocommands and Autogroups</h1>
-<p>This module allows you to declaratively configure Neovim autocommands and
-autogroups within your Nix configuration.</p>
-<h2 id="sec-vim-augroups">Autogroups (<code>vim.augroups</code>)</h2>
-<p>Autogroups (<code>augroup</code>) organize related autocommands. This allows them to be
-managed collectively, such as clearing them all at once to prevent duplicates.
-Each entry in the list is a submodule with the following options:</p>
-<table>
-<thead>
-<tr>
-<th align="left">Option</th>
-<th align="left">Type</th>
-<th align="left">Default</th>
-<th align="left">Description</th>
-<th align="left">Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left"><code>enable</code></td>
-<td align="left"><code>bool</code></td>
-<td align="left"><code>true</code></td>
-<td align="left">Enables or disables this autogroup definition.</td>
-<td align="left"><code>true</code></td>
-</tr>
-<tr>
-<td align="left"><code>name</code></td>
-<td align="left"><code>str</code></td>
-<td align="left"><em>None</em></td>
-<td align="left"><strong>Required.</strong> The unique name for the autogroup.</td>
-<td align="left"><code>"MyFormatGroup"</code></td>
-</tr>
-<tr>
-<td align="left"><code>clear</code></td>
-<td align="left"><code>bool</code></td>
-<td align="left"><code>true</code></td>
-<td align="left">Clears any existing autocommands within this group before adding new ones defined in <code>vim.autocmds</code>.</td>
-<td align="left"><code>true</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example:</strong></p>
-<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">augroups</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">name</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">MyCustomAuGroup</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">clear</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Clear&nbsp;previous&nbsp;autocommands&nbsp;in&nbsp;this&nbsp;group&nbsp;on&nbsp;reload</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">name</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Formatting</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;clear&nbsp;defaults&nbsp;to&nbsp;true</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
-<h2 id="sec-vim-autocmds">Autocommands (<code>vim.autocmds</code>)</h2>
-<p>Autocommands (<code>autocmd</code>) trigger actions based on events happening within Neovim
-(e.g., saving a file, entering a buffer). Each entry in the list is a submodule
-with the following options:</p>
-<table>
-<thead>
-<tr>
-<th align="left">Option</th>
-<th align="left">Type</th>
-<th align="left">Default</th>
-<th align="left">Description</th>
-<th align="left">Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left"><code>enable</code></td>
-<td align="left"><code>bool</code></td>
-<td align="left"><code>true</code></td>
-<td align="left">Enables or disables this autocommand definition.</td>
-<td align="left"><code>true</code></td>
-</tr>
-<tr>
-<td align="left"><code>event</code></td>
-<td align="left"><code>nullOr (listOf str)</code></td>
-<td align="left"><code>null</code></td>
-<td align="left"><strong>Required.</strong> List of Neovim events that trigger this autocommand (e.g., <code>BufWritePre</code>, <code>FileType</code>).</td>
-<td align="left"><code>[ "BufWritePre" ]</code></td>
-</tr>
-<tr>
-<td align="left"><code>pattern</code></td>
-<td align="left"><code>nullOr (listOf str)</code></td>
-<td align="left"><code>null</code></td>
-<td align="left">List of file patterns (globs) to match against (e.g., <code>*.py</code>, <code>*</code>). If <code>null</code>, matches all files for the given event.</td>
-<td align="left"><code>[ "*.lua", "*.nix" ]</code></td>
-</tr>
-<tr>
-<td align="left"><code>callback</code></td>
-<td align="left"><code>nullOr luaInline</code></td>
-<td align="left"><code>null</code></td>
-<td align="left">A Lua function to execute when the event triggers. Use <code>lib.generators.mkLuaInline</code>. <strong>Cannot be used with <code>command</code>.</strong></td>
-<td align="left"><code>lib.generators.mkLuaInline "function() print('File saved!') end"</code></td>
-</tr>
-<tr>
-<td align="left"><code>command</code></td>
-<td align="left"><code>nullOr str</code></td>
-<td align="left"><code>null</code></td>
-<td align="left">A Vimscript command to execute when the event triggers. <strong>Cannot be used with <code>callback</code>.</strong></td>
-<td align="left"><code>"echo 'File saved!'"</code></td>
-</tr>
-<tr>
-<td align="left"><code>group</code></td>
-<td align="left"><code>nullOr str</code></td>
-<td align="left"><code>null</code></td>
-<td align="left">The name of an <code>augroup</code> (defined in <code>vim.augroups</code>) to associate this autocommand with.</td>
-<td align="left"><code>"MyCustomAuGroup"</code></td>
-</tr>
-<tr>
-<td align="left"><code>desc</code></td>
-<td align="left"><code>nullOr str</code></td>
-<td align="left"><code>null</code></td>
-<td align="left">A description for the autocommand (useful for introspection).</td>
-<td align="left"><code>"Format buffer on save"</code></td>
-</tr>
-<tr>
-<td align="left"><code>once</code></td>
-<td align="left"><code>bool</code></td>
-<td align="left"><code>false</code></td>
-<td align="left">If <code>true</code>, the autocommand runs only once and then automatically removes itself.</td>
-<td align="left"><code>false</code></td>
-</tr>
-<tr>
-<td align="left"><code>nested</code></td>
-<td align="left"><code>bool</code></td>
-<td align="left"><code>false</code></td>
-<td align="left">If <code>true</code>, allows this autocommand to trigger other autocommands.</td>
-<td align="left"><code>false</code></td>
-</tr>
-</tbody>
-</table>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>You cannot define both <code>callback</code> (for Lua functions) and <code>command</code> (for
-Vimscript) for the same autocommand. Choose one.</p>
-</div>
-<p><strong>Examples:</strong></p>
-<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(232,102,113);">lib</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span>&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(198,120,221);">let</span><br>&nbsp;&nbsp;<span style="color:rgb(198,120,221);">inherit</span>&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">generators</span><span style="color:rgb(132,139,152);">)</span>&nbsp;mkLuaInline<span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(198,120,221);">in</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">augroups</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(86,182,194);">name</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">UserSetup</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(132,139,152);">}</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">autocmds</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Example&nbsp;1:&nbsp;Using&nbsp;a&nbsp;Lua&nbsp;callback</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">event</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">BufWritePost</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">pattern</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">*.lua</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">group</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">UserSetup</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">desc</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Notify&nbsp;after&nbsp;saving&nbsp;Lua&nbsp;file</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">callback</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">mkLuaInline</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(198,120,221);">function</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(132,139,152);">)</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">notify</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(152,195,121);">"Lua&nbsp;file&nbsp;saved!"</span><span style="color:rgb(132,139,152);">,</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">log</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">levels</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">INFO</span><span style="color:rgb(132,139,152);">)</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(198,120,221);">end</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Example&nbsp;2:&nbsp;Using&nbsp;a&nbsp;Vim&nbsp;command</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">event</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">FileType</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">pattern</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">markdown</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">group</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">UserSetup</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">desc</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Set&nbsp;spellcheck&nbsp;for&nbsp;Markdown</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">command</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">setlocal&nbsp;spell</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Example&nbsp;3:&nbsp;Autocommand&nbsp;without&nbsp;a&nbsp;specific&nbsp;group</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">event</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">BufEnter</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">pattern</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">*.log</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">desc</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Disable&nbsp;line&nbsp;numbers&nbsp;in&nbsp;log&nbsp;files</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">command</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">setlocal&nbsp;nonumber</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;No&nbsp;'group'&nbsp;specified</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Example&nbsp;4:&nbsp;Using&nbsp;Lua&nbsp;for&nbsp;callback</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">event</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">BufWinEnter</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">pattern</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">*</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">desc</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Simple&nbsp;greeting&nbsp;on&nbsp;entering&nbsp;a&nbsp;buffer&nbsp;window</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">callback</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">mkLuaInline</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(198,120,221);">function</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(232,102,113);">args</span><span style="color:rgb(132,139,152);">)</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(86,182,194);">print</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(152,195,121);">"Entered&nbsp;buffer:&nbsp;"</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(171,178,191);">..</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(232,102,113);">args</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">buf</span><span style="color:rgb(132,139,152);">)</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(198,120,221);">end</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Run&nbsp;only&nbsp;once&nbsp;per&nbsp;session&nbsp;trigger</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">once</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
-<p>These definitions are automatically translated into the necessary Lua code to
-configure <code>vim.api.nvim_create_augroup</code> and <code>vim.api.nvim_create_autocmd</code> when
-Neovim starts.</p>
 <h1 id="ch-keymaps">Custom keymaps</h1>
 <p>Some plugin modules provide keymap options for your convenience. These can be
 disabled by toggling <a class="option-reference" href="options.html#option-vim.vendoredKeymaps.enable"><code class="nixos-option">vim.vendoredKeymaps.enable</code></a>. It is also possible
@@ -831,9 +695,6 @@ Lua string after <code>mkLuaInline</code>.</p>
 <li><a href="#sec-lsp-customization">LSP Customizations</a>
 <ul><li><a href="#ch-configuring-lsp-presets">Configuring LSP presets</a>
 <li><a href="#ch-custom-lsp">Adding custom LSP Servers</a>
-</ul><li><a href="#ch-autocmds-augroups">Autocommands and Autogroups</a>
-<ul><li><a href="#sec-vim-augroups">Autogroups (vim.augroups)</a>
-<li><a href="#sec-vim-autocmds">Autocommands (vim.autocmds)</a>
 </ul><li><a href="#ch-keymaps">Custom keymaps</a>
 <li><a href="#ch-using-dags">Using DAGs</a>
 <ul><li><a href="#sec-types-dag-entryAnywhere">entryAnywhere</a>
