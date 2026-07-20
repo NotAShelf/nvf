@@ -198,9 +198,8 @@ in {
           {
             type = "injections";
             filetypes = ["gotmpl"];
+            loadtype = "extends";
             query = ''
-              ;; extends
-
               ((text) @injection.content
                 (#set! injection.language "${cfg.treesitter.gotmpl.injection}")
                 (#set! injection.combined)

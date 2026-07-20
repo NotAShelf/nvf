@@ -48,6 +48,9 @@
 - Added `position` option to additional runtime paths, allowing for prepending
   paths, rather than just appending.
 
+- Added required field `loadtype` for entries into
+  {option}`vim.treesitter.queries`, to allow for real overriding of queries.
+
 - Moved all angular related stuff into its own language module.
 
 - Remove `mind.nvim`. This plugin doesn't exist anymore. The original author
