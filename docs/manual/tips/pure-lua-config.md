@@ -48,7 +48,16 @@ directory, and call it with {option}`vim.luaConfigRC`.
       # To make sure list items are ordered, use lib.mkBefore or lib.mkAfter
       # Simply placing list items in a given order will **not** ensure that
       # this list  will be deterministic.
+      # Also all items added not as an attribute set, will be prepended.
       ./nvim-custom-2
+
+      # For high priority runtime paths,
+      # which need to run before some core plugins like treesitter,
+      # use `position = "prepend"` to ensure it gets *prepended* instead of *appended*.
+      {
+        path = ./nvim-custom-3-high-priority;
+        position = "prepend";
+      }
     ];
 
     startPlugins = [pkgs.vimPlugins.gitsigns];
