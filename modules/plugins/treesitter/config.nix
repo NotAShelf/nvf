@@ -92,7 +92,7 @@ in {
               foldl' (inner: filetype: let
                 path = "queries/${filetype}/${entry.type}.scm";
                 prev = inner.${path} or "";
-                query = ''${optionalString (entry.loadtype == "extends") "; extends"} ${entry.query} '';
+                query = ''${optionalString (entry.loadtype == "extends") "; extends\n"} ${entry.query} '';
               in
                 inner // {${path} = prev + query;})
               acc
