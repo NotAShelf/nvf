@@ -103,27 +103,27 @@ in {
             filetypes = ["nix"];
             loadtype = "extends";
             query = ''
-              ((binding
+              (binding
                 attrpath: (attrpath
                   (identifier) @_path)
-                  (#eq? @_path "query")
+                (#eq? @_path "query")
                 expression: [
                   (string_expression
                     ((string_fragment) @injection.content
-                    (#set! injection.language "query")))
+                      (#set! injection.language "query")))
                   (indented_string_expression
                     ((string_fragment) @injection.content
-                    (#set! injection.language "query")))
+                      (#set! injection.language "query")))
                   (apply_expression
                     argument: [
                       (string_expression
                         ((string_fragment) @injection.content
-                        (#set! injection.language "query")))
+                          (#set! injection.language "query")))
                       (indented_string_expression
                         ((string_fragment) @injection.content
-                        (#set! injection.language "query")))
+                          (#set! injection.language "query")))
                     ])
-                ]))
+                ])
             '';
           }
           # mkLuaInline, entryAnywhere, entryBefore, entryAfter -> lua
@@ -138,8 +138,8 @@ in {
                   (#any-of? @_func "mkLuaInline" "entryAnywhere"))
                 argument: (indented_string_expression
                   (string_fragment) @injection.content))
-              (#set! injection.language "lua")
-              (#set! injection.combined))
+                (#set! injection.language "lua")
+                (#set! injection.combined))
 
               ((apply_expression
                 function: (apply_expression
@@ -149,8 +149,8 @@ in {
                   argument: (_))
                 argument: (indented_string_expression
                   (string_fragment) @injection.content))
-              (#set! injection.language "lua")
-              (#set! injection.combined))
+                (#set! injection.language "lua")
+                (#set! injection.combined))
             '';
           }
         ];

@@ -202,8 +202,7 @@ in {
             query = ''
               ((text) @injection.content
                 (#set! injection.language "${cfg.treesitter.gotmpl.injection}")
-                (#set! injection.combined)
-              )
+                (#set! injection.combined))
             '';
           }
         ];

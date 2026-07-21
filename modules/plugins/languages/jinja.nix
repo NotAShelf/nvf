@@ -65,8 +65,7 @@ in {
             query = ''
               ((content) @injection.content
                 (#set! injection.language "${cfg.treesitter.injection}")
-                (#set! injection.combined)
-              )
+                (#set! injection.combined))
             '';
           }
         ];
