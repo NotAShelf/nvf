@@ -267,6 +267,9 @@
 - Added [csvview.nvim](https://github.com/hat0uma/csvview.nvim) support under
   `vim.utility.csvview` for rendering CSV/TSV files as aligned tables.
 
+- Switched from prepending -> appending our haskell-language-server binary to
+  PATH, so our binary is only used as a default / fallback.
+
 [alfarel](https://github.com/alfarelcynthesis):
 
 [obsidian.nvim]: https://github.com/obsidian-nvim/obsidian.nvim

@@ -115,7 +115,7 @@ in {
                   # wrap HLS-wrapper so it can find the actual binary
                   postBuild = ''
                     wrapProgram $out/bin/haskell-language-server-wrapper \
-                      --prefix PATH : ${haskellPackages.haskell-language-server}/bin
+                      --suffix PATH : ${haskellPackages.haskell-language-server}/bin
                   '';
                 }))
                 "--lsp"
