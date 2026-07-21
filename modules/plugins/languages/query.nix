@@ -14,6 +14,9 @@
 
   defaultServers = ["ts-query-ls"];
   servers = ["ts-query-ls"];
+
+  defaultFormat = ["ts-query-ls"];
+  formats = ["ts-query-ls"];
 in {
   options.vim.languages.query = {
     enable = mkEnableOption "Treesitter Query support";
@@ -41,6 +44,21 @@ in {
         description = "Treesitter Query LSP server to use";
       };
     };
+
+    format = {
+      enable =
+        mkEnableOption "Treesitter Query  formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
+
+      type = mkOption {
+        description = "Treesitter Query  formatter to use";
+        type = listOf (enum formats);
+        default = defaultFormat;
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -57,6 +75,14 @@ in {
         servers = genAttrs cfg.lsp.servers (_: {
           filetypes = ["query"];
         });
+      };
+    })
+
+    (mkIf cfg.format.enable {
+      vim.formatter.conform-nvim = {
+        enable = true;
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.query = cfg.format.type;
       };
     })
   ]);
