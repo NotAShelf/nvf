@@ -21,7 +21,7 @@
   servers = ["csharp_ls" "omnisharp" "roslyn-ls"];
 
   defaultFormat = [];
-  formats = ["csharpier" "astyle"];
+  formats = ["csharpier" "astyle" "injected"];
 
   # Verbose names for clarity.
   shouldEnableExclusiveLspExtension = extension: lsp: cfg.lsp.enable && cfg.extensions.${extension}.enable && (elem lsp cfg.lsp.servers);

@@ -16,7 +16,7 @@
   servers = ["angular-language-server" "emmet-ls"];
 
   defaultFormat = ["prettier"];
-  formats = ["prettier" "deno"];
+  formats = ["prettier" "deno" "injected"];
 in {
   options.vim.languages.angular = {
     enable = mkEnableOption "Angular language support";

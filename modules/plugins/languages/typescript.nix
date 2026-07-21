@@ -25,7 +25,7 @@
   ];
 
   defaultFormat = ["prettier"];
-  formats = ["prettier" "biome" "biome-check" "biome-organize-imports" "deno" "astyle"];
+  formats = ["prettier" "biome" "biome-check" "biome-organize-imports" "deno" "astyle" "injected"];
   formatType = listOf (coercedTo (enum ["prettierd"]) (_:
     lib.warn
     "vim.languages.typescript.format.type: prettierd is deprecated, use prettier instead"

@@ -16,7 +16,7 @@
   servers = ["vue-language-server" "vtsls" "typescript-language-server" "emmet-ls"];
 
   defaultFormat = ["biome" "biome-check" "biome-organize-imports"];
-  formats = ["biome" "biome-check" "biome-organize-imports" "prettier" "deno"];
+  formats = ["biome" "biome-check" "biome-organize-imports" "prettier" "deno" "injected"];
 
   defaultDiagnosticsProvider = ["biomejs"];
   diagnosticsProviders = ["biomejs"];

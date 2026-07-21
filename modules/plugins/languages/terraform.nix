@@ -16,7 +16,7 @@
   servers = ["terraform-ls" "tofu-ls"];
 
   defaultFormat = ["opentofu"];
-  formats = ["opentofu" "terraform"];
+  formats = ["opentofu" "terraform" "injected"];
 in {
   options.vim.languages.terraform = {
     enable = mkEnableOption "Terraform support";

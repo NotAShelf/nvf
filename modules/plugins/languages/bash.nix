@@ -16,7 +16,7 @@
   servers = ["bash-language-server"];
 
   defaultFormat = ["shfmt"];
-  formats = ["shfmt"];
+  formats = ["shfmt" "injected"];
 
   defaultDiagnosticsProvider = ["shellcheck"];
   diagnosticsProviders = ["shellcheck"];

@@ -362,6 +362,12 @@
 
 - Split of `zsh` from `languages.bash` into its own language module.
 
+[`injected` formatter]: https://github.com/stevearc/conform.nvim/blob/master/doc/advanced_topics.md#injected-language-formatting-code-blocks
+
+- Add [`injected` formatter] to all language modules, to allow for formatting of
+  injections via conform, like Markdown code blocks or some multiline strings in
+  nix.
+
 - Telling the `vscode-json-language-server` that `json5` is `jsonc` instead of
   the default fallback of `json`, for more accurate results.
 

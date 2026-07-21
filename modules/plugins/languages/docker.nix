@@ -16,7 +16,7 @@
   servers = ["docker-language-server"];
 
   defaultFormat = ["dockerfmt"];
-  formats = ["dockerfmt"];
+  formats = ["dockerfmt" "injected"];
 
   defaultDiagnosticsProvider = ["hadolint"];
   diagnosticsProviders = ["hadolint"];

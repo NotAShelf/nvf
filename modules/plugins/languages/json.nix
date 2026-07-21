@@ -16,7 +16,7 @@
   servers = ["vscode-json-language-server"];
 
   defaultFormat = ["jsonfmt"];
-  formats = ["jsonfmt" "prettier" "biome" "deno"];
+  formats = ["jsonfmt" "prettier" "biome" "deno" "injected"];
 
   formatType =
     deprecatedSingleOrListOf

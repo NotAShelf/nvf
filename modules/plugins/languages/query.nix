@@ -16,7 +16,7 @@
   servers = ["ts-query-ls"];
 
   defaultFormat = ["ts-query-ls"];
-  formats = ["ts-query-ls"];
+  formats = ["ts-query-ls" "injected"];
 in {
   options.vim.languages.query = {
     enable = mkEnableOption "Treesitter Query support";

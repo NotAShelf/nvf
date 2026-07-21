@@ -20,7 +20,7 @@
   servers = ["gopls"];
 
   defaultFormat = ["gofmt"];
-  formats = ["gofmt" "gofumpt" "golines" "goimports"];
+  formats = ["gofmt" "gofumpt" "golines" "goimports" "injected"];
 
   defaultDebugger = "delve";
   debuggers = {

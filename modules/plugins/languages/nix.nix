@@ -16,7 +16,7 @@
   servers = ["nil" "nixd"];
 
   defaultFormat = ["alejandra"];
-  formats = ["alejandra" "nixfmt" "nixfmt-rs"];
+  formats = ["alejandra" "nixfmt" "nixfmt-rs" "injected"];
 
   defaultDiagnosticsProvider = ["statix" "deadnix"];
   diagnosticsProviders = ["statix" "deadnix"];

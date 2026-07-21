@@ -15,7 +15,7 @@
   servers = ["asm-lsp"];
 
   defaultFormat = ["asmfmt"];
-  formats = ["asmfmt" "nasmfmt"];
+  formats = ["asmfmt" "nasmfmt" "injected"];
 in {
   options.vim.languages.assembly = {
     enable = mkEnableOption "Assembly support";

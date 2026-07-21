@@ -13,7 +13,7 @@
   cfg = config.vim.languages.r;
 
   defaultFormat = ["format-r"];
-  formats = ["styler" "format-r"];
+  formats = ["styler" "format-r" "injected"];
 
   defaultServers = ["r-languageserver"];
   servers = ["r-languageserver"];

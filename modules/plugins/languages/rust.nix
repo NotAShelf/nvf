@@ -22,7 +22,7 @@
   defaultServers = ["rust-analyzer"];
 
   defaultFormat = ["rustfmt"];
-  formats = ["rustfmt"];
+  formats = ["rustfmt" "injected"];
 
   defaultDebugger = ["codelldb"];
   dapConfigurations = {
