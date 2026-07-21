@@ -59,6 +59,7 @@
     ./terraform.nix
     ./tex-fmt.nix
     ./tombi.nix
+    ./ts-query-ls.nix
     ./typstyle.nix
   ];
 }

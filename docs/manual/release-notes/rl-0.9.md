@@ -395,6 +395,8 @@
 
 - Added `gitlab-ci-ls`.
 
+- Add `ts-query-ls` as a conform.nvim formatter.
+
 - Added `phpantom` LSP preset and into `languages.php`.
 
 - Moved extra diagnostic modules under `diagnostics.presets.<name>` this will
