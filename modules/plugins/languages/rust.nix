@@ -416,7 +416,7 @@ in {
       ];
     })
 
-    (mkIf cfg.extensions.crates-nvim.enable {
+    (mkIf cfg.extensions.ferris-nvim.enable {
       vim.lazy.plugins.ferris-nvim = {
         package = "ferris-nvim";
         setupModule = "ferris";
