@@ -110,18 +110,22 @@ in {
                 expression: [
                   (string_expression
                     ((string_fragment) @injection.content
-                      (#set! injection.language "query")))
+                      (#set! injection.language "query")
+                      (#set! injection.combined)))
                   (indented_string_expression
                     ((string_fragment) @injection.content
-                      (#set! injection.language "query")))
+                      (#set! injection.language "query")
+                      (#set! injection.combined)))
                   (apply_expression
                     argument: [
                       (string_expression
                         ((string_fragment) @injection.content
-                          (#set! injection.language "query")))
+                          (#set! injection.language "query")
+                          (#set! injection.combined)))
                       (indented_string_expression
                         ((string_fragment) @injection.content
-                          (#set! injection.language "query")))
+                          (#set! injection.language "query")
+                          (#set! injection.combined)))
                     ])
                 ])
             '';

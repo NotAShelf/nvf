@@ -368,6 +368,9 @@
   injections via conform, like Markdown code blocks or some multiline strings in
   nix.
 
+- Make `query` injections in `nix` files combined, to fix highlighting problems,
+  when injecting inside multiline strings.
+
 - Telling the `vscode-json-language-server` that `json5` is `jsonc` instead of
   the default fallback of `json`, for more accurate results.
 
