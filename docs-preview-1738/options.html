@@ -28107,7 +28107,7 @@ tabpage if the tree was previously open.</p>
   <div class="option-description"><html><head></head><body><p>Configuration options for trashing.</p>
 </body></html></div>
   <div class="option-default">Default: <code>{
-  cmd = "\${pkgs.glib}/bin/gio trash";
+  cmd = "\${pkgs.glib.bin}/bin/gio trash";
 }</code></div>
   <div class="option-declared">Declared in: <code>vim.filetree.nvimTree.setupOpts.trash</code></div>
 </div>
@@ -44222,7 +44222,7 @@ in the docs.</p>
   <div class="option-type">Type: <code>string</code></div>
   <div class="option-description"><html><head></head><body><p>search command</p>
 </body></html></div>
-  <div class="option-default">Default: <code>"\${pkgs.ripgrep}/bin/rg"</code></div>
+  <div class="option-default">Default: <code>"\${pkgs.ripgrep.out}/bin/rg"</code></div>
   <div class="option-declared">Declared in: <code>vim.notes.todo-comments.setupOpts.search.command</code></div>
 </div>
 <div class="option" id="option-vim.notes.todo-comments.setupOpts.search.pattern">
@@ -47866,7 +47866,7 @@ each strategy.</p>
 make sure that the package is available in <a class="option-reference" href="options.html#option-vim.extraPackages"><code class="nixos-option">vim.extraPackages</code></a>.</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
-  "\${pkgs.fd}/bin/fd"
+  "\${pkgs.fd.out}/bin/fd"
 ]</code></div>
   <div class="option-declared">Declared in: <code>vim.telescope.setupOpts.defaults.pickers.find_command</code></div>
 </div>
@@ -47943,7 +47943,7 @@ make sure that the package is available in <a class="option-reference" href="opt
 Make sure that color is set to <code>never</code> because telescope does not yet interpret color codes.</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
-  "\${pkgs.ripgrep}/bin/rg"
+  "\${pkgs.ripgrep.out}/bin/rg"
   "--color=never"
   "--no-heading"
   "--with-filename"
@@ -47977,7 +47977,7 @@ Make sure that color is set to <code>never</code> because telescope does not yet
   <div class="option-description"><html><head></head><body><p>cmd to use for finding files</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
-  "\${pkgs.fd}/bin/fd"
+  "\${pkgs.fd.out}/bin/fd"
   "--type=file"
 ]</code></div>
   <div class="option-declared">Declared in: <code>vim.telescope.setupOpts.pickers.find_files.find_command</code></div>
@@ -52833,7 +52833,7 @@ in the docs.</p>
   <div class="option-type">Type: <code>string</code></div>
   <div class="option-description"><html><head></head><body><p>Path to the glow binary.</p>
 </body></html></div>
-  <div class="option-default">Default: <code>"\${pkgs.glow}/bin/glow"</code></div>
+  <div class="option-default">Default: <code>"\${pkgs.glow.out}/bin/glow"</code></div>
   <div class="option-example">Example: <code>"glow"</code></div>
   <div class="option-declared">Declared in: <code>vim.utility.preview.glow.setupOpts.glow_path</code></div>
 </div>
