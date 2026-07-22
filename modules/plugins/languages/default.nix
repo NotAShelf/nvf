@@ -30,6 +30,7 @@ in {
     ./hcl.nix
     ./helm.nix
     ./html.nix
+    ./http.nix
     ./java.nix
     ./jinja.nix
     ./jq.nix
