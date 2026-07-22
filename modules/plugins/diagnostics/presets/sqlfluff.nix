@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.sqlfluff;
 in {
@@ -18,7 +19,7 @@ in {
 
   config = mkIf cfg.enable {
     vim.diagnostics.nvim-lint.linters.sqlfluff = {
-      cmd = "${pkgs.sqlfluff}/bin/sqlfluff";
+      cmd = getExe pkgs.sqlfluff;
       args = ["lint" "--format=json"];
     };
   };

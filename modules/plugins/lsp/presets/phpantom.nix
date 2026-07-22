@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.phpantom;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.phpantom = {
       enable = true;
-      cmd = ["${pkgs.phpantom-lsp}/bin/phpantom_lsp"];
+      cmd = [(getExe pkgs.phpantom-lsp)];
       root_markers = [".phpantom.toml" "composer.json" ".php-version" ".git"];
     };
   };

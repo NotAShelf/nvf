@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkFormatterPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.formatter.conform-nvim.presets.stylish-haskell;
 in {
@@ -18,7 +19,7 @@ in {
 
   config = mkIf cfg.enable {
     vim.formatter.conform-nvim.setupOpts.formatters.stylish-haskell = {
-      command = "${pkgs.haskellPackages.stylish-haskell}/bin/stylish-haskell";
+      command = getExe pkgs.haskellPackages.stylish-haskell;
     };
   };
 }

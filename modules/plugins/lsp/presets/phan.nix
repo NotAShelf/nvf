@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.phan;
@@ -21,7 +22,7 @@ in {
     vim.lsp.servers.phan = {
       enable = true;
       cmd = [
-        "${pkgs.php85Packages.phan}/bin/phan"
+        (getExe pkgs.php85Packages.phan)
         "-m"
         "json"
         "--no-color"

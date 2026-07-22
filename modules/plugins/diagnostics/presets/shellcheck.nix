@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.shellcheck;
 in {
@@ -17,6 +18,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    vim.diagnostics.nvim-lint.linters.shellcheck.cmd = "${pkgs.shellcheck}/bin/shellcheck";
+    vim.diagnostics.nvim-lint.linters.shellcheck.cmd = getExe pkgs.shellcheck;
   };
 }

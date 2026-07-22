@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkFormatterPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.formatter.conform-nvim.presets.hclfmt;
 in {
@@ -18,7 +19,7 @@ in {
 
   config = mkIf cfg.enable {
     vim.formatter.conform-nvim.setupOpts.formatters.hclfmt = {
-      command = "${pkgs.hclfmt}/bin/hclfmt";
+      command = getExe pkgs.hclfmt;
       stdin = true;
     };
   };

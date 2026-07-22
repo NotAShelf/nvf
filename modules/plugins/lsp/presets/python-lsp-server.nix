@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.python-lsp-server;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.python-lsp-server = {
       enable = true;
-      cmd = ["${pkgs.python3Packages.python-lsp-server}/bin/pylsp"];
+      cmd = [(getExe pkgs.python3Packages.python-lsp-server)];
       root_markers = [".git"];
     };
   };

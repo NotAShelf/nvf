@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe';
 
   cfg = config.vim.lsp.presets.vscode-css-language-server;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.vscode-css-language-server = {
       enable = true;
-      cmd = ["${pkgs.vscode-langservers-extracted}/bin/vscode-css-language-server" "--stdio"];
+      cmd = [(getExe' pkgs.vscode-langservers-extracted "vscode-css-language-server") "--stdio"];
       root_markers = [".git" "package.json"];
       init_options = {provideFormatter = true;};
       settings = {

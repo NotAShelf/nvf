@@ -310,6 +310,25 @@ acceptableList = [
 ];
 ```
 
+##### Binaries
+
+Always use `getExe` and `getExe'` from `lib.meta` instead of manual binary path
+expansion.
+
+###### Examples
+
+```diff
++let
++  inherit (lib.meta) getExe getExe';
++in
+
+-bin = "${pkgs.bar}/bin/bar";
++cmd = getExe pkgs.bar;
+
+-cmd = "${pkgs.bar}/bin/foo";
++cmd = getExe' pkgs.bar "foo";
+```
+
 #### Naming of External Tools {#sec-code-style-naming-external-tools}
 
 In NVF, we often package or preconfigure external tools. One common example are

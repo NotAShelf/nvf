@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.taplo;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.taplo = {
       enable = true;
-      cmd = ["${pkgs.taplo}/bin/taplo" "lsp" "stdio"];
+      cmd = [(getExe pkgs.taplo) "lsp" "stdio"];
       root_markers = [".git"];
     };
   };

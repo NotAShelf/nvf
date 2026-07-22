@@ -8,6 +8,7 @@
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption literalMD;
   inherit (lib.nvim.types) mkFormatterPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.types) enum listOf attrsOf str;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.lua) toLuaObject;
@@ -79,7 +80,7 @@ in {
   config = mkIf cfg.enable {
     vim.formatter.conform-nvim.setupOpts.formatters.prettier = {
       # extends <https://github.com/stevearc/conform.nvim/blob/master/lua/conform/formatters/prettier.lua>
-      command = "${pkgs.prettier}/bin/prettier";
+      command = getExe pkgs.prettier;
 
       # Due to the way conform does the parser options, we can always register the filetype parser,
       # even when we didn't load the plugin. This allows us to precompute this map.

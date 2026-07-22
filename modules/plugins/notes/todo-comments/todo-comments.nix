@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.types) str listOf;
   inherit (lib.nvim.types) mkPluginSetupOption;
   inherit (config.vim.lib) mkMappingOption;
@@ -41,7 +42,7 @@ in {
 
         command = mkOption {
           type = str;
-          default = "${pkgs.ripgrep}/bin/rg";
+          default = getExe pkgs.ripgrep;
           description = "search command";
         };
 

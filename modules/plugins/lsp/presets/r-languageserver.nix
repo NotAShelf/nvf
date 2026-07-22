@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.r-languageserver;
@@ -21,9 +22,9 @@ in {
     vim.lsp.servers.r-languageserver = {
       enable = true;
       cmd = [
-        "${pkgs.rWrapper.override {
+        (getExe (pkgs.rWrapper.override {
           packages = [pkgs.rPackages.languageserver];
-        }}/bin/R"
+        }))
         "--no-echo"
         "-e"
         "languageserver::run()"

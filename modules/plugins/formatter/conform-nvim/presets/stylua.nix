@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkFormatterPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.formatter.conform-nvim.presets.stylua;
@@ -19,7 +20,7 @@ in {
 
   config = mkIf cfg.enable {
     vim.formatter.conform-nvim.setupOpts.formatters.stylua = {
-      command = "${pkgs.stylua}/bin/stylua";
+      command = getExe pkgs.stylua;
       args = mkLuaInline ''
         function(self, ctx)
           local style = vim.bo[ctx.buf].expandtab and "Spaces" or "Tabs"

@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.millet;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.millet = {
       enable = true;
-      cmd = ["${pkgs.millet}/bin/millet-ls"];
+      cmd = [(getExe pkgs.millet)];
       root_markers = [".git" "millet.toml"];
     };
   };

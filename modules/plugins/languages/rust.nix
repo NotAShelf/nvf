@@ -6,7 +6,7 @@
 }: let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
-  inherit (lib.meta) getExe;
+  inherit (lib.meta) getExe getExe';
   inherit (lib.attrsets) attrNames genAttrs;
   inherit (lib.lists) flatten;
   inherit (lib.generators) mkLuaInline;
@@ -257,7 +257,7 @@ in {
                   mkLuaInline ''
                     {
                       type = "executable",
-                      command = "${pkgs.lldb}/bin/lldb-dap",
+                      command = "${getExe' pkgs.lldb "lldb-dap"}",
                       name = "rustacean_lldb",
                     }''
                 else let

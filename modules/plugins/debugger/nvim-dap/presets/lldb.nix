@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDapPresetEnableOption;
+  inherit (lib.meta) getExe';
 
   cfg = config.vim.debugger.nvim-dap.presets.lldb;
 in {
@@ -20,7 +21,7 @@ in {
   config.vim.debugger.nvim-dap.adapters = mkIf cfg.enable {
     lldb = {
       type = "executable";
-      command = "${pkgs.lldb}/bin/lldb-dap";
+      command = getExe' pkgs.lldb "lldb-dap";
     };
   };
 }

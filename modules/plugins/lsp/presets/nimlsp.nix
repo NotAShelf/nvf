@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.nimlsp;
@@ -20,7 +21,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.nimlsp = {
       enable = true;
-      cmd = ["${pkgs.nimlsp}/bin/nimlsp"];
+      cmd = [(getExe pkgs.nimlsp)];
       root_dir = mkLuaInline ''
         function(bufnr, on_dir)
           local fname = vim.api.nvim_buf_get_name(bufnr)

@@ -7,6 +7,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.stimulus-language-server;
 in {
@@ -20,7 +21,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.stimulus-language-server = {
       enable = true;
-      cmd = ["${inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.stimulus-language-server}/bin/stimulus-language-server" "--stdio"];
+      cmd = [(getExe inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.stimulus-language-server) "--stdio"];
       root_markers = [".git"];
       workspace_required = true;
     };

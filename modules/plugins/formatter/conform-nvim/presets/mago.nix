@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkFormatterPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.formatter.conform-nvim.presets;
 in {
@@ -28,7 +29,7 @@ in {
   config = {
     vim.formatter.conform-nvim.setupOpts.formatters = {
       mago = mkIf cfg.mago.enable {
-        command = "${pkgs.mago}/bin/mago";
+        command = getExe pkgs.mago;
         stdin = true;
         args = [
           "--colors=never"
@@ -37,7 +38,7 @@ in {
         ];
       };
       mago-fix = mkIf cfg.mago-fix.enable {
-        command = "${pkgs.mago}/bin/mago";
+        command = getExe pkgs.mago;
         stdin = true;
         args = [
           "--colors=never"

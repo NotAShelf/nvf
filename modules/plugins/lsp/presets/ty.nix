@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.ty;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.ty = {
       enable = true;
-      cmd = ["${pkgs.ty}/bin/ty" "server"];
+      cmd = [(getExe pkgs.ty) "server"];
       root_markers = [".git"];
     };
   };

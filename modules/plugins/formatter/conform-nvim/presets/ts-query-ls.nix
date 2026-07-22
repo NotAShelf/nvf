@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkFormatterPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.formatter.conform-nvim.presets.ts-query-ls;
 in {
@@ -17,7 +18,7 @@ in {
   config = mkIf cfg.enable {
     vim.formatter.conform-nvim.setupOpts.formatters.ts-query-ls = {
       stdin = false;
-      command = "${pkgs.ts_query_ls}/bin/ts_query_ls";
+      command = getExe pkgs.ts_query_ls;
       args = [
         "format"
         "$FILENAME"

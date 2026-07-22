@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.glsl_analyzer;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.glsl_analyzer = {
       enable = true;
-      cmd = ["${pkgs.glsl_analyzer}/bin/glsl_analyzer"];
+      cmd = [(getExe pkgs.glsl_analyzer)];
       root_markers = [".git"];
     };
   };
