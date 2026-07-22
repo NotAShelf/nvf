@@ -260,7 +260,7 @@ module = {
   # This is wrong!
   key = mkEnableOption "some description" // {
     default = true; # we want this to be inline
-  }; 
+  };
 
   # ...
 }
@@ -273,7 +273,7 @@ a new line. For example:
 module = {
   # This is okay!
   key = mkEnableOption "some description" // {
-    default = true; 
+    default = true;
     example = false;
   };
 
@@ -308,6 +308,57 @@ acceptableList = [
   item2
   # more items if needed...
 ];
+```
+
+#### Naming of External Tools {#sec-code-style-naming-external-tools}
+
+In NVF, we often package or preconfigure external tools. One common example are
+our `presets`, used for LSPs, DAPs, formatters, and linters. When naming
+options, consistency is important, so we've established a set of rules to
+follow.
+
+For our options descriptions, we've established helper functions for creating
+them. All of said helpers, expect a display name. The display name should match
+what the upstream project calls itself, including styling (e.g. `rustfmt`).
+
+##### Compatibility with Other Tools
+
+For many external tools, an equivalent Neovim related registry already exists.
+Even where no Neovim related registry exists, other registries such as nixpkgs
+do. These other registries are messy, and sometimes misrepresent the tools they
+list.
+
+We don't aim for compatibility with their naming. Instead, we stay close to the
+tool's official name, only making minor adjustments where needed for consistency
+within NVF.
+
+##### Adjustments for Consistency
+
+For consistency in option names, the following rules apply:
+
+1. Names are always lowercase.
+1. All special characters are replaced with dashes (`-`).
+
+##### Exceptions
+
+We only deviate from the naming rules above when required for compatibility with
+a tool. For example, `csharpls-extended-lsp-nvim` explicitly searches for
+`csharp_ls`, so the option name is kept matching it instead of being normalized.
+
+##### Examples
+
+```diff
+-vim.formatter.conform-nvim.presets.tofu_fmt
++vim.formatter.conform-nvim.presets.opentofu
+
+-vim.formatter.conform-nvim.presets.terraform_fmt
++vim.formatter.conform-nvim.presets.terraform
+
+-vim.lsp.presets.dartls
++vim.lsp.presets.dart
+
+-vim.lsp.presets.lua_ls
++vim.lsp.presets.lua-language-server
 ```
 
 ## Testing Changes {#sec-testing-changes}
@@ -469,13 +520,13 @@ can add it as a source to be built automatically with just one command. To add a
 new Neovim plugin, use `npins`. For example:
 
 ```bash
-nix-shell -p npins # or nix shell nixpkgs#npins if using flakes
+$ nix-shell -p npins # or nix shell nixpkgs#npins if using flakes
 ```
 
 Then run:
 
 ```bash
-npins add --name <plugin name> github <owner> <repo> -b <branch>
+$ npins add --name <plugin name> github <owner> <repo> -b <branch>
 ```
 
 > [!NOTE]
@@ -483,7 +534,7 @@ npins add --name <plugin name> github <owner> <repo> -b <branch>
 > example
 >
 > ```bash
-> npins add --name lazydev-nvim github folke lazydev.nvim -b main
+> $ npins add --name lazydev-nvim github folke lazydev.nvim -b main
 > ```
 
 Once the `npins` command is done, you can start referencing the plugin as a
@@ -512,7 +563,7 @@ copy everything in the `postInstall` phase.
 ```nix
 {
   # ...
-  
+
   postInstall = ''
     cp -r {lua,plugin} "$out"
 
@@ -522,7 +573,7 @@ copy everything in the `postInstall` phase.
     mkdir -p "$out/target"
     mv "$out/lib" "$out/target/release"
   '';
-  
+
   # ...
 }
 ```
@@ -650,7 +701,7 @@ As you've seen above, `toLuaObject` is used to convert our nix attrSet
    that return specific values as expected by the plugins.
 
    ```nix
-   let 
+   let
      inherit (lib.generators) mkLuaInline;
    in {
       vim.your-plugin.setupOpts = {
