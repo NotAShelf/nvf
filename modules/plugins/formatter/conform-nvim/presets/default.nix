@@ -1,4 +1,10 @@
 {
+  # This stub is for supporting the conform builtin injected formatter
+  options.vim.formatter.conform-nvim.presets.injected = {
+    _type = "option";
+    default = {};
+    internal = true;
+  };
   imports = [
     ./alejandra.nix
     ./asmfmt.nix
