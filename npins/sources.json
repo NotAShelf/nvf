@@ -39,6 +39,22 @@
       "url": "https://github.com/yetone/avante.nvim/archive/0222885dff8ff17def0a78ccdeaf02c32230a55a.tar.gz",
       "hash": "sha256-BwPoJ4XdLrxWv9QfAnLdkZXB5z7hgJ103/JVdm6xpPg="
     },
+    "barbar": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "romgrk",
+        "repo": "barbar.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v1.9.1",
+      "revision": "791123b5a511b8a59713b530a26288b54b22a357",
+      "url": "https://api.github.com/repos/romgrk/barbar.nvim/tarball/refs/tags/v1.9.1",
+      "hash": "sha256-XEHEK2Z97YSS4/flsXSdle/mHKhp6maEg4uXwst88m8="
+    },
     "base16": {
       "type": "Git",
       "repository": {

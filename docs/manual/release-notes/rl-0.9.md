@@ -721,6 +721,7 @@ https://github.com/gorbit99/codewindow.nvim
 [kruziikrel13](https://github.com/kruziikrel13)
 
 - Added persisted as session plugin to vim.session as `vim.session.persisted`
+- Added barbar plugin to vim.tabline as `vim.tabline.barbar`
 
 [Adam0](https://github.com/adam01110):
 
