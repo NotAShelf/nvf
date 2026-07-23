@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.jinja-lsp;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.jinja-lsp = {
       enable = true;
-      cmd = ["${pkgs.jinja-lsp}/bin/jinja-lsp"];
+      cmd = [(getExe pkgs.jinja-lsp)];
       root_markers = [".git"];
     };
   };

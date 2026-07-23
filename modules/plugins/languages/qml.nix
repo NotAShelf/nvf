@@ -16,7 +16,7 @@
   servers = ["qmlls"];
 
   defaultFormat = ["qmlformat"];
-  formats = ["qmlformat"];
+  formats = ["qmlformat" "injected"];
 in {
   options.vim.languages.qml = {
     enable = mkEnableOption "QML language support";

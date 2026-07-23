@@ -16,7 +16,7 @@
   servers = ["svelte-language-server" "emmet-ls"];
 
   defaultFormat = ["prettier"];
-  formats = ["prettier" "biome" "biome-check" "biome-organize-imports" "deno"];
+  formats = ["prettier" "biome" "biome-check" "biome-organize-imports" "deno" "injected"];
 
   defaultDiagnosticsProvider = ["eslint_d"];
   diagnosticsProviders = ["eslint_d"];

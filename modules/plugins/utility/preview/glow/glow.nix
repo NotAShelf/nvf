@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.meta) getExe;
   inherit (lib.types) str;
   inherit (lib.nvim.types) mkPluginSetupOption;
   inherit (config.vim.lib) mkMappingOption;
@@ -21,7 +22,7 @@ in {
       setupOpts = mkPluginSetupOption "glow.nvim" {
         glow_path = mkOption {
           type = str;
-          default = "${pkgs.glow}/bin/glow";
+          default = getExe pkgs.glow;
           example = "glow";
           description = "Path to the glow binary.";
         };

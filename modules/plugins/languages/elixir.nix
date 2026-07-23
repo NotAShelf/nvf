@@ -17,7 +17,7 @@
   servers = ["elixir-ls"];
 
   defaultFormat = ["mix"];
-  formats = ["mix"];
+  formats = ["mix" "injected"];
 in {
   options.vim.languages.elixir = {
     enable = mkEnableOption "Elixir language support";

@@ -19,7 +19,7 @@
   servers = ["jdt-language-server" "jls"];
 
   defaultFormat = ["astyle"];
-  formats = ["astyle"];
+  formats = ["astyle" "injected"];
 
   defaultDebugger = ["jls"];
   dapConfigurations = {

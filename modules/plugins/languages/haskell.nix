@@ -23,7 +23,7 @@
   servers = ["haskell-language-server"];
 
   defaultFormat = ["ormolu"];
-  formats = ["ormolu" "fourmolu" "stylish-haskell" "floskell"];
+  formats = ["ormolu" "fourmolu" "stylish-haskell" "floskell" "injected"];
 
   defaultCabalFormat = ["cabal-fmt"];
   cabalFormats = ["cabal-fmt"];

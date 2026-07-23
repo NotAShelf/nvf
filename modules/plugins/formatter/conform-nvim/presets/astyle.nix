@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkFormatterPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.lua) toLuaObject;
 
@@ -21,7 +22,7 @@ in {
 
   config = mkIf cfg.enable {
     vim.formatter.conform-nvim.setupOpts.formatters.astyle = {
-      command = "${pkgs.astyle}/bin/astyle";
+      command = getExe pkgs.astyle;
       stdin = false;
       options = {
         filetype_mode = {

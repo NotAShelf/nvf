@@ -15,7 +15,7 @@
   servers = ["taplo" "tombi"];
 
   defaultFormat = ["taplo"];
-  formats = ["taplo" "tombi"];
+  formats = ["taplo" "tombi" "injected"];
 
   defaultDiagnosticsProvider = ["tombi"];
   diagnosticsProviders = ["tombi" "taplo"];

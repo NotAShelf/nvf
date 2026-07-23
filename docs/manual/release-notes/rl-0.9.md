@@ -362,6 +362,15 @@
 
 - Split of `zsh` from `languages.bash` into its own language module.
 
+[`injected` formatter]: https://github.com/stevearc/conform.nvim/blob/master/doc/advanced_topics.md#injected-language-formatting-code-blocks
+
+- Add [`injected` formatter] to all language modules, to allow for formatting of
+  injections via conform, like Markdown code blocks or some multiline strings in
+  nix.
+
+- Make `query` injections in `nix` files combined, to fix highlighting problems,
+  when injecting inside multiline strings.
+
 - Telling the `vscode-json-language-server` that `json5` is `jsonc` instead of
   the default fallback of `json`, for more accurate results.
 
@@ -394,6 +403,10 @@
 - Add `emmet-ls` to the supported LSPs for all languages it supports.
 
 - Added `gitlab-ci-ls`.
+
+- Add `ts-query-ls` as a conform.nvim formatter.
+
+- Added formatting to `languages.query`.
 
 - Added `phpantom` LSP preset and into `languages.php`.
 

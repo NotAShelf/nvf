@@ -16,7 +16,7 @@
   servers = ["terraform-ls" "tofu-ls" "docker-language-server"];
 
   defaultFormat = ["hclfmt"];
-  formats = ["hclfmt" "nomad" "opentofu" "terraform"];
+  formats = ["hclfmt" "nomad" "opentofu" "terraform" "injected"];
 in {
   options.vim.languages.hcl = {
     enable = mkEnableOption "HCL support";

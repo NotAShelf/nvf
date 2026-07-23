@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryBefore;
 
@@ -24,7 +25,7 @@ in {
         enable = true;
         cmd = mkLuaInline ''
           {
-            '${pkgs.jdt-language-server}/bin/jdtls',
+            '${getExe pkgs.jdt-language-server}',
             '-configuration',
             get_jdtls_config_dir(),
             '-data',

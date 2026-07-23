@@ -16,7 +16,7 @@
   servers = ["ocaml-lsp"];
 
   defaultFormat = ["ocamlformat"];
-  formats = ["ocamlformat"];
+  formats = ["ocamlformat" "injected"];
 in {
   options.vim.languages.ocaml = {
     enable = mkEnableOption "OCaml language support";

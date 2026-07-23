@@ -16,7 +16,7 @@
   servers = ["jq-lsp"];
 
   defaultFormat = ["jqfmt"];
-  formats = ["jqfmt"];
+  formats = ["jqfmt" "injected"];
 in {
   options.vim.languages.jq = {
     enable = mkEnableOption "JQ support";

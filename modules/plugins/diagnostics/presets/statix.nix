@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.statix;
 in {
@@ -17,6 +18,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    vim.diagnostics.nvim-lint.linters.statix.cmd = "${pkgs.statix}/bin/statix";
+    vim.diagnostics.nvim-lint.linters.statix.cmd = getExe pkgs.statix;
   };
 }

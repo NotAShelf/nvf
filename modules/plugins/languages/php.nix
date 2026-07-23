@@ -18,7 +18,7 @@
   servers = ["phpactor" "phan" "intelephense" "phpantom"];
 
   defaultFormat = ["php-cs-fixer"];
-  formats = ["php-cs-fixer" "mago" "mago-fix"];
+  formats = ["php-cs-fixer" "mago" "mago-fix" "injected"];
 
   defaultDiagnosticsProvider = ["phpstan"];
   diagnosticsProviders = ["phpstan" "mago_lint" "mago_analyze"];

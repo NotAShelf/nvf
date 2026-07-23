@@ -16,7 +16,7 @@
   servers = ["nimlsp"];
 
   defaultFormat = ["nimpretty"];
-  formats = ["nimpretty"];
+  formats = ["nimpretty" "injected"];
 in {
   options.vim.languages.nim = {
     enable = mkEnableOption "Nim language support";

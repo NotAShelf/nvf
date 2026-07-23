@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.marksman;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.marksman = {
       enable = true;
-      cmd = ["${pkgs.marksman}/bin/marksman" "server"];
+      cmd = [(getExe pkgs.marksman) "server"];
       root_markers = [".git" ".marksman.toml"];
     };
   };

@@ -16,7 +16,7 @@
   servers = ["just-lsp"];
 
   defaultFormat = ["just"];
-  formats = ["just"];
+  formats = ["just" "injected"];
 in {
   options.vim.languages.just = {
     enable = mkEnableOption "Just support";

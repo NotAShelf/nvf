@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkFormatterPresetEnableOption;
+  inherit (lib.meta) getExe';
 
   cfg = config.vim.formatter.conform-nvim.presets.clang-format;
 in {
@@ -18,7 +19,7 @@ in {
 
   config = mkIf cfg.enable {
     vim.formatter.conform-nvim.setupOpts.formatters.clang-format = {
-      command = "${pkgs.clang-tools}/bin/clang-format";
+      command = getExe' pkgs.clang-tools "clang-format";
     };
   };
 }

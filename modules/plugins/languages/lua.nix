@@ -17,7 +17,7 @@
   servers = ["lua-language-server"];
 
   defaultFormat = ["stylua"];
-  formats = ["stylua"];
+  formats = ["stylua" "injected"];
 
   defaultDiagnosticsProvider = ["luacheck"];
   diagnosticsProviders = ["luacheck" "selene"];

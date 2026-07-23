@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.roslyn-ls;
@@ -21,7 +22,7 @@ in {
     vim.lsp.servers.roslyn-ls = {
       cmd = mkLuaInline ''
         {
-          '${pkgs.roslyn-ls}/bin/Microsoft.CodeAnalysis.LanguageServer',
+          '${getExe pkgs.roslyn-ls}',
           '--logLevel',
           'Information',
           '--extensionLogDirectory',

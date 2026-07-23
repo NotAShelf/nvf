@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkFormatterPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.formatter.conform-nvim.presets;
 in {
@@ -34,13 +35,13 @@ in {
 
   config.vim.formatter.conform-nvim.setupOpts.formatters = {
     biome = mkIf cfg.biome.enable {
-      command = "${pkgs.biome}/bin/biome";
+      command = getExe pkgs.biome;
     };
     biome-check = mkIf cfg.biome-check.enable {
-      command = "${pkgs.biome}/bin/biome";
+      command = getExe pkgs.biome;
     };
     biome-organize-imports = mkIf cfg.biome-organize-imports.enable {
-      command = "${pkgs.biome}/bin/biome";
+      command = getExe pkgs.biome;
     };
   };
 }

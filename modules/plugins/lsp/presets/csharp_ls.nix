@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.csharp_ls;
@@ -22,7 +23,7 @@ in {
     vim.lsp.servers.csharp_ls = {
       cmd = mkLuaInline ''
         function(dispatchers, config)
-           return vim.lsp.rpc.start({ '${pkgs.csharp-ls}/bin/csharp-ls', '--features', 'razor-support' , '--features', 'metadata-uris'}, dispatchers, {
+           return vim.lsp.rpc.start({ '${getExe pkgs.csharp-ls}', '--features', 'razor-support' , '--features', 'metadata-uris'}, dispatchers, {
             -- csharp-ls attempt to locate sln, slnx or csproj files from cwd, so set cwd to root directory.
             -- If cmd_cwd is provided, use it instead.
             cwd = config.cmd_cwd or config.root_dir,

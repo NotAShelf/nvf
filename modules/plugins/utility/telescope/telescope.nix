@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption literalExpression;
+  inherit (lib.meta) getExe getExe';
   inherit (lib.types) int str listOf float bool either enum submodule attrsOf anything package;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   inherit (config.vim.lib) mkMappingOption;
@@ -14,14 +15,14 @@
     pickers.find_files.find_command = mkOption {
       description = "cmd to use for finding files";
       type = either (listOf str) luaInline;
-      default = ["${pkgs.fd}/bin/fd" "--type=file"];
+      default = [(getExe pkgs.fd) "--type=file"];
     };
 
     defaults = {
       vimgrep_arguments = mkOption {
         type = listOf str;
         default = [
-          "${pkgs.ripgrep}/bin/rg"
+          (getExe pkgs.ripgrep)
           "--color=never"
           "--no-heading"
           "--with-filename"
@@ -40,7 +41,7 @@
 
       pickers.find_command = mkOption {
         type = either (listOf str) luaInline;
-        default = ["${pkgs.fd}/bin/fd"];
+        default = [(getExe pkgs.fd)];
         description = ''
           Command to use for finding files. If using an executable from {env}`PATH` then you must
           make sure that the package is available in {option}`vim.extraPackages`.

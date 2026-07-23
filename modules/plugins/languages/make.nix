@@ -13,7 +13,7 @@
   cfg = config.vim.languages.make;
 
   defaultFormat = ["mbake"];
-  formats = ["mbake"];
+  formats = ["mbake" "injected"];
 
   defaultDiagnosticsProvider = ["checkmake"];
   diagnosticsProviders = ["checkmake"];

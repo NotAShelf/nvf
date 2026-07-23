@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.vue-language-server;
@@ -27,7 +28,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.vue-language-server = {
       enable = true;
-      cmd = ["${pkgs.vue-language-server}/bin/vue-language-server" "--stdio"];
+      cmd = [(getExe pkgs.vue-language-server) "--stdio"];
       root_markers = [".git" "tsconfig.json" "package.json"];
       on_init =
         mkLuaInline

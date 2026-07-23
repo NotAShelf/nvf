@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.pyrefly;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.pyrefly = {
       enable = true;
-      cmd = ["${pkgs.pyrefly}/bin/pyrefly" "lsp"];
+      cmd = [(getExe pkgs.pyrefly) "lsp"];
       root_markers = [".git" "pyrefly.toml"];
     };
   };

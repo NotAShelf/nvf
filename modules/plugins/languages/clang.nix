@@ -43,7 +43,7 @@
   };
 
   defaultFormat = ["clang-format"];
-  formats = ["clang-format" "indent" "astyle"];
+  formats = ["clang-format" "indent" "astyle" "injected"];
 
   defaultDiagnosticsProvider = ["cpplint"];
   diagnosticsProviders = ["cpplint"];

@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.emmet-ls;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.emmet-ls = {
       enable = true;
-      cmd = ["${pkgs.emmet-ls}/bin/emmet-ls" "--stdio"];
+      cmd = [(getExe pkgs.emmet-ls) "--stdio"];
       root_markers = [".git"];
     };
   };

@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.sqruff;
 in {
@@ -18,7 +19,7 @@ in {
 
   config = mkIf cfg.enable {
     vim.diagnostics.nvim-lint.linters.sqruff = {
-      cmd = "${pkgs.sqruff}/bin/sqruff";
+      cmd = getExe pkgs.sqruff;
       args = ["lint" "--format=json" "-"];
     };
   };
