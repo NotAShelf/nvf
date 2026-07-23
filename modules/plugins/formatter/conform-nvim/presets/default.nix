@@ -3,6 +3,7 @@
     ./alejandra.nix
     ./asmfmt.nix
     ./astyle.nix
+    ./bean-format.nix
     ./biome.nix
     ./black.nix
     ./cabal-fmt.nix

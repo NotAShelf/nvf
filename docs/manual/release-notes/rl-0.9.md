@@ -728,4 +728,12 @@ https://github.com/gorbit99/codewindow.nvim
 
 - Add [cord.nvim] plugin in `vim.presence.cord` with `enable` and `setupOpts`
 
+[gmvar](https://github.com/gmvar):
+
+[beancount-language-server]: https://github.com/polarmutex/beancount-language-server
+[bean-format]: https://github.com/beancount/beancount
+
+- Add beancount support under `vim.languages.beancount` using
+  [beancount-language-server] and [bean-format].
+
 <!-- vim: set textwidth=80: -->
