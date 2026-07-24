@@ -146,6 +146,11 @@
 - `prettierd` formatter is dropped entirely in the last few modules, use
   `prettier` instead.
 
+[horriblename](https://github.com/horriblename):
+
+- Change default linter for C/C++ to clangtidy, as it is more common and
+  enforces more rules outside of Google's coding style
+
 [dathegreat](https://github.com/dathegreat):
 
 - Haskell LSP now defaults to haskell-language-server, haskell-tools based LSP
