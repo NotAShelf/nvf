@@ -3053,7 +3053,7 @@
     <details class="toc-category">
       <summary title="vim.diagnostics">
         <span>vim.diagnostics</span>
-        <span class="toc-count">50</span>
+        <span class="toc-count">51</span>
       </summary>
       <ul>
         
@@ -3254,6 +3254,14 @@
         <li>
           <a href='#option-vim.diagnostics.presets.checkmake.enable' title="vim.diagnostics.presets.checkmake.enable">
             presets.checkmake.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.diagnostics.presets.clangtidy.enable' title="vim.diagnostics.presets.clangtidy.enable">
+            presets.clangtidy.enable
             
             
           </a>
@@ -25734,6 +25742,21 @@ accept.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/presets/checkmake.nix" target="_blank">&lt;nvf/modules/plugins/diagnostics/presets/checkmake.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.diagnostics.presets.clangtidy.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.diagnostics.presets.clangtidy.enable" class="option-anchor">vim.diagnostics.presets.clangtidy.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Clang-Tidy Diagnostics Provider.</p>
+<p>Use <code class="nixos-option">vim.diagnostics.nvim-lint.linters.clangtidy</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/presets/clangtidy.nix" target="_blank">&lt;nvf/modules/plugins/diagnostics/presets/clangtidy.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.diagnostics.presets.cpplint.enable">
   <h3 class="option-name">
     <a href="#option-vim.diagnostics.presets.cpplint.enable" class="option-anchor">vim.diagnostics.presets.cpplint.enable</a>
@@ -31422,11 +31445,11 @@ Thus, it will not be wrapped in <code>""</code>.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of value "cpplint" (singular enum)</code></div>
+  <div class="option-type">Type: <code>list of (one of "cpplint", "clangtidy")</code></div>
   <div class="option-description"><html><head></head><body><p>extra C/C++ diagnostics providers</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
-  "cpplint"
+  "clangtidy"
 ]</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/clang.nix" target="_blank">&lt;nvf/modules/plugins/languages/clang.nix&gt;</a></code></div>
 </div>
