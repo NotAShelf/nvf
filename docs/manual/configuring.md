@@ -32,4 +32,5 @@ configuring/dags.md
 configuring/dag-entries.md
 configuring/autocmds.md
 configuring/queries.md
+configuring/lazy.md
 ```
