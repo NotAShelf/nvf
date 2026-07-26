@@ -111,7 +111,16 @@
 <ul><li><a href="#sec-hm-flakes-usage">Usage</a>
 <li><a href="#sec-example-installation-hm">Example Installation</a>
 </ul><li><a href="#sec-hm-flakeless">Without Flakes</a>
-</li></ul></li>
+</ul><li><a href="#ch-lib">Extended Library</a>
+<ul><li><a href="#sec-lib-access">Accessing the Library</a>
+<li><a href="#sec-lib-namespaces">Sub-namespaces</a>
+<ul><li><a href="#sec-lib-dag">lib.nvim.dag</a>
+<li><a href="#sec-lib-binds">lib.nvim.binds</a>
+<li><a href="#sec-lib-lua">lib.nvim.lua</a>
+<li><a href="#sec-lib-languages">lib.nvim.languages</a>
+<li><a href="#sec-lib-lists">lib.nvim.lists</a>
+<li><a href="#sec-lib-attrsets">lib.nvim.attrsets</a>
+</li></ul></li></ul></li>
               </ul>
             </div>
           </details>
@@ -358,6 +367,56 @@ If you are new to NixOS, I encourage you to look into Flakes and see if they fit
 your use case. Alternatively, look into the aforementioned projects for more
 convenient dependency management mechanisms.</p>
 </div>
+<h1 id="ch-lib">Extended Library</h1>
+<p>nvf exposes utility functions under <code>inputs.nvf.lib</code> that are used internally
+and available for use in your own flake modules.</p>
+<h2 id="sec-lib-access">Accessing the Library</h2>
+<p>Two entry points are available:</p>
+<ul>
+<li><strong><code>inputs.nvf.lib.nvim</code></strong>: the nvf utility library, containing all
+sub-namespaces described below.</li>
+<li><strong><code>inputs.nvf.lib.neovimConfiguration</code></strong>: the main function for building a
+standalone Neovim derivation from a set of nvf modules (see
+<a href="#ch-installation">installation</a>).</li>
+</ul>
+<p>Example usage in a flake:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">inputs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">url</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">github:notashelf/nvf</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br><br>&nbsp;&nbsp;<span style="color:rgb(97,175,239);">outputs</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(232,102,113);">nvf</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(232,102,113);">...</span>&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">packages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">x86_64-linux</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">neovim</span>&nbsp;<span style="color:rgb(171,178,191);">=</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">nvf</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">neovimConfiguration</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">pkgs</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(198,120,221);">import</span>&nbsp;<span style="color:rgb(171,178,191);">nixpkgs</span>&nbsp;<span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(86,182,194);">system</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">x86_64-linux</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">modules</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(232,102,113);">./nvf-config.nix</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">)</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">neovim</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
+<h2 id="sec-lib-namespaces">Sub-namespaces</h2>
+<h3 id="sec-lib-dag"><code>lib.nvim.dag</code></h3>
+<p>DAG utilities for ordering configuration sections. Provides <code>entryAnywhere</code>,
+<code>entryAfter</code>, <code>entryBefore</code>, <code>entryBetween</code>, and <code>topoSort</code>. Used internally to
+order Lua configuration chunks and exposed for custom DAG entries via
+<code>vim.luaConfigRC</code>.</p>
+<h3 id="sec-lib-binds"><code>lib.nvim.binds</code></h3>
+<p>Keybinding construction helpers. Provides <code>mkBinding</code>, <code>mkLuaBinding</code>,
+<code>mkExprBinding</code>, <code>mkMappingOption</code>, <code>addDescriptionsToMappings</code>, <code>mkSetBinding</code>,
+<code>mkSetLuaBinding</code>, <code>mkSetExprBinding</code>, <code>pushDownDefault</code>, and <code>mkKeymap</code>.</p>
+<h3 id="sec-lib-lua"><code>lib.nvim.lua</code></h3>
+<p>Nix-to-Lua conversion utilities. Provides <code>toLuaObject</code> for converting Nix
+values to Lua literal strings, <code>isLuaInline</code> for detecting raw-Lua passthrough
+values, and <code>luaTable</code> for building Lua table strings from lists of Lua
+expressions.</p>
+<h3 id="sec-lib-languages"><code>lib.nvim.languages</code></h3>
+<p>Helpers for language module definitions. Provides <code>mkEnable</code> for boolean
+language-feature options, <code>lspOptions</code> as a reusable submodule type for LSP
+server configuration, and <code>diagnosticsToLua</code> for converting diagnostic provider
+lists to DAG entries.</p>
+<h3 id="sec-lib-lists"><code>lib.nvim.lists</code></h3>
+<p>List utilities. Provides <code>listContainsValues</code> for checking that all values in
+one list are present in another.</p>
+<h3 id="sec-lib-attrsets"><code>lib.nvim.attrsets</code></h3>
+<p>Attribute set utilities. Provides <code>mapListToAttrs</code> for mapping a list to an
+attribute set via a <code>{ name; value }</code> mapping function.</p>
+<!--
+
+TODO: do this with ndg, properly
+
+## API Reference {#sec-lib-api-reference}
+
+Type signatures and examples for all library functions are auto-generated from
+source docstrings and available in the lib section of the HTML manual.
+
+-->
 </body></html><!-- markdownlint-enable MD014 --><!-- TODO: mention the built-in flake template here when it is added --></main>
       </div>
 
@@ -386,7 +445,16 @@ convenient dependency management mechanisms.</p>
 <ul><li><a href="#sec-hm-flakes-usage">Usage</a>
 <li><a href="#sec-example-installation-hm">Example Installation</a>
 </ul><li><a href="#sec-hm-flakeless">Without Flakes</a>
-</li></ul></li>
+</ul><li><a href="#ch-lib">Extended Library</a>
+<ul><li><a href="#sec-lib-access">Accessing the Library</a>
+<li><a href="#sec-lib-namespaces">Sub-namespaces</a>
+<ul><li><a href="#sec-lib-dag">lib.nvim.dag</a>
+<li><a href="#sec-lib-binds">lib.nvim.binds</a>
+<li><a href="#sec-lib-lua">lib.nvim.lua</a>
+<li><a href="#sec-lib-languages">lib.nvim.languages</a>
+<li><a href="#sec-lib-lists">lib.nvim.lists</a>
+<li><a href="#sec-lib-attrsets">lib.nvim.attrsets</a>
+</li></ul></li></ul></li>
           </ul>
         </nav>
       </aside>
