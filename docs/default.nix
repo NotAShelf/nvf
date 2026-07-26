@@ -84,6 +84,13 @@
                 url = "https://github.com/NixOS/nixpkgs/blob/master/${decl}";
                 name = "<nixpkgs/lib/modules.nix>";
               }
+              else if lib.hasPrefix (toString inputs.mnw) (toString decl)
+              then let
+                relativePath = lib.removePrefix (toString inputs.mnw + "/") (toString decl);
+              in {
+                url = "https://github.com/Gerg-L/mnw/blob/main/${relativePath}";
+                name = "<mnw/${relativePath}>";
+              }
               else decl
           )
           opt.declarations;

@@ -255,6 +255,17 @@ any plugins you want to load to `vim.startPlugins`. This will load your
 configuration from `~/.config/nvim`. You may still use `vim.*` options in Nix to
 further configure Neovim.
 
+**Q**: What release model does **nvf** use?
+
+**A**: **nvf** primarily follows a rolling release model. The `main` branch
+tracks unstable **nixpkgs** for most of the development cycle. Around major
+**nixpkgs** releases, **nvf** enters a **pre-release phase**. During this time,
+`main` temporarily tracks the corresponding stable **nixpkgs** branch to
+stabilize the upcoming `YY.MM` release. After roughly one to two months, the
+release branch is cut, `main` returns to unstable **nixpkgs**, and development
+of new features continues there. The latest `YY.MM` release receives bug fixes
+and compatibility updates, but no new features.
+
 ## Credits
 
 ### Co-Maintainers
@@ -268,6 +279,7 @@ contributions.
   planned features and quality of life updates.
 - [**@Soliprem**](https://github.com/soliprem) - For rigorously implementing
   missing features and excellent work on new language modules.
+- [**@Snoweuph**](https://github.com/snoweuph)
 
 Please do remember to extend your thanks (financially or otherwise) if this
 project has been helpful to you.
