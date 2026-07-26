@@ -76,39 +76,7 @@
       else plug) (
       filter (f: f != null) plugins
     );
-
-  # Wrap the user's desired (unwrapped) Neovim package with arguments that'll be used to
-  # generate a wrapped Neovim package.
-  neovim-wrapped = inputs.mnw.lib.wrap {inherit pkgs;} {
-    appName = "nvf";
-    neovim = config.vim.package;
-    initLua = config.vim.builtLuaConfigRC;
-    luaFiles = config.vim.extraLuaFiles;
-
-    # Plugin configurations
-    plugins = {
-      start = buildConfigPlugins config.vim.startPlugins;
-      opt = buildConfigPlugins config.vim.optPlugins;
-    };
-
-    # Providers for Neovim
-    providers = {
-      ruby.enable = config.vim.withRuby;
-      nodeJs.enable = config.vim.withNodeJs;
-      python3 = {
-        enable = config.vim.withPython3;
-        extraPackages = ps: (map (flip builtins.getAttr ps) config.vim.python3Packages) ++ [ps.pynvim];
-      };
-    };
-
-    # Aliases to link `nvim` to
-    aliases = lib.optional config.vim.viAlias "vi" ++ lib.optional config.vim.vimAlias "vim";
-
-    # Additional packages or Lua packages to be made available to Neovim
-    extraBinPath = config.vim.extraPackages;
-    extraLuaPackages = ps: map (flip builtins.getAttr ps) config.vim.luaPackages;
-  };
-
+  neovim-wrapped = config.mnw.finalPackage;
   # A store path representing the built Lua configuration.
   dummyInit = pkgs.writeText "nvf-init.lua" config.vim.builtLuaConfigRC;
 
@@ -149,7 +117,36 @@
       };
   };
 in {
-  config.vim.build = {
-    finalPackage = neovim;
+  config = {
+    vim.build.finalPackage = neovim;
+
+    mnw = {
+      appName = lib.mkDefault "nvf";
+      neovim = config.vim.package;
+      initLua = config.vim.builtLuaConfigRC;
+      luaFiles = config.vim.extraLuaFiles;
+
+      # Plugin configurations
+      plugins = {
+        start = buildConfigPlugins config.vim.startPlugins;
+        opt = buildConfigPlugins config.vim.optPlugins;
+      };
+
+      # Providers for Neovim
+      providers = {
+        ruby.enable = config.vim.withRuby;
+        nodeJs.enable = config.vim.withNodeJs;
+        python3 = {
+          enable = config.vim.withPython3;
+          extraPackages = ps: (map (flip builtins.getAttr ps) config.vim.python3Packages) ++ [ps.pynvim];
+        };
+      };
+      # Aliases to link `nvim` to
+      aliases = lib.optional config.vim.viAlias "vi" ++ lib.optional config.vim.vimAlias "vim";
+
+      # Additional packages or Lua packages to be made available to Neovim
+      extraBinPath = config.vim.extraPackages;
+      extraLuaPackages = ps: map (lib.flip builtins.getAttr ps) config.vim.luaPackages;
+    };
   };
 }
