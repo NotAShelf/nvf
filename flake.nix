@@ -180,7 +180,7 @@
 
   inputs = {
     ## Basic Inputs
-    nixpkgs.url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.xz";
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
 
     flake-compat = {
       url = "git+https://git.lix.systems/lix-project/flake-compat.git";
