@@ -87,8 +87,22 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      vim.treesitter = {
+        enable = true;
+        grammars = [cfg.treesitter.package];
+        queries = [
+          # Special comments for some SQL tools
+          {
+            type = "highlights";
+            filetypes = ["sql"];
+            loadtype = "extends";
+            query = ''
+              ((comment) @attribute
+                (#match? @attribute "^--(bun:split| \\+goose)"))
+            '';
+          }
+        ];
+      };
     })
 
     (mkIf cfg.lsp.enable {
