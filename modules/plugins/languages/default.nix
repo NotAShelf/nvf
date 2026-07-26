@@ -1,5 +1,4 @@
 {lib, ...}: let
-  inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.nvim.languages) mkEnable;
 in {
   imports = [
@@ -77,9 +76,6 @@ in {
     ./yaml.nix
     ./zig.nix
     ./zsh.nix
-
-    # This is now a hard deprecation.
-    (mkRenamedOptionModule ["vim" "languages" "enableLSP"] ["vim" "lsp" "enable"])
   ];
 
   options.vim.languages = {

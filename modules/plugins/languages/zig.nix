@@ -11,7 +11,7 @@
   inherit (lib.attrsets) genAttrs;
   inherit (lib.lists) flatten;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.zig;
 
@@ -79,11 +79,7 @@ in {
         };
 
       debugger = mkOption {
-        type =
-          deprecatedSingleOrListOf "vim.languages.zig.dap.debugger"
-          (enumWithRename "vim.languages.zig.dap.debugger" (attrNames dapConfigurations) {
-            lldb-vscode = "lldb";
-          });
+        type = listOf (enum (attrNames dapConfigurations));
         default = defaultDebugger;
         description = "Zig debugger to use";
       };

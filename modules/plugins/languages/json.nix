@@ -6,9 +6,9 @@
 }: let
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum coercedTo listOf;
+  inherit (lib.types) enum listOf;
   inherit (lib) genAttrs;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.json;
 
@@ -17,15 +17,6 @@
 
   defaultFormat = ["jsonfmt"];
   formats = ["jsonfmt" "prettier" "biome" "deno" "injected"];
-
-  formatType =
-    deprecatedSingleOrListOf
-    "vim.languages.json.format.type"
-    (coercedTo (enum ["prettierd"]) (_:
-      lib.warn
-      "vim.languages.json.format.type: prettierd is deprecated, use prettier instead"
-      "prettier")
-    (enum formats));
 in {
   options.vim.languages.json = {
     enable = mkEnableOption "JSON language support";
@@ -51,12 +42,7 @@ in {
         };
 
       servers = mkOption {
-        type = listOf (enumWithRename
-          "vim.languages.json.lsp.servers"
-          servers
-          {
-            jsonls = "vscode-json-language-server";
-          });
+        type = listOf (enum servers);
         default = defaultServers;
         description = "JSON LSP server to use";
       };
@@ -72,7 +58,7 @@ in {
 
       type = mkOption {
         description = "JSON formatter to use";
-        type = formatType;
+        type = listOf (enum formats);
         default = defaultFormat;
       };
     };

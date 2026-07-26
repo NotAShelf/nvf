@@ -6,7 +6,7 @@
 }: let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (lib.types) enum coercedTo listOf;
+  inherit (lib.types) enum listOf;
   inherit (lib.attrsets) genAttrs;
   inherit (lib.nvim.types) mkGrammarOption;
 
@@ -17,11 +17,6 @@
 
   defaultFormat = ["prettier"];
   formats = ["prettier" "biome" "biome-check" "biome-organize-imports" "deno" "injected"];
-  formatType = listOf (coercedTo (enum ["prettierd"]) (_:
-    lib.warn
-    "vim.languages.tsx.format.type: prettierd is deprecated, use prettier instead"
-    "prettier")
-  (enum formats));
 
   defaultDiagnosticsProvider = ["biomejs"];
   diagnosticsProviders = ["biomejs"];
@@ -63,7 +58,7 @@ in {
 
       type = mkOption {
         description = "Typescript XML (TSX) formatter to use";
-        type = formatType;
+        type = listOf (enum formats);
         default = defaultFormat;
       };
     };

@@ -7,7 +7,7 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib) genAttrs;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
+  inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.types) enum listOf;
 
   cfg = config.vim.languages.ruby;
@@ -43,12 +43,7 @@ in {
         };
 
       servers = mkOption {
-        type = listOf (enumWithRename
-          "vim.languages.ruby.lsp.servers"
-          servers
-          {
-            ruby_lsp = "ruby-lsp";
-          });
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Ruby LSP server to use";
       };
@@ -58,7 +53,7 @@ in {
       enable = mkEnableOption "Ruby formatter support" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.ruby.format.type" (enum formats);
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "Ruby formatter to use";
       };

@@ -8,7 +8,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib) genAttrs;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
+  inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.languages.elixir;
@@ -42,12 +42,7 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = listOf (enumWithRename
-          "vim.languages.elixir.lsp.servers"
-          servers
-          {
-            elixirls = "elixir-ls";
-          });
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Elixir LSP server to use";
       };
@@ -57,7 +52,7 @@ in {
       enable = mkEnableOption "Elixir formatting" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.elixir.format.type" (enum formats);
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "Elixir formatter to use";
       };

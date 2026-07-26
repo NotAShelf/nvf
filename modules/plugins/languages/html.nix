@@ -9,7 +9,7 @@
   inherit (lib.types) bool enum listOf;
   inherit (lib) genAttrs;
   inherit (lib.lists) optional;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.languages.html;
@@ -19,8 +19,6 @@
     "superhtml"
     "emmet-ls"
     "stimulus-language-server"
-    # deprecated
-    "angular-language-server"
   ];
 
   defaultFormat = ["superhtml"];
@@ -69,7 +67,7 @@ in {
         };
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.html.format.type" (enum formats);
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "HTML formatter to use";
       };

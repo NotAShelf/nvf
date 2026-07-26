@@ -11,7 +11,7 @@
   inherit (lib.meta) getExe;
   inherit (lib) genAttrs;
   inherit (lib.types) enum package str listOf;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf mkPluginSetupOption;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAfter;
 
   cfg = config.vim.languages.go;
@@ -83,7 +83,7 @@ in {
         };
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.go.format.type" (enum formats);
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "Go formatter to use";
       };

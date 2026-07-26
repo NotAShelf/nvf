@@ -11,8 +11,6 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum package listOf;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) deprecatedSingleOrListOf enumWithRename;
-  inherit (lib.trivial) warn;
 
   cfg = config.vim.languages.python;
 
@@ -20,7 +18,7 @@
   servers = ["pyrefly" "pyright" "basedpyright" "python-lsp-server" "ruff" "ty" "zuban"];
 
   defaultFormat = ["black"];
-  formats = ["black" "isort" "ruff" "ruff-fix" "black-and-isort" "injected"];
+  formats = ["black" "isort" "ruff" "ruff-fix" "injected"];
 
   defaultDebugger = ["debugpy"];
   dapConfigurations = {
@@ -95,15 +93,7 @@ in {
         };
 
       type = mkOption {
-        type =
-          deprecatedSingleOrListOf
-          "vim.languages.python.format.type"
-          (enumWithRename
-            "vim.languages.python.format.type"
-            formats
-            {
-              ruff-check = "ruff-fix";
-            });
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "Python formatters to use";
       };
@@ -119,7 +109,7 @@ in {
         };
 
       debugger = mkOption {
-        type = deprecatedSingleOrListOf "vim.languages.python.dap.debugger" (enum (attrNames dapConfigurations));
+        type = listOf (enum (attrNames dapConfigurations));
         default = defaultDebugger;
         description = "Python debugger to use";
       };
@@ -163,20 +153,10 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.formatter.conform-nvim = let
-        names = flatten (map (type:
-          if type == "black-and-isort"
-          then
-            warn ''
-              vim.languages.python.format.type: "black-and-isort" is deprecated,
-              use `["black" "isort"]` instead.
-            '' ["black" "isort"]
-          else [type])
-        cfg.format.type);
-      in {
+      vim.formatter.conform-nvim = {
         enable = true;
-        presets = genAttrs names (_: {enable = true;});
-        setupOpts.formatters_by_ft.python = names;
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.python = cfg.format.type;
       };
     })
 

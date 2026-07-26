@@ -7,8 +7,8 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib) genAttrs;
-  inherit (lib.types) listOf;
-  inherit (lib.nvim.types) mkGrammarOption enumWithRename;
+  inherit (lib.types) listOf enum;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.vala;
 
@@ -36,12 +36,7 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = listOf (enumWithRename
-          "vim.languages.vala.lsp.servers"
-          servers
-          {
-            vala_ls = "vala-language-server";
-          });
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Vala LSP server to use";
       };

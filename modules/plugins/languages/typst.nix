@@ -9,7 +9,7 @@
   inherit (lib.types) nullOr enum attrsOf listOf str bool int;
   inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.binds) mkKeymap;
@@ -60,7 +60,7 @@ in {
         };
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.typst.format.type" (enum formats);
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "Typst formatter to use";
       };

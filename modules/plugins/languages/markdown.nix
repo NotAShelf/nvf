@@ -9,7 +9,7 @@
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.types) enum listOf str nullOr;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf enumWithRename;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.languages.markdown;
@@ -59,17 +59,7 @@ in {
         };
 
       type = mkOption {
-        type =
-          deprecatedSingleOrListOf
-          "vim.languages.markdown.format.type"
-          (enumWithRename
-            "vim.languages.markdown.format.type"
-            formats
-            {
-              denofmt = "deno";
-              deno_fmt = "deno";
-              prettierd = "prettier";
-            });
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "Markdown formatter to use";
       };

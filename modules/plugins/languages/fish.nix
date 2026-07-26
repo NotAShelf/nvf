@@ -8,7 +8,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum listOf;
   inherit (lib) genAttrs;
-  inherit (lib.nvim.types) mkGrammarOption enumWithRename;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.fish;
 
@@ -53,12 +53,7 @@ in {
           defaultText = literalExpression "config.vim.languages.enableFormat";
         };
       type = mkOption {
-        type = listOf (enumWithRename
-          "vim.languages.fish.format.type"
-          formats
-          {
-            fish_indent = "fish-indent";
-          });
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "Fish formatter to use";
       };

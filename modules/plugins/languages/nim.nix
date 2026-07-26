@@ -8,7 +8,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum listOf;
   inherit (lib) genAttrs;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.nim;
 
@@ -54,7 +54,7 @@ in {
           defaultText = literalExpression "config.vim.languages.enableFormat";
         };
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.nim.format.type" (enum formats);
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "Nim formatter to use";
       };
