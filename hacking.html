@@ -102,6 +102,9 @@
 <ul><li><a href="#building-the-documentation">Building the Documentation</a>
 <li><a href="#formatting-changelog-entries">Formatting Changelog Entries</a>
 <li><a href="#breaking-changes">Breaking Changes</a>
+</ul><li><a href="#sec-backporting">Backporting Changes</a>
+<ul><li><a href="#sec-requesting-backport">Requesting a Backport</a>
+<li><a href="#sec-backport-policy">What May Be Backported</a>
 </ul><li><a href="#sec-additional-plugins">Adding Plugins</a>
 <ul><li><a href="#sec-npins-for-plugins">With npins</a>
 <li><a href="#sec-pkgs-for-plugins">Packaging Complex Plugins</a>
@@ -401,6 +404,39 @@ must create it.</p>
 changed in the codebase and what breakage they may expect upon an update. To be
 comprehensive, you should include migration steps or how users may mitigate
 breakage depending on the context of the change.</p>
+<h2 id="sec-backporting">Backporting Changes</h2>
+<p>Stable releases of <strong>nvf</strong> live on dedicated release branches (e.g. <code>v26.07</code>),
+cut from <code>main</code> when a release is tagged. A release branch is marked with
+<code>"isReleaseBranch": true</code> in <a href="https://github.com/NotAShelf/nvf/blob/main/release.json">release.json</a>, whereas <code>main</code> is the development
+branch and keeps it <code>false</code>. Once a release branch exists, select fixes from
+<code>main</code> may be <em>backported</em> onto it, so that users tracking the stable release
+receive them without also pulling in unreleased changes.</p>
+<h3 id="sec-requesting-backport">Requesting a Backport</h3>
+<p>Backports are handled automatically by the <a href="https://github.com/korthout/backport-action">korthout/backport-action</a> workflow,
+driven by labels. To backport a pull request, apply a label of the form
+<code>backport-&lt;release&gt;</code>, where <code>&lt;release&gt;</code> names the target branch. For example,
+<code>backport-v26.07</code> targets the <code>v26.07</code> branch.</p>
+<p>The label may be applied either before or after the pull request is merged; the
+workflow triggers on both. Once a labelled pull request is merged, a bot opens a
+new pull request cherry-picking the change onto the target branch. If several
+backport labels are present, one backport pull request is opened per target.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the automated cherry-pick fails due to conflicts, the bot reports this on
+the original pull request. The backport must then be performed manually
+against the target branch.</p>
+</div>
+<h3 id="sec-backport-policy">What May Be Backported</h3>
+<p>Release branches are meant to stay stable, so only low-risk changes belong on
+them. As a rule of thumb:</p>
+<ul>
+<li><strong>Acceptable:</strong> bugfixes, security fixes, documentation corrections, and small
+self-contained improvements that do not change behaviour for existing users.</li>
+<li><strong>Not acceptable:</strong> new features, breaking changes, or large refactors. These
+belong on <code>main</code> and ship with the next release.</li>
+</ul>
+<p>When in doubt, target <code>main</code> only and ask a maintainer whether a backport is
+warranted.</p>
 <h2 id="sec-additional-plugins">Adding Plugins</h2>
 <p><strong>nvf</strong> generally tries to avoid using Neovim plugins from Nixpkgs, and thus
 uses one of the two alternative methods where applicable. npins is the faster
@@ -568,6 +604,9 @@ you get it done.</p>
 <ul><li><a href="#building-the-documentation">Building the Documentation</a>
 <li><a href="#formatting-changelog-entries">Formatting Changelog Entries</a>
 <li><a href="#breaking-changes">Breaking Changes</a>
+</ul><li><a href="#sec-backporting">Backporting Changes</a>
+<ul><li><a href="#sec-requesting-backport">Requesting a Backport</a>
+<li><a href="#sec-backport-policy">What May Be Backported</a>
 </ul><li><a href="#sec-additional-plugins">Adding Plugins</a>
 <ul><li><a href="#sec-npins-for-plugins">With npins</a>
 <li><a href="#sec-pkgs-for-plugins">Packaging Complex Plugins</a>
