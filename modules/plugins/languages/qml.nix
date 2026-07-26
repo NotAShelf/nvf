@@ -8,7 +8,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib) genAttrs;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.qml;
 
@@ -53,7 +53,7 @@ in {
         };
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.qml.format.type" (enum formats);
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "QML formatter to use";
       };

@@ -6,9 +6,9 @@
 }: let
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) listOf;
+  inherit (lib.types) listOf enum;
   inherit (lib) genAttrs;
-  inherit (lib.nvim.types) mkGrammarOption enumWithRename;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.r;
 
@@ -40,12 +40,7 @@ in {
         };
 
       servers = mkOption {
-        type = listOf (enumWithRename
-          "vim.languages.r.lsp.servers"
-          servers
-          {
-            r_language_server = "r-languageserver";
-          });
+        type = listOf (enum servers);
         default = defaultServers;
         description = "R LSP server to use";
       };
@@ -60,12 +55,7 @@ in {
         };
 
       type = mkOption {
-        type = listOf (enumWithRename
-          "vim.languages.r.format.type"
-          formats
-          {
-            format_r = "format-r";
-          });
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "R formatter to use";
       };

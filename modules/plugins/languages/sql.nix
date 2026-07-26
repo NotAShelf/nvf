@@ -8,7 +8,6 @@
   inherit (lib) genAttrs;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum package listOf;
-  inherit (lib.nvim.types) deprecatedSingleOrListOf;
 
   cfg = config.vim.languages.sql;
 
@@ -63,7 +62,7 @@ in {
         };
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.sql.format.type" (enum formats);
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "SQL formatter to use";
       };

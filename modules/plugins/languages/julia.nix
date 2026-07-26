@@ -5,10 +5,10 @@
   ...
 }: let
   inherit (lib.options) literalExpression mkEnableOption mkOption;
-  inherit (lib.types) listOf;
+  inherit (lib.types) listOf enum;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib) genAttrs;
-  inherit (lib.nvim.types) mkGrammarOption enumWithRename;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.julia;
 
@@ -37,12 +37,7 @@ in {
             defaultText = literalExpression "config.vim.lsp.enable";
           };
         servers = mkOption {
-          type = listOf (enumWithRename
-            "vim.languages.julia.lsp.servers"
-            servers
-            {
-              julials = "julia-languageserver";
-            });
+          type = listOf (enum servers);
           default = defaultServers;
           description = ''
             Julia LSP Server to Use

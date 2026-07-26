@@ -12,7 +12,7 @@
   inherit (config.vim.lib) mkMappingOption;
   inherit (lib.types) enum listOf;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption enumWithRename luaInline;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption luaInline;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.binds) addDescriptionsToMappings;
@@ -154,11 +154,7 @@ in {
           };
         servers = mkOption {
           description = "C# LSP server to use";
-          type = listOf (enumWithRename
-            "vim.languages.csharp.lsp.servers"
-            servers {
-              roslyn_ls = "roslyn-ls";
-            });
+          type = listOf (enum servers);
           default = defaultServers;
         };
       };

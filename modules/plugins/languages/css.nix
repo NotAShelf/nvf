@@ -7,8 +7,8 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib) genAttrs;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum coercedTo listOf;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
+  inherit (lib.types) enum listOf;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.css;
 
@@ -17,15 +17,6 @@
 
   defaultFormat = ["prettier"];
   formats = ["prettier" "biome" "biome-check" "biome-organize-imports" "deno" "injected"];
-
-  formatType =
-    deprecatedSingleOrListOf
-    "vim.languages.css.format.type"
-    (coercedTo (enum ["prettierd"]) (_:
-      lib.warn
-      "vim.languages.css.format.type: prettierd is deprecated, use prettier instead"
-      "prettier")
-    (enum formats));
 in {
   options.vim.languages.css = {
     enable = mkEnableOption "CSS language support";
@@ -50,12 +41,7 @@ in {
         };
 
       servers = mkOption {
-        type = listOf (enumWithRename
-          "vim.languages.css.lsp.servers"
-          servers
-          {
-            cssls = "vscode-css-language-server";
-          });
+        type = listOf (enum servers);
         default = defaultServer;
         description = "CSS LSP server to use";
       };
@@ -66,7 +52,7 @@ in {
 
       type = mkOption {
         description = "CSS formatter to use";
-        type = formatType;
+        type = listOf (enum formats);
         default = defaultFormat;
       };
     };

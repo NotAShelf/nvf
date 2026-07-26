@@ -8,7 +8,7 @@
   inherit (lib.types) enum listOf;
   inherit (lib) genAttrs;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   defaultServer = ["fsautocomplete"];
   servers = ["fsautocomplete"];
@@ -49,7 +49,7 @@ in {
         enable = mkEnableOption "F# formatting" // {default = config.vim.languages.enableFormat;};
 
         type = mkOption {
-          type = deprecatedSingleOrListOf "vim.language.fsharp.format.type" (enum formats);
+          type = listOf (enum formats);
           default = defaultFormat;
           description = "F# formatter to use";
         };

@@ -6,10 +6,10 @@
 }: let
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib) genAttrs elem;
-  inherit (lib.types) enum bool coercedTo listOf;
+  inherit (lib.attrsets) genAttrs;
+  inherit (lib.types) enum bool listOf;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption enumWithRename;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.languages.typescript;
@@ -20,17 +20,10 @@
     "deno"
     "typescript-go"
     "emmet-ls"
-    # deprecated
-    "angular-language-server"
   ];
 
   defaultFormat = ["prettier"];
   formats = ["prettier" "biome" "biome-check" "biome-organize-imports" "deno" "astyle" "injected"];
-  formatType = listOf (coercedTo (enum ["prettierd"]) (_:
-    lib.warn
-    "vim.languages.typescript.format.type: prettierd is deprecated, use prettier instead"
-    "prettier")
-  (enum formats));
 
   defaultDiagnosticsProvider = ["eslint_d"];
   diagnosticsProviders = ["eslint_d" "biomejs"];
@@ -58,14 +51,7 @@ in {
         };
 
       servers = mkOption {
-        type = listOf (enumWithRename
-          "vim.languages.ts.lsp.servers"
-          servers
-          {
-            ts_ls = "typescript-language-server";
-            denols = "deno";
-            tsgo = "typescript-go";
-          });
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Typescript/Javascript LSP server to use";
       };
@@ -81,7 +67,7 @@ in {
 
       type = mkOption {
         description = "Typescript/Javascript formatter to use";
-        type = formatType;
+        type = listOf (enum formats);
         default = defaultFormat;
       };
     };
@@ -174,24 +160,5 @@ in {
         require("ts-error-translator").setup(${toLuaObject cfg.extensions.ts-error-translator.setupOpts})
       '';
     })
-
-    # Warn the user if they have set the default server name to "tsserver" to match upstream (us)
-    # The name "tsserver" has been deprecated, and now should be called "typescript-language-server".
-    {
-      assertions = [
-        {
-          assertion = cfg.lsp.enable -> !(elem "tsserver" cfg.lsp.servers);
-          message = ''
-            The name `tsserver` has been deprecated, and now should be called `typescript-language-server`.
-            Please set `vim.languages.ts.lsp.server` to `["typescript-language-server" ...]` instead of to `["tsserver" ...]`
-
-            Please see:
-            - <https://github.com/neovim/nvim-lspconfig/pull/3232>
-            - <https://github.com/NotAShelf/nvf/pull/1514>
-            for more details about this change.
-          '';
-        }
-      ];
-    }
   ]);
 }

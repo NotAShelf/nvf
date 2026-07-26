@@ -12,7 +12,6 @@
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryAfter;
-  inherit (lib.nvim.types) deprecatedSingleOrListOf enumWithRename;
 
   cfg = config.vim.languages.clang;
 
@@ -95,11 +94,7 @@ in {
         };
       debugger = mkOption {
         description = "clang debugger to use";
-        type =
-          deprecatedSingleOrListOf "vim.languages.clang.dap.debugger"
-          (enumWithRename "vim.languages.clang.dap.debugger" (attrNames dapConfigurations) {
-            lldb-vscode = "lldb";
-          });
+        type = listOf (enum (attrNames dapConfigurations));
         default = defaultDebugger;
       };
     };

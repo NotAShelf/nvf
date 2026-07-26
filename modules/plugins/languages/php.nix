@@ -10,7 +10,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) flatten;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption enumWithRename;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.php;
 
@@ -75,12 +75,7 @@ in {
 
       type = mkOption {
         description = "PHP formatter to use";
-        type = listOf (enumWithRename
-          "vim.languages.php.format.type"
-          formats
-          {
-            php_cs_fixer = "php-cs-fixer";
-          });
+        type = listOf (enum formats);
         default = defaultFormat;
       };
     };
