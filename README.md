@@ -203,69 +203,6 @@ to contribute, please read the [contributing guide] before submitting a pull
 request. You can also create an issue on the [issue tracker] before submitting a
 pull request if you would like to discuss a feature or bug fix.
 
-## Frequently Asked Questions
-
-[issue template]: https://github.com/NotAShelf/nvf/issues/new/choose
-[list of branches]: https://github.com/NotAShelf/nvf/branches
-[list of open pull requests]: https://github.com/NotAShelf/nvf/pulls
-
-**Q**: What platforms are supported?
-
-**A**: nvf actively supports **Linux and Darwin** platforms using standalone
-Nix, NixOS or Home-Manager. It has been reported that **Android** is also
-supported through the Home-Manager module, or using standalone package. Please
-take a look at the [nvf manual] for available installation instructions.
-
-**Q**: Can you add _X_?
-
-**A**: Maybe! It is not one of our goals to support each and every Neovim
-plugin, however, I am always open to new modules and plugin setup additions to
-**nvf**. Use the appropriate [issue template] and I will consider a module
-addition. As mentioned before, pull requests to add new features are also
-welcome.
-
-**Q**: A plugin I need is not available in **nvf**. What to do?
-
-**A**: **nvf** exposes several APIs for you to be able to add your own plugin
-configurations! Please see the documentation on how you may do this.
-
-**Q**: Main branch is awfully silent, is the project dead?
-
-**A**: No! Sometimes we branch out (e.g. `v0.6`) to avoid breaking userspace and
-work in a separate branch until we make sure the new additions are implemented
-in the most comfortable way possible for the end user. If you have not noticed
-any activity on the main branch, consider taking a look at the
-[list of branches] or the [list of open pull requests]. You may also consider
-_testing_ those release branches to get access to new features ahead of time and
-better prepare for breaking changes.
-
-**Q**: Will you support non-flake installations?
-
-**A**: Quite possibly. **nvf** started as "neovim-flake", which does mean it is
-and will remain flakes-first but we might consider non-flakes compatibility.
-Though keep in mind that **nvf** under non-flake environments would lose
-customizability of plugin inputs, which is one of our primary features.
-
-**Q**: I prefer working with Lua, can I use nvf as a plugin manager while I use
-an imperative path (e.g., `~/.config/nvim`) for my Neovim configuration instead
-of a configuration generated from Nix?
-
-**A**: Yes! Add `"~/.config/nvim"` to `vim.additionalRuntimePaths = [ ... ]` and
-any plugins you want to load to `vim.startPlugins`. This will load your
-configuration from `~/.config/nvim`. You may still use `vim.*` options in Nix to
-further configure Neovim.
-
-**Q**: What release model does **nvf** use?
-
-**A**: **nvf** primarily follows a rolling release model. The `main` branch
-tracks unstable **nixpkgs** for most of the development cycle. Around major
-**nixpkgs** releases, **nvf** enters a **pre-release phase**. During this time,
-`main` temporarily tracks the corresponding stable **nixpkgs** branch to
-stabilize the upcoming `YY.MM` release. After roughly one to two months, the
-release branch is cut, `main` returns to unstable **nixpkgs**, and development
-of new features continues there. The latest `YY.MM` release receives bug fixes
-and compatibility updates, but no new features.
-
 ## Credits
 
 ### Co-Maintainers
