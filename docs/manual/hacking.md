@@ -521,6 +521,48 @@ changed in the codebase and what breakage they may expect upon an update. To be
 comprehensive, you should include migration steps or how users may mitigate
 breakage depending on the context of the change.
 
+## Backporting Changes {#sec-backporting}
+
+[korthout/backport-action]: https://github.com/korthout/backport-action
+[release.json]: https://github.com/NotAShelf/nvf/blob/main/release.json
+
+Stable releases of **nvf** live on dedicated release branches (e.g. `v26.07`),
+cut from `main` when a release is tagged. A release branch is marked with
+`"isReleaseBranch": true` in [release.json], whereas `main` is the development
+branch and keeps it `false`. Once a release branch exists, select fixes from
+`main` may be _backported_ onto it, so that users tracking the stable release
+receive them without also pulling in unreleased changes.
+
+### Requesting a Backport {#sec-requesting-backport}
+
+Backports are handled automatically by the [korthout/backport-action] workflow,
+driven by labels. To backport a pull request, apply a label of the form
+`backport-<release>`, where `<release>` names the target branch. For example,
+`backport-v26.07` targets the `v26.07` branch.
+
+The label may be applied either before or after the pull request is merged; the
+workflow triggers on both. Once a labelled pull request is merged, a bot opens a
+new pull request cherry-picking the change onto the target branch. If several
+backport labels are present, one backport pull request is opened per target.
+
+> [!NOTE]
+> If the automated cherry-pick fails due to conflicts, the bot reports this on
+> the original pull request. The backport must then be performed manually
+> against the target branch.
+
+### What May Be Backported {#sec-backport-policy}
+
+Release branches are meant to stay stable, so only low-risk changes belong on
+them. As a rule of thumb:
+
+- **Acceptable:** bugfixes, security fixes, documentation corrections, and small
+  self-contained improvements that do not change behaviour for existing users.
+- **Not acceptable:** new features, breaking changes, or large refactors. These
+  belong on `main` and ship with the next release.
+
+When in doubt, target `main` only and ask a maintainer whether a backport is
+warranted.
+
 ## Adding Plugins {#sec-additional-plugins}
 
 **nvf** generally tries to avoid using Neovim plugins from Nixpkgs, and thus
