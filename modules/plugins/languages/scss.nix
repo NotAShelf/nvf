@@ -16,7 +16,7 @@
   servers = ["some-sass-language-server" "vscode-css-language-server" "emmet-ls"];
 
   defaultFormat = ["prettier"];
-  formats = ["prettier" "deno"];
+  formats = ["prettier" "deno" "injected"];
 
   formatType = listOf (coercedTo (enum ["prettierd"]) (_:
     lib.warn

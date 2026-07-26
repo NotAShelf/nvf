@@ -16,7 +16,7 @@
   servers = ["typescript-language-server" "deno" "typescript-go" "emmet-ls"];
 
   defaultFormat = ["prettier"];
-  formats = ["prettier" "biome" "biome-check" "biome-organize-imports" "deno"];
+  formats = ["prettier" "biome" "biome-check" "biome-organize-imports" "deno" "injected"];
   formatType = listOf (coercedTo (enum ["prettierd"]) (_:
     lib.warn
     "vim.languages.tsx.format.type: prettierd is deprecated, use prettier instead"

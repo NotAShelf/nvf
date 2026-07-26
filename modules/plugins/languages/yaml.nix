@@ -16,7 +16,7 @@
   servers = ["yaml-language-server" "gitlab-ci-ls"];
 
   defaultFormat = ["prettier"];
-  formats = ["prettier" "deno"];
+  formats = ["prettier" "deno" "injected"];
 in {
   options.vim.languages.yaml = {
     enable = mkEnableOption "YAML language support";

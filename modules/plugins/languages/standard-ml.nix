@@ -16,7 +16,7 @@
   servers = ["millet"];
 
   defaultFormat = ["smlfmt"];
-  formats = ["smlfmt"];
+  formats = ["smlfmt" "injected"];
 in {
   options.vim.languages.standard-ml = {
     enable = mkEnableOption "Standard ML support";

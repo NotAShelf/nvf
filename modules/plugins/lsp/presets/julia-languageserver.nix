@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryBefore;
 
@@ -25,7 +26,7 @@ in {
         root_markers = ["Project.toml" "JuliaProject.toml"];
         cmd = mkLuaInline ''
           {
-            '${pkgs.julia.withPackages ["LanguageServer"]}/bin/julia',
+            '${getExe (pkgs.julia.withPackages ["LanguageServer"])}',
             '--startup-file=no',
             '--history-file=no',
             '-e',

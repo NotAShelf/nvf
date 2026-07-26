@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkFormatterPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.formatter.conform-nvim.presets.nasmfmt;
@@ -19,7 +20,7 @@ in {
 
   config = mkIf cfg.enable {
     vim.formatter.conform-nvim.setupOpts.formatters.nasmfmt = {
-      command = "${pkgs.nasmfmt}/bin/nasmfmt";
+      command = getExe pkgs.nasmfmt;
       args = mkLuaInline ''
         function(self, ctx)
           return {

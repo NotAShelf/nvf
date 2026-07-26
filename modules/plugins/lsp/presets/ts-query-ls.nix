@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.ts-query-ls;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.ts-query-ls = {
       enable = true;
-      cmd = ["${pkgs.ts_query_ls}/bin/ts_query_ls"];
+      cmd = [(getExe pkgs.ts_query_ls)];
     };
   };
 }

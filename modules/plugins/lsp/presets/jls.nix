@@ -7,6 +7,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.jls;
 in {
@@ -20,7 +21,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.jls = {
       enable = true;
-      cmd = ["${inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.jls}/bin/jls"];
+      cmd = [(getExe (inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.jls))];
       root_markers = [
         ".git"
         ".java-version"

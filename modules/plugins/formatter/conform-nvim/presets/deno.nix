@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkFormatterPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.lua) toLuaObject;
 
@@ -41,7 +42,7 @@ in {
 
   config = mkIf cfg.enable {
     vim.formatter.conform-nvim.setupOpts.formatters.deno = {
-      command = "${pkgs.deno}/bin/deno";
+      command = getExe pkgs.deno;
       stdin = true;
       args = mkLuaInline ''
         function(self, ctx)

@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkFormatterPresetEnableOption;
+  inherit (lib.meta) getExe';
 
   cfg = config.vim.formatter.conform-nvim.presets.latexindent;
 in {
@@ -18,7 +19,7 @@ in {
 
   config = mkIf cfg.enable {
     vim.formatter.conform-nvim.setupOpts.formatters.latexindent = {
-      command = "${pkgs.texlive.withPackages (p: [p.latexindent])}/bin/latexindent";
+      command = getExe' (pkgs.texlive.withPackages (p: [p.latexindent])) "latexindent";
     };
   };
 }

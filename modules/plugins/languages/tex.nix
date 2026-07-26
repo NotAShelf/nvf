@@ -15,7 +15,7 @@
   servers = ["texlab"];
 
   defaultFormat = ["tex-fmt"];
-  formats = ["tex-fmt" "latexindent"];
+  formats = ["tex-fmt" "latexindent" "injected"];
 in {
   options.vim.languages.tex = {
     enable = mkEnableOption "TeX language support";

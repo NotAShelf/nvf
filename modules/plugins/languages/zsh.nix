@@ -16,7 +16,7 @@
   servers = ["bash-language-server"];
 
   defaultFormat = ["shfmt"];
-  formats = ["shfmt"];
+  formats = ["shfmt" "injected"];
 in {
   options.vim.languages.zsh = {
     enable = mkEnableOption "Z Shell language support";

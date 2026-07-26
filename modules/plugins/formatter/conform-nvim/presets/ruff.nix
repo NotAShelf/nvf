@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkFormatterPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.formatter.conform-nvim.presets;
@@ -36,7 +37,7 @@ in {
   config = {
     vim.formatter.conform-nvim.setupOpts.formatters = {
       ruff = mkIf cfg.ruff.enable {
-        command = "${pkgs.ruff}/bin/ruff";
+        command = getExe pkgs.ruff;
         stdin = true;
         args = mkLuaInline ''
           function(self, ctx)
@@ -75,7 +76,7 @@ in {
         '';
       };
       ruff-fix = mkIf cfg.ruff-fix.enable {
-        command = "${pkgs.ruff}/bin/ruff";
+        command = getExe pkgs.ruff;
         stdin = true;
         args = [
           "check"
@@ -89,7 +90,7 @@ in {
         ];
       };
       ruff-organize-imports = mkIf cfg.ruff-organize-imports.enable {
-        command = "${pkgs.ruff}/bin/ruff";
+        command = getExe pkgs.ruff;
         stdin = true;
         args = [
           "check"

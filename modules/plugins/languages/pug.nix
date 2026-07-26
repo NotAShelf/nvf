@@ -16,7 +16,7 @@
   servers = ["emmet-ls"];
 
   defaultFormat = ["prettier"];
-  formats = ["prettier"];
+  formats = ["prettier" "injected"];
 in {
   options.vim.languages.pug = {
     enable = mkEnableOption "Pug language support";

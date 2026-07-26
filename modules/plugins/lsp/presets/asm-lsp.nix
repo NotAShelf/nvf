@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.asm-lsp;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.asm-lsp = {
       enable = true;
-      cmd = ["${pkgs.asm-lsp}/bin/asm-lsp"];
+      cmd = [(getExe pkgs.asm-lsp)];
       root_markers = [".git" ".asm-lsp.toml"];
     };
   };

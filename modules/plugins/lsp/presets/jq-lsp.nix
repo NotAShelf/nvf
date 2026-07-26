@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.jq-lsp;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.jq-lsp = {
       enable = true;
-      cmd = ["${pkgs.jq-lsp}/bin/jq-lsp"];
+      cmd = [(getExe pkgs.jq-lsp)];
       root_markers = [".git"];
     };
   };

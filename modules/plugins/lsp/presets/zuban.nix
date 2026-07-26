@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.zuban;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.zuban = {
       enable = true;
-      cmd = ["${pkgs.zuban}/bin/zuban" "server"];
+      cmd = [(getExe pkgs.zuban) "server"];
       root_markers = [".git"];
     };
   };

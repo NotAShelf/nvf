@@ -14,7 +14,7 @@
   servers = ["fsautocomplete"];
 
   defaultFormat = ["fantomas"];
-  formats = ["fantomas"];
+  formats = ["fantomas" "injected"];
 
   cfg = config.vim.languages.fsharp;
 in {

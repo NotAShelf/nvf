@@ -16,7 +16,7 @@
   servers = ["sqls"];
 
   defaultFormat = ["sqlfluff"];
-  formats = ["sqlfluff" "sqruff"];
+  formats = ["sqlfluff" "sqruff" "injected"];
 
   defaultDiagnosticsProvider = ["sqlfluff"];
   diagnosticsProviders = ["sqlfluff" "sqruff"];

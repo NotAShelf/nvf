@@ -17,7 +17,7 @@
   servers = ["marksman" "markdown-oxide" "rumdl"];
 
   defaultFormat = ["deno"];
-  formats = ["deno" "prettier" "rumdl" "mdformat"];
+  formats = ["deno" "prettier" "rumdl" "mdformat" "injected"];
   defaultDiagnosticsProvider = ["markdownlint-cli2"];
   diagnosticsProviders = ["markdownlint-cli2" "rumdl"];
 in {

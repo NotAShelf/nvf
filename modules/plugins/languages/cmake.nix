@@ -16,7 +16,7 @@
   servers = ["neocmakelsp"];
 
   defaultFormat = ["gersemi"];
-  formats = ["gersemi"];
+  formats = ["gersemi" "injected"];
 in {
   options.vim.languages.cmake = {
     enable = mkEnableOption "CMake language support";

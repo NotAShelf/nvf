@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.luacheck;
 in {
@@ -17,6 +18,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    vim.diagnostics.nvim-lint.linters.luacheck.cmd = "${pkgs.luajitPackages.luacheck}/bin/luacheck";
+    vim.diagnostics.nvim-lint.linters.luacheck.cmd = getExe pkgs.luajitPackages.luacheck;
   };
 }

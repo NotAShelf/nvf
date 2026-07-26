@@ -21,7 +21,7 @@
   servers = ["tinymist"];
 
   defaultFormat = ["typstyle"];
-  formats = ["typstyle"];
+  formats = ["typstyle" "injected"];
 in {
   options.vim.languages.typst = {
     enable = mkEnableOption "Typst language support";

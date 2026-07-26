@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.docker-language-server;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.docker-language-server = {
       enable = true;
-      cmd = ["${pkgs.docker-language-server}/bin/docker-language-server" "start" "--stdio"];
+      cmd = [(getExe pkgs.docker-language-server) "start" "--stdio"];
       root_markers = [
         ".git"
         "Dockerfile"

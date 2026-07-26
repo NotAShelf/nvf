@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.just-lsp;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.just-lsp = {
       enable = true;
-      cmd = ["${pkgs.just-lsp}/bin/just-lsp"];
+      cmd = [(getExe pkgs.just-lsp)];
       root_markers = [".git" "Justfile" "justfile"];
     };
   };

@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.rumdl;
 in {
@@ -17,6 +18,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    vim.diagnostics.nvim-lint.linters.rumdl.cmd = "${pkgs.rumdl}/bin/rumdl";
+    vim.diagnostics.nvim-lint.linters.rumdl.cmd = getExe pkgs.rumdl;
   };
 }

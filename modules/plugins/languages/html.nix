@@ -24,7 +24,7 @@
   ];
 
   defaultFormat = ["superhtml"];
-  formats = ["superhtml" "biome" "prettier" "deno"];
+  formats = ["superhtml" "biome" "prettier" "deno" "injected"];
 
   defaultDiagnosticsProvider = ["htmlhint"];
   diagnosticsProviders = ["htmlhint"];

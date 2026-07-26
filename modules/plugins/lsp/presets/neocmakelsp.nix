@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.neocmakelsp;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.neocmakelsp = {
       enable = true;
-      cmd = ["${pkgs.neocmakelsp}/bin/neocmakelsp" "stdio"];
+      cmd = [(getExe pkgs.neocmakelsp) "stdio"];
       root_markers = [".git" ".gersemirc"];
       capabilities = {
         textDocument.completion.completionItem.snippetSupport = true;

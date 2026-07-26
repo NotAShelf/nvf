@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.ols;
@@ -20,7 +21,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.ols = {
       enable = true;
-      cmd = ["${pkgs.ols}/bin/ols"];
+      cmd = [(getExe pkgs.ols)];
       root_dir = mkLuaInline ''
         function(bufnr, on_dir)
           local fname = vim.api.nvim_buf_get_name(bufnr)

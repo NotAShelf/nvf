@@ -43,10 +43,10 @@
   };
 
   defaultFormat = ["clang-format"];
-  formats = ["clang-format" "indent" "astyle"];
+  formats = ["clang-format" "indent" "astyle" "injected"];
 
-  defaultDiagnosticsProvider = ["cpplint"];
-  diagnosticsProviders = ["cpplint"];
+  defaultDiagnosticsProvider = ["clangtidy"];
+  diagnosticsProviders = ["cpplint" "clangtidy"];
 in {
   options.vim.languages.clang = {
     enable = mkEnableOption "C/C++ language support";

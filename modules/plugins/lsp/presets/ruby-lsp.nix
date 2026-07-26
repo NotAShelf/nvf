@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.ruby-lsp;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.ruby-lsp = {
       enable = true;
-      cmd = ["${pkgs.ruby-lsp}/bin/ruby-lsp"];
+      cmd = [(getExe pkgs.ruby-lsp)];
       root_markers = [".git"];
       init_options = {
         formatter = "auto";

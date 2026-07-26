@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkFormatterPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.formatter.conform-nvim.presets.nixfmt-rs;
@@ -19,7 +20,7 @@ in {
 
   config = mkIf cfg.enable {
     vim.formatter.conform-nvim.setupOpts.formatters.nixfmt-rs = {
-      command = "${pkgs.nixfmt-rs}/bin/nixfmt";
+      command = getExe pkgs.nixfmt-rs;
       args = mkLuaInline ''
         function(self, ctx)
           return {"--indent=" .. ctx.shiftwidth}

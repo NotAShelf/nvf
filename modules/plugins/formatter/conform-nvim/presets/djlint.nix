@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkFormatterPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.formatter.conform-nvim.presets.djlint;
@@ -19,7 +20,7 @@ in {
 
   config = mkIf cfg.enable {
     vim.formatter.conform-nvim.setupOpts.formatters.djlint = {
-      command = "${pkgs.djlint}/bin/djlint";
+      command = getExe pkgs.djlint;
       args = mkLuaInline ''
         function(self, ctx)
           return {

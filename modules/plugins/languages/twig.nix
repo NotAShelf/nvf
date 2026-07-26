@@ -16,7 +16,7 @@
   servers = ["twig-language-server" "emmet-ls" "stimulus-language-server"];
 
   defaultFormat = ["djlint"];
-  formats = ["djlint"];
+  formats = ["djlint" "injected"];
 
   defaultDiagnosticsProvider = ["djlint"];
   # TODO: if curlylint gets packaged for nix, add it.

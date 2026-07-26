@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.vhdl-ls;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.vhdl-ls = {
       enable = true;
-      cmd = ["${pkgs.vhdl-ls}/bin/vhdl_ls"];
+      cmd = [(getExe pkgs.vhdl-ls)];
       root_markers = [".git" "vhdl_ls.toml"];
     };
   };

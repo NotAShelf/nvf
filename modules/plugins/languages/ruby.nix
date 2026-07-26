@@ -16,7 +16,7 @@
   servers = ["ruby-lsp" "solargraph" "stimulus-language-server"];
 
   defaultFormat = ["rubocop"];
-  formats = ["rubocop"];
+  formats = ["rubocop" "injected"];
 
   defaultDiagnosticsProvider = ["rubocop"];
   diagnosticsProviders = ["rubocop"];

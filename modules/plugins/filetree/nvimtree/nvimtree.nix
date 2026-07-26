@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib.meta) getExe';
   inherit (lib.generators) mkLuaInline;
   inherit (lib.types) str bool int submodule listOf enum oneOf attrs addCheck;
   inherit (lib.nvim.types) mkPluginSetupOption;
@@ -844,7 +845,7 @@ in {
       trash = mkOption {
         description = "Configuration options for trashing.";
         default = {
-          cmd = "${pkgs.glib}/bin/gio trash";
+          cmd = "${getExe' pkgs.glib "gio"} trash";
         };
 
         type = submodule {

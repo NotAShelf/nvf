@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.gleam;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.gleam = {
       enable = true;
-      cmd = ["${pkgs.gleam}/bin/gleam" "lsp"];
+      cmd = [(getExe pkgs.gleam) "lsp"];
       root_markers = [".git" "gleam.toml"];
     };
   };

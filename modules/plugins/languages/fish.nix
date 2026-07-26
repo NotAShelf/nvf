@@ -16,7 +16,7 @@
   servers = ["fish-lsp"];
 
   defaultFormat = ["fish-indent"];
-  formats = ["fish-indent"];
+  formats = ["fish-indent" "injected"];
 in {
   options.vim.languages.fish = {
     enable = mkEnableOption "Fish language support";

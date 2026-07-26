@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.tofu-ls;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.tofu-ls = {
       enable = true;
-      cmd = ["${pkgs.tofu-ls}/bin/tofu-ls" "serve"];
+      cmd = [(getExe pkgs.tofu-ls) "serve"];
       root_markers = [".git"];
     };
   };

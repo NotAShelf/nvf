@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets;
 in {
@@ -24,10 +25,10 @@ in {
 
   config.vim.diagnostics.nvim-lint.linters = {
     mago_lint = mkIf cfg.mago_lint.enable {
-      cmd = "${pkgs.mago}/bin/mago";
+      cmd = getExe pkgs.mago;
     };
     mago_analyze = mkIf cfg.mago_analyze.enable {
-      cmd = "${pkgs.mago}/bin/mago";
+      cmd = getExe pkgs.mago;
     };
   };
 }

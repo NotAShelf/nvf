@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.fsautocomplete;
@@ -20,7 +21,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.fsautocomplete = {
       enable = true;
-      cmd = ["${pkgs.fsautocomplete}/bin/fsautocomplete" "--adaptive-lsp-server-enabled"];
+      cmd = [(getExe pkgs.fsautocomplete) "--adaptive-lsp-server-enabled"];
       root_dir = mkLuaInline ''
         function(bufnr, on_dir)
           on_dir(vim.fs.root(bufnr, function(name, path)

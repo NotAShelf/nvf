@@ -20,7 +20,7 @@
   servers = ["pyrefly" "pyright" "basedpyright" "python-lsp-server" "ruff" "ty" "zuban"];
 
   defaultFormat = ["black"];
-  formats = ["black" "isort" "ruff" "ruff-fix" "black-and-isort"];
+  formats = ["black" "isort" "ruff" "ruff-fix" "black-and-isort" "injected"];
 
   defaultDebugger = ["debugpy"];
   dapConfigurations = {

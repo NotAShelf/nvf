@@ -6,7 +6,7 @@
 }: let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
-  inherit (lib.meta) getExe;
+  inherit (lib.meta) getExe getExe';
   inherit (lib.attrsets) attrNames genAttrs;
   inherit (lib.lists) flatten;
   inherit (lib.generators) mkLuaInline;
@@ -22,7 +22,7 @@
   defaultServers = ["rust-analyzer"];
 
   defaultFormat = ["rustfmt"];
-  formats = ["rustfmt"];
+  formats = ["rustfmt" "injected"];
 
   defaultDebugger = ["codelldb"];
   dapConfigurations = {
@@ -257,7 +257,7 @@ in {
                   mkLuaInline ''
                     {
                       type = "executable",
-                      command = "${pkgs.lldb}/bin/lldb-dap",
+                      command = "${getExe' pkgs.lldb "lldb-dap"}",
                       name = "rustacean_lldb",
                     }''
                 else let
@@ -416,7 +416,7 @@ in {
       ];
     })
 
-    (mkIf cfg.extensions.crates-nvim.enable {
+    (mkIf cfg.extensions.ferris-nvim.enable {
       vim.lazy.plugins.ferris-nvim = {
         package = "ferris-nvim";
         setupModule = "ferris";

@@ -20,7 +20,7 @@
   servers = ["gopls"];
 
   defaultFormat = ["gofmt"];
-  formats = ["gofmt" "gofumpt" "golines" "goimports"];
+  formats = ["gofmt" "gofumpt" "golines" "goimports" "injected"];
 
   defaultDebugger = "delve";
   debuggers = {
@@ -202,8 +202,7 @@ in {
             query = ''
               ((text) @injection.content
                 (#set! injection.language "${cfg.treesitter.gotmpl.injection}")
-                (#set! injection.combined)
-              )
+                (#set! injection.combined))
             '';
           }
         ];

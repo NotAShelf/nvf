@@ -6,6 +6,7 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.yaml-language-server;
 in {
@@ -19,7 +20,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.yaml-language-server = {
       enable = true;
-      cmd = ["${pkgs.yaml-language-server}/bin/yaml-language-server" "--stdio"];
+      cmd = [(getExe pkgs.yaml-language-server) "--stdio"];
       root_markers = [".git"];
       settings = {
         # https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting
