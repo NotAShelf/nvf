@@ -1,11 +1,16 @@
 name: Backport PR on Label
 
+# Modeled after the backport workflows used by nixpkgs and home-manager, both of
+# which drive korthout/backport-action. See:
+#   https://github.com/NixOS/nixpkgs/blob/master/.github/workflows/backport.yml
+#   https://github.com/nix-community/home-manager/blob/master/.github/workflows/backport.yml
 on:
   pull_request_target:
     types:
+      - closed
       - labeled
 
-# Permissions needed for the korthout/backport-action to create branches and PRs
+# Permissions needed for korthout/backport-action to create branches and PRs.
 permissions:
   contents: write
   pull-requests: write
@@ -14,20 +19,46 @@ jobs:
   backport:
     name: Create Backport PR
     runs-on: ubuntu-latest
+    # Only act on merged PRs. On 'labeled' we additionally require a backport
+    # label; on 'closed' (merge) we backport every backport label already set.
     if: |
-      github.event.pull_request.merged == true && startsWith(github.event.label.name, 'backport-')
+      github.event.pull_request.merged == true
+      && (
+        github.event.action != 'labeled'
+        || startsWith(github.event.label.name, 'backport-')
+      )
     steps:
+      # Prefer a GitHub App token when one is configured, so that CI is
+      # triggered on the created backport PRs. Falls back to GITHUB_TOKEN when
+      # no app is set up (in which case backport PRs won't trigger CI on their
+      # own, a known GITHUB_TOKEN limitation).
+      - name: Create GitHub App token
+        uses: actions/create-github-app-token@v3
+        if: vars.CI_APP_ID
+        id: app-token
+        with:
+          app-id: ${{ vars.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
       - uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-          token: ${{ steps.app-token.outputs.token }}
+          token: ${{ steps.app-token.outputs.token || secrets.GITHUB_TOKEN }}
 
-      - name: Backport Action
+      - name: Create backport PRs
+        id: backport
         uses: korthout/backport-action@v4
         with:
-          # Regex pattern for labels that should trigger a backport AND extracts the target branch
-          # from the name (e.g. v0.x or v0.x.y; we use zerover). This action will ONLY proceed if
-          # the label that triggered the workflow fully matches this pattern.
-          # Example matching labels: "backport-v0.1", "backport-v0.10.1"
-          # Example non-matching labels: "backport-foo", "backport-v1.0"
-          label_pattern: '^backport-(v0\.\d+(\.\d+)?)$'
+          github_token: ${{ steps.app-token.outputs.token || secrets.GITHUB_TOKEN }}
+          # Copy over non-backport labels so the backport PR keeps context.
+          copy_labels_pattern: '^(?!backport-).*$'
+          # Regex for labels that trigger a backport AND extracts the target
+          # branch from the capture group (e.g. "backport-v26.07" targets the
+          # "v26.07" branch). Matches both the historical zerover branches
+          # (backport-v0.8) and CalVer release branches (backport-v26.07,
+          # backport-v26.07.1). The action ONLY proceeds on a full match.
+          #   Matching:     backport-v0.8, backport-v26.07, backport-v26.07.1
+          #   Non-matching: backport-foo, backport-26.07, backport-v1
+          label_pattern: '^backport-(v\d+\.\d+(\.\d+)?)$'
+          pull_description: |-
+            Automated backport of #${pull_number} to `${target_branch}`, triggered by a label.
