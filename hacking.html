@@ -462,21 +462,38 @@ setup options like this:</p>
 own fields!</p>
 <pre class="highlight"><code class="language-nix"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;in&nbsp;user's&nbsp;config</span><br><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">your-plugin</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">setupOpts</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">enable_feature_a</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">number_option</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">4</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">another_field</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">hello</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">size</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;nested&nbsp;fields&nbsp;work&nbsp;as&nbsp;well</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">top</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">10</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span><br></code></pre>
 <h3 id="sec-details-of-toluaobject">Details of <code>toLuaObject</code></h3>
-<p>As you've seen above, <code>toLuaObject</code> is used to convert our nix attrSet
-<code>cfg.setupOpts</code>, into a lua table. Here are some rules of the conversion:</p>
+<p>As you've seen above, <code>toLuaObject</code> is used to convert our <code>cfg.setupOpts</code>, a
+Nix attribute set, into Lua tables across the codebase. Here are some rules of
+the conversion:</p>
 <ol>
 <li>
-<p>Nix <code>null</code> converts to lua <code>nil</code></p>
+<p>Nix <code>null</code> converts to Lua <code>nil</code></p>
+<ul>
+<li><code>foo = null;</code> -&gt; <code>foo = nil</code></li>
+</ul>
 </li>
 <li>
-<p>Number and strings convert to their lua counterparts</p>
+<p>Number and strings convert to their Lua counterparts</p>
 </li>
 <li>
 <p>Nix attribute sets (<code>{}</code>) and lists (<code>[]</code>) convert into Lua dictionaries and
 tables respectively. Here is an example of Nix -&gt; Lua conversion.</p>
 <ul>
-<li><code>{foo = "bar"}</code> -&gt; <code>{["foo"] = "bar"}</code></li>
-<li><code>["foo" "bar"]</code> -&gt; <code>{"foo", "bar"}</code></li>
+<li>
+<p><code>{foo = "bar"}</code> -&gt; <code>{["foo"] = "bar"}</code></p>
+</li>
+<li>
+<p><code>["foo" "bar"]</code> -&gt; <code>{"foo", "bar"}</code></p>
+</li>
+<li>
+<p>You may also write <strong>mixed tables</strong> using <code>toLuaObject</code>, using a special
+syntax to describe a key's position in the table. Let's say you want to get
+something like <code>{"foo", bar = "baz"}</code> expressed in Lua using Nix. The
+appropriate Nix syntax to express mixed tables is as follows:</p>
+<pre class="highlight"><code class="language-nix"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Notice&nbsp;the&nbsp;position&nbsp;indicator,&nbsp;"@1"</span><br><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">@1</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">foo</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(86,182,194);">bar</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">baz</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br></code></pre>
+<p>This will result in a mixed Lua table that is as follows:</p>
+<pre class="highlight"><code class="language-lua"><span style="color:rgb(229,192,123);font-weight: bold;">{</span><span style="color:rgb(152,195,121);">"foo"</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(86,182,194);">bar</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"baz"</span><span style="color:rgb(229,192,123);font-weight: bold;">}</span><br></code></pre>
+</li>
 </ul>
 </li>
 <li>
