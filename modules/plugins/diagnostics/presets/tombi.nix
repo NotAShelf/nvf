@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.tombi;
 in {
   options.vim.diagnostics.presets.tombi = {
-    enable = mkDiagnosticsPresetEnableOption "tombi" "Tombi";
+    enable = mkDiagnosticsPresetEnableOption {
+      option = "tombi";
+      display = "Tombi";
+    };
   };
 
   config = mkIf cfg.enable {

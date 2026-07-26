@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.stylelint;
 in {
   options.vim.diagnostics.presets.stylelint = {
-    enable = mkDiagnosticsPresetEnableOption "stylelint" "Stylelint";
+    enable = mkDiagnosticsPresetEnableOption {
+      option = "stylelint";
+      display = "Stylelint";
+    };
   };
 
   config = mkIf cfg.enable {

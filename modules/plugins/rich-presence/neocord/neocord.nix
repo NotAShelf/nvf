@@ -1,27 +1,8 @@
 {lib, ...}: let
-  inherit (lib.modules) mkRemovedOptionModule mkRenamedOptionModule;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) bool int str enum nullOr listOf;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
-  imports =
-    [
-      (mkRemovedOptionModule ["vim" "presence" "presence-nvim"] ''
-        The option vim.presence.presence-nvim has been deprecated in favor of the new
-        neocord module. Options provided by the plugin remain mostly the same, but manual
-        migration is required.
-
-        Please see neocord documentation and options page on the **nvf** manual
-        for more information
-      '')
-    ]
-    ++ (map
-      (optName: mkRenamedOptionModule ["vim" "presence" "neocord" "rich_presence" optName] ["vim" "presence" "neocord" "setupOpts" optName])
-      ["debounce_timeout" "blacklist" "show_time" "editing_text" "file_explorer_text" "git_commit_text" "plugin_manager_text" "reading_text" "workspace_text" "line_number_text" "terminal_text"])
-    ++ (map
-      (optName: mkRenamedOptionModule ["vim" "presence" "neocord" optName] ["vim" "presence" "neocord" "setupOpts" optName])
-      ["logo" "logo_tooltip" "main_image" "client_id" "log_level" "debounce_timeout" "blacklist" "show_time"]);
-
   options.vim.presence.neocord = {
     enable = mkEnableOption "neocord plugin for discord rich presence";
 

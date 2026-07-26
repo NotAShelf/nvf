@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.htmlhint;
 in {
   options.vim.diagnostics.presets.htmlhint = {
-    enable = mkDiagnosticsPresetEnableOption "htmlhint" "HTMLHint";
+    enable = mkDiagnosticsPresetEnableOption {
+      option = "htmlhint";
+      display = "HTMLHint";
+    };
   };
 
   config = mkIf cfg.enable {

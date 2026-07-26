@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.tofu-ls;
 in {
   options.vim.lsp.presets.tofu-ls = {
-    enable = mkLspPresetEnableOption "tofu-ls" "OpenTofu" [];
+    enable = mkLspPresetEnableOption {
+      option = "tofu-ls";
+      display = "OpenTofu";
+    };
   };
 
   config = mkIf cfg.enable {

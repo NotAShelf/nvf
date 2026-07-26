@@ -4,17 +4,20 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.rubocop;
 in {
   options.vim.diagnostics.presets.rubocop = {
-    enable = mkDiagnosticsPresetEnableOption "rubocop" "RuboCop";
+    enable = mkDiagnosticsPresetEnableOption {
+      option = "rubocop";
+      display = "RuboCop";
+    };
   };
 
   config = mkIf cfg.enable {
-    vim.diagnostics.nvim-lint.linters.rubocop.cmd = getExe pkgs.rubyPackages.rubocop;
+    vim.diagnostics.nvim-lint.linters.rubocop.cmd = getExe pkgs.rubocop;
   };
 }

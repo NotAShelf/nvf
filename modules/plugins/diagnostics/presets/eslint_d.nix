@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.eslint_d;
 in {
   options.vim.diagnostics.presets.eslint_d = {
-    enable = mkDiagnosticsPresetEnableOption "eslint_d" "Eslint Daemon";
+    enable = mkDiagnosticsPresetEnableOption {
+      option = "eslint_d";
+      display = "Eslint Daemon";
+    };
   };
 
   config = mkIf cfg.enable {

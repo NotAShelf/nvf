@@ -4,9 +4,9 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.harper;
   filetypes = [
@@ -38,7 +38,11 @@
   ];
 in {
   options.vim.lsp.presets.harper = {
-    enable = mkLspPresetEnableOption "harper" "Harper" filetypes;
+    enable = mkLspPresetEnableOption {
+      option = "harper";
+      display = "Harper";
+      defaultFiletypes = filetypes;
+    };
   };
 
   config = mkIf cfg.enable {

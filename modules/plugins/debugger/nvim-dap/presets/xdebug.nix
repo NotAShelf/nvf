@@ -5,19 +5,16 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.options) mkEnableOption;
   inherit (lib.meta) getExe;
+  inherit (lib.nvim.types) mkDapPresetEnableOption;
 
   cfg = config.vim.debugger.nvim-dap.presets.xdebug;
 in {
   options.vim.debugger.nvim-dap.presets.xdebug = {
-    enable = mkEnableOption ''
-      adapter configuration for Xdebug.
-      Use {option}`vim.debugger.nvim-dap.adapters.xdebug` for customization.
-
-      A configuration is also needed for your filetype in
-      {option}`vim.debugger.nvim-dap.configurations`
-    '';
+    enable = mkDapPresetEnableOption {
+      option = "xdebug";
+      display = "Xdebug";
+    };
   };
 
   config.vim.debugger.nvim-dap.adapters = mkIf cfg.enable {

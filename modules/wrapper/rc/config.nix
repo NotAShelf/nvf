@@ -4,6 +4,7 @@
   ...
 }: let
   inherit (builtins) map mapAttrs filter;
+  inherit (lib.lists) partition;
   inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.strings) concatLines concatMapStringsSep optionalString;
   inherit (lib.trivial) showWarnings;
@@ -73,9 +74,19 @@ in {
           dag = cfg.luaConfigRC;
           mapResult = result:
             concatLines [
-              (optionalString (cfg.additionalRuntimePaths != []) ''
-                vim.opt.runtimepath:append(${toLuaObject cfg.additionalRuntimePaths})
-              '')
+              (optionalString (cfg.additionalRuntimePaths != []) (let
+                grouped = partition (p: p.position == "prepend") cfg.additionalRuntimePaths;
+                prependPaths = map (p: p.path) grouped.right;
+                appendPaths = map (p: p.path) grouped.wrong;
+              in
+                concatLines [
+                  (optionalString (prependPaths != []) ''
+                    vim.opt.runtimepath:prepend(${toLuaObject prependPaths})
+                  '')
+                  (optionalString (appendPaths != []) ''
+                    vim.opt.runtimepath:append(${toLuaObject appendPaths})
+                  '')
+                ]))
               (optionalString cfg.enableLuaLoader ''
                 if vim.loader then
                   vim.loader.enable()

@@ -3,31 +3,47 @@ name: Backport PR on Label
 on:
   pull_request_target:
     types:
+      - closed
       - labeled
-
-# Permissions needed for the korthout/backport-action to create branches and PRs
-permissions:
-  contents: write
-  pull-requests: write
 
 jobs:
   backport:
     name: Create Backport PR
     runs-on: ubuntu-latest
-    if: |
-      github.event.pull_request.merged == true && startsWith(github.event.label.name, 'backport-')
+    # Only backport, when an MR is just merged that has the correct labels
+    # OR when an already merged MR gets the label for backporting added
+    if: >
+      (
+        github.event.action == 'closed' &&
+        github.event.pull_request.merged == true &&
+        contains(join(github.event.pull_request.labels.*.name, ','), 'backport: ')
+      ) ||
+      (
+        github.event.action == 'labeled' &&
+        github.event.pull_request.merged == true &&
+        startsWith(github.event.label.name, 'backport: ')
+      )
+    # Required permissions for backporting
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
-      - uses: actions/checkout@v6
+      # The backport requires a full git repo to actually work.
+      # This provides it
+      - uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-          token: ${{ steps.app-token.outputs.token }}
-
-      - name: Backport Action
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # As we don't actually execute untrusted code for creating the MR this is fine
+          allow-unsafe-pr-checkout: true
+      - name: Create backport PRs
+        id: backport
         uses: korthout/backport-action@v4
         with:
-          # Regex pattern for labels that should trigger a backport AND extracts the target branch
-          # from the name (e.g. v0.x or v0.x.y; we use zerover). This action will ONLY proceed if
-          # the label that triggered the workflow fully matches this pattern.
-          # Example matching labels: "backport-v0.1", "backport-v0.10.1"
-          # Example non-matching labels: "backport-foo", "backport-v1.0"
-          label_pattern: '^backport-(v0\.\d+(\.\d+)?)$'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Copy all labels that don't start with `backport: `
+          copy_labels_pattern: '^(?!backport: ).*$'
+          # Only backport if there is a label that begins with `backport: `
+          label_pattern: '^backport: (.*)$'
+          pull_description: |-
+            Automated backport of #${pull_number} to `${target_branch}`, triggered by a label.

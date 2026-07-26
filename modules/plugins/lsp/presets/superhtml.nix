@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.superhtml;
 in {
   options.vim.lsp.presets.superhtml = {
-    enable = mkLspPresetEnableOption "superhtml" "SuperHTML" [];
+    enable = mkLspPresetEnableOption {
+      option = "superhtml";
+      display = "SuperHTML";
+    };
   };
 
   config = mkIf cfg.enable {

@@ -10,8 +10,8 @@
   inherit (lib.generators) mkLuaInline;
   inherit (lib.attrsets) genAttrs;
   inherit (lib.lists) flatten;
-  inherit (lib.types) bool enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
+  inherit (lib.types) enum listOf;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.zig;
 
@@ -71,19 +71,15 @@ in {
     };
 
     dap = {
-      enable = mkOption {
-        type = bool;
-        default = config.vim.languages.enableDAP;
-        defaultText = literalExpression "config.vim.languages.enableDAP";
-        description = "Enable Zig Debug Adapter";
-      };
+      enable =
+        mkEnableOption "Zig Debug Adapter"
+        // {
+          default = config.vim.languages.enableDAP;
+          defaultText = literalExpression "config.vim.languages.enableDAP";
+        };
 
       debugger = mkOption {
-        type =
-          deprecatedSingleOrListOf "vim.languages.zig.dap.debugger"
-          (enumWithRename "vim.languages.zig.dap.debugger" (attrNames dapConfigurations) {
-            lldb-vscode = "lldb";
-          });
+        type = listOf (enum (attrNames dapConfigurations));
         default = defaultDebugger;
         description = "Zig debugger to use";
       };

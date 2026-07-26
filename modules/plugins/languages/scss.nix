@@ -4,14 +4,11 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib) genAttrs;
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.scss;
 
@@ -19,15 +16,7 @@
   servers = ["some-sass-language-server" "vscode-css-language-server" "emmet-ls"];
 
   defaultFormat = ["prettier"];
-  formats = {
-    prettier = {
-      command = getExe pkgs.prettier;
-    };
-
-    prettierd = {
-      command = getExe pkgs.prettierd;
-    };
-  };
+  formats = ["prettier" "deno" "injected"];
 
   defaultDiagnosticsProvider = ["stylelint"];
   diagnosticsProviders = ["stylelint"];
@@ -69,7 +58,7 @@ in {
         };
       type = mkOption {
         description = "SCSS/SASS formatter to use";
-        type = listOf (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
       };
     };
@@ -110,15 +99,10 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.scss = cfg.format.type;
-          formatters_by_ft.sass = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft = {
+          scss = cfg.format.type;
+          sass = cfg.format.type;
         };
       };
     })

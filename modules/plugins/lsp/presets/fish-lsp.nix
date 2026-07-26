@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.fish-lsp;
 in {
   options.vim.lsp.presets.fish-lsp = {
-    enable = mkLspPresetEnableOption "fish-lsp" "Fish" [];
+    enable = mkLspPresetEnableOption {
+      option = "fish-lsp";
+      display = "Fish";
+    };
   };
 
   config = mkIf cfg.enable {

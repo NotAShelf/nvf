@@ -12,6 +12,10 @@
         type = enum ["injections" "highlights" "folds" "locals" "indents"];
         description = "The kind of query to register.";
       };
+      loadtype = mkOption {
+        type = enum ["overwrite" "extends"];
+        description = "Define how this query should be loaded";
+      };
       filetypes = mkOption {
         type = listOf str;
         default = [];
@@ -20,12 +24,10 @@
       query = mkOption {
         type = lines;
         description = "The queries scm script.";
+        # Syntactica doesnt support `query` so we patch it with the closest it does,
+        # which is `haskell` :bwaa:
         example = literalMD ''
-          ```nix
-          {
-            query = '''
-              ;; extends
-
+          ```haskell
               ((apply_expression
                 function: (variable_expression
                   name: (identifier) @_func
@@ -36,8 +38,6 @@
 
                 (#set! injection.language "lua")
                 (#set! injection.combined)))
-            ''';
-          }
           ```
         '';
       };
@@ -49,6 +49,11 @@ in {
 
     fold = mkEnableOption "fold with treesitter";
     autotagHtml = mkEnableOption "autoclose and rename html tag";
+
+    vendorCLI = mkEnableOption ''
+      bundling the treesitter CLI.
+      This is required to compile and install custom parsers outside the nix configuration.
+    '';
 
     grammars = mkOption {
       type = listOf (nullOr package);
@@ -134,6 +139,23 @@ in {
       type = listOf queriesType;
       default = [];
       description = "A list of Neovim treesitter queries to be registered.";
+      example = [
+        {
+          type = "injections";
+          filetypes = ["nix"];
+          loadtype = "extends";
+          query = ''
+            (apply_expression
+              function: (variable_expression
+                name: (identifier) @_func
+                (#eq? @_func "mkLuaInline"))
+              argument: (indented_string_expression
+                (string_fragment) @injection.content)
+              (#set! injection.language "lua")
+              (#set! injection.combined))
+          '';
+        }
+      ];
     };
 
     filetypeMappings = mkOption {

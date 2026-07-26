@@ -4,16 +4,19 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryBefore;
 
   cfg = config.vim.lsp.presets.julia-languageserver;
 in {
   options.vim.lsp.presets.julia-languageserver = {
-    enable = mkLspPresetEnableOption "julia-languageserver" "Julia" [];
+    enable = mkLspPresetEnableOption {
+      option = "julia-languageserver";
+      display = "Julia";
+    };
   };
 
   config = mkIf cfg.enable {

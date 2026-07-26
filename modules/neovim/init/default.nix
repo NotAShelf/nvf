@@ -6,6 +6,7 @@
     ./debug.nix
     ./diagnostics.nix
     ./filetype.nix
+    ./healthcheck.nix
     ./highlight.nix
     ./lsp.nix
     ./mappings.nix

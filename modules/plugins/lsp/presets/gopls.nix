@@ -4,15 +4,18 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.gopls;
 in {
   options.vim.lsp.presets.gopls = {
-    enable = mkLspPresetEnableOption "gopls" "Go" [];
+    enable = mkLspPresetEnableOption {
+      option = "gopls";
+      display = "Go";
+    };
   };
 
   config = mkIf cfg.enable {

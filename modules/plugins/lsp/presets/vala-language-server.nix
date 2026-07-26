@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.vala-language-server;
 in {
   options.vim.lsp.presets.vala-language-server = {
-    enable = mkLspPresetEnableOption "vala-language-server" "Vala" [];
+    enable = mkLspPresetEnableOption {
+      option = "vala-language-server";
+      display = "Vala";
+    };
   };
 
   config = mkIf cfg.enable {

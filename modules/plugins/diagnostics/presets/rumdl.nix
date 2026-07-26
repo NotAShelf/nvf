@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.rumdl;
 in {
   options.vim.diagnostics.presets.rumdl = {
-    enable = mkDiagnosticsPresetEnableOption "rumdl" "Rumdl";
+    enable = mkDiagnosticsPresetEnableOption {
+      option = "rumdl";
+      display = "Rumdl";
+    };
   };
 
   config = mkIf cfg.enable {

@@ -1,8 +1,8 @@
 {lib, ...}: let
-  inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.nvim.languages) mkEnable;
 in {
   imports = [
+    ./angular.nix
     ./arduino.nix
     ./asm.nix
     ./astro.nix
@@ -50,6 +50,7 @@ in {
     ./pug.nix
     ./python.nix
     ./qml.nix
+    ./query.nix
     ./r.nix
     ./ruby.nix
     ./rust.nix
@@ -74,9 +75,7 @@ in {
     ./xml.nix
     ./yaml.nix
     ./zig.nix
-
-    # This is now a hard deprecation.
-    (mkRenamedOptionModule ["vim" "languages" "enableLSP"] ["vim" "lsp" "enable"])
+    ./zsh.nix
   ];
 
   options.vim.languages = {

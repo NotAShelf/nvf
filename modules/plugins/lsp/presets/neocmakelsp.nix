@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.neocmakelsp;
 in {
   options.vim.lsp.presets.neocmakelsp = {
-    enable = mkLspPresetEnableOption "neocmakelsp" "NeoCmake" [];
+    enable = mkLspPresetEnableOption {
+      option = "neocmakelsp";
+      display = "Neo CMake";
+    };
   };
 
   config = mkIf cfg.enable {

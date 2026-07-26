@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.asm-lsp;
 in {
   options.vim.lsp.presets.asm-lsp = {
-    enable = mkLspPresetEnableOption "asm-lsp" "Assembly" [];
+    enable = mkLspPresetEnableOption {
+      option = "asm-lsp";
+      display = "Assembly";
+    };
   };
 
   config = mkIf cfg.enable {

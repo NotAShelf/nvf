@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.phpstan;
 in {
   options.vim.diagnostics.presets.phpstan = {
-    enable = mkDiagnosticsPresetEnableOption "phpstan" "PHPStan";
+    enable = mkDiagnosticsPresetEnableOption {
+      option = "phpstan";
+      display = "PHPStan";
+    };
   };
 
   config = mkIf cfg.enable {

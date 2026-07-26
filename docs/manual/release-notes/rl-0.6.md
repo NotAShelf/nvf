@@ -177,6 +177,6 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
 - Made Treesitter options configurable, and moved treesitter-context to
   `setupOpts` while it is enabled.
 
-- Added {option}`vim.notify.nvim-notify.setupOpts.render` which takes either a
-  string of enum, or a Lua function. The default is "compact", but you may
-  change it according to nvim-notify documentation.
+- Added `vim.notify.nvim-notify.setupOpts.render` which takes either a string of
+  enum, or a Lua function. The default is "compact", but you may change it
+  according to nvim-notify documentation.

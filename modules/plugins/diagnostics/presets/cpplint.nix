@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.cpplint;
 in {
   options.vim.diagnostics.presets.cpplint = {
-    enable = mkDiagnosticsPresetEnableOption "cpplint" "cpplint";
+    enable = mkDiagnosticsPresetEnableOption {
+      option = "cpplint";
+      display = "Cpplint";
+    };
   };
 
   config = mkIf cfg.enable {

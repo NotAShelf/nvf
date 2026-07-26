@@ -4,15 +4,18 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.nimlsp;
 in {
   options.vim.lsp.presets.nimlsp = {
-    enable = mkLspPresetEnableOption "nimlsp" "Nim" [];
+    enable = mkLspPresetEnableOption {
+      option = "nimlsp";
+      display = "Nim";
+    };
   };
 
   config = mkIf cfg.enable {

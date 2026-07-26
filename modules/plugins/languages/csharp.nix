@@ -5,28 +5,23 @@
   options,
   ...
 }: let
-  inherit (builtins) elem filter attrNames;
-  inherit (lib) genAttrs getExe;
+  inherit (builtins) elem;
+  inherit (lib) genAttrs;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (config.vim.lib) mkMappingOption;
   inherit (lib.types) enum listOf;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption enumWithRename luaInline;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption luaInline;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.binds) addDescriptionsToMappings;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   defaultServers = ["csharp_ls"];
   servers = ["csharp_ls" "omnisharp" "roslyn-ls"];
 
   defaultFormat = [];
-  formats = {
-    csharpier = {
-      command = getExe pkgs.csharpier;
-    };
-  };
+  formats = ["csharpier" "astyle" "injected"];
 
   # Verbose names for clarity.
   shouldEnableExclusiveLspExtension = extension: lsp: cfg.lsp.enable && cfg.extensions.${extension}.enable && (elem lsp cfg.lsp.servers);
@@ -159,11 +154,7 @@ in {
           };
         servers = mkOption {
           description = "C# LSP server to use";
-          type = listOf (enumWithRename
-            "vim.languages.csharp.lsp.servers"
-            servers {
-              roslyn_ls = "roslyn-ls";
-            });
+          type = listOf (enum servers);
           default = defaultServers;
         };
       };
@@ -178,7 +169,7 @@ in {
 
         type = mkOption {
           description = "C# formatter to use";
-          type = listOf (enum (attrNames formats));
+          type = listOf (enum formats);
           default = defaultFormat;
         };
       };
@@ -214,15 +205,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.cs = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            (filter (name: name != "lsp") cfg.format.type);
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.cs = cfg.format.type;
       };
     })
 

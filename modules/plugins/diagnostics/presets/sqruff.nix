@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.sqruff;
 in {
   options.vim.diagnostics.presets.sqruff = {
-    enable = mkDiagnosticsPresetEnableOption "sqruff" "Sqruff";
+    enable = mkDiagnosticsPresetEnableOption {
+      option = "sqruff";
+      display = "Sqruff";
+    };
   };
 
   config = mkIf cfg.enable {

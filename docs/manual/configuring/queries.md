@@ -26,19 +26,16 @@ in {
   vim.treesitter.queries = [{
     type = "injections";
     filetypes = ["nix"];
+    loadtype = "extends";
     query = ''
-      ;; extends
-
-      ((apply_expression
+      (apply_expression
         function: (variable_expression
           name: (identifier) @_func
           (#eq? @_func "mkLuaInline"))
-
         argument: (indented_string_expression
           (string_fragment) @injection.content)
-
         (#set! injection.language "lua")
-        (#set! injection.combined)))
+        (#set! injection.combined))
     '';
   }];
 }

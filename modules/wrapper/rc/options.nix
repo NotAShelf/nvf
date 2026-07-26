@@ -1,7 +1,25 @@
 {lib, ...}: let
   inherit (lib.options) mkOption literalMD literalExpression;
-  inherit (lib.types) str bool int enum attrsOf lines listOf either path submodule anything;
+  inherit (lib.types) str bool int enum attrsOf lines listOf oneOf either path submodule anything;
   inherit (lib.nvim.types) dagOf;
+  inherit (lib) isString isPath isDerivation;
+
+  runtimePathType = submodule {
+    options = {
+      path = mkOption {
+        type = either path str;
+        description = "Path to add into the runtime path";
+      };
+
+      position = mkOption {
+        type = enum ["append" "prepend"];
+        default = "prepend";
+        description = ''
+          Decides whether the path should be appended or prepended into the runtime path.
+        '';
+      };
+    };
+  };
 in {
   options.vim = {
     enableLuaLoader = mkOption {
@@ -29,7 +47,19 @@ in {
     };
 
     additionalRuntimePaths = mkOption {
-      type = listOf (either path str);
+      type = listOf (oneOf [path str runtimePathType]);
+      apply = map (p:
+        if isPath p || isString p
+        then {
+          path = p;
+          position = "append";
+        }
+        else if isDerivation p
+        then {
+          path = p.out;
+          position = "append";
+        }
+        else p);
       default = [];
       example = literalExpression ''
         [
@@ -50,13 +80,17 @@ in {
       '';
 
       description = ''
-        Additional runtime paths that will be appended to the active
+        Additional runtime paths that will be appended or prepended to the active
         runtimepath of the Neovim. This can be used to add additional
         lookup paths for configs, plugins, spell languages and other
         things you would generally place in your {file}`$HOME/.config/nvim`.
 
         This is meant as a declarative alternative to throwing files into
         {file}`~/.config/nvim` and having the Neovim wrapper pick them up.
+
+        > [!NOTE]
+        > When not explicitly defining a position via the attribute set,
+        > nvf defaults to appending.
 
         For more details on `vim.o.runtimepath`, and what paths to use, please see
         [the official documentation](https://neovim.io/doc/user/options.html#'runtimepath').

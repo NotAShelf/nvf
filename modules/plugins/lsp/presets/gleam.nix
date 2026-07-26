@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.gleam;
 in {
   options.vim.lsp.presets.gleam = {
-    enable = mkLspPresetEnableOption "gleam" "Gleam" [];
+    enable = mkLspPresetEnableOption {
+      option = "gleam";
+      display = "Gleam";
+    };
   };
 
   config = mkIf cfg.enable {

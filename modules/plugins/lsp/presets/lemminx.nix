@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.lemminx;
 in {
   options.vim.lsp.presets.lemminx = {
-    enable = mkLspPresetEnableOption "lemminx" "Lemminx" [];
+    enable = mkLspPresetEnableOption {
+      option = "lemminx";
+      display = "Lemminx";
+    };
   };
 
   config = mkIf cfg.enable {

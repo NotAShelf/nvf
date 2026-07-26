@@ -8,33 +8,20 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib) genAttrs;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum listOf;
   inherit (lib.lists) flatten;
+  inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.php;
 
   defaultServers = ["phpactor"];
   servers = ["phpactor" "phan" "intelephense" "phpantom"];
 
-  defaultFormat = ["php_cs_fixer"];
-  formats = {
-    php_cs_fixer = {
-      /*
-      Using 8.4 instead of 8.5 because of compatibility:
-      ```logs
-      2026-02-08 00:42:23[ERROR] Formatter 'php_cs_fixer' error: PHP CS Fixer 3.87.2
-      PHP runtime: 8.5.2
-      PHP CS Fixer currently supports PHP syntax only up to PHP 8.4, current PHP version: 8.5.2.
-      ```
-      */
-      command = "${pkgs.php84Packages.php-cs-fixer}/bin/php-cs-fixer";
-    };
-  };
+  defaultFormat = ["php-cs-fixer"];
+  formats = ["php-cs-fixer" "mago" "mago-fix" "injected"];
 
   defaultDiagnosticsProvider = ["phpstan"];
-  diagnosticsProviders = ["phpstan"];
+  diagnosticsProviders = ["phpstan" "mago_lint" "mago_analyze"];
 
   defaultDebugger = ["xdebug"];
   dapConfigurations = {
@@ -88,7 +75,7 @@ in {
 
       type = mkOption {
         description = "PHP formatter to use";
-        type = listOf (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
       };
     };
@@ -142,15 +129,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.php = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.php = cfg.format.type;
       };
     })
 

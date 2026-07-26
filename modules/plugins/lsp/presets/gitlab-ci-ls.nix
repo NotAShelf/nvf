@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.gitlab-ci-ls;
 in {
   options.vim.lsp.presets.gitlab-ci-ls = {
-    enable = mkLspPresetEnableOption "gitlab-ci-ls" "GitLab CI" [];
+    enable = mkLspPresetEnableOption {
+      option = "gitlab-ci-ls";
+      display = "GitLab CI";
+    };
   };
 
   config = mkIf cfg.enable {

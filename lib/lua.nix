@@ -89,38 +89,31 @@
       builtins.typeOf args
     }
     or (builtins.throw "Could not convert object of type `${builtins.typeOf args}` to lua object");
-in
-  {
-    inherit isLuaInline toLuaObject;
+in {
+  inherit isLuaInline toLuaObject;
 
-    /**
-    Convert a list of Lua expression strings into a Lua table string.
+  /**
+  Convert a list of Lua expression strings into a Lua table string.
 
-    Each element is wrapped with `mkLuaInline` before conversion so that
-    strings are treated as raw Lua rather than quoted string literals.
+  Each element is wrapped with `mkLuaInline` before conversion so that
+  strings are treated as raw Lua rather than quoted string literals.
 
-    # Type
+  # Type
 
-    ```
-    luaTable :: [String] -> String
-    ```
+  ```
+  luaTable :: [String] -> String
+  ```
 
-    # Arguments
+  # Arguments
 
-    - `x`: List of Lua expression strings.
+  - `x`: List of Lua expression strings.
 
-    # Example
+  # Example
 
-    ```nix
-    luaTable [ "vim.fn.getcwd()" "vim.fn.expand('%')" ]
-    => ''{vim.fn.getcwd(),\nvim.fn.expand('%')}''
-    ```
-    */
-    luaTable = x: (toLuaObject (map lib.mkLuaInline x));
-  }
-  // lib.genAttrs [
-    "nullString"
-    "expToLua"
-    "listToLuaTable"
-    "attrsetToLuaTable"
-  ] (name: builtins.throw "${name} is deprecated use toLuaObject instead")
+  ```nix
+  luaTable [ "vim.fn.getcwd()" "vim.fn.expand('%')" ]
+  => ''{vim.fn.getcwd(),\nvim.fn.expand('%')}''
+  ```
+  */
+  luaTable = x: (toLuaObject (map lib.mkLuaInline x));
+}

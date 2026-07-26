@@ -4,16 +4,19 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.csharp_ls;
 in {
   # HACK: this server should be named `csharp-ls`, but the extension `csharpls-extended-lsp-nvim` only works if it is named `csharp_ls`
   options.vim.lsp.presets.csharp_ls = {
-    enable = mkLspPresetEnableOption "csharp_ls" "C#" [];
+    enable = mkLspPresetEnableOption {
+      option = "csharp_ls";
+      display = "C#";
+    };
   };
 
   config = mkIf cfg.enable {

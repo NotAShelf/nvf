@@ -4,15 +4,18 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.nushell;
 in {
   options.vim.lsp.presets.nushell = {
-    enable = mkLspPresetEnableOption "nushell" "NuShell" [];
+    enable = mkLspPresetEnableOption {
+      option = "nushell";
+      display = "NuShell";
+    };
   };
 
   config = mkIf cfg.enable {

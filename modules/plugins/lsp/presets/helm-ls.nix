@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.helm-ls;
 in {
   options.vim.lsp.presets.helm-ls = {
-    enable = mkLspPresetEnableOption "helm-ls" "Helm" [];
+    enable = mkLspPresetEnableOption {
+      option = "helm-ls";
+      display = "Helm";
+    };
   };
 
   config = mkIf cfg.enable {

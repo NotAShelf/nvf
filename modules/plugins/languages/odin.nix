@@ -11,7 +11,7 @@
   inherit (lib.attrsets) genAttrs;
   inherit (lib.lists) flatten;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.odin;
 
@@ -78,11 +78,7 @@ in {
 
       debugger = mkOption {
         description = "Odin debugger to use";
-        type =
-          deprecatedSingleOrListOf "vim.languages.clang.dap.debugger"
-          (enumWithRename "vim.languages.clang.dap.debugger" (attrNames dapConfigurations) {
-            codelldb = "lldb";
-          });
+        type = listOf (enum (attrNames dapConfigurations));
 
         default = defaultDebugger;
       };

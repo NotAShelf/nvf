@@ -4,16 +4,19 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe';
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe';
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.dag) entryBefore;
 
   cfg = config.vim.lsp.presets.pyright;
 in {
   options.vim.lsp.presets.pyright = {
-    enable = mkLspPresetEnableOption "pyright" "Pyright" [];
+    enable = mkLspPresetEnableOption {
+      option = "pyright";
+      display = "Pyright";
+    };
   };
 
   config = mkIf cfg.enable {

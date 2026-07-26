@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.taplo;
 in {
   options.vim.lsp.presets.taplo = {
-    enable = mkLspPresetEnableOption "taplo" "Taplo" [];
+    enable = mkLspPresetEnableOption {
+      option = "taplo";
+      display = "Taplo";
+    };
   };
 
   config = mkIf cfg.enable {

@@ -11,12 +11,15 @@
   inherit (lib.lists) flatten;
   inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline toPretty;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf enumWithRename;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
 
   cfg = config.vim.languages.java;
 
   defaultServers = ["jdt-language-server"];
   servers = ["jdt-language-server" "jls"];
+
+  defaultFormat = ["astyle"];
+  formats = ["astyle" "injected"];
 
   defaultDebugger = ["jls"];
   dapConfigurations = {
@@ -38,7 +41,15 @@
               "*/*/src/main/java",
               "*/*/*/src/main/java",
             }) do
-              vim.list_extend(matches, vim.fn.glob(pattern, true, true))
+              vim.list_extend(
+                matches,
+                vim.tbl_map(
+                  function(path)
+                    return vim.fn.fnamemodify(path, ":p")
+                  end,
+                  vim.fn.glob(pattern, true, true)
+                )
+              )
             end
 
             return matches
@@ -92,14 +103,24 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = listOf (enumWithRename
-          "vim.languages.java.lsp.servers"
-          servers
-          {
-            jdtls = "jdt-language-server";
-          });
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Java LSP server to use";
+      };
+    };
+
+    format = {
+      enable =
+        mkEnableOption "Java formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
+
+      type = mkOption {
+        type = listOf (enum formats);
+        default = defaultFormat;
+        description = "Java formatter to use";
       };
     };
 
@@ -112,9 +133,7 @@ in {
         };
 
       debugger = mkOption {
-        type =
-          deprecatedSingleOrListOf "vim.languages.java.dap.debugger"
-          (enum (attrNames dapConfigurations));
+        type = listOf (enum (attrNames dapConfigurations));
         default = defaultDebugger;
         description = ''
           Java debugger to use.
@@ -208,6 +227,14 @@ in {
         servers = genAttrs cfg.lsp.servers (_: {
           filetypes = ["java"];
         });
+      };
+    })
+
+    (mkIf cfg.format.enable {
+      vim.formatter.conform-nvim = {
+        enable = true;
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.java = cfg.format.type;
       };
     })
 

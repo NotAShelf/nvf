@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.solargraph;
 in {
   options.vim.lsp.presets.solargraph = {
-    enable = mkLspPresetEnableOption "solargraph" "Solargraph" [];
+    enable = mkLspPresetEnableOption {
+      option = "solargraph";
+      display = "Solargraph";
+    };
   };
 
   config = mkIf cfg.enable {

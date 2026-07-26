@@ -3,22 +3,17 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption;
-  inherit (lib.types) bool;
+  inherit (lib.options) mkEnableOption;
   inherit (lib.nvim.types) mkPluginSetupOption;
   inherit (config.vim.lib) mkMappingOption;
 in {
   options.vim.utility.smart-splits = {
-    enable = mkOption {
-      type = bool;
-      default = false;
-      description = ''
-        Whether to enable smart-splits.nvim, a Neovim plugin for smart,
-        seamless, directional navigation and resizing of splits.
+    enable = mkEnableOption ''
+      smart-splits.nvim, a Neovim plugin for smart,
+      seamless, directional navigation and resizing of splits.
 
-        Supports tmux, Wezterm, Kitty, and Zellij multiplexer integrations.
-      '';
-    };
+      Supports tmux, Wezterm, Kitty, and Zellij multiplexer integrations
+    '';
 
     setupOpts = mkPluginSetupOption "smart-splits" {};
 

@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.ruff;
 in {
   options.vim.lsp.presets.ruff = {
-    enable = mkLspPresetEnableOption "ruff" "Ruff" [];
+    enable = mkLspPresetEnableOption {
+      option = "ruff";
+      display = "Ruff";
+    };
   };
 
   config = mkIf cfg.enable {

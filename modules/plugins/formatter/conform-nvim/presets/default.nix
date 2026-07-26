@@ -1,0 +1,71 @@
+{
+  # This stub is for supporting the conform builtin injected formatter
+  options.vim.formatter.conform-nvim.presets.injected = {
+    _type = "option";
+    default = {};
+    internal = true;
+  };
+  imports = [
+    ./alejandra.nix
+    ./asmfmt.nix
+    ./astyle.nix
+    ./biome.nix
+    ./black.nix
+    ./cabal-fmt.nix
+    ./clang-format.nix
+    ./csharpier.nix
+    ./deno.nix
+    ./djlint.nix
+    ./dockerfmt.nix
+    ./fantomas.nix
+    ./fish-indent.nix
+    ./floskell.nix
+    ./format-r.nix
+    ./fourmolu.nix
+    ./gersemi.nix
+    ./gofmt.nix
+    ./gofumpt.nix
+    ./goimports.nix
+    ./golines.nix
+    ./hclfmt.nix
+    ./indent.nix
+    ./isort.nix
+    ./jqfmt.nix
+    ./jsonfmt.nix
+    ./just.nix
+    ./latexindent.nix
+    ./mago.nix
+    ./mbake.nix
+    ./mdformat.nix
+    ./mix.nix
+    ./nasmfmt.nix
+    ./nimpretty.nix
+    ./nixfmt-rs.nix
+    ./nixfmt.nix
+    ./nomad.nix
+    ./ocamlformat.nix
+    ./opentofu.nix
+    ./ormolu.nix
+    ./php-cs-fixer.nix
+    ./prettier.nix
+    ./qmlformat.nix
+    ./rubocop.nix
+    ./ruff.nix
+    ./rumdl.nix
+    ./rustfmt.nix
+    ./shfmt.nix
+    ./smlfmt.nix
+    ./sqlfluff.nix
+    ./sqruff.nix
+    ./styler.nix
+    ./stylish-haskell.nix
+    ./stylua.nix
+    ./superhtml.nix
+    ./taplo.nix
+    ./terraform.nix
+    ./tex-fmt.nix
+    ./tombi.nix
+    ./ts-query-ls.nix
+    ./typstyle.nix
+  ];
+}

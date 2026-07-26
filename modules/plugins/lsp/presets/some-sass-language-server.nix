@@ -5,14 +5,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.some-sass-language-server;
 in {
   options.vim.lsp.presets.some-sass-language-server = {
-    enable = mkLspPresetEnableOption "some-sass-language-server" "Some Sass" [];
+    enable = mkLspPresetEnableOption {
+      option = "some-sass-language-server";
+      display = "Some Sass";
+    };
   };
 
   config = mkIf cfg.enable {

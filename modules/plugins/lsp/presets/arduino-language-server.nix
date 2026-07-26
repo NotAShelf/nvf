@@ -4,15 +4,18 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe getExe';
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe getExe';
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.arduino-language-server;
 in {
   options.vim.lsp.presets.arduino-language-server = {
-    enable = mkLspPresetEnableOption "arduino-language-server" "Arduino" [];
+    enable = mkLspPresetEnableOption {
+      option = "arduino-language-server";
+      display = "Arduino";
+    };
   };
 
   config = mkIf cfg.enable {

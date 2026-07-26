@@ -47,21 +47,21 @@ in {
     };
 
     dap = {
-      enable = mkOption {
-        description = "Enable Dart DAP support via flutter-tools";
-        type = bool;
-        default = config.vim.languages.enableDAP;
-        defaultText = literalExpression "config.vim.languages.enableDAP";
-      };
+      enable =
+        mkEnableOption "Dart DAP support via flutter-tools"
+        // {
+          default = config.vim.languages.enableDAP;
+          defaultText = literalExpression "config.vim.languages.enableDAP";
+        };
     };
 
     flutter-tools = {
-      enable = mkOption {
-        type = bool;
-        default = config.vim.lsp.enable;
-        defaultText = literalExpression "config.vim.lsp.enable";
-        description = "Enable flutter-tools for flutter support";
-      };
+      enable =
+        mkEnableOption "flutter-tools for flutter support"
+        // {
+          default = config.vim.lsp.enable;
+          defaultText = literalExpression "config.vim.lsp.enable";
+        };
 
       flutterPackage = mkOption {
         type = nullOr package;

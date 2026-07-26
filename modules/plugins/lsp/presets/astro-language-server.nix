@@ -4,15 +4,18 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.astro-language-server;
 in {
   options.vim.lsp.presets.astro-language-server = {
-    enable = mkLspPresetEnableOption "astro-language-server" "Astro" [];
+    enable = mkLspPresetEnableOption {
+      option = "astro-language-server";
+      display = "Astro";
+    };
   };
 
   config = mkIf cfg.enable {

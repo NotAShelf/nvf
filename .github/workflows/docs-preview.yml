@@ -20,12 +20,15 @@ jobs:
     # Don't give it any permissions.
     permissions: {}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           persist-credentials: false
+          # NOTE: Only doing this, because we set `permissions: {}`
+          # to ensure, no secrets can leak here.
+          allow-unsafe-pr-checkout: true
 
-      - uses: cachix/install-nix-action@v31.10.6
+      - uses: cachix/install-nix-action@v31.11.0
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
@@ -45,7 +48,7 @@ jobs:
         run: nix build .#docs-html --print-build-logs || exit 1
 
       - name: Upload built docs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: docs-html
           path: result/share/doc/
@@ -58,7 +61,7 @@ jobs:
       contents: write
     steps:
       - name: Download built docs
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: docs-html
           path: built-docs
@@ -158,7 +161,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Delete preview for closed/merged PR
         run: |
@@ -197,7 +200,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Double check preview directory deletion
         run: |

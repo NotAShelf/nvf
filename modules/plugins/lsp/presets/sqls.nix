@@ -4,15 +4,18 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.sqls;
 in {
   options.vim.lsp.presets.sqls = {
-    enable = mkLspPresetEnableOption "sqls" "SQL" [];
+    enable = mkLspPresetEnableOption {
+      option = "sqls";
+      display = "SQL";
+    };
   };
 
   config = mkIf cfg.enable {

@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.deadnix;
 in {
   options.vim.diagnostics.presets.deadnix = {
-    enable = mkDiagnosticsPresetEnableOption "deadnix" "Deadnix";
+    enable = mkDiagnosticsPresetEnableOption {
+      option = "deadnix";
+      display = "Deadnix";
+    };
   };
 
   config = mkIf cfg.enable {

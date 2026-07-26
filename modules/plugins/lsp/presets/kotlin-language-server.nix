@@ -4,15 +4,18 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.kotlin-language-server;
 in {
   options.vim.lsp.presets.kotlin-language-server = {
-    enable = mkLspPresetEnableOption "kotlin-language-server" "Kotlin" [];
+    enable = mkLspPresetEnableOption {
+      option = "kotlin-language-server";
+      display = "Kotlin";
+    };
   };
 
   config = mkIf cfg.enable {

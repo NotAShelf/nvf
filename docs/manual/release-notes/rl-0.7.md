@@ -125,8 +125,8 @@ The changes are, in no particular order:
 [frothymarrow](https://github.com/frothymarrow):
 
 - Modified type for
-  {option}`vim.visuals.fidget-nvim.setupOpts.progress.display.overrides` from
-  `anything` to a `submodule` for better type checking.
+  `vim.visuals.fidget-nvim.setupOpts.progress.display.overrides` from `anything`
+  to a `submodule` for better type checking.
 
 - Fix null `vim.lsp.mappings` generating an error and not being filtered out.
 
@@ -134,8 +134,8 @@ The changes are, in no particular order:
   group for `Normal`, `NormalFloat`, `LineNr`, `SignColumn` and optionally
   `NvimTreeNormal` to `none`.
 
-- Fix {option}`vim.ui.smartcolumn.setupOpts.custom_colorcolumn` using the wrong
-  type `int` instead of the expected type `string`.
+- Fix `vim.ui.smartcolumn.setupOpts.custom_colorcolumn` using the wrong type
+  `int` instead of the expected type `string`.
 
 [horriblename](https://github.com/horriblename):
 
@@ -227,7 +227,7 @@ The changes are, in no particular order:
     friendly-snippets for bundled snippets.
     {option}`vim.snippets.luasnip.enable` can be used to toggle Luasnip.
   - Add sorting function options for completion sources under
-    {option}`vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators`
+    `vim.autocomplete.nvim-cmp.setupOpts.sorting.comparators`
 
 - Add C# support under `vim.languages.csharp`, with support for both
   omnisharp-roslyn and csharp-language-server.

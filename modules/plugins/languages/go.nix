@@ -11,9 +11,8 @@
   inherit (lib.meta) getExe;
   inherit (lib) genAttrs;
   inherit (lib.types) enum package str listOf;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf mkPluginSetupOption;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAfter;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.go;
 
@@ -21,19 +20,7 @@
   servers = ["gopls"];
 
   defaultFormat = ["gofmt"];
-  formats = {
-    gofmt = {
-      command = "${pkgs.go}/bin/gofmt";
-    };
-
-    gofumpt = {
-      command = getExe pkgs.gofumpt;
-    };
-
-    golines = {
-      command = "${pkgs.golines}/bin/golines";
-    };
-  };
+  formats = ["gofmt" "gofumpt" "golines" "goimports" "injected"];
 
   defaultDebugger = "delve";
   debuggers = {
@@ -96,7 +83,7 @@ in {
         };
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.go.format.type" (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "Go formatter to use";
       };
@@ -211,13 +198,11 @@ in {
           {
             type = "injections";
             filetypes = ["gotmpl"];
+            loadtype = "extends";
             query = ''
-              ;; extends
-
               ((text) @injection.content
                 (#set! injection.language "${cfg.treesitter.gotmpl.injection}")
-                (#set! injection.combined)
-              )
+                (#set! injection.combined))
             '';
           }
         ];
@@ -236,15 +221,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.go = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.go = cfg.format.type;
       };
     })
 

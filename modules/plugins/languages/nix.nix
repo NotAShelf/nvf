@@ -4,14 +4,11 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
-  inherit (lib) concatStringsSep genAttrs;
-  inherit (lib.meta) getExe;
+  inherit (lib) concatStringsSep genAttrs elem;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.nix;
 
@@ -19,15 +16,7 @@
   servers = ["nil" "nixd"];
 
   defaultFormat = ["alejandra"];
-  formats = {
-    alejandra = {
-      command = getExe pkgs.alejandra;
-    };
-
-    nixfmt = {
-      command = getExe pkgs.nixfmt;
-    };
-  };
+  formats = ["alejandra" "nixfmt" "nixfmt-rs" "injected"];
 
   defaultDiagnosticsProvider = ["statix" "deadnix"];
   diagnosticsProviders = ["statix" "deadnix"];
@@ -69,7 +58,7 @@ in {
 
       type = mkOption {
         description = "Nix formatter to use";
-        type = deprecatedSingleOrListOf "vim.language.nix.format.type" (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
       };
     };
@@ -94,10 +83,10 @@ in {
     {
       assertions = [
         {
-          assertion = cfg.format.type != "nixpkgs-fmt";
+          assertion = !(elem "nixpkgs-fmt" cfg.format.type);
           message = ''
             nixpkgs-fmt has been archived upstream. Please use one of the following available formatters:
-            ${concatStringsSep ", " (attrNames formats)}
+            ${concatStringsSep ", " formats}
           '';
         }
       ];
@@ -112,47 +101,49 @@ in {
           {
             type = "injections";
             filetypes = ["nix"];
+            loadtype = "extends";
             query = ''
-              ;; extends
-
-              ((binding
+              (binding
                 attrpath: (attrpath
                   (identifier) @_path)
-                  (#eq? @_path "query")
+                (#eq? @_path "query")
                 expression: [
                   (string_expression
                     ((string_fragment) @injection.content
-                    (#set! injection.language "query")))
+                      (#set! injection.language "query")
+                      (#set! injection.combined)))
                   (indented_string_expression
                     ((string_fragment) @injection.content
-                    (#set! injection.language "query")))
+                      (#set! injection.language "query")
+                      (#set! injection.combined)))
                   (apply_expression
                     argument: [
                       (string_expression
                         ((string_fragment) @injection.content
-                        (#set! injection.language "query")))
+                          (#set! injection.language "query")
+                          (#set! injection.combined)))
                       (indented_string_expression
                         ((string_fragment) @injection.content
-                        (#set! injection.language "query")))
+                          (#set! injection.language "query")
+                          (#set! injection.combined)))
                     ])
-                ]))
+                ])
             '';
           }
           # mkLuaInline, entryAnywhere, entryBefore, entryAfter -> lua
           {
             type = "injections";
             filetypes = ["nix"];
+            loadtype = "extends";
             query = ''
-              ;; extends
-
               ((apply_expression
                 function: (variable_expression
                   name: (identifier) @_func
                   (#any-of? @_func "mkLuaInline" "entryAnywhere"))
                 argument: (indented_string_expression
                   (string_fragment) @injection.content))
-              (#set! injection.language "lua")
-              (#set! injection.combined))
+                (#set! injection.language "lua")
+                (#set! injection.combined))
 
               ((apply_expression
                 function: (apply_expression
@@ -162,8 +153,8 @@ in {
                   argument: (_))
                 argument: (indented_string_expression
                   (string_fragment) @injection.content))
-              (#set! injection.language "lua")
-              (#set! injection.combined))
+                (#set! injection.language "lua")
+                (#set! injection.combined))
             '';
           }
         ];
@@ -183,15 +174,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.nix = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.nix = cfg.format.type;
       };
     })
 

@@ -5,23 +5,22 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.options) mkEnableOption;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.meta) getExe;
+  inherit (lib.nvim.types) mkDapPresetEnableOption;
 
   cfg = config.vim.debugger.nvim-dap.presets.debugpy;
   package = pkgs.python3.withPackages (ps: with ps; [debugpy]);
 in {
   options.vim.debugger.nvim-dap.presets.debugpy = {
-    enable = mkEnableOption ''
-      adapter configuration for debugpy.
-      Use {option}`vim.debugger.nvim-dap.adapters.debugpy` for customization.
-
-      A configuration is also needed for your filetype in
-      {option}`vim.debugger.nvim-dap.configurations`
-      See https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings
-      for supported options.
-    '';
+    enable = mkDapPresetEnableOption {
+      option = "debugpy";
+      display = "`debugpy`";
+      extra = ''
+        See <https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings>
+        for supported options.
+      '';
+    };
   };
 
   config.vim.debugger.nvim-dap.adapters = mkIf cfg.enable {

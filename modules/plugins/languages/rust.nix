@@ -4,25 +4,66 @@
   lib,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkOption mkEnableOption literalMD literalExpression;
+  inherit (lib.meta) getExe getExe';
+  inherit (lib.attrsets) attrNames genAttrs;
+  inherit (lib.lists) flatten;
+  inherit (lib.generators) mkLuaInline;
   inherit (lib.strings) optionalString;
-  inherit (lib.lists) isList;
-  inherit (lib.attrsets) attrNames;
-  inherit (lib.types) bool package str listOf either enum int;
+  inherit (lib.types) bool listOf enum int str;
+  inherit (lib.nvim.dag) entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption deprecatedSingleOrListOf;
-  inherit (lib.nvim.dag) entryAfter entryAnywhere;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
 
   cfg = config.vim.languages.rust;
 
+  servers = ["rust-analyzer"];
+  defaultServers = ["rust-analyzer"];
+
   defaultFormat = ["rustfmt"];
-  formats = {
-    rustfmt = {
-      command = getExe pkgs.rustfmt;
-    };
+  formats = ["rustfmt" "injected"];
+
+  defaultDebugger = ["codelldb"];
+  dapConfigurations = {
+    lldb = [
+      {
+        name = "Launch file (lldb)";
+        type = "lldb";
+        request = "launch";
+        program = mkLuaInline ''
+          function()
+            return nvf_dap_cached_input(
+              'rust_lldb_launch_exe',
+              "Path to executable: ",
+              vim.fn.getcwd() .. "/target/debug/",
+              "file")
+          end
+        '';
+        cwd = "\${workspaceFolder}";
+        stopOnEntry = false;
+        args = [];
+      }
+    ];
+    codelldb = [
+      {
+        name = "Launch file (codelldb)";
+        type = "codelldb";
+        request = "launch";
+        program = mkLuaInline ''
+          function()
+            return nvf_dap_cached_input(
+              'rust_codelldb_launch_exe',
+              "Path to executable: ",
+              vim.fn.getcwd() .. "/target/debug/",
+              "file")
+          end
+        '';
+        cwd = "\${workspaceFolder}";
+        stopOnEntry = false;
+        args = [];
+      }
+    ];
   };
 in {
   options.vim.languages.rust = {
@@ -40,31 +81,16 @@ in {
 
     lsp = {
       enable =
-        mkEnableOption "Rust LSP support (rust-analyzer with extra tools)"
+        mkEnableOption "Rust LSP support"
         // {
           default = config.vim.lsp.enable;
           defaultText = literalExpression "config.vim.lsp.enable";
         };
-      package = mkOption {
-        description = "rust-analyzer package, or the command to run as a list of strings";
-        example = ''[lib.getExe pkgs.jdt-language-server "-data" "~/.cache/jdtls/workspace"]'';
-        type = either package (listOf str);
-        default = pkgs.rust-analyzer;
-      };
 
-      opts = mkOption {
-        description = "Options to pass to rust analyzer";
-        type = str;
-        default = "";
-        example = ''
-          ['rust-analyzer'] = {
-            cargo = {allFeature = true},
-            checkOnSave = true,
-            procMacro = {
-              enable = true,
-            },
-          },
-        '';
+      servers = mkOption {
+        type = listOf (enum servers);
+        default = defaultServers;
+        description = "Rust LSP server to use";
       };
     };
 
@@ -80,36 +106,23 @@ in {
 
       type = mkOption {
         description = "Rust formatter to use";
-        type = deprecatedSingleOrListOf "vim.language.rust.format.type" (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
       };
     };
 
     dap = {
-      enable = mkOption {
-        description = "Rust Debug Adapter support";
-        type = bool;
-        default = config.vim.languages.enableDAP;
-        defaultText = literalExpression "config.vim.languages.enableDAP";
-      };
+      enable =
+        mkEnableOption "Rust Debug Adapter"
+        // {
+          default = config.vim.languages.enableDAP;
+          defaultText = literalExpression "config.vim.languages.enableDAP";
+        };
 
-      package = mkOption {
-        description = "lldb package";
-        type = package;
-        default = pkgs.lldb;
-      };
-
-      adapter = mkOption {
-        type = enum ["lldb-dap" "codelldb"];
-        default = "codelldb";
-        description = ''
-          Select which LLDB-based debug adapter to use:
-
-          - "codelldb": use the CodeLLDB adapter from the vadimcn.vscode-lldb extension.
-          - "lldb-dap": use the LLDB DAP implementation shipped with LLVM (lldb-dap).
-
-          The default "codelldb" backend generally provides a better debugging experience for Rust.
-        '';
+      debugger = mkOption {
+        description = "Rust debugger to use.";
+        type = listOf (enum (attrNames dapConfigurations));
+        default = defaultDebugger;
       };
     };
 
@@ -166,106 +179,219 @@ in {
           };
         };
       };
+
+      rustaceanvim = {
+        enable = mkEnableOption "additional rust support [rustaceanvim]";
+        setupOpts = mkPluginSetupOption "rustaceanvim" {
+          tools = mkOption {
+            description = "Plugin configuration";
+            default = {
+              hover_actions = {
+                replace_builtin_hover = false;
+              };
+            };
+            example = {
+              hover_actions = {
+                replace_builtin_hover = true;
+              };
+            };
+          };
+          server = mkOption {
+            description = "LSP configuration";
+            default = {
+              # For some reason rustaceanvim needs the command set explicitly, and does not pick up on vim.lsp.config settings.
+              cmd = [(getExe pkgs.rust-analyzer)];
+
+              on_attach = mkLuaInline ''
+                function(client, bufnr)
+                    default_on_attach(client, bufnr)
+                    local opts = { noremap=true, silent=true, buffer = bufnr }
+
+                    ${optionalString config.vim.vendoredKeymaps.enable ''
+                  vim.keymap.set("n", "<localleader>rr", ":RustLsp runnables<CR>", opts)
+                  vim.keymap.set("n", "<localleader>rp", ":RustLsp parentModule<CR>", opts)
+                  vim.keymap.set("n", "<localleader>rm", ":RustLsp expandMacro<CR>", opts)
+                  vim.keymap.set("n", "<localleader>rc", ":RustLsp openCargo", opts)
+                  vim.keymap.set("n", "<localleader>rg", ":RustLsp crateGraph x11", opts)
+                ''}
+
+                    ${optionalString (cfg.dap.enable && config.vim.vendoredKeymaps.enable) ''
+                  vim.keymap.set("n", "<localleader>rd", ":RustLsp debuggables<cr>", opts)
+                ''}
+
+                    ${optionalString (cfg.dap.enable && config.vim.debugger.nvim-dap.mappings.continue != null) ''
+                  vim.keymap.set(
+                  "n", "${config.vim.debugger.nvim-dap.mappings.continue}",
+                  function()
+                    local dap = require("dap")
+                    if dap.status() == "" then
+                      vim.cmd "RustLsp debuggables"
+                    else
+                      dap.continue()
+                    end
+                  end,
+                  opts
+                  )
+                ''}
+                end
+              '';
+            };
+            example = {
+              on_attach = mkLuaInline ''
+                function(client, bufnr)
+                      -- you can also put keymaps in here
+                end,
+              '';
+            };
+          };
+          dap = mkOption {
+            description = "DAP configuration";
+            default = {
+              adapter =
+                if builtins.elem "lldb" cfg.dap.debugger
+                then
+                  mkLuaInline ''
+                    {
+                      type = "executable",
+                      command = "${getExe' pkgs.lldb "lldb-dap"}",
+                      name = "rustacean_lldb",
+                    }''
+                else let
+                  codelldb = pkgs.vscode-extensions.vadimcn.vscode-lldb.adapter;
+                  codelldbPath = "${codelldb}/bin/codelldb";
+                  liblldbPath = "${codelldb}/share/lldb/lib/liblldb.so";
+                in
+                  mkLuaInline ''
+                    {
+                      type = "server",
+                      port = "''${port}",
+                      executable = {
+                        command = "${codelldbPath}",
+                        args = { "--liblldb", "${liblldbPath}", "--port", "''${port}" },
+                      },
+                    }
+                  '';
+            };
+            example = {};
+          };
+        };
+      };
+
+      ferris-nvim = {
+        enable = mkEnableOption "additional rust support [ferris.nvim]";
+        setupOpts = mkPluginSetupOption "ferris-nvim" {
+          create_commands = mkOption {
+            type = bool;
+            default = true;
+            description = "Enable automatically creating commands for each LSP method";
+          };
+          url_handler = mkOption {
+            type = str;
+            default = "xdg-open";
+            description = "Handler for URL's";
+          };
+        };
+      };
     };
   };
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [cfg.treesitter.package];
+      vim.treesitter = {
+        enable = true;
+        grammars = [cfg.treesitter.package];
+        queries = [
+          # sqlx macros
+          # This injections highlighting is flakey as rust strings and SQL highlights both use a priority of 100.
+          # Changing priorities of highlights via injections is not possible.
+          # To fix this highlight priority race condition we would need to vendor the full rust `highlights.scm` and patch it.
+          # That would suck a lot to maintain.
+          # So fuck it and live with a flakey highlight.
+          # The tree is always updated correctly, just the highlight has the race condition.
+          # This is a known problem <https://github.com/nvim-treesitter/nvim-treesitter/issues/3110>
+          {
+            type = "injections";
+            filetypes = ["rust"];
+            loadtype = "extends";
+            query = ''
+              (macro_invocation
+                macro: (scoped_identifier
+                  path: (identifier) @_path
+                  (#eq? @_path "sqlx")
+                  name: (identifier) @_macro
+                  (#any-of? @_macro
+                    "query"               "query_unchecked"
+                    "query_as"         "query_as_unchecked"
+                    "query_scalar" "query_scalar_unchecked"))
+              (token_tree
+                [
+                  (string_literal
+                    (string_content) @injection.content)
+                  (raw_string_literal
+                    (string_content) @injection.content)
+                ]
+                (#set! injection.language "sql")))
+            '';
+          }
+        ];
+      };
     })
 
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.rust = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.rust = cfg.format.type;
       };
     })
 
-    (mkIf (cfg.lsp.enable || cfg.dap.enable) {
+    (mkIf cfg.lsp.enable {
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = [
+            "rust"
+          ];
+        });
+      };
+    })
+
+    (mkIf cfg.dap.enable {
+      vim.debugger.nvim-dap = {
+        enable = true;
+        presets = genAttrs cfg.dap.debugger (_: {enable = true;});
+        configurations.rust = flatten (map (name: dapConfigurations.${name}) cfg.dap.debugger);
+      };
+    })
+
+    (mkIf cfg.extensions.rustaceanvim.enable {
       vim = {
         startPlugins = ["rustaceanvim"];
         pluginRC.rustaceanvim = entryAfter ["lsp-setup"] ''
-          vim.g.rustaceanvim = {
-          ${optionalString cfg.lsp.enable ''
-            -- LSP
-            tools = {
-              hover_actions = {
-                replace_builtin_hover = false
-              },
-            },
-            server = {
-              cmd = ${
-              if isList cfg.lsp.package
-              then toLuaObject cfg.lsp.package
-              else ''{"${cfg.lsp.package}/bin/rust-analyzer"}''
-            },
-              default_settings = {
-                ${cfg.lsp.opts}
-              },
-              on_attach = function(client, bufnr)
-                default_on_attach(client, bufnr)
-                local opts = { noremap=true, silent=true, buffer = bufnr }
-
-                ${optionalString config.vim.vendoredKeymaps.enable ''
-              vim.keymap.set("n", "<localleader>rr", ":RustLsp runnables<CR>", opts)
-              vim.keymap.set("n", "<localleader>rp", ":RustLsp parentModule<CR>", opts)
-              vim.keymap.set("n", "<localleader>rm", ":RustLsp expandMacro<CR>", opts)
-              vim.keymap.set("n", "<localleader>rc", ":RustLsp openCargo", opts)
-              vim.keymap.set("n", "<localleader>rg", ":RustLsp crateGraph x11", opts)
-            ''}
-
-                ${optionalString (cfg.dap.enable && config.vim.vendoredKeymaps.enable) ''
-              vim.keymap.set("n", "<localleader>rd", ":RustLsp debuggables<cr>", opts)
-            ''}
-
-                ${optionalString (cfg.dap.enable && config.vim.debugger.nvim-dap.mappings.continue != null) ''
-              vim.keymap.set(
-              "n", "${config.vim.debugger.nvim-dap.mappings.continue}",
-              function()
-                local dap = require("dap")
-                if dap.status() == "" then
-                  vim.cmd "RustLsp debuggables"
-                else
-                  dap.continue()
-                end
-              end,
-              opts
-              )
-            ''}
-              end
-            },
-          ''}
-
-            ${optionalString cfg.dap.enable ''
-            dap = {
-              adapter = ${
-              if cfg.dap.adapter == "lldb-dap"
-              then ''
-                {
-                  type = "executable",
-                  command = "${cfg.dap.package}/bin/lldb-dap",
-                  name = "rustacean_lldb",
-                }''
-              else let
-                codelldb = pkgs.vscode-extensions.vadimcn.vscode-lldb.adapter;
-                codelldbPath = "${codelldb}/bin/codelldb";
-                liblldbPath = "${codelldb}/share/lldb/lib/liblldb.so";
-              in ''require("rustaceanvim.config").get_codelldb_adapter("${codelldbPath}", "${liblldbPath}")''
-            },
-            },
-          ''}
-          }
+          vim.g.rustaceanvim = function()
+            return ${toLuaObject cfg.extensions.rustaceanvim.setupOpts}
+          end
         '';
       };
+
+      assertions = [
+        {
+          assertion = !cfg.lsp.enable || (!(builtins.elem "rust-analyzer" cfg.lsp.servers) && !config.vim.lsp.rust-analyzer.enable);
+          message = ''
+            Rustaceanvim fully manages its own rust-analyzer.
+            Therefore you can't use vim.languages.rust.extensions.rustaceanvim.enable with rust-analyzer enabled.
+            To fix this, set vim.languages.rust.lsp.enable to false.
+          '';
+        }
+        {
+          assertion = !cfg.dap.enable || !(builtins.any (name: config.vim.debugger.nvim-dap.presets.${name}.enable) cfg.dap.debugger);
+          message = ''
+            Rustaceanvim fully manages its own DAP adapter.
+            Therefore you can't use vim.languages.rust.extensions.rustaceanvim.enable with DAP debugger presets enabled separately.
+            To fix this, set vim.languages.rust.dap.enable to false.
+          '';
+        }
+      ];
     })
 
     (mkIf cfg.extensions.crates-nvim.enable {
@@ -284,6 +410,14 @@ in {
           };
         }
       ];
+    })
+
+    (mkIf cfg.extensions.ferris-nvim.enable {
+      vim.lazy.plugins.ferris-nvim = {
+        package = "ferris-nvim";
+        setupModule = "ferris";
+        setupOpts = cfg.extensions.ferris-nvim.setupOpts;
+      };
     })
   ]);
 }

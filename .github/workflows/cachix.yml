@@ -21,11 +21,11 @@ jobs:
           - nix
           - maximal
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         name: Checkout
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v31.10.6
+        uses: cachix/install-nix-action@v31.11.0
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |

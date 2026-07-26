@@ -4,28 +4,25 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) bool enum listOf;
   inherit (lib) genAttrs;
   inherit (lib.lists) optional;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
+  inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.nvim.dag) entryAnywhere;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.html;
 
   defaultServers = ["superhtml"];
-  servers = ["superhtml" "emmet-ls" "angular-language-server" "stimulus-language-server"];
+  servers = [
+    "superhtml"
+    "emmet-ls"
+    "stimulus-language-server"
+  ];
 
   defaultFormat = ["superhtml"];
-  formats = {
-    superhtml = {
-      command = "${pkgs.superhtml}/bin/superhtml";
-      args = ["fmt" "-"];
-    };
-  };
+  formats = ["superhtml" "biome" "prettier" "deno" "injected"];
 
   defaultDiagnosticsProvider = ["htmlhint"];
   diagnosticsProviders = ["htmlhint"];
@@ -70,7 +67,7 @@ in {
         };
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.html.format.type" (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "HTML formatter to use";
       };
@@ -120,15 +117,8 @@ in {
     (mkIf (cfg.format.enable && !cfg.lsp.enable) {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.html = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.html = cfg.format.type;
       };
     })
 

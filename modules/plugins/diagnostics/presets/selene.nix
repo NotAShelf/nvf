@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.selene;
 in {
   options.vim.diagnostics.presets.selene = {
-    enable = mkDiagnosticsPresetEnableOption "selene" "Selene";
+    enable = mkDiagnosticsPresetEnableOption {
+      option = "selene";
+      display = "Selene";
+    };
   };
 
   config = mkIf cfg.enable {

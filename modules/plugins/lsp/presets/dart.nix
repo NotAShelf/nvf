@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.dart;
 in {
   options.vim.lsp.presets.dart = {
-    enable = mkLspPresetEnableOption "dart" "Dart" [];
+    enable = mkLspPresetEnableOption {
+      option = "dart";
+      display = "Dart";
+    };
   };
 
   config = mkIf cfg.enable {

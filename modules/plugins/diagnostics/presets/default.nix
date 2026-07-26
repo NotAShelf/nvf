@@ -2,6 +2,7 @@
   imports = [
     ./biomejs.nix
     ./checkmake.nix
+    ./clangtidy.nix
     ./cpplint.nix
     ./deadnix.nix
     ./djlint.nix
@@ -12,6 +13,7 @@
     ./htmlhint.nix
     ./ktlint.nix
     ./luacheck.nix
+    ./mago.nix
     ./markdownlint-cli2.nix
     ./mypy.nix
     ./phpstan.nix

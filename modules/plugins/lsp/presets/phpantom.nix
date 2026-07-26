@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.phpantom;
 in {
   options.vim.lsp.presets.phpantom = {
-    enable = mkLspPresetEnableOption "phpantom" "PHPantom" [];
+    enable = mkLspPresetEnableOption {
+      option = "phpantom";
+      display = "PHPantom";
+    };
   };
 
   config = mkIf cfg.enable {

@@ -4,7 +4,8 @@ This section lists the release notes for tagged version of **nvf** and the
 current main current main branch
 
 ```{=include=} chapters
-release-notes/rl-0.9.md
+release-notes/rl-26.12.md
+release-notes/rl-26.07.md
 release-notes/rl-0.8.md
 release-notes/rl-0.7.md
 release-notes/rl-0.6.md

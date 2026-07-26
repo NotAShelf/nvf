@@ -1,14 +1,13 @@
 {
-  options,
   config,
   lib,
   ...
 }: let
   inherit (lib.modules) mkMerge;
-  inherit (lib.options) mkOption literalMD showFiles;
+  inherit (lib.options) mkOption literalMD;
   inherit (lib.types) either str listOf attrsOf nullOr submodule;
   inherit (lib.attrsets) mapAttrsToList;
-  inherit (lib.lists) flatten optional;
+  inherit (lib.lists) flatten;
   inherit (lib.trivial) pipe;
   inherit (lib.options) mkEnableOption;
   inherit (lib.nvim.config) mkBool;
@@ -153,14 +152,5 @@ in {
         ]
       )
     ];
-
-    # 2026-06-12
-    warnings = mkMerge (mapAttrsToList (
-        name: option:
-          optional
-          option.isDefined
-          "The option `vim.maps.${name}` defined in ${showFiles option.files} is deprecated, please use `vim.keymaps` instead. "
-      )
-      options.vim.maps);
   };
 }

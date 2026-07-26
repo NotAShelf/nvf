@@ -4,15 +4,18 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.ols;
 in {
   options.vim.lsp.presets.ols = {
-    enable = mkLspPresetEnableOption "ols" "Odin" [];
+    enable = mkLspPresetEnableOption {
+      option = "ols";
+      display = "Odin";
+    };
   };
 
   config = mkIf cfg.enable {

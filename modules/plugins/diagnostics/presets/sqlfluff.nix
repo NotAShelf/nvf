@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.sqlfluff;
 in {
   options.vim.diagnostics.presets.sqlfluff = {
-    enable = mkDiagnosticsPresetEnableOption "sqlfluff" "SQLFluff";
+    enable = mkDiagnosticsPresetEnableOption {
+      option = "sqlfluff";
+      display = "SQLFluff";
+    };
   };
 
   config = mkIf cfg.enable {

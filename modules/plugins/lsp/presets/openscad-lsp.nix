@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.openscad-lsp;
 in {
   options.vim.lsp.presets.openscad-lsp = {
-    enable = mkLspPresetEnableOption "openscad-lsp" "Open SCAD" [];
+    enable = mkLspPresetEnableOption {
+      option = "openscad-lsp";
+      display = "Open SCAD";
+    };
   };
 
   config = mkIf cfg.enable {

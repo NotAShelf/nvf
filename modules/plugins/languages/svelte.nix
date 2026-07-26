@@ -1,18 +1,14 @@
 {
-  inputs,
   config,
   pkgs,
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib) genAttrs;
-  inherit (lib.meta) getExe;
-  inherit (lib.types) enum coercedTo listOf;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib) genAttrs elem;
+  inherit (lib.types) enum listOf;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.svelte;
 
@@ -20,32 +16,10 @@
   servers = ["svelte-language-server" "emmet-ls"];
 
   defaultFormat = ["prettier"];
-  formats = let
-    prettierPlugin = inputs.self.packages.${pkgs.stdenv.system}.prettier-plugin-svelte;
-    prettierPluginPath = "${prettierPlugin}/lib/node_modules/prettier-plugin-svelte/plugin.js";
-  in {
-    prettier = {
-      command = getExe pkgs.prettier;
-      options.ft_parsers.svelte = "svelte";
-      prepend_args = ["--plugin=${prettierPluginPath}"];
-    };
-
-    biome = {
-      command = getExe pkgs.biome;
-    };
-  };
+  formats = ["prettier" "biome" "biome-check" "biome-organize-imports" "deno" "injected"];
 
   defaultDiagnosticsProvider = ["eslint_d"];
   diagnosticsProviders = ["eslint_d"];
-
-  formatType =
-    deprecatedSingleOrListOf
-    "vim.languages.svelte.format.type"
-    (coercedTo (enum ["prettierd"]) (_:
-      lib.warn
-      "vim.languages.svelte.format.type: prettierd is deprecated, use prettier instead"
-      "prettier")
-    (enum (attrNames formats)));
 in {
   options.vim.languages.svelte = {
     enable = mkEnableOption "Svelte language support";
@@ -85,7 +59,7 @@ in {
         };
 
       type = mkOption {
-        type = formatType;
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "Svelte formatter to use";
       };
@@ -125,16 +99,13 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.svelte = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.svelte = cfg.format.type;
       };
+    })
+
+    (mkIf (cfg.format.enable && (elem "prettier" cfg.format.type)) {
+      vim.formatter.conform-nvim.presets.prettier.plugins = ["svelte"];
     })
 
     (mkIf cfg.extraDiagnostics.enable {

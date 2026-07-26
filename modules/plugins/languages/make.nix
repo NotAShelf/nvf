@@ -4,22 +4,16 @@
   pkgs,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.types) listOf enum;
   inherit (lib) genAttrs;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.make;
 
-  defaultFormat = ["bake"];
-  formats = {
-    bake = {
-      command = "${pkgs.mbake}/bin/mbake";
-    };
-  };
+  defaultFormat = ["mbake"];
+  formats = ["mbake" "injected"];
 
   defaultDiagnosticsProvider = ["checkmake"];
   diagnosticsProviders = ["checkmake"];
@@ -46,7 +40,7 @@ in {
         };
       type = mkOption {
         description = "make formatter to use";
-        type = listOf (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
       };
     };
@@ -77,15 +71,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.make = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.make = cfg.format.type;
       };
     })
 

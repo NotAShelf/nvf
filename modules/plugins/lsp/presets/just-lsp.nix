@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.just-lsp;
 in {
   options.vim.lsp.presets.just-lsp = {
-    enable = mkLspPresetEnableOption "just-lsp" "Just" [];
+    enable = mkLspPresetEnableOption {
+      option = "just-lsp";
+      display = "Just";
+    };
   };
 
   config = mkIf cfg.enable {

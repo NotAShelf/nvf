@@ -4,28 +4,19 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib) genAttrs;
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
+  inherit (lib.nvim.types) mkGrammarOption;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
 
   cfg = config.vim.languages.ruby;
 
   defaultServers = ["solargraph"];
   servers = ["ruby-lsp" "solargraph" "stimulus-language-server"];
 
-  # testing
-
   defaultFormat = ["rubocop"];
-  formats = {
-    rubocop = {
-      command = getExe pkgs.rubyPackages.rubocop;
-    };
-  };
+  formats = ["rubocop" "injected"];
 
   defaultDiagnosticsProvider = ["rubocop"];
   diagnosticsProviders = ["rubocop"];
@@ -52,12 +43,7 @@ in {
         };
 
       servers = mkOption {
-        type = listOf (enumWithRename
-          "vim.languages.ruby.lsp.servers"
-          servers
-          {
-            ruby_lsp = "ruby-lsp";
-          });
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Ruby LSP server to use";
       };
@@ -67,7 +53,7 @@ in {
       enable = mkEnableOption "Ruby formatter support" // {default = config.vim.languages.enableFormat;};
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.ruby.format.type" (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "Ruby formatter to use";
       };
@@ -76,7 +62,10 @@ in {
     extraDiagnostics = {
       enable =
         mkEnableOption "Ruby extra diagnostics via nvim-lint"
-        // {default = config.vim.languages.enableExtraDiagnostics;};
+        // {
+          default = config.vim.languages.enableExtraDiagnostics;
+          defaultText = literalExpression "config.vim.languages.enableExtraDiagnostics";
+        };
 
       types = mkOption {
         type = listOf (enum diagnosticsProviders);
@@ -104,15 +93,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.ruby = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.ruby = cfg.format.type;
       };
     })
 

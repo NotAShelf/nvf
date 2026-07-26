@@ -1,6 +1,6 @@
 {lib}: let
   inherit (builtins) isString getAttr;
-  inherit (lib.options) mkOption;
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) listOf bool str submodule attrsOf anything either nullOr uniq;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) luaInline;
@@ -105,11 +105,7 @@ in {
   lspOptions = submodule {
     freeformType = attrsOf anything;
     options = {
-      enable = mkOption {
-        type = bool;
-        default = true;
-        description = "Whether to enable this LSP server.";
-      };
+      enable = mkEnableOption "this LSP server" // {default = true;};
 
       capabilities = mkOption {
         type = nullOr (either luaInline (attrsOf anything));

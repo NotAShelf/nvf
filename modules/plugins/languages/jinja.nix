@@ -61,13 +61,11 @@ in {
           {
             type = "injections";
             filetypes = ["jinja"];
+            loadtype = "extends";
             query = ''
-              ;; extends
-
               ((content) @injection.content
                 (#set! injection.language "${cfg.treesitter.injection}")
-                (#set! injection.combined)
-              )
+                (#set! injection.combined))
             '';
           }
         ];

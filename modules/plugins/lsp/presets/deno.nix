@@ -4,15 +4,18 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.deno;
 in {
   options.vim.lsp.presets.deno = {
-    enable = mkLspPresetEnableOption "deno" "Deno" [];
+    enable = mkLspPresetEnableOption {
+      option = "deno";
+      display = "Deno";
+    };
   };
 
   config = mkIf cfg.enable {

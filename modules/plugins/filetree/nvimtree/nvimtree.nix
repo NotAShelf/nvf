@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (lib.options) mkEnableOption mkOption literalExpression;
+  inherit (lib.meta) getExe';
   inherit (lib.generators) mkLuaInline;
   inherit (lib.types) str bool int submodule listOf enum oneOf attrs addCheck;
   inherit (lib.nvim.types) mkPluginSetupOption;
@@ -107,11 +108,7 @@ in {
         default = {};
         type = submodule {
           options = {
-            enable = mkOption {
-              type = bool;
-              default = false;
-              description = "update focused file";
-            };
+            enable = mkEnableOption "updating focused files";
 
             update_root = mkOption {
               type = bool;
@@ -206,14 +203,12 @@ in {
       };
 
       hijack_directories = {
-        enable = mkOption {
-          type = bool;
-          description = ''
-            Enable the `hijack_directories` feature. Disable this option if you use vim-dirvish or dirbuf.nvim.
-            If `hijack_netrw` and `disable_netrw` are `false`, this feature will be disabled.
-          '';
-          default = true;
-        };
+        enable =
+          mkEnableOption ''
+            the `hijack_directories` feature. Disable this option if you use vim-dirvish or dirbuf.nvim.
+            If `hijack_netrw` and `disable_netrw` are `false`, this feature will be disabled
+          ''
+          // {default = true;};
 
         auto_open = mkOption {
           type = bool;
@@ -377,11 +372,7 @@ in {
         default = {};
         type = submodule {
           options = {
-            enable = mkOption {
-              description = "Enable filesystem watchers.";
-              type = bool;
-              default = true;
-            };
+            enable = mkEnableOption "filesystem watchers" // {default = true;};
 
             debounce_delay = mkOption {
               description = "Idle milliseconds between filesystem change and action.";
@@ -494,11 +485,7 @@ in {
               default = {};
               type = submodule {
                 options = {
-                  enable = mkOption {
-                    description = "If true, tree window will be floating.";
-                    type = bool;
-                    default = false;
-                  };
+                  enable = mkEnableOption "floating tree windows";
 
                   quit_on_focus_loss = mkOption {
                     description = "Close the floating tree window when it loses focus.";
@@ -858,7 +845,7 @@ in {
       trash = mkOption {
         description = "Configuration options for trashing.";
         default = {
-          cmd = "${pkgs.glib}/bin/gio trash";
+          cmd = "${getExe' pkgs.glib "gio"} trash";
         };
 
         type = submodule {
@@ -892,11 +879,7 @@ in {
               default = {};
               type = submodule {
                 options = {
-                  enable = mkOption {
-                    type = bool;
-                    default = true;
-                    description = "Change the working directory when changing directories in the tree.";
-                  };
+                  enable = mkEnableOption "changing the working directory when changing directories in the tree" // {default = true;};
 
                   global = mkOption {
                     type = bool;
@@ -992,11 +975,7 @@ in {
                     default = {};
                     type = submodule {
                       options = {
-                        enable = mkOption {
-                          type = bool;
-                          description = "Enable the window picker. If this feature is not enabled, files will open in window from which you last opened the tree.";
-                          default = false;
-                        };
+                        enable = mkEnableOption "the window picker. If this feature is not enabled, files will open in window from which you last opened the tree";
 
                         picker = mkOption {
                           type = str;

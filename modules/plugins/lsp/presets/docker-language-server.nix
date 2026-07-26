@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.docker-language-server;
 in {
   options.vim.lsp.presets.docker-language-server = {
-    enable = mkLspPresetEnableOption "docker-language-server" "Docker" [];
+    enable = mkLspPresetEnableOption {
+      option = "docker-language-server";
+      display = "Docker";
+    };
   };
 
   config = mkIf cfg.enable {

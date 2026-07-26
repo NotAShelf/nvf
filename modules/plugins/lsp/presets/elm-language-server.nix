@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.elm-language-server;
 in {
   options.vim.lsp.presets.elm-language-server = {
-    enable = mkLspPresetEnableOption "elm-language-server" "Elm" [];
+    enable = mkLspPresetEnableOption {
+      option = "elm-language-server";
+      display = "Elm";
+    };
   };
 
   config = mkIf cfg.enable {

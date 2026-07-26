@@ -6,9 +6,6 @@
   pkgs,
   extraSpecialArgs ? {},
   modules ? [],
-  # deprecated
-  extraModules ? [],
-  configuration ? {},
 }: let
   inherit (builtins) toString;
   inherit (lib.lists) concatLists;
@@ -30,15 +27,6 @@
     modules = concatLists [
       nvimModules
       modules
-      (lib.optional (configuration != {}) (lib.warn ''
-          nvf: passing 'configuration' to lib.neovimConfiguration is deprecated.
-        ''
-        configuration))
-
-      (lib.optionals (extraModules != []) (lib.warn ''
-          nvf: passing 'extraModules' to lib.neovimConfiguration is deprecated, use 'modules' instead.
-        ''
-        extraModules))
     ];
   };
 in {

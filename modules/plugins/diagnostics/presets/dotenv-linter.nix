@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.dotenv-linter;
 in {
   options.vim.diagnostics.presets.dotenv-linter = {
-    enable = mkDiagnosticsPresetEnableOption "dotenv-linter" "Dotenv Linter";
+    enable = mkDiagnosticsPresetEnableOption {
+      option = "dotenv-linter";
+      display = "Dotenv Linter";
+    };
   };
 
   config = mkIf cfg.enable {

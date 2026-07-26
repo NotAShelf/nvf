@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.djlint;
 in {
   options.vim.diagnostics.presets.djlint = {
-    enable = mkDiagnosticsPresetEnableOption "djlint" "djLint";
+    enable = mkDiagnosticsPresetEnableOption {
+      option = "djlint";
+      display = "djLint";
+    };
   };
 
   config = mkIf cfg.enable {

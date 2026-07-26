@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.zls;
 in {
   options.vim.lsp.presets.zls = {
-    enable = mkLspPresetEnableOption "zls" "Zig" [];
+    enable = mkLspPresetEnableOption {
+      option = "zls";
+      display = "Zig";
+    };
   };
 
   config = mkIf cfg.enable {

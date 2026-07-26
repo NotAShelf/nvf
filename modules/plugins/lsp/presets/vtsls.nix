@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.vtsls;
 in {
   options.vim.lsp.presets.vtsls = {
-    enable = mkLspPresetEnableOption "vtsls" "Vue.js Typescript" [];
+    enable = mkLspPresetEnableOption {
+      option = "vtsls";
+      display = "Vue.js Typescript";
+    };
   };
 
   config = mkIf cfg.enable {

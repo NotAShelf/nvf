@@ -4,15 +4,18 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.ccls;
 in {
   options.vim.lsp.presets.ccls = {
-    enable = mkLspPresetEnableOption "ccls" "CC" [];
+    enable = mkLspPresetEnableOption {
+      option = "ccls";
+      display = "CC";
+    };
   };
 
   config = mkIf cfg.enable {

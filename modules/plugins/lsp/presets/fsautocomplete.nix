@@ -4,15 +4,18 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.fsautocomplete;
 in {
   options.vim.lsp.presets.fsautocomplete = {
-    enable = mkLspPresetEnableOption "fsautocomplete" "F# Autocomplete" [];
+    enable = mkLspPresetEnableOption {
+      option = "fsautocomplete";
+      display = "F# Autocomplete";
+    };
   };
 
   config = mkIf cfg.enable {

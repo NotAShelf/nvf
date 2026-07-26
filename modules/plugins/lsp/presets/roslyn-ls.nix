@@ -4,15 +4,18 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.roslyn-ls;
 in {
   options.vim.lsp.presets.roslyn-ls = {
-    enable = mkLspPresetEnableOption "roslyn-ls" "Roslyn" [];
+    enable = mkLspPresetEnableOption {
+      option = "roslyn-ls";
+      display = "Roslyn";
+    };
   };
 
   config = mkIf cfg.enable {

@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe';
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe';
 
   cfg = config.vim.lsp.presets.qmlls;
 in {
   options.vim.lsp.presets.qmlls = {
-    enable = mkLspPresetEnableOption "qmlls" "QML" [];
+    enable = mkLspPresetEnableOption {
+      option = "qmlls";
+      display = "QML";
+    };
   };
 
   config = mkIf cfg.enable {

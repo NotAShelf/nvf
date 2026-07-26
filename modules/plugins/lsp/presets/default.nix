@@ -60,6 +60,7 @@
     ./ruby-lsp.nix
     ./ruff.nix
     ./rumdl.nix
+    ./rust-analyzer.nix
     ./solargraph.nix
     ./some-sass-language-server.nix
     ./sqls.nix
@@ -73,6 +74,7 @@
     ./tinymist.nix
     ./tofu-ls.nix
     ./tombi.nix
+    ./ts-query-ls.nix
     ./twig-language-server.nix
     ./ty.nix
     ./typescript-go.nix

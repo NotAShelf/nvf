@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkDiagnosticsPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.diagnostics.presets.biomejs;
 in {
   options.vim.diagnostics.presets.biomejs = {
-    enable = mkDiagnosticsPresetEnableOption "biomejs" "Biome";
+    enable = mkDiagnosticsPresetEnableOption {
+      option = "biomejs";
+      display = "Biome";
+    };
   };
 
   config = mkIf cfg.enable {

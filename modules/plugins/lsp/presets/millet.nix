@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.millet;
 in {
   options.vim.lsp.presets.millet = {
-    enable = mkLspPresetEnableOption "millet" "Millet Standard ML" [];
+    enable = mkLspPresetEnableOption {
+      option = "millet";
+      display = "Millet Standard ML";
+    };
   };
 
   config = mkIf cfg.enable {

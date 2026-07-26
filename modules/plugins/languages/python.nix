@@ -8,13 +8,9 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.lists) flatten;
   inherit (lib) genAttrs;
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum package bool listOf;
+  inherit (lib.types) enum package listOf;
   inherit (lib.generators) mkLuaInline;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
-  inherit (lib.nvim.types) deprecatedSingleOrListOf;
-  inherit (lib.trivial) warn;
 
   cfg = config.vim.languages.python;
 
@@ -22,33 +18,7 @@
   servers = ["pyrefly" "pyright" "basedpyright" "python-lsp-server" "ruff" "ty" "zuban"];
 
   defaultFormat = ["black"];
-  formats = {
-    black = {
-      command = getExe pkgs.black;
-    };
-
-    isort = {
-      command = getExe pkgs.isort;
-    };
-
-    # dummy option for backwards compat
-    black-and-isort = {};
-
-    ruff = {
-      command = getExe pkgs.ruff;
-      args = ["format" "-"];
-    };
-
-    ruff-check = {
-      package = pkgs.writeShellApplication {
-        name = "ruff-check";
-        runtimeInputs = [pkgs.ruff];
-        text = ''
-          ruff check --fix --exit-zero -
-        '';
-      };
-    };
-  };
+  formats = ["black" "isort" "ruff" "ruff-fix" "injected"];
 
   defaultDebugger = ["debugpy"];
   dapConfigurations = {
@@ -123,7 +93,7 @@ in {
         };
 
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.python.format.type" (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "Python formatters to use";
       };
@@ -131,15 +101,15 @@ in {
 
     # TODO this implementation is very bare bones, I don't know enough python to implement everything
     dap = {
-      enable = mkOption {
-        type = bool;
-        default = config.vim.languages.enableDAP;
-        defaultText = literalExpression "config.vim.languages.enableDAP";
-        description = "Enable Python Debug Adapter";
-      };
+      enable =
+        mkEnableOption "Python Debug Adapter"
+        // {
+          default = config.vim.languages.enableDAP;
+          defaultText = literalExpression "config.vim.languages.enableDAP";
+        };
 
       debugger = mkOption {
-        type = deprecatedSingleOrListOf "vim.languages.python.dap.debugger" (enum (attrNames dapConfigurations));
+        type = listOf (enum (attrNames dapConfigurations));
         default = defaultDebugger;
         description = "Python debugger to use";
       };
@@ -183,27 +153,10 @@ in {
     })
 
     (mkIf cfg.format.enable {
-      vim.formatter.conform-nvim = let
-        names = flatten (map (type:
-          if type == "black-and-isort"
-          then
-            warn ''
-              vim.languages.python.format.type: "black-and-isort" is deprecated,
-              use `["black" "isort"]` instead.
-            '' ["black" "isort"]
-          else type)
-        cfg.format.type);
-      in {
+      vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.python = names;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            names;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.python = cfg.format.type;
       };
     })
 

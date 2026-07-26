@@ -4,15 +4,18 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
   inherit (lib.generators) mkLuaInline;
 
   cfg = config.vim.lsp.presets.ocaml-lsp;
 in {
   options.vim.lsp.presets.ocaml-lsp = {
-    enable = mkLspPresetEnableOption "ocaml-lsp" "OCaml" [];
+    enable = mkLspPresetEnableOption {
+      option = "ocaml-lsp";
+      display = "OCaml";
+    };
   };
 
   config = mkIf cfg.enable {

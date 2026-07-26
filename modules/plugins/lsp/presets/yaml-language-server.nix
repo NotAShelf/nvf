@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.yaml-language-server;
 in {
   options.vim.lsp.presets.yaml-language-server = {
-    enable = mkLspPresetEnableOption "yaml-language-server" "YAML" [];
+    enable = mkLspPresetEnableOption {
+      option = "yaml-language-server";
+      display = "YAML";
+    };
   };
 
   config = mkIf cfg.enable {

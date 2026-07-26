@@ -4,14 +4,11 @@
   lib,
   ...
 }: let
-  inherit (builtins) attrNames;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum bool listOf;
+  inherit (lib.types) enum listOf;
   inherit (lib) genAttrs;
-  inherit (lib.nvim.types) mkGrammarOption deprecatedSingleOrListOf enumWithRename;
-  inherit (lib.nvim.attrsets) mapListToAttrs;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.bash;
 
@@ -19,11 +16,7 @@
   servers = ["bash-language-server"];
 
   defaultFormat = ["shfmt"];
-  formats = {
-    shfmt = {
-      command = getExe pkgs.shfmt;
-    };
-  };
+  formats = ["shfmt" "injected"];
 
   defaultDiagnosticsProvider = ["shellcheck"];
   diagnosticsProviders = ["shellcheck"];
@@ -49,26 +42,21 @@ in {
           defaultText = literalExpression "config.vim.lsp.enable";
         };
       servers = mkOption {
-        type = listOf (enumWithRename
-          "vim.languages.bash.lsp.servers"
-          servers
-          {
-            bash-ls = "bash-language-server";
-          });
+        type = listOf (enum servers);
         default = defaultServers;
         description = "Bash LSP server to use";
       };
     };
 
     format = {
-      enable = mkOption {
-        type = bool;
-        default = config.vim.languages.enableFormat;
-        defaultText = literalExpression "config.vim.languages.enableFormat";
-        description = "Enable Bash formatting";
-      };
+      enable =
+        mkEnableOption "Bash formatting"
+        // {
+          default = config.vim.languages.enableFormat;
+          defaultText = literalExpression "config.vim.languages.enableFormat";
+        };
       type = mkOption {
-        type = deprecatedSingleOrListOf "vim.language.bash.format.type" (enum (attrNames formats));
+        type = listOf (enum formats);
         default = defaultFormat;
         description = "Bash formatter to use";
       };
@@ -96,7 +84,7 @@ in {
         enable = true;
         grammars = [cfg.treesitter.package];
         # not perfect mappings, but better than none
-        filetypeMappings.bash = ["ash" "dash" "zsh"];
+        filetypeMappings.bash = ["ash" "dash"];
       };
     })
 
@@ -104,7 +92,7 @@ in {
       vim.lsp = {
         presets = genAttrs cfg.lsp.servers (_: {enable = true;});
         servers = genAttrs cfg.lsp.servers (_: {
-          filetypes = ["bash" "sh" "ash" "dash" "zsh"];
+          filetypes = ["bash" "sh" "ash" "dash"];
         });
       };
     })
@@ -112,15 +100,8 @@ in {
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
-        setupOpts = {
-          formatters_by_ft.sh = cfg.format.type;
-          formatters =
-            mapListToAttrs (name: {
-              inherit name;
-              value = formats.${name};
-            })
-            cfg.format.type;
-        };
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.sh = cfg.format.type;
       };
     })
 
@@ -132,7 +113,6 @@ in {
           linters_by_ft = {
             sh = cfg.extraDiagnostics.types;
             bash = cfg.extraDiagnostics.types;
-            zsh = cfg.extraDiagnostics.types;
           };
         };
       };

@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.phpactor;
 in {
   options.vim.lsp.presets.phpactor = {
-    enable = mkLspPresetEnableOption "phpactor" "PHPActor" [];
+    enable = mkLspPresetEnableOption {
+      option = "phpactor";
+      display = "PHPActor";
+    };
   };
 
   config = mkIf cfg.enable {

@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.nvim.types) mkLspPresetEnableOption;
+  inherit (lib.meta) getExe;
 
   cfg = config.vim.lsp.presets.angular-language-server;
 in {
   options.vim.lsp.presets.angular-language-server = {
-    enable = mkLspPresetEnableOption "angular-language-server" "Angular Template" [];
+    enable = mkLspPresetEnableOption {
+      option = "angular-language-server";
+      display = "Angular Template";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -19,6 +22,7 @@ in {
       enable = true;
       cmd = [(getExe pkgs.angular-language-server) "--stdio"];
       root_markers = ["angular.json" "nx.json"];
+      workspace_required = true;
     };
   };
 }
