@@ -28,6 +28,12 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      # The backport requires a full git repo to actually work.
+      # This provides it
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Create backport PRs
         id: backport
         uses: korthout/backport-action@v4
