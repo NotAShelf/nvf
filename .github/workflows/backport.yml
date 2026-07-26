@@ -34,6 +34,8 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           token: ${{ secrets.GITHUB_TOKEN }}
+          # As we don't actually execute untrusted code for creating the MR this is fine
+          allow-unsafe-pr-checkout: true
       - name: Create backport PRs
         id: backport
         uses: korthout/backport-action@v4
