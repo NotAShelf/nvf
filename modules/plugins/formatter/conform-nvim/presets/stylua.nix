@@ -28,11 +28,11 @@ in {
             "--search-parent-directories",
             "--respect-ignores",
             "--stdin-filepath",
+            "$FILENAME",
             "--indent-width",
             vim.bo[ctx.buf].shiftwidth,
             "--indent-type",
             style,
-            "$FILENAME",
             "-"
           }
         end
@@ -44,11 +44,11 @@ in {
           return {
             "--search-parent-directories",
             "--stdin-filepath",
+            "$FILENAME",
             "--indent-width",
             vim.bo[ctx.buf].shiftwidth,
             "--indent-type",
             style,
-            "$FILENAME",
             "--range-start",
             tostring(start_offset),
             "--range-end",
