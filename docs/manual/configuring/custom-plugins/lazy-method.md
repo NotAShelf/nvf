@@ -1,5 +1,10 @@
 # Lazy Method {#sec-lazy-method}
 
+> [!NOTE]
+> This page covers the lazy-loading API for custom plugins. For a full reference
+> of trigger events and the `LazyFile` event, see the
+> [Lazy Loading](#ch-lazy-loading) chapter.
+
 As of version **0.7**, an API is exposed to allow configuring lazy-loaded
 plugins via `lz.n` and `lzn-auto-require`. Below is a comprehensive example of
 how it may be loaded to lazy-load an arbitrary plugin.
