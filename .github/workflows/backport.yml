@@ -47,3 +47,4 @@ jobs:
           label_pattern: '^backport: (.*)$'
           pull_description: |-
             Automated backport of #${pull_number} to `${target_branch}`, triggered by a label.
+          branch_name: backport/${pull-number}/${target_branch}
