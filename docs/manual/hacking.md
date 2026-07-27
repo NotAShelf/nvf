@@ -509,7 +509,7 @@ changelog document that you are editing. If this section does not yet exist, you
 must create it.
 
 ```markdown
-# Release 0.9 {#sec-release-0-9}
+# Release 26.12 {#sec-release-26.12}
 
 ## Breaking changes
 
@@ -526,22 +526,22 @@ breakage depending on the context of the change.
 [korthout/backport-action]: https://github.com/korthout/backport-action
 [release.json]: https://github.com/NotAShelf/nvf/blob/main/release.json
 
-Stable releases of **nvf** live on dedicated release branches (e.g. `v26.07`),
-cut from `main` when a release is tagged. A release branch is marked with
-`"isReleaseBranch": true` in [release.json], whereas `main` is the development
-branch and keeps it `false`. Once a release branch exists, select fixes from
-`main` may be _backported_ onto it, so that users tracking the stable release
-receive them without also pulling in unreleased changes.
+Stable releases of **nvf** live on dedicated release branches (e.g.
+`release/26.07`), cut from `main` when a release is tagged. A release branch is
+marked with `"isReleaseBranch": true` in [release.json], whereas `main` is the
+development branch and keeps it `false`. Once a release branch exists, select
+fixes from `main` may be _backported_ onto it, so that users tracking the stable
+release receive them without also pulling in unreleased changes.
 
 ### Requesting a Backport {#sec-requesting-backport}
 
 Backports are handled automatically by the [korthout/backport-action] workflow,
 driven by labels. To backport a pull request, apply a label of the form
-`backport-<release>`, where `<release>` names the target branch. For example,
-`backport-v26.07` targets the `v26.07` branch.
+`backport: release/<release>`, where `<release>` is the release number. For
+example, `backport: release/26.07` targets the `release/26.07` branch.
 
 The label may be applied either before or after the pull request is merged; the
-workflow triggers on both. Once a labelled pull request is merged, a bot opens a
+workflow triggers on both. Once a labeled pull request is merged, a bot opens a
 new pull request cherry-picking the change onto the target branch. If several
 backport labels are present, one backport pull request is opened per target.
 
