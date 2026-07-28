@@ -33,6 +33,7 @@ in {
     ./jinja.nix
     ./jq.nix
     ./json.nix
+    ./json5.nix
     ./julia.nix
     ./just.nix
     ./kotlin.nix

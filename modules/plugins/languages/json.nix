@@ -7,7 +7,7 @@
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) enum listOf;
-  inherit (lib) genAttrs;
+  inherit (lib.attrsets) genAttrs;
   inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.json;
@@ -29,8 +29,7 @@ in {
           defaultText = literalExpression "config.vim.languages.enableTreesitter";
         };
 
-      jsonPackage = mkGrammarOption pkgs "json";
-      json5Package = mkGrammarOption pkgs "json5";
+      package = mkGrammarOption pkgs "json";
     };
 
     lsp = {
@@ -66,18 +65,17 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
-      vim.treesitter.enable = true;
-      vim.treesitter.grammars = [
-        cfg.treesitter.jsonPackage
-        cfg.treesitter.json5Package
-      ];
+      vim.treesitter = {
+        enable = true;
+        grammars = [cfg.treesitter.package];
+      };
     })
 
     (mkIf cfg.lsp.enable {
       vim.lsp = {
         presets = genAttrs cfg.lsp.servers (_: {enable = true;});
         servers = genAttrs cfg.lsp.servers (_: {
-          filetypes = ["json" "jsonc" "json5"];
+          filetypes = ["json" "jsonc"];
         });
       };
     })
@@ -89,7 +87,6 @@ in {
         setupOpts.formatters_by_ft = {
           json = cfg.format.type;
           jsonc = cfg.format.type;
-          json5 = cfg.format.type;
         };
       };
     })
