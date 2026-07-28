@@ -4,10 +4,12 @@
   lib,
   ...
 }: let
+  inherit (builtins) elem;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib) genAttrs;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.types) enum package listOf;
+  inherit (lib.types) enum listOf;
+  inherit (lib.nvim.types) mkGrammarOption;
 
   cfg = config.vim.languages.sql;
 
@@ -31,11 +33,7 @@ in {
           defaultText = literalExpression "config.vim.languages.enableTreesitter";
         };
 
-      package = mkOption {
-        type = package;
-        default = pkgs.vimPlugins.nvim-treesitter.grammarPlugins.sql;
-        description = "SQL treesitter grammar to use";
-      };
+      package = mkGrammarOption pkgs "sql";
     };
 
     lsp = {
@@ -81,6 +79,10 @@ in {
         default = defaultDiagnosticsProvider;
         description = "extra SQL diagnostics providers";
       };
+    };
+
+    extensions = {
+      sqls-nvim.enable = mkEnableOption "Extended SQL LSP support for SQLS";
     };
   };
 
@@ -145,6 +147,18 @@ in {
           linters_by_ft.sql = cfg.extraDiagnostics.types;
         };
       };
+    })
+
+    (mkIf cfg.extensions.sqls-nvim.enable {
+      assertions = [
+        {
+          assertion = cfg.lsp.enable && elem "sqls" cfg.lsp.servers;
+          message = ''
+            `vim.languages.sql.extensions.sqls-nvim.enable` requires `vim.languages.sql.lsp.enable` to be enabled and "sqls" to be included in `vim.languages.sql.lsp.servers`.
+          '';
+        }
+      ];
+      vim.startPlugins = ["sqls-nvim"];
     })
   ]);
 }
