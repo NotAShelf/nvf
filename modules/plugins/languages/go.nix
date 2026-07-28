@@ -195,6 +195,7 @@ in {
           cfg.treesitter.gotmpl.package
         ];
         queries = [
+          # go template injections
           {
             type = "injections";
             filetypes = ["gotmpl"];
@@ -203,6 +204,33 @@ in {
               ((text) @injection.content
                 (#set! injection.language "${cfg.treesitter.gotmpl.injection}")
                 (#set! injection.combined))
+            '';
+          }
+          # sqlx support
+          {
+            type = "injections";
+            filetypes = ["go"];
+            loadtype = "extends";
+            query = ''
+              (call_expression
+                function: (selector_expression
+                  operand: (identifier) @_id
+                  (#any-of? @_id "db" "tx" "transaction")
+                  field: (field_identifier) @_field
+                  (#any-of? @_field
+                    "Exec" "MustExec" "Query" "Queryx" "QueryRow" "QueryRowx" "Get" "Select" "NamedExec"
+                    "NamedQuery" "Prepare" "Preparex" "PrepareNamed" "ExecContext" "QueryContext" "QueryxContext"
+                    "QueryRowxContext" "GetContext" "SelectContext" "NamedExecContext" "NamedQueryContext"
+                    "PreparexContext" "PrepareNamedContext"))
+                arguments: (argument_list
+                  [
+                    (interpreted_string_literal
+                      (interpreted_string_literal_content) @injection.content
+                      (#set! injection.language "sql"))
+                    (raw_string_literal
+                      (raw_string_literal_content) @injection.content
+                      (#set! injection.language "sql"))
+                  ]))
             '';
           }
         ];
