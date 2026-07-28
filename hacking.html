@@ -400,25 +400,25 @@ avoid merge conflicts.</p>
 briefly mention what has changed in the breaking changes section of the
 changelog document that you are editing. If this section does not yet exist, you
 must create it.</p>
-<pre class="highlight"><code class="language-markdown"><span style="color:rgb(209,154,102);font-weight: bold;">#&nbsp;Release&nbsp;0.9&nbsp;{#sec-release-0-9}</span><br><br><span style="color:rgb(209,154,102);font-weight: bold;">##&nbsp;Breaking&nbsp;changes</span><br><br><span style="color:rgb(232,102,113);">-&nbsp;</span>We&nbsp;broke&nbsp;everything,&nbsp;please&nbsp;migrate!<br></code></pre>
+<pre class="highlight"><code class="language-markdown"><span style="color:rgb(209,154,102);font-weight: bold;">#&nbsp;Release&nbsp;26.12&nbsp;{#sec-release-26.12}</span><br><br><span style="color:rgb(209,154,102);font-weight: bold;">##&nbsp;Breaking&nbsp;changes</span><br><br><span style="color:rgb(232,102,113);">-&nbsp;</span>We&nbsp;broke&nbsp;everything,&nbsp;please&nbsp;migrate!<br></code></pre>
 <p>This section is <em>critical</em>, as it is used to communicate to the users what has
 changed in the codebase and what breakage they may expect upon an update. To be
 comprehensive, you should include migration steps or how users may mitigate
 breakage depending on the context of the change.</p>
 <h2 id="sec-backporting">Backporting Changes</h2>
-<p>Stable releases of <strong>nvf</strong> live on dedicated release branches (e.g. <code>v26.07</code>),
-cut from <code>main</code> when a release is tagged. A release branch is marked with
-<code>"isReleaseBranch": true</code> in <a href="https://github.com/NotAShelf/nvf/blob/main/release.json">release.json</a>, whereas <code>main</code> is the development
-branch and keeps it <code>false</code>. Once a release branch exists, select fixes from
-<code>main</code> may be <em>backported</em> onto it, so that users tracking the stable release
-receive them without also pulling in unreleased changes.</p>
+<p>Stable releases of <strong>nvf</strong> live on dedicated release branches (e.g.
+<code>release/26.07</code>), cut from <code>main</code> when a release is tagged. A release branch is
+marked with <code>"isReleaseBranch": true</code> in <a href="https://github.com/NotAShelf/nvf/blob/main/release.json">release.json</a>, whereas <code>main</code> is the
+development branch and keeps it <code>false</code>. Once a release branch exists, select
+fixes from <code>main</code> may be <em>backported</em> onto it, so that users tracking the stable
+release receive them without also pulling in unreleased changes.</p>
 <h3 id="sec-requesting-backport">Requesting a Backport</h3>
 <p>Backports are handled automatically by the <a href="https://github.com/korthout/backport-action">korthout/backport-action</a> workflow,
 driven by labels. To backport a pull request, apply a label of the form
-<code>backport-&lt;release&gt;</code>, where <code>&lt;release&gt;</code> names the target branch. For example,
-<code>backport-v26.07</code> targets the <code>v26.07</code> branch.</p>
+<code>backport: release/&lt;release&gt;</code>, where <code>&lt;release&gt;</code> is the release number. For
+example, <code>backport: release/26.07</code> targets the <code>release/26.07</code> branch.</p>
 <p>The label may be applied either before or after the pull request is merged; the
-workflow triggers on both. Once a labelled pull request is merged, a bot opens a
+workflow triggers on both. Once a labeled pull request is merged, a bot opens a
 new pull request cherry-picking the change onto the target branch. If several
 backport labels are present, one backport pull request is opened per target.</p>
 <div class="admonition note">
