@@ -90,6 +90,18 @@ in {
         enable = true;
         grammars = [cfg.treesitter.package];
         queries = [
+          # Sets some common highlight groups, ensuring that SQL looks correct in more injections
+          {
+            type = "highlights";
+            filetypes = ["sql"];
+            loadtype = "extends";
+            query = ''
+              (identifier) @variable
+
+              (parameter) @attribute
+              (#eq? @attribute "?")
+            '';
+          }
           # Special comments for some SQL tools
           {
             type = "highlights";
