@@ -66,5 +66,11 @@
     ];
   };
 in {
-  imports = concatLists [];
+  imports = concatLists [
+    # 2026-07-28
+    [
+      (mkRenamedOptionModule ["vim" "languages" "json" "treesitter" "json5Package"] ["vim" "languages" "json5" "treesitter" "package"])
+      (mkRenamedOptionModule ["vim" "languages" "json" "treesitter" "jsonPackage"] ["vim" "languages" "json" "treesitter" "package"])
+    ]
+  ];
 }
