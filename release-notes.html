@@ -143,12 +143,27 @@ codebase maintainable.</li>
 <h2 id="sec-release-26-12-changelog">Changelog</h2>
 <p><a href="https://github.com/snoweuph">snoweuph</a></p>
 <ul>
-<li><code>languages/lua</code>: fix arguments for <code>formatter/conform-nvim/presets/stylua</code> to
-match new required order.</li>
+<li>
+<p><code>languages/lua</code>: fix arguments for <code>formatter/conform-nvim/presets/stylua</code> to
+match new required order.</p>
+</li>
+<li>
+<p><code>lsp/presets/sqls</code>: remove <code>sqls.nvim</code> from being enabled by default, to an
+optional extension in <code>languages/sql</code>.</p>
+</li>
 </ul>
 <ul>
-<li><code>languages/sql</code>: added tree-sitter queries for highlighting special comments
-from <a href="https://bun.uptrace.dev/">bun ORM</a> and <a href="https://pressly.github.io/goose/">goose</a>.</li>
+<li>
+<p><code>languages/sql</code>: added tree-sitter queries for highlighting special comments
+from <a href="https://bun.uptrace.dev/">bun ORM</a> and <a href="https://pressly.github.io/goose/">goose</a>.</p>
+</li>
+<li>
+<p><code>languages/sql</code>: added tree-sitter highlights query for better injection
+support.</p>
+</li>
+<li>
+<p><code>languages/go</code>: added tree-sitter injections for <code>sqlx</code>.</p>
+</li>
 </ul>
 <h1 id="sec-release-26-07">Release 26.07</h1>
 <h2 id="breaking-changes">Breaking changes</h2>
