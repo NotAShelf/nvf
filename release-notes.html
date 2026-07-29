@@ -140,6 +140,13 @@ current main current main branch</p>
 <li>Dropping all old deprecations from 26.07 backwards. This is done to keep the
 codebase maintainable.</li>
 </ul>
+<p><a href="https://github.com/snoweuph">snoweuph</a></p>
+<ul>
+<li>splitting <code>languages/json5</code> from <code>languages/json</code>, because most <code>json</code> and
+<code>jsonc</code> tools don't support it correctly, making it a bad fit to be combined
+into one module, because it creates scenarios where tools are connected to non
+supported filetypes.</li>
+</ul>
 <h2 id="sec-release-26-12-changelog">Changelog</h2>
 <p><a href="https://github.com/snoweuph">snoweuph</a></p>
 <ul>

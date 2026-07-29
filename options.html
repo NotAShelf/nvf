@@ -6580,7 +6580,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">633</span>
+        <span class="toc-count">637</span>
       </summary>
       <ul>
         
@@ -8771,16 +8771,48 @@
         </li>
         
         <li>
-          <a href='#option-vim.languages.json.treesitter.json5Package' title="vim.languages.json.treesitter.json5Package">
-            json.treesitter.json5Package
+          <a href='#option-vim.languages.json.treesitter.package' title="vim.languages.json.treesitter.package">
+            json.treesitter.package
             
             
           </a>
         </li>
         
         <li>
-          <a href='#option-vim.languages.json.treesitter.jsonPackage' title="vim.languages.json.treesitter.jsonPackage">
-            json.treesitter.jsonPackage
+          <a href='#option-vim.languages.json5.enable' title="vim.languages.json5.enable">
+            json5.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.json5.format.enable' title="vim.languages.json5.format.enable">
+            json5.format.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.json5.format.type' title="vim.languages.json5.format.type">
+            json5.format.type
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.json5.treesitter.enable' title="vim.languages.json5.treesitter.enable">
+            json5.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.json5.treesitter.package' title="vim.languages.json5.treesitter.package">
+            json5.treesitter.package
             
             
           </a>
@@ -35320,21 +35352,9 @@ in the docs.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/json.nix" target="_blank">&lt;nvf/modules/plugins/languages/json.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-vim.languages.json.treesitter.json5Package">
+<div class="option" id="option-vim.languages.json.treesitter.package">
   <h3 class="option-name">
-    <a href="#option-vim.languages.json.treesitter.json5Package" class="option-anchor">vim.languages.json.treesitter.json5Package</a>
-    <span class="copy-link" title="Copy link to this option"></span>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-type">Type: <code>null or package</code></div>
-  <div class="option-description"><html><head></head><body><p>The json5 treesitter package to use.</p>
-</body></html></div>
-  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.json5</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/json.nix" target="_blank">&lt;nvf/modules/plugins/languages/json.nix&gt;</a></code></div>
-</div>
-<div class="option" id="option-vim.languages.json.treesitter.jsonPackage">
-  <h3 class="option-name">
-    <a href="#option-vim.languages.json.treesitter.jsonPackage" class="option-anchor">vim.languages.json.treesitter.jsonPackage</a>
+    <a href="#option-vim.languages.json.treesitter.package" class="option-anchor">vim.languages.json.treesitter.package</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
@@ -35343,6 +35363,71 @@ in the docs.</p>
 </body></html></div>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.json</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/json.nix" target="_blank">&lt;nvf/modules/plugins/languages/json.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.json5.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.json5.enable" class="option-anchor">vim.languages.json5.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable JSON5 language support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/json5.nix" target="_blank">&lt;nvf/modules/plugins/languages/json5.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.json5.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.json5.format.enable" class="option-anchor">vim.languages.json5.format.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable JSON5 formatting.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableFormat</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/json5.nix" target="_blank">&lt;nvf/modules/plugins/languages/json5.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.json5.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.json5.format.type" class="option-anchor">vim.languages.json5.format.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (one of "prettier", "injected")</code></div>
+  <div class="option-description"><html><head></head><body><p>JSON5 formatter to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "prettier"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/json5.nix" target="_blank">&lt;nvf/modules/plugins/languages/json5.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.json5.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.json5.treesitter.enable" class="option-anchor">vim.languages.json5.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable JSON5 treesitter.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/json5.nix" target="_blank">&lt;nvf/modules/plugins/languages/json5.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.json5.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.json5.treesitter.package" class="option-anchor">vim.languages.json5.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or package</code></div>
+  <div class="option-description"><html><head></head><body><p>The json5 treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.json5</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/json5.nix" target="_blank">&lt;nvf/modules/plugins/languages/json5.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.julia.enable">
   <h3 class="option-name">
