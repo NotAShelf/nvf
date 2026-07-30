@@ -214,7 +214,11 @@ in {
             query = ''
               (call_expression
                 function: (selector_expression
-                  operand: (identifier) @_id
+                  operand: [
+                    (identifier) @_id
+                    (selector_expression
+                      field: (field_identifier) @_id)
+                  ]
                   (#any-of? @_id "db" "tx" "transaction")
                   field: (field_identifier) @_field
                   (#any-of? @_field
