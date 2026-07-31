@@ -5194,7 +5194,7 @@
     <details class="toc-category">
       <summary title="vim.formatter">
         <span>vim.formatter</span>
-        <span class="toc-count">79</span>
+        <span class="toc-count">80</span>
       </summary>
       <ul>
         
@@ -5227,6 +5227,14 @@
         <li>
           <a href='#option-vim.formatter.conform-nvim.presets.astyle.enable' title="vim.formatter.conform-nvim.presets.astyle.enable">
             conform-nvim.presets.astyle.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.formatter.conform-nvim.presets.bean-format.enable' title="vim.formatter.conform-nvim.presets.bean-format.enable">
+            conform-nvim.presets.bean-format.enable
             
             
           </a>
@@ -6580,7 +6588,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">637</span>
+        <span class="toc-count">644</span>
       </summary>
       <ul>
         
@@ -6901,6 +6909,62 @@
         <li>
           <a href='#option-vim.languages.bash.treesitter.package' title="vim.languages.bash.treesitter.package">
             bash.treesitter.package
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.beancount.enable' title="vim.languages.beancount.enable">
+            beancount.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.beancount.format.enable' title="vim.languages.beancount.format.enable">
+            beancount.format.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.beancount.format.type' title="vim.languages.beancount.format.type">
+            beancount.format.type
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.beancount.lsp.enable' title="vim.languages.beancount.lsp.enable">
+            beancount.lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.beancount.lsp.servers' title="vim.languages.beancount.lsp.servers">
+            beancount.lsp.servers
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.beancount.treesitter.enable' title="vim.languages.beancount.treesitter.enable">
+            beancount.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.beancount.treesitter.package' title="vim.languages.beancount.treesitter.package">
+            beancount.treesitter.package
             
             
           </a>
@@ -11872,7 +11936,7 @@
     <details class="toc-category">
       <summary title="vim.lsp">
         <span>vim.lsp</span>
-        <span class="toc-count">167</span>
+        <span class="toc-count">168</span>
       </summary>
       <ul>
         
@@ -12425,6 +12489,14 @@
         <li>
           <a href='#option-vim.lsp.presets.bash-language-server.enable' title="vim.lsp.presets.bash-language-server.enable">
             presets.bash-language-server.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.lsp.presets.beancount-language-server.enable' title="vim.lsp.presets.beancount-language-server.enable">
+            presets.beancount-language-server.enable
             
             
           </a>
@@ -29438,6 +29510,21 @@ is used.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/formatter/conform-nvim/presets/astyle.nix" target="_blank">&lt;nvf/modules/plugins/formatter/conform-nvim/presets/astyle.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.formatter.conform-nvim.presets.bean-format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.formatter.conform-nvim.presets.bean-format.enable" class="option-anchor">vim.formatter.conform-nvim.presets.bean-format.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Bean Format formatter.</p>
+<p>Use <code>vim.formatter.conform-nvim.setupOpts.formatters.bean-format</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/formatter/conform-nvim/presets/bean-format.nix" target="_blank">&lt;nvf/modules/plugins/formatter/conform-nvim/presets/bean-format.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.formatter.conform-nvim.presets.biome-check.enable">
   <h3 class="option-name">
     <a href="#option-vim.formatter.conform-nvim.presets.biome-check.enable" class="option-anchor">vim.formatter.conform-nvim.presets.biome-check.enable</a>
@@ -32232,6 +32319,98 @@ Thus, it will not be wrapped in <code>""</code>.</p>
 </body></html></div>
   <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.bash</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/bash.nix" target="_blank">&lt;nvf/modules/plugins/languages/bash.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.beancount.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.beancount.enable" class="option-anchor">vim.languages.beancount.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Beancount language support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/beancount.nix" target="_blank">&lt;nvf/modules/plugins/languages/beancount.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.beancount.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.beancount.format.enable" class="option-anchor">vim.languages.beancount.format.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Beancount formatting.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/beancount.nix" target="_blank">&lt;nvf/modules/plugins/languages/beancount.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.beancount.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.beancount.format.type" class="option-anchor">vim.languages.beancount.format.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "bean-format" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Beancount formatter to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "bean-format"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/beancount.nix" target="_blank">&lt;nvf/modules/plugins/languages/beancount.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.beancount.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.beancount.lsp.enable" class="option-anchor">vim.languages.beancount.lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Beancount LSP support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/beancount.nix" target="_blank">&lt;nvf/modules/plugins/languages/beancount.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.beancount.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.beancount.lsp.servers" class="option-anchor">vim.languages.beancount.lsp.servers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "beancount-language-server" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>Beancount LSP server to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "beancount-language-server"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/beancount.nix" target="_blank">&lt;nvf/modules/plugins/languages/beancount.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.beancount.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.beancount.treesitter.enable" class="option-anchor">vim.languages.beancount.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Beancount treesitter support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/beancount.nix" target="_blank">&lt;nvf/modules/plugins/languages/beancount.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.beancount.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.beancount.treesitter.package" class="option-anchor">vim.languages.beancount.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or package</code></div>
+  <div class="option-description"><html><head></head><body><p>The beancount treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.beancount</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/beancount.nix" target="_blank">&lt;nvf/modules/plugins/languages/beancount.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.clang.cHeader">
   <h3 class="option-name">
@@ -41515,6 +41694,22 @@ Default <code>filetypes = [ ]</code>.</p>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/bash-language-server.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/bash-language-server.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.lsp.presets.beancount-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.beancount-language-server.enable" class="option-anchor">vim.lsp.presets.beancount-language-server.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Beancount Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.beancount-language-server</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/beancount-language-server.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/beancount-language-server.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.lsp.presets.ccls.enable">
   <h3 class="option-name">
