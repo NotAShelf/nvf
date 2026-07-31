@@ -95,8 +95,10 @@
 <ul><li><a href="#ch-preface">Preface</a>
 <ul><li><a href="#sec-what-is-it">What is nvf</a>
 </ul><li><a href="#ch-try-it-out">Try it Out</a>
-<li><a href="#sec-using-prebuilt-configs">Using Prebuilt Configurations</a>
-<ul><li><a href="#sec-available-configs">Available Configurations</a>
+<li><a href="#sec-reference-configs">Reference Configurations</a>
+<ul><li><a href="#sec-available-configs">NVF Bundled Configurations</a>
+<li><a href="#sec-maintainer-configs">Maintainer Configurations</a>
+<li><a href="#sec-community-configs">Community Configurations</a>
 </ul><li><a href="#ch-installation">Installing nvf</a>
 </ul><li><a href="#ch-standalone-installation">Standalone Installation</a>
 <ul><li><a href="#ch-standalone-nixos">Standalone Installation on NixOS</a>
@@ -152,11 +154,10 @@ on a system where Nix is installed.</p>
 <pre class="highlight"><code class="language-sh"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Add&nbsp;the&nbsp;nvf&nbsp;cache</span><br><span style="color:rgb(232,102,113);">$</span>&nbsp;<span style="color:rgb(171,178,191);">cachix</span>&nbsp;<span style="color:rgb(232,102,113);">use</span>&nbsp;<span style="color:rgb(232,102,113);">nvf</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Optional:&nbsp;it'll&nbsp;save&nbsp;you&nbsp;CPU&nbsp;resources&nbsp;and&nbsp;time</span><br><br><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Run&nbsp;the&nbsp;minimal&nbsp;configuration&nbsp;with&nbsp;the&nbsp;cache&nbsp;enabled</span><br><span style="color:rgb(232,102,113);">$</span>&nbsp;<span style="color:rgb(171,178,191);">nix</span>&nbsp;<span style="color:rgb(232,102,113);">run</span>&nbsp;<span style="color:rgb(232,102,113);">github:notashelf/nvf#nix</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Will&nbsp;run&nbsp;the&nbsp;default&nbsp;minimal&nbsp;configuration</span><br></code></pre>
 <p>Do keep in mind that this is <strong>susceptible to garbage collection</strong> meaning that
 the built outputs will be removed from your Nix store once you garbage collect.</p>
-<h2 id="sec-using-prebuilt-configs">Using Prebuilt Configurations</h2>
-<!-- markdownlint-disable MD014 -->
-<pre class="highlight"><code class="language-bash"><span style="color:rgb(232,102,113);">$</span>&nbsp;<span style="color:rgb(171,178,191);">nix</span>&nbsp;<span style="color:rgb(232,102,113);">run</span>&nbsp;<span style="color:rgb(232,102,113);">github:notashelf/nvf#nix</span><br><span style="color:rgb(232,102,113);">$</span>&nbsp;<span style="color:rgb(171,178,191);">nix</span>&nbsp;<span style="color:rgb(232,102,113);">run</span>&nbsp;<span style="color:rgb(232,102,113);">github:notashelf/nvf#maximal</span><br></code></pre>
-
-<h3 id="sec-available-configs">Available Configurations</h3>
+<h2 id="sec-reference-configs">Reference Configurations</h2>
+<p>The nvf team, can't guarantee anything for community configurations. We highly
+recommend to only use them as reference and build your own.</p>
+<h3 id="sec-available-configs">NVF Bundled Configurations</h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The below configurations are provided for demonstration purposes, and are
@@ -164,6 +165,9 @@ the built outputs will be removed from your Nix store once you garbage collect.<
 steps below and the helpful tips section for details on creating your own
 configurations.</p>
 </div>
+<!-- markdownlint-disable MD014 -->
+<pre class="highlight"><code class="language-bash"><span style="color:rgb(232,102,113);">$</span>&nbsp;<span style="color:rgb(171,178,191);">nix</span>&nbsp;<span style="color:rgb(232,102,113);">run</span>&nbsp;<span style="color:rgb(232,102,113);">github:notashelf/nvf#nix</span><br><span style="color:rgb(232,102,113);">$</span>&nbsp;<span style="color:rgb(171,178,191);">nix</span>&nbsp;<span style="color:rgb(232,102,113);">run</span>&nbsp;<span style="color:rgb(232,102,113);">github:notashelf/nvf#maximal</span><br></code></pre>
+
 <h4 id="sec-configs-nix">Nix</h4>
 <p><code>Nix</code> configuration by default provides LSP/diagnostic support for Nix alongside
 a set of visual and functional plugins. By running <code>nix run .#</code>, which is the
@@ -187,6 +191,49 @@ companion or fun plugins.</p>
 downloading language servers, formatters, and more. If CPU time and bandwidth
 are concerns, please use the default package instead.</p>
 </div>
+<h3 id="sec-maintainer-configs">Maintainer Configurations</h3>
+<h4 id="sec-maintainer-config-notashelf">NotAShelf</h4>
+<blockquote>
+<p>or make an exception like "this guy made nvf" SURELY that's enough</p>
+<p><a href="https://github.com/NotAShelf">NotAShelf</a></p>
+</blockquote>
+<p><del><a href="">Configuration</a></del></p>
+<h4 id="sec-maintainer-config-horriblename">Horriblename</h4>
+<blockquote>
+<p>My config is a 1k lines, single-file abomination, I don't think you should
+learn from me. xD</p>
+<p><a href="https://github.com/horriblename">@horriblename</a></p>
+</blockquote>
+<p><a href="https://github.com/horriblename/dots.nix/blob/master/modules/home/terminal/nvim/nvf.nix#L75">Configuration</a></p>
+<h4 id="sec-maintainer-config-soliprem">Soliprem</h4>
+<blockquote>
+<p>sth like "Daily driver config from a filetree plugin hater (tree lover though,
+trees are great); also builds a few plugins from source since they weren't in
+nixpkgs, that's probably the quirkies part of my config"</p>
+<p><a href="https://github.com/soliprem">@Soliprem</a></p>
+</blockquote>
+<p><a href="https://codeberg.org/Soliprem/nix-config/src/branch/main/export">Configuration</a></p>
+<h4 id="sec-maintainer-config-snoweuph">Snoweuph</h4>
+<blockquote>
+<p>Daily driver configuration for everything I do, from work to recreational
+programming. It is minimal - just <strong>my</strong> minimal.</p>
+<p><a href="https://github.com/snoweuph">@Snoweuph</a></p>
+</blockquote>
+<p><a href="https://git.euph.dev/Snoweuph/nvim">Configuration</a></p>
+<h3 id="sec-community-configs">Community Configurations</h3>
+<p>Below is a list of community configurations we want to highlight for reference.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You want to see your configuration here? Send us an MR.</p>
+</div>
+<ul>
+<li><a href="https://git.vulpe.systems/vulpe-systems/nix/src/branch/main/neovim">Configuration</a>
+<blockquote>
+<p>ew emacs</p>
+<p><a href="https://github.com/pyrox0">@dish</a></p>
+</blockquote>
+</li>
+</ul>
 <h2 id="ch-installation">Installing nvf</h2>
 <!-- markdownlint-disable MD051 -->
 <!-- markdownlint-enable MD051 -->
@@ -429,8 +476,10 @@ source docstrings and available in the lib section of the HTML manual.
 <ul><li><a href="#ch-preface">Preface</a>
 <ul><li><a href="#sec-what-is-it">What is nvf</a>
 </ul><li><a href="#ch-try-it-out">Try it Out</a>
-<li><a href="#sec-using-prebuilt-configs">Using Prebuilt Configurations</a>
-<ul><li><a href="#sec-available-configs">Available Configurations</a>
+<li><a href="#sec-reference-configs">Reference Configurations</a>
+<ul><li><a href="#sec-available-configs">NVF Bundled Configurations</a>
+<li><a href="#sec-maintainer-configs">Maintainer Configurations</a>
+<li><a href="#sec-community-configs">Community Configurations</a>
 </ul><li><a href="#ch-installation">Installing nvf</a>
 </ul><li><a href="#ch-standalone-installation">Standalone Installation</a>
 <ul><li><a href="#ch-standalone-nixos">Standalone Installation on NixOS</a>
