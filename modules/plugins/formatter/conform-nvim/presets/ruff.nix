@@ -45,7 +45,7 @@ in {
 
             return {
               "format",
-              "--config", "format.indent-width = " .. vim.bo[ctx.buf].shiftwidth,
+              "--config", "indent-width = " .. vim.bo[ctx.buf].shiftwidth,
               "--config", "format.indent-style = " .. style,
               "--force-exclude",
               "--stdin-filename", "$FILENAME",
@@ -59,7 +59,7 @@ in {
 
             return {
               "format",
-              "--config", "format.indent-width = " .. vim.bo[ctx.buf].shiftwidth,
+              "--config", "indent-width = " .. vim.bo[ctx.buf].shiftwidth,
               "--config", "format.indent-style = " .. style,
               "--force-exclude",
               "--range", string.format(
