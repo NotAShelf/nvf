@@ -106,6 +106,7 @@ isMaximal: {
       julia.enable = false;
       just.enable = false;
       liquid.enable = false;
+      lisp.enable = false;
       make.enable = false;
       nu.enable = false;
       ocaml.enable = false;

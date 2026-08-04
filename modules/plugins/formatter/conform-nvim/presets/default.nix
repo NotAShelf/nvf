@@ -18,6 +18,7 @@
     ./deno.nix
     ./djlint.nix
     ./dockerfmt.nix
+    ./emacs.nix
     ./fantomas.nix
     ./fish-indent.nix
     ./floskell.nix
@@ -55,6 +56,7 @@
     ./ruff.nix
     ./rumdl.nix
     ./rustfmt.nix
+    ./sbcl.nix
     ./shfmt.nix
     ./smlfmt.nix
     ./sqlfluff.nix
