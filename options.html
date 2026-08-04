@@ -5194,7 +5194,7 @@
     <details class="toc-category">
       <summary title="vim.formatter">
         <span>vim.formatter</span>
-        <span class="toc-count">80</span>
+        <span class="toc-count">81</span>
       </summary>
       <ul>
         
@@ -5355,6 +5355,14 @@
         <li>
           <a href='#option-vim.formatter.conform-nvim.presets.fourmolu.enable' title="vim.formatter.conform-nvim.presets.fourmolu.enable">
             conform-nvim.presets.fourmolu.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.formatter.conform-nvim.presets.gawk.enable' title="vim.formatter.conform-nvim.presets.gawk.enable">
+            conform-nvim.presets.gawk.enable
             
             
           </a>
@@ -6588,7 +6596,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">644</span>
+        <span class="toc-count">651</span>
       </summary>
       <ul>
         
@@ -6837,6 +6845,62 @@
         <li>
           <a href='#option-vim.languages.astro.treesitter.enable' title="vim.languages.astro.treesitter.enable">
             astro.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.awk.enable' title="vim.languages.awk.enable">
+            awk.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.awk.format.enable' title="vim.languages.awk.format.enable">
+            awk.format.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.awk.format.type' title="vim.languages.awk.format.type">
+            awk.format.type
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.awk.lsp.enable' title="vim.languages.awk.lsp.enable">
+            awk.lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.awk.lsp.servers' title="vim.languages.awk.lsp.servers">
+            awk.lsp.servers
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.awk.treesitter.enable' title="vim.languages.awk.treesitter.enable">
+            awk.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.awk.treesitter.package' title="vim.languages.awk.treesitter.package">
+            awk.treesitter.package
             
             
           </a>
@@ -11936,7 +12000,7 @@
     <details class="toc-category">
       <summary title="vim.lsp">
         <span>vim.lsp</span>
-        <span class="toc-count">168</span>
+        <span class="toc-count">169</span>
       </summary>
       <ul>
         
@@ -12473,6 +12537,14 @@
         <li>
           <a href='#option-vim.lsp.presets.astro-language-server.enable' title="vim.lsp.presets.astro-language-server.enable">
             presets.astro-language-server.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.lsp.presets.awk-language-server.enable' title="vim.lsp.presets.awk-language-server.enable">
+            presets.awk-language-server.enable
             
             
           </a>
@@ -29752,6 +29824,21 @@ is used.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/formatter/conform-nvim/presets/fourmolu.nix" target="_blank">&lt;nvf/modules/plugins/formatter/conform-nvim/presets/fourmolu.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.formatter.conform-nvim.presets.gawk.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.formatter.conform-nvim.presets.gawk.enable" class="option-anchor">vim.formatter.conform-nvim.presets.gawk.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the GNU AWK formatter.</p>
+<p>Use <code>vim.formatter.conform-nvim.setupOpts.formatters.gawk</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/formatter/conform-nvim/presets/gawk.nix" target="_blank">&lt;nvf/modules/plugins/formatter/conform-nvim/presets/gawk.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.formatter.conform-nvim.presets.gersemi.enable">
   <h3 class="option-name">
     <a href="#option-vim.formatter.conform-nvim.presets.gersemi.enable" class="option-anchor">vim.formatter.conform-nvim.presets.gersemi.enable</a>
@@ -32200,6 +32287,98 @@ Thus, it will not be wrapped in <code>""</code>.</p>
   <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/astro.nix" target="_blank">&lt;nvf/modules/plugins/languages/astro.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.awk.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.awk.enable" class="option-anchor">vim.languages.awk.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable AWK support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/awk.nix" target="_blank">&lt;nvf/modules/plugins/languages/awk.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.awk.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.awk.format.enable" class="option-anchor">vim.languages.awk.format.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable AWK formatting.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableFormat</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/awk.nix" target="_blank">&lt;nvf/modules/plugins/languages/awk.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.awk.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.awk.format.type" class="option-anchor">vim.languages.awk.format.type</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of (one of "gawk", "injected")</code></div>
+  <div class="option-description"><html><head></head><body><p>AWK formatter to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "gawk"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/awk.nix" target="_blank">&lt;nvf/modules/plugins/languages/awk.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.awk.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.awk.lsp.enable" class="option-anchor">vim.languages.awk.lsp.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable AWK LSP support.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.lsp.enable</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/awk.nix" target="_blank">&lt;nvf/modules/plugins/languages/awk.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.awk.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.awk.lsp.servers" class="option-anchor">vim.languages.awk.lsp.servers</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>list of value "awk-language-server" (singular enum)</code></div>
+  <div class="option-description"><html><head></head><body><p>AWK LSP server to use</p>
+</body></html></div>
+  <div class="option-default">Default: <code>[
+  "awk-language-server"
+]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/awk.nix" target="_blank">&lt;nvf/modules/plugins/languages/awk.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.awk.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.awk.treesitter.enable" class="option-anchor">vim.languages.awk.treesitter.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable AWK treesitter.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/awk.nix" target="_blank">&lt;nvf/modules/plugins/languages/awk.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.awk.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.awk.treesitter.package" class="option-anchor">vim.languages.awk.treesitter.package</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or package</code></div>
+  <div class="option-description"><html><head></head><body><p>The awk treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.awk</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/awk.nix" target="_blank">&lt;nvf/modules/plugins/languages/awk.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.bash.enable">
   <h3 class="option-name">
@@ -41662,6 +41841,22 @@ Default <code>filetypes = [ ]</code>.</p>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/astro-language-server.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/astro-language-server.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.lsp.presets.awk-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.awk-language-server.enable" class="option-anchor">vim.lsp.presets.awk-language-server.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the AWK Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.awk-language-server</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/awk-language-server.nix" target="_blank">&lt;nvf/modules/plugins/lsp/presets/awk-language-server.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.lsp.presets.basedpyright.enable">
   <h3 class="option-name">
