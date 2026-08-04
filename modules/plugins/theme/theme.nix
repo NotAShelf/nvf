@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) bool lines enum submodule attrsOf nullOr;
   inherit (lib.attrsets) attrNames filterAttrs;
   inherit (lib.strings) hasPrefix;
@@ -70,18 +70,71 @@
     "ufo"
     "which_key"
   ];
-  catppuccinIntegrations = filterAttrs (name: integration: builtins.elem name catppuccinIntegrationNames && integration.enable) cfg.catppuccin.integrations;
-  themeSetupOpts = name: themeCfg:
-    if name == "catppuccin"
-    then
+  tokyonightIntegrationNames = [
+    "aerial"
+    "alpha"
+    "blink"
+    "bufferline"
+    "copilot"
+    "dashboard"
+    "flash"
+    "gitsigns"
+    "grug-far"
+    "hop"
+    "indent-blankline"
+    "leap"
+    "lspsaga"
+    "neo-tree"
+    "neogit"
+    "noice"
+    "cmp"
+    "dap"
+    "navic"
+    "notify"
+    "nvim-tree"
+    "snacks"
+    "supermaven"
+    "telescope"
+    "treesitter-context"
+    "trouble"
+    "which-key"
+  ];
+  hasEnabledIntegration = integrations: builtins.any (integration: integration.enable) (builtins.attrValues integrations);
+  themeIntegrationEnabled = theme: integrations:
+    cfg.enable
+    && cfg.default == theme
+    && (enabledThemes ? ${theme})
+    && hasEnabledIntegration integrations;
+  catppuccinIntegrationEnabled = themeIntegrationEnabled "catppuccin" cfg.catppuccin.integrations;
+  tokyonightIntegrationEnabled = themeIntegrationEnabled "tokyonight" cfg.tokyonight.integrations;
+  solarizedOsakaIntegrationEnabled = themeIntegrationEnabled "solarized-osaka" cfg.solarized-osaka.integrations;
+  catppuccinIntegrations = filterAttrs (name: integration: catppuccinIntegrationEnabled && builtins.elem name catppuccinIntegrationNames && integration.enable) cfg.catppuccin.integrations;
+  tokyonightIntegrations = filterAttrs (name: integration: tokyonightIntegrationEnabled && builtins.elem name tokyonightIntegrationNames && integration.enable) cfg.tokyonight.integrations;
+  solarizedOsakaIntegrations = filterAttrs (name: integration: solarizedOsakaIntegrationEnabled && builtins.elem name tokyonightIntegrationNames && integration.enable) cfg.solarized-osaka.integrations;
+  withPluginIntegrations = themeCfg: integrations:
+    themeCfg.setupOpts
+    // {
+      plugins =
+        {
+          all = themeCfg.setupOpts.plugins.all or false;
+          auto = themeCfg.setupOpts.plugins.auto or false;
+        }
+        // (themeCfg.setupOpts.plugins or {})
+        // lib.mapAttrs (_: _: true) integrations;
+    };
+  themeSetupAdapters = {
+    catppuccin = themeCfg:
       themeCfg.setupOpts
       // lib.optionalAttrs (!(themeCfg.setupOpts ? default_integrations)) {
         default_integrations = false;
       }
       // lib.optionalAttrs (catppuccinIntegrations != {}) {
         integrations = (themeCfg.setupOpts.integrations or {}) // lib.mapAttrs (_: _: true) catppuccinIntegrations;
-      }
-    else themeCfg.setupOpts;
+      };
+    tokyonight = themeCfg: withPluginIntegrations themeCfg tokyonightIntegrations;
+    solarized-osaka = themeCfg: withPluginIntegrations themeCfg solarizedOsakaIntegrations;
+  };
+  themeSetupOpts = name: themeCfg: (themeSetupAdapters.${name} or (x: x.setupOpts)) themeCfg;
 
   # Get the default theme configuration
   defaultTheme =
@@ -158,13 +211,30 @@ in {
 
     catppuccin.integrations =
       {
-        lualine = mkEnableOption "the Catppuccin lualine integration";
+        lualine.enable = mkEnableOption "the Catppuccin lualine integration";
       }
       // mapListToAttrs (name: {
         inherit name;
-        value = mkEnableOption "the Catppuccin ${name} integration";
+        value.enable = mkEnableOption "the Catppuccin ${name} integration";
       })
       catppuccinIntegrationNames;
+
+    tokyonight.integrations =
+      {
+        lualine.enable = mkEnableOption "the TokyoNight lualine integration";
+      }
+      // mapListToAttrs (name: {
+        inherit name;
+        value.enable = mkEnableOption "the TokyoNight ${name} integration";
+      })
+      tokyonightIntegrationNames;
+
+    solarized-osaka.integrations =
+      mapListToAttrs (name: {
+        inherit name;
+        value.enable = mkEnableOption "the Solarized Osaka ${name} integration";
+      })
+      tokyonightIntegrationNames;
 
     # Legacy options for backwards compatibility
     # FIXME: this could have been handled directly with mkRenamedOptionModule
@@ -202,7 +272,7 @@ in {
     };
   };
 
-  config =
+  config = mkMerge [
     {
       assertions = [
         {
@@ -213,9 +283,21 @@ in {
           assertion = cfg.default == null || (enabledThemes ? ${cfg.default});
           message = "vim.theme.default must name an enabled theme.";
         }
+        {
+          assertion = !hasEnabledIntegration cfg.catppuccin.integrations || catppuccinIntegrationEnabled;
+          message = "Catppuccin integrations require Catppuccin to be the enabled default theme.";
+        }
+        {
+          assertion = !hasEnabledIntegration cfg.tokyonight.integrations || tokyonightIntegrationEnabled;
+          message = "TokyoNight integrations require TokyoNight to be the enabled default theme.";
+        }
+        {
+          assertion = !hasEnabledIntegration cfg.solarized-osaka.integrations || solarizedOsakaIntegrationEnabled;
+          message = "Solarized Osaka integrations require Solarized Osaka to be the enabled default theme.";
+        }
       ];
     }
-    // mkIf cfg.enable {
+    (mkIf cfg.enable {
       vim = {
         startPlugins =
           attrNames enabledThemes
@@ -263,5 +345,28 @@ in {
             Refer to the documentation for more details.
           ''
         ];
-    };
+    })
+    (mkIf (catppuccinIntegrationEnabled && cfg.catppuccin.integrations.lualine.enable) {
+      vim.statusline.lualine.theme = lib.mkDefault "catppuccin";
+    })
+    (mkIf (tokyonightIntegrationEnabled && cfg.tokyonight.integrations.lualine.enable) {
+      vim.statusline.lualine.theme = lib.mkDefault "tokyonight";
+    })
+    (mkIf (catppuccinIntegrationEnabled && cfg.catppuccin.integrations.bufferline.enable) {
+      vim.tabline.nvimBufferline.setupOpts.highlights = lib.mkDefault (lib.nvim.lua.mkLuaInline ''
+        (function()
+          local integration = require("catppuccin.special.bufferline")
+          return (integration.get_theme or integration.get)()
+        end)()
+      '');
+    })
+    (mkIf (catppuccinIntegrationEnabled && cfg.catppuccin.integrations.lsp_saga.enable) {
+      vim.lsp.lspsaga.setupOpts.ui.kind = lib.mkDefault (lib.nvim.lua.mkLuaInline ''
+        require("catppuccin.groups.integrations.lsp_saga").custom_kind()
+      '');
+    })
+    (mkIf (catppuccinIntegrationEnabled && cfg.catppuccin.integrations.fidget.enable) {
+      vim.visuals.fidget-nvim.setupOpts.notification.window.winblend = lib.mkDefault 0;
+    })
+  ];
 }

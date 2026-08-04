@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkOption mkEnableOption literalExpression literalMD;
+  inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) enum bool either nullOr str int listOf attrs;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
@@ -27,28 +27,7 @@ in {
     setupOpts = mkPluginSetupOption "bufferline-nvim" {
       highlights = mkOption {
         type = either attrs luaInline;
-        default =
-          if
-            config.vim.theme.default
-            == "catppuccin"
-            && config.vim.theme.catppuccin.integrations.bufferline.enable
-          then
-            mkLuaInline ''
-              (function()
-                local integration = require("catppuccin.special.bufferline")
-                return (integration.get_theme or integration.get)()
-              end)()
-            ''
-          else {};
-        defaultText = literalMD ''
-          ```lua
-          (function()
-            local integration = require("catppuccin.special.bufferline")
-            return (integration.get_theme or integration.get)()
-          end)()
-          ```
-          if the active theme is Catppuccin, `{}` otherwise.
-        '';
+        default = {};
         description = ''
           Overrides the highlight groups of bufferline.
 
