@@ -5194,7 +5194,7 @@
     <details class="toc-category">
       <summary title="vim.formatter">
         <span>vim.formatter</span>
-        <span class="toc-count">82</span>
+        <span class="toc-count">83</span>
       </summary>
       <ul>
         
@@ -5315,6 +5315,14 @@
         <li>
           <a href='#option-vim.formatter.conform-nvim.presets.dockerfmt.enable' title="vim.formatter.conform-nvim.presets.dockerfmt.enable">
             conform-nvim.presets.dockerfmt.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.formatter.conform-nvim.presets.emacs.enable' title="vim.formatter.conform-nvim.presets.emacs.enable">
+            conform-nvim.presets.emacs.enable
             
             
           </a>
@@ -6604,7 +6612,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">656</span>
+        <span class="toc-count">657</span>
       </summary>
       <ul>
         
@@ -9171,16 +9179,24 @@
         </li>
         
         <li>
-          <a href='#option-vim.languages.lisp.treesitter.enable' title="vim.languages.lisp.treesitter.enable">
-            lisp.treesitter.enable
+          <a href='#option-vim.languages.lisp.treesitter.commonLispPackage' title="vim.languages.lisp.treesitter.commonLispPackage">
+            lisp.treesitter.commonLispPackage
             
             
           </a>
         </li>
         
         <li>
-          <a href='#option-vim.languages.lisp.treesitter.package' title="vim.languages.lisp.treesitter.package">
-            lisp.treesitter.package
+          <a href='#option-vim.languages.lisp.treesitter.emacsLispPackage' title="vim.languages.lisp.treesitter.emacsLispPackage">
+            lisp.treesitter.emacsLispPackage
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.lisp.treesitter.enable' title="vim.languages.lisp.treesitter.enable">
+            lisp.treesitter.enable
             
             
           </a>
@@ -29797,6 +29813,21 @@ is used.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/formatter/conform-nvim/presets/dockerfmt.nix" target="_blank">&lt;nvf/modules/plugins/formatter/conform-nvim/presets/dockerfmt.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.formatter.conform-nvim.presets.emacs.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.formatter.conform-nvim.presets.emacs.enable" class="option-anchor">vim.formatter.conform-nvim.presets.emacs.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Emacs formatter.</p>
+<p>Use <code>vim.formatter.conform-nvim.setupOpts.formatters.emacs</code> for customization
+.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/formatter/conform-nvim/presets/emacs.nix" target="_blank">&lt;nvf/modules/plugins/formatter/conform-nvim/presets/emacs.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.formatter.conform-nvim.presets.fantomas.enable">
   <h3 class="option-name">
     <a href="#option-vim.formatter.conform-nvim.presets.fantomas.enable" class="option-anchor">vim.formatter.conform-nvim.presets.fantomas.enable</a>
@@ -36204,12 +36235,36 @@ package to Julia in your devshells.</p>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
-  <div class="option-type">Type: <code>list of (one of "sbcl", "injected")</code></div>
+  <div class="option-type">Type: <code>list of (one of "sbcl", "emacs", "injected")</code></div>
   <div class="option-description"><html><head></head><body><p>Lisp formatter to use</p>
 </body></html></div>
   <div class="option-default">Default: <code>[
-  "sbcl"
+  "emacs"
 ]</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lisp.nix" target="_blank">&lt;nvf/modules/plugins/languages/lisp.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.lisp.treesitter.commonLispPackage">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.lisp.treesitter.commonLispPackage" class="option-anchor">vim.languages.lisp.treesitter.commonLispPackage</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or package</code></div>
+  <div class="option-description"><html><head></head><body><p>The commonlisp treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.commonlisp</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lisp.nix" target="_blank">&lt;nvf/modules/plugins/languages/lisp.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.lisp.treesitter.emacsLispPackage">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.lisp.treesitter.emacsLispPackage" class="option-anchor">vim.languages.lisp.treesitter.emacsLispPackage</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>null or package</code></div>
+  <div class="option-description"><html><head></head><body><p>The elisp treesitter package to use.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>pkgs.tree-sitter-grammars.tree-sitter-elisp</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lisp.nix" target="_blank">&lt;nvf/modules/plugins/languages/lisp.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.lisp.treesitter.enable">
@@ -36223,18 +36278,6 @@ package to Julia in your devshells.</p>
 </body></html></div>
   <div class="option-default">Default: <code>config.vim.languages.enableTreesitter</code></div>
   <div class="option-example">Example: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lisp.nix" target="_blank">&lt;nvf/modules/plugins/languages/lisp.nix&gt;</a></code></div>
-</div>
-<div class="option" id="option-vim.languages.lisp.treesitter.package">
-  <h3 class="option-name">
-    <a href="#option-vim.languages.lisp.treesitter.package" class="option-anchor">vim.languages.lisp.treesitter.package</a>
-    <span class="copy-link" title="Copy link to this option"></span>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-type">Type: <code>null or package</code></div>
-  <div class="option-description"><html><head></head><body><p>The commonlisp treesitter package to use.</p>
-</body></html></div>
-  <div class="option-default">Default: <code>pkgs.vimPlugins.nvim-treesitter.grammarPlugins.commonlisp</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lisp.nix" target="_blank">&lt;nvf/modules/plugins/languages/lisp.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.languages.lua.enable">
