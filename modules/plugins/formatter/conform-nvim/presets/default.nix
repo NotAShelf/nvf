@@ -55,6 +55,7 @@
     ./ruff.nix
     ./rumdl.nix
     ./rustfmt.nix
+    ./sbcl.nix
     ./shfmt.nix
     ./smlfmt.nix
     ./sqlfluff.nix
