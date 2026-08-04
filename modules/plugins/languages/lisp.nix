@@ -12,8 +12,8 @@
 
   cfg = config.vim.languages.lisp;
 
-  defaultFormat = ["sbcl"];
-  formats = ["sbcl" "injected"];
+  defaultFormat = ["emacs"];
+  formats = ["sbcl" "emacs" "injected"];
 in {
   options.vim.languages.lisp = {
     enable = mkEnableOption "Lisp support";
