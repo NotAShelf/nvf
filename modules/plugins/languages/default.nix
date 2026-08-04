@@ -40,6 +40,7 @@ in {
     ./just.nix
     ./kotlin.nix
     ./liquid.nix
+    ./lisp.nix
     ./lua.nix
     ./make.nix
     ./markdown.nix
