@@ -28,7 +28,10 @@ in {
       highlights = mkOption {
         type = either attrs luaInline;
         default =
-          if config.vim.theme.enable && config.vim.theme.name == "catppuccin"
+          if
+            config.vim.theme.default
+            == "catppuccin"
+            && config.vim.theme.catppuccin.integrations.bufferline.enable
           then
             mkLuaInline ''
               (function()

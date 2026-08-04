@@ -8,8 +8,12 @@
   inherit (lib.nvim.types) borderType mkPluginSetupOption;
   inherit (lib.nvim.lua) mkLuaInline;
 
+  catppuccinIntegrationEnabled =
+    config.vim.theme.default
+    == "catppuccin"
+    && config.vim.theme.catppuccin.integrations.lsp_saga.enable;
   uiKindSetupOpts =
-    if config.vim.theme.enable && config.vim.theme.name == "catppuccin"
+    if catppuccinIntegrationEnabled
     then {
       ui.kind = mkLuaInline ''
         require("catppuccin.groups.integrations.lsp_saga").custom_kind()
