@@ -37,29 +37,47 @@
   nonDefaultThemes = filterAttrs (name: _: name != cfg.default) enabledThemes;
   newConfigUsed = enabledThemes != {};
   catppuccinIntegrationNames = [
+    "aerial"
     "alpha"
+    "blink_cmp"
     "bufferline"
+    "cmp"
+    "dap"
+    "dap_ui"
+    "dashboard"
+    "diffview"
     "fidget"
+    "flash"
     "gitsigns"
+    "grug_far"
+    "harpoon"
     "hop"
+    "indent_blankline"
     "leap"
     "lsp_saga"
-    "markdown"
+    "lsp_trouble"
+    "mini"
+    "neogit"
+    "neotree"
     "navic"
     "noice"
     "notify"
+    "nvim_surround"
     "nvimtree"
     "telescope"
     "treesitter"
     "treesitter_context"
-    "ts_rainbow"
+    "ufo"
     "which_key"
   ];
-  catppuccinIntegrations = filterAttrs (_: integration: integration.enable) cfg.catppuccin.integrations;
+  catppuccinIntegrations = filterAttrs (name: integration: builtins.elem name catppuccinIntegrationNames && integration.enable) cfg.catppuccin.integrations;
   themeSetupOpts = name: themeCfg:
     if name == "catppuccin"
     then
       themeCfg.setupOpts
+      // lib.optionalAttrs (!(themeCfg.setupOpts ? default_integrations)) {
+        default_integrations = false;
+      }
       // lib.optionalAttrs (catppuccinIntegrations != {}) {
         integrations = (themeCfg.setupOpts.integrations or {}) // lib.mapAttrs (_: _: true) catppuccinIntegrations;
       }
@@ -140,6 +158,7 @@ in {
 
     catppuccin.integrations =
       {
+        lualine = mkEnableOption "the Catppuccin lualine integration";
       }
       // mapListToAttrs (name: {
         inherit name;

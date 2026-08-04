@@ -10,6 +10,10 @@
   inherit (lib.nvim.types) mkPluginSetupOption;
 
   supported_themes = import ./supported_themes.nix;
+  catppuccinIntegrationEnabled =
+    config.vim.theme.default
+    == "catppuccin"
+    && config.vim.theme.catppuccin.integrations.lualine.enable;
   builtin_themes = [
     "auto"
     "16color"
@@ -130,8 +134,11 @@ in {
     in
       mkOption {
         type = enum themesConcatted;
-        default = "auto";
-        defaultText = ''`config.vim.theme.name` if theme supports lualine else "auto"'';
+        default =
+          if catppuccinIntegrationEnabled
+          then "catppuccin"
+          else "auto";
+        defaultText = ''"catppuccin" when its integration is enabled, otherwise "auto"'';
         description = "Theme for lualine";
       };
 
