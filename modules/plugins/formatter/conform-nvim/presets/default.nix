@@ -18,6 +18,7 @@
     ./deno.nix
     ./djlint.nix
     ./dockerfmt.nix
+    ./emacs.nix
     ./fantomas.nix
     ./fish-indent.nix
     ./floskell.nix
