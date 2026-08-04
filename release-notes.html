@@ -142,10 +142,17 @@ codebase maintainable.</li>
 </ul>
 <p><a href="https://github.com/snoweuph">snoweuph</a></p>
 <ul>
-<li>splitting <code>languages/json5</code> from <code>languages/json</code>, because most <code>json</code> and
+<li>
+<p>Split standalone flake template, into flake wiring and actual configuration.
+Also added example for Neovim builtin options and made the flake actually
+valid.</p>
+</li>
+<li>
+<p>Splitting <code>languages/json5</code> from <code>languages/json</code>, because most <code>json</code> and
 <code>jsonc</code> tools don't support it correctly, making it a bad fit to be combined
 into one module, because it creates scenarios where tools are connected to non
-supported filetypes.</li>
+supported filetypes.</p>
+</li>
 </ul>
 <h2 id="sec-release-26-12-changelog">Changelog</h2>
 <p><a href="https://github.com/snoweuph">snoweuph</a></p>
