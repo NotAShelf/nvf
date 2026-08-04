@@ -23,6 +23,7 @@
     ./floskell.nix
     ./format-r.nix
     ./fourmolu.nix
+    ./gawk.nix
     ./gersemi.nix
     ./gofmt.nix
     ./gofumpt.nix

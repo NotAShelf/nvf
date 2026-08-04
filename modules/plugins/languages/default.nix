@@ -6,6 +6,7 @@ in {
     ./arduino.nix
     ./asm.nix
     ./astro.nix
+    ./awk.nix
     ./bash.nix
     ./beancount.nix
     ./clang.nix
