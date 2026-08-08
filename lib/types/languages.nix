@@ -17,6 +17,12 @@
       default = ["tree-sitter-grammars" "tree-sitter-${grammar}"];
       nullable = true;
     };
+
+  mkCustomGrammarOption = inputs: pkgs: grammar:
+    mkPackageOption inputs.self.packages.${pkgs.stdenv.hostPlatform.system} ["${grammar} treesitter"] {
+      default = ["tree-sitter-${grammar}"];
+      nullable = true;
+    };
 in {
-  inherit mkGrammarOption mkTreesitterGrammarOption;
+  inherit mkGrammarOption mkTreesitterGrammarOption mkCustomGrammarOption;
 }

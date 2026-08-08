@@ -4,6 +4,7 @@ in {
   imports = [
     ./angular.nix
     ./arduino.nix
+    ./asciidoc.nix
     ./asm.nix
     ./astro.nix
     ./awk.nix
