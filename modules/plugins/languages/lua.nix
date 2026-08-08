@@ -8,8 +8,7 @@
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib) genAttrs;
   inherit (lib.types) enum listOf;
-  inherit (lib.nvim.types) mkGrammarOption;
-  inherit (lib.nvim.dag) entryBefore;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
 
   cfg = config.vim.languages.lua;
 
@@ -52,8 +51,6 @@ in {
         default = defaultServers;
         description = "Lua LSP server to use";
       };
-
-      lazydev.enable = mkEnableOption "lazydev.nvim integration, useful for neovim plugin developers";
     };
 
     format = {
@@ -83,6 +80,13 @@ in {
         description = "extra Lua diagnostics providers";
       };
     };
+
+    extensions = {
+      lazydev = {
+        enable = mkEnableOption "lazydev.nvim integration, useful for neovim plugin developers";
+        setupOpts = mkPluginSetupOption "lazydev" {};
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -100,18 +104,6 @@ in {
       };
     })
 
-    (mkIf cfg.lsp.lazydev.enable {
-      vim.startPlugins = ["lazydev-nvim"];
-      vim.pluginRC.lazydev = entryBefore ["lsp-servers"] ''
-        require("lazydev").setup({
-        	enabled = function(root_dir)
-        		return not vim.uv.fs_stat(root_dir .. "/.luarc.json")
-        	end,
-        	library = { { path = "''${3rd}/luv/library", words = { "vim%.uv" } } },
-        })
-      '';
-    })
-
     (mkIf cfg.format.enable {
       vim.formatter.conform-nvim = {
         enable = true;
@@ -127,6 +119,15 @@ in {
           enable = true;
           linters_by_ft.lua = cfg.extraDiagnostics.types;
         };
+      };
+    })
+
+    (mkIf cfg.extensions.lazydev.enable {
+      vim.lazy.plugins.lazydev = {
+        package = "lazydev-nvim";
+        setupModule = "lazydev";
+        ft = "lua";
+        inherit (cfg.extensions.lazydev) setupOpts;
       };
     })
   ]);
