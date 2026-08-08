@@ -154,6 +154,10 @@ into one module, because it creates scenarios where tools are connected to non
 supported filetypes.</p>
 </li>
 <li>
+<p><code>languages/lua</code>: only enable treesitter support if the module itself is
+enabled.</p>
+</li>
+<li>
 <p><code>languages/lua</code>: allow configuring lazydev and move it to the modules
 <code>extensions</code> namespace. In this process the default options where also
 removed, falling back to lazydevs own defaults. This was done, due to the old
