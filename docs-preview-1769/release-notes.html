@@ -153,6 +153,12 @@ valid.</p>
 into one module, because it creates scenarios where tools are connected to non
 supported filetypes.</p>
 </li>
+<li>
+<p><code>languages/lua</code>: allow configuring lazydev and move it to the modules
+<code>extensions</code> namespace. In this process the default options where also
+removed, falling back to lazydevs own defaults. This was done, due to the old
+defaults being extremely weird and what most people would never want.</p>
+</li>
 </ul>
 <h2 id="sec-release-26-12-changelog">Changelog</h2>
 <p><a href="https://github.com/snoweuph">snoweuph</a></p>
@@ -160,10 +166,6 @@ supported filetypes.</p>
 <li>
 <p><code>languages/lua</code>: fix arguments for <code>formatter/conform-nvim/presets/stylua</code> to
 match new required order.</p>
-</li>
-<li>
-<p><code>languages/lua</code>: allow configuring lazydev and move it to the modules
-<code>extensions</code> namespace.</p>
 </li>
 <li>
 <p><code>lsp/presets/sqls</code>: remove <code>sqls.nvim</code> from being enabled by default, to an
