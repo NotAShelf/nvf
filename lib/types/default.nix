@@ -13,7 +13,7 @@
 in {
   inherit (typesDag) dagOf;
   inherit (typesPlugin) pluginsOpt extraPluginType mkPluginSetupOption luaInline pluginType borderType;
-  inherit (typesLanguage) mkGrammarOption mkTreesitterGrammarOption;
+  inherit (typesLanguage) mkGrammarOption mkTreesitterGrammarOption mkCustomGrammarOption;
   inherit (typesLsp) mkLspPresetEnableOption;
   inherit (typesDap) mkDapPresetEnableOption;
   inherit (typesFormatter) mkFormatterPresetEnableOption;
