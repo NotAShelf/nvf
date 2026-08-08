@@ -85,51 +85,49 @@ in {
     };
   };
 
-  config = mkMerge [
+  config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.treesitter.enable {
       vim.treesitter.enable = true;
       vim.treesitter.grammars = [cfg.treesitter.package];
     })
 
-    (mkIf cfg.enable (mkMerge [
-      (mkIf cfg.lsp.enable {
-        vim.lsp = {
-          presets = genAttrs cfg.lsp.servers (_: {enable = true;});
-          servers = genAttrs cfg.lsp.servers (_: {
-            filetypes = ["lua"];
-          });
-        };
-      })
+    (mkIf cfg.lsp.enable {
+      vim.lsp = {
+        presets = genAttrs cfg.lsp.servers (_: {enable = true;});
+        servers = genAttrs cfg.lsp.servers (_: {
+          filetypes = ["lua"];
+        });
+      };
+    })
 
-      (mkIf cfg.lsp.lazydev.enable {
-        vim.startPlugins = ["lazydev-nvim"];
-        vim.pluginRC.lazydev = entryBefore ["lsp-servers"] ''
-          require("lazydev").setup({
-            enabled = function(root_dir)
-              return not vim.uv.fs_stat(root_dir .. "/.luarc.json")
-            end,
-            library = { { path = "''${3rd}/luv/library", words = { "vim%.uv" } } },
-          })
-        '';
-      })
+    (mkIf cfg.lsp.lazydev.enable {
+      vim.startPlugins = ["lazydev-nvim"];
+      vim.pluginRC.lazydev = entryBefore ["lsp-servers"] ''
+        require("lazydev").setup({
+        	enabled = function(root_dir)
+        		return not vim.uv.fs_stat(root_dir .. "/.luarc.json")
+        	end,
+        	library = { { path = "''${3rd}/luv/library", words = { "vim%.uv" } } },
+        })
+      '';
+    })
 
-      (mkIf cfg.format.enable {
-        vim.formatter.conform-nvim = {
+    (mkIf cfg.format.enable {
+      vim.formatter.conform-nvim = {
+        enable = true;
+        presets = genAttrs cfg.format.type (_: {enable = true;});
+        setupOpts.formatters_by_ft.lua = cfg.format.type;
+      };
+    })
+
+    (mkIf cfg.extraDiagnostics.enable {
+      vim.diagnostics = {
+        presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
+        nvim-lint = {
           enable = true;
-          presets = genAttrs cfg.format.type (_: {enable = true;});
-          setupOpts.formatters_by_ft.lua = cfg.format.type;
+          linters_by_ft.lua = cfg.extraDiagnostics.types;
         };
-      })
-
-      (mkIf cfg.extraDiagnostics.enable {
-        vim.diagnostics = {
-          presets = genAttrs cfg.extraDiagnostics.types (_: {enable = true;});
-          nvim-lint = {
-            enable = true;
-            linters_by_ft.lua = cfg.extraDiagnostics.types;
-          };
-        };
-      })
-    ]))
-  ];
+      };
+    })
+  ]);
 }
