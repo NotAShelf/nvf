@@ -6612,7 +6612,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">657</span>
+        <span class="toc-count">658</span>
       </summary>
       <ul>
         
@@ -9211,6 +9211,22 @@
         </li>
         
         <li>
+          <a href='#option-vim.languages.lua.extensions.lazydev.enable' title="vim.languages.lua.extensions.lazydev.enable">
+            lua.extensions.lazydev.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.lua.extensions.lazydev.setupOpts' title="vim.languages.lua.extensions.lazydev.setupOpts">
+            lua.extensions.lazydev.setupOpts
+            
+            
+          </a>
+        </li>
+        
+        <li>
           <a href='#option-vim.languages.lua.extraDiagnostics.enable' title="vim.languages.lua.extraDiagnostics.enable">
             lua.extraDiagnostics.enable
             
@@ -9245,14 +9261,6 @@
         <li>
           <a href='#option-vim.languages.lua.lsp.enable' title="vim.languages.lua.lsp.enable">
             lua.lsp.enable
-            
-            
-          </a>
-        </li>
-        
-        <li>
-          <a href='#option-vim.languages.lua.lsp.lazydev.enable' title="vim.languages.lua.lsp.lazydev.enable">
-            lua.lsp.lazydev.enable
             
             
           </a>
@@ -36293,6 +36301,36 @@ package to Julia in your devshells.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lua.nix" target="_blank">&lt;nvf/modules/plugins/languages/lua.nix&gt;</a></code></div>
 </div>
+<div class="option" id="option-vim.languages.lua.extensions.lazydev.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.lua.extensions.lazydev.enable" class="option-anchor">vim.languages.lua.extensions.lazydev.enable</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>boolean</code></div>
+  <div class="option-description"><html><head></head><body><p>Whether to enable lazydev.nvim integration, useful for neovim plugin developers.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>false</code></div>
+  <div class="option-example">Example: <code>true</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lua.nix" target="_blank">&lt;nvf/modules/plugins/languages/lua.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.languages.lua.extensions.lazydev.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.lua.extensions.lazydev.setupOpts" class="option-anchor">vim.languages.lua.extensions.lazydev.setupOpts</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>(luaInline) or (open submodule of anything)</code></div>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of lazydev.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <div class="option-default">Default: <code>{ }</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lua.nix" target="_blank">&lt;nvf/modules/plugins/languages/lua.nix&gt;</a></code></div>
+</div>
 <div class="option" id="option-vim.languages.lua.extraDiagnostics.enable">
   <h3 class="option-name">
     <a href="#option-vim.languages.lua.extraDiagnostics.enable" class="option-anchor">vim.languages.lua.extraDiagnostics.enable</a>
@@ -36357,19 +36395,6 @@ package to Julia in your devshells.</p>
   <div class="option-description"><html><head></head><body><p>Whether to enable Lua LSP support.</p>
 </body></html></div>
   <div class="option-default">Default: <code>config.vim.lsp.enable</code></div>
-  <div class="option-example">Example: <code>true</code></div>
-  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lua.nix" target="_blank">&lt;nvf/modules/plugins/languages/lua.nix&gt;</a></code></div>
-</div>
-<div class="option" id="option-vim.languages.lua.lsp.lazydev.enable">
-  <h3 class="option-name">
-    <a href="#option-vim.languages.lua.lsp.lazydev.enable" class="option-anchor">vim.languages.lua.lsp.lazydev.enable</a>
-    <span class="copy-link" title="Copy link to this option"></span>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Whether to enable lazydev.nvim integration, useful for neovim plugin developers.</p>
-</body></html></div>
-  <div class="option-default">Default: <code>false</code></div>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lua.nix" target="_blank">&lt;nvf/modules/plugins/languages/lua.nix&gt;</a></code></div>
 </div>
