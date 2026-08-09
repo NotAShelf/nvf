@@ -16,7 +16,7 @@
   cfg = config.vim.languages.java;
 
   defaultServers = ["jdt-language-server"];
-  servers = ["jdt-language-server" "jls"];
+  servers = ["jdt-language-server" "jls" "intellij-server"];
 
   defaultFormat = ["astyle"];
   formats = ["astyle" "injected"];
