@@ -123,7 +123,7 @@ in {
     })
 
     (mkIf cfg.extensions.lazydev.enable {
-      vim.lazy.plugins.lazydev = {
+      vim.lazy.plugins.lazydev-nvim = {
         package = "lazydev-nvim";
         setupModule = "lazydev";
         ft = "lua";
