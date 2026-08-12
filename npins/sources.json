@@ -2857,6 +2857,22 @@
       "url": "https://github.com/dmmulroy/ts-error-translator.nvim/archive/558abff11b9e8f4cefc0de09df780c56841c7a4b.tar.gz",
       "hash": "sha256-kjZwfvb0B7GC4dBBSdgC/zRmCUCfCm4H5J+8SFzANJ4="
     },
+    "twilight.nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "folke",
+        "repo": "twilight.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v1.0.0",
+      "revision": "8bb7fa7b918baab1ca81b977102ddb54afa63512",
+      "url": "https://api.github.com/repos/folke/twilight.nvim/tarball/refs/tags/v1.0.0",
+      "hash": "sha256-HqkdXI5nzSkdZeu56BY8Y0Yq64UFqnsxQmJVsBkRDS8="
+    },
     "typst-concealer": {
       "type": "Git",
       "repository": {

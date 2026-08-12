@@ -1,7 +1,6 @@
 {
   imports = [
-    ./theme.nix
     ./config.nix
-    ./twilight
+    ./twilight.nix
   ];
 }
