@@ -1,0 +1,23 @@
+diff --git a/lua/codewindow/highlight.lua b/lua/codewindow/highlight.lua
+index 535b43d..4d85f3a 100644
+--- a/lua/codewindow/highlight.lua
++++ b/lua/codewindow/highlight.lua
+@@ -124,8 +124,16 @@ end
+ 
+ if config.use_treesitter then
+   highlighter = require("vim.treesitter.highlighter")
+-  ts_utils = require("nvim-treesitter.ts_utils")
+-  M.extract_highlighting = extract_highlighting
++  -- Newer nvim-treesitter versions removed the deprecated `ts_utils` module,
++  -- which used to crash codewindow at startup when `use_treesitter` is on.
++  -- Fall back to the non-treesitter minimap rendering path when it is absent.
++  local ok, ts_utils_mod = pcall(require, "nvim-treesitter.ts_utils")
++  if ok then
++    ts_utils = ts_utils_mod
++    M.extract_highlighting = extract_highlighting
++  else
++    M.extract_highlighting = function() end
++  end
+ else
+   M.extract_highlighting = function() end
+ end
