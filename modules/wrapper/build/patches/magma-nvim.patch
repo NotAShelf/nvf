@@ -1,0 +1,195 @@
+diff -ru '--exclude=.git' /nix/store/49vf34m15h10bqi1hj8v48ghd4majy9g-magma-nvim-ff3deba8/rplugin/python3/magma/__init__.py ./rplugin/python3/magma/__init__.py
+--- /nix/store/49vf34m15h10bqi1hj8v48ghd4majy9g-magma-nvim-ff3deba8/rplugin/python3/magma/__init__.py	1970-01-01 05:30:01.000000000 +0530
++++ ./rplugin/python3/magma/__init__.py	2026-08-15 23:43:30.214885049 +0530
+@@ -321,6 +321,16 @@
+ 
+         magma.delete_cell()
+ 
++    @pynvim.command("MagmaDeleteAll", nargs=0, sync=True)  # type: ignore
++    @nvimui  # type: ignore
++    def command_delete_all(self) -> None:
++        self._initialize_if_necessary()
++
++        magma = self._get_magma(True)
++        assert magma is not None
++
++        magma.delete_all_cells()
++
+     @pynvim.command("MagmaShowOutput", nargs=0, sync=True)  # type: ignore
+     @nvimui  # type: ignore
+     def command_show_output(self) -> None:
+diff -ru '--exclude=.git' /nix/store/49vf34m15h10bqi1hj8v48ghd4majy9g-magma-nvim-ff3deba8/rplugin/python3/magma/magmabuffer.py ./rplugin/python3/magma/magmabuffer.py
+--- /nix/store/49vf34m15h10bqi1hj8v48ghd4majy9g-magma-nvim-ff3deba8/rplugin/python3/magma/magmabuffer.py	1970-01-01 05:30:01.000000000 +0530
++++ ./rplugin/python3/magma/magmabuffer.py	2026-08-15 23:21:24.219306718 +0530
+@@ -134,6 +134,16 @@
+             )
+         if did_stuff:
+             self.update_interface()
++        if self.runtime._kernel_died and not self.runtime.is_ready():
++            if not self.runtime._kernel_died_reported:
++                self.runtime._kernel_died_reported = True
++                self.nvim.api.notify(
++                    "Kernel '%s' died during startup. Check the kernelspec "
++                    "(`jupyter kernelspec list`) or the environment it points "
++                    "to." % self.runtime.kernel_name,
++                    pynvim.logging.ERROR,
++                    {"title": "Magma"},
++                )
+         if not was_ready and self.runtime.is_ready():
+             self.nvim.api.notify(
+                 "Kernel '%s' is ready." % self.runtime.kernel_name,
+@@ -193,6 +203,11 @@
+         self.outputs[self.selected_cell].clear_interface()
+         del self.outputs[self.selected_cell]
+ 
++    def delete_all_cells(self) -> None:
++        for output_span in reversed(list(self.outputs.keys())):
++            self.outputs[output_span].clear_interface()
++            del self.outputs[output_span]
++
+     def update_interface(self) -> None:
+         if self.buffer.number != self.nvim.current.buffer.number:
+             return
+diff -ru '--exclude=.git' /nix/store/49vf34m15h10bqi1hj8v48ghd4majy9g-magma-nvim-ff3deba8/rplugin/python3/magma/options.py ./rplugin/python3/magma/options.py
+--- /nix/store/49vf34m15h10bqi1hj8v48ghd4majy9g-magma-nvim-ff3deba8/rplugin/python3/magma/options.py	1970-01-01 05:30:01.000000000 +0530
++++ ./rplugin/python3/magma/options.py	2026-08-15 23:00:30.272156341 +0530
+@@ -28,7 +28,7 @@
+             "magma_cell_highlight_group", "CursorLine"
+         )
+         self.save_path = nvim.vars.get(
+-            "magma_save_cell",
++            "magma_save_path",
+             os.path.join(nvim.funcs.stdpath("data"), "magma"),
+         )
+         self.image_provider = nvim.vars.get("magma_image_provider", "none")
+diff -ru '--exclude=.git' /nix/store/49vf34m15h10bqi1hj8v48ghd4majy9g-magma-nvim-ff3deba8/rplugin/python3/magma/outputbuffer.py ./rplugin/python3/magma/outputbuffer.py
+--- /nix/store/49vf34m15h10bqi1hj8v48ghd4majy9g-magma-nvim-ff3deba8/rplugin/python3/magma/outputbuffer.py	1970-01-01 05:30:01.000000000 +0530
++++ ./rplugin/python3/magma/outputbuffer.py	2026-08-15 23:00:30.272156341 +0530
+@@ -123,7 +123,7 @@
+                     "width": win_width,
+                     "height": min(win_height - win_row, lineno + 1),
+                     "anchor": "NW",
+-                    "style": None
++                    "style": ""
+                     if self.options.output_window_borders
+                     else "minimal",
+                     "border": "rounded"
+diff -ru '--exclude=.git' /nix/store/49vf34m15h10bqi1hj8v48ghd4majy9g-magma-nvim-ff3deba8/rplugin/python3/magma/runtime.py ./rplugin/python3/magma/runtime.py
+--- /nix/store/49vf34m15h10bqi1hj8v48ghd4majy9g-magma-nvim-ff3deba8/rplugin/python3/magma/runtime.py	1970-01-01 05:30:01.000000000 +0530
++++ ./rplugin/python3/magma/runtime.py	2026-08-15 23:02:34.351899577 +0530
+@@ -40,6 +40,9 @@
+     def __init__(self, kernel_name: str, options: MagmaOptions):
+         self.state = RuntimeState.STARTING
+         self.kernel_name = kernel_name
++        self._kernel_info_sent = False
++        self._kernel_died = False
++        self._kernel_died_reported = False
+ 
+         if ".json" not in self.kernel_name:
+ 
+@@ -97,6 +100,30 @@
+     def run_code(self, code: str) -> None:
+         self.kernel_client.execute(code)
+ 
++    def _poll_kernel_ready(self) -> bool:
++        """Non-blocking kernel_info handshake.
++
++        `wait_for_ready` blocks for up to a second per call, which freezes
++        Neovim because `MagmaTick` runs synchronously on the UI thread while
++        the kernel is still starting. Instead we fire the request once and
++        only inspect messages that are already waiting on the shell channel.
++        """
++        if not self.kernel_client.is_alive():
++            self._kernel_died = True
++            raise RuntimeError("Kernel died before becoming ready")
++
++        if not self._kernel_info_sent:
++            self._kernel_info_sent = True
++            request = self.kernel_client.session.msg("kernel_info_request")
++            self.kernel_client.shell_channel.send(request)
++            return False
++
++        try:
++            message = self.kernel_client.shell_channel.get_msg(timeout=0)
++        except EmptyQueueException:
++            return False
++        return message.get("msg_type") == "kernel_info_reply"
++
+     @contextmanager
+     def _alloc_file(
+         self, extension: str, mode: str
+@@ -134,20 +161,15 @@
+ 
+         if message_type == "execute_input":
+             output.execution_count = content["execution_count"]
+-            if self.external_kernel is False:
+-                assert output.status != OutputStatus.DONE
+-                if output.status == OutputStatus.HOLD:
+-                    output.status = OutputStatus.RUNNING
+-                elif output.status == OutputStatus.RUNNING:
+-                    output.status = OutputStatus.DONE
+-                else:
+-                    raise ValueError(
+-                        "bad value for output.status: %r" % output.status
+-                    )
++            if output.status == OutputStatus.HOLD:
++                output.status = OutputStatus.RUNNING
++            elif output.status == OutputStatus.RUNNING:
++                output.status = OutputStatus.DONE
+             return True
+         elif message_type == "status":
+             execution_state = content["execution_state"]
+-            assert execution_state != "starting"
++            if execution_state == "starting":
++                return False
+             if execution_state == "idle":
+                 self.state = RuntimeState.IDLE
+                 output.status = OutputStatus.DONE
+@@ -206,9 +228,9 @@
+ 
+         if not self.is_ready():
+             try:
+-                self.kernel_client.wait_for_ready(timeout=0)
+-                self.state = RuntimeState.IDLE
+-                did_stuff = True
++                if self._poll_kernel_ready():
++                    self.state = RuntimeState.IDLE
++                    did_stuff = True
+             except RuntimeError:
+                 return False
+ 
+diff -ru '--exclude=.git' /nix/store/49vf34m15h10bqi1hj8v48ghd4majy9g-magma-nvim-ff3deba8/rplugin/python3/magma/utils.py ./rplugin/python3/magma/utils.py
+--- /nix/store/49vf34m15h10bqi1hj8v48ghd4majy9g-magma-nvim-ff3deba8/rplugin/python3/magma/utils.py	1970-01-01 05:30:01.000000000 +0530
++++ ./rplugin/python3/magma/utils.py	2026-08-15 23:43:41.363776482 +0530
+@@ -1,4 +1,5 @@
+ from typing import Union, List
++import threading
+ 
+ from pynvim import Nvim
+ 
+@@ -58,9 +59,22 @@
+         )
+ 
+     def __del__(self) -> None:
+-        self.nvim.funcs.nvim_buf_del_extmark(
+-            self.bufno, self.extmark_namespace, self.extmark_id
+-        )
++        # Destructors may run on whatever thread triggered the garbage
++        # collection. jupyter_client runs its kernel-startup coroutine on a
++        # dedicated background thread (see jupyter_core's `_TaskRunner`), so a
++        # `DynamicPosition` can be finalized there. pynvim rejects requests
++        # from threads other than its RPC loop, so only touch nvim when the
++        # loop is idle on the main thread; any extmark left behind is wiped by
++        # magma's next `clear_interface`, and never raise from `__del__`.
++        try:
++            loop_thread = self.nvim._session._loop_thread
++            if loop_thread is not None and threading.current_thread() != loop_thread:
++                return
++            self.nvim.funcs.nvim_buf_del_extmark(
++                self.bufno, self.extmark_namespace, self.extmark_id
++            )
++        except Exception:
++            pass
+ 
+     def _get_pos(self) -> List[int]:
+         out = self.nvim.funcs.nvim_buf_get_extmark_by_id(
