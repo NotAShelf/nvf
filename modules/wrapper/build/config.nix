@@ -31,6 +31,19 @@
 
   pluginBuilders = {
     nvim-treesitter = buildTreesitterPlug config.vim.treesitter.grammars;
+    # magma-nvim is unmaintained upstream and crashes on Neovim 0.10+ because
+    # it passes `style = nil` to `nvim_open_win`, which newer Neovim rejects.
+    magma-nvim = buildPlug {
+      pname = "magma-nvim";
+      patches = [./patches/magma-nvim.patch];
+    };
+    # codewindow's `use_treesitter` path requires the deprecated
+    # `nvim-treesitter.ts_utils`, removed in newer nvim-treesitter; the patch
+    # degrades gracefully to the non-treesitter minimap when it is absent.
+    codewindow-nvim = buildPlug {
+      pname = "codewindow-nvim";
+      patches = [./patches/codewindow-nvim.patch];
+    };
     flutter-tools-patched = buildPlug {
       pname = "flutter-tools-nvim";
       patches = [./patches/flutter-tools.patch];
