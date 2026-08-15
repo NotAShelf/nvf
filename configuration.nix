@@ -233,6 +233,12 @@ isMaximal: {
       undotree.enable = isMaximal;
       nvim-biscuits.enable = isMaximal;
       grug-far-nvim.enable = isMaximal;
+      jupyter.magma-nvim = {
+        enable = isMaximal;
+        setupOpts.imageProvider = "kitty";
+        setupOpts.preferNixVenvWrapper = true;
+      };
+      jupytext-nvim.enable = isMaximal;
 
       motion = {
         hop.enable = true;
