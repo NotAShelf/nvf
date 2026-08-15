@@ -961,6 +961,19 @@
       "url": "https://github.com/lukas-reineke/indent-blankline.nvim/archive/d28a3f70721c79e3c5f6693057ae929f3d9c0a03.tar.gz",
       "hash": "sha256-Vc79ff416uJFqKH8zlM1y208SxaQGpQPqGVbiz5Vflg="
     },
+    "jupytext.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "GCBallesteros",
+        "repo": "jupytext.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "c8baf3ad344c59b3abd461ecc17fc16ec44d0f7b",
+      "url": "https://github.com/GCBallesteros/jupytext.nvim/archive/c8baf3ad344c59b3abd461ecc17fc16ec44d0f7b.tar.gz",
+      "hash": "sha256-LBBRZOSqn70qruSA/vbPMTzS7y05F/z4EqC+5JlU6NM="
+    },
     "lazydev-nvim": {
       "type": "Git",
       "repository": {
@@ -1104,6 +1117,19 @@
       "revision": "ef746afb55467984ef3200d9709c8059ee0257d0",
       "url": "https://github.com/horriblename/lzn-auto-require/archive/ef746afb55467984ef3200d9709c8059ee0257d0.tar.gz",
       "hash": "sha256-KC1z+zC9vKODllZVpBu+udzM12oYJaS8e6LdXWtQ89U="
+    },
+    "magma-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "dccsillag",
+        "repo": "magma-nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "ff3deba8a879806a51c005e50782130246143d06",
+      "url": "https://github.com/dccsillag/magma-nvim/archive/ff3deba8a879806a51c005e50782130246143d06.tar.gz",
+      "hash": "sha256-IrMR57gk9iCk73esHO24KZeep9VrlkV5sOC4PzGexyo="
     },
     "markview-nvim": {
       "type": "Git",
