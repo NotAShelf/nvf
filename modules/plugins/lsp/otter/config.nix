@@ -5,8 +5,6 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.nvim.dag) entryAnywhere;
-  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.binds) mkKeymap;
 
   cfg = config.vim.lsp;
@@ -14,17 +12,16 @@
   inherit (options.vim.lsp.otter-nvim) mappings;
 in {
   config = mkIf (cfg.enable && cfg.otter-nvim.enable) {
-    vim = {
-      startPlugins = ["otter-nvim"];
+    vim.lazy.plugins = {
+      "otter-nvim" = {
+        package = "otter-nvim";
+        setupModule = "otter";
+        inherit (cfg.otter-nvim) setupOpts;
 
-      keymaps = [
-        (mkKeymap "n" cfg.otter-nvim.mappings.toggle "<cmd>lua require'otter'.activate()<CR>" {desc = mappings.toggle.description;})
-      ];
+        cmd = ["OtterActivate" "OtterDeactivate" "OtterExport" "OtterExportAs"];
 
-      pluginRC.otter-nvim = entryAnywhere ''
-        -- Enable otter diagnostics viewer
-        require("otter").setup(${toLuaObject cfg.otter-nvim.setupOpts})
-      '';
+        keys = [(mkKeymap "n" cfg.otter-nvim.mappings.toggle "<cmd>OtterActivate<CR>" {desc = mappings.toggle.description;})];
+      };
     };
   };
 }
