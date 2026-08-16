@@ -77,5 +77,12 @@ in {
     [
       (mkRenamedOptionModule ["vim" "languages" "lua" "lsp" "lazydev" "enable"] ["vim" "languages" "lua" "extensions" "lazydev" "enable"])
     ]
+
+    # 2026-08-16
+    [
+      (mkRemovedOptionModule ["vim" "minimap" "codewindow" "enable"] ''
+        Disabled, because it doesn't support tree-sitter main branch.
+      '')
+    ]
   ];
 }

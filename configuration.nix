@@ -203,8 +203,7 @@ isMaximal: {
     };
 
     minimap = {
-      minimap-vim.enable = false;
-      codewindow.enable = isMaximal; # lighter, faster, and uses lua for configuration
+      minimap-vim.enable = isMaximal;
     };
 
     dashboard = {
