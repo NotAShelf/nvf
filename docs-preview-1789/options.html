@@ -15770,7 +15770,7 @@
     <details class="toc-category">
       <summary title="vim.statusline">
         <span>vim.statusline</span>
-        <span class="toc-count">119</span>
+        <span class="toc-count">120</span>
       </summary>
       <ul>
         
@@ -16665,8 +16665,16 @@
         </li>
         
         <li>
-          <a href='#option-vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator' title="vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator">
-            lualine.integrations.breadcrumbs.vanilla.separator
+          <a href='#option-vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator.color' title="vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator.color">
+            lualine.integrations.breadcrumbs.vanilla.separator.color
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator.symbol' title="vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator.symbol">
+            lualine.integrations.breadcrumbs.vanilla.separator.symbol
             
             
           </a>
@@ -49229,17 +49237,29 @@ if it's empty.</p>
   <div class="option-example">Example: <code>true</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></div>
 </div>
-<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator">
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator.color">
   <h3 class="option-name">
-    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator</a>
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator.color" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator.color</a>
     <span class="copy-link" title="Copy link to this option"></span>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>string</code></div>
-  <div class="option-description"><html><head></head><body><p>Separator to use for each breadcrumb entry</p>
+  <div class="option-description"><html><head></head><body><p>Color to use for each breadcrumb symbol</p>
 </body></html></div>
-  <div class="option-default">Default: <code>"%#Comment#.%*"</code></div>
-  <div class="option-example">Example: <code>" %#Comment#&gt;%* "</code></div>
+  <div class="option-default">Default: <code>"@keyword"</code></div>
+  <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></div>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator.symbol">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator.symbol" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator.symbol</a>
+    <span class="copy-link" title="Copy link to this option"></span>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-type">Type: <code>string</code></div>
+  <div class="option-description"><html><head></head><body><p>Symbol to use for each breadcrumb entry</p>
+</body></html></div>
+  <div class="option-default">Default: <code>"."</code></div>
+  <div class="option-example">Example: <code>" &gt; "</code></div>
   <div class="option-declared">Declared in: <code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></div>
 </div>
 <div class="option" id="option-vim.statusline.lualine.refresh.statusline">
