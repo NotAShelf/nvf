@@ -1,10 +1,9 @@
 {
   lib,
+  callPackage,
   pins,
-  rustPlatform,
-  stdenv,
-  vimUtils,
   pkgs,
+  vimUtils,
   ...
 }: let
   # From npins
@@ -17,19 +16,7 @@
     sha256 = pin.hash;
   };
 
-  # The Rust backend (`jupynvim-core`) lives in the `core/` subdirectory of the
-  # plugin source, while the Lua frontend lives at the repo root.
-  jupynvim-core = rustPlatform.buildRustPackage {
-    pname = "jupynvim-core";
-    inherit version;
-    src = src + "/core";
-
-    cargoHash = "sha256-cZKHYCFtzU1ULNp7TY/4/l6SrzGF3ghnBF5y5nvxuWw=";
-
-    doCheck = false;
-
-    env.RUSTFLAGS = lib.optionalString stdenv.hostPlatform.isDarwin "-C link-arg=-undefined -C link-arg=dynamic_lookup";
-  };
+  jupynvim-core = callPackage ../jupynvim-core/package.nix {};
 in
   vimUtils.buildVimPlugin {
     pname = "jupynvim";
