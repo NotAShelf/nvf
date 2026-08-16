@@ -23,7 +23,8 @@ in {
       enable = true;
       cmd = [(getExe pkgs.deno) "lsp"];
       cmd_env = {NO_COLOR = true;};
-      root_markers = ["deno.json" "deno.jsonc" ".git"];
+      root_markers = ["deno.json" "deno.jsonc"];
+      workspace_required = true;
       settings = {
         deno = {
           enable = true;
