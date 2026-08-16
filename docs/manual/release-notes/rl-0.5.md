@@ -53,8 +53,7 @@
 - Added {option}`vim.ui.borders.enable` for global and individual plugin border
   configuration.
 
-- LSP integrated breadcrumbs with {option}`vim.ui.breadcrumbs.enable` through
-  nvim-navic
+- LSP integrated breadcrumbs with `vim.ui.breadcrumbs.enable` through nvim-navic
 
 - LSP navigation helper with nvim-navbuddy, depends on nvim-navic (automatically
   enabled if navic is enabled)
