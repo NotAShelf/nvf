@@ -84,5 +84,13 @@ in {
         Disabled, because it doesn't support tree-sitter main branch.
       '')
     ]
+
+    # 2026-08-16
+    [
+      (mkRenamedOptionModule ["vim" "ui" "breadcrumbs" "enable"] ["vim" "statusline" "lualine" "integrations" "breadcrumbs" "nvim-navic" "enable"])
+      (mkRenamedOptionModule ["vim" "ui" "breadcrumbs" "lualine" "winbar" "enable"] ["vim" "statusline" "lualine" "integrations" "breadcrumbs" "nvim-navic" "enable"])
+      (mkRenamedOptionModule ["vim" "ui" "breadcrumbs" "lualine" "winbar" "alwaysRender"] ["vim" "statusline" "lualine" "integrations" "breadcrumbs" "nvim-navic" "alwaysRender"])
+      (mkRenamedOptionModule ["vim" "ui" "breadcrumbs" "navbuddy" "enable"] ["vim" "statusline" "lualine" "integrations" "breadcrumbs" "navbuddy" "enable"])
+    ]
   ];
 }

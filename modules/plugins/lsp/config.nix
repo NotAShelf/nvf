@@ -146,15 +146,8 @@ in {
           ${mkBinding mappings.toggleFormatOnSave "function() vim.b.disableFormatSave = not vim.b.disableFormatSave end"}
         end
 
-        ${optionalString config.vim.ui.breadcrumbs.enable ''local navic = require("nvim-navic")''}
         default_on_attach = function(client, bufnr)
           attach_keymaps(client, bufnr)
-          ${optionalString config.vim.ui.breadcrumbs.enable ''
-          -- let navic attach to buffers
-          if client.server_capabilities.documentSymbolProvider then
-            navic.attach(client, bufnr)
-          end
-        ''}
         end
 
         local capabilities = vim.lsp.protocol.make_client_capabilities()
