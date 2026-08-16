@@ -4,18 +4,21 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.nvim.lua) toLuaObject;
-  inherit (lib.nvim.dag) entryAnywhere;
 
   cfg = config.vim.visuals.indent-blankline;
 in {
   config = mkIf cfg.enable {
-    vim = {
-      startPlugins = ["indent-blankline-nvim"];
-
-      pluginRC.indent-blankline = entryAnywhere ''
-        require("ibl").setup(${toLuaObject cfg.setupOpts})
-      '';
+    vim.lazy.plugins.indent-blankline-nvim = {
+      package = "indent-blankline-nvim";
+      setupModule = "ibl";
+      inherit (cfg) setupOpts;
+      event = [
+        {
+          event = "User";
+          pattern = "LazyFile";
+        }
+      ];
+      cmd = ["IBLEnable" "IBLDisable" "IBLToggle" "IBLEnableScope" "IBLDisableScope" "IBLToggleScope"];
     };
   };
 }
