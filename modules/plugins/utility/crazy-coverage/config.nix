@@ -4,15 +4,33 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.nvim.dag) entryAnywhere;
-  inherit (lib.nvim.lua) toLuaObject;
   cfg = config.vim.utility.crazy-coverage;
 in {
   config = mkIf cfg.enable {
-    vim.startPlugins = ["crazy-coverage"];
-
-    vim.pluginRC.crazy-coverage = entryAnywhere ''
-      require("crazy-coverage").setup(${toLuaObject cfg.setupOpts})
-    '';
+    vim.lazy.plugins = {
+      "crazy-coverage" = {
+        package = "crazy-coverage";
+        setupModule = "crazy-coverage";
+        cmd = [
+          "CoverageToggle"
+          "CoverageToggleHitCount"
+          "CoverageToggleSignColumn"
+          "CoverageToggleBranchOverlay"
+          "CoverageToggleRegionOverlay"
+          "CoverageToggleNvimTree"
+          "CoverageToggleNeoTree"
+          "CoverageLoad"
+          "CoverageSummary"
+          "CrazyCoverageSummary"
+          "CoverageNextCovered"
+          "CoveragePrevCovered"
+          "CoverageNextUncovered"
+          "CoveragePrevUncovered"
+          "CoverageNextPartial"
+          "CoveragePrevPartial"
+        ];
+        inherit (cfg) setupOpts;
+      };
+    };
   };
 }

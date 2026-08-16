@@ -16,6 +16,7 @@ in {
         "hunk-nvim" = {
           package = "hunk-nvim";
           setupModule = "hunk";
+          cmd = ["DiffEditor"];
           inherit (cfg) setupOpts;
         };
       };

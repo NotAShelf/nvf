@@ -48,11 +48,7 @@ in {
         package = "blink-cmp";
         setupModule = "blink.cmp";
         inherit (cfg) setupOpts;
-
-        # TODO: lazy disabled until lspconfig is lazy loaded
-        #
-        # event = ["InsertEnter" "CmdlineEnter"];
-
+        event = ["InsertEnter" "CmdlineEnter"];
         after =
           optionalString (config.vim.lazy.enable && cmpCfg.enable)
           (concatStringsSep "\n" (map
