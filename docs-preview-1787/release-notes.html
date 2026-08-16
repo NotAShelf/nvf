@@ -163,6 +163,14 @@ enabled.</p>
 removed, falling back to lazydevs own defaults. This was done, due to the old
 defaults being extremely weird and what most people would never want.</p>
 </li>
+<li>
+<p><code>lsp/presets/deno</code>: modified defaults; removed <code>.git</code> as a root marker and
+enabled <code>workspace_require</code>.</p>
+</li>
+<li>
+<p><code>minimap/codewindow</code>: disabled/dropped till it supports main branch
+tree-sitter.</p>
+</li>
 </ul>
 <h2 id="sec-release-26-12-changelog">Changelog</h2>
 <p><a href="https://github.com/snoweuph">snoweuph</a></p>
@@ -198,6 +206,10 @@ support.</p>
 <p><code>formatter/conform-nvim/presets/gawk</code>: initialize.</p>
 </li>
 <li>
+<p><code>languages/http</code>: Added JetBrains HTTP language support with the optional
+kulala extension.</p>
+</li>
+<li>
 <p><code>languages/lisp</code>: initialize.</p>
 </li>
 <li>
@@ -205,6 +217,29 @@ support.</p>
 </li>
 <li>
 <p><code>formatter/conform-nvim/presets/emacs</code>: initialize.</p>
+</li>
+<li>
+<p><code>languages/asciidoc</code>: init.</p>
+</li>
+<li>
+<p><code>tree-sitter-asciidoc</code>: package.</p>
+</li>
+<li>
+<p><code>notes/orgmode</code>: fix default tree-sitter package used.</p>
+</li>
+</ul>
+<p><a href="https://github.com/soliprem">soliprem</a>:</p>
+<ul>
+<li>Lazy load a bunch of stuff:
+<ul>
+<li><code>autocomplete/blink-cmp</code>: lazy-load on insert or command-line entry.</li>
+<li><code>git/hunk-nvim</code>: lazy-load on <code>DiffEditor</code>.</li>
+<li><code>utility/crazy-coverage</code>: lazy-load on coverage commands.</li>
+<li><code>utility/yanky-nvim</code>: lazy-load after UI initialization.</li>
+<li><code>languages/java</code>: lazy-load <code>maven.nvim</code> on Maven commands.</li>
+<li><code>languages/java</code>: lazy-load <code>gradle.nvim</code> on Gradle commands.</li>
+<li><code>plugins/otter</code>: lazy-load <code>otter</code> on keybind.</li>
+</ul>
 </li>
 </ul>
 <p><a href="https://github.com/gmvar">gmvar</a>:</p>
