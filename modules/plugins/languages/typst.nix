@@ -10,8 +10,6 @@
   inherit (lib) genAttrs;
   inherit (lib.meta) getExe;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
-  inherit (lib.nvim.dag) entryAnywhere;
-  inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.binds) mkKeymap;
   inherit (config.vim.lib) mkMappingOption;
 
@@ -186,10 +184,21 @@ in {
 
     # Extensions
     (mkIf cfg.extensions.typst-preview-nvim.enable {
-      vim.startPlugins = ["typst-preview-nvim"];
-      vim.pluginRC.typst-preview-nvim = entryAnywhere ''
-        require("typst-preview").setup(${toLuaObject cfg.extensions.typst-preview-nvim.setupOpts})
-      '';
+      vim.lazy.plugins.typst-preview-nvim = {
+        package = "typst-preview-nvim";
+        setupModule = "typst-preview";
+        setupOpts = cfg.extensions.typst-preview-nvim.setupOpts;
+        cmd = [
+          "TypstPreviewUpdate"
+          "TypstPreview"
+          "TypstPreviewStop"
+          "TypstPreviewToggle"
+          "TypstPreviewFollowCursor"
+          "TypstPreviewNoFollowCursor"
+          "TypstPreviewFollowCursorToggle"
+          "TypstPreviewSyncCursor"
+        ];
+      };
     })
 
     (mkIf cfg.extensions.typst-concealer.enable {
