@@ -22,7 +22,7 @@ in {
           package = "yanky-nvim";
           # TODO: this could maybe be deferred further, but I'm not sure
           setupModule = "yanky";
-          event = ["BufReadPost"];
+          event = ["DeferredUIEnter"];
           inherit (cfg) setupOpts;
         };
       };
