@@ -253,6 +253,12 @@ in {
           lazy.plugins.maven-nvim = {
             package = "maven-nvim";
             setupModule = "maven";
+            cmd = [
+              "Maven"
+              "MavenExec"
+              "MavenFavorites"
+              "MavenInit"
+            ];
             setupOpts = cfg.extensions.maven-nvim.setupOpts;
           };
         }
@@ -266,6 +272,12 @@ in {
           lazy.plugins.gradle-nvim = {
             package = "gradle-nvim";
             setupModule = "gradle";
+            cmd = [
+              "Gradle"
+              "GradleExec"
+              "GradleFavorites"
+              "GradleInit"
+            ];
             setupOpts = cfg.extensions.gradle-nvim.setupOpts;
           };
         }
