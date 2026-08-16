@@ -11,6 +11,7 @@
     ./icon-picker
     ./images
     ./grug-far-nvim
+    ./jupynvim
     ./leetcode-nvim
     ./mkdir
     ./motion

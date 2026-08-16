@@ -961,6 +961,19 @@
       "url": "https://github.com/lukas-reineke/indent-blankline.nvim/archive/d28a3f70721c79e3c5f6693057ae929f3d9c0a03.tar.gz",
       "hash": "sha256-Vc79ff416uJFqKH8zlM1y208SxaQGpQPqGVbiz5Vflg="
     },
+    "jupynvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "sheng-tse",
+        "repo": "jupynvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "47a31d9a7bcbe1f68a8cc245f28382ad9df11b65",
+      "url": "https://github.com/sheng-tse/jupynvim/archive/47a31d9a7bcbe1f68a8cc245f28382ad9df11b65.tar.gz",
+      "hash": "sha256-DJinRfxOoSj8xnWUnpPd14mA8zMQmLhavmJsUz4h2XQ="
+    },
     "lazydev-nvim": {
       "type": "Git",
       "repository": {
