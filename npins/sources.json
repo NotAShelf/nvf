@@ -973,6 +973,21 @@
       "revision": "47a31d9a7bcbe1f68a8cc245f28382ad9df11b65",
       "url": "https://github.com/sheng-tse/jupynvim/archive/47a31d9a7bcbe1f68a8cc245f28382ad9df11b65.tar.gz",
       "hash": "sha256-DJinRfxOoSj8xnWUnpPd14mA8zMQmLhavmJsUz4h2XQ="
+    "kulala-nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mistweaverco",
+        "repo": "kulala.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v6.22.0",
+      "revision": "5c2234e1a0ae8a95911231682c52be2a13fcc117",
+      "url": "https://api.github.com/repos/mistweaverco/kulala.nvim/tarball/refs/tags/v6.22.0",
+      "hash": "sha256-hT3YSVlUGMj4oSHg3hyPZulSeZa1pJs4p5Bq6SihKX4="
     },
     "lazydev-nvim": {
       "type": "Git",

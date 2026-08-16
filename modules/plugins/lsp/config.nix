@@ -215,7 +215,56 @@ in {
         ''}
 
         ${optionalString usingBlinkCmp ''
-          capabilities = require('blink.cmp').get_lsp_capabilities()
+          -- HACK: copied from blink.cmp so the plugin can remain lazy-loaded. Biding our
+          -- time until dynamic registration comes to save us (i.e. blink v2)
+          capabilities = {
+            textDocument = {
+              completion = {
+                completionItem = {
+                  snippetSupport = true,
+                  commitCharactersSupport = false,
+                  documentationFormat = {
+                    "markdown",
+                    "plaintext",
+                  },
+                  deprecatedSupport = true,
+                  preselectSupport = false,
+                  tagSupport = {
+                    valueSet = {
+                      1, -- Deprecated
+                    },
+                  },
+                  insertReplaceSupport = true,
+                  resolveSupport = {
+                    properties = {
+                      "documentation",
+                      "detail",
+                      "additionalTextEdits",
+                      "command",
+                      "data",
+                    },
+                  },
+                  insertTextModeSupport = {
+                    valueSet = {
+                      1, -- asIs
+                    },
+                  },
+                  labelDetailsSupport = true,
+                },
+                completionList = {
+                  itemDefaults = {
+                    "commitCharacters",
+                    "editRange",
+                    "insertTextFormat",
+                    "insertTextMode",
+                    "data",
+                  },
+                },
+                contextSupport = true,
+                insertTextMode = 1, -- asIs
+              },
+            },
+          }
         ''}
       '';
     };

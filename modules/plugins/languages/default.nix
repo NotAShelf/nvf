@@ -4,6 +4,7 @@ in {
   imports = [
     ./angular.nix
     ./arduino.nix
+    ./asciidoc.nix
     ./asm.nix
     ./astro.nix
     ./awk.nix
@@ -31,6 +32,7 @@ in {
     ./hcl.nix
     ./helm.nix
     ./html.nix
+    ./http.nix
     ./java.nix
     ./jinja.nix
     ./jq.nix
