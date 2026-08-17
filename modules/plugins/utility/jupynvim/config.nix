@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   inherit (lib.modules) mkIf;
@@ -61,11 +60,6 @@ in {
           }
           cfg.setupOpts;
       };
-
-      extraPackages = [
-        pkgs.imagemagick
-        pkgs.chafa
-      ];
     };
   };
 }

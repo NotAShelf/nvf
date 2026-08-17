@@ -25,8 +25,7 @@ in
     doCheck = false;
 
     postInstall = ''
-      mkdir -p $out/core/target/release
-      cp ${jupynvim-core}/bin/jupynvim-core $out/core/target/release/jupynvim-core
+      install -Dm755 ${jupynvim-core}/bin/jupynvim-core $out/core/target/release/jupynvim-core
     '';
 
     meta = {

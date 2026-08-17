@@ -16,15 +16,15 @@
     sha256 = pin.hash;
   };
 in
-  rustPlatform.buildRustPackage {
+  rustPlatform.buildRustPackage (finalAttrs: {
     pname = "jupynvim-core";
-    inherit version;
+    inherit version src;
 
-    src = src + "/core";
+    sourceRoot = "${finalAttrs.src.name}/core";
 
     cargoHash = "sha256-cZKHYCFtzU1ULNp7TY/4/l6SrzGF3ghnBF5y5nvxuWw=";
 
     doCheck = false;
 
     env.RUSTFLAGS = lib.optionalString stdenv.hostPlatform.isDarwin "-C link-arg=-undefined -C link-arg=dynamic_lookup";
-  }
+  })
