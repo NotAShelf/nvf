@@ -3,10 +3,8 @@
   lib,
   ...
 }: let
-  inherit (builtins) elem;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) int bool str listOf enum;
-  inherit (lib.lists) optional;
   inherit (lib.nvim.types) mkPluginSetupOption;
 
   supported_themes = import ./supported_themes.nix;
@@ -124,16 +122,11 @@ in {
       '';
     };
 
-    theme = let
-      themeSupported = elem config.vim.theme.name supported_themes;
-      themesConcatted = builtin_themes ++ optional themeSupported config.vim.theme.name;
-    in
-      mkOption {
-        type = enum themesConcatted;
-        default = "auto";
-        defaultText = ''`config.vim.theme.name` if theme supports lualine else "auto"'';
-        description = "Theme for lualine";
-      };
+    theme = mkOption {
+      type = enum (builtin_themes ++ supported_themes);
+      default = "auto";
+      description = "Theme for lualine";
+    };
 
     sectionSeparator = {
       left = mkOption {
