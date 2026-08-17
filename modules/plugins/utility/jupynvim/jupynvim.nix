@@ -97,7 +97,7 @@ in {
       run_below = mkMappingOption "Run all cells below the cursor" "<leader>nB";
       add_above = mkMappingOption "Add a cell above the cursor" "<leader>na";
       add_below = mkMappingOption "Add a cell below the cursor" "<leader>nb";
-      delete_cell = mkMappingOption "Delete the current cell" "<leader>nd";
+      delete_cell = mkMappingOption "Delete the current cell" ("<leader>n" + "d");
       move_up = mkMappingOption "Move the current cell up" "<leader>nk";
       move_down = mkMappingOption "Move the current cell down" "<leader>nj";
       to_markdown = mkMappingOption "Convert the current cell to markdown" "<leader>nm";
