@@ -4,7 +4,6 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.dashboard.alpha;
   themeDefined = cfg.theme != null;
@@ -12,19 +11,20 @@
 in {
   config = mkIf cfg.enable {
     vim = {
-      startPlugins = ["alpha-nvim"];
       visuals.nvim-web-devicons.enable = true;
 
-      pluginRC.alpha = let
+      lazy.plugins.alpha-nvim = {
+        package = "alpha-nvim";
+        setupModule = "alpha";
         setupOpts =
           if themeDefined
           then lib.generators.mkLuaInline "require'alpha.themes.${cfg.theme}'.config"
           else {
             inherit (cfg) layout opts;
           };
-      in ''
-        require('alpha').setup(${toLuaObject setupOpts})
-      '';
+        event = ["VimEnter"];
+        cmd = ["Alpha" "AlphaRedraw" "AlphaRemap"];
+      };
     };
 
     assertions = [
