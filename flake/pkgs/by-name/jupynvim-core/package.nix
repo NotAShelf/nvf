@@ -27,4 +27,11 @@ in
     doCheck = false;
 
     env.RUSTFLAGS = lib.optionalString stdenv.hostPlatform.isDarwin "-C link-arg=-undefined -C link-arg=dynamic_lookup";
+
+    meta = {
+      description = "Native backend for jupynvim, a Jupyter notebook interface for Neovim";
+      homepage = "https://github.com/sheng-tse/jupynvim";
+      license = lib.licenses.mit;
+      mainProgram = "jupynvim-core";
+    };
   })
