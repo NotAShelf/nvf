@@ -2882,9 +2882,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "3d2e72ce7fc06bd0db0dafbdd1e17d3c9e343d53",
-      "url": "https://github.com/PartyWumpus/typst-concealer/archive/3d2e72ce7fc06bd0db0dafbdd1e17d3c9e343d53.tar.gz",
-      "hash": "sha256-0KaNmiQDTJpqC5cB6+m1akLK9kkpWavNZ+/zMOHAQ5o="
+      "revision": "e2386b3ed0fd4ab1069ec75ea37aaa5ed14f9676",
+      "url": "https://github.com/PartyWumpus/typst-concealer/archive/e2386b3ed0fd4ab1069ec75ea37aaa5ed14f9676.tar.gz",
+      "hash": "sha256-IwH8Qsdwhu0OMkH0nZXF5GQ3yyIWjn5vxzn138BeofY="
     },
     "typst-preview-nvim": {
       "type": "Git",
