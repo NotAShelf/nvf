@@ -607,7 +607,7 @@ Once the `npins` command is done, you can start referencing the plugin as a
 }
 ```
 
-### Packaging Complex Plugins {#sec-pkgs-for-plugins}
+### Packaging Plugins with a Special Build Step {#sec-pkgs-for-plugins}
 
 [blink.cmp]: https://github.com/Saghen/blink.cmp
 
@@ -730,6 +730,49 @@ own fields!
     };
   };
 }
+```
+
+#### Which Options to Add In `setupOpts` {#sec-setupopts-which-options-to-add}
+
+For plugin modules that make use of the `setupOpts` pattern, try to keep the
+number of options you add to a minimum. You should only declare the options if
+one of these apply:
+
+1. The option benefits greatly from advanced type checking, and is commonly used
+   enough to justify the additional maintainer burden.
+2. It is used by some other nix module, usually for integration between
+   different plugins/modules.
+3. It is a path to some third-party program.
+
+This is to minimize maintainer burden, since when plugin options may have their
+type changed/extended or even removed/renamed entirely, we have to update it on
+our side as well.
+
+Example, taken from the `fzf-lua` module:
+
+```nix
+{
+  options.vim.fzf-lua = {
+    enable = mkEnableOption "fzf-lua";
+    setupOpts = mkPluginSetupOption "fzf-lua" {
+      # 3rd case, program path
+      fzf_bin = mkOption {
+        type = str;
+        default = "${lib.getExe pkgs.fzf}";
+        description = "Path to fzf executable";
+      };
+      # 1st and 2nd case,
+      # 1. `borderType` is a custom type we defined in our lib that is shared
+      #    by other plugins
+      # 2. Integrates with the vim.ui.borders module
+      winopts.border = mkOption {
+        type = borderType;
+        default = config.vim.ui.borders.globalStyle;
+        description = "Border type for the fzf-lua picker window";
+      };
+    };
+  };
+};
 ```
 
 ### Details of `toLuaObject` {#sec-details-of-toluaobject}
