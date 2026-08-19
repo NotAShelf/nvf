@@ -1,7 +1,6 @@
 {
   imports = [
     ./borders
-    ./breadcrumbs
     ./colorful-menu-nvim
     ./nvim-highlight-colors
     ./colorizer

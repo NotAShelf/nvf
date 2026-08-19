@@ -153,6 +153,13 @@ isMaximal: {
       lualine = {
         enable = true;
         theme = "catppuccin";
+
+        integrations.breadcrumbs = {
+          vanilla.enable = !isMaximal;
+          nvim-navic.enable = isMaximal;
+          navbuddy.enable = isMaximal;
+          lspsaga.enable = false;
+        };
       };
     };
 
@@ -265,10 +272,6 @@ isMaximal: {
       colorizer.enable = true;
       modes-nvim.enable = false; # the theme looks terrible with catppuccin
       illuminate.enable = true;
-      breadcrumbs = {
-        enable = isMaximal;
-        navbuddy.enable = isMaximal;
-      };
       smartcolumn = {
         enable = true;
         setupOpts.custom_colorcolumn = {
