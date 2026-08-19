@@ -24,8 +24,8 @@ buildNpmPackage (finalAttrs: {
   env.PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
   npmInstallFlags = ["--ignore-scripts"];
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [pkg-config];
-  buildInputs = lib.optionals stdenv.isLinux [libsecret];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [pkg-config];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [libsecret];
 
   dontNpmBuild = true;
 

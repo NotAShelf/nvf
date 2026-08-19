@@ -65,7 +65,7 @@ in {
     {
       assertions = [
         {
-          assertion = !pkgs.stdenv.isDarwin;
+          assertion = !pkgs.stdenv.hostPlatform.isDarwin;
           message = "Nim language support is only available on Linux";
         }
       ];
