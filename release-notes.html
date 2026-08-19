@@ -171,6 +171,10 @@ enabled <code>workspace_require</code>.</p>
 <p><code>minimap/codewindow</code>: disabled/dropped till it supports main branch
 tree-sitter.</p>
 </li>
+<li>
+<p><code>ui/breadcrumbs</code>: was removed and completely rebuild under
+<code>statusline.lualine.integrations.breadcrumbs</code>.</p>
+</li>
 </ul>
 <h2 id="sec-release-26-12-changelog">Changelog</h2>
 <p><a href="https://github.com/snoweuph">snoweuph</a></p>
@@ -2067,12 +2071,12 @@ identical clone.</li>
 Lualine. Only <code>vim.ui.breadcrumbs.lualine.winbar</code> is supported for the time
 being.</p>
 <ul>
-<li><a class="option-reference" href="options.html#option-vim.ui.breadcrumbs.lualine.winbar.enable"><code class="nixos-option">vim.ui.breadcrumbs.lualine.winbar.enable</code></a> has been added to allow
+<li><code>vim.ui.breadcrumbs.lualine.winbar.enable</code> has been added to allow
 controlling the default behaviour of the <code>nvim-navic</code> component on Lualine,
 which used to occupy <code>winbar.lualine_c</code> as long as breadcrumbs are enabled.</li>
 <li><code>vim.ui.breadcrumbs.alwaysRender</code> has been renamed to
-<a class="option-reference" href="options.html#option-vim.ui.breadcrumbs.lualine.winbar.alwaysRender"><code class="nixos-option">vim.ui.breadcrumbs.lualine.winbar.alwaysRender</code></a> to be conform to
-the new format.</li>
+<code>vim.ui.breadcrumbs.lualine.winbar.alwaysRender</code> to be conform to the new
+format.</li>
 </ul>
 </li>
 <li>
@@ -2450,8 +2454,7 @@ the presence of line numbers</p>
 configuration.</p>
 </li>
 <li>
-<p>LSP integrated breadcrumbs with <a class="option-reference" href="options.html#option-vim.ui.breadcrumbs.enable"><code class="nixos-option">vim.ui.breadcrumbs.enable</code></a> through
-nvim-navic</p>
+<p>LSP integrated breadcrumbs with <code>vim.ui.breadcrumbs.enable</code> through nvim-navic</p>
 </li>
 <li>
 <p>LSP navigation helper with nvim-navbuddy, depends on nvim-navic (automatically
