@@ -8,6 +8,7 @@ in {
     ./git-conflict
     ./gitlinker-nvim
     ./neogit
+    ./octo-nvim
   ];
 
   options.vim.git = {
@@ -21,6 +22,7 @@ in {
       * vim-fugitive
       * git-conflict
       * gitlinker-nvim
+      * octo-nvim
     '';
   };
 }
