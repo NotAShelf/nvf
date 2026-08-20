@@ -2334,6 +2334,19 @@
       "hash": "sha256-9Su5t8cJAHlXV+EE4GLa1+BhezfHZIZgl2P6kBrkX8E=",
       "frozen": true
     },
+    "octo-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "pwntester",
+        "repo": "octo.nvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "205f024d3ea4a3d81aac751b6bf8e2d01e0c204f",
+      "url": "https://github.com/pwntester/octo.nvim/archive/205f024d3ea4a3d81aac751b6bf8e2d01e0c204f.tar.gz",
+      "hash": "sha256-p5s9JhujDEZezYYsNygi9ejI4qlxluRO3jYWFdJkSrw="
+    },
     "oil-git-status.nvim": {
       "type": "Git",
       "repository": {
