@@ -240,6 +240,7 @@ isMaximal: {
       undotree.enable = isMaximal;
       nvim-biscuits.enable = isMaximal;
       grug-far-nvim.enable = isMaximal;
+      jupynvim.enable = false;
 
       motion = {
         hop.enable = true;
