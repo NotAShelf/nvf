@@ -5,7 +5,7 @@
 }: let
   inherit (lib.attrsets) filterAttrs mapAttrs';
   inherit (lib.lists) map count;
-  inherit (lib.modules) mkIf mkMerge mkDefault;
+  inherit (lib.modules) mkIf mkMerge mkDefault mkForce;
   inherit (lib.trivial) boolToString;
   inherit (lib.nvim.dag) entryAnywhere entryAfter;
   inherit (lib.nvim.lua) toLuaObject;
@@ -46,6 +46,7 @@ in {
             count (x: x) (with cfgIntBreadcrumbs; [
               vanilla.enable
               nvim-navic.enable
+              dropbar-nvim.enable
               lspsaga.enable
             ])
             <= 1;
@@ -242,6 +243,25 @@ in {
           )}
 
         '';
+      };
+    })
+
+    (mkIf cfgIntBreadcrumbs.dropbar-nvim.enable {
+      vim = {
+        ui.dropbar-nvim = mkForce {
+          enable = true;
+          setupOpts.bar.enable = false;
+        };
+
+        statusline.lualine.setupOpts."${cfgIntBreadcrumbs.location}"."lualine_${cfgIntBreadcrumbs.section}" = [
+          (
+            mkLuaInline ''
+              function()
+                return _G.dropbar and _G.dropbar() or ""
+              end
+            ''
+          )
+        ];
       };
     })
 
