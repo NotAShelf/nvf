@@ -19,7 +19,7 @@ in {
 
   config = mkIf cfg.enable {
     vim.formatter.conform-nvim.setupOpts.formatters.mix = {
-      command = getExe' pkgs.elixir "mix";
+      command = getExe' pkgs.beamPackages.elixir "mix";
     };
   };
 }
