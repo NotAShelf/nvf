@@ -31722,11 +31722,18 @@ in the docs.</p>
   </h3>
   <div class="option-type">Type: <code>one of "telescope", "fzf-lua", "snacks", "default"</code></div>
   <div class="option-description"><html><head></head><body><p>Picker backend used by octo.nvim</p>
+<p>Defaults to an enabled picker module, preferring Snacks, then Telescope,
+then fzf-lua. Falls back to Neovim's built-in <code>vim.ui.select</code>.</p>
 </body></html></div>
-  <div class="option-default">Default: <code>''
-  By default, the octo module sets the picker to the picker that's enabled in the configuration.
-  If more than one is enabled, the order of priority is snacks &gt; telescope &gt; fzf-lua &gt; vim's default picker.
-''</code></div>
+  <div class="option-default">Default: <code>if config.vim.utility.snacks-nvim.enable
+  &amp;&amp; (config.vim.utility.snacks-nvim.setupOpts.picker.enabled or false)
+then "snacks"
+else if config.vim.telescope.enable
+then "telescope"
+else if config.vim.fzf-lua.enable
+then "fzf-lua"
+else "default"
+</code></div>
   <div class="option-declared">Declared in: <code>vim.git.octo-nvim.setupOpts.picker</code></div>
 </div>
 <div class="option" id="option-vim.git.vim-fugitive.enable">
