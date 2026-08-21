@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frequently Asked Questions</title>
+     
+    
+    <script>
+      document.documentElement.classList.remove("no-js");
+      document.documentElement.classList.add("js");
+      // Apply sidebar state immediately to prevent flash
+      (function () {
+        try {
+          if (localStorage.getItem("sidebar-collapsed") === "true") {
+            document.documentElement.classList.add("sidebar-collapsed");
+          }
+        } catch (e) {
+          // localStorage unavailable
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="assets/style.css" />
+    <script defer src="assets/main.js"></script>
+    
+    <script>
+      window.searchNamespace = window.searchNamespace || {};
+      window.searchNamespace.rootPath = "";
+    </script>
+    <script defer src="assets/search.js"></script>
+    
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-left">
+          <h1 class="site-title">
+            <a href="index.html">NVF</a>
+          </h1>
+
+          <nav class="header-nav">
+  <ul>
+    <li >
+      <a href="options.html">Options</a>
+    </li>
+    
+    <li><a href="search.html">Search</a></li>
+    
+  </ul>
+</nav>
+
+        </div>
+        
+        <div class="search-container js-only">
+          <input type="text" id="search-input" placeholder="Search..." />
+          <div id="search-results" class="search-results"></div>
+        </div>
+        
+      </header>
+
+      <div class="layout">
+        <div class="sidebar-toggle js-only" aria-label="Toggle sidebar">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+          </svg>
+        </div>
+        <nav class="sidebar">
+          <details class="sidebar-section" data-section="docs" open>
+            <summary>Documents</summary>
+            <div class="sidebar-section-content">
+              <ul>
+                <li><a href="index.html">Introduction</a></li>
+<li><a href="configuring.html">Configuring nvf</a></li>
+<li><a href="faq.html">Frequently Asked Questions</a></li>
+<li><a href="hacking.html">Hacking nvf</a></li>
+<li><a href="tips.html">Helpful Tips</a></li>
+<li><a href="quirks.html">Known Issues and Quirks</a></li>
+<li><a href="release-notes.html">Release Notes</a></li>
+<li><a href="search.html">Search</a></li>
+
+              </ul>
+            </div>
+          </details>
+
+          <details class="sidebar-section" data-section="toc" open>
+            <summary>Contents</summary>
+            <div class="sidebar-section-content">
+              <ul class="toc-list">
+                <li><a href="#ch-faq">Frequently Asked Questions</a>
+<ul><li><a href="#which-platforms-are-supported">Which platforms are supported?</a>
+<li><a href="#can-you-add-x">Can you add X?</a>
+<li><a href="#a-plugin-i-need-is-not-available-in-nvf--what-to-do">A plugin I need is not available in nvf. What to do?</a>
+<li><a href="#will-you-support-non-flake-installations">Will you support non-flake installations?</a>
+<li><a href="#i-prefer-working-with-lua--can-i-use-nvf-as-a-plugin-manager-while-i-use-an-imperative-path--e-g------config-nvim--for-my-neovim-configuration-instead-of-a-configuration-generated-from-nix">I prefer working with Lua, can I use nvf as a plugin manager while I use an imperative path (e.g., ~/.config/nvim) for my Neovim configuration instead of a configuration generated from Nix?</a>
+<li><a href="#what-release-model-does-nvf-use">What release model does nvf use?</a>
+</li></ul></li>
+              </ul>
+            </div>
+          </details>
+        </nav>
+
+        <main class="content"><html><head></head><body><h1 id="ch-faq">Frequently Asked Questions</h1>
+<h2 id="which-platforms-are-supported">Which platforms are supported?</h2>
+<p><strong>nvf</strong> actively supports <strong>Linux and Darwin</strong> platforms using standalone Nix,
+NixOS or Home-Manager. It has been reported that <strong>Android</strong> is also supported
+through the Home-Manager module, or using standalone package. Please take a look
+at the <a href="./index.html">nvf manual</a> for available installation instructions.</p>
+<h2 id="can-you-add-x">Can you add <em>X</em>?</h2>
+<p>Maybe! It is not one of our goals to support each and every Neovim plugin,
+however, I am always open to new modules and plugin setup additions to <strong>nvf</strong>.
+Use the appropriate <a href="https://github.com/NotAShelf/nvf/issues/new/choose">issue template</a> and I will consider a module addition. As
+mentioned before, pull requests to add new features are also welcome.</p>
+<h2 id="a-plugin-i-need-is-not-available-in-nvf--what-to-do">A plugin I need is not available in <strong>nvf</strong>. What to do?</h2>
+<p><strong>nvf</strong> exposes several APIs for you to be able to add your own plugin
+configurations! Please see the
+<a href="./hacking.html#sec-additional-plugins">documentation</a> on how you may do this.</p>
+<h2 id="will-you-support-non-flake-installations">Will you support non-flake installations?</h2>
+<p>Quite possibly. <strong>nvf</strong> started as "neovim-flake", which does mean it is and
+will remain flakes-first but we might consider non-flakes compatibility. Though
+keep in mind that <strong>nvf</strong> under non-flake environments would lose
+customizability of plugin inputs, which is one of our primary features.</p>
+<h2 id="i-prefer-working-with-lua--can-i-use-nvf-as-a-plugin-manager-while-i-use-an-imperative-path--e-g------config-nvim--for-my-neovim-configuration-instead-of-a-configuration-generated-from-nix">I prefer working with Lua, can I use nvf as a plugin manager while I use an imperative path (e.g., <code>~/.config/nvim</code>) for my Neovim configuration instead of a configuration generated from Nix?</h2>
+<p>Yes! Add <code>"~/.config/nvim"</code> to <code>vim.additionalRuntimePaths = [ ... ]</code> and any
+plugins you want to load to <code>vim.startPlugins</code>. This will load your
+configuration from <code>~/.config/nvim</code>. You may still use <code>vim.*</code> options in Nix to
+further configure Neovim.</p>
+<h2 id="what-release-model-does-nvf-use">What release model does <strong>nvf</strong> use?</h2>
+<p><strong>nvf</strong> primarily follows a rolling release model. The <code>main</code> branch tracks
+unstable <strong>nixpkgs</strong> for most of the development cycle. Around major <strong>nixpkgs</strong>
+releases, <strong>nvf</strong> enters a <strong>pre-release phase</strong>. During this time, <code>main</code>
+temporarily tracks the corresponding stable <strong>nixpkgs</strong> branch to stabilize the
+upcoming <code>YY.MM</code> release. After roughly one to two months, the release branch is
+cut, <code>main</code> returns to unstable <strong>nixpkgs</strong>, and development of new features
+continues there. The latest <code>YY.MM</code> release receives bug fixes and compatibility
+updates, but no new features.</p>
+</body></html></main>
+      </div>
+
+      <aside class="page-toc">
+        <nav class="page-toc-nav">
+          <h3>On this page</h3>
+          <ul class="page-toc-list">
+            <li><a href="#ch-faq">Frequently Asked Questions</a>
+<ul><li><a href="#which-platforms-are-supported">Which platforms are supported?</a>
+<li><a href="#can-you-add-x">Can you add X?</a>
+<li><a href="#a-plugin-i-need-is-not-available-in-nvf--what-to-do">A plugin I need is not available in nvf. What to do?</a>
+<li><a href="#will-you-support-non-flake-installations">Will you support non-flake installations?</a>
+<li><a href="#i-prefer-working-with-lua--can-i-use-nvf-as-a-plugin-manager-while-i-use-an-imperative-path--e-g------config-nvim--for-my-neovim-configuration-instead-of-a-configuration-generated-from-nix">I prefer working with Lua, can I use nvf as a plugin manager while I use an imperative path (e.g., ~/.config/nvim) for my Neovim configuration instead of a configuration generated from Nix?</a>
+<li><a href="#what-release-model-does-nvf-use">What release model does nvf use?</a>
+</li></ul></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <footer>
+  <p>Generated with ndg</p>
+</footer>
+
+    </div>
+
+    
+  </body>
+</html>
