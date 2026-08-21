@@ -2682,6 +2682,19 @@
       "url": "https://github.com/mrcjkb/rustaceanvim/archive/24958d97c0e2393339e59404ebe7ee687951ea24.tar.gz",
       "hash": "sha256-/oy5nmyr9HSjuwGZYdM5Bs0T68DuApjTYUua7umhijo="
     },
+    "satellite-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "lewis6991",
+        "repo": "satellite.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "87843c9c8f28b54332497302de380a6d94c9e82b",
+      "url": "https://github.com/lewis6991/satellite.nvim/archive/87843c9c8f28b54332497302de380a6d94c9e82b.tar.gz",
+      "hash": "sha256-2kvs9HgNcLy7ym2C2XZRv3Qa2ttNLdpa9l7oRYy8KLQ="
+    },
     "smart-splits": {
       "type": "GitRelease",
       "repository": {
