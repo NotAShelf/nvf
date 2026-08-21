@@ -21,7 +21,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.elixir-ls = {
       enable = true;
-      cmd = [(getExe pkgs.elixir-ls)];
+      cmd = [(getExe pkgs.beamPackages.elixir-ls)];
       root_dir = mkLuaInline ''
         function(bufnr, on_dir)
           local fname = vim.api.nvim_buf_get_name(bufnr)
