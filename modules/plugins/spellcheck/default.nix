@@ -1,5 +1,3 @@
 {
-  imports = [
-    ./vim-dirtytalk
-  ];
+  imports = [];
 }

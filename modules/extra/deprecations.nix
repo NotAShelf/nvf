@@ -92,5 +92,12 @@ in {
       (mkRenamedOptionModule ["vim" "ui" "breadcrumbs" "lualine" "winbar" "alwaysRender"] ["vim" "statusline" "lualine" "integrations" "breadcrumbs" "nvim-navic" "alwaysRender"])
       (mkRenamedOptionModule ["vim" "ui" "breadcrumbs" "navbuddy" "enable"] ["vim" "statusline" "lualine" "integrations" "breadcrumbs" "navbuddy" "enable"])
     ]
+
+    # 2026-08-23
+    [
+      (mkRemovedOptionModule ["vim" "spellcheck" "vim-dirtytalk" "enable"] ''
+        Dirtytalk is unmaintained and no longer works.
+      '')
+    ]
   ];
 }
