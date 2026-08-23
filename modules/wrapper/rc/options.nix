@@ -1,4 +1,8 @@
-{lib, ...}: let
+{
+  lib,
+  options,
+  ...
+}: let
   inherit (lib.options) mkOption literalMD literalExpression;
   inherit (lib.types) str bool int enum attrsOf lines listOf oneOf either path submodule anything;
   inherit (lib.nvim.types) dagOf;
@@ -21,7 +25,21 @@
     };
   };
 in {
+  config = lib.modules.mkAliasAndWrapDefinitions (lib.setAttrByPath ["mnw" "appName"]) options.vim.appname;
   options.vim = {
+    appname = mkOption {
+      type = str;
+      default = "nvf";
+      description = ''
+        Sets the {env}`NVIM_APPNAME` variable.
+
+        In traditional Neovim setups, standard directories can be further configured
+        by the {env}`NVIM_APPNAME` environment variable. This variable controls the
+        sub-directory that Nvim will read from (and auto-create) in each of the base
+        directories. See `:help $NVIM_APPNAME` for more details.
+      '';
+    };
+
     enableLuaLoader = mkOption {
       type = bool;
       default = false;

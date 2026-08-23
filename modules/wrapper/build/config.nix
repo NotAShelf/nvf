@@ -121,7 +121,6 @@ in {
     vim.build.finalPackage = neovim;
 
     mnw = {
-      appName = lib.mkDefault "nvf";
       neovim = config.vim.package;
       initLua = config.vim.builtLuaConfigRC;
       luaFiles = config.vim.extraLuaFiles;
