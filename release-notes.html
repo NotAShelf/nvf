@@ -93,7 +93,7 @@
               <ul class="toc-list">
                 <li><a href="#ch-release-notes">Release Notes</a>
 <li><a href="#sec-release-26-12">Release 26.12</a>
-<ul><li><a href="#breaking-changes">Breaking changes</a>
+<ul><li><a href="#sec-release-26-12-breaking-changes">Breaking changes</a>
 <li><a href="#sec-release-26-12-changelog">Changelog</a>
 </ul><li><a href="#sec-release-26-07">Release 26.07</a>
 <ul><li><a href="#breaking-changes">Breaking changes</a>
@@ -134,13 +134,13 @@
 <p>This section lists the release notes for tagged version of <strong>nvf</strong> and the
 current main current main branch</p>
 <h1 id="sec-release-26-12">Release 26.12</h1>
-<h2 id="breaking-changes">Breaking changes</h2>
+<h2 id="sec-release-26-12-breaking-changes">Breaking changes</h2>
 <!-- - Upgrade to nixpkgs 26.11. -->
 <ul>
 <li>Dropping all old deprecations from 26.07 backwards. This is done to keep the
 codebase maintainable.</li>
 </ul>
-<p><a href="https://github.com/snoweuph">snoweuph</a></p>
+<p><a href="https://github.com/snoweuph">Snoweuph</a></p>
 <ul>
 <li>
 <p>Split standalone flake template, into flake wiring and actual configuration.
@@ -148,88 +148,103 @@ Also added example for Neovim builtin options and made the flake actually
 valid.</p>
 </li>
 <li>
-<p>Splitting <code>languages/json5</code> from <code>languages/json</code>, because most <code>json</code> and
+<p>Splitting <code>languages.json5</code> from <code>languages.json</code>, because most <code>json</code> and
 <code>jsonc</code> tools don't support it correctly, making it a bad fit to be combined
 into one module, because it creates scenarios where tools are connected to non
 supported filetypes.</p>
 </li>
 <li>
-<p><code>languages/lua</code>: only enable treesitter support if the module itself is
-enabled.</p>
+<p><code>languages.lua</code></p>
+<ul>
+<li>Only enable tree-sitter support if the module itself is enabled.</li>
+<li>Allow configuring <code>lazydev</code> and move it to the modules <code>extensions</code>
+namespace. In this process the default options where also removed, falling
+back to <code>lazydev</code>s own defaults. This was done, due to the old defaults
+being extremely weird and what most people would never want.</li>
+</ul>
 </li>
 <li>
-<p><code>languages/lua</code>: allow configuring lazydev and move it to the modules
-<code>extensions</code> namespace. In this process the default options where also
-removed, falling back to lazydevs own defaults. This was done, due to the old
-defaults being extremely weird and what most people would never want.</p>
-</li>
-<li>
-<p><code>lsp/presets/deno</code>: modified defaults; removed <code>.git</code> as a root marker and
+<p><code>lsp.presets.deno</code>: modified defaults; removed <code>.git</code> as a root marker and
 enabled <code>workspace_require</code>.</p>
 </li>
 <li>
-<p><code>minimap/codewindow</code>: disabled/dropped till it supports main branch
+<p>Disabled/Dropped <code>minimap.codewindow</code> till it supports main branch
 tree-sitter.</p>
 </li>
 <li>
-<p><code>ui/breadcrumbs</code>: was removed and completely rebuild under
+<p><code>ui.breadcrumbs</code> was removed and completely rebuild under
 <code>statusline.lualine.integrations.breadcrumbs</code>.</p>
 </li>
 </ul>
 <h2 id="sec-release-26-12-changelog">Changelog</h2>
-<p><a href="https://github.com/snoweuph">snoweuph</a></p>
+<p><a href="https://github.com/snoweuph">Snoweuph</a></p>
 <ul>
 <li>
-<p><code>languages/lua</code>: fix arguments for <code>formatter/conform-nvim/presets/stylua</code> to
-match new required order.</p>
+<p>Language Modules</p>
+<ul>
+<li>New Modules
+<ul>
+<li><code>awk</code>: with
+<ul>
+<li>Tree-sitter</li>
+<li><code>awk-language-server</code> LSP</li>
+<li><code>gawk</code> formatter</li>
+</ul>
 </li>
-<li>
-<p><code>lsp/presets/sqls</code>: remove <code>sqls.nvim</code> from being enabled by default, to an
-optional extension in <code>languages/sql</code>.</p>
+<li><code>http</code>: with
+<ul>
+<li>Tree-sitter</li>
+<li><code>kulala-fmt</code> formatter</li>
+<li><code>kulala-nvim</code> extension</li>
+</ul>
+</li>
+<li><code>lisp</code> with
+<ul>
+<li>Tree-sitter</li>
+<li>Formatter
+<ul>
+<li><code>sblc</code></li>
+<li><code>emacs</code></li>
+</ul>
 </li>
 </ul>
+</li>
+<li><code>asciidoc</code> with
 <ul>
-<li>
-<p><code>languages/sql</code>: added tree-sitter queries for highlighting special comments
-from <a href="https://bun.uptrace.dev/">bun ORM</a> and <a href="https://pressly.github.io/goose/">goose</a>.</p>
+<li>Tree-sitter</li>
+<li>Injected Formatter</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Improved Modules
+<ul>
+<li><code>lua</code>
+<ul>
+<li>Fix arguments for <code>formatter.conform-nvim.presets.stylua</code> to match new
+required order.</li>
+</ul>
+</li>
+<li><code>sql</code>
+<ul>
+<li>Remove <code>sqls.nvim</code> from being enabled by default from
+<code>lsp.presets.sqls</code>, to an optional extension in <code>languages.sql</code>.</li>
+<li>Added tree-sitter highlights query for better injection support.</li>
+<li>Added tree-sitter queries for highlighting special comments from
+<a href="https://bun.uptrace.dev/">bun ORM</a> and <a href="https://pressly.github.io/goose/">goose</a>.</li>
+</ul>
+</li>
+<li><code>go</code>
+<ul>
+<li>Added tree-sitter injections for <code>sqlx</code> queries.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 <li>
-<p><code>languages/sql</code>: added tree-sitter highlights query for better injection
-support.</p>
-</li>
-<li>
-<p><code>languages/go</code>: added tree-sitter injections for <code>sqlx</code> queries.</p>
-</li>
-<li>
-<p><code>languages/awk</code>: initialize.</p>
-</li>
-<li>
-<p><code>lsp/presets/awk-language-server</code>: initialize.</p>
-</li>
-<li>
-<p><code>formatter/conform-nvim/presets/gawk</code>: initialize.</p>
-</li>
-<li>
-<p><code>languages/http</code>: Added JetBrains HTTP language support with the optional
-kulala extension.</p>
-</li>
-<li>
-<p><code>languages/lisp</code>: initialize.</p>
-</li>
-<li>
-<p><code>formatter/conform-nvim/presets/sblc</code>: initialize.</p>
-</li>
-<li>
-<p><code>formatter/conform-nvim/presets/emacs</code>: initialize.</p>
-</li>
-<li>
-<p><code>languages/asciidoc</code>: init.</p>
-</li>
-<li>
-<p><code>tree-sitter-asciidoc</code>: package.</p>
-</li>
-<li>
-<p><code>notes/orgmode</code>: fix default tree-sitter package used.</p>
+<p><code>notes.orgmode</code>: fix default tree-sitter package used.</p>
 </li>
 </ul>
 <p><a href="https://github.com/soliprem">soliprem</a>:</p>
@@ -269,7 +284,7 @@ kulala extension.</p>
 </ul>
 <p><a href="https://github.com/exflikt">Exflikt</a></p>
 <ul>
-<li><code>formatter/conform-nvim/presets/ruff</code>: fix <code>indent-width</code> option whose key
+<li><code>formatter.conform-nvim.presets.ruff</code>: fix <code>indent-width</code> option whose key
 name was not recognized by <code>ruff format</code>, which in turn exited with an unknown
 key error.</li>
 </ul>
@@ -285,7 +300,9 @@ key error.</li>
 </ul>
 <p><a href="https://github.com/khanage">khanage</a>:</p>
 <ul>
-<li>Reference elixir via beamPackages <code>pkgs.elixir =&gt; pkgs.beamPackages.elixir</code>.</li>
+<li>Reference elixir via <code>beamPackages</code>.
+<pre class="highlight"><code class="language-diff"><span style="color:rgb(232,102,113);">-</span><span style="color:rgb(232,102,113);">pkgs.elixir</span><br><span style="color:rgb(232,102,113);">+</span><span style="color:rgb(152,195,121);">pkgs.beamPackages.elixir</span><br></code></pre>
+</li>
 </ul>
 <h1 id="sec-release-26-07">Release 26.07</h1>
 <h2 id="breaking-changes">Breaking changes</h2>
@@ -2901,7 +2918,7 @@ allows for ordering of the config. Usage is the same is in home-manager's
           <ul class="page-toc-list">
             <li><a href="#ch-release-notes">Release Notes</a>
 <li><a href="#sec-release-26-12">Release 26.12</a>
-<ul><li><a href="#breaking-changes">Breaking changes</a>
+<ul><li><a href="#sec-release-26-12-breaking-changes">Breaking changes</a>
 <li><a href="#sec-release-26-12-changelog">Changelog</a>
 </ul><li><a href="#sec-release-26-07">Release 26.07</a>
 <ul><li><a href="#breaking-changes">Breaking changes</a>
