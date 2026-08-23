@@ -175,6 +175,10 @@ tree-sitter.</p>
 <p><code>ui.breadcrumbs</code> was removed and completely rebuild under
 <code>statusline.lualine.integrations.breadcrumbs</code>.</p>
 </li>
+<li>
+<p>Removed <code>vim-dirtytalk</code> from <code>spellcheck</code> as it is unmaintained and no longer
+works.</p>
+</li>
 </ul>
 <h2 id="sec-release-26-12-changelog">Changelog</h2>
 <p><a href="https://github.com/snoweuph">Snoweuph</a></p>
@@ -300,7 +304,8 @@ key error.</li>
 </ul>
 <p><a href="https://github.com/khanage">khanage</a>:</p>
 <ul>
-<li>Reference elixir via <code>beamPackages</code>.
+<li>
+<p>Reference elixir via <code>beamPackages</code>.</p>
 <pre class="highlight"><code class="language-diff"><span style="color:rgb(232,102,113);">-</span><span style="color:rgb(232,102,113);">pkgs.elixir</span><br><span style="color:rgb(232,102,113);">+</span><span style="color:rgb(152,195,121);">pkgs.beamPackages.elixir</span><br></code></pre>
 </li>
 </ul>
