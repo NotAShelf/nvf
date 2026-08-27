@@ -55057,7 +55057,7 @@ in the docs.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>string</code></div>
-  <div class="option-description"><html><head></head><body><p>Hostname or IP address to which the server binds</p>
+  <div class="option-description"><html><head></head><body><p>Hostname/IP-address to bind the server to. Default: <code>127.0.0.1</code>.</p>
 </body></html></div>
   <div class="option-default">Default: <code>"127.0.0.1"</code></div>
   <div class="option-declared">Declared in: <code>vim.utility.preview.livePreview.setupOpts.address</code></div>
@@ -55069,7 +55069,7 @@ in the docs.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>string</code></div>
-  <div class="option-description"><html><head></head><body><p>Command used to open the preview in a web browser</p>
+  <div class="option-description"><html><head></head><body><p>Terminal command to open the browser for live-previewing (eg. <code>firefox</code>, <code>flatpak run com.vivaldi.Vivaldi</code>). By default, it will use the system's default browser.</p>
 </body></html></div>
   <div class="option-default">Default: <code>"default"</code></div>
   <div class="option-example">Example: <code>"firefox"</code></div>
@@ -55082,7 +55082,7 @@ in the docs.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Whether to use the current file's parent directory as the server root</p>
+  <div class="option-description"><html><head></head><body><p>If <code>true</code>, the root directory of the server will be the parent directory of the current file. Otherwise, it will be the current directory.</p>
 </body></html></div>
   <div class="option-default">Default: <code>false</code></div>
   <div class="option-declared">Declared in: <code>vim.utility.preview.livePreview.setupOpts.dynamic_root</code></div>
@@ -55094,7 +55094,7 @@ in the docs.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>one of "", "telescope", "fzf-lua", "mini.pick", "snacks.picker", "vim.ui.select"</code></div>
-  <div class="option-description"><html><head></head><body><p>Picker used to select a file for previewing. An empty string automatically selects an available picker</p>
+  <div class="option-description"><html><head></head><body><p>Picker to use for opening files. 5 choices are available: <code>telescope</code>, <code>fzf-lua</code>, <code>mini.pick</code>, <code>snacks.picker</code> or <code>vim.ui.select</code>. If <code>nil</code>, the plugin looks for the first available picker when you call the <code>pick</code> command.</p>
 </body></html></div>
   <div class="option-default">Default: <code>""</code></div>
   <div class="option-declared">Declared in: <code>vim.utility.preview.livePreview.setupOpts.picker</code></div>
@@ -55106,7 +55106,7 @@ in the docs.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>signed integer</code></div>
-  <div class="option-description"><html><head></head><body><p>Port on which to run the live preview server</p>
+  <div class="option-description"><html><head></head><body><p>Port to run the live preview server on.</p>
 </body></html></div>
   <div class="option-default">Default: <code>5500</code></div>
   <div class="option-declared">Declared in: <code>vim.utility.preview.livePreview.setupOpts.port</code></div>
@@ -55118,7 +55118,7 @@ in the docs.</p>
     <span class="copy-feedback">Link copied!</span>
   </h3>
   <div class="option-type">Type: <code>boolean</code></div>
-  <div class="option-description"><html><head></head><body><p>Whether to synchronize browser scrolling with Neovim</p>
+  <div class="option-description"><html><head></head><body><p>If <code>true</code>, the plugin will sync the scrolling in the browser as you scroll in the Markdown files in Neovim.</p>
 </body></html></div>
   <div class="option-default">Default: <code>true</code></div>
   <div class="option-declared">Declared in: <code>vim.utility.preview.livePreview.setupOpts.sync_scroll</code></div>
