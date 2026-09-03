@@ -275,7 +275,7 @@ in {
           ''
             {
               "diagnostics",
-              sources = {'nvim_lsp', 'nvim_diagnostic', 'nvim_diagnostic', 'vim_lsp', 'coc'},
+              sources = {'nvim_lsp', 'nvim_diagnostic', 'vim_lsp', 'coc'},
               symbols = {error = '󰅙  ', warn = '  ', info = '  ', hint = '󰌵 '},
               colored = true,
               update_in_insert = false,
