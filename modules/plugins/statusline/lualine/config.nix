@@ -277,7 +277,6 @@ in {
         statusline.lualine.setupOpts = {
           options = {
             icons_enabled = mkDefault cfg.icons.enable;
-            theme = mkDefault cfg.theme;
             component_separators = mkDefault cfg.componentSeparator;
             section_separators = mkDefault cfg.sectionSeparator;
             globalstatus = mkDefault cfg.globalStatus;

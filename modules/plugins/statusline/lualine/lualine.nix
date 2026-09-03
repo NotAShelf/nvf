@@ -9,61 +9,6 @@
   inherit (lib.lists) optional;
   inherit (lib.nvim.types) mkPluginSetupOption borderType;
   inherit (config.vim.lib) mkMappingOption;
-
-  supported_themes = import ./supported_themes.nix;
-  builtin_themes = [
-    "auto"
-    "16color"
-    "ayu_dark"
-    "ayu_light"
-    "ayu_mirage"
-    "ayu"
-    "base16"
-    "codedark"
-    "dracula"
-    "everforest"
-    "github_dark"
-    "github_light"
-    "github_dark_dimmed"
-    "github_dark_default"
-    "github_light_default"
-    "github_dark_high_contrast"
-    "github_light_high_contrast"
-    "github_dark_colorblind"
-    "github_light_colorblind"
-    "github_dark_tritanopia"
-    "github_light_tritanopia"
-    "gruvbox"
-    "gruvbox_dark"
-    "gruvbox_light"
-    "gruvbox-material"
-    "horizon"
-    "iceberg_dark"
-    "iceberg_light"
-    "iceberg"
-    "jellybeans"
-    "material"
-    "modus-vivendi"
-    "molokai"
-    "moonfly"
-    "nightfly"
-    "nord"
-    "OceanicNext"
-    "onedark"
-    "onelight"
-    "palenight"
-    "papercolor_dark"
-    "papercolor_light"
-    "PaperColor"
-    "powerline_dark"
-    "powerline"
-    "pywal"
-    "seoul256"
-    "solarized_dark"
-    "solarized_light"
-    "Tomorrow"
-    "wombat"
-  ];
 in {
   options.vim.statusline.lualine = {
     enable = mkEnableOption "lualine statusline plugin";
@@ -124,17 +69,6 @@ in {
         and the last window will be drawn as active statusline.
       '';
     };
-
-    theme = let
-      themeSupported = elem config.vim.theme.name supported_themes;
-      themesConcatted = builtin_themes ++ optional themeSupported config.vim.theme.name;
-    in
-      mkOption {
-        type = enum themesConcatted;
-        default = "auto";
-        defaultText = ''`config.vim.theme.name` if theme supports lualine else "auto"'';
-        description = "Theme for lualine";
-      };
 
     sectionSeparator = {
       left = mkOption {
