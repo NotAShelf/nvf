@@ -35,6 +35,16 @@ keymaps via {option}`vim.keymaps`.
         end
       '';
     }
+    {
+      # `ft` restricts the keymap to buffers of the given filetypes.
+      # Instead of a global mapping, a `FileType` autocmd creates a
+      # buffer-local mapping when such a buffer is opened.
+      key = "<leader>p";
+      mode = "n";
+      action = "<cmd>Git push<CR>";
+      desc = "Push commit";
+      ft = ["fugitive"];
+    }
   ];
 }
 ```
