@@ -44,12 +44,8 @@
       default = [];
       description = ''
         The filetypes that this keybind should apply to, e.g. `[ "fugitive" ]`.
-        Defaults to an empty list.
-
-        When non-empty, the keybind will not be created as a global mapping.
-        Instead, a `FileType` autocmd is registered for the given filetypes that
-        creates a buffer-local mapping whenever a buffer with one of these
-        filetypes is opened.
+        When non-empty, the keymap is created buffer-locally via a FileType
+        autocmd instead of globally.
       '';
     };
   };
