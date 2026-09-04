@@ -1,70 +1,7 @@
 {lib, ...}: let
-  inherit (builtins) head;
-  inherit (lib.modules) mkRemovedOptionModule mkRenamedOptionModule doRename;
+  inherit (lib.modules) mkRemovedOptionModule mkRenamedOptionModule;
   inherit (lib.lists) concatLists;
   inherit (lib.nvim.config) batchRenameOptions;
-  inherit (lib.trivial) warn;
-
-  renamedVimOpts = batchRenameOptions ["vim"] ["vim" "options"] {
-    # 2024-12-01
-    colourTerm = "termguicolors";
-    mouseSupport = "mouse";
-    cmdHeight = "cmdheight";
-    updateTime = "updatetime";
-    mapTimeout = "tm";
-    cursorlineOpt = "cursorlineopt";
-    splitBelow = "splitbelow";
-    splitRight = "splitright";
-    autoIndent = "autoindent";
-    wordWrap = "wrap";
-    showSignColumn = "signcolumn";
-
-    # 2025-02-07
-    scrollOffset = "scrolloff";
-  };
-
-  mkRemovedLspOpt = lang: (mkRemovedOptionModule ["vim" "languages" lang "lsp" "opts"] ''
-    `vim.languages.${lang}.lsp.opts` is now moved to `vim.lsp.servers.<server_name>.init_options`
-  '');
-
-  mkRemovedLspPackage = lang: (mkRemovedOptionModule ["vim" "languages" lang "lsp" "package"] ''
-    `vim.languages.${lang}.lsp.package` is now moved to `vim.lsp.servers.<server_name>.cmd`
-  '');
-
-  mkRenamedLspServer = lang:
-    doRename
-    {
-      from = ["vim" "languages" lang "lsp" "server"];
-      to = ["vim" "languages" lang "lsp" "servers"];
-      visible = false;
-      warn = true;
-      use = x:
-        warn
-        "Obsolete option `vim.languages.${lang}.lsp.server` used, use `vim.languages.${lang}.lsp.servers` instead."
-        (head x);
-    };
-
-  mkRemovedFormatPackage = lang: (mkRemovedOptionModule ["vim" "languages" lang "format" "package"] ''
-    `vim.languages.${lang}.format.package` is removed, please use `vim.formatter.conform-nvim.formatters.<formatter_name>.command` instead.
-  '');
-
-  mkRemovedEnumListOption = optionPath: removedValue: msg: {
-    config,
-    lib,
-    ...
-  }: let
-    inherit (lib) elem attrByPath concatStringsSep;
-  in {
-    config.assertions = [
-      {
-        assertion = !(elem removedValue (attrByPath optionPath [] config));
-        message = ''
-          The value `${removedValue}` was removed from `${concatStringsSep "." optionPath}`.
-          ${msg}
-        '';
-      }
-    ];
-  };
 in {
   imports = concatLists [
     # 2026-07-28
@@ -98,6 +35,47 @@ in {
       (mkRemovedOptionModule ["vim" "spellcheck" "vim-dirtytalk" "enable"] ''
         Dirtytalk is unmaintained and no longer works.
       '')
+    ]
+
+    # 2026-09-04
+    (batchRenameOptions
+      ["vim" "statusline" "lualine"]
+      ["vim" "statusline" "lualine" "setupOpts" "options"]
+      {
+        theme = "theme";
+        componentSeparator = "component_separators";
+        sectionSeparator = "section_separators";
+        globalStatus = "globalstatus";
+        refresh = "refresh";
+        alwaysDivideMiddle = "always_divide_middle";
+        ignoreFocus = "ignore_focus";
+        disabledFiletypes = "disabled_filetypes";
+      })
+    [
+      (mkRemovedOptionModule ["vim" "statusline" "lualine" "activeSection"]
+        ''
+          Please use `vim.statusline.lualine.setupOpts.sections` instead.
+        '')
+      (mkRemovedOptionModule ["vim" "statusline" "lualine" "extraActiveSection"]
+        ''
+          Please use `vim.statusline.lualine.setupOpts.sections` with mkDefault
+          and mkAfter instead.
+        '')
+
+      (mkRemovedOptionModule ["vim" "statusline" "lualine" "inactiveSection"]
+        ''
+          Please use `vim.statusline.lualine.setupOpts.inactive_sections`
+          instead.
+        '')
+      (mkRemovedOptionModule ["vim" "statusline" "lualine" "extraInactiveSection"]
+        ''
+          Please use `vim.statusline.lualine.setupOpts.inactive_sections`
+          with mkDefault and mkAfter instead.
+        '')
+    ]
+
+    [
+      (mkRenamedOptionModule ["vim" "statusline" "lualine" "icons" "enable"] ["vim" "statusline" "lualine" "setupOpts" "options" "icons_enabled"])
     ]
   ];
 }
