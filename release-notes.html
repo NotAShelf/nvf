@@ -180,6 +180,18 @@ tree-sitter.</p>
 works.</p>
 </li>
 </ul>
+<p><a href="https://github.com/horriblename">horriblename</a></p>
+<ul>
+<li>Fully migrate lualine to setupOpts.
+<ul>
+<li>
+<p>For lualine sections, you can start by adding <code>map mkLuaInline</code> (use
+<code>mkDefault + mkAfter</code> if you are converting <code>extra*Section</code> instead):</p>
+<pre class="highlight"><code class="language-diff">vim.statusline.lualine&nbsp;=&nbsp;{<br><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;use&nbsp;`map&nbsp;mkLuaInline`&nbsp;to&nbsp;get&nbsp;something&nbsp;working&nbsp;quick,&nbsp;then</span><br><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;nixify&nbsp;each&nbsp;option&nbsp;at&nbsp;your&nbsp;own&nbsp;pace</span><br><span style="color:rgb(232,102,113);">-</span><span style="color:rgb(232,102,113);">&nbsp;&nbsp;activeSection.a&nbsp;=&nbsp;[</span><br><span style="color:rgb(232,102,113);">+</span><span style="color:rgb(152,195,121);">&nbsp;&nbsp;sections.lualine_a&nbsp;=&nbsp;map&nbsp;lib.generators.mkLuaInline&nbsp;[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;"'filetype'"<br>&nbsp;&nbsp;&nbsp;&nbsp;"{'location',&nbsp;some_option&nbsp;=&nbsp;false}"<br>&nbsp;&nbsp;];<br><br><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;use&nbsp;mkDefault&nbsp;+&nbsp;mkAfter&nbsp;to&nbsp;extend&nbsp;NVF&nbsp;defaults&nbsp;instead&nbsp;of&nbsp;replace</span><br><span style="color:rgb(232,102,113);">-</span><span style="color:rgb(232,102,113);">&nbsp;&nbsp;extraInactiveSection.x&nbsp;=</span><br><span style="color:rgb(232,102,113);">+</span><span style="color:rgb(152,195,121);">&nbsp;&nbsp;inactive_sections.lualine_x&nbsp;=</span><br><span style="color:rgb(232,102,113);">+</span><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;mkDefault&nbsp;(mkAfter&nbsp;(map&nbsp;lib.generators.mkLuaInline</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"function()&nbsp;return&nbsp;'something'&nbsp;end"<br><span style="color:rgb(232,102,113);">-</span><span style="color:rgb(232,102,113);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;];</span><br><span style="color:rgb(232,102,113);">+</span><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]));</span><br>};<br></code></pre>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="sec-release-26-12-changelog">Changelog</h2>
 <p><a href="https://github.com/snoweuph">Snoweuph</a></p>
 <ul>
@@ -2349,9 +2361,9 @@ enabled through <code>vim.languages.css</code> and <code>vim.languages.tailwind<
 <li>
 <p>Lualine module now allows customizing <code>always_divide_middle</code>, <code>ignore_focus</code>
 and <code>disabled_filetypes</code> through the new options:
-<a class="option-reference" href="options.html#option-vim.statusline.lualine.alwaysDivideMiddle"><code class="nixos-option">vim.statusline.lualine.alwaysDivideMiddle</code></a>,
-<a class="option-reference" href="options.html#option-vim.statusline.lualine.ignoreFocus"><code class="nixos-option">vim.statusline.lualine.ignoreFocus</code></a> and
-<a class="option-reference" href="options.html#option-vim.statusline.lualine.disabledFiletypes.statusline"><code class="nixos-option">vim.statusline.lualine.disabledFiletypes.statusline</code></a>).</p>
+<code>vim.statusline.lualine.alwaysDivideMiddle</code>,
+<code>vim.statusline.lualine.ignoreFocus</code> and
+<code>vim.statusline.lualine.disabledFiletypes.statusline</code>).</p>
 </li>
 <li>
 <p>Updated all plugin inputs to their latest versions (<strong>21.04.2024</strong>) - this
