@@ -44,6 +44,5 @@ vim.luaConfigRC = lib.nvim.dag.entryAnywhere "config here"
 
 [MoritzBoehme](https://github.com/MoritzBoehme):
 
-- `catppuccin` theme is now available as a neovim theme
-  {option}`vim.theme.style` and Lualine theme
-  {option}`vim.statusline.lualine.theme`.
+- `catppuccin` theme is now available as a neovim theme `vim.theme.style` and
+  Lualine theme `vim.statusline.lualine.theme`.
