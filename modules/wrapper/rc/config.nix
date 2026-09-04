@@ -45,7 +45,8 @@ in {
 
     toLuaKeymap = keymap: let
       isFtKeymap = keymap.ft != [];
-      setKeymapLua = "vim.keymap.set(${toLuaObject keymap.mode}, ${toLuaObject keymap.key}, ${toLuaObject (getAction keymap)}, ${toLuaObject (getOpts keymap // optionalAttrs isFtKeymap {buffer = true;})})";
+      opts = getOpts keymap // optionalAttrs isFtKeymap {buffer = true;};
+      setKeymapLua = "vim.keymap.set(${toLuaObject keymap.mode}, ${toLuaObject keymap.key}, ${toLuaObject (getAction keymap)}, ${toLuaObject opts})";
     in
       if isFtKeymap
       then ''
