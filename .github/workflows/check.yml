@@ -160,7 +160,7 @@ jobs:
               | jq -r '.[] | select(.status != "removed") | .filename' \
               > "$HOME/changed_files"
           else
-            git diff --name-only HEAD^ > "$HOME/changed_files"
+            git diff --name-only --diff-filter=d HEAD^ > "$HOME/changed_files"
           fi
 
       - name: Print list of changed files
