@@ -12,213 +12,217 @@ in {
   options.vim.statusline.lualine = {
     enable = mkEnableOption "lualine statusline plugin";
     setupOpts = mkPluginSetupOption "Lualine" {
-      sections.lualine_a = mkOption {
-        type = listOf anything;
-        description = "active config for: | (A) | B | C       X | Y | Z |";
-        default = [
-          {
-            "@1" = "mode";
-            icons_enabled = true;
-            separator = {
-              left = "▎";
-              right = "";
-            };
-          }
-          {
-            "@1" = "";
-            draw_empty = true;
-            separator = {
-              left = "";
-              right = "";
-            };
-          }
-        ];
-      };
-      sections.lualine_b = mkOption {
-        type = listOf anything;
-        description = "active config for: | A | (B) | C       X | Y | Z |";
-        default = [
-          {
-            "@1" = "filetype";
-            colored = true;
-            icon_only = true;
-            icon = {align = "left";};
-          }
-          {
-            "@1" = "filename";
-            symbols = {
-              modified = " ";
-              readonly = " ";
-            };
-            separator = {right = "";};
-          }
-          {
-            "@1" = "";
-            draw_empty = true;
-            separator = {
-              left = "";
-              right = "";
-            };
-          }
-        ];
-      };
-      sections.lualine_c = mkOption {
-        type = listOf anything;
-        description = "active config for: | A | B | (C)       X | Y | Z |";
-        default = [
-          {
-            "@1" = "diff";
-            colored = false;
-            diff_color = {
-              added = "DiffAdd";
-              modified = "DiffChange";
-              removed = "DiffDelete";
-            };
-            symbols = {
-              added = "+";
-              modified = "~";
-              removed = "-";
-            };
-            separator = {right = "";};
-          }
-        ];
-      };
-      sections.lualine_x = mkOption {
-        type = listOf anything;
-        description = "active config for: | A | B | C       (X) | Y | Z |";
-        default = [
-          (mkLuaInline ''
+      sections = {
+        lualine_a = mkOption {
+          type = listOf anything;
+          description = "active config for: | (A) | B | C       X | Y | Z |";
+          default = [
             {
-              -- Lsp server name
-              function()
-                local buf_ft = vim.bo.filetype
-                local excluded_buf_ft = { toggleterm = true, NvimTree = true, ["neo-tree"] = true, TelescopePrompt = true }
+              "@1" = "mode";
+              icons_enabled = true;
+              separator = {
+                left = "▎";
+                right = "";
+              };
+            }
+            {
+              "@1" = "";
+              draw_empty = true;
+              separator = {
+                left = "";
+                right = "";
+              };
+            }
+          ];
+        };
+        lualine_b = mkOption {
+          type = listOf anything;
+          description = "active config for: | A | (B) | C       X | Y | Z |";
+          default = [
+            {
+              "@1" = "filetype";
+              colored = true;
+              icon_only = true;
+              icon = {align = "left";};
+            }
+            {
+              "@1" = "filename";
+              symbols = {
+                modified = " ";
+                readonly = " ";
+              };
+              separator = {right = "";};
+            }
+            {
+              "@1" = "";
+              draw_empty = true;
+              separator = {
+                left = "";
+                right = "";
+              };
+            }
+          ];
+        };
+        lualine_c = mkOption {
+          type = listOf anything;
+          description = "active config for: | A | B | (C)       X | Y | Z |";
+          default = [
+            {
+              "@1" = "diff";
+              colored = false;
+              diff_color = {
+                added = "DiffAdd";
+                modified = "DiffChange";
+                removed = "DiffDelete";
+              };
+              symbols = {
+                added = "+";
+                modified = "~";
+                removed = "-";
+              };
+              separator = {right = "";};
+            }
+          ];
+        };
+        lualine_x = mkOption {
+          type = listOf anything;
+          description = "active config for: | A | B | C       (X) | Y | Z |";
+          default = [
+            (mkLuaInline ''
+              {
+                -- Lsp server name
+                function()
+                  local buf_ft = vim.bo.filetype
+                  local excluded_buf_ft = { toggleterm = true, NvimTree = true, ["neo-tree"] = true, TelescopePrompt = true }
 
-                if excluded_buf_ft[buf_ft] then
-                  return ""
+                  if excluded_buf_ft[buf_ft] then
+                    return ""
+                    end
+
+                  local bufnr = vim.api.nvim_get_current_buf()
+                  local clients = vim.lsp.get_clients({ bufnr = bufnr })
+
+                  if vim.tbl_isempty(clients) then
+                    return "No Active LSP"
                   end
 
-                local bufnr = vim.api.nvim_get_current_buf()
-                local clients = vim.lsp.get_clients({ bufnr = bufnr })
+                  local active_clients = {}
+                  for _, client in ipairs(clients) do
+                    table.insert(active_clients, client.name)
+                  end
 
-                if vim.tbl_isempty(clients) then
-                  return "No Active LSP"
-                end
-
-                local active_clients = {}
-                for _, client in ipairs(clients) do
-                  table.insert(active_clients, client.name)
-                end
-
-                return table.concat(active_clients, ", ")
-              end,
-              icon = " ",
-              separator = {left = ""},
+                  return table.concat(active_clients, ", ")
+                end,
+                icon = " ",
+                separator = {left = ""},
+              }
+            '')
+            {
+              "@1" = "diagnostics";
+              sources = ["nvim_lsp" "nvim_diagnostic" "vim_lsp" "coc"];
+              symbols = {
+                error = "󰅙  ";
+                warn = "  ";
+                info = "  ";
+                hint = "󰌵 ";
+              };
+              colored = true;
+              update_in_insert = false;
+              always_visible = false;
+              diagnostics_color = {
+                color_error = {fg = "red";};
+                color_warn = {fg = "yellow";};
+                color_info = {fg = "cyan";};
+              };
             }
-          '')
-          {
-            "@1" = "diagnostics";
-            sources = ["nvim_lsp" "nvim_diagnostic" "vim_lsp" "coc"];
-            symbols = {
-              error = "󰅙  ";
-              warn = "  ";
-              info = "  ";
-              hint = "󰌵 ";
-            };
-            colored = true;
-            update_in_insert = false;
-            always_visible = false;
-            diagnostics_color = {
-              color_error = {fg = "red";};
-              color_warn = {fg = "yellow";};
-              color_info = {fg = "cyan";};
-            };
-          }
-        ];
-      };
-      sections.lualine_y = mkOption {
-        type = listOf anything;
-        description = "active config for: | A | B | C       X | (Y) | Z |";
-        default = [
-          {
-            "@1" = "";
-            draw_empty = true;
-            separator = {
-              left = "";
-              right = "";
-            };
-          }
-          {
-            "@1" = "t";
-            maxcount = 999;
-            timeout = 120;
-            separator = {left = "";};
-          }
-          {
-            "@1" = "branch";
-            icon = "•";
-            separator = {left = "";};
-          }
-        ];
-      };
-      sections.lualine_z = mkOption {
-        type = listOf anything;
-        description = "active config for: | A | B | C       X | Y | (Z) |";
-        default = [
-          {
-            "@1" = "";
-            draw_empty = true;
-            separator = {
-              left = "";
-              right = "";
-            };
-          }
-          {
-            "@1" = "progress";
-            separator = {left = "";};
-          }
-          ["location"]
-          {
-            "@1" = "fileformat";
-            color = {fg = "black";};
-            symbols = {
-              unix = "";
-              dos = "";
-              mac = "";
-            };
-          }
-        ];
+          ];
+        };
+        lualine_y = mkOption {
+          type = listOf anything;
+          description = "active config for: | A | B | C       X | (Y) | Z |";
+          default = [
+            {
+              "@1" = "";
+              draw_empty = true;
+              separator = {
+                left = "";
+                right = "";
+              };
+            }
+            {
+              "@1" = "t";
+              maxcount = 999;
+              timeout = 120;
+              separator = {left = "";};
+            }
+            {
+              "@1" = "branch";
+              icon = "•";
+              separator = {left = "";};
+            }
+          ];
+        };
+        lualine_z = mkOption {
+          type = listOf anything;
+          description = "active config for: | A | B | C       X | Y | (Z) |";
+          default = [
+            {
+              "@1" = "";
+              draw_empty = true;
+              separator = {
+                left = "";
+                right = "";
+              };
+            }
+            {
+              "@1" = "progress";
+              separator = {left = "";};
+            }
+            ["location"]
+            {
+              "@1" = "fileformat";
+              color = {fg = "black";};
+              symbols = {
+                unix = "";
+                dos = "";
+                mac = "";
+              };
+            }
+          ];
+        };
       };
 
-      inactive_sections.lualine_a = mkOption {
-        type = listOf anything;
-        description = "inactive config for: | (A) | B | C       X | Y | Z |";
-        default = [];
-      };
-      inactive_sections.lualine_b = mkOption {
-        type = listOf anything;
-        description = "inactive config for: | A | (B) | C       X | Y | Z |";
-        default = [];
-      };
-      inactive_sections.lualine_c = mkOption {
-        type = listOf anything;
-        description = "inactive config for: | A | B | (C)       X | Y | Z |";
-        default = ["filename"];
-      };
-      inactive_sections.lualine_x = mkOption {
-        type = listOf anything;
-        description = "inactive config for: | A | B | C       (X) | Y | Z |";
-        default = ["location"];
-      };
-      inactive_sections.lualine_y = mkOption {
-        type = listOf anything;
-        description = "inactive config for: | A | B | C       X | (Y) | Z |";
-        default = [];
-      };
-      inactive_sections.lualine_z = mkOption {
-        type = listOf anything;
-        description = "inactive config for: | A | B | C       X | Y | (Z) |";
-        default = [];
+      inactive_sections = {
+        lualine_a = mkOption {
+          type = listOf anything;
+          description = "inactive config for: | (A) | B | C       X | Y | Z |";
+          default = [];
+        };
+        lualine_b = mkOption {
+          type = listOf anything;
+          description = "inactive config for: | A | (B) | C       X | Y | Z |";
+          default = [];
+        };
+        lualine_c = mkOption {
+          type = listOf anything;
+          description = "inactive config for: | A | B | (C)       X | Y | Z |";
+          default = ["filename"];
+        };
+        lualine_x = mkOption {
+          type = listOf anything;
+          description = "inactive config for: | A | B | C       (X) | Y | Z |";
+          default = ["location"];
+        };
+        lualine_y = mkOption {
+          type = listOf anything;
+          description = "inactive config for: | A | B | C       X | (Y) | Z |";
+          default = [];
+        };
+        lualine_z = mkOption {
+          type = listOf anything;
+          description = "inactive config for: | A | B | C       X | Y | (Z) |";
+          default = [];
+        };
       };
     };
 
