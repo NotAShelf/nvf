@@ -19,6 +19,7 @@ in {
       winopts.border = mkOption {
         type = borderType;
         default = config.vim.ui.borders.globalStyle;
+        defaultText = lib.literalExpression "config.vim.ui.borders.globalStyle";
         description = "Border type for the fzf-lua picker window";
       };
     };
