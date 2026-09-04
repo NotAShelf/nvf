@@ -5,7 +5,7 @@
 }: let
   inherit (builtins) map mapAttrs filter;
   inherit (lib.lists) partition;
-  inherit (lib.attrsets) mapAttrsToList;
+  inherit (lib.attrsets) mapAttrsToList optionalAttrs;
   inherit (lib.strings) concatLines concatMapStringsSep optionalString;
   inherit (lib.trivial) showWarnings;
   inherit (lib.generators) mkLuaInline;
@@ -43,7 +43,19 @@ in {
       remap = !keymap.noremap;
     };
 
-    toLuaKeymap = bind: "vim.keymap.set(${toLuaObject bind.mode}, ${toLuaObject bind.key}, ${toLuaObject (getAction bind)}, ${toLuaObject (getOpts bind)})";
+    toLuaKeymap = keymap: let
+      isFtKeymap = keymap.ft != [];
+      setKeymapLua = "vim.keymap.set(${toLuaObject keymap.mode}, ${toLuaObject keymap.key}, ${toLuaObject (getAction keymap)}, ${toLuaObject (getOpts keymap // optionalAttrs isFtKeymap {buffer = true;})})";
+    in
+      if isFtKeymap
+      then ''
+        vim.api.nvim_create_autocmd("FileType", {
+          pattern = ${toLuaObject keymap.ft},
+          callback = function()
+            ${setKeymapLua}
+          end,
+        })''
+      else setKeymapLua;
 
     keymaps = concatLines (map toLuaKeymap (filter (x: x.key != null) cfg.keymaps));
   in {

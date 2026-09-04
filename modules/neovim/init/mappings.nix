@@ -38,6 +38,20 @@
     expr = mkBool false "Means that the action is actually an expression. Equivalent to adding <expr> to a map.";
     unique = mkBool false "Whether to fail if the map is already defined. Equivalent to adding <unique> to a map.";
     noremap = mkBool true "Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.";
+
+    ft = mkOption {
+      type = listOf str;
+      default = [];
+      description = ''
+        The filetypes that this keybind should apply to, e.g. `[ "fugitive" ]`.
+        Defaults to an empty list.
+
+        When non-empty, the keybind will not be created as a global mapping.
+        Instead, a `FileType` autocmd is registered for the given filetypes that
+        creates a buffer-local mapping whenever a buffer with one of these
+        filetypes is opened.
+      '';
+    };
   };
 
   mapType = submodule {
@@ -109,6 +123,13 @@ in {
             mode = ["n" "x"];
             silent = true;
             action = "<cmd>cnext<CR>";
+          }
+          {
+            key = "<leader>p";
+            mode = "n";
+            action = "<cmd>Git push<CR>";
+            desc = "Push commit";
+            ft = ["fugitive"];
           }
         ];
       '';

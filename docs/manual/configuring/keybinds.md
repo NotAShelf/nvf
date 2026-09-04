@@ -6,6 +6,10 @@ to disable individual keymaps with options by setting them to `null`. If a
 keymap is not provided by a module, you may easily register your own custom
 keymaps via {option}`vim.keymaps`.
 
+Keymaps can be restricted to specific filetypes by setting `ft`. When `ft` is
+non-empty (it defaults to an empty list), the mapping is not created globally;
+instead, a `FileType` autocmd registers a buffer-local mapping.
+
 ```nix
 {
   config.vim.keymaps = [
@@ -34,6 +38,16 @@ keymaps via {option}`vim.keymaps`.
           print('did thing')
         end
       '';
+    }
+    {
+      # `ft` restricts the keymap to buffers of the given filetypes.
+      # Instead of a global mapping, a `FileType` autocmd creates a
+      # buffer-local mapping when such a buffer is opened.
+      key = "<leader>p";
+      mode = "n";
+      action = "<cmd>Git push<CR>";
+      desc = "Push commit";
+      ft = ["fugitive"];
     }
   ];
 }
