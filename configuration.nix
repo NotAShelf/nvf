@@ -153,7 +153,6 @@ isMaximal: {
     statusline = {
       lualine = {
         enable = true;
-        theme = "catppuccin";
 
         integrations.breadcrumbs = {
           vanilla.enable = !isMaximal;
