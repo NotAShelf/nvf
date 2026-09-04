@@ -125,9 +125,9 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':lua camelToSnake()<CR>', { noremap =
 
 - Lualine module now allows customizing `always_divide_middle`, `ignore_focus`
   and `disabled_filetypes` through the new options:
-  {option}`vim.statusline.lualine.alwaysDivideMiddle`,
-  {option}`vim.statusline.lualine.ignoreFocus` and
-  {option}`vim.statusline.lualine.disabledFiletypes.statusline`).
+  `vim.statusline.lualine.alwaysDivideMiddle`,
+  `vim.statusline.lualine.ignoreFocus` and
+  `vim.statusline.lualine.disabledFiletypes.statusline`).
 
 - Updated all plugin inputs to their latest versions (**21.04.2024**) - this
   brought minor color changes to the Catppuccin theme.
