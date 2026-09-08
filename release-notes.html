@@ -548,10 +548,9 @@ avoid startup warnings now that upstream uses <code>vim.ui.open()</code>.</li>
 <ul>
 <li>Fixed and updated <code>lualine</code> options:
 <ul>
-<li>Enabled the previously unmapped
-<a class="option-reference" href="options.html#option-vim.statusline.lualine.ignoreFocus"><code class="nixos-option">vim.statusline.lualine.ignoreFocus</code></a>.</li>
-<li>Added <a class="option-reference" href="options.html#option-vim.statusline.lualine.disabledFiletypes.statusline"><code class="nixos-option">vim.statusline.lualine.disabledFiletypes.statusline</code></a> and
-<a class="option-reference" href="options.html#option-vim.statusline.lualine.disabledFiletypes.winbar"><code class="nixos-option">vim.statusline.lualine.disabledFiletypes.winbar</code></a>.</li>
+<li>Enabled the previously unmapped <code>vim.statusline.lualine.ignoreFocus</code>.</li>
+<li>Added <code>vim.statusline.lualine.disabledFiletypes.statusline</code> and
+<code>vim.statusline.lualine.disabledFiletypes.winbar</code>.</li>
 </ul>
 </li>
 </ul>
@@ -2926,9 +2925,8 @@ allows for ordering of the config. Usage is the same is in home-manager's
 <pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">luaConfigRC</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">dag</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">entryAnywhere</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">config&nbsp;here</span><span style="color:rgb(152,195,121);">"</span><br></code></pre>
 <p><a href="https://github.com/MoritzBoehme">MoritzBoehme</a>:</p>
 <ul>
-<li><code>catppuccin</code> theme is now available as a neovim theme
-<a class="option-reference" href="options.html#option-vim.theme.style"><code class="nixos-option">vim.theme.style</code></a> and Lualine theme
-<a class="option-reference" href="options.html#option-vim.statusline.lualine.theme"><code class="nixos-option">vim.statusline.lualine.theme</code></a>.</li>
+<li><code>catppuccin</code> theme is now available as a neovim theme <code>vim.theme.style</code> and
+Lualine theme <code>vim.statusline.lualine.theme</code>.</li>
 </ul>
 </body></html></main>
       </div>
