@@ -1030,6 +1030,19 @@
       "url": "https://github.com/kawre/leetcode.nvim/archive/4e8b3683940a8377379ce9398e7f329e3560b42c.tar.gz",
       "hash": "sha256-82ppJQURAJcffgWwPHjrU9hROIKgk1hVITxNTzGtY5o="
     },
+    "live-preview-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "brianhuster",
+        "repo": "live-preview.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "a6307fa340ed7c0d96f5c567afc8c991aad94ce0",
+      "url": "https://github.com/brianhuster/live-preview.nvim/archive/a6307fa340ed7c0d96f5c567afc8c991aad94ce0.tar.gz",
+      "hash": "sha256-xyeoz4lEqrinkqY5U4Fu1S2HlmCyXiNQ2l2+AJFozIc="
+    },
     "lsp-signature-nvim": {
       "type": "Git",
       "repository": {
