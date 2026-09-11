@@ -325,6 +325,13 @@ and <code>setupOpts</code>.</p>
 <pre class="highlight"><code class="language-diff"><span style="color:rgb(232,102,113);">-</span><span style="color:rgb(232,102,113);">pkgs.elixir</span><br><span style="color:rgb(232,102,113);">+</span><span style="color:rgb(152,195,121);">pkgs.beamPackages.elixir</span><br></code></pre>
 </li>
 </ul>
+<p><a href="https://github.com/Marcus441">Marcus441</a>:</p>
+<ul>
+<li><code>languages.angular</code>: fix the misspelled <code>angular-language-serve</code> server name
+in the <code>typescript</code> filetype definition. It registered a phantom server with
+no <code>cmd</code> and left <code>angular-language-server</code> without the <code>typescript</code> filetype,
+so the server never attached to <code>.ts</code> buffers.</li>
+</ul>
 <h1 id="sec-release-26-07">Release 26.07</h1>
 <h2 id="breaking-changes">Breaking changes</h2>
 <ul>
