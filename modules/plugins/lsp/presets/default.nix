@@ -29,6 +29,7 @@
     ./haskell-language-server.nix
     ./helm-ls.nix
     ./intelephense.nix
+    ./intellij-server.nix
     ./jdt-language-server.nix
     ./jinja-lsp.nix
     ./jls.nix
