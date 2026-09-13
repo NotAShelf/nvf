@@ -26,6 +26,19 @@
       "url": "https://github.com/goolord/alpha-nvim/archive/6c6a89d5b068b5251c8bdf0dd57bb921bcfeeb09.tar.gz",
       "hash": "sha256-g0uhWP8OREJifcjLjNAK43lNmtWXVIEUwTORfLuX1RQ="
     },
+    "auto-indent-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "VidocqH",
+        "repo": "auto-indent.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "46801cf8857d42a20a73c40b0a5d3dfe8b2b6192",
+      "url": "https://github.com/VidocqH/auto-indent.nvim/archive/46801cf8857d42a20a73c40b0a5d3dfe8b2b6192.tar.gz",
+      "hash": "sha256-dubpVupLfc81Jvb4woSQ63n2+VsJCRjnvDzkFTQE2MQ="
+    },
     "avante-nvim": {
       "type": "Git",
       "repository": {
