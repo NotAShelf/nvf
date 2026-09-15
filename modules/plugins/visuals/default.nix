@@ -7,6 +7,7 @@
     ./highlight-undo
     ./hlargs-nvim
     ./indent-blankline
+    ./neoscroll-nvim
     ./nvim-cursorline
     ./nvim-scrollbar
     ./nvim-web-devicons
