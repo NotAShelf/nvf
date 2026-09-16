@@ -13,7 +13,7 @@
   cfg = config.vim.languages.kotlin;
 
   defaultServers = ["kotlin-language-server"];
-  servers = ["kotlin-language-server"];
+  servers = ["kotlin-language-server" "intellij-server"];
 
   defaultDiagnosticsProvider = ["ktlint"];
   diagnosticsProviders = ["ktlint"];
