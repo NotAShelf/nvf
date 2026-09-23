@@ -315,7 +315,7 @@ acceptableList = [
 Always use `getExe` and `getExe'` from `lib.meta` instead of manual binary path
 expansion.
 
-###### Examples
+###### Examples {#sec-binary-name-examples}
 
 ```diff
 +let
@@ -364,7 +364,7 @@ We only deviate from the naming rules above when required for compatibility with
 a tool. For example, `csharpls-extended-lsp-nvim` explicitly searches for
 `csharp_ls`, so the option name is kept matching it instead of being normalized.
 
-##### Examples
+##### Examples {#sec-option-naming-examples}
 
 ```diff
 -vim.formatter.conform-nvim.presets.tofu_fmt
