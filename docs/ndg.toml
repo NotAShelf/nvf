@@ -31,3 +31,6 @@ max_heading_level = 3
 [sidebar.options]
 # Depth of parent categories in options TOC
 depth = 2
+
+[anchor]
+on_duplicate = "deduplicate"
