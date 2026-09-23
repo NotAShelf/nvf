@@ -17,15 +17,17 @@ generate_anchors = true
 # For our custom queries
 syntax_queries_path = "queries"
 
-# Search configuration
-[search]
-enable = true
 highlight_code = true
 tab_style = "none"
 revision = "main"
 
+# Search configuration
+[search]
+enable = true
+
 # Maximum heading level to index
 max_heading_level = 3
 
+[sidebar.options]
 # Depth of parent categories in options TOC
-options_toc_depth = 2
+depth = 2
