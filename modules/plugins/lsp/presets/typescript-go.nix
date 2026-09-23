@@ -21,7 +21,7 @@ in {
   config = mkIf cfg.enable {
     vim.lsp.servers.typescript-go = {
       enable = true;
-      cmd = [(getExe' pkgs.typescript-go "tsgo") "--lsp" "--stdio"];
+      cmd = [(getExe' pkgs.typescript "tsc") "--lsp" "--stdio"];
       root_markers = [".git" "tsconfig.json" "package.json"];
     };
   };
