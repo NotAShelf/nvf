@@ -1,6 +1,6 @@
 # Release 0.8 {#sec-release-0-8}
 
-## Breaking changes
+## Breaking changes {#sec-breaking-changes-0-8}
 
 [Lspsaga documentation]: https://nvimdev.github.io/lspsaga/
 
