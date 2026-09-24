@@ -26,6 +26,7 @@
       window.searchNamespace = window.searchNamespace || {};
       window.searchNamespace.rootPath = "";
     </script>
+    <script defer src="assets/search-core.js"></script>
     <script defer src="assets/search.js"></script>
   </head>
   <body>
@@ -36,7 +37,7 @@
             <a href="index.html">NVF</a>
           </h1>
         </div>
-        <nav class="header-nav">
+        <nav class="header-nav" aria-label="Primary">
   <ul>
     <li >
       <a href="options.html">Options</a>
@@ -66,8 +67,15 @@
       </header>
 
       <div class="layout">
-        <div class="sidebar-toggle js-only" aria-label="Toggle sidebar">
+        <button
+          type="button"
+          class="sidebar-toggle js-only"
+          aria-label="Collapse sidebar"
+          aria-expanded="true"
+          aria-controls="sidebar"
+        >
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             width="24"
@@ -75,12 +83,13 @@
           >
             <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
           </svg>
-        </div>
-        <nav id="sidebar" class="sidebar">
-          <div class="docs-nav">
-            <h2>Documents</h2>
-            <ul>
-              <li><a href="index.html">Introduction</a></li>
+        </button>
+        <nav id="sidebar" class="sidebar" aria-label="Sidebar">
+          <details class="sidebar-section" data-section="docs" open>
+            <summary>Documents</summary>
+            <div class="sidebar-section-content">
+              <ul>
+                <li><a href="index.html">Introduction</a></li>
 <li><a href="configuring.html">Configuring nvf</a></li>
 <li><a href="faq.html">Frequently Asked Questions</a></li>
 <li><a href="hacking.html">Hacking nvf</a></li>
@@ -89,15 +98,18 @@
 <li><a href="release-notes.html">Release Notes</a></li>
 <li><a href="search.html">Search</a></li>
 
-            </ul>
-          </div>
+              </ul>
+            </div>
+          </details>
 
-          <div class="toc">
-            <h2>Contents</h2>
-            <ul class="toc-list">
-              
-            </ul>
-          </div>
+          <details class="sidebar-section" data-section="toc" open>
+            <summary>Contents</summary>
+            <div class="sidebar-section-content">
+              <ul class="toc-list">
+                
+              </ul>
+            </div>
+          </details>
         </nav>
 
         <main class="content">
@@ -119,9 +131,10 @@
               />
             </div>
             <div class="search-keyboard-hints js-only" role="note" aria-label="Keyboard shortcuts">
+              <span class="hint-item"><kbd>/</kbd> to focus search</span>
               <span class="hint-item"><kbd>↑</kbd> <kbd>↓</kbd> to navigate</span>
               <span class="hint-item"><kbd>Enter</kbd> to select</span>
-              <span class="hint-item"><kbd>Esc</kbd> to clear</span>
+              <span class="hint-item"><kbd>Esc</kbd> to leave search</span>
             </div>
             <div
               id="search-page-results"

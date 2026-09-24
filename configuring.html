@@ -27,6 +27,7 @@
       window.searchNamespace = window.searchNamespace || {};
       window.searchNamespace.rootPath = "";
     </script>
+    <script defer src="assets/search-core.js"></script>
     <script defer src="assets/search.js"></script>
     
   </head>
@@ -38,7 +39,7 @@
             <a href="index.html">NVF</a>
           </h1>
 
-          <nav class="header-nav">
+          <nav class="header-nav" aria-label="Primary">
   <ul>
     <li >
       <a href="options.html">Options</a>
@@ -52,15 +53,22 @@
         </div>
         
         <div class="search-container js-only">
-          <input type="text" id="search-input" placeholder="Search..." />
+          <input type="text" id="search-input" placeholder="Search..." aria-label="Search" autocomplete="off" />
           <div id="search-results" class="search-results"></div>
         </div>
         
       </header>
 
       <div class="layout">
-        <div class="sidebar-toggle js-only" aria-label="Toggle sidebar">
+        <button
+          type="button"
+          class="sidebar-toggle js-only"
+          aria-label="Collapse sidebar"
+          aria-expanded="true"
+          aria-controls="sidebar"
+        >
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             width="24"
@@ -68,8 +76,8 @@
           >
             <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
           </svg>
-        </div>
-        <nav class="sidebar">
+        </button>
+        <nav id="sidebar" class="sidebar" aria-label="Sidebar">
           <details class="sidebar-section" data-section="docs" open>
             <summary>Documents</summary>
             <div class="sidebar-section-content">

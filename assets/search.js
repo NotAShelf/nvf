@@ -1,16 +1,13 @@
 if (!window.searchNamespace) window.searchNamespace = {};
 
 class SearchEngine {
-  // Characters to strip from search term ends for better matching
-  static STRIP_TRAILING_CHARS_RE = /[.,!?;:'"…—–-]+$/g;
-
   constructor() {
     this.documents = [];
-    this.tokenMap = new Map();
-    this.lowercaseCache = [];
+    this.searchDocuments = [];
     this.isLoaded = false;
     this.loadError = false;
-    this.fullDocuments = null; // for lazy loading
+    // Whether the current document set has been transferred to the worker yet.
+    this.workerDocsSent = false;
     this.rootPath = window.searchNamespace?.rootPath || "";
     // Search configuration (loaded from search data)
     this.config = {
@@ -78,328 +75,55 @@ class SearchEngine {
             boostContent: documents.boost_content || 30.0,
             boostAnchor: documents.boost_anchor || 10.0,
           };
-          this.initializeFromDocuments(documents.documents);
+          await this.initializeFromDocuments(documents.documents);
         } else {
           throw new Error("Invalid search data format");
         }
       } else {
         // Legacy format - just an array of documents
-        this.initializeFromDocuments(documents);
+        await this.initializeFromDocuments(documents);
       }
       this.isLoaded = true;
     } catch (error) {
       console.error("Error loading search data:", error);
       this.documents = [];
-      this.tokenMap.clear();
+      this.searchDocuments = [];
       this.loadError = true;
     }
   }
 
   // Initialize from documents array
-  async initializeFromDocuments(documents) {
+  initializeFromDocuments(documents) {
     if (!Array.isArray(documents)) {
       console.error("Invalid documents format:", typeof documents);
       this.documents = [];
     } else {
       this.documents = documents;
     }
-    try {
-      await this.buildTokenMap();
-    } catch (error) {
-      console.error("Error building token map:", error);
-    }
+    this.searchDocuments = window.searchCore.prepareDocuments(this.documents);
+    // The document set changed, so the worker's cached copy is now stale.
+    this.workerDocsSent = false;
   }
 
   // Initialize from search index structure
   initializeIndex(indexData) {
     this.documents = indexData.documents || [];
-    this.tokenMap = new Map(Object.entries(indexData.tokenMap || {}));
-    this.lowercaseCache = this.documents.map((doc) => ({
-      title: (doc.title || "").toLowerCase(),
-      content: (doc.content || "").toLowerCase(),
-    }));
+    this.searchDocuments = window.searchCore.prepareDocuments(this.documents);
+    this.workerDocsSent = false;
   }
 
   // Build token map for faster searching
   buildTokenMap() {
-    return new Promise((resolve, reject) => {
-      this.tokenMap.clear();
-
-      if (!Array.isArray(this.documents)) {
-        console.error("No documents to build token map");
-        resolve();
-        return;
-      }
-
-      const totalDocs = this.documents.length;
-      let processedDocs = 0;
-
-      this.lowercaseCache = [];
-
-      try {
-        // Process in chunks to avoid blocking UI
-        const processChunk = (startIndex, chunkSize) => {
-          try {
-            const endIndex = Math.min(startIndex + chunkSize, totalDocs);
-
-            for (let i = startIndex; i < endIndex; i++) {
-              const doc = this.documents[i];
-              if (
-                !doc ||
-                typeof doc.title !== "string" ||
-                typeof doc.content !== "string"
-              ) {
-                console.warn(`Invalid document at index ${i}:`, doc);
-                continue;
-              }
-
-              const lowerTitle = doc.title.toLowerCase();
-              const lowerContent = doc.content.toLowerCase();
-              this.lowercaseCache[i] = {
-                title: lowerTitle,
-                content: lowerContent,
-              };
-
-              const tokens = this.tokenize(lowerTitle + " " + lowerContent);
-              tokens.forEach((token) => {
-                if (!this.tokenMap.has(token)) {
-                  this.tokenMap.set(token, []);
-                }
-                this.tokenMap.get(token).push(i);
-              });
-
-              processedDocs++;
-            }
-
-            // Update progress and yield control
-            if (endIndex < totalDocs) {
-              setTimeout(() => processChunk(endIndex, chunkSize), 0);
-            } else {
-              resolve();
-            }
-          } catch (error) {
-            reject(error);
-          }
-        };
-
-        // Start processing with small chunks
-        processChunk(0, 100);
-      } catch (error) {
-        reject(error);
-      }
-    });
-  }
-
-  isWordBoundary(char) {
-    return /[A-Z]/.test(char) || /[-_\/.]/.test(char) || /\s/.test(char);
-  }
-
-  isCaseTransition(prev, curr) {
-    const prevIsUpper = prev.toLowerCase() !== prev;
-    const currIsUpper = curr.toLowerCase() !== curr;
-    return (
-      prevIsUpper && currIsUpper && prev.toLowerCase() !== curr.toLowerCase()
-    );
-  }
-
-  fuzzyMatch(query, target) {
-    const lowerQuery = query.toLowerCase();
-    const lowerTarget = target.toLowerCase();
-
-    if (lowerQuery.length === 0) return null;
-    if (lowerTarget.length === 0) return null;
-
-    if (lowerTarget === lowerQuery) {
-      return 1.0;
-    }
-
-    if (lowerTarget.includes(lowerQuery)) {
-      const ratio = lowerQuery.length / lowerTarget.length;
-      return 0.8 + ratio * 0.2;
-    }
-
-    const matches = this.findBestSubsequenceMatch(lowerQuery, lowerTarget);
-    if (!matches) {
-      return null;
-    }
-
-    return Math.min(1.0, matches.score);
-  }
-
-  findBestSubsequenceMatch(query, target) {
-    const n = query.length;
-    const m = target.length;
-
-    if (n === 0 || m === 0) return null;
-
-    const positions = [];
-
-    const memo = new Map();
-    const key = (qIdx, tIdx) => `${qIdx}:${tIdx}`;
-
-    const findBest = (qIdx, tIdx, currentGap) => {
-      if (qIdx === n) {
-        return { done: true, positions: [...positions], gap: currentGap };
-      }
-
-      const memoKey = key(qIdx, tIdx);
-      if (memo.has(memoKey)) {
-        return memo.get(memoKey);
-      }
-
-      let bestResult = null;
-
-      for (let i = tIdx; i < m; i++) {
-        if (target[i] === query[qIdx]) {
-          positions.push(i);
-          const gap = qIdx === 0 ? 0 : i - positions[positions.length - 2] - 1;
-          const newGap = currentGap + gap;
-
-          if (newGap > m) {
-            positions.pop();
-            continue;
-          }
-
-          const result = findBest(qIdx + 1, i + 1, newGap);
-          positions.pop();
-
-          if (result && (!bestResult || result.gap < bestResult.gap)) {
-            bestResult = result;
-            if (result.gap === 0) break;
-          }
-        }
-      }
-
-      memo.set(memoKey, bestResult);
-      return bestResult;
-    };
-
-    const result = findBest(0, 0, 0);
-    if (!result) return null;
-
-    const consecutive = (() => {
-      let c = 1;
-      for (let i = 1; i < result.positions.length; i++) {
-        if (result.positions[i] === result.positions[i - 1] + 1) {
-          c++;
-        }
-      }
-      return c;
-    })();
-
-    return {
-      positions: result.positions,
-      consecutive,
-      score: this.calculateMatchScore(
-        query,
-        target,
-        result.positions,
-        consecutive,
-      ),
-    };
-  }
-
-  calculateMatchScore(query, target, positions, consecutive) {
-    const n = positions.length;
-    const m = target.length;
-
-    if (n === 0) return 0;
-
-    let score = 1.0;
-
-    const startBonus = (m - positions[0]) / m;
-    score += startBonus * 0.5;
-
-    let gapPenalty = 0;
-    for (let i = 1; i < n; i++) {
-      const gap = positions[i] - positions[i - 1] - 1;
-      if (gap > 0) {
-        gapPenalty += Math.min(gap / m, 1.0) * 0.3;
-      }
-    }
-    score -= gapPenalty;
-
-    const consecutiveBonus = consecutive / n;
-    score += consecutiveBonus * 0.3;
-
-    let boundaryBonus = 0;
-    for (let i = 0; i < n; i++) {
-      const char = target[positions[i]];
-      if (i === 0 || this.isWordBoundary(char)) {
-        boundaryBonus += 0.05;
-      }
-      if (i > 0) {
-        const prevChar = target[positions[i - 1]];
-        if (this.isCaseTransition(prevChar, char)) {
-          boundaryBonus += 0.03;
-        }
-      }
-    }
-    score = Math.min(1.0, score + boundaryBonus);
-
-    const lengthPenalty =
-      Math.abs(query.length - n) / Math.max(query.length, m);
-    score -= lengthPenalty * 0.2;
-
-    return Math.max(0, Math.min(1.0, score));
+    this.searchDocuments = window.searchCore.prepareDocuments(this.documents);
+    return Promise.resolve();
   }
 
   tokenize(text) {
-    if (!text || typeof text !== "string") return [];
-
-    const words = text.toLowerCase().match(/\b[a-zA-Z0-9_-]+\b/g) || [];
-    const stopwordsSet = new Set(
-      this.config.stopwords.map((w) => w.toLowerCase()),
-    );
-    const tokens = words.filter(
-      (word) =>
-        word.length >= this.config.minWordLength && !stopwordsSet.has(word),
-    );
-    return Array.from(new Set(tokens));
-  }
-
-  isOptionDocument(doc) {
-    return (
-      doc?.title?.toLowerCase().startsWith("option: ") ||
-      doc?.path?.startsWith("options.html#")
-    );
+    return window.searchCore.tokenizeQuery(text, this.config);
   }
 
   normalizeSearchText(text) {
-    return (typeof text === "string" ? text : "")
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, " ")
-      .trim()
-      .replace(/\s+/g, " ");
-  }
-
-  anchorSearchText(anchor) {
-    return `${anchor?.text || ""} ${anchor?.id || ""}`;
-  }
-
-  textMatchInfo(text, rawQuery, searchTerms) {
-    const lowerText = typeof text === "string" ? text.toLowerCase() : "";
-    const normalizedText = this.normalizeSearchText(text);
-    const normalizedQuery = this.normalizeSearchText(rawQuery);
-    const exactText = lowerText === rawQuery || normalizedText === normalizedQuery;
-    const exactPhrase =
-      lowerText.includes(rawQuery) || normalizedText.includes(normalizedQuery);
-    const matchedTerms = searchTerms.filter(
-      (term) => lowerText.includes(term) || normalizedText.includes(term),
-    );
-
-    return {
-      exactText,
-      exactPhrase,
-      matchedTerms,
-      allTerms:
-        searchTerms.length > 0 && matchedTerms.length === searchTerms.length,
-      anyTerm: matchedTerms.length > 0,
-    };
-  }
-
-  updateBestRank(match, rank) {
-    match.bestRank = Math.min(match.bestRank, rank);
+    return window.searchCore.normalizeSearchText(text);
   }
 
   // Advanced search with ranking
@@ -436,230 +160,13 @@ class SearchEngine {
       }
     }
 
-    const searchTerms = this.tokenize(query);
-    const rawQuery = query.toLowerCase();
-
-    // Require at least 2 characters for search
-    if (searchTerms.length === 0 && rawQuery.length < 2) {
-      return [];
-    }
-
-    const useFuzzySearch = rawQuery.length >= 3;
-
-    const candidateDocIds = new Set();
-    searchTerms.forEach((term) => {
-      if (this.tokenMap.has(term)) {
-        const docIds = this.tokenMap.get(term);
-        docIds.forEach((docId) => candidateDocIds.add(docId));
-      }
-    });
-
-    // Tokenization keeps some Nix-ish identifiers whole, such as
-    // redis-test-hook or services.nginx.enable. Fall back to substring
-    // candidate discovery so exact visible text still searches successfully.
-    this.lowercaseCache.forEach((cached, docId) => {
-      const doc = this.documents[docId];
-      const title = cached?.title || "";
-      const content = cached?.content || "";
-      const anchors = Array.isArray(doc?.anchors) ? doc.anchors : [];
-      const anchorText = anchors
-        .map((anchor) => this.normalizeSearchText(this.anchorSearchText(anchor)))
-        .join(" ");
-      const normalizedQuery = this.normalizeSearchText(rawQuery);
-      if (
-        title.includes(rawQuery) ||
-        content.includes(rawQuery) ||
-        anchorText.includes(normalizedQuery) ||
-        searchTerms.some(
-          (term) =>
-            title.includes(term) ||
-            content.includes(term) ||
-            anchorText.includes(term),
-        )
-      ) {
-        candidateDocIds.add(docId);
-      }
-    });
-
-    if (candidateDocIds.size === 0) {
-      return [];
-    }
-
-    const pageMatches = new Map();
-    let lastCheckTime = Date.now();
-    const CHECK_INTERVAL = 16; // Check every ~16ms (one frame)
-
-    for (const docIdx of candidateDocIds) {
-      // Check for abort periodically
-      if (Date.now() - lastCheckTime > CHECK_INTERVAL) {
-        if (options.signal?.aborted) {
-          return [];
-        }
-        // Yield to main thread
-        await new Promise((resolve) => setTimeout(resolve, 0));
-        lastCheckTime = Date.now();
-
-        if (options.signal?.aborted) {
-          return [];
-        }
-      }
-
-      const doc = this.documents[docIdx];
-      let match = pageMatches.get(docIdx);
-      if (!match) {
-        match = { doc, pageScore: 0, matchingAnchors: [], bestRank: 99 };
-        pageMatches.set(docIdx, match);
-      }
-
-      const cached = this.lowercaseCache?.[docIdx];
-      const lowerTitle =
-        cached?.title ??
-        (typeof doc.title === "string" ? doc.title : "").toLowerCase();
-      const lowerContent =
-        cached?.content ??
-        (typeof doc.content === "string" ? doc.content : "").toLowerCase();
-
-      const titleMatch = this.textMatchInfo(lowerTitle, rawQuery, searchTerms);
-      const contentMatch = this.textMatchInfo(lowerContent, rawQuery, searchTerms);
-
-      if (titleMatch.exactText) {
-        match.pageScore += this.config.boostTitle * 3;
-        this.updateBestRank(match, this.isOptionDocument(doc) ? 3 : 0);
-      } else if (titleMatch.exactPhrase) {
-        match.pageScore += this.config.boostTitle * 2;
-        this.updateBestRank(match, this.isOptionDocument(doc) ? 4 : 1);
-      } else if (titleMatch.allTerms) {
-        match.pageScore += this.config.boostTitle;
-        this.updateBestRank(match, this.isOptionDocument(doc) ? 5 : 2);
-      } else if (titleMatch.anyTerm) {
-        match.pageScore +=
-          titleMatch.matchedTerms.length * (this.config.boostTitle / 10);
-        this.updateBestRank(match, this.isOptionDocument(doc) ? 8 : 6);
-      }
-
-      if (contentMatch.exactPhrase) {
-        match.pageScore += this.config.boostContent;
-        this.updateBestRank(match, this.isOptionDocument(doc) ? 9 : 7);
-      } else if (contentMatch.allTerms) {
-        match.pageScore += this.config.boostContent / 2;
-        this.updateBestRank(match, this.isOptionDocument(doc) ? 10 : 8);
-      } else if (contentMatch.anyTerm) {
-        match.pageScore +=
-          contentMatch.matchedTerms.length * (this.config.boostContent / 10);
-        this.updateBestRank(match, this.isOptionDocument(doc) ? 11 : 9);
-      }
-
-      if (
-        this.isOptionDocument(doc) &&
-        !titleMatch.exactPhrase &&
-        !titleMatch.anyTerm
-      ) {
-        match.pageScore *= 0.25;
-      }
-    }
-
-    if (options.signal?.aborted) {
-      return [];
-    }
-
-    pageMatches.forEach((match) => {
-      const doc = match.doc;
-      if (
-        !doc.anchors ||
-        !Array.isArray(doc.anchors) ||
-        doc.anchors.length === 0
-      ) {
-        return;
-      }
-
-      const anchorSet = new Set();
-
-      // Check for anchor text matches
-      doc.anchors.forEach((anchor) => {
-        if (!anchor || !anchor.text) return;
-
-        const anchorText = this.anchorSearchText(anchor).toLowerCase();
-        const anchorMatch = this.textMatchInfo(anchorText, rawQuery, searchTerms);
-        let anchorMatches = false;
-
-        if (anchorMatch.exactPhrase || anchorMatch.allTerms) {
-          anchorMatches = true;
-        } else if (useFuzzySearch) {
-          const fuzzyScore = this.fuzzyMatch(rawQuery, anchorText);
-          if (fuzzyScore !== null && fuzzyScore >= 0.8) {
-            anchorMatches = true;
-          }
-        }
-
-        if (!anchorMatches) {
-          searchTerms.forEach((term) => {
-            if (anchorText.includes(term)) {
-              anchorMatches = true;
-            }
-          });
-        }
-
-        if (anchorMatches) {
-          anchorSet.add(anchor.id);
-
-          if (anchorMatch.exactText) {
-            match.pageScore += this.config.boostTitle * 3;
-            this.updateBestRank(match, 0);
-          } else if (anchorMatch.exactPhrase) {
-            match.pageScore += this.config.boostTitle * 2;
-            this.updateBestRank(match, 1);
-          } else if (anchorMatch.allTerms) {
-            match.pageScore += this.config.boostTitle;
-            this.updateBestRank(match, 2);
-          } else {
-            match.pageScore += this.config.boostAnchor;
-            this.updateBestRank(match, 6);
-          }
-        }
-      });
-
-      // Check for content matches and find their containing sections
-      if (doc.content && typeof doc.content === "string") {
-        const lowerContent = doc.content.toLowerCase();
-
-        searchTerms.forEach((term) => {
-          let searchPos = 0;
-          let matchIndex;
-
-          while ((matchIndex = lowerContent.indexOf(term, searchPos)) !== -1) {
-            const containingAnchor = this.findContainingSection(
-              doc,
-              matchIndex,
-            );
-            if (containingAnchor && !anchorSet.has(containingAnchor.id)) {
-              anchorSet.add(containingAnchor.id);
-            }
-            searchPos = matchIndex + term.length;
-          }
-        });
-      }
-
-      // Convert set back to anchor objects
-      doc.anchors.forEach((anchor) => {
-        if (anchorSet.has(anchor.id)) {
-          match.matchingAnchors.push(anchor);
-        }
-      });
-    });
-
-    const results = Array.from(pageMatches.values())
-      .filter((m) => m.pageScore > 5)
-      .sort((a, b) => {
-        if (a.bestRank !== b.bestRank) return a.bestRank - b.bestRank;
-        if (b.pageScore !== a.pageScore) return b.pageScore - a.pageScore;
-        return (
-          Number(this.isOptionDocument(a.doc)) -
-          Number(this.isOptionDocument(b.doc))
-        );
-      })
-      .slice(0, limit);
-
-    return results;
+    if (options.signal?.aborted) return [];
+    return window.searchCore.runSearch(
+      this.searchDocuments,
+      query,
+      limit,
+      this.config,
+    );
   }
 
   // Generate search preview with highlighting
@@ -792,7 +299,24 @@ class SearchEngine {
   searchWithWorker(query, limit) {
     const worker = initializeSearchWorker();
     if (!worker) {
-      return this.fallbackSearch(query, limit);
+      return window.searchCore.runSearch(
+        this.searchDocuments,
+        query,
+        limit,
+        this.config,
+      );
+    }
+
+    // Transfer the document set (and search config) to the worker once. Sending
+    // it on every keystroke meant structured-cloning the entire index per
+    // search, which is the main reason worker-backed search felt slow on large
+    // option sets.
+    if (!this.workerDocsSent) {
+      worker.postMessage({
+        type: "init",
+        data: { preparedDocuments: this.searchDocuments, config: this.config },
+      });
+      this.workerDocsSent = true;
     }
 
     return new Promise((resolve, reject) => {
@@ -801,6 +325,9 @@ class SearchEngine {
         .substring(2, 11)}`;
       const timeout = setTimeout(() => {
         cleanup();
+        // A worker that never answers is treated as unavailable so we stop
+        // paying the timeout on every subsequent search and use the main thread.
+        searchWorker = false;
         reject(new Error("Web Worker search timeout"));
       }, 5000);
 
@@ -820,6 +347,7 @@ class SearchEngine {
       const handleError = (error) => {
         clearTimeout(timeout);
         cleanup();
+        searchWorker = false;
         reject(error);
       };
 
@@ -834,63 +362,19 @@ class SearchEngine {
       worker.postMessage({
         messageId,
         type: "search",
-        data: { query, limit, documents: this.documents },
+        data: { query, limit },
       });
     });
   }
 
   // Normalize text for comparison
   normalizeForComparison(text) {
-    if (!text || typeof text !== "string") return "";
-    return text
-      .toLowerCase()
-      .replace(/\s+/g, " ")
-      .replace(SearchEngine.STRIP_TRAILING_CHARS_RE, "")
-      .trim();
+    return window.searchCore.normalizeForComparison(text);
   }
 
   // Find which section/heading a content match belongs to
   findContainingSection(doc, matchIndex) {
-    if (!doc.content || !doc.anchors || doc.anchors.length === 0) {
-      return null;
-    }
-
-    const paragraphs = doc.content.split("\n").filter((p) => p.trim());
-
-    // Find which paragraph contains the match
-    let currentPos = 0;
-    let matchParagraphIndex = -1;
-
-    for (let i = 0; i < paragraphs.length; i++) {
-      const paragraphEnd = currentPos + paragraphs[i].length;
-      if (matchIndex >= currentPos && matchIndex < paragraphEnd) {
-        matchParagraphIndex = i;
-        break;
-      }
-      currentPos = paragraphEnd + 1;
-    }
-
-    if (matchParagraphIndex === -1) {
-      return null;
-    }
-
-    // Find the last heading that appears before this paragraph
-    let containingAnchor = null;
-
-    for (let i = 0; i <= matchParagraphIndex; i++) {
-      const para = paragraphs[i].trim();
-      const matchingAnchor = doc.anchors.find((a) => {
-        const normalizedAnchor = this.normalizeForComparison(a.text);
-        const normalizedPara = this.normalizeForComparison(para);
-        return normalizedAnchor === normalizedPara;
-      });
-
-      if (matchingAnchor) {
-        containingAnchor = matchingAnchor;
-      }
-    }
-
-    return containingAnchor;
+    return window.searchCore.findContainingSection?.(doc, matchIndex) ?? null;
   }
 
   // Generate preview for a specific section
@@ -898,44 +382,11 @@ class SearchEngine {
     if (!doc.content || !anchor) {
       return "";
     }
-
-    const paragraphs = doc.content.split("\n").filter((p) => p.trim());
-
-    // Find where this section starts and ends
-    let sectionStart = -1;
-    let sectionEnd = paragraphs.length;
-
-    for (let i = 0; i < paragraphs.length; i++) {
-      const para = paragraphs[i].trim();
-      const normalizedPara = this.normalizeForComparison(para);
-      const normalizedAnchor = this.normalizeForComparison(anchor.text);
-
-      if (normalizedPara === normalizedAnchor) {
-        sectionStart = i;
-      } else if (sectionStart !== -1 && doc.anchors) {
-        // Check if this is another heading
-        const isHeading = doc.anchors.some((a) => {
-          const norm = this.normalizeForComparison(a.text);
-          return norm === normalizedPara;
-        });
-
-        if (isHeading) {
-          sectionEnd = i;
-          break;
-        }
-      }
-    }
-
-    if (sectionStart === -1) {
-      return "";
-    }
-
-    // Get content of this section (excluding the heading itself)
-    const sectionParagraphs = paragraphs.slice(sectionStart + 1, sectionEnd);
-    const sectionContent = sectionParagraphs.join("\n");
-
-    // Use existing generatePreview on just this section's content
-    return this.generatePreview(sectionContent, query, maxLength);
+    return this.generatePreview(
+      window.searchCore.sectionContent(doc, anchor),
+      query,
+      maxLength,
+    );
   }
 
   // Escape regex special characters
@@ -961,74 +412,17 @@ class SearchEngine {
 
   // Lazy loading for search results
   lazyLoadDocuments(docIds, limit = 10) {
-    if (!this.fullDocuments) {
-      // Store full documents separately for memory efficiency
-      this.fullDocuments = this.documents;
-      // Create lightweight index documents
-      this.documents = this.documents.map((doc) => ({
-        id: doc.id,
-        title: doc.title,
-        path: doc.path,
-      }));
-    }
-
-    return docIds.slice(0, limit).map((id) => this.fullDocuments[id]);
+    return docIds.slice(0, limit).map((id) => this.documents[id]);
   }
 
   // Fallback search method via simple string matching
   fallbackSearch(query, limit = 10) {
-    if (!query || typeof query !== "string") return [];
-
-    const lowerQuery = query.toLowerCase();
-    if (lowerQuery.length < 2) return [];
-
-    const results = this.documents
-      .map((doc) => {
-        if (!doc || !doc.title || !doc.content) {
-          return null;
-        }
-
-        const titleMatch = doc.title.toLowerCase().indexOf(lowerQuery);
-        const contentMatch = doc.content.toLowerCase().indexOf(lowerQuery);
-        let pageScore = 0;
-
-        if (titleMatch !== -1) {
-          pageScore += this.config.boostTitle / 10;
-          if (doc.title.toLowerCase() === lowerQuery) {
-            pageScore += this.config.boostTitle / 5;
-          }
-        }
-        if (contentMatch !== -1) {
-          pageScore += this.config.boostContent / 15;
-        }
-
-        // Find matching anchors
-        const matchingAnchors = [];
-        if (
-          doc.anchors &&
-          Array.isArray(doc.anchors) &&
-          doc.anchors.length > 0
-        ) {
-          doc.anchors.forEach((anchor) => {
-            if (!anchor || !anchor.text) return;
-            const anchorText = anchor.text.toLowerCase();
-            if (anchorText.includes(lowerQuery)) {
-              matchingAnchors.push(anchor);
-            }
-          });
-        }
-
-        return { doc, pageScore, matchingAnchors, titleMatch, contentMatch };
-      })
-      .filter((item) => item !== null && item.pageScore > 0)
-      .sort((a, b) => {
-        if (a.pageScore !== b.pageScore) return b.pageScore - a.pageScore;
-        if (a.titleMatch !== b.titleMatch) return a.titleMatch - b.titleMatch;
-        return a.contentMatch - b.contentMatch;
-      })
-      .slice(0, limit);
-
-    return results;
+    return window.searchCore.runSearch(
+      this.searchDocuments,
+      query,
+      limit,
+      this.config,
+    );
   }
 }
 
@@ -1120,7 +514,8 @@ class SearchKeyboardNav {
             this.navigationPending = false;
           }, 100);
 
-          window.location.href = url.toString();
+          link.href = url.toString();
+          link.click();
         } else {
           // Clear flag before click to allow navigation
           setTimeout(() => {
@@ -1152,6 +547,12 @@ function initializeSearchWorker() {
     const rootPath = window.searchNamespace?.rootPath || "";
     const workerPath = `${rootPath}assets/search-worker.js`;
     searchWorker = new Worker(workerPath);
+    // If the worker script fails to load (for example it was not emitted for a
+    // custom template set), disable it so searches fall back to the main thread
+    // immediately instead of waiting for the per-search timeout.
+    searchWorker.addEventListener("error", () => {
+      searchWorker = false;
+    });
     return searchWorker;
   } catch (error) {
     console.warn("Web Worker creation failed, using main thread:", error);
@@ -1190,6 +591,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Keyboard navigation for search page
     searchPageInput.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        searchPageKeyboardNav.clear();
+        searchPageInput.blur();
+        return;
+      }
+
       const hasResults =
         searchPageResults &&
         searchPageResults.querySelector(".search-result-item");
@@ -1214,10 +622,6 @@ document.addEventListener("DOMContentLoaded", function () {
       ) {
         event.preventDefault();
         searchPageKeyboardNav.select();
-      } else if (event.key === "Escape") {
-        event.preventDefault();
-        searchPageKeyboardNav.clear();
-        searchPageInput.blur();
       }
     });
 
@@ -1265,7 +669,6 @@ document.addEventListener("DOMContentLoaded", function () {
       "input",
       debounce(async function () {
         const searchTerm = this.value.trim();
-        const currentSearchTerm = searchTerm;
 
         if (searchTerm.length < 2) {
           searchResults.innerHTML = "";
@@ -1286,7 +689,9 @@ document.addEventListener("DOMContentLoaded", function () {
             8,
           );
 
-          if (currentSearchTerm !== searchTerm) return;
+          // Drop stale responses: if the user kept typing while this search was
+          // running, the input no longer matches and a newer search will render.
+          if (searchInput.value.trim() !== searchTerm) return;
 
           if (results.length > 0) {
             searchResults.innerHTML = results
@@ -1400,14 +805,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // Focus search when pressing slash key
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "/" && document.activeElement !== searchInput) {
-        event.preventDefault();
-        searchInput.focus();
-      }
-    });
-
     setupDocumentEventHandlers(searchInput, searchResults, searchContainer);
   }
 
@@ -1440,11 +837,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     document.addEventListener("keydown", function (event) {
-      if (event.key === "/" && document.activeElement !== searchInput) {
-        event.preventDefault();
-        searchInput.focus();
-      }
-
       if (
         event.key === "Escape" &&
         (document.activeElement === searchInput ||

@@ -27,6 +27,7 @@
       window.searchNamespace = window.searchNamespace || {};
       window.searchNamespace.rootPath = "";
     </script>
+    <script defer src="assets/search-core.js"></script>
     <script defer src="assets/search.js"></script>
     
   </head>
@@ -38,7 +39,7 @@
             <a href="index.html">NVF</a>
           </h1>
 
-          <nav class="header-nav">
+          <nav class="header-nav" aria-label="Primary">
   <ul>
     <li >
       <a href="options.html">Options</a>
@@ -52,15 +53,22 @@
         </div>
         
         <div class="search-container js-only">
-          <input type="text" id="search-input" placeholder="Search..." />
+          <input type="text" id="search-input" placeholder="Search..." aria-label="Search" autocomplete="off" />
           <div id="search-results" class="search-results"></div>
         </div>
         
       </header>
 
       <div class="layout">
-        <div class="sidebar-toggle js-only" aria-label="Toggle sidebar">
+        <button
+          type="button"
+          class="sidebar-toggle js-only"
+          aria-label="Collapse sidebar"
+          aria-expanded="true"
+          aria-controls="sidebar"
+        >
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             width="24"
@@ -68,8 +76,8 @@
           >
             <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
           </svg>
-        </div>
-        <nav class="sidebar">
+        </button>
+        <nav id="sidebar" class="sidebar" aria-label="Sidebar">
           <details class="sidebar-section" data-section="docs" open>
             <summary>Documents</summary>
             <div class="sidebar-section-content">
@@ -96,10 +104,10 @@
 <ul><li><a href="#sec-release-26-12-breaking-changes">Breaking changes</a>
 <li><a href="#sec-release-26-12-changelog">Changelog</a>
 </ul><li><a href="#sec-release-26-07">Release 26.07</a>
-<ul><li><a href="#breaking-changes">Breaking changes</a>
+<ul><li><a href="#sec-release-26-07-breaking-changes">Breaking changes</a>
 <li><a href="#sec-release-26-07-changelog">Changelog</a>
 </ul><li><a href="#sec-release-0-8">Release 0.8</a>
-<ul><li><a href="#breaking-changes">Breaking changes</a>
+<ul><li><a href="#sec-breaking-changes-0-8">Breaking changes</a>
 <li><a href="#sec-release-0-8-changelog">Changelog</a>
 </ul><li><a href="#sec-release-0-7">Release 0.7</a>
 <ul><li><a href="#sec-breaking-changes-and-migration-guide-0-7">Breaking Changes and Migration Guide</a>
@@ -349,7 +357,7 @@ no <code>cmd</code> and left <code>angular-language-server</code> without the <c
 so the server never attached to <code>.ts</code> buffers.</li>
 </ul>
 <h1 id="sec-release-26-07">Release 26.07</h1>
-<h2 id="breaking-changes">Breaking changes</h2>
+<h2 id="sec-release-26-07-breaking-changes">Breaking changes</h2>
 <ul>
 <li>
 <p>Changing the release model to CalVer.</p>
@@ -1257,7 +1265,7 @@ configuration. Enabled via configuration
 </ul>
 <!-- vim: set textwidth=80: -->
 <h1 id="sec-release-0-8">Release 0.8</h1>
-<h2 id="breaking-changes">Breaking changes</h2>
+<h2 id="sec-breaking-changes-0-8">Breaking changes</h2>
 <ul>
 <li>
 <p><code>git-conflict</code> keybinds are now prefixed with <code>&lt;leader&gt;</code> to avoid conflicting
@@ -2963,10 +2971,10 @@ Lualine theme <code>vim.statusline.lualine.theme</code>.</li>
 <ul><li><a href="#sec-release-26-12-breaking-changes">Breaking changes</a>
 <li><a href="#sec-release-26-12-changelog">Changelog</a>
 </ul><li><a href="#sec-release-26-07">Release 26.07</a>
-<ul><li><a href="#breaking-changes">Breaking changes</a>
+<ul><li><a href="#sec-release-26-07-breaking-changes">Breaking changes</a>
 <li><a href="#sec-release-26-07-changelog">Changelog</a>
 </ul><li><a href="#sec-release-0-8">Release 0.8</a>
-<ul><li><a href="#breaking-changes">Breaking changes</a>
+<ul><li><a href="#sec-breaking-changes-0-8">Breaking changes</a>
 <li><a href="#sec-release-0-8-changelog">Changelog</a>
 </ul><li><a href="#sec-release-0-7">Release 0.7</a>
 <ul><li><a href="#sec-breaking-changes-and-migration-guide-0-7">Breaking Changes and Migration Guide</a>

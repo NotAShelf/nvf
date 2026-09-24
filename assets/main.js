@@ -17,41 +17,58 @@ if (typeof window.requestIdleCallback === "undefined") {
   };
 }
 
+let pageController;
+
+function beginPageLifecycle() {
+  pageController?.abort();
+  pageController = new AbortController();
+  return pageController.signal;
+}
+
+function schedulePageTask(signal, callback, delay) {
+  const timeout = setTimeout(callback, delay);
+  signal.addEventListener("abort", () => clearTimeout(timeout), { once: true });
+}
+
 // Create mobile elements if they don't exist
 function createMobileElements() {
-  // Create mobile sidebar FAB
-  const mobileFab = document.createElement("button");
-  mobileFab.className = "mobile-sidebar-fab";
-  mobileFab.setAttribute("aria-label", "Toggle sidebar menu");
-  mobileFab.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  const mobileToggle = document.createElement("button");
+  mobileToggle.className = "mobile-sidebar-toggle";
+  mobileToggle.type = "button";
+  mobileToggle.setAttribute("aria-label", "Open contents");
+  mobileToggle.setAttribute("aria-controls", "mobile-sidebar");
+  mobileToggle.setAttribute("aria-expanded", "false");
+  mobileToggle.innerHTML = `
+    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <line x1="3" y1="12" x2="21" y2="12"></line>
       <line x1="3" y1="6" x2="21" y2="6"></line>
       <line x1="3" y1="18" x2="21" y2="18"></line>
     </svg>
   `;
 
-  // Only show FAB on mobile (max-width: 800px)
-  function updateFabVisibility() {
-    if (window.innerWidth > 800) {
-      if (mobileFab.parentNode) mobileFab.parentNode.removeChild(mobileFab);
-    } else {
-      if (!document.body.contains(mobileFab)) {
-        document.body.appendChild(mobileFab);
-      }
-      mobileFab.style.display = "flex";
-    }
+  const header = document.querySelector("header");
+  if (header) {
+    header.insertBefore(mobileToggle, header.firstChild);
   }
-  updateFabVisibility();
-  window.addEventListener("resize", updateFabVisibility);
 
-  // Create mobile sidebar container
+  const mobileBackdrop = document.createElement("div");
+  mobileBackdrop.className = "mobile-sidebar-backdrop";
+  mobileBackdrop.hidden = true;
+
   const mobileContainer = document.createElement("div");
+  mobileContainer.id = "mobile-sidebar";
   mobileContainer.className = "mobile-sidebar-container";
+  mobileContainer.setAttribute("role", "dialog");
+  mobileContainer.setAttribute("aria-modal", "true");
+  mobileContainer.setAttribute("aria-labelledby", "mobile-sidebar-title");
+  mobileContainer.setAttribute("aria-hidden", "true");
+  mobileContainer.inert = true;
   mobileContainer.innerHTML = `
-    <div class="mobile-sidebar-handle">
-      <div class="mobile-sidebar-dragger"></div>
+    <div class="mobile-sidebar-header">
+      <h2 id="mobile-sidebar-title">Menu</h2>
+      <button type="button" class="mobile-sidebar-close" aria-label="Close contents">&times;</button>
     </div>
+    <nav class="mobile-sidebar-site-nav" aria-label="Site navigation"></nav>
     <div class="mobile-sidebar-content">
       <!-- Sidebar content will be cloned here -->
     </div>
@@ -75,21 +92,13 @@ function createMobileElements() {
   `;
 
   // Insert at end of body so it is not affected by .container flex or stacking context
+  document.body.appendChild(mobileBackdrop);
   document.body.appendChild(mobileContainer);
   document.body.appendChild(mobileSearchPopup);
-
-  // Immediately populate mobile sidebar content if desktop sidebar exists
-  const desktopSidebar = document.querySelector(".sidebar");
-  const mobileSidebarContent = mobileContainer.querySelector(
-    ".mobile-sidebar-content",
-  );
-  if (desktopSidebar && mobileSidebarContent) {
-    mobileSidebarContent.innerHTML = desktopSidebar.innerHTML;
-  }
 }
 
 // Highlight search terms on target pages
-function highlightTextInContent(container, terms) {
+function highlightTextInContent(container, terms, signal) {
   if (!container || !terms || terms.length === 0) return;
 
   // Create a case-insensitive regex pattern
@@ -126,17 +135,21 @@ function highlightTextInContent(container, terms) {
   highlightNode(container);
 
   // Scroll to first highlight after a brief delay
-  setTimeout(() => {
-    const firstHighlight = container.querySelector(".search-highlight");
-    if (firstHighlight) {
-      firstHighlight.scrollIntoView({ behavior: "smooth", block: "center" });
-      firstHighlight.classList.add("search-highlight-active");
-    }
-  }, 100);
+  schedulePageTask(
+    signal,
+    () => {
+      const firstHighlight = container.querySelector(".search-highlight");
+      if (firstHighlight) {
+        firstHighlight.scrollIntoView({ behavior: "smooth", block: "center" });
+        firstHighlight.classList.add("search-highlight-active");
+      }
+    },
+    100,
+  );
 }
 
 // Initialize scroll spy
-function initScrollSpy() {
+function initScrollSpy(signal) {
   const pageToc = document.querySelector(".page-toc");
   if (!pageToc) return;
 
@@ -215,46 +228,893 @@ function initScrollSpy() {
   }
 
   // Scroll event handler
-  let ticking = false;
+  let frame = 0;
   function onScroll() {
-    if (!ticking) {
-      requestAnimationFrame(() => {
+    if (!frame) {
+      frame = requestAnimationFrame(() => {
         updateActiveLink();
-        ticking = false;
+        frame = 0;
       });
-      ticking = true;
     }
   }
 
-  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("scroll", onScroll, { passive: true, signal });
 
   // Also update on hash change (direct link navigation)
-  window.addEventListener("hashchange", () => {
-    requestAnimationFrame(updateActiveLink);
-  });
+  window.addEventListener(
+    "hashchange",
+    () => {
+      requestAnimationFrame(updateActiveLink);
+    },
+    { signal },
+  );
 
   // Set initial active state after a small delay to ensure
   // browser has completed any hash-based scrolling
-  setTimeout(updateActiveLink, 100);
+  const timeout = setTimeout(updateActiveLink, 100);
+  signal.addEventListener(
+    "abort",
+    () => {
+      clearTimeout(timeout);
+      cancelAnimationFrame(frame);
+    },
+    { once: true },
+  );
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  // Apply sidebar state immediately before DOM rendering
-  try {
-    if (localStorage.getItem("sidebar-collapsed") === "true") {
-      document.documentElement.classList.add("sidebar-collapsed");
-      document.body.classList.add("sidebar-collapsed");
+function initMobileNavigation() {
+  const mobileSidebarContainer = document.querySelector(
+    ".mobile-sidebar-container",
+  );
+  const mobileSidebarToggle = document.querySelector(".mobile-sidebar-toggle");
+  const mobileSidebarBackdrop = document.querySelector(
+    ".mobile-sidebar-backdrop",
+  );
+  const mobileSidebarClose = document.querySelector(".mobile-sidebar-close");
+
+  if (!mobileSidebarToggle || !mobileSidebarContainer || !mobileSidebarBackdrop)
+    return;
+
+  const openMobileSidebar = () => {
+    refreshMobileNavigation();
+    mobileSidebarContainer.inert = false;
+    mobileSidebarContainer.classList.add("active");
+    mobileSidebarBackdrop.hidden = false;
+    mobileSidebarBackdrop.classList.add("active");
+    mobileSidebarToggle.setAttribute("aria-expanded", "true");
+    mobileSidebarContainer.setAttribute("aria-hidden", "false");
+    document.body.classList.add("mobile-sidebar-open");
+    mobileSidebarClose?.focus();
+  };
+
+  const closeMobileSidebar = (restoreFocus = true) => {
+    mobileSidebarContainer.classList.remove("active");
+    mobileSidebarBackdrop.classList.remove("active");
+    mobileSidebarToggle.setAttribute("aria-expanded", "false");
+    mobileSidebarContainer.setAttribute("aria-hidden", "true");
+    mobileSidebarContainer.inert = true;
+    document.body.classList.remove("mobile-sidebar-open");
+    if (restoreFocus) {
+      mobileSidebarToggle.focus();
     }
+    setTimeout(() => {
+      if (!mobileSidebarBackdrop.classList.contains("active")) {
+        mobileSidebarBackdrop.hidden = true;
+      }
+    }, 200);
+  };
+
+  mobileSidebarToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (mobileSidebarContainer.classList.contains("active")) {
+      closeMobileSidebar();
+    } else {
+      openMobileSidebar();
+    }
+  });
+
+  mobileSidebarBackdrop.addEventListener("click", () => closeMobileSidebar());
+  mobileSidebarClose?.addEventListener("click", () => closeMobileSidebar());
+  mobileSidebarContainer.addEventListener("click", (event) => {
+    if (event.target instanceof Element && event.target.closest("a")) {
+      closeMobileSidebar(false);
+    }
+  });
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 800) {
+      closeMobileSidebar(false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (!mobileSidebarContainer.classList.contains("active")) return;
+
+    if (event.key === "Escape") {
+      event.preventDefault();
+      closeMobileSidebar();
+      return;
+    }
+
+    if (event.key !== "Tab") return;
+
+    const focusable = Array.from(
+      mobileSidebarContainer.querySelectorAll(
+        'a[href], button:not([disabled]), summary, input:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ),
+    ).filter((element) => element.getClientRects().length > 0);
+    if (focusable.length === 0) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+}
+
+function isEditableTarget(target) {
+  return (
+    target instanceof HTMLElement &&
+    (target.isContentEditable ||
+      ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName))
+  );
+}
+
+function setupGlobalShortcuts() {
+  document.addEventListener("keydown", (event) => {
+    if (
+      event.key !== "/" ||
+      event.ctrlKey ||
+      event.metaKey ||
+      event.altKey ||
+      isEditableTarget(event.target)
+    ) {
+      return;
+    }
+
+    const input =
+      document.getElementById("options-filter") ??
+      document.getElementById("search-page-input") ??
+      document.getElementById("search-input");
+    if (!input) return;
+
+    event.preventDefault();
+    input.focus();
+  });
+}
+
+function setupNavbarKeyboardNavigation() {
+  document.querySelectorAll(".header-nav").forEach((nav) => {
+    nav.addEventListener("keydown", (event) => {
+      if (!(event.target instanceof HTMLAnchorElement)) return;
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
+        return;
+      }
+
+      const links = Array.from(nav.querySelectorAll("a[href]"));
+      const currentIndex = links.indexOf(event.target);
+      if (currentIndex < 0 || links.length === 0) return;
+
+      event.preventDefault();
+      let nextIndex = currentIndex;
+      if (event.key === "ArrowLeft") {
+        nextIndex = (currentIndex - 1 + links.length) % links.length;
+      } else if (event.key === "ArrowRight") {
+        nextIndex = (currentIndex + 1) % links.length;
+      } else if (event.key === "Home") {
+        nextIndex = 0;
+      } else if (event.key === "End") {
+        nextIndex = links.length - 1;
+      }
+      links[nextIndex].focus();
+    });
+  });
+}
+
+function setupOptionKeyboardNavigation(signal) {
+  const input = document.getElementById("options-filter");
+  const container = document.querySelector(
+    ".options-index-list, .options-container",
+  );
+  if (!input || !container) return;
+
+  const optionLinks = () =>
+    Array.from(
+      container.querySelectorAll(".option .option-anchor, .option-page-row"),
+    );
+  const focusOption = (link) => {
+    link.focus({ preventScroll: true });
+    link
+      .closest(".option, .option-page-row")
+      ?.scrollIntoView({ block: "nearest", inline: "nearest" });
+  };
+
+  input.addEventListener(
+    "keydown",
+    (event) => {
+      if (event.key !== "ArrowDown") return;
+      const first = optionLinks()[0];
+      if (!first) return;
+      event.preventDefault();
+      focusOption(first);
+    },
+    { signal },
+  );
+
+  container.addEventListener(
+    "keydown",
+    (event) => {
+      if (!(event.target instanceof HTMLAnchorElement)) return;
+      if (
+        !["ArrowUp", "ArrowDown", "Home", "End", "Escape"].includes(event.key)
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      if (event.key === "Escape") {
+        input.focus();
+        return;
+      }
+
+      const links = optionLinks();
+      const currentIndex = links.indexOf(event.target);
+      if (currentIndex < 0 || links.length === 0) return;
+
+      let nextIndex = currentIndex;
+      if (event.key === "ArrowUp") {
+        nextIndex = Math.max(0, currentIndex - 1);
+      } else if (event.key === "ArrowDown") {
+        nextIndex = Math.min(links.length - 1, currentIndex + 1);
+      } else if (event.key === "Home") {
+        nextIndex = 0;
+      } else if (event.key === "End") {
+        nextIndex = links.length - 1;
+      }
+
+      focusOption(links[nextIndex]);
+    },
+    { signal },
+  );
+}
+
+let optionScrollRequest = 0;
+
+function scrollToOption(element) {
+  const request = ++optionScrollRequest;
+  const container = element?.closest(".options-container");
+  container?.classList.add("options-revealed");
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      if (request !== optionScrollRequest || !element?.isConnected) return;
+      element.scrollIntoView({
+        behavior: "instant",
+        block: "start",
+      });
+      requestAnimationFrame(() => {
+        if (request === optionScrollRequest) {
+          container?.classList.remove("options-revealed");
+        }
+      });
+    });
+  });
+}
+
+function setupOptionTocNavigation() {
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+    const link = event.target.closest('a[href^="#"]');
+    if (
+      !link ||
+      !link.closest('.options-page [data-section="toc"] .toc-list')
+    ) {
+      return;
+    }
+
+    const target = document.getElementById(
+      decodeURIComponent(link.hash.slice(1)),
+    );
+    if (!target) return;
+
+    event.preventDefault();
+    history.pushState(null, "", link.hash);
+    scrollToOption(target);
+  });
+}
+
+function setupOptionChunkLoading(signal) {
+  const manifestElement = document.getElementById("options-chunk-manifest");
+  const loader = document.querySelector(".options-chunk-loader");
+  if (!manifestElement || !loader) return null;
+
+  const status = loader.querySelector(".options-chunk-status");
+  const chunks = Array.from(loader.querySelectorAll("[data-options-chunk]"));
+  let manifest;
+  try {
+    manifest = JSON.parse(manifestElement.textContent);
   } catch {
-    // localStorage unavailable
+    if (status)
+      status.textContent = "The remaining options could not be loaded.";
+    return null;
   }
 
-  if (!document.querySelector(".mobile-sidebar-fab")) {
-    createMobileElements();
+  const requests = new Map();
+  const loadedChunks = new Set();
+  let nextChunk = 0;
+
+  const updateStatus = () => {
+    const loaded = loadedChunks.size;
+    if (!status) return;
+    if (loaded === chunks.length) {
+      status.remove();
+    } else {
+      status.textContent = `Loaded ${loaded + 1} of ${chunks.length + 1} option chunks.`;
+    }
+  };
+
+  const loadChunk = (index) => {
+    if (!Number.isInteger(index) || !chunks[index]) return Promise.resolve();
+    if (requests.has(index)) return requests.get(index);
+
+    const chunk = chunks[index];
+    const request = fetch(chunk.dataset.src, { signal })
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.text();
+      })
+      .then((html) => {
+        chunk.innerHTML = html;
+        chunk.removeAttribute("data-src");
+        loadedChunks.add(index);
+        updateStatus();
+      })
+      .catch((error) => {
+        if (error.name === "AbortError") return;
+        chunk.classList.add("options-chunk-error");
+        chunk.textContent = "This option chunk could not be loaded.";
+        if (status) status.textContent = "Some options could not be loaded.";
+        throw error;
+      });
+    requests.set(index, request);
+    return request;
+  };
+
+  const loadAll = () => Promise.all(chunks.map((_, index) => loadChunk(index)));
+  const loadThrough = (index) =>
+    Promise.all(chunks.slice(0, index + 1).map((_, i) => loadChunk(i)));
+
+  const revealHashTarget = async () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    const chunkIndex = manifest.option_chunks?.[id];
+    try {
+      if (Number.isInteger(chunkIndex)) await loadThrough(chunkIndex);
+    } catch {
+      return;
+    }
+    if (signal.aborted) return;
+    const target = document.getElementById(id);
+    if (!target?.classList.contains("option")) return;
+    target.classList.add("highlight");
+    scrollToOption(target);
+  };
+
+  const loadNext = () => {
+    while (requests.has(nextChunk)) nextChunk += 1;
+    if (nextChunk >= chunks.length) return Promise.resolve();
+    const index = nextChunk;
+    nextChunk += 1;
+    return loadChunk(index);
+  };
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          void loadNext().catch(() => {});
+        }
+      },
+      { rootMargin: "1000px" },
+    );
+    observer.observe(status ?? loader);
+    signal.addEventListener("abort", () => observer.disconnect(), {
+      once: true,
+    });
+  } else {
+    window.requestIdleCallback(() => void loadAll().catch(() => {}));
   }
+
+  window.addEventListener("hashchange", () => void revealHashTarget(), {
+    signal,
+  });
+  const hashReady = window.location.hash
+    ? revealHashTarget()
+    : Promise.resolve();
+
+  return { hashReady, loadAll };
+}
+
+function getFilterMatches(searchTerm, originalOrder, data) {
+  if (searchTerm === "") {
+    return originalOrder.map((element, index) => ({ element, index }));
+  }
+
+  const terms = searchTerm.split(/\s+/).filter(Boolean);
+  const firstTerm = terms[0] || "";
+
+  return data
+    .filter((item) => terms.every((term) => item.searchText.includes(term)))
+    .sort((a, b) => {
+      const aRank = a.name.includes(firstTerm) ? 0 : 1;
+      const bRank = b.name.includes(firstTerm) ? 0 : 1;
+      if (aRank !== bRank) return aRank - bRank;
+      const aPos = a.name.includes(firstTerm)
+        ? a.name.indexOf(firstTerm)
+        : a.searchText.indexOf(firstTerm);
+      const bPos = b.name.includes(firstTerm)
+        ? b.name.indexOf(firstTerm)
+        : b.searchText.indexOf(firstTerm);
+      return aPos - bPos || a.index - b.index;
+    });
+}
+
+function reconcileFilteredItems({
+  container,
+  hiddenContainer,
+  matches,
+  data,
+  reduceMotion,
+  animateChanges,
+  isCurrentRun,
+}) {
+  const visibleElements = new Set(matches.map((item) => item.element));
+  const leaving = [];
+
+  for (const item of data) {
+    if (visibleElements.has(item.element)) continue;
+    if (
+      !animateChanges ||
+      reduceMotion.matches ||
+      !container.contains(item.element)
+    ) {
+      hiddenContainer.content.appendChild(item.element);
+    } else {
+      item.element.classList.add("filter-leaving");
+      leaving.push(item.element);
+    }
+  }
+
+  const updateVisibleItems = () => {
+    if (!isCurrentRun()) return;
+    for (const element of leaving) {
+      element.classList.remove("filter-leaving");
+      if (!visibleElements.has(element)) {
+        hiddenContainer.content.appendChild(element);
+      }
+    }
+
+    const entering = [];
+    let reference = container.firstChild;
+    for (const item of matches) {
+      const wasHidden = !container.contains(item.element);
+      if (wasHidden && animateChanges && !reduceMotion.matches) {
+        item.element.classList.add("filter-entering");
+        entering.push(item.element);
+      }
+
+      if (item.element === reference) {
+        reference = reference.nextSibling;
+      } else {
+        container.insertBefore(item.element, reference);
+      }
+    }
+
+    if (entering.length > 0) {
+      requestAnimationFrame(() => {
+        for (const element of entering) {
+          element.classList.remove("filter-entering");
+        }
+      });
+    }
+  };
+
+  if (leaving.length > 0 && animateChanges) {
+    setTimeout(updateVisibleItems, 160);
+  } else {
+    updateVisibleItems();
+  }
+}
+
+function setupListFilter(
+  { inputId, containerSelector, itemSelector, nameSelector, noun, prepare },
+  signal,
+) {
+  const input = document.getElementById(inputId);
+  const container = document.querySelector(containerSelector);
+  if (!input || !container) return;
+
+  const hiddenContainer = document.createElement("template");
+  document.body.appendChild(hiddenContainer);
+
+  const filterResults = document.createElement("div");
+  filterResults.className = "filter-results";
+  input.parentNode.insertBefore(filterResults, input.nextSibling);
+
+  const isMobile =
+    window.innerWidth < 768 || /Mobi|Android/i.test(navigator.userAgent);
+  let filterData = prepare ? null : collectFilterData();
+
+  let lastTerm = "";
+  let timeout = null;
+  let filterRun = 0;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function collectFilterData() {
+    const items = Array.from(container.querySelectorAll(itemSelector));
+    return {
+      totalCount: items.length,
+      animateChanges: items.length <= 100,
+      originalOrder: items,
+      data: items.map((element, index) => {
+        const name = element.querySelector(nameSelector)?.textContent ?? "";
+        return {
+          element,
+          index,
+          name: name.toLowerCase(),
+          searchText:
+            `${element.id || ""} ${element.textContent || ""}`.toLowerCase(),
+        };
+      }),
+    };
+  }
+
+  const applyFilter = async () => {
+    if (!filterData && prepare) {
+      try {
+        await prepare();
+      } catch {
+        return;
+      }
+      if (signal.aborted) return;
+      filterData = collectFilterData();
+    }
+    if (!filterData) return;
+
+    const { totalCount, animateChanges, originalOrder, data } = filterData;
+    const searchTerm = input.value.toLowerCase().trim();
+    if (lastTerm === searchTerm) return;
+    lastTerm = searchTerm;
+    filterRun += 1;
+    const currentRun = filterRun;
+    for (const item of data) {
+      item.element.classList.remove("filter-entering", "filter-leaving");
+    }
+
+    const matches = getFilterMatches(searchTerm, originalOrder, data);
+    reconcileFilteredItems({
+      container,
+      hiddenContainer,
+      matches,
+      data,
+      reduceMotion,
+      animateChanges,
+      isCurrentRun: () => currentRun === filterRun,
+    });
+
+    if (searchTerm !== "" && matches.length < totalCount) {
+      filterResults.textContent = `Showing ${matches.length} of ${totalCount} ${noun}`;
+      filterResults.style.display = "block";
+    } else {
+      filterResults.style.display = "none";
+    }
+  };
+
+  const debounce = () => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => void applyFilter(), isMobile ? 200 : 100);
+  };
+
+  input.addEventListener("input", debounce, { signal });
+  input.addEventListener(
+    "keydown",
+    (e) => {
+      if (e.key === "Escape") {
+        input.value = "";
+        void applyFilter();
+      }
+    },
+    { signal },
+  );
+  document.addEventListener(
+    "visibilitychange",
+    () => {
+      if (!document.hidden && input.value) void applyFilter();
+    },
+    { signal },
+  );
+  signal.addEventListener(
+    "abort",
+    () => {
+      clearTimeout(timeout);
+      hiddenContainer.remove();
+    },
+    { once: true },
+  );
+
+  if (input.value) void applyFilter();
+}
+
+// Mark the current top-nav item active by matching the URL, so it works for
+// every entry (Options, Search, ...) rather than relying on server-side flags.
+function markActiveNav() {
+  const normalize = (p) => p.replace(/index\.html$/, "").replace(/\/$/, "");
+  const here = normalize(window.location.pathname);
+  document
+    .querySelectorAll(".header-nav li.active")
+    .forEach((item) => item.classList.remove("active"));
+  document.querySelectorAll(".header-nav a[href]").forEach((link) => {
+    const linkPath = normalize(
+      new URL(link.getAttribute("href"), window.location.href).pathname,
+    );
+    if (linkPath && linkPath === here) {
+      link.closest("li")?.classList.add("active");
+    }
+  });
+}
+
+function clientPageName(url) {
+  const name = new URL(url, window.location.href).pathname.split("/").pop();
+  return name === "" ? "index.html" : name;
+}
+
+function isOptionsPageUrl(url) {
+  const target = new URL(url, window.location.href);
+  return (
+    target.origin === window.location.origin &&
+    clientPageName(target) === "options.html"
+  );
+}
+
+function isPlainNavigationClick(event) {
+  return (
+    !event.defaultPrevented &&
+    event.button === 0 &&
+    !event.ctrlKey &&
+    !event.metaKey &&
+    !event.shiftKey &&
+    !event.altKey &&
+    event.target instanceof Element
+  );
+}
+
+async function loadClientPage(url) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  const markup = await response.text();
+  return new DOMParser().parseFromString(markup, "text/html");
+}
+
+function replaceClientPage(next, url, push, scrollX, scrollY) {
+  const currentSidebar = document.querySelector(".sidebar");
+  const currentContent = document.querySelector(".content");
+  const nextSidebar = next.querySelector(".sidebar");
+  const nextContent = next.querySelector(".content");
+  if (
+    [currentSidebar, currentContent, nextSidebar, nextContent].some(
+      (item) => !item,
+    )
+  ) {
+    throw new Error("page is missing its sidebar or content");
+  }
+
+  if (push) {
+    history.replaceState(
+      Object.assign({}, history.state, {
+        ndgClientPage: true,
+        scrollX: window.scrollX,
+        scrollY: window.scrollY,
+      }),
+      "",
+      window.location.href,
+    );
+    history.pushState({ ndgClientPage: true, scrollX: 0, scrollY: 0 }, "", url);
+  }
+
+  const collapsed =
+    document.documentElement.classList.contains("sidebar-collapsed");
+  document.title = next.title;
+  document.body.className = next.body.className;
+  if (collapsed) document.body.classList.add("sidebar-collapsed");
+
+  currentSidebar.replaceWith(nextSidebar);
+  currentContent.replaceWith(nextContent);
+  document.querySelector(".page-toc")?.remove();
+  const nextPageToc = next.querySelector(".page-toc");
+  if (nextPageToc) {
+    document.querySelector(".container > footer")?.before(nextPageToc);
+  }
+
+  initializePage();
+  refreshMobileNavigation();
+  requestAnimationFrame(() => window.scrollTo(scrollX, scrollY));
+}
+
+function transitionClientPage(update) {
+  if (!document.startViewTransition) {
+    update();
+    return Promise.resolve();
+  }
+  return document.startViewTransition(update).updateCallbackDone;
+}
+
+function setupClientNavigation() {
+  history.scrollRestoration = "manual";
+  history.replaceState(
+    Object.assign({}, history.state, {
+      ndgClientPage: true,
+      scrollX: window.scrollX,
+      scrollY: window.scrollY,
+    }),
+    "",
+    window.location.href,
+  );
+
+  let navigating = false;
+  const navigate = async (url, push, scrollX, scrollY) => {
+    if (navigating) return;
+    navigating = true;
+    try {
+      const next = await loadClientPage(url);
+      await transitionClientPage(() =>
+        replaceClientPage(next, url, push, scrollX, scrollY),
+      );
+    } catch {
+      window.location.assign(url);
+    } finally {
+      navigating = false;
+    }
+  };
+
+  document.addEventListener("click", (event) => {
+    if (!isPlainNavigationClick(event)) return;
+    const link = event.target.closest("a[href]");
+    if (!link || link.target || link.hasAttribute("download")) return;
+
+    const url = new URL(link.href, window.location.href);
+    if (
+      !isOptionsPageUrl(url) ||
+      clientPageName(window.location.href) === "options.html"
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    navigate(url.href, true, 0, 0);
+  });
+
+  window.addEventListener("popstate", (event) => {
+    if (!event.state?.ndgClientPage) {
+      window.location.assign(window.location.href);
+      return;
+    }
+    if (!isOptionsPageUrl(window.location.href)) {
+      history.scrollRestoration = "auto";
+      window.location.reload();
+      return;
+    }
+    const scrollX = Number.isFinite(event.state.scrollX)
+      ? event.state.scrollX
+      : 0;
+    const scrollY = Number.isFinite(event.state.scrollY)
+      ? event.state.scrollY
+      : 0;
+    navigate(window.location.href, false, scrollX, scrollY);
+  });
+}
+
+function refreshMobileNavigation() {
+  const mobileContainer = document.querySelector(".mobile-sidebar-container");
+  if (!mobileContainer) return;
+
+  const sidebar = document.querySelector(".sidebar");
+  const mobileContent = document.querySelector(".mobile-sidebar-content");
+  if (sidebar && mobileContent) {
+    mobileContent.innerHTML = sidebar.innerHTML;
+  }
+
+  const headerNav = document.querySelector(".header-nav ul");
+  const mobileSiteNav = document.querySelector(".mobile-sidebar-site-nav");
+  if (headerNav && mobileSiteNav) {
+    mobileSiteNav.innerHTML = headerNav.outerHTML;
+  }
+}
+
+function setupOptionsFilter(signal, optionChunks) {
+  const optionsIndexList = document.querySelector(".options-index-list");
+  let config = {
+    inputId: "options-filter",
+    containerSelector: ".options-container",
+    itemSelector: ".option",
+    nameSelector: ".option-name",
+    noun: "options",
+    prepare: optionChunks?.loadAll,
+  };
+  if (optionsIndexList) {
+    config = {
+      inputId: "options-filter",
+      containerSelector: ".options-index-list",
+      itemSelector: ".option-page-row",
+      nameSelector: ".option-page-title",
+      noun: "option groups",
+    };
+  }
+  setupListFilter(config, signal);
+  setupOptionKeyboardNavigation(signal);
+}
+
+function setupOptionsPage(signal, content) {
+  const optionChunks = setupOptionChunkLoading(signal);
+
+  if (window.location.hash) {
+    const targetElement = document.getElementById(
+      decodeURIComponent(window.location.hash.slice(1)),
+    );
+    if (targetElement) {
+      if (targetElement.classList.contains("option")) {
+        schedulePageTask(signal, () => scrollToOption(targetElement), 100);
+        targetElement.classList.add("highlight");
+      } else {
+        schedulePageTask(
+          signal,
+          () => {
+            const offset =
+              targetElement.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: offset, behavior: "smooth" });
+          },
+          0,
+        );
+      }
+    }
+  }
+
+  setupOptionsFilter(signal, optionChunks);
+
+  const highlightQuery = new URLSearchParams(window.location.search).get(
+    "highlight",
+  );
+  if (!highlightQuery || !content) return;
+
+  const queryTerms = highlightQuery
+    .toLowerCase()
+    .trim()
+    .split(/\s+/)
+    .filter((term) => term.length >= 2);
+  if (queryTerms.length === 0) return;
+
+  const ready = optionChunks
+    ? window.location.hash
+      ? optionChunks.hashReady
+      : optionChunks.loadAll()
+    : Promise.resolve();
+  void ready
+    .then(() => {
+      if (!signal.aborted) highlightTextInContent(content, queryTerms, signal);
+    })
+    .catch(() => {});
+}
+
+function initializePage() {
+  const signal = beginPageLifecycle();
+
+  // Highlight the active nav item before the mobile nav is cloned from it.
+  markActiveNav();
 
   // Initialize scroll spy for page TOC
-  initScrollSpy();
+  initScrollSpy(signal);
 
   // Template container for collapsed sidebar content (prevents Ctrl+F from finding hidden content)
   const sidebarHiddenContainer = document.createElement("template");
@@ -292,47 +1152,15 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       observer.observe(details, { attributes: true });
+      signal.addEventListener("abort", () => observer.disconnect(), {
+        once: true,
+      });
 
       // Initial state check
       if (!details.hasAttribute("open")) {
         sidebarHiddenContainer.content.appendChild(content);
       }
     });
-
-  // Handle sidebar collapse/expand - move entire sidebar to template when collapsed
-  const sidebar = document.querySelector(".sidebar");
-  const sidebarObserver = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.attributeName === "class") {
-        const isCollapsed =
-          document.documentElement.classList.contains("sidebar-collapsed");
-        if (isCollapsed) {
-          // Sidebar collapsed - move to template
-          if (sidebar.parentElement) {
-            sidebarHiddenContainer.content.appendChild(sidebar);
-          }
-        } else {
-          // Sidebar expanded - move back to DOM
-          if (sidebarHiddenContainer.content.contains(sidebar)) {
-            const layout = document.querySelector(".layout");
-            const contentEl = document.querySelector(".content");
-            if (layout) {
-              layout.insertBefore(sidebar, contentEl);
-            }
-          }
-        }
-      }
-    });
-  });
-
-  if (sidebar) {
-    sidebarObserver.observe(document.documentElement, { attributes: true });
-
-    // Initial state - if collapsed, move sidebar to template
-    if (document.documentElement.classList.contains("sidebar-collapsed")) {
-      sidebarHiddenContainer.content.appendChild(sidebar);
-    }
-  }
 
   // Desktop Sidebar Toggle
   const sidebarToggle = document.querySelector(".sidebar-toggle");
@@ -343,26 +1171,44 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   if (sidebarToggle) {
-    sidebarToggle.addEventListener("click", function () {
-      // Toggle on both elements for consistency
-      document.documentElement.classList.toggle("sidebar-collapsed");
-      document.body.classList.toggle("sidebar-collapsed");
-
-      // Use documentElement to check state and save to localStorage
+    const syncSidebarToggle = () => {
       const isCollapsed =
         document.documentElement.classList.contains("sidebar-collapsed");
-      try {
-        localStorage.setItem("sidebar-collapsed", isCollapsed);
-      } catch {
-        // localStorage unavailable
-      }
-    });
+      sidebarToggle.setAttribute("aria-expanded", String(!isCollapsed));
+      sidebarToggle.setAttribute(
+        "aria-label",
+        isCollapsed ? "Expand sidebar" : "Collapse sidebar",
+      );
+    };
+    syncSidebarToggle();
+
+    sidebarToggle.addEventListener(
+      "click",
+      function () {
+        // Toggle on both elements for consistency
+        document.documentElement.classList.toggle("sidebar-collapsed");
+        document.body.classList.toggle("sidebar-collapsed");
+
+        // Use documentElement to check state and save to localStorage
+        const isCollapsed =
+          document.documentElement.classList.contains("sidebar-collapsed");
+        syncSidebarToggle();
+        try {
+          localStorage.setItem("sidebar-collapsed", isCollapsed);
+        } catch {
+          // localStorage unavailable
+        }
+      },
+      { signal },
+    );
   }
 
   // Make headings clickable for anchor links
   const content = document.querySelector(".content");
   if (content) {
-    const headings = content.querySelectorAll("h1, h2, h3, h4, h5, h6");
+    const headings = content.querySelectorAll(
+      "h1:not(.option-name), h2:not(.option-name), h3:not(.option-name), h4:not(.option-name), h5:not(.option-name), h6:not(.option-name)",
+    );
 
     headings.forEach(function (heading) {
       // Generate a valid, unique ID for each heading
@@ -386,17 +1232,21 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       // Make the entire heading clickable
-      heading.addEventListener("click", function () {
-        const id = this.id;
-        history.pushState(null, null, "#" + id);
+      heading.addEventListener(
+        "click",
+        function () {
+          const id = this.id;
+          history.pushState(null, null, "#" + id);
 
-        // Scroll with offset
-        const offset = this.getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({
-          top: offset,
-          behavior: "smooth",
-        });
-      });
+          // Scroll with offset
+          const offset = this.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({
+            top: offset,
+            behavior: "smooth",
+          });
+        },
+        { signal },
+      );
     });
   }
 
@@ -406,7 +1256,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Find all footnote references and create a footnotes section
     const footnoteRefs = content.querySelectorAll('a[href^="#fn"]');
-    if (footnoteRefs.length > 0) {
+    if (footnoteRefs.length > 0 && footnoteContainer) {
       const footnotesDiv = document.createElement("div");
       footnotesDiv.className = "footnotes";
 
@@ -439,29 +1289,30 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Copy link functionality
-  document.querySelectorAll(".copy-link").forEach(function (copyLink) {
-    copyLink.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
+  // One delegated handler avoids attaching a listener to every option card.
+  content?.addEventListener(
+    "click",
+    function (event) {
+      if (!(event.target instanceof Element)) return;
+      const copyLink = event.target.closest(".copy-link");
+      if (!copyLink) return;
 
-      // Get option ID from parent element
+      event.preventDefault();
+      event.stopPropagation();
+
       const option = copyLink.closest(".option");
-      const optionId = option.id;
+      if (!option) return;
 
-      // Create URL with hash
       const url = new URL(window.location.href);
-      url.hash = optionId;
+      url.hash = option.id;
 
-      // Copy to clipboard
       navigator.clipboard
         .writeText(url.toString())
         .then(function () {
-          // Show feedback
           const feedback = copyLink.nextElementSibling;
+          if (!feedback) return;
           feedback.style.display = "inline";
 
-          // Hide after 2 seconds
           setTimeout(function () {
             feedback.style.display = "none";
           }, 2000);
@@ -469,612 +1320,34 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(function (err) {
           console.error("Could not copy link: ", err);
         });
-    });
-  });
-
-  // Handle initial hash navigation
-  function scrollToElement(element) {
-    if (element) {
-      const offset = element.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({
-        top: offset,
-        behavior: "smooth",
-      });
-    }
-  }
-
-  if (window.location.hash) {
-    const targetElement = document.querySelector(window.location.hash);
-    if (targetElement) {
-      setTimeout(() => scrollToElement(targetElement), 0);
-      // Add highlight class for options page
-      if (targetElement.classList.contains("option")) {
-        targetElement.classList.add("highlight");
-      }
-    }
-  }
-
-  // Mobile Sidebar Functionality
-  const mobileSidebarContainer = document.querySelector(
-    ".mobile-sidebar-container",
+    },
+    { signal },
   );
-  const mobileSidebarFab = document.querySelector(".mobile-sidebar-fab");
-  const mobileSidebarHandle = document.querySelector(".mobile-sidebar-handle");
 
-  // Always set up FAB if it exists
-  if (mobileSidebarFab && mobileSidebarContainer) {
-    const openMobileSidebar = () => {
-      mobileSidebarContainer.classList.add("active");
-      mobileSidebarFab.setAttribute("aria-expanded", "true");
-      mobileSidebarContainer.setAttribute("aria-hidden", "false");
-      mobileSidebarFab.classList.add("fab-hidden"); // hide FAB when drawer is open
-    };
-
-    const closeMobileSidebar = () => {
-      mobileSidebarContainer.classList.remove("active");
-      mobileSidebarFab.setAttribute("aria-expanded", "false");
-      mobileSidebarContainer.setAttribute("aria-hidden", "true");
-      mobileSidebarFab.classList.remove("fab-hidden"); // Show FAB when drawer is closed
-    };
-
-    mobileSidebarFab.addEventListener("click", (e) => {
-      e.stopPropagation();
-      if (mobileSidebarContainer.classList.contains("active")) {
-        closeMobileSidebar();
-      } else {
-        openMobileSidebar();
-      }
-    });
-
-    // Only set up drag functionality if handle exists
-    if (mobileSidebarHandle) {
-      // Drag functionality
-      let isDragging = false;
-      let startY = 0;
-      let startHeight = 0;
-
-      // Cleanup function for drag interruption
-      function cleanupDrag() {
-        if (isDragging) {
-          isDragging = false;
-          mobileSidebarHandle.style.cursor = "grab";
-          document.body.style.userSelect = "";
-        }
-      }
-
-      mobileSidebarHandle.addEventListener("mousedown", (e) => {
-        isDragging = true;
-        startY = e.pageY;
-        startHeight = mobileSidebarContainer.offsetHeight;
-        mobileSidebarHandle.style.cursor = "grabbing";
-        document.body.style.userSelect = "none"; // prevent text selection
-      });
-
-      mobileSidebarHandle.addEventListener("touchstart", (e) => {
-        isDragging = true;
-        startY = e.touches[0].pageY;
-        startHeight = mobileSidebarContainer.offsetHeight;
-      });
-
-      document.addEventListener("mousemove", (e) => {
-        if (!isDragging) return;
-        const deltaY = startY - e.pageY;
-        const newHeight = startHeight + deltaY;
-        const vh = window.innerHeight;
-        const minHeight = vh * 0.15;
-        const maxHeight = vh * 0.9;
-
-        if (newHeight >= minHeight && newHeight <= maxHeight) {
-          mobileSidebarContainer.style.height = `${newHeight}px`;
-        }
-      });
-
-      document.addEventListener("touchmove", (e) => {
-        if (!isDragging) return;
-        const deltaY = startY - e.touches[0].pageY;
-        const newHeight = startHeight + deltaY;
-        const vh = window.innerHeight;
-        const minHeight = vh * 0.15;
-        const maxHeight = vh * 0.9;
-
-        if (newHeight >= minHeight && newHeight <= maxHeight) {
-          mobileSidebarContainer.style.height = `${newHeight}px`;
-        }
-      });
-
-      document.addEventListener("mouseup", cleanupDrag);
-      document.addEventListener("touchend", cleanupDrag);
-      window.addEventListener("blur", cleanupDrag);
-      document.addEventListener("visibilitychange", function () {
-        if (document.hidden) cleanupDrag();
-      });
-    }
-
-    // Close on outside click
-    document.addEventListener("click", (event) => {
-      if (
-        mobileSidebarContainer.classList.contains("active") &&
-        !mobileSidebarContainer.contains(event.target) &&
-        !mobileSidebarFab.contains(event.target)
-      ) {
-        closeMobileSidebar();
-      }
-    });
-
-    // Close on escape key
-    document.addEventListener("keydown", (event) => {
-      if (
-        event.key === "Escape" &&
-        mobileSidebarContainer.classList.contains("active")
-      ) {
-        closeMobileSidebar();
-      }
-    });
-  }
-
-  // Options filter functionality
-  const optionsFilter = document.getElementById("options-filter");
-  if (optionsFilter) {
-    const optionsContainer = document.querySelector(".options-container");
-    if (!optionsContainer) return;
-
-    // Template container for hidden options
-    const hiddenOptionsContainer = document.createElement("template");
-    hiddenOptionsContainer.id = "hidden-options-container";
-    document.body.appendChild(hiddenOptionsContainer);
-
-    // Create filter results counter
-    const filterResults = document.createElement("div");
-    filterResults.className = "filter-results";
-    optionsFilter.parentNode.insertBefore(
-      filterResults,
-      optionsFilter.nextSibling,
-    );
-
-    // Detect if we're on a mobile device
-    const isMobile =
-      window.innerWidth < 768 || /Mobi|Android/i.test(navigator.userAgent);
-
-    // Cache all option elements and their searchable content
-    const options = Array.from(document.querySelectorAll(".option"));
-    const totalCount = options.length;
-
-    // Store the original order of option elements
-    const originalOptionOrder = options.slice();
-
-    // Pre-process and optimize searchable content
-    const optionsData = options.map((option) => {
-      const nameElem = option.querySelector(".option-name");
-      const descriptionElem = option.querySelector(".option-description");
-      const id = option.id ? option.id.toLowerCase() : "";
-      const name = nameElem ? nameElem.textContent.toLowerCase() : "";
-      const description = descriptionElem
-        ? descriptionElem.textContent.toLowerCase()
-        : "";
-
-      // Extract keywords for faster searching
-      const keywords = (id + " " + name + " " + description)
-        .toLowerCase()
-        .split(/\s+/)
-        .filter((word) => word.length > 1);
-
-      return {
-        element: option,
-        id,
-        name,
-        description,
-        keywords,
-        searchText: (id + " " + name + " " + description).toLowerCase(),
-      };
-    });
-
-    // Chunk size and rendering variables
-    const CHUNK_SIZE = isMobile ? 15 : 40;
-    let pendingRender = null;
-    let currentChunk = 0;
-    let itemsToProcess = [];
-
-    function debounce(func, wait) {
-      let timeout;
-      return function () {
-        const context = this;
-        const args = arguments;
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(context, args), wait);
-      };
-    }
-
-    // Process options in chunks to prevent UI freezing
-    function processNextChunk() {
-      const startIdx = currentChunk * CHUNK_SIZE;
-      const endIdx = Math.min(startIdx + CHUNK_SIZE, itemsToProcess.length);
-
-      if (startIdx < itemsToProcess.length) {
-        // Move visible items to container, hide others
-        for (let i = startIdx; i < endIdx; i++) {
-          const item = itemsToProcess[i];
-          if (item.visible) {
-            optionsContainer.appendChild(item.element);
-          } else {
-            hiddenOptionsContainer.content.appendChild(item.element);
-          }
-        }
-
-        currentChunk++;
-        pendingRender = requestAnimationFrame(processNextChunk);
-      } else {
-        pendingRender = null;
-        currentChunk = 0;
-        itemsToProcess = [];
-
-        if (filterResults.visibleCount !== undefined) {
-          if (filterResults.visibleCount < totalCount) {
-            filterResults.textContent = `Showing ${filterResults.visibleCount} of ${totalCount} options`;
-            filterResults.style.display = "block";
-          } else {
-            filterResults.style.display = "none";
-          }
-        }
-      }
-    }
-
-    // Initialize: keep all options visible by default
-    // They will be moved to hidden container only when filtering
-    function filterOptions() {
-      const searchTerm = optionsFilter.value.toLowerCase().trim();
-
-      // Skip if search term hasn't changed
-      if (filterOptions.lastTerm === searchTerm) {
-        return;
-      }
-      filterOptions.lastTerm = searchTerm;
-
-      if (pendingRender) {
-        cancelAnimationFrame(pendingRender);
-        pendingRender = null;
-      }
-      currentChunk = 0;
-      itemsToProcess = [];
-
-      if (searchTerm === "") {
-        // Restore to original order
-        const fragment = document.createDocumentFragment();
-        originalOptionOrder.forEach((option) => {
-          hiddenOptionsContainer.content.appendChild(option);
-        });
-        while (hiddenOptionsContainer.content.firstChild) {
-          fragment.appendChild(hiddenOptionsContainer.content.firstChild);
-        }
-        optionsContainer.appendChild(fragment);
-        filterResults.style.display = "none";
-        return;
-      }
-
-      const searchTerms = searchTerm
-        .split(/\s+/)
-        .filter((term) => term.length > 0);
-      let visibleCount = 0;
-
-      const titleMatches = [];
-      const descMatches = [];
-      const term = searchTerms[0];
-
-      for (let i = 0; i < optionsData.length; i++) {
-        const data = optionsData[i];
-        const isTitleMatch = data.name.includes(term);
-        const isDescMatch = !isTitleMatch && data.description.includes(term);
-
-        if (isTitleMatch) {
-          visibleCount++;
-          titleMatches.push(data);
-        } else if (isDescMatch) {
-          visibleCount++;
-          descMatches.push(data);
-        }
-      }
-
-      titleMatches.sort((a, b) => a.name.indexOf(term) - b.name.indexOf(term));
-      descMatches.sort(
-        (a, b) => a.description.indexOf(term) - b.description.indexOf(term),
-      );
-
-      const visibleElements = new Set();
-      itemsToProcess = [];
-      for (let i = 0; i < titleMatches.length; i++) {
-        const data = titleMatches[i];
-        visibleElements.add(data.element);
-        itemsToProcess.push({ element: data.element, visible: true });
-      }
-      for (let i = 0; i < descMatches.length; i++) {
-        const data = descMatches[i];
-        visibleElements.add(data.element);
-        itemsToProcess.push({ element: data.element, visible: true });
-      }
-      for (let i = 0; i < optionsData.length; i++) {
-        const data = optionsData[i];
-        if (!visibleElements.has(data.element)) {
-          itemsToProcess.push({ element: data.element, visible: false });
-        }
-      }
-
-      // Reorder DOM so all title matches, then desc matches, then hidden
-      const fragment = document.createDocumentFragment();
-      for (let i = 0; i < itemsToProcess.length; i++) {
-        fragment.appendChild(itemsToProcess[i].element);
-      }
-      optionsContainer.appendChild(fragment);
-
-      filterResults.visibleCount = visibleCount;
-      pendingRender = requestAnimationFrame(processNextChunk);
-    }
-
-    // Use different debounce times for desktop vs mobile
-    const debouncedFilter = debounce(filterOptions, isMobile ? 200 : 100);
-
-    // Set up event listeners
-    optionsFilter.addEventListener("input", debouncedFilter);
-
-    // Allow clearing with Escape key
-    optionsFilter.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") {
-        optionsFilter.value = "";
-        filterOptions();
-      }
-    });
-
-    // Handle visibility changes
-    document.addEventListener("visibilitychange", function () {
-      if (!document.hidden && optionsFilter.value) {
-        filterOptions();
-      }
-    });
-
-    // Run initial filter if there's a value
-    if (optionsFilter.value) {
-      filterOptions();
-    }
-
-    // Pre-calculate heights for smoother scrolling
-    if (isMobile && totalCount > 50) {
-      requestIdleCallback(() => {
-        const sampleOption = options[0];
-        if (sampleOption) {
-          const height = sampleOption.offsetHeight;
-          if (height > 0) {
-            options.forEach((opt) => {
-              opt.style.containIntrinsicSize = `0 ${height}px`;
-            });
-          }
-        }
-      });
-    }
-  }
-
-  // Lib filter functionality
-  const libFilter = document.getElementById("lib-filter");
-  if (libFilter && document.querySelector(".lib-container")) {
-    const libContainer = document.querySelector(".lib-container");
-
-    const hiddenLibContainer = document.createElement("template");
-    hiddenLibContainer.id = "hidden-lib-container";
-    document.body.appendChild(hiddenLibContainer);
-
-    const filterResults = document.createElement("div");
-    filterResults.className = "filter-results";
-    libFilter.parentNode.insertBefore(filterResults, libFilter.nextSibling);
-
-    const isMobile =
-      window.innerWidth < 768 || /Mobi|Android/i.test(navigator.userAgent);
-
-    const libEntries = Array.from(document.querySelectorAll(".lib-entry"));
-    const totalCount = libEntries.length;
-    const originalLibOrder = libEntries.slice();
-
-    const libData = libEntries.map((entry) => {
-      const nameElem = entry.querySelector(".lib-entry-name");
-      const descriptionElem = entry.querySelector(".lib-entry-description");
-      const id = entry.id ? entry.id.toLowerCase() : "";
-      const name = nameElem ? nameElem.textContent.toLowerCase() : "";
-      const description = descriptionElem
-        ? descriptionElem.textContent.toLowerCase()
-        : "";
-
-      const keywords = (id + " " + name + " " + description)
-        .toLowerCase()
-        .split(/\s+/)
-        .filter((word) => word.length > 1);
-
-      return {
-        element: entry,
-        id,
-        name,
-        description,
-        keywords,
-        searchText: (id + " " + name + " " + description).toLowerCase(),
-      };
-    });
-
-    const CHUNK_SIZE = isMobile ? 15 : 40;
-    let pendingRender = null;
-    let currentChunk = 0;
-    let itemsToProcess = [];
-
-    function debounceLib(func, wait) {
-      let timeout;
-      return function () {
-        const context = this;
-        const args = arguments;
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(context, args), wait);
-      };
-    }
-
-    function processNextChunkLib() {
-      const startIdx = currentChunk * CHUNK_SIZE;
-      const endIdx = Math.min(startIdx + CHUNK_SIZE, itemsToProcess.length);
-
-      if (startIdx < itemsToProcess.length) {
-        for (let i = startIdx; i < endIdx; i++) {
-          const item = itemsToProcess[i];
-          if (item.visible) {
-            libContainer.appendChild(item.element);
-          } else {
-            hiddenLibContainer.content.appendChild(item.element);
-          }
-        }
-
-        currentChunk++;
-        pendingRender = requestAnimationFrame(processNextChunkLib);
-      } else {
-        pendingRender = null;
-        currentChunk = 0;
-        itemsToProcess = [];
-
-        if (filterResults.visibleCount !== undefined) {
-          if (filterResults.visibleCount < totalCount) {
-            filterResults.textContent = `Showing ${filterResults.visibleCount} of ${totalCount} functions`;
-            filterResults.style.display = "block";
-          } else {
-            filterResults.style.display = "none";
-          }
-        }
-      }
-    }
-
-    function filterLib() {
-      const searchTerm = libFilter.value.toLowerCase().trim();
-
-      if (filterLib.lastTerm === searchTerm) {
-        return;
-      }
-      filterLib.lastTerm = searchTerm;
-
-      if (pendingRender) {
-        cancelAnimationFrame(pendingRender);
-        pendingRender = null;
-      }
-      currentChunk = 0;
-      itemsToProcess = [];
-
-      if (searchTerm === "") {
-        const fragment = document.createDocumentFragment();
-        originalLibOrder.forEach((entry) => {
-          hiddenLibContainer.content.appendChild(entry);
-        });
-        while (hiddenLibContainer.content.firstChild) {
-          fragment.appendChild(hiddenLibContainer.content.firstChild);
-        }
-        libContainer.appendChild(fragment);
-        filterResults.style.display = "none";
-        return;
-      }
-
-      const searchTerms = searchTerm
-        .split(/\s+/)
-        .filter((term) => term.length > 0);
-      let visibleCount = 0;
-
-      const titleMatches = [];
-      const descMatches = [];
-      const term = searchTerms[0];
-
-      for (let i = 0; i < libData.length; i++) {
-        const data = libData[i];
-        const isTitleMatch = data.name.includes(term);
-        const isDescMatch = !isTitleMatch && data.description.includes(term);
-
-        if (isTitleMatch) {
-          visibleCount++;
-          titleMatches.push(data);
-        } else if (isDescMatch) {
-          visibleCount++;
-          descMatches.push(data);
-        }
-      }
-
-      titleMatches.sort((a, b) => a.name.indexOf(term) - b.name.indexOf(term));
-      descMatches.sort(
-        (a, b) => a.description.indexOf(term) - b.description.indexOf(term),
-      );
-
-      const visibleElements = new Set();
-      itemsToProcess = [];
-      for (let i = 0; i < titleMatches.length; i++) {
-        const data = titleMatches[i];
-        visibleElements.add(data.element);
-        itemsToProcess.push({ element: data.element, visible: true });
-      }
-      for (let i = 0; i < descMatches.length; i++) {
-        const data = descMatches[i];
-        visibleElements.add(data.element);
-        itemsToProcess.push({ element: data.element, visible: true });
-      }
-      for (let i = 0; i < libData.length; i++) {
-        const data = libData[i];
-        if (!visibleElements.has(data.element)) {
-          itemsToProcess.push({ element: data.element, visible: false });
-        }
-      }
-
-      const fragment = document.createDocumentFragment();
-      for (let i = 0; i < itemsToProcess.length; i++) {
-        fragment.appendChild(itemsToProcess[i].element);
-      }
-      libContainer.appendChild(fragment);
-
-      filterResults.visibleCount = visibleCount;
-      pendingRender = requestAnimationFrame(processNextChunkLib);
-    }
-
-    const debouncedFilter = debounceLib(filterLib, isMobile ? 200 : 100);
-
-    libFilter.addEventListener("input", debouncedFilter);
-
-    libFilter.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") {
-        libFilter.value = "";
-        filterLib();
-      }
-    });
-
-    document.addEventListener("visibilitychange", function () {
-      if (!document.hidden && libFilter.value) {
-        filterLib();
-      }
-    });
-
-    if (libFilter.value) {
-      filterLib();
-    }
-
-    if (isMobile && totalCount > 50) {
-      requestIdleCallback(() => {
-        const sampleEntry = libEntries[0];
-        if (sampleEntry) {
-          const height = sampleEntry.offsetHeight;
-          if (height > 0) {
-            libEntries.forEach((entry) => {
-              entry.style.containIntrinsicSize = `0 ${height}px`;
-            });
-          }
-        }
-      });
-    }
-  }
-
-  // URL-based search highlighting
-  const urlParams = new URLSearchParams(window.location.search);
-  const highlightQuery = urlParams.get("highlight");
-  if (highlightQuery && content) {
-    // Simple tokenizer that doesn't depend on search engine
-    const queryTerms = highlightQuery
-      .toLowerCase()
-      .trim()
-      .split(/\s+/)
-      .filter((term) => term.length >= 2); // min 2 chars like search engine
-
-    if (queryTerms.length > 0) {
-      highlightTextInContent(content, queryTerms);
-    }
-  }
+  setupOptionsPage(signal, content);
+
+  setupListFilter(
+    {
+      inputId: "lib-filter",
+      containerSelector: ".lib-container",
+      itemSelector: ".lib-entry",
+      nameSelector: ".lib-entry-name",
+      noun: "functions",
+    },
+    signal,
+  );
+}
+
+function initializeGlobalBehavior() {
+  if (!document.querySelector(".mobile-sidebar-toggle")) createMobileElements();
+  initMobileNavigation();
+  setupGlobalShortcuts();
+  setupNavbarKeyboardNavigation();
+  setupOptionTocNavigation();
+  setupClientNavigation();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initializeGlobalBehavior();
+  initializePage();
 });

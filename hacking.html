@@ -27,6 +27,7 @@
       window.searchNamespace = window.searchNamespace || {};
       window.searchNamespace.rootPath = "";
     </script>
+    <script defer src="assets/search-core.js"></script>
     <script defer src="assets/search.js"></script>
     
   </head>
@@ -38,7 +39,7 @@
             <a href="index.html">NVF</a>
           </h1>
 
-          <nav class="header-nav">
+          <nav class="header-nav" aria-label="Primary">
   <ul>
     <li >
       <a href="options.html">Options</a>
@@ -52,15 +53,22 @@
         </div>
         
         <div class="search-container js-only">
-          <input type="text" id="search-input" placeholder="Search..." />
+          <input type="text" id="search-input" placeholder="Search..." aria-label="Search" autocomplete="off" />
           <div id="search-results" class="search-results"></div>
         </div>
         
       </header>
 
       <div class="layout">
-        <div class="sidebar-toggle js-only" aria-label="Toggle sidebar">
+        <button
+          type="button"
+          class="sidebar-toggle js-only"
+          aria-label="Collapse sidebar"
+          aria-expanded="true"
+          aria-controls="sidebar"
+        >
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             width="24"
@@ -68,8 +76,8 @@
           >
             <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
           </svg>
-        </div>
-        <nav class="sidebar">
+        </button>
+        <nav id="sidebar" class="sidebar" aria-label="Sidebar">
           <details class="sidebar-section" data-section="docs" open>
             <summary>Documents</summary>
             <div class="sidebar-section-content">
@@ -296,7 +304,7 @@ they are to include comments.</p>
 <h5 id="binaries">Binaries</h5>
 <p>Always use <code>getExe</code> and <code>getExe'</code> from <code>lib.meta</code> instead of manual binary path
 expansion.</p>
-<h6 id="examples">Examples</h6>
+<h6 id="sec-binary-name-examples">Examples</h6>
 <pre class="highlight"><code class="language-diff"><span style="color:rgb(232,102,113);">+</span><span style="color:rgb(152,195,121);">let</span><br><span style="color:rgb(232,102,113);">+</span><span style="color:rgb(152,195,121);">&nbsp;&nbsp;inherit&nbsp;(lib.meta)&nbsp;getExe&nbsp;getExe';</span><br><span style="color:rgb(232,102,113);">+</span><span style="color:rgb(152,195,121);">in</span><br><br><span style="color:rgb(232,102,113);">-</span><span style="color:rgb(232,102,113);">bin&nbsp;=&nbsp;"${pkgs.bar}/bin/bar";</span><br><span style="color:rgb(232,102,113);">+</span><span style="color:rgb(152,195,121);">cmd&nbsp;=&nbsp;getExe&nbsp;pkgs.bar;</span><br><br><span style="color:rgb(232,102,113);">-</span><span style="color:rgb(232,102,113);">cmd&nbsp;=&nbsp;"${pkgs.bar}/bin/foo";</span><br><span style="color:rgb(232,102,113);">+</span><span style="color:rgb(152,195,121);">cmd&nbsp;=&nbsp;getExe'&nbsp;pkgs.bar&nbsp;"foo";</span><br></code></pre>
 <h4 id="sec-code-style-naming-external-tools">Naming of External Tools</h4>
 <p>In NVF, we often package or preconfigure external tools. One common example are
@@ -324,7 +332,7 @@ within NVF.</p>
 <p>We only deviate from the naming rules above when required for compatibility with
 a tool. For example, <code>csharpls-extended-lsp-nvim</code> explicitly searches for
 <code>csharp_ls</code>, so the option name is kept matching it instead of being normalized.</p>
-<h5 id="examples">Examples</h5>
+<h5 id="sec-option-naming-examples">Examples</h5>
 <pre class="highlight"><code class="language-diff"><span style="color:rgb(232,102,113);">-</span><span style="color:rgb(232,102,113);">vim.formatter.conform-nvim.presets.tofu_fmt</span><br><span style="color:rgb(232,102,113);">+</span><span style="color:rgb(152,195,121);">vim.formatter.conform-nvim.presets.opentofu</span><br><br><span style="color:rgb(232,102,113);">-</span><span style="color:rgb(232,102,113);">vim.formatter.conform-nvim.presets.terraform_fmt</span><br><span style="color:rgb(232,102,113);">+</span><span style="color:rgb(152,195,121);">vim.formatter.conform-nvim.presets.terraform</span><br><br><span style="color:rgb(232,102,113);">-</span><span style="color:rgb(232,102,113);">vim.lsp.presets.dartls</span><br><span style="color:rgb(232,102,113);">+</span><span style="color:rgb(152,195,121);">vim.lsp.presets.dart</span><br><br><span style="color:rgb(232,102,113);">-</span><span style="color:rgb(232,102,113);">vim.lsp.presets.lua_ls</span><br><span style="color:rgb(232,102,113);">+</span><span style="color:rgb(152,195,121);">vim.lsp.presets.lua-language-server</span><br></code></pre>
 <h2 id="sec-testing-changes">Testing Changes</h2>
 <p>Once you have made your changes, you will need to test them thoroughly. To make
