@@ -1,71 +1,47 @@
 # based on <https://github.com/idelice/jls/blob/master/default.nix>
 {
   lib,
+  fetchFromGitHub,
+  makeWrapper,
   jdk25_headless,
   maven,
   lombok,
   protobuf_25,
   lombokSupport ? true,
-  makeWrapper,
-  fetchFromGitHub,
 }: let
-  inherit (lib.meta) getExe;
-
   jdk = jdk25_headless;
-  java = getExe jdk;
-  jlinkVmOptions =
-    map
-    (option: ''
-      --add-flags "${option}" \
-    '')
-    [
-      "--add-modules jdk.jdeps"
-      "--add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED"
-      "--add-exports jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED"
-      "--add-exports jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED"
-      "--add-exports jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED"
-      "--add-exports jdk.compiler/com.sun.tools.javac.jvm=ALL-UNNAMED"
-      "--add-exports jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED"
-      "--add-exports jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED"
-      "--add-exports jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED"
-      "--add-exports jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED"
-      "--add-exports jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED"
-      "--add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED"
-      "--add-opens jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED"
-      "--add-opens jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED"
-      "--add-opens jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED"
-      "--add-opens jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED"
-      "--add-opens jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED"
-      "--add-opens jdk.compiler/com.sun.tools.javac.jvm=ALL-UNNAMED"
-      "--add-opens jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED"
-      "--add-opens jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED"
-      "--add-opens jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED"
-      "--add-opens jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED"
-      "--add-opens jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED"
-    ];
-  wrapperFlags = ''
-    ${lib.concatStringsSep " " jlinkVmOptions} \
-    --add-flags "\$JLS_JVM_OPTS" \
-    --add-flags "-Djava.util.logging.config.file=$out/share/jls/logging.properties" \
-    ${lib.optionalString lombokSupport ''--add-flags "-Dorg.javacs.lombokPath=${lombok}/share/lombok.jar"''} \
-    --add-flags "-classpath '$out/share/jls/classpath/*'" \
-    --set-default JLS_JVM_OPTS "-Xmx2g -Xms512m -XX:MaxHeapFreeRatio=50 -XX:MinHeapFreeRatio=20 -XX:+UseStringDeduplication" \
-  '';
+
+  # Basically copy JLINK_VM_OPTIONS in upstream's dist/launch_linux.sh
+  javacPackages = ["api" "code" "comp" "file" "jvm" "main" "model" "parser" "platform" "processing" "tree" "util"];
+  jvmFlags =
+    ["--add-modules jdk.jdeps"]
+    ++ map (p: "--add-exports jdk.compiler/com.sun.tools.javac.${p}=ALL-UNNAMED") javacPackages
+    ++ map (p: "--add-opens jdk.compiler/com.sun.tools.javac.${p}=ALL-UNNAMED") javacPackages
+    ++ [
+      "\\$JLS_JVM_OPTS"
+      "-Djava.util.logging.config.file=${placeholder "out"}/share/jls/logging.properties"
+    ]
+    ++ lib.optional lombokSupport "-Dorg.javacs.lombokPath=${lombok}/share/lombok.jar"
+    ++ ["-classpath '${placeholder "out"}/share/jls/classpath/*'"];
+
+  wrapperArgs = lib.concatMapStringsSep " " (flag: ''--add-flags "${flag}"'') jvmFlags;
 in
   maven.buildMavenPackage (finalAttrs: {
     pname = "jls";
-    version = "0.7.0";
+    version = "0.9.0";
 
     src = fetchFromGitHub {
       owner = "idelice";
       repo = "jls";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-1PyosKSVD1/RnG2AVOfG57jSZDmu24aeJq/PWOK9dfo=";
+      hash = "sha256-9LPLNEKzsCXMdSDdm5WyzOMp9BoHxBWdjxgxJSqz1LM=";
     };
 
     mvnJdk = jdk;
-    mvnHash = "sha256-dIfpoJKDBj00SGNCcElZp0ykKdxrc/bWIa9kbPt6GnI=";
-    mvnParameters = "-DskipTests";
+    mvnHash = "sha256-PNBuentUs+bv7IKK1mg9ZbisW7FtsENX/0bpkJ6qa6w=";
+
+    # Upstream test sources do not compile as of 0.9.0.
+    mvnParameters = "-Dmaven.test.skip=true";
 
     nativeBuildInputs = [
       makeWrapper
@@ -79,22 +55,24 @@ in
     installPhase = ''
       runHook preInstall
 
-      mkdir -p $out/bin $out/share/jls/
+      mkdir -p $out/share/jls
       cp -r dist/classpath $out/share/jls/
       install -Dm644 scripts/logging.properties $out/share/jls
 
-      makeWrapper ${java} $out/bin/jls \
-        ${wrapperFlags} \
-        --add-flags "org.javacs.Main"
-      makeWrapper ${java} $out/bin/jls-dap \
-        ${wrapperFlags} \
-        --add-flags "org.javacs.debug.JavaDebugServer"
+      for bin in jls:org.javacs.Main jls-dap:org.javacs.debug.JavaDebugServer; do
+        makeWrapper ${lib.getExe jdk} $out/bin/''${bin%%:*} \
+          ${wrapperArgs} \
+          --set-default JLS_JVM_OPTS "-Xmx2g -Xms512m -XX:MaxHeapFreeRatio=50 -XX:MinHeapFreeRatio=20 -XX:+UseStringDeduplication" \
+          --add-flags "''${bin#*:}"
+      done
 
       runHook postInstall
     '';
 
     meta = {
       description = "Java Language Server for Neovim";
+      homepage = "https://github.com/idelice/jls";
+      changelog = "https://github.com/idelice/jls/releases/tag/v${finalAttrs.version}";
       license = lib.licenses.mit;
       mainProgram = "jls";
     };
