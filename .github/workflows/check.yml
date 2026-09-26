@@ -25,8 +25,15 @@ jobs:
             substituters = https://cache.nixos.org/ https://feel-co.cachix.org
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= feel-co.cachix.org-1:nwEFNnwZvtl4KKSH5LDg+/+K7bV0vcs6faMHAJ6xx0w=
 
+      # Flake checks build every package in flake/pkgs/by-name.
+      - uses: cachix/cachix-action@v17
+        with:
+          authToken: ${{ secrets.CACHIX_TOKEN }}
+          extraPullNames: nix-community
+          name: nvf
+
       - name: Check Flake
-        run: nix flake check
+        run: nix flake check --print-build-logs
 
   format-sources:
     name: "Check formatting"
