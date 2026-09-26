@@ -63,6 +63,7 @@ in
         makeWrapper ${lib.getExe jdk} $out/bin/''${bin%%:*} \
           ${wrapperArgs} \
           --set-default JLS_JVM_OPTS "-Xmx2g -Xms512m -XX:MaxHeapFreeRatio=50 -XX:MinHeapFreeRatio=20 -XX:+UseStringDeduplication" \
+          --suffix PATH : ${lib.makeBinPath [maven]} \
           --add-flags "''${bin#*:}"
       done
 
