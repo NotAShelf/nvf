@@ -10,16 +10,16 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "some-sass-language-server";
-  version = "2.3.5";
+  version = "2.3.8";
 
   src = fetchFromGitHub {
     owner = "wkillerud";
     repo = "some-sass";
     tag = "some-sass-language-server@${finalAttrs.version}";
-    hash = "sha256-rtoHrnMAf3xa1U9vkhPiQ17gsY2yW2knjctod3TbKuo=";
+    hash = "sha256-jmpkZReeVuf10juWMy7QO/q1Sm7kye3NTpMCeB8kG48=";
   };
 
-  npmDepsHash = "sha256-8jKrxqn8jSWUjZURHl53STTD4hcU0Q3iPH9E4r+lKTc=";
+  npmDepsHash = "sha256-sSumbDqiztUuTs+amYv83I6odbrIOOawXeJxdF2xkA4=";
 
   env.PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
   npmInstallFlags = ["--ignore-scripts"];
@@ -27,18 +27,11 @@ buildNpmPackage (finalAttrs: {
   nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [pkg-config];
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [libsecret];
 
-  dontNpmBuild = true;
-
   buildPhase = ''
     runHook preBuild
 
-    echo "Building vscode-css-languageservice..."
     npm run build --workspace=packages/vscode-css-languageservice
-
-    echo "Building language-services..."
     npm run build --workspace=packages/language-services
-
-    echo "Building language-server..."
     npm run build:production --workspace=packages/language-server
 
     runHook postBuild
@@ -47,15 +40,10 @@ buildNpmPackage (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/lib/node_modules/some-sass-language-server
-    cp -r packages/language-server/dist \
-    packages/language-server/bin \
-    packages/language-server/package.json \
-    $out/lib/node_modules/some-sass-language-server/
-
-    mkdir -p $out/bin
-    ln -s $out/lib/node_modules/some-sass-language-server/bin/some-sass-language-server \
-    $out/bin/some-sass-language-server
+    dir=$out/lib/node_modules/some-sass-language-server
+    mkdir -p $dir $out/bin
+    cp -r packages/language-server/{dist,bin,package.json} $dir/
+    ln -s $dir/bin/some-sass-language-server $out/bin/some-sass-language-server
 
     runHook postInstall
   '';
