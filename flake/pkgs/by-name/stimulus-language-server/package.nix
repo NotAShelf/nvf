@@ -4,21 +4,20 @@
   fetchFromGitHub,
   fetchYarnDeps,
   fetchurl,
+  applyPatches,
   yarnConfigHook,
   yarnBuildHook,
   yarnInstallHook,
   nodejs,
-  runCommand,
-  patch,
   nix-update-script,
 }: let
-  version = "1.1.0";
+  version = "1.1.2";
 
   upstream = fetchFromGitHub {
     owner = "marcoroth";
     repo = "stimulus-lsp";
     tag = "v${version}";
-    hash = "sha256-QAXQKZoFvqhnbAIi9fnJ7pV8fXah0NjwxdrqKB5e5Vw=";
+    hash = "sha256-zF7mz4u+MaJHJM09NxhlTO6TJgkUOhVAmlBKgjsHb0k=";
   };
 
   # `fetchYarnDeps` doesn't support tarballs so we need to patch this manually
@@ -27,13 +26,18 @@
     hash = "sha256-2iRIiwXmdcSw7y3CQNIPt6duwZuVvDvdU/FEdqcnzW4=";
   };
 
-  src = runCommand "stimulus-lsp-server-patched" {nativeBuildInputs = [patch];} ''
-    cp -r ${upstream}/server $out
-    chmod -R +w $out
-    cp '${stimulusTarball}' $out/hotwired-stimulus.tar.gz
-    patch -d $out -p1 < '${./0001-use-local-hotwired.patch}'
-    patch -d $out -p1 < '${./0002-add-types-node.patch}'
-  '';
+  src = applyPatches {
+    name = "stimulus-lsp-server-patched";
+    src = "${upstream}/server";
+    patches = [
+      ./0001-use-local-hotwired.patch
+      ./0002-add-types-node.patch
+    ];
+
+    postPatch = ''
+      install -Dm755 ${stimulusTarball} hotwired-stimulus.tar.gz
+    '';
+  };
 in
   stdenvNoCC.mkDerivation {
     pname = "stimulus-language-server";
@@ -41,7 +45,7 @@ in
 
     offlineCache = fetchYarnDeps {
       yarnLock = "${src}/yarn.lock";
-      hash = "sha256-UvojI/Ow602Q+iiwRpSgxm4DV0IJ0sURicdgghmpBsU=";
+      hash = "sha256-FFHWHuwsIkNIqMkGDoUKKz6Ur7vABl4Swja+LtpFXcA=";
     };
 
     nativeBuildInputs = [
