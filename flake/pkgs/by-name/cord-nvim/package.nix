@@ -8,23 +8,18 @@
 }: let
   pin = pins.cord-nvim;
 
-  pname = "cord";
-  version = pin.revision;
+  version = lib.removePrefix "v" pin.version;
   src = fetchFromGitHub {
     inherit (pin.repository) owner repo;
     rev = pin.revision;
-    sha256 = pin.hash;
+    hash = pin.hash;
   };
 
   cord-server = rustPlatform.buildRustPackage {
-    inherit pname version src;
+    pname = "cord";
+    inherit version src;
 
-    postPatch = ''
-      substituteInPlace .github/server-version.txt \
-        --replace-fail "2.3.13" "${version}"
-    '';
-
-    cargoHash = "sha256-3/qY+KS6TPyj9IwG2Ade2psqyQX1eTXU/CmxN9j4CyI=";
+    cargoHash = "sha256-f2bYDfWFfOm2H4iy0FS4g3NFW7uTB5/1CE7AQSr5llM=";
 
     doCheck = false;
 
