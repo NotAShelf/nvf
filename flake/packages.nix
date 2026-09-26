@@ -73,6 +73,11 @@ in
         remap = {
           "https://notashelf.github.io/nvf/" = "${site}/share/doc/";
           "https://nvf.notashelf.dev/" = "${site}/share/doc/";
+
+          # ndg only renders the first 100 options into options.html and loads
+          # the rest from assets/options-chunk-*.html with JavaScript, which
+          # lychee does not run. options-full.html contains every option.
+          "/options\\.html#option-" = "/options-full.html#option-";
         };
 
         extraConfig = {
@@ -81,6 +86,10 @@ in
             # The leading escaped non breaking space is there on purpose.
             "%C2%A0@injection.content"
           ];
+          # The chunks are fragments of options.html, so their relative links
+          # only resolve once loaded into it. Their content is duplicated in
+          # options-full.html, which is checked.
+          exclude_path = ["assets/options-chunk-[0-9]+\\.html$"];
           include_mail = true;
           include_verbatim = true;
         };

@@ -90,7 +90,7 @@ in {
       sessionVariables = mkIf cfg.defaultEditor {EDITOR = "nvim";};
       packages =
         [cfg.finalPackage]
-        ++ optional cfg.enableManpages packages.${pkgs.stdenv.system}.docs-manpages;
+        ++ optional cfg.enableManpages packages.${pkgs.stdenv.hostPlatform.system}.docs-manpages;
     };
   };
   _file = ./home-manager.nix;

@@ -1,63 +1,58 @@
 {
+  lib,
   pins,
   stdenv,
   fetchFromGitHub,
   nodejs,
   pnpm_11,
   pnpmConfigHook,
-  zstd,
   fetchPnpmDeps,
-  writableTmpDirAsHomeHook,
+  prettier,
 }: let
   pin = pins.prettier-plugin-astro;
-  pnpm = pnpm_11;
 in
   stdenv.mkDerivation (finalAttrs: {
     pname = "prettier-plugin-astro";
-    version = pin.version or pin.revision;
+    version = lib.removePrefix "v" pin.version;
 
     src = fetchFromGitHub {
       inherit (pin.repository) owner repo;
-      rev = finalAttrs.version;
-      sha256 = pin.hash;
+      rev = pin.revision;
+      hash = pin.hash;
     };
 
-    # Upstream still ships a lockfileVersion 6.0 pnpm-lock.yaml, which pnpm 11
-    # refuses to use under --frozen-lockfile. Replace it with a pre-migrated
-    # lockfile (generated via `pnpm install --lockfile-only` on pnpm 11) so
-    # both the dependency fetch and the build itself see the same lockfile.
-    # FIXME: this sucks
-    postPatch = ''
-      cp ${./pnpm-lock.yaml} pnpm-lock.yaml
-    '';
-
     pnpmDeps = fetchPnpmDeps {
-      inherit pnpm;
-      inherit (finalAttrs) pname version src postPatch;
-      hash = "sha256-ODVuEvZbFDXDWUl2Bfp4inG37frUbbRM7bCQxRa2bpM=";
-      fetcherVersion = 4; # https://nixos.org/manual/nixpkgs/stable/#javascript-pnpm-fetcherVersion
+      inherit (finalAttrs) pname version src;
+      pnpm = pnpm_11;
+      hash = "sha256-XgPnyFbA0ZjDh0uGUH1uOaMZas9QjQp8m7I2BgeBy3Q=";
+      fetcherVersion = 4;
     };
 
     nativeBuildInputs = [
       nodejs
-      writableTmpDirAsHomeHook
-      (pnpmConfigHook.override {
-        inherit pnpm;
-      })
-      pnpm
-      zstd
+      pnpm_11
+      (pnpmConfigHook.override {pnpm = pnpm_11;})
     ];
 
     buildPhase = ''
       runHook preBuild
-
       pnpm run build
-
       runHook postBuild
     '';
 
-    preInstall = ''
-      cp -r dist/ $out
+    installPhase = ''
+      runHook preInstall
+      pnpm prune --prod --ignore-scripts
+      cp -r dist $out
       cp -r node_modules $out
+      # prettier is a peer dependency, so pruning drops it.
+      ln -s ${prettier}/lib/node_modules/prettier $out/node_modules/prettier
+      runHook postInstall
     '';
+
+    meta = {
+      description = "Prettier plugin for Astro";
+      homepage = "https://github.com/withastro/prettier-plugin-astro";
+      license = lib.licenses.mit;
+    };
   })
