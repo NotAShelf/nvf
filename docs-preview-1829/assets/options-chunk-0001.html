@@ -1,0 +1,1813 @@
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of codecompanion-nvim.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/codecompanion/codecompanion-nvim.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/codecompanion/codecompanion-nvim.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.adapters">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.adapters" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.adapters</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>An adapter is what connects Neovim to an LLM.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.adapters</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.height">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.height" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.height</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Height of the action palette.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">10</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.height</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.opts.show_default_actions">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.opts.show_default_actions" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.opts.show_default_actions</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable showing default
+actions in the action palette.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.opts.show_default_actions</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.opts.show_default_prompt_library">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.opts.show_default_prompt_library" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.opts.show_default_prompt_library</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable showing default
+prompt library in the action palette.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.opts.show_default_prompt_library</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.prompt">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.prompt" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.prompt</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Prompt used for interactive LLM calls.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Prompt&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.prompt</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.provider">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.provider" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.provider</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Provider used for the action palette.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "default", "telescope", "mini_pick"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">default</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.provider</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.width">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.width" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.width</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Width of the action palette.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">95</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.action_palette.width</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.auto_scroll">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.auto_scroll" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.chat.auto_scroll</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable automatic page scrolling.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.chat.auto_scroll</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.icons.pinned_buffer">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.icons.pinned_buffer" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.chat.icons.pinned_buffer</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The icon to represent a pinned buffer.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.chat.icons.pinned_buffer</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.icons.watched_buffer">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.icons.watched_buffer" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.chat.icons.watched_buffer</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The icon to represent a watched buffer.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">👀&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.chat.icons.watched_buffer</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.intro_message">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.intro_message" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.chat.intro_message</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Message to appear in chat buffer.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Welcome&nbsp;to&nbsp;CodeCompanion&nbsp;✨!&nbsp;Press&nbsp;?&nbsp;for&nbsp;options.</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.chat.intro_message</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.separator">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.separator" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.chat.separator</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The separator between the
+different messages in the chat buffer.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">─</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.chat.separator</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.show_header_separator">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.show_header_separator" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.chat.show_header_separator</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable header separators in the chat buffer.</p>
+<p>Set this to false if you're using an
+external markdown formatting plugin.
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.chat.show_header_separator</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.show_references">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.show_references" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.chat.show_references</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable references in the chat buffer.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.chat.show_references</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.show_settings">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.show_settings" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.chat.show_settings</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable LLM settings to appear at the top of the chat buffer.
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.chat.show_settings</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.show_token_count">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.show_token_count" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.chat.show_token_count</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the token count for each response.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.chat.show_token_count</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.start_in_insert_mode">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.chat.start_in_insert_mode" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.chat.start_in_insert_mode</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable opening the chat buffer in insert mode.
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.chat.start_in_insert_mode</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.diff.enabled">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.diff.enabled" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.diff.enabled</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable a diff view
+to see the changes made by the LLM.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.diff.enabled</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.diff.close_chat_at">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.diff.close_chat_at" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.diff.close_chat_at</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Close an open chat buffer if the
+total columns of your display are less than...</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">240</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.diff.close_chat_at</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.diff.layout">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.diff.layout" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.diff.layout</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Type of split for default provider.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "vertical", "horizontal"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">vertical</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.diff.layout</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.diff.provider">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.diff.provider" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.diff.provider</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The preferred kind of provider.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "inline", "split", "mini_diff"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">inline</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.diff.provider</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.display.inline.layout">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.display.inline.layout" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.display.inline.layout</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Customize how output is created in new buffer.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "vertical", "horizontal", "buffer"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">vertical</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.display.inline.layout</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.adapter">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.adapter" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.adapter</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Adapter used for the chat interaction.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string or (submodule)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.adapter</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.keymaps">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.keymaps" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.keymaps</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Define or override the default keymaps.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (attribute set)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.keymaps</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.roles">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.roles" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.roles</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The chat buffer places user and LLM responses under a H2 header.
+These can be customized in the configuration.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.roles</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.slash_commands">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.slash_commands" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.slash_commands</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Slash Commands (invoked with /) let you dynamically
+insert context into the chat buffer,
+such as file contents or date/time.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.slash_commands</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.tools">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.tools" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.tools</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Configure tools to perform specific
+tasks when invoked by an LLM.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (attribute set)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.tools</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.variables">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.variables" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.variables</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Define your own variables
+to share specific content.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.interactions.chat.variables</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.interactions.inline.adapter">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.interactions.inline.adapter" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.interactions.inline.adapter</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Adapter used for the inline interaction.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string or (submodule)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.interactions.inline.adapter</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.interactions.inline.keymaps.accept_change.n">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.interactions.inline.keymaps.accept_change.n" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.interactions.inline.keymaps.accept_change.n</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Accept the suggested change.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">ga</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.interactions.inline.keymaps.accept_change.n</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.interactions.inline.keymaps.reject_change.n">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.interactions.inline.keymaps.reject_change.n" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.interactions.inline.keymaps.reject_change.n</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Reject the suggested change.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">gr</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.interactions.inline.keymaps.reject_change.n</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.interactions.inline.variables">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.interactions.inline.variables" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.interactions.inline.variables</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Define your own variables
+to share specific content.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.interactions.inline.variables</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.opts.language">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.opts.language" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.opts.language</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Specify which language an LLM should respond in.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">English</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.opts.language</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.opts.log_level">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.opts.log_level" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.opts.log_level</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Change the level of logging.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "DEBUG", "INFO", "ERROR", "TRACE"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">ERROR</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.opts.log_level</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.opts.send_code">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.opts.send_code" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.opts.send_code</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable code being sent to the LLM.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.opts.send_code</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.codecompanion-nvim.setupOpts.prompt_library">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.codecompanion-nvim.setupOpts.prompt_library" class="option-anchor">vim.assistant.codecompanion-nvim.setupOpts.prompt_library</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>A prompt library is a collection of prompts
+that can be used in the action palette.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (attribute set)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.codecompanion-nvim.setupOpts.prompt_library</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.enable" class="option-anchor">vim.assistant.copilot.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable GitHub Copilot AI assistant.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/copilot/copilot.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/copilot/copilot.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.cmp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.cmp.enable" class="option-anchor">vim.assistant.copilot.cmp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable nvim-cmp integration for GitHub Copilot.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/copilot/copilot.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/copilot/copilot.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.mappings.panel.accept">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.mappings.panel.accept" class="option-anchor">vim.assistant.copilot.mappings.panel.accept</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Accept suggestion</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;CR&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/copilot/copilot.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/copilot/copilot.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.mappings.panel.jumpNext">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.mappings.panel.jumpNext" class="option-anchor">vim.assistant.copilot.mappings.panel.jumpNext</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Jump to next suggestion</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">]]</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/copilot/copilot.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/copilot/copilot.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.mappings.panel.jumpPrev">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.mappings.panel.jumpPrev" class="option-anchor">vim.assistant.copilot.mappings.panel.jumpPrev</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Jump to previous suggestion</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">[[</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/copilot/copilot.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/copilot/copilot.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.mappings.panel.open">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.mappings.panel.open" class="option-anchor">vim.assistant.copilot.mappings.panel.open</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Open suggestions</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;M-CR&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/copilot/copilot.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/copilot/copilot.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.mappings.panel.refresh">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.mappings.panel.refresh" class="option-anchor">vim.assistant.copilot.mappings.panel.refresh</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Refresh suggestions</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">gr</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/copilot/copilot.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/copilot/copilot.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.mappings.suggestion.accept">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.mappings.suggestion.accept" class="option-anchor">vim.assistant.copilot.mappings.suggestion.accept</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Accept suggestion</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;M-l&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/copilot/copilot.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/copilot/copilot.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.mappings.suggestion.acceptLine">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.mappings.suggestion.acceptLine" class="option-anchor">vim.assistant.copilot.mappings.suggestion.acceptLine</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Accept next line</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/copilot/copilot.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/copilot/copilot.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.mappings.suggestion.acceptWord">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.mappings.suggestion.acceptWord" class="option-anchor">vim.assistant.copilot.mappings.suggestion.acceptWord</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Accept next word</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/copilot/copilot.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/copilot/copilot.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.mappings.suggestion.dismiss">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.mappings.suggestion.dismiss" class="option-anchor">vim.assistant.copilot.mappings.suggestion.dismiss</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Dismiss suggestion</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;C-]&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/copilot/copilot.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/copilot/copilot.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.mappings.suggestion.next">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.mappings.suggestion.next" class="option-anchor">vim.assistant.copilot.mappings.suggestion.next</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Next suggestion</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;M-]&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/copilot/copilot.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/copilot/copilot.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.mappings.suggestion.prev">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.mappings.suggestion.prev" class="option-anchor">vim.assistant.copilot.mappings.suggestion.prev</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Previous suggestion</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;M-[&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/copilot/copilot.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/copilot/copilot.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.setupOpts" class="option-anchor">vim.assistant.copilot.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of Copilot.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/copilot/copilot.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/copilot/copilot.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.setupOpts.copilot_node_command">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.setupOpts.copilot_node_command" class="option-anchor">vim.assistant.copilot.setupOpts.copilot_node_command</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The command that will be executed to initiate nodejs for GitHub Copilot.
+Recommended to leave as default.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span>\<span style="color:rgb(152,195,121);">$</span><span style="color:rgb(152,195,121);">{pkgs.nodejs-slim.out}/bin/node</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.copilot.setupOpts.copilot_node_command</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.setupOpts.panel.enabled">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.setupOpts.panel.enabled" class="option-anchor">vim.assistant.copilot.setupOpts.panel.enabled</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Completion Panel.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.copilot.setupOpts.panel.enabled</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.setupOpts.panel.layout.position">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.setupOpts.panel.layout.position" class="option-anchor">vim.assistant.copilot.setupOpts.panel.layout.position</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Panel position</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "bottom", "top", "left", "right"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">bottom</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.copilot.setupOpts.panel.layout.position</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.setupOpts.panel.layout.ratio">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.setupOpts.panel.layout.ratio" class="option-anchor">vim.assistant.copilot.setupOpts.panel.layout.ratio</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Panel size</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>floating point number</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">0.4</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.copilot.setupOpts.panel.layout.ratio</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.copilot.setupOpts.suggestion.enabled">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.setupOpts.suggestion.enabled" class="option-anchor">vim.assistant.copilot.setupOpts.suggestion.enabled</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Suggestions.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.copilot.setupOpts.suggestion.enabled</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.enable" class="option-anchor">vim.assistant.neocodeium.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable NeoCodeium AI completion.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/neocodeium/neocodeium.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/neocodeium/neocodeium.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.keymaps.accept">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.keymaps.accept" class="option-anchor">vim.assistant.neocodeium.keymaps.accept</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Accept suggestion</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;A-f&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/neocodeium/neocodeium.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/neocodeium/neocodeium.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.keymaps.accept_line">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.keymaps.accept_line" class="option-anchor">vim.assistant.neocodeium.keymaps.accept_line</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Accept line</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;A-a&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/neocodeium/neocodeium.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/neocodeium/neocodeium.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.keymaps.accept_word">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.keymaps.accept_word" class="option-anchor">vim.assistant.neocodeium.keymaps.accept_word</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Accept word</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;A-w&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/neocodeium/neocodeium.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/neocodeium/neocodeium.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.keymaps.clear">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.keymaps.clear" class="option-anchor">vim.assistant.neocodeium.keymaps.clear</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Clear suggestion</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;A-c&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/neocodeium/neocodeium.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/neocodeium/neocodeium.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.keymaps.cycle_or_complete">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.keymaps.cycle_or_complete" class="option-anchor">vim.assistant.neocodeium.keymaps.cycle_or_complete</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Cycle or complete</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;A-e&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/neocodeium/neocodeium.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/neocodeium/neocodeium.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.keymaps.cycle_or_complete_reverse">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.keymaps.cycle_or_complete_reverse" class="option-anchor">vim.assistant.neocodeium.keymaps.cycle_or_complete_reverse</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Cycle or complete (reverse)</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;A-r&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/neocodeium/neocodeium.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/neocodeium/neocodeium.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.setupOpts" class="option-anchor">vim.assistant.neocodeium.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of NeoCodeium.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/neocodeium/neocodeium.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/neocodeium/neocodeium.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.setupOpts.enabled">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.setupOpts.enabled" class="option-anchor">vim.assistant.neocodeium.setupOpts.enabled</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to start windsurf server. Can be manually enabled with <code>:NeoCodeium enable</code></p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.neocodeium.setupOpts.enabled</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.setupOpts.bin">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.setupOpts.bin" class="option-anchor">vim.assistant.neocodeium.setupOpts.bin</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Path to custom windsurf server binary</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.neocodeium.setupOpts.bin</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.setupOpts.debounce">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.setupOpts.debounce" class="option-anchor">vim.assistant.neocodeium.setupOpts.debounce</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable suggestions debounce</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.neocodeium.setupOpts.debounce</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.setupOpts.disable_in_special_buftypes">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.setupOpts.disable_in_special_buftypes" class="option-anchor">vim.assistant.neocodeium.setupOpts.disable_in_special_buftypes</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to disable suggestions in special buftypes like <code>nofile</code></p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.neocodeium.setupOpts.disable_in_special_buftypes</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.setupOpts.filetypes">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.setupOpts.filetypes" class="option-anchor">vim.assistant.neocodeium.setupOpts.filetypes</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Filetypes to disable suggestions in.
+You can still enable disabled buffer with <code>:NeoCodeium enable_buffer</code></p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (attribute set of boolean)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">gitcommit</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">false</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">help</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">false</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.neocodeium.setupOpts.filetypes</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.setupOpts.filter">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.setupOpts.filter" class="option-anchor">vim.assistant.neocodeium.setupOpts.filter</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Function that returns <code>true</code> if a buffer should be enabled and <code>false</code> if disabled.
+You can still enable disabled buffer with <code>:NeoCodeium enable_buffer</code></p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.neocodeium.setupOpts.filter</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.setupOpts.log_level">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.setupOpts.log_level" class="option-anchor">vim.assistant.neocodeium.setupOpts.log_level</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Log level</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or one of "trace", "debug", "info", "warn", "error"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">warn</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.neocodeium.setupOpts.log_level</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.setupOpts.manual">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.setupOpts.manual" class="option-anchor">vim.assistant.neocodeium.setupOpts.manual</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>When true, autosuggestions are disabled. Use <code>require'neocodeium'.cycle_or_complete()</code> to show suggestions manually</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.neocodeium.setupOpts.manual</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.setupOpts.max_lines">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.setupOpts.max_lines" class="option-anchor">vim.assistant.neocodeium.setupOpts.max_lines</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Maximum number of lines parsed from loaded buffers (current buffer always fully parsed).
+Set to <code>0</code> to disable parsing non-current buffers.
+Set to <code>-1</code> to parse all lines</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">10000</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.neocodeium.setupOpts.max_lines</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.setupOpts.root_dir">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.setupOpts.root_dir" class="option-anchor">vim.assistant.neocodeium.setupOpts.root_dir</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>List of directories and files to detect workspace root directory for Windsurf Chat</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (list of string)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">.git</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">package.json</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.neocodeium.setupOpts.root_dir</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.setupOpts.server.api_url">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.setupOpts.server.api_url" class="option-anchor">vim.assistant.neocodeium.setupOpts.server.api_url</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>API URL to use (for Enterprise mode)</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.neocodeium.setupOpts.server.api_url</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.setupOpts.server.portal_url">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.setupOpts.server.portal_url" class="option-anchor">vim.assistant.neocodeium.setupOpts.server.portal_url</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Portal URL to use (for registering a user and downloading the binary)</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.neocodeium.setupOpts.server.portal_url</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.setupOpts.show_label">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.setupOpts.show_label" class="option-anchor">vim.assistant.neocodeium.setupOpts.show_label</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to show the number of suggestions label in the line number column</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.neocodeium.setupOpts.show_label</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.setupOpts.silent">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.setupOpts.silent" class="option-anchor">vim.assistant.neocodeium.setupOpts.silent</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to disable non-important messages</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.neocodeium.setupOpts.silent</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.setupOpts.single_line.enabled">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.setupOpts.single_line.enabled" class="option-anchor">vim.assistant.neocodeium.setupOpts.single_line.enabled</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable single line mode. Multi-line suggestions collapse into a single line</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.neocodeium.setupOpts.single_line.enabled</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.neocodeium.setupOpts.single_line.label">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.neocodeium.setupOpts.single_line.label" class="option-anchor">vim.assistant.neocodeium.setupOpts.single_line.label</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Label indicating that there is multi-line suggestion</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">...</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.neocodeium.setupOpts.single_line.label</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.supermaven-nvim.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.supermaven-nvim.enable" class="option-anchor">vim.assistant.supermaven-nvim.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Supermaven AI assistant.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/supermaven-nvim/supermaven-nvim.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/supermaven-nvim/supermaven-nvim.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.supermaven-nvim.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.supermaven-nvim.setupOpts" class="option-anchor">vim.assistant.supermaven-nvim.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of Supermaven.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/assistant/supermaven-nvim/supermaven-nvim.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/assistant/supermaven-nvim/supermaven-nvim.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.supermaven-nvim.setupOpts.color.cterm">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.supermaven-nvim.setupOpts.color.cterm" class="option-anchor">vim.assistant.supermaven-nvim.setupOpts.color.cterm</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The cterm color of the suggestion</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or 8 bit unsigned integer; between 0 and 255 (both inclusive)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">244</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.supermaven-nvim.setupOpts.color.cterm</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.supermaven-nvim.setupOpts.color.suggestion_color">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.supermaven-nvim.setupOpts.color.suggestion_color" class="option-anchor">vim.assistant.supermaven-nvim.setupOpts.color.suggestion_color</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The hex color of the suggestion</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">#ffffff</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.supermaven-nvim.setupOpts.color.suggestion_color</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.supermaven-nvim.setupOpts.condition">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.supermaven-nvim.setupOpts.condition" class="option-anchor">vim.assistant.supermaven-nvim.setupOpts.condition</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Condition function to check for stopping supermaven.</p>
+<p>A returned <code>true</code> means to stop supermaven</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.supermaven-nvim.setupOpts.condition</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.supermaven-nvim.setupOpts.disable_inline_completion">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.supermaven-nvim.setupOpts.disable_inline_completion" class="option-anchor">vim.assistant.supermaven-nvim.setupOpts.disable_inline_completion</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Disable inline completion for use with cmp</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.supermaven-nvim.setupOpts.disable_inline_completion</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.supermaven-nvim.setupOpts.disable_keymaps">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.supermaven-nvim.setupOpts.disable_keymaps" class="option-anchor">vim.assistant.supermaven-nvim.setupOpts.disable_keymaps</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Disable built-in keymaps for more manual control</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.supermaven-nvim.setupOpts.disable_keymaps</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.supermaven-nvim.setupOpts.ignore_file">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.supermaven-nvim.setupOpts.ignore_file" class="option-anchor">vim.assistant.supermaven-nvim.setupOpts.ignore_file</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>List of fileto ignore</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (attribute set of boolean)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">markdown</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.supermaven-nvim.setupOpts.ignore_file</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.supermaven-nvim.setupOpts.keymaps.accept_suggestion">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.supermaven-nvim.setupOpts.keymaps.accept_suggestion" class="option-anchor">vim.assistant.supermaven-nvim.setupOpts.keymaps.accept_suggestion</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The key to accept a suggestion</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;Tab&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.supermaven-nvim.setupOpts.keymaps.accept_suggestion</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.supermaven-nvim.setupOpts.keymaps.accept_word">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.supermaven-nvim.setupOpts.keymaps.accept_word" class="option-anchor">vim.assistant.supermaven-nvim.setupOpts.keymaps.accept_word</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The key to accept a word</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;C-j&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.supermaven-nvim.setupOpts.keymaps.accept_word</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.supermaven-nvim.setupOpts.keymaps.clear_suggestion">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.supermaven-nvim.setupOpts.keymaps.clear_suggestion" class="option-anchor">vim.assistant.supermaven-nvim.setupOpts.keymaps.clear_suggestion</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The key to clear a suggestion</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;C-]&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.supermaven-nvim.setupOpts.keymaps.clear_suggestion</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.assistant.supermaven-nvim.setupOpts.log_level">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.supermaven-nvim.setupOpts.log_level" class="option-anchor">vim.assistant.supermaven-nvim.setupOpts.log_level</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The log level. Set to <code>"off"</code> to disable completely</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or one of "off", "trace", "debug", "info", "warn", "error"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">info</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.supermaven-nvim.setupOpts.log_level</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.augroups">
+  <h3 class="option-name">
+    <a href="#option-vim.augroups" class="option-anchor">vim.augroups</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>A list of Neovim autogroups, which are used to organize and manage related
+autocommands together. Groups allow multiple autocommands to be cleared
+or redefined collectively, preventing duplicate definitions.</p>
+<p>Each autogroup consists of a name and a boolean indicating whether to clear
+existing autocommands.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (submodule)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/autocmds.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.augroups._.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.augroups._.enable" class="option-anchor">vim.augroups.*.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable this autocommand group.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/autocmds.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.augroups._.clear">
+  <h3 class="option-name">
+    <a href="#option-vim.augroups._.clear" class="option-anchor">vim.augroups.*.clear</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to clear existing autocommands in this group before defining new ones.
+This helps avoid duplicate autocommands.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/autocmds.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.augroups._.name">
+  <h3 class="option-name">
+    <a href="#option-vim.augroups._.name" class="option-anchor">vim.augroups.*.name</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The name of the autocommand group.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">MyAutoCmdGroup</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/autocmds.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.autocmds">
+  <h3 class="option-name">
+    <a href="#option-vim.autocmds" class="option-anchor">vim.autocmds</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>A list of Neovim autocommands to be registered.</p>
+<p>Each entry defines an autocommand, specifying events, patterns, a callback or Vim
+command, an optional group, a description, and execution settings.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (submodule)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/autocmds.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.autocmds._.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.autocmds._.enable" class="option-anchor">vim.autocmds.*.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable this autocommand.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/autocmds.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.autocmds._.callback">
+  <h3 class="option-name">
+    <a href="#option-vim.autocmds._.callback" class="option-anchor">vim.autocmds.*.callback</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Lua function to be called when the event(s) are triggered.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">generators</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">mkLuaInline</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;function()</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Saving&nbsp;a&nbsp;Lua&nbsp;file...")</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;end</span><br><span style="color:rgb(232,102,113);">'''</span><br></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/autocmds.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.autocmds._.command">
+  <h3 class="option-name">
+    <a href="#option-vim.autocmds._.command" class="option-anchor">vim.autocmds.*.command</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Vim command to be executed when the event(s) are triggered.
+Cannot be defined if the <code>callback</code> option is already defined.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/autocmds.nix&gt;</a></code></dd>
+  </dl>
+</div>
