@@ -200,7 +200,30 @@ works.</p>
 </ul>
 </li>
 </ul>
+<p><a href="https://github.com/notashelf">NotAShelf</a></p>
+<ul>
+<li><code>formatter.conform-nvim.presets.prettier</code>:
+<ul>
+<li>The <code>svelte</code> plugin was updated to <code>prettier-plugin-svelte</code> 4.x, which
+requires Svelte 5 and removes the <code>svelteBracketNewLine</code> and
+<code>svelteStrictMode</code> options.</li>
+<li>The <code>astro</code> plugin was updated to <code>prettier-plugin-astro</code> 1.x, a rewrite on
+top of Astro's Rust compiler. Formatting output may differ from 0.x; see the
+<a href="https://github.com/withastro/prettier-plugin-astro/blob/main/CHANGELOG.md">upstream changelog</a>.</li>
+</ul>
+</li>
+</ul>
 <h2 id="sec-release-26-12-changelog">Changelog</h2>
+<p><a href="https://github.com/notashelf">NotAShelf</a></p>
+<ul>
+<li>Updated packages built by nvf: <code>jls</code> 0.9.0, <code>some-sass-language-server</code> 2.3.8,
+<code>stimulus-language-server</code> 1.1.2, <code>json2go</code> 0.2.2, <code>cord.nvim</code> 2.3.29,
+<code>avante.nvim</code>, and <code>prettier-plugin-pug</code> 3.5.0.</li>
+<li><code>cord.nvim</code> now tracks upstream releases instead of the default branch.</li>
+<li>The prettier plugins used by <code>formatter.conform-nvim.presets.prettier</code> no
+longer ship their development dependencies and use the same <code>prettier</code> as the
+preset itself, shrinking their closures from hundreds of megabytes to a few.</li>
+</ul>
 <p><a href="https://github.com/snoweuph">Snoweuph</a></p>
 <ul>
 <li>
