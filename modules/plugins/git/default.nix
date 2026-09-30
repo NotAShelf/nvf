@@ -1,6 +1,8 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   inherit (lib.options) mkEnableOption;
-in {
+in
+{
   imports = [
     ./gitsigns
     ./hunk-nvim
@@ -22,7 +24,6 @@ in {
       * vim-fugitive
       * git-conflict
       * gitlinker-nvim
-      * octo-nvim
     '';
   };
 }
