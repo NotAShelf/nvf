@@ -473,6 +473,10 @@ in {
           };
         };
 
+        dropbar-nvim = {
+          enable = mkEnableOption "dropbar.nvim breadcrumbs";
+        };
+
         lspsaga = {
           enable = mkEnableOption "lspsaga breadcrumbs";
         };
