@@ -1,6 +1,7 @@
 {
   imports = [
     ./biomejs.nix
+    ./buf_lint.nix
     ./checkmake.nix
     ./clangtidy.nix
     ./cpplint.nix
@@ -17,6 +18,7 @@
     ./markdownlint-cli2.nix
     ./mypy.nix
     ./phpstan.nix
+    ./protolint.nix
     ./rubocop.nix
     ./rumdl.nix
     ./selene.nix
