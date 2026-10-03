@@ -3,6 +3,7 @@
     ./biomejs.nix
     ./checkmake.nix
     ./clangtidy.nix
+    ./buf_lint.nix
     ./cpplint.nix
     ./deadnix.nix
     ./djlint.nix
