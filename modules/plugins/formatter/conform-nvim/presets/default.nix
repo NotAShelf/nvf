@@ -12,6 +12,7 @@
     ./bean-format.nix
     ./biome.nix
     ./black.nix
+    ./buf.nix
     ./cabal-fmt.nix
     ./clang-format.nix
     ./csharpier.nix
