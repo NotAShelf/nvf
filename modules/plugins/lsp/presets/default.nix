@@ -54,6 +54,7 @@
     ./phan.nix
     ./phpactor.nix
     ./phpantom.nix
+    ./powershell-editor-services.nix
     ./protols.nix
     ./pyrefly.nix
     ./pyright.nix
