@@ -110,6 +110,7 @@ in {
           transparent = ${boolToString transparent},
         },
         term_colors = true,
+        auto_integrations = false,
         integrations = {
           nvimtree = {
             enabled = true,
