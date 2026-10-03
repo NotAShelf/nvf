@@ -53,6 +53,7 @@ in {
     ./odin.nix
     ./openscad.nix
     ./php.nix
+    ./protobuf.nix
     ./pug.nix
     ./python.nix
     ./qml.nix
