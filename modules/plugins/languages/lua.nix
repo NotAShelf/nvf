@@ -9,6 +9,7 @@
   inherit (lib) genAttrs;
   inherit (lib.types) enum listOf;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.languages.lua;
 
@@ -20,6 +21,10 @@
 
   defaultDiagnosticsProvider = ["luacheck"];
   diagnosticsProviders = ["luacheck" "selene"];
+
+  defaultLazydevLspClients = ["lua-language-server"];
+  # TODO: if emmylua-ls is in nvf, add it
+  lazydevLspClients = ["lua-language-server"];
 in {
   imports = [
     (lib.mkRemovedOptionModule ["vim" "languages" "lua" "lsp" "neodev"] ''
@@ -85,6 +90,11 @@ in {
       lazydev = {
         enable = mkEnableOption "lazydev.nvim integration, useful for neovim plugin developers";
         setupOpts = mkPluginSetupOption "lazydev" {};
+        extraSupportedLspClients = mkOption {
+          type = listOf (enum lazydevLspClients);
+          default = defaultLazydevLspClients;
+          description = "extra LSP clients supported by lazydev.nvim";
+        };
       };
     };
   };
@@ -125,6 +135,17 @@ in {
     (mkIf cfg.extensions.lazydev.enable {
       vim.lazy.plugins.lazydev-nvim = {
         package = "lazydev-nvim";
+        beforeSetup = ''
+          do
+            local supported_clients = require("lazydev.lsp").supported_clients
+            local extra_clients = ${toLuaObject cfg.extensions.lazydev.extraSupportedLspClients}
+            for _, c in ipairs(extra_clients) do
+              if not vim.tbl_contains(supported_clients, c) then
+                table.insert(supported_clients, c)
+              end
+            end
+          end
+        '';
         setupModule = "lazydev";
         ft = "lua";
         inherit (cfg.extensions.lazydev) setupOpts;
