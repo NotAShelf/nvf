@@ -53,6 +53,7 @@
     ./phan.nix
     ./phpactor.nix
     ./phpantom.nix
+    ./powershell-editor-services.nix
     ./pyrefly.nix
     ./pyright.nix
     ./python-lsp-server.nix
