@@ -54,6 +54,7 @@
     ./phan.nix
     ./phpactor.nix
     ./phpantom.nix
+    ./protols.nix
     ./pyrefly.nix
     ./pyright.nix
     ./python-lsp-server.nix
