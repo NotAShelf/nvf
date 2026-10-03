@@ -8,6 +8,7 @@
     ./basedpyright.nix
     ./bash-language-server.nix
     ./beancount-language-server.nix
+    ./buf.nix
     ./ccls.nix
     ./clangd.nix
     ./clojure-lsp.nix
