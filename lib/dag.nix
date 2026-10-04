@@ -8,8 +8,8 @@
 #  - the addition of the function `entryBefore` indicating a "wanted
 #    by" relationship.
 {lib}: let
-  inherit (builtins) isAttrs attrValues attrNames elem all head tail length toJSON isString removeAttrs;
-  inherit (lib.attrsets) filterAttrs mapAttrs;
+  inherit (builtins) isAttrs filter attrValues attrNames elem all head tail length toJSON isString removeAttrs;
+  inherit (lib.attrsets) mapAttrs;
   inherit (lib.lists) toposort;
   inherit (lib.nvim.dag) empty isEntry entryBetween entryAfter entriesBetween entryAnywhere topoSort;
 in {
@@ -77,25 +77,27 @@ in {
                }
      true
   */
-  topoSort = dag: let
-    dagBefore = dag: name:
-      attrNames
-      (filterAttrs (_n: v: elem name v.before) dag);
-    normalizedDag =
-      mapAttrs (n: v: {
-        name = n;
-        inherit (v) data;
-        after = v.after ++ dagBefore dag n;
-      })
-      dag;
+  topoSort = let
     before = a: b: elem a.name b.after;
-    sorted = toposort before (attrValues normalizedDag);
   in
-    if sorted ? result
-    then {
-      result = map (v: {inherit (v) name data;}) sorted.result;
-    }
-    else sorted;
+    dag: let
+      names = attrNames dag;
+      dagBefore = name:
+        filter (n: elem name dag.${n}.before) names;
+      normalizedDag =
+        mapAttrs (n: v: {
+          name = n;
+          inherit (v) data;
+          after = v.after ++ dagBefore n;
+        })
+        dag;
+      sorted = toposort before (attrValues normalizedDag);
+    in
+      if sorted ? result
+      then {
+        result = map (v: {inherit (v) name data;}) sorted.result;
+      }
+      else sorted;
 
   # Applies a function to each element of the given DAG.
   map = f: mapAttrs (n: v: v // {data = f n v.data;});
@@ -201,20 +203,21 @@ in {
   # The entries as a whole can be given a relation to other DAG nodes. All
   # generated nodes are then placed before or after those dependencies.
   entriesBetween = tag: let
-    go = i: before: after: entries: let
-      name = "${tag}-${toString i}";
-    in
+    go = i: before: after: entries:
       if entries == []
       then empty
-      else if length entries == 1
-      then {
-        "${name}" = entryBetween before after (head entries);
-      }
-      else
-        {
-          "${name}" = entryAfter after (head entries);
+      else let
+        name = "${tag}-${toString i}";
+      in
+        if length entries == 1
+        then {
+          "${name}" = entryBetween before after (head entries);
         }
-        // go (i + 1) before [name] (tail entries);
+        else
+          {
+            "${name}" = entryAfter after (head entries);
+          }
+          // go (i + 1) before [name] (tail entries);
   in
     go 0;
 
