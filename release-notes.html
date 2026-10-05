@@ -381,9 +381,15 @@ so the server never attached to <code>.ts</code> buffers.</li>
 </ul>
 <p><a href="https://github.com/foobar14">foobar14</a></p>
 <ul>
-<li><code>themes/catppuccin</code>: disable <code>auto_integrations</code>, which is default enabled
+<li>
+<p><code>themes/catppuccin</code>: disable <code>auto_integrations</code>, which is default enabled
 upstream. As the detection mechanism is not applicable to nvf, and prune to
-error at runtime.</li>
+error at runtime.</p>
+</li>
+<li>
+<p><code>languages.lua.extensions.lazydev</code>: fix mismatch between Lua LSP client names
+expected by <code>lazydev.nvim</code> and those defined in nvf.</p>
+</li>
 </ul>
 <h1 id="sec-release-26-07">Release 26.07</h1>
 <h2 id="sec-release-26-07-breaking-changes">Breaking changes</h2>
