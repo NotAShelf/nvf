@@ -106,23 +106,6 @@
     <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lua.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/lua.nix&gt;</a></code></dd>
   </dl>
 </div>
-<div class="option" id="option-vim.languages.lua.extensions.lazydev.extraSupportedLspClients">
-  <h3 class="option-name">
-    <a href="#option-vim.languages.lua.extensions.lazydev.extraSupportedLspClients" class="option-anchor">vim.languages.lua.extensions.lazydev.extraSupportedLspClients</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>extra LSP clients supported by lazydev.nvim</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>list of value "lua-language-server" (singular enum)</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">lua-language-server</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/lua.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/lua.nix&gt;</a></code></dd>
-  </dl>
-</div>
 <div class="option" id="option-vim.languages.lua.extensions.lazydev.setupOpts">
   <h3 class="option-name">
     <a href="#option-vim.languages.lua.extensions.lazydev.setupOpts" class="option-anchor">vim.languages.lua.extensions.lazydev.setupOpts</a>
@@ -1817,6 +1800,23 @@ have any of these filetypes.</p>
     <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableFormat</span></code></pre></body></html>
 </body></html></dd>
     <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/python.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/python.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.python.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.python.format.type" class="option-anchor">vim.languages.python.format.type</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Python formatters to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "black", "isort", "ruff", "ruff-fix", "injected")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">black</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
 </body></html></dd>
   </dl>
   <dl class="option-details option-sources">

@@ -1,22 +1,3 @@
-<div class="option" id="option-vim.theme.enable">
-  <h3 class="option-name">
-    <a href="#option-vim.theme.enable" class="option-anchor">vim.theme.enable</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Whether to enable theming.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
-</body></html></dd>
-    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/theme/theme.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/theme/theme.nix&gt;</a></code></dd>
-  </dl>
-</div>
 <div class="option" id="option-vim.theme.base16-colors.base00">
   <h3 class="option-name">
     <a href="#option-vim.theme.base16-colors.base00" class="option-anchor">vim.theme.base16-colors.base00</a>
@@ -1770,6 +1751,28 @@ in the docs.</p>
     <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
 </body></html></dd>
     <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/ui/illuminate/illuminate.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/ui/illuminate/illuminate.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.ui.illuminate.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.ui.illuminate.setupOpts" class="option-anchor">vim.ui.illuminate.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of vim-illuminate.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
 </body></html></dd>
   </dl>
   <dl class="option-details option-sources">
