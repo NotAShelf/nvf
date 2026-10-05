@@ -3167,6 +3167,19 @@
       "revision": "4b4ddd196526fd3d6fd091d931810f9743e936d3",
       "url": "https://github.com/gbprod/yanky.nvim/archive/4b4ddd196526fd3d6fd091d931810f9743e936d3.tar.gz",
       "hash": "sha256-UcW2WSMz21gfE6u0ZNYsFhHipbwxK5XxTjg+ZtginEE="
+    },
+    "zen-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "sand4rt",
+        "repo": "zen.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "48b408bcd8229c340360afe1edf14ebeb324e005",
+      "url": "https://github.com/sand4rt/zen.nvim/archive/48b408bcd8229c340360afe1edf14ebeb324e005.tar.gz",
+      "hash": "sha256-Zk8M4rXHfBbt4iSoDkdaIPo7K6xQ1fyclayPcHIOszU="
     }
   },
   "version": 8
