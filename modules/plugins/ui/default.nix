@@ -13,5 +13,6 @@
     ./nvim-ufo
     ./smartcolumn
     ./ui2
+    ./zen-nvim
   ];
 }
