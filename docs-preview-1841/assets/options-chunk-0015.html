@@ -1,0 +1,2134 @@
+<div class="option" id="option-vim.lsp.mappings.toggleFormatOnSave">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.mappings.toggleFormatOnSave" class="option-anchor">vim.lsp.mappings.toggleFormatOnSave</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Toggle format on save</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;ltf</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/module.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/module.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.null-ls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.null-ls.enable" class="option-anchor">vim.lsp.null-ls.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable null-ls, plugin to use Neovim as a language server to inject LSP diagnostics,
+code actions, and more via Lua.
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/null-ls/null-ls.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/null-ls/null-ls.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.null-ls.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.null-ls.setupOpts" class="option-anchor">vim.lsp.null-ls.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of null-ls.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/null-ls/null-ls.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/null-ls/null-ls.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.null-ls.setupOpts.debounce">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.null-ls.setupOpts.debounce" class="option-anchor">vim.lsp.null-ls.setupOpts.debounce</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Amount of time between the last change to a buffer and the next <code>textDocument/didChange</code> notification.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">250</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.lsp.null-ls.setupOpts.debounce</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.null-ls.setupOpts.debug">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.null-ls.setupOpts.debug" class="option-anchor">vim.lsp.null-ls.setupOpts.debug</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable debugging information for null-ls.</p>
+<p>Displays all possible log messages and writes them to the null-ls log,
+which you can view with the command <code>:NullLsLog</code>
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.lsp.null-ls.setupOpts.debug</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.null-ls.setupOpts.default_timeout">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.null-ls.setupOpts.default_timeout" class="option-anchor">vim.lsp.null-ls.setupOpts.default_timeout</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Amount of time (in milliseconds) after which built-in sources will time out.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Built-in sources can define their own timeout period and users can override
+the timeout period on a per-source basis</p>
+</div>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">5000</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.lsp.null-ls.setupOpts.default_timeout</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.null-ls.setupOpts.diagnostics_format">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.null-ls.setupOpts.diagnostics_format" class="option-anchor">vim.lsp.null-ls.setupOpts.diagnostics_format</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Sets the default format used for diagnostics. null-ls will replace th
+e following special components with the relevant diagnostic information:</p>
+<ul>
+<li><code>#{m}</code>: message</li>
+<li><code>#{s}</code>: source name (defaults to null-ls if not specified)</li>
+<li><code>#{c}</code>: code (if available)</li>
+</ul>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">[#{m}]&nbsp;#{s}&nbsp;(#{c})</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.lsp.null-ls.setupOpts.diagnostics_format</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.null-ls.setupOpts.on_attach">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.null-ls.setupOpts.on_attach" class="option-anchor">vim.lsp.null-ls.setupOpts.on_attach</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Defines an on_attach callback to run whenever null-ls attaches to a buffer.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">_type</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">lua-inline</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">expr</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">on_attach</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.lsp.null-ls.setupOpts.on_attach</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.null-ls.setupOpts.sources">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.null-ls.setupOpts.sources" class="option-anchor">vim.lsp.null-ls.setupOpts.sources</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Sources for null-ls to register</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (list of (luaInline))</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.lsp.null-ls.setupOpts.sources</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.nvim-docs-view.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.nvim-docs-view.enable" class="option-anchor">vim.lsp.nvim-docs-view.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable nvim-docs-view, for displaying lsp hover documentation in a side panel..</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/nvim-docs-view/nvim-docs-view.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/nvim-docs-view/nvim-docs-view.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.nvim-docs-view.mappings.viewToggle">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.nvim-docs-view.mappings.viewToggle" class="option-anchor">vim.lsp.nvim-docs-view.mappings.viewToggle</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Open or close the docs view panel</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;lvt</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/nvim-docs-view/nvim-docs-view.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/nvim-docs-view/nvim-docs-view.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.nvim-docs-view.mappings.viewUpdate">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.nvim-docs-view.mappings.viewUpdate" class="option-anchor">vim.lsp.nvim-docs-view.mappings.viewUpdate</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Manually update the docs view panel</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;lvu</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/nvim-docs-view/nvim-docs-view.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/nvim-docs-view/nvim-docs-view.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.nvim-docs-view.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.nvim-docs-view.setupOpts" class="option-anchor">vim.lsp.nvim-docs-view.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of nvim-docs-view.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/nvim-docs-view/nvim-docs-view.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/nvim-docs-view/nvim-docs-view.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.nvim-docs-view.setupOpts.height">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.nvim-docs-view.setupOpts.height" class="option-anchor">vim.lsp.nvim-docs-view.setupOpts.height</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Height of the docs view panel if the position is set to either top or bottom</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">10</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.lsp.nvim-docs-view.setupOpts.height</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.nvim-docs-view.setupOpts.position">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.nvim-docs-view.setupOpts.position" class="option-anchor">vim.lsp.nvim-docs-view.setupOpts.position</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Where to open the docs view panel</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "left", "right", "top", "bottom"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">right</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.lsp.nvim-docs-view.setupOpts.position</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.nvim-docs-view.setupOpts.update_mode">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.nvim-docs-view.setupOpts.update_mode" class="option-anchor">vim.lsp.nvim-docs-view.setupOpts.update_mode</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Determines the mechanism used to update the docs view panel content.</p>
+<ul>
+<li>If auto, the content will update upon cursor move.</li>
+<li>If manual, the content will only update once :DocsViewUpdate is called</li>
+</ul>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "auto", "manual"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">auto</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.lsp.nvim-docs-view.setupOpts.update_mode</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.nvim-docs-view.setupOpts.width">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.nvim-docs-view.setupOpts.width" class="option-anchor">vim.lsp.nvim-docs-view.setupOpts.width</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Width of the docs view panel if the position is set to either left or right</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">60</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.lsp.nvim-docs-view.setupOpts.width</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.otter-nvim.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.otter-nvim.enable" class="option-anchor">vim.lsp.otter-nvim.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable lsp features and a code completion source for code embedded in other documents [otter-nvim]
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/otter/otter.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/otter/otter.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.otter-nvim.mappings.toggle">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.otter-nvim.mappings.toggle" class="option-anchor">vim.lsp.otter-nvim.mappings.toggle</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Activate LSP on Cursor Position [otter-nvim]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;lo</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/otter/otter.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/otter/otter.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.otter-nvim.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.otter-nvim.setupOpts" class="option-anchor">vim.lsp.otter-nvim.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of otter.nvim.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/otter/otter.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/otter/otter.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.otter-nvim.setupOpts.buffers.write_to_disk">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.otter-nvim.setupOpts.buffers.write_to_disk" class="option-anchor">vim.lsp.otter-nvim.setupOpts.buffers.write_to_disk</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>write &lt;path&gt;.otter.&lt;embedded language extension&gt; files to disk on save of main buffer.
+Useful for some linters that require actual files.
+Otter files are deleted on quit or main buffer close</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.lsp.otter-nvim.setupOpts.buffers.write_to_disk</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.otter-nvim.setupOpts.handle_leading_whitespace">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.otter-nvim.setupOpts.handle_leading_whitespace" class="option-anchor">vim.lsp.otter-nvim.setupOpts.handle_leading_whitespace</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>otter may not work the way you expect when entire code blocks are indented
+(eg. in Org files) When true, otter handles these cases fully.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.lsp.otter-nvim.setupOpts.handle_leading_whitespace</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.otter-nvim.setupOpts.lsp.diagnostic_update_event">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.otter-nvim.setupOpts.lsp.diagnostic_update_event" class="option-anchor">vim.lsp.otter-nvim.setupOpts.lsp.diagnostic_update_event</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p><code>:h events</code> that cause the diagnostic to update.
+Set to: {"BufWritePost", "InsertLeave", "TextChanged" }
+for less performant but more instant diagnostic updates</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">BufWritePost</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.lsp.otter-nvim.setupOpts.lsp.diagnostic_update_event</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.otter-nvim.setupOpts.strip_wrapping_quote_characters">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.otter-nvim.setupOpts.strip_wrapping_quote_characters" class="option-anchor">vim.lsp.otter-nvim.setupOpts.strip_wrapping_quote_characters</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">'</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(232,102,113);">\"</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">`</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.lsp.otter-nvim.setupOpts.strip_wrapping_quote_characters</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.angular-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.angular-language-server.enable" class="option-anchor">vim.lsp.presets.angular-language-server.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Angular Template Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.angular-language-server</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/angular-language-server.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/angular-language-server.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.arduino-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.arduino-language-server.enable" class="option-anchor">vim.lsp.presets.arduino-language-server.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Arduino Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.arduino-language-server</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/arduino-language-server.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/arduino-language-server.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.asm-lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.asm-lsp.enable" class="option-anchor">vim.lsp.presets.asm-lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Assembly Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.asm-lsp</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/asm-lsp.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/asm-lsp.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.astro-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.astro-language-server.enable" class="option-anchor">vim.lsp.presets.astro-language-server.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Astro Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.astro-language-server</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/astro-language-server.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/astro-language-server.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.awk-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.awk-language-server.enable" class="option-anchor">vim.lsp.presets.awk-language-server.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the AWK Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.awk-language-server</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/awk-language-server.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/awk-language-server.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.basedpyright.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.basedpyright.enable" class="option-anchor">vim.lsp.presets.basedpyright.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Based Pyright Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.basedpyright</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/basedpyright.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/basedpyright.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.bash-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.bash-language-server.enable" class="option-anchor">vim.lsp.presets.bash-language-server.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Bash Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.bash-language-server</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/bash-language-server.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/bash-language-server.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.beancount-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.beancount-language-server.enable" class="option-anchor">vim.lsp.presets.beancount-language-server.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Beancount Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.beancount-language-server</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/beancount-language-server.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/beancount-language-server.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.ccls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.ccls.enable" class="option-anchor">vim.lsp.presets.ccls.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the CC Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.ccls</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/ccls.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/ccls.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.clangd.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.clangd.enable" class="option-anchor">vim.lsp.presets.clangd.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Clangd Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.clangd</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/clangd.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/clangd.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.clojure-lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.clojure-lsp.enable" class="option-anchor">vim.lsp.presets.clojure-lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Clojure Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.clojure-lsp</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/clojure-lsp.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/clojure-lsp.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.csharp_ls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.csharp_ls.enable" class="option-anchor">vim.lsp.presets.csharp_ls.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the C# Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.csharp_ls</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/csharp_ls.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/csharp_ls.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.cue.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.cue.enable" class="option-anchor">vim.lsp.presets.cue.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Cue Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.cue</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/cue.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/cue.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.dart.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.dart.enable" class="option-anchor">vim.lsp.presets.dart.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Dart Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.dart</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/dart.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/dart.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.deno.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.deno.enable" class="option-anchor">vim.lsp.presets.deno.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Deno Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.deno</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/deno.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/deno.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.docker-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.docker-language-server.enable" class="option-anchor">vim.lsp.presets.docker-language-server.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Docker Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.docker-language-server</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/docker-language-server.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/docker-language-server.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.elixir-ls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.elixir-ls.enable" class="option-anchor">vim.lsp.presets.elixir-ls.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Elixir Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.elixir-ls</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/elixir-ls.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/elixir-ls.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.elm-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.elm-language-server.enable" class="option-anchor">vim.lsp.presets.elm-language-server.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Elm Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.elm-language-server</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/elm-language-server.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/elm-language-server.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.emmet-ls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.emmet-ls.enable" class="option-anchor">vim.lsp.presets.emmet-ls.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Emmet Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.emmet-ls</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/emmet-ls.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/emmet-ls.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.fish-lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.fish-lsp.enable" class="option-anchor">vim.lsp.presets.fish-lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Fish Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.fish-lsp</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/fish-lsp.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/fish-lsp.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.fsautocomplete.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.fsautocomplete.enable" class="option-anchor">vim.lsp.presets.fsautocomplete.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the F# Autocomplete Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.fsautocomplete</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/fsautocomplete.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/fsautocomplete.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.gitlab-ci-ls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.gitlab-ci-ls.enable" class="option-anchor">vim.lsp.presets.gitlab-ci-ls.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the GitLab CI Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.gitlab-ci-ls</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/gitlab-ci-ls.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/gitlab-ci-ls.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.gleam.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.gleam.enable" class="option-anchor">vim.lsp.presets.gleam.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Gleam Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.gleam</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/gleam.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/gleam.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.glsl_analyzer.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.glsl_analyzer.enable" class="option-anchor">vim.lsp.presets.glsl_analyzer.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the GLSL Analyzer Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.glsl_analyzer</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/glsl_analyzer.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/glsl_analyzer.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.gopls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.gopls.enable" class="option-anchor">vim.lsp.presets.gopls.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Go Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.gopls</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/gopls.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/gopls.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.harper.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.harper.enable" class="option-anchor">vim.lsp.presets.harper.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Harper Language Server.
+Default <code>filetypes = [ "asciidoc" "c" "clojure" "cmake" "cpp" "cs" "dart" "gitcommit" "go" "haskell" "html" "java" "javascript" "javascriptreact" "kotlin" "lhaskell" "lua" "mail" "markdown" "nix" "php" "python" "ruby" "rust" ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.harper</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/harper.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/harper.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.haskell-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.haskell-language-server.enable" class="option-anchor">vim.lsp.presets.haskell-language-server.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Haskell Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.haskell-language-server</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/haskell-language-server.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/haskell-language-server.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.helm-ls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.helm-ls.enable" class="option-anchor">vim.lsp.presets.helm-ls.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Helm Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.helm-ls</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/helm-ls.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/helm-ls.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.intelephense.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.intelephense.enable" class="option-anchor">vim.lsp.presets.intelephense.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Intelephense Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Free Tier. <br>
+If you wan't to use the premium tier, override
+<code class="nixos-option">vim.lsp.servers.inteliphense.cmd</code>
+to point to your paid binary.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.intelephense</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/intelephense.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/intelephense.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.jdt-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.jdt-language-server.enable" class="option-anchor">vim.lsp.presets.jdt-language-server.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Eclipse JDT Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.jdt-language-server</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/jdt-language-server.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/jdt-language-server.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.jinja-lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.jinja-lsp.enable" class="option-anchor">vim.lsp.presets.jinja-lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Jinja Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.jinja-lsp</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/jinja-lsp.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/jinja-lsp.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.jls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.jls.enable" class="option-anchor">vim.lsp.presets.jls.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the NeoVim Java Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.jls</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/jls.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/jls.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.jq-lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.jq-lsp.enable" class="option-anchor">vim.lsp.presets.jq-lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the JQ Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.jq-lsp</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/jq-lsp.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/jq-lsp.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.julia-languageserver.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.julia-languageserver.enable" class="option-anchor">vim.lsp.presets.julia-languageserver.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Julia Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.julia-languageserver</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/julia-languageserver.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/julia-languageserver.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.just-lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.just-lsp.enable" class="option-anchor">vim.lsp.presets.just-lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Just Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.just-lsp</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/just-lsp.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/just-lsp.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.kotlin-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.kotlin-language-server.enable" class="option-anchor">vim.lsp.presets.kotlin-language-server.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Kotlin Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.kotlin-language-server</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/kotlin-language-server.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/kotlin-language-server.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.lemminx.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.lemminx.enable" class="option-anchor">vim.lsp.presets.lemminx.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Lemminx Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.lemminx</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/lemminx.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/lemminx.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.lua-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.lua-language-server.enable" class="option-anchor">vim.lsp.presets.lua-language-server.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Lua Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.lua-language-server</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/lua-language-server.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/lua-language-server.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.markdown-oxide.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.markdown-oxide.enable" class="option-anchor">vim.lsp.presets.markdown-oxide.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Markdown Oxide Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.markdown-oxide</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/markdown-oxide.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/markdown-oxide.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.marksman.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.marksman.enable" class="option-anchor">vim.lsp.presets.marksman.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Marksman Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.marksman</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/marksman.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/marksman.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.millet.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.millet.enable" class="option-anchor">vim.lsp.presets.millet.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Millet Standard ML Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.millet</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/millet.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/millet.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.neocmakelsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.neocmakelsp.enable" class="option-anchor">vim.lsp.presets.neocmakelsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Neo CMake Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.neocmakelsp</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/neocmakelsp.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/neocmakelsp.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.nil.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.nil.enable" class="option-anchor">vim.lsp.presets.nil.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Nil Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.nil</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/nil.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/nil.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.nimlsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.nimlsp.enable" class="option-anchor">vim.lsp.presets.nimlsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Nim Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.nimlsp</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/nimlsp.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/nimlsp.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.nixd.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.nixd.enable" class="option-anchor">vim.lsp.presets.nixd.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the <code>nixd</code> Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.nixd</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/nixd.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/nixd.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.nushell.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.nushell.enable" class="option-anchor">vim.lsp.presets.nushell.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the NuShell Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.nushell</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/nushell.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/nushell.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.ocaml-lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.ocaml-lsp.enable" class="option-anchor">vim.lsp.presets.ocaml-lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the OCaml Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.ocaml-lsp</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/ocaml-lsp.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/ocaml-lsp.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.ols.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.ols.enable" class="option-anchor">vim.lsp.presets.ols.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Odin Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.ols</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/ols.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/ols.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.omnisharp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.omnisharp.enable" class="option-anchor">vim.lsp.presets.omnisharp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the OmniSharp Roslyn Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.omnisharp</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/omnisharp.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/omnisharp.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.openscad-lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.openscad-lsp.enable" class="option-anchor">vim.lsp.presets.openscad-lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Open SCAD Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.openscad-lsp</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/openscad-lsp.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/openscad-lsp.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.phan.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.phan.enable" class="option-anchor">vim.lsp.presets.phan.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Phan Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.phan</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/phan.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/phan.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.phpactor.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.phpactor.enable" class="option-anchor">vim.lsp.presets.phpactor.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the PHPActor Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.phpactor</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/phpactor.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/phpactor.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.phpantom.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.phpantom.enable" class="option-anchor">vim.lsp.presets.phpantom.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the PHPantom Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.phpantom</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/phpantom.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/phpantom.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.pyrefly.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.pyrefly.enable" class="option-anchor">vim.lsp.presets.pyrefly.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Pyrefly Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.pyrefly</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/pyrefly.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/pyrefly.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.pyright.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.pyright.enable" class="option-anchor">vim.lsp.presets.pyright.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Pyright Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.pyright</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/pyright.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/pyright.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.python-lsp-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.python-lsp-server.enable" class="option-anchor">vim.lsp.presets.python-lsp-server.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Python Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.python-lsp-server</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/python-lsp-server.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/python-lsp-server.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.qmlls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.qmlls.enable" class="option-anchor">vim.lsp.presets.qmlls.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the QML Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.qmlls</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/qmlls.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/qmlls.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.r-languageserver.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.r-languageserver.enable" class="option-anchor">vim.lsp.presets.r-languageserver.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the R Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.r-languageserver</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/r-languageserver.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/r-languageserver.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.roslyn-ls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.roslyn-ls.enable" class="option-anchor">vim.lsp.presets.roslyn-ls.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Roslyn Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.roslyn-ls</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/roslyn-ls.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/roslyn-ls.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.ruby-lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.ruby-lsp.enable" class="option-anchor">vim.lsp.presets.ruby-lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Ruby Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.ruby-lsp</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/ruby-lsp.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/ruby-lsp.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.ruff.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.ruff.enable" class="option-anchor">vim.lsp.presets.ruff.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Ruff Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.ruff</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/ruff.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/ruff.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.rumdl.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.rumdl.enable" class="option-anchor">vim.lsp.presets.rumdl.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Rumdl Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.rumdl</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/rumdl.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/rumdl.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.rust-analyzer.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.rust-analyzer.enable" class="option-anchor">vim.lsp.presets.rust-analyzer.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Rust Analyzer Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>&gt; [!IMPORTANT]
+&gt; Don't set <code>init_options</code> for this LS config, it will be automatically populated by the contents of <code>settings["rust-analyzer"]</code> per
+&gt; &lt;<a href="https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26">https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26</a>&gt;</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.rust-analyzer</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/rust-analyzer.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/rust-analyzer.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.solargraph.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.solargraph.enable" class="option-anchor">vim.lsp.presets.solargraph.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Solargraph Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.solargraph</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/solargraph.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/solargraph.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.some-sass-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.some-sass-language-server.enable" class="option-anchor">vim.lsp.presets.some-sass-language-server.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Some Sass Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.some-sass-language-server</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/some-sass-language-server.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/some-sass-language-server.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.sqls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.sqls.enable" class="option-anchor">vim.lsp.presets.sqls.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the SQL Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.sqls</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/sqls.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/sqls.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.stimulus-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.stimulus-language-server.enable" class="option-anchor">vim.lsp.presets.stimulus-language-server.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Stimulus Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.stimulus-language-server</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/stimulus-language-server.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/stimulus-language-server.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.superhtml.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.superhtml.enable" class="option-anchor">vim.lsp.presets.superhtml.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the SuperHTML Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.superhtml</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/superhtml.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/superhtml.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.svelte-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.svelte-language-server.enable" class="option-anchor">vim.lsp.presets.svelte-language-server.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Svelte Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.svelte-language-server</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/svelte-language-server.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/svelte-language-server.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.tailwindcss-language-server.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.tailwindcss-language-server.enable" class="option-anchor">vim.lsp.presets.tailwindcss-language-server.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Tailwind CSS Language Server.
+Default <code>filetypes = [ "aspnetcorerazor" "astro" "astro-markdown" "blade" "clojure" "django-html" "htmldjango" "edge" "eelixir" "elixir" "ejs" "erb" "eruby" "gohtml" "gohtmltmpl" "haml" "handlebars" "hbs" "html" "htmlangular" "html-eex" "heex" "jade" "leaf" "liquid" "markdown" "mustache" "njk" "nunjucks" "php" "razor" "slim" "twig" "css" "less" "postcss" "sass" "scss" "stylus" "sugarss" "javascript" "javascriptreact" "reason" "rescript" "typescript" "typescriptreact" "vue" "svelte" "templ" ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.tailwindcss-language-server</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/tailwindcss-language-server.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/tailwindcss-language-server.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.taplo.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.taplo.enable" class="option-anchor">vim.lsp.presets.taplo.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Taplo Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.taplo</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/taplo.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/taplo.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.terraform-ls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.terraform-ls.enable" class="option-anchor">vim.lsp.presets.terraform-ls.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Terraform Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.terraform-ls</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/terraform-ls.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/terraform-ls.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.texlab.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.texlab.enable" class="option-anchor">vim.lsp.presets.texlab.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the TeXLab Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.texlab</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/texlab.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/texlab.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.tinymist.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.tinymist.enable" class="option-anchor">vim.lsp.presets.tinymist.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Tinymist Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.tinymist</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/tinymist.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/tinymist.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.tofu-ls.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.tofu-ls.enable" class="option-anchor">vim.lsp.presets.tofu-ls.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the OpenTofu Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.tofu-ls</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/tofu-ls.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/tofu-ls.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.tombi.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.tombi.enable" class="option-anchor">vim.lsp.presets.tombi.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Tombi (AI Slop) Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.tombi</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/tombi.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/tombi.nix&gt;</a></code></dd>
+  </dl>
+</div>
