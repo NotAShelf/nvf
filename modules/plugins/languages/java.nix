@@ -16,7 +16,7 @@
   cfg = config.vim.languages.java;
 
   defaultServers = ["jdt-language-server"];
-  servers = ["jdt-language-server" "jls"];
+  servers = ["jdt-language-server" "jls" "intellij-server"];
 
   defaultFormat = ["astyle"];
   formats = ["astyle" "injected"];
@@ -76,6 +76,105 @@
             end
 
             return { vim.fn.fnamemodify(path, ":p") }
+          end
+        '';
+      }
+    ];
+    intellij-server = [
+      {
+        type = "intellij-server";
+        request = "launch";
+        name = "Launch";
+        mainClass = mkLuaInline ''
+          function()
+            return coroutine.create(function(dap_run_co)
+              local buf = vim.api.nvim_get_current_buf()
+              local uri = vim.uri_from_fname(vim.api.nvim_buf_get_name(buf))
+              local client = vim.lsp.get_clients({ name = "intellij-server", bufnr = buf })[1]
+
+              local function finish(main_class)
+                coroutine.resume(dap_run_co, main_class or "")
+              end
+
+              if not client then
+                vim.notify(
+                  "intellij-server DAP: LSP not running, cannot discover main classes",
+                  vim.log.levels.ERROR
+                )
+                return finish(nvf_dap_cached_input(
+                  "java_intellij_main_class",
+                  "Main Class: ",
+                  "",
+                  "customlist,v:lua.nvf_no_completion"
+                ))
+              end
+
+              client:request("textDocument/documentSymbol", {
+                textDocument = { uri = uri },
+              }, function(err, symbols)
+                vim.schedule(function()
+                  local mains = {}
+
+                  local package_name
+                  for _, line in ipairs(vim.api.nvim_buf_get_lines(buf, 0, -1, false)) do
+                    package_name = line:match("^%s*package%s+([%w_%.]+)%s*;")
+                    if package_name then
+                      break
+                    end
+                  end
+
+                  local function find_mains(items)
+                    for _, symbol in ipairs(items or {}) do
+                      if not symbol.children then
+                          goto continue
+                      end
+
+                      local has_main = false
+
+                      for _, child in ipairs(symbol.children) do
+                        if child.name == "main" then
+                          has_main = true
+                          break
+                        end
+                      end
+
+                      if has_main then
+                        local class_name = symbol.name
+                        if package_name and package_name ~= "" then
+                          class_name = package_name .. "." .. class_name
+                        end
+                        table.insert(mains, class_name)
+                      end
+
+                      find_mains(symbol.children)
+                      ::continue::
+                    end
+                  end
+
+                  if not err then
+                    find_mains(symbols)
+                  end
+
+                  if #mains == 0 then
+                    vim.notify(
+                      "intellij-server DAP: no main entry points found, enter one manually",
+                      vim.log.levels.WARN
+                    )
+                  end
+
+                  _G.nvf_java_main_completion = function()
+                    return mains
+                  end
+
+                  finish(nvf_dap_cached_input(
+                    "java_intellij_main_class",
+                    "Main Class: ",
+                    mains[1] or "",
+                    "customlist,v:lua.nvf_java_main_completion"
+                  ))
+                end)
+              end, buf)
+            end)
           end
         '';
       }
