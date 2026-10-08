@@ -22,7 +22,6 @@ in {
       * vim-fugitive
       * git-conflict
       * gitlinker-nvim
-      * octo-nvim
     '';
   };
 }

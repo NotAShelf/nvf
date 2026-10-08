@@ -90,7 +90,7 @@ in {
       variables.EDITOR = mkIf cfg.defaultEditor (mkOverride 900 "nvim");
       systemPackages =
         [cfg.finalPackage]
-        ++ optional cfg.enableManpages packages.${pkgs.stdenv.system}.docs-manpages;
+        ++ optional cfg.enableManpages packages.${pkgs.stdenv.hostPlatform.system}.docs-manpages;
     };
   };
   _file = ./nixos.nix;

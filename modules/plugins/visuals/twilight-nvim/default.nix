@@ -1,6 +1,6 @@
 {
   imports = [
     ./config.nix
-    ./vim-dirtytalk.nix
+    ./twilight-nvim.nix
   ];
 }

@@ -1,5 +1,6 @@
 {
   imports = [
+    ./auto-indent-nvim
     ./binds
     ./ccc
     ./csvview
@@ -7,6 +8,7 @@
     ./direnv
     ./fzf-lua
     ./gestures
+    ./guess-indent-nvim
     ./harpoon
     ./icon-picker
     ./images
@@ -23,6 +25,7 @@
     ./preview
     ./qmk-nvim
     ./sleuth
+    ./smart-paste-nvim
     ./smart-splits
     ./snacks-nvim
     ./surround

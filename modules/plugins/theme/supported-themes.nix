@@ -110,6 +110,7 @@ in {
           transparent = ${boolToString transparent},
         },
         term_colors = true,
+        auto_integrations = false,
         integrations = {
           nvimtree = {
             enabled = true,
@@ -346,5 +347,22 @@ in {
 
       vim.cmd.colorscheme("mellow")
     '';
+  };
+
+  kanagawa = {
+    setup = {
+      style ? "wave",
+      transparent ? false,
+      ...
+    }: ''
+      require('kanagawa').setup({
+        transparent = ${boolToString transparent},
+        theme = "${style}",
+      })
+
+      vim.cmd.colorscheme("kanagawa-${style}")
+    '';
+
+    styles = ["wave" "dragon" "lotus"];
   };
 }

@@ -78,7 +78,7 @@ in {
     })
 
     (mkIf (cfg.lsp.enable && elem "angular-language-server" cfg.lsp.servers) {
-      vim.lsp.servers.angular-language-serve.filetypes = ["typescript"];
+      vim.lsp.servers.angular-language-server.filetypes = ["typescript"];
     })
 
     (mkIf (cfg.format.enable && !cfg.lsp.enable) {

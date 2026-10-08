@@ -136,6 +136,8 @@ isMaximal: {
 
     visuals = {
       nvim-scrollbar.enable = isMaximal;
+      neoscroll-nvim.enable = false;
+      twilight-nvim.enable = false;
       satellite-nvim.enable = false;
       nvim-web-devicons.enable = true;
       nvim-cursorline.enable = true;
@@ -153,7 +155,6 @@ isMaximal: {
     statusline = {
       lualine = {
         enable = true;
-        theme = "catppuccin";
 
         integrations.breadcrumbs = {
           vanilla.enable = !isMaximal;
@@ -229,6 +230,9 @@ isMaximal: {
 
     utility = {
       ccc.enable = false;
+      smart-paste-nvim.enable = false;
+      guess-indent-nvim.enable = false;
+      auto-indent-nvim.enable = false;
       vim-wakatime.enable = false;
       diffview-nvim.enable = true;
       yanky-nvim.enable = false;

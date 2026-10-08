@@ -1,39 +1,34 @@
 {
   lib,
   pins,
+  fetchFromGitHub,
   openssl,
+  perl,
   pkg-config,
   rustPlatform,
   stdenv,
   vimUtils,
-  makeWrapper,
-  pkgs,
-  ...
 }: let
-  # From npins
   pin = pins.avante-nvim;
 
-  pname = "avante-nvim-lib";
-  version = pin.branch;
-  src = pkgs.fetchFromGitHub {
+  version = "0-unstable-${builtins.substring 0 7 pin.revision}";
+  src = fetchFromGitHub {
     inherit (pin.repository) owner repo;
     rev = pin.revision;
-    sha256 = pin.hash;
+    hash = pin.hash;
   };
 
   avante-nvim-lib = rustPlatform.buildRustPackage {
-    inherit pname version src;
+    pname = "avante-nvim-lib";
+    inherit version src;
+    __structuredAttrs = true;
 
-    cargoHash = "sha256-pTWCT2s820mjnfTscFnoSKC37RE7DAPKxP71QuM+JXQ=";
+    cargoHash = "sha256-Mtku+MLkDdBYN5xj2x4XbyFXFZ+qTfl1eX2g9VcfpFU=";
 
+    buildInputs = [openssl];
     nativeBuildInputs = [
       pkg-config
-      makeWrapper
-      pkgs.perl
-    ];
-
-    buildInputs = [
-      openssl
+      perl
     ];
 
     buildFeatures = ["luajit"];
@@ -59,7 +54,7 @@ in
       ext = stdenv.hostPlatform.extensions.sharedLibrary;
     in ''
       mkdir -p $out/build
-      for lib in "avante_repo_map" "avante_templates" "avante_tokenizers" "avante_html2md"; do
+      for lib in avante_repo_map avante_templates avante_tokenizers avante_html2md; do
         ln -s ${avante-nvim-lib}/lib/lib$lib${ext} $out/build/$lib${ext}
       done
     '';

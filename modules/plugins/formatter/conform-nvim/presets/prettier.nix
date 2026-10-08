@@ -18,20 +18,18 @@
   cfg = config.vim.formatter.conform-nvim.presets.prettier;
 
   plugins = let
-    astro = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.prettier-plugin-astro;
-    svelte = inputs.self.packages.${pkgs.stdenv.system}.prettier-plugin-svelte;
-    pug = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.prettier-plugin-pug;
+    inherit (inputs.self.packages.${pkgs.stdenv.hostPlatform.system}) prettier-plugin-astro prettier-plugin-svelte prettier-plugin-pug;
   in {
     astro = {
-      plugin = "${astro}/index.js";
+      plugin = "${prettier-plugin-astro}/index.js";
       filetypes = ["astro"];
     };
     svelte = {
-      plugin = "${svelte}/lib/node_modules/prettier-plugin-svelte/plugin.js";
+      plugin = "${prettier-plugin-svelte}/plugin.js";
       filetypes = ["svelte"];
     };
     pug = {
-      plugin = "${pug}/index.js";
+      plugin = "${prettier-plugin-pug}/index.js";
       filetypes = ["pug"];
     };
   };

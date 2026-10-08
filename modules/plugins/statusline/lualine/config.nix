@@ -270,41 +270,6 @@ in {
           local lualine = require('lualine')
           lualine.setup ${toLuaObject cfg.setupOpts}
         '';
-
-        # this is for backwards-compatibility
-        # NOTE: since lualine relies heavily on mixed list + key-value table syntax in lua e.g. {1, 2, three = 3}
-        # and we don't have a good syntax for that we're keeping the old options for now
-        statusline.lualine.setupOpts = {
-          options = {
-            icons_enabled = mkDefault cfg.icons.enable;
-            theme = mkDefault cfg.theme;
-            component_separators = mkDefault cfg.componentSeparator;
-            section_separators = mkDefault cfg.sectionSeparator;
-            globalstatus = mkDefault cfg.globalStatus;
-            refresh = mkDefault cfg.refresh;
-            always_divide_middle = mkDefault cfg.alwaysDivideMiddle;
-            ignore_focus = mkDefault cfg.ignoreFocus;
-            disabled_filetypes = mkDefault cfg.disabledFiletypes;
-          };
-
-          sections = {
-            lualine_a = mkDefault (map mkLuaInline (cfg.activeSection.a ++ cfg.extraActiveSection.a));
-            lualine_b = mkDefault (map mkLuaInline (cfg.activeSection.b ++ cfg.extraActiveSection.b));
-            lualine_c = mkDefault (map mkLuaInline (cfg.activeSection.c ++ cfg.extraActiveSection.c));
-            lualine_x = mkDefault (map mkLuaInline (cfg.activeSection.x ++ cfg.extraActiveSection.x));
-            lualine_y = mkDefault (map mkLuaInline (cfg.activeSection.y ++ cfg.extraActiveSection.y));
-            lualine_z = mkDefault (map mkLuaInline (cfg.activeSection.z ++ cfg.extraActiveSection.z));
-          };
-
-          inactive_sections = {
-            lualine_a = mkDefault (map mkLuaInline (cfg.inactiveSection.a ++ cfg.extraInactiveSection.a));
-            lualine_b = mkDefault (map mkLuaInline (cfg.inactiveSection.b ++ cfg.extraInactiveSection.b));
-            lualine_c = mkDefault (map mkLuaInline (cfg.inactiveSection.c ++ cfg.extraInactiveSection.c));
-            lualine_x = mkDefault (map mkLuaInline (cfg.inactiveSection.x ++ cfg.extraInactiveSection.x));
-            lualine_y = mkDefault (map mkLuaInline (cfg.inactiveSection.y ++ cfg.extraInactiveSection.y));
-            lualine_z = mkDefault (map mkLuaInline (cfg.inactiveSection.z ++ cfg.extraInactiveSection.z));
-          };
-        };
       };
     })
   ];

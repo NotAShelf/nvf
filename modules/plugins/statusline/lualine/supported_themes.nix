@@ -1,9 +1,0 @@
-[
-  "tokyonight"
-  "onedark"
-  "catppuccin"
-  "oxocarbon"
-  "gruvbox"
-  "nord"
-  "mellow"
-]
