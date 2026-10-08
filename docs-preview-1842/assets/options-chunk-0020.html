@@ -1,0 +1,1767 @@
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.custom_filter">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.custom_filter" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.custom_filter</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Custom filter function for filtering out buffers.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This will be called a lot, so you are encouraged to keep it as
+short and lightweight as possible unless you are fully aware
+of the performance implications.</p>
+</div>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(97,175,239);">custom_filter</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">function</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">buf_number</span><span style="color:rgb(132,139,152);">,</span>&nbsp;<span style="color:rgb(171,178,191);">buf_numbers</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;<span style="color:rgb(171,178,191);">-</span><span style="color:rgb(171,178,191);">-</span>&nbsp;<span style="color:rgb(86,182,194);">filter</span>&nbsp;<span style="color:rgb(171,178,191);">out</span>&nbsp;<span style="color:rgb(171,178,191);">filetypes</span>&nbsp;<span style="color:rgb(171,178,191);">you</span>&nbsp;<span style="color:rgb(171,178,191);">don't</span>&nbsp;<span style="color:rgb(171,178,191);">want</span>&nbsp;<span style="color:rgb(171,178,191);">to</span>&nbsp;<span style="color:rgb(171,178,191);">see</span><br>&nbsp;&nbsp;if&nbsp;<span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">bo</span><span style="color:rgb(132,139,152);">[</span><span style="color:rgb(171,178,191);">buf_number</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">filetype</span>&nbsp;~<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;i-dont-want-to-see-this&gt;</span><span style="color:rgb(152,195,121);">"</span>&nbsp;then<br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(171,178,191);">return</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><br>&nbsp;&nbsp;<span style="color:rgb(171,178,191);">end</span><br>&nbsp;&nbsp;<span style="color:rgb(171,178,191);">-</span><span style="color:rgb(171,178,191);">-</span>&nbsp;<span style="color:rgb(86,182,194);">filter</span>&nbsp;<span style="color:rgb(171,178,191);">out</span>&nbsp;<span style="color:rgb(171,178,191);">by</span>&nbsp;<span style="color:rgb(171,178,191);">buffer</span>&nbsp;<span style="color:rgb(171,178,191);">name</span><br>&nbsp;&nbsp;if&nbsp;<span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">fn</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">bufname</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">buf_number</span><span style="color:rgb(132,139,152);">)</span>&nbsp;~<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;buffer-name-I-dont-want&gt;</span><span style="color:rgb(152,195,121);">"</span>&nbsp;then<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(171,178,191);">return</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><br>&nbsp;&nbsp;<span style="color:rgb(171,178,191);">end</span><br>&nbsp;&nbsp;<span style="color:rgb(171,178,191);">-</span><span style="color:rgb(171,178,191);">-</span>&nbsp;<span style="color:rgb(86,182,194);">filter</span>&nbsp;<span style="color:rgb(171,178,191);">out</span>&nbsp;<span style="color:rgb(171,178,191);">based</span>&nbsp;<span style="color:rgb(171,178,191);">on</span>&nbsp;<span style="color:rgb(171,178,191);">arbitrary</span>&nbsp;<span style="color:rgb(171,178,191);">rules</span><br>&nbsp;&nbsp;<span style="color:rgb(171,178,191);">-</span><span style="color:rgb(171,178,191);">-</span>&nbsp;<span style="color:rgb(171,178,191);">e</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">g</span><span style="color:rgb(132,139,152);">.</span>&nbsp;<span style="color:rgb(97,175,239);">filter</span>&nbsp;<span style="color:rgb(171,178,191);">out</span>&nbsp;<span style="color:rgb(171,178,191);">vim</span>&nbsp;<span style="color:rgb(171,178,191);">wiki</span>&nbsp;<span style="color:rgb(171,178,191);">buffer</span>&nbsp;<span style="color:rgb(171,178,191);">from</span>&nbsp;<span style="color:rgb(171,178,191);">tabline</span>&nbsp;in&nbsp;<span style="color:rgb(171,178,191);">your</span>&nbsp;<span style="color:rgb(171,178,191);">work</span>&nbsp;<span style="color:rgb(171,178,191);">repo</span><br>&nbsp;&nbsp;if&nbsp;<span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">fn</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">getcwd</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(132,139,152);">)</span>&nbsp;<span style="color:rgb(171,178,191);">==</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;work-repo&gt;</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">and</span>&nbsp;<span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">bo</span><span style="color:rgb(132,139,152);">[</span><span style="color:rgb(171,178,191);">buf_number</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">filetype</span>&nbsp;~<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">wiki</span><span style="color:rgb(152,195,121);">"</span>&nbsp;then<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(171,178,191);">return</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><br>&nbsp;&nbsp;<span style="color:rgb(171,178,191);">end</span><br>&nbsp;&nbsp;<span style="color:rgb(171,178,191);">-</span><span style="color:rgb(171,178,191);">-</span>&nbsp;<span style="color:rgb(86,182,194);">filter</span>&nbsp;<span style="color:rgb(171,178,191);">out</span>&nbsp;<span style="color:rgb(171,178,191);">by</span>&nbsp;<span style="color:rgb(171,178,191);">it's</span>&nbsp;<span style="color:rgb(171,178,191);">index</span>&nbsp;<span style="color:rgb(171,178,191);">number</span>&nbsp;in&nbsp;<span style="color:rgb(171,178,191);">list</span>&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(97,175,239);">don't</span>&nbsp;<span style="color:rgb(171,178,191);">show</span>&nbsp;<span style="color:rgb(171,178,191);">first</span>&nbsp;<span style="color:rgb(171,178,191);">buffer</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;if&nbsp;<span style="color:rgb(171,178,191);">buf_numbers</span><span style="color:rgb(132,139,152);">[</span><span style="color:rgb(209,154,102);">1</span><span style="color:rgb(132,139,152);">]</span>&nbsp;~<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">buf_number</span>&nbsp;then<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(171,178,191);">return</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><br>&nbsp;&nbsp;<span style="color:rgb(171,178,191);">end</span><br><span style="color:rgb(171,178,191);">end</span><br></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.custom_filter</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.diagnostics">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.diagnostics" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.diagnostics</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Diagnostics provider to be used in buffer LSP indicators</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of false, "nvim_lsp", "coc"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">nvim_lsp</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.diagnostics</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.diagnostics_indicator">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.diagnostics_indicator" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.diagnostics_indicator</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Function to get the diagnostics indicator.
+The function should return a string to be used as the indicator.</p>
+<p>Can be set to nil to keep the buffer name highlight, but delete the
+highlighting.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">_type</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">lua-inline</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">expr</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;function(count,&nbsp;level,&nbsp;diagnostics_dict,&nbsp;context)</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local&nbsp;s&nbsp;=&nbsp;"&nbsp;"</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;e,&nbsp;n&nbsp;in&nbsp;pairs(diagnostics_dict)&nbsp;do</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local&nbsp;sym&nbsp;=&nbsp;e&nbsp;==&nbsp;"error"&nbsp;and&nbsp;"&nbsp;&nbsp;&nbsp;"</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;(e&nbsp;==&nbsp;"warning"&nbsp;and&nbsp;"&nbsp;&nbsp;&nbsp;"&nbsp;or&nbsp;"&nbsp;&nbsp;"&nbsp;)</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s&nbsp;=&nbsp;s&nbsp;..&nbsp;n&nbsp;..&nbsp;sym</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;s</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;end</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.diagnostics_indicator</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.diagnostics_update_in_insert">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.diagnostics_update_in_insert" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.diagnostics_update_in_insert</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to update diagnostics while in insert mode.</p>
+<p>Setting this to true has performance implications, but they may be
+negligible depending on your setup. Set it to true if you know what
+you are doing.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.diagnostics_update_in_insert</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.duplicates_across_groups">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.duplicates_across_groups" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.duplicates_across_groups</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to consider duplicate paths in different groups as duplicates</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.duplicates_across_groups</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.enforce_regular_tabs">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.enforce_regular_tabs" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.enforce_regular_tabs</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enforce regular tabs</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.enforce_regular_tabs</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.get_element_icon">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.get_element_icon" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.get_element_icon</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The function bufferline uses to get the icon. Recommended to leave as default.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(97,175,239);">function</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">element</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;<span style="color:rgb(171,178,191);">local</span>&nbsp;<span style="color:rgb(171,178,191);">custom_map</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span>my_thing_ft<span style="color:rgb(132,139,152);">:</span>&nbsp;<span style="color:rgb(132,139,152);">{</span>icon&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">my_thing_icon</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">,</span>&nbsp;hl&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">DevIconDefault</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(97,175,239);">return</span>&nbsp;<span style="color:rgb(171,178,191);">custom_map</span><span style="color:rgb(132,139,152);">[</span><span style="color:rgb(171,178,191);">element</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">filetype</span><span style="color:rgb(132,139,152);">]</span><br><span style="color:rgb(171,178,191);">end</span><br></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.get_element_icon</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.hover.enabled">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.hover.enabled" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.hover.enabled</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable hover.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.hover.enabled</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.hover.delay">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.hover.delay" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.hover.delay</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Delay for hover, in ms</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">200</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.hover.delay</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.hover.reveal">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.hover.reveal" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.hover.reveal</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Reveal hover window</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">close</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.hover.reveal</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.indicator.icon">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.indicator.icon" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.indicator.icon</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The indicator icon to use for the current buffer.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This <strong>must</strong> be omitted while style is not <code>icon</code></p>
+</div>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.indicator.icon</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.indicator.style">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.indicator.style" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.indicator.style</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Style for indicator</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "icon", "underline", "none"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">underline</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.indicator.style</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.left_mouse_command">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.left_mouse_command" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.left_mouse_command</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Command to run when left clicking a buffer</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">buffer&nbsp;%d</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.left_mouse_command</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.left_trunc_marker">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.left_trunc_marker" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.left_trunc_marker</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Icon for left truncation</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);"></span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.left_trunc_marker</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.max_name_length">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.max_name_length" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.max_name_length</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Max name length</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">18</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.max_name_length</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.max_prefix_length">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.max_prefix_length" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.max_prefix_length</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Length of the prefix used when a buffer is de-duplicated</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">15</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.max_prefix_length</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.middle_mouse_command">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.middle_mouse_command" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.middle_mouse_command</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Command to run when middle clicking a buffer</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.middle_mouse_command</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.mode">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.mode" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.mode</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Mode to use for bufferline</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "tabs", "buffers"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">buffers</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.mode</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.modified_icon">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.modified_icon" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.modified_icon</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Icon for modified buffer</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">●&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.modified_icon</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.move_wraps_at_ends">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.move_wraps_at_ends" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.move_wraps_at_ends</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether or not the move command "wraps" at the first or last position</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.move_wraps_at_ends</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.name_formatter">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.name_formatter" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.name_formatter</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p><code>name_formatter</code> can be used to change the buffer's label in the
+bufferline.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some names can/will break the bufferline so use this at your
+discretion knowing that it has some limitations that will
+<strong>NOT</strong> be fixed.</p>
+</div>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.name_formatter</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.numbers">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.numbers" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.numbers</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether or not to show buffer numbers</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "none", "ordinal", "buffer_id", "both" or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">_type</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">lua-inline</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">expr</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;function(opts)</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;string.format('%s·%s',&nbsp;opts.raise(opts.id),&nbsp;opts.lower(opts.ordinal))</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;end</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.numbers</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.offsets">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.offsets" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.offsets</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The windows to offset bufferline above, see <code>:help bufferline-offset</code></p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (attribute set)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">filetype</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">NvimTree</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">highlight</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Directory</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">separator</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">text</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">File&nbsp;Explorer</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">filetype</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">neo-tree</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">highlight</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Directory</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">separator</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">text</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">File&nbsp;Explorer</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">filetype</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">snacks_layout_box</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">highlight</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Directory</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">separator</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">text</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">File&nbsp;Explorer</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.offsets</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.persist_buffer_sort">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.persist_buffer_sort" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.persist_buffer_sort</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether or not custom sorted buffers should persist</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.persist_buffer_sort</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.right_mouse_command">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.right_mouse_command" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.right_mouse_command</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Command to run when right clicking a buffer</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">vertical&nbsp;sbuffer&nbsp;%d</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.right_mouse_command</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.right_trunc_marker">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.right_trunc_marker" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.right_trunc_marker</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Icon for right truncation</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);"></span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.right_trunc_marker</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.separator_style">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.separator_style" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.separator_style</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The type of separator used to separate buffers and tabs.</p>
+<p>Either one of the listed types, or a list of 2 characters for either side.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or one of "slant", "padded_slant", "slope", "padded_slope", "thick", "thin" or list of string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">thin</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.separator_style</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.show_buffer_close_icons">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.show_buffer_close_icons" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.show_buffer_close_icons</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether or not to show buffer close icons</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.show_buffer_close_icons</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.show_buffer_icons">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.show_buffer_icons" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.show_buffer_icons</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether or not to show buffer icons</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.show_buffer_icons</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.show_close_icon">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.show_close_icon" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.show_close_icon</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether or not to show the close icon</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.show_close_icon</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.show_duplicate_prefix">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.show_duplicate_prefix" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.show_duplicate_prefix</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether or not to show duplicate buffer prefixes</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.show_duplicate_prefix</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.show_tab_indicators">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.show_tab_indicators" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.show_tab_indicators</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether or not to show tab indicators</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.show_tab_indicators</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.sort_by">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.sort_by" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.sort_by</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Method to sort buffers by. Must be one of the supported values, or an inline Lua value.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "insert_after_current", "insert_at_end", "id", "extension", "relative_directory", "directory", "tabs" or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">extension</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.sort_by</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.style_preset">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.style_preset" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.style_preset</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The base style of bufferline</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "default", "minimal", "no_bold", "no_italic"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">default</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.style_preset</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.tab_size">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.tab_size" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.tab_size</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The size of the tabs in bufferline</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">18</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.tab_size</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.themable">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.themable" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.themable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether or not to allow highlight groups to be overridden.</p>
+<p>While <code>false</code>, bufferline.nvim sets highlights as default.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.themable</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.truncate_names">
+  <h3 class="option-name">
+    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.truncate_names" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.truncate_names</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Truncate names</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.truncate_names</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.enable" class="option-anchor">vim.telescope.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable telescope.nvim: multi-purpose search and picker utility.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.extensions">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.extensions" class="option-anchor">vim.telescope.extensions</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Individual extension configurations containing <strong>name</strong>, <strong>packages</strong> and <strong>setup</strong>
+fields to resolve dependencies, handle <code>load_extension</code> calls and add the <code>setup</code>
+table into the <code>extensions</code> portion of Telescope's setup table.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (submodule)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">name</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">fzf</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">packages</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">telescope-fzf-native-nvim</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">setup</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><span style="color:rgb(86,182,194);">fzf</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><span style="color:rgb(86,182,194);">fuzzy</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br><span style="color:rgb(132,139,152);">]</span><br></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.extensions._.packages">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.extensions._.packages" class="option-anchor">vim.telescope.extensions.*.packages</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Package or packages providing the Telescope extension to be loaded.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (string or package)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.extensions._.name">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.extensions._.name" class="option-anchor">vim.telescope.extensions.*.name</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Name of the extension, will be used to load it with a <code>require</code></p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.extensions._.setup">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.extensions._.setup" class="option-anchor">vim.telescope.extensions.*.setup</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Named attribute set to be inserted into Telescope's extensions table.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>attribute set of anything</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">fzf</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">fuzzy</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.buffers">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.buffers" class="option-anchor">vim.telescope.mappings.buffers</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Buffers [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;fb</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.diagnostics">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.diagnostics" class="option-anchor">vim.telescope.mappings.diagnostics</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Diagnostics [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;fld</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.findFiles">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.findFiles" class="option-anchor">vim.telescope.mappings.findFiles</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Find files [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;ff</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.findProjects">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.findProjects" class="option-anchor">vim.telescope.mappings.findProjects</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Find projects [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;fp</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.gitBranches">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.gitBranches" class="option-anchor">vim.telescope.mappings.gitBranches</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Git branches [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;fvb</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.gitBufferCommits">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.gitBufferCommits" class="option-anchor">vim.telescope.mappings.gitBufferCommits</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Git buffer commits [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;fvcb</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.gitCommits">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.gitCommits" class="option-anchor">vim.telescope.mappings.gitCommits</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Git commits [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;fvcw</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.gitFiles">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.gitFiles" class="option-anchor">vim.telescope.mappings.gitFiles</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Git files [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;fvf</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.gitStash">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.gitStash" class="option-anchor">vim.telescope.mappings.gitStash</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Git stash [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;fvx</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.gitStatus">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.gitStatus" class="option-anchor">vim.telescope.mappings.gitStatus</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Git status [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;fvs</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.helpTags">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.helpTags" class="option-anchor">vim.telescope.mappings.helpTags</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Help tags [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;fh</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.liveGrep">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.liveGrep" class="option-anchor">vim.telescope.mappings.liveGrep</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Live grep [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;fg</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.lspDefinitions">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.lspDefinitions" class="option-anchor">vim.telescope.mappings.lspDefinitions</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>LSP Definitions [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;flD</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.lspDocumentSymbols">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.lspDocumentSymbols" class="option-anchor">vim.telescope.mappings.lspDocumentSymbols</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>LSP Document Symbols [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;flsb</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.lspImplementations">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.lspImplementations" class="option-anchor">vim.telescope.mappings.lspImplementations</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>LSP Implementations [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;fli</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.lspReferences">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.lspReferences" class="option-anchor">vim.telescope.mappings.lspReferences</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>LSP References [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;flr</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.lspTypeDefinitions">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.lspTypeDefinitions" class="option-anchor">vim.telescope.mappings.lspTypeDefinitions</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>LSP Type Definitions [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;flt</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.lspWorkspaceSymbols">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.lspWorkspaceSymbols" class="option-anchor">vim.telescope.mappings.lspWorkspaceSymbols</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>LSP Workspace Symbols [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;flsw</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.open">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.open" class="option-anchor">vim.telescope.mappings.open</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Open [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;ft</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.resume">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.resume" class="option-anchor">vim.telescope.mappings.resume</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Resume (previous search) [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;fr</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.mappings.treesitter">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.mappings.treesitter" class="option-anchor">vim.telescope.mappings.treesitter</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Treesitter [Telescope]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;fs</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts" class="option-anchor">vim.telescope.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of Telescope.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/telescope/telescope.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/telescope/telescope.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.color_devicons">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.color_devicons" class="option-anchor">vim.telescope.setupOpts.defaults.color_devicons</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable colored devicons.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.color_devicons</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.entry_prefix">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.entry_prefix" class="option-anchor">vim.telescope.setupOpts.defaults.entry_prefix</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Prefix in front of each result entry. Current selection not included.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.entry_prefix</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.extensions">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.extensions" class="option-anchor">vim.telescope.setupOpts.defaults.extensions</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Attribute set containing per-extension settings for Telescope</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>attribute set of anything</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.extensions</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.file_ignore_patterns">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.file_ignore_patterns" class="option-anchor">vim.telescope.setupOpts.defaults.file_ignore_patterns</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>File patterns to omit from Telescope results</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">node_modules</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">%.git/</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">dist/</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">build/</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">target/</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">result/</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.file_ignore_patterns</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.initial_mode">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.initial_mode" class="option-anchor">vim.telescope.setupOpts.defaults.initial_mode</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Determines in which mode telescope starts.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "insert", "normal"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">insert</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.initial_mode</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.layout_config">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.layout_config" class="option-anchor">vim.telescope.setupOpts.defaults.layout_config</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Determines the default configuration values for layout strategies.
+See <code>telescope.layout</code> for details of the configurations options for
+each strategy.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>submodule</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.layout_config</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.layout_config.height">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.layout_config.height" class="option-anchor">vim.telescope.setupOpts.defaults.layout_config.height</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>How tall to make Telescope's entire layout</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>floating point number</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">0.8</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.layout_config.height</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.layout_config.horizontal.preview_width">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.layout_config.horizontal.preview_width" class="option-anchor">vim.telescope.setupOpts.defaults.layout_config.horizontal.preview_width</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Change the width of Telescope's preview window</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>floating point number</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">0.55</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.layout_config.horizontal.preview_width</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.layout_config.horizontal.prompt_position">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.layout_config.horizontal.prompt_position" class="option-anchor">vim.telescope.setupOpts.defaults.layout_config.horizontal.prompt_position</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Where to place prompt window</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "top", "bottom"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">top</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.layout_config.horizontal.prompt_position</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.layout_config.preview_cutoff">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.layout_config.preview_cutoff" class="option-anchor">vim.telescope.setupOpts.defaults.layout_config.preview_cutoff</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>When lines are less than this value, the preview will be disabled</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">120</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.layout_config.preview_cutoff</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.layout_config.vertical.mirror">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.layout_config.vertical.mirror" class="option-anchor">vim.telescope.setupOpts.defaults.layout_config.vertical.mirror</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Flip the location of the results/prompt and preview windows</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.layout_config.vertical.mirror</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.layout_config.width">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.layout_config.width" class="option-anchor">vim.telescope.setupOpts.defaults.layout_config.width</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>How wide to make Telescope's entire layout</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>floating point number</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">0.8</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.layout_config.width</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.layout_strategy">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.layout_strategy" class="option-anchor">vim.telescope.setupOpts.defaults.layout_strategy</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Determines the default layout of Telescope pickers. See <code>:help telescope.layout</code>.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">horizontal</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.layout_strategy</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.path_display">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.path_display" class="option-anchor">vim.telescope.setupOpts.defaults.path_display</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Determines how file paths are displayed.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "hidden", "tail", "absolute", "smart", "shorten", "truncate")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">absolute</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.path_display</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.pickers.find_command">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.pickers.find_command" class="option-anchor">vim.telescope.setupOpts.defaults.pickers.find_command</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Command to use for finding files. If using an executable from <code class="env-var">PATH</code> then you must
+make sure that the package is available in <a class="option-reference" href="options.html#option-vim.extraPackages"><code class="nixos-option">vim.extraPackages</code></a>.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(list of string) or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span>\<span style="color:rgb(152,195,121);">$</span><span style="color:rgb(152,195,121);">{pkgs.fd.out}/bin/fd</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.pickers.find_command</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.prompt_prefix">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.prompt_prefix" class="option-anchor">vim.telescope.setupOpts.defaults.prompt_prefix</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Shown in front of Telescope's prompt</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.prompt_prefix</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.selection_caret">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.selection_caret" class="option-anchor">vim.telescope.setupOpts.defaults.selection_caret</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Character(s) to show in front of the current selection</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.selection_caret</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.selection_strategy">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.selection_strategy" class="option-anchor">vim.telescope.setupOpts.defaults.selection_strategy</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Determines how the cursor acts after each sort iteration.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "reset", "follow", "row", "closest", "none"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">reset</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.selection_strategy</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.set_env">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.set_env" class="option-anchor">vim.telescope.setupOpts.defaults.set_env</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Set an environment for term_previewer</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>attribute set of string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">COLORTERM</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">truecolor</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.set_env</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.sorting_strategy">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.sorting_strategy" class="option-anchor">vim.telescope.setupOpts.defaults.sorting_strategy</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Determines the direction "better" results are sorted towards.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "descending", "ascending"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">ascending</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.sorting_strategy</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.vimgrep_arguments">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.vimgrep_arguments" class="option-anchor">vim.telescope.setupOpts.defaults.vimgrep_arguments</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Defines the command that will be used for <code>live_grep</code> and <code>grep_string</code> pickers.
+Make sure that color is set to <code>never</code> because telescope does not yet interpret color codes.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span>\<span style="color:rgb(152,195,121);">$</span><span style="color:rgb(152,195,121);">{pkgs.ripgrep.out}/bin/rg</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--color=never</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--no-heading</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--with-filename</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--line-number</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--column</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--smart-case</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--hidden</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--no-ignore</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.vimgrep_arguments</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.winblend">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.winblend" class="option-anchor">vim.telescope.setupOpts.defaults.winblend</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Pseudo-transparency of keymap hints floating window</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">0</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.winblend</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.pickers.find_files.find_command">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.pickers.find_files.find_command" class="option-anchor">vim.telescope.setupOpts.pickers.find_files.find_command</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>cmd to use for finding files</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(list of string) or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span>\<span style="color:rgb(152,195,121);">$</span><span style="color:rgb(152,195,121);">{pkgs.fd.out}/bin/fd</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--type=file</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.pickers.find_files.find_command</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.terminal.toggleterm.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.terminal.toggleterm.enable" class="option-anchor">vim.terminal.toggleterm.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable toggleterm as a replacement to built-in terminal command.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/terminal/toggleterm/toggleterm.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/terminal/toggleterm/toggleterm.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.terminal.toggleterm.lazygit.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.terminal.toggleterm.lazygit.enable" class="option-anchor">vim.terminal.toggleterm.lazygit.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable LazyGit integration.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/terminal/toggleterm/toggleterm.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/terminal/toggleterm/toggleterm.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.terminal.toggleterm.lazygit.package">
+  <h3 class="option-name">
+    <a href="#option-vim.terminal.toggleterm.lazygit.package" class="option-anchor">vim.terminal.toggleterm.lazygit.package</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The package that should be used for lazygit.</p>
+<p>Setting this option to <code>null</code> will instead attempt to use <code>lazygit</code>
+from your <code class="env-var">PATH</code></p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or package</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lazygit</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/terminal/toggleterm/toggleterm.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/terminal/toggleterm/toggleterm.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.terminal.toggleterm.lazygit.direction">
+  <h3 class="option-name">
+    <a href="#option-vim.terminal.toggleterm.lazygit.direction" class="option-anchor">vim.terminal.toggleterm.lazygit.direction</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Direction of the lazygit window</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "horizontal", "vertical", "tab", "float"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">float</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/terminal/toggleterm/toggleterm.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/terminal/toggleterm/toggleterm.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.terminal.toggleterm.lazygit.mappings.open">
+  <h3 class="option-name">
+    <a href="#option-vim.terminal.toggleterm.lazygit.mappings.open" class="option-anchor">vim.terminal.toggleterm.lazygit.mappings.open</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Open lazygit [toggleterm]</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;gg</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/terminal/toggleterm/toggleterm.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/terminal/toggleterm/toggleterm.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.terminal.toggleterm.mappings.open">
+  <h3 class="option-name">
+    <a href="#option-vim.terminal.toggleterm.mappings.open" class="option-anchor">vim.terminal.toggleterm.mappings.open</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Open toggleterm</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;c-t&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/terminal/toggleterm/toggleterm.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/terminal/toggleterm/toggleterm.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.terminal.toggleterm.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.terminal.toggleterm.setupOpts" class="option-anchor">vim.terminal.toggleterm.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of ToggleTerm.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/terminal/toggleterm/toggleterm.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/terminal/toggleterm/toggleterm.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.terminal.toggleterm.setupOpts.enable_winbar">
+  <h3 class="option-name">
+    <a href="#option-vim.terminal.toggleterm.setupOpts.enable_winbar" class="option-anchor">vim.terminal.toggleterm.setupOpts.enable_winbar</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable winbar.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.terminal.toggleterm.setupOpts.enable_winbar</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.terminal.toggleterm.setupOpts.direction">
+  <h3 class="option-name">
+    <a href="#option-vim.terminal.toggleterm.setupOpts.direction" class="option-anchor">vim.terminal.toggleterm.setupOpts.direction</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Direction of the terminal</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "horizontal", "vertical", "tab", "float"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">horizontal</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.terminal.toggleterm.setupOpts.direction</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.terminal.toggleterm.setupOpts.size">
+  <h3 class="option-name">
+    <a href="#option-vim.terminal.toggleterm.setupOpts.size" class="option-anchor">vim.terminal.toggleterm.setupOpts.size</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Integer or Lua function which is passed to the current terminal</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(97,175,239);">mkLuaInline</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(198,120,221);">function</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(232,102,113);">term</span><span style="color:rgb(132,139,152);">)</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(198,120,221);">if</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(232,102,113);">term</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">direction</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(171,178,191);">==</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">"horizontal"</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(198,120,221);">then</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(198,120,221);">return</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(209,154,102);">15</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(198,120,221);">elseif</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(232,102,113);">term</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">direction</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(171,178,191);">==</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">"vertical"</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(198,120,221);">then</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(198,120,221);">return</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(171,178,191);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">o</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">columns</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(171,178,191);">*</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(209,154,102);">0.4</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(198,120,221);">end</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(198,120,221);">end</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">''</span><br></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.terminal.toggleterm.setupOpts.size</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.terminal.toggleterm.setupOpts.winbar.enabled">
+  <h3 class="option-name">
+    <a href="#option-vim.terminal.toggleterm.setupOpts.winbar.enabled" class="option-anchor">vim.terminal.toggleterm.setupOpts.winbar.enabled</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable winbar in terminal.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.terminal.toggleterm.setupOpts.winbar.enabled</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.terminal.toggleterm.setupOpts.winbar.name_formatter">
+  <h3 class="option-name">
+    <a href="#option-vim.terminal.toggleterm.setupOpts.winbar.name_formatter" class="option-anchor">vim.terminal.toggleterm.setupOpts.winbar.name_formatter</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Winbar formatter function.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>luaInline</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(97,175,239);">mkLuaInline</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(198,120,221);">function</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(232,102,113);">term</span><span style="color:rgb(132,139,152);">)</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(198,120,221);">return</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(232,102,113);">term</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">name</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(198,120,221);">end</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">''</span><br></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.terminal.toggleterm.setupOpts.winbar.name_formatter</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.theme.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.theme.enable" class="option-anchor">vim.theme.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable theming.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/theme/theme.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/theme/theme.nix&gt;</a></code></dd>
+  </dl>
+</div>
