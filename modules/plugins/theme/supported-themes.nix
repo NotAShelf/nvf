@@ -348,4 +348,21 @@ in {
       vim.cmd.colorscheme("mellow")
     '';
   };
+
+  kanagawa = {
+    setup = {
+      style ? "wave",
+      transparent ? false,
+      ...
+    }: ''
+      require('kanagawa').setup({
+        transparent = ${boolToString transparent},
+        theme = "${style}",
+      })
+
+      vim.cmd.colorscheme("kanagawa-${style}")
+    '';
+
+    styles = ["wave" "dragon" "lotus"];
+  };
 }
