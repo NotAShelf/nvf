@@ -1,0 +1,1718 @@
+<div class="option" id="option-vim.spellcheck.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.spellcheck.enable" class="option-anchor">vim.spellcheck.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Neovim's built-in spellchecking.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/spellcheck.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/spellcheck.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.spellcheck.extraSpellWords">
+  <h3 class="option-name">
+    <a href="#option-vim.spellcheck.extraSpellWords" class="option-anchor">vim.spellcheck.extraSpellWords</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Additional words to be used for spellchecking. The names of each key will be
+used as the language code for the spell file. For example</p>
+<html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">en.utf-8</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(132,139,152);">.</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(132,139,152);">.</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br></code></pre></body></html>
+<p>will result in <code>en.utf-8.add.spl</code> being added to Neovim's runtime in the
+<code class="file-path">spell</code> directory.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The attribute keys must be in <code>"&lt;name&gt;.&lt;encoding&gt;"</code> format for Neovim to
+compile your spellfiles without mangling the resulting file names. Please
+make sure that you enter the correct value, as nvf does not do any kind of
+internal checking. Please see <code class="command">:help mkspell</code> for more details.</p>
+<p>Example:</p>
+<html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;"en"&nbsp;is&nbsp;the&nbsp;name,&nbsp;and&nbsp;"utf-8"&nbsp;is&nbsp;the&nbsp;encoding.&nbsp;For&nbsp;most&nbsp;use&nbsp;cases,&nbsp;utf-8</span><br><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;will&nbsp;be&nbsp;enough,&nbsp;however,&nbsp;you&nbsp;may&nbsp;change&nbsp;it&nbsp;to&nbsp;any&nbsp;encoding&nbsp;format&nbsp;Neovim</span><br><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;accepts,&nbsp;e.g.,&nbsp;utf-16.</span><br><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">en.utf-8</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">nvf</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">word_you_want_to_add</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(171,178,191);">=</span><span style="color:rgb(171,178,191);">&gt;</span>&nbsp;<span style="color:rgb(152,195,121);">$</span><span style="color:rgb(232,102,113);">out/spell/en-utf-8.add.spl</span><br></code></pre></body></html>
+</div>
+<p>Note that while adding a new language, you will still need to add the name of
+the language (e.g. "en") to the <a class="option-reference" href="options.html#option-vim.spellcheck.languages"><code class="nixos-option">vim.spellcheck.languages</code></a> list by name
+in order to enable spellchecking for the language. By default only <code>"en"</code> is in
+the list.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>attribute set of list of string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">en.utf-8</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">nvf</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">word_you_want_to_add</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/spellcheck.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/spellcheck.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.spellcheck.ignoreTerminal">
+  <h3 class="option-name">
+    <a href="#option-vim.spellcheck.ignoreTerminal" class="option-anchor">vim.spellcheck.ignoreTerminal</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Disable spell checking in terminal.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/spellcheck.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/spellcheck.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.spellcheck.ignoredFiletypes">
+  <h3 class="option-name">
+    <a href="#option-vim.spellcheck.ignoredFiletypes" class="option-anchor">vim.spellcheck.ignoredFiletypes</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>A list of filetypes for which spellchecking will be disabled.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You may use <code class="command">:echo &amp;filetype</code> in Neovim to find out the
+filetype for a specific buffer.</p>
+</div>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">toggleterm</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">markdown</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">gitcommit</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/spellcheck.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/spellcheck.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.spellcheck.languages">
+  <h3 class="option-name">
+    <a href="#option-vim.spellcheck.languages" class="option-anchor">vim.spellcheck.languages</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>A list of languages that should be used for spellchecking.</p>
+<p>To add your own language files, you may place your <code>spell</code> directory in either
+<code class="file-path">$XDG_CONFIG_HOME/nvf</code> or in a path that is included in the
+<a class="option-reference" href="options.html#option-vim.additionalRuntimePaths"><code class="nixos-option">vim.additionalRuntimePaths</code></a> list provided by nvf.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">en</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">en</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">de</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/spellcheck.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/spellcheck.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.spellcheck.programmingWordlist.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.spellcheck.programmingWordlist.enable" class="option-anchor">vim.spellcheck.programmingWordlist.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable vim-dirtytalk, a wordlist for programmers containing
+common programming terms.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Enabling this option will unconditionally set
+<a class="option-reference" href="options.html#option-vim.spellcheck.enable"><code class="nixos-option">vim.spellcheck.enable</code></a> to true as vim-dirtytalk
+depends on spellchecking having been set up.</p>
+<p>Run <code class="command">:DirtytalkUpdate</code> on first use to download the spellfile.</p>
+</div>
+<p>.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/spellcheck.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/spellcheck.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.startPlugins">
+  <h3 class="option-name">
+    <a href="#option-vim.startPlugins" class="option-anchor">vim.startPlugins</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>List of plugins to load on startup. This is used
+internally to add plugins to Neovim's runtime.</p>
+<p>To add additional plugins to your configuration, consider
+using the <a class="option-reference" href="options.html#option-vim.extraPlugins"><code class="nixos-option">vim.extraPlugins</code></a>
+option.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (null or package or one of "blink-cmp", "aerial-nvim", "alpha-nvim", "auto-indent-nvim", "avante-nvim", "base16", "blink-cmp-spell", "blink-compat", "blink-emoji-nvim", "blink-indent", "blink-ripgrep-nvim", "bufdelete-nvim", "bufferline-nvim", "catppuccin", "ccc-nvim", "cellular-automaton-nvim", "chatgpt-nvim", "cheatsheet-nvim", "cinnamon-nvim", "cmp-buffer", "cmp-luasnip", "cmp-nvim-lsp", "cmp-path", "cmp-treesitter", "codecompanion-nvim", "codewindow-nvim", "colorful-menu-nvim", "comment-nvim", "conform-nvim", "copilot-cmp", "copilot-lua", "cord-nvim", "crates-nvim", "crazy-coverage", "csharpls-extended-lsp-nvim", "csvview-nvim", "dashboard-nvim", "diffview-nvim", "direnv-vim", "dracula", "dressing-nvim", "dropbar-nvim", "elixir-tools-nvim", "everforest", "fastaction-nvim", "ferris-nvim", "fidget-nvim", "flash-nvim", "fluent-nvim", "flutter-tools-nvim", "friendly-snippets", "fzf-lua", "gesture-nvim", "git-conflict-nvim", "github", "gitlinker-nvim", "gitsigns-nvim", "glow-nvim", "gopher-nvim", "gradle-nvim", "gruber-darker", "grug-far-nvim", "gruvbox", "guess-indent-nvim", "hardtime-nvim", "harpoon", "haskell-tools-nvim", "highlight-undo-nvim", "hlargs-nvim", "hop.nvim", "hunk-nvim", "hydra-nvim", "icon-picker-nvim", "image-nvim", "img-clip", "indent-blankline-nvim", "kanagawa", "kulala-nvim", "lazydev-nvim", "leap-nvim", "leetcode-nvim", "lsp-signature-nvim", "lspkind-nvim", "lspsaga-nvim", "lua-utils-nvim", "lualine-nvim", "luasnip", "lz-n", "lzn-auto-require", "markview-nvim", "maven-nvim", "mellow", "mini-ai", "mini-align", "mini-animate", "mini-base16", "mini-basics", "mini-bracketed", "mini-bufremove", "mini-clue", "mini-cmdline", "mini-colors", "mini-comment", "mini-completion", "mini-cursorword", "mini-diff", "mini-doc", "mini-extra", "mini-files", "mini-fuzzy", "mini-git", "mini-hipatterns", "mini-hues", "mini-icons", "mini-indentscope", "mini-jump", "mini-jump2d", "mini-map", "mini-misc", "mini-move", "mini-notify", "mini-operators", "mini-pairs", "mini-pick", "mini-sessions", "mini-snippets", "mini-splitjoin", "mini-starter", "mini-statusline", "mini-surround", "mini-tabline", "mini-test", "mini-trailspace", "mini-visits", "minimap-vim", "mkdir-nvim", "modes-nvim", "multicursors-nvim", "neo-tree-nvim", "neocodeium", "neocord", "neogit", "neorg", "neorg-telescope", "neoscroll-nvim", "neovim-session-manager", "new-file-template-nvim", "nix-develop-nvim", "noice-nvim", "none-ls-nvim", "nord", "nui-nvim", "nvim-autopairs", "nvim-biscuits", "nvim-cmp", "nvim-colorizer-lua", "nvim-cursorline", "nvim-dap", "nvim-dap-go", "nvim-dap-odin", "nvim-dap-ui", "nvim-docs-view", "nvim-highlight-colors", "nvim-lightbulb", "nvim-lint", "nvim-lspconfig", "nvim-metals", "nvim-navbuddy", "nvim-navic", "nvim-neoclip-lua", "nvim-nio", "nvim-notify", "nvim-scrollbar", "nvim-surround", "nvim-tree-lua", "nvim-treesitter-context", "nvim-treesitter-textobjects", "nvim-ts-autotag", "nvim-ufo", "nvim-web-devicons", "obsidian-nvim", "octo-nvim", "oil-git-status.nvim", "oil-nvim", "omnisharp-extended-lsp-nvim", "onedark", "orgmode", "otter-nvim", "oxocarbon", "pathlib-nvim", "persisted", "plenary-nvim", "precognition-nvim", "prettier-plugin-astro", "prettier-plugin-pug", "prettier-plugin-svelte", "project-nvim", "promise-async", "qmk-nvim", "rainbow-delimiters-nvim", "registers-nvim", "render-markdown-nvim", "rose-pine", "roslyn-nvim", "rtp-nvim", "run-nvim", "rustaceanvim", "satellite-nvim", "smart-paste-nvim", "smart-splits", "smartcolumn-nvim", "snacks-nvim", "solarized", "solarized-osaka", "sqls-nvim", "supermaven-nvim", "syntax-gaslighting", "tabular", "telescope", "tiny-devicons-auto-colors-nvim", "todo-comments-nvim", "toggleterm-nvim", "tokyonight", "trouble", "ts-error-translator-nvim", "twilight-nvim", "typst-concealer", "typst-preview-nvim", "undotree", "vim-dirtytalk", "vim-fugitive", "vim-illuminate", "vim-markdown", "vim-repeat", "vim-sleuth", "vim-startify", "vim-wakatime", "which-key-nvim", "yanky-nvim", "nvim-treesitter", "flutter-tools-patched", "vim-repeat")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">plenary-nvim</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">telescope-nvim</span><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/environment/options.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/wrapper/environment/options.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.enable" class="option-anchor">vim.statusline.lualine.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable lualine statusline plugin.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.location">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.location" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.location</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Where the breadcrumbs should appear</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "statusline", "winbar"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">statusline</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.lspsaga.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.lspsaga.enable" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.lspsaga.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable lspsaga breadcrumbs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.enable" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable navbuddy LSP helper UI. Enabling this option automatically loads and enables nvim-navic.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.appendName">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.appendName" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.appendName</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Insert at the end of name.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">a</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.appendScope">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.appendScope" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.appendScope</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Insert at the end of scope.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">A</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.children">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.children" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.children</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Navigate to the child node.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">l</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.close">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.close" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.close</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Close and return the cursor to its original location.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;esc&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.comment">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.comment" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.comment</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Comment the node.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">c</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.delete">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.delete" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.delete</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Delete the node.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">d</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.foldCreate">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.foldCreate" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.foldCreate</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Create a new fold of the node.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">f</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.foldDelete">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.foldDelete" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.foldDelete</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Delete the current fold of the node.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">F</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.help">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.help" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.help</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Open the mappings help window.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">g?</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.hsplit">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.hsplit" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.hsplit</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Open the node in a horizontal split.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;C-s&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.insertName">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.insertName" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.insertName</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Insert at the start of name.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">i</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.insertScope">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.insertScope" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.insertScope</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Insert at the start of scope.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">I</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.moveDown">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.moveDown" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.moveDown</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Move the node down.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">J</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.moveUp">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.moveUp" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.moveUp</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Move the node up.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">K</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.nextSibling">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.nextSibling" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.nextSibling</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Navigate to the next sibling node.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">j</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.parent">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.parent" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.parent</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Navigate to the parent node.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">h</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.previousSibling">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.previousSibling" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.previousSibling</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Navigate to the previous sibling node.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">k</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.rename">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.rename" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.rename</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Rename the node.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">r</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.root">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.root" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.root</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Navigate to the root node.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">0</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.select">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.select" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.select</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Goto the node.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;enter&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.telescope">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.telescope" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.telescope</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Start fuzzy finder at the current level.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">t</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.togglePreview">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.togglePreview" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.togglePreview</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Toggle the preview.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">s</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.visualName">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.visualName" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.visualName</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Select the name visually.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">v</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.visualScope">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.visualScope" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.visualScope</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Select the scope visually.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">V</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.vsplit">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.vsplit" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.vsplit</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Open the node in a vertical split.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;C-v&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.yankName">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.yankName" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.yankName</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Yank the name to system clipboard.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">y</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.yankScope">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.yankScope" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.yankScope</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Yank the scope to system clipboard.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Y</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of navbuddy.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Array">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Array" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Array</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰅪&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Array</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Boolean">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Boolean" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Boolean</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">◩&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Boolean</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Class">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Class" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Class</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰌗&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Class</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Constant">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Constant" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Constant</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰏿&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Constant</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Constructor">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Constructor" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Constructor</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Constructor</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Enum">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Enum" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Enum</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰕘</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Enum</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.EnumMember">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.EnumMember" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.EnumMember</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰕘&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.EnumMember</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Event">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Event" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Event</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Event</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Field">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Field" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Field</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Field</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.File">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.File" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.File</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰈙&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.File</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Function">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Function" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Function</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰊕&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Function</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Interface">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Interface" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Interface</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰕘</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Interface</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Key">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Key" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Key</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰌋&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Key</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Method">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Method" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Method</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰆧&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Method</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Module">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Module" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Module</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Module</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Namespace">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Namespace" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Namespace</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰌗&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Namespace</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Null">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Null" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Null</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰟢&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Null</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Number">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Number" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Number</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰎠&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Number</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Object">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Object" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Object</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰅩&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Object</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Operator">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Operator" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Operator</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰆕&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Operator</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Package">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Package" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Package</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Package</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Property">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Property" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Property</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Property</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.String">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.String" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.String</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.String</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Struct">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Struct" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Struct</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰌗&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Struct</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.TypeParameter">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.TypeParameter" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.TypeParameter</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰊄&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.TypeParameter</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Variable">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Variable" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Variable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰆧&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.icons.Variable</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.lsp.auto_attach">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.lsp.auto_attach" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.lsp.auto_attach</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to attach to LSP server manually.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.lsp.auto_attach</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.lsp.preference">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.lsp.preference" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.lsp.preference</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The preference list ranking LSP servers.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (list of string)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.lsp.preference</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.node_markers.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.node_markers.enable" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.node_markers.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable node markers.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.node_markers.enable</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.node_markers.icons.branch">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.node_markers.icons.branch" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.node_markers.icons.branch</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.node_markers.icons.branch</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.node_markers.icons.leaf">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.node_markers.icons.leaf" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.node_markers.icons.leaf</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.node_markers.icons.leaf</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.node_markers.icons.leaf_selected">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.node_markers.icons.leaf_selected" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.node_markers.icons.leaf_selected</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;→&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.node_markers.icons.leaf_selected</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.source_buffer.followNode">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.source_buffer.followNode" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.source_buffer.followNode</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to keep the current node in focus in the source buffer.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.source_buffer.followNode</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.source_buffer.highlight">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.source_buffer.highlight" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.source_buffer.highlight</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to highlight the currently focused node in the source buffer.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.source_buffer.highlight</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.source_buffer.reorient">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.source_buffer.reorient" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.source_buffer.reorient</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The mode for reorienting the source buffer after moving nodes.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "smart", "top", "mid", "none"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">smart</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.source_buffer.reorient</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.source_buffer.scrolloff">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.source_buffer.scrolloff" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.source_buffer.scrolloff</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The scrolloff value in the source buffer when Navbuddy is open.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.source_buffer.scrolloff</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.useDefaultMappings">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.useDefaultMappings" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.useDefaultMappings</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Add the default Navbuddy keybindings in addition to the keybinding added by this module.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.useDefaultMappings</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.border">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.border" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.border</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The border style to use.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "none", "single", "double", "rounded", "solid", "shadow" or list of (string or list of string)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">rounded</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.border</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.scrolloff">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.scrolloff" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.scrolloff</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The scrolloff value within a navbuddy window.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.scrolloff</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.sections.left.border">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.sections.left.border" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.sections.left.border</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The border style to use for the left section of the Navbuddy UI.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "none", "single", "double", "rounded", "solid", "shadow" or list of (string or list of string)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">rounded</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.sections.left.border</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.sections.mid.border">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.sections.mid.border" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.sections.mid.border</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The border style to use for the middle section of the Navbuddy UI.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "none", "single", "double", "rounded", "solid", "shadow" or list of (string or list of string)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">rounded</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.sections.mid.border</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.sections.right.border">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.sections.right.border" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.sections.right.border</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The border style to use for the right section of the Navbuddy UI.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "none", "single", "double", "rounded", "solid", "shadow" or list of (string or list of string)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">rounded</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.sections.right.border</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.sections.right.preview">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.sections.right.preview" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.sections.right.preview</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The display mode of the preview on the right section.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "leaf", "always", "never"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">leaf</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.integrations.breadcrumbs.navbuddy.setupOpts.window.sections.right.preview</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.nvim-navic.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.nvim-navic.enable" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.nvim-navic.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable nvim-navic.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.nvim-navic.alwaysRender">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.nvim-navic.alwaysRender" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.nvim-navic.alwaysRender</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>This will pass <code>draw_empty</code> to the <code>nvim_navic</code> winbar
+component, which causes the component to be drawn even
+if it's empty.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.section">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.section" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.section</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Which lualine section to occupy for the breadcrumbs feature.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "a", "b", "c", "x", "y", "z"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">c</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.vanilla.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.vanilla.enable" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.vanilla.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable vanilla breadcrumbs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator.color">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator.color" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator.color</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Color to use for each breadcrumb symbol</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">@keyword</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator.symbol">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator.symbol" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.vanilla.separator.symbol</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Symbol to use for each breadcrumb entry</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">.</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;&gt;&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.setupOpts" class="option-anchor">vim.statusline.lualine.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of Lualine.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.setupOpts.inactive_sections.lualine_a">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.setupOpts.inactive_sections.lualine_a" class="option-anchor">vim.statusline.lualine.setupOpts.inactive_sections.lualine_a</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>inactive config for: | (A) | B | C       X | Y | Z |</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of anything</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.setupOpts.inactive_sections.lualine_a</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.setupOpts.inactive_sections.lualine_b">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.setupOpts.inactive_sections.lualine_b" class="option-anchor">vim.statusline.lualine.setupOpts.inactive_sections.lualine_b</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>inactive config for: | A | (B) | C       X | Y | Z |</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of anything</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.setupOpts.inactive_sections.lualine_b</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.setupOpts.inactive_sections.lualine_c">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.setupOpts.inactive_sections.lualine_c" class="option-anchor">vim.statusline.lualine.setupOpts.inactive_sections.lualine_c</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>inactive config for: | A | B | (C)       X | Y | Z |</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of anything</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">filename</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.setupOpts.inactive_sections.lualine_c</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.setupOpts.inactive_sections.lualine_x">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.setupOpts.inactive_sections.lualine_x" class="option-anchor">vim.statusline.lualine.setupOpts.inactive_sections.lualine_x</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>inactive config for: | A | B | C       (X) | Y | Z |</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of anything</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">location</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.setupOpts.inactive_sections.lualine_x</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.setupOpts.inactive_sections.lualine_y">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.setupOpts.inactive_sections.lualine_y" class="option-anchor">vim.statusline.lualine.setupOpts.inactive_sections.lualine_y</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>inactive config for: | A | B | C       X | (Y) | Z |</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of anything</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.setupOpts.inactive_sections.lualine_y</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.setupOpts.inactive_sections.lualine_z">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.setupOpts.inactive_sections.lualine_z" class="option-anchor">vim.statusline.lualine.setupOpts.inactive_sections.lualine_z</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>inactive config for: | A | B | C       X | Y | (Z) |</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of anything</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.setupOpts.inactive_sections.lualine_z</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.setupOpts.sections.lualine_a">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.setupOpts.sections.lualine_a" class="option-anchor">vim.statusline.lualine.setupOpts.sections.lualine_a</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>active config for: | (A) | B | C       X | Y | Z |</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of anything</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">@1</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">mode</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">icons_enabled</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">separator</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">left</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">▎</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">right</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);"></span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">@1</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">draw_empty</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">separator</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">left</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);"></span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">right</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);"></span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.setupOpts.sections.lualine_a</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.setupOpts.sections.lualine_b">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.setupOpts.sections.lualine_b" class="option-anchor">vim.statusline.lualine.setupOpts.sections.lualine_b</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>active config for: | A | (B) | C       X | Y | Z |</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of anything</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">@1</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">filetype</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">colored</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">icon</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">align</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">left</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">icon_only</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">@1</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">filename</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">separator</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">right</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);"></span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">symbols</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">modified</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">readonly</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">@1</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">draw_empty</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">separator</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">left</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);"></span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">right</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);"></span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.setupOpts.sections.lualine_b</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.setupOpts.sections.lualine_c">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.setupOpts.sections.lualine_c" class="option-anchor">vim.statusline.lualine.setupOpts.sections.lualine_c</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>active config for: | A | B | (C)       X | Y | Z |</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of anything</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">@1</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">diff</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">colored</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">false</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">diff_color</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">added</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">DiffAdd</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">modified</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">DiffChange</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">removed</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">DiffDelete</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">separator</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">right</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);"></span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">symbols</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">added</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">+</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">modified</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">~</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">removed</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">-</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.setupOpts.sections.lualine_c</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.setupOpts.sections.lualine_x">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.setupOpts.sections.lualine_x" class="option-anchor">vim.statusline.lualine.setupOpts.sections.lualine_x</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>active config for: | A | B | C       (X) | Y | Z |</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of anything</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">_type</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">lua-inline</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">expr</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;Lsp&nbsp;server&nbsp;name</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function()</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local&nbsp;buf_ft&nbsp;=&nbsp;vim.bo.filetype</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local&nbsp;excluded_buf_ft&nbsp;=&nbsp;{&nbsp;toggleterm&nbsp;=&nbsp;true,&nbsp;NvimTree&nbsp;=&nbsp;true,&nbsp;["neo-tree"]&nbsp;=&nbsp;true,&nbsp;TelescopePrompt&nbsp;=&nbsp;true&nbsp;}</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;excluded_buf_ft[buf_ft]&nbsp;then</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;""</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local&nbsp;bufnr&nbsp;=&nbsp;vim.api.nvim_get_current_buf()</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local&nbsp;clients&nbsp;=&nbsp;vim.lsp.get_clients({&nbsp;bufnr&nbsp;=&nbsp;bufnr&nbsp;})</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;vim.tbl_isempty(clients)&nbsp;then</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;"No&nbsp;Active&nbsp;LSP"</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local&nbsp;active_clients&nbsp;=&nbsp;{}</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;_,&nbsp;client&nbsp;in&nbsp;ipairs(clients)&nbsp;do</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;table.insert(active_clients,&nbsp;client.name)</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;table.concat(active_clients,&nbsp;",&nbsp;")</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end,</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;icon&nbsp;=&nbsp;"&nbsp;",</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;separator&nbsp;=&nbsp;{left&nbsp;=&nbsp;""},</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">@1</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">diagnostics</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">always_visible</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">false</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">colored</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">diagnostics_color</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">color_error</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">fg</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">red</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">color_info</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">fg</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">cyan</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">color_warn</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">fg</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">yellow</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">sources</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">nvim_lsp</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">nvim_diagnostic</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">vim_lsp</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">coc</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">symbols</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">error</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰅙&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">hint</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">󰌵&nbsp;</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">info</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">warn</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">update_in_insert</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">false</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.setupOpts.sections.lualine_x</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.setupOpts.sections.lualine_y">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.setupOpts.sections.lualine_y" class="option-anchor">vim.statusline.lualine.setupOpts.sections.lualine_y</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>active config for: | A | B | C       X | (Y) | Z |</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of anything</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">@1</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">draw_empty</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">separator</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">left</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);"></span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">right</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);"></span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">@1</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">t</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">maxcount</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">999</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">separator</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">left</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);"></span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">timeout</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">120</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">@1</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">branch</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">icon</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">•</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">separator</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">left</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);"></span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.statusline.lualine.setupOpts.sections.lualine_y</code></dd>
+  </dl>
+</div>
