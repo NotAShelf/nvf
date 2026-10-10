@@ -1,3 +1,41 @@
+<div class="option" id="option-vim.filetree.nvimTree.setupOpts.hijack_directories.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.filetree.nvimTree.setupOpts.hijack_directories.enable" class="option-anchor">vim.filetree.nvimTree.setupOpts.hijack_directories.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the <code>hijack_directories</code> feature. Disable this option if you use vim-dirvish or dirbuf.nvim.
+If <code>hijack_netrw</code> and <code>disable_netrw</code> are <code>false</code>, this feature will be disabled
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.filetree.nvimTree.setupOpts.hijack_directories.enable</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.filetree.nvimTree.setupOpts.hijack_directories.auto_open">
+  <h3 class="option-name">
+    <a href="#option-vim.filetree.nvimTree.setupOpts.hijack_directories.auto_open" class="option-anchor">vim.filetree.nvimTree.setupOpts.hijack_directories.auto_open</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Opens the tree if the tree was previously closed.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.filetree.nvimTree.setupOpts.hijack_directories.auto_open</code></dd>
+  </dl>
+</div>
 <div class="option" id="option-vim.filetree.nvimTree.setupOpts.hijack_netrw">
   <h3 class="option-name">
     <a href="#option-vim.filetree.nvimTree.setupOpts.hijack_netrw" class="option-anchor">vim.filetree.nvimTree.setupOpts.hijack_netrw</a>
@@ -1716,6 +1754,27 @@ is used.</p>
     <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/formatter/conform-nvim/presets/black.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/formatter/conform-nvim/presets/black.nix&gt;</a></code></dd>
   </dl>
 </div>
+<div class="option" id="option-vim.formatter.conform-nvim.presets.buf.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.formatter.conform-nvim.presets.buf.enable" class="option-anchor">vim.formatter.conform-nvim.presets.buf.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Buf formatter.</p>
+<p>Use <code>vim.formatter.conform-nvim.setupOpts.formatters.buf</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/formatter/conform-nvim/presets/buf.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/formatter/conform-nvim/presets/buf.nix&gt;</a></code></dd>
+  </dl>
+</div>
 <div class="option" id="option-vim.formatter.conform-nvim.presets.cabal-fmt.enable">
   <h3 class="option-name">
     <a href="#option-vim.formatter.conform-nvim.presets.cabal-fmt.enable" class="option-anchor">vim.formatter.conform-nvim.presets.cabal-fmt.enable</a>
@@ -1756,68 +1815,5 @@ is used.</p>
   </dl>
   <dl class="option-details option-sources">
     <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/formatter/conform-nvim/presets/clang-format.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/formatter/conform-nvim/presets/clang-format.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.formatter.conform-nvim.presets.csharpier.enable">
-  <h3 class="option-name">
-    <a href="#option-vim.formatter.conform-nvim.presets.csharpier.enable" class="option-anchor">vim.formatter.conform-nvim.presets.csharpier.enable</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Whether to enable the CSharpier formatter.</p>
-<p>Use <code>vim.formatter.conform-nvim.setupOpts.formatters.csharpier</code> for customization
-.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
-</body></html></dd>
-    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/formatter/conform-nvim/presets/csharpier.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/formatter/conform-nvim/presets/csharpier.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.formatter.conform-nvim.presets.deno.enable">
-  <h3 class="option-name">
-    <a href="#option-vim.formatter.conform-nvim.presets.deno.enable" class="option-anchor">vim.formatter.conform-nvim.presets.deno.enable</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Whether to enable the Deno formatter.</p>
-<p>Use <code>vim.formatter.conform-nvim.setupOpts.formatters.deno</code> for customization
-.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
-</body></html></dd>
-    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/formatter/conform-nvim/presets/deno.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/formatter/conform-nvim/presets/deno.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.formatter.conform-nvim.presets.djlint.enable">
-  <h3 class="option-name">
-    <a href="#option-vim.formatter.conform-nvim.presets.djlint.enable" class="option-anchor">vim.formatter.conform-nvim.presets.djlint.enable</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Whether to enable the djLint formatter.</p>
-<p>Use <code>vim.formatter.conform-nvim.setupOpts.formatters.djlint</code> for customization
-.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
-</body></html></dd>
-    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/formatter/conform-nvim/presets/djlint.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/formatter/conform-nvim/presets/djlint.nix&gt;</a></code></dd>
   </dl>
 </div>

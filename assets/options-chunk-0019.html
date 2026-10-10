@@ -1,3 +1,253 @@
+<div class="option" id="option-vim.startPlugins">
+  <h3 class="option-name">
+    <a href="#option-vim.startPlugins" class="option-anchor">vim.startPlugins</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>List of plugins to load on startup. This is used
+internally to add plugins to Neovim's runtime.</p>
+<p>To add additional plugins to your configuration, consider
+using the <a class="option-reference" href="options.html#option-vim.extraPlugins"><code class="nixos-option">vim.extraPlugins</code></a>
+option.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (null or package or one of "blink-cmp", "aerial-nvim", "alpha-nvim", "auto-indent-nvim", "avante-nvim", "base16", "blink-cmp-spell", "blink-compat", "blink-emoji-nvim", "blink-indent", "blink-ripgrep-nvim", "bufdelete-nvim", "bufferline-nvim", "catppuccin", "ccc-nvim", "cellular-automaton-nvim", "chatgpt-nvim", "cheatsheet-nvim", "cinnamon-nvim", "cmp-buffer", "cmp-luasnip", "cmp-nvim-lsp", "cmp-path", "cmp-treesitter", "codecompanion-nvim", "codewindow-nvim", "colorful-menu-nvim", "comment-nvim", "conform-nvim", "copilot-cmp", "copilot-lua", "cord-nvim", "crates-nvim", "crazy-coverage", "csharpls-extended-lsp-nvim", "csvview-nvim", "dashboard-nvim", "diffview-nvim", "direnv-vim", "dracula", "dressing-nvim", "dropbar-nvim", "elixir-tools-nvim", "everforest", "fastaction-nvim", "ferris-nvim", "fidget-nvim", "flash-nvim", "fluent-nvim", "flutter-tools-nvim", "friendly-snippets", "fzf-lua", "gesture-nvim", "git-conflict-nvim", "github", "gitlinker-nvim", "gitsigns-nvim", "glow-nvim", "gopher-nvim", "gradle-nvim", "gruber-darker", "grug-far-nvim", "gruvbox", "guess-indent-nvim", "hardtime-nvim", "harpoon", "haskell-tools-nvim", "highlight-undo-nvim", "hlargs-nvim", "hop.nvim", "hunk-nvim", "hydra-nvim", "icon-picker-nvim", "image-nvim", "img-clip", "indent-blankline-nvim", "kanagawa", "kulala-nvim", "lazydev-nvim", "leap-nvim", "leetcode-nvim", "lsp-signature-nvim", "lspkind-nvim", "lspsaga-nvim", "lua-utils-nvim", "lualine-nvim", "luasnip", "lz-n", "lzn-auto-require", "markview-nvim", "maven-nvim", "mellow", "mini-ai", "mini-align", "mini-animate", "mini-base16", "mini-basics", "mini-bracketed", "mini-bufremove", "mini-clue", "mini-cmdline", "mini-colors", "mini-comment", "mini-completion", "mini-cursorword", "mini-diff", "mini-doc", "mini-extra", "mini-files", "mini-fuzzy", "mini-git", "mini-hipatterns", "mini-hues", "mini-icons", "mini-indentscope", "mini-jump", "mini-jump2d", "mini-map", "mini-misc", "mini-move", "mini-notify", "mini-operators", "mini-pairs", "mini-pick", "mini-sessions", "mini-snippets", "mini-splitjoin", "mini-starter", "mini-statusline", "mini-surround", "mini-tabline", "mini-test", "mini-trailspace", "mini-visits", "minimap-vim", "mkdir-nvim", "modes-nvim", "multicursors-nvim", "neo-tree-nvim", "neocodeium", "neocord", "neogit", "neorg", "neorg-telescope", "neoscroll-nvim", "neovim-session-manager", "new-file-template-nvim", "nix-develop-nvim", "noice-nvim", "none-ls-nvim", "nord", "nui-nvim", "nvim-autopairs", "nvim-biscuits", "nvim-cmp", "nvim-colorizer-lua", "nvim-cursorline", "nvim-dap", "nvim-dap-go", "nvim-dap-odin", "nvim-dap-ui", "nvim-docs-view", "nvim-highlight-colors", "nvim-lightbulb", "nvim-lint", "nvim-lspconfig", "nvim-metals", "nvim-navbuddy", "nvim-navic", "nvim-neoclip-lua", "nvim-nio", "nvim-notify", "nvim-scrollbar", "nvim-surround", "nvim-tree-lua", "nvim-treesitter-context", "nvim-treesitter-textobjects", "nvim-ts-autotag", "nvim-ufo", "nvim-web-devicons", "obsidian-nvim", "octo-nvim", "oil-git-status.nvim", "oil-nvim", "omnisharp-extended-lsp-nvim", "onedark", "orgmode", "otter-nvim", "oxocarbon", "pathlib-nvim", "persisted", "plenary-nvim", "precognition-nvim", "prettier-plugin-astro", "prettier-plugin-pug", "prettier-plugin-svelte", "project-nvim", "promise-async", "qmk-nvim", "rainbow-delimiters-nvim", "registers-nvim", "render-markdown-nvim", "rose-pine", "roslyn-nvim", "rtp-nvim", "run-nvim", "rustaceanvim", "satellite-nvim", "smart-paste-nvim", "smart-splits", "smartcolumn-nvim", "snacks-nvim", "solarized", "solarized-osaka", "sqls-nvim", "supermaven-nvim", "syntax-gaslighting", "tabular", "telescope", "tiny-devicons-auto-colors-nvim", "todo-comments-nvim", "toggleterm-nvim", "tokyonight", "trouble", "ts-error-translator-nvim", "twilight-nvim", "typst-concealer", "typst-preview-nvim", "undotree", "vim-dirtytalk", "vim-fugitive", "vim-illuminate", "vim-markdown", "vim-repeat", "vim-sleuth", "vim-startify", "vim-wakatime", "which-key-nvim", "yanky-nvim", "nvim-treesitter", "flutter-tools-patched", "vim-repeat")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">plenary-nvim</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">telescope-nvim</span><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/environment/options.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/wrapper/environment/options.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.enable" class="option-anchor">vim.statusline.lualine.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable lualine statusline plugin.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.location">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.location" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.location</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Where the breadcrumbs should appear</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "statusline", "winbar"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">statusline</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.lspsaga.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.lspsaga.enable" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.lspsaga.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable lspsaga breadcrumbs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.enable" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable navbuddy LSP helper UI. Enabling this option automatically loads and enables nvim-navic.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.appendName">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.appendName" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.appendName</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Insert at the end of name.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">a</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.appendScope">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.appendScope" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.appendScope</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Insert at the end of scope.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">A</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.children">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.children" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.children</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Navigate to the child node.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">l</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.close">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.close" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.close</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Close and return the cursor to its original location.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;esc&gt;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.comment">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.comment" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.comment</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Comment the node.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">c</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.delete">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.delete" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.delete</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Delete the node.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">d</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.foldCreate">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.foldCreate" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.foldCreate</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Create a new fold of the node.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">f</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.foldDelete">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.foldDelete" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.foldDelete</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Delete the current fold of the node.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">F</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.help">
+  <h3 class="option-name">
+    <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.help" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.help</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Open the mappings help window.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">g?</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
+  </dl>
+</div>
 <div class="option" id="option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.hsplit">
   <h3 class="option-name">
     <a href="#option-vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.hsplit" class="option-anchor">vim.statusline.lualine.integrations.breadcrumbs.navbuddy.mappings.hsplit</a>
@@ -1422,250 +1672,5 @@ in the docs.</p>
   </dl>
   <dl class="option-details option-sources">
     <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/tabline/nvim-bufferline/nvim-bufferline.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/tabline/nvim-bufferline/nvim-bufferline.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.tabline.nvimBufferline.mappings.moveNext">
-  <h3 class="option-name">
-    <a href="#option-vim.tabline.nvimBufferline.mappings.moveNext" class="option-anchor">vim.tabline.nvimBufferline.mappings.moveNext</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Move next buffer</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;bmn</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/tabline/nvim-bufferline/nvim-bufferline.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/tabline/nvim-bufferline/nvim-bufferline.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.tabline.nvimBufferline.mappings.movePrevious">
-  <h3 class="option-name">
-    <a href="#option-vim.tabline.nvimBufferline.mappings.movePrevious" class="option-anchor">vim.tabline.nvimBufferline.mappings.movePrevious</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Move previous buffer</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;bmp</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/tabline/nvim-bufferline/nvim-bufferline.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/tabline/nvim-bufferline/nvim-bufferline.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.tabline.nvimBufferline.mappings.pick">
-  <h3 class="option-name">
-    <a href="#option-vim.tabline.nvimBufferline.mappings.pick" class="option-anchor">vim.tabline.nvimBufferline.mappings.pick</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Pick buffer</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;bc</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/tabline/nvim-bufferline/nvim-bufferline.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/tabline/nvim-bufferline/nvim-bufferline.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.tabline.nvimBufferline.mappings.sortByDirectory">
-  <h3 class="option-name">
-    <a href="#option-vim.tabline.nvimBufferline.mappings.sortByDirectory" class="option-anchor">vim.tabline.nvimBufferline.mappings.sortByDirectory</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Sort buffers by directory</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;bsd</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/tabline/nvim-bufferline/nvim-bufferline.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/tabline/nvim-bufferline/nvim-bufferline.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.tabline.nvimBufferline.mappings.sortByExtension">
-  <h3 class="option-name">
-    <a href="#option-vim.tabline.nvimBufferline.mappings.sortByExtension" class="option-anchor">vim.tabline.nvimBufferline.mappings.sortByExtension</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Sort buffers by extension</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;bse</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/tabline/nvim-bufferline/nvim-bufferline.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/tabline/nvim-bufferline/nvim-bufferline.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.tabline.nvimBufferline.mappings.sortById">
-  <h3 class="option-name">
-    <a href="#option-vim.tabline.nvimBufferline.mappings.sortById" class="option-anchor">vim.tabline.nvimBufferline.mappings.sortById</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Sort buffers by ID</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;bsi</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/tabline/nvim-bufferline/nvim-bufferline.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/tabline/nvim-bufferline/nvim-bufferline.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts">
-  <h3 class="option-name">
-    <a href="#option-vim.tabline.nvimBufferline.setupOpts" class="option-anchor">vim.tabline.nvimBufferline.setupOpts</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of bufferline-nvim.</p>
-<p>Accepts either an attribute set of options, or a raw Lua expression
-via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
-expression is passed verbatim as the argument to <code>setup()</code>.</p>
-<p>You can pass in any additional options even if they're not listed
-in the docs.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/tabline/nvim-bufferline/nvim-bufferline.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/tabline/nvim-bufferline/nvim-bufferline.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.highlights">
-  <h3 class="option-name">
-    <a href="#option-vim.tabline.nvimBufferline.setupOpts.highlights" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.highlights</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Overrides the highlight groups of bufferline.</p>
-<p>See <code>:help bufferline-highlights</code>.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>(attribute set) or (luaInline)</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-lua"><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(198,120,221);">function</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;<span style="color:rgb(198,120,221);">local</span>&nbsp;<span style="color:rgb(171,178,191);">integration</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(86,182,194);">require</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(152,195,121);">"catppuccin.special.bufferline"</span><span style="color:rgb(132,139,152);">)</span><br>&nbsp;&nbsp;<span style="color:rgb(198,120,221);">return</span>&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(171,178,191);">integration</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">get_theme</span>&nbsp;<span style="color:rgb(198,120,221);">or</span>&nbsp;<span style="color:rgb(171,178,191);">integration</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">get</span><span style="color:rgb(132,139,152);">)</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(132,139,152);">)</span><br><span style="color:rgb(198,120,221);">end</span><span style="color:rgb(132,139,152);">)</span><span style="color:rgb(132,139,152);">(</span><span style="color:rgb(132,139,152);">)</span><br></code></pre></body></html>
-<p>if the active theme is Catppuccin, <code>{}</code> otherwise.</p>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.highlights</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.always_show_bufferline">
-  <h3 class="option-name">
-    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.always_show_bufferline" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.always_show_bufferline</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Whether to always show bufferline</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.always_show_bufferline</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.auto_toggle_bufferline">
-  <h3 class="option-name">
-    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.auto_toggle_bufferline" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.auto_toggle_bufferline</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Whether to auto toggle bufferline</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.auto_toggle_bufferline</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.buffer_close_icon">
-  <h3 class="option-name">
-    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.buffer_close_icon" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.buffer_close_icon</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Icon for close button</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;󰅖&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.buffer_close_icon</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.close_command">
-  <h3 class="option-name">
-    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.close_command" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.close_command</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Command to run when closing a buffer</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>string or (luaInline)</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">_type</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">lua-inline</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">expr</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;function(bufnum)</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;require("bufdelete").bufdelete(bufnum,&nbsp;false)</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;end</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.close_command</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.close_icon">
-  <h3 class="option-name">
-    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.close_icon" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.close_icon</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Icon for close button</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.close_icon</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.tabline.nvimBufferline.setupOpts.options.color_icons">
-  <h3 class="option-name">
-    <a href="#option-vim.tabline.nvimBufferline.setupOpts.options.color_icons" class="option-anchor">vim.tabline.nvimBufferline.setupOpts.options.color_icons</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Whether or not to add filetype icon highlights</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.tabline.nvimBufferline.setupOpts.options.color_icons</code></dd>
   </dl>
 </div>

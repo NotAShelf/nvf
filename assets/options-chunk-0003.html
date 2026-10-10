@@ -1564,6 +1564,27 @@ accept.</p>
     <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/presets/biomejs.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/diagnostics/presets/biomejs.nix&gt;</a></code></dd>
   </dl>
 </div>
+<div class="option" id="option-vim.diagnostics.presets.buf_lint.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.diagnostics.presets.buf_lint.enable" class="option-anchor">vim.diagnostics.presets.buf_lint.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the Buf Diagnostics Provider.</p>
+<p>Use <code class="nixos-option">vim.diagnostics.nvim-lint.linters.buf_lint</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/presets/buf_lint.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/diagnostics/presets/buf_lint.nix&gt;</a></code></dd>
+  </dl>
+</div>
 <div class="option" id="option-vim.diagnostics.presets.checkmake.enable">
   <h3 class="option-name">
     <a href="#option-vim.diagnostics.presets.checkmake.enable" class="option-anchor">vim.diagnostics.presets.checkmake.enable</a>
@@ -1824,28 +1845,6 @@ accept.</p>
   </h3>
   <div class="option-description"><html><head></head><body><p>Whether to enable the Mago Diagnostics Provider.</p>
 <p>Slower, but full analysis. use <code>mago_lint</code> for faster, but less precise results.</p>
-<p>Use <code class="nixos-option">vim.diagnostics.nvim-lint.linters.mago</code> for customization
-.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
-</body></html></dd>
-    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/diagnostics/presets/mago.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/diagnostics/presets/mago.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.diagnostics.presets.mago_lint.enable">
-  <h3 class="option-name">
-    <a href="#option-vim.diagnostics.presets.mago_lint.enable" class="option-anchor">vim.diagnostics.presets.mago_lint.enable</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Whether to enable the Mago Diagnostics Provider.</p>
-<p>Only the linter. use <code>mago_analyze</code> for the full results.</p>
 <p>Use <code class="nixos-option">vim.diagnostics.nvim-lint.linters.mago</code> for customization
 .</p>
 </body></html></div>
