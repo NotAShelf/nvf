@@ -6714,7 +6714,7 @@
     <details class="toc-category">
       <summary title="vim.languages">
         <span>vim.languages</span>
-        <span class="toc-count">687</span>
+        <span class="toc-count">692</span>
       </summary>
       <ul>
         
@@ -10121,6 +10121,46 @@
         </li>
         
         <li>
+          <a href='#option-vim.languages.powershell.enable' title="vim.languages.powershell.enable">
+            powershell.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.powershell.lsp.enable' title="vim.languages.powershell.lsp.enable">
+            powershell.lsp.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.powershell.lsp.servers' title="vim.languages.powershell.lsp.servers">
+            powershell.lsp.servers
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.powershell.treesitter.enable' title="vim.languages.powershell.treesitter.enable">
+            powershell.treesitter.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.languages.powershell.treesitter.package' title="vim.languages.powershell.treesitter.package">
+            powershell.treesitter.package
+            
+            
+          </a>
+        </li>
+        
+        <li>
           <a href='#option-vim.languages.protobuf.enable' title="vim.languages.protobuf.enable">
             protobuf.enable
             
@@ -12406,7 +12446,7 @@
     <details class="toc-category">
       <summary title="vim.lsp">
         <span>vim.lsp</span>
-        <span class="toc-count">171</span>
+        <span class="toc-count">172</span>
       </summary>
       <ul>
         
@@ -13343,6 +13383,14 @@
         <li>
           <a href='#option-vim.lsp.presets.phpantom.enable' title="vim.lsp.presets.phpantom.enable">
             presets.phpantom.enable
+            
+            
+          </a>
+        </li>
+        
+        <li>
+          <a href='#option-vim.lsp.presets.powershell-editor-services.enable' title="vim.lsp.presets.powershell-editor-services.enable">
+            presets.powershell-editor-services.enable
             
             
           </a>
@@ -43767,6 +43815,97 @@ have any of these filetypes.</p>
     <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/php.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/php.nix&gt;</a></code></dd>
   </dl>
 </div>
+<div class="option" id="option-vim.languages.powershell.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.powershell.enable" class="option-anchor">vim.languages.powershell.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable PowerShell language support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/powershell.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/powershell.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.powershell.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.powershell.lsp.enable" class="option-anchor">vim.languages.powershell.lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable PowerShell LSP support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lsp</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enable</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/powershell.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/powershell.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.powershell.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.powershell.lsp.servers" class="option-anchor">vim.languages.powershell.lsp.servers</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>PowerShell LSP servers to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of value "powershell-editor-services" (singular enum)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">powershell-editor-services</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/powershell.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/powershell.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.powershell.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.powershell.treesitter.enable" class="option-anchor">vim.languages.powershell.treesitter.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable PowerShell treesitter.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableTreesitter</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/powershell.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/powershell.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.powershell.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.powershell.treesitter.package" class="option-anchor">vim.languages.powershell.treesitter.package</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The powershell treesitter package to use.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or package</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim-treesitter</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">grammarPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">powershell</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/powershell.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/powershell.nix&gt;</a></code></dd>
+  </dl>
+</div>
 <div class="option" id="option-vim.languages.protobuf.enable">
   <h3 class="option-name">
     <a href="#option-vim.languages.protobuf.enable" class="option-anchor">vim.languages.protobuf.enable</a>
@@ -51297,6 +51436,28 @@ Default <code>filetypes = [ ]</code>.</p>
   </dl>
   <dl class="option-details option-sources">
     <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/phpantom.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/phpantom.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.powershell-editor-services.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.powershell-editor-services.enable" class="option-anchor">vim.lsp.presets.powershell-editor-services.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the PowerShell Editor Services Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.powershell-editor-services</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/powershell-editor-services.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/powershell-editor-services.nix&gt;</a></code></dd>
   </dl>
 </div>
 <div class="option" id="option-vim.lsp.presets.protols.enable">

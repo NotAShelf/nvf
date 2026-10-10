@@ -1,3 +1,130 @@
+<div class="option" id="option-vim.utility.guess-indent-nvim.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.utility.guess-indent-nvim.enable" class="option-anchor">vim.utility.guess-indent-nvim.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Automatic indentation style detection [guess-indent.nvim].</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/guess-indent-nvim/guess-indent-nvim.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/guess-indent-nvim/guess-indent-nvim.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.utility.guess-indent-nvim.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.utility.guess-indent-nvim.setupOpts" class="option-anchor">vim.utility.guess-indent-nvim.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of guess-indent.nvim.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/guess-indent-nvim/guess-indent-nvim.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/guess-indent-nvim/guess-indent-nvim.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.utility.icon-picker.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.utility.icon-picker.enable" class="option-anchor">vim.utility.icon-picker.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable nerdfonts icon picker for nvim.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/icon-picker/icon-picker.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/icon-picker/icon-picker.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.utility.images.image-nvim.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.utility.images.image-nvim.enable" class="option-anchor">vim.utility.images.image-nvim.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable image support in Neovim [image.nvim].
+See &lt;<a href="https://github.com/3rd/image.nvim#default-configuration">https://github.com/3rd/image.nvim#default-configuration</a>&gt; for all configuration options.
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/images/image-nvim/image-nvim.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/images/image-nvim/image-nvim.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.utility.images.image-nvim.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.utility.images.image-nvim.setupOpts" class="option-anchor">vim.utility.images.image-nvim.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of image.nvim.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/images/image-nvim/image-nvim.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/images/image-nvim/image-nvim.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.utility.images.image-nvim.setupOpts.backend">
+  <h3 class="option-name">
+    <a href="#option-vim.utility.images.image-nvim.setupOpts.backend" class="option-anchor">vim.utility.images.image-nvim.setupOpts.backend</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The backend to use for rendering images.</p>
+<ul>
+<li><code>kitty</code> - best in class, works great and is very snappy. Recommended
+by upstream.</li>
+<li><code>ueberzug</code> - backed by ueberzugpp, supports any terminal,
+but has lower performance</li>
+<li><code>sixel</code> - uses the Sixel graphics protocol, widely supported by many terminals</li>
+</ul>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "kitty", "ueberzug", "sixel"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">ueberzug</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.utility.images.image-nvim.setupOpts.backend</code></dd>
+  </dl>
+</div>
 <div class="option" id="option-vim.utility.images.image-nvim.setupOpts.hijack_file_patterns">
   <h3 class="option-name">
     <a href="#option-vim.utility.images.image-nvim.setupOpts.hijack_file_patterns" class="option-anchor">vim.utility.images.image-nvim.setupOpts.hijack_file_patterns</a>
@@ -1717,114 +1844,5 @@ in the docs.</p>
   </dl>
   <dl class="option-details option-sources">
     <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/qmk-nvim/qmk-nvim.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/qmk-nvim/qmk-nvim.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.utility.qmk-nvim.setupOpts">
-  <h3 class="option-name">
-    <a href="#option-vim.utility.qmk-nvim.setupOpts" class="option-anchor">vim.utility.qmk-nvim.setupOpts</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of qmk.nvim.</p>
-<p>Accepts either an attribute set of options, or a raw Lua expression
-via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
-expression is passed verbatim as the argument to <code>setup()</code>.</p>
-<p>You can pass in any additional options even if they're not listed
-in the docs.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/qmk-nvim/qmk-nvim.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/qmk-nvim/qmk-nvim.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.utility.qmk-nvim.setupOpts.comment_preview.keymap_overrides">
-  <h3 class="option-name">
-    <a href="#option-vim.utility.qmk-nvim.setupOpts.comment_preview.keymap_overrides" class="option-anchor">vim.utility.qmk-nvim.setupOpts.comment_preview.keymap_overrides</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Key codes to text replacements
-see &lt;<a href="https://github.com/codethread/qmk.nvim/blob/main/lua/qmk/config/key_map.lua">https://github.com/codethread/qmk.nvim/blob/main/lua/qmk/config/key_map.lua</a>&gt; for more details</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>attribute set of string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.utility.qmk-nvim.setupOpts.comment_preview.keymap_overrides</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.utility.qmk-nvim.setupOpts.comment_preview.position">
-  <h3 class="option-name">
-    <a href="#option-vim.utility.qmk-nvim.setupOpts.comment_preview.position" class="option-anchor">vim.utility.qmk-nvim.setupOpts.comment_preview.position</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Controls the position of the preview</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>one of "top", "bottom", "inside", "none"</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">top</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.utility.qmk-nvim.setupOpts.comment_preview.position</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.utility.qmk-nvim.setupOpts.layout">
-  <h3 class="option-name">
-    <a href="#option-vim.utility.qmk-nvim.setupOpts.layout" class="option-anchor">vim.utility.qmk-nvim.setupOpts.layout</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>The keyboard key layout
-see &lt;<a href="https://github.com/codethread/qmk.nvim?tab=readme-ov-file#Layout">https://github.com/codethread/qmk.nvim?tab=readme-ov-file#Layout</a>&gt; for more details</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or strings concatenated with "\n"</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.utility.qmk-nvim.setupOpts.layout</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.utility.qmk-nvim.setupOpts.name">
-  <h3 class="option-name">
-    <a href="#option-vim.utility.qmk-nvim.setupOpts.name" class="option-anchor">vim.utility.qmk-nvim.setupOpts.name</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>The name of the layout</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.utility.qmk-nvim.setupOpts.name</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.utility.qmk-nvim.setupOpts.variant">
-  <h3 class="option-name">
-    <a href="#option-vim.utility.qmk-nvim.setupOpts.variant" class="option-anchor">vim.utility.qmk-nvim.setupOpts.variant</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Chooses the expected hardware target</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>one of "qmk", "zmk"</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">qmk</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.utility.qmk-nvim.setupOpts.variant</code></dd>
   </dl>
 </div>

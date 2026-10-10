@@ -1,3 +1,105 @@
+<div class="option" id="option-vim.visuals.fidget-nvim.setupOpts.progress.clear_on_detach">
+  <h3 class="option-name">
+    <a href="#option-vim.visuals.fidget-nvim.setupOpts.progress.clear_on_detach" class="option-anchor">vim.visuals.fidget-nvim.setupOpts.progress.clear_on_detach</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Clear notification group when LSP server detaches</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (luaInline)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(97,175,239);">default</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(171,178,191);">mkLuaInline</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;function(client_id)</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;local&nbsp;client&nbsp;=&nbsp;vim.lsp.get_client_by_id(client_id)</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;client&nbsp;and&nbsp;client.name&nbsp;or&nbsp;nil</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;end</span><br><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.visuals.fidget-nvim.setupOpts.progress.clear_on_detach</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.visuals.fidget-nvim.setupOpts.progress.display.done_icon">
+  <h3 class="option-name">
+    <a href="#option-vim.visuals.fidget-nvim.setupOpts.progress.display.done_icon" class="option-anchor">vim.visuals.fidget-nvim.setupOpts.progress.display.done_icon</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Icon shown when LSP progress tasks are completed</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">✓</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.visuals.fidget-nvim.setupOpts.progress.display.done_icon</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.visuals.fidget-nvim.setupOpts.progress.display.done_style">
+  <h3 class="option-name">
+    <a href="#option-vim.visuals.fidget-nvim.setupOpts.progress.display.done_style" class="option-anchor">vim.visuals.fidget-nvim.setupOpts.progress.display.done_style</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Highlight group for completed LSP tasks</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">Constant</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.visuals.fidget-nvim.setupOpts.progress.display.done_style</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.visuals.fidget-nvim.setupOpts.progress.display.done_ttl">
+  <h3 class="option-name">
+    <a href="#option-vim.visuals.fidget-nvim.setupOpts.progress.display.done_ttl" class="option-anchor">vim.visuals.fidget-nvim.setupOpts.progress.display.done_ttl</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>How long a message should persist when complete</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">3</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.visuals.fidget-nvim.setupOpts.progress.display.done_ttl</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.visuals.fidget-nvim.setupOpts.progress.display.format_annote">
+  <h3 class="option-name">
+    <a href="#option-vim.visuals.fidget-nvim.setupOpts.progress.display.format_annote" class="option-anchor">vim.visuals.fidget-nvim.setupOpts.progress.display.format_annote</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>How to format a progress annotation</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>luaInline</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">_type</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">lua-inline</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">expr</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;function(msg)&nbsp;return&nbsp;msg.title&nbsp;end</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.visuals.fidget-nvim.setupOpts.progress.display.format_annote</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.visuals.fidget-nvim.setupOpts.progress.display.format_group_name">
+  <h3 class="option-name">
+    <a href="#option-vim.visuals.fidget-nvim.setupOpts.progress.display.format_group_name" class="option-anchor">vim.visuals.fidget-nvim.setupOpts.progress.display.format_group_name</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>How to format a progress notification group's name</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>luaInline</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">_type</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">lua-inline</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">expr</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;function(group)&nbsp;return&nbsp;tostring(group)&nbsp;end</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.visuals.fidget-nvim.setupOpts.progress.display.format_group_name</code></dd>
+  </dl>
+</div>
 <div class="option" id="option-vim.visuals.fidget-nvim.setupOpts.progress.display.format_message">
   <h3 class="option-name">
     <a href="#option-vim.visuals.fidget-nvim.setupOpts.progress.display.format_message" class="option-anchor">vim.visuals.fidget-nvim.setupOpts.progress.display.format_message</a>
@@ -1719,116 +1821,5 @@ If disabled, the messages table will override default messages.</p>
   </dl>
   <dl class="option-details option-sources">
     <dt>Declared in</dt><dd class="option-value"><code>vim.visuals.syntax-gaslighting.setupOpts.merge_messages</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.visuals.syntax-gaslighting.setupOpts.messages">
-  <h3 class="option-name">
-    <a href="#option-vim.visuals.syntax-gaslighting.setupOpts.messages" class="option-anchor">vim.visuals.syntax-gaslighting.setupOpts.messages</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Custom messages for gaslighting.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or (list of string)</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.visuals.syntax-gaslighting.setupOpts.messages</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.visuals.tiny-devicons-auto-colors.enable">
-  <h3 class="option-name">
-    <a href="#option-vim.visuals.tiny-devicons-auto-colors.enable" class="option-anchor">vim.visuals.tiny-devicons-auto-colors.enable</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Whether to enable alternative nvim-web-devicons icon colors [tiny-devicons-auto-colors].</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
-</body></html></dd>
-    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/visuals/tiny-devicons-auto-colors/tiny-devicons-auto-colors.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/visuals/tiny-devicons-auto-colors/tiny-devicons-auto-colors.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.visuals.tiny-devicons-auto-colors.setupOpts">
-  <h3 class="option-name">
-    <a href="#option-vim.visuals.tiny-devicons-auto-colors.setupOpts" class="option-anchor">vim.visuals.tiny-devicons-auto-colors.setupOpts</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of tiny-devicons-auto-colors.</p>
-<p>Accepts either an attribute set of options, or a raw Lua expression
-via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
-expression is passed verbatim as the argument to <code>setup()</code>.</p>
-<p>You can pass in any additional options even if they're not listed
-in the docs.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/visuals/tiny-devicons-auto-colors/tiny-devicons-auto-colors.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/visuals/tiny-devicons-auto-colors/tiny-devicons-auto-colors.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.visuals.tiny-devicons-auto-colors.setupOpts.factors.cache.enabled">
-  <h3 class="option-name">
-    <a href="#option-vim.visuals.tiny-devicons-auto-colors.setupOpts.factors.cache.enabled" class="option-anchor">vim.visuals.tiny-devicons-auto-colors.setupOpts.factors.cache.enabled</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Whether to enable caching of icon colors. This will greatly improve performance.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.visuals.tiny-devicons-auto-colors.setupOpts.factors.cache.enabled</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.visuals.tiny-devicons-auto-colors.setupOpts.factors.cache.path">
-  <h3 class="option-name">
-    <a href="#option-vim.visuals.tiny-devicons-auto-colors.setupOpts.factors.cache.path" class="option-anchor">vim.visuals.tiny-devicons-auto-colors.setupOpts.factors.cache.path</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Path to the cache file</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>luaInline</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">_type</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">lua-inline</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">expr</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">vim.fn.stdpath(</span><span style="color:rgb(232,102,113);">\"</span><span style="color:rgb(152,195,121);">cache</span><span style="color:rgb(232,102,113);">\"</span><span style="color:rgb(152,195,121);">)&nbsp;..&nbsp;</span><span style="color:rgb(232,102,113);">\"</span><span style="color:rgb(152,195,121);">/tiny-devicons-auto-colors-cache.json</span><span style="color:rgb(232,102,113);">\"</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.visuals.tiny-devicons-auto-colors.setupOpts.factors.cache.path</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.visuals.tiny-devicons-auto-colors.setupOpts.factors.chroma">
-  <h3 class="option-name">
-    <a href="#option-vim.visuals.tiny-devicons-auto-colors.setupOpts.factors.chroma" class="option-anchor">vim.visuals.tiny-devicons-auto-colors.setupOpts.factors.chroma</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Chroma factor of icons</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">1</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.visuals.tiny-devicons-auto-colors.setupOpts.factors.chroma</code></dd>
   </dl>
 </div>

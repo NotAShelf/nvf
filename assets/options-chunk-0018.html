@@ -1,3 +1,123 @@
+<div class="option" id="option-vim.options.autoindent">
+  <h3 class="option-name">
+    <a href="#option-vim.options.autoindent" class="option-anchor">vim.options.autoindent</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Enable auto indent</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/wrapper/rc/options.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.options.cmdheight">
+  <h3 class="option-name">
+    <a href="#option-vim.options.cmdheight" class="option-anchor">vim.options.cmdheight</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Height of the command pane</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">1</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/wrapper/rc/options.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.options.cursorlineopt">
+  <h3 class="option-name">
+    <a href="#option-vim.options.cursorlineopt" class="option-anchor">vim.options.cursorlineopt</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Highlight the text line of the cursor with CursorLine hl-CursorLine</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "line", "screenline", "number", "both"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">line</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/wrapper/rc/options.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.options.mouse">
+  <h3 class="option-name">
+    <a href="#option-vim.options.mouse" class="option-anchor">vim.options.mouse</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Set modes for mouse support.</p>
+<ul>
+<li>n - normal</li>
+<li>v - visual</li>
+<li>i - insert</li>
+<li>c - command-line</li>
+<li>h - all modes when editing a help file</li>
+<li>a - all modes</li>
+<li>r - for hit-enter and more-prompt prompt</li>
+</ul>
+<p>This option takes a string to ensure proper conversion to the corresponding Lua type.
+As such, we do not check the value passed to this option. Please ensure that any value
+that is set here is a valid value as per <a href="https://neovim.io/doc/user/options.html#'mouse'%22">neovim documentation</a>.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">nvi</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">a</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/wrapper/rc/options.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.options.shiftwidth">
+  <h3 class="option-name">
+    <a href="#option-vim.options.shiftwidth" class="option-anchor">vim.options.shiftwidth</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Number of spaces to use for each step of (auto)indent. Used for
+<code class="nixos-option">cindent</code>, <code>&gt;&gt;</code>, <code>&lt;&lt;</code>, etc.</p>
+<p>When zero the <code class="nixos-option">tabstop</code> value will be used.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">8</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/wrapper/rc/options.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.options.signcolumn">
+  <h3 class="option-name">
+    <a href="#option-vim.options.signcolumn" class="option-anchor">vim.options.signcolumn</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to show the sign column</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">yes</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">no</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/wrapper/rc/options.nix&gt;</a></code></dd>
+  </dl>
+</div>
 <div class="option" id="option-vim.options.splitbelow">
   <h3 class="option-name">
     <a href="#option-vim.options.splitbelow" class="option-anchor">vim.options.splitbelow</a>
@@ -1686,151 +1806,5 @@ in the docs.</p>
   </dl>
   <dl class="option-details option-sources">
     <dt>Declared in</dt><dd class="option-value"><code>vim.snippets.luasnip.setupOpts.enable_autosnippets</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.spellcheck.enable">
-  <h3 class="option-name">
-    <a href="#option-vim.spellcheck.enable" class="option-anchor">vim.spellcheck.enable</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Whether to enable Neovim's built-in spellchecking.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
-</body></html></dd>
-    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/spellcheck.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/spellcheck.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.spellcheck.extraSpellWords">
-  <h3 class="option-name">
-    <a href="#option-vim.spellcheck.extraSpellWords" class="option-anchor">vim.spellcheck.extraSpellWords</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Additional words to be used for spellchecking. The names of each key will be
-used as the language code for the spell file. For example</p>
-<html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">en.utf-8</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(132,139,152);">.</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(132,139,152);">.</span>&nbsp;<span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br></code></pre></body></html>
-<p>will result in <code>en.utf-8.add.spl</code> being added to Neovim's runtime in the
-<code class="file-path">spell</code> directory.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The attribute keys must be in <code>"&lt;name&gt;.&lt;encoding&gt;"</code> format for Neovim to
-compile your spellfiles without mangling the resulting file names. Please
-make sure that you enter the correct value, as nvf does not do any kind of
-internal checking. Please see <code class="command">:help mkspell</code> for more details.</p>
-<p>Example:</p>
-<html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;"en"&nbsp;is&nbsp;the&nbsp;name,&nbsp;and&nbsp;"utf-8"&nbsp;is&nbsp;the&nbsp;encoding.&nbsp;For&nbsp;most&nbsp;use&nbsp;cases,&nbsp;utf-8</span><br><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;will&nbsp;be&nbsp;enough,&nbsp;however,&nbsp;you&nbsp;may&nbsp;change&nbsp;it&nbsp;to&nbsp;any&nbsp;encoding&nbsp;format&nbsp;Neovim</span><br><span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;accepts,&nbsp;e.g.,&nbsp;utf-16.</span><br><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">en.utf-8</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">nvf</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">word_you_want_to_add</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(171,178,191);">=</span><span style="color:rgb(171,178,191);">&gt;</span>&nbsp;<span style="color:rgb(152,195,121);">$</span><span style="color:rgb(232,102,113);">out/spell/en-utf-8.add.spl</span><br></code></pre></body></html>
-</div>
-<p>Note that while adding a new language, you will still need to add the name of
-the language (e.g. "en") to the <a class="option-reference" href="options.html#option-vim.spellcheck.languages"><code class="nixos-option">vim.spellcheck.languages</code></a> list by name
-in order to enable spellchecking for the language. By default only <code>"en"</code> is in
-the list.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>attribute set of list of string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
-</body></html></dd>
-    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">en.utf-8</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">nvf</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">word_you_want_to_add</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span><span style="color:rgb(132,139,152);">;</span><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/spellcheck.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/spellcheck.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.spellcheck.ignoreTerminal">
-  <h3 class="option-name">
-    <a href="#option-vim.spellcheck.ignoreTerminal" class="option-anchor">vim.spellcheck.ignoreTerminal</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Disable spell checking in terminal.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/spellcheck.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/spellcheck.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.spellcheck.ignoredFiletypes">
-  <h3 class="option-name">
-    <a href="#option-vim.spellcheck.ignoredFiletypes" class="option-anchor">vim.spellcheck.ignoredFiletypes</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>A list of filetypes for which spellchecking will be disabled.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>You may use <code class="command">:echo &amp;filetype</code> in Neovim to find out the
-filetype for a specific buffer.</p>
-</div>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>list of string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">toggleterm</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
-</body></html></dd>
-    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">markdown</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">gitcommit</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/spellcheck.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/spellcheck.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.spellcheck.languages">
-  <h3 class="option-name">
-    <a href="#option-vim.spellcheck.languages" class="option-anchor">vim.spellcheck.languages</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>A list of languages that should be used for spellchecking.</p>
-<p>To add your own language files, you may place your <code>spell</code> directory in either
-<code class="file-path">$XDG_CONFIG_HOME/nvf</code> or in a path that is included in the
-<a class="option-reference" href="options.html#option-vim.additionalRuntimePaths"><code class="nixos-option">vim.additionalRuntimePaths</code></a> list provided by nvf.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>list of string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">en</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
-</body></html></dd>
-    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">en</span><span style="color:rgb(152,195,121);">"</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">de</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/spellcheck.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/spellcheck.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.spellcheck.programmingWordlist.enable">
-  <h3 class="option-name">
-    <a href="#option-vim.spellcheck.programmingWordlist.enable" class="option-anchor">vim.spellcheck.programmingWordlist.enable</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Whether to enable vim-dirtytalk, a wordlist for programmers containing
-common programming terms.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Enabling this option will unconditionally set
-<a class="option-reference" href="options.html#option-vim.spellcheck.enable"><code class="nixos-option">vim.spellcheck.enable</code></a> to true as vim-dirtytalk
-depends on spellchecking having been set up.</p>
-<p>Run <code class="command">:DirtytalkUpdate</code> on first use to download the spellfile.</p>
-</div>
-<p>.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
-</body></html></dd>
-    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/spellcheck.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/spellcheck.nix&gt;</a></code></dd>
   </dl>
 </div>

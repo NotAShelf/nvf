@@ -1,3 +1,106 @@
+<div class="option" id="option-vim.telescope.setupOpts.defaults.selection_caret">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.selection_caret" class="option-anchor">vim.telescope.setupOpts.defaults.selection_caret</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Character(s) to show in front of the current selection</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.selection_caret</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.selection_strategy">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.selection_strategy" class="option-anchor">vim.telescope.setupOpts.defaults.selection_strategy</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Determines how the cursor acts after each sort iteration.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "reset", "follow", "row", "closest", "none"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">reset</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.selection_strategy</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.set_env">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.set_env" class="option-anchor">vim.telescope.setupOpts.defaults.set_env</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Set an environment for term_previewer</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>attribute set of string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">COLORTERM</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">truecolor</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.set_env</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.sorting_strategy">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.sorting_strategy" class="option-anchor">vim.telescope.setupOpts.defaults.sorting_strategy</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Determines the direction "better" results are sorted towards.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>one of "descending", "ascending"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">ascending</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.sorting_strategy</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.vimgrep_arguments">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.vimgrep_arguments" class="option-anchor">vim.telescope.setupOpts.defaults.vimgrep_arguments</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Defines the command that will be used for <code>live_grep</code> and <code>grep_string</code> pickers.
+Make sure that color is set to <code>never</code> because telescope does not yet interpret color codes.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span>\<span style="color:rgb(152,195,121);">$</span><span style="color:rgb(152,195,121);">{pkgs.ripgrep.out}/bin/rg</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--color=never</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--no-heading</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--with-filename</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--line-number</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--column</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--smart-case</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--hidden</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--no-ignore</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.vimgrep_arguments</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.telescope.setupOpts.defaults.winblend">
+  <h3 class="option-name">
+    <a href="#option-vim.telescope.setupOpts.defaults.winblend" class="option-anchor">vim.telescope.setupOpts.defaults.winblend</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Pseudo-transparency of keymap hints floating window</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">0</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.telescope.setupOpts.defaults.winblend</code></dd>
+  </dl>
+</div>
 <div class="option" id="option-vim.telescope.setupOpts.pickers.find_files.find_command">
   <h3 class="option-name">
     <a href="#option-vim.telescope.setupOpts.pickers.find_files.find_command" class="option-anchor">vim.telescope.setupOpts.pickers.find_files.find_command</a>
@@ -1670,107 +1773,5 @@ in the docs.</p>
   </dl>
   <dl class="option-details option-sources">
     <dt>Declared in</dt><dd class="option-value"><code>vim.ui.colorizer.setupOpts.user_default_options</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.ui.colorizer.setupOpts.user_default_options.AARRGGBB">
-  <h3 class="option-name">
-    <a href="#option-vim.ui.colorizer.setupOpts.user_default_options.AARRGGBB" class="option-anchor">vim.ui.colorizer.setupOpts.user_default_options.AARRGGBB</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Colorize 0xAARRGGBB hex codes</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.ui.colorizer.setupOpts.user_default_options.AARRGGBB</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.ui.colorizer.setupOpts.user_default_options.RGB">
-  <h3 class="option-name">
-    <a href="#option-vim.ui.colorizer.setupOpts.user_default_options.RGB" class="option-anchor">vim.ui.colorizer.setupOpts.user_default_options.RGB</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Colorize #RGB hex codes</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.ui.colorizer.setupOpts.user_default_options.RGB</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.ui.colorizer.setupOpts.user_default_options.RRGGBB">
-  <h3 class="option-name">
-    <a href="#option-vim.ui.colorizer.setupOpts.user_default_options.RRGGBB" class="option-anchor">vim.ui.colorizer.setupOpts.user_default_options.RRGGBB</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Colorize #RRGGBB hex codes</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.ui.colorizer.setupOpts.user_default_options.RRGGBB</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.ui.colorizer.setupOpts.user_default_options.RRGGBBAA">
-  <h3 class="option-name">
-    <a href="#option-vim.ui.colorizer.setupOpts.user_default_options.RRGGBBAA" class="option-anchor">vim.ui.colorizer.setupOpts.user_default_options.RRGGBBAA</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Colorize #RRGGBBAA hex codes</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.ui.colorizer.setupOpts.user_default_options.RRGGBBAA</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.ui.colorizer.setupOpts.user_default_options.always_update">
-  <h3 class="option-name">
-    <a href="#option-vim.ui.colorizer.setupOpts.user_default_options.always_update" class="option-anchor">vim.ui.colorizer.setupOpts.user_default_options.always_update</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Update color values even if buffer is not focused. Example use: cmp_menu, cmp_docs</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.ui.colorizer.setupOpts.user_default_options.always_update</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.ui.colorizer.setupOpts.user_default_options.css">
-  <h3 class="option-name">
-    <a href="#option-vim.ui.colorizer.setupOpts.user_default_options.css" class="option-anchor">vim.ui.colorizer.setupOpts.user_default_options.css</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.ui.colorizer.setupOpts.user_default_options.css</code></dd>
   </dl>
 </div>

@@ -1,3 +1,121 @@
+<div class="option" id="option-vim.mini.indentscope.setupOpts.ignore_filetypes">
+  <h3 class="option-name">
+    <a href="#option-vim.mini.indentscope.setupOpts.ignore_filetypes" class="option-anchor">vim.mini.indentscope.setupOpts.ignore_filetypes</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>File types to ignore for illuminate</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">help</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">neo-tree</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">notify</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">NvimTree</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">TelescopePrompt</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.mini.indentscope.setupOpts.ignore_filetypes</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.mini.jump.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.mini.jump.enable" class="option-anchor">vim.mini.jump.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable mini.jump.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/mini/jump/jump.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/mini/jump/jump.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.mini.jump.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.mini.jump.setupOpts" class="option-anchor">vim.mini.jump.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of mini.jump.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/mini/jump/jump.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/mini/jump/jump.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.mini.jump2d.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.mini.jump2d.enable" class="option-anchor">vim.mini.jump2d.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable mini.jump2d.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/mini/jump2d/jump2d.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/mini/jump2d/jump2d.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.mini.jump2d.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.mini.jump2d.setupOpts" class="option-anchor">vim.mini.jump2d.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of mini.jump2d.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/mini/jump2d/jump2d.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/mini/jump2d/jump2d.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.mini.map.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.mini.map.enable" class="option-anchor">vim.mini.map.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable mini.map.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/mini/map/map.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/mini/map/map.nix&gt;</a></code></dd>
+  </dl>
+</div>
 <div class="option" id="option-vim.mini.map.setupOpts">
   <h3 class="option-name">
     <a href="#option-vim.mini.map.setupOpts" class="option-anchor">vim.mini.map.setupOpts</a>
@@ -1798,126 +1916,6 @@ value in the <code>{name = value;}</code> pair passed to the option.</p>
     <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
 </body></html></dd>
     <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">visualbell</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/wrapper/rc/options.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.options.autoindent">
-  <h3 class="option-name">
-    <a href="#option-vim.options.autoindent" class="option-anchor">vim.options.autoindent</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Enable auto indent</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/wrapper/rc/options.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.options.cmdheight">
-  <h3 class="option-name">
-    <a href="#option-vim.options.cmdheight" class="option-anchor">vim.options.cmdheight</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Height of the command pane</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">1</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/wrapper/rc/options.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.options.cursorlineopt">
-  <h3 class="option-name">
-    <a href="#option-vim.options.cursorlineopt" class="option-anchor">vim.options.cursorlineopt</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Highlight the text line of the cursor with CursorLine hl-CursorLine</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>one of "line", "screenline", "number", "both"</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">line</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/wrapper/rc/options.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.options.mouse">
-  <h3 class="option-name">
-    <a href="#option-vim.options.mouse" class="option-anchor">vim.options.mouse</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Set modes for mouse support.</p>
-<ul>
-<li>n - normal</li>
-<li>v - visual</li>
-<li>i - insert</li>
-<li>c - command-line</li>
-<li>h - all modes when editing a help file</li>
-<li>a - all modes</li>
-<li>r - for hit-enter and more-prompt prompt</li>
-</ul>
-<p>This option takes a string to ensure proper conversion to the corresponding Lua type.
-As such, we do not check the value passed to this option. Please ensure that any value
-that is set here is a valid value as per <a href="https://neovim.io/doc/user/options.html#'mouse'%22">neovim documentation</a>.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">nvi</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">a</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/wrapper/rc/options.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.options.shiftwidth">
-  <h3 class="option-name">
-    <a href="#option-vim.options.shiftwidth" class="option-anchor">vim.options.shiftwidth</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Number of spaces to use for each step of (auto)indent. Used for
-<code class="nixos-option">cindent</code>, <code>&gt;&gt;</code>, <code>&lt;&lt;</code>, etc.</p>
-<p>When zero the <code class="nixos-option">tabstop</code> value will be used.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">8</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/wrapper/rc/options.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.options.signcolumn">
-  <h3 class="option-name">
-    <a href="#option-vim.options.signcolumn" class="option-anchor">vim.options.signcolumn</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Whether to show the sign column</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">yes</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">no</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
 </body></html></dd>
   </dl>
   <dl class="option-details option-sources">
