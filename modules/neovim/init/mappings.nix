@@ -5,8 +5,8 @@
 }: let
   inherit (lib.modules) mkMerge;
   inherit (lib.options) mkOption literalMD;
-  inherit (lib.types) either str listOf attrsOf nullOr submodule;
-  inherit (lib.attrsets) mapAttrsToList;
+  inherit (lib.types) either str luaInline oneOf listOf attrsOf nullOr submodule;
+  inherit (lib.attrsets) mapAttrs mapAttrsToList;
   inherit (lib.lists) flatten;
   inherit (lib.trivial) pipe;
   inherit (lib.options) mkEnableOption;
@@ -23,7 +23,7 @@
     };
 
     action = mkOption {
-      type = str;
+      type = oneOf [luaInline str];
       description = "The command to execute.";
     };
 
@@ -39,6 +39,16 @@
     unique = mkBool false "Whether to fail if the map is already defined. Equivalent to adding <unique> to a map.";
     noremap = mkBool true "Whether to use the 'noremap' variant of the command, ignoring any custom mappings on the defined action. It is highly advised to keep this on, which is the default.";
   };
+
+  backwardsCompat = instance:
+    if builtins.isString instance.action
+    then instance
+    else
+      instance
+      // {
+        action = instance.action.expr;
+        lua = true;
+      };
 
   mapType = submodule {
     options =
@@ -64,6 +74,7 @@
     mkOption {
       description = "Mappings for ${mode} mode";
       visible = false;
+      apply = mapAttrs (_: backwardsCompat);
       type = attrsOf (submodule {
         options = mapConfigOptions;
       });
@@ -95,6 +106,7 @@ in {
 
     keymaps = mkOption {
       type = listOf mapType;
+      apply = map backwardsCompat;
       description = "Custom keybindings.";
       example = ''
         vim.keymaps = [
