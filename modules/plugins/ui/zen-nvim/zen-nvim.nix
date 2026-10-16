@@ -28,6 +28,10 @@ in {
             {filetype = "help";}
           ]
           ++ optional vim.git.vim-fugitive.enable {filetype = "fugitive";};
+        defaultText = ''
+          Components for commit messages, manual pages, help buffers, and enabled
+          Fugitive buffers are added to the top layout.
+        '';
         description = ''
           Top-side buffer integrations. Includes commit messages, manual pages,
           help buffers, and Fugitive when enabled. An explicit list replaces
@@ -52,6 +56,10 @@ in {
               "dapui_breakpoints"
             ];
           };
+        defaultText = ''
+          Components for filetypes and, if enabled, nvim-dap-ui watches, scopes,
+          stacks, and breakpoints are added to the right layout.
+        '';
         description = ''
           Right-side buffer integrations. Includes DAP UI panes when enabled
           and a wildcard minimum width of 46 columns. An explicit list replaces
@@ -68,6 +76,11 @@ in {
           ++ optional (vim.lsp.enable && vim.lsp.trouble.enable) {filetype = "trouble";}
           ++ optional vim.ui.noice.enable {filetype = "noice";}
           ++ optional (vim.languages.http.enable && vim.languages.http.extensions.kulala-nvim.enable) {filetype = "kulala_ui";};
+        defaultText = ''
+          If their respective modules are enabled, components for quickfix,
+          nvim-dap REPL, nvim-dap-ui console, trouble.nvim, noice, and kulala.nvim
+          are added to the bottom layout.
+        '';
         description = ''
           Bottom-side buffer integrations. Includes quickfix buffers and
           enabled DAP, DAP UI, Trouble, Noice, and Kulala panes. An explicit list
@@ -87,6 +100,10 @@ in {
           ++ optional vim.git.vim-fugitive.enable {filetype = "fugitiveblame";}
           ++ optional vim.filetree.neo-tree.enable {filetype = "neo-tree";}
           ++ optional vim.utility.undotree.enable {filetype = ["undotree" "diff"];};
+        defaultText = ''
+          Components for filetypes and, if enabled, Fugitive blame, Neo-tree, and
+          Undotree panes are added to the left layout.
+        '';
         description = ''
           Left-side buffer integrations. Includes enabled Fugitive, Neo-tree,
           and Undotree panes and a wildcard minimum width of 46 columns.
