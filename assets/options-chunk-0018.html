@@ -1,3 +1,30 @@
+<div class="option" id="option-vim.options">
+  <h3 class="option-name">
+    <a href="#option-vim.options" class="option-anchor">vim.options</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>A freeform attribute set containing vim options to be set as early as possible.
+If populated, this option will set vim options in the built <code class="nixos-option">luaConfigRC</code>
+after <code>basic</code> and before <code>pluginConfigs</code> DAG entries.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>{foo = "bar";}</code> will set <code>vim.opt.foo</code> to "bar", where the type of
+<code>bar</code> in the resulting Lua value will be inferred from the type of the
+value in the <code>{name = value;}</code> pair passed to the option.</p>
+</div>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>open submodule of attribute set of anything</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">visualbell</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(209,154,102);">true</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/wrapper/rc/options.nix&gt;</a></code></dd>
+  </dl>
+</div>
 <div class="option" id="option-vim.options.autoindent">
   <h3 class="option-name">
     <a href="#option-vim.options.autoindent" class="option-anchor">vim.options.autoindent</a>
@@ -1787,24 +1814,5 @@ in the docs.</p>
   </dl>
   <dl class="option-details option-sources">
     <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/snippets/luasnip/luasnip.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/snippets/luasnip/luasnip.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.snippets.luasnip.setupOpts.enable_autosnippets">
-  <h3 class="option-name">
-    <a href="#option-vim.snippets.luasnip.setupOpts.enable_autosnippets" class="option-anchor">vim.snippets.luasnip.setupOpts.enable_autosnippets</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Whether to enable autosnippets.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
-</body></html></dd>
-    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.snippets.luasnip.setupOpts.enable_autosnippets</code></dd>
   </dl>
 </div>

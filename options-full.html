@@ -246,6 +246,14 @@
   </li>
   
   <li>
+    <a href='#option-vim.appname' title="vim.appname">
+      vim.appname
+      
+      
+    </a>
+  </li>
+  
+  <li>
     <a href='#option-vim.bell' title="vim.bell">
       vim.bell
       
@@ -22567,6 +22575,27 @@ things you would generally place in your <code class="file-path">$HOME/.config/n
     <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
 </body></html></dd>
     <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Absolute&nbsp;path,&nbsp;as&nbsp;a&nbsp;string.&nbsp;This&nbsp;is&nbsp;the&nbsp;impure&nbsp;option.</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">$HOME/.config/nvim-extra</span><span style="color:rgb(152,195,121);">"</span><br><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Relative&nbsp;path&nbsp;inside&nbsp;your&nbsp;configuration.&nbsp;If&nbsp;your&nbsp;config</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;is&nbsp;version&nbsp;controlled,&nbsp;then&nbsp;this&nbsp;is&nbsp;pure&nbsp;and&nbsp;reproducible.</span><br>&nbsp;&nbsp;<span style="color:rgb(232,102,113);">./nvim</span><br><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;Source&nbsp;type&nbsp;path.&nbsp;This&nbsp;pure&nbsp;and&nbsp;reproducible.</span><br>&nbsp;&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;See&nbsp;`:doc&nbsp;builtins.path`&nbsp;inside&nbsp;a&nbsp;Nix&nbsp;repl&nbsp;for&nbsp;more&nbsp;options.</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">(</span><span style="color:rgb(209,154,102);">builtins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">path</span>&nbsp;<span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">path</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(232,102,113);">./runtime</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;this&nbsp;must&nbsp;be&nbsp;a&nbsp;relative&nbsp;path</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:rgb(86,182,194);">name</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">nvim-runtime</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span>&nbsp;<span style="color:rgb(92,99,112);font-style: italic;">#&nbsp;name&nbsp;is&nbsp;arbitrary</span><br>&nbsp;&nbsp;<span style="color:rgb(132,139,152);">}</span><span style="color:rgb(132,139,152);">)</span><br><span style="color:rgb(132,139,152);">]</span><br></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/wrapper/rc/options.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/wrapper/rc/options.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.appname">
+  <h3 class="option-name">
+    <a href="#option-vim.appname" class="option-anchor">vim.appname</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Sets the <code class="env-var">NVIM_APPNAME</code> variable.</p>
+<p>In traditional Neovim setups, standard directories can be further configured
+by the <code class="env-var">NVIM_APPNAME</code> environment variable. This variable controls the
+sub-directory that Nvim will read from (and auto-create) in each of the base
+directories. See <code>:help $NVIM_APPNAME</code> for more details.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">nvf</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
 </body></html></dd>
   </dl>
   <dl class="option-details option-sources">

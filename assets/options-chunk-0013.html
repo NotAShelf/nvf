@@ -1,3 +1,22 @@
+<div class="option" id="option-vim.languages.sql.extraDiagnostics.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.sql.extraDiagnostics.enable" class="option-anchor">vim.languages.sql.extraDiagnostics.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable extra SQL diagnostics via nvim-lint.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableExtraDiagnostics</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/sql.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/sql.nix&gt;</a></code></dd>
+  </dl>
+</div>
 <div class="option" id="option-vim.languages.sql.extraDiagnostics.types">
   <h3 class="option-name">
     <a href="#option-vim.languages.sql.extraDiagnostics.types" class="option-anchor">vim.languages.sql.extraDiagnostics.types</a>
@@ -1802,24 +1821,5 @@ the plugin.</p>
   </dl>
   <dl class="option-details option-sources">
     <dt>Declared in</dt><dd class="option-value"><code>vim.languages.typst.extensions.typst-preview-nvim.setupOpts.extra_args</code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.languages.typst.extensions.typst-preview-nvim.setupOpts.open_cmd">
-  <h3 class="option-name">
-    <a href="#option-vim.languages.typst.extensions.typst-preview-nvim.setupOpts.open_cmd" class="option-anchor">vim.languages.typst.extensions.typst-preview-nvim.setupOpts.open_cmd</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Custom format string to open the output link provided with <code>%s</code></p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
-</body></html></dd>
-    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">firefox&nbsp;%s&nbsp;-P&nbsp;typst-preview&nbsp;--class&nbsp;typst-preview</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code>vim.languages.typst.extensions.typst-preview-nvim.setupOpts.open_cmd</code></dd>
   </dl>
 </div>
