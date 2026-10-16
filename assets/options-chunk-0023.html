@@ -1,3 +1,116 @@
+<div class="option" id="option-vim.utility.csvview.setupOpts.view.spacing">
+  <h3 class="option-name">
+    <a href="#option-vim.utility.csvview.setupOpts.view.spacing" class="option-anchor">vim.utility.csvview.setupOpts.view.spacing</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Spacing between columns</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">2</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.utility.csvview.setupOpts.view.spacing</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.utility.csvview.setupOpts.view.sticky_header.enabled">
+  <h3 class="option-name">
+    <a href="#option-vim.utility.csvview.setupOpts.view.sticky_header.enabled" class="option-anchor">vim.utility.csvview.setupOpts.view.sticky_header.enabled</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Keep the header row visible at the top while scrolling</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.utility.csvview.setupOpts.view.sticky_header.enabled</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.utility.diffview-nvim.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.utility.diffview-nvim.enable" class="option-anchor">vim.utility.diffview-nvim.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable diffview-nvim: cycle through diffs for all modified files for any git rev.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/diffview/diffview.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/diffview/diffview.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.utility.diffview-nvim.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.utility.diffview-nvim.setupOpts" class="option-anchor">vim.utility.diffview-nvim.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of Fidget.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/diffview/diffview.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/diffview/diffview.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.utility.direnv.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.utility.direnv.enable" class="option-anchor">vim.utility.direnv.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable syncing nvim shell environment with direnv's using <code>direnv.vim</code>.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/direnv/direnv.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/direnv/direnv.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.utility.grug-far-nvim.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.utility.grug-far-nvim.enable" class="option-anchor">vim.utility.grug-far-nvim.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable grug-far.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/grug-far-nvim/grug-far-nvim.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/grug-far-nvim/grug-far-nvim.nix&gt;</a></code></dd>
+  </dl>
+</div>
 <div class="option" id="option-vim.utility.grug-far-nvim.setupOpts">
   <h3 class="option-name">
     <a href="#option-vim.utility.grug-far-nvim.setupOpts" class="option-anchor">vim.utility.grug-far-nvim.setupOpts</a>
@@ -1741,108 +1854,6 @@ in the docs.</p>
   <dl class="option-details">
     <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
     <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/preview/markdown-preview/markdown-preview.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/preview/markdown-preview/markdown-preview.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.utility.preview.markdownPreview.autoStart">
-  <h3 class="option-name">
-    <a href="#option-vim.utility.preview.markdownPreview.autoStart" class="option-anchor">vim.utility.preview.markdownPreview.autoStart</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Automatically open the preview window after entering a Markdown buffer</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/preview/markdown-preview/markdown-preview.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/preview/markdown-preview/markdown-preview.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.utility.preview.markdownPreview.broadcastServer">
-  <h3 class="option-name">
-    <a href="#option-vim.utility.preview.markdownPreview.broadcastServer" class="option-anchor">vim.utility.preview.markdownPreview.broadcastServer</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Allow for outside and network wide connections</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/preview/markdown-preview/markdown-preview.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/preview/markdown-preview/markdown-preview.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.utility.preview.markdownPreview.customIP">
-  <h3 class="option-name">
-    <a href="#option-vim.utility.preview.markdownPreview.customIP" class="option-anchor">vim.utility.preview.markdownPreview.customIP</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>IP-address to use</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/preview/markdown-preview/markdown-preview.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/preview/markdown-preview/markdown-preview.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.utility.preview.markdownPreview.customPort">
-  <h3 class="option-name">
-    <a href="#option-vim.utility.preview.markdownPreview.customPort" class="option-anchor">vim.utility.preview.markdownPreview.customPort</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Port to use</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/preview/markdown-preview/markdown-preview.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/preview/markdown-preview/markdown-preview.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.utility.preview.markdownPreview.filetypes">
-  <h3 class="option-name">
-    <a href="#option-vim.utility.preview.markdownPreview.filetypes" class="option-anchor">vim.utility.preview.markdownPreview.filetypes</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Allowed filetypes</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>list of string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">markdown</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/utility/preview/markdown-preview/markdown-preview.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/utility/preview/markdown-preview/markdown-preview.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.utility.preview.markdownPreview.lazyRefresh">
-  <h3 class="option-name">
-    <a href="#option-vim.utility.preview.markdownPreview.lazyRefresh" class="option-anchor">vim.utility.preview.markdownPreview.lazyRefresh</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Only update preview when saving or leaving insert mode</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
 </body></html></dd>
   </dl>
   <dl class="option-details option-sources">
