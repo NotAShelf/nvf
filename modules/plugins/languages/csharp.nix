@@ -186,7 +186,15 @@ in {
       vim = {
         startPlugins = ["roslyn-nvim"];
         pluginRC.roslyn-nvim = entryAnywhere "require('roslyn').setup(${toLuaObject cfg.extensions.roslyn-nvim.setupOpts})";
-        lsp.servers.roslyn-ls.enable = false;
+        lsp.servers = {
+          roslyn-ls.enable = false;
+
+          # NOTE: `roslyn-nvim` uses `roslyn` instead of `roslyn-ls`
+          roslyn = {
+            enable = true;
+            cmd = config.vim.lsp.servers.roslyn-ls.cmd;
+          };
+        };
         extraPackages = with pkgs; [roslyn-ls];
       };
     })
