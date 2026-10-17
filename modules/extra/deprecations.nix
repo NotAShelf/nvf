@@ -77,5 +77,37 @@ in {
     [
       (mkRenamedOptionModule ["vim" "statusline" "lualine" "icons" "enable"] ["vim" "statusline" "lualine" "setupOpts" "options" "icons_enabled"])
     ]
+
+    # 2026-10-24
+    [
+      ({config, ...}: let
+        setupOpts = config.vim.languages.csharp.extensions.roslyn-nvim.setupOpts;
+      in {
+        # `setupOpts` is `luaInline or (open submodule)`, so the old key can't be
+        # declared as a removed option. Check the value instead.
+        config.assertions = [
+          {
+            assertion =
+              !(
+                builtins.isAttrs setupOpts
+                && (setupOpts._type or null) != "lua-inline"
+                && setupOpts ? extensions
+              );
+            message = ''
+              The option definition `vim.languages.csharp.extensions.roslyn-nvim.setupOpts.extensions` no longer has any effect; please remove it.
+              To pass custom Roslyn extensions, override the server command and include one --extension=/path/to/extension.dll argument per extension.
+
+              ```nix
+              vim.lsp.servers.roslyn.cmd = lib.mkDefault (with pkgs; [
+                (lib.getExe roslyn-ls)
+                "--stdio"
+                "--extension=/path/to/Roslynator.dll"
+              ]);
+              ```
+            '';
+          }
+        ];
+      })
+    ]
   ];
 }
