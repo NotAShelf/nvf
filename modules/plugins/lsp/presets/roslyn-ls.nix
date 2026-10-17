@@ -27,6 +27,8 @@ in {
           'Information',
           '--extensionLogDirectory',
           vim.fs.joinpath(vim.uv.os_tmpdir(), 'roslyn_ls/logs'),
+          '--clientProcessId',
+          tostring(vim.uv.os_getpid()),
           '--stdio',
         }
       '';
