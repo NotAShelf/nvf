@@ -184,15 +184,6 @@ in {
 
     (mkIf cfg.lsp.enable {
       vim = {
-        luaConfigRC.razorFileTypes = ''
-          -- Set unknown file types!
-          vim.filetype.add {
-            extension = {
-              razor = "razor",
-              cshtml = "razor",
-            },
-          }
-        '';
         lsp = {
           presets = genAttrs cfg.lsp.servers (_: {enable = true;});
           servers = genAttrs cfg.lsp.servers (_: {
