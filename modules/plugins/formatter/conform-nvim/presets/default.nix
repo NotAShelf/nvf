@@ -26,6 +26,7 @@
     ./format-r.nix
     ./fourmolu.nix
     ./gawk.nix
+    ./gdscript-formatter.nix
     ./gersemi.nix
     ./gofmt.nix
     ./gofumpt.nix

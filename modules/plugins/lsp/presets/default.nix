@@ -22,6 +22,7 @@
     ./emmet-ls.nix
     ./fish-lsp.nix
     ./fsautocomplete.nix
+    ./gdscript.nix
     ./gitlab-ci-ls.nix
     ./gleam.nix
     ./glsl_analyzer.nix
