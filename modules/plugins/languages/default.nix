@@ -24,6 +24,7 @@ in {
     ./fish.nix
     ./fluent.nix
     ./fsharp.nix
+    ./gdscript.nix
     ./gettext.nix
     ./gleam.nix
     ./glsl.nix

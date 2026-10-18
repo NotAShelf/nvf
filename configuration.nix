@@ -96,6 +96,7 @@ isMaximal: {
       fish.enable = false;
       fluent.enable = false;
       fsharp.enable = false;
+      gdscript.enable = false;
       gettext.enable = false;
       gleam.enable = false;
       glsl.enable = false;
