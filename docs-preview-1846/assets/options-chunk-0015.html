@@ -1432,41 +1432,6 @@ Default <code>filetypes = [ ]</code>.</p>
     <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/gdscript.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/gdscript.nix&gt;</a></code></dd>
   </dl>
 </div>
-<div class="option" id="option-vim.lsp.presets.gdscript.defaultPort">
-  <h3 class="option-name">
-    <a href="#option-vim.lsp.presets.gdscript.defaultPort" class="option-anchor">vim.lsp.presets.gdscript.defaultPort</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>The default Godot LSP remote port.</p>
-<p>Can be overridden at runtime with the <code>GDSCRIPT_PORT</code> environment variable.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>16 bit unsigned integer; between 0 and 65535 (both inclusive)</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">6005</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/gdscript.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/gdscript.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.lsp.presets.gdscript.host">
-  <h3 class="option-name">
-    <a href="#option-vim.lsp.presets.gdscript.host" class="option-anchor">vim.lsp.presets.gdscript.host</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Godot LSP remote host</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">127.0.0.1</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/gdscript.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/gdscript.nix&gt;</a></code></dd>
-  </dl>
-</div>
 <div class="option" id="option-vim.lsp.presets.gitlab-ci-ls.enable">
   <h3 class="option-name">
     <a href="#option-vim.lsp.presets.gitlab-ci-ls.enable" class="option-anchor">vim.lsp.presets.gitlab-ci-ls.enable</a>
@@ -1997,5 +1962,49 @@ Default <code>filetypes = [ ]</code>.</p>
   </dl>
   <dl class="option-details option-sources">
     <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/nixd.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/nixd.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.nushell.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.nushell.enable" class="option-anchor">vim.lsp.presets.nushell.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the NuShell Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.nushell</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/nushell.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/nushell.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.lsp.presets.ocaml-lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.lsp.presets.ocaml-lsp.enable" class="option-anchor">vim.lsp.presets.ocaml-lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the OCaml Language Server.
+Default <code>filetypes = [ ]</code>.</p>
+<p>Use <code class="nixos-option">vim.lsp.servers.ocaml-lsp</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/lsp/presets/ocaml-lsp.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/lsp/presets/ocaml-lsp.nix&gt;</a></code></dd>
   </dl>
 </div>
