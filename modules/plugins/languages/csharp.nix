@@ -12,7 +12,7 @@
   inherit (config.vim.lib) mkMappingOption;
   inherit (lib.types) enum listOf;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption luaInline;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryAnywhere;
   inherit (lib.nvim.binds) addDescriptionsToMappings;
@@ -40,14 +40,14 @@ in {
 
         ::: {.note}
         This feature will not work if the .NET SDK is not installed.
-        Both `roslyn-ls` (with `roslyn-nvim`) and `csharp_ls` require the .NET SDK to function properly with Razor.
+        Both `roslyn-ls` and `csharp_ls` require the .NET SDK to function properly with Razor.
         Ensure that the .NET SDK is installed.
 
         Check for version compatibility for optimal performance.
         :::
 
         ::: {.warning}
-        At the moment, only `roslyn-ls`(with roslyn-nvim) provides full Razor support.
+        At the moment, only `roslyn-ls` provides full Razor support.
         `csharp_ls` is limited to `.cshtml` files.
         :::
       '';
@@ -76,33 +76,6 @@ in {
               '';
               type = enum ["auto" "roslyn" "off"];
               default = "auto";
-            };
-            extensions.razor = {
-              enabled =
-                (mkEnableOption "Additional roslyn extensions (for example Roslynator/Razor)")
-                // {default = true;};
-              config = mkOption {
-                description = "Configuration for the additional roslyn extensions";
-                type = luaInline;
-                default = let
-                  pkg = pkgs.vscode-extensions.ms-dotnettools.csharp;
-                  pluginRoot = "${pkg}/share/vscode/extensions/ms-dotnettools.csharp";
-                  razorExtension = "${pluginRoot}/.razorExtension/Microsoft.VisualStudioCode.RazorExtension.dll";
-                  razorSourceGenerator = "${pluginRoot}/.razorExtension/Microsoft.CodeAnalysis.Razor.Compiler.dll";
-                  razorDesignTimePath = "${pluginRoot}/.razorExtension/Targets/Microsoft.NET.Sdk.Razor.DesignTime.targets";
-                in
-                  mkLuaInline ''
-                    function()
-                      return {
-                        path = '${razorExtension}',
-                        args = {
-                          '--razorSourceGenerator=${razorSourceGenerator}',
-                          '--razorDesignTimePath=${razorDesignTimePath}',
-                        },
-                      }
-                    end
-                  '';
-              };
             };
           };
         };
@@ -184,15 +157,6 @@ in {
 
     (mkIf cfg.lsp.enable {
       vim = {
-        luaConfigRC.razorFileTypes = ''
-          -- Set unknown file types!
-          vim.filetype.add {
-            extension = {
-              razor = "razor",
-              cshtml = "razor",
-            },
-          }
-        '';
         lsp = {
           presets = genAttrs cfg.lsp.servers (_: {enable = true;});
           servers = genAttrs cfg.lsp.servers (_: {
@@ -210,6 +174,23 @@ in {
       };
     })
 
+    (mkIf (cfg.extensions.roslyn-nvim.setupOpts ? extensions) {
+      warnings = [
+        ''
+          Stop using `vim.languages.roslyn-nvim.setupOpts.extensions`, it is deprecated.
+          To pass custom Roslyn extensions, override the server command and include one --extension=/path/to/extension.dll argument per extension.
+
+          ```nix
+          vim.lsp.servers.roslyn.cmd = lib.mkDefault (with pkgs; [
+            (lib.getExe roslyn-ls)
+            "--stdio"
+            "--extension=/path/to/Roslynator.dll"
+          ]);
+          ```
+        ''
+      ];
+    })
+
     {
       assertions = [
         (mkAlertForMisuseOfExclusiveLspExtension "roslyn-nvim" "roslyn-ls")
@@ -222,7 +203,15 @@ in {
       vim = {
         startPlugins = ["roslyn-nvim"];
         pluginRC.roslyn-nvim = entryAnywhere "require('roslyn').setup(${toLuaObject cfg.extensions.roslyn-nvim.setupOpts})";
-        lsp.servers.roslyn-ls.enable = false;
+        lsp.servers = {
+          roslyn-ls.enable = false;
+
+          # NOTE: `roslyn-nvim` uses `roslyn` instead of `roslyn-ls`
+          roslyn = {
+            enable = true;
+            cmd = config.vim.lsp.servers.roslyn-ls.cmd;
+          };
+        };
         extraPackages = with pkgs; [roslyn-ls];
       };
     })
