@@ -8,6 +8,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) nullOr str enum float;
   inherit (lib.nvim.types) mkPluginSetupOption;
+  inherit (lib.meta) getExe;
   inherit (config.vim.lib) mkMappingOption;
 
   cfg = config.vim.assistant.copilot;
@@ -34,7 +35,7 @@ in {
       server = {
         custom_server_filepath = mkOption {
           type = str;
-          default = "${lib.getExe pkgs.copilot-language-server}";
+          default = getExe pkgs.copilot-language-server;
           description = ''
             Path to the GitHub Copilot language server executable.
             Recommended to leave as default.
