@@ -1,3 +1,20 @@
+<div class="option" id="option-vim.session.persisted.mappings.load">
+  <h3 class="option-name">
+    <a href="#option-vim.session.persisted.mappings.load" class="option-anchor">vim.session.persisted.mappings.load</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>load session</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;qs</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/session/persisted/persisted.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/session/persisted/persisted.nix&gt;</a></code></dd>
+  </dl>
+</div>
 <div class="option" id="option-vim.session.persisted.mappings.select">
   <h3 class="option-name">
     <a href="#option-vim.session.persisted.mappings.select" class="option-anchor">vim.session.persisted.mappings.select</a>
@@ -1708,28 +1725,6 @@ if it's empty.</p>
     <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">.</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
 </body></html></dd>
     <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&nbsp;&gt;&nbsp;</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/statusline/lualine/lualine.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/statusline/lualine/lualine.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.statusline.lualine.setupOpts">
-  <h3 class="option-name">
-    <a href="#option-vim.statusline.lualine.setupOpts" class="option-anchor">vim.statusline.lualine.setupOpts</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of Lualine.</p>
-<p>Accepts either an attribute set of options, or a raw Lua expression
-via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
-expression is passed verbatim as the argument to <code>setup()</code>.</p>
-<p>You can pass in any additional options even if they're not listed
-in the docs.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
 </body></html></dd>
   </dl>
   <dl class="option-details option-sources">
