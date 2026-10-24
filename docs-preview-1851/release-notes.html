@@ -214,6 +214,7 @@ top of Astro's Rust compiler. Formatting output may differ from 0.x; see the
 </li>
 </ul>
 <h2 id="sec-release-26-12-changelog">Changelog</h2>
+<p><a href="https://github.com/sand4rt">sand4rt</a>:</p>
 <ul>
 <li>
 <p>Added <a href="https://github.com/emrearmagan/atlas.nvim">atlas.nvim</a> under
@@ -223,7 +224,9 @@ reviewing pull requests, browsing repositories, and managing issues.</p>
 <li>
 <p>Added <a href="https://github.com/sand4rt/zen.nvim">zen.nvim</a> under <code>vim.ui.zen-nvim</code>
 with <code>enable</code> and <code>setupOpts</code> for automatic buffer centering and side-buffer
-layouts.</p>
+layouts. Defaults include built-in help, manual, commit, and quickfix buffers,
+plus enabled Fugitive, Neo-tree, Undotree, DAP/DAP UI, Trouble, Noice, and
+Kulala integrations. Explicit <code>setupOpts</code> side lists override these layouts.</p>
 </li>
 </ul>
 <p><a href="https://github.com/notashelf">NotAShelf</a></p>
@@ -271,7 +274,24 @@ preset itself, shrinking their closures from hundreds of megabytes to a few.</li
 <li><code>asciidoc</code> with
 <ul>
 <li>Tree-sitter</li>
-<li>Injected Formatter</li>
+<li>Injected formatter</li>
+</ul>
+</li>
+<li><code>protobuf</code> with
+<ul>
+<li>Tree-sitter</li>
+<li><code>buf</code> formatter</li>
+<li>Injected formatter</li>
+<li><code>buf_lint</code> diagnostics</li>
+<li><code>protolint</code> diagnostics</li>
+<li><code>buf</code> LSP</li>
+<li><code>protols</code> LSP</li>
+</ul>
+</li>
+<li><code>powershell</code> with
+<ul>
+<li>Tree-sitter</li>
+<li><code>powershell-editor-services</code> LSP</li>
 </ul>
 </li>
 </ul>
@@ -402,6 +422,30 @@ error at runtime.</p>
 <p><code>languages.lua.extensions.lazydev</code>: fix mismatch between Lua LSP client names
 expected by <code>lazydev.nvim</code> and those defined in nvf.</p>
 </li>
+</ul>
+<p><a href="https://github.com/AugustDeer">AugustDeer</a>:</p>
+<ul>
+<li><code>themes/kanagawa</code>: add <code>kanagawa</code> theme, which is inspired by the colors of
+the famous painting by Katsushika Hokusai.</li>
+</ul>
+<p><a href="https://redirects.Tygo.van.den.Hurk.dev/github/personal">Tygo van den Hurk</a>:</p>
+<ul>
+<li>Widened the type for <code>vim.keymaps.*.action</code> to string and lua. This allows for
+inferencing the <code>vim.keymaps.*.lua</code> option.</li>
+</ul>
+<p><a href="https://github.com/Gerg-L">Gerg-L</a>:</p>
+<ul>
+<li>Add <code>vim.appname</code> option to set <code>NVIM_APPNAME</code></li>
+</ul>
+<p><a href="https://github.com/myume">myume</a>:</p>
+<ul>
+<li>Added GDScript support via <code>languages.gdscript</code>, including treesitter,
+formatting, and LSP integration</li>
+</ul>
+<p><a href="https://github.com/kbnopro">kbnopro</a>:</p>
+<ul>
+<li>Added <code>vim.assistant.copilot.setupOpts.server.custom_server_filepath</code> to avoid
+downloading executable in NixOS</li>
 </ul>
 <h1 id="sec-release-26-07">Release 26.07</h1>
 <h2 id="sec-release-26-07-breaking-changes">Breaking changes</h2>
