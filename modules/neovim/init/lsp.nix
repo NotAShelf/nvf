@@ -6,7 +6,7 @@
   inherit (builtins) filter;
   inherit (lib.modules) mkIf mkMerge mkDefault;
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) attrsOf;
+  inherit (lib.types) attrsOf enum;
   inherit (lib.strings) concatLines;
   inherit (lib.attrsets) mapAttrsToList attrNames filterAttrs;
   inherit (lib.generators) mkLuaInline;
@@ -68,6 +68,29 @@ in {
           You may review the generated configuration by running {command}`nvf-print-config`
           in a shell. Please see {command}`:help lsp-config` for more details
           on the underlying API.
+        '';
+      };
+
+      vendorPrograms = mkOption {
+        type = enum ["path" "exact" "never"];
+        default = "exact";
+        description = ''
+          How NVF should install LSP packages.
+
+          - "path": Append program paths to PATH, this means other programs on
+            your system or devshell will take precedence, so the vendored
+            package only acts as a fallback when you have none installed.
+          - "exact": Commands are passed as full path to the program in the nix
+            store. Programs on your PATH are never used.
+          - "never": Never vendor LSP packages. Language servers are searched
+            for in PATH
+
+          "Exact" is generally preferred but for some languages/projects, you
+          may need a different version of your language server per-project, in
+          which case, "path" will allow you to do so.
+
+          You can modify this behavior per-language by modifying
+          {option}`vim.lsp.servers.*.cmd`.
         '';
       };
     };
