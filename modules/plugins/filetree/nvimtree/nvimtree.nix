@@ -9,68 +9,8 @@
   inherit (lib.generators) mkLuaInline;
   inherit (lib.types) str bool int submodule listOf enum oneOf attrs addCheck;
   inherit (lib.nvim.types) mkPluginSetupOption;
-  inherit (lib.nvim.config) batchRenameOptions;
   inherit (config.vim.lib) mkMappingOption;
-
-  migrationTable = {
-    disableNetrw = "disable_netrw";
-    hijackNetrw = "hijack_netrw";
-    autoreloadOnWrite = "autoreload_on_write";
-    updateFocusedFile = "update_focused_file";
-    sort = {
-      sorter = "sorter";
-      foldersFirst = "folders_first";
-    };
-    hijackCursor = "hijack_cursor";
-    hijackUnnamedBufferWhenOpening = "hijack_unnamed_buffer_when_opening";
-    rootDirs = "root_dirs";
-    preferStartupRoot = "prefer_startup_root";
-    syncRootWithCwd = "sync_root_with_cwd";
-    reloadOnBufEnter = "reload_on_buf_enter";
-    respectBufCwd = "respect_buf_cwd";
-    hijackDirectories = "hijack_directories";
-    diagnostics = "diagnostics";
-    git = {
-      enable = "enable";
-      showOnDirs = "show_on_dirs";
-      showOnOpenDirs = "show_on_open_dirs";
-      disableForDirs = "disable_for_dirs";
-      timeout = "timeout";
-    };
-    modified = "modified";
-    filesystemWatchers = "filesystem_watchers";
-    selectPrompts = "select_prompts";
-    view = "view";
-    renderer = {
-      addTrailing = "add_trailing";
-      groupEmpty = "group_empty";
-      fullName = "full_name";
-      highlightGit = "highlight_git";
-      highlightOpenedFiles = "highlight_opened_files";
-      highlightModified = "highlight_modified";
-      rootFolderLabel = "root_folder_label";
-      indentWidth = "indent_width";
-      indentMarkers = "indent_markers";
-      specialFiles = "special_files";
-      symlinkDestination = "symlink_destination";
-      icons = "icons";
-    };
-    filters = "filters";
-    trash = "trash";
-    actions = "actions";
-    liveFilter = "live_filter";
-    tab = "tab";
-    notify = "notify";
-    ui = "ui";
-  };
-
-  renamedSetupOpts =
-    batchRenameOptions
-    ["vim" "filetree" "nvimTree"]
-    ["vim" "filetree" "nvimTree" "setupOpts"]
-    migrationTable;
 in {
-  imports = renamedSetupOpts;
   options.vim.filetree.nvimTree = {
     enable = mkEnableOption "filetree via nvim-tree.lua";
 
