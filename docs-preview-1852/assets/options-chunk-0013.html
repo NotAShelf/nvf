@@ -1,0 +1,1827 @@
+<div class="option" id="option-vim.languages.svelte.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.svelte.format.enable" class="option-anchor">vim.languages.svelte.format.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Svelte formatting.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableFormat</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/svelte.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/svelte.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.svelte.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.svelte.format.type" class="option-anchor">vim.languages.svelte.format.type</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Svelte formatter to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "prettier", "biome", "biome-check", "biome-organize-imports", "deno", "injected")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">prettier</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/svelte.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/svelte.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.svelte.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.svelte.lsp.enable" class="option-anchor">vim.languages.svelte.lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Svelte LSP support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lsp</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enable</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/svelte.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/svelte.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.svelte.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.svelte.lsp.servers" class="option-anchor">vim.languages.svelte.lsp.servers</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Svelte LSP server to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "svelte-language-server", "emmet-ls")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">svelte-language-server</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/svelte.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/svelte.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.svelte.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.svelte.treesitter.enable" class="option-anchor">vim.languages.svelte.treesitter.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Svelte treesitter.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableTreesitter</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/svelte.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/svelte.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.svelte.treesitter.sveltePackage">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.svelte.treesitter.sveltePackage" class="option-anchor">vim.languages.svelte.treesitter.sveltePackage</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The svelte treesitter package to use.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or package</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim-treesitter</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">grammarPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">svelte</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/svelte.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/svelte.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tera.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tera.enable" class="option-anchor">vim.languages.tera.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Tera templating language support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tera.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tera.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tera.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tera.lsp.enable" class="option-anchor">vim.languages.tera.lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Tera LSP support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lsp</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enable</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tera.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tera.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tera.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tera.lsp.servers" class="option-anchor">vim.languages.tera.lsp.servers</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Tera LSP server to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "emmet-ls", "stimulus-language-server")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span>&nbsp;<span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tera.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tera.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tera.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tera.treesitter.enable" class="option-anchor">vim.languages.tera.treesitter.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Tera treesitter.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableTreesitter</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tera.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tera.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tera.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tera.treesitter.package" class="option-anchor">vim.languages.tera.treesitter.package</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The tera treesitter package to use.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or package</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim-treesitter</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">grammarPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">tera</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tera.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tera.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tera.treesitter.injection">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tera.treesitter.injection" class="option-anchor">vim.languages.tera.treesitter.injection</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Treesitter language to inject in Tera templates</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">html</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tera.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tera.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.terraform.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.terraform.enable" class="option-anchor">vim.languages.terraform.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Terraform support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/terraform.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/terraform.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.terraform.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.terraform.format.enable" class="option-anchor">vim.languages.terraform.format.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Enable Terraform formatting.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableFormat</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/terraform.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/terraform.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.terraform.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.terraform.format.type" class="option-anchor">vim.languages.terraform.format.type</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Terraform formatter to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "opentofu", "terraform", "injected")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">opentofu</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/terraform.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/terraform.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.terraform.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.terraform.lsp.enable" class="option-anchor">vim.languages.terraform.lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Terraform LSP support (terraform-ls).</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lsp</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enable</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/terraform.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/terraform.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.terraform.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.terraform.lsp.servers" class="option-anchor">vim.languages.terraform.lsp.servers</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Terraform LSP server to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "terraform-ls", "tofu-ls")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">tofu-ls</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/terraform.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/terraform.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.terraform.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.terraform.treesitter.enable" class="option-anchor">vim.languages.terraform.treesitter.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Terraform treesitter.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableTreesitter</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/terraform.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/terraform.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.terraform.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.terraform.treesitter.package" class="option-anchor">vim.languages.terraform.treesitter.package</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The terraform treesitter package to use.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or package</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim-treesitter</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">grammarPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">terraform</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/terraform.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/terraform.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tex.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tex.enable" class="option-anchor">vim.languages.tex.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable TeX language support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tex.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tex.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tex.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tex.format.enable" class="option-anchor">vim.languages.tex.format.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable TeX formatting.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableFormat</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tex.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tex.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tex.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tex.format.type" class="option-anchor">vim.languages.tex.format.type</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>TeX formatter to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "tex-fmt", "latexindent", "injected")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">tex-fmt</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tex.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tex.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tex.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tex.lsp.enable" class="option-anchor">vim.languages.tex.lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable TeX LSP support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lsp</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enable</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tex.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tex.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tex.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tex.lsp.servers" class="option-anchor">vim.languages.tex.lsp.servers</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>TeX LSP server to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of value "texlab" (singular enum)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">texlab</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tex.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tex.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tex.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tex.treesitter.enable" class="option-anchor">vim.languages.tex.treesitter.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable TeX treesitter.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableTreesitter</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tex.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tex.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tex.treesitter.bibtexPackage">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tex.treesitter.bibtexPackage" class="option-anchor">vim.languages.tex.treesitter.bibtexPackage</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The bibtex treesitter package to use.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or package</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim-treesitter</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">grammarPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">bibtex</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tex.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tex.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tex.treesitter.latexPackage">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tex.treesitter.latexPackage" class="option-anchor">vim.languages.tex.treesitter.latexPackage</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The latex treesitter package to use.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or package</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim-treesitter</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">grammarPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">latex</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tex.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tex.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.toml.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.toml.enable" class="option-anchor">vim.languages.toml.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable TOML configuration language support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/toml.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/toml.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.toml.extraDiagnostics.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.toml.extraDiagnostics.enable" class="option-anchor">vim.languages.toml.extraDiagnostics.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable extra TOML diagnostics via nvim-lint.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableExtraDiagnostics</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/toml.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/toml.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.toml.extraDiagnostics.types">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.toml.extraDiagnostics.types" class="option-anchor">vim.languages.toml.extraDiagnostics.types</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>extra TOML diagnostics providers</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "tombi", "taplo")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">tombi</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/toml.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/toml.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.toml.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.toml.format.enable" class="option-anchor">vim.languages.toml.format.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable TOML formatting.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableFormat</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/toml.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/toml.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.toml.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.toml.format.type" class="option-anchor">vim.languages.toml.format.type</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>TOML formatter to use.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "taplo", "tombi", "injected")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">taplo</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/toml.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/toml.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.toml.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.toml.lsp.enable" class="option-anchor">vim.languages.toml.lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable TOML LSP support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lsp</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enable</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/toml.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/toml.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.toml.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.toml.lsp.servers" class="option-anchor">vim.languages.toml.lsp.servers</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>TOML LSP server to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "taplo", "tombi")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">taplo</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/toml.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/toml.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.toml.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.toml.treesitter.enable" class="option-anchor">vim.languages.toml.treesitter.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable TOML treesitter.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableTreesitter</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/toml.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/toml.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.toml.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.toml.treesitter.package" class="option-anchor">vim.languages.toml.treesitter.package</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The toml treesitter package to use.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or package</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim-treesitter</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">grammarPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">toml</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/toml.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/toml.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tsx.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tsx.enable" class="option-anchor">vim.languages.tsx.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Typescript XML (TSX) language support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tsx.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tsx.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tsx.extraDiagnostics.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tsx.extraDiagnostics.enable" class="option-anchor">vim.languages.tsx.extraDiagnostics.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable extra Typescript XML (TSX) diagnostics via nvim-lint.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableExtraDiagnostics</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tsx.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tsx.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tsx.extraDiagnostics.types">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tsx.extraDiagnostics.types" class="option-anchor">vim.languages.tsx.extraDiagnostics.types</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>extra Typescript XML (TSX) diagnostics providers</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of value "biomejs" (singular enum)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">biomejs</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tsx.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tsx.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tsx.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tsx.format.enable" class="option-anchor">vim.languages.tsx.format.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Typescript XML (TSX) formatting.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableFormat</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tsx.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tsx.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tsx.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tsx.format.type" class="option-anchor">vim.languages.tsx.format.type</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Typescript XML (TSX) formatter to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "prettier", "biome", "biome-check", "biome-organize-imports", "deno", "injected")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">prettier</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tsx.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tsx.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tsx.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tsx.lsp.enable" class="option-anchor">vim.languages.tsx.lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Typescript XML (TSX) LSP support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lsp</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enable</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tsx.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tsx.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tsx.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tsx.lsp.servers" class="option-anchor">vim.languages.tsx.lsp.servers</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Typescript XML (TSX) LSP server to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "typescript-language-server", "deno", "typescript-go", "emmet-ls")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">typescript-language-server</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tsx.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tsx.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tsx.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tsx.treesitter.enable" class="option-anchor">vim.languages.tsx.treesitter.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Typescript XML (TSX) treesitter.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableTreesitter</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tsx.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tsx.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.tsx.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.tsx.treesitter.package" class="option-anchor">vim.languages.tsx.treesitter.package</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The tsx treesitter package to use.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or package</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim-treesitter</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">grammarPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">tsx</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/tsx.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/tsx.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.twig.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.twig.enable" class="option-anchor">vim.languages.twig.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Twig templating language support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/twig.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/twig.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.twig.extraDiagnostics.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.twig.extraDiagnostics.enable" class="option-anchor">vim.languages.twig.extraDiagnostics.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable extra Twig diagnostics via nvim-lint.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableExtraDiagnostics</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/twig.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/twig.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.twig.extraDiagnostics.types">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.twig.extraDiagnostics.types" class="option-anchor">vim.languages.twig.extraDiagnostics.types</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>extra Twig diagnostics providers</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of value "djlint" (singular enum)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">djlint</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/twig.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/twig.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.twig.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.twig.format.enable" class="option-anchor">vim.languages.twig.format.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable PHP formatting.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableFormat</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/twig.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/twig.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.twig.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.twig.format.type" class="option-anchor">vim.languages.twig.format.type</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Twig formatter to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "djlint", "injected")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">djlint</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/twig.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/twig.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.twig.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.twig.lsp.enable" class="option-anchor">vim.languages.twig.lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Twig LSP support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lsp</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enable</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/twig.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/twig.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.twig.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.twig.lsp.servers" class="option-anchor">vim.languages.twig.lsp.servers</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Twig LSP server to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "twig-language-server", "emmet-ls", "stimulus-language-server")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">twig-language-server</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/twig.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/twig.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.twig.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.twig.treesitter.enable" class="option-anchor">vim.languages.twig.treesitter.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Twig treesitter.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableTreesitter</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/twig.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/twig.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.twig.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.twig.treesitter.package" class="option-anchor">vim.languages.twig.treesitter.package</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The twig treesitter package to use.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or package</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim-treesitter</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">grammarPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">twig</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/twig.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/twig.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typescript.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typescript.enable" class="option-anchor">vim.languages.typescript.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Typescript/Javascript language support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typescript.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typescript.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typescript.extensions.ts-error-translator.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typescript.extensions.ts-error-translator.enable" class="option-anchor">vim.languages.typescript.extensions.ts-error-translator.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable [ts-error-translator.nvim]: <a href="https://github.com/dmmulroy/ts-error-translator.nvim">https://github.com/dmmulroy/ts-error-translator.nvim</a></p>
+<p>Typescript error translation with [ts-error-translator.nvim]</p>
+<p>.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typescript.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typescript.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typescript.extensions.ts-error-translator.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typescript.extensions.ts-error-translator.setupOpts" class="option-anchor">vim.languages.typescript.extensions.ts-error-translator.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of ts-error-translator.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typescript.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typescript.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typescript.extensions.ts-error-translator.setupOpts.auto_attach">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typescript.extensions.ts-error-translator.setupOpts.auto_attach" class="option-anchor">vim.languages.typescript.extensions.ts-error-translator.setupOpts.auto_attach</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Automatically override the publish_diagnostics handler</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.languages.typescript.extensions.ts-error-translator.setupOpts.auto_attach</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typescript.extraDiagnostics.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typescript.extraDiagnostics.enable" class="option-anchor">vim.languages.typescript.extraDiagnostics.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable extra Typescript/Javascript diagnostics.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableExtraDiagnostics</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typescript.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typescript.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typescript.extraDiagnostics.types">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typescript.extraDiagnostics.types" class="option-anchor">vim.languages.typescript.extraDiagnostics.types</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>extra Typescript/Javascript diagnostics providers</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "eslint_d", "biomejs")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">eslint_d</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typescript.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typescript.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typescript.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typescript.format.enable" class="option-anchor">vim.languages.typescript.format.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Typescript/Javascript formatting.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableFormat</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typescript.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typescript.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typescript.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typescript.format.type" class="option-anchor">vim.languages.typescript.format.type</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Typescript/Javascript formatter to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "prettier", "biome", "biome-check", "biome-organize-imports", "deno", "astyle", "injected")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">prettier</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typescript.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typescript.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typescript.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typescript.lsp.enable" class="option-anchor">vim.languages.typescript.lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Typescript/Javascript LSP support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lsp</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enable</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typescript.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typescript.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typescript.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typescript.lsp.servers" class="option-anchor">vim.languages.typescript.lsp.servers</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Typescript/Javascript LSP server to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "typescript-language-server", "deno", "typescript-go", "emmet-ls")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">typescript-language-server</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typescript.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typescript.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typescript.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typescript.treesitter.enable" class="option-anchor">vim.languages.typescript.treesitter.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Typescript/Javascript treesitter.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableTreesitter</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typescript.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typescript.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typescript.treesitter.jsPackage">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typescript.treesitter.jsPackage" class="option-anchor">vim.languages.typescript.treesitter.jsPackage</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The javascript treesitter package to use.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or package</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim-treesitter</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">grammarPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">javascript</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typescript.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typescript.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typescript.treesitter.tsPackage">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typescript.treesitter.tsPackage" class="option-anchor">vim.languages.typescript.treesitter.tsPackage</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The typescript treesitter package to use.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or package</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim-treesitter</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">grammarPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">typescript</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typescript.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typescript.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.enable" class="option-anchor">vim.languages.typst.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Typst language support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typst.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.extensions.typst-concealer.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.extensions.typst-concealer.enable" class="option-anchor">vim.languages.typst.extensions.typst-concealer.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable [typst-concealer]: <a href="https://github.com/PartyWumpus/typst-concealer">https://github.com/PartyWumpus/typst-concealer</a></p>
+<p>Inline typst preview for Neovim via [typst-concealer]
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typst.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.extensions.typst-concealer.mappings.toggleConcealing">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.extensions.typst-concealer.mappings.toggleConcealing" class="option-anchor">vim.languages.typst.extensions.typst-concealer.mappings.toggleConcealing</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Enable typst-concealer in buffer</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;TT</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typst.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.extensions.typst-concealer.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.extensions.typst-concealer.setupOpts" class="option-anchor">vim.languages.typst.extensions.typst-concealer.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of typst-concealer.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typst.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.extensions.typst-concealer.setupOpts.enabled_by_default">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.extensions.typst-concealer.setupOpts.enabled_by_default" class="option-anchor">vim.languages.typst.extensions.typst-concealer.setupOpts.enabled_by_default</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Should typst-concealer conceal newly opened buffers by default?</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.languages.typst.extensions.typst-concealer.setupOpts.enabled_by_default</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.extensions.typst-concealer.setupOpts.color">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.extensions.typst-concealer.setupOpts.color" class="option-anchor">vim.languages.typst.extensions.typst-concealer.setupOpts.color</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>What color should typst-concealer render text/stroke with? (only applies when styling_type is 'colorscheme')</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">rgb(</span><span style="color:rgb(232,102,113);">\"</span><span style="color:rgb(152,195,121);">#f012be</span><span style="color:rgb(232,102,113);">\"</span><span style="color:rgb(152,195,121);">)</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.languages.typst.extensions.typst-concealer.setupOpts.color</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.extensions.typst-concealer.setupOpts.conceal_in_normal">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.extensions.typst-concealer.setupOpts.conceal_in_normal" class="option-anchor">vim.languages.typst.extensions.typst-concealer.setupOpts.conceal_in_normal</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Should typst-concealer still conceal when the normal mode cursor goes over a line.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.languages.typst.extensions.typst-concealer.setupOpts.conceal_in_normal</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.extensions.typst-concealer.setupOpts.do_diagnostics">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.extensions.typst-concealer.setupOpts.do_diagnostics" class="option-anchor">vim.languages.typst.extensions.typst-concealer.setupOpts.do_diagnostics</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Should typst-concealer provide diagnostics on error?</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.languages.typst.extensions.typst-concealer.setupOpts.do_diagnostics</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.extensions.typst-concealer.setupOpts.ppi">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.extensions.typst-concealer.setupOpts.ppi" class="option-anchor">vim.languages.typst.extensions.typst-concealer.setupOpts.ppi</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>What PPI should typst render at. Plugin default is 300, typst's normal default is 144.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or signed integer</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.languages.typst.extensions.typst-concealer.setupOpts.ppi</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.extensions.typst-concealer.setupOpts.styling_type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.extensions.typst-concealer.setupOpts.styling_type" class="option-anchor">vim.languages.typst.extensions.typst-concealer.setupOpts.styling_type</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>What kind of styling should typst-concealer apply to your typst?</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or one of "simple", "none", "colorscheme"</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.languages.typst.extensions.typst-concealer.setupOpts.styling_type</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.extensions.typst-concealer.setupOpts.typst_location">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.extensions.typst-concealer.setupOpts.typst_location" class="option-anchor">vim.languages.typst.extensions.typst-concealer.setupOpts.typst_location</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Where should typst-concealer look for your typst binary?</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span>\<span style="color:rgb(152,195,121);">$</span><span style="color:rgb(152,195,121);">{pkgs.typst.out}/bin/typst</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">lib.getExe&nbsp;pkgs.typst</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.languages.typst.extensions.typst-concealer.setupOpts.typst_location</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.extensions.typst-preview-nvim.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.extensions.typst-preview-nvim.enable" class="option-anchor">vim.languages.typst.extensions.typst-preview-nvim.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable [typst-preview.nvim]: <a href="https://github.com/chomosuke/typst-preview.nvim">https://github.com/chomosuke/typst-preview.nvim</a></p>
+<p>Low latency typst preview for Neovim via [typst-preview.nvim]
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typst.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.extensions.typst-preview-nvim.setupOpts">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.extensions.typst-preview-nvim.setupOpts" class="option-anchor">vim.languages.typst.extensions.typst-preview-nvim.setupOpts</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Option table to pass into the setup function of typst-preview-nvim.</p>
+<p>Accepts either an attribute set of options, or a raw Lua expression
+via <code>lib.mkLuaInline</code>. When set to a <code>luaInline</code> value, the
+expression is passed verbatim as the argument to <code>setup()</code>.</p>
+<p>You can pass in any additional options even if they're not listed
+in the docs.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>(luaInline) or (open submodule of anything)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span>&nbsp;<span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typst.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.extensions.typst-preview-nvim.setupOpts.dependencies_bin">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.extensions.typst-preview-nvim.setupOpts.dependencies_bin" class="option-anchor">vim.languages.typst.extensions.typst-preview-nvim.setupOpts.dependencies_bin</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Provide the path to binaries for dependencies. Setting this
+to a non-null value will skip the download of the binary by
+the plugin.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>attribute set of string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">tinymist</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span>\<span style="color:rgb(152,195,121);">$</span><span style="color:rgb(152,195,121);">{pkgs.tinymist.out}/bin/tinymist</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">websocat</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span>\<span style="color:rgb(152,195,121);">$</span><span style="color:rgb(152,195,121);">{pkgs.websocat.out}/bin/websocat</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.languages.typst.extensions.typst-preview-nvim.setupOpts.dependencies_bin</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.extensions.typst-preview-nvim.setupOpts.extra_args">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.extensions.typst-preview-nvim.setupOpts.extra_args" class="option-anchor">vim.languages.typst.extensions.typst-preview-nvim.setupOpts.extra_args</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>A list of extra arguments (or <code>null</code>) to be passed to previewer</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or (list of string)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--input=ver=draft</span><span style="color:rgb(152,195,121);">"</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">--ignore-system-fonts</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.languages.typst.extensions.typst-preview-nvim.setupOpts.extra_args</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.extensions.typst-preview-nvim.setupOpts.open_cmd">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.extensions.typst-preview-nvim.setupOpts.open_cmd" class="option-anchor">vim.languages.typst.extensions.typst-preview-nvim.setupOpts.open_cmd</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Custom format string to open the output link provided with <code>%s</code></p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">firefox&nbsp;%s&nbsp;-P&nbsp;typst-preview&nbsp;--class&nbsp;typst-preview</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.languages.typst.extensions.typst-preview-nvim.setupOpts.open_cmd</code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.format.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.format.enable" class="option-anchor">vim.languages.typst.format.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Typst document formatting.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableFormat</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typst.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.format.type">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.format.type" class="option-anchor">vim.languages.typst.format.type</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Typst formatter to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "typstyle", "injected")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">typstyle</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typst.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.lsp.enable" class="option-anchor">vim.languages.typst.lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Typst LSP support (typst-lsp).</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lsp</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enable</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typst.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.lsp.servers" class="option-anchor">vim.languages.typst.lsp.servers</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Typst LSP server to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of value "tinymist" (singular enum)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">tinymist</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typst.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.treesitter.enable" class="option-anchor">vim.languages.typst.treesitter.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Typst treesitter.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableTreesitter</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typst.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.typst.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.typst.treesitter.package" class="option-anchor">vim.languages.typst.treesitter.package</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The typst treesitter package to use.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or package</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim-treesitter</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">grammarPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">typst</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/typst.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/typst.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.vala.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vala.enable" class="option-anchor">vim.languages.vala.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Vala language support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vala.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/vala.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.vala.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vala.lsp.enable" class="option-anchor">vim.languages.vala.lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Vala LSP support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lsp</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enable</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vala.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/vala.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.vala.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vala.lsp.servers" class="option-anchor">vim.languages.vala.lsp.servers</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Vala LSP server to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of value "vala-language-server" (singular enum)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">vala-language-server</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vala.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/vala.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.vala.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vala.treesitter.enable" class="option-anchor">vim.languages.vala.treesitter.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Vala treesitter.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableTreesitter</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vala.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/vala.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.vala.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vala.treesitter.package" class="option-anchor">vim.languages.vala.treesitter.package</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The vala treesitter package to use.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or package</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim-treesitter</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">grammarPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vala</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vala.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/vala.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.vhdl.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vhdl.enable" class="option-anchor">vim.languages.vhdl.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable VHDL language support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vhdl.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/vhdl.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.vhdl.lsp.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vhdl.lsp.enable" class="option-anchor">vim.languages.vhdl.lsp.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable VHDL LSP support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lsp</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enable</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vhdl.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/vhdl.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.vhdl.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vhdl.lsp.servers" class="option-anchor">vim.languages.vhdl.lsp.servers</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>VHDL LSP server to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of value "vhdl-ls" (singular enum)</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">vhdl-ls</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vhdl.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/vhdl.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.vhdl.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vhdl.treesitter.enable" class="option-anchor">vim.languages.vhdl.treesitter.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable VHDL treesitter.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableTreesitter</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vhdl.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/vhdl.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.vhdl.treesitter.package">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vhdl.treesitter.package" class="option-anchor">vim.languages.vhdl.treesitter.package</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>The vhdl treesitter package to use.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>null or package</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">pkgs</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vimPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">nvim-treesitter</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">grammarPlugins</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vhdl</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vhdl.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/vhdl.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.vue.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.vue.enable" class="option-anchor">vim.languages.vue.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Vue.js language support.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/vue.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/vue.nix&gt;</a></code></dd>
+  </dl>
+</div>
