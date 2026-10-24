@@ -31,6 +31,16 @@ in {
           Recommended to leave as default.
         '';
       };
+      server = {
+        custom_server_filepath = mkOption {
+          type = str;
+          default = "${lib.getExe pkgs.copilot-language-server}";
+          description = ''
+            Path to the GitHub Copilot language server executable.
+            Recommended to leave as default.
+          '';
+        };
+      };
       panel = {
         enabled = mkEnableOption "Completion Panel" // {default = !cfg.cmp.enable;};
         layout = {
