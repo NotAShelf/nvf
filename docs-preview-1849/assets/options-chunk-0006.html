@@ -1,3 +1,24 @@
+<div class="option" id="option-vim.formatter.conform-nvim.presets.cabal-fmt.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.formatter.conform-nvim.presets.cabal-fmt.enable" class="option-anchor">vim.formatter.conform-nvim.presets.cabal-fmt.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the <code>cabal-fmt</code> formatter.</p>
+<p>Use <code>vim.formatter.conform-nvim.setupOpts.formatters.cabal-fmt</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/formatter/conform-nvim/presets/cabal-fmt.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/formatter/conform-nvim/presets/cabal-fmt.nix&gt;</a></code></dd>
+  </dl>
+</div>
 <div class="option" id="option-vim.formatter.conform-nvim.presets.clang-format.enable">
   <h3 class="option-name">
     <a href="#option-vim.formatter.conform-nvim.presets.clang-format.enable" class="option-anchor">vim.formatter.conform-nvim.presets.clang-format.enable</a>
@@ -248,6 +269,27 @@
   </dl>
   <dl class="option-details option-sources">
     <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/formatter/conform-nvim/presets/gawk.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/formatter/conform-nvim/presets/gawk.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.formatter.conform-nvim.presets.gdscript-formatter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.formatter.conform-nvim.presets.gdscript-formatter.enable" class="option-anchor">vim.formatter.conform-nvim.presets.gdscript-formatter.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable the GDScript Formatter formatter.</p>
+<p>Use <code>vim.formatter.conform-nvim.setupOpts.formatters.gdscript-formatter</code> for customization
+.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/formatter/conform-nvim/presets/gdscript-formatter.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/formatter/conform-nvim/presets/gdscript-formatter.nix&gt;</a></code></dd>
   </dl>
 </div>
 <div class="option" id="option-vim.formatter.conform-nvim.presets.gersemi.enable">
@@ -1372,7 +1414,7 @@ is set, Conform will run the formatter asynchronously after save.</p>
 </body></html></div>
   <dl class="option-details">
     <dt>Type</dt><dd class="option-value"><code>null or (attribute set) or (luaInline)</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">_type</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">lua-inline</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">expr</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;function()</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;not&nbsp;vim.g.formatsave&nbsp;or&nbsp;vim.b.disableFormatSave&nbsp;then</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;{["lsp_format"]&nbsp;=&nbsp;"fallback"}</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;end</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">{</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">_type</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">lua-inline</span><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(132,139,152);">;</span><br>&nbsp;&nbsp;<span style="color:rgb(86,182,194);">expr</span>&nbsp;<span style="color:rgb(171,178,191);">=</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;function()</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;vim.b.nvf_format_save&nbsp;==&nbsp;nil&nbsp;and&nbsp;not&nbsp;vim.g.nvf_format_save&nbsp;then</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elseif&nbsp;vim.b.nvf_format_save&nbsp;then</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;{["lsp_format"]&nbsp;=&nbsp;"fallback"}</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;end</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;</span><span style="color:rgb(152,195,121);">''</span><span style="color:rgb(132,139,152);">;</span><br><span style="color:rgb(132,139,152);">}</span></code></pre></body></html>
 </body></html></dd>
   </dl>
   <dl class="option-details option-sources">
@@ -1968,40 +2010,6 @@ in the docs.</p>
   <dl class="option-details">
     <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
     <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">]c</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/git/gitsigns/gitsigns.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/git/gitsigns/gitsigns.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.git.gitsigns.mappings.previewHunk">
-  <h3 class="option-name">
-    <a href="#option-vim.git.gitsigns.mappings.previewHunk" class="option-anchor">vim.git.gitsigns.mappings.previewHunk</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Preview hunk [Gitsigns]</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">&lt;leader&gt;hP</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/git/gitsigns/gitsigns.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/git/gitsigns/gitsigns.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.git.gitsigns.mappings.previousHunk">
-  <h3 class="option-name">
-    <a href="#option-vim.git.gitsigns.mappings.previousHunk" class="option-anchor">vim.git.gitsigns.mappings.previousHunk</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Previous hunk [Gitsigns]</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or string</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">[c</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
 </body></html></dd>
   </dl>
   <dl class="option-details option-sources">

@@ -1006,6 +1006,24 @@ Recommended to leave as default.</p>
     <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.copilot.setupOpts.panel.layout.ratio</code></dd>
   </dl>
 </div>
+<div class="option" id="option-vim.assistant.copilot.setupOpts.server.custom_server_filepath">
+  <h3 class="option-name">
+    <a href="#option-vim.assistant.copilot.setupOpts.server.custom_server_filepath" class="option-anchor">vim.assistant.copilot.setupOpts.server.custom_server_filepath</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Path to the GitHub Copilot language server executable.
+Recommended to leave as default.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>string</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(152,195,121);">"</span>\<span style="color:rgb(152,195,121);">$</span><span style="color:rgb(152,195,121);">{pkgs.copilot-language-server.out}/bin/copilot-language-server</span><span style="color:rgb(152,195,121);">"</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code>vim.assistant.copilot.setupOpts.server.custom_server_filepath</code></dd>
+  </dl>
+</div>
 <div class="option" id="option-vim.assistant.copilot.setupOpts.suggestion.enabled">
   <h3 class="option-name">
     <a href="#option-vim.assistant.copilot.setupOpts.suggestion.enabled" class="option-anchor">vim.assistant.copilot.setupOpts.suggestion.enabled</a>
@@ -1787,25 +1805,6 @@ command, an optional group, a description, and execution settings.</p>
     <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
 </body></html></dd>
     <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/neovim/init/autocmds.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/neovim/init/autocmds.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.autocmds._.callback">
-  <h3 class="option-name">
-    <a href="#option-vim.autocmds._.callback" class="option-anchor">vim.autocmds.*.callback</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Lua function to be called when the event(s) are triggered.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>null or (luaInline)</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">null</span></code></pre></body></html>
-</body></html></dd>
-    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">lib</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">generators</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(97,175,239);">mkLuaInline</span>&nbsp;<span style="color:rgb(152,195,121);">''</span><span style="color:rgb(152,195,121);"></span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;function()</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Saving&nbsp;a&nbsp;Lua&nbsp;file...")</span><br><span style="color:rgb(152,195,121);">&nbsp;&nbsp;end</span><br><span style="color:rgb(232,102,113);">'''</span><br></code></pre></body></html>
 </body></html></dd>
   </dl>
   <dl class="option-details option-sources">

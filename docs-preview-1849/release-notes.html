@@ -199,6 +199,9 @@ works.</p>
 </li>
 </ul>
 </li>
+<li>Deprecate internal Lua variables <code>vim.g.formatsave</code> and
+<code>vim.b.disableFormatSave</code>. Replaced with <code>vim.g.nvf_format_save</code> and
+<code>vim.b.nvf_format_save</code>.</li>
 </ul>
 <p><a href="https://github.com/notashelf">NotAShelf</a></p>
 <ul>
@@ -428,6 +431,16 @@ inferencing the <code>vim.keymaps.*.lua</code> option.</li>
 <p><a href="https://github.com/Gerg-L">Gerg-L</a>:</p>
 <ul>
 <li>Add <code>vim.appname</code> option to set <code>NVIM_APPNAME</code></li>
+</ul>
+<p><a href="https://github.com/myume">myume</a>:</p>
+<ul>
+<li>Added GDScript support via <code>languages.gdscript</code>, including treesitter,
+formatting, and LSP integration</li>
+</ul>
+<p><a href="https://github.com/kbnopro">kbnopro</a>:</p>
+<ul>
+<li>Added <code>vim.assistant.copilot.setupOpts.server.custom_server_filepath</code> to avoid
+downloading executable in NixOS</li>
 </ul>
 <p><a href="https://github.com/CaueAnjos">CaueAnjos</a>:</p>
 <ul>
