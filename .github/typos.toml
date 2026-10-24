@@ -13,5 +13,8 @@ default.extend-ignore-words-re = [
   "tese", # for glsl shaders
   "Caue",
   "bse", # ./modules/plugins/tabline/nvim-bufferline/nvim-bufferline.nix:20:78: "bse" should be "base".
+  # "protols" is an LS, not meant to be the word "protocols"
+  "protols",
+  "Protols",
 ]
 

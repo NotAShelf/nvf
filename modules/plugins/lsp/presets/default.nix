@@ -8,6 +8,7 @@
     ./basedpyright.nix
     ./bash-language-server.nix
     ./beancount-language-server.nix
+    ./buf.nix
     ./ccls.nix
     ./clangd.nix
     ./clojure-lsp.nix
@@ -21,6 +22,7 @@
     ./emmet-ls.nix
     ./fish-lsp.nix
     ./fsautocomplete.nix
+    ./gdscript.nix
     ./gitlab-ci-ls.nix
     ./gleam.nix
     ./glsl_analyzer.nix
@@ -53,6 +55,8 @@
     ./phan.nix
     ./phpactor.nix
     ./phpantom.nix
+    ./powershell-editor-services.nix
+    ./protols.nix
     ./pyrefly.nix
     ./pyright.nix
     ./python-lsp-server.nix

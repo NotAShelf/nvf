@@ -134,7 +134,7 @@ companion or fun plugins.
 >
 > [@Snoweuph](https://github.com/snoweuph)
 
-[Configuration](https://git.euph.dev/Snoweuph/nvim)
+[Configuration](https://vcs.euph.dev/Snoweuph/nvim)
 
 ### Community Configurations {#sec-community-configs}
 

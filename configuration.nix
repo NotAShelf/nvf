@@ -96,6 +96,7 @@ isMaximal: {
       fish.enable = false;
       fluent.enable = false;
       fsharp.enable = false;
+      gdscript.enable = false;
       gettext.enable = false;
       gleam.enable = false;
       glsl.enable = false;
@@ -123,8 +124,10 @@ isMaximal: {
       twig.enable = false;
       vala.enable = false;
       vue.enable = false;
-      zsh.enable = false;
       http.enable = false;
+      powershell.enable = false;
+      protobuf.enable = false;
+      zsh.enable = false;
 
       # Nim LSP is broken on Darwin and therefore
       # should be disabled by default. Users may still enable

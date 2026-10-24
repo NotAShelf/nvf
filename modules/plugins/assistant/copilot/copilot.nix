@@ -8,6 +8,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) nullOr str enum float;
   inherit (lib.nvim.types) mkPluginSetupOption;
+  inherit (lib.meta) getExe;
   inherit (config.vim.lib) mkMappingOption;
 
   cfg = config.vim.assistant.copilot;
@@ -30,6 +31,16 @@ in {
           The command that will be executed to initiate nodejs for GitHub Copilot.
           Recommended to leave as default.
         '';
+      };
+      server = {
+        custom_server_filepath = mkOption {
+          type = str;
+          default = getExe pkgs.copilot-language-server;
+          description = ''
+            Path to the GitHub Copilot language server executable.
+            Recommended to leave as default.
+          '';
+        };
       };
       panel = {
         enabled = mkEnableOption "Completion Panel" // {default = !cfg.cmp.enable;};

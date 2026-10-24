@@ -24,6 +24,7 @@ in {
     ./fish.nix
     ./fluent.nix
     ./fsharp.nix
+    ./gdscript.nix
     ./gettext.nix
     ./gleam.nix
     ./glsl.nix
@@ -53,6 +54,8 @@ in {
     ./odin.nix
     ./openscad.nix
     ./php.nix
+    ./powershell.nix
+    ./protobuf.nix
     ./pug.nix
     ./python.nix
     ./qml.nix
