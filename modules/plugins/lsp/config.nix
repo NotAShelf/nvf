@@ -62,7 +62,9 @@ in {
           desc = "LSP on-attach create format on save autocmd";
           callback = mkLuaInline ''
             function(ev)
-              if vim.b.disableFormatSave or not vim.g.formatsave then
+              if vim.b.nvf_format_save == nil and not vim.g.nvf_format_save then
+                return
+              elseif vim.b.nvf_format_save then
                 return
               end
 
@@ -95,7 +97,7 @@ in {
         });
 
       pluginRC.lsp-setup = entryBefore ["autocmds"] ''
-        vim.g.formatsave = ${boolToString cfg.formatOnSave};
+        vim.g.nvf_format_save = ${boolToString cfg.formatOnSave};
 
         local attach_keymaps = function(client, bufnr)
           ${mkBinding mappings.goToDeclaration "vim.lsp.buf.declaration"}
@@ -143,7 +145,15 @@ in {
           ${mkBinding mappings.renameSymbol "vim.lsp.buf.rename"}
           ${mkBinding mappings.codeAction "vim.lsp.buf.code_action"}
           ${mkBinding mappings.format "vim.lsp.buf.format"}
-          ${mkBinding mappings.toggleFormatOnSave "function() vim.b.disableFormatSave = not vim.b.disableFormatSave end"}
+          ${mkBinding mappings.toggleFormatOnSave ''
+          function()
+            if vim.b.nvf_format_save == nil then
+              vim.b.nvf_format_save = not vim.g.nvf_format_save
+            else
+              vim.b.nvf_format_save = not vim.b.nvf_format_save
+            end
+          end
+        ''}
         end
 
         default_on_attach = function(client, bufnr)
