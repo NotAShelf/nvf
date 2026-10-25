@@ -190,6 +190,30 @@ works.</p>
 </ul>
 <p><a href="https://github.com/horriblename">horriblename</a></p>
 <ul>
+<li><code>nvimtree</code>: Removed a bunch of setupOpts options (many outdated)
+<ul>
+<li><code>actions.expand_all.exclude</code>: <code>[".git", "target", "build", "result"]</code> -&gt;
+<code>[]</code></li>
+<li><code>actions.file_popup.open_win_config.border</code>: "rounded" -&gt; "shadow"</li>
+<li><code>actions.open_file.{eject,resize_window,window_picker.enable}</code>: false -&gt;
+true</li>
+<li><code>diagnostics.debounce_delay</code> default changed from 50 to plugin default of
+500.</li>
+<li><code>filesystem_watchers.ignore_dirs</code>: default <code>[]</code> -&gt; plugin default (very
+long)</li>
+<li><code>filters.git_ignored</code>: false -&gt; true</li>
+<li><code>git.enable</code>: default false -&gt; true</li>
+<li><code>hijack_directories.auto_open</code>: false -&gt; true</li>
+<li><code>renderer.highlight_git</code>: false -&gt; "none"</li>
+<li><code>renderer.icons.bookmarks_placement</code>: "after" -&gt; "signcolumn"</li>
+<li><code>renderer.icons.diagnostics_placement</code>: "after" -&gt; "signcolumn"</li>
+<li><code>renderer.icons.show.git</code>: false -&gt; true</li>
+<li><code>renderer.root_folder_label</code>: <code>":~:s?$?/..?"</code> -&gt; <code>false</code></li>
+<li><code>renderer.root_folder_label</code>: false -&gt; plugin default</li>
+<li><code>renderer.special_files</code>: was plugin default + "flake.nix"</li>
+<li>Many more non-breaking option removals</li>
+</ul>
+</li>
 <li>Fully migrate lualine to setupOpts.
 <ul>
 <li>
