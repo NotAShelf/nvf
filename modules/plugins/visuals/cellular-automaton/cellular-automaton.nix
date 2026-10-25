@@ -3,16 +3,11 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.nvim.types) luaInline;
   inherit (lib.generators) mkLuaInline;
   inherit (config.vim.lib) mkMappingOption;
 in {
-  imports = [
-    (mkRenamedOptionModule ["vim" "visuals" "cellularAutomaton"] ["vim" "visuals" "cellular-automaton"])
-  ];
-
   options.vim.visuals.cellular-automaton = {
     enable = mkEnableOption "cellular-automaton to help you cope with stubborn code [cellular-automaton]";
 

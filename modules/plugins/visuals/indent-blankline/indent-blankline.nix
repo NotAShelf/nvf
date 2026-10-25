@@ -3,17 +3,12 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) int bool str nullOr either listOf attrsOf;
   inherit (lib.nvim.types) mkPluginSetupOption;
 
   cfg = config.vim.visuals;
 in {
-  imports = [
-    (mkRenamedOptionModule ["vim" "visuals" "indentBlankline"] ["vim" "visuals" "indent-blankline"])
-  ];
-
   options.vim.visuals.indent-blankline = {
     enable = mkEnableOption "indentation guides [indent-blankline]";
     setupOpts = mkPluginSetupOption "indent-blankline" {

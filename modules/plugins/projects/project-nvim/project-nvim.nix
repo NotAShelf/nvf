@@ -1,25 +1,8 @@
 {lib, ...}: let
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.types) bool listOf str enum;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
-  imports = let
-    renamedSetupOption = oldPath: newPath:
-      mkRenamedOptionModule
-      (["vim" "projects" "project-nvim"] ++ oldPath)
-      (["vim" "projects" "project-nvim" "setupOpts"] ++ newPath);
-  in [
-    (renamedSetupOption ["manualMode"] ["manual_mode"])
-    (renamedSetupOption ["detectionMethods"] ["detection_methods"])
-    (renamedSetupOption ["patterns"] ["patterns"])
-    (renamedSetupOption ["lspIgnored"] ["lsp_ignored"])
-    (renamedSetupOption ["excludeDirs"] ["exclude_dirs"])
-    (renamedSetupOption ["showHidden"] ["show_hidden"])
-    (renamedSetupOption ["silentChdir"] ["silent_chdir"])
-    (renamedSetupOption ["scopeChdir"] ["scope_chdir"])
-  ];
-
   options.vim.projects.project-nvim = {
     enable = mkEnableOption "project-nvim for project management";
 

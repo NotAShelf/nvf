@@ -4,29 +4,12 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.strings) isString;
   inherit (lib.types) nullOr str bool int enum listOf either;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) luaInline mkPluginSetupOption;
   inherit (config.vim.lib) mkMappingOption;
 in {
-  imports = let
-    renameSetupOpt = oldPath: newPath:
-      mkRenamedOptionModule (["vim" "session" "nvim-session-manager"] ++ oldPath) (["vim" "session" "nvim-session-manager" "setupOpts"] ++ newPath);
-  in [
-    (renameSetupOpt ["pathReplacer"] ["path_replacer"])
-    (renameSetupOpt ["colonReplacer"] ["colon_replacer"])
-    (renameSetupOpt ["autoloadMode"] ["autoload_mode"])
-    (renameSetupOpt ["maxPathLength"] ["max_path_length"])
-    (renameSetupOpt ["autoSave" "lastSession"] ["autosave_last_session"])
-    (renameSetupOpt ["autoSave" "ignoreNotNormal"] ["autosave_ignore_not_normal"])
-    (renameSetupOpt ["autoSave" "ignoreDirs"] ["autosave_ignore_dirs"])
-    (renameSetupOpt ["autoSave" "ignoreFiletypes"] ["autosave_ignore_filetypes"])
-    (renameSetupOpt ["autoSave" "ignoreBufTypes"] ["autosave_ignore_buftypes"])
-    (renameSetupOpt ["autoSave" "onlyInSession"] ["autosave_only_in_session"])
-  ];
-
   options.vim.session.nvim-session-manager = {
     enable = mkEnableOption "nvim-session-manager: manage sessions like folders in VSCode";
 

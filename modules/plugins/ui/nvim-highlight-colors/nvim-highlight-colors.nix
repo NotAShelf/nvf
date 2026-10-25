@@ -1,9 +1,7 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) attrsOf enum nullOr submodule bool str;
-  inherit (lib.modules) mkRenamedOptionModule;
+  inherit (lib.types) enum;
   inherit (lib.nvim.types) mkPluginSetupOption;
-  inherit (lib.nvim.config) mkBool;
 in {
   options.vim.ui.nvim-highlight-colors = {
     enable = mkEnableOption "color highlighting [nvim-highlight-colors.lua]";

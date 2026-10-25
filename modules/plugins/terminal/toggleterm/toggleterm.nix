@@ -6,16 +6,10 @@
 }: let
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) nullOr enum package either int;
-  inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   inherit (lib.generators) mkLuaInline;
   inherit (config.vim.lib) mkMappingOption;
 in {
-  imports = [
-    (mkRenamedOptionModule ["vim" "terminal" "toggleterm" "direction"] ["vim" "terminal" "toggleterm" "setupOpts" "direction"])
-    (mkRenamedOptionModule ["vim" "terminal" "toggleterm" "enable_winbar"] ["vim" "terminal" "toggleterm" "setupOpts" "enable_winbar"])
-  ];
-
   options.vim.terminal.toggleterm = {
     enable = mkEnableOption "toggleterm as a replacement to built-in terminal command";
     mappings = {
