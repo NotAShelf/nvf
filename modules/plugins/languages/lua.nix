@@ -22,12 +22,6 @@
   defaultDiagnosticsProvider = ["luacheck"];
   diagnosticsProviders = ["luacheck" "selene"];
 in {
-  imports = [
-    (lib.mkRemovedOptionModule ["vim" "languages" "lua" "lsp" "neodev"] ''
-      neodev has been replaced by lazydev
-    '')
-  ];
-
   options.vim.languages.lua = {
     enable = mkEnableOption "Lua language support";
     treesitter = {

@@ -2,25 +2,7 @@
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) int bool str nullOr enum either;
   inherit (lib.nvim.types) mkPluginSetupOption;
-  inherit (lib.nvim.config) batchRenameOptions;
-  migrationTable = {
-    maxLines = "max_lines";
-    minWindowHeight = "min_window_height";
-    lineNumbers = "line_numbers";
-    multilineThreshold = "multiline_threshold";
-    trimScope = "trim_scope";
-    mode = "mode";
-    separator = "separator";
-    zindex = "z_index";
-  };
-
-  renamedSetupOpts =
-    batchRenameOptions
-    ["vim" "treesitter" "context"]
-    ["vim" "treesitter" "context" "setupOpts"]
-    migrationTable;
 in {
-  imports = renamedSetupOpts;
   options.vim.treesitter.context = {
     enable = mkEnableOption "context of current buffer contents [nvim-treesitter-context] ";
 

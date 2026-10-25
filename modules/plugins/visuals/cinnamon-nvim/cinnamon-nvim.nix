@@ -1,17 +1,8 @@
 {lib, ...}: let
-  inherit (lib.modules) mkRemovedOptionModule;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) attrs;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
-  imports = [
-    (mkRemovedOptionModule ["vim" "visuals" "smoothScroll"] ''
-      `vim.visuals.smoothScroll` has been removed. You may consider enabling the
-      option `vim.visuals.cinnamon-nvim` to repliace previous smooth scrolling
-      behaviour.
-    '')
-  ];
-
   options.vim.visuals.cinnamon-nvim = {
     enable = mkEnableOption "smooth scrolling for ANY command [cinnamon-nvim]";
     setupOpts = mkPluginSetupOption "cinnamon.nvim" {
