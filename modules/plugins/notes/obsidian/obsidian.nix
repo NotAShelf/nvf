@@ -1,40 +1,7 @@
 {lib, ...}: let
   inherit (lib.options) mkEnableOption;
-  inherit (lib.modules) mkRenamedOptionModule mkRemovedOptionModule;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
-  imports = let
-    renamedSetupOption = oldPath: newPath:
-      mkRenamedOptionModule
-      (["vim" "notes" "obsidian"] ++ oldPath)
-      (["vim" "notes" "obsidian" "setupOpts"] ++ newPath);
-  in [
-    (
-      mkRemovedOptionModule ["vim" "notes" "obsidian" "dir"]
-      ''
-        `obsidian.nvim` has migrated to the `setupOpts.workspaces` option to support multiple vaults with a single interface.
-
-        To continue using a single vault, set:
-
-        ```nix
-        {
-          notes.obsidian.setupOpts.workspaces = [
-            {
-              name = "any-string";
-              path = "~/old/dir/path/value";
-            }
-          ];
-        }
-        ```
-
-        See the [wiki](https://github.com/obsidian-nvim/obsidian.nvim/wiki/Workspace#vault-based-workspaces) for more information.
-      ''
-    )
-    (renamedSetupOption ["daily-notes" "folder"] ["daily_notes" "folder"])
-    (renamedSetupOption ["daily-notes" "date-format"] ["daily_notes" "date_format"])
-    (renamedSetupOption ["completion"] ["completion"])
-  ];
-
   options.vim.notes = {
     obsidian = {
       enable =
