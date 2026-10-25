@@ -1,22 +1,8 @@
 {lib, ...}: let
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.types) int str enum attrsOf either;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
 in {
-  imports = let
-    renamedSetupOpt = name:
-      mkRenamedOptionModule
-      ["vim" "notify" "nvim-notify" name]
-      ["vim" "notify" "nvim-notify" "setupOpts" name];
-  in [
-    (renamedSetupOpt "stages")
-    (renamedSetupOpt "timeout")
-    (renamedSetupOpt "background_colour")
-    (renamedSetupOpt "position")
-    (renamedSetupOpt "icons")
-  ];
-
   options.vim.notify.nvim-notify = {
     enable = mkEnableOption "nvim-notify notifications";
 

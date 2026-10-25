@@ -4,23 +4,12 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.meta) getExe;
   inherit (lib.types) str listOf;
   inherit (lib.nvim.types) mkPluginSetupOption;
   inherit (config.vim.lib) mkMappingOption;
 in {
-  imports = let
-    renamedSetupOption = oldPath: newPath:
-      mkRenamedOptionModule
-      (["vim" "notes" "todo-comments"] ++ oldPath)
-      (["vim" "notes" "todo-comments" "setupOpts"] ++ newPath);
-  in [
-    (renamedSetupOption ["patterns" "highlight"] ["highlight" "pattern"])
-    (renamedSetupOption ["patterns" "search"] ["search" "pattern"])
-  ];
-
   options.vim.notes.todo-comments = {
     enable = mkEnableOption "todo-comments: highlight and search for todo comments like TODO, HACK, BUG in your code base";
 

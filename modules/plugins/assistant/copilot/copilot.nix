@@ -4,21 +4,14 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) nullOr str enum float;
+  inherit (lib.types) str enum float;
   inherit (lib.nvim.types) mkPluginSetupOption;
   inherit (lib.meta) getExe;
   inherit (config.vim.lib) mkMappingOption;
 
   cfg = config.vim.assistant.copilot;
 in {
-  imports = [
-    (mkRenamedOptionModule ["vim" "assistant" "copilot" "panel"] ["vim" "assistant" "copilot" "setupOpts" "panel"])
-    (mkRenamedOptionModule ["vim" "assistant" "copilot" "copilotNodeCommand"] ["vim" "assistant" "copilot" "setupOpts" "copilot_node_command"])
-    (mkRenamedOptionModule ["vim" "assistant" "copilot" "copilotNodePackage"] ["vim" "assistant" "copilot" "setupOpts" "copilot_node_command"])
-  ];
-
   options.vim.assistant.copilot = {
     enable = mkEnableOption "GitHub Copilot AI assistant";
     cmp.enable = mkEnableOption "nvim-cmp integration for GitHub Copilot";

@@ -1,13 +1,8 @@
 {lib, ...}: let
-  inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) nullOr attrsOf attrs enum;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
-  imports = [
-    (mkRenamedOptionModule ["vim" "visuals" "nvimWebDevicons"] ["vim" "visuals" "nvim-web-devicons"])
-  ];
-
   options.vim.visuals.nvim-web-devicons = {
     enable = mkEnableOption "Neovim dev icons [nvim-web-devicons]";
 
