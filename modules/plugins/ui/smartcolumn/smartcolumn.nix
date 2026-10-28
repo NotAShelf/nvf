@@ -1,18 +1,8 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) nullOr str attrsOf either listOf;
-  inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.nvim.types) mkPluginSetupOption;
 in {
-  imports = let
-    renamedSetupOpt = oldPath: newPath:
-      mkRenamedOptionModule (["vim" "ui" "smartcolumn"] ++ oldPath) (["vim" "ui" "smartcolumn" "setupOpts"] ++ newPath);
-  in [
-    (renamedSetupOpt ["disabledFiletypes"] ["disabled_filetypes"])
-    (renamedSetupOpt ["showColumnAt"] ["colorcolumn"])
-    (renamedSetupOpt ["columnAt" "languages"] ["custom_colorcolumn"])
-  ];
-
   options.vim.ui.smartcolumn = {
     enable = mkEnableOption "line length indicator";
 

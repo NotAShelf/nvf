@@ -1,7 +1,6 @@
 {lib, ...}: let
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) attrsOf enum nullOr submodule bool str;
-  inherit (lib.modules) mkRenamedOptionModule;
   inherit (lib.nvim.types) mkPluginSetupOption;
 
   settingSubmodule = submodule {
@@ -92,11 +91,6 @@
     };
   };
 in {
-  imports = [
-    (mkRenamedOptionModule ["vim" "ui" "colorizer" "options"] ["vim" "ui" "colorizer" "setupOpts" "defaultOptions"])
-    (mkRenamedOptionModule ["vim" "ui" "colorizer" "filetypes"] ["vim" "ui" "colorizer" "setupOpts" "filetypes"])
-  ];
-
   options.vim.ui.colorizer = {
     enable = mkEnableOption "color highlighting [nvim-colorizer.lua]";
 

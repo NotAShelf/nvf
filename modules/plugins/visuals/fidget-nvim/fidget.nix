@@ -3,22 +3,12 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkRemovedOptionModule mkRenamedOptionModule;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.strings) toUpper;
   inherit (lib.types) int float bool str enum listOf attrsOf oneOf nullOr submodule;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline borderType;
   inherit (lib.generators) mkLuaInline;
 in {
-  imports = [
-    (mkRenamedOptionModule ["vim" "visuals" "fidget-nvim" "align" "bottom"] ["vim" "visuals" "fidget-nvim" "setupOpts" "notification" "window" "align"])
-    (mkRemovedOptionModule ["vim" "visuals" "fidget-nvim" "align" "right"] ''
-      Option `vim.fidget-nvim.align.right` has been removed and does not have an
-      equivalent replacement in rewritten fidget.nvim configuration. Please remove
-      it from your configuration.
-    '')
-  ];
-
   options.vim.visuals.fidget-nvim = {
     enable = mkEnableOption "nvim LSP UI element [fidget-nvim]";
 
