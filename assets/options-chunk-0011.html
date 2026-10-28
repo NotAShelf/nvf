@@ -1,39 +1,3 @@
-<div class="option" id="option-vim.languages.python.treesitter.package">
-  <h3 class="option-name">
-    <a href="#option-vim.languages.python.treesitter.package" class="option-anchor">vim.languages.python.treesitter.package</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Python treesitter grammar to use</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>package</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix">&lt;<span style="color:rgb(86,182,194);">derivation</span>&nbsp;<span style="color:rgb(171,178,191);">vimplugin-nvim-treesitter-grammar-python-0</span><span style="color:rgb(209,154,102);">.0</span><span style="color:rgb(209,154,102);">.0</span><span style="color:rgb(171,178,191);">+</span><span style="color:rgb(97,175,239);">rev</span><span style="color:rgb(171,178,191);">=</span><span style="color:rgb(171,178,191);">v0</span><span style="color:rgb(209,154,102);">.25</span><span style="color:rgb(209,154,102);">.0</span>&gt;</code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/python.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/python.nix&gt;</a></code></dd>
-  </dl>
-</div>
-<div class="option" id="option-vim.languages.qml.enable">
-  <h3 class="option-name">
-    <a href="#option-vim.languages.qml.enable" class="option-anchor">vim.languages.qml.enable</a>
-    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
-    <span class="copy-feedback">Link copied!</span>
-  </h3>
-  <div class="option-description"><html><head></head><body><p>Whether to enable QML language support.</p>
-</body></html></div>
-  <dl class="option-details">
-    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
-    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">false</span></code></pre></body></html>
-</body></html></dd>
-    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
-</body></html></dd>
-  </dl>
-  <dl class="option-details option-sources">
-    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/qml.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/qml.nix&gt;</a></code></dd>
-  </dl>
-</div>
 <div class="option" id="option-vim.languages.qml.format.enable">
   <h3 class="option-name">
     <a href="#option-vim.languages.qml.format.enable" class="option-anchor">vim.languages.qml.format.enable</a>
@@ -1817,6 +1781,42 @@ in the docs.</p>
   <dl class="option-details">
     <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
     <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">lsp</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enable</span></code></pre></body></html>
+</body></html></dd>
+    <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/svelte.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/svelte.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.svelte.lsp.servers">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.svelte.lsp.servers" class="option-anchor">vim.languages.svelte.lsp.servers</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Svelte LSP server to use</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>list of (one of "svelte-language-server", "emmet-ls")</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(132,139,152);">[</span><br>&nbsp;&nbsp;<span style="color:rgb(152,195,121);">"</span><span style="color:rgb(152,195,121);">svelte-language-server</span><span style="color:rgb(152,195,121);">"</span><br><span style="color:rgb(132,139,152);">]</span></code></pre></body></html>
+</body></html></dd>
+  </dl>
+  <dl class="option-details option-sources">
+    <dt>Declared in</dt><dd class="option-value"><code><a href="https://github.com/NotAShelf/nvf/blob/main/modules/plugins/languages/svelte.nix" target="_blank" rel="noopener noreferrer">&lt;nvf/modules/plugins/languages/svelte.nix&gt;</a></code></dd>
+  </dl>
+</div>
+<div class="option" id="option-vim.languages.svelte.treesitter.enable">
+  <h3 class="option-name">
+    <a href="#option-vim.languages.svelte.treesitter.enable" class="option-anchor">vim.languages.svelte.treesitter.enable</a>
+    <button type="button" class="copy-link" aria-label="Copy link to this option" title="Copy link to this option"></button>
+    <span class="copy-feedback">Link copied!</span>
+  </h3>
+  <div class="option-description"><html><head></head><body><p>Whether to enable Svelte treesitter.</p>
+</body></html></div>
+  <dl class="option-details">
+    <dt>Type</dt><dd class="option-value"><code>boolean</code></dd>
+    <dt>Default</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(171,178,191);">config</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">vim</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">languages</span><span style="color:rgb(132,139,152);">.</span><span style="color:rgb(86,182,194);">enableTreesitter</span></code></pre></body></html>
 </body></html></dd>
     <dt>Example</dt><dd class="option-value"><html><head></head><body><html><head></head><body><pre class="highlight"><code class="language-nix"><span style="color:rgb(209,154,102);">true</span></code></pre></body></html>
 </body></html></dd>

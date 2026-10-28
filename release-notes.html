@@ -466,6 +466,23 @@ formatting, and LSP integration</li>
 <li>Added <code>vim.assistant.copilot.setupOpts.server.custom_server_filepath</code> to avoid
 downloading executable in NixOS</li>
 </ul>
+<p><a href="https://github.com/CaueAnjos">CaueAnjos</a>:</p>
+<ul>
+<li>
+<p>Fix <code>roslyn-ls</code> failing to launch:</p>
+<ul>
+<li>Add <code>--clientProcessId</code> to it's <code>cmd</code> (this avoids leaving it dangling).</li>
+<li>Enforce <code>stdio</code> launch for <code>roslyn-nvim</code> since, because of a version
+mismatch, <code>roslyn-ls</code> isn't able to use daemon mode, which is the default
+for <code>roslyn-nvim</code>.</li>
+<li>Remove razor source generators since they are no longer needed.</li>
+</ul>
+</li>
+<li>
+<p>Remove <code>razor</code> and <code>cshtml</code> filetype bindings, because Neovim can now identify
+them.</p>
+</li>
+</ul>
 <h1 id="sec-release-26-07">Release 26.07</h1>
 <h2 id="sec-release-26-07-breaking-changes">Breaking changes</h2>
 <ul>
