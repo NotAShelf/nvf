@@ -3,13 +3,13 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkForce mkIf;
 
   cfg = config.vim.presence.cord-nvim;
 in {
   config = mkIf cfg.enable {
     vim = {
-      globals.cord_defer_startup = true;
+      globals.cord_defer_startup = mkForce true;
 
       lazy.plugins.cord-nvim = {
         package = "cord-nvim";
