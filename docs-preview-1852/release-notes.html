@@ -190,6 +190,30 @@ works.</p>
 </ul>
 <p><a href="https://github.com/horriblename">horriblename</a></p>
 <ul>
+<li><code>nvimtree</code>: Removed a bunch of setupOpts options (many outdated)
+<ul>
+<li><code>actions.expand_all.exclude</code>: <code>[".git", "target", "build", "result"]</code> -&gt;
+<code>[]</code></li>
+<li><code>actions.file_popup.open_win_config.border</code>: "rounded" -&gt; "shadow"</li>
+<li><code>actions.open_file.{eject,resize_window,window_picker.enable}</code>: false -&gt;
+true</li>
+<li><code>diagnostics.debounce_delay</code> default changed from 50 to plugin default of
+500.</li>
+<li><code>filesystem_watchers.ignore_dirs</code>: default <code>[]</code> -&gt; plugin default (very
+long)</li>
+<li><code>filters.git_ignored</code>: false -&gt; true</li>
+<li><code>git.enable</code>: default false -&gt; true</li>
+<li><code>hijack_directories.auto_open</code>: false -&gt; true</li>
+<li><code>renderer.highlight_git</code>: false -&gt; "none"</li>
+<li><code>renderer.icons.bookmarks_placement</code>: "after" -&gt; "signcolumn"</li>
+<li><code>renderer.icons.diagnostics_placement</code>: "after" -&gt; "signcolumn"</li>
+<li><code>renderer.icons.show.git</code>: false -&gt; true</li>
+<li><code>renderer.root_folder_label</code>: <code>":~:s?$?/..?"</code> -&gt; <code>false</code></li>
+<li><code>renderer.root_folder_label</code>: false -&gt; plugin default</li>
+<li><code>renderer.special_files</code>: was plugin default + "flake.nix"</li>
+<li>Many more non-breaking option removals</li>
+</ul>
+</li>
 <li>Fully migrate lualine to setupOpts.
 <ul>
 <li>
@@ -199,6 +223,9 @@ works.</p>
 </li>
 </ul>
 </li>
+<li>Deprecate internal Lua variables <code>vim.g.formatsave</code> and
+<code>vim.b.disableFormatSave</code>. Replaced with <code>vim.g.nvf_format_save</code> and
+<code>vim.b.nvf_format_save</code>.</li>
 </ul>
 <p><a href="https://github.com/notashelf">NotAShelf</a></p>
 <ul>
@@ -214,6 +241,13 @@ top of Astro's Rust compiler. Formatting output may differ from 0.x; see the
 </li>
 </ul>
 <h2 id="sec-release-26-12-changelog">Changelog</h2>
+<ul>
+<li>Added <a href="https://github.com/sand4rt/zen.nvim">zen.nvim</a> under <code>vim.ui.zen-nvim</code>
+with <code>enable</code> and <code>setupOpts</code> for automatic buffer centering and side-buffer
+layouts. Defaults include built-in help, manual, commit, and quickfix buffers,
+plus enabled Fugitive, Neo-tree, Undotree, DAP/DAP UI, Trouble, Noice, and
+Kulala integrations. Explicit <code>setupOpts</code> side lists override these layouts.</li>
+</ul>
 <p><a href="https://github.com/notashelf">NotAShelf</a></p>
 <ul>
 <li>Updated packages built by nvf: <code>jls</code> 0.9.0, <code>some-sass-language-server</code> 2.3.8,
@@ -259,7 +293,24 @@ preset itself, shrinking their closures from hundreds of megabytes to a few.</li
 <li><code>asciidoc</code> with
 <ul>
 <li>Tree-sitter</li>
-<li>Injected Formatter</li>
+<li>Injected formatter</li>
+</ul>
+</li>
+<li><code>protobuf</code> with
+<ul>
+<li>Tree-sitter</li>
+<li><code>buf</code> formatter</li>
+<li>Injected formatter</li>
+<li><code>buf_lint</code> diagnostics</li>
+<li><code>protolint</code> diagnostics</li>
+<li><code>buf</code> LSP</li>
+<li><code>protols</code> LSP</li>
+</ul>
+</li>
+<li><code>powershell</code> with
+<ul>
+<li>Tree-sitter</li>
+<li><code>powershell-editor-services</code> LSP</li>
 </ul>
 </li>
 </ul>
@@ -396,6 +447,47 @@ expected by <code>lazydev.nvim</code> and those defined in nvf.</p>
 plugin modules now consistently use the <code>Description [Plugin]</code> format, making
 them searchable by plugin name in keymap pickers. Third-party modules calling
 <code>mkMappingOption</code> must be updated.</p>
+</li>
+</ul>
+<p><a href="https://github.com/AugustDeer">AugustDeer</a>:</p>
+<ul>
+<li><code>themes/kanagawa</code>: add <code>kanagawa</code> theme, which is inspired by the colors of
+the famous painting by Katsushika Hokusai.</li>
+</ul>
+<p><a href="https://redirects.Tygo.van.den.Hurk.dev/github/personal">Tygo van den Hurk</a>:</p>
+<ul>
+<li>Widened the type for <code>vim.keymaps.*.action</code> to string and lua. This allows for
+inferencing the <code>vim.keymaps.*.lua</code> option.</li>
+</ul>
+<p><a href="https://github.com/Gerg-L">Gerg-L</a>:</p>
+<ul>
+<li>Add <code>vim.appname</code> option to set <code>NVIM_APPNAME</code></li>
+</ul>
+<p><a href="https://github.com/myume">myume</a>:</p>
+<ul>
+<li>Added GDScript support via <code>languages.gdscript</code>, including treesitter,
+formatting, and LSP integration</li>
+</ul>
+<p><a href="https://github.com/kbnopro">kbnopro</a>:</p>
+<ul>
+<li>Added <code>vim.assistant.copilot.setupOpts.server.custom_server_filepath</code> to avoid
+downloading executable in NixOS</li>
+</ul>
+<p><a href="https://github.com/CaueAnjos">CaueAnjos</a>:</p>
+<ul>
+<li>
+<p>Fix <code>roslyn-ls</code> failing to launch:</p>
+<ul>
+<li>Add <code>--clientProcessId</code> to it's <code>cmd</code> (this avoids leaving it dangling).</li>
+<li>Enforce <code>stdio</code> launch for <code>roslyn-nvim</code> since, because of a version
+mismatch, <code>roslyn-ls</code> isn't able to use daemon mode, which is the default
+for <code>roslyn-nvim</code>.</li>
+<li>Remove razor source generators since they are no longer needed.</li>
+</ul>
+</li>
+<li>
+<p>Remove <code>razor</code> and <code>cshtml</code> filetype bindings, because Neovim can now identify
+them.</p>
 </li>
 </ul>
 <h1 id="sec-release-26-07">Release 26.07</h1>
