@@ -5,7 +5,7 @@
 }: let
   inherit (lib.options) mkEnableOption;
   inherit (lib.nvim.types) mkPluginSetupOption;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "Comment.nvim";
 in {
   options.vim.comments.comment-nvim = {
     enable = mkEnableOption "smart and powerful comment plugin for neovim comment-nvim";

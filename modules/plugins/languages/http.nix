@@ -12,7 +12,7 @@
   inherit (lib.types) enum listOf nullOr str bool;
   inherit (lib.nvim.attrsets) mapListToAttrs;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "Kulala";
   inherit (lib.nvim.binds) mkKeymap;
 
   cfg = config.vim.languages.http;

@@ -7,16 +7,16 @@
   inherit (lib.types) bool;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   inherit (lib.generators) mkLuaInline;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "Harpoon";
 in {
   options.vim.navigation.harpoon = {
     mappings = {
-      markFile = mkMappingOption "Mark file [Harpoon]" "<leader>a";
-      listMarks = mkMappingOption "List marked files [Harpoon]" "<C-e>";
-      file1 = mkMappingOption "Go to marked file 1 [Harpoon]" "<C-j>";
-      file2 = mkMappingOption "Go to marked file 2 [Harpoon]" "<C-k>";
-      file3 = mkMappingOption "Go to marked file 3 [Harpoon]" "<C-l>";
-      file4 = mkMappingOption "Go to marked file 4 [Harpoon]" "<C-;>";
+      markFile = mkMappingOption "Mark file" "<leader>a";
+      listMarks = mkMappingOption "List marked files" "<C-e>";
+      file1 = mkMappingOption "Go to marked file 1" "<C-j>";
+      file2 = mkMappingOption "Go to marked file 2" "<C-k>";
+      file3 = mkMappingOption "Go to marked file 3" "<C-l>";
+      file4 = mkMappingOption "Go to marked file 4" "<C-;>";
     };
 
     enable = mkEnableOption "Quick bookmarks on keybinds [Harpoon]";

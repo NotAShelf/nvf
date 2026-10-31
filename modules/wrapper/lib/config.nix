@@ -7,14 +7,14 @@
   inherit (lib.types) nullOr str;
 in {
   config.vim.lib = {
-    mkMappingOption = description: default:
+    mkMappingOption = pluginName: description: default:
       mkOption {
         type = nullOr str;
         default =
           if config.vim.vendoredKeymaps.enable
           then default
           else null;
-        inherit description;
+        description = "${description} [${pluginName}]";
       };
   };
 }

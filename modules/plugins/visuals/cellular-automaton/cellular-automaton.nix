@@ -6,13 +6,13 @@
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.nvim.types) luaInline;
   inherit (lib.generators) mkLuaInline;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "cellular-automaton";
 in {
   options.vim.visuals.cellular-automaton = {
     enable = mkEnableOption "cellular-automaton to help you cope with stubborn code [cellular-automaton]";
 
     mappings = {
-      makeItRain = mkMappingOption "Make it rain [cellular-automaton]" "<leader>fml";
+      makeItRain = mkMappingOption "Make it rain" "<leader>fml";
     };
 
     animation = {

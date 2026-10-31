@@ -8,7 +8,7 @@
   inherit (lib.types) str enum float;
   inherit (lib.nvim.types) mkPluginSetupOption;
   inherit (lib.meta) getExe;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "Copilot";
 
   cfg = config.vim.assistant.copilot;
 in {

@@ -9,16 +9,16 @@
   inherit (lib.generators) mkLuaInline;
   inherit (lib.types) str bool enum;
   inherit (lib.nvim.types) mkPluginSetupOption;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "NvimTree";
 in {
   options.vim.filetree.nvimTree = {
     enable = mkEnableOption "filetree via nvim-tree.lua";
 
     mappings = {
-      toggle = mkMappingOption "Toggle NvimTree" "<leader>t";
-      refresh = mkMappingOption "Refresh NvimTree" "<leader>tr";
-      findFile = mkMappingOption "Find file in NvimTree" "<leader>tg";
-      focus = mkMappingOption "Focus NvimTree" "<leader>tf";
+      toggle = mkMappingOption "Toggle" "<leader>t";
+      refresh = mkMappingOption "Refresh" "<leader>tr";
+      findFile = mkMappingOption "Find file" "<leader>tg";
+      focus = mkMappingOption "Focus" "<leader>tf";
     };
 
     setupOpts = mkPluginSetupOption "Nvim Tree" {

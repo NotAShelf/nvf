@@ -6,7 +6,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.types) bool int str listOf enum;
   inherit (lib.nvim.types) mkPluginSetupOption;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "csvview";
 in {
   options.vim.utility.csvview = {
     enable = mkEnableOption "View CSV/TSV files as aligned tables [csvview.nvim]";
@@ -18,7 +18,7 @@ in {
       // {default = true;};
 
     mappings = {
-      toggle = mkMappingOption "Toggle CSV view [csvview]" "<leader>tc";
+      toggle = mkMappingOption "Toggle CSV view" "<leader>tc";
     };
 
     # Note: These defaults are a subset of the csvview default configuration, as defined in

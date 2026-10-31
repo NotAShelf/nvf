@@ -5,7 +5,7 @@
 }: let
   inherit (lib.options) mkEnableOption;
   inherit (lib.nvim.types) mkPluginSetupOption;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "Gitsigns";
 in {
   options.vim.git.gitsigns = {
     enable = mkEnableOption "gitsigns" // {default = config.vim.git.enable;};
@@ -14,25 +14,25 @@ in {
     codeActions.enable = mkEnableOption "gitsigns codeactions through null-ls";
 
     mappings = {
-      nextHunk = mkMappingOption "Next hunk [Gitsigns]" "]c";
-      previousHunk = mkMappingOption "Previous hunk [Gitsigns]" "[c";
+      nextHunk = mkMappingOption "Next hunk" "]c";
+      previousHunk = mkMappingOption "Previous hunk" "[c";
 
-      stageHunk = mkMappingOption "Stage hunk [Gitsigns]" "<leader>hs";
-      undoStageHunk = mkMappingOption "Undo stage hunk [Gitsigns]" "<leader>hu";
-      resetHunk = mkMappingOption "Reset hunk [Gitsigns]" "<leader>hr";
+      stageHunk = mkMappingOption "Stage hunk" "<leader>hs";
+      undoStageHunk = mkMappingOption "Undo stage hunk" "<leader>hu";
+      resetHunk = mkMappingOption "Reset hunk" "<leader>hr";
 
-      stageBuffer = mkMappingOption "Stage buffer [Gitsigns]" "<leader>hS";
-      resetBuffer = mkMappingOption "Reset buffer [Gitsigns]" "<leader>hR";
+      stageBuffer = mkMappingOption "Stage buffer" "<leader>hS";
+      resetBuffer = mkMappingOption "Reset buffer" "<leader>hR";
 
-      previewHunk = mkMappingOption "Preview hunk [Gitsigns]" "<leader>hP";
+      previewHunk = mkMappingOption "Preview hunk" "<leader>hP";
 
-      blameLine = mkMappingOption "Blame line [Gitsigns]" "<leader>hb";
-      toggleBlame = mkMappingOption "Toggle blame [Gitsigns]" "<leader>tb";
+      blameLine = mkMappingOption "Blame line" "<leader>hb";
+      toggleBlame = mkMappingOption "Toggle blame" "<leader>tb";
 
-      diffThis = mkMappingOption "Diff this [Gitsigns]" "<leader>hd";
-      diffProject = mkMappingOption "Diff project [Gitsigns]" "<leader>hD";
+      diffThis = mkMappingOption "Diff this" "<leader>hd";
+      diffProject = mkMappingOption "Diff project" "<leader>hD";
 
-      toggleDeleted = mkMappingOption "Toggle deleted [Gitsigns]" "<leader>td";
+      toggleDeleted = mkMappingOption "Toggle deleted" "<leader>td";
     };
   };
 }

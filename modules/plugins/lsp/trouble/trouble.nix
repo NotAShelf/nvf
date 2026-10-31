@@ -5,7 +5,7 @@
 }: let
   inherit (lib.options) mkEnableOption;
   inherit (lib.nvim.types) mkPluginSetupOption;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "trouble";
 in {
   options.vim.lsp = {
     trouble = {
@@ -14,12 +14,12 @@ in {
       setupOpts = mkPluginSetupOption "Trouble" {};
 
       mappings = {
-        workspaceDiagnostics = mkMappingOption "Workspace diagnostics [trouble]" "<leader>lwd";
-        documentDiagnostics = mkMappingOption "Document diagnostics [trouble]" "<leader>ld";
-        lspReferences = mkMappingOption "LSP References [trouble]" "<leader>lr";
-        quickfix = mkMappingOption "QuickFix [trouble]" "<leader>xq";
-        locList = mkMappingOption "LOCList [trouble]" "<leader>xl";
-        symbols = mkMappingOption "Symbols [trouble]" "<leader>xs";
+        workspaceDiagnostics = mkMappingOption "Workspace diagnostics" "<leader>lwd";
+        documentDiagnostics = mkMappingOption "Document diagnostics" "<leader>ld";
+        lspReferences = mkMappingOption "LSP References" "<leader>lr";
+        quickfix = mkMappingOption "QuickFix" "<leader>xq";
+        locList = mkMappingOption "LOCList" "<leader>xl";
+        symbols = mkMappingOption "Symbols" "<leader>xs";
       };
     };
   };

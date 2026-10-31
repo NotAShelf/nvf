@@ -5,7 +5,7 @@
 }: let
   inherit (lib.options) mkEnableOption;
   inherit (lib.nvim.types) mkPluginSetupOption;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "Smart Splits";
 in {
   options.vim.utility.smart-splits = {
     enable = mkEnableOption ''

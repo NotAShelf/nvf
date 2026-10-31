@@ -6,7 +6,7 @@
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.types) enum;
   inherit (lib.nvim.types) mkPluginSetupOption;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "Octo";
 
   selectedPicker =
     if

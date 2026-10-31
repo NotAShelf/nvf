@@ -15,7 +15,7 @@
     ;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "NeoCodeium";
 in {
   options.vim.assistant.neocodeium = {
     enable = mkEnableOption "NeoCodeium AI completion";

@@ -9,7 +9,7 @@
   inherit (lib) genAttrs;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "omnisharp-extended-lsp-nvim";
   inherit (lib.types) enum listOf;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
@@ -90,10 +90,10 @@ in {
           mappings = let
             inherit (config.vim.lsp) mappings;
           in {
-            goToDefinition = mkMappingOption "Go to definition [omnisharp-extended-lsp-nvim]" mappings.goToDefinition;
-            goToType = mkMappingOption "Go to type [omnisharp-extended-lsp-nvim]" mappings.goToType;
-            listReferences = mkMappingOption "List references [omnisharp-extended-lsp-nvim]" mappings.listReferences;
-            listImplementations = mkMappingOption "List implementations [omnisharp-extended-lsp-nvim]" mappings.listImplementations;
+            goToDefinition = mkMappingOption "Go to definition" mappings.goToDefinition;
+            goToType = mkMappingOption "Go to type" mappings.goToType;
+            listReferences = mkMappingOption "List references" mappings.listReferences;
+            listImplementations = mkMappingOption "List implementations" mappings.listImplementations;
           };
         };
         csharpls-extended-lsp-nvim = {

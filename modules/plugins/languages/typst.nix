@@ -11,7 +11,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
   inherit (lib.nvim.binds) mkKeymap;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "typst-concealer";
 
   cfg = config.vim.languages.typst;
 

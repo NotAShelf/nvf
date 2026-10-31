@@ -9,7 +9,7 @@
   inherit (lib.types) either package enum listOf str nullOr attrsOf anything;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "haskell-tools.nvim";
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.binds) addDescriptionsToMappings;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption luaInline;
@@ -94,12 +94,12 @@ in {
         enable = mkEnableOption "haskell-tools.nvim";
 
         mappings = {
-          codeLensRun = mkMappingOption "Run code lens [haskell-tools.nvim]" "<localleader>cl";
-          hoogleSignature = mkMappingOption "Hoogle signature [haskell-tools.nvim]" "<localleader>hs";
-          evalAll = mkMappingOption "Evaluate all [haskell-tools.nvim]" "<localleader>ea";
-          replToggle = mkMappingOption "Toggle REPL [haskell-tools.nvim]" "<localleader>rr";
-          replToggleFile = mkMappingOption "Toggle REPL for current file [haskell-tools.nvim]" "<localleader>rf";
-          replQuit = mkMappingOption "Quit REPL [haskell-tools.nvim]" "<localleader>rq";
+          codeLensRun = mkMappingOption "Run code lens" "<localleader>cl";
+          hoogleSignature = mkMappingOption "Hoogle signature" "<localleader>hs";
+          evalAll = mkMappingOption "Evaluate all" "<localleader>ea";
+          replToggle = mkMappingOption "Toggle REPL" "<localleader>rr";
+          replToggleFile = mkMappingOption "Toggle REPL for current file" "<localleader>rf";
+          replQuit = mkMappingOption "Quit REPL" "<localleader>rq";
         };
 
         setupOpts = mkPluginSetupOption "haskell-tools.nvim" {

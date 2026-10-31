@@ -104,25 +104,30 @@
     # Type
 
     ```
-    mkMappingOption :: String -> String | Null -> Option
+    mkMappingOption :: String -> String -> String | Null -> Option
     ```
 
     # Arguments
 
+    - `pluginName`: Display name of the plugin the keymap belongs to.
     - `description`: Documentation string for the option.
     - `default`: Default key value, or `null` for no binding.
+
+    The plugin name is appended to the description as `Description [Plugin]`,
+    so the keymap is searchable by plugin name in keymap pickers.
 
     # Example
 
     ```nix
-    mkMappingOption "Toggle file tree" "<leader>e"
-    => mkOption { type = nullOr str; default = "<leader>e"; description = "Toggle file tree"; }
+    mkMappingOption "NvimTree" "Toggle" "<leader>e"
+    => mkOption { type = nullOr str; default = "<leader>e"; description = "Toggle [NvimTree]"; }
     ```
     */
-    mkMappingOption = description: default:
+    mkMappingOption = pluginName: description: default:
       mkOption {
         type = nullOr str;
-        inherit default description;
+        inherit default;
+        description = "${description} [${pluginName}]";
       };
 
     /**

@@ -14,7 +14,7 @@
     ;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "Supermaven";
 in {
   options.vim.assistant.supermaven-nvim = {
     enable = mkEnableOption "Supermaven AI assistant";

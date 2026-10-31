@@ -12,7 +12,7 @@
   inherit (lib.options) mkOption mkEnableOption mkPackageOption literalExpression;
   inherit (lib.strings) optionalString;
   inherit (lib.types) attrsOf anything bool;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "Metals";
 
   listCommandsAction =
     if config.vim.telescope.enable

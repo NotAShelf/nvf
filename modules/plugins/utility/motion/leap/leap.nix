@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib.options) mkEnableOption;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "Leap";
 in {
   options.vim.utility.motion.leap = {
     enable = mkEnableOption "leap.nvim plugin (easy motion)";
