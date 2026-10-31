@@ -6,21 +6,8 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.nvim.types) mkPluginSetupOption;
   inherit (lib.types) enum int;
-  inherit (lib.modules) mkRenamedOptionModule;
   inherit (config.vim.lib) mkMappingOption;
 in {
-  imports = let
-    renamedSetupOption = oldPath: newPath:
-      mkRenamedOptionModule
-      (["vim" "lsp" "nvim-docs-view"] ++ oldPath)
-      (["vim" "lsp" "nvim-docs-view" "setupOpts"] ++ newPath);
-  in [
-    (renamedSetupOption ["position"] ["position"])
-    (renamedSetupOption ["width"] ["width"])
-    (renamedSetupOption ["height"] ["height"])
-    (renamedSetupOption ["updateMode"] ["update_mode"])
-  ];
-
   options.vim.lsp.nvim-docs-view = {
     enable = mkEnableOption "nvim-docs-view, for displaying lsp hover documentation in a side panel.";
 

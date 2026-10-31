@@ -76,7 +76,9 @@ in {
         type = nullOr (either attrs luaInline);
         default = mkLuaInline ''
           function()
-            if not vim.g.formatsave or vim.b.disableFormatSave then
+            if vim.b.nvf_format_save == nil and not vim.g.nvf_format_save then
+              return
+            elseif vim.b.nvf_format_save then
               return
             else
               return {lsp_format = "fallback", timeout_ms = 500}
@@ -101,7 +103,9 @@ in {
           type = nullOr (either attrs luaInline);
           default = mkLuaInline ''
             function()
-              if not vim.g.formatsave or vim.b.disableFormatSave then
+              if vim.b.nvf_format_save == nil and not vim.g.nvf_format_save then
+                return
+              elseif vim.b.nvf_format_save then
                 return
               else
                 return ${toLuaObject defaultFormatAfterSaveOpts}

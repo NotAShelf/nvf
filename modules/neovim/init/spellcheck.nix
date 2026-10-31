@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) length;
-  inherit (lib.modules) mkIf mkRenamedOptionModule;
+  inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.strings) concatLines concatStringsSep;
   inherit (lib.attrsets) mapAttrsToList;
@@ -15,10 +15,6 @@
 
   cfg = config.vim.spellcheck;
 in {
-  imports = [
-    (mkRenamedOptionModule ["vim" "spellChecking"] ["vim" "spellcheck"])
-  ];
-
   options.vim.spellcheck = {
     enable = mkEnableOption "Neovim's built-in spellchecking";
     languages = mkOption {

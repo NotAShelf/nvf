@@ -3,24 +3,7 @@
   inherit (lib.types) listOf str int nullOr;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) luaInline mkPluginSetupOption;
-  inherit (lib.nvim.config) batchRenameOptions;
-
-  migrationTable = {
-    debug = "debug";
-    diagnostics_format = "diagnostics_format";
-    debounce = "debounce";
-    default_timeout = "default_timeout";
-    sources = "sources";
-  };
-
-  renamedSetupOpts =
-    batchRenameOptions
-    ["vim" "lsp" "null-ls"]
-    ["vim" "lsp" "null-ls" "setupOpts"]
-    migrationTable;
 in {
-  imports = renamedSetupOpts;
-
   options.vim.lsp.null-ls = {
     enable = mkEnableOption ''
       null-ls, plugin to use Neovim as a language server to inject LSP diagnostics,
