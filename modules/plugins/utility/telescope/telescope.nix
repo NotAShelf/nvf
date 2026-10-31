@@ -8,7 +8,7 @@
   inherit (lib.meta) getExe getExe';
   inherit (lib.types) int str listOf float bool either enum submodule attrsOf anything package;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "Telescope";
 
   cfg = config.vim.telescope;
   setupOptions = {
@@ -201,30 +201,30 @@
 in {
   options.vim.telescope = {
     mappings = {
-      findProjects = mkMappingOption "Find projects [Telescope]" "<leader>fp";
-      findFiles = mkMappingOption "Find files [Telescope]" "<leader>ff";
-      liveGrep = mkMappingOption "Live grep [Telescope]" "<leader>fg";
-      buffers = mkMappingOption "Buffers [Telescope]" "<leader>fb";
-      helpTags = mkMappingOption "Help tags [Telescope]" "<leader>fh";
-      open = mkMappingOption "Open [Telescope]" "<leader>ft";
-      resume = mkMappingOption "Resume (previous search) [Telescope]" "<leader>fr";
+      findProjects = mkMappingOption "Find projects" "<leader>fp";
+      findFiles = mkMappingOption "Find files" "<leader>ff";
+      liveGrep = mkMappingOption "Live grep" "<leader>fg";
+      buffers = mkMappingOption "Buffers" "<leader>fb";
+      helpTags = mkMappingOption "Help tags" "<leader>fh";
+      open = mkMappingOption "Open" "<leader>ft";
+      resume = mkMappingOption "Resume (previous search)" "<leader>fr";
 
-      gitFiles = mkMappingOption "Git files [Telescope]" "<leader>fvf";
-      gitCommits = mkMappingOption "Git commits [Telescope]" "<leader>fvcw";
-      gitBufferCommits = mkMappingOption "Git buffer commits [Telescope]" "<leader>fvcb";
-      gitBranches = mkMappingOption "Git branches [Telescope]" "<leader>fvb";
-      gitStatus = mkMappingOption "Git status [Telescope]" "<leader>fvs";
-      gitStash = mkMappingOption "Git stash [Telescope]" "<leader>fvx";
+      gitFiles = mkMappingOption "Git files" "<leader>fvf";
+      gitCommits = mkMappingOption "Git commits" "<leader>fvcw";
+      gitBufferCommits = mkMappingOption "Git buffer commits" "<leader>fvcb";
+      gitBranches = mkMappingOption "Git branches" "<leader>fvb";
+      gitStatus = mkMappingOption "Git status" "<leader>fvs";
+      gitStash = mkMappingOption "Git stash" "<leader>fvx";
 
-      lspDocumentSymbols = mkMappingOption "LSP Document Symbols [Telescope]" "<leader>flsb";
-      lspWorkspaceSymbols = mkMappingOption "LSP Workspace Symbols [Telescope]" "<leader>flsw";
-      lspReferences = mkMappingOption "LSP References [Telescope]" "<leader>flr";
-      lspImplementations = mkMappingOption "LSP Implementations [Telescope]" "<leader>fli";
-      lspDefinitions = mkMappingOption "LSP Definitions [Telescope]" "<leader>flD";
-      lspTypeDefinitions = mkMappingOption "LSP Type Definitions [Telescope]" "<leader>flt";
-      diagnostics = mkMappingOption "Diagnostics [Telescope]" "<leader>fld";
+      lspDocumentSymbols = mkMappingOption "LSP Document Symbols" "<leader>flsb";
+      lspWorkspaceSymbols = mkMappingOption "LSP Workspace Symbols" "<leader>flsw";
+      lspReferences = mkMappingOption "LSP References" "<leader>flr";
+      lspImplementations = mkMappingOption "LSP Implementations" "<leader>fli";
+      lspDefinitions = mkMappingOption "LSP Definitions" "<leader>flD";
+      lspTypeDefinitions = mkMappingOption "LSP Type Definitions" "<leader>flt";
+      diagnostics = mkMappingOption "Diagnostics" "<leader>fld";
 
-      treesitter = mkMappingOption "Treesitter [Telescope]" "<leader>fs";
+      treesitter = mkMappingOption "Treesitter" "<leader>fs";
     };
 
     enable = mkEnableOption "telescope.nvim: multi-purpose search and picker utility";

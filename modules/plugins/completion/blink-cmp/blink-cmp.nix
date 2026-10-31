@@ -7,7 +7,7 @@
   inherit (lib.types) bool listOf str either attrsOf submodule enum anything int nullOr;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline pluginType;
   inherit (lib.nvim.config) mkBool;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "blink.cmp";
 
   keymapType = submodule {
     freeformType = attrsOf (listOf (either str luaInline));
@@ -135,13 +135,13 @@ in {
     };
 
     mappings = {
-      complete = mkMappingOption "Complete [blink.cmp]" "<C-Space>";
-      confirm = mkMappingOption "Confirm [blink.cmp]" "<CR>";
-      next = mkMappingOption "Next item [blink.cmp]" "<Tab>";
-      previous = mkMappingOption "Previous item [blink.cmp]" "<S-Tab>";
-      close = mkMappingOption "Close [blink.cmp]" "<C-e>";
-      scrollDocsUp = mkMappingOption "Scroll docs up [blink.cmp]" "<C-d>";
-      scrollDocsDown = mkMappingOption "Scroll docs down [blink.cmp]" "<C-f>";
+      complete = mkMappingOption "Complete" "<C-Space>";
+      confirm = mkMappingOption "Confirm" "<CR>";
+      next = mkMappingOption "Next item" "<Tab>";
+      previous = mkMappingOption "Previous item" "<S-Tab>";
+      close = mkMappingOption "Close" "<C-e>";
+      scrollDocsUp = mkMappingOption "Scroll docs up" "<C-d>";
+      scrollDocsDown = mkMappingOption "Scroll docs down" "<C-f>";
     };
 
     sourcePlugins = let

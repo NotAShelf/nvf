@@ -8,7 +8,7 @@
   inherit (lib.types) nullOr str bool int enum listOf either;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) luaInline mkPluginSetupOption;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "Session Manager";
 in {
   options.vim.session.nvim-session-manager = {
     enable = mkEnableOption "nvim-session-manager: manage sessions like folders in VSCode";

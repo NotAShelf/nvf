@@ -7,7 +7,7 @@
   inherit (lib.types) enum bool either nullOr str int listOf attrs;
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "Bufferline";
 in {
   options.vim.tabline.nvimBufferline = {
     enable = mkEnableOption "neovim bufferline";

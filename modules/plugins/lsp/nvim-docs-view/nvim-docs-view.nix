@@ -6,7 +6,7 @@
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.nvim.types) mkPluginSetupOption;
   inherit (lib.types) enum int;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "nvim-docs-view";
 in {
   options.vim.lsp.nvim-docs-view = {
     enable = mkEnableOption "nvim-docs-view, for displaying lsp hover documentation in a side panel.";

@@ -8,7 +8,7 @@
   inherit (lib.generators) mkLuaInline;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline mergelessListOf pluginType;
   inherit (lib.nvim.lua) toLuaObject;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "nvim-cmp";
   inherit (builtins) isString;
 
   cfg = config.vim.autocomplete.nvim-cmp;
@@ -62,13 +62,13 @@ in {
     };
 
     mappings = {
-      complete = mkMappingOption "Complete [nvim-cmp]" "<C-Space>";
-      confirm = mkMappingOption "Confirm [nvim-cmp]" "<CR>";
-      next = mkMappingOption "Next item [nvim-cmp]" "<Tab>";
-      previous = mkMappingOption "Previous item [nvim-cmp]" "<S-Tab>";
-      close = mkMappingOption "Close [nvim-cmp]" "<C-e>";
-      scrollDocsUp = mkMappingOption "Scroll docs up [nvim-cmp]" "<C-d>";
-      scrollDocsDown = mkMappingOption "Scroll docs down [nvim-cmp]" "<C-f>";
+      complete = mkMappingOption "Complete" "<C-Space>";
+      confirm = mkMappingOption "Confirm" "<CR>";
+      next = mkMappingOption "Next item" "<Tab>";
+      previous = mkMappingOption "Previous item" "<S-Tab>";
+      close = mkMappingOption "Close" "<C-e>";
+      scrollDocsUp = mkMappingOption "Scroll docs up" "<C-d>";
+      scrollDocsDown = mkMappingOption "Scroll docs down" "<C-f>";
     };
 
     format = mkOption {

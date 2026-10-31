@@ -6,7 +6,7 @@
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) bool str listOf;
   inherit (lib.nvim.types) mkPluginSetupOption;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "otter-nvim";
 in {
   options.vim.lsp = {
     otter-nvim = {
@@ -14,7 +14,7 @@ in {
         lsp features and a code completion source for code embedded in other documents [otter-nvim]
       '';
       mappings = {
-        toggle = mkMappingOption "Activate LSP on Cursor Position [otter-nvim]" "<leader>lo";
+        toggle = mkMappingOption "Activate LSP on Cursor Position" "<leader>lo";
       };
       setupOpts = mkPluginSetupOption "otter.nvim" {
         lsp = {

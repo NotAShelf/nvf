@@ -7,7 +7,7 @@
   inherit (lib.types) bool attrsOf str submodule anything either enum listOf nullOr int addCheck;
   inherit (lib.nvim.types) mkPluginSetupOption luaInline;
   inherit (lib.nvim.lua) isLuaInline;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "nvim-dap";
 
   adapterSubmodule = submodule {
     freeformType = attrsOf anything;
