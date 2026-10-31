@@ -8,7 +8,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.types) str listOf;
   inherit (lib.nvim.types) mkPluginSetupOption;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "Todo-Comments";
 in {
   options.vim.notes.todo-comments = {
     enable = mkEnableOption "todo-comments: highlight and search for todo comments like TODO, HACK, BUG in your code base";

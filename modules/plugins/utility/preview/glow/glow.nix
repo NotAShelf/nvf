@@ -8,7 +8,7 @@
   inherit (lib.meta) getExe;
   inherit (lib.types) str;
   inherit (lib.nvim.types) mkPluginSetupOption;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "Glow";
 in {
   options.vim.utility.preview = {
     glow = {

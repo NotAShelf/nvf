@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib.options) mkEnableOption;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "LSP";
 in {
   options.vim.lsp = {
     formatOnSave = mkEnableOption ''

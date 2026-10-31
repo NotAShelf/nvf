@@ -5,19 +5,19 @@
 }: let
   inherit (lib.options) mkEnableOption;
   inherit (lib.nvim.types) mkPluginSetupOption;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "Git-Conflict";
 in {
   options.vim.git.git-conflict = {
     enable = mkEnableOption "git-conflict" // {default = config.vim.git.enable;};
     setupOpts = mkPluginSetupOption "git-conflict" {};
 
     mappings = {
-      ours = mkMappingOption "Choose Ours [Git-Conflict]" "<leader>co";
-      theirs = mkMappingOption "Choose Theirs [Git-Conflict]" "<leader>ct";
-      both = mkMappingOption "Choose Both [Git-Conflict]" "<leader>cb";
-      none = mkMappingOption "Choose None [Git-Conflict]" "<leader>c0";
-      prevConflict = mkMappingOption "Go to the previous Conflict [Git-Conflict]" "]x";
-      nextConflict = mkMappingOption "Go to the next Conflict [Git-Conflict]" "[x";
+      ours = mkMappingOption "Choose Ours" "<leader>co";
+      theirs = mkMappingOption "Choose Theirs" "<leader>ct";
+      both = mkMappingOption "Choose Both" "<leader>cb";
+      none = mkMappingOption "Choose None" "<leader>c0";
+      prevConflict = mkMappingOption "Go to the previous Conflict" "]x";
+      nextConflict = mkMappingOption "Go to the next Conflict" "[x";
     };
   };
 }

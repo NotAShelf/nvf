@@ -7,7 +7,7 @@
   inherit (lib.types) int bool str listOf enum nullOr anything;
   inherit (lib.nvim.types) mkPluginSetupOption borderType;
   inherit (lib.generators) mkLuaInline;
-  inherit (config.vim.lib) mkMappingOption;
+  mkMappingOption = config.vim.lib.mkMappingOption "Navbuddy";
 in {
   options.vim.statusline.lualine = {
     enable = mkEnableOption "lualine statusline plugin";

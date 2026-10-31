@@ -947,19 +947,21 @@ usage should look something like this:
 # pluginDefinition.nix
 {lib, ...}: let
   inherit (lib.options) mkEnableOption;
-  inherit (config.vim.lib) mkMappingOption;
+  # Bind the plugin name once, the description is suffixed with it as
+  # `Description [Plugin]`
+  mkMappingOption = config.vim.lib.mkMappingOption "trouble";
 in {
   options.vim.plugin = {
     enable = mkEnableOption "Enable plugin";
 
     # Mappings should always be inside an attrset called mappings
     mappings = {
-      workspaceDiagnostics = mkMappingOption "Workspace diagnostics [trouble]" "<leader>lwd";
-      documentDiagnostics = mkMappingOption "Document diagnostics [trouble]" "<leader>ld";
-      lspReferences = mkMappingOption "LSP References [trouble]" "<leader>lr";
-      quickfix = mkMappingOption "QuickFix [trouble]" "<leader>xq";
-      locList = mkMappingOption "LOCList [trouble]" "<leader>xl";
-      symbols = mkMappingOption "Symbols [trouble]" "<leader>xs";
+      workspaceDiagnostics = mkMappingOption "Workspace diagnostics" "<leader>lwd";
+      documentDiagnostics = mkMappingOption "Document diagnostics" "<leader>ld";
+      lspReferences = mkMappingOption "LSP References" "<leader>lr";
+      quickfix = mkMappingOption "QuickFix" "<leader>xq";
+      locList = mkMappingOption "LOCList" "<leader>xl";
+      symbols = mkMappingOption "Symbols" "<leader>xs";
     };
 }
 ```
