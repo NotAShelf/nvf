@@ -3,6 +3,7 @@
   lib,
   ...
 }: let
+  inherit (lib.lists) optional;
   inherit (lib.options) mkOption mkEnableOption literalMD;
   inherit (lib.strings) optionalString;
   inherit (lib.attrsets) optionalAttrs;
@@ -76,6 +77,10 @@ in {
         description = "Path to the directory in which undo history will be stored";
       };
     };
+
+    autoMakeExecutable = {
+      enable = mkEnableOption "Automatically make files with a shebang executable on save";
+    };
   };
 
   # Alias vim.options as vim.opts.
@@ -131,6 +136,24 @@ in {
         relativenumber = true;
       })
     ]);
+
+    autocmds = optional cfg.autoMakeExecutable.enable {
+      event = ["BufWritePost"];
+      desc = "Automatically make files with a shebang executable on save";
+      callback = mkLuaInline ''
+        function(args)
+          local first_line = vim.api.nvim_buf_get_lines(args.buf, 0, 1, false)[1] or ""
+
+          if first_line:match("^#!") then
+            local file = vim.api.nvim_buf_get_name(args.buf)
+
+            if file ~= "" then
+              vim.fn.system({"chmod", "+x", file})
+            end
+          end
+        end
+      '';
+    };
 
     # Options that are more difficult to set through 'vim.options'. Namely, appending values
     # to pre-set Neovim options. Fear not, though as the Lua DAG is still as powerful as it
