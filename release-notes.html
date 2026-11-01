@@ -441,6 +441,13 @@ error at runtime.</p>
 <p><code>languages.lua.extensions.lazydev</code>: fix mismatch between Lua LSP client names
 expected by <code>lazydev.nvim</code> and those defined in nvf.</p>
 </li>
+<li>
+<p><code>vim.lib.mkMappingOption</code> now takes the plugin name as its first argument:
+<code>mkMappingOption "Plugin" "Description" "&lt;key&gt;"</code>. Keymap descriptions of
+plugin modules now consistently use the <code>Description [Plugin]</code> format, making
+them searchable by plugin name in keymap pickers. Third-party modules calling
+<code>mkMappingOption</code> must be updated.</p>
+</li>
 </ul>
 <p><a href="https://github.com/AugustDeer">AugustDeer</a>:</p>
 <ul>
