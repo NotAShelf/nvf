@@ -18,6 +18,10 @@
   usingBlinkCmp = config.vim.autocomplete.blink-cmp.enable;
   conformCfg = config.vim.formatter.conform-nvim;
   conformFormatOnSave = conformCfg.enable && conformCfg.setupOpts.format_on_save != null;
+  formatAction =
+    if conformCfg.enable
+    then "function() require('conform').format({ lsp_format = 'fallback' }) end"
+    else "vim.lsp.buf.format";
 
   augroup = "nvf_lsp";
   mappingDefinitions = options.vim.lsp.mappings;
@@ -144,7 +148,7 @@ in {
           ${mkBinding mappings.signatureHelp "vim.lsp.buf.signature_help"}
           ${mkBinding mappings.renameSymbol "vim.lsp.buf.rename"}
           ${mkBinding mappings.codeAction "vim.lsp.buf.code_action"}
-          ${mkBinding mappings.format "vim.lsp.buf.format"}
+          ${mkBinding mappings.format formatAction}
           ${mkBinding mappings.toggleFormatOnSave ''
           function()
             if vim.b.nvf_format_save == nil then
