@@ -38,7 +38,7 @@ body:
       description: "How was nvf installed?"
       options:
         - NixOS Module (`nixosModules.default`)
-        - Home Manager Module (`homeManagerModules.default`)
+        - Home Manager Module (`homeModules.default`)
         - Standalone (flake outputs, `nix profile install`, etc.)
         - Other
     validations:
