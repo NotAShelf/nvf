@@ -39,7 +39,7 @@ Followed by importing the home-manager module somewhere in your configuration.
 {
   # Assuming nvf is in your inputs and inputs is in the argument set.
   # See example installation below.
-  imports = [ inputs.nvf.homeManagerModules.default ];
+  imports = [ inputs.nvf.homeModules.default ];
 }
 ```
 
@@ -58,7 +58,7 @@ Followed by importing the home-manager module somewhere in your configuration.
     "your-username@your-hostname" = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       modules = [
-        nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
+        nvf.homeModules.default # <- this imports the home-manager module that provides the options
         ./home.nix # <- your home entrypoint, `programs.nvf.*` may be defined here
       ];
     };
@@ -114,7 +114,7 @@ let
 in {
   imports = [
     # Import the NixOS module from your fetched input
-    nvf.homeManagerModules.nvf
+    nvf.homeModules.nvf
   ];
 
   # Once the module is imported, you may use `programs.nvf` as exposed by the
