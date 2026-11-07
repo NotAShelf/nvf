@@ -26,10 +26,15 @@
 
     inherit (lib.importJSON ./npins/sources.json) pins;
 
-    homeManagerModules = {
+    homeModules = {
       nvf = import ./flake/modules/home-manager.nix {inherit lib inputs;};
-      default = self.homeManagerModules.nvf;
+      default = self.homeModules.nvf;
     };
+
+    homeManagerModules =
+      lib.warn
+      "nvf: `homeManagerModules` has been renamed to `homeModules`"
+      self.homeModules;
 
     nixosModules = {
       nvf = import ./flake/modules/nixos.nix {inherit lib inputs;};
