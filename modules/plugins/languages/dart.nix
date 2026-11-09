@@ -6,15 +6,15 @@
 }: let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib) genAttrs;
-  inherit (lib.trivial) boolToString;
+  inherit (lib.meta) getExe;
   inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (lib.types) enum package nullOr str bool listOf;
-  inherit (lib.strings) optionalString;
-  inherit (lib.nvim.types) mkGrammarOption;
+  inherit (lib.types) enum nullOr str bool listOf;
+  inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
   inherit (lib.nvim.dag) entryAfter;
+  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.languages.dart;
-  ftcfg = cfg.flutter-tools;
+  ftcfg = cfg.extensions.flutter-tools;
 
   defaultServers = ["dart"];
   servers = ["dart"];
@@ -55,58 +55,40 @@ in {
         };
     };
 
-    flutter-tools = {
-      enable =
-        mkEnableOption "flutter-tools for flutter support"
-        // {
-          default = config.vim.lsp.enable;
-          defaultText = literalExpression "config.vim.lsp.enable";
-        };
+    extensions = {
+      flutter-tools = {
+        enable =
+          mkEnableOption "flutter-tools for flutter support"
+          // {
+            default = config.vim.lsp.enable;
+            defaultText = literalExpression "config.vim.lsp.enable";
+          };
 
-      flutterPackage = mkOption {
-        type = nullOr package;
-        default = pkgs.flutter;
-        description = "Flutter package, or null to detect the flutter path at runtime instead.";
-      };
-
-      enableNoResolvePatch = mkOption {
-        type = bool;
-        default = false;
-        description = ''
-          Whether to patch flutter-tools so that it doesn't resolve
-          symlinks when detecting flutter path.
-
-          ::: {.note}
-          This is required if `flutterPackage` is set to null and the flutter
-          package in your `PATH` was built with Nix. If you are using a flutter
-          SDK installed from a different source and encounter the error "`dart`
-          missing from `PATH`", leave this option disabled.
-          :::
-        '';
-      };
-
-      color = {
-        enable = mkEnableOption "highlighting color variables";
-
-        highlightBackground = mkOption {
+        enableNoResolvePatch = mkOption {
           type = bool;
           default = false;
-          description = "Highlight the background";
+          description = ''
+            Whether to patch flutter-tools so that it doesn't resolve
+            symlinks when detecting flutter path.
+
+            ::: {.note}
+            This is required if `setupOpts.flutter-tools` is set to null and the flutter
+            package in your `PATH` was built with Nix. If you are using a flutter
+            SDK installed from a different source and encounter the error "`dart`
+            missing from `PATH`", leave this option disabled.
+            :::
+          '';
         };
 
-        highlightForeground = mkOption {
-          type = bool;
-          default = false;
-          description = "Highlight the foreground";
-        };
+        setupOpts = mkPluginSetupOption "flutter-tools" {
+          flutter_path = mkOption {
+            type = nullOr str;
+            default = getExe pkgs.flutter;
+            description = "Path to flutter binary to use";
+          };
 
-        virtualText = {
-          enable = mkEnableOption "Show the highlight using virtual text";
-
-          character = mkOption {
-            type = str;
-            default = "■";
-            description = "Virtual text character to highlight";
+          debugger = {
+            enabled = mkEnableOption "Whether to enable the debugger";
           };
         };
       };
@@ -128,6 +110,13 @@ in {
       };
     })
 
+    (mkIf cfg.dap.enable {
+      vim.languages.dart.extensions.flutter-tools = {
+        enable = true;
+        setupOpts.debugger.enabled = true;
+      };
+    })
+
     (mkIf ftcfg.enable {
       vim.startPlugins = [
         (
@@ -139,25 +128,7 @@ in {
       ];
 
       vim.pluginRC.flutter-tools = entryAfter ["lsp-servers"] ''
-        require('flutter-tools').setup {
-          ${optionalString (ftcfg.flutterPackage != null) "flutter_path = \"${ftcfg.flutterPackage}/bin/flutter\","}
-          lsp = {
-            color = { -- show the derived colours for dart variables
-              enabled = ${boolToString ftcfg.color.enable}, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
-              background = ${boolToString ftcfg.color.highlightBackground}, -- highlight the background
-              foreground = ${boolToString ftcfg.color.highlightForeground}, -- highlight the foreground
-              virtual_text = ${boolToString ftcfg.color.virtualText.enable}, -- show the highlight using virtual text
-              virtual_text_str = ${ftcfg.color.virtualText.character} -- the virtual text character to highlight
-            },
-
-            capabilities = capabilities,
-          },
-          ${optionalString cfg.dap.enable ''
-          debugger = {
-            enabled = true,
-          },
-        ''}
-        }
+        require('flutter-tools').setup(${toLuaObject ftcfg.setupOpts})
       '';
     })
   ]);

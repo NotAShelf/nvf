@@ -109,5 +109,20 @@ in {
         ];
       })
     ]
+
+    # 2026-11-09
+    [
+      (
+        mkRemovedOptionModule ["vim" "languages" "dart" "flutter-tools" "color"] ''
+          Removed by upstream. See upstream docs for migration steps.
+        ''
+      )
+      (mkRenamedOptionModule
+        ["vim" "languages" "dart" "flutter-tools" "enable"]
+        ["vim" "languages" "dart" "extensions" "flutter-tools" "enable"])
+      (mkRenamedOptionModule
+        ["vim" "languages" "dart" "flutter-tools" "flutterPackage"]
+        ["vim" "languages" "dart" "extensions" "flutter-tools" "setupOpts" "flutter_path"])
+    ]
   ];
 }
