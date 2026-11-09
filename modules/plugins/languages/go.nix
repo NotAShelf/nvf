@@ -12,7 +12,6 @@
   inherit (lib) genAttrs;
   inherit (lib.types) enum package str listOf;
   inherit (lib.nvim.types) mkGrammarOption mkPluginSetupOption;
-  inherit (lib.nvim.dag) entryAfter;
 
   cfg = config.vim.languages.go;
 
@@ -100,7 +99,12 @@ in {
       debugger = mkOption {
         type = enum (attrNames debuggers);
         default = defaultDebugger;
-        description = "Go debugger to use";
+        description = ''
+          Go debugger to use.
+
+          "delve" uses `nvim-dap-go`
+          ({option}`vim.languages.go.extensions.nvim-dap-go`)
+        '';
       };
 
       package = mkOption {
@@ -126,6 +130,20 @@ in {
     };
 
     extensions = {
+      nvim-dap-go = {
+        enable = mkEnableOption "nvim-dap-go";
+        setupOpts = mkPluginSetupOption "nvim-dap-go" {
+          delve = {
+            path = mkOption {
+              type = str;
+              default = getExe cfg.dap.package;
+              defaultText = literalExpression "getExe cfg.dap.package";
+              description = "Path to delve binary to use";
+            };
+          };
+        };
+      };
+
       gopher-nvim = {
         enable = mkEnableOption "Minimalistic plugin for Go development";
         setupOpts = mkPluginSetupOption "gopher-nvim" {
@@ -259,17 +277,7 @@ in {
     })
 
     (mkIf cfg.dap.enable {
-      vim = {
-        startPlugins = ["nvim-dap-go"];
-        pluginRC.nvim-dap-go = entryAfter ["nvim-dap"] ''
-          require('dap-go').setup {
-            delve = {
-              path = '${getExe cfg.dap.package}',
-            }
-          }
-        '';
-        debugger.nvim-dap.enable = true;
-      };
+      vim.languages.go.extensions.nvim-dap-go.enable = true;
     })
 
     (mkIf cfg.extraDiagnostics.enable {
@@ -278,6 +286,17 @@ in {
         nvim-lint = {
           enable = true;
           linters_by_ft.go = cfg.extraDiagnostics.types;
+        };
+      };
+    })
+
+    (mkIf cfg.extensions.nvim-dap-go.enable {
+      vim = {
+        debugger.nvim-dap.enable = true;
+        lazy.plugins.nvim-dap-go = {
+          package = "nvim-dap-go";
+          setupModule = "nvim-dap";
+          inherit (cfg.extensions.nvim-dap-go) setupOpts;
         };
       };
     })
