@@ -6,7 +6,7 @@
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.lists) filter;
   inherit (lib.strings) optionalString;
-  inherit (lib.types) nullOr submodule listOf str bool;
+  inherit (lib.types) nullOr submodule listOf str bool either;
   inherit (lib.nvim.types) luaInline;
   inherit (lib.nvim.lua) toLuaObject;
   inherit (lib.nvim.dag) entryAfter entryBetween;
@@ -28,10 +28,23 @@
       };
 
       pattern = mkOption {
-        type = nullOr (listOf str);
+        type = nullOr (either (listOf str) luaInline);
         default = null;
         example = ["*.lua" "*.vim"];
-        description = "The file pattern(s) that determine when the autocommand applies.";
+        description = ''
+          The file pattern(s) that determine when the autocommand applies.
+
+          Also accepts a raw Lua expression; this is intended to make up for
+          the Lua API's lack of support for variable expansion for environment
+          variables, "~" and so on.
+
+          ```nix
+          pattern = lib.generators.mkLuaInline '''
+            -- take care not to expand "*"
+            {vim.fn.expand("~/.config/") .. "*", "*.c"}
+          '''
+          ```
+        '';
       };
 
       callback = mkOption {
