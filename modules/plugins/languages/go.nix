@@ -295,7 +295,7 @@ in {
         debugger.nvim-dap.enable = true;
         lazy.plugins.nvim-dap-go = {
           package = "nvim-dap-go";
-          setupModule = "nvim-dap";
+          setupModule = "dap-go";
           inherit (cfg.extensions.nvim-dap-go) setupOpts;
         };
       };
