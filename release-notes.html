@@ -502,6 +502,11 @@ them.</p>
 <li>LSP: route format keymap (<code>vim.lsp.mappings.format</code>) through <code>conform.nvim</code>
 with LSP fallback when conform is enabled.</li>
 </ul>
+<p><a href="https://github.com/Atilil">Atilil</a>:</p>
+<ul>
+<li>Fix <code>nvim-dap-go</code> failing to load: its <code>setupModule</code> pointed to <code>nvim-dap</code>
+instead of <code>dap-go</code>, so <code>require("nvim-dap")</code> errored on startup.</li>
+</ul>
 <h1 id="sec-release-26-07">Release 26.07</h1>
 <h2 id="sec-release-26-07-breaking-changes">Breaking changes</h2>
 <ul>
