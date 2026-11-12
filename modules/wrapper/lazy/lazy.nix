@@ -58,7 +58,7 @@
       };
       pattern = mkOption {
         type = nullOr (either str (listOf str));
-        example = "BufEnter *.lua";
+        example = ["*.lua" "*.c"];
         description = "Event pattern";
       };
     };
