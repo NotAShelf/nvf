@@ -2,6 +2,7 @@
   inherit (lib.options) mkEnableOption;
 in {
   imports = [
+    ./atlas-nvim
     ./gitsigns
     ./hunk-nvim
     ./vim-fugitive
