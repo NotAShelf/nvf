@@ -26,6 +26,19 @@
       "url": "https://github.com/goolord/alpha-nvim/archive/4ba26e41990c11620c96c0e1cff20eab65efde4a.tar.gz",
       "hash": "sha256-V3yRPTpaf2WgC+CZsqw8TsvgjuwY+S23EzID8dxfMjg="
     },
+    "atlas-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "emrearmagan",
+        "repo": "atlas.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "3579d9bafee9983af7be77ffe1de86559dab0d0c",
+      "url": "https://github.com/emrearmagan/atlas.nvim/archive/3579d9bafee9983af7be77ffe1de86559dab0d0c.tar.gz",
+      "hash": "sha256-ieWEVw/9G7DQyQ8UmH0pek704YPmBOnL822WiKxi5iY="
+    },
     "auto-indent-nvim": {
       "type": "Git",
       "repository": {
